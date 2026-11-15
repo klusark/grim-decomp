@@ -141,7 +141,7 @@ void __thiscall ObjectStateImage_SetFile(ObjectStateImage *this,char *name)
 void __thiscall ObjectStateImage_Load(ObjectStateImage *this,int load)
 
 {
-  void *data;
+  stdBitmap *bitmap;
   int iVar1;
   
   if ((load == 0) || (this->aName[0] == '\0')) {
@@ -154,15 +154,15 @@ void __thiscall ObjectStateImage_Load(ObjectStateImage *this,int load)
     }
   }
   else if ((this->ref).nValid == 0) {
-    data = sputResource_Alloc(0x444e4b42,this->aName);
-    if (data != (void *)0x0) {
-      Res_SetReference(&this->ref,data,s_C__grimsrc_libs_grimlib_Engine_O_004ec9d0,0x3d);
-      this->nX = *(int *)((int)data + 0x6c);
-      this->nY = *(int *)((int)data + 0x70);
-      this->nWidth = *(int *)(**(int **)((int)data + 0x78) + 0xc);
-      this->nHeight = *(int *)(**(int **)((int)data + 0x78) + 0x10);
-      *(int *)((int)data + 0x68) = this->nFrame;
-      iVar1 = stdBitmap_MemUsage(data);
+    bitmap = sputResource_Alloc(0x444e4b42,this->aName);
+    if (bitmap != (stdBitmap *)0x0) {
+      Res_SetReference(&this->ref,bitmap,s_C__grimsrc_libs_grimlib_Engine_O_004ec9d0,0x3d);
+      this->nX = bitmap->nX;
+      this->nY = bitmap->nY;
+      this->nWidth = ((*bitmap->ppFrames)->format).nWidth;
+      this->nHeight = ((*bitmap->ppFrames)->format).nHeight;
+      bitmap->nCurFrame = this->nFrame;
+      iVar1 = stdBitmap_MemUsage(bitmap);
       this->nMemUsage = this->nMemUsage + iVar1;
       return;
     }
@@ -241,8 +241,7 @@ void __thiscall ObjectStateImage_Draw(ObjectStateImage *this,void *dst)
   void *pvVar1;
   int iVar2;
   int *piVar3;
-  void *pvVar4;
-  VBuffer *src;
+  VBuffer *pVVar4;
   int iVar5;
   int x;
   int y;
@@ -266,20 +265,20 @@ void __thiscall ObjectStateImage_Draw(ObjectStateImage *this,void *dst)
         piVar3 = (int *)ObjectStateImage_VBuffer(this);
         iVar2 = iVar5;
         if (*piVar3 == 2) {
-          pvVar4 = (void *)ObjectStateImage_VBuffer(this);
-          sputRender_Decompress(pvVar4);
+          pVVar4 = (VBuffer *)ObjectStateImage_VBuffer(this);
+          sputRender_Decompress(pVVar4);
           y = *(int *)((int)pvVar1 + 0x70);
           x = *(int *)((int)pvVar1 + 0x6c);
           piVar3 = (int *)0x0;
-          src = g_pSputRender_DecompressionBuffer;
+          pVVar4 = g_pSputRender_DecompressionBuffer;
         }
         else {
           y = *(int *)((int)pvVar1 + 0x70);
           x = *(int *)((int)pvVar1 + 0x6c);
           piVar3 = (int *)0x0;
-          src = (VBuffer *)ObjectStateImage_VBuffer(this);
+          pVVar4 = (VBuffer *)ObjectStateImage_VBuffer(this);
         }
-        Surface_Blit(dst,src,x,y,piVar3,iVar2);
+        Surface_Blit(dst,pVVar4,x,y,piVar3,iVar2);
         if (iVar5 != 0) {
           sputRender_MarkDirtyRect(&this->nX,1);
         }
@@ -465,7 +464,7 @@ int __thiscall ObjectState_SetCopyMode(ObjectState *this,int a1)
    the only unmatched callee of Lua_SendObjectToBack; 1 matched neighbours agree, 0 disagree); was
    ObjectState_SendToBack. */
 
-void * __thiscall ObjectState_MoveToBack(ObjectState *this,void *list)
+void * __thiscall ObjectState_MoveToBack(ObjectState *this,ObjectState *list)
 
 {
   if (list != this) {
@@ -475,7 +474,7 @@ void * __thiscall ObjectState_MoveToBack(ObjectState *this,void *list)
     if (this->pNext != (ObjectState *)0x0) {
       this->pNext->pPrev = this->pPrev;
     }
-    *(ObjectState **)((int)list + 0xf4) = this;
+    list->pPrev = this;
     this->pPrev = (ObjectState *)0x0;
     this->pNext = list;
   }
@@ -487,7 +486,7 @@ void * __thiscall ObjectState_MoveToBack(ObjectState *this,void *list)
    ObjectState::MoveToFront in the remaster (a C++ method there); the only unmatched callee of
    Lua_SendObjectToFront; 1 matched neighbours agree, 0 disagree); was ObjectState_SendToFront. */
 
-void * __thiscall ObjectState_MoveToFront(ObjectState *this,void *list)
+void * __thiscall ObjectState_MoveToFront(ObjectState *this,ObjectState *list)
 
 {
   ObjectState *pOVar1;
@@ -496,13 +495,13 @@ void * __thiscall ObjectState_MoveToFront(ObjectState *this,void *list)
   
   pOVar3 = list;
   if (this == list) {
-    if (*(int *)((int)list + 0xf8) == 0) {
+    if (list->pNext == (ObjectState *)0x0) {
       return list;
     }
     pOVar3 = this->pNext;
     pOVar3->pPrev = (ObjectState *)0x0;
   }
-  pOVar2 = *(ObjectState **)((int)list + 0xf8);
+  pOVar2 = list->pNext;
   while (pOVar1 = pOVar2, pOVar1 != (ObjectState *)0x0) {
     list = pOVar1;
     pOVar2 = pOVar1->pNext;
@@ -513,7 +512,7 @@ void * __thiscall ObjectState_MoveToFront(ObjectState *this,void *list)
   if (this->pPrev != (ObjectState *)0x0) {
     this->pPrev->pNext = this->pNext;
   }
-  ((ObjectState *)list)->pNext = this;
+  list->pNext = this;
   this->pPrev = list;
   this->pNext = (ObjectState *)0x0;
   return pOVar3;

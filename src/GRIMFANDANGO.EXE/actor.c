@@ -2232,7 +2232,7 @@ void __cdecl sputActor_SetClipPlaneActive(Actor *actor,int param_2)
 void __cdecl sputActor_SetFrustrumCull(Actor *actor,int param_2)
 
 {
-  void *pvVar1;
+  ModelComponent *pMVar1;
   uint uVar2;
   
   if (actor != (Actor *)0x0) {
@@ -2244,9 +2244,9 @@ void __cdecl sputActor_SetFrustrumCull(Actor *actor,int param_2)
     }
     actor->dwFlags = uVar2;
     if (actor->pCostumes != (CostumeNode *)0x0) {
-      for (pvVar1 = actor->pCostumes->pComponents; pvVar1 != (void *)0x0;
-          pvVar1 = *(void **)((int)pvVar1 + 400)) {
-        *(int *)(*(int *)((int)pvVar1 + 0x40) + 0x44) = param_2;
+      for (pMVar1 = actor->pCostumes->pComponents; pMVar1 != (ModelComponent *)0x0;
+          pMVar1 = pMVar1->pNext) {
+        pMVar1->pThing->nFrustumCull = param_2;
       }
     }
   }
@@ -2304,11 +2304,11 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *out;
-  void *pvVar1;
-  int iVar2;
-  int iVar3;
+  ModelComponent *pMVar1;
+  rdThing *prVar2;
+  rdModel3 *prVar3;
   int iVar4;
-  int iVar5;
+  rdMesh *prVar5;
   int iVar6;
   int iVar7;
   longlong lVar8;
@@ -2330,29 +2330,29 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
   #define local_30 (*(float (*)[12])(_frame + (0x110 - 0x30)))
   
   if (costumeList != (CostumeNode *)0x0) {
-    pvVar1 = costumeList->pComponents;
+    pMVar1 = costumeList->pComponents;
     local_fc[0] = 640.0;
     local_fc[1] = 480.0;
     local_e4[0] = 0.0;
     local_e4[2] = 0.0;
-    for (; pvVar1 != (void *)0x0; pvVar1 = *(void **)((int)pvVar1 + 400)) {
-      iVar2 = *(int *)((int)pvVar1 + 0x40);
-      iVar3 = *(int *)(iVar2 + 4);
-      if (((*(int *)((int)pvVar1 + 0x38) != 0) && (*(int *)((int)pvVar1 + 0x34) == 0)) &&
-         (local_d8 = 0, 0 < *(int *)(iVar3 + 0x54))) {
+    for (; pMVar1 != (ModelComponent *)0x0; pMVar1 = pMVar1->pNext) {
+      prVar2 = pMVar1->pThing;
+      prVar3 = prVar2->pModel;
+      if (((pMVar1->nRoot != 0) && (pMVar1->nHidden == 0)) &&
+         (local_d8 = 0, 0 < prVar3->nNumHierarchyNodes)) {
         local_f4 = 0;
         local_ec = 0;
         do {
-          iVar4 = *(int *)(local_ec + 0x4c + *(int *)(iVar3 + 0x58));
+          iVar4 = *(int *)(local_ec + 0x4c + (int)prVar3->pHierarchyNodes);
           if (((iVar4 != -1) &&
-              (iVar5 = *(int *)(iVar3 + 0x28), *(int *)(iVar5 + 0x54 + iVar4 * 0x7c) != 0)) &&
-             (*(int *)(*(int *)(iVar2 + 0x2c) + iVar4 * 4) != 0)) {
+              (prVar5 = prVar3->aGeosets[0].pMeshes, *(int *)&prVar5[iVar4].field_0x54 != 0)) &&
+             (*(int *)((int)prVar2->pHierarchyExtra + iVar4 * 4) != 0)) {
             iVar7 = 0;
             do {
               out = (float *)((int)local_c0 + iVar7);
               rdMatrix_TransformPoint34
-                        (out,(float *)(iVar7 + *(int *)(iVar5 + iVar4 * 0x7c + 0x58)),
-                         (float *)(local_f4 + *(int *)(iVar2 + 0x20)));
+                        (out,(float *)(iVar7 + *(int *)&prVar5[iVar4].field_0x58),
+                         (float *)(local_f4 + (int)prVar2->pHierarchyMatrices));
               iVar6 = sputRender_SegmentPlaneIntersect
                                 (out,shadow->aPoint,out,shadow->aPlane[0],shadow->aPlane[1],
                                  shadow->aPlane[2],shadow->aPlane[3]);
@@ -2381,7 +2381,7 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
           local_d8 = local_d8 + 1;
           local_ec = local_ec + 0xb8;
           local_f4 = local_f4 + 0x30;
-        } while ((int)local_d8 < *(int *)(iVar3 + 0x54));
+        } while ((int)local_d8 < prVar3->nNumHierarchyNodes);
       }
     }
     if (local_fc[0] <= local_e4[0]) {
@@ -2475,7 +2475,7 @@ void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2)
     rdModel3_ActivateClipPlane(1);
     rdModel3_SetClipPlane(actor->pExtra->aClipNormal,actor->pExtra->aClipPoint);
   }
-  Costume_ApplyScale(actor,(void *)param_1[2]);
+  Costume_ApplyScale(actor,(ModelComponent *)param_1[2]);
   iVar4 = param_1[2];
   do {
     if (iVar4 == 0) {
@@ -2485,7 +2485,7 @@ void __cdecl sputCostume_InternalDraw3D(int *param_1,float *param_2)
           piVar1 = (int *)piVar1[0x2c]) {
         Costume_ApplyComponentState((void *)*piVar1);
       }
-      Costume_ApplyScale(actor,(void *)param_1[2]);
+      Costume_ApplyScale(actor,(ModelComponent *)param_1[2]);
       return;
     }
     if (*(int *)(iVar4 + 0x38) != 0) {
@@ -2528,7 +2528,7 @@ LAB_004951b3:
            (rdroid_SetColormap(*(uint *)(iVar6 + 0x4c)), g_nSputRender_b3DAcceleration != 0)) {
           std3D_SetCurrentPalette((void *)(*(int *)(iVar6 + 0x4c) + 0x30),0);
         }
-        sputCostume_BuildThingStateMatrices(*(void **)(iVar4 + 0x44),param_2);
+        sputCostume_BuildThingStateMatrices(*(ModelComponent **)(iVar4 + 0x44),param_2);
         iVar7 = *(int *)(*(int *)(iVar4 + 0x44) + 0x40);
         iVar6 = *(int *)(*(int *)(iVar7 + 4) + 0x58) + *(int *)(iVar4 + 0x48) * 0xb8;
         iVar2 = *(int *)(*(int *)(*(int *)(iVar4 + 0x40) + 4) + 0x58);
@@ -2627,33 +2627,33 @@ void __cdecl sputRoom_RemoveActor(char *setName,Actor *actor)
 
 {
   Puck *pPVar1;
-  void *pvVar2;
-  int *piVar3;
+  RoomActors *pRVar2;
+  RoomActorNode *pRVar3;
   
-  pvVar2 = Set_FindNameInList((int)setName);
-  if (pvVar2 != (void *)0x0) {
+  pRVar2 = Set_FindNameInList((int)setName);
+  if (pRVar2 != (RoomActors *)0x0) {
     actor->nScreenBoxValid = 0;
-    piVar3 = *(int **)((int)pvVar2 + 0x80);
-    if (piVar3 != (int *)0x0) {
+    pRVar3 = pRVar2->pActors;
+    if (pRVar3 != (RoomActorNode *)0x0) {
       do {
-        if (g_pActors + *piVar3 == actor) break;
-        piVar3 = (int *)piVar3[2];
-      } while (piVar3 != (int *)0x0);
-      if (piVar3 != (int *)0x0) {
+        if (g_pActors + pRVar3->nActor == actor) break;
+        pRVar3 = pRVar3->pNext;
+      } while (pRVar3 != (RoomActorNode *)0x0);
+      if (pRVar3 != (RoomActorNode *)0x0) {
         if ((actor->pExtra != (ActorExtra *)0x0) &&
            (pPVar1 = actor->pExtra->pPuck, pPVar1 != (Puck *)0x0)) {
           pPVar1->pSector = (WalkPlane *)0x0;
         }
-        if (piVar3[2] != 0) {
-          *(int *)(piVar3[2] + 4) = piVar3[1];
+        if (pRVar3->pNext != (RoomActorNode *)0x0) {
+          pRVar3->pNext->pPrev = pRVar3->pPrev;
         }
-        if (piVar3[1] != 0) {
-          *(int *)(piVar3[1] + 8) = piVar3[2];
+        if (pRVar3->pPrev != (RoomActorNode *)0x0) {
+          pRVar3->pPrev->pNext = pRVar3->pNext;
         }
-        if (*(int **)((int)pvVar2 + 0x80) == piVar3) {
-          *(int *)((int)pvVar2 + 0x80) = piVar3[2];
+        if (pRVar2->pActors == pRVar3) {
+          pRVar2->pActors = pRVar3->pNext;
         }
-        (*g_pSputRoomHS->pFree)(piVar3);
+        (*g_pSputRoomHS->pFree)(pRVar3);
         actor->aSetName[0] = '\0';
       }
     }
@@ -2666,75 +2666,73 @@ void __cdecl sputRoom_RemoveActor(char *setName,Actor *actor)
    Original name sputRoom_AddActor (the remaster's GrimFandango (Linux): aligned call in
    sputActor_Restore, sputLua_PutActorInSetL); was Actor_PutInSet. */
 
-void __cdecl sputRoom_AddActor(Actor *actor,char *setName)
+void __cdecl sputRoom_AddActor(char *setName,Actor *actor)
 
 {
-  uint *setName_00;
   byte bVar1;
-  Actor *pAVar2;
-  int iVar3;
-  void *pvVar4;
-  int *piVar5;
-  byte *pbVar6;
-  bool bVar7;
+  RoomActorNode *pRVar2;
+  byte *pbVar3;
+  int iVar4;
+  RoomActors *pRVar5;
+  RoomActorNode *pRVar6;
+  char *pcVar7;
+  bool bVar8;
   
-  if ((actor != (Actor *)0x0) &&
-     (pbVar6 = (byte *)(setName + 0x7c), pAVar2 = actor, pbVar6 != (byte *)0x0)) {
+  if ((setName != (char *)0x0) &&
+     (pcVar7 = actor->aSetName, pbVar3 = (byte *)setName, pcVar7 != (char *)0x0)) {
     do {
-      bVar1 = *(byte *)&pAVar2->pColormapRef;
-      bVar7 = bVar1 < *pbVar6;
-      if (bVar1 != *pbVar6) {
+      bVar1 = *pbVar3;
+      bVar8 = bVar1 < (byte)*pcVar7;
+      if (bVar1 != *pcVar7) {
 LAB_004a5fa1:
-        iVar3 = (1 - (uint)bVar7) - (uint)(bVar7 != 0);
+        iVar4 = (1 - (uint)bVar8) - (uint)(bVar8 != 0);
         goto LAB_004a5fa6;
       }
       if (bVar1 == 0) break;
-      bVar1 = *(byte *)((int)&pAVar2->pColormapRef + 1);
-      bVar7 = bVar1 < pbVar6[1];
-      if (bVar1 != pbVar6[1]) goto LAB_004a5fa1;
-      pbVar6 = pbVar6 + 2;
-      pAVar2 = (Actor *)((int)&pAVar2->pColormapRef + 2);
+      bVar1 = pbVar3[1];
+      bVar8 = bVar1 < (byte)pcVar7[1];
+      if (bVar1 != pcVar7[1]) goto LAB_004a5fa1;
+      pcVar7 = pcVar7 + 2;
+      pbVar3 = pbVar3 + 2;
     } while (bVar1 != 0);
-    iVar3 = 0;
+    iVar4 = 0;
 LAB_004a5fa6:
-    if (iVar3 == 0) {
+    if (iVar4 == 0) {
       return;
     }
   }
-  setName_00 = (uint *)(setName + 0x7c);
-  if ((setName_00 != (uint *)0x0) || (actor != (Actor *)0x0)) {
-    if ((setName != (char *)0x0) && (setName_00 != (uint *)0x0)) {
-      sputRoom_RemoveActor((char *)setName_00,(Actor *)setName);
+  pcVar7 = actor->aSetName;
+  if ((pcVar7 != (char *)0x0) || (setName != (char *)0x0)) {
+    if ((actor != (Actor *)0x0) && (pcVar7 != (char *)0x0)) {
+      sputRoom_RemoveActor(pcVar7,actor);
     }
-    if (actor == (Actor *)0x0) {
-      setName[0x68] = '\0';
-      setName[0x69] = '\0';
-      setName[0x6a] = '\0';
-      setName[0x6b] = '\0';
+    if (setName == (char *)0x0) {
+      actor->nScreenBoxValid = 0;
       return;
     }
-    pvVar4 = Set_FindNameInList((int)actor);
-    if (pvVar4 == (void *)0x0) {
-      pvVar4 = Set_NormalizeName((char *)actor);
+    pRVar5 = Set_FindNameInList((int)setName);
+    if (pRVar5 == (RoomActors *)0x0) {
+      pRVar5 = Set_NormalizeName(setName);
     }
-    for (piVar5 = *(int **)((int)pvVar4 + 0x80); piVar5 != (int *)0x0; piVar5 = (int *)piVar5[2]) {
-      if (g_pActors + *piVar5 == (Actor *)setName) {
+    for (pRVar2 = pRVar5->pActors; pRVar2 != (RoomActorNode *)0x0; pRVar2 = pRVar2->pNext) {
+      if (g_pActors + pRVar2->nActor == actor) {
         return;
       }
     }
-    piVar5 = (int *)(*g_pSputRoomHS->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa09);
-    *piVar5 = 0;
-    piVar5[1] = 0;
-    piVar5[2] = 0;
-    *piVar5 = ((int)setName - (int)g_pActors) / 0xa8;
-    iVar3 = *(int *)((int)pvVar4 + 0x80);
-    piVar5[2] = iVar3;
-    if (iVar3 != 0) {
-      *(int **)(iVar3 + 4) = piVar5;
+    pRVar6 = (RoomActorNode *)
+             (*g_pSputRoomHS->pAlloc)(0xc,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa09);
+    pRVar6->nActor = 0;
+    pRVar6->pPrev = (RoomActorNode *)0x0;
+    pRVar6->pNext = (RoomActorNode *)0x0;
+    pRVar6->nActor = ((int)actor - (int)g_pActors) / 0xa8;
+    pRVar2 = pRVar5->pActors;
+    pRVar6->pNext = pRVar2;
+    if (pRVar2 != (RoomActorNode *)0x0) {
+      pRVar2->pPrev = pRVar6;
     }
-    *(int **)((int)pvVar4 + 0x80) = piVar5;
-    if (setName != (char *)0x0) {
-      strncpy(setName_00,(uint *)actor,0x20);
+    pRVar5->pActors = pRVar6;
+    if (actor != (Actor *)0x0) {
+      strncpy((uint *)pcVar7,(uint *)setName,0x20);
     }
   }
   return;

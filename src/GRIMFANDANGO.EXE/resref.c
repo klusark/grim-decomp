@@ -81,15 +81,15 @@ void Res_RemoveReference(ResRef *ref)
 void __cdecl Res_ResolveToSerialNumber(undefined4 *param_1)
 
 {
-  void *pvVar1;
+  Resource *pRVar1;
   
-  pvVar1 = Res_FindByHandle((void *)param_1[1]);
-  if (pvVar1 != (void *)0x0) {
+  pRVar1 = Res_FindByHandle((void *)param_1[1]);
+  if (pRVar1 != (Resource *)0x0) {
     *param_1 = 0;
     param_1[0xc] = 0;
     param_1[0xb] = 0;
-    Res_SetReference((ResRef *)param_1,*(void **)((int)pvVar1 + 0x14),
-                     s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xeec);
+    Res_SetReference((ResRef *)param_1,pRVar1->pData,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,
+                     0xeec);
   }
   return;
 }

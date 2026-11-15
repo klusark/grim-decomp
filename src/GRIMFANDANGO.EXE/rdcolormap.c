@@ -87,7 +87,7 @@ int __cdecl rdColormap_LoadEntry(char *name,rdColormap *cmp)
   uVar10 = strncmp(acStack_40,&DAT_004ddb10,4);
   if (uVar10 != 0) {
     (*g_pRdroid_HS->pFclose)(iVar5);
-    rdColormap_BuildGrayRamp((undefined4 *)cmp);
+    rdColormap_BuildGrayRamp(cmp);
     return 1;
   }
   pbVar8 = cmp->aPalette;
@@ -148,7 +148,7 @@ int __cdecl rdColormap_LoadEntry(char *name,rdColormap *cmp)
     if (pbVar8 == (byte *)0x0) {
 LAB_00404659:
       (*g_pRdroid_HS->pFclose)(iVar5);
-      rdColormap_BuildGrayRamp((undefined4 *)cmp);
+      rdColormap_BuildGrayRamp(cmp);
       return 1;
     }
     cmp->pLightLevels = pbVar8;
@@ -358,45 +358,48 @@ rdColormap_BuildRGB16
    rdColormap_BuildGrayRamp (the remaster's GrimFandango (Linux): same body (name "GREYRAMP.CMP",
    the tint 1.0 / 1.0 / 1.0, the ramp)); was rdColormap_BuildGreyRamp. */
 
-uint __cdecl rdColormap_BuildGrayRamp(undefined4 *param_1)
+uint __cdecl rdColormap_BuildGrayRamp(rdColormap *colormap)
 
 {
-  int iVar1;
-  char *pcVar2;
+  byte *pbVar1;
+  byte *pbVar2;
   uint uVar3;
-  char cVar4;
+  byte bVar4;
   uint uVar5;
   uint uVar6;
   
-  *param_1 = 0;
-  strncpy(param_1,(uint *)s_GREYRAMP_CMP_004ddb20,0x1f);
-  *(undefined1 *)((int)param_1 + 0x1f) = 0;
-  param_1[8] = 0;
-  param_1[9] = 0x3f800000;
-  param_1[10] = 0x3f800000;
-  param_1[0xb] = 0x3f800000;
+  colormap->aName[0] = '\0';
+  colormap->aName[1] = '\0';
+  colormap->aName[2] = '\0';
+  colormap->aName[3] = '\0';
+  strncpy((uint *)colormap,(uint *)s_GREYRAMP_CMP_004ddb20,0x1f);
+  colormap->aName[0x1f] = '\0';
+  colormap->dwFlags = 0;
+  colormap->aTint[0] = 1.0;
+  colormap->aTint[1] = 1.0;
+  colormap->aTint[2] = 1.0;
   uVar3 = (*g_pRdroid_HS->pAlloc)
                     (0x4100,s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4,DAT_004ddae0 + 0x10);
-  param_1[0xcd] = uVar3;
+  *(uint *)&colormap->field_0x334 = uVar3;
   if (uVar3 == 0) {
     return 0;
   }
-  param_1[0xcc] = uVar3;
+  *(uint *)&colormap->field_0x330 = uVar3;
   if ((uVar3 & 0xff) != 0) {
-    param_1[0xcc] = (uVar3 - (uVar3 & 0xff)) + 0x100;
+    *(uint *)&colormap->field_0x330 = (uVar3 - (uVar3 & 0xff)) + 0x100;
   }
-  iVar1 = (int)param_1 + 0x31;
+  pbVar1 = colormap->aPalette + 1;
   uVar3 = 0;
   do {
-    pcVar2 = (char *)(uVar3 + iVar1);
+    pbVar2 = pbVar1 + uVar3;
     uVar6 = 0;
-    cVar4 = (char)uVar3;
-    pcVar2[(int)param_1 + (0x30 - iVar1)] = cVar4;
-    *pcVar2 = cVar4;
-    pcVar2[(int)param_1 + (0x32 - iVar1)] = cVar4;
+    bVar4 = (byte)uVar3;
+    pbVar2[(int)colormap + (0x30 - (int)pbVar1)] = bVar4;
+    *pbVar2 = bVar4;
+    pbVar2[(int)colormap + (0x32 - (int)pbVar1)] = bVar4;
     uVar5 = 0;
     do {
-      *(char *)(uVar3 + param_1[0xcc] + uVar5) = (char)(uVar6 >> 6) * cVar4;
+      *(byte *)(uVar3 + *(int *)&colormap->field_0x330 + uVar5) = (char)(uVar6 >> 6) * bVar4;
       uVar5 = uVar5 + 0x100;
       uVar6 = uVar6 + 1;
     } while (uVar5 < 0x4000);

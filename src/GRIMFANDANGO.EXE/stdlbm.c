@@ -9,7 +9,7 @@
 /* stdLoadImageData loader for '.lbm' (IFF PBM: FORM, BMHD, BODY chunks; allocation string
    Stdlbm.c). */
 
-void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
+stdBitmap * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
 
 {
   unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -19,15 +19,16 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
   byte bVar4;
   undefined1 uVar5;
   uint uVar6;
-  uint *bitmap;
+  stdBitmap *bitmap;
   uint uVar7;
   int iVar8;
   uint *puVar9;
-  VBuffer *pVVar10;
-  int iVar11;
-  uint uVar12;
-  int iVar13;
-  undefined4 *puVar14;
+  VBuffer **ppVVar10;
+  VBuffer *pVVar11;
+  int iVar12;
+  void *pvVar13;
+  uint uVar14;
+  undefined4 *puVar15;
   #define iStack_94 (*(int *)(_frame + (0xb0 - 0x94)))
   #define iStack_90 (*(int *)(_frame + (0xb0 - 0x90)))
   #define iStack_8c (*(int *)(_frame + (0xb0 - 0x8c)))
@@ -35,7 +36,7 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
   #define uStack_84 (*(uint *)(_frame + (0xb0 - 0x84)))
   #define auStack_80 (*(undefined1 (*)[4])(_frame + (0xb0 - 0x80)))
   #define uStack_7c (*(uint *)(_frame + (0xb0 - 0x7c)))
-  #define iStack_78 (*(int *)(_frame + (0xb0 - 0x78)))
+  #define pvStack_78 (*(void **)(_frame + (0xb0 - 0x78)))
   #define uStack_74 (*(ushort *)(_frame + (0xb0 - 0x74)))
   #define uStack_72 (*(ushort *)(_frame + (0xb0 - 0x72)))
   #define uStack_6a (*(uint *)(_frame + (0xb0 - 0x6a)))
@@ -47,11 +48,12 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
   
   uVar6 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
   if (uVar6 == 0) {
-    return (void *)0x0;
+    return (stdBitmap *)0x0;
   }
-  bitmap = (uint *)(*g_pStd_HS->pAlloc)
-                             (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x11);
-  if (bitmap != (uint *)0x0) {
+  bitmap = (stdBitmap *)
+           (*g_pStd_HS->pAlloc)
+                     (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x11);
+  if (bitmap != (stdBitmap *)0x0) {
     (*g_pStd_HS->pFread)(uVar6,acStack_58,0xc);
     uVar7 = strncmp(acStack_58,&DAT_004e78e4,4);
     if (uVar7 == 0) {
@@ -88,7 +90,7 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
         }
       } while (!bVar2);
       if (!bVar2) {
-        return (void *)0x0;
+        return (stdBitmap *)0x0;
       }
       uStack_84 = Std_Swap32(uStack_84);
       (*g_pStd_HS->pFread)(uVar6,&uStack_74,0x14);
@@ -117,23 +119,24 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
         }
       } while (!bVar2);
       if (!bVar2) {
-        return (void *)0x0;
+        return (stdBitmap *)0x0;
       }
       uStack_7c = Std_Swap32(uStack_7c);
       uVar7 = 0x1f;
       puVar9 = (uint *)stdFileFromPath(param_1);
-      strncpy(bitmap,puVar9,uVar7);
-      *(undefined1 *)((int)bitmap + 0x1f) = 0;
-      bitmap[8] = 0;
-      bitmap[9] = 2;
-      bitmap[0x19] = 1;
-      bitmap[0x1a] = 0;
-      bitmap[10] = 0;
-      bitmap[0xb] = 8;
-      uVar7 = (*g_pStd_HS->pAlloc)
-                        (4,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x72);
-      bitmap[0x1e] = uVar7;
-      if (uVar7 != 0) {
+      strncpy((uint *)bitmap,puVar9,uVar7);
+      bitmap->aName[0x1f] = '\0';
+      bitmap->nType = 0;
+      bitmap->dwPalFlags = 2;
+      bitmap->nFrames = 1;
+      bitmap->nCurFrame = 0;
+      (bitmap->colorFormat).nColorMode = 0;
+      (bitmap->colorFormat).nBpp = 8;
+      ppVVar10 = (VBuffer **)
+                 (*g_pStd_HS->pAlloc)
+                           (4,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x72);
+      bitmap->ppFrames = ppVVar10;
+      if (ppVVar10 != (VBuffer **)0x0) {
         if ((uStack_74 & 1) == 0) {
           VStack_4c.nWidth = (int)uStack_74;
         }
@@ -143,20 +146,20 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
         VStack_4c.nHeight = (int)uStack_72;
         VStack_4c.colorFormat.nColorMode = 0;
         VStack_4c.colorFormat.nBpp = 8;
-        pVVar10 = stdDisplay_VBufferNew(&VStack_4c,param_2,param_3,0);
-        *(VBuffer **)bitmap[0x1e] = pVVar10;
-        if (*(VBuffer **)bitmap[0x1e] != (VBuffer *)0x0) {
-          stdDisplay_VBufferLock(*(VBuffer **)bitmap[0x1e]);
-          iVar13 = 0;
-          iVar8 = *(int *)(*(int *)bitmap[0x1e] + 0x5c);
-          iStack_78 = iVar8;
+        pVVar11 = stdDisplay_VBufferNew(&VStack_4c,param_2,param_3,0);
+        *bitmap->ppFrames = pVVar11;
+        if (*bitmap->ppFrames != (VBuffer *)0x0) {
+          stdDisplay_VBufferLock(*bitmap->ppFrames);
+          iVar8 = 0;
+          pvVar13 = (*bitmap->ppFrames)->pPixels;
+          pvStack_78 = pvVar13;
           if ((uStack_6a & 0xff) == 0) {
             if (0 < (int)uStack_7c) {
               do {
                 uVar7 = stdFGetc(uVar6);
-                *(char *)(iVar13 + iVar8) = (char)uVar7;
-                iVar13 = iVar13 + 1;
-              } while (iVar13 < (int)uStack_7c);
+                *(char *)(iVar8 + (int)pvVar13) = (char)uVar7;
+                iVar8 = iVar8 + 1;
+              } while (iVar8 < (int)uStack_7c);
             }
           }
           else if ((uStack_6a & 0xff) == 1) {
@@ -170,45 +173,46 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
                   bVar4 = (byte)uVar7;
                   uVar7 = (uint)(char)bVar4;
                   if (((bVar4 & 0x80) == 0x80) && (((int)(char)bVar4 | 0x80U) != 0x80)) {
-                    uVar12 = 1 - (uVar7 | 0xffffff00);
+                    uVar14 = 1 - (uVar7 | 0xffffff00);
                     uVar7 = stdFGetc(uVar6);
                     uVar5 = (undefined1)uVar7;
-                    if (uVar12 != 0) {
-                      puVar14 = (undefined4 *)(iVar13 + iVar8);
-                      for (uVar7 = uVar12 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-                        *puVar14 = CONCAT22(CONCAT11(uVar5,uVar5),CONCAT11(uVar5,uVar5));
-                        puVar14 = puVar14 + 1;
+                    if (uVar14 != 0) {
+                      puVar15 = (undefined4 *)(iVar8 + (int)pvVar13);
+                      for (uVar7 = uVar14 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+                        *puVar15 = CONCAT22(CONCAT11(uVar5,uVar5),CONCAT11(uVar5,uVar5));
+                        puVar15 = puVar15 + 1;
                       }
-                      for (uVar7 = uVar12 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-                        *(undefined1 *)puVar14 = uVar5;
-                        puVar14 = (undefined4 *)((int)puVar14 + 1);
+                      for (uVar7 = uVar14 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+                        *(undefined1 *)puVar15 = uVar5;
+                        puVar15 = (undefined4 *)((int)puVar15 + 1);
                       }
-                      iVar13 = iStack_90 + uVar12;
-                      iStack_94 = iStack_94 + uVar12;
-                      iVar8 = iStack_78;
-                      iStack_90 = iVar13;
+                      iVar8 = iStack_90 + uVar14;
+                      iStack_94 = iStack_94 + uVar14;
+                      pvVar13 = pvStack_78;
+                      iStack_90 = iVar8;
                     }
                   }
-                  else if ((uVar7 != 0x80) && (iVar11 = uVar7 + 1, 0 < iVar11)) {
-                    iStack_94 = iStack_94 + iVar11;
+                  else if ((uVar7 != 0x80) && (iVar12 = uVar7 + 1, 0 < iVar12)) {
+                    iStack_94 = iStack_94 + iVar12;
                     do {
                       uVar7 = stdFGetc(uVar6);
-                      *(char *)(iVar13 + iVar8) = (char)uVar7;
-                      iVar13 = iVar13 + 1;
-                      iVar11 = iVar11 + -1;
-                      iStack_90 = iVar13;
-                    } while (iVar11 != 0);
+                      *(char *)(iVar8 + (int)pvVar13) = (char)uVar7;
+                      iVar8 = iVar8 + 1;
+                      iVar12 = iVar12 + -1;
+                      iStack_90 = iVar8;
+                    } while (iVar12 != 0);
                   }
                 } while (iStack_94 < (int)(uint)uStack_74);
                 iStack_8c = iStack_8c + 1;
               } while (iStack_8c < (int)(uint)uStack_72);
             }
           }
-          stdDisplay_VBufferUnlock(*(VBuffer **)bitmap[0x1e]);
-          uVar7 = (*g_pStd_HS->pAlloc)
-                            (0x300,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0xc2);
-          bitmap[0x18] = uVar7;
-          if (uVar7 != 0) {
+          stdDisplay_VBufferUnlock(*bitmap->ppFrames);
+          pvVar13 = (void *)(*g_pStd_HS->pAlloc)
+                                      (0x300,s_C__grimjedi_Libs_Std_General_Std_004e78ec,
+                                       DAT_004e78e0 + 0xc2);
+          bitmap->pPalette = pvVar13;
+          if (pvVar13 != (void *)0x0) {
             (*g_pStd_HS->pFseek)(uVar6,0,0);
             bVar2 = false;
             do {
@@ -227,11 +231,11 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
             } while (!bVar2);
             if (bVar2) {
               uStack_5c = Std_Swap32(uStack_5c);
-              (*g_pStd_HS->pFread)(uVar6,bitmap[0x18],uStack_5c);
+              (*g_pStd_HS->pFread)(uVar6,bitmap->pPalette,uStack_5c);
               (*g_pStd_HS->pFclose)(uVar6);
               return bitmap;
             }
-            return (void *)0x0;
+            return (stdBitmap *)0x0;
           }
         }
       }
@@ -239,17 +243,17 @@ void * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
   }
   (*g_pStd_HS->pFclose)(uVar6);
   stdBitmap_Free(bitmap);
-  return (void *)0x0;
+  return (stdBitmap *)0x0;
 }
 #undef VStack_4c
 #undef acStack_58
 #undef auStack_60
 #undef auStack_80
 #undef auStack_88
-#undef iStack_78
 #undef iStack_8c
 #undef iStack_90
 #undef iStack_94
+#undef pvStack_78
 #undef uStack_54
 #undef uStack_5c
 #undef uStack_6a

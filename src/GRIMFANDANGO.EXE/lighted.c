@@ -526,34 +526,34 @@ LAB_004becd7:
 /* ---- 0x004bed40  LightEd_WriteLightsSection ---- */
 /* Emits 'section: lights' with name/type/position/direction/intensity/angles per light */
 
-void __cdecl LightEd_WriteLightsSection(void *set,void *file)
+void __cdecl LightEd_WriteLightsSection(Set *set,void *file)
 
 {
   uint uVar1;
-  int iVar2;
+  SetLight *pSVar2;
   
   (*g_pStd_HS->pFprintf)(file,s_section__lights_004ec6fc);
   (*g_pStd_HS->pFprintf)();
-  iVar2 = (int)set + 0xbc;
+  pSVar2 = set->aLights;
   uVar1 = 0;
-  if (*(int *)((int)set + 0xb8) != 0) {
+  if (set->nLights != 0) {
     do {
       (*g_pStd_HS->pFprintf)();
       (*g_pStd_HS->pFprintf)();
       (*g_pStd_HS->pFprintf)
-                (file,s_position__f__f__f_004ec6a4,(double)*(float *)(iVar2 + 0x20),
-                 (double)*(float *)(iVar2 + 0x24),(double)*(float *)(iVar2 + 0x28));
+                (file,s_position__f__f__f_004ec6a4,(double)pSVar2->aPos[0],(double)pSVar2->aPos[1],
+                 (double)pSVar2->aPos[2]);
       (*g_pStd_HS->pFprintf)
-                (file,s_direction__f__f__f_004ec68c,(double)*(float *)(iVar2 + 0x38),
-                 (double)*(float *)(iVar2 + 0x3c),(double)*(float *)(iVar2 + 0x40));
-      (*g_pStd_HS->pFprintf)(file,s_intensity__f_004ec67c,(double)*(float *)(iVar2 + 0x44));
-      (*g_pStd_HS->pFprintf)(file,s_umbraangle__f_004ec668,(double)*(float *)(iVar2 + 0x4c));
-      (*g_pStd_HS->pFprintf)(file,s_penumbraangle__f_004ec654,(double)*(float *)(iVar2 + 0x54));
+                (file,s_direction__f__f__f_004ec68c,(double)(pSVar2->light).aDirection[0],
+                 (double)(pSVar2->light).aDirection[1],(double)(pSVar2->light).aDirection[2]);
+      (*g_pStd_HS->pFprintf)(file,s_intensity__f_004ec67c,(double)(pSVar2->light).flIntensity);
+      (*g_pStd_HS->pFprintf)(file,s_umbraangle__f_004ec668,(double)(pSVar2->light).flInnerAngle);
+      (*g_pStd_HS->pFprintf)(file,s_penumbraangle__f_004ec654,(double)(pSVar2->light).flOuterAngle);
       (*g_pStd_HS->pFprintf)();
       (*g_pStd_HS->pFprintf)(file,&UINT_004ddd74);
-      iVar2 = iVar2 + 0x68;
+      pSVar2 = pSVar2 + 1;
       uVar1 = uVar1 + 1;
-    } while (uVar1 < *(uint *)((int)set + 0xb8));
+    } while (uVar1 < (uint)set->nLights);
   }
   return;
 }

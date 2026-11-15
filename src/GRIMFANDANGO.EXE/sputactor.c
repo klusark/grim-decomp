@@ -40,9 +40,9 @@ uint __cdecl sputActor_Save(code *param_1)
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *actor;
   undefined4 *puVar1;
-  void *pvVar2;
-  CostumeNode *pCVar3;
-  int *piVar4;
+  ModelComponent *pMVar2;
+  void *pvVar3;
+  CostumeNode *pCVar4;
   Set *pSVar5;
   int *piVar6;
   Actor *pAVar7;
@@ -108,13 +108,13 @@ uint __cdecl sputActor_Save(code *param_1)
         (*param_1)(&uStack_88,4);
         iStack_9c = Actor_CountCostumes(actor);
         (*param_1)(&iStack_9c,4);
-        pCVar3 = actor->pCostumes;
+        pCVar4 = actor->pCostumes;
         if (-1 < iStack_9c + -1) {
           piVar6 = aiStack_80 + iStack_9c + -1;
           iVar8 = iStack_9c;
           do {
-            *piVar6 = (int)pCVar3;
-            pCVar3 = pCVar3->pNext;
+            *piVar6 = (int)pCVar4;
+            pCVar4 = pCVar4->pNext;
             piVar6 = piVar6 + -1;
             iVar8 = iVar8 + -1;
           } while (iVar8 != 0);
@@ -149,52 +149,54 @@ uint __cdecl sputActor_Save(code *param_1)
         }
         if (actor->pCostumes != (CostumeNode *)0x0) {
           iStack_a4 = 0;
-          for (pvVar2 = actor->pCostumes->pComponents; pvVar2 != (void *)0x0;
-              pvVar2 = *(void **)((int)pvVar2 + 400)) {
+          for (pMVar2 = actor->pCostumes->pComponents; pMVar2 != (ModelComponent *)0x0;
+              pMVar2 = pMVar2->pNext) {
             iStack_a4 = iStack_a4 + 1;
           }
           (*param_1)(&iStack_a4,4);
-          for (piVar6 = actor->pCostumes->pComponents; piVar6 != (int *)0x0;
-              piVar6 = (int *)piVar6[100]) {
-            (*param_1)(piVar6 + 0xe,4);
-            (*param_1)(piVar6 + 0xf,4);
-            (*param_1)(piVar6 + 0x12,4);
-            if (*(int *)piVar6[0x10] == 1) {
-              if (*piVar6 == 0) {
+          for (pMVar2 = actor->pCostumes->pComponents; pMVar2 != (ModelComponent *)0x0;
+              pMVar2 = pMVar2->pNext) {
+            (*param_1)(&pMVar2->nRoot,4);
+            (*param_1)(&pMVar2->nComponentFlags,4);
+            (*param_1)(&pMVar2->nParentNode,4);
+            if (pMVar2->pThing->nType == 1) {
+              if ((pMVar2->modelRef).nValid == 0) {
                 (*g_pStd_HS->pAssertFail)
                           (s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
               }
-              (*param_1)(*(undefined4 *)(piVar6[0x10] + 0x2c),*(int *)(piVar6[1] + 0x54) << 2);
+              (*param_1)(pMVar2->pThing->pHierarchyExtra,
+                         *(int *)((int)(pMVar2->modelRef).pData + 0x54) << 2);
             }
             iStack_a0 = 0;
-            if ((piVar6[0x10] == 0) || (iVar8 = *(int *)(piVar6[0x10] + 0x14), iVar8 == 0)) {
+            if ((pMVar2->pThing == (rdThing *)0x0) ||
+               (pvVar3 = pMVar2->pThing->pPuppet, pvVar3 == (void *)0x0)) {
               (*param_1)(&iStack_a0,4);
             }
             else {
-              piVar9 = (int *)(iVar8 + 0x130);
+              piVar6 = (int *)((int)pvVar3 + 0x130);
               iVar8 = 6;
-              piVar4 = piVar9;
+              piVar9 = piVar6;
               do {
-                if (*piVar4 != 0) {
+                if (*piVar9 != 0) {
                   iStack_a0 = iStack_a0 + 1;
                 }
-                piVar4 = piVar4 + 0x4d;
+                piVar9 = piVar9 + 0x4d;
                 iVar8 = iVar8 + -1;
               } while (iVar8 != 0);
               (*param_1)(&iStack_a0,4);
               iStack_a8 = 6;
               do {
-                if (*piVar9 != 0) {
-                  (*param_1)(*piVar9,0x20);
-                  (*param_1)(piVar9 + -0x48,4);
-                  (*param_1)(piVar9 + -0x47,4);
-                  (*param_1)(piVar9 + -0x4a,4);
-                  (*param_1)(piVar9 + -2,4);
-                  (*param_1)(piVar9 + -1,4);
-                  (*param_1)(piVar9 + -0x44,4);
-                  (*param_1)(piVar9 + -0x43,4);
+                if (*piVar6 != 0) {
+                  (*param_1)(*piVar6,0x20);
+                  (*param_1)(piVar6 + -0x48,4);
+                  (*param_1)(piVar6 + -0x47,4);
+                  (*param_1)(piVar6 + -0x4a,4);
+                  (*param_1)(piVar6 + -2,4);
+                  (*param_1)(piVar6 + -1,4);
+                  (*param_1)(piVar6 + -0x44,4);
+                  (*param_1)(piVar6 + -0x43,4);
                 }
-                piVar9 = piVar9 + 0x4d;
+                piVar6 = piVar6 + 0x4d;
                 iStack_a8 = iStack_a8 + -1;
               } while (iStack_a8 != 0);
             }
@@ -330,21 +332,22 @@ uint __cdecl sputActor_Restore(code *param_1)
   unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
   char cVar2;
-  void *pvVar3;
-  undefined4 *puVar4;
-  char *pcVar5;
+  ModelComponent *pMVar3;
+  void *pvVar4;
+  undefined4 *puVar5;
+  char *pcVar6;
   void *keyframe;
-  Actor **ppAVar6;
-  TextObject *pTVar7;
-  WalkPlane *pWVar8;
-  uint uVar9;
+  Actor **ppAVar7;
+  TextObject *pTVar8;
+  WalkPlane *pWVar9;
   uint uVar10;
-  int iVar11;
-  int *piVar12;
-  int iVar13;
-  Actor *pAVar14;
-  char *pcVar15;
-  int *piVar16;
+  uint uVar11;
+  int iVar12;
+  int *piVar13;
+  int iVar14;
+  Actor *pAVar15;
+  char *pcVar16;
+  int *piVar17;
   #define iStack_164 (*(int *)(_frame + (0x180 - 0x164)))
   #define pvStack_160 (*(void **)(_frame + (0x180 - 0x160)))
   #define local_15c (*(int *)(_frame + (0x180 - 0x15c)))
@@ -380,30 +383,30 @@ uint __cdecl sputActor_Restore(code *param_1)
   g_pTalkingActors[1] = (Actor *)0x0;
   g_pTalkingActors[2] = (Actor *)0x0;
   g_pTalkingActors[3] = (Actor *)0x0;
-  iVar13 = 0;
+  iVar14 = 0;
   g_nNumActorsTalking = 0;
   if (0 < g_nMaxActors) {
-    iVar11 = 0;
+    iVar12 = 0;
     do {
-      sputActor_FreeActor((Actor *)((int)g_pActors->aPos + iVar11 + -0xc));
-      iVar13 = iVar13 + 1;
-      iVar11 = iVar11 + 0xa8;
-    } while (iVar13 < g_nMaxActors);
+      sputActor_FreeActor((Actor *)((int)g_pActors->aPos + iVar12 + -0xc));
+      iVar14 = iVar14 + 1;
+      iVar12 = iVar12 + 0xa8;
+    } while (iVar14 < g_nMaxActors);
   }
   (*param_1)(&local_15c,4);
   if (g_nMaxActors < local_15c) {
     g_pActors = (Actor *)(**(code **)(g_dwSputActHS + 0x28))
                                    (g_pActors,local_15c * 0xa8,
                                     s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x28a);
-    pAVar14 = g_pActors + g_nMaxActors;
-    for (iVar13 = ((local_15c - g_nMaxActors) * 0x15 & 0x1fffffffU) << 1; iVar13 != 0;
-        iVar13 = iVar13 + -1) {
-      pAVar14->pColormapRef = (void *)0x0;
-      pAVar14 = (Actor *)&pAVar14->dwFlags;
+    pAVar15 = g_pActors + g_nMaxActors;
+    for (iVar14 = ((local_15c - g_nMaxActors) * 0x15 & 0x1fffffffU) << 1; iVar14 != 0;
+        iVar14 = iVar14 + -1) {
+      pAVar15->pColormapRef = (void *)0x0;
+      pAVar15 = (Actor *)&pAVar15->dwFlags;
     }
-    for (iVar13 = 0; iVar13 != 0; iVar13 = iVar13 + -1) {
-      *(undefined1 *)&pAVar14->pColormapRef = 0;
-      pAVar14 = (Actor *)((int)&pAVar14->pColormapRef + 1);
+    for (iVar14 = 0; iVar14 != 0; iVar14 = iVar14 + -1) {
+      *(undefined1 *)&pAVar15->pColormapRef = 0;
+      pAVar15 = (Actor *)((int)&pAVar15->pColormapRef + 1);
     }
     g_nMaxActors = local_15c;
   }
@@ -412,82 +415,82 @@ uint __cdecl sputActor_Restore(code *param_1)
   if (0 < g_nNumActors) {
     do {
       (*param_1)(&iStack_140,4);
-      pAVar14 = g_pActors + iStack_140;
+      pAVar15 = g_pActors + iStack_140;
       pAVar1 = g_pActors + iStack_140;
-      pAVar14->nInUse = 1;
+      pAVar15->nInUse = 1;
       if (pAVar1->pColormapRef == (void *)0x0) {
-        puVar4 = (undefined4 *)
+        puVar5 = (undefined4 *)
                  (**(code **)(g_dwSputActHS + 0x20))
                            (0x34,s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x29f);
-        pAVar14->pColormapRef = puVar4;
-        for (iVar13 = 0xd; iVar13 != 0; iVar13 = iVar13 + -1) {
-          *puVar4 = 0;
-          puVar4 = puVar4 + 1;
+        pAVar15->pColormapRef = puVar5;
+        for (iVar14 = 0xd; iVar14 != 0; iVar14 = iVar14 + -1) {
+          *puVar5 = 0;
+          puVar5 = puVar5 + 1;
         }
       }
-      (*param_1)((int)pAVar14->pColormapRef + 4,4);
-      (*param_1)(&pAVar14->dwFlags,4);
-      (*param_1)(&pAVar14->dwMoveFlags,4);
-      (*param_1)(pAVar14->aPos,4);
-      (*param_1)(pAVar14->aPos + 1,4);
-      (*param_1)(pAVar14->aPos + 2,4);
-      (*param_1)(pAVar14->aPrevPos,4);
-      (*param_1)(pAVar14->aPrevPos + 1,4);
-      (*param_1)(pAVar14->aPrevPos + 2,4);
-      (*param_1)(pAVar14->aRot,4);
-      (*param_1)(pAVar14->aRot + 1,4);
-      (*param_1)(pAVar14->aRot + 2,4);
-      (*param_1)(&pAVar14->flScale,4);
-      (*param_1)(&pAVar14->nMatrixDirty,4);
-      pAVar14->nMatrixDirty = 0;
-      (*param_1)(pAVar14->aOrient,4);
-      (*param_1)(pAVar14->aOrient + 1,4);
-      (*param_1)(pAVar14->aOrient + 2,4);
-      (*param_1)(pAVar14->aOrient + 3,4);
-      (*param_1)(pAVar14->aOrient + 4,4);
-      (*param_1)(pAVar14->aOrient + 5,4);
-      (*param_1)(pAVar14->aOrient + 6,4);
-      (*param_1)(pAVar14->aOrient + 7,4);
-      (*param_1)(pAVar14->aOrient + 8,4);
-      (*param_1)(pAVar14->aOrient + 9,4);
-      (*param_1)(pAVar14->aOrient + 10,4);
-      (*param_1)(pAVar14->aOrient + 0xb,4);
-      (*param_1)(&pAVar14->nScreenBoxValid,4);
-      (*param_1)(pAVar14->aScreenBox,4);
-      (*param_1)(pAVar14->aScreenBox + 1,4);
-      (*param_1)(pAVar14->aScreenBox + 2,4);
-      (*param_1)(pAVar14->aScreenBox + 3,4);
-      pcVar5 = pAVar14->aSetName;
-      (*param_1)(pcVar5,0x20);
+      (*param_1)((int)pAVar15->pColormapRef + 4,4);
+      (*param_1)(&pAVar15->dwFlags,4);
+      (*param_1)(&pAVar15->dwMoveFlags,4);
+      (*param_1)(pAVar15->aPos,4);
+      (*param_1)(pAVar15->aPos + 1,4);
+      (*param_1)(pAVar15->aPos + 2,4);
+      (*param_1)(pAVar15->aPrevPos,4);
+      (*param_1)(pAVar15->aPrevPos + 1,4);
+      (*param_1)(pAVar15->aPrevPos + 2,4);
+      (*param_1)(pAVar15->aRot,4);
+      (*param_1)(pAVar15->aRot + 1,4);
+      (*param_1)(pAVar15->aRot + 2,4);
+      (*param_1)(&pAVar15->flScale,4);
+      (*param_1)(&pAVar15->nMatrixDirty,4);
+      pAVar15->nMatrixDirty = 0;
+      (*param_1)(pAVar15->aOrient,4);
+      (*param_1)(pAVar15->aOrient + 1,4);
+      (*param_1)(pAVar15->aOrient + 2,4);
+      (*param_1)(pAVar15->aOrient + 3,4);
+      (*param_1)(pAVar15->aOrient + 4,4);
+      (*param_1)(pAVar15->aOrient + 5,4);
+      (*param_1)(pAVar15->aOrient + 6,4);
+      (*param_1)(pAVar15->aOrient + 7,4);
+      (*param_1)(pAVar15->aOrient + 8,4);
+      (*param_1)(pAVar15->aOrient + 9,4);
+      (*param_1)(pAVar15->aOrient + 10,4);
+      (*param_1)(pAVar15->aOrient + 0xb,4);
+      (*param_1)(&pAVar15->nScreenBoxValid,4);
+      (*param_1)(pAVar15->aScreenBox,4);
+      (*param_1)(pAVar15->aScreenBox + 1,4);
+      (*param_1)(pAVar15->aScreenBox + 2,4);
+      (*param_1)(pAVar15->aScreenBox + 3,4);
+      pcVar6 = pAVar15->aSetName;
+      (*param_1)(pcVar6,0x20);
       (*param_1)(&iStack_13c,4);
-      Res_ResolveToSerialNumber(pAVar14->pColormapRef);
-      if (*pcVar5 != '\0') {
-        uVar9 = 0xffffffff;
+      Res_ResolveToSerialNumber(pAVar15->pColormapRef);
+      if (*pcVar6 != '\0') {
+        uVar10 = 0xffffffff;
         do {
-          pcVar15 = pcVar5;
-          if (uVar9 == 0) break;
-          uVar9 = uVar9 - 1;
-          pcVar15 = pcVar5 + 1;
-          cVar2 = *pcVar5;
-          pcVar5 = pcVar15;
+          pcVar16 = pcVar6;
+          if (uVar10 == 0) break;
+          uVar10 = uVar10 - 1;
+          pcVar16 = pcVar6 + 1;
+          cVar2 = *pcVar6;
+          pcVar6 = pcVar16;
         } while (cVar2 != '\0');
-        uVar9 = ~uVar9;
-        pcVar5 = pcVar15 + -uVar9;
-        pcVar15 = acStack_40;
-        for (uVar10 = uVar9 >> 2; uVar10 != 0; uVar10 = uVar10 - 1) {
-          *(undefined4 *)pcVar15 = *(undefined4 *)pcVar5;
-          pcVar5 = pcVar5 + 4;
-          pcVar15 = pcVar15 + 4;
+        uVar10 = ~uVar10;
+        pcVar6 = pcVar16 + -uVar10;
+        pcVar16 = acStack_40;
+        for (uVar11 = uVar10 >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
+          *(undefined4 *)pcVar16 = *(undefined4 *)pcVar6;
+          pcVar6 = pcVar6 + 4;
+          pcVar16 = pcVar16 + 4;
         }
-        for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-          *pcVar15 = *pcVar5;
-          pcVar5 = pcVar5 + 1;
-          pcVar15 = pcVar15 + 1;
+        for (uVar10 = uVar10 & 3; uVar10 != 0; uVar10 = uVar10 - 1) {
+          *pcVar16 = *pcVar6;
+          pcVar6 = pcVar6 + 1;
+          pcVar16 = pcVar16 + 1;
         }
-        pAVar14->aSetName[0] = '\0';
-        sputRoom_AddActor((Actor *)acStack_40,(char *)pAVar14);
+        pAVar15->aSetName[0] = '\0';
+        sputRoom_AddActor(acStack_40,pAVar15);
       }
-      pAVar14->pCostumes = (CostumeNode *)0x0;
+      pAVar15->pCostumes = (CostumeNode *)0x0;
       (*param_1)(&iStack_148,4);
       iStack_164 = 0;
       if (0 < iStack_148) {
@@ -510,69 +513,70 @@ uint __cdecl sputActor_Restore(code *param_1)
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
           }
-          pcVar5 = (char *)CosUtil_PtrFromHandle((int)RStack_b8.pData);
+          pcVar6 = (char *)CosUtil_PtrFromHandle((int)RStack_b8.pData);
           if (iStack_164 == 0) {
-            sputActor_SetCostume(pAVar14,pcVar5,0);
+            sputActor_SetCostume(pAVar15,pcVar6,0);
           }
           else {
-            sputActor_PushCostume(pAVar14,pcVar5,0);
+            sputActor_PushCostume(pAVar15,pcVar6,0);
           }
-          Cos_RestoreInstance(pAVar14->pCostumes->dwInstance,param_1);
-          pAVar14->pCostumes->aHeadJoints[0] = iStack_128;
-          pAVar14->pCostumes->aHeadJoints[1] = iStack_124;
-          pAVar14->pCostumes->aHeadJoints[2] = iStack_120;
-          pAVar14->pCostumes->flLookRate = fStack_11c;
-          pAVar14->pCostumes->flMaxPitch = fStack_118;
-          pAVar14->pCostumes->flMaxYaw = fStack_114;
-          pAVar14->pCostumes->flViewCos = fStack_110;
-          pAVar14->pCostumes->nWalkChore = iStack_10c;
-          pAVar14->pCostumes->nTurnLeftChore = iStack_108;
-          pAVar14->pCostumes->nTurnRightChore = iStack_104;
-          pAVar14->pCostumes->nRestChore = iStack_100;
-          piVar12 = aiStack_fc;
-          piVar16 = pAVar14->pCostumes->aTalkChores;
-          for (iVar13 = 0x10; iVar13 != 0; iVar13 = iVar13 + -1) {
-            *piVar16 = *piVar12;
-            piVar12 = piVar12 + 1;
-            piVar16 = piVar16 + 1;
+          Cos_RestoreInstance(pAVar15->pCostumes->dwInstance,param_1);
+          pAVar15->pCostumes->aHeadJoints[0] = iStack_128;
+          pAVar15->pCostumes->aHeadJoints[1] = iStack_124;
+          pAVar15->pCostumes->aHeadJoints[2] = iStack_120;
+          pAVar15->pCostumes->flLookRate = fStack_11c;
+          pAVar15->pCostumes->flMaxPitch = fStack_118;
+          pAVar15->pCostumes->flMaxYaw = fStack_114;
+          pAVar15->pCostumes->flViewCos = fStack_110;
+          pAVar15->pCostumes->nWalkChore = iStack_10c;
+          pAVar15->pCostumes->nTurnLeftChore = iStack_108;
+          pAVar15->pCostumes->nTurnRightChore = iStack_104;
+          pAVar15->pCostumes->nRestChore = iStack_100;
+          piVar13 = aiStack_fc;
+          piVar17 = pAVar15->pCostumes->aTalkChores;
+          for (iVar14 = 0x10; iVar14 != 0; iVar14 = iVar14 + -1) {
+            *piVar17 = *piVar13;
+            piVar13 = piVar13 + 1;
+            piVar17 = piVar17 + 1;
           }
-          pAVar14->pCostumes->nMumbleChore = iStack_bc;
+          pAVar15->pCostumes->nMumbleChore = iStack_bc;
           Res_RemoveReference(&RStack_b8);
           iStack_164 = iStack_164 + 1;
         } while (iStack_164 < iStack_148);
       }
-      if (pAVar14->pCostumes != (CostumeNode *)0x0) {
-        piVar12 = pAVar14->pCostumes->pComponents;
+      if (pAVar15->pCostumes != (CostumeNode *)0x0) {
+        pMVar3 = pAVar15->pCostumes->pComponents;
         (*param_1)(&iStack_158,4);
         if (0 < iStack_158) {
-          for (; piVar12 != (int *)0x0; piVar12 = (int *)piVar12[100]) {
-            (*param_1)(piVar12 + 0xe,4);
-            (*param_1)(piVar12 + 0xf,4);
-            (*param_1)(piVar12 + 0x12,4);
-            if (*(int *)piVar12[0x10] == 1) {
-              if (*piVar12 == 0) {
+          for (; pMVar3 != (ModelComponent *)0x0; pMVar3 = pMVar3->pNext) {
+            (*param_1)(&pMVar3->nRoot,4);
+            (*param_1)(&pMVar3->nComponentFlags,4);
+            (*param_1)(&pMVar3->nParentNode,4);
+            if (pMVar3->pThing->nType == 1) {
+              if ((pMVar3->modelRef).nValid == 0) {
                 (*g_pStd_HS->pAssertFail)
                           (s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
               }
-              (*param_1)(*(undefined4 *)(piVar12[0x10] + 0x2c),*(int *)(piVar12[1] + 0x54) << 2);
+              (*param_1)(pMVar3->pThing->pHierarchyExtra,
+                         *(int *)((int)(pMVar3->modelRef).pData + 0x54) << 2);
             }
             (*param_1)(&iStack_14c,4);
             iStack_164 = 0;
             if (0 < iStack_14c) {
               do {
-                pvStack_160 = *(void **)(piVar12[0x10] + 0x14);
+                pvStack_160 = pMVar3->pThing->pPuppet;
                 (*param_1)(acStack_60,0x20);
                 keyframe = sputResource_Alloc(0x4659454b,acStack_60);
                 if (keyframe != (void *)0x0) {
                   (*param_1)(&uStack_144,4);
                   (*param_1)(&uStack_138,4);
-                  pvVar3 = pvStack_160;
-                  uVar9 = rdPuppet_AddTrack(pvStack_160,(uint)keyframe,uStack_144,uStack_138);
-                  (*param_1)((int)pvVar3 + uVar9 * 0x134 + 8,4);
-                  (*param_1)((int)pvVar3 + uVar9 * 0x134 + 0x128,4);
-                  (*param_1)((int)pvVar3 + uVar9 * 0x134 + 300,4);
-                  (*param_1)((int)pvVar3 + uVar9 * 0x134 + 0x20,4);
-                  (*param_1)((int)pvVar3 + uVar9 * 0x134 + 0x24,4);
+                  pvVar4 = pvStack_160;
+                  uVar10 = rdPuppet_AddTrack(pvStack_160,(uint)keyframe,uStack_144,uStack_138);
+                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 8,4);
+                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 0x128,4);
+                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 300,4);
+                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 0x20,4);
+                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 0x24,4);
                 }
                 iStack_164 = iStack_164 + 1;
               } while (iStack_164 < iStack_14c);
@@ -582,99 +586,99 @@ uint __cdecl sputActor_Restore(code *param_1)
         }
       }
       if (iStack_13c != 0) {
-        pAVar14->pExtra = (ActorExtra *)0x0;
-        sputActor_AllocateActorExtra(pAVar14);
-        (*param_1)(pAVar14->pExtra,4);
-        (*param_1)(pAVar14->pExtra->aLookAt + 1,4);
-        (*param_1)(pAVar14->pExtra->aLookAt + 2,4);
-        (*param_1)(&pAVar14->pExtra->nWalking,4);
-        (*param_1)(&pAVar14->pExtra->nTurning,4);
-        (*param_1)(&pAVar14->pExtra->nResting,4);
-        (*param_1)(&pAVar14->pExtra->flWalkRate,4);
-        (*param_1)(&pAVar14->pExtra->flTurnRate,4);
-        (*param_1)(&pAVar14->pExtra->nAlignTurn,4);
-        (*param_1)(&pAVar14->pExtra->flOffsetYaw,4);
-        (*param_1)(&pAVar14->pExtra->flYawLeft,4);
-        (*param_1)(pAVar14->pExtra->aWaypoint,4);
-        (*param_1)(pAVar14->pExtra->aWaypoint + 1,4);
-        (*param_1)(pAVar14->pExtra->aWaypoint + 2,4);
-        (*param_1)(pAVar14->pExtra->aDest,4);
-        (*param_1)(pAVar14->pExtra->aDest + 1,4);
-        (*param_1)(pAVar14->pExtra->aDest + 2,4);
-        (*param_1)(&pAVar14->pExtra->nPathNodes,4);
-        iVar13 = 0;
+        pAVar15->pExtra = (ActorExtra *)0x0;
+        sputActor_AllocateActorExtra(pAVar15);
+        (*param_1)(pAVar15->pExtra,4);
+        (*param_1)(pAVar15->pExtra->aLookAt + 1,4);
+        (*param_1)(pAVar15->pExtra->aLookAt + 2,4);
+        (*param_1)(&pAVar15->pExtra->nWalking,4);
+        (*param_1)(&pAVar15->pExtra->nTurning,4);
+        (*param_1)(&pAVar15->pExtra->nResting,4);
+        (*param_1)(&pAVar15->pExtra->flWalkRate,4);
+        (*param_1)(&pAVar15->pExtra->flTurnRate,4);
+        (*param_1)(&pAVar15->pExtra->nAlignTurn,4);
+        (*param_1)(&pAVar15->pExtra->flOffsetYaw,4);
+        (*param_1)(&pAVar15->pExtra->flYawLeft,4);
+        (*param_1)(pAVar15->pExtra->aWaypoint,4);
+        (*param_1)(pAVar15->pExtra->aWaypoint + 1,4);
+        (*param_1)(pAVar15->pExtra->aWaypoint + 2,4);
+        (*param_1)(pAVar15->pExtra->aDest,4);
+        (*param_1)(pAVar15->pExtra->aDest + 1,4);
+        (*param_1)(pAVar15->pExtra->aDest + 2,4);
+        (*param_1)(&pAVar15->pExtra->nPathNodes,4);
+        iVar14 = 0;
         do {
-          (*param_1)((int)pAVar14->pExtra->aPath[0] + iVar13,4);
-          (*param_1)((int)pAVar14->pExtra->aPath[0] + iVar13 + 4,4);
-          (*param_1)((int)pAVar14->pExtra->aPath[0] + iVar13 + 8,4);
-          iVar13 = iVar13 + 0xc;
-        } while (iVar13 < 0x168);
-        (*param_1)(&pAVar14->pExtra->nPathIndex,4);
-        (*param_1)(&pAVar14->pExtra->pPuck,4);
-        (*param_1)(&pAVar14->pExtra->nFollowBoxes,4);
-        (*param_1)(&pAVar14->pExtra->nWalkDominate,4);
-        (*param_1)(&pAVar14->pExtra->flPuckRadius,4);
-        (*param_1)(&pAVar14->pExtra->nTalking,4);
-        (*param_1)(&pAVar14->pExtra->nVoiceSound,4);
-        (*param_1)(&pAVar14->pExtra->nTalkTime,4);
-        (*param_1)(pAVar14->pExtra->aMsgId,0xc);
-        (*param_1)(pAVar14->pExtra->aVoiceFile,0xf);
-        (*param_1)(&pAVar14->pExtra->pText,4);
-        (*param_1)(&pAVar14->pExtra->nLipSync,4);
-        (*param_1)(&pAVar14->pExtra->nActiveShadow,4);
-        (*param_1)(&pAVar14->pExtra->nCollisionMode,4);
-        (*param_1)(&pAVar14->pExtra->flCollisionScale,4);
-        (*param_1)(&pAVar14->pExtra->nCollided,4);
-        (*param_1)(&pAVar14->pExtra->nClipPlaneActive,4);
-        (*param_1)(pAVar14->pExtra->aClipNormal,4);
-        (*param_1)(pAVar14->pExtra->aClipNormal + 1,4);
-        (*param_1)(pAVar14->pExtra->aClipNormal + 2,4);
-        (*param_1)(pAVar14->pExtra->aClipPoint,4);
-        (*param_1)(pAVar14->pExtra->aClipPoint + 1,4);
-        (*param_1)(pAVar14->pExtra->aClipPoint + 2,4);
-        (*param_1)(&pAVar14->pExtra->dwTalkColor,4);
-        (*param_1)(&pAVar14->pExtra->flTimeScale,4);
-        (*param_1)(&pAVar14->pExtra->nInvClipNode,4);
-        if (pAVar14->pExtra->pPuck != (Puck *)0x0) {
-          pAVar14->pExtra->pPuck = (Puck *)0x0;
-          sputActor_EnablePuck(pAVar14,1);
-          if (pAVar14->pExtra->nFollowBoxes != 0) {
-            Puck_Validate(pAVar14->pExtra->pPuck);
+          (*param_1)((int)pAVar15->pExtra->aPath[0] + iVar14,4);
+          (*param_1)((int)pAVar15->pExtra->aPath[0] + iVar14 + 4,4);
+          (*param_1)((int)pAVar15->pExtra->aPath[0] + iVar14 + 8,4);
+          iVar14 = iVar14 + 0xc;
+        } while (iVar14 < 0x168);
+        (*param_1)(&pAVar15->pExtra->nPathIndex,4);
+        (*param_1)(&pAVar15->pExtra->pPuck,4);
+        (*param_1)(&pAVar15->pExtra->nFollowBoxes,4);
+        (*param_1)(&pAVar15->pExtra->nWalkDominate,4);
+        (*param_1)(&pAVar15->pExtra->flPuckRadius,4);
+        (*param_1)(&pAVar15->pExtra->nTalking,4);
+        (*param_1)(&pAVar15->pExtra->nVoiceSound,4);
+        (*param_1)(&pAVar15->pExtra->nTalkTime,4);
+        (*param_1)(pAVar15->pExtra->aMsgId,0xc);
+        (*param_1)(pAVar15->pExtra->aVoiceFile,0xf);
+        (*param_1)(&pAVar15->pExtra->pText,4);
+        (*param_1)(&pAVar15->pExtra->nLipSync,4);
+        (*param_1)(&pAVar15->pExtra->nActiveShadow,4);
+        (*param_1)(&pAVar15->pExtra->nCollisionMode,4);
+        (*param_1)(&pAVar15->pExtra->flCollisionScale,4);
+        (*param_1)(&pAVar15->pExtra->nCollided,4);
+        (*param_1)(&pAVar15->pExtra->nClipPlaneActive,4);
+        (*param_1)(pAVar15->pExtra->aClipNormal,4);
+        (*param_1)(pAVar15->pExtra->aClipNormal + 1,4);
+        (*param_1)(pAVar15->pExtra->aClipNormal + 2,4);
+        (*param_1)(pAVar15->pExtra->aClipPoint,4);
+        (*param_1)(pAVar15->pExtra->aClipPoint + 1,4);
+        (*param_1)(pAVar15->pExtra->aClipPoint + 2,4);
+        (*param_1)(&pAVar15->pExtra->dwTalkColor,4);
+        (*param_1)(&pAVar15->pExtra->flTimeScale,4);
+        (*param_1)(&pAVar15->pExtra->nInvClipNode,4);
+        if (pAVar15->pExtra->pPuck != (Puck *)0x0) {
+          pAVar15->pExtra->pPuck = (Puck *)0x0;
+          sputActor_EnablePuck(pAVar15,1);
+          if (pAVar15->pExtra->nFollowBoxes != 0) {
+            Puck_Validate(pAVar15->pExtra->pPuck);
           }
         }
-        if (pAVar14->pExtra->nTalking != 0) {
-          iVar13 = 0;
-          ppAVar6 = g_pTalkingActors;
+        if (pAVar15->pExtra->nTalking != 0) {
+          iVar14 = 0;
+          ppAVar7 = g_pTalkingActors;
           do {
-            if (*ppAVar6 == (Actor *)0x0) {
-              g_pTalkingActors[iVar13] = pAVar14;
+            if (*ppAVar7 == (Actor *)0x0) {
+              g_pTalkingActors[iVar14] = pAVar15;
               g_nNumActorsTalking = g_nNumActorsTalking + 1;
               break;
             }
-            ppAVar6 = ppAVar6 + 1;
-            iVar13 = iVar13 + 1;
-          } while ((int)ppAVar6 < ((unsigned)(uintptr_t)&FLOAT_008ca320));
+            ppAVar7 = ppAVar7 + 1;
+            iVar14 = iVar14 + 1;
+          } while ((int)ppAVar7 < ((unsigned)(uintptr_t)&FLOAT_008ca320));
         }
-        pTVar7 = pAVar14->pExtra->pText;
-        if (pTVar7 != (TextObject *)0x0) {
-          pTVar7 = sputText_FindSerialNumber((int)pTVar7);
-          pAVar14->pExtra->pText = pTVar7;
+        pTVar8 = pAVar15->pExtra->pText;
+        if (pTVar8 != (TextObject *)0x0) {
+          pTVar8 = sputText_FindSerialNumber((int)pTVar8);
+          pAVar15->pExtra->pText = pTVar8;
         }
-        sputActor_ResetShadows(pAVar14);
+        sputActor_ResetShadows(pAVar15);
         pvStack_160 = (void *)0x1f8;
         do {
-          iVar11 = (int)pvStack_160 + (int)pAVar14->pExtra;
-          iVar13 = 0;
+          iVar12 = (int)pvStack_160 + (int)pAVar15->pExtra;
+          iVar14 = 0;
           iStack_164 = 0;
-          (*param_1)(iVar11,4);
-          (*param_1)(iVar11 + 4,4);
-          (*param_1)(iVar11 + 8,4);
-          (*param_1)(iVar11 + 0xc,4);
-          (*param_1)(iVar11 + 0x10,4);
-          (*param_1)(iVar11 + 0x14,4);
-          (*param_1)(iVar11 + 0x18,4);
-          (*param_1)(iVar11 + 0x1c,4);
-          (*param_1)(iVar11 + 0x20,4);
+          (*param_1)(iVar12,4);
+          (*param_1)(iVar12 + 4,4);
+          (*param_1)(iVar12 + 8,4);
+          (*param_1)(iVar12 + 0xc,4);
+          (*param_1)(iVar12 + 0x10,4);
+          (*param_1)(iVar12 + 0x14,4);
+          (*param_1)(iVar12 + 0x18,4);
+          (*param_1)(iVar12 + 0x1c,4);
+          (*param_1)(iVar12 + 0x20,4);
           (*param_1)(&iStack_164,4);
           if (0xb < iStack_164) {
             (**(code **)(g_dwSputActHS + 0x18))
@@ -682,15 +686,15 @@ uint __cdecl sputActor_Restore(code *param_1)
                        s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x3a5);
           }
           if (0 < iStack_164) {
-            puVar4 = (undefined4 *)(iVar11 + 0x24);
+            puVar5 = (undefined4 *)(iVar12 + 0x24);
             do {
               acStack_80[0] = '\0';
               (*param_1)(acStack_80,0x20);
-              pWVar8 = WalkPlane_PlaneNamed(acStack_80);
-              *puVar4 = pWVar8;
-              iVar13 = iVar13 + 1;
-              puVar4 = puVar4 + 1;
-            } while (iVar13 < iStack_164);
+              pWVar9 = WalkPlane_PlaneNamed(acStack_80);
+              *puVar5 = pWVar9;
+              iVar14 = iVar14 + 1;
+              puVar5 = puVar5 + 1;
+            } while (iVar14 < iStack_164);
           }
           pvStack_160 = (void *)((int)pvStack_160 + 0x54);
         } while ((int)pvStack_160 < 0x3f0);

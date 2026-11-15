@@ -1,0 +1,1599 @@
+{
+ "_comment": "The long tail of raw offset accesses (2026-11-15): set actor lists, costume model components, bitmaps, fonts, module interfaces, cache rectangles, resource handlers and types, archive lookups and open files, file searches, and pointers to records typed already.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "RoomActorNode",
+   "size": 12,
+   "comment": "One actor in a set's actor list (sputRoom_AddActor).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nActor",
+     "index into g_pActors"
+    ],
+    [
+     4,
+     "RoomActorNode *",
+     "pPrev",
+     ""
+    ],
+    [
+     8,
+     "RoomActorNode *",
+     "pNext",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "RoomActors",
+   "size": 136,
+   "comment": "The actors of one set by name, on g_pRoomList (Set_NormalizeName allocates one).",
+   "fields": [
+    [
+     0,
+     "char[128]",
+     "aName",
+     "the set's name"
+    ],
+    [
+     128,
+     "RoomActorNode *",
+     "pActors",
+     ""
+    ],
+    [
+     132,
+     "RoomActors *",
+     "pNext",
+     "g_pRoomList"
+    ]
+   ]
+  },
+  {
+   "name": "Set",
+   "size": 6920,
+   "comment": "A set (0x1b08 bytes, the 'SET ' resource).",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     128,
+     "ResRef *",
+     "pColormaps",
+     "the colormap references"
+    ],
+    [
+     132,
+     "int",
+     "nColormaps",
+     "1 by default"
+    ],
+    [
+     136,
+     "int",
+     "nCurColormap",
+     ""
+    ],
+    [
+     140,
+     "char[32]",
+     "aColormapName",
+     ""
+    ],
+    [
+     172,
+     "Setup *",
+     "pSetups",
+     ""
+    ],
+    [
+     176,
+     "int",
+     "nSetups",
+     ""
+    ],
+    [
+     180,
+     "int",
+     "nCurSetup",
+     ""
+    ],
+    [
+     184,
+     "int",
+     "nLights",
+     ""
+    ],
+    [
+     188,
+     "SetLight[64]",
+     "aLights",
+     ""
+    ],
+    [
+     6844,
+     "RoomActors *",
+     "pRoomActors",
+     "its actor list (sputRoom_FreeRoomEntry)"
+    ],
+    [
+     6848,
+     "int",
+     "nLocked",
+     "sputRoom_UnReference keeps the resources while it is set"
+    ],
+    [
+     6900,
+     "uint",
+     "dwSize",
+     "0x1b08 (Set_InitRecord)"
+    ],
+    [
+     6904,
+     "char",
+     "cSoundMaxVolume",
+     "sputRoom_GetSoundParameters"
+    ],
+    [
+     6905,
+     "char",
+     "cSound1af9",
+     ""
+    ],
+    [
+     6908,
+     "float",
+     "flSoundMinVolume",
+     ""
+    ],
+    [
+     6912,
+     "float",
+     "flSoundPanScale",
+     "scales the listener-space x of a sound (SetSoundPosition)"
+    ],
+    [
+     6916,
+     "float",
+     "flSound1b04",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "ModelComponent",
+   "size": 404,
+   "comment": "A costume's model component (ThingInstancer): its model and thing, linked at +0x190.",
+   "fields": [
+    [
+     0,
+     "ResRef",
+     "modelRef",
+     "the 'MODL' resource"
+    ],
+    [
+     52,
+     "int",
+     "nHidden",
+     "skipped by the shadow pass (sputCostume_DrawMeshShadow)"
+    ],
+    [
+     56,
+     "int",
+     "nRoot",
+     "1 without a parent component (ThingInstancer)"
+    ],
+    [
+     60,
+     "int",
+     "nComponentFlags",
+     "from the component's description (+0x34)"
+    ],
+    [
+     64,
+     "rdThing *",
+     "pThing",
+     ""
+    ],
+    [
+     68,
+     "ModelComponent *",
+     "pParent",
+     "the component it hangs from"
+    ],
+    [
+     72,
+     "int",
+     "nParentNode",
+     "hierarchy node of the parent it is attached to"
+    ],
+    [
+     80,
+     "int",
+     "nRefCount",
+     "instances sharing it"
+    ],
+    [
+     400,
+     "ModelComponent *",
+     "pNext",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "CostumeNode",
+   "size": 180,
+   "comment": "One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults.",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwInstance",
+     "CHORE.DLL costume instance (Cos_CreateCosInstance)"
+    ],
+    [
+     4,
+     "void *",
+     "pMainModel",
+     "Costume_GetMainModel; a pushed costume with the same model takes over the head settings"
+    ],
+    [
+     8,
+     "ModelComponent *",
+     "pComponents",
+     "model / sprite components drawn with the actor, linked at +0x190"
+    ],
+    [
+     12,
+     "int[3]",
+     "aHeadJoints",
+     "SetActorHead, -1 none"
+    ],
+    [
+     24,
+     "float",
+     "flLookRate",
+     "360 (SetActorLookRate)"
+    ],
+    [
+     28,
+     "float",
+     "flMaxPitch",
+     "30 (SetActorHead)"
+    ],
+    [
+     32,
+     "float",
+     "flMaxYaw",
+     "90"
+    ],
+    [
+     36,
+     "float",
+     "flViewCos",
+     "-0.35: cosine of half the view cone (SetActorHead's first limit), sputActor_CanActorSeePoint"
+    ],
+    [
+     40,
+     "int",
+     "nWalkChore",
+     "-1 none (sputActor_SetWalkChore)"
+    ],
+    [
+     44,
+     "int",
+     "nTurnLeftChore",
+     "sputActor_SetTurnChores"
+    ],
+    [
+     48,
+     "int",
+     "nTurnRightChore",
+     ""
+    ],
+    [
+     52,
+     "int",
+     "nRestChore",
+     "sputActor_SetRestChore"
+    ],
+    [
+     56,
+     "int[16]",
+     "aTalkChores",
+     "mouth shapes; [0] is the closed mouth"
+    ],
+    [
+     120,
+     "int",
+     "nMumbleChore",
+     ""
+    ],
+    [
+     124,
+     "uint[13]",
+     "aCostumeRef",
+     "0x34-byte resource reference of the costume (Res_SetReference)"
+    ],
+    [
+     176,
+     "CostumeNode *",
+     "pNext",
+     "the costume below on the stack"
+    ]
+   ]
+  },
+  {
+   "name": "stdBitmap",
+   "size": 124,
+   "comment": "A loaded .bm / .gif / .lbm / .pcx image (stdLoadImageData): its frames are VBuffers.",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     32,
+     "int",
+     "nType",
+     "0, 3 (sputResource_BackgroundHandler)"
+    ],
+    [
+     36,
+     "uint",
+     "dwPalFlags",
+     "bit 1: pPalette holds 0x300 bytes"
+    ],
+    [
+     40,
+     "ColorFormat",
+     "colorFormat",
+     "the frames' pixel format"
+    ],
+    [
+     96,
+     "void *",
+     "pPalette",
+     ""
+    ],
+    [
+     100,
+     "int",
+     "nFrames",
+     ""
+    ],
+    [
+     104,
+     "int",
+     "nCurFrame",
+     ""
+    ],
+    [
+     108,
+     "int",
+     "nX",
+     ""
+    ],
+    [
+     112,
+     "int",
+     "nY",
+     ""
+    ],
+    [
+     120,
+     "VBuffer **",
+     "ppFrames",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "rdMesh",
+   "size": 124,
+   "comment": "One mesh of a model geoset (0x7c bytes).",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     36,
+     "int",
+     "nGeometryMode",
+     ""
+    ],
+    [
+     40,
+     "int",
+     "nLightingMode",
+     ""
+    ],
+    [
+     44,
+     "int",
+     "nTextureMode",
+     ""
+    ],
+    [
+     48,
+     "float *",
+     "pVertices",
+     "3 floats each (rdModel3_CalcRadii)"
+    ],
+    [
+     52,
+     "float *",
+     "pTexVertices",
+     ""
+    ],
+    [
+     64,
+     "void *",
+     "pFaces",
+     ""
+    ],
+    [
+     72,
+     "uint",
+     "dwNumVertices",
+     ""
+    ],
+    [
+     80,
+     "uint",
+     "dwNumFaces",
+     ""
+    ],
+    [
+     92,
+     "float",
+     "flLight",
+     "the mesh light of lighting mode 6 (rdModel3_DrawMeshImpl)"
+    ],
+    [
+     96,
+     "float",
+     "flRadius",
+     "bounding radius x 1.1 (rdModel3_CalcRadii)"
+    ]
+   ]
+  },
+  {
+   "name": "rdThing",
+   "size": 76,
+   "comment": "A drawable of the renderer (0x4c bytes): a model with its puppet, or a camera / polyline.",
+   "fields": [
+    [
+     0,
+     "int",
+     "nType",
+     "1 model (rdThing_SetModel3)"
+    ],
+    [
+     4,
+     "rdModel3 *",
+     "pModel",
+     "rdModel3"
+    ],
+    [
+     20,
+     "void *",
+     "pPuppet",
+     "rdPuppet (its tracks are freed with the thing)"
+    ],
+    [
+     24,
+     "int",
+     "nFrozen",
+     "rdPuppet_UpdateFrame leaves the matrices while set"
+    ],
+    [
+     28,
+     "uint",
+     "dwFrameTrue",
+     "g_dwRdroid_frameTrue of the last update"
+    ],
+    [
+     32,
+     "float *",
+     "pHierarchyMatrices",
+     "one rdMatrix34 per hierarchy node"
+    ],
+    [
+     36,
+     "float *",
+     "pHierarchyRot",
+     "3 floats per node"
+    ],
+    [
+     40,
+     "int *",
+     "pHierarchyFlags",
+     "one word per node"
+    ],
+    [
+     44,
+     "void *",
+     "pHierarchyExtra",
+     "freed with the thing"
+    ],
+    [
+     48,
+     "int",
+     "nGeoset",
+     "-1"
+    ],
+    [
+     52,
+     "int",
+     "nCurGeoset",
+     "-1 = the model's current geoset"
+    ],
+    [
+     56,
+     "int",
+     "nGeometryMode",
+     "4 by default (the thing's limit for its faces)"
+    ],
+    [
+     60,
+     "int",
+     "nLightingMode",
+     "3"
+    ],
+    [
+     64,
+     "int",
+     "nTextureMode",
+     "2"
+    ],
+    [
+     68,
+     "int",
+     "nFrustumCull",
+     "1: cull against the frustum"
+    ],
+    [
+     72,
+     "void *",
+     "pOwner",
+     "rdThing_NewEntry's second argument"
+    ]
+   ]
+  },
+  {
+   "name": "rdCamera",
+   "size": 1124,
+   "comment": "A camera of the renderer (0x464 bytes).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nProjectType",
+     "0 orthographic, 1 perspective"
+    ],
+    [
+     4,
+     "rdCanvas *",
+     "pCanvas",
+     "rdCamera_SetCanvas"
+    ],
+    [
+     8,
+     "float[12]",
+     "aView",
+     "view matrix (rdMatrix34, rdCamera_Update)"
+    ],
+    [
+     56,
+     "float",
+     "flFov",
+     "degrees, 5 .. 179"
+    ],
+    [
+     60,
+     "float",
+     "flFovY",
+     ""
+    ],
+    [
+     64,
+     "float",
+     "flAspect",
+     "rdCamera_SetAspectRatio's zoom; 1 picks the square projections"
+    ],
+    [
+     68,
+     "float",
+     "flOrthoScale",
+     "1.0"
+    ],
+    [
+     72,
+     "rdClipFrustum *",
+     "pFrustum",
+     ""
+    ],
+    [
+     76,
+     "code *",
+     "pfnProject",
+     "projects one point (rdCamera_PerspProject ...)"
+    ],
+    [
+     80,
+     "code *",
+     "pfnProjectLst",
+     "projects a list"
+    ],
+    [
+     84,
+     "float",
+     "flAmbientLight",
+     ""
+    ],
+    [
+     88,
+     "uint",
+     "dwNumLights",
+     "up to 64"
+    ],
+    [
+     92,
+     "rdLight *[64]",
+     "aLights",
+     ""
+    ],
+    [
+     348,
+     "float[192]",
+     "aLightPositions",
+     "3 floats per light"
+    ],
+    [
+     1116,
+     "float",
+     "flAttenuationMin",
+     "0.2"
+    ],
+    [
+     1120,
+     "float",
+     "flAttenuationMax",
+     "0.1"
+    ]
+   ]
+  },
+  {
+   "name": "ProcEntry",
+   "size": 120,
+   "comment": "A processed face of the render cache (rdProcEntry, 0x78 bytes): the transformed, clipped and projected polygon with what the rasteriser needs to draw it.",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwExtraData",
+     "0 (rdCache_InsertFace, rdSprite_DrawThing)"
+    ],
+    [
+     4,
+     "uint",
+     "dwFlags",
+     "bit 1 tested by the drawers (rdCache_DrawFaceN); 1 from rdCache_InsertFace, 0 from sprites"
+    ],
+    [
+     8,
+     "int",
+     "nGeometryMode",
+     "0 none .. 3 textured, 4 (downgraded to 3 when the cel has no alpha bit); clamped to g_nRdroid_curGeometryMode"
+    ],
+    [
+     12,
+     "int",
+     "nLightingMode",
+     "clamped to g_nRdroid_curLightingMode (0 .. 4)"
+    ],
+    [
+     16,
+     "int",
+     "nTextureMode",
+     "clamped to g_nRdroid_curTextureMode"
+    ],
+    [
+     28,
+     "uint",
+     "dwNumVertices",
+     "vertices after clipping"
+    ],
+    [
+     32,
+     "float *",
+     "pVertices",
+     "projected vertices, 3 floats each (the cache's vertex pool)"
+    ],
+    [
+     36,
+     "float *",
+     "pTexVertices",
+     "texture coordinates, 2 floats each"
+    ],
+    [
+     40,
+     "float *",
+     "pIntensities",
+     "per-vertex light"
+    ],
+    [
+     44,
+     "float *",
+     "pRedIntensities",
+     "per-vertex red (the same array as pIntensities when not coloured)"
+    ],
+    [
+     48,
+     "float *",
+     "pGreenIntensities",
+     ""
+    ],
+    [
+     52,
+     "float *",
+     "pBlueIntensities",
+     ""
+    ],
+    [
+     56,
+     "rdMaterial *",
+     "pMaterial",
+     "0 = untextured"
+    ],
+    [
+     60,
+     "int",
+     "nCel",
+     "the material's cel, -1 = the material's current cel"
+    ],
+    [
+     64,
+     "float",
+     "flAlpha",
+     "translucency, used with render option 2"
+    ],
+    [
+     68,
+     "float",
+     "flLightIndex",
+     "flLight * 63: the colormap's light row (rdCache_SendFaceListToHardware)"
+    ],
+    [
+     72,
+     "float",
+     "flLight",
+     "face light, clamped to 0 .. 1"
+    ],
+    [
+     80,
+     "int",
+     "nBackFacing",
+     "1 when the face points away from the camera (rdCache_InsertFace: normal . centre > 0)"
+    ]
+   ]
+  },
+  {
+   "name": "FontData",
+   "size": 48,
+   "comment": "The header of a locked font (Text_DrawChar): offsets are from the header.",
+   "fields": [
+    [
+     28,
+     "int",
+     "nFirstChar",
+     ""
+    ],
+    [
+     32,
+     "int",
+     "nLastChar",
+     ""
+    ],
+    [
+     36,
+     "int",
+     "nCharMapOffset",
+     "ushort glyph index per character"
+    ],
+    [
+     40,
+     "int",
+     "nGlyphOffset",
+     "0x5c-byte glyph records"
+    ],
+    [
+     44,
+     "int",
+     "nBitmapOffset",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "SysModuleIface",
+   "size": 32,
+   "comment": "The entry points a grimlib module fills in on initialization (Text_SysInitialize).",
+   "fields": [
+    [
+     0,
+     "code *",
+     "pfnInitialize",
+     ""
+    ],
+    [
+     4,
+     "code *",
+     "pfnTerminate",
+     ""
+    ],
+    [
+     8,
+     "code *",
+     "pfnStartup",
+     ""
+    ],
+    [
+     12,
+     "code *",
+     "pfnShutdown",
+     ""
+    ],
+    [
+     16,
+     "code *",
+     "pfnSave",
+     ""
+    ],
+    [
+     20,
+     "code *",
+     "pfnRestore",
+     ""
+    ],
+    [
+     24,
+     "code *",
+     "pfnReserved1",
+     ""
+    ],
+    [
+     28,
+     "code *",
+     "pfnReserved2",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "CacheRect",
+   "size": 32,
+   "comment": "A saved screen rectangle and its z-buffer (g_pCacheRectList).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwMagic",
+     ""
+    ],
+    [
+     4,
+     "int",
+     "nX",
+     ""
+    ],
+    [
+     8,
+     "int",
+     "nY",
+     ""
+    ],
+    [
+     12,
+     "int",
+     "nWidth",
+     ""
+    ],
+    [
+     16,
+     "int",
+     "nHeight",
+     ""
+    ],
+    [
+     20,
+     "VBuffer *",
+     "pClean",
+     ""
+    ],
+    [
+     24,
+     "VBuffer *",
+     "pCleanZ",
+     ""
+    ],
+    [
+     28,
+     "CacheRect *",
+     "pNext",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "ResMsg",
+   "size": 20,
+   "comment": "What a resource type handler is called with (Res_CallUnload).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nOp",
+     "1 load, 2 free, 3 size"
+    ],
+    [
+     4,
+     "char *",
+     "pName",
+     ""
+    ],
+    [
+     8,
+     "uint",
+     "dwType",
+     "fourcc"
+    ],
+    [
+     12,
+     "void *",
+     "pData",
+     "the loaded data (2, 3)"
+    ],
+    [
+     16,
+     "int",
+     "nSize",
+     "the answer to 3"
+    ]
+   ]
+  },
+  {
+   "name": "ResType",
+   "size": 16,
+   "comment": "A registered resource type (g_dwResTypeList).",
+   "fields": [
+    [
+     0,
+     "ResType *",
+     "pNext",
+     ""
+    ],
+    [
+     4,
+     "ResType *",
+     "pPrev",
+     ""
+    ],
+    [
+     8,
+     "uint",
+     "dwType",
+     "fourcc"
+    ],
+    [
+     12,
+     "code *",
+     "pfnHandler",
+     "takes a ResMsg"
+    ]
+   ]
+  },
+  {
+   "name": "LabFile",
+   "size": 536,
+   "comment": "Where a file was found (res_FindInternalFile): in an archive or on disk.",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwFourcc",
+     ""
+    ],
+    [
+     4,
+     "int",
+     "nFile",
+     "the archive's file handle"
+    ],
+    [
+     8,
+     "int",
+     "nSize",
+     ""
+    ],
+    [
+     12,
+     "int",
+     "nOffset",
+     "in the archive"
+    ],
+    [
+     16,
+     "int",
+     "nInLab",
+     "1: in an archive; 0: aPath on disk"
+    ],
+    [
+     20,
+     "char[257]",
+     "aName",
+     ""
+    ],
+    [
+     277,
+     "char[259]",
+     "aPath",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "ResFile",
+   "size": 4140,
+   "comment": "An open resource file (Res_FOpen; 128 of them at 0x825f40, handles 1-based).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwHandle",
+     "low-level file"
+    ],
+    [
+     4,
+     "int",
+     "nPos",
+     "file position of the buffer"
+    ],
+    [
+     8,
+     "int",
+     "nBufPos",
+     ""
+    ],
+    [
+     12,
+     "int",
+     "nBufCount",
+     ""
+    ],
+    [
+     16,
+     "int",
+     "nLength",
+     ""
+    ],
+    [
+     20,
+     "int",
+     "nBase",
+     "offset in the archive"
+    ],
+    [
+     24,
+     "int",
+     "nEof",
+     ""
+    ],
+    [
+     28,
+     "int",
+     "nDirect",
+     "opened on disk, not in an archive"
+    ],
+    [
+     32,
+     "int",
+     "nBufSize",
+     "0x1000"
+    ],
+    [
+     36,
+     "char[4]",
+     "aMode",
+     ""
+    ],
+    [
+     44,
+     "byte[4096]",
+     "aBuffer",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "StdFileEntry",
+   "size": 268,
+   "comment": "One result of stdFileUtil_FindNext.",
+   "fields": [
+    [
+     0,
+     "char[260]",
+     "aName",
+     ""
+    ],
+    [
+     260,
+     "int",
+     "nIsDir",
+     ""
+    ],
+    [
+     264,
+     "uint",
+     "dwTime",
+     "low word of the last write time"
+    ]
+   ]
+  },
+  {
+   "name": "StdFileSearch",
+   "size": 336,
+   "comment": "stdFileUtil_NewFind's search (a WIN32_FIND_DATAA at +0xc).",
+   "fields": [
+    [
+     8,
+     "int",
+     "nFind",
+     ""
+    ],
+    [
+     12,
+     "uint",
+     "dwFileAttributes",
+     ""
+    ],
+    [
+     32,
+     "uint",
+     "dwLastWriteTimeLow",
+     ""
+    ],
+    [
+     56,
+     "char[260]",
+     "aFileName",
+     "the pattern before the first call"
+    ],
+    [
+     332,
+     "int",
+     "nMode",
+     "1 directories only, 2 files only"
+    ]
+   ]
+  },
+  {
+   "name": "rdKeyframe",
+   "size": 132,
+   "comment": "A keyframe animation (rdKeyframe_Load).",
+   "fields": [
+    [
+     0,
+     "char[32]",
+     "aName",
+     ""
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "004a6160",
+   "index": 0,
+   "type": "RoomActors *",
+   "_fn": "SetActorList_Free",
+   "name": "list"
+  },
+  {
+   "addr": "004a4c60",
+   "index": 0,
+   "type": "Set *",
+   "_fn": "sputRoom_FreeRoomEntry",
+   "name": "set"
+  },
+  {
+   "addr": "004a5f60",
+   "index": 0,
+   "type": "char *",
+   "_fn": "sputRoom_AddActor",
+   "name": "setName"
+  },
+  {
+   "addr": "004a5f60",
+   "index": 1,
+   "type": "Actor *",
+   "_fn": "sputRoom_AddActor",
+   "name": "actor"
+  },
+  {
+   "addr": "00483aa0",
+   "index": 0,
+   "type": "Set *",
+   "_fn": "sputRender_SyncCamera"
+  },
+  {
+   "addr": "00483b50",
+   "index": 0,
+   "type": "Set *",
+   "_fn": "sputRender_UseSetup"
+  },
+  {
+   "addr": "004bed40",
+   "index": 0,
+   "type": "Set *",
+   "_fn": "LightEd_WriteLightsSection"
+  },
+  {
+   "addr": "00495510",
+   "index": 0,
+   "type": "Actor *",
+   "_fn": "Costume_ApplyScale"
+  },
+  {
+   "addr": "00495510",
+   "index": 1,
+   "type": "ModelComponent *",
+   "_fn": "Costume_ApplyScale"
+  },
+  {
+   "addr": "004956a0",
+   "index": 0,
+   "type": "ModelComponent *",
+   "_fn": "sputCostume_BuildThingStateMatrices"
+  },
+  {
+   "addr": "004aa6c0",
+   "index": 1,
+   "type": "ObjectState *",
+   "_fn": "ObjectState_MoveToBack"
+  },
+  {
+   "addr": "004aa720",
+   "index": 1,
+   "type": "ObjectState *",
+   "_fn": "ObjectState_MoveToFront"
+  },
+  {
+   "addr": "0047b560",
+   "index": 0,
+   "type": "stdBitmap *",
+   "_fn": "stdBitmap_MemUsage"
+  },
+  {
+   "addr": "0047ae70",
+   "index": 0,
+   "type": "stdBitmap *",
+   "_fn": "stdBitmap_Free"
+  },
+  {
+   "addr": "00473810",
+   "index": 1,
+   "type": "stdBitmap *",
+   "_fn": "stdWriteImage"
+  },
+  {
+   "addr": "0047cb70",
+   "index": 1,
+   "type": "stdBitmap *",
+   "_fn": "stdBmp_LoadEntry",
+   "name": "bitmap"
+  },
+  {
+   "addr": "0047d2d0",
+   "index": 1,
+   "type": "stdBitmap *",
+   "_fn": "stdPic_LoadEntry",
+   "name": "bitmap"
+  },
+  {
+   "addr": "0047b380",
+   "index": 0,
+   "type": "VBuffer *",
+   "_fn": "stdBitmap_VBufferToBitmap",
+   "name": "vbuf"
+  },
+  {
+   "addr": "004ab510",
+   "index": 1,
+   "type": "FontData *",
+   "_fn": "Font_GlyphAdvance"
+  },
+  {
+   "addr": "004ab710",
+   "index": 1,
+   "type": "FontData *",
+   "_fn": "Text_DrawChar"
+  },
+  {
+   "addr": "004abe90",
+   "index": 1,
+   "type": "SysModuleIface *",
+   "_fn": "Graph_SysInitialize"
+  },
+  {
+   "addr": "004aa7b0",
+   "index": 1,
+   "type": "SysModuleIface *",
+   "_fn": "Text_SysInitialize"
+  },
+  {
+   "addr": "00481e10",
+   "index": 0,
+   "type": "ResMsg *",
+   "_fn": "res_DefaultHandler"
+  },
+  {
+   "addr": "0048d930",
+   "index": 0,
+   "type": "ResMsg *",
+   "_fn": "sputResource_BackgroundHandler"
+  },
+  {
+   "addr": "0048da40",
+   "index": 0,
+   "type": "ResMsg *",
+   "_fn": "sputResource_CostumeHandler"
+  },
+  {
+   "addr": "0048dc60",
+   "index": 0,
+   "type": "ResMsg *",
+   "_fn": "sputResource_KeyframeHandler",
+   "name": "msg"
+  },
+  {
+   "addr": "00481a00",
+   "index": 4,
+   "type": "LabFile *",
+   "_fn": "Lab_FindEntry"
+  },
+  {
+   "addr": "00481cf0",
+   "index": 4,
+   "type": "LabFile *",
+   "_fn": "res_FindDirectoryEntry"
+  },
+  {
+   "addr": "00481630",
+   "index": 1,
+   "type": "LabFile *",
+   "_fn": "res_FindInternalFile"
+  },
+  {
+   "addr": "00482020",
+   "index": 0,
+   "type": "ResFile *",
+   "_fn": "Lab_ReadRaw",
+   "name": "file"
+  },
+  {
+   "addr": "00481fd0",
+   "index": 0,
+   "type": "ResFile *",
+   "_fn": "ResFile_FillBuffer",
+   "name": "file"
+  },
+  {
+   "addr": "004c12d0",
+   "index": 0,
+   "type": "StdFileSearch *",
+   "_fn": "stdFileUtil_FindNext"
+  },
+  {
+   "addr": "004c12d0",
+   "index": 1,
+   "type": "StdFileEntry *",
+   "_fn": "stdFileUtil_FindNext"
+  },
+  {
+   "addr": "004c12a0",
+   "index": 0,
+   "type": "StdFileSearch *",
+   "_fn": "stdFileUtil_DisposeFind",
+   "name": "find"
+  },
+  {
+   "addr": "00482620",
+   "index": 0,
+   "type": "VBuffer *",
+   "_fn": "grimlib_SetDisplay"
+  },
+  {
+   "addr": "00486760",
+   "index": 0,
+   "type": "VBuffer *",
+   "_fn": "sputRender_Decompress",
+   "name": "vbuf"
+  },
+  {
+   "addr": "00479170",
+   "index": 0,
+   "type": "VBuffer *",
+   "_fn": "std3D_AddToTextureCache"
+  },
+  {
+   "addr": "00450500",
+   "index": 0,
+   "type": "rdThing *",
+   "_fn": "rdPuppet_New",
+   "name": "thing"
+  },
+  {
+   "addr": "00450ba0",
+   "index": 0,
+   "type": "rdThing *",
+   "_fn": "rdPuppet_UpdateFrame",
+   "name": "thing"
+  },
+  {
+   "addr": "00472640",
+   "index": 0,
+   "type": "rdThing *",
+   "_fn": "rdSprite_DrawThing"
+  },
+  {
+   "addr": "0040d230",
+   "index": 0,
+   "type": "rdMesh *",
+   "_fn": "rdModel3_DrawMeshImpl"
+  },
+  {
+   "addr": "0040a8c0",
+   "index": 0,
+   "type": "rdModel3 *",
+   "_fn": "rdModel3_NewEntry",
+   "name": "model"
+  },
+  {
+   "addr": "00404a40",
+   "index": 0,
+   "type": "rdColormap *",
+   "_fn": "rdColormap_BuildGrayRamp",
+   "name": "colormap"
+  },
+  {
+   "addr": "004c0630",
+   "index": 0,
+   "type": "rdKeyframe *",
+   "_fn": "rdKeyframe_NewEntry",
+   "name": "keyframe"
+  },
+  {
+   "addr": "004cd1e0",
+   "index": 0,
+   "type": "LecPixelFormat *",
+   "_fn": "Blocky16_BuildExpandTable",
+   "name": "fmt"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "004a60c0",
+   "type": "RoomActors *",
+   "_fn": "Set_FindNameInList"
+  },
+  {
+   "addr": "004a6100",
+   "type": "RoomActors *",
+   "_fn": "Set_NormalizeName"
+  },
+  {
+   "addr": "004a60a0",
+   "type": "RoomActorNode *",
+   "_fn": "GetRoomActors"
+  },
+  {
+   "addr": "0047aa50",
+   "type": "stdBitmap *",
+   "_fn": "stdBitmap_Load"
+  },
+  {
+   "addr": "00473630",
+   "type": "stdBitmap *",
+   "_fn": "stdLoadImage"
+  },
+  {
+   "addr": "00473660",
+   "type": "stdBitmap *",
+   "_fn": "stdLoadImageData"
+  },
+  {
+   "addr": "0047db00",
+   "type": "stdBitmap *",
+   "_fn": "stdGif_Load"
+  },
+  {
+   "addr": "0047f120",
+   "type": "stdBitmap *",
+   "_fn": "stdLbm_Load"
+  },
+  {
+   "addr": "0047b380",
+   "type": "stdBitmap *",
+   "_fn": "stdBitmap_VBufferToBitmap"
+  },
+  {
+   "addr": "00481050",
+   "type": "ResType *",
+   "_fn": "ResType_Find"
+  },
+  {
+   "addr": "00481120",
+   "type": "Resource *",
+   "_fn": "Res_FindByHandle"
+  },
+  {
+   "addr": "004c1170",
+   "type": "StdFileSearch *",
+   "_fn": "stdFileUtil_NewFind"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "008cb0ac",
+   "type": "RoomActors *",
+   "_g": "g_pRoomList"
+  },
+  {
+   "addr": "008c9800",
+   "type": "Set *",
+   "_g": "g_pRenderedSet"
+  },
+  {
+   "addr": "008c97f4",
+   "type": "CacheRect *",
+   "_g": "g_pCacheRectList"
+  },
+  {
+   "addr": "008a85cc",
+   "type": "ResType *",
+   "_g": "g_dwResTypeList"
+  },
+  {
+   "addr": "008a85d4",
+   "type": "Resource *",
+   "_g": "g_pNewestResNode"
+  },
+  {
+   "addr": "008da528",
+   "type": "LecPixelFormat *",
+   "_g": "g_pBlkBitmap0"
+  }
+ ],
+ "locals": [
+  {
+   "addr": "004a41e0",
+   "name": "local_10",
+   "type": "Set *"
+  }
+ ]
+}

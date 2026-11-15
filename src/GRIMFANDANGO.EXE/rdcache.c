@@ -417,16 +417,16 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
       local_4c = 1;
     }
     local_20 = (float)pPVar15->pMaterial;
-    if (PUN(void *,(float)local_20) != (void *)0x0) {
+    if (PUN(rdMaterial *,(float)local_20) != (rdMaterial *)0x0) {
       iVar12 = pPVar15->nCel;
       if (iVar12 == -1) {
-        iVar12 = *(int *)(PUN(int,(float)local_20) + 100);
+        iVar12 = (PUN(rdMaterial *,(float)local_20))->nCurCel;
         if (iVar12 < 0) {
 LAB_00406cbf:
           iVar12 = 0;
         }
         else {
-          iVar14 = *(int *)(PUN(int,(float)local_20) + 0x60) + -1;
+          iVar14 = (PUN(rdMaterial *,(float)local_20))->nNumCels + -1;
           if (iVar14 < iVar12) {
             iVar12 = iVar14;
           }
@@ -434,12 +434,12 @@ LAB_00406cbf:
       }
       else {
         if (iVar12 < 0) goto LAB_00406cbf;
-        iVar14 = *(int *)(PUN(int,(float)local_20) + 0x60) + -1;
+        iVar14 = (PUN(rdMaterial *,(float)local_20))->nNumCels + -1;
         if (iVar14 < iVar12) {
           iVar12 = iVar14;
         }
       }
-      local_2c = *(undefined4 *)(PUN(int,(float)local_20) + iVar12 * 4 + 0x68);
+      local_2c = (uint)(PUN(rdMaterial *,(float)local_20))->aCels[iVar12];
       if ((local_8 == 4) && ((*(byte *)local_2c & 8) == 0)) {
         local_8 = 3;
       }
@@ -1329,7 +1329,7 @@ int __cdecl rdCache_DrawFaceN(ProcEntry *face)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   float fVar2;
-  void *pvVar3;
+  rdMaterial *prVar3;
   float fVar4;
   float fVar5;
   ProcEntry *pPVar6;
@@ -1357,20 +1357,20 @@ int __cdecl rdCache_DrawFaceN(ProcEntry *face)
   if (iVar9 == 0) {
     return 0;
   }
-  pvVar3 = pPVar6->pMaterial;
-  if (pvVar3 == (void *)0x0) {
+  prVar3 = pPVar6->pMaterial;
+  if (prVar3 == (rdMaterial *)0x0) {
     pbVar12 = (byte *)0x0;
     goto LAB_00408067;
   }
   iVar7 = pPVar6->nCel;
   if (iVar7 == -1) {
-    iVar7 = *(int *)((int)pvVar3 + 100);
+    iVar7 = prVar3->nCurCel;
     if (iVar7 < 0) {
 LAB_0040804e:
       iVar7 = 0;
     }
     else {
-      iVar11 = *(int *)((int)pvVar3 + 0x60) + -1;
+      iVar11 = prVar3->nNumCels + -1;
       if (iVar11 < iVar7) {
         iVar7 = iVar11;
       }
@@ -1378,12 +1378,12 @@ LAB_0040804e:
   }
   else {
     if (iVar7 < 0) goto LAB_0040804e;
-    iVar11 = *(int *)((int)pvVar3 + 0x60) + -1;
+    iVar11 = prVar3->nNumCels + -1;
     if (iVar11 < iVar7) {
       iVar7 = iVar11;
     }
   }
-  pbVar12 = *(byte **)((int)pvVar3 + iVar7 * 4 + 0x68);
+  pbVar12 = prVar3->aCels[iVar7];
   if ((iVar9 == 4) && ((*pbVar12 & 8) == 0)) {
     iVar9 = 3;
   }
@@ -1819,7 +1819,7 @@ int __cdecl rdCache_DrawFaceZ(ProcEntry *face)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
-  void *pvVar2;
+  rdMaterial *prVar2;
   float fVar3;
   float fVar4;
   ProcEntry *pPVar5;
@@ -1848,20 +1848,20 @@ int __cdecl rdCache_DrawFaceZ(ProcEntry *face)
   if (iVar8 == 0) {
     return 0;
   }
-  pvVar2 = pPVar5->pMaterial;
-  if (pvVar2 == (void *)0x0) {
+  prVar2 = pPVar5->pMaterial;
+  if (prVar2 == (rdMaterial *)0x0) {
     pbVar11 = (byte *)0x0;
   }
   else {
     iVar6 = pPVar5->nCel;
     if (iVar6 == -1) {
-      iVar6 = *(int *)((int)pvVar2 + 100);
+      iVar6 = prVar2->nCurCel;
       if (iVar6 < 0) {
 LAB_00408b6e:
         iVar6 = 0;
       }
       else {
-        iVar10 = *(int *)((int)pvVar2 + 0x60) + -1;
+        iVar10 = prVar2->nNumCels + -1;
         if (iVar10 < iVar6) {
           iVar6 = iVar10;
         }
@@ -1869,12 +1869,12 @@ LAB_00408b6e:
     }
     else {
       if (iVar6 < 0) goto LAB_00408b6e;
-      iVar10 = *(int *)((int)pvVar2 + 0x60) + -1;
+      iVar10 = prVar2->nNumCels + -1;
       if (iVar10 < iVar6) {
         iVar6 = iVar10;
       }
     }
-    pbVar11 = *(byte **)((int)pvVar2 + iVar6 * 4 + 0x68);
+    pbVar11 = prVar2->aCels[iVar6];
     if ((iVar8 == 4) && ((*pbVar11 & 8) == 0)) {
       iVar8 = 3;
     }

@@ -1960,3 +1960,26 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   hierarchy nodes, radius and insert offset; rdThing_SetModel3 takes an rdModel3, Set_DrawDebugCameras a Set,
   sputRoom_RemoveActor an Actor, rdCanvas_DrawLine / rdCanvas_NewEntry an rdCanvas; g_pCurModel3 is an rdModel3 *,
   g_pSputRender_Canvas an rdCanvas *. Clean room 0 of 5457.
+
+## The long tail: room actor lists, model components, bitmaps, resource files (2026-11-15)
+
+* names/types_rest.json:
+  * RoomActors (0x88, Set_NormalizeName: a set's actors by name on g_pRoomList) and RoomActorNode; Set.pRoomActors
+    at 0x1abc. sputRoom_AddActor's parameters were the wrong way round (it takes the set name first, the actor
+    second: it compares the name with actor->aSetName and stores the actor's index).
+  * ModelComponent (0x194, ThingInstancer: model reference, thing, parent component and node, linked at +0x190),
+    CostumeNode.pComponents.
+  * stdBitmap (0x7c: name, palette, ColorFormat, frames as VBuffer *), returned by the image loaders.
+  * FontData (a locked font's header), SysModuleIface (what Text_ / Graph_SysInitialize fill in), CacheRect.
+  * ResMsg (what a resource type handler gets) and ResType (g_dwResTypeList). Res_FindByHandle returns a Resource.
+  * LabFile (0x218, res_FindInternalFile's result) and ResFile (0x102c, an open resource file, 128 at 0x825f40).
+    Lab_ReadRaw takes a ResFile, not the LabEntry it was typed with (it reads the file handle, base and length).
+  * StdFileSearch / StdFileEntry (stdFileUtil_NewFind / FindNext), rdKeyframe's name.
+  * Pointers to records typed already: rdCamera.pCanvas (rdCanvas), ProcEntry.pMaterial (rdMaterial), rdThing.pModel
+    (rdModel3), VBuffer, rdThing, rdMesh, rdColormap, rdModel3, LecPixelFormat and Set parameters.
+* Override signatures updated to match: Costume_ApplyScale, rdModel3_DrawMeshImpl, rdPuppet_UpdateFrame,
+  stdPic_LoadEntry.
+* The EXE goes from 291 raw `((int)p + 0x..)` accesses to 76. What is left: resource data whose type depends on its
+  fourcc (sputResource_Alloc, ResRef.pData, Res_Loaded), costume instance data (Cos_InstGetInstanceData), strtok /
+  allocated name buffers terminated at +0x1f, the CRT (crt_unnamed.c), the puppet's +0x130, and functions whose
+  hand-written overrides run instead (rdModel3_DrawMeshImpl's faces, three in rdraster.c).

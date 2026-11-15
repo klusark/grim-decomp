@@ -78,22 +78,22 @@ uint __cdecl sputRoom_Startup(void)
 void __cdecl sputRoom_Shutdown(void)
 
 {
-  int iVar1;
-  void *pvVar2;
-  void *pvVar3;
-  int iVar4;
+  RoomActorNode *pRVar1;
+  RoomActors *pRVar2;
+  RoomActors *pRVar3;
+  RoomActorNode *pRVar4;
   
-  pvVar3 = g_pRoomList;
-  while (pvVar3 != (void *)0x0) {
-    iVar4 = *(int *)((int)pvVar3 + 0x80);
-    while (iVar4 != 0) {
-      iVar1 = *(int *)(iVar4 + 8);
-      (*g_pSputRoomHS->pFree)(iVar4);
-      iVar4 = iVar1;
+  pRVar3 = g_pRoomList;
+  while (pRVar3 != (RoomActors *)0x0) {
+    pRVar4 = pRVar3->pActors;
+    while (pRVar4 != (RoomActorNode *)0x0) {
+      pRVar1 = pRVar4->pNext;
+      (*g_pSputRoomHS->pFree)(pRVar4);
+      pRVar4 = pRVar1;
     }
-    pvVar2 = *(void **)((int)pvVar3 + 0x84);
-    (*g_pSputRoomHS->pFree)(pvVar3);
-    pvVar3 = pvVar2;
+    pRVar2 = pRVar3->pNext;
+    (*g_pSputRoomHS->pFree)(pRVar3);
+    pRVar3 = pRVar2;
   }
   if (g_pSoundPool != (void **)0x0) {
     Memory_FreePool(g_pSoundPool);

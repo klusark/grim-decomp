@@ -240,8 +240,9 @@ undefined *Display_InitFromConfig(void)
  * Here the factor is the same for all components and is inverted once per call. Non-model
  * components (type != 1, e.g. colormaps) are left alone: the original multiplied a float at +0x5c of
  * whatever object they point to. */
-void __cdecl Costume_ApplyScale(void *actor, void *componentList)
+void __cdecl Costume_ApplyScale(Actor *actor_, ModelComponent *componentList_)
 {
+    void *actor = actor_, *componentList = componentList_;
     float s = *(float *)((char *)actor + 0x30);
     void *c;
     float inv, d;

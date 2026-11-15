@@ -318,7 +318,7 @@ void __cdecl sputLua_Shutdown(void)
 
 {
   if (g_pFrFileReq != (void *)0x0) {
-    stdFileUtil_DisposeFind((int)g_pFrFileReq);
+    stdFileUtil_DisposeFind(g_pFrFileReq);
     g_pFrFileReq = (void *)0x0;
   }
   lua_unref(g_nLrSystemTable);

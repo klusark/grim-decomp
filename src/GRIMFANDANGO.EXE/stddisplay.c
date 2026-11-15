@@ -78,7 +78,7 @@ LAB_00402747:
       else {
         UINT_004f5a34 = (uint)&DAT_00901400;
       }
-      grimlib_SetDisplay(&g_dwStdDisplay_backBuffer,UINT_004f5a34);
+      grimlib_SetDisplay((VBuffer *)&g_dwStdDisplay_backBuffer,UINT_004f5a34);
       Win_SetWindowedSize((uint)(g_pDisplayDevice->nFullscreen != 0),(g_pVideoMode->format).nWidth,
                           (g_pVideoMode->format).nHeight);
       Reg_SetBinary(s_LastDisplayDevice_004dd738,g_pDisplayDevice->aGuid,0x10);

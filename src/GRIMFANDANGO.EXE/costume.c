@@ -61,8 +61,8 @@ void __cdecl sputCostume_PrintCostumeInfo(CostumeNode *costume)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   CostumeNode **ppCVar1;
-  void *pvVar2;
-  int iVar3;
+  ModelComponent *pMVar2;
+  rdModel3 *prVar3;
   int iVar4;
   uint uVar5;
   CostumeNode *pCVar6;
@@ -71,29 +71,29 @@ void __cdecl sputCostume_PrintCostumeInfo(CostumeNode *costume)
   pCVar6 = costume;
   if (costume != (CostumeNode *)0x0) {
     do {
-      iVar3 = Cos_InstCountChores(pCVar6->dwInstance);
+      iVar4 = Cos_InstCountChores(pCVar6->dwInstance);
       uVar5 = 0;
-      if (0 < iVar3) {
+      if (0 < iVar4) {
         do {
           Cos_InstChoreStatus(pCVar6->dwInstance,uVar5);
           uVar5 = uVar5 + 1;
-        } while ((int)uVar5 < iVar3);
+        } while ((int)uVar5 < iVar4);
       }
       ppCVar1 = &pCVar6->pNext;
       pCVar6 = *ppCVar1;
     } while (*ppCVar1 != (CostumeNode *)0x0);
-    for (pvVar2 = costume->pComponents; pvVar2 != (void *)0x0;
-        pvVar2 = *(void **)((int)pvVar2 + 400)) {
-      if (*(int *)((int)pvVar2 + 0x38) != 0) {
+    for (pMVar2 = costume->pComponents; pMVar2 != (ModelComponent *)0x0; pMVar2 = pMVar2->pNext) {
+      if (pMVar2->nRoot != 0) {
         uVar5 = 0;
-        iVar3 = *(int *)(*(int *)((int)pvVar2 + 0x40) + 4);
-        if (*(int *)(iVar3 + 0x54) != 0) {
+        prVar3 = pMVar2->pThing->pModel;
+        if (prVar3->nNumHierarchyNodes != 0) {
           iVar4 = 0;
           do {
-            String_ContainsSubstring((uint *)(*(int *)(iVar3 + 0x58) + iVar4),s_skirt_004ea1a8);
+            String_ContainsSubstring
+                      ((uint *)((int)prVar3->pHierarchyNodes + iVar4),s_skirt_004ea1a8);
             uVar5 = uVar5 + 1;
             iVar4 = iVar4 + 0xb8;
-          } while (uVar5 < *(uint *)(iVar3 + 0x54));
+          } while (uVar5 < (uint)prVar3->nNumHierarchyNodes);
         }
       }
     }
@@ -171,7 +171,8 @@ CostumeNode * __cdecl sputCostume_PushCostume(CostumeNode *list,void *costumeRes
   CostumeNode *pCVar1;
   uint uVar2;
   void *pvVar3;
-  uint uVar4;
+  ModelComponent *pMVar4;
+  uint uVar5;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   pCVar1 = Costume_AllocRecord();
@@ -204,17 +205,17 @@ CostumeNode * __cdecl sputCostume_PushCostume(CostumeNode *list,void *costumeRes
     pCVar1->pComponents = list->pComponents;
   }
   uVar2 = Cos_InstCountComponents(pCVar1->dwInstance);
-  uVar4 = 0;
+  uVar5 = 0;
   if (uVar2 != 0) {
     do {
-      pvVar3 = (void *)Cos_InstGetInstanceData(pCVar1->dwInstance,uVar4,(int *)&local_4);
+      pMVar4 = (ModelComponent *)Cos_InstGetInstanceData(pCVar1->dwInstance,uVar5,(int *)&local_4);
       if ((((local_4 == 0x4c444d4d) || (local_4 == 0x4c444f4d)) || (local_4 == 0x74727073)) &&
-         (*(int *)((int)pvVar3 + 0x50) == 1)) {
-        *(void **)((int)pvVar3 + 400) = pCVar1->pComponents;
-        pCVar1->pComponents = pvVar3;
+         (pMVar4->nRefCount == 1)) {
+        pMVar4->pNext = pCVar1->pComponents;
+        pCVar1->pComponents = pMVar4;
       }
-      uVar4 = uVar4 + 1;
-    } while (uVar4 < uVar2);
+      uVar5 = uVar5 + 1;
+    } while (uVar5 < uVar2);
   }
   return pCVar1;
 }
@@ -267,7 +268,7 @@ void __cdecl Costume_InitRecord(CostumeNode *node)
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
   }
-  node->pComponents = (void *)0x0;
+  node->pComponents = (ModelComponent *)0x0;
   node->pNext = (CostumeNode *)0x0;
   return;
 }
@@ -308,52 +309,52 @@ void * __cdecl Costume_GetMainModel(void *cosInst)
 #if 0
 /* Scales every model radius by actor+0x30 and stores the reciprocal so the second call undoes it */
 
-void __cdecl Costume_ApplyScale(void *actor,void *componentList)
+void __cdecl Costume_ApplyScale(Actor *actor,ModelComponent *componentList)
 
 {
-  float *pfVar1;
-  float *pfVar2;
-  int *piVar3;
-  int iVar4;
+  rdThing *prVar1;
+  rdModel3 *prVar2;
+  rdMesh *prVar3;
+  float fVar4;
   float fVar5;
-  float fVar6;
+  int iVar6;
   int iVar7;
   uint uVar8;
   int iVar9;
   
-  for (; componentList != (void *)0x0; componentList = *(void **)((int)componentList + 400)) {
-    if (*(int *)((int)actor + 0x30) != 0x3f800000) {
-      piVar3 = *(int **)((int)componentList + 0x40);
-      iVar4 = piVar3[1];
-      *(float *)(iVar4 + 0x5c) = *(float *)(iVar4 + 0x5c) * *(float *)((int)actor + 0x30);
-      if (*piVar3 == 1) {
-        iVar7 = *(int *)(iVar4 + 0x50);
+  for (; componentList != (ModelComponent *)0x0; componentList = componentList->pNext) {
+    if (actor->flScale != 1.0) {
+      prVar1 = componentList->pThing;
+      prVar2 = prVar1->pModel;
+      prVar2->flRadius = prVar2->flRadius * actor->flScale;
+      if (prVar1->nType == 1) {
+        iVar7 = prVar2->nCurGeoset;
         uVar8 = 0;
-        if (*(int *)(iVar4 + 0x24 + iVar7 * 8) != 0) {
+        if (prVar2->aGeosets[iVar7].dwMeshes != 0) {
           iVar9 = 0;
           do {
-            iVar7 = *(int *)(iVar4 + 0x28 + iVar7 * 8);
+            prVar3 = prVar2->aGeosets[iVar7].pMeshes;
             uVar8 = uVar8 + 1;
-            pfVar1 = (float *)(iVar7 + 0x60 + iVar9);
-            pfVar2 = (float *)(iVar7 + 0x60 + iVar9);
+            iVar7 = iVar9 + 0x60;
+            iVar6 = iVar9 + 0x60;
             iVar9 = iVar9 + 0x7c;
-            *pfVar2 = *(float *)((int)actor + 0x30) * *pfVar1;
-            iVar7 = *(int *)(iVar4 + 0x50);
-          } while (uVar8 < *(uint *)(iVar4 + 0x24 + iVar7 * 8));
+            *(float *)(prVar3->aName + iVar6) = actor->flScale * *(float *)(prVar3->aName + iVar7);
+            iVar7 = prVar2->nCurGeoset;
+          } while (uVar8 < prVar2->aGeosets[iVar7].dwMeshes);
         }
       }
-      fVar5 = 1.0 / *(float *)((int)actor + 0x30);
-      fVar6 = 1.0 - fVar5;
-      *(float *)((int)actor + 0x30) = fVar5;
-      fVar5 = fVar6;
-      if (fVar6 < 0.0) {
-        fVar5 = -fVar6;
+      fVar4 = 1.0 / actor->flScale;
+      fVar5 = 1.0 - fVar4;
+      actor->flScale = fVar4;
+      fVar4 = fVar5;
+      if (fVar5 < 0.0) {
+        fVar4 = -fVar5;
       }
-      if (fVar5 <= 1e-05f) {
-        fVar6 = 0.0;
+      if (fVar4 <= 1e-05f) {
+        fVar5 = 0.0;
       }
-      if (fVar6 == 0.0) {
-        *(undefined4 *)((int)actor + 0x30) = 0x3f800000;
+      if (fVar5 == 0.0) {
+        actor->flScale = 1.0;
       }
     }
   }
@@ -412,20 +413,19 @@ void __cdecl Costume_ApplyComponentState(void *cosInst)
    sputCostume_BuildThingStateMatrices (the remaster's GrimFandango (Linux): aligned call in
    sputCostume_InternalDraw3D); was Costume_UpdateAttachedFrame. */
 
-void __cdecl sputCostume_BuildThingStateMatrices(void *component,float *frame)
+void __cdecl sputCostume_BuildThingStateMatrices(ModelComponent *component,float *frame)
 
 {
-  void *model;
+  rdThing *thing;
   
-  model = *(void **)((int)component + 0x40);
-  if (*(void **)((int)component + 0x44) != (void *)0x0) {
-    sputCostume_BuildThingStateMatrices(*(void **)((int)component + 0x44),frame);
+  thing = component->pThing;
+  if (component->pParent != (ModelComponent *)0x0) {
+    sputCostume_BuildThingStateMatrices(component->pParent,frame);
     rdPuppet_UpdateFrame
-              (model,(float *)(*(int *)((int)component + 0x48) * 0x30 +
-                              *(int *)(*(int *)(*(int *)((int)component + 0x44) + 0x40) + 0x20)));
+              (thing,component->pParent->pThing->pHierarchyMatrices + component->nParentNode * 0xc);
     return;
   }
-  rdPuppet_UpdateFrame(model,frame);
+  rdPuppet_UpdateFrame(thing,frame);
   return;
 }
 
@@ -463,31 +463,31 @@ void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt)
 
 {
   void *pvVar1;
-  void *puppet;
-  float10 fVar2;
-  CostumeNode *pCVar3;
-  ulonglong uVar4;
+  ModelComponent *pMVar2;
+  float10 fVar3;
+  CostumeNode *pCVar4;
+  ulonglong uVar5;
   
   if (dt * 1000.0 <= 0.0) {
-    fVar2 = (float10)-0.5;
+    fVar3 = (float10)-0.5;
   }
   else {
-    fVar2 = (float10)0.5;
+    fVar3 = (float10)0.5;
   }
-  uVar4 = FTOL(fVar2 - (float10)dt * (float10)-1000.0);
+  uVar5 = FTOL(fVar3 - (float10)dt * (float10)-1000.0);
   if (costumeList != (CostumeNode *)0x0) {
     pvVar1 = costumeList->pMainModel;
-    pCVar3 = costumeList;
+    pCVar4 = costumeList;
     do {
-      if (pCVar3->pMainModel != pvVar1) break;
-      Cos_InstUpdateChores(pCVar3->dwInstance,(int)uVar4);
-      pCVar3 = pCVar3->pNext;
-    } while (pCVar3 != (CostumeNode *)0x0);
-    for (pvVar1 = costumeList->pComponents; pvVar1 != (void *)0x0;
-        pvVar1 = *(void **)((int)pvVar1 + 400)) {
-      puppet = *(void **)(*(int *)((int)pvVar1 + 0x40) + 0x14);
-      if (puppet != (void *)0x0) {
-        rdPuppet_UpdateTracks(puppet,(float)(uVar4 & 0xffffffff) * 0.001f);
+      if (pCVar4->pMainModel != pvVar1) break;
+      Cos_InstUpdateChores(pCVar4->dwInstance,(int)uVar5);
+      pCVar4 = pCVar4->pNext;
+    } while (pCVar4 != (CostumeNode *)0x0);
+    for (pMVar2 = costumeList->pComponents; pMVar2 != (ModelComponent *)0x0; pMVar2 = pMVar2->pNext)
+    {
+      pvVar1 = pMVar2->pThing->pPuppet;
+      if (pvVar1 != (void *)0x0) {
+        rdPuppet_UpdateTracks(pvVar1,(float)(uVar5 & 0xffffffff) * 0.001f);
       }
     }
   }

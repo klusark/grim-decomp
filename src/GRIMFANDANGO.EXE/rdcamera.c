@@ -51,7 +51,7 @@ rdCamera_NewEntry(rdCamera *camera,float fov,int projType,float aspectX,float as
     camera->pFrustum->flZFar = aspectY;
     camera->flAspect = zoom;
     camera->flOrthoScale = 1.0;
-    camera->pCanvas = (void *)0x0;
+    camera->pCanvas = (rdCanvas *)0x0;
     camera->flAmbientLight = 0.0;
     camera->dwNumLights = 0;
     camera->flAttenuationMin = 0.2;
@@ -155,7 +155,7 @@ int __cdecl rdCamera_SetProjectType(rdCamera *camera,int type)
       camera->pfnProjectLst = rdCamera_PerspProjectLst;
     }
   }
-  if (camera->pCanvas != (void *)0x0) {
+  if (camera->pCanvas != (rdCanvas *)0x0) {
     rdCamera_BuildFOV(&camera->nProjectType);
   }
   return 1;
@@ -286,12 +286,12 @@ void __cdecl rdCamera_Update(float *frame)
 void __cdecl rdCamera_OrthoProject(float *param_1,float *param_2)
 
 {
-  void *pvVar1;
+  rdCanvas *prVar1;
   
-  pvVar1 = g_pRdCamera_CurCamera->pCanvas;
-  *param_1 = g_pRdCamera_CurCamera->flOrthoScale * *param_2 + *(float *)((int)pvVar1 + 8);
+  prVar1 = g_pRdCamera_CurCamera->pCanvas;
+  *param_1 = g_pRdCamera_CurCamera->flOrthoScale * *param_2 + prVar1->flCenterX;
   param_1[1] = -(param_2[2] * g_pRdCamera_CurCamera->flOrthoScale) * g_pRdCamera_CurCamera->flAspect
-               + *(float *)((int)pvVar1 + 0xc);
+               + prVar1->flCenterY;
   param_1[2] = param_2[1];
   return;
 }
@@ -315,8 +315,8 @@ void __cdecl rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
   
   fVar3 = g_pRdCamera_CurCamera->flOrthoScale;
   fVar1 = g_pRdCamera_CurCamera->flAspect;
-  fVar2 = *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 0xc);
-  fVar4 = *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 8);
+  fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
+  fVar4 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
   for (; param_3 != 0; param_3 = param_3 + -1) {
     *param_1 = fVar3 * *param_2 + fVar4;
     param_1[1] = fVar2 - param_2[2] * fVar1 * fVar3;
@@ -339,11 +339,11 @@ void __cdecl rdCamera_OrthoProjectLst(float *param_1,float *param_2,int param_3)
 void __cdecl rdCamera_OrthoProjectSquare(float *param_1,float *param_2)
 
 {
-  void *pvVar1;
+  rdCanvas *prVar1;
   
-  pvVar1 = g_pRdCamera_CurCamera->pCanvas;
-  *param_1 = g_pRdCamera_CurCamera->flOrthoScale * *param_2 + *(float *)((int)pvVar1 + 8);
-  param_1[1] = *(float *)((int)pvVar1 + 0xc) - param_2[2] * g_pRdCamera_CurCamera->flOrthoScale;
+  prVar1 = g_pRdCamera_CurCamera->pCanvas;
+  *param_1 = g_pRdCamera_CurCamera->flOrthoScale * *param_2 + prVar1->flCenterX;
+  param_1[1] = prVar1->flCenterY - param_2[2] * g_pRdCamera_CurCamera->flOrthoScale;
   param_1[2] = param_2[1];
   return;
 }
@@ -365,8 +365,8 @@ void __cdecl rdCamera_OrthoProjectSquareLst(float *param_1,float *param_2,int pa
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   fVar1 = g_pRdCamera_CurCamera->flOrthoScale;
-  fVar2 = *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 8);
-  fVar3 = *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 0xc);
+  fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
+  fVar3 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
   for (; param_3 != 0; param_3 = param_3 + -1) {
     *param_1 = fVar1 * *param_2 + fVar2;
     param_1[1] = fVar3 - param_2[2] * fVar1;
@@ -390,14 +390,14 @@ void __cdecl rdCamera_PerspProject(float *param_1,float *param_2)
 
 {
   float fVar1;
-  void *pvVar2;
+  rdCanvas *prVar2;
   float fVar3;
   
   fVar3 = g_pRdCamera_CurCamera->flFovY / param_2[1];
-  pvVar2 = g_pRdCamera_CurCamera->pCanvas;
+  prVar2 = g_pRdCamera_CurCamera->pCanvas;
   fVar1 = g_pRdCamera_CurCamera->flAspect;
-  *param_1 = fVar3 * *param_2 + *(float *)((int)pvVar2 + 8);
-  param_1[1] = *(float *)((int)pvVar2 + 0xc) - param_2[2] * fVar1 * fVar3;
+  *param_1 = fVar3 * *param_2 + prVar2->flCenterX;
+  param_1[1] = prVar2->flCenterY - param_2[2] * fVar1 * fVar3;
   param_1[2] = param_2[1];
   return;
 }
@@ -418,8 +418,8 @@ void __cdecl rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  fVar2 = *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 8);
-  fVar3 = *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 0xc);
+  fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
+  fVar3 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
   for (; param_3 != 0; param_3 = param_3 + -1) {
     fVar4 = g_pRdCamera_CurCamera->flFovY / param_2[1];
     fVar1 = g_pRdCamera_CurCamera->flAspect;
@@ -443,13 +443,13 @@ void __cdecl rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3)
 void __cdecl rdCamera_PerspProjectSquare(float *param_1,float *param_2)
 
 {
-  void *pvVar1;
+  rdCanvas *prVar1;
   float fVar2;
   
   fVar2 = g_pRdCamera_CurCamera->flFovY / param_2[1];
-  pvVar1 = g_pRdCamera_CurCamera->pCanvas;
-  *param_1 = fVar2 * *param_2 + *(float *)((int)pvVar1 + 8);
-  param_1[1] = *(float *)((int)pvVar1 + 0xc) - param_2[2] * fVar2;
+  prVar1 = g_pRdCamera_CurCamera->pCanvas;
+  *param_1 = fVar2 * *param_2 + prVar1->flCenterX;
+  param_1[1] = prVar1->flCenterY - param_2[2] * fVar2;
   param_1[2] = param_2[1];
   return;
 }
@@ -469,8 +469,8 @@ void __cdecl rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int pa
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  fVar1 = *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 8);
-  fVar2 = *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 0xc);
+  fVar1 = g_pRdCamera_CurCamera->pCanvas->flCenterX;
+  fVar2 = g_pRdCamera_CurCamera->pCanvas->flCenterY;
   for (; param_3 != 0; param_3 = param_3 + -1) {
     fVar3 = g_pRdCamera_CurCamera->flFovY / param_2[1];
     *param_1 = fVar3 * *param_2 + fVar1;
@@ -527,28 +527,28 @@ void __cdecl rdCamera_AdvanceFrame(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint *puVar1;
+  rdCanvas *prVar1;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if (((g_pRdCamera_CurCamera != (rdCamera *)0x0) &&
-      (puVar1 = g_pRdCamera_CurCamera->pCanvas, (g_dwRdroid_curRenderOptions & 0x100) != 0)) &&
-     ((*puVar1 & 2) != 0)) {
+      (prVar1 = g_pRdCamera_CurCamera->pCanvas, (g_dwRdroid_curRenderOptions & 0x100) != 0)) &&
+     ((prVar1->dwFlags & 2) != 0)) {
     if (0 < g_nRdroid_curAcceleration) {
       std3D_ClearZBuffer();
       return;
     }
-    if ((*puVar1 & 1) != 0) {
-      local_10 = puVar1[6];
-      local_c = puVar1[7];
-      local_8 = (puVar1[8] - puVar1[6]) + 1;
-      local_4 = (puVar1[9] - puVar1[7]) + 1;
-      Surface_Fill((VBuffer *)puVar1[4],0,(int *)&local_10);
+    if ((prVar1->dwFlags & 1) != 0) {
+      local_10 = prVar1->nX0;
+      local_c = prVar1->nY0;
+      local_8 = (prVar1->nX1 - prVar1->nX0) + 1;
+      local_4 = (prVar1->nY1 - prVar1->nY0) + 1;
+      Surface_Fill(prVar1->pZBuffer,0,(int *)&local_10);
       return;
     }
-    Surface_Fill((VBuffer *)puVar1[4],0,(int *)0x0);
+    Surface_Fill(prVar1->pZBuffer,0,(int *)0x0);
   }
   return;
 }

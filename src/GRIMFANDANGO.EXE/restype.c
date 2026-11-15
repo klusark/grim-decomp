@@ -13,55 +13,54 @@
 int __cdecl Res_SysRegisterHandler(int fourcc,void *handler)
 
 {
-  int *piVar1;
-  uint *puVar2;
+  ResType *pRVar1;
   
   if (fourcc == 0x44454648) {
     PTR_res_DefaultHandler_004e79ac = handler;
     return 1;
   }
-  piVar1 = (int *)g_dwResTypeList;
-  if (g_dwResTypeList != 0) {
+  pRVar1 = g_dwResTypeList;
+  if (g_dwResTypeList != (ResType *)0x0) {
     do {
-      if (piVar1[2] == fourcc) break;
-      piVar1 = (int *)*piVar1;
-    } while (piVar1 != (int *)0x0);
-    if (piVar1 != (int *)0x0) {
+      if (pRVar1->dwType == fourcc) break;
+      pRVar1 = pRVar1->pNext;
+    } while (pRVar1 != (ResType *)0x0);
+    if (pRVar1 != (ResType *)0x0) {
       return 2;
     }
   }
-  puVar2 = (uint *)Memory_AllocFixed((int *)g_dwResTypePool);
-  if (puVar2 == (uint *)0x0) {
+  pRVar1 = (ResType *)Memory_AllocFixed((int *)g_dwResTypePool);
+  if (pRVar1 == (ResType *)0x0) {
     return 3;
   }
-  puVar2[2] = fourcc;
-  puVar2[3] = (uint)handler;
-  *puVar2 = g_dwResTypeList;
-  if (g_dwResTypeList != 0) {
-    *(uint **)(g_dwResTypeList + 4) = puVar2;
+  pRVar1->dwType = fourcc;
+  pRVar1->pfnHandler = handler;
+  pRVar1->pNext = g_dwResTypeList;
+  if (g_dwResTypeList != (ResType *)0x0) {
+    g_dwResTypeList->pPrev = pRVar1;
   }
-  puVar2[1] = 0;
-  g_dwResTypeList = (uint)puVar2;
+  pRVar1->pPrev = (ResType *)0x0;
+  g_dwResTypeList = pRVar1;
   return 1;
 }
 
 /* ---- 0x00481050  ResType_Find ---- */
 /* Finds the handler record {next, ?, fourcc, handlerFn} registered for a resource type */
 
-void * __cdecl ResType_Find(int fourcc)
+ResType * __cdecl ResType_Find(int fourcc)
 
 {
-  undefined4 *puVar1;
+  ResType *pRVar1;
   
-  puVar1 = (undefined4 *)g_dwResTypeList;
+  pRVar1 = g_dwResTypeList;
   while( true ) {
-    if (puVar1 == (undefined4 *)0x0) {
-      return (void *)0x0;
+    if (pRVar1 == (ResType *)0x0) {
+      return (ResType *)0x0;
     }
-    if (puVar1[2] == fourcc) break;
-    puVar1 = (undefined4 *)*puVar1;
+    if (pRVar1->dwType == fourcc) break;
+    pRVar1 = pRVar1->pNext;
   }
-  return puVar1;
+  return pRVar1;
 }
 
 /* ---- 0x00481e10  res_DefaultHandler ---- */
@@ -71,7 +70,7 @@ void * __cdecl ResType_Find(int fourcc)
    message 2: free the handle); res_Load's handler when no type matches in both builds); was
    ResType_DefaultHandler. */
 
-int __cdecl res_DefaultHandler(void *msg)
+int __cdecl res_DefaultHandler(ResMsg *msg)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -82,17 +81,17 @@ int __cdecl res_DefaultHandler(void *msg)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
-  if (*(int *)msg == 1) {
-    if (*(int *)((int)msg + 8) != 0x52455346) {
-      fh = Res_FOpen(*(char **)((int)msg + 4),&DAT_004ddb18);
+  if (msg->nOp == 1) {
+    if (msg->dwType != 0x52455346) {
+      fh = Res_FOpen(msg->pName,&DAT_004ddb18);
       if (fh != 0) {
-        n = Res_FSize(*(char **)((int)msg + 4));
+        n = Res_FSize(msg->pName);
         data = (void *)(**(code **)(g_dwResHS + 0x5c))(n);
         if (data != (void *)0x0) {
           buf = (void *)(**(code **)(g_dwResHS + 0x68))(data);
           Res_FRead(fh,buf,n);
           (**(code **)(g_dwResHS + 0x6c))(data);
-          Res_SysAddHandle(*(int *)((int)msg + 8),*(char **)((int)msg + 4),data);
+          Res_SysAddHandle(msg->dwType,msg->pName,data);
         }
         local_4 = (uint)(data != (void *)0x0);
         Res_FClose(fh);
@@ -101,8 +100,8 @@ int __cdecl res_DefaultHandler(void *msg)
       local_4 = 4;
     }
   }
-  else if (*(int *)msg == 2) {
-    (**(code **)(g_dwResHS + 0x60))(*(undefined4 *)((int)msg + 0xc));
+  else if (msg->nOp == 2) {
+    (**(code **)(g_dwResHS + 0x60))(msg->pData);
     return 0;
   }
   return local_4;
@@ -152,25 +151,26 @@ void * __cdecl sputResource_LipSyncHandler(int *param_1)
    GrimFandango (Linux): the 'BKND' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_BitmapHandler. */
 
-int __cdecl sputResource_BackgroundHandler(void *msg)
+int __cdecl sputResource_BackgroundHandler(ResMsg *msg)
 
 {
   VBuffer *surface;
   int iVar1;
+  stdBitmap *data;
   void *pvVar2;
   int iVar3;
   
-  if (*(int *)((int)msg + 8) != 0x444e4b42) {
+  if (msg->dwType != 0x444e4b42) {
     return 0;
   }
-  iVar1 = *(int *)msg;
+  iVar1 = msg->nOp;
   if (iVar1 == 1) {
-    pvVar2 = stdLoadImageData(*(char **)((int)msg + 4),0,0);
-    if (pvVar2 != (void *)0x0) {
-      if ((((*(int *)((int)pvVar2 + 0x20) != 3) && (*(int *)((int)pvVar2 + 0x20) == 0)) &&
-          (*(int *)((int)pvVar2 + 0x28) == 1)) && (iVar1 = 0, 0 < *(int *)((int)pvVar2 + 100))) {
+    data = stdLoadImageData(msg->pName,0,0);
+    if (data != (stdBitmap *)0x0) {
+      if ((((data->nType != 3) && (data->nType == 0)) && ((data->colorFormat).nColorMode == 1)) &&
+         (iVar1 = 0, 0 < data->nFrames)) {
         do {
-          surface = *(VBuffer **)(*(int *)((int)pvVar2 + 0x78) + iVar1 * 4);
+          surface = data->ppFrames[iVar1];
           stdDisplay_VBufferLock(surface);
           iVar3 = 0;
           if (0 < (surface->format).nHeight) {
@@ -185,20 +185,20 @@ int __cdecl sputResource_BackgroundHandler(void *msg)
           surface->dwColorKey = 0xf81f;
           sputRender_ColorCorrect((ushort *)&surface->dwColorKey,1);
           iVar1 = iVar1 + 1;
-        } while (iVar1 < *(int *)((int)pvVar2 + 100));
+        } while (iVar1 < data->nFrames);
       }
-      pvVar2 = Res_SysAddHandle(*(int *)((int)msg + 8),*(char **)((int)msg + 4),pvVar2);
+      pvVar2 = Res_SysAddHandle(msg->dwType,msg->pName,data);
       return (int)pvVar2;
     }
   }
   else {
     if (iVar1 == 2) {
-      stdBitmap_Free(*(void **)((int)msg + 0xc));
+      stdBitmap_Free(msg->pData);
       return 1;
     }
     if (iVar1 == 3) {
-      iVar1 = stdBitmap_MemUsage(*(void **)((int)msg + 0xc));
-      *(int *)((int)msg + 0x10) = iVar1;
+      iVar1 = stdBitmap_MemUsage(msg->pData);
+      msg->nSize = iVar1;
       return 1;
     }
   }
@@ -210,31 +210,31 @@ int __cdecl sputResource_BackgroundHandler(void *msg)
    GrimFandango (Linux): the 'COST' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_CostumeHandler. */
 
-int __cdecl sputResource_CostumeHandler(void *msg)
+int __cdecl sputResource_CostumeHandler(ResMsg *msg)
 
 {
   int iVar1;
   void *pvVar2;
   
   pvVar2 = (void *)0x0;
-  if (*(int *)((int)msg + 8) != 0x54534f43) {
+  if (msg->dwType != 0x54534f43) {
     return (int)pvVar2;
   }
-  iVar1 = *(int *)msg;
+  iVar1 = msg->nOp;
   if (iVar1 == 1) {
-    pvVar2 = (void *)Cos_Load(*(int *)((int)msg + 4));
+    pvVar2 = (void *)Cos_Load((int)msg->pName);
     if (pvVar2 == (void *)0x0) {
       return 0;
     }
-    pvVar2 = Res_SysAddHandle(*(int *)((int)msg + 8),*(char **)((int)msg + 4),pvVar2);
+    pvVar2 = Res_SysAddHandle(msg->dwType,msg->pName,pvVar2);
   }
   else {
     if (iVar1 == 2) {
-      Cos_Free(*(int *)((int)msg + 0xc));
+      Cos_Free((int)msg->pData);
       return 1;
     }
     if (iVar1 == 3) {
-      *(undefined4 *)((int)msg + 0x10) = 1;
+      msg->nSize = 1;
       return 1;
     }
   }
@@ -371,47 +371,46 @@ void * __cdecl sputResource_FontHandler(int *param_1)
    unmatched caller of rdKeyframe_Load; 2 matched neighbours agree, 0 disagree); was
    ResType_KeyframeHandler. */
 
-void * __cdecl sputResource_KeyframeHandler(int *param_1)
+void * __cdecl sputResource_KeyframeHandler(ResMsg *msg)
 
 {
   int iVar1;
-  int iVar2;
-  void *pvVar3;
+  void *pvVar2;
+  int iVar3;
   int iVar4;
-  int iVar5;
   
-  if (param_1[2] != 0x4659454b) {
+  if (msg->dwType != 0x4659454b) {
     return (void *)0x0;
   }
-  iVar1 = *param_1;
-  if (iVar1 == 1) {
-    pvVar3 = (void *)rdKeyframe_Load((char *)param_1[1]);
-    if (pvVar3 == (void *)0x0) {
+  iVar3 = msg->nOp;
+  if (iVar3 == 1) {
+    pvVar2 = (void *)rdKeyframe_Load(msg->pName);
+    if (pvVar2 == (void *)0x0) {
       return (void *)0x0;
     }
-    *(undefined4 *)((int)pvVar3 + 0x30) = 0x41700000;
-    pvVar3 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar3);
-    return pvVar3;
+    *(undefined4 *)((int)pvVar2 + 0x30) = 0x41700000;
+    pvVar2 = Res_SysAddHandle(msg->dwType,msg->pName,pvVar2);
+    return pvVar2;
   }
-  if (iVar1 == 2) {
-    rdKeyframe_Free(param_1[3]);
+  if (iVar3 == 2) {
+    rdKeyframe_Free((int)msg->pData);
   }
   else {
-    if (iVar1 != 3) {
+    if (iVar3 != 3) {
       return (void *)0x0;
     }
-    iVar1 = param_1[3];
-    param_1[4] = 0x84;
-    iVar4 = 0;
-    if (0 < *(int *)(iVar1 + 0x38)) {
-      iVar5 = 0;
+    pvVar2 = msg->pData;
+    msg->nSize = 0x84;
+    iVar3 = 0;
+    if (0 < *(int *)((int)pvVar2 + 0x38)) {
+      iVar4 = 0;
       do {
-        iVar2 = param_1[4];
-        iVar5 = iVar5 + 0x2c;
-        param_1[4] = iVar2 + 0x2c;
-        iVar4 = iVar4 + 1;
-        param_1[4] = iVar2 + 0x2c + *(int *)(*(int *)(iVar1 + 0x3c) + -8 + iVar5) * 0x38;
-      } while (iVar4 < *(int *)(iVar1 + 0x38));
+        iVar4 = iVar4 + 0x2c;
+        iVar1 = msg->nSize + 0x2c;
+        msg->nSize = iVar1;
+        iVar3 = iVar3 + 1;
+        msg->nSize = iVar1 + *(int *)(*(int *)((int)pvVar2 + 0x3c) + -8 + iVar4) * 0x38;
+      } while (iVar3 < *(int *)((int)pvVar2 + 0x38));
       return (void *)0x1;
     }
   }

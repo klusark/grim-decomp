@@ -43,7 +43,7 @@ static uint pic_bswap(uint v)
 }
 
 /* OVERRIDES: stdPic_LoadEntry */
-undefined4 stdPic_LoadEntry(char *path, undefined4 *bm_, int videoMem, int sysMem)
+uint __cdecl stdPic_LoadEntry(char *path, stdBitmap *bm_, int videoMem, int sysMem)
 {
     byte *bm = (byte *)bm_;
     uint fr[FR_N + 1];

@@ -156,8 +156,9 @@ uint __cdecl Blocky16_flobdec_DecodeHeader(int param_1)
   
   sVar1 = *(short *)(param_1 + 2);
   uVar2 = (int)*(short *)(param_1 + 4) + 7U & 0xfffffff8;
-  if ((((*(short *)(param_1 + 6) != g_nGlobal_bm_type) || (g_pBlkBitmap0 == (int *)0x0)) ||
-      ((int)sVar1 != g_pBlkBitmap0[1])) || (uVar2 != g_pBlkBitmap0[2])) {
+  if ((((*(short *)(param_1 + 6) != g_nGlobal_bm_type) || (g_pBlkBitmap0 == (LecPixelFormat *)0x0))
+      || ((int)sVar1 != *(int *)&g_pBlkBitmap0->field_0x4)) ||
+     (uVar2 != *(uint *)&g_pBlkBitmap0->field_0x8)) {
     Blocky16_flobdec_Reset();
     AllocBuffers((int)sVar1,uVar2,(int)*(short *)(param_1 + 6));
   }
@@ -188,7 +189,7 @@ int __cdecl AllocBuffers(int param_1,int param_2,int param_3)
       iVar1 = (*(code *)*g_pBlocky16_bitmap_services)(&g_pBlkBitmap2,param_1,param_2,param_3);
       if (iVar1 == 0) {
         g_nGlobal_bm_type = param_3;
-        g_pFob_blk16_key_buffer = (byte *)*g_pBlkBitmap0;
+        g_pFob_blk16_key_buffer = *(byte **)g_pBlkBitmap0;
         g_pFob_blk16_delta_buffer = (byte *)*g_pBlkBitmap1;
         g_pFob_blk16_render_buffer = (byte *)*g_pBlkBitmap2;
         msc_MemSet((uint)g_pFob_blk16_key_buffer,0,g_nFob_buffersize * 2);
@@ -220,7 +221,7 @@ int __cdecl AllocBuffers(int param_1,int param_2,int param_3)
 void __cdecl Blocky16_flobdec_Reset(void)
 
 {
-  if (g_pBlkBitmap0 != (int *)0x0) {
+  if (g_pBlkBitmap0 != (LecPixelFormat *)0x0) {
     (*(code *)g_pBlocky16_bitmap_services[2])(&g_pBlkBitmap0);
   }
   if (g_pBlkBitmap1 != (int *)0x0) {
@@ -720,15 +721,15 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
   int extraout_ECX;
   int iVar7;
   uint uVar8;
-  int *piVar9;
+  LecPixelFormat *pLVar9;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar8 = (uint)*(short *)(hdr + 8);
   iVar7 = (int)*(short *)(hdr + 0xc);
   src = (ushort *)(hdr + 0x230);
-  if (((g_pBlkBitmap0 == (int *)0x0) || (uVar8 != g_pBlkBitmap0[1])) ||
-     ((iVar7 + 7U & 0xfffffff8) != g_pBlkBitmap0[2])) {
+  if (((g_pBlkBitmap0 == (LecPixelFormat *)0x0) || (uVar8 != *(uint *)&g_pBlkBitmap0->field_0x4)) ||
+     ((iVar7 + 7U & 0xfffffff8) != *(uint *)&g_pBlkBitmap0->field_0x8)) {
     Blocky16_flobdec_Reset();
     iVar4 = (int)*(short *)(hdr + 0x228);
     if (*(short *)(hdr + 0x228) == 0) {
@@ -744,9 +745,11 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
   if (*(short *)(hdr + 0x10) == 0) {
     fob_blk16_configure(uVar8);
     gra_SetBuffer((char *)g_pFob_blk16_key_buffer,(int)g_pBlkBitmap0,
-                  g_pBlkBitmap0[1] * g_pBlkBitmap0[2],(char *)(hdr + 0x20));
+                  *(int *)&g_pBlkBitmap0->field_0x4 * *(int *)&g_pBlkBitmap0->field_0x8,
+                  (char *)(hdr + 0x20));
     gra_SetBuffer((char *)g_pFob_blk16_delta_buffer,(int)g_pBlkBitmap0,
-                  g_pBlkBitmap0[1] * g_pBlkBitmap0[2],(char *)(hdr + 0x20));
+                  *(int *)&g_pBlkBitmap0->field_0x4 * *(int *)&g_pBlkBitmap0->field_0x8,
+                  (char *)(hdr + 0x20));
     g_nBlkLastSeq = -1;
   }
   g_nBretsFrameCount = g_nBretsFrameCount + 1;
@@ -830,15 +833,15 @@ LAB_004ccf67:
       pbVar6 = (byte *)0x0;
     }
     if (g_pFob_blit_routine == (void *)0x0) {
-      piVar9 = g_pBlkBitmap0;
-      if (((g_pbBlkOutput == (byte *)*g_pBlkBitmap0) ||
-          (piVar9 = g_pBlkBitmap1, g_pbBlkOutput == (byte *)*g_pBlkBitmap1)) ||
-         (piVar9 = g_pBlkBitmap2, g_pbBlkOutput == (byte *)*g_pBlkBitmap2)) {
-        gra_BlitRectLookup(dst,clip,x,y,piVar9,(byte *)palette,pbVar6);
+      pLVar9 = g_pBlkBitmap0;
+      if (((g_pbBlkOutput == *(byte **)g_pBlkBitmap0) ||
+          (pLVar9 = (LecPixelFormat *)g_pBlkBitmap1, g_pbBlkOutput == (byte *)*g_pBlkBitmap1)) ||
+         (pLVar9 = (LecPixelFormat *)g_pBlkBitmap2, g_pbBlkOutput == (byte *)*g_pBlkBitmap2)) {
+        gra_BlitRectLookup(dst,clip,x,y,(int *)pLVar9,(byte *)palette,pbVar6);
       }
       palette = 1;
     }
-    else if (g_pbBlkOutput == (byte *)*g_pBlkBitmap0) {
+    else if (g_pbBlkOutput == *(byte **)g_pBlkBitmap0) {
       palette = (*(code *)g_pFob_blit_routine)(dst,clip,x,y,g_pBlkBitmap0,palette,pbVar6);
     }
     else if (g_pbBlkOutput == (byte *)*g_pBlkBitmap1) {
@@ -877,28 +880,27 @@ LAB_004ccf67:
 /* Makes the 64K entry table that converts 16 bit pixels to the display format when the display
    channel shifts change */
 
-void __cdecl Blocky16_BuildExpandTable(void *param_1)
+void __cdecl Blocky16_BuildExpandTable(LecPixelFormat *fmt)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
-  if (((((g_pbBlkExpand != (byte *)0x0) && (*(int *)((int)param_1 + 0xc) == 2)) &&
-       ((*(int *)((int)param_1 + 0x20) == 1 || (*(int *)((int)param_1 + 0x20) == 2)))) &&
-      (((*(int *)((int)param_1 + 0x30) != g_pBlkBitmap0[0xc] ||
-        (*(int *)((int)param_1 + 0x38) != g_pBlkBitmap0[0xe])) ||
-       (*(int *)((int)param_1 + 0x34) != g_pBlkBitmap0[0xd])))) &&
-     (((*(int *)((int)param_1 + 0x30) != g_nFob_translation_shiftr ||
-       (*(int *)((int)param_1 + 0x38) != g_nFob_translation_shiftb)) ||
-      (*(int *)((int)param_1 + 0x34) != g_nFob_translation_shiftg)))) {
-    g_nFob_translation_shiftr = *(int *)((int)param_1 + 0x30);
-    g_nFob_translation_shiftg = *(int *)((int)param_1 + 0x34);
-    g_nFob_translation_shiftb = *(int *)((int)param_1 + 0x38);
+  if (((((g_pbBlkExpand != (byte *)0x0) && (fmt->nBytesPerPixel == 2)) &&
+       ((fmt->nColorMode == 1 || (fmt->nColorMode == 2)))) &&
+      (((fmt->nRedShift != g_pBlkBitmap0->nRedShift ||
+        (fmt->nBlueShift != g_pBlkBitmap0->nBlueShift)) ||
+       (fmt->nGreenShift != g_pBlkBitmap0->nGreenShift)))) &&
+     (((fmt->nRedShift != g_nFob_translation_shiftr ||
+       (fmt->nBlueShift != g_nFob_translation_shiftb)) ||
+      (fmt->nGreenShift != g_nFob_translation_shiftg)))) {
+    g_nFob_translation_shiftr = fmt->nRedShift;
+    g_nFob_translation_shiftg = fmt->nGreenShift;
+    g_nFob_translation_shiftb = fmt->nBlueShift;
     for (local_8 = 0; (int)local_8 < 0x10000; local_8 = local_8 + 1) {
       *(undefined2 *)(g_pbBlkExpand + local_8 * 2) = (undefined2)local_8;
     }
-    gra_ConvertCopy(g_pbBlkExpand,(LecPixelFormat *)g_pBlkBitmap0,0x10000,(byte *)0x0,g_pbBlkExpand,
-                    param_1,(byte *)0x0);
+    gra_ConvertCopy(g_pbBlkExpand,g_pBlkBitmap0,0x10000,(byte *)0x0,g_pbBlkExpand,fmt,(byte *)0x0);
   }
   return;
 }

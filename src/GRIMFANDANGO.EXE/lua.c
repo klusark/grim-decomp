@@ -2442,10 +2442,9 @@ void __cdecl sputLua_PutActorInSetL(void)
   int iVar2;
   int iVar3;
   Actor *pAVar4;
+  char *pcVar5;
+  void *pvVar6;
   Actor *actor;
-  char *name;
-  void *pvVar5;
-  Actor *setName;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -2457,14 +2456,14 @@ void __cdecl sputLua_PutActorInSetL(void)
     if ((iVar1 == 0) && (iVar1 = lua_isnil(iVar2), iVar1 == 0)) {
       return;
     }
-    setName = pAVar4;
-    actor = (Actor *)lua_getstring(iVar2);
-    sputRoom_AddActor(actor,(char *)setName);
+    actor = pAVar4;
+    pcVar5 = (char *)lua_getstring(iVar2);
+    sputRoom_AddActor(pcVar5,actor);
     if ((((pAVar4->pExtra != (ActorExtra *)0x0) && (iVar1 = lua_isstring(iVar2), iVar1 != 0)) &&
         (pAVar4->pExtra->pPuck != (Puck *)0x0)) && (pAVar4->pExtra->nFollowBoxes != 0)) {
-      name = (char *)lua_getstring(iVar2);
-      pvVar5 = Res_Loaded(0x20544553,name);
-      if (pvVar5 != (void *)0x0) {
+      pcVar5 = (char *)lua_getstring(iVar2);
+      pvVar6 = Res_Loaded(0x20544553,pcVar5);
+      if (pvVar6 != (void *)0x0) {
         Puck_Validate(pAVar4->pExtra->pPuck);
       }
     }
@@ -4496,7 +4495,7 @@ void __cdecl sputLua_GetVisibleThingsL(void)
   Actor *target;
   int iVar1;
   int iVar2;
-  int *piVar3;
+  RoomActorNode *pRVar3;
   char *pcVar4;
   uint uVar5;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
@@ -4521,9 +4520,9 @@ void __cdecl sputLua_GetVisibleThingsL(void)
   if (*(char *)(local_8 + 0x7c) == '\0') {
     lua_pushobject(iVar1);
   }
-  for (piVar3 = GetRoomActors((char *)(local_8 + 0x7c)); piVar3 != (int *)0x0;
-      piVar3 = (int *)piVar3[2]) {
-    target = g_pActors + *piVar3;
+  for (pRVar3 = GetRoomActors((char *)(local_8 + 0x7c)); pRVar3 != (RoomActorNode *)0x0;
+      pRVar3 = pRVar3->pNext) {
+    target = g_pActors + pRVar3->nActor;
     if ((((target != (Actor *)0x0) && (target != (Actor *)local_8)) &&
         ((*(byte *)(local_8 + 4) & 1) == 0)) &&
        (iVar2 = sputActor_CanActorSeeActor((Actor *)local_8,target,&local_4), iVar2 != 0)) {
@@ -6985,7 +6984,7 @@ void __fastcall sputLua_FileFindFirst(char *param_1)
       local_4 = (uint)&DAT_004f5a98;
     }
     g_pFrFileReq = stdFileUtil_NewFind((char *)local_4,3,ext);
-    if (g_pFrFileReq != (void *)0x0) {
+    if (g_pFrFileReq != (StdFileSearch *)0x0) {
       sputLua_FileFindNext();
       return;
     }
@@ -7003,15 +7002,15 @@ void __fastcall sputLua_FileFindFirst(char *param_1)
 void __cdecl sputLua_FileFindNext(void)
 
 {
-  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[288] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
-  #define local_10c (*(char (*)[260])(_frame + (0x120 - 0x10c)))
-  #define local_8 (*(uint *)(_frame + (0x120 - 0x8)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
   iVar1 = 0;
   if (g_pFrFileReq != (void *)0x0) {
     do {
-      iVar1 = stdFileUtil_FindNext(g_pFrFileReq,local_10c);
+      iVar1 = stdFileUtil_FindNext(g_pFrFileReq,(StdFileEntry *)(_stkneg + 20));
       if (iVar1 != 1) break;
     } while (local_8 != 0);
     if (local_8 != 0) {
@@ -7019,13 +7018,12 @@ void __cdecl sputLua_FileFindNext(void)
     }
   }
   if (iVar1 != 0) {
-    lua_pushstring(local_10c);
+    lua_pushstring((_stkneg + 20));
     return;
   }
   lua_pushnil();
   return;
 }
-#undef local_10c
 #undef local_8
 
 
@@ -7037,7 +7035,7 @@ void __cdecl sputLua_FileFindDispose(void)
 
 {
   if (g_pFrFileReq != (void *)0x0) {
-    stdFileUtil_DisposeFind((int)g_pFrFileReq);
+    stdFileUtil_DisposeFind(g_pFrFileReq);
     g_pFrFileReq = (void *)0x0;
   }
   return;
@@ -10897,31 +10895,28 @@ void __cdecl sputLua_GetSaveGameImage(void)
 void __cdecl sputLua_GetImage(void)
 
 {
-  int iVar1;
+  VBuffer *pVVar1;
   int iVar2;
-  char *pcVar3;
-  void *bitmap;
+  int iVar3;
+  char *filename;
+  stdBitmap *bitmap;
   int iVar4;
   
-  iVar1 = lua_lua2C(1);
-  iVar2 = lua_isstring(iVar1);
-  if (iVar2 != 0) {
+  iVar2 = lua_lua2C(1);
+  iVar3 = lua_isstring(iVar2);
+  if (iVar3 != 0) {
     iVar4 = 0;
-    iVar2 = 0;
-    pcVar3 = (char *)lua_getstring(iVar1);
-    bitmap = stdLoadImage(pcVar3,iVar2,iVar4);
-    if (bitmap != (void *)0x0) {
-      pcVar3 = (char *)**(undefined4 **)((int)bitmap + 0x78);
-      pcVar3[0x60] = '\x1f';
-      pcVar3[0x61] = -8;
-      pcVar3[0x62] = '\0';
-      pcVar3[99] = '\0';
-      **(undefined4 **)((int)bitmap + 0x78) = 0;
+    iVar3 = 0;
+    filename = (char *)lua_getstring(iVar2);
+    bitmap = stdLoadImage(filename,iVar3,iVar4);
+    if (bitmap != (stdBitmap *)0x0) {
+      pVVar1 = *bitmap->ppFrames;
+      pVVar1->dwColorKey = 0xf81f;
+      *bitmap->ppFrames = (VBuffer *)0x0;
       stdBitmap_Free(bitmap);
-      sputRender_ColorCorrect
-                (*(ushort **)(pcVar3 + 0x5c),*(int *)(pcVar3 + 0x10) * *(int *)(pcVar3 + 0xc));
-      sputRender_ColorCorrect((ushort *)(pcVar3 + 0x60),1);
-      lua_pushusertag(pcVar3,0x46554256);
+      sputRender_ColorCorrect(pVVar1->pPixels,(pVVar1->format).nHeight * (pVVar1->format).nWidth);
+      sputRender_ColorCorrect((ushort *)&pVVar1->dwColorKey,1);
+      lua_pushusertag((char *)pVVar1,0x46554256);
       return;
     }
   }
@@ -11539,7 +11534,7 @@ void __cdecl Lua_LightMgrStartup(void)
 
 {
   uint uVar1;
-  Actor *actor;
+  char *setName;
   int iVar2;
   int a3;
   code *a4;
@@ -11569,8 +11564,8 @@ void __cdecl Lua_LightMgrStartup(void)
     }
     g_pLightEdMarkerActor = sputActor_ActorDeref(UINT_004f0d0c);
     sputActor_SetCostume(g_pLightEdMarkerActor,s_x_spot_cos_004f0d28,0);
-    actor = (Actor *)sputRoom_GetCurrentRoomName();
-    sputRoom_AddActor(actor,(char *)g_pLightEdMarkerActor);
+    setName = sputRoom_GetCurrentRoomName();
+    sputRoom_AddActor(setName,g_pLightEdMarkerActor);
     sputActor_EnableWalkSystem(g_pLightEdMarkerActor,0);
     g_pLightEdMarkerActor->dwFlags = g_pLightEdMarkerActor->dwFlags | 2;
     Lua_LightMgrSetChange();
@@ -11586,13 +11581,13 @@ void __cdecl Lua_LightMgrStartup(void)
 void __cdecl Lua_LightMgrSetChange(void)
 
 {
-  Actor *actor;
+  char *setName;
   
   if (g_hLightEdDialog != (void *)0x0) {
     g_pLightEdSet = sputRoom_GetCurrentRoom();
-    actor = (Actor *)sputRoom_GetCurrentRoomName();
+    setName = sputRoom_GetCurrentRoomName();
     if (g_pLightEdMarkerActor != (Actor *)0x0) {
-      sputRoom_AddActor(actor,(char *)g_pLightEdMarkerActor);
+      sputRoom_AddActor(setName,g_pLightEdMarkerActor);
     }
     LightMgr_Refresh();
     LightMgr_UpdateDialog((uint)g_hLightEdDialog);
