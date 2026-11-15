@@ -2264,3 +2264,21 @@ whole-game autorun).
   *dst, int dstPitch, int width, int rows)` now and Insane_PrepareFrame calls it directly. The other two such casts
   are in code that is not compiled (sputRender_Update's twin, a dead C runtime function of LUA.DLL).
 * Clean room 0 of 5490; the whole-game autorun passes (432 s).
+
+## ROUND under a switched control word (2026-11-15)
+
+* The original rounds through stdStartup's control words: it loads the round-up (0x0090052a), round-down (0x00900526)
+  or truncate (0x00900528) word around an FRNDINT or a FIST and the default (0x00900524) after it. Ghidra prints both
+  as `ROUND(x)`, which is rint: round to nearest. tools/build_src.py fix_round_modes reads the function's disassembly:
+  when every FRNDINT / FIST runs under one switched word, each ROUND becomes ROUND_UP / ROUND_DOWN / ROUND_TRUNC
+  (ceill / floorl / truncl, ghidra_types.h). A function that mixes modes or loads another control word is left alone.
+* The one compiled function it changes: std3D_AddToTextureCache. Its Direct3D texture sizes are floor(x + 0.5),
+  a FIST under the round-down word; the C rounded x + 0.5 to nearest, so for x = 2.2 it gave 3 where the original
+  gives 2. (The clean room's software renderer does not reach it.)
+* Generated again: Math_Floor (FRNDINT under the round-down word) and rdCache_AddProcFace (the screen box rounded up).
+* Still hand-written, with the twin test in names/override_reasons.json: rdPuppet_AdvanceTrack (20,746 differences in
+  20,000 cases of build/difftest/asm_q3/puppet_test.c, which needs rdPuppet_UpdateFrame's original code too: `twin.sh
+  ... rdPuppet_AdvanceTrack rdPuppet_UpdateFrame`), rdActive_BuildSpans (645 of 1,000 cases of
+  build/difftest/asm_p1/test_canvas.c; that harness takes the twin through `OVERRIDES=<twinsrc.py output>`), and
+  rdCache_SendFaceListToHardware (its twin does not compile: a material pointer stored into a float local).
+* docs/OVERRIDES.md: 524 hand-written functions. Clean room 0 of 5490.

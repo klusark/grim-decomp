@@ -46,20 +46,6 @@ void sputLua_Update(void)
     lua_updatetasks(0);
 }
 
-/* ==== Math_Floor (0x0047c100) ====
- * floor(x) for a float.  The code loads the x87 control word DAT_00900526 (round down, set up by stdStartup),
- * executes FRNDINT and restores the default word; the decompiler does not see the FLDCW and printed a plain ROUND(),
- * so the C text rounded to nearest (Manny's initial heading came out 0.04 degrees off). */
-float Math_Floor(float x)
-{
-    float t;
-    /* |x| >= 2^23 (or NaN / infinity) has no fractional part: FRNDINT leaves it alone, and a C integer cast would not */
-    if (!(x > -8388608.0f && x < 8388608.0f) || x == 0.0f)
-        return x;
-    t = (float)(int)x;                  /* truncate toward zero */
-    return (t > x) ? t - 1.0f : t;      /* ... then down for negative non-integers */
-}
-
 extern int GRIM_SimTime(void);   /* overrides.c: GRIM_SIMTIME=<ms> test knob (fixed frame time), 0 = off */
 extern void GRIM_SmushSimFrame(int ms);   /* overrides_mixer_drv.c: movies on game time */
 extern void GRIM_ImuseSimFrame(int ms);   /* overrides.c: iMUSE on game time */
