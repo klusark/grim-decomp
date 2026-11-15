@@ -819,7 +819,7 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
   case 0x3e9:
   case 0x3ea:
   case 0x3eb:
-    if (g_pLightEdSet == (void *)0x0) {
+    if (g_pLightEdSet == (Set *)0x0) {
       return (undefined *)0x1;
     }
     if (g_nLightEdSelected == -1) {
@@ -858,32 +858,32 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     }
     break;
   case 0x3f6:
-    if ((sVar2 == 0) && (g_pLightEdSet != (void *)0x0)) {
+    if ((sVar2 == 0) && (g_pLightEdSet != (Set *)0x0)) {
       LightEd_AddLight();
       return (undefined *)0x0;
     }
     break;
   case 0x3f7:
-    if (((sVar2 == 0) && (g_pLightEdSet != (void *)0x0)) && (g_nLightEdSelected != -1)) {
+    if (((sVar2 == 0) && (g_pLightEdSet != (Set *)0x0)) && (g_nLightEdSelected != -1)) {
       LightEd_DeleteLight(g_nLightEdSelected);
       return (undefined *)0x0;
     }
     break;
   case 0x3f8:
-    if ((sVar2 == 0) && (g_pLightEdSet != (void *)0x0)) {
+    if ((sVar2 == 0) && (g_pLightEdSet != (Set *)0x0)) {
       LightEd_SyncFromSet();
       LightMgr_UpdateDialog(a1);
       return (undefined *)0x0;
     }
     break;
   case 0x3f9:
-    if ((sVar2 == 0) && (g_pLightEdSet != (void *)0x0)) {
+    if ((sVar2 == 0) && (g_pLightEdSet != (Set *)0x0)) {
       LightEd_SaveSetFile();
       return (undefined *)0x0;
     }
     break;
   case 0x3fa:
-    if (g_pLightEdSet == (void *)0x0) {
+    if (g_pLightEdSet == (Set *)0x0) {
       return (undefined *)0x1;
     }
     if (g_nLightEdSelected == -1) {
@@ -899,7 +899,7 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     LightEd_SetAllEnabled(1);
     return (undefined *)0x1;
   case 0x3fe:
-    if ((g_pLightEdSet != (void *)0x0) && (g_nLightEdSelected != -1)) {
+    if ((g_pLightEdSet != (Set *)0x0) && (g_nLightEdSelected != -1)) {
       iVar4 = IsDlgButtonChecked(a1,0x3fe);
       (&UINT_008d1734)[g_nLightEdSelected * 5] = (uint)(iVar4 == 1);
       LightEd_MoveMarkerActor();
@@ -919,16 +919,16 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
                           (s_New_light_name_004f0ec8,(char *)0x0,(char *)&local_28,0x20,(char *)0x0)
        , iVar5 != 0)) {
       uVar3 = 0;
-      if (*(int *)((int)g_pLightEdSet + 0xb8) != 0) {
+      if (g_pLightEdSet->nLights != 0) {
         puVar8 = &UINT_008d1730;
         do {
           if ((uVar3 != iVar4) && (iVar5 = _stricmp((byte *)*puVar8,(byte *)&local_28), iVar5 == 0))
           break;
           uVar3 = uVar3 + 1;
           puVar8 = puVar8 + 5;
-        } while (uVar3 < *(uint *)((int)g_pLightEdSet + 0xb8));
+        } while (uVar3 < (uint)g_pLightEdSet->nLights);
       }
-      if (uVar3 < *(uint *)((int)g_pLightEdSet + 0xb8)) {
+      if (uVar3 < (uint)g_pLightEdSet->nLights) {
         MessageBoxA(0,((unsigned)(uintptr_t)&DAT_004f0e74),((unsigned)(uintptr_t)&s_Duplicate_light_name_004f0eb0),0x30);
       }
       else {

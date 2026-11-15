@@ -6323,8 +6323,8 @@ void __cdecl sputLua_LockSet(void)
     name = (char *)lua_getstring(iVar1);
     data = sputResource_Alloc(0x20544553,name);
     if ((data != (void *)0x0) && (*(int *)((int)data + 0x1ac0) == 0)) {
-      Res_SetReference((void *)((int)data + 0x1ac0),data,s_C__grimsrc_libs_grimlib_Scripts__004ec38c
-                       ,0x14b9);
+      Res_SetReference((ResRef *)((int)data + 0x1ac0),data,
+                       s_C__grimsrc_libs_grimlib_Scripts__004ec38c,0x14b9);
     }
   }
   return;
@@ -6348,7 +6348,7 @@ void __cdecl sputLua_UnLockSet(void)
     name = (char *)lua_getstring(iVar1);
     pvVar3 = sputResource_Alloc(0x20544553,name);
     if ((pvVar3 != (void *)0x0) && (*(int *)((int)pvVar3 + 0x1ac0) != 0)) {
-      Res_RemoveReference((void *)((int)pvVar3 + 0x1ac0));
+      Res_RemoveReference((ResRef *)((int)pvVar3 + 0x1ac0));
     }
   }
   return;

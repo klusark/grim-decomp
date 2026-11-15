@@ -1,0 +1,244 @@
+{
+ "_comment": "The resource manager's records (Res.c of grimlib, 2026-11-14): Resource (0x2c, Res_CreateRecord: list links, name, hash, type, data, handle, flags, archive, references, size), the 0x34-byte ResRef in full (Res_SetReference / Res_RemoveReference: valid, data, source file tag and line, its links in the resource's reference list), Lab (0x120, an open .LAB archive, Lab_AllocRecord / Lab_ReadDirectory) and LabEntry (0x1c, Lab_ReadDirectory's directory record).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "ResRef",
+   "size": 52,
+   "comment": "A resource reference (0x34 bytes).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nValid",
+     "1 while it refers to a resource"
+    ],
+    [
+     4,
+     "void *",
+     "pData",
+     "the resource's data"
+    ],
+    [
+     8,
+     "char[32]",
+     "aTag",
+     "source file of the code that took it (Res_SetReference's file, from the last backslash)"
+    ],
+    [
+     40,
+     "int",
+     "nLine",
+     "its line"
+    ],
+    [
+     44,
+     "ResRef *",
+     "pPrev",
+     "the resource's reference list"
+    ],
+    [
+     48,
+     "ResRef *",
+     "pNext",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "Resource",
+   "size": 44,
+   "comment": "A resource record (0x2c bytes, Res_CreateRecord).",
+   "fields": [
+    [
+     0,
+     "Resource *",
+     "pNext",
+     ""
+    ],
+    [
+     4,
+     "Resource *",
+     "pPrev",
+     ""
+    ],
+    [
+     8,
+     "char *",
+     "pName",
+     ""
+    ],
+    [
+     12,
+     "uint",
+     "dwHash",
+     "Res_HashName"
+    ],
+    [
+     16,
+     "uint",
+     "dwType",
+     "fourcc ('SET ', 'MAT ', ...)"
+    ],
+    [
+     20,
+     "void *",
+     "pData",
+     ""
+    ],
+    [
+     24,
+     "int",
+     "nHandle",
+     ""
+    ],
+    [
+     28,
+     "byte",
+     "bFlags",
+     "purgable, ..."
+    ],
+    [
+     32,
+     "void *",
+     "pLab",
+     "the archive it came from"
+    ],
+    [
+     36,
+     "ResRef *",
+     "pRefs",
+     "first reference"
+    ],
+    [
+     40,
+     "int",
+     "nSize",
+     "bytes (Res_GetSize)"
+    ]
+   ]
+  },
+  {
+   "name": "LabEntry",
+   "size": 28,
+   "comment": "A file in a .LAB archive's directory (0x1c bytes).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwHash",
+     "Res_HashName of the name"
+    ],
+    [
+     4,
+     "char *",
+     "pName",
+     "in the archive's name table"
+    ],
+    [
+     12,
+     "uint",
+     "dwFourcc",
+     ""
+    ],
+    [
+     16,
+     "int",
+     "nOffset",
+     "in the archive (Lab_ReadRaw)"
+    ],
+    [
+     20,
+     "int",
+     "nSize",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "Lab",
+   "size": 288,
+   "comment": "An open .LAB archive (0x120 bytes, g_pLabPool / g_pLabList).",
+   "fields": [
+    [
+     268,
+     "int",
+     "nFile",
+     "file handle (Res_FRead)"
+    ],
+    [
+     280,
+     "LabEntry *",
+     "pEntries",
+     "the directory"
+    ],
+    [
+     284,
+     "char *",
+     "pNames",
+     "the name table"
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "00482070",
+   "index": 0,
+   "type": "ResRef *",
+   "name": "ref"
+  },
+  {
+   "addr": "00482110",
+   "index": 0,
+   "type": "ResRef *",
+   "name": "ref"
+  },
+  {
+   "addr": "00481510",
+   "index": 0,
+   "type": "Resource *",
+   "name": "res"
+  },
+  {
+   "addr": "004815c0",
+   "index": 0,
+   "type": "Resource *",
+   "name": "res"
+  },
+  {
+   "addr": "00481ef0",
+   "index": 0,
+   "type": "Resource *",
+   "name": "res"
+  },
+  {
+   "addr": "004817a0",
+   "index": 0,
+   "type": "Lab *",
+   "name": "lab"
+  },
+  {
+   "addr": "00481a00",
+   "index": 0,
+   "type": "Lab *",
+   "name": "lab"
+  },
+  {
+   "addr": "00482020",
+   "index": 0,
+   "type": "LabEntry *",
+   "name": "entry"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "004810e0",
+   "type": "Resource *"
+  },
+  {
+   "addr": "004816b0",
+   "type": "Lab *"
+  }
+ ]
+}

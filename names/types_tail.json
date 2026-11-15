@@ -1,0 +1,46 @@
+{
+ "_comment": "Pointers to records that are typed already (2026-11-14): the render and movie buffers are VBuffers, rdPuppet_BuildJointMatrices takes an rdThing (its puppet and per-node arrays), sputActor_SetActorHead an Actor, Text_DrawChar a TextContext, the shadow colormap an rdColormap.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "params": [
+  {
+   "addr": "0040cee0",
+   "index": 0,
+   "type": "rdThing *",
+   "name": "thing"
+  },
+  {
+   "addr": "0048f9d0",
+   "index": 0,
+   "type": "Actor *",
+   "name": "actor"
+  },
+  {
+   "addr": "004ab710",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "008c97ac",
+   "type": "VBuffer *"
+  },
+  {
+   "addr": "008c97b0",
+   "type": "VBuffer *"
+  },
+  {
+   "addr": "008c97b4",
+   "type": "VBuffer *"
+  },
+  {
+   "addr": "008c9aa0",
+   "type": "VBuffer *"
+  },
+  {
+   "addr": "008ca790",
+   "type": "rdColormap *"
+  }
+ ]
+}

@@ -126,7 +126,7 @@ uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint pa
     g_dwSmushY = param_4;
     iVar1 = SmushPlay_StartMovie
                       (param_1,-(uint)(param_2 != 0) & 0x10,100000,param_3,param_4,
-                       *(int *)((int)g_pPresentBuf + 0xc),*(int *)((int)g_pPresentBuf + 0x10),0,
+                       (g_pPresentBuf->format).nWidth,(g_pPresentBuf->format).nHeight,0,
                        (uint)(UINT_009016ac != 6));
     if (iVar1 == 0) {
       g_nSmushPlaying = 1;
@@ -184,9 +184,9 @@ int __cdecl sputSmush_GetMovieLength(char *param_1)
 uint __cdecl sputSmush_StartVideo(int param_1,int param_2,int param_3)
 
 {
-  if ((((g_nSputSmushStarted != 0) && (*(int *)((int)g_pPresentBuf + 0xc) == param_1)) &&
-      (*(int *)((int)g_pPresentBuf + 0x10) == param_2)) &&
-     (*(int *)((int)g_pPresentBuf + 0x24) == param_3)) {
+  if ((((g_nSputSmushStarted != 0) && ((g_pPresentBuf->format).nWidth == param_1)) &&
+      ((g_pPresentBuf->format).nHeight == param_2)) &&
+     ((g_pPresentBuf->format).colorFormat.nBpp == param_3)) {
     return 0;
   }
   return 1;
@@ -215,15 +215,15 @@ uint __cdecl sputSmush_LockMovieBuffer(undefined4 *param_1,undefined4 *param_2)
     return 1;
   }
   stdDisplay_VBufferLock(g_pPresentBuf);
-  param_1[3] = *(uint *)((int)g_pPresentBuf + 0x24) >> 3;
-  *param_1 = *(undefined4 *)((int)g_pPresentBuf + 0x5c);
-  param_1[2] = *(undefined4 *)((int)g_pPresentBuf + 0x10);
-  param_1[1] = *(undefined4 *)((int)g_pPresentBuf + 0xc);
-  param_1[5] = *(undefined4 *)((int)g_pPresentBuf + 0x18);
+  param_1[3] = (uint)(g_pPresentBuf->format).colorFormat.nBpp >> 3;
+  *param_1 = g_pPresentBuf->pPixels;
+  param_1[2] = (g_pPresentBuf->format).nHeight;
+  param_1[1] = (g_pPresentBuf->format).nWidth;
+  param_1[5] = (g_pPresentBuf->format).nPitch;
   param_2[1] = 0;
   *param_2 = 0;
-  param_2[3] = *(undefined4 *)((int)g_pPresentBuf + 0x10);
-  param_2[2] = *(undefined4 *)((int)g_pPresentBuf + 0xc);
+  param_2[3] = (g_pPresentBuf->format).nHeight;
+  param_2[2] = (g_pPresentBuf->format).nWidth;
   return 0;
 }
 

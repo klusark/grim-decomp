@@ -66,28 +66,29 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  ResRef *pRVar1;
   int iVar2;
   uint extraout_EAX;
   int iVar3;
   byte *extraout_EAX_00;
   int iVar4;
-  undefined4 *ref;
+  ResRef *ref;
   rdThing *thing;
   undefined4 *puVar5;
-  int iVar6;
+  void *pvVar6;
+  int iVar7;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   if (create == 0) {
-    pvVar1 = (void *)Cos_InstGetInstanceData((int)cosInst,componentIdx,(int *)0x0);
-    iVar2 = *(int *)((int)pvVar1 + 0x50) + -1;
-    *(int *)((int)pvVar1 + 0x50) = iVar2;
+    pRVar1 = (ResRef *)Cos_InstGetInstanceData((int)cosInst,componentIdx,(int *)0x0);
+    iVar2 = *(int *)(pRVar1[1].aTag + 0x14) + -1;
+    *(int *)(pRVar1[1].aTag + 0x14) = iVar2;
     if (iVar2 == 0) {
-      Res_RemoveReference(pvVar1);
-      rdThing_Free(*(int *)((int)pvVar1 + 0x40));
-      (*g_pSputCosHS->pFree)(pvVar1);
+      Res_RemoveReference(pRVar1);
+      rdThing_Free(*(int *)(pRVar1[1].aTag + 4));
+      (*g_pSputCosHS->pFree)(pRVar1);
     }
     return (void *)0x0;
   }
@@ -96,53 +97,58 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
   iVar2 = Cos_InstGetUserData((int)cosInst);
   if (iVar2 != 0) {
     iVar3 = Cos_InstCountComponents(iVar2);
-    iVar6 = 0;
+    iVar7 = 0;
     if (0 < iVar3) {
       do {
-        Cos_InstComponentInfo(iVar2,iVar6,(int)&create,0,0);
+        Cos_InstComponentInfo(iVar2,iVar7,(int)&create,0,0);
         if (create == local_c) {
           iVar4 = _stricmp(extraout_EAX_00,(byte *)local_8);
           if (iVar4 == 0) {
-            pvVar1 = (void *)Cos_InstGetInstanceData(iVar2,iVar6,(int *)0x0);
-            *(int *)((int)pvVar1 + 0x50) = *(int *)((int)pvVar1 + 0x50) + 1;
-            return pvVar1;
+            pvVar6 = (void *)Cos_InstGetInstanceData(iVar2,iVar7,(int *)0x0);
+            *(int *)((int)pvVar6 + 0x50) = *(int *)((int)pvVar6 + 0x50) + 1;
+            return pvVar6;
           }
         }
-        iVar6 = iVar6 + 1;
-      } while (iVar6 < iVar3);
+        iVar7 = iVar7 + 1;
+      } while (iVar7 < iVar3);
     }
   }
   iVar2 = componentIdx;
   if (*(int *)componentIdx == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
   }
-  pvVar1 = *(void **)(iVar2 + 4);
-  ref = (undefined4 *)
-        (*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa8d);
-  puVar5 = ref;
+  pvVar6 = *(void **)(iVar2 + 4);
+  ref = (ResRef *)(*g_pSputCosHS->pAlloc)(0x194,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa8d);
+  pRVar1 = ref;
   for (iVar2 = 0x65; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
+    pRVar1->nValid = 0;
+    pRVar1 = (ResRef *)&pRVar1->pData;
   }
-  Res_SetReference(ref,pvVar1,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
+  Res_SetReference(ref,pvVar6,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xa91);
   thing = (rdThing *)rdThing_New(0);
-  rdThing_SetModel3(thing,pvVar1);
+  rdThing_SetModel3(thing,pvVar6);
   puVar5 = rdPuppet_New(thing);
   thing->pPuppet = puVar5;
-  ref[0x10] = thing;
-  ref[0xf] = *(undefined4 *)(componentIdx + 0x34);
+  *(rdThing **)(ref[1].aTag + 4) = thing;
+  *(undefined4 *)ref[1].aTag = *(undefined4 *)(componentIdx + 0x34);
   if (-1 < local_4) {
     puVar5 = (undefined4 *)Cos_InstGetInstanceData((int)cosInst,local_4,(int *)0x0);
-    ref[0x11] = *puVar5;
-    ref[0x12] = puVar5[1];
-    ref[0xe] = 0;
-    ref[0x14] = ref[0x14] + 1;
+    *(undefined4 *)(ref[1].aTag + 8) = *puVar5;
+    *(undefined4 *)(ref[1].aTag + 0xc) = puVar5[1];
+    ref[1].pData = (void *)0x0;
+    *(int *)(ref[1].aTag + 0x14) = *(int *)(ref[1].aTag + 0x14) + 1;
     return ref;
   }
-  ref[0x11] = 0;
-  ref[0x12] = 0xffffffff;
-  ref[0xe] = 1;
-  ref[0x14] = ref[0x14] + 1;
+  ref[1].aTag[8] = '\0';
+  ref[1].aTag[9] = '\0';
+  ref[1].aTag[10] = '\0';
+  ref[1].aTag[0xb] = '\0';
+  ref[1].aTag[0xc] = -1;
+  ref[1].aTag[0xd] = -1;
+  ref[1].aTag[0xe] = -1;
+  ref[1].aTag[0xf] = -1;
+  ref[1].pData = (void *)0x1;
+  *(int *)(ref[1].aTag + 0x14) = *(int *)(ref[1].aTag + 0x14) + 1;
   return ref;
 }
 #undef local_4
@@ -180,10 +186,11 @@ int __cdecl ThingRequester(uint param_1,int param_2,int param_3,int param_4,char
   uint uVar1;
   void *data;
   uint *puVar2;
-  undefined4 *ref;
+  ResRef *ref;
   int iVar3;
   char *pcVar4;
   undefined4 *puVar5;
+  ResRef *pRVar6;
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(undefined1 *)(_frame + (0x40 - 0x20)))
   #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
@@ -231,15 +238,14 @@ int __cdecl ThingRequester(uint param_1,int param_2,int param_3,int param_4,char
   if (data == (void *)0x0) {
     return 0;
   }
-  ref = (undefined4 *)
-        (*g_pSputCosHS->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xaf9);
-  puVar5 = ref;
+  ref = (ResRef *)(*g_pSputCosHS->pAlloc)(0x38,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xaf9);
+  pRVar6 = ref;
   for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
+    pRVar6->nValid = 0;
+    pRVar6 = (ResRef *)&pRVar6->pData;
   }
   Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xafc);
-  ref[0xd] = local_24;
+  ref[1].nValid = local_24;
   if (pcVar4 == (char *)0x0) {
     pcVar4 = param_5;
   }

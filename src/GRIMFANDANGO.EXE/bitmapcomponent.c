@@ -21,13 +21,13 @@ uint __cdecl BitmapRequester(uint param_1,int param_2,int param_3,int param_4,ch
   char *name;
   uint *puVar4;
   char *data;
-  undefined4 *ref;
+  ResRef *ref;
   uint uVar5;
   uint uVar6;
   int iVar7;
   char *pcVar8;
   char *pcVar9;
-  undefined4 *puVar10;
+  ResRef *pRVar10;
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
   #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
@@ -89,12 +89,11 @@ uint __cdecl BitmapRequester(uint param_1,int param_2,int param_3,int param_4,ch
     pcVar8 = pcVar8 + 1;
     pcVar9 = pcVar9 + 1;
   }
-  ref = (undefined4 *)
-        (*g_pSputCosHS->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x87f);
-  puVar10 = ref;
+  ref = (ResRef *)(*g_pSputCosHS->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x87f);
+  pRVar10 = ref;
   for (iVar7 = 0xd; iVar7 != 0; iVar7 = iVar7 + -1) {
-    *puVar10 = 0;
-    puVar10 = puVar10 + 1;
+    pRVar10->nValid = 0;
+    pRVar10 = (ResRef *)&pRVar10->pData;
   }
   Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x881);
   local_34 = *(int *)(data + 100) + 1;

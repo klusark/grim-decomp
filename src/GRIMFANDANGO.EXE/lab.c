@@ -26,26 +26,27 @@ int __cdecl Res_FileOpen(char *path)
 
 {
   char cVar1;
-  void *pvVar2;
-  uint uVar3;
-  char *pcVar4;
+  Lab *pLVar2;
+  void *pvVar3;
+  uint uVar4;
+  char *pcVar5;
   
   if (*path != '\0') {
-    uVar3 = 0xffffffff;
-    pcVar4 = path;
+    uVar4 = 0xffffffff;
+    pcVar5 = path;
     do {
-      if (uVar3 == 0) break;
-      uVar3 = uVar3 - 1;
-      cVar1 = *pcVar4;
-      pcVar4 = pcVar4 + 1;
+      if (uVar4 == 0) break;
+      uVar4 = uVar4 - 1;
+      cVar1 = *pcVar5;
+      pcVar5 = pcVar5 + 1;
     } while (cVar1 != '\0');
-    if (path[~uVar3 - 2] != '\\') {
-      pvVar2 = Lab_Open(path);
-      return (int)pvVar2;
+    if (path[~uVar4 - 2] != '\\') {
+      pLVar2 = Lab_Open(path);
+      return (int)pLVar2;
     }
   }
-  pvVar2 = LabDir_Open(path);
-  return (int)pvVar2;
+  pvVar3 = LabDir_Open(path);
+  return (int)pvVar3;
 }
 
 /* ---- 0x004803a0  Res_FileClose ---- */
@@ -57,8 +58,8 @@ int __cdecl Res_FileClose(char *name)
 
 {
   char cVar1;
-  int *piVar2;
-  int *res;
+  Resource *pRVar2;
+  Resource *res;
   int *piVar3;
   char *pcVar4;
   uint uVar5;
@@ -67,18 +68,18 @@ int __cdecl Res_FileClose(char *name)
   char *pcVar8;
   
   piVar3 = Lab_Find(name);
-  piVar2 = g_pNewestResNode;
+  pRVar2 = (Resource *)g_pNewestResNode;
   if (piVar3 != (int *)0x0) {
-    while (res = piVar2, res != (int *)0x0) {
-      piVar2 = (int *)*res;
-      if ((int *)res[8] == piVar3) {
-        if ((res[9] == 0) && ((*(byte *)(res + 7) & 8) == 0)) {
+    while (res = pRVar2, res != (Resource *)0x0) {
+      pRVar2 = res->pNext;
+      if (res->pLab == piVar3) {
+        if ((res->pRefs == (ResRef *)0x0) && ((res->bFlags & 8) == 0)) {
           Res_CallUnload(res);
           Res_Unlink(res);
         }
-        else if ((*(byte *)(res + 7) & 4) == 0) {
+        else if ((res->bFlags & 4) == 0) {
           uVar5 = 0xffffffff;
-          pcVar7 = (char *)res[2];
+          pcVar7 = res->pName;
           do {
             if (uVar5 == 0) break;
             uVar5 = uVar5 - 1;
@@ -88,7 +89,7 @@ int __cdecl Res_FileClose(char *name)
           pcVar4 = (char *)(**(code **)(g_dwResHS + 0x20))
                                      (~uVar5,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x2fe);
           uVar5 = 0xffffffff;
-          pcVar7 = (char *)res[2];
+          pcVar7 = res->pName;
           do {
             pcVar8 = pcVar7;
             if (uVar5 == 0) break;
@@ -110,9 +111,9 @@ int __cdecl Res_FileClose(char *name)
             pcVar7 = pcVar7 + 1;
             pcVar8 = pcVar8 + 1;
           }
-          *(byte *)(res + 7) = *(byte *)(res + 7) | 4;
-          res[2] = (int)pcVar4;
-          res[8] = 0;
+          res->bFlags = res->bFlags | 4;
+          res->pName = pcVar4;
+          res->pLab = (void *)0x0;
         }
       }
     }
@@ -234,22 +235,22 @@ int __cdecl res_FindInternalFile(char *name,void *outEntry)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *lab;
+  Lab *lab;
   uint hash;
   int iVar1;
   #define local_104 (*(byte (*)[260])(_frame + (0x120 - 0x104)))
   
   iVar1 = 0;
   hash = Res_HashName(name,(char *)local_104);
-  lab = g_pResFileList;
-  while ((lab != (int *)0x0 && (iVar1 == 0))) {
-    if ((*(byte *)(lab + 0x45) & 2) == 0) {
+  lab = (Lab *)g_pResFileList;
+  while ((lab != (Lab *)0x0 && (iVar1 == 0))) {
+    if ((lab->field_0x114 & 2) == 0) {
       iVar1 = res_FindDirectoryEntry((int)lab,0,local_104,hash,outEntry);
     }
     else {
       iVar1 = Lab_FindEntry(lab,0,(char *)local_104,hash,outEntry);
     }
-    lab = (int *)*lab;
+    lab = *(Lab **)lab;
   }
   return iVar1;
 }
@@ -259,55 +260,54 @@ int __cdecl res_FindInternalFile(char *name,void *outEntry)
 /* ---- 0x004816b0  Lab_Open ---- */
 /* Opens a .LAB archive, reads its directory with Lab_ReadDirectory */
 
-void * __cdecl Lab_Open(char *name)
+Lab * __cdecl Lab_Open(char *name)
 
 {
   char cVar1;
   int iVar2;
-  int *lab;
-  uint uVar3;
+  Lab *lab;
+  undefined4 uVar3;
   uint uVar4;
-  int *piVar5;
+  uint uVar5;
   char *pcVar6;
   char *pcVar7;
-  int *piVar8;
   
   iVar2 = Res_FOpen(name,&DAT_004ddb18);
-  lab = Lab_AllocRecord();
+  lab = (Lab *)Lab_AllocRecord();
   if (iVar2 != 0) {
-    uVar3 = 0xffffffff;
+    uVar4 = 0xffffffff;
     pcVar6 = name;
     do {
       pcVar7 = pcVar6;
-      if (uVar3 == 0) break;
-      uVar3 = uVar3 - 1;
+      if (uVar4 == 0) break;
+      uVar4 = uVar4 - 1;
       pcVar7 = pcVar6 + 1;
       cVar1 = *pcVar6;
       pcVar6 = pcVar7;
     } while (cVar1 != '\0');
-    uVar3 = ~uVar3;
-    piVar5 = (int *)(pcVar7 + -uVar3);
-    piVar8 = lab + 2;
-    for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *piVar8 = *piVar5;
-      piVar5 = piVar5 + 1;
-      piVar8 = piVar8 + 1;
+    uVar4 = ~uVar4;
+    pcVar6 = pcVar7 + -uVar4;
+    pcVar7 = &lab->field_0x8;
+    for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *(undefined4 *)pcVar7 = *(undefined4 *)pcVar6;
+      pcVar6 = pcVar6 + 4;
+      pcVar7 = pcVar7 + 4;
     }
-    for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *(char *)piVar8 = (char)*piVar5;
-      piVar5 = (int *)((int)piVar5 + 1);
-      piVar8 = (int *)((int)piVar8 + 1);
+    for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
+      *pcVar7 = *pcVar6;
+      pcVar6 = pcVar6 + 1;
+      pcVar7 = pcVar7 + 1;
     }
-    lab[0x43] = iVar2;
-    iVar2 = (**(code **)(g_dwResHS + 0x50))(name);
-    lab[0x44] = iVar2;
-    lab[0x45] = 2;
-    lab[0x46] = 0;
-    lab[0x47] = 0;
+    lab->nFile = iVar2;
+    uVar3 = (**(code **)(g_dwResHS + 0x50))(name);
+    *(undefined4 *)&lab->field_0x110 = uVar3;
+    *(undefined4 *)&lab->field_0x114 = 2;
+    lab->pEntries = (LabEntry *)0x0;
+    lab->pNames = (char *)0x0;
     iVar2 = Lab_ReadDirectory(lab);
     if (iVar2 != 1) {
-      Lab_Unlink(lab);
-      lab = (int *)0x0;
+      Lab_Unlink((int *)lab);
+      lab = (Lab *)0x0;
     }
   }
   return lab;
@@ -346,68 +346,70 @@ int * Lab_AllocRecord(void)
 /* Parses the LABN header (version, entry count, name table size) and the 16-byte entries into
    0x1c-byte records {nameHash, name, ?, fourcc, a, b, 0}; names are hashed with Res_HashName */
 
-int __cdecl Lab_ReadDirectory(void *lab)
+int __cdecl Lab_ReadDirectory(Lab *lab)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
-  void *n;
+  Lab *pLVar1;
+  Lab *n;
   uint uVar2;
-  int iVar3;
-  void *pvVar4;
-  uint *puVar5;
-  undefined4 *puVar6;
-  void *pvVar7;
+  LabEntry *pLVar3;
+  char *pcVar4;
+  uint uVar5;
+  Lab *pLVar6;
+  int iVar7;
+  Lab *pLVar8;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(char (*)[8])(_frame + (0x20 - 0x8)))
   
-  pvVar1 = lab;
-  uVar2 = Res_FRead(*(int *)((int)lab + 0x10c),local_8,4);
+  pLVar1 = lab;
+  uVar2 = Res_FRead(lab->nFile,local_8,4);
   if ((((uVar2 == 4) && (uVar2 = strncmp(local_8,&DAT_004e7af0,4), uVar2 == 0)) &&
-      (uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4), uVar2 == 4)) &&
-     (((lab < (void *)0x10001 &&
-       (uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4), pvVar7 = lab, uVar2 == 4)) &&
-      (uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4), n = lab, uVar2 == 4)))) {
-    iVar3 = (**(code **)(g_dwResHS + 0x20))
-                      (((int)pvVar7 + 1) * 0x1c,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xbdc);
-    *(int *)((int)pvVar1 + 0x118) = iVar3;
-    if (iVar3 != 0) {
-      iVar3 = (**(code **)(g_dwResHS + 0x20))(n,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xbdf);
-      *(int *)((int)pvVar1 + 0x11c) = iVar3;
-      if (iVar3 != 0) {
-        puVar6 = *(undefined4 **)((int)pvVar1 + 0x118);
-        pvVar4 = (void *)0x0;
-        if (pvVar7 != (void *)0x0) {
+      (uVar2 = Res_FRead(pLVar1->nFile,&lab,4), uVar2 == 4)) &&
+     (((lab < (Lab *)0x10001 && (uVar2 = Res_FRead(pLVar1->nFile,&lab,4), pLVar8 = lab, uVar2 == 4))
+      && (uVar2 = Res_FRead(pLVar1->nFile,&lab,4), n = lab, uVar2 == 4)))) {
+    pLVar3 = (LabEntry *)
+             (**(code **)(g_dwResHS + 0x20))
+                       ((int)&pLVar8->field_0x1 * 0x1c,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,
+                        0xbdc);
+    pLVar1->pEntries = pLVar3;
+    if (pLVar3 != (LabEntry *)0x0) {
+      pcVar4 = (char *)(**(code **)(g_dwResHS + 0x20))
+                                 (n,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xbdf);
+      pLVar1->pNames = pcVar4;
+      if (pcVar4 != (char *)0x0) {
+        pLVar3 = pLVar1->pEntries;
+        uVar2 = 0;
+        if (pLVar8 != (Lab *)0x0) {
           do {
-            uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4);
-            if (uVar2 != 4) goto LAB_00481994;
-            puVar6[1] = (int)lab + *(int *)((int)pvVar1 + 0x11c);
-            uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4);
-            if (uVar2 != 4) goto LAB_00481994;
-            puVar6[4] = lab;
-            uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4);
-            if (uVar2 != 4) goto LAB_00481994;
-            puVar6[5] = lab;
-            uVar2 = Res_FRead(*(int *)((int)pvVar1 + 0x10c),&lab,4);
-            if (uVar2 != 4) goto LAB_00481994;
-            puVar6[6] = 0;
-            puVar6[3] = lab;
-            pvVar4 = (void *)((int)pvVar4 + 1);
-            puVar6 = puVar6 + 7;
-          } while (pvVar4 < pvVar7);
+            uVar5 = Res_FRead(pLVar1->nFile,&lab,4);
+            if (uVar5 != 4) goto LAB_00481994;
+            pLVar3->pName = pLVar1->pNames + (int)&lab->field_0x0;
+            uVar5 = Res_FRead(pLVar1->nFile,&lab,4);
+            if (uVar5 != 4) goto LAB_00481994;
+            pLVar3->nOffset = (int)lab;
+            uVar5 = Res_FRead(pLVar1->nFile,&lab,4);
+            if (uVar5 != 4) goto LAB_00481994;
+            pLVar3->nSize = (int)lab;
+            uVar5 = Res_FRead(pLVar1->nFile,&lab,4);
+            if (uVar5 != 4) goto LAB_00481994;
+            *(undefined4 *)&pLVar3->field_0x18 = 0;
+            pLVar3->dwFourcc = (uint)lab;
+            uVar2 = uVar2 + 1;
+            pLVar3 = pLVar3 + 1;
+          } while (uVar2 < pLVar8);
         }
-        for (iVar3 = 7; iVar3 != 0; iVar3 = iVar3 + -1) {
-          *puVar6 = 0;
-          puVar6 = puVar6 + 1;
+        for (iVar7 = 7; iVar7 != 0; iVar7 = iVar7 + -1) {
+          pLVar3->dwHash = 0;
+          pLVar3 = (LabEntry *)&pLVar3->pName;
         }
-        pvVar4 = (void *)Res_FRead(*(int *)((int)pvVar1 + 0x10c),*(void **)((int)pvVar1 + 0x11c),
-                                   (uint)n);
-        if (pvVar4 == n) {
-          puVar5 = *(uint **)((int)pvVar1 + 0x118);
-          for (; pvVar7 != (void *)0x0; pvVar7 = (void *)((int)pvVar7 + -1)) {
-            uVar2 = Res_HashName((char *)puVar5[1],(char *)puVar5[1]);
-            *puVar5 = uVar2;
-            puVar5 = puVar5 + 7;
+        pLVar6 = (Lab *)Res_FRead(pLVar1->nFile,pLVar1->pNames,(uint)n);
+        if (pLVar6 == n) {
+          pLVar3 = pLVar1->pEntries;
+          for (; pLVar8 != (Lab *)0x0; pLVar8 = (Lab *)((int)&pLVar8[-1].pNames + 3)) {
+            uVar2 = Res_HashName(pLVar3->pName,pLVar3->pName);
+            pLVar3->dwHash = uVar2;
+            pLVar3 = pLVar3 + 1;
           }
           return 1;
         }
@@ -415,11 +417,11 @@ int __cdecl Lab_ReadDirectory(void *lab)
     }
   }
 LAB_00481994:
-  if (*(int *)((int)pvVar1 + 0x118) != 0) {
-    (**(code **)(g_dwResHS + 0x24))(*(int *)((int)pvVar1 + 0x118));
+  if (pLVar1->pEntries != (LabEntry *)0x0) {
+    (**(code **)(g_dwResHS + 0x24))(pLVar1->pEntries);
   }
-  if (*(int *)((int)pvVar1 + 0x11c) != 0) {
-    (**(code **)(g_dwResHS + 0x24))(*(int *)((int)pvVar1 + 0x11c));
+  if (pLVar1->pNames != (char *)0x0) {
+    (**(code **)(g_dwResHS + 0x24))(pLVar1->pNames);
   }
   return 0;
 }
@@ -430,7 +432,7 @@ LAB_00481994:
 /* ---- 0x00481a00  Lab_FindEntry ---- */
 /* Hash + name match inside one archive; remembers the hit in the 16-slot recent-lookup ring */
 
-int __cdecl Lab_FindEntry(void *lab,int fourcc,char *lowerName,uint hash,void *outEntry)
+int __cdecl Lab_FindEntry(Lab *lab,int fourcc,char *lowerName,uint hash,void *outEntry)
 
 {
   char cVar1;
@@ -439,20 +441,20 @@ int __cdecl Lab_FindEntry(void *lab,int fourcc,char *lowerName,uint hash,void *o
   int iVar4;
   uint uVar5;
   uint uVar6;
-  uint *puVar7;
+  LabEntry *pLVar7;
   byte *pbVar8;
   char *pcVar9;
   char *pcVar10;
   bool bVar11;
   
-  puVar7 = *(uint **)((int)lab + 0x118);
-  pbVar3 = (byte *)puVar7[1];
+  pLVar7 = lab->pEntries;
+  pbVar3 = (byte *)pLVar7->pName;
   if (pbVar3 == (byte *)0x0) {
     return 0;
   }
   do {
-    if ((((fourcc == 0) || (puVar7[3] == 0)) || (puVar7[3] == fourcc)) &&
-       (pbVar8 = (byte *)lowerName, *puVar7 == hash)) {
+    if ((((fourcc == 0) || (pLVar7->dwFourcc == 0)) || (pLVar7->dwFourcc == fourcc)) &&
+       (pbVar8 = (byte *)lowerName, pLVar7->dwHash == hash)) {
       do {
         bVar2 = *pbVar3;
         bVar11 = bVar2 < *pbVar8;
@@ -471,16 +473,16 @@ LAB_00481a61:
       iVar4 = 0;
 LAB_00481a66:
       if (iVar4 == 0) {
-        *(uint **)(&g_aFoundFiles + g_dwLastFound * 4) = puVar7;
-        *(void **)(&g_aFoundFileNodes + g_dwLastFound * 4) = lab;
+        *(LabEntry **)(&g_aFoundFiles + g_dwLastFound * 4) = pLVar7;
+        *(Lab **)(&g_aFoundFileNodes + g_dwLastFound * 4) = lab;
         uVar5 = 0xffffffff;
         g_dwLastFound = g_dwLastFound + 1 & 0xf;
-        pcVar9 = (char *)puVar7[1];
+        pcVar9 = pLVar7->pName;
         break;
       }
     }
-    pbVar3 = (byte *)puVar7[8];
-    puVar7 = puVar7 + 7;
+    pbVar3 = (byte *)pLVar7[1].pName;
+    pLVar7 = pLVar7 + 1;
     if (pbVar3 == (byte *)0x0) {
       return 0;
     }
@@ -508,9 +510,9 @@ LAB_00481a66:
     pcVar10 = pcVar10 + 1;
   }
   *(int *)outEntry = fourcc;
-  *(undefined4 *)((int)outEntry + 4) = *(undefined4 *)((int)lab + 0x10c);
-  *(uint *)((int)outEntry + 8) = puVar7[5];
-  *(uint *)((int)outEntry + 0xc) = puVar7[4];
+  *(int *)((int)outEntry + 4) = lab->nFile;
+  *(int *)((int)outEntry + 8) = pLVar7->nSize;
+  *(int *)((int)outEntry + 0xc) = pLVar7->nOffset;
   *(undefined4 *)((int)outEntry + 0x10) = 1;
   return 1;
 }
@@ -518,20 +520,20 @@ LAB_00481a66:
 /* ---- 0x00482020  Lab_ReadRaw ---- */
 /* Reads n bytes at offset inside an archive-backed file entry, clamped to the entry size */
 
-int __cdecl Lab_ReadRaw(void *entry,void *buf,int offset,int n)
+int __cdecl Lab_ReadRaw(LabEntry *entry,void *buf,int offset,int n)
 
 {
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)((int)entry + 0x10);
+  iVar1 = entry->nOffset;
   if (iVar1 <= offset) {
     return 0;
   }
   if (iVar1 < n + offset) {
     n = iVar1 - offset;
   }
-  Res_FSeek(*(int *)entry,*(int *)((int)entry + 0x14) + offset,0);
-  uVar2 = Res_FRead(*(int *)entry,buf,n);
+  Res_FSeek(entry->dwHash,entry->nSize + offset,0);
+  uVar2 = Res_FRead(entry->dwHash,buf,n);
   return uVar2;
 }

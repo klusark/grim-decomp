@@ -1,0 +1,171 @@
+{
+ "_comment": "The Smush animation player (AnimPlay.c of lecsmush/insane, 2026-11-14) and the light editor's set. AnimPlayer is the 0x70-byte player record anm_Start allocates (build/overrides_mixer_misc.c describes it as AnimPlay; the Ghidra name differs so the two do not clash): its two timers, frame / sync pacing, the decoder state anm_animator_Initialize resets and anm_animator_NewAnim fills, the streamer handle and the step result. g_pLightEdSet is the set the light editor (LightEd_*) works on.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "AnimPlayer",
+   "size": 112,
+   "comment": "A Smush animation player (0x70 bytes, anm_Start).",
+   "fields": [
+    [
+     0,
+     "int",
+     "nTimerSync",
+     "timer id of the clock timer"
+    ],
+    [
+     4,
+     "int",
+     "nTimerFrame",
+     "timer id of the frame timer"
+    ],
+    [
+     8,
+     "uint",
+     "dwFlags",
+     ""
+    ],
+    [
+     12,
+     "int",
+     "nDecoderC",
+     "cleared by anm_animator_Initialize"
+    ],
+    [
+     16,
+     "int",
+     "nFailed",
+     "set when the player gave up"
+    ],
+    [
+     20,
+     "int",
+     "nFrameDue",
+     "set by the frame timer: a frame must be shown"
+    ],
+    [
+     24,
+     "int",
+     "nSyncTicks",
+     "ticks the player is ahead"
+    ],
+    [
+     28,
+     "int",
+     "nTargetDelay",
+     "normal frame delay in timer ticks (1193180 / fps)"
+    ],
+    [
+     32,
+     "int",
+     "nDelay",
+     "current frame delay (kept in sync with the sound)"
+    ],
+    [
+     40,
+     "int",
+     "nDecoder28",
+     "decoder state, 0 after anm_animator_Initialize"
+    ],
+    [
+     44,
+     "int",
+     "nDecoder2c",
+     "1 after anm_animator_Initialize"
+    ],
+    [
+     52,
+     "uint",
+     "dwCodec",
+     "'null' until a codec is chosen"
+    ],
+    [
+     56,
+     "int",
+     "nOpen",
+     "1 once anm_animator_NewAnim opened the file"
+    ],
+    [
+     60,
+     "uint",
+     "dwOpenFlags",
+     "anm_animator_NewAnim's flags"
+    ],
+    [
+     64,
+     "int",
+     "nOpenArg",
+     "anm_animator_NewAnim's last argument"
+    ],
+    [
+     68,
+     "int",
+     "nDecoder44",
+     ""
+    ],
+    [
+     84,
+     "int",
+     "nDecoder54",
+     ""
+    ],
+    [
+     88,
+     "int",
+     "nDecoder58",
+     ""
+    ],
+    [
+     96,
+     "void *",
+     "pStream",
+     "streamer handle"
+    ],
+    [
+     100,
+     "int",
+     "nLagMode",
+     ""
+    ],
+    [
+     104,
+     "int",
+     "nState",
+     "result of the last frame step: < 0 error, 1 finished, 5 first step"
+    ],
+    [
+     108,
+     "int",
+     "nStarted",
+     ""
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "004c27a0",
+   "index": 0,
+   "type": "AnimPlayer *",
+   "name": "p"
+  },
+  {
+   "addr": "004c36b0",
+   "index": 0,
+   "type": "AnimPlayer *",
+   "name": "p"
+  },
+  {
+   "addr": "004c3d30",
+   "index": 0,
+   "type": "AnimPlayer *",
+   "name": "p"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "008d3634",
+   "type": "Set *"
+  }
+ ]
+}

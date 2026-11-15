@@ -10,21 +10,21 @@ void __cdecl LightMgr_Refresh(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  Set *pSVar1;
   int iVar2;
   uint *puVar3;
   int iVar4;
-  undefined4 *puVar5;
+  char *pcVar5;
   undefined4 *puVar6;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar4 = 0;
   local_4 = 0;
-  pvVar1 = g_pLightEdSet;
-  if (*(int *)((int)g_pLightEdSet + 0xb8) != 0) {
+  pSVar1 = g_pLightEdSet;
+  if (g_pLightEdSet->nLights != 0) {
     puVar3 = &UINT_008d1730;
     do {
-      *puVar3 = (int)pvVar1 + iVar4 + 0xbc;
+      *puVar3 = (uint)(pSVar1->aLights[0].aName + iVar4);
       puVar3[1] = 1;
       if (*(int *)(*puVar3 + 0x30) == 2) {
         puVar3[2] = 0;
@@ -33,21 +33,21 @@ void __cdecl LightMgr_Refresh(void)
       }
       else {
         LightEd_GetLightAngles(*puVar3 + 0x2c,(float *)(puVar3 + 2));
-        pvVar1 = g_pLightEdSet;
+        pSVar1 = g_pLightEdSet;
       }
       puVar3 = puVar3 + 5;
-      puVar5 = (undefined4 *)((int)pvVar1 + iVar4 + 0xbc);
+      pcVar5 = pSVar1->aLights[0].aName + iVar4;
       puVar6 = (undefined4 *)((int)&UINT_008d1c30 + iVar4);
       for (iVar2 = 0x1a; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *puVar6 = *puVar5;
-        puVar5 = puVar5 + 1;
+        *puVar6 = *(undefined4 *)pcVar5;
+        pcVar5 = pcVar5 + 4;
         puVar6 = puVar6 + 1;
       }
       local_4 = local_4 + 1;
       iVar4 = iVar4 + 0x68;
-    } while (local_4 < *(uint *)((int)pvVar1 + 0xb8));
+    } while (local_4 < (uint)pSVar1->nLights);
   }
-  UINT_008d3644 = *(uint *)((int)pvVar1 + 0xb8);
+  UINT_008d3644 = pSVar1->nLights;
   return;
 }
 #undef local_4
@@ -57,7 +57,7 @@ void __cdecl LightMgr_Refresh(void)
 void __cdecl LightMgr_UpdateDialog(uint param_1)
 
 {
-  if (g_pLightEdSet != (void *)0x0) {
+  if (g_pLightEdSet != (Set *)0x0) {
     LightEd_FillListBox(param_1);
     return;
   }

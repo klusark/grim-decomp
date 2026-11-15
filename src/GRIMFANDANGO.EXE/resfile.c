@@ -148,7 +148,7 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
 
 {
   int iVar1;
-  int *entry;
+  LabEntry *entry;
   int iVar2;
   uint uVar3;
   int iVar4;
@@ -157,17 +157,17 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
   undefined4 *puVar7;
   
   iVar1 = fh * 0x102c;
-  entry = (int *)(&DAT_00824f14 + iVar1);
+  entry = (LabEntry *)(&DAT_00824f14 + iVar1);
   if ((fh < 1) || (0x80 < fh)) {
     (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x76b);
   }
-  if (*entry == 0) {
+  if (entry->dwHash == 0) {
     return 0;
   }
   if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
-    uVar3 = (**(code **)(g_dwLowLevelHS + 0x38))(*entry,buf,n);
+    uVar3 = (**(code **)(g_dwLowLevelHS + 0x38))(entry->dwHash,buf,n);
     return uVar3;
   }
   *(uint *)(&DAT_00824f2c + iVar1) =
@@ -194,7 +194,7 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
     return n;
   }
   if (uVar3 != 0) {
-    puVar6 = (undefined4 *)(*(int *)(&DAT_00824f1c + iVar1) + 0x2c + (int)entry);
+    puVar6 = (undefined4 *)((int)&entry[1].nOffset + *(int *)(&DAT_00824f1c + iVar1));
     puVar7 = buf;
     for (uVar5 = uVar3 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
       *puVar7 = *puVar6;

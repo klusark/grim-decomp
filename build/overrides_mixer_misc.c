@@ -214,7 +214,7 @@ extern int g_nAnimDelayTotal __asm__("_g_dwRenderHandler_totalTime");     /* sum
  * (state 5 is the first step: it just starts the frame decoder).  The sound position is compared with the frame counter
  * (66.67 ms per frame) and the frame delay is sped up or slowed down by 1/8 or 1/16 of the nominal delay, within 3/4 .. 4/3
  * of it, to keep the picture in sync.  Returns the state: <0 error, 1 finished, 6 nothing to do. */
-int anm_Render(void *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)
+int anm_Render(AnimPlayer *pIn, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, int a10)
 {
     AnimPlay *p = (AnimPlay *)pIn;
     int lead, buffered, base, step;

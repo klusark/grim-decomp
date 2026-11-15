@@ -15,30 +15,30 @@
 int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg2,uint flags)
 
 {
-  int *p;
+  AnimPlayer *p;
   int iVar1;
   
-  p = (int *)(*(code *)*g_pAnm_memory_services)
-                       (0x70,s_C__grimsrc_libs_lecsmush_insane__004f1608,0x140);
-  if (p == (int *)0x0) goto LAB_004c257d;
-  iVar1 = (*(code *)*g_pAnm_streamer_services)(p + 0x18,streamArg1,streamArg2);
+  p = (AnimPlayer *)
+      (*(code *)*g_pAnm_memory_services)(0x70,s_C__grimsrc_libs_lecsmush_insane__004f1608,0x140);
+  if (p == (AnimPlayer *)0x0) goto LAB_004c257d;
+  iVar1 = (*(code *)*g_pAnm_streamer_services)(&p->pStream,streamArg1,streamArg2);
   if (iVar1 == 0) {
     iVar1 = (int)(0x1234dc / (longlong)fps);
-    p[2] = flags;
-    p[6] = 0;
-    p[5] = 0;
-    p[0x19] = 0;
-    p[0x1b] = 0;
-    p[0x1a] = 0;
-    p[7] = iVar1;
-    p[8] = iVar1;
+    p->dwFlags = flags;
+    p->nSyncTicks = 0;
+    p->nFrameDue = 0;
+    p->nLagMode = 0;
+    p->nStarted = 0;
+    p->nState = 0;
+    p->nTargetDelay = iVar1;
+    p->nDelay = iVar1;
     *out = p;
     iVar1 = anm_animator_Initialize(p);
     if (iVar1 == 0) {
       iVar1 = anm_animator_NewAnim(*out,name,flags,-1,-1,0);
       if (iVar1 == 0) {
         iVar1 = (*(code *)*g_pAnimPlay_timer_services)(frame_Timer,1,2,p);
-        *p = iVar1;
+        p->nTimerSync = iVar1;
         if (iVar1 == 0) {
           if ((g_pAnm_virtherc_services == (int *)0x0) || ((UINT_008d6f20 & 0x20000) == 0))
           goto LAB_004c251c;
@@ -46,16 +46,16 @@ int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg
           Mem_DumpLog();
         }
         else {
-          iVar1 = (*(code *)*g_pAnimPlay_timer_services)(sync_Timer,p[7],8,p);
-          p[1] = iVar1;
+          iVar1 = (*(code *)*g_pAnimPlay_timer_services)(sync_Timer,p->nTargetDelay,8,p);
+          p->nTimerFrame = iVar1;
           if (iVar1 != 0) {
-            p[4] = 0;
+            p->nFailed = 0;
             return 0;
           }
           if ((g_pAnm_virtherc_services != (int *)0x0) && ((UINT_008d6f20 & 0x20000) != 0)) {
             (*(code *)g_pAnm_virtherc_services[3])(s_AnimPlay_Module__Cannot_allocate_004f15d8);
           }
-          (*(code *)g_pAnimPlay_timer_services[1])(*p);
+          (*(code *)g_pAnimPlay_timer_services[1])(p->nTimerSync);
           Mem_DumpLog();
         }
       }
@@ -68,7 +68,7 @@ LAB_004c251c:
     else {
       (*(code *)g_pAnm_virtherc_services[3])(s_AnimPlay_Module__Cannot_init_Ani_004f1554);
     }
-    (*(code *)g_pAnm_streamer_services[1])(p + 0x18);
+    (*(code *)g_pAnm_streamer_services[1])(&p->pStream);
   }
   else if ((g_pAnm_virtherc_services != (int *)0x0) && ((UINT_008d6f20 & 0x20000) != 0)) {
     (*(code *)g_pAnm_virtherc_services[3])(s_AnimPlay_Module__Cannot_allocate_004f1520);
@@ -113,7 +113,8 @@ void __cdecl anm_Stop(void **pp)
    strings: 'Sync Ticks:  %ld    \n' | 'State:       %d    \n' | 'Frame Delay: %ld (%ld target)
    \n' | 'Buffer:      %ld%%    \n'); was AnimPlay_Update. */
 
-int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10)
+int __cdecl
+anm_Render(AnimPlayer *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10)
 
 {
   int *piVar1;
@@ -125,36 +126,35 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
   undefined4 uVar7;
   longlong lVar8;
   
-  if (*(int *)((int)p + 0x68) == 5) {
-    uVar2 = anm_animator_Render((int)p,a2,a3,a4,a5,a6,a7,a8,*(uint *)((int)p + 8),a9,a10);
-    *(uint *)((int)p + 0x68) = uVar2;
+  if (p->nState == 5) {
+    uVar2 = anm_animator_Render((int)p,a2,a3,a4,a5,a6,a7,a8,p->dwFlags,a9,a10);
+    p->nState = uVar2;
     if ((int)uVar2 < 0) {
-      *(undefined4 *)((int)p + 0x10) = 1;
+      p->nFailed = 1;
       return uVar2;
     }
   }
-  else if (*(int *)((int)p + 0x14) == 0) {
+  else if (p->nFrameDue == 0) {
     uVar2 = 6;
   }
   else {
-    uVar3 = (*(code *)g_pAnm_streamer_services[7])(*(undefined4 *)((int)p + 0x60));
-    if (*(int *)((int)p + 0x6c) == 0) {
+    uVar3 = (*(code *)g_pAnm_streamer_services[7])(p->pStream);
+    if (p->nStarted == 0) {
       g_nBretsFrameCount = 0;
       g_dwRenderHandler_totalTime = 0;
     }
-    g_dwRenderHandler_totalTime = g_dwRenderHandler_totalTime + *(int *)((int)p + 0x20);
+    g_dwRenderHandler_totalTime = g_dwRenderHandler_totalTime + p->nDelay;
     iVar4 = sou_engine_QueryTime(0);
     lVar8 = FTOL(((float10)iVar4 - (float10)g_nBretsFrameCount * (float10)66.66666666667) *
                   (float10)0.0149999999999925);
     iVar4 = (int)lVar8;
-    *(int *)((int)p + 0x18) = *(int *)((int)p + 0x18) + -1;
-    *(undefined4 *)((int)p + 0x14) = 0;
-    if ((((iVar4 < 1) && (iVar6 = *(int *)((int)p + 0x68), iVar6 != 2)) && (iVar6 != 3)) &&
-       (iVar6 != 4)) {
+    p->nSyncTicks = p->nSyncTicks + -1;
+    p->nFrameDue = 0;
+    if ((((iVar4 < 1) && (iVar6 = p->nState, iVar6 != 2)) && (iVar6 != 3)) && (iVar6 != 4)) {
       if (iVar4 < 0) {
-        iVar6 = *(int *)((int)p + 0x1c);
-        if (*(int *)((int)p + 0x20) < iVar6) {
-          *(int *)((int)p + 0x20) = iVar6;
+        iVar6 = p->nTargetDelay;
+        if (p->nDelay < iVar6) {
+          p->nDelay = iVar6;
         }
         if (iVar4 == -1) {
           iVar5 = (int)(iVar6 + (iVar6 >> 0x1f & 0xfU)) >> 4;
@@ -162,17 +162,17 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
         else {
           iVar5 = (int)(iVar6 + (iVar6 >> 0x1f & 7U)) >> 3;
         }
-        *(int *)((int)p + 0x20) = *(int *)((int)p + 0x20) + iVar5;
+        p->nDelay = p->nDelay + iVar5;
         iVar6 = (iVar6 << 2) / 3;
-        if (iVar6 < *(int *)((int)p + 0x20)) {
-          *(int *)((int)p + 0x20) = iVar6;
+        if (iVar6 < p->nDelay) {
+          p->nDelay = iVar6;
         }
       }
     }
     else {
-      iVar6 = *(int *)((int)p + 0x1c);
-      if (iVar6 < *(int *)((int)p + 0x20)) {
-        *(int *)((int)p + 0x20) = iVar6;
+      iVar6 = p->nTargetDelay;
+      if (iVar6 < p->nDelay) {
+        p->nDelay = iVar6;
       }
       if (iVar4 == 1) {
         iVar5 = (int)(iVar6 + (iVar6 >> 0x1f & 0xfU)) >> 4;
@@ -180,33 +180,33 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
       else {
         iVar5 = (int)(iVar6 + (iVar6 >> 0x1f & 7U)) >> 3;
       }
-      iVar5 = *(int *)((int)p + 0x20) - iVar5;
-      *(int *)((int)p + 0x20) = iVar5;
+      iVar5 = p->nDelay - iVar5;
+      p->nDelay = iVar5;
       if (iVar5 < 1) {
-        *(undefined4 *)((int)p + 0x20) = 1;
+        p->nDelay = 1;
       }
       iVar6 = (int)(iVar6 * 3 + (iVar6 * 3 >> 0x1f & 3U)) >> 2;
-      if (*(int *)((int)p + 0x20) < iVar6) {
-        *(int *)((int)p + 0x20) = iVar6;
+      if (p->nDelay < iVar6) {
+        p->nDelay = iVar6;
       }
     }
-    (*(code *)g_pAnimPlay_timer_services[4])(*(undefined4 *)p,*(undefined4 *)((int)p + 0x20));
+    (*(code *)g_pAnimPlay_timer_services[4])(p->nTimerSync,p->nDelay);
     if (iVar4 < 3) {
       if (iVar4 < 1) {
-        *(undefined4 *)((int)p + 100) = 0;
+        p->nLagMode = 0;
       }
     }
     else {
-      *(undefined4 *)((int)p + 100) = 1;
+      p->nLagMode = 1;
     }
-    if ((*(int *)((int)p + 100) == 0) || ((*(uint *)((int)p + 8) & 2) != 0)) {
-      uVar2 = *(uint *)((int)p + 8);
+    if ((p->nLagMode == 0) || ((p->dwFlags & 2) != 0)) {
+      uVar2 = p->dwFlags;
     }
     else {
-      uVar2 = *(uint *)((int)p + 8) | 0x8000;
+      uVar2 = p->dwFlags | 0x8000;
     }
     uVar2 = anm_animator_Render((int)p,a2,a3,a4,a5,a6,a7,a8,uVar2,a9,a10);
-    *(uint *)((int)p + 0x68) = uVar2;
+    p->nState = uVar2;
     if ((g_pAnm_virtherc_services != (int *)0x0) && ((UINT_008d6f20 & 0xc0000000) != 0)) {
       piVar1 = g_pAnm_virtherc_services + 5;
       uVar7 = (*(code *)g_pAnm_virtherc_services[7])(4,0x20);
@@ -214,18 +214,16 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
       (*(code *)*g_pAnm_virtherc_services)(0,10);
       (*(code *)g_pAnm_virtherc_services[3])(s_Buffer___ld___004f1694,uVar3);
       (*(code *)g_pAnm_virtherc_services[3])
-                (s_Frame_Delay___ld___ld_target__004f1670,*(undefined4 *)((int)p + 0x20),
-                 *(undefined4 *)((int)p + 0x1c));
-      (*(code *)g_pAnm_virtherc_services[3])
-                (s_Sync_Ticks___ld_004f1658,*(undefined4 *)((int)p + 0x18));
-      (*(code *)g_pAnm_virtherc_services[3])(s_State___d_004f1640,*(undefined4 *)((int)p + 0x68));
+                (s_Frame_Delay___ld___ld_target__004f1670,p->nDelay,p->nTargetDelay);
+      (*(code *)g_pAnm_virtherc_services[3])(s_Sync_Ticks___ld_004f1658,p->nSyncTicks);
+      (*(code *)g_pAnm_virtherc_services[3])(s_State___d_004f1640,p->nState);
     }
-    uVar2 = *(uint *)((int)p + 0x68);
+    uVar2 = p->nState;
     if ((int)uVar2 < 0) {
-      *(undefined4 *)((int)p + 0x10) = 1;
+      p->nFailed = 1;
     }
     if (uVar2 == 1) {
-      *(undefined4 *)((int)p + 0x6c) = 1;
+      p->nStarted = 1;
       return 1;
     }
   }
@@ -239,19 +237,19 @@ int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,
    anm_animator_Initialize (the remaster's GrimFandango (Linux): aligned call in anm_Start); was
    AnimPlay_ResetState. */
 
-int __cdecl anm_animator_Initialize(void *p)
+int __cdecl anm_animator_Initialize(AnimPlayer *p)
 
 {
-  (*(code *)g_pAnm_streamer_services[6])(*(undefined4 *)((int)p + 0x60));
-  *(undefined4 *)((int)p + 0xc) = 0;
-  *(undefined4 *)((int)p + 0x28) = 0;
-  *(undefined4 *)((int)p + 0x34) = 0x6e756c6c;
-  *(undefined4 *)((int)p + 0x2c) = 1;
-  *(undefined4 *)((int)p + 0x38) = 0;
-  *(undefined4 *)((int)p + 0x54) = 0;
-  *(undefined4 *)((int)p + 0x58) = 0;
-  *(undefined4 *)((int)p + 0x40) = 0;
-  *(undefined4 *)((int)p + 0x44) = 0;
+  (*(code *)g_pAnm_streamer_services[6])(p->pStream);
+  p->nDecoderC = 0;
+  p->nDecoder28 = 0;
+  p->dwCodec = 0x6e756c6c;
+  p->nDecoder2c = 1;
+  p->nOpen = 0;
+  p->nDecoder54 = 0;
+  p->nDecoder58 = 0;
+  p->nOpenArg = 0;
+  p->nDecoder44 = 0;
   return 0;
 }
 
@@ -260,18 +258,18 @@ int __cdecl anm_animator_Initialize(void *p)
    anm_animator_NewAnim (the remaster's GrimFandango (Linux): aligned call in anm_Start); was
    AnimPlay_OpenFile. */
 
-int __cdecl anm_animator_NewAnim(void *p,char *name,uint flags,int a4,int a5,int a6)
+int __cdecl anm_animator_NewAnim(AnimPlayer *p,char *name,uint flags,int a4,int a5,int a6)
 
 {
   int iVar1;
   
-  *(int *)((int)p + 0x40) = a6;
-  *(uint *)((int)p + 0x3c) = flags;
-  iVar1 = (*(code *)g_pAnm_streamer_services[2])(*(undefined4 *)((int)p + 0x60),name,8);
+  p->nOpenArg = a6;
+  p->dwOpenFlags = flags;
+  iVar1 = (*(code *)g_pAnm_streamer_services[2])(p->pStream,name,8);
   if (iVar1 != 0) {
     return -1;
   }
-  *(undefined4 *)((int)p + 0x38) = 1;
+  p->nOpen = 1;
   zlibVersion();
   FUN_004c3d90((int)p,a4,a5);
   return 0;

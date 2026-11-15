@@ -24,7 +24,7 @@ uint __cdecl sputSmush_Initialize(uint param_1,undefined4 *param_2)
   param_2[7] = 0;
   SmushPlay_SysInitialize(param_1,(undefined4 *)&g_aSmushPlayMS);
   SmushPlay_SysSetVideoCallbacks((uint *)&g_pSputVideoCallBacks);
-  g_pPresentBuf = (void *)0x0;
+  g_pPresentBuf = (VBuffer *)0x0;
   _g_dwSmushBuf = 1;
   return 0;
 }

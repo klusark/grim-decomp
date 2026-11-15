@@ -26,7 +26,7 @@ int * __cdecl ColormapInstancer(int inst,int component,int create)
   
   if (create == 0) {
     iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
-    Res_RemoveReference((void *)(iVar1 + 4));
+    Res_RemoveReference((ResRef *)(iVar1 + 4));
     (*g_pSputCosHS->pFree)(iVar1);
     return (int *)0x0;
   }
@@ -42,8 +42,8 @@ int * __cdecl ColormapInstancer(int inst,int component,int create)
     (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f)
     ;
   }
-  Res_SetReference(piVar2 + 1,*(void **)(iVar1 + 4),s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,
-                   0x8ff);
+  Res_SetReference((ResRef *)(piVar2 + 1),*(void **)(iVar1 + 4),
+                   s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x8ff);
   iVar1 = Cos_InstGetInstanceData(inst,iStack_8,(int *)0x0);
   *piVar2 = iVar1;
   return piVar2;
@@ -61,10 +61,10 @@ int __cdecl ColormapRequester(uint param_1,int param_2,int param_3,int param_4,c
 {
   uint *puVar1;
   void *data;
-  undefined4 *ref;
+  ResRef *ref;
   char *pcVar2;
   int iVar3;
-  undefined4 *puVar4;
+  ResRef *pRVar4;
   uint uVar5;
   char *name;
   
@@ -91,12 +91,11 @@ int __cdecl ColormapRequester(uint param_1,int param_2,int param_3,int param_4,c
   }
   data = sputResource_Alloc(0x50414d43,name);
   if (data != (void *)0x0) {
-    ref = (undefined4 *)
-          (*g_pSputCosHS->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x938);
-    puVar4 = ref;
+    ref = (ResRef *)(*g_pSputCosHS->pAlloc)(0x34,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x938);
+    pRVar4 = ref;
     for (iVar3 = 0xd; iVar3 != 0; iVar3 = iVar3 + -1) {
-      *puVar4 = 0;
-      puVar4 = puVar4 + 1;
+      pRVar4->nValid = 0;
+      pRVar4 = (ResRef *)&pRVar4->pData;
     }
     Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x93a);
     if (pcVar2 == (char *)0x0) {
