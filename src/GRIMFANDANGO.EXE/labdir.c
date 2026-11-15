@@ -129,88 +129,88 @@ void * __cdecl LabDir_Open(char *dir)
    name res_FindDirectoryEntry (the remaster's GrimFandango (Linux): aligned call in
    Res_FindExternalFile, res_FindInternalFile); was LabDir_FindEntry. */
 
-int __cdecl res_FindDirectoryEntry(int archive,int type,byte *name,uint hash,undefined4 *entry)
+int __cdecl res_FindDirectoryEntry(int archive,int type,byte *name,uint hash,LabFile *entry)
 
 {
   uint *puVar1;
   byte bVar2;
   byte *pbVar3;
   int iVar4;
-  undefined4 uVar5;
+  uint uVar5;
   uint uVar6;
-  uint uVar7;
-  byte *pbVar8;
-  uint *puVar9;
+  byte *pbVar7;
+  uint *puVar8;
+  char *pcVar9;
   bool bVar10;
   
-  puVar9 = *(uint **)(archive + 0x118);
-  if (puVar9 == (uint *)0x0) {
+  puVar8 = *(uint **)(archive + 0x118);
+  if (puVar8 == (uint *)0x0) {
     return 0;
   }
-  pbVar8 = (byte *)puVar9[1];
-  while (pbVar8 != (byte *)0x0) {
+  pbVar7 = (byte *)puVar8[1];
+  while (pbVar7 != (byte *)0x0) {
     pbVar3 = name;
-    if (*puVar9 == hash) {
+    if (*puVar8 == hash) {
       do {
         bVar2 = *pbVar3;
-        bVar10 = bVar2 < *pbVar8;
-        if (bVar2 != *pbVar8) {
+        bVar10 = bVar2 < *pbVar7;
+        if (bVar2 != *pbVar7) {
 LAB_00481d3e:
           iVar4 = (1 - (uint)bVar10) - (uint)(bVar10 != 0);
           goto LAB_00481d43;
         }
         if (bVar2 == 0) break;
         bVar2 = pbVar3[1];
-        bVar10 = bVar2 < pbVar8[1];
-        if (bVar2 != pbVar8[1]) goto LAB_00481d3e;
-        pbVar8 = pbVar8 + 2;
+        bVar10 = bVar2 < pbVar7[1];
+        if (bVar2 != pbVar7[1]) goto LAB_00481d3e;
+        pbVar7 = pbVar7 + 2;
         pbVar3 = pbVar3 + 2;
       } while (bVar2 != 0);
       iVar4 = 0;
 LAB_00481d43:
       if (iVar4 == 0) {
-        *(uint **)(&g_aFoundFiles + g_dwLastFound * 4) = puVar9;
+        *(uint **)(&g_aFoundFiles + g_dwLastFound * 4) = puVar8;
         *(int *)(&g_aFoundFileNodes + g_dwLastFound * 4) = archive;
         g_dwLastFound = g_dwLastFound + 1 & 0xf;
         break;
       }
     }
-    puVar1 = puVar9 + 4;
-    puVar9 = puVar9 + 3;
-    pbVar8 = (byte *)*puVar1;
+    puVar1 = puVar8 + 4;
+    puVar8 = puVar8 + 3;
+    pbVar7 = (byte *)*puVar1;
   }
-  if (puVar9[1] == 0) {
+  if (puVar8[1] == 0) {
     return 0;
   }
-  uVar6 = 0xffffffff;
-  pbVar8 = name;
+  uVar5 = 0xffffffff;
+  pbVar7 = name;
   do {
-    pbVar3 = pbVar8;
-    if (uVar6 == 0) break;
-    uVar6 = uVar6 - 1;
-    pbVar3 = pbVar8 + 1;
-    bVar2 = *pbVar8;
-    pbVar8 = pbVar3;
+    pbVar3 = pbVar7;
+    if (uVar5 == 0) break;
+    uVar5 = uVar5 - 1;
+    pbVar3 = pbVar7 + 1;
+    bVar2 = *pbVar7;
+    pbVar7 = pbVar3;
   } while (bVar2 != 0);
-  uVar6 = ~uVar6;
-  pbVar8 = pbVar3 + -uVar6;
-  pbVar3 = (byte *)(entry + 5);
-  for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-    *(undefined4 *)pbVar3 = *(undefined4 *)pbVar8;
-    pbVar8 = pbVar8 + 4;
-    pbVar3 = pbVar3 + 4;
+  uVar5 = ~uVar5;
+  pbVar7 = pbVar3 + -uVar5;
+  pcVar9 = entry->aName;
+  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+    *(undefined4 *)pcVar9 = *(undefined4 *)pbVar7;
+    pbVar7 = pbVar7 + 4;
+    pcVar9 = pcVar9 + 4;
   }
-  for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-    *pbVar3 = *pbVar8;
-    pbVar8 = pbVar8 + 1;
-    pbVar3 = pbVar3 + 1;
+  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+    *pcVar9 = *pbVar7;
+    pbVar7 = pbVar7 + 1;
+    pcVar9 = pcVar9 + 1;
   }
-  *entry = type;
-  sprintf((char *)((int)entry + 0x115),&DAT_004e7af8,archive + 8,name);
-  entry[1] = 0;
-  uVar5 = (**(code **)(g_dwLowLevelHS + 0x50))((char *)((int)entry + 0x115));
-  entry[2] = uVar5;
-  entry[3] = 0;
-  entry[4] = 0;
+  entry->dwFourcc = type;
+  sprintf(entry->aPath,&DAT_004e7af8,archive + 8,name);
+  entry->nFile = 0;
+  iVar4 = (**(code **)(g_dwLowLevelHS + 0x50))(entry->aPath);
+  entry->nSize = iVar4;
+  entry->nOffset = 0;
+  entry->nInLab = 0;
   return 1;
 }

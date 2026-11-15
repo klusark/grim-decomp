@@ -73,16 +73,16 @@ void __cdecl sputActor_UpdateActors(float dt)
 {
   Actor *actor;
   Set *pSVar1;
-  int *piVar2;
+  RoomActorNode *pRVar2;
   
   g_nTotActors = 0;
   pSVar1 = sputRoom_GetCurrentRoom();
   if (pSVar1 != (Set *)0x0) {
     sputActor_UpdateSpeechOnly(dt);
-    piVar2 = *(int **)(*(int *)&pSVar1->field_0x1abc + 0x80);
-    if (piVar2 != (int *)0x0) {
+    pRVar2 = pSVar1->pRoomActors->pActors;
+    if (pRVar2 != (RoomActorNode *)0x0) {
       do {
-        actor = g_pActors + *piVar2;
+        actor = g_pActors + pRVar2->nActor;
         if (actor != (Actor *)0x0) {
           if (actor->pExtra != (ActorExtra *)0x0) {
             actor->pExtra->nCollided = 0;
@@ -94,8 +94,8 @@ void __cdecl sputActor_UpdateActors(float dt)
           }
           Actor_UpdateMovement(actor,dt);
         }
-        piVar2 = (int *)piVar2[2];
-      } while (piVar2 != (int *)0x0);
+        pRVar2 = pRVar2->pNext;
+      } while (pRVar2 != (RoomActorNode *)0x0);
       Collision_UpdateMovedActors();
     }
   }

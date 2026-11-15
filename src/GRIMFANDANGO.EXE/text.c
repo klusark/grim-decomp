@@ -990,20 +990,19 @@ LAB_004ab344:
 
 
 /* ---- 0x004ab510  Font_GlyphAdvance ---- */
-uint __cdecl Font_GlyphAdvance(TextContext *ctx,void *font,int ch)
+uint __cdecl Font_GlyphAdvance(TextContext *ctx,FontData *font,int ch)
 
 {
   int iVar1;
   uint uVar2;
   
-  if (*(int *)((int)font + 0x20) < ch) {
+  if (font->nLastChar < ch) {
     iVar1 = 0;
   }
   else {
-    iVar1 = *(int *)((int)font + 0x28) +
-            (uint)*(ushort *)
-                   (*(int *)((int)font + 0x24) + (ch - *(int *)((int)font + 0x1c)) * 2 + (int)font)
-            * 0x5c + (int)font;
+    iVar1 = font->nGlyphOffset +
+            (uint)*(ushort *)(font->nCharMapOffset + (ch - font->nFirstChar) * 2 + (int)font) * 0x5c
+            + (int)font;
   }
   if (iVar1 != 0) {
     uVar2 = (int)*(char *)(iVar1 + 4);
@@ -1118,7 +1117,7 @@ LAB_004ab66a:
 /* Picks the glyph blitter: 16-bit vs paletted 8-bit (flag 8), clipped vs unclipped; scaled glyphs
    are not implemented (Lua_Stub) */
 
-void __cdecl Text_DrawChar(TextContext *ctx,void *font,int ch)
+void __cdecl Text_DrawChar(TextContext *ctx,FontData *font,int ch)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1146,17 +1145,16 @@ void __cdecl Text_DrawChar(TextContext *ctx,void *font,int ch)
   iVar3 = ctx->nX;
   iVar4 = ctx->nScaleX;
   iVar5 = ctx->nScaleY;
-  if (*(int *)((int)font + 0x20) < ch) {
+  if (font->nLastChar < ch) {
     fmt = (int *)0x0;
   }
   else {
-    fmt = (int *)(*(int *)((int)font + 0x28) +
-                  (uint)*(ushort *)
-                         (*(int *)((int)font + 0x24) + (ch - *(int *)((int)font + 0x1c)) * 2 +
-                         (int)font) * 0x5c + (int)font);
+    fmt = (int *)(font->nGlyphOffset +
+                  (uint)*(ushort *)(font->nCharMapOffset + (ch - font->nFirstChar) * 2 + (int)font)
+                  * 0x5c + (int)font);
   }
   if (fmt != (int *)0x0) {
-    fmt[2] = (int)font + *fmt + *(int *)((int)font + 0x2c);
+    fmt[2] = (int)(&font->field_0x0 + *fmt + font->nBitmapOffset);
     if ((iVar4 == 0x10000) && (iVar5 == 0x10000)) {
       uVar9 = (uint)*(char *)((int)fmt + 5);
       uVar7 = fmt[3];

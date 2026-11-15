@@ -68,7 +68,7 @@ int __cdecl Res_FileClose(char *name)
   char *pcVar8;
   
   piVar3 = Lab_Find(name);
-  pRVar2 = (Resource *)g_pNewestResNode;
+  pRVar2 = g_pNewestResNode;
   if (piVar3 != (int *)0x0) {
     while (res = pRVar2, res != (Resource *)0x0) {
       pRVar2 = res->pNext;
@@ -231,7 +231,7 @@ void __cdecl Lab_Unlink(int *param_1)
    archiveFh, offset, size, inArchive, name} Original name res_FindInternalFile (the remaster's
    GrimFandango (Linux): aligned call in Res_FOpen, Res_FSize); was Lab_FindFile. */
 
-int __cdecl res_FindInternalFile(char *name,void *outEntry)
+int __cdecl res_FindInternalFile(char *name,LabFile *outEntry)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -432,7 +432,7 @@ LAB_00481994:
 /* ---- 0x00481a00  Lab_FindEntry ---- */
 /* Hash + name match inside one archive; remembers the hit in the 16-slot recent-lookup ring */
 
-int __cdecl Lab_FindEntry(Lab *lab,int fourcc,char *lowerName,uint hash,void *outEntry)
+int __cdecl Lab_FindEntry(Lab *lab,int fourcc,char *lowerName,uint hash,LabFile *outEntry)
 
 {
   char cVar1;
@@ -498,7 +498,7 @@ LAB_00481a66:
   }
   uVar5 = ~uVar5;
   pcVar9 = pcVar10 + -uVar5;
-  pcVar10 = (char *)((int)outEntry + 0x14);
+  pcVar10 = outEntry->aName;
   for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
     *(undefined4 *)pcVar10 = *(undefined4 *)pcVar9;
     pcVar9 = pcVar9 + 4;
@@ -509,31 +509,31 @@ LAB_00481a66:
     pcVar9 = pcVar9 + 1;
     pcVar10 = pcVar10 + 1;
   }
-  *(int *)outEntry = fourcc;
-  *(int *)((int)outEntry + 4) = lab->nFile;
-  *(int *)((int)outEntry + 8) = pLVar7->nSize;
-  *(int *)((int)outEntry + 0xc) = pLVar7->nOffset;
-  *(undefined4 *)((int)outEntry + 0x10) = 1;
+  outEntry->dwFourcc = fourcc;
+  outEntry->nFile = lab->nFile;
+  outEntry->nSize = pLVar7->nSize;
+  outEntry->nOffset = pLVar7->nOffset;
+  outEntry->nInLab = 1;
   return 1;
 }
 
 /* ---- 0x00482020  Lab_ReadRaw ---- */
 /* Reads n bytes at offset inside an archive-backed file entry, clamped to the entry size */
 
-int __cdecl Lab_ReadRaw(LabEntry *entry,void *buf,int offset,int n)
+int __cdecl Lab_ReadRaw(ResFile *file,void *buf,int offset,int n)
 
 {
   int iVar1;
   uint uVar2;
   
-  iVar1 = entry->nOffset;
+  iVar1 = file->nLength;
   if (iVar1 <= offset) {
     return 0;
   }
   if (iVar1 < n + offset) {
     n = iVar1 - offset;
   }
-  Res_FSeek(entry->dwHash,entry->nSize + offset,0);
-  uVar2 = Res_FRead(entry->dwHash,buf,n);
+  Res_FSeek(file->dwHandle,file->nBase + offset,0);
+  uVar2 = Res_FRead(file->dwHandle,buf,n);
   return uVar2;
 }

@@ -24,9 +24,9 @@ uint __cdecl sputText_Initialize(GrimServices *param_1,undefined4 *param_2)
   param_2[5] = sputText_Restore;
   param_2[6] = 0;
   param_2[7] = 0;
-  iVar1 = Graph_SysInitialize(param_1,&g_aGraphMS);
+  iVar1 = Graph_SysInitialize(param_1,(SysModuleIface *)&g_aGraphMS);
   if (iVar1 == 0) {
-    iVar1 = Text_SysInitialize(param_1,&g_aTextMS);
+    iVar1 = Text_SysInitialize(param_1,(SysModuleIface *)&g_aTextMS);
     if (iVar1 == 0) {
       g_dwSputtextInitialize = 1;
       return 0;

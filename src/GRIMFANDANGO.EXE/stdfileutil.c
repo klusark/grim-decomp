@@ -300,34 +300,34 @@ void __cdecl stdCompress_DecompressLoop(void)
 /* ---- 0x004c1170  stdFileUtil_NewFind ---- */
 /* Std/General/Stdfileutil.c directory search (same shape as DirScan_Create) */
 
-void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
+StdFileSearch * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
 
 {
   char cVar1;
-  undefined4 *puVar2;
+  StdFileSearch *pSVar2;
   uint *puVar3;
   int iVar4;
   uint uVar5;
   uint uVar6;
-  undefined4 *puVar7;
+  StdFileSearch *pSVar7;
   char *pcVar8;
   char *pcVar9;
   char *pcVar10;
   char *pcVar11;
   
-  puVar2 = (undefined4 *)
+  pSVar2 = (StdFileSearch *)
            (*g_pStd_HS->pAlloc)(0x150,s_C__grimjedi_Libs_Std_General_Std_004f11d0,DAT_004f11c0 + 3);
-  if (puVar2 == (undefined4 *)0x0) {
-    return (void *)0x0;
+  if (pSVar2 == (StdFileSearch *)0x0) {
+    return (StdFileSearch *)0x0;
   }
-  puVar7 = puVar2;
+  pSVar7 = pSVar2;
   for (iVar4 = 0x54; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar7 = 0;
-    puVar7 = puVar7 + 1;
+    *(undefined4 *)pSVar7 = 0;
+    pSVar7 = (StdFileSearch *)&pSVar7->field_0x4;
   }
   uVar5 = 0xffffffff;
-  puVar2[2] = 0;
-  puVar2[0x53] = mode;
+  pSVar2->nFind = 0;
+  pSVar2->nMode = mode;
   do {
     pcVar8 = dir;
     if (uVar5 == 0) break;
@@ -337,7 +337,7 @@ void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
     dir = pcVar8;
   } while (cVar1 != '\0');
   uVar5 = ~uVar5;
-  pcVar11 = (char *)(puVar2 + 0xe);
+  pcVar11 = pSVar2->aFileName;
   pcVar8 = pcVar8 + -uVar5;
   pcVar10 = pcVar11;
   for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
@@ -417,7 +417,7 @@ void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
       pcVar8 = pcVar8 + 1;
       pcVar11 = pcVar11 + 1;
     }
-    return puVar2;
+    return pSVar2;
   default:
     goto switchD_004c11e0_default;
   }
@@ -453,27 +453,27 @@ void * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
     pcVar11 = pcVar11 + 1;
   }
 switchD_004c11e0_default:
-  return puVar2;
+  return pSVar2;
 }
 
 /* ---- 0x004c12a0  stdFileUtil_DisposeFind ---- */
-void __cdecl stdFileUtil_DisposeFind(int param_1)
+void __cdecl stdFileUtil_DisposeFind(StdFileSearch *find)
 
 {
-  if (param_1 != 0) {
-    if (*(int *)(param_1 + 8) != 0) {
-      FindClose(*(int *)(param_1 + 8));
-      *(undefined4 *)(param_1 + 8) = 0;
+  if (find != (StdFileSearch *)0x0) {
+    if (find->nFind != 0) {
+      FindClose(find->nFind);
+      find->nFind = 0;
     }
-    if (param_1 != 0) {
-      (*g_pStd_HS->pFree)(param_1);
+    if (find != (StdFileSearch *)0x0) {
+      (*g_pStd_HS->pFree)(find);
     }
   }
   return;
 }
 
 /* ---- 0x004c12d0  stdFileUtil_FindNext ---- */
-int __cdecl stdFileUtil_FindNext(void *find,void *outEntry)
+int __cdecl stdFileUtil_FindNext(StdFileSearch *find,StdFileEntry *outEntry)
 
 {
   uint *a2;
@@ -485,29 +485,30 @@ int __cdecl stdFileUtil_FindNext(void *find,void *outEntry)
   uint uVar6;
   char *pcVar7;
   char *pcVar8;
+  StdFileEntry *pSVar9;
   
-  if (find == (void *)0x0) {
+  if (find == (StdFileSearch *)0x0) {
     return 0;
   }
   do {
-    a2 = (uint *)((int)find + 0xc);
-    if (*(int *)((int)find + 8) == 0) {
-      iVar3 = FindFirstFileA((int)find + 0x38,(int)a2);
-      *(int *)((int)find + 8) = iVar3;
+    a2 = &find->dwFileAttributes;
+    if (find->nFind == 0) {
+      iVar3 = FindFirstFileA((int)find->aFileName,(int)a2);
+      find->nFind = iVar3;
       uVar6 = (uint)(iVar3 != -1);
     }
     else {
-      uVar6 = FindNextFileA(*(int *)((int)find + 8),(int)a2);
+      uVar6 = FindNextFileA(find->nFind,(int)a2);
     }
     if (uVar6 == 0) {
 LAB_004c1378:
       bVar2 = false;
     }
     else {
-      *(uint *)((int)outEntry + 0x104) = *a2 & 0x10;
-      *(undefined4 *)((int)outEntry + 0x108) = *(undefined4 *)((int)find + 0x20);
+      outEntry->nIsDir = *a2 & 0x10;
+      outEntry->dwTime = find->dwLastWriteTimeLow;
       uVar4 = 0xffffffff;
-      pcVar7 = (char *)((int)find + 0x38);
+      pcVar7 = find->aFileName;
       do {
         pcVar8 = pcVar7;
         if (uVar4 == 0) break;
@@ -518,24 +519,23 @@ LAB_004c1378:
       } while (cVar1 != '\0');
       uVar4 = ~uVar4;
       pcVar7 = pcVar8 + -uVar4;
-      pcVar8 = outEntry;
+      pSVar9 = outEntry;
       for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-        *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
+        *(undefined4 *)pSVar9->aName = *(undefined4 *)pcVar7;
         pcVar7 = pcVar7 + 4;
-        pcVar8 = pcVar8 + 4;
+        pSVar9 = (StdFileEntry *)(pSVar9->aName + 4);
       }
       for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *pcVar8 = *pcVar7;
+        pSVar9->aName[0] = *pcVar7;
         pcVar7 = pcVar7 + 1;
-        pcVar8 = pcVar8 + 1;
+        pSVar9 = (StdFileEntry *)(pSVar9->aName + 1);
       }
-      if ((*(int *)((int)find + 0x14c) == 1) && (*(int *)((int)outEntry + 0x104) != 0)) {
+      if ((find->nMode == 1) && (outEntry->nIsDir != 0)) {
         uVar6 = 0;
         bVar2 = true;
       }
       else {
-        if ((*(int *)((int)find + 0x14c) != 2) || (*(int *)((int)outEntry + 0x104) != 0))
-        goto LAB_004c1378;
+        if ((find->nMode != 2) || (outEntry->nIsDir != 0)) goto LAB_004c1378;
         uVar6 = 0;
         bVar2 = true;
       }

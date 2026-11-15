@@ -11,7 +11,7 @@
 /* Original name Graph_SysInitialize (the remaster's GrimFandango (Linux): aligned call in
    sputText_Initialize); was PlatModule_Init. */
 
-int Graph_SysInitialize(GrimServices *svc,void *iface)
+int Graph_SysInitialize(GrimServices *svc,SysModuleIface *iface)
 
 {
   int iVar1;
@@ -20,15 +20,15 @@ int Graph_SysInitialize(GrimServices *svc,void *iface)
   iVar1 = 1;
   if (g_dwGraphSysInitialized == 0) {
     g_dwGraphSysInitialized = 1;
-    if (iface != (void *)0x0) {
-      *(code **)iface = Graph_SysInitialize;
-      *(code **)((int)iface + 4) = Graph_SysTerminate;
-      *(code **)((int)iface + 8) = Graph_SysStartup;
-      *(code **)((int)iface + 0xc) = Graph_SysShutdown;
-      *(undefined4 *)((int)iface + 0x10) = 0;
-      *(undefined4 *)((int)iface + 0x14) = 0;
-      *(undefined4 *)((int)iface + 0x18) = 0;
-      *(undefined4 *)((int)iface + 0x1c) = 0;
+    if (iface != (SysModuleIface *)0x0) {
+      iface->pfnInitialize = Graph_SysInitialize;
+      iface->pfnTerminate = Graph_SysTerminate;
+      iface->pfnStartup = Graph_SysStartup;
+      iface->pfnShutdown = Graph_SysShutdown;
+      iface->pfnSave = (code *)0x0;
+      iface->pfnRestore = (code *)0x0;
+      iface->pfnReserved1 = (code *)0x0;
+      iface->pfnReserved2 = (code *)0x0;
     }
     iVar1 = 0;
   }

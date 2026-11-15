@@ -26,12 +26,10 @@ int __cdecl Res_FOpen(char *name,char *mode)
   char *pcVar9;
   char *pcVar10;
   #define local_21c (*(uint *)(_frame + (0x230 - 0x21c)))
-  #define local_218 (*(undefined1 (*)[4])(_frame + (0x230 - 0x218)))
   #define local_214 (*(uint *)(_frame + (0x230 - 0x214)))
   #define local_210 (*(uint *)(_frame + (0x230 - 0x210)))
   #define local_20c (*(uint *)(_frame + (0x230 - 0x20c)))
   #define local_208 (*(uint *)(_frame + (0x230 - 0x208)))
-  #define local_103 (*(undefined1 (*)[259])(_frame + (0x230 - 0x103)))
   
   puVar3 = &UINT_00825f40;
   iVar8 = 0;
@@ -74,7 +72,7 @@ int __cdecl Res_FOpen(char *name,char *mode)
     }
     iVar5 = tolower((int)*mode);
     if (((iVar5 == 0x72) && (puVar4 = strchr((uint *)name,'\\'), puVar4 == (uint *)0x0)) &&
-       (iVar5 = res_FindInternalFile(name,local_218), iVar5 != 0)) {
+       (iVar5 = res_FindInternalFile(name,(LabFile *)(_frame + (0x230 - 0x218))), iVar5 != 0)) {
       if (local_208 != 0) {
         *puVar3 = local_214;
         *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f5c)) = 0;
@@ -82,7 +80,7 @@ int __cdecl Res_FOpen(char *name,char *mode)
         *(uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f54)) = local_20c;
         return iVar8 + 1;
       }
-      uVar6 = (**(code **)(g_dwLowLevelHS + 0x30))(local_103,mode);
+      uVar6 = (**(code **)(g_dwLowLevelHS + 0x30))((_frame + (0x230 - 0x103)),mode);
       *puVar3 = uVar6;
       if (uVar6 == 0) {
         return 0;
@@ -99,12 +97,10 @@ int __cdecl Res_FOpen(char *name,char *mode)
   }
   return 0;
 }
-#undef local_103
 #undef local_208
 #undef local_20c
 #undef local_210
 #undef local_214
-#undef local_218
 #undef local_21c
 
 
@@ -148,32 +144,33 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
 
 {
   int iVar1;
-  LabEntry *entry;
+  ResFile *file;
   int iVar2;
   uint uVar3;
   int iVar4;
   uint uVar5;
   undefined4 *puVar6;
-  undefined4 *puVar7;
+  byte *pbVar7;
+  byte *pbVar8;
   
   iVar1 = fh * 0x102c;
-  entry = (LabEntry *)(&DAT_00824f14 + iVar1);
+  file = (ResFile *)(&DAT_00824f14 + iVar1);
   if ((fh < 1) || (0x80 < fh)) {
     (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x76b);
   }
-  if (entry->dwHash == 0) {
+  if (file->dwHandle == 0) {
     return 0;
   }
   if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
-    uVar3 = (**(code **)(g_dwLowLevelHS + 0x38))(entry->dwHash,buf,n);
+    uVar3 = (**(code **)(g_dwLowLevelHS + 0x38))(file->dwHandle,buf,n);
     return uVar3;
   }
   *(uint *)(&DAT_00824f2c + iVar1) =
        (uint)(*(int *)(&DAT_00824f24 + iVar1) <= *(int *)(&DAT_00824f18 + iVar1));
   if ((n < *(uint *)(&DAT_00824f34 + iVar1)) && (*(uint *)(&DAT_00824f20 + iVar1) < n)) {
-    ResFile_FillBuffer(entry);
+    ResFile_FillBuffer(file);
   }
   uVar3 = *(uint *)(&DAT_00824f20 + iVar1);
   if (n <= uVar3) {
@@ -194,17 +191,17 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
     return n;
   }
   if (uVar3 != 0) {
-    puVar6 = (undefined4 *)((int)&entry[1].nOffset + *(int *)(&DAT_00824f1c + iVar1));
-    puVar7 = buf;
+    pbVar7 = file->aBuffer + *(int *)(&DAT_00824f1c + iVar1);
+    pbVar8 = buf;
     for (uVar5 = uVar3 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-      *puVar7 = *puVar6;
-      puVar6 = puVar6 + 1;
-      puVar7 = puVar7 + 1;
+      *(undefined4 *)pbVar8 = *(undefined4 *)pbVar7;
+      pbVar7 = pbVar7 + 4;
+      pbVar8 = pbVar8 + 4;
     }
     for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *(undefined1 *)puVar7 = *(undefined1 *)puVar6;
-      puVar6 = (undefined4 *)((int)puVar6 + 1);
-      puVar7 = (undefined4 *)((int)puVar7 + 1);
+      *pbVar8 = *pbVar7;
+      pbVar7 = pbVar7 + 1;
+      pbVar8 = pbVar8 + 1;
     }
   }
   iVar2 = *(int *)(&DAT_00824f20 + iVar1);
@@ -212,7 +209,7 @@ uint __cdecl Res_FRead(int fh,void *buf,uint n)
   *(int *)(&DAT_00824f18 + iVar1) = iVar4 + iVar2;
   *(int *)(&DAT_00824f1c + iVar1) = *(int *)(&DAT_00824f1c + iVar1) + iVar2;
   *(undefined4 *)(&DAT_00824f20 + iVar1) = 0;
-  iVar4 = Lab_ReadRaw(entry,(void *)(iVar2 + (int)buf),iVar4 + iVar2,n - iVar2);
+  iVar4 = Lab_ReadRaw(file,(void *)(iVar2 + (int)buf),iVar4 + iVar2,n - iVar2);
   *(int *)(&DAT_00824f18 + iVar1) = *(int *)(&DAT_00824f18 + iVar1) + iVar4;
   return iVar4 + iVar2;
 }
@@ -227,57 +224,58 @@ char * __cdecl Res_FGets(int param_1,char *param_2,uint param_3)
 
 {
   int iVar1;
-  int iVar2;
-  char *pcVar3;
-  char cVar4;
-  char *pcVar5;
+  uint uVar2;
+  int iVar3;
+  char *pcVar4;
+  char cVar5;
+  char *pcVar6;
   
-  iVar2 = param_1;
-  cVar4 = '\0';
+  iVar3 = param_1;
+  cVar5 = '\0';
   param_1 = 0;
-  iVar1 = iVar2 * 0x102c;
-  if ((iVar2 < 1) || (0x80 < iVar2)) {
+  iVar1 = iVar3 * 0x102c;
+  if ((iVar3 < 1) || (0x80 < iVar3)) {
     (**(code **)(g_dwResHS + 0x18))
               (s__int_fh___0_____int_fh____MAX_OP_004e7a8c,
                s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x7bc);
   }
-  iVar2 = *(int *)(&DAT_00824f14 + iVar1);
-  if (iVar2 == 0) {
+  uVar2 = ((ResFile *)(&DAT_00824f14 + iVar1))->dwHandle;
+  if (uVar2 == 0) {
     return (char *)0x0;
   }
   if (*(int *)(&DAT_00824f30 + iVar1) != 0) {
-    pcVar3 = (char *)(**(code **)(g_dwLowLevelHS + 0x3c))(iVar2,param_2,param_3);
-    return pcVar3;
+    pcVar4 = (char *)(**(code **)(g_dwLowLevelHS + 0x3c))(uVar2,param_2,param_3);
+    return pcVar4;
   }
   if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
-    ResFile_FillBuffer(&DAT_00824f14 + iVar1);
+    ResFile_FillBuffer((ResFile *)(&DAT_00824f14 + iVar1));
   }
   if (*(uint *)(&DAT_00824f20 + iVar1) < param_3) {
     param_3 = *(uint *)(&DAT_00824f20 + iVar1) + 1;
   }
-  pcVar3 = (char *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00824f40) + *(int *)(&DAT_00824f1c + iVar1));
-  pcVar5 = param_2;
+  pcVar4 = (char *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00824f40) + *(int *)(&DAT_00824f1c + iVar1));
+  pcVar6 = param_2;
   while (param_3 = param_3 - 1, 0 < (int)param_3) {
-    cVar4 = *pcVar3;
-    pcVar3 = pcVar3 + 1;
+    cVar5 = *pcVar4;
+    pcVar4 = pcVar4 + 1;
     param_1 = param_1 + 1;
-    if ((cVar4 == '\n') || (cVar4 == '\r')) break;
-    *pcVar5 = cVar4;
-    pcVar5 = pcVar5 + 1;
+    if ((cVar5 == '\n') || (cVar5 == '\r')) break;
+    *pcVar6 = cVar5;
+    pcVar6 = pcVar6 + 1;
   }
   if (param_3 != 0) {
-    *pcVar5 = '\n';
-    pcVar5 = pcVar5 + 1;
+    *pcVar6 = '\n';
+    pcVar6 = pcVar6 + 1;
   }
-  *pcVar5 = '\0';
-  if ((cVar4 == '\r') && (*pcVar3 == '\n')) {
+  *pcVar6 = '\0';
+  if ((cVar5 == '\r') && (*pcVar4 == '\n')) {
     param_1 = param_1 + 1;
   }
-  iVar2 = *(int *)(&DAT_00824f18 + iVar1);
-  *(int *)(&DAT_00824f18 + iVar1) = iVar2 + param_1;
+  iVar3 = *(int *)(&DAT_00824f18 + iVar1);
+  *(int *)(&DAT_00824f18 + iVar1) = iVar3 + param_1;
   *(int *)(&DAT_00824f1c + iVar1) = *(int *)(&DAT_00824f1c + iVar1) + param_1;
   *(int *)(&DAT_00824f20 + iVar1) = *(int *)(&DAT_00824f20 + iVar1) - param_1;
-  if ((*(int *)(&DAT_00824f24 + iVar1) <= iVar2 + param_1) && (*param_2 == '\0')) {
+  if ((*(int *)(&DAT_00824f24 + iVar1) <= iVar3 + param_1) && (*param_2 == '\0')) {
     *(undefined4 *)(&DAT_00824f2c + iVar1) = 1;
     return (char *)0x0;
   }
@@ -426,12 +424,12 @@ int __cdecl Res_FSeek(int fh,int offset,int whence)
 int __cdecl Res_FSize(char *name)
 
 {
-  unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x220] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _stkneg[560] __attribute__((aligned(16)));  /* the original frame below the return address */
   int iVar1;
-  #define local_218 (*(undefined1 (*)[8])(_frame + (0x230 - 0x218)))
-  #define local_210 (*(uint *)(_frame + (0x230 - 0x210)))
+  #define local_210 (*(uint *)(_frame + (0x220 - 0x210)))
   
-  iVar1 = res_FindInternalFile(name,local_218);
+  iVar1 = res_FindInternalFile(name,(LabFile *)(_stkneg + 24));
   if (iVar1 != 0) {
     return local_210;
   }
@@ -439,7 +437,6 @@ int __cdecl Res_FSize(char *name)
   return iVar1;
 }
 #undef local_210
-#undef local_218
 
 
 /* ---- 0x00480f90  Res_FPrintf ---- */
@@ -476,24 +473,24 @@ int __cdecl Res_FPrintf(int fh,char *fmt,...)
 
 
 /* ---- 0x00481fd0  ResFile_FillBuffer ---- */
-void __cdecl ResFile_FillBuffer(void *entry)
+void __cdecl ResFile_FillBuffer(ResFile *file)
 
 {
   int iVar1;
   int iVar2;
-  undefined4 *buf;
+  byte *buf;
   
-  iVar2 = *(int *)((int)entry + 0x20);
-  buf = (undefined4 *)((int)entry + 0x2c);
+  iVar2 = file->nBufSize;
+  buf = file->aBuffer;
   iVar1 = 0;
-  if (*(uint *)((int)entry + 0xc) != 0) {
-    memmove(buf,(undefined4 *)(*(int *)((int)entry + 8) + (int)buf),*(uint *)((int)entry + 0xc));
-    iVar1 = *(int *)((int)entry + 0xc);
+  if (file->nBufCount != 0) {
+    memmove((undefined4 *)buf,(undefined4 *)(buf + file->nBufPos),file->nBufCount);
+    iVar1 = file->nBufCount;
     iVar2 = iVar2 - iVar1;
-    buf = (undefined4 *)((int)buf + iVar1);
+    buf = buf + iVar1;
   }
-  iVar2 = Lab_ReadRaw(entry,buf,*(int *)((int)entry + 4) + iVar1,iVar2);
-  *(undefined4 *)((int)entry + 8) = 0;
-  *(int *)((int)entry + 0xc) = *(int *)((int)entry + 0xc) + iVar2;
+  iVar2 = Lab_ReadRaw(file,buf,file->nPos + iVar1,iVar2);
+  file->nBufPos = 0;
+  file->nBufCount = file->nBufCount + iVar2;
   return;
 }

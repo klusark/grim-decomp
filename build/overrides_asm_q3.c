@@ -176,7 +176,7 @@ void __cdecl rdPuppet_AdvanceTrack(void *puppet, int track, float dt)
  * x87: the rotation y / z of a key with velocity stay extended until the rest rotation is subtracted (the position and
  * the rotation x are stored as floats first), every other step is stored as a float as in the original. */
 /* OVERRIDES: rdPuppet_UpdateFrame */
-void __cdecl rdPuppet_UpdateFrame(void *model, float *frame)
+void __cdecl rdPuppet_UpdateFrame(rdThing *model, float *frame)
 {
     char *thing = (char *)model;
     char *mdl = Q3P(thing, 4);

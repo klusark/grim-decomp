@@ -17,22 +17,22 @@ void __cdecl Res_FreeAll(void)
   Resource *res;
   Resource *res_00;
   
-  res = (Resource *)g_pNewestResNode;
-  res_00 = (Resource *)g_pNewestResNode;
-  if (g_pNewestResNode != (int *)0x0) {
+  res = g_pNewestResNode;
+  res_00 = g_pNewestResNode;
+  if (g_pNewestResNode != (Resource *)0x0) {
     do {
       pRVar1 = res_00->pNext;
       if ((res_00->bFlags & 8) == 0) {
         Res_CallUnload(res_00);
         Res_Unlink(res_00);
-        res = (Resource *)g_pNewestResNode;
+        res = g_pNewestResNode;
       }
       res_00 = pRVar1;
     } while (pRVar1 != (Resource *)0x0);
     while (res != (Resource *)0x0) {
       Res_CallUnload(res);
-      Res_Unlink((Resource *)g_pNewestResNode);
-      res = (Resource *)g_pNewestResNode;
+      Res_Unlink(g_pNewestResNode);
+      res = g_pNewestResNode;
     }
   }
   return;
@@ -84,13 +84,12 @@ void __cdecl grimlib_RestoreSelectedActorCostume(void)
 /* Original name grimlib_SetDisplay (the remaster's GrimFandango (Linux): the only unmatched caller
    of Render_Open; 2 matched neighbours agree, 0 disagree); was Engine_OpenRenderer. */
 
-int __cdecl grimlib_SetDisplay(void *mode,int flags)
+int __cdecl grimlib_SetDisplay(VBuffer *mode,int flags)
 
 {
   sputRender_PageCountIs(g_dwStdDisplay_numDrawBuffers);
   sputRender_SetDisplay
-            ((uint)mode,flags,0,0,*(int *)((int)mode + 0xc) - 1,*(int *)((int)mode + 0x10) - 1,
-             ((unsigned)(uintptr_t)&DAT_004e7da0));
+            ((uint)mode,flags,0,0,(mode->format).nWidth - 1,(mode->format).nHeight - 1,((unsigned)(uintptr_t)&DAT_004e7da0));
   return 0;
 }
 
@@ -938,14 +937,15 @@ void __cdecl sputRender_Update(void)
   ObjectState *pOVar1;
   int *piVar2;
   int iVar3;
-  int iVar4;
-  uint uVar5;
-  Set *pSVar6;
-  float *pfVar7;
+  void *pvVar4;
+  ResRef *pRVar5;
+  uint uVar6;
+  Set *pSVar7;
   float *pfVar8;
-  float fVar9;
-  int iVar10;
-  uint *puVar11;
+  float *pfVar9;
+  Setup *pSVar10;
+  int iVar11;
+  uint *puVar12;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define fStack_c (*(float *)(_frame + (0x30 - 0xc)))
@@ -955,18 +955,18 @@ void __cdecl sputRender_Update(void)
   if (g_dwGrimlib_mode != 0) {
     if (g_dwGrimlib_mode == 3) {
       sputSmush_SetTarget(&g_dwStdDisplay_backBuffer);
-      uVar5 = sputSmush_Periodic();
-      if (uVar5 != 0) {
-        iVar10 = 0;
+      uVar6 = sputSmush_Periodic();
+      if (uVar6 != 0) {
+        iVar11 = 0;
         g_dwGrimlib_mode = 2;
         local_1c[0] = 0.0;
         local_1c[1] = 0.0;
         local_1c[2] = 8.96831e-43;
         if (0 < g_nNumPages) {
           do {
-            DirtyRect_Add((int *)local_1c,1,iVar10);
-            iVar10 = iVar10 + 1;
-          } while (iVar10 < g_nNumPages);
+            DirtyRect_Add((int *)local_1c,1,iVar11);
+            iVar11 = iVar11 + 1;
+          } while (iVar11 < g_nNumPages);
         }
         sputRender_ForceRefresh();
         g_dwMovieJustFinished = 1;
@@ -991,26 +991,24 @@ void __cdecl sputRender_Update(void)
       if (UINT_008c9804 != 0) {
         lua_printstack(0);
       }
-      pSVar6 = sputRoom_GetCurrentRoom();
-      if (pSVar6 == (Set *)0x0) {
+      pSVar7 = sputRoom_GetCurrentRoom();
+      if (pSVar7 == (Set *)0x0) {
         return;
       }
-      pSVar6 = sputRoom_GetCurrentRoom();
-      if (((g_pRenderedSet != pSVar6) ||
-          (pSVar6 = sputRoom_GetCurrentRoom(), pSVar6->nCurSetup != g_nSputRender_Update_RenderSetup
+      pSVar7 = sputRoom_GetCurrentRoom();
+      if (((g_pRenderedSet != pSVar7) ||
+          (pSVar7 = sputRoom_GetCurrentRoom(), pSVar7->nCurSetup != g_nSputRender_Update_RenderSetup
           )) || (g_nSputRender_Reset != 0)) {
         DirtyRect_Clear();
         g_pRenderedSet = sputRoom_GetCurrentRoom();
-        g_nSputRender_Update_RenderSetup = ((Set *)g_pRenderedSet)->nCurSetup;
+        g_nSputRender_Update_RenderSetup = g_pRenderedSet->nCurSetup;
         sputRender_UseSetup(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
         sputLua_PostCameraChange(g_nSputRender_Update_RenderSetup);
       }
-      fVar9 = (float)(*(int *)((int)g_pRenderedSet + 0xac) + g_nSputRender_Update_RenderSetup * 300)
-      ;
-      local_1c[0] = fVar9;
+      pSVar10 = g_pRenderedSet->pSetups + g_nSputRender_Update_RenderSetup;
+      local_1c[0] = PUN(float,pSVar10);
       sputRender_SyncCamera(g_pRenderedSet,g_nSputRender_Update_RenderSetup);
-      for (pOVar1 = *(ObjectState **)(PUN(int,(float)fVar9) + 0x128); pOVar1 != (ObjectState *)0x0;
-          pOVar1 = pOVar1->pNext) {
+      for (pOVar1 = pSVar10->pObjectStates; pOVar1 != (ObjectState *)0x0; pOVar1 = pOVar1->pNext) {
         ObjectState_Update
                   (pOVar1,3,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
       }
@@ -1024,24 +1022,23 @@ void __cdecl sputRender_Update(void)
       stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
       sputPrimitive_Update(1);
       stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
-      for (pOVar1 = *(ObjectState **)(PUN(int,(float)fVar9) + 0x128); pOVar1 != (ObjectState *)0x0;
-          pOVar1 = pOVar1->pNext) {
+      for (pOVar1 = pSVar10->pObjectStates; pOVar1 != (ObjectState *)0x0; pOVar1 = pOVar1->pNext) {
         ObjectState_Update(pOVar1,1,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4);
       }
       rdAdvanceFrame();
       Render_BuildActorDrawList();
       if ((g_dwTotDrawItems != 0) || (((byte)g_dwDebugFlags & 1) != 0)) {
         PerfBegin(5);
-        iVar10 = 0;
+        iVar11 = 0;
         if (0 < (int)g_dwTotDrawItems) {
-          puVar11 = &g_dwDrawItems;
+          puVar12 = &g_dwDrawItems;
           do {
-            if (*(char *)*puVar11 == '\0') {
-              sputCostume_Draw2D((g_pActors[*(int *)((char *)*puVar11 + 8)].pCostumes)->dwInstance);
+            if (*(char *)*puVar12 == '\0') {
+              sputCostume_Draw2D((g_pActors[*(int *)((char *)*puVar12 + 8)].pCostumes)->dwInstance);
             }
-            iVar10 = iVar10 + 1;
-            puVar11 = puVar11 + 1;
-          } while (iVar10 < (int)g_dwTotDrawItems);
+            iVar11 = iVar11 + 1;
+            puVar12 = puVar12 + 1;
+          } while (iVar11 < (int)g_dwTotDrawItems);
         }
         PerfEnd(5);
         if (((byte)g_dwDebugFlags & 1) != 0) {
@@ -1056,36 +1053,36 @@ void __cdecl sputRender_Update(void)
           stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
         }
         PerfBegin(6);
-        if (iVar10 != 0) {
-          puVar11 = &g_dwDrawItems + iVar10 + -1;
+        if (iVar11 != 0) {
+          puVar12 = &g_dwDrawItems + iVar11 + -1;
           do {
-            actor = g_pActors + *(int *)(*puVar11 + 8);
-            if (g_pActors[*(int *)(*puVar11 + 8)].flScale != 1.0) {
+            actor = g_pActors + *(int *)(*puVar12 + 8);
+            if (g_pActors[*(int *)(*puVar12 + 8)].flScale != 1.0) {
               fStack_8 = actor->flScale;
-              pfVar8 = &fStack_c;
+              pfVar9 = &fStack_c;
               fStack_4 = actor->flScale;
-              fStack_c = g_pActors[*(int *)(*puVar11 + 8)].flScale;
-              pfVar7 = sputActor_GetOrientMatrix(actor);
-              rdMatrix_PreScale34(pfVar7,(uint)pfVar8);
+              fStack_c = g_pActors[*(int *)(*puVar12 + 8)].flScale;
+              pfVar8 = sputActor_GetOrientMatrix(actor);
+              rdMatrix_PreScale34(pfVar8,(uint)pfVar9);
             }
-            if (*(char *)*puVar11 == '\0') {
+            if (*(char *)*puVar12 == '\0') {
               piVar2 = actor->pColormapRef;
               iVar3 = *piVar2;
               if (iVar3 == 0) {
-                iVar3 = *(int *)((int)g_pRenderedSet + 0x88);
-                iVar4 = *(int *)((int)g_pRenderedSet + 0x80);
-                if (*(int *)(iVar4 + iVar3 * 0x34) == 0) {
+                iVar3 = g_pRenderedSet->nCurColormap;
+                pRVar5 = g_pRenderedSet->pColormaps;
+                if (pRVar5[iVar3].nValid == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                rdroid_SetColormap(*(uint *)(iVar4 + iVar3 * 0x34 + 4));
-                iVar3 = *(int *)((int)g_pRenderedSet + 0x88);
-                iVar4 = *(int *)((int)g_pRenderedSet + 0x80);
-                if (*(int *)(iVar4 + iVar3 * 0x34) == 0) {
+                rdroid_SetColormap((uint)pRVar5[iVar3].pData);
+                iVar3 = g_pRenderedSet->nCurColormap;
+                pRVar5 = g_pRenderedSet->pColormaps;
+                if (pRVar5[iVar3].nValid == 0) {
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                iVar3 = *(int *)(iVar4 + iVar3 * 0x34 + 4);
+                pvVar4 = pRVar5[iVar3].pData;
               }
               else {
                 if (iVar3 == 0) {
@@ -1098,16 +1095,16 @@ void __cdecl sputRender_Update(void)
                   (*g_pStd_HS->pAssertFail)
                             (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
                 }
-                iVar3 = piVar2[1];
+                pvVar4 = (void *)piVar2[1];
               }
-              (*(code *)g_dwSputRender_pSetPaletteFunc)(iVar3 + 0x30,0);
-              pfVar8 = sputActor_GetOrientMatrix(actor);
-              sputCostume_Draw3D((uint)actor->pCostumes,(uint)pfVar8);
+              (*(code *)g_dwSputRender_pSetPaletteFunc)((int)pvVar4 + 0x30,0);
+              pfVar9 = sputActor_GetOrientMatrix(actor);
+              sputCostume_Draw3D((uint)actor->pCostumes,(uint)pfVar9);
               if (((byte)g_dwDebugFlags & 1) != 0) {
                 Actor_DrawDebugWalker(actor);
               }
             }
-            else if (*(char *)*puVar11 == '\x01') {
+            else if (*(char *)*puVar12 == '\x01') {
               if (g_nSputRender_b3DAcceleration == 0) {
                 stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
               }
@@ -1119,23 +1116,23 @@ void __cdecl sputRender_Update(void)
             }
             if (actor->flScale != 1.0) {
               fStack_c = 1.0 / actor->flScale;
-              pfVar8 = &fStack_c;
+              pfVar9 = &fStack_c;
               fStack_8 = fStack_c;
               fStack_4 = fStack_c;
-              pfVar7 = sputActor_GetOrientMatrix(actor);
-              rdMatrix_PreScale34(pfVar7,(uint)pfVar8);
+              pfVar8 = sputActor_GetOrientMatrix(actor);
+              rdMatrix_PreScale34(pfVar8,(uint)pfVar9);
             }
-            iVar10 = iVar10 + -1;
-            puVar11 = puVar11 + -1;
-            fVar9 = local_1c[0];
-          } while (iVar10 != 0);
+            iVar11 = iVar11 + -1;
+            puVar12 = puVar12 + -1;
+            pSVar10 = PUN(Setup *,(float)local_1c[0]);
+          } while (iVar11 != 0);
         }
         PerfEnd(6);
         PerfBegin(7);
         rdFinishFrame();
         PerfEnd(7);
-        for (pOVar1 = *(ObjectState **)(PUN(int,(float)fVar9) + 0x128); pOVar1 != (ObjectState *)0x0;
-            pOVar1 = pOVar1->pNext) {
+        for (pOVar1 = pSVar10->pObjectStates; pOVar1 != (ObjectState *)0x0; pOVar1 = pOVar1->pNext)
+        {
           ((code *)ObjectState_Update)(pOVar1,2,&g_dwStdDisplay_backBuffer,(void *)UINT_008c97a4)
           ;
         }
@@ -1144,18 +1141,18 @@ void __cdecl sputRender_Update(void)
       sputPrimitive_Update(2);
       stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
       if (((byte)g_dwDebugFlags & 1) != 0) {
-        pSVar6 = sputRoom_GetCurrentRoom();
+        pSVar7 = sputRoom_GetCurrentRoom();
         if (((byte)g_dwDebugFlags & 2) != 0) {
-          Set_DrawDebugLights((int)pSVar6);
+          Set_DrawDebugLights((int)pSVar7);
         }
         if (((byte)g_dwDebugFlags & 4) != 0) {
-          Set_DrawDebugCameras(pSVar6,0xffffffff);
+          Set_DrawDebugCameras(pSVar7,0xffffffff);
         }
       }
       if ((g_dwRenderFlags & 4) != 0) {
-        uVar5 = sputTime_GetGameTime();
+        uVar6 = sputTime_GetGameTime();
         local_1c[1] = 0.0;
-        local_1c[0] = (float)(uVar5 - g_dwIrisStart) / g_flIrisDuration;
+        local_1c[0] = (float)(uVar6 - g_dwIrisStart) / g_flIrisDuration;
         if (local_1c[0] < 0.0) {
           local_1c[0] = -local_1c[0];
         }

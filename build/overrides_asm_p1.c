@@ -1001,8 +1001,9 @@ static void p1_light_dir(int light, float *mt, int slot)
  * The distance tests are x87 expressions with the original's precision: mode 2 compares sqrt(dx*dx + dy*(float)dy +
  * (float)dz*(float)dz) against range + mesh radius (the original spills dy and dz to float slots); mode 3 compares
  * the squared distance in extended precision (NaN counts as "inside"). */
-void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
+void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh_,float *matrix)
 {
+    void *mesh = mesh_;
     float rel[3];
     float mt[12];       /* transposed matrix */
     float mc[12];       /* camera * model */

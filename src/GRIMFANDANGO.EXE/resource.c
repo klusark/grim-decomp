@@ -35,9 +35,9 @@ uint __cdecl Res_SysInitialize(uint param_1,undefined4 *param_2)
     g_dwResTypePool = 0;
     g_dwResFilePool = 0;
     g_pResFileList = (int *)0x0;
-    g_dwResTypeList = 0;
+    g_dwResTypeList = (ResType *)0x0;
     g_dwOldestResNode = 0;
-    g_pNewestResNode = (int *)0x0;
+    g_pNewestResNode = (Resource *)0x0;
     uVar1 = 0;
   }
   return uVar1;
@@ -67,9 +67,9 @@ undefined4 __fastcall FUN_00480020(uint param_1,int param_2,undefined4 param_3,u
     g_dwResTypePool = 0;
     g_dwResFilePool = 0;
     g_pResFileList = (int *)0x0;
-    g_dwResTypeList = 0;
+    g_dwResTypeList = (ResType *)0x0;
     g_dwOldestResNode = 0;
-    g_pNewestResNode = (int *)0x0;
+    g_pNewestResNode = (Resource *)0x0;
     uVar1 = 0;
   }
   return uVar1;
@@ -154,16 +154,17 @@ uint __cdecl Res_SysSave(code *param_1)
   undefined3 extraout_var_02;
   undefined3 extraout_var_03;
   uint uVar5;
-  int *piVar6;
+  Resource *pRVar6;
   char *pcVar7;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0;
   pcVar2 = param_1;
-  for (piVar6 = g_pNewestResNode; param_1 = pcVar2, piVar6 != (int *)0x0; piVar6 = (int *)*piVar6) {
-    if (((piVar6[9] != 0) &&
-        (puVar4 = String_ContainsSubstring((uint *)piVar6[2],&DAT_004e7b14), puVar4 == (uint *)0x0))
-       || ((*(byte *)(piVar6 + 7) & 8) != 0)) {
+  for (pRVar6 = g_pNewestResNode; param_1 = pcVar2, pRVar6 != (Resource *)0x0;
+      pRVar6 = pRVar6->pNext) {
+    if (((pRVar6->pRefs != (ResRef *)0x0) &&
+        (puVar4 = String_ContainsSubstring((uint *)pRVar6->pName,&DAT_004e7b14),
+        puVar4 == (uint *)0x0)) || ((pRVar6->bFlags & 8) != 0)) {
       local_4 = local_4 + 1;
     }
     pcVar2 = param_1;
@@ -173,16 +174,16 @@ uint __cdecl Res_SysSave(code *param_1)
     return 1;
   }
   local_4 = 0;
-  piVar6 = g_pNewestResNode;
-  if (g_pNewestResNode == (int *)0x0) {
+  pRVar6 = g_pNewestResNode;
+  if (g_pNewestResNode == (Resource *)0x0) {
     return 0;
   }
   do {
-    if (((piVar6[9] != 0) &&
-        (puVar4 = String_ContainsSubstring((uint *)piVar6[2],&DAT_004e7b14), puVar4 == (uint *)0x0))
-       || ((*(byte *)(piVar6 + 7) & 8) != 0)) {
+    if (((pRVar6->pRefs != (ResRef *)0x0) &&
+        (puVar4 = String_ContainsSubstring((uint *)pRVar6->pName,&DAT_004e7b14),
+        puVar4 == (uint *)0x0)) || ((pRVar6->bFlags & 8) != 0)) {
       uVar5 = 0xffffffff;
-      pcVar7 = (char *)piVar6[2];
+      pcVar7 = pRVar6->pName;
       do {
         if (uVar5 == 0) break;
         uVar5 = uVar5 - 1;
@@ -192,19 +193,19 @@ uint __cdecl Res_SysSave(code *param_1)
       param_1 = (code *)(~uVar5 - 1);
       uVar3 = (*pcVar2)(&param_1,4);
       if (((((uint)(byte)(uVar3)) != 0) ||
-          (uVar3 = (*pcVar2)(piVar6[2],param_1), ((uint)(byte)(uVar3)) != 0)) ||
-         (uVar3 = (*pcVar2)(piVar6 + 4,4), ((uint)(byte)(uVar3)) != 0)) {
+          (uVar3 = (*pcVar2)(pRVar6->pName,param_1), ((uint)(byte)(uVar3)) != 0)) ||
+         (uVar3 = (*pcVar2)(&pRVar6->dwType,4), ((uint)(byte)(uVar3)) != 0)) {
         return 1;
       }
-      piVar6[6] = piVar6[5];
-      uVar3 = (*pcVar2)(piVar6 + 6,4);
+      pRVar6->nHandle = (int)pRVar6->pData;
+      uVar3 = (*pcVar2)(&pRVar6->nHandle,4);
       if (((uint)(byte)(uVar3)) != 0) {
         return 1;
       }
       local_4 = local_4 + 1;
     }
-    piVar6 = (int *)*piVar6;
-    if (piVar6 == (int *)0x0) {
+    pRVar6 = pRVar6->pNext;
+    if (pRVar6 == (Resource *)0x0) {
       return 0;
     }
   } while( true );
@@ -428,18 +429,20 @@ int __cdecl AddResourcePath(char *dir)
   unsigned char _frame[0x1a0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   char *pcVar2;
-  void *find;
+  StdFileSearch *find;
   uint uVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
   char ***pppcVar7;
   char *pcVar8;
-  char **ppcVar9;
-  char **ppcVar10;
-  char *pcVar11;
+  StdFileEntry *pSVar9;
+  StdFileEntry *pSVar10;
+  char **ppcVar11;
+  char **ppcVar12;
+  char *pcVar13;
   #define local_18c (*(char (*)[128])(_frame + (0x1a0 - 0x18c)))
-  #define local_10c (*(char (*)[268])(_frame + (0x1a0 - 0x10c)))
+  #define local_10c (*(StdFileEntry *)(_frame + (0x1a0 - 0x10c)))
   
   uVar3 = 0xffffffff;
   do {
@@ -452,16 +455,16 @@ int __cdecl AddResourcePath(char *dir)
   } while (cVar1 != '\0');
   uVar3 = ~uVar3;
   pcVar2 = pcVar2 + -uVar3;
-  pcVar11 = local_18c;
+  pcVar13 = local_18c;
   for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *(undefined4 *)pcVar11 = *(undefined4 *)pcVar2;
+    *(undefined4 *)pcVar13 = *(undefined4 *)pcVar2;
     pcVar2 = pcVar2 + 4;
-    pcVar11 = pcVar11 + 4;
+    pcVar13 = pcVar13 + 4;
   }
   for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-    *pcVar11 = *pcVar2;
+    *pcVar13 = *pcVar2;
     pcVar2 = pcVar2 + 1;
-    pcVar11 = pcVar11 + 1;
+    pcVar13 = pcVar13 + 1;
   }
   pcVar2 = strrchr(local_18c,'\\');
   if ((pcVar2 != (char *)0x0) && (pcVar2[1] == '\0')) {
@@ -471,12 +474,12 @@ int __cdecl AddResourcePath(char *dir)
   uVar3 = 0xffffffff;
   pcVar2 = &DAT_004e9c60;
   do {
-    pcVar11 = pcVar2;
+    pcVar13 = pcVar2;
     if (uVar3 == 0) break;
     uVar3 = uVar3 - 1;
-    pcVar11 = pcVar2 + 1;
+    pcVar13 = pcVar2 + 1;
     cVar1 = *pcVar2;
-    pcVar2 = pcVar11;
+    pcVar2 = pcVar13;
   } while (cVar1 != '\0');
   uVar3 = ~uVar3;
   iVar5 = -1;
@@ -489,52 +492,52 @@ int __cdecl AddResourcePath(char *dir)
     cVar1 = *pcVar2;
     pcVar2 = pcVar8;
   } while (cVar1 != '\0');
-  pcVar2 = pcVar11 + -uVar3;
-  pcVar11 = pcVar8 + -1;
+  pcVar2 = pcVar13 + -uVar3;
+  pcVar13 = pcVar8 + -1;
   for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *(undefined4 *)pcVar11 = *(undefined4 *)pcVar2;
+    *(undefined4 *)pcVar13 = *(undefined4 *)pcVar2;
     pcVar2 = pcVar2 + 4;
-    pcVar11 = pcVar11 + 4;
+    pcVar13 = pcVar13 + 4;
   }
   for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-    *pcVar11 = *pcVar2;
+    *pcVar13 = *pcVar2;
     pcVar2 = pcVar2 + 1;
-    pcVar11 = pcVar11 + 1;
+    pcVar13 = pcVar13 + 1;
   }
-  iVar5 = stdFileUtil_FindNext(find,local_10c);
+  iVar5 = stdFileUtil_FindNext(find,&local_10c);
   while (iVar5 != 0) {
     uVar3 = 0xffffffff;
-    pcVar2 = local_10c;
+    pSVar9 = &local_10c;
     do {
-      pcVar11 = pcVar2;
+      pSVar10 = pSVar9;
       if (uVar3 == 0) break;
       uVar3 = uVar3 - 1;
-      pcVar11 = pcVar2 + 1;
-      cVar1 = *pcVar2;
-      pcVar2 = pcVar11;
-    } while (cVar1 != '\0');
+      pSVar10 = (StdFileEntry *)(pSVar9->aName + 1);
+      pcVar2 = pSVar9->aName;
+      pSVar9 = pSVar10;
+    } while (*pcVar2 != '\0');
     uVar3 = ~uVar3;
     iVar5 = -1;
     pcVar2 = local_18c;
     do {
-      pcVar8 = pcVar2;
+      pcVar13 = pcVar2;
       if (iVar5 == 0) break;
       iVar5 = iVar5 + -1;
-      pcVar8 = pcVar2 + 1;
+      pcVar13 = pcVar2 + 1;
       cVar1 = *pcVar2;
-      pcVar2 = pcVar8;
+      pcVar2 = pcVar13;
     } while (cVar1 != '\0');
-    pcVar2 = pcVar11 + -uVar3;
-    pcVar11 = pcVar8 + -1;
+    pcVar2 = (char *)((int)pSVar10 - uVar3);
+    pcVar13 = pcVar13 + -1;
     for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *(undefined4 *)pcVar11 = *(undefined4 *)pcVar2;
+      *(undefined4 *)pcVar13 = *(undefined4 *)pcVar2;
       pcVar2 = pcVar2 + 4;
-      pcVar11 = pcVar11 + 4;
+      pcVar13 = pcVar13 + 4;
     }
     for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-      *pcVar11 = *pcVar2;
+      *pcVar13 = *pcVar2;
       pcVar2 = pcVar2 + 1;
-      pcVar11 = pcVar11 + 1;
+      pcVar13 = pcVar13 + 1;
     }
     iVar5 = Res_FileOpen(local_18c);
     if (iVar5 != 0) {
@@ -542,9 +545,9 @@ int __cdecl AddResourcePath(char *dir)
     }
     pcVar2 = strrchr(local_18c,'\\');
     pcVar2[1] = '\0';
-    iVar5 = stdFileUtil_FindNext(find,local_10c);
+    iVar5 = stdFileUtil_FindNext(find,&local_10c);
   }
-  stdFileUtil_DisposeFind((int)find);
+  stdFileUtil_DisposeFind(find);
   iVar5 = Res_FileOpen(local_18c);
   if (iVar5 == 0) {
     return 0;
@@ -555,37 +558,37 @@ int __cdecl AddResourcePath(char *dir)
     pppcVar7 = &g_ppRequiredLabs;
     do {
       uVar4 = 0xffffffff;
-      ppcVar9 = *pppcVar7;
+      ppcVar11 = *pppcVar7;
       do {
-        ppcVar10 = ppcVar9;
+        ppcVar12 = ppcVar11;
         if (uVar4 == 0) break;
         uVar4 = uVar4 - 1;
-        ppcVar10 = (char **)((int)ppcVar9 + 1);
-        cVar1 = *(char *)ppcVar9;
-        ppcVar9 = ppcVar10;
+        ppcVar12 = (char **)((int)ppcVar11 + 1);
+        cVar1 = *(char *)ppcVar11;
+        ppcVar11 = ppcVar12;
       } while (cVar1 != '\0');
       uVar4 = ~uVar4;
       iVar5 = -1;
       pcVar2 = local_18c;
       do {
-        pcVar11 = pcVar2;
+        pcVar13 = pcVar2;
         if (iVar5 == 0) break;
         iVar5 = iVar5 + -1;
-        pcVar11 = pcVar2 + 1;
+        pcVar13 = pcVar2 + 1;
         cVar1 = *pcVar2;
-        pcVar2 = pcVar11;
+        pcVar2 = pcVar13;
       } while (cVar1 != '\0');
-      pcVar2 = (char *)((int)ppcVar10 - uVar4);
-      pcVar11 = pcVar11 + -1;
+      pcVar2 = (char *)((int)ppcVar12 - uVar4);
+      pcVar13 = pcVar13 + -1;
       for (uVar6 = uVar4 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-        *(undefined4 *)pcVar11 = *(undefined4 *)pcVar2;
+        *(undefined4 *)pcVar13 = *(undefined4 *)pcVar2;
         pcVar2 = pcVar2 + 4;
-        pcVar11 = pcVar11 + 4;
+        pcVar13 = pcVar13 + 4;
       }
       for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-        *pcVar11 = *pcVar2;
+        *pcVar13 = *pcVar2;
         pcVar2 = pcVar2 + 1;
-        pcVar11 = pcVar11 + 1;
+        pcVar13 = pcVar13 + 1;
       }
       iVar5 = Res_FileOpen(local_18c);
       if (iVar5 != 0) {
@@ -663,13 +666,11 @@ void __cdecl Resource_ReloadBitmaps(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ushort *pixels;
-  int iVar1;
-  undefined4 uVar2;
-  VBuffer *surface;
+  VBuffer *pVVar1;
   char *name;
-  void *bitmap;
+  stdBitmap *bitmap;
+  int iVar2;
   int iVar3;
-  int iVar4;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
@@ -681,36 +682,34 @@ void __cdecl Resource_ReloadBitmaps(void)
     local_c = (uint)name;
     if (*(int *)(name + 0x20) == 0) {
       bitmap = stdLoadImageData(name,0,0);
-      if (bitmap != (void *)0x0) {
+      if (bitmap != (stdBitmap *)0x0) {
         iVar3 = 0;
         if (0 < *(int *)(name + 100)) {
           do {
-            iVar4 = iVar3 * 4;
-            uVar2 = *(undefined4 *)(*(int *)(name + 0x78) + iVar3 * 4);
-            iVar1 = iVar3 * 4;
-            iVar3 = iVar3 + 1;
-            *(undefined4 *)(*(int *)(name + 0x78) + iVar1) =
-                 *(undefined4 *)(*(int *)((int)bitmap + 0x78) + iVar4);
-            *(undefined4 *)(*(int *)((int)bitmap + 0x78) + -4 + iVar3 * 4) = uVar2;
-          } while (iVar3 < *(int *)(name + 100));
+            pVVar1 = *(VBuffer **)(*(int *)(name + 0x78) + iVar3 * 4);
+            iVar2 = iVar3 + 1;
+            *(VBuffer **)(*(int *)(name + 0x78) + iVar3 * 4) = bitmap->ppFrames[iVar3];
+            bitmap->ppFrames[iVar3] = pVVar1;
+            iVar3 = iVar2;
+          } while (iVar2 < *(int *)(name + 100));
         }
         stdBitmap_Free(bitmap);
       }
       iVar3 = 0;
       if (0 < *(int *)(name + 100)) {
         do {
-          surface = *(VBuffer **)(*(int *)(name + 0x78) + iVar3 * 4);
-          stdDisplay_VBufferLock(surface);
-          iVar4 = 0;
-          if (0 < (surface->format).nHeight) {
+          pVVar1 = *(VBuffer **)(*(int *)(name + 0x78) + iVar3 * 4);
+          stdDisplay_VBufferLock(pVVar1);
+          iVar2 = 0;
+          if (0 < (pVVar1->format).nHeight) {
             do {
               sputRender_ColorCorrect
-                        ((ushort *)(iVar4 * (surface->format).nPitch + (int)surface->pPixels),
-                         (surface->format).nWidth);
-              iVar4 = iVar4 + 1;
-            } while (iVar4 < (surface->format).nHeight);
+                        ((ushort *)(iVar2 * (pVVar1->format).nPitch + (int)pVVar1->pPixels),
+                         (pVVar1->format).nWidth);
+              iVar2 = iVar2 + 1;
+            } while (iVar2 < (pVVar1->format).nHeight);
           }
-          stdDisplay_VBufferUnlock(surface);
+          stdDisplay_VBufferUnlock(pVVar1);
           iVar3 = iVar3 + 1;
         } while (iVar3 < *(int *)(name + 100));
       }

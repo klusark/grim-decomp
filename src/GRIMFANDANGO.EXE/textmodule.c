@@ -9,7 +9,7 @@
 /* Original name Text_SysInitialize (the remaster's GrimFandango (Linux): aligned call in
    sputText_Initialize); was TextModule_Init. */
 
-int __cdecl Text_SysInitialize(GrimServices *svc,void *iface)
+int __cdecl Text_SysInitialize(GrimServices *svc,SysModuleIface *iface)
 
 {
   int iVar1;
@@ -18,15 +18,15 @@ int __cdecl Text_SysInitialize(GrimServices *svc,void *iface)
   iVar1 = 1;
   if (g_dwTextSysInitialized == 0) {
     g_dwTextSysInitialized = 1;
-    if (iface != (void *)0x0) {
-      *(code **)iface = Text_SysInitialize;
-      *(code **)((int)iface + 4) = Text_SysTerminate;
-      *(code **)((int)iface + 8) = Text_SysStartup;
-      *(code **)((int)iface + 0xc) = Text_SysShutdown;
-      *(code **)((int)iface + 0x10) = Text_SysSave;
-      *(code **)((int)iface + 0x14) = Text_SysRestore;
-      *(undefined4 *)((int)iface + 0x18) = 0;
-      *(undefined4 *)((int)iface + 0x1c) = 0;
+    if (iface != (SysModuleIface *)0x0) {
+      iface->pfnInitialize = Text_SysInitialize;
+      iface->pfnTerminate = Text_SysTerminate;
+      iface->pfnStartup = Text_SysStartup;
+      iface->pfnShutdown = Text_SysShutdown;
+      iface->pfnSave = Text_SysSave;
+      iface->pfnRestore = Text_SysRestore;
+      iface->pfnReserved1 = (code *)0x0;
+      iface->pfnReserved2 = (code *)0x0;
     }
     iVar1 = 0;
   }

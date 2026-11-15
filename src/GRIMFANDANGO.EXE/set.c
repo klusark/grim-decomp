@@ -91,27 +91,27 @@ void * __cdecl grimlib_MakeCurrentSetup(uint setup)
    caller of rdCamera_SetCanvas; the only unmatched caller of rdCamera_SetCurrent; 2 matched
    neighbours agree, 0 disagree); was Set_ApplySetupCamera. */
 
-void __cdecl sputRender_SyncCamera(void *set,int setupIdx)
+void __cdecl sputRender_SyncCamera(Set *set,int setupIdx)
 
 {
-  int iVar1;
+  Setup *pSVar1;
   int iVar2;
-  int iVar3;
+  ResRef *pRVar3;
   
-  iVar1 = *(int *)((int)set + 0xac) + setupIdx * 300;
-  iVar2 = *(int *)((int)set + 0x88);
-  iVar3 = *(int *)((int)set + 0x80);
-  if (*(int *)(iVar3 + iVar2 * 0x34) == 0) {
+  pSVar1 = set->pSetups;
+  iVar2 = set->nCurColormap;
+  pRVar3 = set->pColormaps;
+  if (pRVar3[iVar2].nValid == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f)
     ;
   }
-  rdroid_SetColormap(*(uint *)(iVar3 + iVar2 * 0x34 + 4));
-  rdCamera_SetCurrent(*(void **)(iVar1 + 0x48));
+  rdroid_SetColormap((uint)pRVar3[iVar2].pData);
+  rdCamera_SetCurrent(*(void **)&pSVar1[setupIdx].field_0x48);
   if (g_pSputRender_Canvas != (rdCanvas *)0x0) {
-    rdCamera_SetCanvas(*(rdCamera **)(iVar1 + 0x48),g_pSputRender_Canvas);
+    rdCamera_SetCanvas(*(rdCamera **)&pSVar1[setupIdx].field_0x48,g_pSputRender_Canvas);
   }
-  rdCamera_SetAspectRatio(*(rdCamera **)(iVar1 + 0x48),1.0);
-  rdCamera_Update((float *)(iVar1 + 0x50));
+  rdCamera_SetAspectRatio(*(rdCamera **)&pSVar1[setupIdx].field_0x48,1.0);
+  rdCamera_Update((float *)&pSVar1[setupIdx].field_0x50);
   return;
 }
 
@@ -122,11 +122,11 @@ void __cdecl sputRender_SyncCamera(void *set,int setupIdx)
    view Original name sputRender_UseSetup (the remaster's GrimFandango (Linux): aligned call in
    sputRender_SetDisplay, sputRender_SetGamma, sputRender_Update); was Set_SwitchSetup. */
 
-void __cdecl sputRender_UseSetup(void *set,int setupIdx)
+void __cdecl sputRender_UseSetup(Set *set,int setupIdx)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  Setup *pSVar1;
   ObjectState *state;
   Actor *actor;
   float *pfVar2;
@@ -141,15 +141,15 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  if (set != (void *)0x0) {
-    iVar1 = *(int *)((int)set + 0xac) + setupIdx * 300;
+  if (set != (Set *)0x0) {
+    pSVar1 = set->pSetups;
     CacheRect_FreeAll();
     sputRender_SyncCamera(set,setupIdx);
     g_dwRenderFlags = g_dwRenderFlags & 0xfffffffc;
-    g_pSputRender_Camera = (float *)(iVar1 + 0x20);
+    g_pSputRender_Camera = pSVar1[setupIdx].aPos;
     actor = sputActor_ActorDeref(g_nCamActorIndex);
     pfVar2 = sputActor_GetOrientMatrix(actor);
-    pfVar5 = (float *)(iVar1 + 0x50);
+    pfVar5 = (float *)&pSVar1[setupIdx].field_0x50;
     for (iVar4 = 0xc; iVar4 != 0; iVar4 = iVar4 + -1) {
       *pfVar2 = *pfVar5;
       pfVar5 = pfVar5 + 1;
@@ -191,8 +191,8 @@ void __cdecl sputRender_UseSetup(void *set,int setupIdx)
     else {
       Surface_Blit(g_pSputRender_CleanZBuffer,pVVar3,0,0,(int *)0x0,0);
     }
-    for (state = *(ObjectState **)(iVar1 + 0x128); state != (ObjectState *)0x0; state = state->pNext
-        ) {
+    for (state = pSVar1[setupIdx].pObjectStates; state != (ObjectState *)0x0; state = state->pNext)
+    {
       ObjectState_LoadResources(state);
       ObjectState_Reset(state,g_pSputRender_CleanBuffer,g_pSputRender_CleanZBuffer);
     }
@@ -426,96 +426,98 @@ int __cdecl sputRoom_Save(void *writeFn)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  WalkPlane *pWVar1;
-  code *pcVar2;
-  void *pvVar3;
-  int iVar4;
+  Setup *pSVar1;
+  WalkPlane *pWVar2;
+  code *pcVar3;
+  Set *pSVar4;
   int iVar5;
   int iVar6;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_10 (*(Set **)(_frame + (0x30 - 0x10)))
   #define pSStack_c (*(Set **)(_frame + (0x30 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   local_8 = 0;
   Res_GetFirstType((int *)&local_14,(int *)&local_10,0x20544553);
-  pcVar2 = writeFn;
-  while (writeFn = pcVar2, local_14 != 0) {
-    iVar4 = Res_NumRefs((void *)local_10);
-    if (0 < iVar4) {
+  pcVar3 = writeFn;
+  while (writeFn = pcVar3, local_14 != 0) {
+    iVar5 = Res_NumRefs(local_10);
+    if (0 < iVar5) {
       local_8 = local_8 + 1;
     }
     Res_GetNextType((int *)&local_14,(int *)&local_10,0x20544553);
-    pcVar2 = writeFn;
+    pcVar3 = writeFn;
   }
-  iVar4 = (*pcVar2)(&local_8,4);
-  if (iVar4 == 0) {
+  iVar5 = (*pcVar3)(&local_8,4);
+  if (iVar5 == 0) {
     Res_GetFirstType((int *)&local_14,(int *)&local_10,0x20544553);
-    pvVar3 = (void *)local_10;
+    pSVar4 = local_10;
     do {
       if (local_14 == 0) {
         pSStack_c = sputRoom_GetCurrentRoom();
-        (*pcVar2)(&pSStack_c,4);
+        (*pcVar3)(&pSStack_c,4);
         if (pSStack_c != (Set *)0x0) {
-          (*pcVar2)(&pSStack_c->cSoundMaxVolume,1);
-          (*pcVar2)(&pSStack_c->cSound1af9,1);
-          (*pcVar2)(&pSStack_c->flSoundMinVolume,4);
-          (*pcVar2)(&pSStack_c->flSoundPanScale,4);
-          (*pcVar2)(&pSStack_c->flSound1b04,4);
-          for (pWVar1 = g_pWalkPlane_wp_head; pWVar1 != (WalkPlane *)0x0; pWVar1 = pWVar1->pNext) {
-            writeFn = (void *)pWVar1->nId;
-            (*pcVar2)(&writeFn,4);
-            writeFn = (void *)pWVar1->nVisible;
-            (*pcVar2)(&writeFn,4);
-            writeFn = (void *)pWVar1->dwType;
-            (*pcVar2)(&writeFn,4);
-            writeFn = (void *)pWVar1->nActive;
-            (*pcVar2)(&writeFn,4);
-            fStack_4 = pWVar1->flHeight;
-            (*pcVar2)(&fStack_4,4);
+          (*pcVar3)(&pSStack_c->cSoundMaxVolume,1);
+          (*pcVar3)(&pSStack_c->cSound1af9,1);
+          (*pcVar3)(&pSStack_c->flSoundMinVolume,4);
+          (*pcVar3)(&pSStack_c->flSoundPanScale,4);
+          (*pcVar3)(&pSStack_c->flSound1b04,4);
+          for (pWVar2 = g_pWalkPlane_wp_head; pWVar2 != (WalkPlane *)0x0; pWVar2 = pWVar2->pNext) {
+            writeFn = (void *)pWVar2->nId;
+            (*pcVar3)(&writeFn,4);
+            writeFn = (void *)pWVar2->nVisible;
+            (*pcVar3)(&writeFn,4);
+            writeFn = (void *)pWVar2->dwType;
+            (*pcVar3)(&writeFn,4);
+            writeFn = (void *)pWVar2->nActive;
+            (*pcVar3)(&writeFn,4);
+            fStack_4 = pWVar2->flHeight;
+            (*pcVar3)(&fStack_4,4);
           }
         }
         return 0;
       }
-      iVar5 = 0;
-      local_10 = (uint)pvVar3;
-      iVar4 = Res_NumRefs(pvVar3);
-      if (iVar4 != 0) {
-        (*pcVar2)(&local_10,4);
-        (*pcVar2)((int)pvVar3 + 0xb4,4);
-        (*pcVar2)((int)pvVar3 + 0x1ac0,4);
+      iVar6 = 0;
+      local_10 = pSVar4;
+      iVar5 = Res_NumRefs(pSVar4);
+      if (iVar5 != 0) {
+        (*pcVar3)(&local_10,4);
+        (*pcVar3)(&pSVar4->nCurSetup,4);
+        (*pcVar3)(&pSVar4->nLocked,4);
         fStack_4 = 0.0;
-        if (0 < *(int *)((int)pvVar3 + 0xb0)) {
+        if (0 < pSVar4->nSetups) {
           do {
-            iVar6 = iVar5 + *(int *)((int)pvVar3 + 0xac);
+            pSVar1 = pSVar4->pSetups;
             writeFn = (void *)0x0;
-            for (iVar4 = *(int *)(iVar6 + 0x128); iVar4 != 0; iVar4 = *(int *)(iVar4 + 0xf8)) {
+            for (iVar5 = *(int *)((int)(&pSVar1->zBackground + 1) + iVar6); iVar5 != 0;
+                iVar5 = *(int *)(iVar5 + 0xf8)) {
               writeFn = (void *)((int)writeFn + 1);
             }
-            iVar4 = (*pcVar2)(&writeFn,4);
-            if (iVar4 != 0) {
+            iVar5 = (*pcVar3)(&writeFn,4);
+            if (iVar5 != 0) {
               return 1;
             }
-            for (iVar4 = *(int *)(iVar6 + 0x128); iVar4 != 0; iVar4 = *(int *)(iVar4 + 0xf8)) {
-              (*pcVar2)(iVar4 + 4,4);
-              (*pcVar2)(iVar4 + 0x20,0x20);
-              (*pcVar2)(iVar4 + 0x94,0x20);
-              (*pcVar2)(iVar4 + 0x7c,4);
-              if (*(int *)(iVar4 + 0x40) == 0) {
+            for (iVar5 = *(int *)((int)(&pSVar1->zBackground + 1) + iVar6); iVar5 != 0;
+                iVar5 = *(int *)(iVar5 + 0xf8)) {
+              (*pcVar3)(iVar5 + 4,4);
+              (*pcVar3)(iVar5 + 0x20,0x20);
+              (*pcVar3)(iVar5 + 0x94,0x20);
+              (*pcVar3)(iVar5 + 0x7c,4);
+              if (*(int *)(iVar5 + 0x40) == 0) {
                 (*g_pStd_HS->pAssertFail)
                           (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
               }
-              (*pcVar2)(*(int *)(iVar4 + 0x44) + 0x68,4);
-              (*pcVar2)(iVar4 + 0xec,4);
+              (*pcVar3)(*(int *)(iVar5 + 0x44) + 0x68,4);
+              (*pcVar3)(iVar5 + 0xec,4);
             }
             fStack_4 = PUN(float,(PUN(int,(float)fStack_4) + 1));
-            iVar5 = iVar5 + 300;
-          } while (PUN(int,(float)fStack_4) < *(int *)((int)pvVar3 + 0xb0));
+            iVar6 = iVar6 + 300;
+          } while (PUN(int,(float)fStack_4) < pSVar4->nSetups);
         }
       }
       Res_GetNextType((int *)&local_14,(int *)&local_10,0x20544553);
-      pvVar3 = (void *)local_10;
+      pSVar4 = local_10;
     } while( true );
   }
   return 1;
@@ -703,10 +705,10 @@ int __cdecl sputRoom_Restore(void *readFn)
 Set * __cdecl sputRoom_LoadRoom(char *param_1)
 
 {
-  int *piVar1;
+  RoomActorNode *pRVar1;
   ActorExtra *pAVar2;
   Set *set;
-  void *pvVar3;
+  RoomActors *pRVar3;
   int iVar4;
   Set *pSVar5;
   
@@ -723,14 +725,13 @@ Set * __cdecl sputRoom_LoadRoom(char *param_1)
     Set_InitRecord(set);
     iVar4 = SetFile_Parse(param_1,(uint)set);
     if (iVar4 != 0) {
-      pvVar3 = Set_FindNameInList((int)param_1);
-      if (pvVar3 == (void *)0x0) {
-        pvVar3 = Set_NormalizeName(param_1);
+      pRVar3 = Set_FindNameInList((int)param_1);
+      if (pRVar3 == (RoomActors *)0x0) {
+        pRVar3 = Set_NormalizeName(param_1);
       }
-      *(void **)&set->field_0x1abc = pvVar3;
-      for (piVar1 = *(int **)((int)pvVar3 + 0x80); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[2])
-      {
-        pAVar2 = g_pActors[*piVar1].pExtra;
+      set->pRoomActors = pRVar3;
+      for (pRVar1 = pRVar3->pActors; pRVar1 != (RoomActorNode *)0x0; pRVar1 = pRVar1->pNext) {
+        pAVar2 = g_pActors[pRVar1->nActor].pExtra;
         if (((pAVar2 != (ActorExtra *)0x0) && (pAVar2->pPuck != (Puck *)0x0)) &&
            (pAVar2->nFollowBoxes != 0)) {
           Puck_Validate(pAVar2->pPuck);
@@ -834,7 +835,7 @@ void __cdecl sputRoom_UnReference(Set *set)
 void __cdecl sputRoom_FreeRoom(uint param_1)
 
 {
-  sputRoom_FreeRoomEntry((char *)param_1);
+  sputRoom_FreeRoomEntry((Set *)param_1);
   (*g_pSputRoomHS->pFree)(param_1);
   return;
 }
@@ -845,31 +846,28 @@ void __cdecl sputRoom_FreeRoom(uint param_1)
    GrimFandango (Linux): sputRoom_FreeRoom's only callee; callees sputRoom_UnReference,
    sputActor_ResetShadows, sputRoom_RemoveActor agree); was Set_FreeContents. */
 
-void __cdecl sputRoom_FreeRoomEntry(char *param_1)
+void __cdecl sputRoom_FreeRoomEntry(Set *set)
 
 {
-  void *pvVar1;
-  int *piVar2;
+  RoomActors *list;
+  RoomActorNode *pRVar1;
   
-  sputRoom_UnReference((Set *)param_1);
-  if (*(int *)(param_1 + 0x80) != 0) {
-    (*g_pSputRoomHS->pFree)(*(int *)(param_1 + 0x80));
+  sputRoom_UnReference(set);
+  if (set->pColormaps != (ResRef *)0x0) {
+    (*g_pSputRoomHS->pFree)(set->pColormaps);
   }
-  Set_FreeSetups((int)param_1);
-  WalkPlane_KillCollection(param_1);
-  pvVar1 = *(void **)(param_1 + 0x1abc);
-  if (pvVar1 != (void *)0x0) {
-    piVar2 = *(int **)((int)pvVar1 + 0x80);
-    while (piVar2 != (int *)0x0) {
-      sputActor_ResetShadows(g_pActors + *piVar2);
-      sputRoom_RemoveActor(param_1,g_pActors + **(int **)((int)pvVar1 + 0x80));
-      piVar2 = *(int **)((int)pvVar1 + 0x80);
+  Set_FreeSetups((int)set);
+  WalkPlane_KillCollection(set);
+  list = set->pRoomActors;
+  if (list != (RoomActors *)0x0) {
+    pRVar1 = list->pActors;
+    while (pRVar1 != (RoomActorNode *)0x0) {
+      sputActor_ResetShadows(g_pActors + pRVar1->nActor);
+      sputRoom_RemoveActor(set->aName,g_pActors + list->pActors->nActor);
+      pRVar1 = list->pActors;
     }
-    SetActorList_Free(pvVar1);
-    param_1[0x1abc] = '\0';
-    param_1[0x1abd] = '\0';
-    param_1[0x1abe] = '\0';
-    param_1[0x1abf] = '\0';
+    SetActorList_Free(list);
+    set->pRoomActors = (RoomActors *)0x0;
   }
   return;
 }
@@ -1161,62 +1159,63 @@ int Set_IsHandleValid(char *param_1)
    named set, or 0); called by sputLua_GetVisibleThingsL in both builds; the remaster inlined
    Set_FindNameInList); was Set_GetActorListByName. */
 
-void * __cdecl GetRoomActors(char *setName)
+RoomActorNode * __cdecl GetRoomActors(char *setName)
 
 {
-  void *pvVar1;
+  RoomActors *pRVar1;
   
-  pvVar1 = Set_FindNameInList((int)setName);
-  if (pvVar1 != (void *)0x0) {
-    return *(void **)((int)pvVar1 + 0x80);
+  pRVar1 = Set_FindNameInList((int)setName);
+  if (pRVar1 != (RoomActors *)0x0) {
+    return pRVar1->pActors;
   }
-  return (void *)0x0;
+  return (RoomActorNode *)0x0;
 }
 
 /* ---- 0x004a60c0  Set_FindNameInList ---- */
 /* Case-insensitive lookup in the linked set-name list */
 
-void * __cdecl Set_FindNameInList(int param_1)
+RoomActors * __cdecl Set_FindNameInList(int param_1)
 
 {
   int iVar1;
-  byte *pbVar2;
+  RoomActors *pRVar2;
   
-  if ((param_1 != 0) && (pbVar2 = g_pRoomList, g_pRoomList != (void *)0x0)) {
+  if ((param_1 != 0) && (pRVar2 = g_pRoomList, g_pRoomList != (RoomActors *)0x0)) {
     do {
-      iVar1 = _stricmp(pbVar2,(byte *)param_1);
+      iVar1 = _stricmp((byte *)pRVar2,(byte *)param_1);
       if (iVar1 == 0) {
-        return pbVar2;
+        return pRVar2;
       }
-      pbVar2 = *(byte **)(pbVar2 + 0x84);
-    } while (pbVar2 != (byte *)0x0);
-    return (void *)0x0;
+      pRVar2 = pRVar2->pNext;
+    } while (pRVar2 != (RoomActors *)0x0);
+    return (RoomActors *)0x0;
   }
-  return (void *)0x0;
+  return (RoomActors *)0x0;
 }
 
 /* ---- 0x004a6100  Set_NormalizeName ---- */
 /* sputRoom.cpp: strips the path and extension of a set name into a static buffer */
 
-void * __cdecl Set_NormalizeName(char *setName)
+RoomActors * __cdecl Set_NormalizeName(char *setName)
 
 {
   char cVar1;
-  char *pcVar2;
+  RoomActors *pRVar2;
   int iVar3;
   uint uVar4;
   uint uVar5;
   char *pcVar6;
-  char *pcVar7;
+  RoomActors *pRVar7;
   
-  pcVar2 = (char *)(*g_pSputRoomHS->pAlloc)(0x88,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa32);
-  pcVar6 = pcVar2;
+  pRVar2 = (RoomActors *)
+           (*g_pSputRoomHS->pAlloc)(0x88,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa32);
+  pRVar7 = pRVar2;
   for (iVar3 = 0x22; iVar3 != 0; iVar3 = iVar3 + -1) {
-    pcVar6[0] = '\0';
-    pcVar6[1] = '\0';
-    pcVar6[2] = '\0';
-    pcVar6[3] = '\0';
-    pcVar6 = pcVar6 + 4;
+    pRVar7->aName[0] = '\0';
+    pRVar7->aName[1] = '\0';
+    pRVar7->aName[2] = '\0';
+    pRVar7->aName[3] = '\0';
+    pRVar7 = (RoomActors *)(pRVar7->aName + 4);
   }
   uVar4 = 0xffffffff;
   do {
@@ -1229,20 +1228,20 @@ void * __cdecl Set_NormalizeName(char *setName)
   } while (cVar1 != '\0');
   uVar4 = ~uVar4;
   pcVar6 = pcVar6 + -uVar4;
-  pcVar7 = pcVar2;
+  pRVar7 = pRVar2;
   for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *(undefined4 *)pcVar7 = *(undefined4 *)pcVar6;
+    *(undefined4 *)pRVar7->aName = *(undefined4 *)pcVar6;
     pcVar6 = pcVar6 + 4;
-    pcVar7 = pcVar7 + 4;
+    pRVar7 = (RoomActors *)(pRVar7->aName + 4);
   }
   for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-    *pcVar7 = *pcVar6;
+    pRVar7->aName[0] = *pcVar6;
     pcVar6 = pcVar6 + 1;
-    pcVar7 = pcVar7 + 1;
+    pRVar7 = (RoomActors *)(pRVar7->aName + 1);
   }
-  *(void **)(pcVar2 + 0x84) = g_pRoomList;
-  g_pRoomList = pcVar2;
-  return pcVar2;
+  pRVar2->pNext = g_pRoomList;
+  g_pRoomList = pRVar2;
+  return pRVar2;
 }
 
 /* ---- 0x004a7100  WalkPlane_KillCollection ---- */

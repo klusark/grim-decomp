@@ -698,12 +698,11 @@ void __cdecl Grim_ShowSplash(void)
 
 {
   VBuffer *src;
-  void *bitmap;
+  stdBitmap *bitmap;
   int iVar1;
   
   bitmap = stdBitmap_Load(s_splash_bm_004dd99c,0,0);
-  if ((bitmap != (void *)0x0) &&
-     (src = (VBuffer *)**(undefined4 **)((int)bitmap + 0x78), src != (VBuffer *)0x0)) {
+  if ((bitmap != (stdBitmap *)0x0) && (src = *bitmap->ppFrames, src != (VBuffer *)0x0)) {
     iVar1 = 0;
     if (0 < (src->format).nHeight) {
       do {

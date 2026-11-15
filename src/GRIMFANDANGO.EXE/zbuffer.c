@@ -26,19 +26,19 @@ uint __cdecl sputRoom_LoadZBuffer(uint param_1)
 uint __cdecl ZBuffer_LoadFile(char *param_1)
 
 {
-  uint uVar1;
-  void *bitmap;
+  VBuffer *pVVar1;
+  stdBitmap *bitmap;
   
   bitmap = stdLoadImageData(param_1,0,0);
-  if (bitmap == (void *)0x0) {
+  if (bitmap == (stdBitmap *)0x0) {
     return 0;
   }
-  uVar1 = **(uint **)((int)bitmap + 0x78);
-  (*g_pSputRoomHS->pFree)(*(uint **)((int)bitmap + 0x78));
-  *(undefined4 *)((int)bitmap + 0x78) = 0;
-  *(undefined4 *)((int)bitmap + 100) = 0;
+  pVVar1 = *bitmap->ppFrames;
+  (*g_pSputRoomHS->pFree)(bitmap->ppFrames);
+  bitmap->ppFrames = (VBuffer **)0x0;
+  bitmap->nFrames = 0;
   stdBitmap_Free(bitmap);
-  return uVar1;
+  return (uint)pVVar1;
 }
 
 /* ---- 0x004a4980  sputRoom_FreeZBuffer ---- */

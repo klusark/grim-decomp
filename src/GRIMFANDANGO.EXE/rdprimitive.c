@@ -265,7 +265,7 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
       pPVar3->nBackFacing = 0;
       pPVar3->dwFlags = *(uint *)(param_2 + 4);
       pPVar3->flLight = *(float *)(param_2 + 0x30);
-      pPVar3->pMaterial = *(void **)(param_2 + 0x20);
+      pPVar3->pMaterial = *(rdMaterial **)(param_2 + 0x20);
       rdCache_AddProcFace((void *)0x0,local_2c,flags);
     }
   }
@@ -282,11 +282,11 @@ void __cdecl rdPolyline_DrawFace(int param_1,int param_2,uint param_3,undefined4
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Billboard: builds a camera-facing matrix for the thing position and draws the sprite */
 
-int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
+int __cdecl rdSprite_DrawThing(rdThing *thing,void *sprite)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  rdModel3 *prVar1;
   uint uVar2;
   ProcEntry *pPVar3;
   uint *puVar4;
@@ -294,15 +294,15 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   #define local_3c (*(float (*)[3])(_frame + (0x50 - 0x3c)))
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
-  iVar1 = *(int *)((int)thing + 4);
+  prVar1 = thing->pModel;
   rdMatrix_TransformPoint34(local_3c,(float *)((int)sprite + 0x24),g_pRdCamera_CurCamera->aView);
   if ((g_bRdroid_curCullFlags & 2) == 0) {
-    uVar2 = *(uint *)((int)thing + 0x44);
+    uVar2 = thing->nFrustumCull;
   }
   else {
     uVar2 = rdClip_SphereInFrustrum
-                      (&g_pRdCamera_CurCamera->pFrustum->nClipFar,local_3c,*(float *)(iVar1 + 0x3c))
-    ;
+                      (&g_pRdCamera_CurCamera->pFrustum->nClipFar,local_3c,
+                       (float)prVar1->aGeosets[3].dwMeshes);
   }
   if (uVar2 == 2) {
     return 0;
@@ -316,40 +316,41 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
   }
   if (PUN(float,sprite) < 1.0) {
     if (0.0 < PUN(float,sprite)) {
-      thing = *(void **)(iVar1 + 0x20);
+      thing = *(rdThing **)&prVar1->field_0x20;
     }
     else {
-      thing = (void *)0x1;
+      thing = (rdThing *)0x1;
     }
   }
   else {
-    thing = (void *)0x0;
+    thing = (rdThing *)0x0;
   }
-  if ((int)*(void **)(iVar1 + 0x20) <= (int)thing) {
-    thing = *(void **)(iVar1 + 0x20);
+  if ((int)*(rdThing **)&prVar1->field_0x20 <= (int)thing) {
+    thing = *(rdThing **)&prVar1->field_0x20;
   }
   rdMatrix_TransformPointLst34
-            (local_30,*(float **)(iVar1 + 0x28),(float *)&UINT_007f5180,*(int *)(iVar1 + 0x24));
+            (local_30,(float *)prVar1->aGeosets[0].pMeshes,(float *)&UINT_007f5180,
+             prVar1->aGeosets[0].dwMeshes);
   local_40 = 0;
-  if (*(int *)(iVar1 + 0x24) != 0) {
+  if (prVar1->aGeosets[0].dwMeshes != 0) {
     puVar4 = &UINT_007f5184;
     do {
       pPVar3 = rdCache_GetProcEntry();
       if (pPVar3 == (ProcEntry *)0x0) {
         return 0;
       }
-      *(float *)&DAT_007f5000 = PUN(float,puVar4[-1]) - *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5000 = PUN(float,puVar4[-1]) - (float)prVar1->aGeosets[2].dwMeshes;
       _DAT_007f5004 = PUN(float,*puVar4);
-      *(float *)&DAT_007f5008 = PUN(float,puVar4[1]) - *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5008 = PUN(float,puVar4[1]) - (float)prVar1->aGeosets[2].dwMeshes;
       FLOAT_007f5010 = PUN(float,*puVar4);
-      *(float *)&DAT_007f500c = PUN(float,puVar4[-1]) + *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f500c = PUN(float,puVar4[-1]) + (float)prVar1->aGeosets[2].dwMeshes;
       FLOAT_007f501c = PUN(float,*puVar4);
-      *(float *)&DAT_007f5014 = PUN(float,puVar4[1]) - *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5014 = PUN(float,puVar4[1]) - (float)prVar1->aGeosets[2].dwMeshes;
       FLOAT_007f5028 = PUN(float,*puVar4);
-      *(float *)&DAT_007f5018 = PUN(float,puVar4[-1]) + *(float *)(iVar1 + 0x34);
-      *(float *)&DAT_007f5020 = PUN(float,puVar4[1]) + *(float *)(iVar1 + 0x34);
-      *(float *)&DAT_007f5024 = PUN(float,puVar4[-1]) - *(float *)(iVar1 + 0x34);
-      *(float *)&DAT_007f502c = PUN(float,puVar4[1]) + *(float *)(iVar1 + 0x34);
+      *(float *)&DAT_007f5018 = PUN(float,puVar4[-1]) + (float)prVar1->aGeosets[2].dwMeshes;
+      *(float *)&DAT_007f5020 = PUN(float,puVar4[1]) + (float)prVar1->aGeosets[2].dwMeshes;
+      *(float *)&DAT_007f5024 = PUN(float,puVar4[-1]) - (float)prVar1->aGeosets[2].dwMeshes;
+      *(float *)&DAT_007f502c = PUN(float,puVar4[1]) + (float)prVar1->aGeosets[2].dwMeshes;
       uVar2 = rdClip_Face3S(&g_pRdCamera_CurCamera->pFrustum->nClipFar,(float *)&DAT_007f5000,4);
       if (2 < uVar2) {
         (*g_pRdCamera_CurCamera->pfnProjectLst)(pPVar3->pVertices,&DAT_007f5000,uVar2);
@@ -357,14 +358,14 @@ int __cdecl rdSprite_DrawThing(void *thing,void *sprite)
         pPVar3->flAlpha = PUN(float,sprite);
         pPVar3->nGeometryMode = 3;
         pPVar3->dwFlags = 0;
-        pPVar3->pMaterial = *(void **)(iVar1 + 0x38);
-        pPVar3->nCel = *(int *)(*(int *)(iVar1 + 0x2c) + local_40 * 4);
+        pPVar3->pMaterial = (rdMaterial *)prVar1->aGeosets[2].pMeshes;
+        pPVar3->nCel = *(int *)(prVar1->aGeosets[1].dwMeshes + local_40 * 4);
         pPVar3->nBackFacing = 0;
         rdCache_AddProcFace((void *)0x0,uVar2,1);
       }
       local_40 = local_40 + 1;
       puVar4 = puVar4 + 3;
-    } while (local_40 < *(uint *)(iVar1 + 0x24));
+    } while (local_40 < prVar1->aGeosets[0].dwMeshes);
   }
   return 1;
 }
@@ -717,7 +718,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
       pPVar5->nBackFacing = (uint)(local_78[0] < 0.0);
       pPVar5->dwFlags = *(uint *)(iVar1 + 0x60);
       pPVar5->flLight = *(float *)(iVar1 + 0x8c);
-      pPVar5->pMaterial = *(void **)(iVar1 + 0x7c);
+      pPVar5->pMaterial = *(rdMaterial **)(iVar1 + 0x7c);
       rdCache_AddProcFace((void *)0x0,local_58,flags);
       return 1;
     }

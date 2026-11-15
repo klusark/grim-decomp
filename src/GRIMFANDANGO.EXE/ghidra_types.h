@@ -231,29 +231,41 @@ typedef struct ActorExtra ActorExtra;
 typedef struct ActorShadow ActorShadow;
 typedef struct AnimPlayer AnimPlayer;
 typedef struct BlockyMotionVector BlockyMotionVector;
+typedef struct CacheRect CacheRect;
 typedef struct ColorFormat ColorFormat;
 typedef struct CostumeNode CostumeNode;
 typedef struct DDSurfaceDesc DDSurfaceDesc;
 typedef struct DDrawSurfaceRec DDrawSurfaceRec;
 typedef struct DisplayDevice DisplayDevice;
+typedef struct FontData FontData;
 typedef struct GrimServices GrimServices;
 typedef struct Lab Lab;
 typedef struct LabEntry LabEntry;
+typedef struct LabFile LabFile;
 typedef struct LecPixelFormat LecPixelFormat;
+typedef struct ModelComponent ModelComponent;
 typedef struct ObjectState ObjectState;
 typedef struct ObjectStateImage ObjectStateImage;
 typedef struct PhonemeEntry PhonemeEntry;
 typedef struct Primitive Primitive;
 typedef struct ProcEntry ProcEntry;
 typedef struct Puck Puck;
+typedef struct ResFile ResFile;
+typedef struct ResMsg ResMsg;
 typedef struct ResRef ResRef;
+typedef struct ResType ResType;
 typedef struct Resource Resource;
+typedef struct RoomActorNode RoomActorNode;
+typedef struct RoomActors RoomActors;
 typedef struct ScreenCoord ScreenCoord;
 typedef struct Set Set;
 typedef struct SetLight SetLight;
 typedef struct Setup Setup;
 typedef struct Std3DDevice Std3DDevice;
 typedef struct Std3DTexture Std3DTexture;
+typedef struct StdFileEntry StdFileEntry;
+typedef struct StdFileSearch StdFileSearch;
+typedef struct SysModuleIface SysModuleIface;
 typedef struct TextContext TextContext;
 typedef struct TextObject TextObject;
 typedef struct VBuffer VBuffer;
@@ -268,11 +280,13 @@ typedef struct rdCanvas rdCanvas;
 typedef struct rdClipFrustum rdClipFrustum;
 typedef struct rdColormap rdColormap;
 typedef struct rdGeoset rdGeoset;
+typedef struct rdKeyframe rdKeyframe;
 typedef struct rdLight rdLight;
 typedef struct rdMaterial rdMaterial;
 typedef struct rdMesh rdMesh;
 typedef struct rdModel3 rdModel3;
 typedef struct rdThing rdThing;
+typedef struct stdBitmap stdBitmap;
 
 /* Actor: One record of g_pActors (sputActor.cpp); a handle is the index (sputActor_AllocateActor, sputActor_GetActorHandle). Grows by 0x20 records. */
 struct Actor {  /* 0xa8 */
@@ -475,6 +489,26 @@ struct BlockyMotionVector {  /* 0x4 */
 _Static_assert(__builtin_offsetof(BlockyMotionVector, nX) == 0x0, "BlockyMotionVector.nX");
 _Static_assert(__builtin_offsetof(BlockyMotionVector, nY) == 0x2, "BlockyMotionVector.nY");
 _Static_assert(sizeof(BlockyMotionVector) == 0x4, "sizeof BlockyMotionVector");
+/* CacheRect: A saved screen rectangle and its z-buffer (g_pCacheRectList). */
+struct CacheRect {  /* 0x20 */
+    uint dwMagic;  /* 0x00 */
+    int nX;  /* 0x04 */
+    int nY;  /* 0x08 */
+    int nWidth;  /* 0x0c */
+    int nHeight;  /* 0x10 */
+    VBuffer *pClean;  /* 0x14 */
+    VBuffer *pCleanZ;  /* 0x18 */
+    CacheRect *pNext;  /* 0x1c */
+};
+_Static_assert(__builtin_offsetof(CacheRect, dwMagic) == 0x0, "CacheRect.dwMagic");
+_Static_assert(__builtin_offsetof(CacheRect, nX) == 0x4, "CacheRect.nX");
+_Static_assert(__builtin_offsetof(CacheRect, nY) == 0x8, "CacheRect.nY");
+_Static_assert(__builtin_offsetof(CacheRect, nWidth) == 0xc, "CacheRect.nWidth");
+_Static_assert(__builtin_offsetof(CacheRect, nHeight) == 0x10, "CacheRect.nHeight");
+_Static_assert(__builtin_offsetof(CacheRect, pClean) == 0x14, "CacheRect.pClean");
+_Static_assert(__builtin_offsetof(CacheRect, pCleanZ) == 0x18, "CacheRect.pCleanZ");
+_Static_assert(__builtin_offsetof(CacheRect, pNext) == 0x1c, "CacheRect.pNext");
+_Static_assert(sizeof(CacheRect) == 0x20, "sizeof CacheRect");
 /* ColorFormat: Pixel format of a video mode or buffer (0x38 bytes): colour model, depth, the bits and position of each channel. */
 struct ColorFormat {  /* 0x38 */
     int nColorMode;  /* 0x00: 0 = palette indexed, 1 = RGB (DIB_CreateSurface, stdDisplay_VBufferConvertColorFormat) */
@@ -511,7 +545,7 @@ _Static_assert(sizeof(ColorFormat) == 0x38, "sizeof ColorFormat");
 struct CostumeNode {  /* 0xb4 */
     uint dwInstance;  /* 0x00: CHORE.DLL costume instance (Cos_CreateCosInstance) */
     void *pMainModel;  /* 0x04: Costume_GetMainModel; a pushed costume with the same model takes over the head settings */
-    void *pComponents;  /* 0x08: model / sprite components drawn with the actor, linked at +0x190 */
+    ModelComponent *pComponents;  /* 0x08: model / sprite components drawn with the actor, linked at +0x190 */
     int aHeadJoints[3];  /* 0x0c: SetActorHead, -1 none */
     float flLookRate;  /* 0x18: 360 (SetActorLookRate) */
     float flMaxPitch;  /* 0x1c: 30 (SetActorHead) */
@@ -675,6 +709,24 @@ _Static_assert(__builtin_offsetof(DisplayDevice, nPrimary) == 0x10c, "DisplayDev
 _Static_assert(__builtin_offsetof(DisplayDevice, nFullscreen) == 0x110, "DisplayDevice.nFullscreen");
 _Static_assert(__builtin_offsetof(DisplayDevice, aGuid) == 0x288, "DisplayDevice.aGuid");
 _Static_assert(sizeof(DisplayDevice) == 0x298, "sizeof DisplayDevice");
+/* FontData: The header of a locked font (Text_DrawChar): offsets are from the header. */
+struct FontData {  /* 0x30 */
+    uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b;
+    int nFirstChar;  /* 0x1c */
+    int nLastChar;  /* 0x20 */
+    int nCharMapOffset;  /* 0x24: ushort glyph index per character */
+    int nGlyphOffset;  /* 0x28: 0x5c-byte glyph records */
+    int nBitmapOffset;  /* 0x2c */
+};
+_Static_assert(__builtin_offsetof(FontData, nFirstChar) == 0x1c, "FontData.nFirstChar");
+_Static_assert(__builtin_offsetof(FontData, nLastChar) == 0x20, "FontData.nLastChar");
+_Static_assert(__builtin_offsetof(FontData, nCharMapOffset) == 0x24, "FontData.nCharMapOffset");
+_Static_assert(__builtin_offsetof(FontData, nGlyphOffset) == 0x28, "FontData.nGlyphOffset");
+_Static_assert(__builtin_offsetof(FontData, nBitmapOffset) == 0x2c, "FontData.nBitmapOffset");
+_Static_assert(sizeof(FontData) == 0x30, "sizeof FontData");
 /* Lab: An open .LAB archive (0x120 bytes, g_pLabPool / g_pLabList). */
 struct Lab {  /* 0x120 */
     uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
@@ -736,6 +788,24 @@ _Static_assert(__builtin_offsetof(LabEntry, dwFourcc) == 0xc, "LabEntry.dwFourcc
 _Static_assert(__builtin_offsetof(LabEntry, nOffset) == 0x10, "LabEntry.nOffset");
 _Static_assert(__builtin_offsetof(LabEntry, nSize) == 0x14, "LabEntry.nSize");
 _Static_assert(sizeof(LabEntry) == 0x1c, "sizeof LabEntry");
+/* LabFile: Where a file was found (res_FindInternalFile): in an archive or on disk. */
+struct LabFile {  /* 0x218 */
+    uint dwFourcc;  /* 0x00 */
+    int nFile;  /* 0x04: the archive's file handle */
+    int nSize;  /* 0x08 */
+    int nOffset;  /* 0x0c: in the archive */
+    int nInLab;  /* 0x10: 1: in an archive; 0: aPath on disk */
+    char aName[257];  /* 0x14 */
+    char aPath[259];  /* 0x115 */
+};
+_Static_assert(__builtin_offsetof(LabFile, dwFourcc) == 0x0, "LabFile.dwFourcc");
+_Static_assert(__builtin_offsetof(LabFile, nFile) == 0x4, "LabFile.nFile");
+_Static_assert(__builtin_offsetof(LabFile, nSize) == 0x8, "LabFile.nSize");
+_Static_assert(__builtin_offsetof(LabFile, nOffset) == 0xc, "LabFile.nOffset");
+_Static_assert(__builtin_offsetof(LabFile, nInLab) == 0x10, "LabFile.nInLab");
+_Static_assert(__builtin_offsetof(LabFile, aName) == 0x14, "LabFile.aName");
+_Static_assert(__builtin_offsetof(LabFile, aPath) == 0x115, "LabFile.aPath");
+_Static_assert(sizeof(LabFile) == 0x218, "sizeof LabFile");
 /* LecPixelFormat: A pixel format of the LEC video library (Insane / Smush). */
 struct LecPixelFormat {  /* 0x54 */
     uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
@@ -788,6 +858,69 @@ _Static_assert(__builtin_offsetof(ResRef, nLine) == 0x28, "ResRef.nLine");
 _Static_assert(__builtin_offsetof(ResRef, pPrev) == 0x2c, "ResRef.pPrev");
 _Static_assert(__builtin_offsetof(ResRef, pNext) == 0x30, "ResRef.pNext");
 _Static_assert(sizeof(ResRef) == 0x34, "sizeof ResRef");
+/* ModelComponent: A costume's model component (ThingInstancer): its model and thing, linked at +0x190. */
+struct ModelComponent {  /* 0x194 */
+    ResRef modelRef;  /* 0x00: the 'MODL' resource */
+    int nHidden;  /* 0x34: skipped by the shadow pass (sputCostume_DrawMeshShadow) */
+    int nRoot;  /* 0x38: 1 without a parent component (ThingInstancer) */
+    int nComponentFlags;  /* 0x3c: from the component's description (+0x34) */
+    rdThing *pThing;  /* 0x40 */
+    ModelComponent *pParent;  /* 0x44: the component it hangs from */
+    int nParentNode;  /* 0x48: hierarchy node of the parent it is attached to */
+    uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    int nRefCount;  /* 0x50: instances sharing it */
+    uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
+    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f, field_0x60, field_0x61, field_0x62, field_0x63;
+    uint8_t field_0x64, field_0x65, field_0x66, field_0x67, field_0x68, field_0x69, field_0x6a, field_0x6b;
+    uint8_t field_0x6c, field_0x6d, field_0x6e, field_0x6f, field_0x70, field_0x71, field_0x72, field_0x73;
+    uint8_t field_0x74, field_0x75, field_0x76, field_0x77, field_0x78, field_0x79, field_0x7a, field_0x7b;
+    uint8_t field_0x7c, field_0x7d, field_0x7e, field_0x7f, field_0x80, field_0x81, field_0x82, field_0x83;
+    uint8_t field_0x84, field_0x85, field_0x86, field_0x87, field_0x88, field_0x89, field_0x8a, field_0x8b;
+    uint8_t field_0x8c, field_0x8d, field_0x8e, field_0x8f, field_0x90, field_0x91, field_0x92, field_0x93;
+    uint8_t field_0x94, field_0x95, field_0x96, field_0x97, field_0x98, field_0x99, field_0x9a, field_0x9b;
+    uint8_t field_0x9c, field_0x9d, field_0x9e, field_0x9f, field_0xa0, field_0xa1, field_0xa2, field_0xa3;
+    uint8_t field_0xa4, field_0xa5, field_0xa6, field_0xa7, field_0xa8, field_0xa9, field_0xaa, field_0xab;
+    uint8_t field_0xac, field_0xad, field_0xae, field_0xaf, field_0xb0, field_0xb1, field_0xb2, field_0xb3;
+    uint8_t field_0xb4, field_0xb5, field_0xb6, field_0xb7, field_0xb8, field_0xb9, field_0xba, field_0xbb;
+    uint8_t field_0xbc, field_0xbd, field_0xbe, field_0xbf, field_0xc0, field_0xc1, field_0xc2, field_0xc3;
+    uint8_t field_0xc4, field_0xc5, field_0xc6, field_0xc7, field_0xc8, field_0xc9, field_0xca, field_0xcb;
+    uint8_t field_0xcc, field_0xcd, field_0xce, field_0xcf, field_0xd0, field_0xd1, field_0xd2, field_0xd3;
+    uint8_t field_0xd4, field_0xd5, field_0xd6, field_0xd7, field_0xd8, field_0xd9, field_0xda, field_0xdb;
+    uint8_t field_0xdc, field_0xdd, field_0xde, field_0xdf, field_0xe0, field_0xe1, field_0xe2, field_0xe3;
+    uint8_t field_0xe4, field_0xe5, field_0xe6, field_0xe7, field_0xe8, field_0xe9, field_0xea, field_0xeb;
+    uint8_t field_0xec, field_0xed, field_0xee, field_0xef, field_0xf0, field_0xf1, field_0xf2, field_0xf3;
+    uint8_t field_0xf4, field_0xf5, field_0xf6, field_0xf7, field_0xf8, field_0xf9, field_0xfa, field_0xfb;
+    uint8_t field_0xfc, field_0xfd, field_0xfe, field_0xff, field_0x100, field_0x101, field_0x102, field_0x103;
+    uint8_t field_0x104, field_0x105, field_0x106, field_0x107, field_0x108, field_0x109, field_0x10a, field_0x10b;
+    uint8_t field_0x10c, field_0x10d, field_0x10e, field_0x10f, field_0x110, field_0x111, field_0x112, field_0x113;
+    uint8_t field_0x114, field_0x115, field_0x116, field_0x117, field_0x118, field_0x119, field_0x11a, field_0x11b;
+    uint8_t field_0x11c, field_0x11d, field_0x11e, field_0x11f, field_0x120, field_0x121, field_0x122, field_0x123;
+    uint8_t field_0x124, field_0x125, field_0x126, field_0x127, field_0x128, field_0x129, field_0x12a, field_0x12b;
+    uint8_t field_0x12c, field_0x12d, field_0x12e, field_0x12f, field_0x130, field_0x131, field_0x132, field_0x133;
+    uint8_t field_0x134, field_0x135, field_0x136, field_0x137, field_0x138, field_0x139, field_0x13a, field_0x13b;
+    uint8_t field_0x13c, field_0x13d, field_0x13e, field_0x13f, field_0x140, field_0x141, field_0x142, field_0x143;
+    uint8_t field_0x144, field_0x145, field_0x146, field_0x147, field_0x148, field_0x149, field_0x14a, field_0x14b;
+    uint8_t field_0x14c, field_0x14d, field_0x14e, field_0x14f, field_0x150, field_0x151, field_0x152, field_0x153;
+    uint8_t field_0x154, field_0x155, field_0x156, field_0x157, field_0x158, field_0x159, field_0x15a, field_0x15b;
+    uint8_t field_0x15c, field_0x15d, field_0x15e, field_0x15f, field_0x160, field_0x161, field_0x162, field_0x163;
+    uint8_t field_0x164, field_0x165, field_0x166, field_0x167, field_0x168, field_0x169, field_0x16a, field_0x16b;
+    uint8_t field_0x16c, field_0x16d, field_0x16e, field_0x16f, field_0x170, field_0x171, field_0x172, field_0x173;
+    uint8_t field_0x174, field_0x175, field_0x176, field_0x177, field_0x178, field_0x179, field_0x17a, field_0x17b;
+    uint8_t field_0x17c, field_0x17d, field_0x17e, field_0x17f, field_0x180, field_0x181, field_0x182, field_0x183;
+    uint8_t field_0x184, field_0x185, field_0x186, field_0x187, field_0x188, field_0x189, field_0x18a, field_0x18b;
+    uint8_t field_0x18c, field_0x18d, field_0x18e, field_0x18f;
+    ModelComponent *pNext;  /* 0x190 */
+};
+_Static_assert(__builtin_offsetof(ModelComponent, modelRef) == 0x0, "ModelComponent.modelRef");
+_Static_assert(__builtin_offsetof(ModelComponent, nHidden) == 0x34, "ModelComponent.nHidden");
+_Static_assert(__builtin_offsetof(ModelComponent, nRoot) == 0x38, "ModelComponent.nRoot");
+_Static_assert(__builtin_offsetof(ModelComponent, nComponentFlags) == 0x3c, "ModelComponent.nComponentFlags");
+_Static_assert(__builtin_offsetof(ModelComponent, pThing) == 0x40, "ModelComponent.pThing");
+_Static_assert(__builtin_offsetof(ModelComponent, pParent) == 0x44, "ModelComponent.pParent");
+_Static_assert(__builtin_offsetof(ModelComponent, nParentNode) == 0x48, "ModelComponent.nParentNode");
+_Static_assert(__builtin_offsetof(ModelComponent, nRefCount) == 0x50, "ModelComponent.nRefCount");
+_Static_assert(__builtin_offsetof(ModelComponent, pNext) == 0x190, "ModelComponent.pNext");
+_Static_assert(sizeof(ModelComponent) == 0x194, "sizeof ModelComponent");
 /* ObjectStateImage: One image of an object state (0x74 bytes): the bitmap or its z-buffer. */
 struct ObjectStateImage {  /* 0x74 */
     int nMemUsage;  /* 0x00: 0x74 plus the bitmap's memory (stdBitmap_MemUsage) */
@@ -882,7 +1015,7 @@ struct ProcEntry {  /* 0x78 */
     float *pRedIntensities;  /* 0x2c: per-vertex red (the same array as pIntensities when not coloured) */
     float *pGreenIntensities;  /* 0x30 */
     float *pBlueIntensities;  /* 0x34 */
-    void *pMaterial;  /* 0x38: rdMaterial; 0 = untextured */
+    rdMaterial *pMaterial;  /* 0x38: 0 = untextured */
     int nCel;  /* 0x3c: the material's cel, -1 = the material's current cel */
     float flAlpha;  /* 0x40: translucency, used with render option 2 */
     float flLightIndex;  /* 0x44: flLight * 63: the colormap's light row (rdCache_SendFaceListToHardware) */
@@ -936,6 +1069,59 @@ _Static_assert(__builtin_offsetof(Puck, pPrev) == 0x54, "Puck.pPrev");
 _Static_assert(__builtin_offsetof(Puck, pNext) == 0x58, "Puck.pNext");
 _Static_assert(__builtin_offsetof(Puck, pSector) == 0x5c, "Puck.pSector");
 _Static_assert(sizeof(Puck) == 0x60, "sizeof Puck");
+/* ResFile: An open resource file (Res_FOpen; 128 of them at 0x825f40, handles 1-based). */
+struct ResFile {  /* 0x102c */
+    uint dwHandle;  /* 0x00: low-level file */
+    int nPos;  /* 0x04: file position of the buffer */
+    int nBufPos;  /* 0x08 */
+    int nBufCount;  /* 0x0c */
+    int nLength;  /* 0x10 */
+    int nBase;  /* 0x14: offset in the archive */
+    int nEof;  /* 0x18 */
+    int nDirect;  /* 0x1c: opened on disk, not in an archive */
+    int nBufSize;  /* 0x20: 0x1000 */
+    char aMode[4];  /* 0x24 */
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b;
+    byte aBuffer[4096];  /* 0x2c */
+};
+_Static_assert(__builtin_offsetof(ResFile, dwHandle) == 0x0, "ResFile.dwHandle");
+_Static_assert(__builtin_offsetof(ResFile, nPos) == 0x4, "ResFile.nPos");
+_Static_assert(__builtin_offsetof(ResFile, nBufPos) == 0x8, "ResFile.nBufPos");
+_Static_assert(__builtin_offsetof(ResFile, nBufCount) == 0xc, "ResFile.nBufCount");
+_Static_assert(__builtin_offsetof(ResFile, nLength) == 0x10, "ResFile.nLength");
+_Static_assert(__builtin_offsetof(ResFile, nBase) == 0x14, "ResFile.nBase");
+_Static_assert(__builtin_offsetof(ResFile, nEof) == 0x18, "ResFile.nEof");
+_Static_assert(__builtin_offsetof(ResFile, nDirect) == 0x1c, "ResFile.nDirect");
+_Static_assert(__builtin_offsetof(ResFile, nBufSize) == 0x20, "ResFile.nBufSize");
+_Static_assert(__builtin_offsetof(ResFile, aMode) == 0x24, "ResFile.aMode");
+_Static_assert(__builtin_offsetof(ResFile, aBuffer) == 0x2c, "ResFile.aBuffer");
+_Static_assert(sizeof(ResFile) == 0x102c, "sizeof ResFile");
+/* ResMsg: What a resource type handler is called with (Res_CallUnload). */
+struct ResMsg {  /* 0x14 */
+    int nOp;  /* 0x00: 1 load, 2 free, 3 size */
+    char *pName;  /* 0x04 */
+    uint dwType;  /* 0x08: fourcc */
+    void *pData;  /* 0x0c: the loaded data (2, 3) */
+    int nSize;  /* 0x10: the answer to 3 */
+};
+_Static_assert(__builtin_offsetof(ResMsg, nOp) == 0x0, "ResMsg.nOp");
+_Static_assert(__builtin_offsetof(ResMsg, pName) == 0x4, "ResMsg.pName");
+_Static_assert(__builtin_offsetof(ResMsg, dwType) == 0x8, "ResMsg.dwType");
+_Static_assert(__builtin_offsetof(ResMsg, pData) == 0xc, "ResMsg.pData");
+_Static_assert(__builtin_offsetof(ResMsg, nSize) == 0x10, "ResMsg.nSize");
+_Static_assert(sizeof(ResMsg) == 0x14, "sizeof ResMsg");
+/* ResType: A registered resource type (g_dwResTypeList). */
+struct ResType {  /* 0x10 */
+    ResType *pNext;  /* 0x00 */
+    ResType *pPrev;  /* 0x04 */
+    uint dwType;  /* 0x08: fourcc */
+    code *pfnHandler;  /* 0x0c: takes a ResMsg */
+};
+_Static_assert(__builtin_offsetof(ResType, pNext) == 0x0, "ResType.pNext");
+_Static_assert(__builtin_offsetof(ResType, pPrev) == 0x4, "ResType.pPrev");
+_Static_assert(__builtin_offsetof(ResType, dwType) == 0x8, "ResType.dwType");
+_Static_assert(__builtin_offsetof(ResType, pfnHandler) == 0xc, "ResType.pfnHandler");
+_Static_assert(sizeof(ResType) == 0x10, "sizeof ResType");
 /* Resource: A resource record (0x2c bytes, Res_CreateRecord). */
 struct Resource {  /* 0x2c */
     Resource *pNext;  /* 0x00 */
@@ -963,6 +1149,26 @@ _Static_assert(__builtin_offsetof(Resource, pLab) == 0x20, "Resource.pLab");
 _Static_assert(__builtin_offsetof(Resource, pRefs) == 0x24, "Resource.pRefs");
 _Static_assert(__builtin_offsetof(Resource, nSize) == 0x28, "Resource.nSize");
 _Static_assert(sizeof(Resource) == 0x2c, "sizeof Resource");
+/* RoomActorNode: One actor in a set's actor list (sputRoom_AddActor). */
+struct RoomActorNode {  /* 0xc */
+    int nActor;  /* 0x00: index into g_pActors */
+    RoomActorNode *pPrev;  /* 0x04 */
+    RoomActorNode *pNext;  /* 0x08 */
+};
+_Static_assert(__builtin_offsetof(RoomActorNode, nActor) == 0x0, "RoomActorNode.nActor");
+_Static_assert(__builtin_offsetof(RoomActorNode, pPrev) == 0x4, "RoomActorNode.pPrev");
+_Static_assert(__builtin_offsetof(RoomActorNode, pNext) == 0x8, "RoomActorNode.pNext");
+_Static_assert(sizeof(RoomActorNode) == 0xc, "sizeof RoomActorNode");
+/* RoomActors: The actors of one set by name, on g_pRoomList (Set_NormalizeName allocates one). */
+struct RoomActors {  /* 0x88 */
+    char aName[128];  /* 0x00: the set's name */
+    RoomActorNode *pActors;  /* 0x80 */
+    RoomActors *pNext;  /* 0x84: g_pRoomList */
+};
+_Static_assert(__builtin_offsetof(RoomActors, aName) == 0x0, "RoomActors.aName");
+_Static_assert(__builtin_offsetof(RoomActors, pActors) == 0x80, "RoomActors.pActors");
+_Static_assert(__builtin_offsetof(RoomActors, pNext) == 0x84, "RoomActors.pNext");
+_Static_assert(sizeof(RoomActors) == 0x88, "sizeof RoomActors");
 /* ScreenCoord: rdPrimit3_GetScreenCoord's output */
 struct ScreenCoord {  /* 0xc */
     int nX;  /* 0x00: screen x (truncated) */
@@ -1037,7 +1243,7 @@ struct Set {  /* 0x1b08 */
     int nCurSetup;  /* 0xb4 */
     int nLights;  /* 0xb8 */
     SetLight aLights[64];  /* 0xbc */
-    uint8_t field_0x1abc, field_0x1abd, field_0x1abe, field_0x1abf;
+    RoomActors *pRoomActors;  /* 0x1abc: its actor list (sputRoom_FreeRoomEntry) */
     int nLocked;  /* 0x1ac0: sputRoom_UnReference keeps the resources while it is set */
     uint8_t field_0x1ac4, field_0x1ac5, field_0x1ac6, field_0x1ac7, field_0x1ac8, field_0x1ac9, field_0x1aca, field_0x1acb;
     uint8_t field_0x1acc, field_0x1acd, field_0x1ace, field_0x1acf, field_0x1ad0, field_0x1ad1, field_0x1ad2, field_0x1ad3;
@@ -1063,6 +1269,7 @@ _Static_assert(__builtin_offsetof(Set, nSetups) == 0xb0, "Set.nSetups");
 _Static_assert(__builtin_offsetof(Set, nCurSetup) == 0xb4, "Set.nCurSetup");
 _Static_assert(__builtin_offsetof(Set, nLights) == 0xb8, "Set.nLights");
 _Static_assert(__builtin_offsetof(Set, aLights) == 0xbc, "Set.aLights");
+_Static_assert(__builtin_offsetof(Set, pRoomActors) == 0x1abc, "Set.pRoomActors");
 _Static_assert(__builtin_offsetof(Set, nLocked) == 0x1ac0, "Set.nLocked");
 _Static_assert(__builtin_offsetof(Set, dwSize) == 0x1af4, "Set.dwSize");
 _Static_assert(__builtin_offsetof(Set, cSoundMaxVolume) == 0x1af8, "Set.cSoundMaxVolume");
@@ -1236,6 +1443,58 @@ _Static_assert(__builtin_offsetof(Std3DTexture, dwFrameStamp) == 0x8c, "Std3DTex
 _Static_assert(__builtin_offsetof(Std3DTexture, pPrev) == 0x90, "Std3DTexture.pPrev");
 _Static_assert(__builtin_offsetof(Std3DTexture, pNext) == 0x94, "Std3DTexture.pNext");
 _Static_assert(sizeof(Std3DTexture) == 0x98, "sizeof Std3DTexture");
+/* StdFileEntry: One result of stdFileUtil_FindNext. */
+struct StdFileEntry {  /* 0x10c */
+    char aName[260];  /* 0x00 */
+    int nIsDir;  /* 0x104 */
+    uint dwTime;  /* 0x108: low word of the last write time */
+};
+_Static_assert(__builtin_offsetof(StdFileEntry, aName) == 0x0, "StdFileEntry.aName");
+_Static_assert(__builtin_offsetof(StdFileEntry, nIsDir) == 0x104, "StdFileEntry.nIsDir");
+_Static_assert(__builtin_offsetof(StdFileEntry, dwTime) == 0x108, "StdFileEntry.dwTime");
+_Static_assert(sizeof(StdFileEntry) == 0x10c, "sizeof StdFileEntry");
+/* StdFileSearch: stdFileUtil_NewFind's search (a WIN32_FIND_DATAA at +0xc). */
+struct StdFileSearch {  /* 0x150 */
+    uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
+    int nFind;  /* 0x08 */
+    uint dwFileAttributes;  /* 0x0c */
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    uint dwLastWriteTimeLow;  /* 0x20 */
+    uint8_t field_0x24, field_0x25, field_0x26, field_0x27, field_0x28, field_0x29, field_0x2a, field_0x2b;
+    uint8_t field_0x2c, field_0x2d, field_0x2e, field_0x2f, field_0x30, field_0x31, field_0x32, field_0x33;
+    uint8_t field_0x34, field_0x35, field_0x36, field_0x37;
+    char aFileName[260];  /* 0x38: the pattern before the first call */
+    uint8_t field_0x13c, field_0x13d, field_0x13e, field_0x13f, field_0x140, field_0x141, field_0x142, field_0x143;
+    uint8_t field_0x144, field_0x145, field_0x146, field_0x147, field_0x148, field_0x149, field_0x14a, field_0x14b;
+    int nMode;  /* 0x14c: 1 directories only, 2 files only */
+};
+_Static_assert(__builtin_offsetof(StdFileSearch, nFind) == 0x8, "StdFileSearch.nFind");
+_Static_assert(__builtin_offsetof(StdFileSearch, dwFileAttributes) == 0xc, "StdFileSearch.dwFileAttributes");
+_Static_assert(__builtin_offsetof(StdFileSearch, dwLastWriteTimeLow) == 0x20, "StdFileSearch.dwLastWriteTimeLow");
+_Static_assert(__builtin_offsetof(StdFileSearch, aFileName) == 0x38, "StdFileSearch.aFileName");
+_Static_assert(__builtin_offsetof(StdFileSearch, nMode) == 0x14c, "StdFileSearch.nMode");
+_Static_assert(sizeof(StdFileSearch) == 0x150, "sizeof StdFileSearch");
+/* SysModuleIface: The entry points a grimlib module fills in on initialization (Text_SysInitialize). */
+struct SysModuleIface {  /* 0x20 */
+    code *pfnInitialize;  /* 0x00 */
+    code *pfnTerminate;  /* 0x04 */
+    code *pfnStartup;  /* 0x08 */
+    code *pfnShutdown;  /* 0x0c */
+    code *pfnSave;  /* 0x10 */
+    code *pfnRestore;  /* 0x14 */
+    code *pfnReserved1;  /* 0x18 */
+    code *pfnReserved2;  /* 0x1c */
+};
+_Static_assert(__builtin_offsetof(SysModuleIface, pfnInitialize) == 0x0, "SysModuleIface.pfnInitialize");
+_Static_assert(__builtin_offsetof(SysModuleIface, pfnTerminate) == 0x4, "SysModuleIface.pfnTerminate");
+_Static_assert(__builtin_offsetof(SysModuleIface, pfnStartup) == 0x8, "SysModuleIface.pfnStartup");
+_Static_assert(__builtin_offsetof(SysModuleIface, pfnShutdown) == 0xc, "SysModuleIface.pfnShutdown");
+_Static_assert(__builtin_offsetof(SysModuleIface, pfnSave) == 0x10, "SysModuleIface.pfnSave");
+_Static_assert(__builtin_offsetof(SysModuleIface, pfnRestore) == 0x14, "SysModuleIface.pfnRestore");
+_Static_assert(__builtin_offsetof(SysModuleIface, pfnReserved1) == 0x18, "SysModuleIface.pfnReserved1");
+_Static_assert(__builtin_offsetof(SysModuleIface, pfnReserved2) == 0x1c, "SysModuleIface.pfnReserved2");
+_Static_assert(sizeof(SysModuleIface) == 0x20, "sizeof SysModuleIface");
 /* TextContext: How a text is drawn: font, position, colours, justification (g_SubtitleTextCtx, g_PrintLineTextCtx, g_TextObjectCtx; GetTextParamsFromTable fills it from a Lua table). A text object holds a copy. */
 struct TextContext {  /* 0x30 */
     void *pUnused;  /* 0x00: a pointer (0x008a94b8 in all three contexts of the data), copied with the context but never read */
@@ -1401,7 +1660,7 @@ _Static_assert(sizeof(WalkVertexCache) == 0x14, "sizeof WalkVertexCache");
 /* rdCamera: A camera of the renderer (0x464 bytes). */
 struct rdCamera {  /* 0x464 */
     int nProjectType;  /* 0x00: 0 orthographic, 1 perspective */
-    void *pCanvas;  /* 0x04: rdCanvas (rdCamera_SetCanvas) */
+    rdCanvas *pCanvas;  /* 0x04: rdCamera_SetCanvas */
     float aView[12];  /* 0x08: view matrix (rdMatrix34, rdCamera_Update) */
     float flFov;  /* 0x38: degrees, 5 .. 179 */
     float flFovY;  /* 0x3c */
@@ -1520,6 +1779,25 @@ struct rdGeoset {  /* 0x8 */
 _Static_assert(__builtin_offsetof(rdGeoset, dwMeshes) == 0x0, "rdGeoset.dwMeshes");
 _Static_assert(__builtin_offsetof(rdGeoset, pMeshes) == 0x4, "rdGeoset.pMeshes");
 _Static_assert(sizeof(rdGeoset) == 0x8, "sizeof rdGeoset");
+/* rdKeyframe: A keyframe animation (rdKeyframe_Load). */
+struct rdKeyframe {  /* 0x84 */
+    char aName[32];  /* 0x00 */
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33, field_0x34, field_0x35, field_0x36, field_0x37;
+    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    uint8_t field_0x40, field_0x41, field_0x42, field_0x43, field_0x44, field_0x45, field_0x46, field_0x47;
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
+    uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;
+    uint8_t field_0x70, field_0x71, field_0x72, field_0x73, field_0x74, field_0x75, field_0x76, field_0x77;
+    uint8_t field_0x78, field_0x79, field_0x7a, field_0x7b, field_0x7c, field_0x7d, field_0x7e, field_0x7f;
+    uint8_t field_0x80, field_0x81, field_0x82, field_0x83;
+};
+_Static_assert(__builtin_offsetof(rdKeyframe, aName) == 0x0, "rdKeyframe.aName");
+_Static_assert(sizeof(rdKeyframe) == 0x84, "sizeof rdKeyframe");
 /* rdMaterial: A material (0xb0 bytes, the 'MAT ' file). */
 struct rdMaterial {  /* 0xb0 */
     uint dwType;  /* 0x00 */
@@ -1561,7 +1839,7 @@ struct rdMesh {  /* 0x7c */
     uint8_t field_0x4c, field_0x4d, field_0x4e, field_0x4f;
     uint dwNumFaces;  /* 0x50 */
     uint8_t field_0x54, field_0x55, field_0x56, field_0x57, field_0x58, field_0x59, field_0x5a, field_0x5b;
-    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    float flLight;  /* 0x5c: the mesh light of lighting mode 6 (rdModel3_DrawMeshImpl) */
     float flRadius;  /* 0x60: bounding radius x 1.1 (rdModel3_CalcRadii) */
     uint8_t field_0x64, field_0x65, field_0x66, field_0x67, field_0x68, field_0x69, field_0x6a, field_0x6b;
     uint8_t field_0x6c, field_0x6d, field_0x6e, field_0x6f, field_0x70, field_0x71, field_0x72, field_0x73;
@@ -1577,6 +1855,7 @@ _Static_assert(__builtin_offsetof(rdMesh, pFaces) == 0x40, "rdMesh.pFaces");
 _Static_assert(__builtin_offsetof(rdMesh, pVertexNormals) == 0x44, "rdMesh.pVertexNormals");
 _Static_assert(__builtin_offsetof(rdMesh, dwNumVertices) == 0x48, "rdMesh.dwNumVertices");
 _Static_assert(__builtin_offsetof(rdMesh, dwNumFaces) == 0x50, "rdMesh.dwNumFaces");
+_Static_assert(__builtin_offsetof(rdMesh, flLight) == 0x5c, "rdMesh.flLight");
 _Static_assert(__builtin_offsetof(rdMesh, flRadius) == 0x60, "rdMesh.flRadius");
 _Static_assert(sizeof(rdMesh) == 0x7c, "sizeof rdMesh");
 /* rdModel3: An RDroid model (0x90 bytes, rdModel3_NewEntry) */
@@ -1609,11 +1888,12 @@ _Static_assert(sizeof(rdModel3) == 0x90, "sizeof rdModel3");
 /* rdThing: A drawable of the renderer (0x4c bytes): a model with its puppet, or a camera / polyline. */
 struct rdThing {  /* 0x4c */
     int nType;  /* 0x00: 1 model (rdThing_SetModel3) */
-    void *pModel;  /* 0x04: rdModel3 */
+    rdModel3 *pModel;  /* 0x04: rdModel3 */
     uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
     uint8_t field_0x10, field_0x11, field_0x12, field_0x13;
     void *pPuppet;  /* 0x14: rdPuppet (its tracks are freed with the thing) */
-    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    int nFrozen;  /* 0x18: rdPuppet_UpdateFrame leaves the matrices while set */
+    uint dwFrameTrue;  /* 0x1c: g_dwRdroid_frameTrue of the last update */
     float *pHierarchyMatrices;  /* 0x20: one rdMatrix34 per hierarchy node */
     float *pHierarchyRot;  /* 0x24: 3 floats per node */
     int *pHierarchyFlags;  /* 0x28: one word per node */
@@ -1629,6 +1909,8 @@ struct rdThing {  /* 0x4c */
 _Static_assert(__builtin_offsetof(rdThing, nType) == 0x0, "rdThing.nType");
 _Static_assert(__builtin_offsetof(rdThing, pModel) == 0x4, "rdThing.pModel");
 _Static_assert(__builtin_offsetof(rdThing, pPuppet) == 0x14, "rdThing.pPuppet");
+_Static_assert(__builtin_offsetof(rdThing, nFrozen) == 0x18, "rdThing.nFrozen");
+_Static_assert(__builtin_offsetof(rdThing, dwFrameTrue) == 0x1c, "rdThing.dwFrameTrue");
 _Static_assert(__builtin_offsetof(rdThing, pHierarchyMatrices) == 0x20, "rdThing.pHierarchyMatrices");
 _Static_assert(__builtin_offsetof(rdThing, pHierarchyRot) == 0x24, "rdThing.pHierarchyRot");
 _Static_assert(__builtin_offsetof(rdThing, pHierarchyFlags) == 0x28, "rdThing.pHierarchyFlags");
@@ -1641,3 +1923,28 @@ _Static_assert(__builtin_offsetof(rdThing, nTextureMode) == 0x40, "rdThing.nText
 _Static_assert(__builtin_offsetof(rdThing, nFrustumCull) == 0x44, "rdThing.nFrustumCull");
 _Static_assert(__builtin_offsetof(rdThing, pOwner) == 0x48, "rdThing.pOwner");
 _Static_assert(sizeof(rdThing) == 0x4c, "sizeof rdThing");
+/* stdBitmap: A loaded .bm / .gif / .lbm / .pcx image (stdLoadImageData): its frames are VBuffers. */
+struct stdBitmap {  /* 0x7c */
+    char aName[32];  /* 0x00 */
+    int nType;  /* 0x20: 0, 3 (sputResource_BackgroundHandler) */
+    uint dwPalFlags;  /* 0x24: bit 1: pPalette holds 0x300 bytes */
+    ColorFormat colorFormat;  /* 0x28: the frames' pixel format */
+    void *pPalette;  /* 0x60 */
+    int nFrames;  /* 0x64 */
+    int nCurFrame;  /* 0x68 */
+    int nX;  /* 0x6c */
+    int nY;  /* 0x70 */
+    uint8_t field_0x74, field_0x75, field_0x76, field_0x77;
+    VBuffer **ppFrames;  /* 0x78 */
+};
+_Static_assert(__builtin_offsetof(stdBitmap, aName) == 0x0, "stdBitmap.aName");
+_Static_assert(__builtin_offsetof(stdBitmap, nType) == 0x20, "stdBitmap.nType");
+_Static_assert(__builtin_offsetof(stdBitmap, dwPalFlags) == 0x24, "stdBitmap.dwPalFlags");
+_Static_assert(__builtin_offsetof(stdBitmap, colorFormat) == 0x28, "stdBitmap.colorFormat");
+_Static_assert(__builtin_offsetof(stdBitmap, pPalette) == 0x60, "stdBitmap.pPalette");
+_Static_assert(__builtin_offsetof(stdBitmap, nFrames) == 0x64, "stdBitmap.nFrames");
+_Static_assert(__builtin_offsetof(stdBitmap, nCurFrame) == 0x68, "stdBitmap.nCurFrame");
+_Static_assert(__builtin_offsetof(stdBitmap, nX) == 0x6c, "stdBitmap.nX");
+_Static_assert(__builtin_offsetof(stdBitmap, nY) == 0x70, "stdBitmap.nY");
+_Static_assert(__builtin_offsetof(stdBitmap, ppFrames) == 0x78, "stdBitmap.ppFrames");
+_Static_assert(sizeof(stdBitmap) == 0x7c, "sizeof stdBitmap");

@@ -17,30 +17,30 @@ void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h)
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *srcRect;
-  undefined4 *puVar1;
+  CacheRect *pCVar1;
   VBuffer *pVVar2;
   int iVar3;
   VBufferFormat *pVVar4;
-  undefined4 *puVar5;
+  CacheRect *pCVar5;
   VBufferFormat *pVVar6;
   #define VStack_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
   
-  puVar1 = (undefined4 *)
+  pCVar1 = (CacheRect *)
            (*g_pSputRendHS->pAlloc)(0x20,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0x9ba);
-  if (puVar1 == (undefined4 *)0x0) {
+  if (pCVar1 == (CacheRect *)0x0) {
     return (void *)0x0;
   }
-  srcRect = puVar1 + 1;
-  puVar5 = puVar1;
+  srcRect = &pCVar1->nX;
+  pCVar5 = pCVar1;
   for (iVar3 = 8; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
+    pCVar5->dwMagic = 0;
+    pCVar5 = (CacheRect *)&pCVar5->nX;
   }
-  *puVar1 = 0x11111111;
+  pCVar1->dwMagic = 0x11111111;
   *srcRect = x;
-  puVar1[2] = y;
-  puVar1[3] = w;
-  puVar1[4] = h;
+  pCVar1->nY = y;
+  pCVar1->nWidth = w;
+  pCVar1->nHeight = h;
   pVVar4 = &g_pSputRender_CleanBuffer->format;
   pVVar6 = &VStack_4c;
   for (iVar3 = 0x13; iVar3 != 0; iVar3 = iVar3 + -1) {
@@ -51,7 +51,7 @@ void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h)
   VStack_4c.nHeight = h;
   VStack_4c.nWidth = w;
   pVVar2 = stdDisplay_VBufferNew(&VStack_4c,0,0,0);
-  puVar1[5] = pVVar2;
+  pCVar1->pClean = pVVar2;
   Surface_Blit(pVVar2,g_pSputRender_CleanBuffer,0,0,srcRect,0);
   pVVar4 = &g_pSputRender_CleanZBuffer->format;
   pVVar6 = &VStack_4c;
@@ -63,11 +63,11 @@ void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h)
   VStack_4c.nWidth = w;
   VStack_4c.nHeight = h;
   pVVar2 = stdDisplay_VBufferNew(&VStack_4c,0,0,0);
-  puVar1[6] = pVVar2;
+  pCVar1->pCleanZ = pVVar2;
   Surface_Blit(pVVar2,g_pSputRender_CleanZBuffer,0,0,srcRect,0);
-  puVar1[7] = g_pCacheRectList;
-  g_pCacheRectList = puVar1;
-  return puVar1;
+  pCVar1->pNext = g_pCacheRectList;
+  g_pCacheRectList = pCVar1;
+  return pCVar1;
 }
 #undef VStack_4c
 
@@ -82,16 +82,14 @@ void __cdecl sputRender_RestoreCacheRect(int unused)
 {
   int *piVar1;
   int *rect;
-  void *pvVar2;
+  CacheRect *pCVar2;
   
-  pvVar2 = g_pCacheRectList;
-  piVar1 = (int *)((int)g_pCacheRectList + 8);
-  rect = (int *)((int)g_pCacheRectList + 4);
-  Surface_Blit(g_pSputRender_CleanBuffer,*(VBuffer **)((int)g_pCacheRectList + 0x14),
-               *(int *)((int)g_pCacheRectList + 4),*(int *)((int)g_pCacheRectList + 8),(int *)0x0,0)
-  ;
-  Surface_Blit(g_pSputRender_CleanZBuffer,*(VBuffer **)((int)pvVar2 + 0x18),*rect,*piVar1,(int *)0x0
-               ,0);
+  pCVar2 = g_pCacheRectList;
+  piVar1 = &g_pCacheRectList->nY;
+  rect = &g_pCacheRectList->nX;
+  Surface_Blit(g_pSputRender_CleanBuffer,g_pCacheRectList->pClean,g_pCacheRectList->nX,
+               g_pCacheRectList->nY,(int *)0x0,0);
+  Surface_Blit(g_pSputRender_CleanZBuffer,pCVar2->pCleanZ,*rect,*piVar1,(int *)0x0,0);
   MarkDirtyRect(rect,1);
   return;
 }
@@ -100,20 +98,20 @@ void __cdecl sputRender_RestoreCacheRect(int unused)
 void __cdecl CacheRect_FreeAll(void)
 
 {
-  void *pvVar1;
+  CacheRect *pCVar1;
   
-  pvVar1 = g_pCacheRectList;
-  while (pvVar1 != (void *)0x0) {
-    g_pCacheRectList = *(void **)((int)pvVar1 + 0x1c);
-    if (*(VBuffer **)((int)pvVar1 + 0x14) != (VBuffer *)0x0) {
-      stdDisplay_VBufferFree(*(VBuffer **)((int)pvVar1 + 0x14));
+  pCVar1 = g_pCacheRectList;
+  while (pCVar1 != (CacheRect *)0x0) {
+    g_pCacheRectList = pCVar1->pNext;
+    if (pCVar1->pClean != (VBuffer *)0x0) {
+      stdDisplay_VBufferFree(pCVar1->pClean);
     }
-    if (*(VBuffer **)((int)pvVar1 + 0x18) != (VBuffer *)0x0) {
-      stdDisplay_VBufferFree(*(VBuffer **)((int)pvVar1 + 0x18));
+    if (pCVar1->pCleanZ != (VBuffer *)0x0) {
+      stdDisplay_VBufferFree(pCVar1->pCleanZ);
     }
-    (*g_pSputRendHS->pFree)(pvVar1);
-    pvVar1 = g_pCacheRectList;
+    (*g_pSputRendHS->pFree)(pCVar1);
+    pCVar1 = g_pCacheRectList;
   }
-  g_pCacheRectList = pvVar1;
+  g_pCacheRectList = pCVar1;
   return;
 }

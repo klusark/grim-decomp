@@ -12,7 +12,7 @@ void __cdecl rdPuppet_BuildJointMatrices(rdThing *thing,float *frame,uint index,
   int iVar1;
   float *pfVar2;
   
-  if (*(uint *)((int)thing->pModel + 0x54) <= index) {
+  if ((uint)thing->pModel->nNumHierarchyNodes <= index) {
     return;
   }
   pfVar2 = thing->pHierarchyMatrices + index * 0xc;
@@ -25,7 +25,7 @@ void __cdecl rdPuppet_BuildJointMatrices(rdThing *thing,float *frame,uint index,
 }
 
 /* ---- 0x00450500  rdPuppet_New ---- */
-undefined4 * __cdecl rdPuppet_New(void *param_1)
+undefined4 * __cdecl rdPuppet_New(rdThing *thing)
 
 {
   undefined4 *puppet;
@@ -41,9 +41,9 @@ undefined4 * __cdecl rdPuppet_New(void *param_1)
     puVar2 = puVar2 + 1;
   }
   if (puppet != (undefined4 *)0x0) {
-    iVar1 = rdPuppet_NewEntry(puppet,param_1);
+    iVar1 = rdPuppet_NewEntry(puppet,thing);
     if (iVar1 != 0) {
-      *(undefined4 **)((int)param_1 + 0x14) = puppet;
+      thing->pPuppet = puppet;
       return puppet;
     }
   }
@@ -443,14 +443,14 @@ void __cdecl rdPuppet_ResetTrack(int param_1,int param_2)
 #if 0
 /* WARNING: Variable defined which should be unmapped: local_88 */
 
-void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
+void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
   float fVar3;
-  int iVar4;
+  rdModel3 *prVar4;
   int *piVar5;
   float fVar6;
   float fVar7;
@@ -482,17 +482,17 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
   #define local_18 (*(float (*)[3])(_frame + (0xa0 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0xa0 - 0xc)))
   
-  iVar4 = *(int *)((int)model + 4);
-  piVar5 = *(int **)((int)model + 0x14);
-  if (*(int *)((int)model + 0x18) == 0) {
+  prVar4 = thing->pModel;
+  piVar5 = thing->pPuppet;
+  if (thing->nFrozen == 0) {
     if ((piVar5 == (int *)0x0) || (*piVar5 != 0)) {
       uVar15 = 0;
-      if (*(int *)(iVar4 + 0x54) != 0) {
-        puVar10 = (undefined4 *)(*(int *)(iVar4 + 0x58) + 0x88);
+      if (prVar4->nNumHierarchyNodes != 0) {
+        puVar10 = (undefined4 *)((int)prVar4->pHierarchyNodes + 0x88);
         iVar13 = 0;
         do {
           puVar18 = puVar10;
-          puVar19 = (undefined4 *)(iVar13 + *(int *)((int)model + 0x20));
+          puVar19 = (undefined4 *)(iVar13 + (int)thing->pHierarchyMatrices);
           for (iVar9 = 0xc; iVar9 != 0; iVar9 = iVar9 + -1) {
             *puVar19 = *puVar18;
             puVar18 = puVar18 + 1;
@@ -501,7 +501,7 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
           puVar10 = puVar10 + 0x2e;
           uVar15 = uVar15 + 1;
           iVar13 = iVar13 + 0x30;
-        } while (uVar15 < *(uint *)(iVar4 + 0x54));
+        } while (uVar15 < (uint)prVar4->nNumHierarchyNodes);
       }
     }
     else {
@@ -556,10 +556,10 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
         local_64 = local_64 - 1;
       } while (local_64 != 0);
       local_5c[2] = 0.0;
-      if (*(int *)(iVar4 + 0x54) != 0) {
+      if (prVar4->nNumHierarchyNodes != 0) {
         local_50 = 0;
         local_60 = 0;
-        puVar14 = (uint *)(*(int *)(iVar4 + 0x58) + 0x44);
+        puVar14 = (uint *)((int)prVar4->pHierarchyNodes + 0x44);
         do {
           local_3c[0] = 0.0;
           local_3c[1] = 0.0;
@@ -727,22 +727,22 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
           local_48[0] = PUN(float,puVar14[0xe]) + local_48[0];
           local_48[1] = PUN(float,puVar14[0xf]) + local_48[1];
           local_48[2] = PUN(float,puVar14[0x10]) + fVar20;
-          rdMatrix_Build34((float *)(local_50 + *(int *)((int)model + 0x20)),(uint *)local_48,
+          rdMatrix_Build34((float *)(local_50 + (int)thing->pHierarchyMatrices),(uint *)local_48,
                            local_3c);
-          uVar15 = *(int *)((int)model + 0x24) + local_60;
-          if (((*(float *)(*(int *)((int)model + 0x24) + local_60) != 0.0) ||
+          uVar15 = (int)thing->pHierarchyRot + local_60;
+          if (((*(float *)((int)thing->pHierarchyRot + local_60) != 0.0) ||
               (*(float *)(uVar15 + 4) != 0.0)) || (*(float *)(uVar15 + 8) != 0.0)) {
-            Matrix_BuildTransform((float *)(local_50 + *(int *)((int)model + 0x20)),uVar15);
+            Matrix_BuildTransform((float *)(local_50 + (int)thing->pHierarchyMatrices),uVar15);
           }
           local_5c[2] = PUN(float,(PUN(int,(float)local_5c[2]) + 1));
           local_60 = local_60 + 0xc;
           local_50 = local_50 + 0x30;
           puVar14 = puVar14 + 0x2e;
-        } while (PUN(uint,(float)local_5c[2]) < PUN(uint,(float)*(float *)(iVar4 + 0x54)));
+        } while (PUN(uint,(float)local_5c[2]) < (uint)prVar4->nNumHierarchyNodes);
       }
     }
-    rdThing_AccumulateMatrices((int)model,*(int *)(iVar4 + 0x58),frame);
-    *(uint *)((int)model + 0x1c) = g_dwRdroid_frameTrue;
+    rdThing_AccumulateMatrices((int)thing,(int)prVar4->pHierarchyNodes,frame);
+    thing->dwFrameTrue = g_dwRdroid_frameTrue;
   }
   return;
 }
@@ -768,19 +768,22 @@ void __cdecl rdPuppet_UpdateFrame(void *model,float *frame)
 /* Clears a 0x84-byte keyframe record and names it UNKNOWN. Source file Rdkeyframe.c
    (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-void __cdecl rdKeyframe_NewEntry(undefined4 *param_1)
+void __cdecl rdKeyframe_NewEntry(rdKeyframe *keyframe)
 
 {
   int iVar1;
-  undefined4 *puVar2;
+  rdKeyframe *prVar2;
   
-  puVar2 = param_1;
+  prVar2 = keyframe;
   for (iVar1 = 0x21; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
+    prVar2->aName[0] = '\0';
+    prVar2->aName[1] = '\0';
+    prVar2->aName[2] = '\0';
+    prVar2->aName[3] = '\0';
+    prVar2 = (rdKeyframe *)(prVar2->aName + 4);
   }
-  strncpy(param_1,(uint *)s_UNKNOWN_004ddb8c,0x1f);
-  *(undefined1 *)((int)param_1 + 0x1f) = 0;
+  strncpy((uint *)keyframe,(uint *)s_UNKNOWN_004ddb8c,0x1f);
+  keyframe->aName[0x1f] = '\0';
   return;
 }
 
@@ -877,7 +880,7 @@ uint __cdecl rdKeyframe_LoadEntry(char *param_1,int param_2)
   #define auStack_20 (*(uint (*)[8])(_frame + (0x80 - 0x20)))
   
   iVar2 = param_2;
-  rdKeyframe_NewEntry((undefined4 *)param_2);
+  rdKeyframe_NewEntry((rdKeyframe *)param_2);
   uVar12 = 0x1f;
   puVar3 = (uint *)stdFileFromPath(param_1);
   strncpy((uint *)iVar2,puVar3,uVar12);

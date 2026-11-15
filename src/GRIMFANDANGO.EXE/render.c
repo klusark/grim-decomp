@@ -37,12 +37,10 @@ void __cdecl sputRender_DrawDebuggingToggle(void)
     g_dwDebugFlags = g_dwDebugFlags & 0xfffffffe;
   }
   if ((g_dwDebugFlags & 1) == 0) {
-    local_10 = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18);
-    local_c = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c);
-    local_8 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x20) -
-              *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18)) + 1;
-    local_4 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x24) -
-              *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c)) + 1;
+    local_10 = g_pRdCamera_CurCamera->pCanvas->nX0;
+    local_c = g_pRdCamera_CurCamera->pCanvas->nY0;
+    local_8 = (g_pRdCamera_CurCamera->pCanvas->nX1 - g_pRdCamera_CurCamera->pCanvas->nX0) + 1;
+    local_4 = (g_pRdCamera_CurCamera->pCanvas->nY1 - g_pRdCamera_CurCamera->pCanvas->nY0) + 1;
     bufferIdx = 0;
     if (0 < g_nNumPages) {
       do {
@@ -708,7 +706,7 @@ void __cdecl Render_BuildActorDrawList(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
-  int *piVar2;
+  RoomActorNode *pRVar2;
   Set *pSVar3;
   undefined *puVar4;
   #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
@@ -718,13 +716,13 @@ void __cdecl Render_BuildActorDrawList(void)
   
   DrawList_Reset();
   pSVar3 = sputRoom_GetCurrentRoom();
-  piVar2 = *(int **)(*(int *)&pSVar3->field_0x1abc + 0x80);
+  pRVar2 = pSVar3->pRoomActors->pActors;
   do {
-    if (piVar2 == (int *)0x0) {
+    if (pRVar2 == (RoomActorNode *)0x0) {
       qsort(&g_dwDrawItems,g_dwTotDrawItems,4,FUN_004862b0);
       return;
     }
-    pAVar1 = g_pActors + *piVar2;
+    pAVar1 = g_pActors + pRVar2->nActor;
     if ((pAVar1 != (Actor *)0x0) && (pAVar1->nScreenBoxValid = 0, (pAVar1->dwFlags & 3) == 0)) {
       puVar4 = DrawList_Alloc();
       if (puVar4 == (undefined *)0x0) {
@@ -750,7 +748,7 @@ void __cdecl Render_BuildActorDrawList(void)
         *(int *)(puVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
       }
     }
-    piVar2 = (int *)piVar2[2];
+    pRVar2 = pRVar2->pNext;
   } while( true );
 }
 #undef local_14
@@ -773,18 +771,16 @@ void __cdecl sputRender_ReverseProject(int x,int y,float *outPos)
   #define local_c (*(float *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
   
-  if ((g_pRdCamera_CurCamera != (rdCamera *)0x0) && (g_pRdCamera_CurCamera->pCanvas != (void *)0x0))
-  {
+  if ((g_pRdCamera_CurCamera != (rdCamera *)0x0) &&
+     (g_pRdCamera_CurCamera->pCanvas != (rdCanvas *)0x0)) {
     fVar2 = (float)(int)((uint)*(ushort *)
                                 (*(int *)(UINT_008c97a4 + 0x5c) +
                                 (*(int *)(UINT_008c97a4 + 0xc) * y + x) * 2) <<
-                        ((byte)*(undefined4 *)((int)g_pRdCamera_CurCamera->pCanvas + 0x14) & 0x1f))
-            * 1.5258789e-05;
+                        ((byte)g_pRdCamera_CurCamera->pCanvas->dwExtra & 0x1f)) * 1.5258789e-05f;
     fVar1 = g_pRdCamera_CurCamera->flFovY * fVar2;
     local_8[0] = 1.0 / fVar2 - 1.0;
-    local_c = (1.0 / fVar1) * ((float)x - *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 8));
-    local_8[1] = (-1.0 / fVar1) * ((float)y - *(float *)((int)g_pRdCamera_CurCamera->pCanvas + 0xc))
-    ;
+    local_c = (1.0 / fVar1) * ((float)x - g_pRdCamera_CurCamera->pCanvas->flCenterX);
+    local_8[1] = (-1.0 / fVar1) * ((float)y - g_pRdCamera_CurCamera->pCanvas->flCenterY);
     rdMatrix_TransformPoint34(outPos,&local_c,g_pSputRender_Camera + 0xc);
   }
   return;
@@ -824,12 +820,10 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
       if ((redrawDepth != 0) && ((pSVar1->zBackground).nValid != 0)) {
         g_dwRenderFlags = g_dwRenderFlags & 0xfffffffd;
       }
-      local_10 = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18);
-      local_c = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c);
-      local_8 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x20) -
-                *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18)) + 1;
-      local_4 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x24) -
-                *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c)) + 1;
+      local_10 = g_pRdCamera_CurCamera->pCanvas->nX0;
+      local_c = g_pRdCamera_CurCamera->pCanvas->nY0;
+      local_8 = (g_pRdCamera_CurCamera->pCanvas->nX1 - g_pRdCamera_CurCamera->pCanvas->nX0) + 1;
+      local_4 = (g_pRdCamera_CurCamera->pCanvas->nY1 - g_pRdCamera_CurCamera->pCanvas->nY0) + 1;
       iVar3 = 0;
       if (0 < g_nNumPages) {
         do {
@@ -991,27 +985,27 @@ void __cdecl sputRender_SetGamma(float gamma)
    remaps its pixels Original name sputRender_Decompress (the remaster's GrimFandango (Linux):
    aligned call in sputRender_UseSetup); was Render_ConvertBackground. */
 
-void __cdecl sputRender_Decompress(void *param_1)
+void __cdecl sputRender_Decompress(VBuffer *vbuf)
 
 {
   int iVar1;
   int iVar2;
   int iVar3;
-  int *piVar4;
+  VBufferFormat *pVVar4;
   VBufferFormat *pVVar5;
   
-  iVar1 = *(int *)((int)param_1 + 0x10);
-  iVar2 = *(int *)((int)param_1 + 0xc);
-  stdDisplay_VBufferDeCompressTo(param_1,g_pSputRender_DecompressionBuffer);
-  piVar4 = (int *)((int)param_1 + 0xc);
+  iVar1 = (vbuf->format).nHeight;
+  iVar2 = (vbuf->format).nWidth;
+  stdDisplay_VBufferDeCompressTo(vbuf,g_pSputRender_DecompressionBuffer);
+  pVVar4 = &vbuf->format;
   pVVar5 = &g_pSputRender_DecompressionBuffer->format;
   for (iVar3 = 0x13; iVar3 != 0; iVar3 = iVar3 + -1) {
-    pVVar5->nWidth = *piVar4;
-    piVar4 = piVar4 + 1;
+    pVVar5->nWidth = pVVar4->nWidth;
+    pVVar4 = (VBufferFormat *)&pVVar4->nHeight;
     pVVar5 = (VBufferFormat *)&pVVar5->nHeight;
   }
   g_pSputRender_DecompressionBuffer->dwColorKey = 0xf81f;
-  if (*(int *)((int)param_1 + 0x20) != 5) {
+  if ((vbuf->format).colorFormat.nColorMode != 5) {
     sputRender_ColorCorrect(g_pSputRender_DecompressionBuffer->pPixels,iVar1 * iVar2);
     g_pSputRender_DecompressionBuffer->dwColorKey = (uint)DAT_008c856e;
   }
@@ -1527,7 +1521,7 @@ void __cdecl sputRender_SaveScreen(char *filename)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *bitmap;
+  stdBitmap *bitmap;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
@@ -1558,7 +1552,7 @@ void __cdecl sputRender_SaveScreen(char *filename)
   local_8 = 0;
   local_4 = 0;
   if (filename != (char *)0x0) {
-    bitmap = (void *)stdBitmap_VBufferToBitmap(&g_dwStdDisplay_backBuffer,0,0);
+    bitmap = stdBitmap_VBufferToBitmap((VBuffer *)&g_dwStdDisplay_backBuffer,0,0);
     stdBitmap_ConvertColorFormat((int *)&local_38,(int)bitmap);
     stdWriteImage(filename,bitmap);
     stdBitmap_Free(bitmap);
@@ -1585,11 +1579,11 @@ void __cdecl sputRender_SaveScreen(char *filename)
 void __cdecl Render_SaveZBufferBmp(char *filename)
 
 {
-  void *bitmap;
+  stdBitmap *bitmap;
   
   stdDisplay_VBufferLock((VBuffer *)UINT_008c97a4);
   stdDisplay_VBufferUnlock((VBuffer *)UINT_008c97a4);
-  bitmap = (void *)stdBitmap_VBufferToBitmap((void *)UINT_008c97a4,0,0);
+  bitmap = stdBitmap_VBufferToBitmap((VBuffer *)UINT_008c97a4,0,0);
   stdBitmap_Write(filename,bitmap);
   stdBitmap_Free(bitmap);
   return;
@@ -1604,7 +1598,7 @@ void __cdecl sputRender_SaveDrawBuffer(char *filename)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *bitmap;
+  stdBitmap *bitmap;
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
@@ -1634,7 +1628,7 @@ void __cdecl sputRender_SaveDrawBuffer(char *filename)
   local_c = 0;
   local_8 = 0;
   local_4 = 0;
-  bitmap = (void *)stdBitmap_VBufferToBitmap(&g_dwStdDisplay_backBuffer,0,0);
+  bitmap = stdBitmap_VBufferToBitmap((VBuffer *)&g_dwStdDisplay_backBuffer,0,0);
   stdBitmap_ConvertColorFormat((int *)&local_38,(int)bitmap);
   stdWriteImage(filename,bitmap);
   stdBitmap_Free(bitmap);

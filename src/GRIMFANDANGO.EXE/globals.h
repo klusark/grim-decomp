@@ -107,6 +107,8 @@ extern Std3DDevice * g_pStd3D_CurDevice; /* 0x0080692c */
 extern Std3DTexture * g_pD3dTextureList; /* 0x00806948 */
 extern void * g_pD3dExecuteBuffer; /* 0x00806954 */
 extern GrimServices g_aLowLevelHS; /* 0x00825e90 */
+extern ResType * g_dwResTypeList; /* 0x008a85cc */
+extern Resource * g_pNewestResNode; /* 0x008a85d4 */
 extern char g_szGrimlib_aFilename[128]; /* 0x008a86f0 */
 extern void * g_pfnIMuseSaveHook; /* 0x008a87a8 */
 extern void * g_pfnIMuseRestoreHook; /* 0x008a87ac */
@@ -132,9 +134,9 @@ extern void * g_pSputRender_PageFlipFunc; /* 0x008c97bc */
 extern ushort g_abSputRender_colorMap[3]; /* 0x008c97c0 */
 extern void ** g_pDirtyRectPool; /* 0x008c97ec */
 extern int g_nSputRender_Reset; /* 0x008c97f0 */
-extern void * g_pCacheRectList; /* 0x008c97f4 */
+extern CacheRect * g_pCacheRectList; /* 0x008c97f4 */
 extern int g_nDirtyRectCount; /* 0x008c97fc */
-extern void * g_pRenderedSet; /* 0x008c9800 */
+extern Set * g_pRenderedSet; /* 0x008c9800 */
 extern char g_szDialogOpenDir[260]; /* 0x008c9858 */
 extern char g_szDialogSaveDir[260]; /* 0x008c9960 */
 extern void * g_pfnSpewStartup; /* 0x008c9a64 */
@@ -190,7 +192,7 @@ extern void ** g_pSoundPool; /* 0x008cb088 */
 extern void * g_pSoundEventList; /* 0x008cb08c */
 extern GrimServices * g_pSputRoomHS; /* 0x008cb090 */
 extern int g_nSkipSetupBitmaps; /* 0x008cb0a0 */
-extern void * g_pRoomList; /* 0x008cb0ac */
+extern RoomActors * g_pRoomList; /* 0x008cb0ac */
 extern WalkVertex g_aWalkPlane_vert_db[1024]; /* 0x008cb0b0 */
 extern float g_vEdgeFollowDir; /* 0x008cf260 */
 extern int g_nVertexCacheSize; /* 0x008cf270 */
@@ -227,7 +229,7 @@ extern int g_nFob_translation_shiftr; /* 0x008da514 */
 extern int g_nFob_translation_shiftg; /* 0x008da518 */
 extern int g_nFob_translation_shiftb; /* 0x008da51c */
 extern int g_nGlobal_bm_type; /* 0x008da520 */
-extern int * g_pBlkBitmap0; /* 0x008da528 */
+extern LecPixelFormat * g_pBlkBitmap0; /* 0x008da528 */
 extern int * g_pBlkBitmap1; /* 0x008da52c */
 extern int * g_pBlkBitmap2; /* 0x008da530 */
 extern int g_nFob_buffersize; /* 0x008da534 */
@@ -1460,7 +1462,7 @@ extern undefined4 UINT_007f4b2c; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined4 UINT_007f4b30; /* used by 14 fn(s), first 0x00453310 */
 extern undefined DAT_007f4b34; /* used by 21 fn(s), first 0x00453e30 */
 extern undefined DAT_007f4b38; /* used by 21 fn(s), first 0x00453e30 */
-extern uint UINT_007f4b3c; /* used by 42 fn(s), first 0x00452150 */
+extern undefined4 UINT_007f4b3c; /* used by 42 fn(s), first 0x00452150 */
 extern undefined4 UINT_007f4b40; /* used by 1 fn(s), first 0x00452070 */
 extern undefined4 UINT_007f4b44; /* used by 21 fn(s), first 0x00453e30 */
 extern float FLOAT_007f4b48; /* used by 21 fn(s), first 0x00453e30 */
@@ -1676,9 +1678,7 @@ extern undefined4 g_dwResSysStarted; /* used by 2 fn(s), first 0x004800b0 */
 extern undefined4 g_dwResFilePool; /* used by 5 fn(s), first 0x00480010 */
 extern int * g_pResFileList; /* used by 9 fn(s), first 0x00480010 */
 extern undefined4 g_dwResTypePool; /* used by 5 fn(s), first 0x00480010 */
-extern undefined4 g_dwResTypeList; /* used by 4 fn(s), first 0x00480010 */
 extern undefined4 g_dwResNodePool; /* used by 5 fn(s), first 0x00480010 */
-extern int * g_pNewestResNode; /* used by 14 fn(s), first 0x00480010 */
 extern undefined4 g_dwOldestResNode; /* used by 6 fn(s), first 0x00480010 */
 extern undefined4 g_dwLastFound; /* used by 3 fn(s), first 0x00481400 */
 extern undefined4 g_dwLogFile; /* used by 3 fn(s), first 0x00480230 */
