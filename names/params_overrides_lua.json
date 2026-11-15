@@ -1,0 +1,62 @@
+{
+ "_comment": "Parameter names of hand-written functions taken from their definitions in build/overrides*.c (tools/names_from_overrides.py, 2026-11-15).",
+ "program": "/LUA.DLL",
+ "params": [
+  {
+   "addr": "1000d620",
+   "index": 0,
+   "type": "int *",
+   "name": "o",
+   "_fn": "luaV_tostring",
+   "_names_only": true
+  },
+  {
+   "addr": "10005d00",
+   "index": 0,
+   "type": "float *",
+   "name": "value",
+   "_fn": "luaY_lex",
+   "_names_only": true
+  },
+  {
+   "addr": "100020f0",
+   "index": 0,
+   "type": "int",
+   "name": "out",
+   "_fn": "lua_printstack",
+   "_names_only": true
+  },
+  {
+   "addr": "10009ea0",
+   "index": 0,
+   "type": "char *",
+   "name": "s",
+   "_fn": "match",
+   "_names_only": true
+  },
+  {
+   "addr": "10009ea0",
+   "index": 1,
+   "type": "int *",
+   "name": "pat",
+   "_fn": "match",
+   "_names_only": true
+  },
+  {
+   "addr": "10009ea0",
+   "index": 2,
+   "type": "int *",
+   "name": "cap",
+   "_fn": "match",
+   "_names_only": true
+  },
+  {
+   "addr": "100046a0",
+   "index": 0,
+   "type": "byte *",
+   "name": "msg",
+   "_fn": "message",
+   "_names_only": true
+  }
+ ]
+}

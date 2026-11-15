@@ -122,7 +122,7 @@ float __cdecl stdMath_NormalizeAngleAcute(float param_1)
    ms). Original name stdMath_SinCos (the remaster's GrimFandango (Linux): the only unmatched callee
    of rdLight_SetAngles; 2 matched neighbours agree, 0 disagree); was Math_SinCosTable. */
 
-void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
+void __cdecl stdMath_SinCos(float deg,float *outSin,float *outCos)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -142,7 +142,7 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
-  fVar4 = stdMath_NormalizeAngle(param_1);
+  fVar4 = stdMath_NormalizeAngle(deg);
   if (90.0f <= fVar4) {
     if (180.0f <= fVar4) {
       if (270.0f <= fVar4) {
@@ -173,14 +173,14 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
     else {
       local_8 = g_aSinTable[0xfff - (iVar1 + -0xfff)];
     }
-    *param_2 = (local_8 - g_aSinTable[iVar1]) * fVar5 + g_aSinTable[iVar1];
+    *outSin = (local_8 - g_aSinTable[iVar1]) * fVar5 + g_aSinTable[iVar1];
     if (iVar2 < 0x1000) {
       local_8 = g_aSinTable[0xfff - iVar2];
     }
     else {
       local_8 = -*(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
-    *param_3 = (local_8 - g_aSinTable[0xfff - iVar1]) * fVar5 + g_aSinTable[0xfff - iVar1];
+    *outCos = (local_8 - g_aSinTable[0xfff - iVar1]) * fVar5 + g_aSinTable[0xfff - iVar1];
     break;
   case 1:
     if (iVar2 < 0x2000) {
@@ -189,8 +189,8 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
     else {
       local_8 = -*(float *)(&DAT_004d7600 + iVar2 * 4);
     }
-    *param_2 = (local_8 - g_aSinTable[0xfff - (iVar1 + -0x1000)]) * fVar5 +
-               g_aSinTable[0xfff - (iVar1 + -0x1000)];
+    *outSin = (local_8 - g_aSinTable[0xfff - (iVar1 + -0x1000)]) * fVar5 +
+              g_aSinTable[0xfff - (iVar1 + -0x1000)];
     if (iVar2 < 0x2000) {
       fVar4 = *(float *)("DialogBoxIndirectParamA" + iVar2 * 4 + 2);
     }
@@ -198,8 +198,8 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
       fVar4 = g_aSinTable[0xfff - (iVar1 + -0x1fff)];
     }
     local_8 = -fVar4;
-    *param_3 = (local_8 - -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar5 +
-               -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2);
+    *outCos = (local_8 - -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2)) * fVar5 +
+              -*(float *)("DialogBoxIndirectParamA" + iVar1 * 4 + 2);
     break;
   case 2:
     if (iVar2 < 0x3000) {
@@ -209,16 +209,16 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
       fVar4 = g_aSinTable[0xfff - (iVar1 + -0x2fff)];
     }
     local_8 = -fVar4;
-    *param_2 = (local_8 - -*(float *)(&DAT_004d7600 + iVar1 * 4)) * fVar5 +
-               -*(float *)(&DAT_004d7600 + iVar1 * 4);
+    *outSin = (local_8 - -*(float *)(&DAT_004d7600 + iVar1 * 4)) * fVar5 +
+              -*(float *)(&DAT_004d7600 + iVar1 * 4);
     if (iVar2 < 0x3000) {
       local_8 = -g_aSinTable[0xfff - (iVar1 + -0x1fff)];
     }
     else {
       local_8 = *(float *)(iVar2 * 4 + 0x4d3600);
     }
-    *param_3 = (local_8 - -g_aSinTable[0xfff - (iVar1 + -0x2000)]) * fVar5 +
-               -g_aSinTable[0xfff - (iVar1 + -0x2000)];
+    *outCos = (local_8 - -g_aSinTable[0xfff - (iVar1 + -0x2000)]) * fVar5 +
+              -g_aSinTable[0xfff - (iVar1 + -0x2000)];
     break;
   case 3:
     if (iVar2 < 0x4000) {
@@ -227,8 +227,8 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
     else {
       local_8 = *(float *)(iVar2 * 4 + 0x4cf600);
     }
-    *param_2 = (local_8 - -g_aSinTable[0xfff - (iVar1 + -0x3000)]) * fVar5 +
-               -g_aSinTable[0xfff - (iVar1 + -0x3000)];
+    *outSin = (local_8 - -g_aSinTable[0xfff - (iVar1 + -0x3000)]) * fVar5 +
+              -g_aSinTable[0xfff - (iVar1 + -0x3000)];
     fVar4 = *(float *)(iVar1 * 4 + 0x4d3600);
     if (iVar2 < 0x4000) {
       local_8 = *(float *)(iVar2 * 4 + 0x4d3600);
@@ -236,7 +236,7 @@ void __cdecl stdMath_SinCos(float param_1,float *param_2,float *param_3)
     else {
       local_8 = g_aSinTable[0xfff - (iVar1 + -0x3fff)];
     }
-    *param_3 = (local_8 - fVar4) * fVar5 + fVar4;
+    *outCos = (local_8 - fVar4) * fVar5 + fVar4;
   }
   return;
 }
@@ -277,11 +277,12 @@ float __cdecl Math_Floor(float param_1)
 /* ---- 0x0047c120  stdMath_Tan ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* WARNING: Unknown calling convention */
 /* Table/polynomial sine of an angle in degrees Original name stdMath_Tan (the remaster's
    GrimFandango (Linux): aligned call in rdCamera_BuildFOV; the second (tangent) table and its
    quadrant signs); was Math_SinDeg. */
 
-float10 stdMath_Tan(float param_1)
+float10 stdMath_Tan(float deg)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -300,7 +301,7 @@ float10 stdMath_Tan(float param_1)
   #define local_10 (*(float (*)[2])(_frame + (0x40 - 0x10)))
   #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
-  fVar4 = stdMath_NormalizeAngle(param_1);
+  fVar4 = stdMath_NormalizeAngle(deg);
   if (90.0f <= fVar4) {
     if (180.0f <= fVar4) {
       if (270.0f <= fVar4) {

@@ -1,0 +1,3662 @@
+{
+ "_comment": "Parameter names of hand-written functions taken from their definitions in build/overrides*.c (tools/names_from_overrides.py, 2026-11-15).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "params": [
+  {
+   "addr": "004864a0",
+   "index": 0,
+   "type": "int",
+   "name": "fmt",
+   "_fn": "Render_BuildColorTable",
+   "_names_only": true
+  },
+  {
+   "addr": "004864a0",
+   "index": 1,
+   "type": "float",
+   "name": "gamma",
+   "_fn": "Render_BuildColorTable",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4e80",
+   "index": 0,
+   "type": "int",
+   "name": "entry",
+   "_fn": "SetSoundPosition",
+   "_names_only": true
+  },
+  {
+   "addr": "004d5e50",
+   "index": 0,
+   "type": "uint",
+   "name": "dst",
+   "_fn": "msc_MemSet",
+   "_names_only": true
+  },
+  {
+   "addr": "004d5e50",
+   "index": 1,
+   "type": "uint",
+   "name": "value",
+   "_fn": "msc_MemSet",
+   "_names_only": true
+  },
+  {
+   "addr": "004d5e50",
+   "index": 2,
+   "type": "uint",
+   "name": "count",
+   "_fn": "msc_MemSet",
+   "_names_only": true
+  },
+  {
+   "addr": "0040ea50",
+   "index": 0,
+   "type": "float *",
+   "name": "rec",
+   "_fn": "rdAFRaster_CalcAffineGradients",
+   "_names_only": true
+  },
+  {
+   "addr": "0040ea50",
+   "index": 1,
+   "type": "int",
+   "name": "mode",
+   "_fn": "rdAFRaster_CalcAffineGradients",
+   "_names_only": true
+  },
+  {
+   "addr": "0040ef90",
+   "index": 0,
+   "type": "float *",
+   "name": "rec",
+   "_fn": "rdAFRaster_CalcPerspGradients",
+   "_names_only": true
+  },
+  {
+   "addr": "0040ef90",
+   "index": 1,
+   "type": "int",
+   "name": "mode",
+   "_fn": "rdAFRaster_CalcPerspGradients",
+   "_names_only": true
+  },
+  {
+   "addr": "004123b0",
+   "index": 0,
+   "type": "int *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00412280",
+   "index": 0,
+   "type": "int *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00415dc0",
+   "index": 0,
+   "type": "uint *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00415720",
+   "index": 0,
+   "type": "uint *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00413340",
+   "index": 0,
+   "type": "int *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004131f0",
+   "index": 0,
+   "type": "int *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00417790",
+   "index": 0,
+   "type": "uint *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004170a0",
+   "index": 0,
+   "type": "uint *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004114f0",
+   "index": 0,
+   "type": "int *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004113e0",
+   "index": 0,
+   "type": "int *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00414530",
+   "index": 0,
+   "type": "uint *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00413ee0",
+   "index": 0,
+   "type": "uint *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonMLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00411ba0",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004151d0",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0040ffe0",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "00412a30",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00416a50",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "004104e0",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonGS",
+   "_names_only": true
+  },
+  {
+   "addr": "00410d80",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004139f0",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0040fbe0",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonLS",
+   "_names_only": true
+  },
+  {
+   "addr": "0040f770",
+   "index": 1,
+   "type": "int *",
+   "name": "r",
+   "_fn": "rdAFRaster_SetupEdgeNGonLW",
+   "_names_only": true
+  },
+  {
+   "addr": "00411630",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00411630",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00411630",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdAFRaster_SetupNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00414be0",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00414be0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00414be0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdAFRaster_SetupNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0040fe90",
+   "index": 0,
+   "type": "float *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "0040fe90",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "0040fe90",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdAFRaster_SetupNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "00416470",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00416470",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "004134a0",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "004134a0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00412090",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonMFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00412090",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonMFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00412090",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdAFRaster_SetupNGonMFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004154c0",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonMFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "004154c0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonMFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "004154c0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdAFRaster_SetupNGonMFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00416e70",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonMGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00416e70",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonMGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00413ce0",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonMLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00413ce0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonMLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0040a280",
+   "index": 0,
+   "type": "int *",
+   "name": "cam",
+   "_fn": "rdCamera_BuildFOV",
+   "_names_only": true
+  },
+  {
+   "addr": "004047e0",
+   "index": 0,
+   "type": "undefined2 *",
+   "name": "table",
+   "_fn": "rdColormap_BuildRGB16",
+   "_names_only": true
+  },
+  {
+   "addr": "004047e0",
+   "index": 1,
+   "type": "ushort *",
+   "name": "palette",
+   "_fn": "rdColormap_BuildRGB16",
+   "_names_only": true
+  },
+  {
+   "addr": "004047e0",
+   "index": 2,
+   "type": "uint",
+   "name": "r",
+   "_fn": "rdColormap_BuildRGB16",
+   "_names_only": true
+  },
+  {
+   "addr": "004047e0",
+   "index": 3,
+   "type": "uint",
+   "name": "g",
+   "_fn": "rdColormap_BuildRGB16",
+   "_names_only": true
+  },
+  {
+   "addr": "004047e0",
+   "index": 4,
+   "type": "uint",
+   "name": "b",
+   "_fn": "rdColormap_BuildRGB16",
+   "_names_only": true
+  },
+  {
+   "addr": "004047e0",
+   "index": 5,
+   "type": "int",
+   "name": "fmt",
+   "_fn": "rdColormap_BuildRGB16",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 0,
+   "type": "int *",
+   "name": "lights",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 1,
+   "type": "float *",
+   "name": "lpos",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 2,
+   "type": "int",
+   "name": "ldir",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 3,
+   "type": "uint",
+   "name": "nlights",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 4,
+   "type": "int *",
+   "name": "normals",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 5,
+   "type": "uint",
+   "name": "verts",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 6,
+   "type": "float *",
+   "name": "base",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 7,
+   "type": "float *",
+   "name": "out",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 8,
+   "type": "uint",
+   "name": "nverts",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "00451510",
+   "index": 9,
+   "type": "float",
+   "name": "k",
+   "_fn": "rdLight_CalcVertexIntensities",
+   "_names_only": true
+  },
+  {
+   "addr": "0040c8c0",
+   "index": 0,
+   "type": "int",
+   "name": "model",
+   "_fn": "rdModel3_CalcRadii",
+   "_names_only": true
+  },
+  {
+   "addr": "0040cc30",
+   "index": 0,
+   "type": "int",
+   "name": "model",
+   "_fn": "rdModel3_CalcVertexNormals",
+   "_names_only": true
+  },
+  {
+   "addr": "0040a980",
+   "index": 0,
+   "type": "int",
+   "name": "name",
+   "_fn": "rdModel3_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0040a980",
+   "index": 1,
+   "type": "uint",
+   "name": "model",
+   "_fn": "rdModel3_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00418550",
+   "index": 0,
+   "type": "float",
+   "name": "dbits",
+   "_fn": "rdNRaster_CalcAffineGradients",
+   "_names_only": true
+  },
+  {
+   "addr": "00418a00",
+   "index": 0,
+   "type": "float",
+   "name": "dbits",
+   "_fn": "rdNRaster_CalcPerspGradients",
+   "_names_only": true
+  },
+  {
+   "addr": "00419ca0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "00419ca0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "00419450",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonLS",
+   "_names_only": true
+  },
+  {
+   "addr": "00418fe0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonLV",
+   "_names_only": true
+  },
+  {
+   "addr": "00419150",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonLW",
+   "_names_only": true
+  },
+  {
+   "addr": "0042c010",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMTGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00419a00",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTLS",
+   "_names_only": true
+  },
+  {
+   "addr": "00425150",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00425150",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00428f00",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00428f00",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00421510",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00421510",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00427470",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00427470",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00426e30",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00426e30",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042b8e0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042b8e0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042b1f0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042b1f0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00423740",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00423740",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00423150",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00423150",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004283f0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMTFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004283f0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMTFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00427d70",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMTFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00427d70",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMTFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042c9f0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMTGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042c9f0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMTGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042c2c0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMTGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042c2c0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMTGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00424670",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMTLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00424670",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMTLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00424020",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonMTLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00424020",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonMTLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004264a0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonTFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004264a0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonTFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00425e50",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonTFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00425e50",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonTFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042a790",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonTGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042a790",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonTGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042a070",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonTGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042a070",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonTGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00422820",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonTLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00422820",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonTLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004221f0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdNRaster_DrawScanLineNGonTLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004221f0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdNRaster_DrawScanLineNGonTLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00419be0",
+   "index": 0,
+   "type": "uint *",
+   "name": "pl",
+   "_fn": "rdNRaster_DrawScanLineNGonTLS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00419be0",
+   "index": 1,
+   "type": "uint *",
+   "name": "pr",
+   "_fn": "rdNRaster_DrawScanLineNGonTLS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00419f70",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "00419680",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonLS",
+   "_names_only": true
+  },
+  {
+   "addr": "00419840",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonLS",
+   "_names_only": true
+  },
+  {
+   "addr": "0045ff10",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw",
+   "_names_only": true
+  },
+  {
+   "addr": "0045ff10",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw",
+   "_names_only": true
+  },
+  {
+   "addr": "00466920",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_15",
+   "_names_only": true
+  },
+  {
+   "addr": "00466920",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_15",
+   "_names_only": true
+  },
+  {
+   "addr": "00466c30",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00466c30",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00466f30",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_17",
+   "_names_only": true
+  },
+  {
+   "addr": "00466f30",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_17",
+   "_names_only": true
+  },
+  {
+   "addr": "00467230",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_18",
+   "_names_only": true
+  },
+  {
+   "addr": "00467230",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_18",
+   "_names_only": true
+  },
+  {
+   "addr": "00467530",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_19",
+   "_names_only": true
+  },
+  {
+   "addr": "00467530",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_19",
+   "_names_only": true
+  },
+  {
+   "addr": "004602c0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_2",
+   "_names_only": true
+  },
+  {
+   "addr": "004602c0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_2",
+   "_names_only": true
+  },
+  {
+   "addr": "00467830",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_20",
+   "_names_only": true
+  },
+  {
+   "addr": "00467830",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_20",
+   "_names_only": true
+  },
+  {
+   "addr": "00467b30",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_21",
+   "_names_only": true
+  },
+  {
+   "addr": "00467b30",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_21",
+   "_names_only": true
+  },
+  {
+   "addr": "00467e30",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_22",
+   "_names_only": true
+  },
+  {
+   "addr": "00467e30",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_22",
+   "_names_only": true
+  },
+  {
+   "addr": "0046c330",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_24",
+   "_names_only": true
+  },
+  {
+   "addr": "0046c330",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_24",
+   "_names_only": true
+  },
+  {
+   "addr": "0046c640",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_25",
+   "_names_only": true
+  },
+  {
+   "addr": "0046c640",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_25",
+   "_names_only": true
+  },
+  {
+   "addr": "0046c940",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_26",
+   "_names_only": true
+  },
+  {
+   "addr": "0046c940",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_26",
+   "_names_only": true
+  },
+  {
+   "addr": "0046cc40",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_27",
+   "_names_only": true
+  },
+  {
+   "addr": "0046cc40",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_27",
+   "_names_only": true
+  },
+  {
+   "addr": "0046cf40",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_28",
+   "_names_only": true
+  },
+  {
+   "addr": "0046cf40",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_28",
+   "_names_only": true
+  },
+  {
+   "addr": "0046d240",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_29",
+   "_names_only": true
+  },
+  {
+   "addr": "0046d240",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_29",
+   "_names_only": true
+  },
+  {
+   "addr": "00460670",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_3",
+   "_names_only": true
+  },
+  {
+   "addr": "00460670",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_3",
+   "_names_only": true
+  },
+  {
+   "addr": "0046d540",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_30",
+   "_names_only": true
+  },
+  {
+   "addr": "0046d540",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_30",
+   "_names_only": true
+  },
+  {
+   "addr": "00460a20",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_4",
+   "_names_only": true
+  },
+  {
+   "addr": "00460a20",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_4",
+   "_names_only": true
+  },
+  {
+   "addr": "00460dd0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_5",
+   "_names_only": true
+  },
+  {
+   "addr": "00460dd0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_5",
+   "_names_only": true
+  },
+  {
+   "addr": "00461180",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_6",
+   "_names_only": true
+  },
+  {
+   "addr": "00461180",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_6",
+   "_names_only": true
+  },
+  {
+   "addr": "00461530",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_7",
+   "_names_only": true
+  },
+  {
+   "addr": "00461530",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_7",
+   "_names_only": true
+  },
+  {
+   "addr": "004618e0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004618e0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00446920",
+   "index": 0,
+   "type": "float *",
+   "name": "out",
+   "_fn": "rdVector_Normalize3",
+   "_names_only": true
+  },
+  {
+   "addr": "0042d190",
+   "index": 0,
+   "type": "float",
+   "name": "dbits",
+   "_fn": "rdZRaster_CalcAffineGradients",
+   "_names_only": true
+  },
+  {
+   "addr": "0042d5f0",
+   "index": 0,
+   "type": "float",
+   "name": "dbits",
+   "_fn": "rdZRaster_CalcPerspGradients",
+   "_names_only": true
+  },
+  {
+   "addr": "00432ea0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00432ea0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0043c8d0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0043c8d0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0042ecf0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "0042ecf0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "00435400",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00441520",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0042fa10",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonGS",
+   "_names_only": true
+  },
+  {
+   "addr": "00430a20",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00437e10",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0042e010",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonLS",
+   "_names_only": true
+  },
+  {
+   "addr": "0042dd10",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonLW",
+   "_names_only": true
+  },
+  {
+   "addr": "0042f520",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTFS",
+   "_names_only": true
+  },
+  {
+   "addr": "0042f520",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonTFS",
+   "_names_only": true
+  },
+  {
+   "addr": "00430450",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTGS",
+   "_names_only": true
+  },
+  {
+   "addr": "0042e820",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTLS",
+   "_names_only": true
+  },
+  {
+   "addr": "00435c70",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00435c70",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042fdc0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonGS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042fdc0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonGS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042fc30",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonGS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042fc30",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonGS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00430860",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTGS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00430860",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTGS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004306c0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTGS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004306c0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTGS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00491230",
+   "index": 1,
+   "type": "float *",
+   "name": "pos",
+   "_fn": "sputActor_AlignToPuck",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ea30",
+   "index": 0,
+   "type": "uint",
+   "name": "file",
+   "_fn": "stdGif_LzwEncodePixel",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ea30",
+   "index": 1,
+   "type": "byte",
+   "name": "pixel",
+   "_fn": "stdGif_LzwEncodePixel",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e7f0",
+   "index": 0,
+   "type": "uint",
+   "name": "file",
+   "_fn": "stdGif_LzwInitEncoder",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e7f0",
+   "index": 1,
+   "type": "uint",
+   "name": "bits",
+   "_fn": "stdGif_LzwInitEncoder",
+   "_names_only": true
+  },
+  {
+   "addr": "0047bd20",
+   "index": 0,
+   "type": "float",
+   "name": "deg",
+   "_fn": "stdMath_SinCos",
+   "_names_only": true
+  },
+  {
+   "addr": "0047bd20",
+   "index": 1,
+   "type": "float *",
+   "name": "outSin",
+   "_fn": "stdMath_SinCos",
+   "_names_only": true
+  },
+  {
+   "addr": "0047bd20",
+   "index": 2,
+   "type": "float *",
+   "name": "outCos",
+   "_fn": "stdMath_SinCos",
+   "_names_only": true
+  },
+  {
+   "addr": "0040f6d0",
+   "index": 0,
+   "type": "int *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonLW_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0040f710",
+   "index": 0,
+   "type": "int *",
+   "name": "node",
+   "_fn": "rdAFRaster_DrawSpanNGonLW_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004108b0",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00411270",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonMLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004124f0",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00413040",
+   "index": 0,
+   "type": "int *",
+   "name": "rec",
+   "_fn": "rdAFRaster_SetupNGonMGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004108b0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00411270",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonMLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004124f0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00413040",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdAFRaster_SetupNGonMGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041a640",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonGS",
+   "_names_only": true
+  },
+  {
+   "addr": "0041aeb0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTGS",
+   "_names_only": true
+  },
+  {
+   "addr": "0041b310",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041c010",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041c5e0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041cb80",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMTLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041eef0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041fc00",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00420310",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004209f0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMTGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00421120",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00421f80",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00422f00",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00423db0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMTLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00428ae0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00429dc0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0042af60",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041aa10",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonGS",
+   "_names_only": true
+  },
+  {
+   "addr": "0041ba30",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041d710",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041f520",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00421b60",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "004257a0",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00429870",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupLeftEdgeNGonGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041a130",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonFS",
+   "_names_only": true
+  },
+  {
+   "addr": "0041ac60",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonGS",
+   "_names_only": true
+  },
+  {
+   "addr": "0041bd20",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041da00",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041f890",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00421dc0",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00425a00",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00429b70",
+   "index": 0,
+   "type": "int *",
+   "name": "e",
+   "_fn": "rdNRaster_SetupRightEdgeNGonGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041a2f0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTFS",
+   "_names_only": true
+  },
+  {
+   "addr": "0041d180",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041dcf0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041e300",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041e8d0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMTFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00424d50",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00425bc0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonTFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00426bc0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00427ae0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdNRaster_DrawNGonMTFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041a2f0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonTFS",
+   "_names_only": true
+  },
+  {
+   "addr": "0041d180",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041dcf0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonTFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041e300",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonMFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0041e8d0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonMTFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00424d50",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00425bc0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonTFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00426bc0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonMFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00427ae0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdNRaster_DrawNGonMTFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00419e60",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span_Flat",
+   "_names_only": true
+  },
+  {
+   "addr": "0041a4f0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span_Tex",
+   "_names_only": true
+  },
+  {
+   "addr": "00461c90",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw",
+   "_names_only": true
+  },
+  {
+   "addr": "00462780",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_9",
+   "_names_only": true
+  },
+  {
+   "addr": "00463270",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_10",
+   "_names_only": true
+  },
+  {
+   "addr": "00463d60",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_11",
+   "_names_only": true
+  },
+  {
+   "addr": "00464850",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_12",
+   "_names_only": true
+  },
+  {
+   "addr": "00465340",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_13",
+   "_names_only": true
+  },
+  {
+   "addr": "00465e30",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_14",
+   "_names_only": true
+  },
+  {
+   "addr": "00468130",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_2",
+   "_names_only": true
+  },
+  {
+   "addr": "00468af0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_3",
+   "_names_only": true
+  },
+  {
+   "addr": "00469450",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_4",
+   "_names_only": true
+  },
+  {
+   "addr": "00469db0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_5",
+   "_names_only": true
+  },
+  {
+   "addr": "0046a710",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_23",
+   "_names_only": true
+  },
+  {
+   "addr": "0046b070",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_6",
+   "_names_only": true
+  },
+  {
+   "addr": "0046b9d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_7",
+   "_names_only": true
+  },
+  {
+   "addr": "0046d840",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0046e200",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_9",
+   "_names_only": true
+  },
+  {
+   "addr": "0046eb60",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_10",
+   "_names_only": true
+  },
+  {
+   "addr": "0046f4c0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_11",
+   "_names_only": true
+  },
+  {
+   "addr": "0046fe20",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexLitZw_31",
+   "_names_only": true
+  },
+  {
+   "addr": "00470780",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_12",
+   "_names_only": true
+  },
+  {
+   "addr": "004710e0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdRaster_Span16_TexZw_13",
+   "_names_only": true
+  },
+  {
+   "addr": "00419e60",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span_Flat",
+   "_names_only": true
+  },
+  {
+   "addr": "0041a4f0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span_Tex",
+   "_names_only": true
+  },
+  {
+   "addr": "00461c90",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw",
+   "_names_only": true
+  },
+  {
+   "addr": "00462780",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_9",
+   "_names_only": true
+  },
+  {
+   "addr": "00463270",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_10",
+   "_names_only": true
+  },
+  {
+   "addr": "00463d60",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_11",
+   "_names_only": true
+  },
+  {
+   "addr": "00464850",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_12",
+   "_names_only": true
+  },
+  {
+   "addr": "00465340",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_13",
+   "_names_only": true
+  },
+  {
+   "addr": "00465e30",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_14",
+   "_names_only": true
+  },
+  {
+   "addr": "00468130",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_2",
+   "_names_only": true
+  },
+  {
+   "addr": "00468af0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_3",
+   "_names_only": true
+  },
+  {
+   "addr": "00469450",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_4",
+   "_names_only": true
+  },
+  {
+   "addr": "00469db0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_5",
+   "_names_only": true
+  },
+  {
+   "addr": "0046a710",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_23",
+   "_names_only": true
+  },
+  {
+   "addr": "0046b070",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_6",
+   "_names_only": true
+  },
+  {
+   "addr": "0046b9d0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_7",
+   "_names_only": true
+  },
+  {
+   "addr": "0046d840",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0046e200",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_9",
+   "_names_only": true
+  },
+  {
+   "addr": "0046eb60",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_10",
+   "_names_only": true
+  },
+  {
+   "addr": "0046f4c0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_11",
+   "_names_only": true
+  },
+  {
+   "addr": "0046fe20",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexLitZw_31",
+   "_names_only": true
+  },
+  {
+   "addr": "00470780",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_12",
+   "_names_only": true
+  },
+  {
+   "addr": "004710e0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdRaster_Span16_TexZw_13",
+   "_names_only": true
+  },
+  {
+   "addr": "0042dba0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonLV",
+   "_names_only": true
+  },
+  {
+   "addr": "00431a20",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00432100",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004327a0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMTLAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004366a0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00436e80",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00437620",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMTGAT",
+   "_names_only": true
+  },
+  {
+   "addr": "004395c0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0043a6e0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0043b760",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMTLIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00443000",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00444320",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00445570",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMTGIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0042e200",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonLS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042e320",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonLS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042ea50",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTLS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042eb90",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTLS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042ef00",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonFS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042f020",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonFS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042f770",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTFS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042f8b0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTFS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00430fd0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004311d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00431c90",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00431eb0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00432350",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00432560",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00432a10",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00432c40",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00433480",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004336a0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00434180",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004343b0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00434880",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00434aa0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00434f70",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004351a0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00435a00",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00436950",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00436be0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00437110",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00437390",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004378d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00437b60",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004383d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00438a90",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00439840",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00439f50",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043a940",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043b020",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043b9e0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043c130",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043ceb0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043d5b0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043e380",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043eab0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043f500",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043fc30",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00440610",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00440d80",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00441b20",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004422d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004432c0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00443ab0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonTGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004445c0",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00444d90",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00445830",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00446030",
+   "index": 0,
+   "type": "uint *",
+   "name": "left",
+   "_fn": "rdZRaster_DrawScanLineNGonMTGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042e200",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonLS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042e320",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonLS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042ea50",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTLS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042eb90",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTLS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042ef00",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonFS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042f020",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonFS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0042f770",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTFS_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0042f8b0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTFS_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00430fd0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004311d0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00431c90",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00431eb0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00432350",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00432560",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00432a10",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTLAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00432c40",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTLAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00433480",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004336a0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00434180",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004343b0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00434880",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00434aa0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00434f70",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTFAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004351a0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTFAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00435a00",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00436950",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00436be0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00437110",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00437390",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004378d0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTGAT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00437b60",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTGAT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004383d0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00438a90",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00439840",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00439f50",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043a940",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043b020",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043b9e0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTLIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043c130",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTLIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043ceb0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043d5b0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043e380",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043eab0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "0043f500",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "0043fc30",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00440610",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTFIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00440d80",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTFIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00441b20",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "004422d0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004432c0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00443ab0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonTGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "004445c0",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00444d90",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00445830",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTGIT_8",
+   "_names_only": true
+  },
+  {
+   "addr": "00446030",
+   "index": 1,
+   "type": "uint *",
+   "name": "right",
+   "_fn": "rdZRaster_DrawScanLineNGonMTGIT_16",
+   "_names_only": true
+  },
+  {
+   "addr": "00433ef0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00434610",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00434ce0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMTFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0043e0e0",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonTFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0043f280",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00440370",
+   "index": 1,
+   "type": "int",
+   "name": "mat",
+   "_fn": "rdZRaster_DrawNGonMTFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00433ef0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonTFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00434610",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonMFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "00434ce0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonMTFAT",
+   "_names_only": true
+  },
+  {
+   "addr": "0043e0e0",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonTFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "0043f280",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonMFIT",
+   "_names_only": true
+  },
+  {
+   "addr": "00440370",
+   "index": 2,
+   "type": "float",
+   "name": "light",
+   "_fn": "rdZRaster_DrawNGonMTFIT",
+   "_names_only": true
+  }
+ ]
+}

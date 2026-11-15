@@ -79,7 +79,7 @@ undefined4 * __cdecl rdModel3_Load(uint param_1)
    Original name rdModel3_LoadEntry (the remaster's GrimFandango (Linux): same body (open, 'LDOM'
    magic -> LoadEntryBinary else LoadEntryText)); was rdModel3_Load. */
 
-uint __cdecl rdModel3_LoadEntry(int param_1,uint param_2)
+uint __cdecl rdModel3_LoadEntry(int name,uint model)
 
 {
   int iVar1;
@@ -90,14 +90,14 @@ uint __cdecl rdModel3_LoadEntry(int param_1,uint param_2)
   uint unaff_retaddr;
   uint in_stack_0000000c;
   
-  iVar1 = param_1;
-  iVar2 = (*g_pRdroid_HS->pFopen)(param_1,&DAT_004ddb18);
+  iVar1 = name;
+  iVar2 = (*g_pRdroid_HS->pFopen)(name,&DAT_004ddb18);
   if (iVar2 == 0) {
     return 0;
   }
-  (*g_pRdroid_HS->pFread)(iVar2,&param_1,4);
-  if (param_1 == 0x4d4f444c) {
-    uVar3 = rdModel3_LoadEntryBinary(iVar2,param_2);
+  (*g_pRdroid_HS->pFread)(iVar2,&name,4);
+  if (name == 0x4d4f444c) {
+    uVar3 = rdModel3_LoadEntryBinary(iVar2,model);
     if (uVar3 != 0) {
       (*g_pRdroid_HS->pFclose)();
       return 1;
@@ -107,8 +107,7 @@ uint __cdecl rdModel3_LoadEntry(int param_1,uint param_2)
   }
   (*g_pRdroid_HS->pFclose)(iVar2);
   uVar3 = rdModel3_LoadEntryText
-                    (iVar1,param_2,unaff_EDI,unaff_ESI,unaff_retaddr,param_1,param_2,
-                     in_stack_0000000c);
+                    (iVar1,model,unaff_EDI,unaff_ESI,unaff_retaddr,name,model,in_stack_0000000c);
   return uVar3;
 }
 #endif
@@ -1296,7 +1295,7 @@ void __cdecl rdModel3_CalcModelBoundingBox(int param_1,int param_2,float *param_
 /* Computes the bounding radius of every mesh (largest vertex distance) and of the model. Source
    file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
-void __cdecl rdModel3_CalcRadii(int param_1)
+void __cdecl rdModel3_CalcRadii(int model)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1309,8 +1308,8 @@ void __cdecl rdModel3_CalcRadii(int param_1)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   uVar6 = 0;
-  if (*(int *)(param_1 + 0x24) != 0) {
-    piVar4 = (int *)(*(int *)(param_1 + 0x28) + 0x48);
+  if (*(int *)(model + 0x24) != 0) {
+    piVar4 = (int *)(*(int *)(model + 0x28) + 0x48);
     do {
       pfVar3 = (float *)piVar4[-6];
       fVar1 = 0.0f;
@@ -1324,10 +1323,10 @@ void __cdecl rdModel3_CalcRadii(int param_1)
       uVar6 = uVar6 + 1;
       piVar4[6] = PUN(int,(float)(fVar1 * 0.1f + fVar1));
       piVar4 = piVar4 + 0x1f;
-    } while (uVar6 < *(uint *)(param_1 + 0x24));
+    } while (uVar6 < *(uint *)(model + 0x24));
   }
   _g_dwMaxGeoRadius = 0;
-  rdModel3_BuildExpandedRadius(param_1,*(int *)(param_1 + 0x58),g_flRdroid_identMatrix34);
+  rdModel3_BuildExpandedRadius(model,*(int *)(model + 0x58),g_flRdroid_identMatrix34);
   return;
 }
 #undef local_4
@@ -1499,7 +1498,7 @@ void __cdecl rdModel3_CalcFaceNormals(uint param_1)
 /* Averages the normals of the faces that share a vertex (or builds one from the neighbouring edges)
    and normalises. Source file Rdmodel3.c (C:\grimjedi\Libs\RDroid\Primitives\Rdmodel3.c). */
 
-void __cdecl rdModel3_CalcVertexNormals(int param_1)
+void __cdecl rdModel3_CalcVertexNormals(int model)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1531,9 +1530,9 @@ void __cdecl rdModel3_CalcVertexNormals(int param_1)
   #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
   #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
   
-  puVar15 = (uint *)(param_1 + 0x24);
+  puVar15 = (uint *)(model + 0x24);
   local_2c = 0;
-  if (*(int *)(param_1 + 0x44) != 0) {
+  if (*(int *)(model + 0x44) != 0) {
     do {
       local_34 = 0;
       if (*puVar15 != 0) {
@@ -1622,7 +1621,7 @@ void __cdecl rdModel3_CalcVertexNormals(int param_1)
       }
       puVar15 = puVar15 + 2;
       local_2c = local_2c + 1;
-    } while (local_2c < *(uint *)(param_1 + 0x44));
+    } while (local_2c < *(uint *)(model + 0x44));
   }
   return;
 }

@@ -654,20 +654,20 @@ uint __cdecl rdActive_AddActiveFace(byte *param_1)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  float *pfVar2;
+  float *rec;
+  float fVar2;
   float fVar3;
-  float fVar4;
-  byte *pbVar5;
-  float fVar6;
-  int iVar7;
-  uint uVar8;
-  byte *pbVar9;
-  int iVar10;
-  int iVar11;
+  byte *pbVar4;
+  float fVar5;
+  int iVar6;
+  uint uVar7;
+  byte *mat;
+  int iVar8;
+  int iVar9;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
-  pbVar5 = param_1;
-  uVar8 = g_dwNumActiveFaces;
+  pbVar4 = param_1;
+  uVar7 = g_dwNumActiveFaces;
   if (0x3ff < g_dwNumActiveFaces) {
     return 0;
   }
@@ -679,661 +679,661 @@ uint __cdecl rdActive_AddActiveFace(byte *param_1)
   if (g_nRdroid_curLightingMode <= (int)param_1) {
     param_1 = (byte *)g_nRdroid_curLightingMode;
   }
-  iVar10 = *(int *)(pbVar5 + 0x10);
-  if (g_nRdroid_curTextureMode <= *(int *)(pbVar5 + 0x10)) {
-    iVar10 = g_nRdroid_curTextureMode;
+  iVar8 = *(int *)(pbVar4 + 0x10);
+  if (g_nRdroid_curTextureMode <= *(int *)(pbVar4 + 0x10)) {
+    iVar8 = g_nRdroid_curTextureMode;
   }
   if (local_4 == 0.0f) {
     return 0;
   }
   iVar1 = g_dwNumActiveFaces * 0x204;
-  pfVar2 = (float *)(&UINT_00565f38 + g_dwNumActiveFaces * 0x81);
-  *pfVar2 = PUN(float,pbVar5);
-  (&UINT_005660f0)[uVar8 * 0x81] = 0;
-  (&UINT_005660f4)[uVar8 * 0x81] = 0;
+  rec = (float *)(&UINT_00565f38 + g_dwNumActiveFaces * 0x81);
+  *rec = PUN(float,pbVar4);
+  (&UINT_005660f0)[uVar7 * 0x81] = 0;
+  (&UINT_005660f4)[uVar7 * 0x81] = 0;
   *(undefined4 *)(&DAT_00566124 + iVar1) = 0;
   *(undefined4 *)(&DAT_00566128 + iVar1) = 0;
   *(undefined4 *)(&DAT_00566130 + iVar1) = 0;
-  iVar1 = *(int *)(pbVar5 + 0x38);
-  fVar6 = local_4;
+  iVar1 = *(int *)(pbVar4 + 0x38);
+  fVar5 = local_4;
   if (iVar1 == 0) {
-    pbVar9 = (byte *)0x0;
+    mat = (byte *)0x0;
     goto LAB_0040585d;
   }
-  iVar7 = *(int *)(pbVar5 + 0x3c);
-  if (iVar7 == -1) {
-    iVar7 = *(int *)(iVar1 + 100);
-    if (iVar7 < 0) {
+  iVar6 = *(int *)(pbVar4 + 0x3c);
+  if (iVar6 == -1) {
+    iVar6 = *(int *)(iVar1 + 100);
+    if (iVar6 < 0) {
 LAB_0040583c:
-      iVar7 = 0;
+      iVar6 = 0;
     }
     else {
-      iVar11 = *(int *)(iVar1 + 0x60) + -1;
-      if (iVar11 < iVar7) {
-        iVar7 = iVar11;
+      iVar9 = *(int *)(iVar1 + 0x60) + -1;
+      if (iVar9 < iVar6) {
+        iVar6 = iVar9;
       }
     }
   }
   else {
-    if (iVar7 < 0) goto LAB_0040583c;
-    iVar11 = *(int *)(iVar1 + 0x60) + -1;
-    if (iVar11 < iVar7) {
-      iVar7 = iVar11;
+    if (iVar6 < 0) goto LAB_0040583c;
+    iVar9 = *(int *)(iVar1 + 0x60) + -1;
+    if (iVar9 < iVar6) {
+      iVar6 = iVar9;
     }
   }
-  pbVar9 = *(byte **)(iVar1 + 0x68 + iVar7 * 4);
-  if ((local_4 == 5.60519e-45f) && ((*pbVar9 & 8) == 0)) {
-    fVar6 = 4.2039e-45f;
+  mat = *(byte **)(iVar1 + 0x68 + iVar6 * 4);
+  if ((local_4 == 5.60519e-45f) && ((*mat & 8) == 0)) {
+    fVar5 = 4.2039e-45f;
   }
 LAB_0040585d:
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     local_4 = 0.0f;
   }
   else {
-    local_4 = *(float *)(pbVar5 + 0x40);
+    local_4 = *(float *)(pbVar4 + 0x40);
   }
-  if (fVar6 == 2.8026e-45f) {
+  if (fVar5 == 2.8026e-45f) {
     if ((-1 < (int)param_1) && ((int)param_1 < 5)) {
-      if ((*pbVar5 & 1) == 0) {
+      if ((*pbVar4 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonLW(pfVar2,(int)pbVar9);
+          rdAFRaster_SetupNGonLW(rec,(int)mat);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+        (**(code **)(pbVar4 + 0x18))(rec,mat,0);
       }
     }
   }
-  else if (fVar6 == 4.2039e-45f) {
+  else if (fVar5 == 4.2039e-45f) {
     switch((int)(param_1)) {
     case 0x0:
-      if ((*pbVar5 & 1) == 0) {
+      if ((*pbVar4 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonLS(pfVar2,(int)pbVar9);
+          rdAFRaster_SetupNGonLS(rec,(int)mat);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+        (**(code **)(pbVar4 + 0x18))(rec,mat,0);
       }
       break;
     case 0x1:
-      if (*(float *)(pbVar5 + 0x48) < 0.0f) {
-        fVar6 = 0.0f;
+      if (*(float *)(pbVar4 + 0x48) < 0.0f) {
+        fVar5 = 0.0f;
       }
-      else if (1.0f < *(float *)(pbVar5 + 0x48)) {
-        fVar6 = 1.0f;
+      else if (1.0f < *(float *)(pbVar4 + 0x48)) {
+        fVar5 = 1.0f;
       }
       else {
-        fVar6 = *(float *)(pbVar5 + 0x48);
+        fVar5 = *(float *)(pbVar4 + 0x48);
       }
-      if (local_4 < fVar6) {
-        if (*(float *)(pbVar5 + 0x48) < 0.0f) {
+      if (local_4 < fVar5) {
+        if (*(float *)(pbVar4 + 0x48) < 0.0f) {
           local_4 = 0.0f;
         }
-        else if (1.0f < *(float *)(pbVar5 + 0x48)) {
+        else if (1.0f < *(float *)(pbVar4 + 0x48)) {
           local_4 = 1.0f;
         }
         else {
-          local_4 = *(float *)(pbVar5 + 0x48);
+          local_4 = *(float *)(pbVar4 + 0x48);
         }
       }
-      fVar6 = local_4 * 63.0f;
-      *(float *)(pbVar5 + 0x44) = fVar6;
-      if ((*pbVar5 & 1) == 0) {
+      fVar5 = local_4 * 63.0f;
+      *(float *)(pbVar4 + 0x44) = fVar5;
+      if ((*pbVar4 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonFS(pfVar2,(int)pbVar9,fVar6);
+          rdAFRaster_SetupNGonFS(rec,(int)mat,fVar5);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+        (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
       }
       break;
     case 0x2:
-      fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
-      if (fVar6 < 0.0f) {
-        fVar3 = 0.0f;
+      fVar5 = *(float *)(pbVar4 + 0x48) + *(float *)(pbVar4 + 0x44);
+      if (fVar5 < 0.0f) {
+        fVar2 = 0.0f;
       }
       else {
-        fVar3 = fVar6;
-        if (1.0f < fVar6) {
-          fVar3 = 1.0f;
+        fVar2 = fVar5;
+        if (1.0f < fVar5) {
+          fVar2 = 1.0f;
         }
       }
-      if (local_4 < fVar3) {
-        if (fVar6 < 0.0f) {
+      if (local_4 < fVar2) {
+        if (fVar5 < 0.0f) {
           local_4 = 0.0f;
         }
         else {
-          local_4 = fVar6;
-          if (1.0f < fVar6) {
+          local_4 = fVar5;
+          if (1.0f < fVar5) {
             local_4 = 1.0f;
           }
         }
       }
-      fVar6 = local_4 * 63.0f;
-      *(float *)(pbVar5 + 0x44) = fVar6;
-      if ((*pbVar5 & 1) == 0) {
+      fVar5 = local_4 * 63.0f;
+      *(float *)(pbVar4 + 0x44) = fVar5;
+      if ((*pbVar4 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonFS(pfVar2,(int)pbVar9,fVar6);
+          rdAFRaster_SetupNGonFS(rec,(int)mat,fVar5);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+        (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
       }
       break;
     case 0x3:
-      uVar8 = 0;
-      if (*(int *)(pbVar5 + 0x1c) != 0) {
+      uVar7 = 0;
+      if (*(int *)(pbVar4 + 0x1c) != 0) {
         do {
-          fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
-          iVar10 = uVar8 * 4;
-          if (fVar6 < 0.0f) {
-            fVar3 = 0.0f;
+          fVar5 = *(float *)(*(int *)(pbVar4 + 0x28) + uVar7 * 4) + *(float *)(pbVar4 + 0x48);
+          iVar8 = uVar7 * 4;
+          if (fVar5 < 0.0f) {
+            fVar2 = 0.0f;
           }
           else {
-            fVar3 = fVar6;
-            if (1.0f < fVar6) {
-              fVar3 = 1.0f;
+            fVar2 = fVar5;
+            if (1.0f < fVar5) {
+              fVar2 = 1.0f;
             }
           }
-          fVar4 = local_4;
-          if (local_4 < fVar3) {
-            if (fVar6 < 0.0f) {
-              fVar4 = 0.0f;
+          fVar3 = local_4;
+          if (local_4 < fVar2) {
+            if (fVar5 < 0.0f) {
+              fVar3 = 0.0f;
             }
             else {
-              fVar4 = fVar6;
-              if (1.0f < fVar6) {
-                fVar4 = 1.0f;
+              fVar3 = fVar5;
+              if (1.0f < fVar5) {
+                fVar3 = 1.0f;
               }
             }
           }
-          uVar8 = uVar8 + 1;
-          *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0f;
-        } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
+          uVar7 = uVar7 + 1;
+          *(float *)(*(int *)(pbVar4 + 0x28) + iVar8) = fVar3 * 63.0f;
+        } while (uVar7 < *(uint *)(pbVar4 + 0x1c));
       }
-      if ((*pbVar5 & 1) == 0) {
+      if ((*pbVar4 & 1) == 0) {
         if (g_nRdroid_curZBufferMethod == 1) {
-          rdAFRaster_SetupNGonGS(pfVar2,(int)pbVar9);
+          rdAFRaster_SetupNGonGS(rec,(int)mat);
         }
       }
       else {
-        (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+        (**(code **)(pbVar4 + 0x18))(rec,mat,0);
       }
     }
   }
-  else if (fVar6 == 5.60519e-45f) {
-    if ((**(byte **)(pbVar9 + 0x1c) & 1) == 0) {
-      if (iVar10 == 0) {
+  else if (fVar5 == 5.60519e-45f) {
+    if ((**(byte **)(mat + 0x1c) & 1) == 0) {
+      if (iVar8 == 0) {
         switch((int)(param_1)) {
         case 0x0:
-          if ((*pbVar5 & 1) == 0) {
+          if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonLAT((int *)pfVar2,(int)pbVar9);
+              rdAFRaster_SetupNGonLAT((int *)rec,(int)mat);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+            (**(code **)(pbVar4 + 0x18))(rec,mat,0);
           }
           break;
         case 0x1:
-          if (*(float *)(pbVar5 + 0x48) < 0.0f) {
-            fVar6 = 0.0f;
+          if (*(float *)(pbVar4 + 0x48) < 0.0f) {
+            fVar5 = 0.0f;
           }
-          else if (1.0f < *(float *)(pbVar5 + 0x48)) {
-            fVar6 = 1.0f;
+          else if (1.0f < *(float *)(pbVar4 + 0x48)) {
+            fVar5 = 1.0f;
           }
           else {
-            fVar6 = *(float *)(pbVar5 + 0x48);
+            fVar5 = *(float *)(pbVar4 + 0x48);
           }
-          if (local_4 < fVar6) {
-            if (*(float *)(pbVar5 + 0x48) < 0.0f) {
+          if (local_4 < fVar5) {
+            if (*(float *)(pbVar4 + 0x48) < 0.0f) {
               local_4 = 0.0f;
             }
-            else if (1.0f < *(float *)(pbVar5 + 0x48)) {
+            else if (1.0f < *(float *)(pbVar4 + 0x48)) {
               local_4 = 1.0f;
             }
             else {
-              local_4 = *(float *)(pbVar5 + 0x48);
+              local_4 = *(float *)(pbVar4 + 0x48);
             }
           }
-          fVar6 = local_4 * 63.0f;
-          *(float *)(pbVar5 + 0x44) = fVar6;
-          if ((*pbVar5 & 1) == 0) {
+          fVar5 = local_4 * 63.0f;
+          *(float *)(pbVar4 + 0x44) = fVar5;
+          if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonFAT((int *)pfVar2,(int)pbVar9,fVar6);
+              rdAFRaster_SetupNGonFAT((int *)rec,(int)mat,fVar5);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+            (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
           }
           break;
         case 0x2:
-          fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
-          if (fVar6 < 0.0f) {
-            fVar3 = 0.0f;
+          fVar5 = *(float *)(pbVar4 + 0x48) + *(float *)(pbVar4 + 0x44);
+          if (fVar5 < 0.0f) {
+            fVar2 = 0.0f;
           }
           else {
-            fVar3 = fVar6;
-            if (1.0f < fVar6) {
-              fVar3 = 1.0f;
+            fVar2 = fVar5;
+            if (1.0f < fVar5) {
+              fVar2 = 1.0f;
             }
           }
-          if (local_4 < fVar3) {
-            if (fVar6 < 0.0f) {
+          if (local_4 < fVar2) {
+            if (fVar5 < 0.0f) {
               local_4 = 0.0f;
             }
             else {
-              local_4 = fVar6;
-              if (1.0f < fVar6) {
+              local_4 = fVar5;
+              if (1.0f < fVar5) {
                 local_4 = 1.0f;
               }
             }
           }
-          fVar6 = local_4 * 63.0f;
-          *(float *)(pbVar5 + 0x44) = fVar6;
-          if ((*pbVar5 & 1) == 0) {
+          fVar5 = local_4 * 63.0f;
+          *(float *)(pbVar4 + 0x44) = fVar5;
+          if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonFAT((int *)pfVar2,(int)pbVar9,fVar6);
+              rdAFRaster_SetupNGonFAT((int *)rec,(int)mat,fVar5);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+            (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
           }
           break;
         case 0x3:
-          uVar8 = 0;
-          if (*(int *)(pbVar5 + 0x1c) != 0) {
+          uVar7 = 0;
+          if (*(int *)(pbVar4 + 0x1c) != 0) {
             do {
-              fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
-              iVar10 = uVar8 * 4;
-              if (fVar6 < 0.0f) {
-                fVar3 = 0.0f;
+              fVar5 = *(float *)(*(int *)(pbVar4 + 0x28) + uVar7 * 4) + *(float *)(pbVar4 + 0x48);
+              iVar8 = uVar7 * 4;
+              if (fVar5 < 0.0f) {
+                fVar2 = 0.0f;
               }
               else {
-                fVar3 = fVar6;
-                if (1.0f < fVar6) {
-                  fVar3 = 1.0f;
+                fVar2 = fVar5;
+                if (1.0f < fVar5) {
+                  fVar2 = 1.0f;
                 }
               }
-              fVar4 = local_4;
-              if (local_4 < fVar3) {
-                if (fVar6 < 0.0f) {
-                  fVar4 = 0.0f;
+              fVar3 = local_4;
+              if (local_4 < fVar2) {
+                if (fVar5 < 0.0f) {
+                  fVar3 = 0.0f;
                 }
                 else {
-                  fVar4 = fVar6;
-                  if (1.0f < fVar6) {
-                    fVar4 = 1.0f;
+                  fVar3 = fVar5;
+                  if (1.0f < fVar5) {
+                    fVar3 = 1.0f;
                   }
                 }
               }
-              uVar8 = uVar8 + 1;
-              *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0f;
-            } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
+              uVar7 = uVar7 + 1;
+              *(float *)(*(int *)(pbVar4 + 0x28) + iVar8) = fVar3 * 63.0f;
+            } while (uVar7 < *(uint *)(pbVar4 + 0x1c));
           }
-          if ((*pbVar5 & 1) == 0) {
+          if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonGAT((int *)pfVar2,(int)pbVar9);
+              rdAFRaster_SetupNGonGAT((int *)rec,(int)mat);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+            (**(code **)(pbVar4 + 0x18))(rec,mat,0);
           }
         }
       }
-      else if ((0 < iVar10) && (iVar10 < 3)) {
+      else if ((0 < iVar8) && (iVar8 < 3)) {
         switch((int)(param_1)) {
         case 0x0:
-          if ((*pbVar5 & 1) == 0) {
+          if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonLIT((int *)pfVar2,(int)pbVar9);
+              rdAFRaster_SetupNGonLIT((int *)rec,(int)mat);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+            (**(code **)(pbVar4 + 0x18))(rec,mat,0);
           }
           break;
         case 0x1:
-          if (*(float *)(pbVar5 + 0x48) < 0.0f) {
-            fVar6 = 0.0f;
+          if (*(float *)(pbVar4 + 0x48) < 0.0f) {
+            fVar5 = 0.0f;
           }
-          else if (1.0f < *(float *)(pbVar5 + 0x48)) {
-            fVar6 = 1.0f;
+          else if (1.0f < *(float *)(pbVar4 + 0x48)) {
+            fVar5 = 1.0f;
           }
           else {
-            fVar6 = *(float *)(pbVar5 + 0x48);
+            fVar5 = *(float *)(pbVar4 + 0x48);
           }
-          if (local_4 < fVar6) {
-            if (*(float *)(pbVar5 + 0x48) < 0.0f) {
+          if (local_4 < fVar5) {
+            if (*(float *)(pbVar4 + 0x48) < 0.0f) {
               local_4 = 0.0f;
             }
-            else if (1.0f < *(float *)(pbVar5 + 0x48)) {
+            else if (1.0f < *(float *)(pbVar4 + 0x48)) {
               local_4 = 1.0f;
             }
             else {
-              local_4 = *(float *)(pbVar5 + 0x48);
+              local_4 = *(float *)(pbVar4 + 0x48);
             }
           }
-          fVar6 = local_4 * 63.0f;
-          *(float *)(pbVar5 + 0x44) = fVar6;
-          if ((*pbVar5 & 1) == 0) {
+          fVar5 = local_4 * 63.0f;
+          *(float *)(pbVar4 + 0x44) = fVar5;
+          if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonFIT((int *)pfVar2,(int)pbVar9,fVar6);
+              rdAFRaster_SetupNGonFIT((int *)rec,(int)mat,fVar5);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+            (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
           }
           break;
         case 0x2:
-          fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
-          if (fVar6 < 0.0f) {
-            fVar3 = 0.0f;
+          fVar5 = *(float *)(pbVar4 + 0x48) + *(float *)(pbVar4 + 0x44);
+          if (fVar5 < 0.0f) {
+            fVar2 = 0.0f;
           }
           else {
-            fVar3 = fVar6;
-            if (1.0f < fVar6) {
-              fVar3 = 1.0f;
+            fVar2 = fVar5;
+            if (1.0f < fVar5) {
+              fVar2 = 1.0f;
             }
           }
-          if (local_4 < fVar3) {
-            if (fVar6 < 0.0f) {
+          if (local_4 < fVar2) {
+            if (fVar5 < 0.0f) {
               local_4 = 0.0f;
             }
             else {
-              local_4 = fVar6;
-              if (1.0f < fVar6) {
+              local_4 = fVar5;
+              if (1.0f < fVar5) {
                 local_4 = 1.0f;
               }
             }
           }
-          fVar6 = local_4 * 63.0f;
-          *(float *)(pbVar5 + 0x44) = fVar6;
-          if ((*pbVar5 & 1) == 0) {
+          fVar5 = local_4 * 63.0f;
+          *(float *)(pbVar4 + 0x44) = fVar5;
+          if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonFIT((int *)pfVar2,(int)pbVar9,fVar6);
+              rdAFRaster_SetupNGonFIT((int *)rec,(int)mat,fVar5);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+            (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
           }
           break;
         case 0x3:
-          uVar8 = 0;
-          if (*(int *)(pbVar5 + 0x1c) != 0) {
+          uVar7 = 0;
+          if (*(int *)(pbVar4 + 0x1c) != 0) {
             do {
-              fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
-              iVar10 = uVar8 * 4;
-              if (fVar6 < 0.0f) {
-                fVar3 = 0.0f;
+              fVar5 = *(float *)(*(int *)(pbVar4 + 0x28) + uVar7 * 4) + *(float *)(pbVar4 + 0x48);
+              iVar8 = uVar7 * 4;
+              if (fVar5 < 0.0f) {
+                fVar2 = 0.0f;
               }
               else {
-                fVar3 = fVar6;
-                if (1.0f < fVar6) {
-                  fVar3 = 1.0f;
+                fVar2 = fVar5;
+                if (1.0f < fVar5) {
+                  fVar2 = 1.0f;
                 }
               }
-              fVar4 = local_4;
-              if (local_4 < fVar3) {
-                if (fVar6 < 0.0f) {
-                  fVar4 = 0.0f;
+              fVar3 = local_4;
+              if (local_4 < fVar2) {
+                if (fVar5 < 0.0f) {
+                  fVar3 = 0.0f;
                 }
                 else {
-                  fVar4 = fVar6;
-                  if (1.0f < fVar6) {
-                    fVar4 = 1.0f;
+                  fVar3 = fVar5;
+                  if (1.0f < fVar5) {
+                    fVar3 = 1.0f;
                   }
                 }
               }
-              uVar8 = uVar8 + 1;
-              *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0f;
-            } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
+              uVar7 = uVar7 + 1;
+              *(float *)(*(int *)(pbVar4 + 0x28) + iVar8) = fVar3 * 63.0f;
+            } while (uVar7 < *(uint *)(pbVar4 + 0x1c));
           }
-          if ((*pbVar5 & 1) == 0) {
+          if ((*pbVar4 & 1) == 0) {
             if (g_nRdroid_curZBufferMethod == 1) {
-              rdAFRaster_SetupNGonGIT((int *)pfVar2,(int)pbVar9);
+              rdAFRaster_SetupNGonGIT((int *)rec,(int)mat);
             }
           }
           else {
-            (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+            (**(code **)(pbVar4 + 0x18))(rec,mat,0);
           }
         }
       }
     }
-    else if (iVar10 == 0) {
+    else if (iVar8 == 0) {
       switch((int)(param_1)) {
       case 0x0:
-        if ((*pbVar5 & 1) == 0) {
+        if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMLAT((int *)pfVar2,(int)pbVar9);
+            rdAFRaster_SetupNGonMLAT((int *)rec,(int)mat);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+          (**(code **)(pbVar4 + 0x18))(rec,mat,0);
         }
         break;
       case 0x1:
-        if (*(float *)(pbVar5 + 0x48) < 0.0f) {
-          fVar6 = 0.0f;
+        if (*(float *)(pbVar4 + 0x48) < 0.0f) {
+          fVar5 = 0.0f;
         }
-        else if (1.0f < *(float *)(pbVar5 + 0x48)) {
-          fVar6 = 1.0f;
+        else if (1.0f < *(float *)(pbVar4 + 0x48)) {
+          fVar5 = 1.0f;
         }
         else {
-          fVar6 = *(float *)(pbVar5 + 0x48);
+          fVar5 = *(float *)(pbVar4 + 0x48);
         }
-        if (local_4 < fVar6) {
-          if (*(float *)(pbVar5 + 0x48) < 0.0f) {
+        if (local_4 < fVar5) {
+          if (*(float *)(pbVar4 + 0x48) < 0.0f) {
             local_4 = 0.0f;
           }
-          else if (1.0f < *(float *)(pbVar5 + 0x48)) {
+          else if (1.0f < *(float *)(pbVar4 + 0x48)) {
             local_4 = 1.0f;
           }
           else {
-            local_4 = *(float *)(pbVar5 + 0x48);
+            local_4 = *(float *)(pbVar4 + 0x48);
           }
         }
-        fVar6 = local_4 * 63.0f;
-        *(float *)(pbVar5 + 0x44) = fVar6;
-        if ((*pbVar5 & 1) == 0) {
+        fVar5 = local_4 * 63.0f;
+        *(float *)(pbVar4 + 0x44) = fVar5;
+        if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMFAT((int *)pfVar2,(int)pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFAT((int *)rec,(int)mat,fVar5);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+          (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
         }
         break;
       case 0x2:
-        fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
-        if (fVar6 < 0.0f) {
-          fVar3 = 0.0f;
+        fVar5 = *(float *)(pbVar4 + 0x48) + *(float *)(pbVar4 + 0x44);
+        if (fVar5 < 0.0f) {
+          fVar2 = 0.0f;
         }
         else {
-          fVar3 = fVar6;
-          if (1.0f < fVar6) {
-            fVar3 = 1.0f;
+          fVar2 = fVar5;
+          if (1.0f < fVar5) {
+            fVar2 = 1.0f;
           }
         }
-        if (local_4 < fVar3) {
-          if (fVar6 < 0.0f) {
+        if (local_4 < fVar2) {
+          if (fVar5 < 0.0f) {
             local_4 = 0.0f;
           }
           else {
-            local_4 = fVar6;
-            if (1.0f < fVar6) {
+            local_4 = fVar5;
+            if (1.0f < fVar5) {
               local_4 = 1.0f;
             }
           }
         }
-        fVar6 = local_4 * 63.0f;
-        *(float *)(pbVar5 + 0x44) = fVar6;
-        if ((*pbVar5 & 1) == 0) {
+        fVar5 = local_4 * 63.0f;
+        *(float *)(pbVar4 + 0x44) = fVar5;
+        if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMFAT((int *)pfVar2,(int)pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFAT((int *)rec,(int)mat,fVar5);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+          (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
         }
         break;
       case 0x3:
-        uVar8 = 0;
-        if (*(int *)(pbVar5 + 0x1c) != 0) {
+        uVar7 = 0;
+        if (*(int *)(pbVar4 + 0x1c) != 0) {
           do {
-            fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
-            iVar10 = uVar8 * 4;
-            if (fVar6 < 0.0f) {
-              fVar3 = 0.0f;
+            fVar5 = *(float *)(*(int *)(pbVar4 + 0x28) + uVar7 * 4) + *(float *)(pbVar4 + 0x48);
+            iVar8 = uVar7 * 4;
+            if (fVar5 < 0.0f) {
+              fVar2 = 0.0f;
             }
             else {
-              fVar3 = fVar6;
-              if (1.0f < fVar6) {
-                fVar3 = 1.0f;
+              fVar2 = fVar5;
+              if (1.0f < fVar5) {
+                fVar2 = 1.0f;
               }
             }
-            fVar4 = local_4;
-            if (local_4 < fVar3) {
-              if (fVar6 < 0.0f) {
-                fVar4 = 0.0f;
+            fVar3 = local_4;
+            if (local_4 < fVar2) {
+              if (fVar5 < 0.0f) {
+                fVar3 = 0.0f;
               }
               else {
-                fVar4 = fVar6;
-                if (1.0f < fVar6) {
-                  fVar4 = 1.0f;
+                fVar3 = fVar5;
+                if (1.0f < fVar5) {
+                  fVar3 = 1.0f;
                 }
               }
             }
-            uVar8 = uVar8 + 1;
-            *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0f;
-          } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
+            uVar7 = uVar7 + 1;
+            *(float *)(*(int *)(pbVar4 + 0x28) + iVar8) = fVar3 * 63.0f;
+          } while (uVar7 < *(uint *)(pbVar4 + 0x1c));
         }
-        if ((*pbVar5 & 1) == 0) {
+        if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMGAT((int *)pfVar2,(int)pbVar9);
+            rdAFRaster_SetupNGonMGAT((int *)rec,(int)mat);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+          (**(code **)(pbVar4 + 0x18))(rec,mat,0);
         }
       }
     }
-    else if ((0 < iVar10) && (iVar10 < 3)) {
+    else if ((0 < iVar8) && (iVar8 < 3)) {
       switch((int)(param_1)) {
       case 0x0:
-        if ((*pbVar5 & 1) == 0) {
+        if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMLIT((int *)pfVar2,(int)pbVar9);
+            rdAFRaster_SetupNGonMLIT((int *)rec,(int)mat);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+          (**(code **)(pbVar4 + 0x18))(rec,mat,0);
         }
         break;
       case 0x1:
-        if (*(float *)(pbVar5 + 0x48) < 0.0f) {
-          fVar6 = 0.0f;
+        if (*(float *)(pbVar4 + 0x48) < 0.0f) {
+          fVar5 = 0.0f;
         }
-        else if (1.0f < *(float *)(pbVar5 + 0x48)) {
-          fVar6 = 1.0f;
+        else if (1.0f < *(float *)(pbVar4 + 0x48)) {
+          fVar5 = 1.0f;
         }
         else {
-          fVar6 = *(float *)(pbVar5 + 0x48);
+          fVar5 = *(float *)(pbVar4 + 0x48);
         }
-        if (local_4 < fVar6) {
-          if (*(float *)(pbVar5 + 0x48) < 0.0f) {
+        if (local_4 < fVar5) {
+          if (*(float *)(pbVar4 + 0x48) < 0.0f) {
             local_4 = 0.0f;
           }
-          else if (1.0f < *(float *)(pbVar5 + 0x48)) {
+          else if (1.0f < *(float *)(pbVar4 + 0x48)) {
             local_4 = 1.0f;
           }
           else {
-            local_4 = *(float *)(pbVar5 + 0x48);
+            local_4 = *(float *)(pbVar4 + 0x48);
           }
         }
-        fVar6 = local_4 * 63.0f;
-        *(float *)(pbVar5 + 0x44) = fVar6;
-        if ((*pbVar5 & 1) == 0) {
+        fVar5 = local_4 * 63.0f;
+        *(float *)(pbVar4 + 0x44) = fVar5;
+        if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMFIT((int *)pfVar2,(int)pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFIT((int *)rec,(int)mat,fVar5);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+          (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
         }
         break;
       case 0x2:
-        fVar6 = *(float *)(pbVar5 + 0x48) + *(float *)(pbVar5 + 0x44);
-        if (fVar6 < 0.0f) {
-          fVar3 = 0.0f;
+        fVar5 = *(float *)(pbVar4 + 0x48) + *(float *)(pbVar4 + 0x44);
+        if (fVar5 < 0.0f) {
+          fVar2 = 0.0f;
         }
         else {
-          fVar3 = fVar6;
-          if (1.0f < fVar6) {
-            fVar3 = 1.0f;
+          fVar2 = fVar5;
+          if (1.0f < fVar5) {
+            fVar2 = 1.0f;
           }
         }
-        if (local_4 < fVar3) {
-          if (fVar6 < 0.0f) {
+        if (local_4 < fVar2) {
+          if (fVar5 < 0.0f) {
             local_4 = 0.0f;
           }
           else {
-            local_4 = fVar6;
-            if (1.0f < fVar6) {
+            local_4 = fVar5;
+            if (1.0f < fVar5) {
               local_4 = 1.0f;
             }
           }
         }
-        fVar6 = local_4 * 63.0f;
-        *(float *)(pbVar5 + 0x44) = fVar6;
-        if ((*pbVar5 & 1) == 0) {
+        fVar5 = local_4 * 63.0f;
+        *(float *)(pbVar4 + 0x44) = fVar5;
+        if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMFIT((int *)pfVar2,(int)pbVar9,fVar6);
+            rdAFRaster_SetupNGonMFIT((int *)rec,(int)mat,fVar5);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,fVar6);
+          (**(code **)(pbVar4 + 0x18))(rec,mat,fVar5);
         }
         break;
       case 0x3:
-        uVar8 = 0;
-        if (*(int *)(pbVar5 + 0x1c) != 0) {
+        uVar7 = 0;
+        if (*(int *)(pbVar4 + 0x1c) != 0) {
           do {
-            fVar6 = *(float *)(*(int *)(pbVar5 + 0x28) + uVar8 * 4) + *(float *)(pbVar5 + 0x48);
-            iVar10 = uVar8 * 4;
-            if (fVar6 < 0.0f) {
-              fVar3 = 0.0f;
+            fVar5 = *(float *)(*(int *)(pbVar4 + 0x28) + uVar7 * 4) + *(float *)(pbVar4 + 0x48);
+            iVar8 = uVar7 * 4;
+            if (fVar5 < 0.0f) {
+              fVar2 = 0.0f;
             }
             else {
-              fVar3 = fVar6;
-              if (1.0f < fVar6) {
-                fVar3 = 1.0f;
+              fVar2 = fVar5;
+              if (1.0f < fVar5) {
+                fVar2 = 1.0f;
               }
             }
-            fVar4 = local_4;
-            if (local_4 < fVar3) {
-              if (fVar6 < 0.0f) {
-                fVar4 = 0.0f;
+            fVar3 = local_4;
+            if (local_4 < fVar2) {
+              if (fVar5 < 0.0f) {
+                fVar3 = 0.0f;
               }
               else {
-                fVar4 = fVar6;
-                if (1.0f < fVar6) {
-                  fVar4 = 1.0f;
+                fVar3 = fVar5;
+                if (1.0f < fVar5) {
+                  fVar3 = 1.0f;
                 }
               }
             }
-            uVar8 = uVar8 + 1;
-            *(float *)(*(int *)(pbVar5 + 0x28) + iVar10) = fVar4 * 63.0f;
-          } while (uVar8 < *(uint *)(pbVar5 + 0x1c));
+            uVar7 = uVar7 + 1;
+            *(float *)(*(int *)(pbVar4 + 0x28) + iVar8) = fVar3 * 63.0f;
+          } while (uVar7 < *(uint *)(pbVar4 + 0x1c));
         }
-        if ((*pbVar5 & 1) == 0) {
+        if ((*pbVar4 & 1) == 0) {
           if (g_nRdroid_curZBufferMethod == 1) {
-            rdAFRaster_SetupNGonMGIT((int *)pfVar2,(int)pbVar9);
+            rdAFRaster_SetupNGonMGIT((int *)rec,(int)mat);
           }
         }
         else {
-          (**(code **)(pbVar5 + 0x18))(pfVar2,pbVar9,0);
+          (**(code **)(pbVar4 + 0x18))(rec,mat,0);
         }
       }
     }
@@ -1471,36 +1471,36 @@ rdCanvas_DrawPoint(void *param_1,int param_2,int param_3,uint param_4,float para
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float fVar1;
+  float deg;
   int y1;
-  int iVar2;
+  int iVar1;
   int x2;
   int y2;
+  longlong lVar2;
   longlong lVar3;
-  longlong lVar4;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  lVar3 = FTOL((float10)PUN(float,param_4) - (float10)-0.5);
-  iVar2 = (int)lVar3;
-  if ((((*(int *)((int)param_1 + 0x18) <= iVar2 + param_2) &&
-       (param_2 - iVar2 <= *(int *)((int)param_1 + 0x20))) &&
-      (*(int *)((int)param_1 + 0x1c) <= iVar2 + param_3)) &&
-     (param_3 - iVar2 <= *(int *)((int)param_1 + 0x24))) {
+  lVar2 = FTOL((float10)PUN(float,param_4) - (float10)-0.5);
+  iVar1 = (int)lVar2;
+  if ((((*(int *)((int)param_1 + 0x18) <= iVar1 + param_2) &&
+       (param_2 - iVar1 <= *(int *)((int)param_1 + 0x20))) &&
+      (*(int *)((int)param_1 + 0x1c) <= iVar1 + param_3)) &&
+     (param_3 - iVar1 <= *(int *)((int)param_1 + 0x24))) {
     stdMath_SinCos(0.0f,(float *)&local_4,(float *)&local_8);
-    lVar3 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,param_4) - (float10)-0.5);
-    lVar4 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,param_4) - (float10)-0.5);
-    iVar2 = (int)lVar3 + param_2;
-    y1 = (int)lVar4 + param_3;
-    for (fVar1 = param_5; fVar1 <= 360.0f; fVar1 = fVar1 + param_5) {
-      stdMath_SinCos(fVar1,(float *)&local_4,(float *)&local_8);
-      lVar3 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,param_4) - (float10)-0.5);
-      x2 = (int)lVar3 + param_2;
-      lVar3 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,param_4) - (float10)-0.5);
-      y2 = (int)lVar3 + param_3;
-      rdPrimit2_DrawLine(param_1,iVar2,y1,x2,y2,param_6,param_7);
-      iVar2 = x2;
+    lVar2 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,param_4) - (float10)-0.5);
+    lVar3 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,param_4) - (float10)-0.5);
+    iVar1 = (int)lVar2 + param_2;
+    y1 = (int)lVar3 + param_3;
+    for (deg = param_5; deg <= 360.0f; deg = deg + param_5) {
+      stdMath_SinCos(deg,(float *)&local_4,(float *)&local_8);
+      lVar2 = FTOL((float10)PUN(float,local_8) * (float10)PUN(float,param_4) - (float10)-0.5);
+      x2 = (int)lVar2 + param_2;
+      lVar2 = FTOL((float10)PUN(float,local_4) * (float10)PUN(float,param_4) - (float10)-0.5);
+      y2 = (int)lVar2 + param_3;
+      rdPrimit2_DrawLine(param_1,iVar1,y1,x2,y2,param_6,param_7);
+      iVar1 = x2;
       y1 = y2;
     }
   }

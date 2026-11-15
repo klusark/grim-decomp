@@ -457,7 +457,7 @@ void __cdecl luaD_travallstacks(undefined *markobject)
    remaster, gcc inlined it there): Lua 3.1 source name (ldo.c static message: if errorim is not
    nil, pushstring and luaD_callTM(errorim, 1, 0); called by lua_error); was luaD_message. */
 
-void __cdecl message(byte *param_1)
+void __cdecl message(byte *msg)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -465,7 +465,7 @@ void __cdecl message(byte *param_1)
   
   local_4 = DAT_1002bf5c;
   if (g_dwLState_errorim != -7) {
-    lua_pushstring(param_1);
+    lua_pushstring(msg);
     luaD_callTM((TObject *)&local_4,1,0);
   }
   return;

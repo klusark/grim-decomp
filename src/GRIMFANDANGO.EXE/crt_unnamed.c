@@ -4614,10 +4614,10 @@ void __cdecl sou_mixer_terminate(int *services)
    Original name msc_MemSet (the remaster's GrimFandango (Linux): gra_SetBitmap's / AllocBuffers'
    fill call (dst, 0, n)); was FUN_004d5e50. */
 
-void __cdecl msc_MemSet(uint param_1,uint param_2,uint param_3)
+void __cdecl msc_MemSet(uint dst,uint value,uint count)
 
 {
-  FUN_004d5fd0((byte *)param_1,param_2,param_3);
+  FUN_004d5fd0((byte *)dst,value,count);
   return;
 }
 #endif

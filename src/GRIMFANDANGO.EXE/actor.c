@@ -1243,53 +1243,53 @@ void __cdecl Actor_PuckOrient(Actor *actor)
 void __cdecl Actor_UpdateWalker(Actor *actor)
 
 {
-  Puck *pPVar1;
-  ActorExtra *pAVar2;
-  undefined *puVar3;
-  int iVar4;
-  float fVar5;
+  Puck *pos;
+  ActorExtra *pAVar1;
+  undefined *puVar2;
+  int iVar3;
+  float fVar4;
   uint turnLeftOk;
   uint turnRightOk;
   
-  pPVar1 = actor->pExtra->pPuck;
+  pos = actor->pExtra->pPuck;
   if ((actor->pExtra->nTurning != 0) && ((actor->dwMoveFlags & 1) == 0)) {
-    pAVar2 = actor->pExtra;
-    fVar5 = sputTime_GetFrameTimeFlex();
-    Puck_Rotate(pAVar2->pPuck,
-                      (float)pAVar2->nTurning * pAVar2->flTurnRate * fVar5 * pAVar2->flTimeScale);
+    pAVar1 = actor->pExtra;
+    fVar4 = sputTime_GetFrameTimeFlex();
+    Puck_Rotate(pAVar1->pPuck,
+                      (float)pAVar1->nTurning * pAVar1->flTurnRate * fVar4 * pAVar1->flTimeScale);
   }
-  pAVar2 = actor->pExtra;
-  if (pAVar2->nWalking != 0) {
-    fVar5 = sputTime_GetFrameTimeFlex();
-    if (pAVar2->nWalkDominate == 0) {
-      turnRightOk = (uint)(pAVar2->nTurning != 1);
-      turnLeftOk = (uint)(pAVar2->nTurning != -1);
+  pAVar1 = actor->pExtra;
+  if (pAVar1->nWalking != 0) {
+    fVar4 = sputTime_GetFrameTimeFlex();
+    if (pAVar1->nWalkDominate == 0) {
+      turnRightOk = (uint)(pAVar1->nTurning != 1);
+      turnLeftOk = (uint)(pAVar1->nTurning != -1);
     }
     else {
       turnRightOk = 1;
       turnLeftOk = 1;
     }
-    puVar3 = Puck_Forward(pAVar2->pPuck,fVar5 * pAVar2->flTimeScale * pAVar2->flWalkRate,
+    puVar2 = Puck_Forward(pAVar1->pPuck,fVar4 * pAVar1->flTimeScale * pAVar1->flWalkRate,
                                 turnLeftOk,turnRightOk);
-    actor->pExtra->nWalking = (int)puVar3;
+    actor->pExtra->nWalking = (int)puVar2;
   }
-  iVar4 = sputActor_AlignToPuck(actor,pPVar1->aPos);
-  actor->pExtra->nAlignTurn = iVar4;
-  pAVar2 = actor->pExtra;
-  if ((pAVar2->nTurning == 0) && (pAVar2->nAlignTurn == 0)) {
-    if (pAVar2->flYawLeft <= 0.0f) {
-      iVar4 = 1;
+  iVar3 = sputActor_AlignToPuck(actor,pos->aPos);
+  actor->pExtra->nAlignTurn = iVar3;
+  pAVar1 = actor->pExtra;
+  if ((pAVar1->nTurning == 0) && (pAVar1->nAlignTurn == 0)) {
+    if (pAVar1->flYawLeft <= 0.0f) {
+      iVar3 = 1;
     }
     else {
-      iVar4 = -1;
+      iVar3 = -1;
     }
-    pAVar2->nTurning = iVar4;
+    pAVar1->nTurning = iVar3;
   }
-  actor->aPos[0] = pPVar1->aPos[0];
-  actor->aPos[1] = pPVar1->aPos[1];
-  fVar5 = pPVar1->aPos[2];
+  actor->aPos[0] = pos->aPos[0];
+  actor->aPos[1] = pos->aPos[1];
+  fVar4 = pos->aPos[2];
   actor->nMatrixDirty = 0;
-  actor->aPos[2] = fVar5;
+  actor->aPos[2] = fVar4;
   return;
 }
 #endif

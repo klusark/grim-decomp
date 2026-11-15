@@ -1,0 +1,134 @@
+{
+ "_comment": "Parameter names of hand-written functions taken from their definitions in build/overrides*.c (tools/names_from_overrides.py, 2026-11-15).",
+ "program": "/v101/IMUSE.DLL",
+ "params": [
+  {
+   "addr": "1000c670",
+   "index": 0,
+   "type": "int *",
+   "name": "stream",
+   "_fn": "FUN_1000c670",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c670",
+   "index": 1,
+   "type": "char *",
+   "name": "format",
+   "_fn": "FUN_1000c670",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c670",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "args",
+   "_fn": "FUN_1000c670",
+   "_names_only": true
+  },
+  {
+   "addr": "10005b80",
+   "index": 0,
+   "type": "undefined2 *",
+   "name": "src",
+   "_fn": "Im_MixLoopC",
+   "_names_only": true
+  },
+  {
+   "addr": "10005b80",
+   "index": 2,
+   "type": "uint",
+   "name": "count",
+   "_fn": "Im_MixLoopC",
+   "_names_only": true
+  },
+  {
+   "addr": "10005b80",
+   "index": 3,
+   "type": "int",
+   "name": "out",
+   "_fn": "Im_MixLoopC",
+   "_names_only": true
+  },
+  {
+   "addr": "10005b80",
+   "index": 4,
+   "type": "int",
+   "name": "wl",
+   "_fn": "Im_MixLoopC",
+   "_names_only": true
+  },
+  {
+   "addr": "10005b80",
+   "index": 5,
+   "type": "int",
+   "name": "wr",
+   "_fn": "Im_MixLoopC",
+   "_names_only": true
+  },
+  {
+   "addr": "10005db0",
+   "index": 0,
+   "type": "undefined2 *",
+   "name": "src",
+   "_fn": "Im_MixLoopD",
+   "_names_only": true
+  },
+  {
+   "addr": "10005db0",
+   "index": 2,
+   "type": "uint",
+   "name": "count",
+   "_fn": "Im_MixLoopD",
+   "_names_only": true
+  },
+  {
+   "addr": "10005db0",
+   "index": 3,
+   "type": "uint",
+   "name": "out",
+   "_fn": "Im_MixLoopD",
+   "_names_only": true
+  },
+  {
+   "addr": "10005db0",
+   "index": 4,
+   "type": "int",
+   "name": "vol",
+   "_fn": "Im_MixLoopD",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b6a0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "slot",
+   "_fn": "Im_RunTriggerCommand",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b6a0",
+   "index": 1,
+   "type": "undefined4",
+   "name": "marker",
+   "_fn": "Im_RunTriggerCommand",
+   "_names_only": true
+  },
+  {
+   "addr": "10006620",
+   "index": 0,
+   "type": "int",
+   "name": "id",
+   "_fn": "Script_SetSequence",
+   "_names_only": true
+  },
+  {
+   "addr": "10006560",
+   "index": 0,
+   "type": "int",
+   "name": "id",
+   "_fn": "Script_SetState",
+   "_names_only": true
+  }
+ ]
+}
