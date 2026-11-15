@@ -1,0 +1,376 @@
+{
+ "_comment": "LUA.DLL's call frames (ExecutionState) and the parser's FuncState; LState's frame and parser pointers typed (2026-11-15).",
+ "program": "/LUA.DLL",
+ "structs": [
+  {
+   "name": "ExecutionState",
+   "size": 48,
+   "comment": "One call frame of a Lua task (lvm.cpp's ExecutionState: the remaster's libLua.so names it); a task's frames are linked through pPrev, free ones too (g_pExecutionState_pFreeStates).",
+   "fields": [
+    [
+     0,
+     "Closure *",
+     "pClosure",
+     "the closure being run (setvalues)"
+    ],
+    [
+     4,
+     "TProtoFunc *",
+     "pProto",
+     "its function prototype"
+    ],
+    [
+     8,
+     "int",
+     "nBase",
+     "stack index of the first argument"
+    ],
+    [
+     12,
+     "ExecutionState *",
+     "pPrev",
+     "the calling frame (the free list's link while unused)"
+    ],
+    [
+     16,
+     "int",
+     "nCallPos",
+     "luaD_call's stack position of the call"
+    ],
+    [
+     20,
+     "int",
+     "nResults",
+     "results wanted"
+    ],
+    [
+     24,
+     "int",
+     "nCmarkFlag",
+     "luaD_call tests it at an unexpected C mark"
+    ],
+    [
+     28,
+     "TObject **",
+     "ppTop",
+     "&L->pTop of the task"
+    ],
+    [
+     32,
+     "byte *",
+     "pPc",
+     "the next opcode in pProto->pCode"
+    ],
+    [
+     36,
+     "int",
+     "nAux",
+     "ExecutionState_getaux"
+    ],
+    [
+     40,
+     "int",
+     "nCounter",
+     "ExecutionState_resetcounter clears it"
+    ],
+    [
+     44,
+     "TObject *",
+     "pConsts",
+     "pProto->pConsts"
+    ]
+   ]
+  },
+  {
+   "name": "FuncState",
+   "size": 360,
+   "comment": "The parser's state of one function being compiled (Lua 3.1 lparser FuncState, Grim's layout): kept in an array, LState.pCurrState - 1 is the enclosing function's.",
+   "fields": [
+    [
+     0,
+     "TProtoFunc *",
+     "pF",
+     "the function being built"
+    ],
+    [
+     4,
+     "int",
+     "nPc",
+     "next position to code"
+    ],
+    [
+     8,
+     "TaggedString *[32]",
+     "aLocalVar",
+     "the names of the active local variables (store_localvar)"
+    ],
+    [
+     136,
+     "int",
+     "nStackSize",
+     "values on the activation register"
+    ],
+    [
+     140,
+     "int",
+     "nMaxStackSize",
+     "the maximum of nStackSize (at most 255)"
+    ],
+    [
+     144,
+     "int",
+     "nLocalVar",
+     "active local variables"
+    ],
+    [
+     148,
+     "int",
+     "nUpvalues",
+     "upvalues (at most 16)"
+    ],
+    [
+     152,
+     "int",
+     "nVars",
+     "entries in pF->pLocvars"
+    ],
+    [
+     156,
+     "int",
+     "nMaxCode",
+     "size of pF->pCode"
+    ],
+    [
+     160,
+     "int",
+     "nMaxVars",
+     "size of pF->pLocvars (-1: no debug information)"
+    ],
+    [
+     164,
+     "int",
+     "nMaxConsts",
+     "size of pF->pConsts"
+    ],
+    [
+     296,
+     "int[16]",
+     "aUpvalues",
+     "the upvalues' variable descriptors (singlevar)"
+    ]
+   ]
+  },
+  {
+   "name": "LState",
+   "size": 212,
+   "comment": "One Lua task (lstate.c LState): g_pLuaState is the running one, g_dwL_Main the first.",
+   "fields": [
+    [
+     0,
+     "ExecutionState *",
+     "pExecutionState",
+     "the task's chain of execution states (call frames), linked through their +0x0c (lapi.cpp's assert names it L->pExecutionState)"
+    ],
+    [
+     4,
+     "ExecutionState *",
+     "pResumeState",
+     "the execution state the task goes on in after luaI_breakhere (luaD_call)"
+    ],
+    [
+     8,
+     "int",
+     "nPreventBreak",
+     "luaI_breakhere yields only while 0; protected and C calls raise it"
+    ],
+    [
+     12,
+     "int",
+     "nUnread",
+     "LState_Construct sets it to 1; nothing reads it"
+    ],
+    [
+     16,
+     "int",
+     "nUpdated",
+     "the task ran in this lua_updatetasks round (cleared for every task when a round starts)"
+    ],
+    [
+     20,
+     "int",
+     "nPaused",
+     "lua_pausetasks sets it on every other task, lua_unpausetasks clears it; the updater skips the task"
+    ],
+    [
+     24,
+     "int",
+     "nNestingLevel",
+     "nested luaV_execute calls (warns \"Lua nesting level now\")"
+    ],
+    [
+     28,
+     "TObject *",
+     "pTop",
+     "stack top"
+    ],
+    [
+     32,
+     "TObject *",
+     "pStack",
+     "stack base (0x400 bytes at first)"
+    ],
+    [
+     36,
+     "TObject *",
+     "pLast",
+     "end of the stack"
+    ],
+    [
+     40,
+     "CLuaStack",
+     "Cstack",
+     "the running C function's frame"
+    ],
+    [
+     52,
+     "void *",
+     "pErrorJmp",
+     "the setjmp buffer lua_error leaves through"
+    ],
+    [
+     56,
+     "FuncState *",
+     "pMainState",
+     "the parser's main FuncState (0x168 bytes, on luaY_parser's stack)"
+    ],
+    [
+     60,
+     "FuncState *",
+     "pCurrState",
+     "the FuncState being compiled"
+    ],
+    [
+     64,
+     "void *",
+     "pLexState",
+     "the lexer's state (build/overrides.c: [0] the current character, [1] the input)"
+    ],
+    [
+     68,
+     "CLuaStack[10]",
+     "aCblocks",
+     "the C stacks saved by lua_beginblock"
+    ],
+    [
+     188,
+     "int",
+     "nNumCblocks",
+     ""
+    ],
+    [
+     192,
+     "int",
+     "nTaskId",
+     "serial number (g_dwLState_numThreads), passed to the task hook"
+    ],
+    [
+     196,
+     "TObject",
+     "taskFunc",
+     "the function the task runs"
+    ],
+    [
+     204,
+     "LState *",
+     "pNext",
+     "the task list (LState_attach / detach)"
+    ],
+    [
+     208,
+     "LState *",
+     "pPrev",
+     ""
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "1000ddb0",
+   "index": 0,
+   "type": "ExecutionState *",
+   "_fn": "ExecutionState_Construct",
+   "name": "this"
+  },
+  {
+   "addr": "1000ddf0",
+   "index": 0,
+   "type": "ExecutionState *",
+   "_fn": "ExecutionState_setvalues",
+   "name": "this"
+  },
+  {
+   "addr": "1000db40",
+   "index": 0,
+   "type": "ExecutionState *",
+   "_fn": "ExecutionState_Save",
+   "name": "this"
+  },
+  {
+   "addr": "1000dbd0",
+   "index": 0,
+   "type": "ExecutionState *",
+   "_fn": "ExecutionState_Restore",
+   "name": "this"
+  },
+  {
+   "addr": "1000dde0",
+   "index": 0,
+   "type": "ExecutionState *",
+   "_fn": "ExecutionState_getaux",
+   "name": "es"
+  },
+  {
+   "addr": "1000de20",
+   "index": 0,
+   "type": "ExecutionState *",
+   "_fn": "ExecutionState_resetcounter",
+   "name": "es"
+  },
+  {
+   "addr": "10008640",
+   "index": 0,
+   "type": "LState *",
+   "_fn": "LState_Save",
+   "name": "this"
+  },
+  {
+   "addr": "100087f0",
+   "index": 0,
+   "type": "LState *",
+   "_fn": "LState_Restore",
+   "name": "this"
+  },
+  {
+   "addr": "10008b70",
+   "index": 0,
+   "type": "LState *",
+   "_fn": "LState_attach",
+   "name": "this"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "1000dd10",
+   "type": "ExecutionState *",
+   "_fn": "ExecutionState_New"
+  }
+ ],
+ "globals": [
+  {
+   "addr": "1002bf84",
+   "type": "ExecutionState *",
+   "_g": "g_pExecutionState_pFreeStates"
+  }
+ ]
+}

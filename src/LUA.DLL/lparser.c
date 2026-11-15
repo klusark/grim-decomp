@@ -18,7 +18,7 @@ void __cdecl luaY_syntaxerror(char *msg,char *token)
   }
   luaL_verror(s___100s__last_token_read_____50s__10027ac4,msg,token,
               *(undefined4 *)((int)g_pLuaState->pLexState + 8),
-              *(int *)(*(int *)g_pLuaState->pMainState + 0x18) + 0x18);
+              g_pLuaState->pMainState->pF->pFileName->aStr);
   return;
 }
 
@@ -61,13 +61,13 @@ void __cdecl luaY_codedebugline(uint param_1)
 void __cdecl code_oparg(char param_1,int param_2,uint param_3,int param_4)
 
 {
-  void *pvVar1;
+  FuncState *pFVar1;
   int iVar2;
   
   check_pc(3);
-  pvVar1 = g_pLuaState->pCurrState;
-  iVar2 = code_oparg_at(*(int *)((int)pvVar1 + 4),param_1,param_2,param_3,param_4);
-  *(int *)((int)pvVar1 + 4) = *(int *)((int)pvVar1 + 4) + iVar2;
+  pFVar1 = g_pLuaState->pCurrState;
+  iVar2 = code_oparg_at(pFVar1->nPc,param_1,param_2,param_3,param_4);
+  pFVar1->nPc = pFVar1->nPc + iVar2;
   return;
 }
 
@@ -79,14 +79,14 @@ void __cdecl code_oparg(char param_1,int param_2,uint param_3,int param_4)
 void __cdecl check_pc(int param_1)
 
 {
-  int *piVar1;
+  FuncState *pFVar1;
   uint uVar2;
   
-  piVar1 = g_pLuaState->pCurrState;
-  if (piVar1[0x27] < piVar1[1] + param_1) {
-    uVar2 = luaM_growaux((undefined4 *)(*piVar1 + 0x10),piVar1[0x27],1,
-                         (byte *)s_code_size_overflow_10027b08,0x7ffffffd);
-    piVar1[0x27] = uVar2;
+  pFVar1 = g_pLuaState->pCurrState;
+  if (pFVar1->nMaxCode < pFVar1->nPc + param_1) {
+    uVar2 = luaM_growaux(&pFVar1->pF->pCode,pFVar1->nMaxCode,1,(byte *)s_code_size_overflow_10027b08
+                         ,0x7ffffffd);
+    pFVar1->nMaxCode = uVar2;
   }
   return;
 }
@@ -99,25 +99,25 @@ void __cdecl check_pc(int param_1)
 undefined4 __cdecl code_oparg_at(int param_1,char param_2,int param_3,uint param_4,int param_5)
 
 {
-  int iVar1;
-  char cVar2;
+  byte *pbVar1;
+  byte bVar2;
   
-  iVar1 = *(int *)(*(int *)g_pLuaState->pCurrState + 0x10);
+  pbVar1 = g_pLuaState->pCurrState->pF->pCode;
   deltastack(param_5);
-  cVar2 = (char)param_4;
+  bVar2 = (byte)param_4;
   if ((int)param_4 < param_3) {
-    *(char *)(iVar1 + param_1) = cVar2 + param_2 + '\x01';
+    pbVar1[param_1] = bVar2 + param_2 + 1;
     return 1;
   }
   if ((int)param_4 < 0x100) {
-    *(char *)(iVar1 + param_1) = param_2;
-    *(char *)(iVar1 + 1 + param_1) = cVar2;
+    pbVar1[param_1] = param_2;
+    pbVar1[param_1 + 1] = bVar2;
     return 2;
   }
   if (param_4 < 0xffff) {
-    *(char *)(iVar1 + param_1) = (char)param_3 + param_2 + '\x01';
-    *(char *)(iVar1 + 1 + param_1) = cVar2;
-    *(char *)(iVar1 + 2 + param_1) = (char)(param_4 >> 8);
+    pbVar1[param_1] = (char)param_3 + param_2 + 1;
+    pbVar1[param_1 + 1] = bVar2;
+    pbVar1[param_1 + 2] = (byte)(param_4 >> 8);
     return 3;
   }
   luaY_error(s_code_too_long__limit_64K__10027b1c);
@@ -132,17 +132,17 @@ undefined4 __cdecl code_oparg_at(int param_1,char param_2,int param_3,uint param
 void __cdecl deltastack(int param_1)
 
 {
-  void *pvVar1;
+  FuncState *pFVar1;
   int iVar2;
   
-  pvVar1 = g_pLuaState->pCurrState;
-  iVar2 = *(int *)((int)pvVar1 + 0x88) + param_1;
-  *(int *)((int)pvVar1 + 0x88) = iVar2;
-  if (*(int *)((int)pvVar1 + 0x8c) < iVar2) {
+  pFVar1 = g_pLuaState->pCurrState;
+  iVar2 = pFVar1->nStackSize + param_1;
+  pFVar1->nStackSize = iVar2;
+  if (pFVar1->nMaxStackSize < iVar2) {
     if (0xff < iVar2) {
       luaY_error(s_function_expression_too_complex_10027b38);
     }
-    *(undefined4 *)((int)pvVar1 + 0x8c) = *(undefined4 *)((int)pvVar1 + 0x88);
+    pFVar1->nMaxStackSize = pFVar1->nStackSize;
   }
   return;
 }
@@ -155,7 +155,7 @@ int __cdecl luaY_parser(int param_1)
   TaggedString *pTVar1;
   int iVar2;
   #define local_8c4 (*(undefined1 (*)[84])(_frame + (0x8e0 - 0x8c4)))
-  #define local_870 (*(undefined1 (*)[2160])(_frame + (0x8e0 - 0x870)))
+  #define local_870 (*(FuncState (*)[6])(_frame + (0x8e0 - 0x870)))
   
                     /* 0xa900  4  luaY_parser */
   g_pLuaState->pMainState = local_870;
@@ -183,27 +183,27 @@ int __cdecl luaY_parser(int param_1)
 void __cdecl init_state(TaggedString *param_1)
 
 {
-  undefined4 *puVar1;
+  FuncState *pFVar1;
   TProtoFunc *pTVar2;
   
   pTVar2 = luaF_newproto();
-  puVar1 = g_pLuaState->pCurrState;
-  puVar1[0x22] = 0;
-  puVar1[0x23] = 0;
-  puVar1[0x24] = 0;
-  puVar1[0x25] = 0;
-  *puVar1 = pTVar2;
+  pFVar1 = g_pLuaState->pCurrState;
+  pFVar1->nStackSize = 0;
+  pFVar1->nMaxStackSize = 0;
+  pFVar1->nLocalVar = 0;
+  pFVar1->nUpvalues = 0;
+  pFVar1->pF = pTVar2;
   pTVar2->pFileName = param_1;
-  puVar1[1] = 0;
-  puVar1[0x27] = 0;
+  pFVar1->nPc = 0;
+  pFVar1->nMaxCode = 0;
   pTVar2->pCode = (byte *)0x0;
-  puVar1[0x29] = 0;
+  pFVar1->nMaxConsts = 0;
   if (lua_debug == 0) {
-    puVar1[0x28] = 0xffffffff;
+    pFVar1->nMaxVars = -1;
   }
   else {
-    puVar1[0x26] = 0;
-    puVar1[0x28] = 0;
+    pFVar1->nVars = 0;
+    pFVar1->nMaxVars = 0;
   }
   code_byte(0);
   code_byte(0);
@@ -216,16 +216,14 @@ void __cdecl init_state(TaggedString *param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: check_pc(1), f->code[pc++] = c);
    was lparser__aa10. */
 
-void __cdecl code_byte(undefined1 param_1)
+void __cdecl code_byte(byte param_1)
 
 {
   int *piVar1;
   
   check_pc(1);
-  *(undefined1 *)
-   (*(int *)((int)g_pLuaState->pCurrState + 4) + *(int *)(*(int *)g_pLuaState->pCurrState + 0x10)) =
-       param_1;
-  piVar1 = (int *)((int)g_pLuaState->pCurrState + 4);
+  g_pLuaState->pCurrState->pF->pCode[g_pLuaState->pCurrState->nPc] = param_1;
+  piVar1 = &g_pLuaState->pCurrState->nPc;
   *piVar1 = *piVar1 + 1;
   return;
 }
@@ -238,29 +236,31 @@ void __cdecl code_byte(undefined1 param_1)
 int close_func(void)
 
 {
-  int iVar1;
-  undefined4 uVar2;
+  TProtoFunc *pTVar1;
+  byte *pbVar2;
+  TObject *pTVar3;
+  LocVar *pLVar4;
   
-  iVar1 = *(int *)g_pLuaState->pCurrState;
+  pTVar1 = g_pLuaState->pCurrState->pF;
   code_neutralop(0);
-  **(undefined1 **)(iVar1 + 0x10) = *(undefined1 *)((int)g_pLuaState->pCurrState + 0x8c);
-  uVar2 = (**(code **)(g_dwLuaHS + 0x28))
-                    (*(undefined4 *)(iVar1 + 0x10),*(undefined4 *)((int)g_pLuaState->pCurrState + 4)
-                     ,s_lua_stx_10027b64,0x25c);
-  *(undefined4 *)(iVar1 + 0x10) = uVar2;
-  uVar2 = (**(code **)(g_dwLuaHS + 0x28))
-                    (*(undefined4 *)(iVar1 + 8),*(int *)(iVar1 + 0xc) << 3,s_lua_stx_10027b64,0x25d)
-  ;
-  *(undefined4 *)(iVar1 + 8) = uVar2;
-  if (*(int *)((int)g_pLuaState->pCurrState + 0xa0) != -1) {
+  *pTVar1->pCode = (byte)g_pLuaState->pCurrState->nMaxStackSize;
+  pbVar2 = (byte *)(**(code **)(g_dwLuaHS + 0x28))
+                             (pTVar1->pCode,g_pLuaState->pCurrState->nPc,s_lua_stx_10027b64,0x25c);
+  pTVar1->pCode = pbVar2;
+  pTVar3 = (TObject *)
+           (**(code **)(g_dwLuaHS + 0x28))
+                     (pTVar1->pConsts,pTVar1->nNconsts << 3,s_lua_stx_10027b64,0x25d);
+  pTVar1->pConsts = pTVar3;
+  if (g_pLuaState->pCurrState->nMaxVars != -1) {
     luaI_registerlocalvar(0,0xffffffff);
-    uVar2 = (**(code **)(g_dwLuaHS + 0x28))
-                      (*(undefined4 *)(iVar1 + 0x1c),
-                       *(int *)((int)g_pLuaState->pCurrState + 0x98) << 3,s_lua_stx_10027b64,0x260);
-    *(undefined4 *)(iVar1 + 0x1c) = uVar2;
+    pLVar4 = (LocVar *)
+             (**(code **)(g_dwLuaHS + 0x28))
+                       (pTVar1->pLocvars,g_pLuaState->pCurrState->nVars << 3,s_lua_stx_10027b64,
+                        0x260);
+    pTVar1->pLocvars = pLVar4;
   }
-  g_pLuaState->pCurrState = (void *)((int)g_pLuaState->pCurrState + -0x168);
-  return iVar1;
+  g_pLuaState->pCurrState = g_pLuaState->pCurrState + -1;
+  return (int)pTVar1;
 }
 
 /* ---- 0x1000ab20  code_neutralop ---- */
@@ -293,22 +293,22 @@ void __cdecl code_opcode(undefined1 param_1,int param_2)
    (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: appends {varname,
    line} to f->locvars when debug info is on); was luaY_growvector. */
 
-void __cdecl luaI_registerlocalvar(undefined4 param_1,undefined4 param_2)
+void __cdecl luaI_registerlocalvar(TaggedString *param_1,int param_2)
 
 {
-  int *piVar1;
+  FuncState *pFVar1;
   uint uVar2;
   
-  piVar1 = g_pLuaState->pCurrState;
-  uVar2 = piVar1[0x28];
+  pFVar1 = g_pLuaState->pCurrState;
+  uVar2 = pFVar1->nMaxVars;
   if (uVar2 != 0xffffffff) {
-    if ((int)uVar2 <= piVar1[0x26]) {
-      uVar2 = luaM_growaux((undefined4 *)(*piVar1 + 0x1c),uVar2,8,&DAT_1002bedc,0xfffe);
-      piVar1[0x28] = uVar2;
+    if ((int)uVar2 <= pFVar1->nVars) {
+      uVar2 = luaM_growaux(&pFVar1->pF->pLocvars,uVar2,8,&DAT_1002bedc,0xfffe);
+      pFVar1->nMaxVars = uVar2;
     }
-    *(undefined4 *)(*(int *)(*piVar1 + 0x1c) + piVar1[0x26] * 8) = param_1;
-    *(undefined4 *)(*(int *)(*piVar1 + 0x1c) + 4 + piVar1[0x26] * 8) = param_2;
-    piVar1[0x26] = piVar1[0x26] + 1;
+    pFVar1->pF->pLocvars[pFVar1->nVars].pVarname = param_1;
+    pFVar1->pF->pLocvars[pFVar1->nVars].nLine = param_2;
+    pFVar1->nVars = pFVar1->nVars + 1;
   }
   return;
 }
@@ -324,17 +324,18 @@ undefined4 luaY_parse(void)
   unsigned char _frame[0xbf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   short sVar2;
-  int *piVar3;
-  int iVar4;
-  TaggedString *pTVar5;
-  uint uVar6;
+  FuncState *pFVar3;
+  FuncState *pFVar4;
+  int iVar5;
+  TaggedString *pTVar6;
   uint uVar7;
+  uint uVar8;
   int *pfVar9;
   int fVar9;
-  int iVar8;
-  undefined4 *puVar9;
-  int iVar10;
-  undefined4 *puVar11;
+  int iVar9;
+  byte *pbVar10;
+  int iVar11;
+  byte *pbVar12;
   #define local_be0 (*(uint *)(_frame + (0xbf0 - 0xbe0)))
   #define local_bdc (*(int *)(_frame + (0xbf0 - 0xbdc)))
   #define local_bd8 (*(short **)(_frame + (0xbf0 - 0xbd8)))
@@ -344,7 +345,7 @@ undefined4 luaY_parse(void)
   #define local_bc8 (*(int *)(_frame + (0xbf0 - 0xbc8)))
   #define local_bc4 (*(int *)(_frame + (0xbf0 - 0xbc4)))
   #define local_bc0 (*(uint *)(_frame + (0xbf0 - 0xbc0)))
-  #define local_bbc (*(int **)(_frame + (0xbf0 - 0xbbc)))
+  #define local_bbc (*(FuncState **)(_frame + (0xbf0 - 0xbbc)))
   #define local_bb8 (*(short (*)[499])(_frame + (0xbf0 - 0xbb8)))
   #define local_7d2 (*(short *)(_frame + (0xbf0 - 0x7d2)))
   #define local_7d0 (*(int *)(_frame + (0xbf0 - 0x7d0)))
@@ -353,7 +354,7 @@ undefined4 luaY_parse(void)
   int fVar4;
   
   local_bd8 = local_bb8;
-  iVar8 = 0;
+  iVar9 = 0;
   local_bdc = 0;
   local_bc4 = 0;
   local_be0 = 0xfffffffe;
@@ -366,10 +367,10 @@ LAB_1000b47d:
     return 2;
   }
 LAB_1000ac11:
-  sVar2 = g_wYypact[iVar8];
+  sVar2 = g_wYypact[iVar9];
   if (sVar2 == -0x8000) {
 LAB_1000b4fe:
-    local_bd4 = (int)g_wYydefact[iVar8];
+    local_bd4 = (int)g_wYydefact[iVar9];
     if (local_bd4 == 0) {
 LAB_1000b512:
       if (local_bdc == 0) {
@@ -384,9 +385,9 @@ LAB_1000b512:
       }
       local_bdc = 3;
       do {
-        if (((g_wYypact[iVar8] != -0x8000) && (iVar8 = g_wYypact[iVar8] + 1, -1 < iVar8)) &&
-           ((iVar8 < 0x107 && (g_aYycheck[iVar8] == 1)))) {
-          local_bd4 = (int)g_aYytable[iVar8];
+        if (((g_wYypact[iVar9] != -0x8000) && (iVar9 = g_wYypact[iVar9] + 1, -1 < iVar9)) &&
+           ((iVar9 < 0x107 && (g_aYycheck[iVar9] == 1)))) {
+          local_bd4 = (int)g_aYytable[iVar9];
           if (local_bd4 < 0) {
             if (local_bd4 != -0x8000) {
               local_bd4 = -local_bd4;
@@ -398,83 +399,83 @@ LAB_1000b512:
         if (local_bd8 == local_bb8) {
           return 1;
         }
-        iVar8 = (int)local_bd8[-1];
+        iVar9 = (int)local_bd8[-1];
         pfVar9 = pfVar9 + -1;
         local_bd8 = local_bd8 + -1;
       } while( true );
     }
 LAB_1000acaa:
-    iVar8 = (int)g_aYyr2[local_bd4];
-    if (0 < iVar8) {
-      fVar9 = pfVar9[1 - iVar8];
+    iVar9 = (int)g_aYyr2[local_bd4];
+    if (0 < iVar9) {
+      fVar9 = pfVar9[1 - iVar9];
     }
-    local_bcc = iVar8;
+    local_bcc = iVar9;
     switch(local_bd4) {
     case 6:
       codeIf(pfVar9[-5],pfVar9[-2]);
       break;
     case 8:
-      piVar1 = g_pLuaState->pCurrState;
-      uVar6 = pfVar9[-3] - pfVar9[-4];
+      pFVar3 = g_pLuaState->pCurrState;
+      uVar7 = pfVar9[-3] - pfVar9[-4];
       local_bc8 = pfVar9[-4] + 2;
-      local_bc0 = uVar6;
-      local_bbc = piVar1;
-      check_pc(uVar6);
-      piVar3 = local_bbc;
-      puVar9 = (undefined4 *)(pfVar9[-4] + *(int *)(*piVar1 + 0x10));
-      puVar11 = (undefined4 *)(piVar1[1] + *(int *)(*piVar1 + 0x10));
-      for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-        *puVar11 = *puVar9;
-        puVar9 = puVar9 + 1;
-        puVar11 = puVar11 + 1;
+      local_bc0 = uVar7;
+      local_bbc = pFVar3;
+      check_pc(uVar7);
+      pFVar4 = local_bbc;
+      pbVar12 = pFVar3->pF->pCode;
+      pbVar10 = pbVar12 + pfVar9[-4];
+      pbVar12 = pbVar12 + pFVar3->nPc;
+      for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
+        *(undefined4 *)pbVar12 = *(undefined4 *)pbVar10;
+        pbVar10 = pbVar10 + 4;
+        pbVar12 = pbVar12 + 4;
       }
-      for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-        *(undefined1 *)puVar11 = *(undefined1 *)puVar9;
-        puVar9 = (undefined4 *)((int)puVar9 + 1);
-        puVar11 = (undefined4 *)((int)puVar11 + 1);
+      for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
+        *pbVar12 = *pbVar10;
+        pbVar10 = pbVar10 + 1;
+        pbVar12 = pbVar12 + 1;
       }
-      memcpy((undefined4 *)(*(int *)(*local_bbc + 0x10) + pfVar9[-4]),
-             (undefined4 *)(pfVar9[-3] + *(int *)(*local_bbc + 0x10)),local_bbc[1] - pfVar9[-4]);
-      iVar8 = fix_jump(pfVar9[-4],'m',piVar3[1] - local_bc0);
-      fix_upjmp('q',local_bc8 + iVar8);
-      iVar8 = local_bcc;
+      pbVar12 = local_bbc->pF->pCode;
+      memcpy((undefined4 *)(pbVar12 + pfVar9[-4]),(undefined4 *)(pbVar12 + pfVar9[-3]),
+             local_bbc->nPc - pfVar9[-4]);
+      iVar9 = fix_jump(pfVar9[-4],'m',pFVar4->nPc - local_bc0);
+      fix_upjmp('q',local_bc8 + iVar9);
+      iVar9 = local_bcc;
       break;
     case 9:
       fix_upjmp('s',pfVar9[-3]);
       deltastack(-1);
       break;
     case 10:
-      iVar8 = 0;
+      iVar9 = 0;
       adjust_mult_assign(pfVar9[-2],*pfVar9);
       fVar3 = pfVar9[-2];
       while (fVar3 = fVar3 + -1, -1 < fVar3) {
-        iVar8 = lua_codestore(fVar3,iVar8);
+        iVar9 = lua_codestore(fVar3,iVar9);
       }
-      adjuststack(iVar8);
-      iVar8 = local_bcc;
+      adjuststack(iVar9);
+      iVar9 = local_bcc;
       break;
     case 0xb:
       adjust_functioncall(*pfVar9,0);
       break;
     case 0xc:
-      *(int *)((int)g_pLuaState->pCurrState + 0x90) =
-           *(int *)((int)g_pLuaState->pCurrState + 0x90) + pfVar9[-1];
+      g_pLuaState->pCurrState->nLocalVar = g_pLuaState->pCurrState->nLocalVar + pfVar9[-1];
       adjust_mult_assign(pfVar9[-1],*pfVar9);
       break;
     case 0xd:
       storevar(pfVar9[-1]);
       break;
     case 0xe:
-      fVar9 = *(int *)((int)g_pLuaState->pCurrState + 0x90);
+      fVar9 = g_pLuaState->pCurrState->nLocalVar;
       break;
     case 0xf:
-      adjuststack(*(int *)((int)g_pLuaState->pCurrState + 0x90) - pfVar9[-1]);
-      if (pfVar9[-1] < *(int *)((int)g_pLuaState->pCurrState + 0x90)) {
+      adjuststack(g_pLuaState->pCurrState->nLocalVar - pfVar9[-1]);
+      if (pfVar9[-1] < g_pLuaState->pCurrState->nLocalVar) {
         do {
           luaI_unregisterlocalvar(*(undefined4 *)((int)g_pLuaState->pLexState + 8));
-          *(int *)((int)g_pLuaState->pCurrState + 0x90) =
-               *(int *)((int)g_pLuaState->pCurrState + 0x90) + -1;
-        } while (pfVar9[-1] < *(int *)((int)g_pLuaState->pCurrState + 0x90));
+          g_pLuaState->pCurrState->nLocalVar = g_pLuaState->pCurrState->nLocalVar + -1;
+        } while (pfVar9[-1] < g_pLuaState->pCurrState->nLocalVar);
       }
       break;
     case 0x10:
@@ -488,8 +489,8 @@ LAB_1000acaa:
     case 0x12:
       fVar9 = 0;
       init_func();
-      pTVar5 = luaS_new(&DAT_10027ba0);
-      add_localvar(pTVar5);
+      pTVar6 = luaS_new(&DAT_10027ba0);
+      add_localvar(pTVar6);
       break;
     case 0x13:
       lua_pushvar(*pfVar9);
@@ -509,12 +510,12 @@ LAB_1000acaa:
       codereturn();
       break;
     case 0x1b:
-      fVar9 = *(int *)((int)g_pLuaState->pCurrState + 4);
+      fVar9 = g_pLuaState->pCurrState->nPc;
       break;
     case 0x1c:
-      fVar9 = *(int *)((int)g_pLuaState->pCurrState + 4);
+      fVar9 = g_pLuaState->pCurrState->nPc;
       check_pc(2);
-      piVar1 = (int *)((int)g_pLuaState->pCurrState + 4);
+      piVar1 = &g_pLuaState->pCurrState->nPc;
       *piVar1 = *piVar1 + 2;
       break;
     case 0x1d:
@@ -639,11 +640,11 @@ switchD_1000acd8_caseD_1f:
       fVar9 = 0;
       break;
     case 0x3f:
-      iVar4 = string_constant(*pfVar9,g_pLuaState->pCurrState);
-      fVar9 = -1 - iVar4;
+      iVar5 = string_constant(*pfVar9,(int *)g_pLuaState->pCurrState);
+      fVar9 = -1 - iVar5;
       break;
     case 0x40:
-      fVar9 = singlevar(*pfVar9,g_pLuaState->pCurrState);
+      fVar9 = singlevar(*pfVar9,(int *)g_pLuaState->pCurrState);
       break;
     case 0x41:
       fix_opcode(pfVar9[-2],'=',2,pfVar9[-1]);
@@ -651,13 +652,13 @@ switchD_1000acd8_caseD_1f:
     case 0x42:
       code_byte(0);
       code_byte(*(char *)(pfVar9 + -1) + *(char *)pfVar9);
-      fVar9 = *(int *)((int)g_pLuaState->pCurrState + 4);
+      fVar9 = g_pLuaState->pCurrState->nPc;
       code_byte(0);
       break;
     case 0x44:
-      iVar4 = 1;
-      uVar7 = string_constant(*pfVar9,g_pLuaState->pCurrState);
-      code_oparg('3',8,uVar7,iVar4);
+      iVar5 = 1;
+      uVar8 = string_constant(*pfVar9,(int *)g_pLuaState->pCurrState);
+      code_oparg('3',8,uVar8,iVar5);
       fVar9 = 1;
       break;
     case 0x45:
@@ -678,8 +679,7 @@ switchD_1000acd8_caseD_1f:
       break;
     case 0x4c:
       if (PUN(float,*pfVar9) != 0.0f) {
-        *(char *)(*(int *)(*(int *)g_pLuaState->pCurrState + 0x10) + *pfVar9) =
-             *(char *)(pfVar9 + -1);
+        g_pLuaState->pCurrState->pF->pCode[*pfVar9] = *(byte *)(pfVar9 + -1);
         goto switchD_1000acd8_caseD_1f;
       }
       fVar9 = -1 - pfVar9[-1];
@@ -697,42 +697,42 @@ switchD_1000acd8_caseD_1f:
       code_args(pfVar9[-2],1);
       break;
     case 0x51:
-      uVar7 = *pfVar9 >> 0x1f;
-      fVar9 = (*pfVar9 ^ uVar7) - uVar7;
+      uVar8 = *pfVar9 >> 0x1f;
+      fVar9 = (*pfVar9 ^ uVar8) - uVar8;
       break;
     case 0x52:
       if (0 < *pfVar9 * pfVar9[-2]) {
         luaY_error(s_invalid_constructor_syntax_10027b84);
       }
-      uVar7 = *pfVar9 >> 0x1f;
-      uVar6 = pfVar9[-2] >> 0x1f;
-      fVar9 = ((*pfVar9 ^ uVar7) - uVar7) + ((pfVar9[-2] ^ uVar6) - uVar6);
+      uVar8 = *pfVar9 >> 0x1f;
+      uVar7 = pfVar9[-2] >> 0x1f;
+      fVar9 = ((*pfVar9 ^ uVar8) - uVar8) + ((pfVar9[-2] ^ uVar7) - uVar7);
       break;
     case 0x58:
-      uVar7 = pfVar9[-1] >> 0x1f;
-      flush_record(((pfVar9[-1] ^ uVar7) - uVar7 & 0x1f ^ uVar7) - uVar7);
+      uVar8 = pfVar9[-1] >> 0x1f;
+      flush_record(((pfVar9[-1] ^ uVar8) - uVar8 & 0x1f ^ uVar8) - uVar8);
       fVar9 = -pfVar9[-1];
       break;
     case 0x59:
       fVar4 = pfVar9[-1];
-      uVar7 = fVar4 >> 0x1f;
-      flush_list((int)(fVar4 + (uVar7 & 0x3f)) >> 6,((fVar4 ^ uVar7) - uVar7 & 0x3f ^ uVar7) - uVar7
+      uVar8 = fVar4 >> 0x1f;
+      flush_list((int)(fVar4 + (uVar8 & 0x3f)) >> 6,((fVar4 ^ uVar8) - uVar8 & 0x3f ^ uVar8) - uVar8
                 );
     case 0x21:
       fVar9 = pfVar9[-1];
       break;
     case 0x5b:
       fVar9 = pfVar9[-2] + 1;
-      uVar7 = fVar9 >> 0x1f;
-      if (((fVar9 ^ uVar7) - uVar7 & 0x1f ^ uVar7) == uVar7) {
+      uVar8 = fVar9 >> 0x1f;
+      if (((fVar9 ^ uVar8) - uVar8 & 0x1f ^ uVar8) == uVar8) {
         flush_record(0x20);
       }
       break;
     case 0x60:
       fVar9 = pfVar9[-2] + 1;
-      uVar7 = fVar9 >> 0x1f;
-      if (((fVar9 ^ uVar7) - uVar7 & 0x3f ^ uVar7) == uVar7) {
-        flush_list(((int)(fVar9 + (uVar7 & 0x3f)) >> 6) - 1,0x40);
+      uVar8 = fVar9 >> 0x1f;
+      if (((fVar9 ^ uVar8) - uVar8 & 0x3f ^ uVar8) == uVar8) {
+        flush_list(((int)(fVar9 + (uVar8 & 0x3f)) >> 6) - 1,0x40);
       }
       break;
     case 0x61:
@@ -754,15 +754,15 @@ switchD_1000acd8_caseD_1f:
       store_localvar(*pfVar9,pfVar9[-2]);
       fVar9 = pfVar9[-2] + 1;
     }
-    local_bd8 = local_bd8 + -iVar8;
-    pfVar9 = pfVar9 + (1 - iVar8);
+    local_bd8 = local_bd8 + -iVar9;
+    pfVar9 = pfVar9 + (1 - iVar9);
     *pfVar9 = fVar9;
-    iVar8 = (int)g_wYypact[g_aYyr1[local_bd4] + 0x87] + (int)*local_bd8;
-    if (((iVar8 < 0) || (0x106 < iVar8)) || (g_aYycheck[iVar8] != *local_bd8)) {
+    iVar9 = (int)g_wYypact[g_aYyr1[local_bd4] + 0x87] + (int)*local_bd8;
+    if (((iVar9 < 0) || (0x106 < iVar9)) || (g_aYycheck[iVar9] != *local_bd8)) {
       local_bd4 = (int)g_wYydefact[g_aYyr1[local_bd4] + 0x87];
     }
     else {
-      local_bd4 = (int)g_aYytable[iVar8];
+      local_bd4 = (int)g_aYytable[iVar9];
     }
   }
   else {
@@ -770,18 +770,18 @@ switchD_1000acd8_caseD_1f:
       local_be0 = luaY_lex((float *)&local_bd0);
     }
     if ((int)local_be0 < 1) {
-      iVar4 = 0;
+      iVar5 = 0;
       local_be0 = 0;
     }
     else if (local_be0 < 0x11d) {
-      iVar4 = (int)g_aYytranslate[local_be0];
+      iVar5 = (int)g_aYytranslate[local_be0];
     }
     else {
-      iVar4 = 0x5d;
+      iVar5 = 0x5d;
     }
-    iVar10 = sVar2 + iVar4;
-    if (((iVar10 < 0) || (0x106 < iVar10)) || (g_aYycheck[iVar10] != iVar4)) goto LAB_1000b4fe;
-    local_bd4 = (int)g_aYytable[iVar10];
+    iVar11 = sVar2 + iVar5;
+    if (((iVar11 < 0) || (0x106 < iVar11)) || (g_aYycheck[iVar11] != iVar5)) goto LAB_1000b4fe;
+    local_bd4 = (int)g_aYytable[iVar11];
     if (local_bd4 < 0) {
       if (local_bd4 == -0x8000) goto LAB_1000b512;
       local_bd4 = -local_bd4;
@@ -810,7 +810,7 @@ LAB_1000b5bf:
 LAB_1000b464:
   local_bd8 = local_bd8 + 1;
   *local_bd8 = (short)local_bd4;
-  iVar8 = local_bd4;
+  iVar9 = local_bd4;
   if (&local_7d2 <= local_bd8) goto LAB_1000b47d;
   goto LAB_1000ac11;
 }
@@ -838,24 +838,25 @@ LAB_1000b464:
 int __cdecl fix_opcode(int param_1,char param_2,int param_3,uint param_4)
 
 {
-  undefined4 *puVar1;
-  int *piVar2;
+  FuncState *pFVar1;
+  byte *pbVar2;
   int iVar3;
   
-  piVar2 = g_pLuaState->pCurrState;
+  pFVar1 = g_pLuaState->pCurrState;
   if ((int)param_4 < param_3) {
-    iVar3 = *(int *)(*piVar2 + 0x10) + param_1;
-    memcpy((undefined4 *)(iVar3 + 1),(undefined4 *)(iVar3 + 2),(piVar2[1] - param_1) - 2);
-    iVar3 = piVar2[1] + -1;
+    pbVar2 = pFVar1->pF->pCode;
+    memcpy((undefined4 *)(pbVar2 + param_1 + 1),(undefined4 *)(pbVar2 + param_1 + 2),
+           (pFVar1->nPc - param_1) - 2);
+    iVar3 = pFVar1->nPc + -1;
   }
   else {
     if ((int)param_4 < 0x100) goto LAB_1000b7e3;
     check_pc(1);
-    puVar1 = (undefined4 *)(*(int *)(*piVar2 + 0x10) + param_1);
-    memcpy((undefined4 *)((int)puVar1 + 1),puVar1,piVar2[1] - param_1);
-    iVar3 = piVar2[1] + 1;
+    pbVar2 = pFVar1->pF->pCode + param_1;
+    memcpy((undefined4 *)(pbVar2 + 1),(undefined4 *)pbVar2,pFVar1->nPc - param_1);
+    iVar3 = pFVar1->nPc + 1;
   }
-  piVar2[1] = iVar3;
+  pFVar1->nPc = iVar3;
 LAB_1000b7e3:
   iVar3 = code_oparg_at(param_1,param_2,param_3,param_4,0);
   return iVar3 + -2;
@@ -930,7 +931,7 @@ void __cdecl code_string(int param_1)
 {
   uint uVar1;
   
-  uVar1 = string_constant(param_1,g_pLuaState->pCurrState);
+  uVar1 = string_constant(param_1,(int *)g_pLuaState->pCurrState);
   code_constant(uVar1);
   return;
 }
@@ -980,13 +981,13 @@ void __cdecl code_number(float param_1)
 int __cdecl real_constant(float param_1)
 
 {
-  int iVar1;
+  TProtoFunc *pTVar1;
   int iVar2;
-  int *piVar3;
+  TObject *pTVar3;
   int iVar4;
   
-  iVar1 = *(int *)g_pLuaState->pCurrState;
-  iVar2 = *(int *)(iVar1 + 0xc);
+  pTVar1 = g_pLuaState->pCurrState->pF;
+  iVar2 = pTVar1->nNconsts;
   if (iVar2 < 0x14) {
     iVar4 = 0;
   }
@@ -995,19 +996,19 @@ int __cdecl real_constant(float param_1)
   }
   iVar2 = iVar2 + -1;
   if (iVar4 <= iVar2) {
-    piVar3 = (int *)(*(int *)(iVar1 + 8) + iVar2 * 8);
+    pTVar3 = pTVar1->pConsts + iVar2;
     do {
-      if ((*piVar3 == -1) && (PUN(float,piVar3[1]) == param_1)) {
+      if ((pTVar3->nTtype == -1) && (PUN(float,pTVar3->dwValue) == param_1)) {
         return iVar2;
       }
       iVar2 = iVar2 + -1;
-      piVar3 = piVar3 + -2;
+      pTVar3 = pTVar3 + -1;
     } while (iVar4 <= iVar2);
   }
-  iVar2 = next_constant(g_pLuaState->pCurrState);
-  iVar1 = *(int *)(*(int *)g_pLuaState->pCurrState + 8);
-  *(undefined4 *)(iVar1 + iVar2 * 8) = 0xffffffff;
-  *(float *)(iVar1 + 4 + iVar2 * 8) = param_1;
+  iVar2 = next_constant((int *)g_pLuaState->pCurrState);
+  pTVar3 = g_pLuaState->pCurrState->pF->pConsts;
+  pTVar3[iVar2].nTtype = -1;
+  pTVar3[iVar2].dwValue = PUN(uint,(float)(param_1));
   return iVar2;
 }
 
@@ -1057,14 +1058,14 @@ void __cdecl luaI_unregisterlocalvar(undefined4 param_1)
    the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: 'too many local variables',
    localvar[nlocalvar+n] = name, luaI_registerlocalvar); was lparser__ba20. */
 
-void __cdecl store_localvar(undefined4 param_1,int param_2)
+void __cdecl store_localvar(TaggedString *param_1,int param_2)
 
 {
   int iVar1;
   
-  iVar1 = *(int *)((int)g_pLuaState->pCurrState + 0x90) + param_2;
+  iVar1 = g_pLuaState->pCurrState->nLocalVar + param_2;
   if (iVar1 < 0x20) {
-    *(undefined4 *)((int)g_pLuaState->pCurrState + iVar1 * 4 + 8) = param_1;
+    g_pLuaState->pCurrState->aLocalVar[iVar1] = param_1;
   }
   else {
     luaY_error(s_too_many_local_variables__limit__10027bc0);
@@ -1084,7 +1085,7 @@ void __cdecl add_localvar(undefined4 param_1)
   int *piVar1;
   
   store_localvar(param_1,0);
-  piVar1 = (int *)((int)g_pLuaState->pCurrState + 0x90);
+  piVar1 = &g_pLuaState->pCurrState->nLocalVar;
   *piVar1 = *piVar1 + 1;
   return;
 }
@@ -1103,7 +1104,7 @@ void __cdecl add_varbuffer(int param_1,int param_2)
     luaY_error(s_variable_buffer_overflow__limit__10027be4);
   }
   iVar1 = var2store(param_1);
-  *(int *)((int)g_pLuaState->pCurrState + param_2 * 4 + 0xa8) = iVar1;
+  g_pLuaState->pCurrState->aUpvalues[param_2 + -0x20] = iVar1;
   return;
 }
 
@@ -1210,18 +1211,18 @@ void __cdecl pushupvalue(int param_1)
 int __cdecl indexupvalue(int param_1)
 
 {
-  void *pvVar1;
+  FuncState *pFVar1;
   int iVar2;
   int iVar3;
   int *piVar4;
   int iVar5;
   
-  iVar3 = singlevar(param_1,(int *)((int)g_pLuaState->pCurrState + -0x168));
+  iVar3 = singlevar(param_1,(int *)(g_pLuaState->pCurrState + -1));
   iVar5 = 0;
-  pvVar1 = g_pLuaState->pCurrState;
-  iVar2 = *(int *)((int)pvVar1 + 0x94);
+  pFVar1 = g_pLuaState->pCurrState;
+  iVar2 = pFVar1->nUpvalues;
   if (0 < iVar2) {
-    piVar4 = (int *)((int)pvVar1 + 0x128);
+    piVar4 = pFVar1->aUpvalues;
     do {
       if (*piVar4 == iVar3) {
         return iVar5;
@@ -1230,11 +1231,11 @@ int __cdecl indexupvalue(int param_1)
       piVar4 = piVar4 + 1;
     } while (iVar5 < iVar2);
   }
-  *(int *)((int)pvVar1 + 0x94) = iVar2 + 1;
-  if (0x10 < *(int *)((int)g_pLuaState->pCurrState + 0x94)) {
+  pFVar1->nUpvalues = iVar2 + 1;
+  if (0x10 < g_pLuaState->pCurrState->nUpvalues) {
     luaY_error(s_too_many_upvalues_in_a_single_fu_10027c7c);
   }
-  *(int *)((int)g_pLuaState->pCurrState + iVar5 * 4 + 0x128) = iVar3;
+  g_pLuaState->pCurrState->aUpvalues[iVar5] = iVar3;
   return iVar5;
 }
 
@@ -1272,11 +1273,11 @@ int __cdecl adjust_functioncall(int param_1,uint param_2)
   if (param_1 < 1) {
     return -param_1;
   }
-  pbVar3 = (byte *)(*(int *)(*(int *)g_pLuaState->pCurrState + 0x10) + param_1);
+  pbVar3 = g_pLuaState->pCurrState->pF->pCode + param_1;
   bVar1 = *pbVar3;
   bVar2 = pbVar3[-1];
   iVar4 = fix_opcode(param_1 + -2,'x',2,param_2);
-  *(byte *)(*(int *)(*(int *)g_pLuaState->pCurrState + 0x10) + param_1 + iVar4) = bVar2;
+  g_pLuaState->pCurrState->pF->pCode[param_1 + iVar4] = bVar2;
   if (param_2 != 0xff) {
     deltastack(param_2);
   }
@@ -1298,7 +1299,7 @@ void __cdecl adjust_mult_assign(int param_1,int param_2)
     adjuststack(-(param_2 + param_1));
     return;
   }
-  iVar1 = (uint)*(byte *)(*(int *)(*(int *)g_pLuaState->pCurrState + 0x10) + param_2) - param_1;
+  iVar1 = (uint)g_pLuaState->pCurrState->pF->pCode[param_2] - param_1;
   if (iVar1 < 0) {
     adjust_functioncall(param_2,-iVar1);
     return;
@@ -1316,20 +1317,19 @@ void __cdecl adjust_mult_assign(int param_1,int param_2)
 void __cdecl code_args(int param_1,int param_2)
 
 {
-  int *piVar1;
+  FuncState *pFVar1;
   int iVar2;
   TaggedString *pTVar3;
   
-  *(int *)((int)g_pLuaState->pCurrState + 0x90) =
-       *(int *)((int)g_pLuaState->pCurrState + 0x90) + param_1;
-  piVar1 = g_pLuaState->pCurrState;
-  iVar2 = piVar1[0x24];
+  g_pLuaState->pCurrState->nLocalVar = g_pLuaState->pCurrState->nLocalVar + param_1;
+  pFVar1 = g_pLuaState->pCurrState;
+  iVar2 = pFVar1->nLocalVar;
   if (param_2 == 0) {
-    *(char *)(*(int *)(*piVar1 + 0x10) + 1) = (char)iVar2;
+    pFVar1->pF->pCode[1] = (byte)iVar2;
     deltastack(iVar2);
     return;
   }
-  *(char *)(*(int *)(*piVar1 + 0x10) + 1) = (char)iVar2 + '@';
+  pFVar1->pF->pCode[1] = (byte)iVar2 + 0x40;
   deltastack(iVar2 + 1);
   pTVar3 = luaS_new(&DAT_10027cb0);
   add_localvar(pTVar3);
@@ -1390,7 +1390,7 @@ int __cdecl lua_codestore(int param_1,int param_2)
 {
   int iVar1;
   
-  iVar1 = *(int *)((int)g_pLuaState->pCurrState + param_1 * 4 + 0xa8);
+  iVar1 = g_pLuaState->pCurrState->aUpvalues[param_1 + -0x20];
   if ((iVar1 == 0) && (param_1 + param_2 != 0)) {
     code_oparg('U',0,param_1 + param_2,-1);
     return param_2 + 2;
@@ -1424,7 +1424,7 @@ void __cdecl fix_upjmp(char param_1,int param_2)
   int iVar1;
   uint uVar2;
   
-  iVar1 = *(int *)((int)g_pLuaState->pCurrState + 4) - param_2;
+  iVar1 = g_pLuaState->pCurrState->nPc - param_2;
   uVar2 = iVar1 + 2;
   if (0xff < (int)uVar2) {
     uVar2 = iVar1 + 3;
@@ -1443,10 +1443,10 @@ void __cdecl codeIf(int param_1,int param_2)
 {
   int iVar1;
   
-  iVar1 = *(int *)((int)g_pLuaState->pCurrState + 4);
+  iVar1 = g_pLuaState->pCurrState->nPc;
   if (iVar1 == param_2 + 2) {
-    *(int *)((int)g_pLuaState->pCurrState + 4) = iVar1 + -2;
-    fix_jump(param_1,'o',*(int *)((int)g_pLuaState->pCurrState + 4));
+    g_pLuaState->pCurrState->nPc = iVar1 + -2;
+    fix_jump(param_1,'o',g_pLuaState->pCurrState->nPc);
     return;
   }
   iVar1 = fix_jump(param_2,'m',iVar1);
@@ -1462,7 +1462,7 @@ void __cdecl codeIf(int param_1,int param_2)
 void __cdecl code_shortcircuit(int param_1,char param_2)
 
 {
-  fix_jump(param_1,param_2,*(int *)((int)g_pLuaState->pCurrState + 4));
+  fix_jump(param_1,param_2,g_pLuaState->pCurrState->nPc);
   return;
 }
 
@@ -1474,9 +1474,8 @@ void __cdecl code_shortcircuit(int param_1,char param_2)
 void codereturn(void)
 
 {
-  ((code *)code_oparg)('{',0,*(uint *)((int)g_pLuaState->pCurrState + 0x90),0);
-  *(undefined4 *)((int)g_pLuaState->pCurrState + 0x88) =
-       *(undefined4 *)((int)g_pLuaState->pCurrState + 0x90);
+  ((code *)code_oparg)('{',0,g_pLuaState->pCurrState->nLocalVar,0);
+  g_pLuaState->pCurrState->nStackSize = g_pLuaState->pCurrState->nLocalVar;
   return;
 }
 
@@ -1493,17 +1492,16 @@ void func_onstack(void)
   int iVar3;
   uint uVar4;
   
-  uVar1 = *(uint *)((int)g_pLuaState->pCurrState + 0x1fc);
-  uVar2 = next_constant(g_pLuaState->pCurrState);
-  *(undefined4 *)(*(int *)(*(int *)g_pLuaState->pCurrState + 8) + uVar2 * 8) = 0xfffffffc;
-  *(int *)(*(int *)(*(int *)g_pLuaState->pCurrState + 8) + 4 + uVar2 * 8) =
-       *(int *)((int)g_pLuaState->pCurrState + 0x168);
+  uVar1 = g_pLuaState->pCurrState[1].nUpvalues;
+  uVar2 = next_constant((int *)g_pLuaState->pCurrState);
+  g_pLuaState->pCurrState->pF->pConsts[uVar2].nTtype = -4;
+  g_pLuaState->pCurrState->pF->pConsts[uVar2].dwValue = (uint)g_pLuaState->pCurrState[1].pF;
   if (uVar1 != 0) {
     if (0 < (int)uVar1) {
       iVar3 = 0x290;
       uVar4 = uVar1;
       do {
-        lua_pushvar(*(int *)((int)g_pLuaState->pCurrState + iVar3));
+        lua_pushvar(*(int *)((int)g_pLuaState->pCurrState->aLocalVar + iVar3 + -8));
         iVar3 = iVar3 + 4;
         uVar4 = uVar4 - 1;
       } while (uVar4 != 0);
@@ -1527,10 +1525,9 @@ void init_func(void)
   if (4 < ((int)g_pLuaState->pCurrState - (int)g_pLuaState->pMainState) / 0x168) {
     luaY_error(s_too_many_nested_functions__limit_10027cb4);
   }
-  g_pLuaState->pCurrState = (void *)((int)g_pLuaState->pCurrState + 0x168);
-  init_state(*(undefined4 *)(*(int *)g_pLuaState->pMainState + 0x18));
+  g_pLuaState->pCurrState = g_pLuaState->pCurrState + 1;
+  init_state(g_pLuaState->pMainState->pF->pFileName);
   luaY_codedebugline(*(uint *)((int)g_pLuaState->pLexState + 8));
-  *(undefined4 *)(*(int *)g_pLuaState->pCurrState + 0x14) =
-       *(undefined4 *)((int)g_pLuaState->pLexState + 8);
+  g_pLuaState->pCurrState->pF->nLineDefined = *(int *)((int)g_pLuaState->pLexState + 8);
   return;
 }

@@ -25,8 +25,8 @@ LState * __fastcall LState_Construct(LState *L)
   L->nUnread = 1;
   L->nUpdated = 0;
   L->nPaused = 0;
-  L->pExecutionState = (void *)0x0;
-  L->pResumeState = (void *)0x0;
+  L->pExecutionState = (ExecutionState *)0x0;
+  L->pResumeState = (ExecutionState *)0x0;
   L->pNext = (LState *)0x0;
   L->pPrev = (LState *)0x0;
   L->nTaskId = g_dwLState_numThreads;
@@ -757,71 +757,73 @@ byte * __cdecl LState_CodeLength(int param_1)
 /* Original name LState_Save (the remaster's libLua.so: LState::Save(writer): assert
    'pExecutionState || !pPreviousState'); was lstate__8640. */
 
-undefined4 __thiscall LState_Save(void *this,int a1)
+undefined4 __thiscall LState_Save(LState *this,int a1)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  ExecutionState *pEVar1;
   int iVar2;
+  int *piVar3;
   #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   local_8 = 0;
   local_4 = -1;
-  if ((*(int *)this == 0) && (*(int *)((int)this + 4) != 0)) {
+  if ((this->pExecutionState == (ExecutionState *)0x0) &&
+     (this->pResumeState != (ExecutionState *)0x0)) {
     (**(code **)(g_dwLuaHS + 0x18))
               (s_pExecutionState_____pPreviousSta_10027870,
                s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x39e);
   }
-  iVar1 = *(int *)this;
-  if (iVar1 != 0) {
+  pEVar1 = this->pExecutionState;
+  if (pEVar1 != (ExecutionState *)0x0) {
     do {
-      if ((*(int *)((int)this + 4) != 0) && (*(int *)((int)this + 4) == iVar1)) {
+      if ((this->pResumeState != (ExecutionState *)0x0) && (this->pResumeState == pEVar1)) {
         local_4 = local_8;
       }
       local_8 = local_8 + 1;
-      iVar1 = *(int *)(iVar1 + 0xc);
-    } while (iVar1 != 0);
+      pEVar1 = pEVar1->pPrev;
+    } while (pEVar1 != (ExecutionState *)0x0);
   }
   (*(code *)a1)(&local_8,4);
-  if (*(void **)this != (void *)0x0) {
-    ExecutionState_Save(*(void **)this,a1);
+  if (this->pExecutionState != (ExecutionState *)0x0) {
+    ExecutionState_Save(this->pExecutionState,a1);
   }
   (*(code *)a1)(&local_4,4);
-  (*(code *)a1)((int)this + 8,4);
-  (*(code *)a1)((int)this + 0xc,4);
-  (*(code *)a1)((int)this + 0x10,4);
-  (*(code *)a1)((int)this + 0x14,4);
-  (*(code *)a1)((int)this + 0x18,4);
-  iStack_c = (*(int *)((int)this + 0x24) - *(int *)((int)this + 0x20) >> 3) + 1;
+  (*(code *)a1)(&this->nPreventBreak,4);
+  (*(code *)a1)(&this->nUnread,4);
+  (*(code *)a1)(&this->nUpdated,4);
+  (*(code *)a1)(&this->nPaused,4);
+  (*(code *)a1)(&this->nNestingLevel,4);
+  iStack_c = ((int)this->pLast - (int)this->pStack >> 3) + 1;
   (*(code *)a1)(&iStack_c,4);
-  iStack_c = *(int *)((int)this + 0x1c) - *(int *)((int)this + 0x20) >> 3;
+  iStack_c = (int)this->pTop - (int)this->pStack >> 3;
   (*(code *)a1)(&iStack_c,4);
-  iVar1 = 0;
+  iVar2 = 0;
   if (0 < iStack_c) {
     do {
-      LState_SaveObject(*(int *)((int)this + 0x20) + iVar1 * 8,a1);
-      iVar1 = iVar1 + 1;
-    } while (iVar1 < iStack_c);
+      LState_SaveObject((int)(this->pStack + iVar2),a1);
+      iVar2 = iVar2 + 1;
+    } while (iVar2 < iStack_c);
   }
-  (*(code *)a1)((int)this + 0x28,4);
-  (*(code *)a1)((int)this + 0x2c,4);
-  (*(code *)a1)((int)this + 0x30,4);
-  (*(code *)a1)((int *)((int)this + 0xbc),4);
-  iVar1 = 0;
-  if (0 < *(int *)((int)this + 0xbc)) {
-    iVar2 = (int)this + 0x48;
+  (*(code *)a1)(&this->Cstack,4);
+  (*(code *)a1)(&(this->Cstack).nLua2C,4);
+  (*(code *)a1)(&(this->Cstack).nNum,4);
+  (*(code *)a1)(&this->nNumCblocks,4);
+  iVar2 = 0;
+  if (0 < this->nNumCblocks) {
+    piVar3 = &this->aCblocks[0].nLua2C;
     do {
-      (*(code *)a1)(iVar2 + -4,4);
-      (*(code *)a1)(iVar2,4);
-      (*(code *)a1)(iVar2 + 4,4);
-      iVar1 = iVar1 + 1;
-      iVar2 = iVar2 + 0xc;
-    } while (iVar1 < *(int *)((int)this + 0xbc));
+      (*(code *)a1)((CLuaStack *)(piVar3 + -1),4);
+      (*(code *)a1)(piVar3,4);
+      (*(code *)a1)(piVar3 + 1,4);
+      iVar2 = iVar2 + 1;
+      piVar3 = piVar3 + 3;
+    } while (iVar2 < this->nNumCblocks);
   }
-  (*(code *)a1)((int)this + 0xc0,4);
-  LState_SaveObject((int)this + 0xc4,a1);
+  (*(code *)a1)(&this->nTaskId,4);
+  LState_SaveObject((int)&this->taskFunc,a1);
   return 0;
 }
 #undef iStack_c
@@ -833,94 +835,97 @@ undefined4 __thiscall LState_Save(void *this,int a1)
 /* Original name LState_Restore (the remaster's libLua.so: LState::Restore(reader): caller
    lua_Restore, restores the execution states (ExecutionState_Restore / _New)); was lstate__87f0. */
 
-undefined4 __thiscall LState_Restore(void *this,int a1)
+undefined4 __thiscall LState_Restore(LState *this,int a1)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   int a1_00;
-  void *this_00;
-  int iVar2;
-  int iVar3;
+  ExecutionState *pEVar2;
+  TObject *pTVar3;
+  int iVar4;
+  int *piVar5;
+  int iVar6;
   #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
   #define iStack_18 (*(int *)(_frame + (0x30 - 0x18)))
   #define iStack_14 (*(int *)(_frame + (0x30 - 0x14)))
-  #define pvStack_10 (*(void **)(_frame + (0x30 - 0x10)))
+  #define pEStack_10 (*(ExecutionState **)(_frame + (0x30 - 0x10)))
   
   a1_00 = a1;
-  iVar3 = 0;
+  iVar6 = 0;
   local_1c = 0;
   (*(code *)a1)(&local_1c,4);
   if (local_1c == 0) {
-    *(undefined4 *)this = 0;
+    this->pExecutionState = (ExecutionState *)0x0;
   }
   else {
-    pvStack_10 = ExecutionState_New(0x30);
-    if (pvStack_10 == (void *)0x0) {
-      this_00 = (void *)0x0;
+    pEStack_10 = ExecutionState_New(0x30);
+    if (pEStack_10 == (ExecutionState *)0x0) {
+      pEVar2 = (ExecutionState *)0x0;
     }
     else {
-      this_00 = (void *)ExecutionState_Construct(pvStack_10,0,0,0);
+      pEVar2 = (ExecutionState *)ExecutionState_Construct(pEStack_10,0,0,0);
     }
-    *(void **)this = this_00;
-    ExecutionState_Restore(this_00,a1_00,(int)this + 0x1c,local_1c + -1);
+    this->pExecutionState = pEVar2;
+    ExecutionState_Restore(pEVar2,a1_00,(int)&this->pTop,local_1c + -1);
   }
   (*(code *)a1_00)(&a1,4);
   if (a1 < 0) {
-    *(undefined4 *)((int)this + 4) = 0;
+    this->pResumeState = (ExecutionState *)0x0;
   }
   else {
-    iVar2 = *(int *)this;
+    pEVar2 = this->pExecutionState;
     while (bVar1 = a1 != 0, a1 = a1 + -1, bVar1) {
-      iVar2 = *(int *)(iVar2 + 0xc);
+      pEVar2 = pEVar2->pPrev;
     }
-    *(int *)((int)this + 4) = iVar2;
+    this->pResumeState = pEVar2;
     a1 = -1;
   }
-  (*(code *)a1_00)((int)this + 8,4);
-  (*(code *)a1_00)((int)this + 0xc,4);
-  (*(code *)a1_00)((int)this + 0x10,4);
-  (*(code *)a1_00)((int)this + 0x14,4);
-  (*(code *)a1_00)((int)this + 0x18,4);
+  (*(code *)a1_00)(&this->nPreventBreak,4);
+  (*(code *)a1_00)(&this->nUnread,4);
+  (*(code *)a1_00)(&this->nUpdated,4);
+  (*(code *)a1_00)(&this->nPaused,4);
+  (*(code *)a1_00)(&this->nNestingLevel,4);
   (*(code *)a1_00)(&iStack_18,4);
-  if (*(int *)((int)this + 0x20) != 0) {
-    (**(code **)(g_dwLuaHS + 0x24))(*(int *)((int)this + 0x20));
+  if (this->pStack != (TObject *)0x0) {
+    (**(code **)(g_dwLuaHS + 0x24))(this->pStack);
   }
-  iVar2 = (**(code **)(g_dwLuaHS + 0x20))
-                    (iStack_18 * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x41e);
-  *(int *)((int)this + 0x20) = iVar2;
-  *(int *)((int)this + 0x24) = iVar2 + -8 + iStack_18 * 8;
+  pTVar3 = (TObject *)
+           (**(code **)(g_dwLuaHS + 0x20))
+                     (iStack_18 * 8,s_C__grimsrc_libs_lua_src_lstate_c_100277cc,0x41e);
+  this->pStack = pTVar3;
+  this->pLast = pTVar3 + iStack_18 + -1;
   (*(code *)a1_00)(&iStack_14,4);
-  iVar2 = 0;
-  *(int *)((int)this + 0x1c) = *(int *)((int)this + 0x20) + iStack_14 * 8;
+  iVar4 = 0;
+  this->pTop = this->pStack + iStack_14;
   if (0 < iStack_14) {
     do {
-      LState_LoadResolvedObject(*(int *)((int)this + 0x20) + iVar2 * 8,a1_00);
-      iVar2 = iVar2 + 1;
-    } while (iVar2 < iStack_14);
+      LState_LoadResolvedObject((int)(this->pStack + iVar4),a1_00);
+      iVar4 = iVar4 + 1;
+    } while (iVar4 < iStack_14);
   }
-  (*(code *)a1_00)((int)this + 0x28,4);
-  (*(code *)a1_00)((int)this + 0x2c,4);
-  (*(code *)a1_00)((int)this + 0x30,4);
-  (*(code *)a1_00)((int *)((int)this + 0xbc),4);
-  if (0 < *(int *)((int)this + 0xbc)) {
-    iVar2 = (int)this + 0x48;
+  (*(code *)a1_00)(&this->Cstack,4);
+  (*(code *)a1_00)(&(this->Cstack).nLua2C,4);
+  (*(code *)a1_00)(&(this->Cstack).nNum,4);
+  (*(code *)a1_00)(&this->nNumCblocks,4);
+  if (0 < this->nNumCblocks) {
+    piVar5 = &this->aCblocks[0].nLua2C;
     do {
-      (*(code *)a1_00)(iVar2 + -4,4);
-      (*(code *)a1_00)(iVar2,4);
-      (*(code *)a1_00)(iVar2 + 4,4);
-      iVar3 = iVar3 + 1;
-      iVar2 = iVar2 + 0xc;
-    } while (iVar3 < *(int *)((int)this + 0xbc));
+      (*(code *)a1_00)((CLuaStack *)(piVar5 + -1),4);
+      (*(code *)a1_00)(piVar5,4);
+      (*(code *)a1_00)(piVar5 + 1,4);
+      iVar6 = iVar6 + 1;
+      piVar5 = piVar5 + 3;
+    } while (iVar6 < this->nNumCblocks);
   }
-  (*(code *)a1_00)((int)this + 0xc0,4);
-  LState_LoadResolvedObject((int)this + 0xc4,a1_00);
+  (*(code *)a1_00)(&this->nTaskId,4);
+  LState_LoadResolvedObject((int)&this->taskFunc,a1_00);
   return 0;
 }
 #undef iStack_14
 #undef iStack_18
 #undef local_1c
-#undef pvStack_10
+#undef pEStack_10
 
 
 /* ---- 0x10008ad0  lua_newstate ---- */
@@ -952,24 +957,24 @@ undefined4 * lua_newstate(void)
 /* Original name LState_attach (the remaster's libLua.so: LState::attach(LState*): links the state
    after another (+0xcc next, +0xd0 prev)); was lstate__8b70. */
 
-int __thiscall LState_attach(void *this,int a1)
+int __thiscall LState_attach(LState *this,int a1)
 
 {
-  int extraout_EAX;
-  int iVar1;
+  LState *extraout_EAX;
+  LState *pLVar1;
   
   LState_detach(this);
-  iVar1 = extraout_EAX;
+  pLVar1 = extraout_EAX;
   if (a1 != 0) {
-    iVar1 = *(int *)(a1 + 0xcc);
-    *(int *)((int)this + 0xcc) = iVar1;
-    if (iVar1 != 0) {
-      *(void **)(iVar1 + 0xd0) = this;
+    pLVar1 = *(LState **)(a1 + 0xcc);
+    this->pNext = pLVar1;
+    if (pLVar1 != (LState *)0x0) {
+      pLVar1->pPrev = this;
     }
-    *(void **)(a1 + 0xcc) = this;
-    *(int *)((int)this + 0xd0) = a1;
+    *(LState **)(a1 + 0xcc) = this;
+    this->pPrev = (LState *)a1;
   }
-  return iVar1;
+  return (int)pLVar1;
 }
 #endif
 
@@ -1010,7 +1015,7 @@ void __fastcall LState_Destruct(LState *L)
 
 {
   LState_detach(L);
-  if (L->pExecutionState != (void *)0x0) {
+  if (L->pExecutionState != (ExecutionState *)0x0) {
     luaD_deletestates((int)L->pExecutionState);
   }
   (**(code **)(g_dwLuaHS + 0x24))(L->pStack);

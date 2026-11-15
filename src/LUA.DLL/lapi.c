@@ -968,13 +968,13 @@ int __cdecl lua_updatetasks(int param_1)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  ExecutionState *es;
+  LState *pLVar1;
   LState *pLVar2;
-  LState *pLVar3;
-  int iVar4;
-  uint uVar5;
+  int iVar3;
+  uint uVar4;
   undefined4 unaff_ESI;
-  LState *pLVar6;
+  LState *pLVar5;
   int unaff_EDI;
   #define local_4c (*(undefined4 (*)[16])(_frame + (0x60 - 0x4c)))
   #define local_c (*(LState **)(_frame + (0x60 - 0xc)))
@@ -983,56 +983,55 @@ int __cdecl lua_updatetasks(int param_1)
                     /* 0x1e10  85  lua_updatetasks */
   local_c = g_pLuaState;
 LAB_10001e23:
-  pLVar3 = LState_next(g_pLuaState);
-  pLVar6 = local_c;
-  while (local_c = pLVar6, pLVar3 != (LState *)0x0) {
-    for (pvVar1 = pLVar3->pExecutionState; pvVar1 != (void *)0x0;
-        pvVar1 = *(void **)((int)pvVar1 + 0xc)) {
-      ExecutionState_resetcounter((int)pvVar1);
+  pLVar2 = LState_next(g_pLuaState);
+  pLVar5 = local_c;
+  while (local_c = pLVar5, pLVar2 != (LState *)0x0) {
+    for (es = pLVar2->pExecutionState; es != (ExecutionState *)0x0; es = es->pPrev) {
+      ExecutionState_resetcounter(es);
     }
-    pLVar3->nUpdated = 0;
-    pLVar3 = LState_next(pLVar3);
-    pLVar6 = local_c;
+    pLVar2->nUpdated = 0;
+    pLVar2 = LState_next(pLVar2);
+    pLVar5 = local_c;
   }
   do {
-    pLVar3 = LState_next(g_pLuaState);
-    while (g_pLuaState = pLVar3, pLVar3 = pLVar6, pLVar2 = pLVar6, g_pLuaState != (LState *)0x0) {
+    pLVar2 = LState_next(g_pLuaState);
+    while (g_pLuaState = pLVar2, pLVar2 = pLVar5, pLVar1 = pLVar5, g_pLuaState != (LState *)0x0) {
       if ((g_pLuaState->nUpdated == 0) && (g_pLuaState->nPaused == 0)) {
         local_8 = 4;
         g_pLuaState->pErrorJmp = local_4c;
-        iVar4 = _setjmp3(local_4c,0,unaff_EDI,unaff_ESI);
-        if (iVar4 == 0) {
-          if (g_pLuaState->pExecutionState == (void *)0x0) {
-            iVar4 = (g_pLuaState->Cstack).nBase;
-            luaD_openstack(((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - iVar4);
+        iVar3 = _setjmp3(local_4c,0,unaff_EDI,unaff_ESI);
+        if (iVar3 == 0) {
+          if (g_pLuaState->pExecutionState == (ExecutionState *)0x0) {
+            iVar3 = (g_pLuaState->Cstack).nBase;
+            luaD_openstack(((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - iVar3);
             ((code *)set_normalized)(g_pLuaState->pStack + (g_pLuaState->Cstack).nBase,&g_pLuaState->taskFunc)
             ;
             if (lua_taskhook != 0) {
               luaD_taskHook(g_pLuaState->nTaskId,0);
             }
-            uVar5 = luaD_call(iVar4 + 1,0xff);
+            uVar4 = luaD_call(iVar3 + 1,0xff);
           }
           else {
             if (lua_taskhook != 0) {
               luaD_taskHook(g_pLuaState->nTaskId,2);
             }
-            uVar5 = luaD_call(*(int *)((int)g_pLuaState->pExecutionState + 0x10),
-                              *(int *)((int)g_pLuaState->pExecutionState + 0x14));
+            uVar4 = luaD_call(g_pLuaState->pExecutionState->nCallPos,
+                              g_pLuaState->pExecutionState->nResults);
           }
         }
         else {
           local_8 = 3;
           luaD_deletestates((int)g_pLuaState->pExecutionState);
-          uVar5 = 0;
-          g_pLuaState->pExecutionState = (void *)0x0;
+          uVar4 = 0;
+          g_pLuaState->pExecutionState = (ExecutionState *)0x0;
         }
-        if (uVar5 != 0) {
-          if (g_pLuaState->pExecutionState == (void *)0x0) {
+        if (uVar4 != 0) {
+          if (g_pLuaState->pExecutionState == (ExecutionState *)0x0) {
             (**(code **)(g_dwLuaHS + 0x18))
                       (s_L__pExecutionState_100261dc,s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4,
                        0x2fe);
           }
-          if (uVar5 != 0) {
+          if (uVar4 != 0) {
             if (lua_taskhook != 0) {
               luaD_taskHook(g_pLuaState->nTaskId,1);
             }
@@ -1043,33 +1042,33 @@ LAB_10001e23:
         if (lua_taskhook != 0) {
           luaD_taskHook(g_pLuaState->nTaskId,local_8);
         }
-        pLVar3 = LState_next(g_pLuaState);
-        pLVar2 = g_pLuaState;
-        pLVar6 = local_c;
+        pLVar2 = LState_next(g_pLuaState);
+        pLVar1 = g_pLuaState;
+        pLVar5 = local_c;
         if (g_pLuaState != (LState *)0x0) {
           LState_Destruct(g_pLuaState);
-          luaM_free(pLVar2);
-          pLVar6 = local_c;
+          luaM_free(pLVar1);
+          pLVar5 = local_c;
         }
       }
       else {
 LAB_1000201b:
-        pLVar3 = LState_next(g_pLuaState);
-        pLVar6 = local_c;
+        pLVar2 = LState_next(g_pLuaState);
+        pLVar5 = local_c;
       }
     }
     do {
-      g_pLuaState = pLVar2;
-      pLVar3 = LState_next(pLVar3);
-      if (pLVar3 == (LState *)0x0) {
-        if ((param_1 == 0) || (pLVar3 = LState_next(g_pLuaState), pLVar3 == (LState *)0x0)) {
-          pLVar3 = LState_next(g_pLuaState);
-          return pLVar3 != (LState *)0x0;
+      g_pLuaState = pLVar1;
+      pLVar2 = LState_next(pLVar2);
+      if (pLVar2 == (LState *)0x0) {
+        if ((param_1 == 0) || (pLVar2 = LState_next(g_pLuaState), pLVar2 == (LState *)0x0)) {
+          pLVar2 = LState_next(g_pLuaState);
+          return pLVar2 != (LState *)0x0;
         }
         goto LAB_10001e23;
       }
-      pLVar2 = g_pLuaState;
-    } while ((pLVar3->nUpdated != 0) || (pLVar3->nPaused != 0));
+      pLVar1 = g_pLuaState;
+    } while ((pLVar2->nUpdated != 0) || (pLVar2->nPaused != 0));
   } while( true );
 }
 #undef local_4c

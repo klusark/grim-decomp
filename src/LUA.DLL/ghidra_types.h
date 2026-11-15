@@ -221,6 +221,8 @@ static inline void *img_addr_(unsigned a) {
  * are only declared here: none. */
 typedef struct CLuaStack CLuaStack;
 typedef struct Closure Closure;
+typedef struct ExecutionState ExecutionState;
+typedef struct FuncState FuncState;
 typedef struct Hash Hash;
 typedef struct LState LState;
 typedef struct LocVar LocVar;
@@ -260,6 +262,78 @@ _Static_assert(__builtin_offsetof(Closure, nMarked) == 0x4, "Closure.nMarked");
 _Static_assert(__builtin_offsetof(Closure, nNelems) == 0x8, "Closure.nNelems");
 _Static_assert(__builtin_offsetof(Closure, aConsts) == 0xc, "Closure.aConsts");
 _Static_assert(sizeof(Closure) == 0x14, "sizeof Closure");
+/* ExecutionState: One call frame of a Lua task (lvm.cpp's ExecutionState: the remaster's libLua.so names it); a task's frames are linked through pPrev, free ones too (g_pExecutionState_pFreeStates). */
+struct ExecutionState {  /* 0x30 */
+    Closure *pClosure;  /* 0x00: the closure being run (setvalues) */
+    TProtoFunc *pProto;  /* 0x04: its function prototype */
+    int nBase;  /* 0x08: stack index of the first argument */
+    ExecutionState *pPrev;  /* 0x0c: the calling frame (the free list's link while unused) */
+    int nCallPos;  /* 0x10: luaD_call's stack position of the call */
+    int nResults;  /* 0x14: results wanted */
+    int nCmarkFlag;  /* 0x18: luaD_call tests it at an unexpected C mark */
+    TObject **ppTop;  /* 0x1c: &L->pTop of the task */
+    byte *pPc;  /* 0x20: the next opcode in pProto->pCode */
+    int nAux;  /* 0x24: ExecutionState_getaux */
+    int nCounter;  /* 0x28: ExecutionState_resetcounter clears it */
+    TObject *pConsts;  /* 0x2c: pProto->pConsts */
+};
+_Static_assert(__builtin_offsetof(ExecutionState, pClosure) == 0x0, "ExecutionState.pClosure");
+_Static_assert(__builtin_offsetof(ExecutionState, pProto) == 0x4, "ExecutionState.pProto");
+_Static_assert(__builtin_offsetof(ExecutionState, nBase) == 0x8, "ExecutionState.nBase");
+_Static_assert(__builtin_offsetof(ExecutionState, pPrev) == 0xc, "ExecutionState.pPrev");
+_Static_assert(__builtin_offsetof(ExecutionState, nCallPos) == 0x10, "ExecutionState.nCallPos");
+_Static_assert(__builtin_offsetof(ExecutionState, nResults) == 0x14, "ExecutionState.nResults");
+_Static_assert(__builtin_offsetof(ExecutionState, nCmarkFlag) == 0x18, "ExecutionState.nCmarkFlag");
+_Static_assert(__builtin_offsetof(ExecutionState, ppTop) == 0x1c, "ExecutionState.ppTop");
+_Static_assert(__builtin_offsetof(ExecutionState, pPc) == 0x20, "ExecutionState.pPc");
+_Static_assert(__builtin_offsetof(ExecutionState, nAux) == 0x24, "ExecutionState.nAux");
+_Static_assert(__builtin_offsetof(ExecutionState, nCounter) == 0x28, "ExecutionState.nCounter");
+_Static_assert(__builtin_offsetof(ExecutionState, pConsts) == 0x2c, "ExecutionState.pConsts");
+_Static_assert(sizeof(ExecutionState) == 0x30, "sizeof ExecutionState");
+/* FuncState: The parser's state of one function being compiled (Lua 3.1 lparser FuncState, Grim's layout): kept in an array, LState.pCurrState - 1 is the enclosing function's. */
+struct FuncState {  /* 0x168 */
+    TProtoFunc *pF;  /* 0x00: the function being built */
+    int nPc;  /* 0x04: next position to code */
+    TaggedString *aLocalVar[32];  /* 0x08: the names of the active local variables (store_localvar) */
+    int nStackSize;  /* 0x88: values on the activation register */
+    int nMaxStackSize;  /* 0x8c: the maximum of nStackSize (at most 255) */
+    int nLocalVar;  /* 0x90: active local variables */
+    int nUpvalues;  /* 0x94: upvalues (at most 16) */
+    int nVars;  /* 0x98: entries in pF->pLocvars */
+    int nMaxCode;  /* 0x9c: size of pF->pCode */
+    int nMaxVars;  /* 0xa0: size of pF->pLocvars (-1: no debug information) */
+    int nMaxConsts;  /* 0xa4: size of pF->pConsts */
+    uint8_t field_0xa8, field_0xa9, field_0xaa, field_0xab, field_0xac, field_0xad, field_0xae, field_0xaf;
+    uint8_t field_0xb0, field_0xb1, field_0xb2, field_0xb3, field_0xb4, field_0xb5, field_0xb6, field_0xb7;
+    uint8_t field_0xb8, field_0xb9, field_0xba, field_0xbb, field_0xbc, field_0xbd, field_0xbe, field_0xbf;
+    uint8_t field_0xc0, field_0xc1, field_0xc2, field_0xc3, field_0xc4, field_0xc5, field_0xc6, field_0xc7;
+    uint8_t field_0xc8, field_0xc9, field_0xca, field_0xcb, field_0xcc, field_0xcd, field_0xce, field_0xcf;
+    uint8_t field_0xd0, field_0xd1, field_0xd2, field_0xd3, field_0xd4, field_0xd5, field_0xd6, field_0xd7;
+    uint8_t field_0xd8, field_0xd9, field_0xda, field_0xdb, field_0xdc, field_0xdd, field_0xde, field_0xdf;
+    uint8_t field_0xe0, field_0xe1, field_0xe2, field_0xe3, field_0xe4, field_0xe5, field_0xe6, field_0xe7;
+    uint8_t field_0xe8, field_0xe9, field_0xea, field_0xeb, field_0xec, field_0xed, field_0xee, field_0xef;
+    uint8_t field_0xf0, field_0xf1, field_0xf2, field_0xf3, field_0xf4, field_0xf5, field_0xf6, field_0xf7;
+    uint8_t field_0xf8, field_0xf9, field_0xfa, field_0xfb, field_0xfc, field_0xfd, field_0xfe, field_0xff;
+    uint8_t field_0x100, field_0x101, field_0x102, field_0x103, field_0x104, field_0x105, field_0x106, field_0x107;
+    uint8_t field_0x108, field_0x109, field_0x10a, field_0x10b, field_0x10c, field_0x10d, field_0x10e, field_0x10f;
+    uint8_t field_0x110, field_0x111, field_0x112, field_0x113, field_0x114, field_0x115, field_0x116, field_0x117;
+    uint8_t field_0x118, field_0x119, field_0x11a, field_0x11b, field_0x11c, field_0x11d, field_0x11e, field_0x11f;
+    uint8_t field_0x120, field_0x121, field_0x122, field_0x123, field_0x124, field_0x125, field_0x126, field_0x127;
+    int aUpvalues[16];  /* 0x128: the upvalues' variable descriptors (singlevar) */
+};
+_Static_assert(__builtin_offsetof(FuncState, pF) == 0x0, "FuncState.pF");
+_Static_assert(__builtin_offsetof(FuncState, nPc) == 0x4, "FuncState.nPc");
+_Static_assert(__builtin_offsetof(FuncState, aLocalVar) == 0x8, "FuncState.aLocalVar");
+_Static_assert(__builtin_offsetof(FuncState, nStackSize) == 0x88, "FuncState.nStackSize");
+_Static_assert(__builtin_offsetof(FuncState, nMaxStackSize) == 0x8c, "FuncState.nMaxStackSize");
+_Static_assert(__builtin_offsetof(FuncState, nLocalVar) == 0x90, "FuncState.nLocalVar");
+_Static_assert(__builtin_offsetof(FuncState, nUpvalues) == 0x94, "FuncState.nUpvalues");
+_Static_assert(__builtin_offsetof(FuncState, nVars) == 0x98, "FuncState.nVars");
+_Static_assert(__builtin_offsetof(FuncState, nMaxCode) == 0x9c, "FuncState.nMaxCode");
+_Static_assert(__builtin_offsetof(FuncState, nMaxVars) == 0xa0, "FuncState.nMaxVars");
+_Static_assert(__builtin_offsetof(FuncState, nMaxConsts) == 0xa4, "FuncState.nMaxConsts");
+_Static_assert(__builtin_offsetof(FuncState, aUpvalues) == 0x128, "FuncState.aUpvalues");
+_Static_assert(sizeof(FuncState) == 0x168, "sizeof FuncState");
 /* Hash: A Lua table (ltable.c): open-addressed slots, rehashed at 70% use. */
 struct Hash {  /* 0x18 */
     Hash *pNext;  /* 0x00: GCnode: the next table of roottable */
@@ -278,8 +352,8 @@ _Static_assert(__builtin_offsetof(Hash, nHtag) == 0x14, "Hash.nHtag");
 _Static_assert(sizeof(Hash) == 0x18, "sizeof Hash");
 /* LState: One Lua task (lstate.c LState): g_pLuaState is the running one, g_dwL_Main the first. */
 struct LState {  /* 0xd4 */
-    void *pExecutionState;  /* 0x00: the task's chain of execution states (call frames), linked through their +0x0c (lapi.cpp's assert names it L->pExecutionState) */
-    void *pResumeState;  /* 0x04: the execution state the task goes on in after luaI_breakhere (luaD_call) */
+    ExecutionState *pExecutionState;  /* 0x00: the task's chain of execution states (call frames), linked through their +0x0c (lapi.cpp's assert names it L->pExecutionState) */
+    ExecutionState *pResumeState;  /* 0x04: the execution state the task goes on in after luaI_breakhere (luaD_call) */
     int nPreventBreak;  /* 0x08: luaI_breakhere yields only while 0; protected and C calls raise it */
     int nUnread;  /* 0x0c: LState_Construct sets it to 1; nothing reads it */
     int nUpdated;  /* 0x10: the task ran in this lua_updatetasks round (cleared for every task when a round starts) */
@@ -290,8 +364,8 @@ struct LState {  /* 0xd4 */
     TObject *pLast;  /* 0x24: end of the stack */
     CLuaStack Cstack;  /* 0x28: the running C function's frame */
     void *pErrorJmp;  /* 0x34: the setjmp buffer lua_error leaves through */
-    void *pMainState;  /* 0x38: the parser's main FuncState (0x168 bytes, on luaY_parser's stack) */
-    void *pCurrState;  /* 0x3c: the FuncState being compiled */
+    FuncState *pMainState;  /* 0x38: the parser's main FuncState (0x168 bytes, on luaY_parser's stack) */
+    FuncState *pCurrState;  /* 0x3c: the FuncState being compiled */
     void *pLexState;  /* 0x40: the lexer's state (build/overrides.c: [0] the current character, [1] the input) */
     CLuaStack aCblocks[10];  /* 0x44: the C stacks saved by lua_beginblock */
     int nNumCblocks;  /* 0xbc */

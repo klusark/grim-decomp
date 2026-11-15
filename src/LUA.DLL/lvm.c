@@ -270,15 +270,15 @@ void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab)
 void ExecutionState_CleanUp(void)
 
 {
-  void *pvVar1;
+  ExecutionState *pEVar1;
   
-  if (g_pExecutionState_pFreeStates != (void *)0x0) {
+  if (g_pExecutionState_pFreeStates != (ExecutionState *)0x0) {
     do {
-      pvVar1 = *(void **)((int)g_pExecutionState_pFreeStates + 0xc);
+      pEVar1 = g_pExecutionState_pFreeStates->pPrev;
       luaM_free(g_pExecutionState_pFreeStates);
-      g_pExecutionState_pFreeStates = pvVar1;
-    } while (pvVar1 != (void *)0x0);
-    g_pExecutionState_pFreeStates = (void *)0x0;
+      g_pExecutionState_pFreeStates = pEVar1;
+    } while (pEVar1 != (ExecutionState *)0x0);
+    g_pExecutionState_pFreeStates = (ExecutionState *)0x0;
   }
   return;
 }
@@ -287,24 +287,24 @@ void ExecutionState_CleanUp(void)
 /* Original name ExecutionState_Save (the remaster's libLua.so: ExecutionState::Save(writer): the
    previous state first (+0xc), then the fields (caller LState::Save)); was lvm__db40. */
 
-undefined4 __thiscall ExecutionState_Save(void *this,int a1)
+undefined4 __thiscall ExecutionState_Save(ExecutionState *this,int a1)
 
 {
   int iVar1;
   
   iVar1 = a1;
-  if (*(void **)((int)this + 0xc) != (void *)0x0) {
-    ExecutionState_Save(*(void **)((int)this + 0xc),a1);
+  if (this->pPrev != (ExecutionState *)0x0) {
+    ExecutionState_Save(this->pPrev,a1);
   }
   (*(code *)iVar1)(this,4);
-  (*(code *)iVar1)((int *)((int)this + 4),4);
-  (*(code *)iVar1)((int)this + 8,4);
-  (*(code *)iVar1)((int)this + 0x10,4);
-  (*(code *)iVar1)((int)this + 0x14,4);
-  (*(code *)iVar1)((int)this + 0x18,4);
-  a1 = *(int *)((int)this + 0x20) - *(int *)(*(int *)((int)this + 4) + 0x10);
+  (*(code *)iVar1)(&this->pProto,4);
+  (*(code *)iVar1)(&this->nBase,4);
+  (*(code *)iVar1)(&this->nCallPos,4);
+  (*(code *)iVar1)(&this->nResults,4);
+  (*(code *)iVar1)(&this->nCmarkFlag,4);
+  a1 = (int)this->pPc - (int)this->pProto->pCode;
   (*(code *)iVar1)(&a1,4);
-  (*(code *)iVar1)((int)this + 0x24,4);
+  (*(code *)iVar1)(&this->nAux,4);
   return 0;
 }
 
@@ -312,44 +312,45 @@ undefined4 __thiscall ExecutionState_Save(void *this,int a1)
 /* Original name ExecutionState_Restore (the remaster's libLua.so: ExecutionState::Restore: caller
    LState::Restore, callees ResolveObject, new); was lvm__dbd0. */
 
-undefined4 __thiscall ExecutionState_Restore(void *this,int a1,int a2,int a3)
+undefined4 __thiscall
+ExecutionState_Restore(ExecutionState *this,int a1,int a2,int a3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  void *pvVar2;
+  ExecutionState *pEVar2;
   #define local_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
+  #define local_10 (*(TProtoFunc **)(_frame + (0x30 - 0x10)))
   
   iVar1 = a3;
   if (a3 != 0) {
-    pvVar2 = ExecutionState_New(0x30);
-    if (pvVar2 == (void *)0x0) {
-      pvVar2 = (void *)0x0;
+    pEVar2 = ExecutionState_New(0x30);
+    if (pEVar2 == (ExecutionState *)0x0) {
+      pEVar2 = (ExecutionState *)0x0;
     }
     else {
-      pvVar2 = (void *)ExecutionState_Construct(pvVar2,0,0,0);
+      pEVar2 = (ExecutionState *)ExecutionState_Construct(pEVar2,0,0,0);
     }
-    *(void **)((int)this + 0xc) = pvVar2;
-    ExecutionState_Restore(pvVar2,a1,a2,iVar1 + -1);
+    this->pPrev = pEVar2;
+    ExecutionState_Restore(pEVar2,a1,a2,iVar1 + -1);
   }
-  *(int *)((int)this + 0x1c) = a2;
+  this->ppTop = (TObject **)a2;
   local_14 = 0xfffffff8;
   (*(code *)a1)(&local_10,4);
   LState_ResolveObject((int)&local_14);
-  *(undefined4 *)this = local_10;
+  this->pClosure = (Closure *)local_10;
   local_14 = 0xfffffffc;
   (*(code *)a1)(&local_10,4);
   LState_ResolveObject((int)&local_14);
-  *(undefined4 *)((int)this + 4) = local_10;
-  (*(code *)a1)((int)this + 8,4);
-  (*(code *)a1)((int)this + 0x10,4);
-  (*(code *)a1)((int)this + 0x14,4);
-  (*(code *)a1)((int)this + 0x18,4);
+  this->pProto = local_10;
+  (*(code *)a1)(&this->nBase,4);
+  (*(code *)a1)(&this->nCallPos,4);
+  (*(code *)a1)(&this->nResults,4);
+  (*(code *)a1)(&this->nCmarkFlag,4);
   (*(code *)a1)(&a3,4);
-  *(int *)((int)this + 0x20) = *(int *)(*(int *)((int)this + 4) + 0x10) + a3;
-  (*(code *)a1)((int)this + 0x24,4);
-  *(undefined4 *)((int)this + 0x2c) = *(undefined4 *)(*(int *)((int)this + 4) + 8);
+  this->pPc = this->pProto->pCode + a3;
+  (*(code *)a1)(&this->nAux,4);
+  this->pConsts = this->pProto->pConsts;
   return 0;
 }
 #undef local_10
@@ -360,33 +361,35 @@ undefined4 __thiscall ExecutionState_Restore(void *this,int a1,int a2,int a3)
 /* Original name ExecutionState_New (the remaster's libLua.so: ExecutionState::operator new: takes a
    state from the free list or allocates one); was lvm__dd10. */
 
-void * __cdecl ExecutionState_New(int size)
+ExecutionState * __cdecl ExecutionState_New(int size)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  ExecutionState *pEVar1;
   int iVar2;
   #define local_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  pvVar1 = g_pExecutionState_pFreeStates;
-  if (g_pExecutionState_pFreeStates == (void *)0x0) {
+  pEVar1 = g_pExecutionState_pFreeStates;
+  if (g_pExecutionState_pFreeStates == (ExecutionState *)0x0) {
     iVar2 = 10;
     do {
       local_4 = 0xffffffff;
-      pvVar1 = luaM_malloc(0x30);
+      pEVar1 = luaM_malloc(0x30);
       local_4 = 0;
-      if (pvVar1 == (void *)0x0) {
-        pvVar1 = (void *)0x0;
+      if (pEVar1 == (ExecutionState *)0x0) {
+        pEVar1 = (ExecutionState *)0x0;
       }
       else {
-        pvVar1 = (void *)ExecutionState_Construct(pvVar1,(int)g_pExecutionState_pFreeStates,0,0);
+        pEVar1 = (ExecutionState *)
+                 ExecutionState_Construct
+                           (pEVar1,(int)g_pExecutionState_pFreeStates,0,0);
       }
       iVar2 = iVar2 + -1;
-      g_pExecutionState_pFreeStates = pvVar1;
+      g_pExecutionState_pFreeStates = pEVar1;
     } while (iVar2 != 0);
   }
-  g_pExecutionState_pFreeStates = *(void **)((int)pvVar1 + 0xc);
-  return pvVar1;
+  g_pExecutionState_pFreeStates = pEVar1->pPrev;
+  return pEVar1;
 }
 #undef local_4
 
@@ -398,8 +401,8 @@ void * __cdecl ExecutionState_New(int size)
 void __cdecl ExecutionState_Delete(int param_1)
 
 {
-  *(void **)(param_1 + 0xc) = g_pExecutionState_pFreeStates;
-  g_pExecutionState_pFreeStates = (void *)param_1;
+  *(ExecutionState **)(param_1 + 0xc) = g_pExecutionState_pFreeStates;
+  g_pExecutionState_pFreeStates = (ExecutionState *)param_1;
   return;
 }
 
@@ -408,14 +411,14 @@ void __cdecl ExecutionState_Delete(int param_1)
    ExecutionState::ExecutionState(ExecutionState*, int, int): +0xc, +0x10, +0x14, clears +0x18 /
    +0x28 (same body)); was lvm__ddb0. */
 
-int __thiscall ExecutionState_Construct(void *this,int a1,int a2,int a3)
+int __thiscall ExecutionState_Construct(ExecutionState *this,int a1,int a2,int a3)
 
 {
-  *(int *)((int)this + 0xc) = a1;
-  *(int *)((int)this + 0x10) = a2;
-  *(undefined4 *)((int)this + 0x28) = 0;
-  *(int *)((int)this + 0x14) = a3;
-  *(undefined4 *)((int)this + 0x18) = 0;
+  this->pPrev = (ExecutionState *)a1;
+  this->nCallPos = a2;
+  this->nCounter = 0;
+  this->nResults = a3;
+  this->nCmarkFlag = 0;
   return (int)this;
 }
 
@@ -423,39 +426,39 @@ int __thiscall ExecutionState_Construct(void *this,int a1,int a2,int a3)
 /* Original name ExecutionState_getaux (the remaster's libLua.so: ExecutionState::getaux: returns
    +0x24); was lvm__dde0. */
 
-undefined4 __fastcall ExecutionState_getaux(int param_1)
+int __fastcall ExecutionState_getaux(ExecutionState *es)
 
 {
-  return *(undefined4 *)(param_1 + 0x24);
+  return es->nAux;
 }
 
 /* ---- 0x1000ddf0  ExecutionState_setvalues ---- */
 /* Original name ExecutionState_setvalues (the remaster's libLua.so:
    ExecutionState::setvalues(Closure*, TProtoFunc*, int) (same body)); was lvm__ddf0. */
 
-int __thiscall ExecutionState_setvalues(void *this,int a1,int a2,int a3)
+int __thiscall ExecutionState_setvalues(ExecutionState *this,int a1,int a2,int a3)
 
 {
-  int iVar1;
+  TObject *pTVar1;
   
-  *(int *)this = a1;
-  *(int *)((int)this + 4) = a2;
-  *(int *)((int)this + 8) = a3;
-  *(undefined4 *)((int)this + 0x20) = *(undefined4 *)(a2 + 0x10);
-  iVar1 = *(int *)(a2 + 8);
-  *(int *)((int)this + 0x2c) = iVar1;
-  *(TObject ***)((int)this + 0x1c) = &g_pLuaState->pTop;
-  return iVar1;
+  this->pClosure = (Closure *)a1;
+  this->pProto = (TProtoFunc *)a2;
+  this->nBase = a3;
+  this->pPc = *(byte **)(a2 + 0x10);
+  pTVar1 = *(TObject **)(a2 + 8);
+  this->pConsts = pTVar1;
+  this->ppTop = &g_pLuaState->pTop;
+  return (int)pTVar1;
 }
 
 /* ---- 0x1000de20  ExecutionState_resetcounter ---- */
 /* Original name ExecutionState_resetcounter (the remaster's libLua.so:
    ExecutionState::resetcounter: +0x28 = 0); was lvm__de20. */
 
-void __fastcall ExecutionState_resetcounter(int param_1)
+void __fastcall ExecutionState_resetcounter(ExecutionState *es)
 
 {
-  *(undefined4 *)(param_1 + 0x28) = 0;
+  es->nCounter = 0;
   return;
 }
 
@@ -470,7 +473,7 @@ int __fastcall ExecutionState_execute(int *param_1)
   int iVar2;
   
   if (param_1[6] == 0) {
-    ExecutionState_resetcounter((int)param_1);
+    ExecutionState_resetcounter((ExecutionState *)param_1);
     if (lua_callhook != 0) {
       luaD_callHook(param_1[2],param_1[1],0);
     }
