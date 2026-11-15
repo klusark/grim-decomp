@@ -96,7 +96,7 @@ int __cdecl ismarked(TObject *o)
 /* Named listcollect (not in the remaster, gcc inlined it there): Lua 3.1 source name (lgc.c:
    unlinks the unmarked nodes of a GC list and returns them); was lgc__5070. */
 
-int __cdecl listcollect(undefined4 *param_1)
+int __cdecl listcollect(undefined4 *root)
 
 {
   undefined4 *puVar1;
@@ -104,13 +104,13 @@ int __cdecl listcollect(undefined4 *param_1)
   undefined4 *puVar3;
   
   puVar3 = (undefined4 *)0x0;
-  while (puVar1 = param_1, puVar1 != (undefined4 *)0x0) {
+  while (puVar1 = root, puVar1 != (undefined4 *)0x0) {
     puVar1[1] = 0;
     puVar2 = (undefined4 *)*puVar1;
-    while ((param_1 = puVar2, param_1 != (undefined4 *)0x0 && (param_1[1] == 0))) {
-      *puVar1 = *param_1;
-      *param_1 = puVar3;
-      puVar3 = param_1;
+    while ((root = puVar2, root != (undefined4 *)0x0 && (root[1] == 0))) {
+      *puVar1 = *root;
+      *root = puVar3;
+      puVar3 = root;
       puVar2 = (undefined4 *)*puVar1;
     }
   }
@@ -332,36 +332,36 @@ void luaC_checkGC(void)
 void __cdecl io_readfrom(void)
 
 {
+  int o;
   int iVar1;
-  int iVar2;
-  byte *pbVar3;
-  char *pcVar4;
-  longlong lVar5;
+  byte *pbVar2;
+  char *pcVar3;
+  longlong lVar4;
   
-  iVar1 = lua_lua2C(3);
-  if (iVar1 == 0) {
+  o = lua_lua2C(3);
+  if (o == 0) {
     closefile((byte *)s__INPUT_10026c00);
     setreturn((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00);
     return;
   }
-  iVar2 = lua_tag(iVar1);
-  lVar5 = gettag(1);
-  if (iVar2 == (int)lVar5) {
-    pbVar3 = (byte *)lua_getuserdata(iVar1);
-    setreturn(pbVar3,(byte *)s__INPUT_10026c00);
+  iVar1 = lua_tag(o);
+  lVar4 = gettag(1);
+  if (iVar1 == (int)lVar4) {
+    pbVar2 = (byte *)lua_getuserdata(o);
+    setreturn(pbVar2,(byte *)s__INPUT_10026c00);
     return;
   }
-  pcVar4 = (char *)luaL_check_string(3);
-  if (*pcVar4 == '|') {
-    pbVar3 = (byte *)0x0;
+  pcVar3 = (char *)luaL_check_string(3);
+  if (*pcVar3 == '|') {
+    pbVar2 = (byte *)0x0;
   }
   else {
-    pbVar3 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar4,&DAT_10026a80);
+    pbVar2 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar3,&DAT_10026a80);
   }
-  if (pbVar3 == (byte *)0x0) {
+  if (pbVar2 == (byte *)0x0) {
     pushresult(0);
     return;
   }
-  setreturn(pbVar3,(byte *)s__INPUT_10026c00);
+  setreturn(pbVar2,(byte *)s__INPUT_10026c00);
   return;
 }

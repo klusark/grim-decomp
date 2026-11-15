@@ -6,28 +6,28 @@
 #include "functions.h"
 
 /* ---- 0x10001000  lua_recognizelib ---- */
-int * __cdecl lua_recognizelib(int param_1,int param_2)
+int * __cdecl lua_recognizelib(int lib,int n)
 
 {
   int *piVar1;
   
                     /* 0x1000  68  lua_recognizelib */
-  if ((param_1 == 0) || (param_2 < 1)) {
+  if ((lib == 0) || (n < 1)) {
     (**(code **)(g_dwLuaHS + 0x18))
               (s_aEntries____numEntries___0_100260b8,s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4,
                0x68);
   }
   piVar1 = (int *)(**(code **)(g_dwLuaHS + 0x20))
                             (0xc,s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4,0x6a);
-  *piVar1 = param_2;
-  piVar1[1] = param_1;
+  *piVar1 = n;
+  piVar1[1] = lib;
   piVar1[2] = (int)g_dwFirstFuncArray;
   g_dwFirstFuncArray = piVar1;
   return piVar1;
 }
 
 /* ---- 0x10001060  lua_openlib ---- */
-undefined4 __cdecl lua_openlib(undefined4 *param_1,int param_2)
+undefined4 __cdecl lua_openlib(undefined4 *lib,int n)
 
 {
   undefined4 uVar1;
@@ -35,12 +35,12 @@ undefined4 __cdecl lua_openlib(undefined4 *param_1,int param_2)
   int iVar3;
   
                     /* 0x1060  53  lua_openlib */
-  puVar2 = param_1;
-  iVar3 = param_2;
-  if (((param_1 != (undefined4 *)0x0) && (0 < param_2)) ||
+  puVar2 = lib;
+  iVar3 = n;
+  if (((lib != (undefined4 *)0x0) && (0 < n)) ||
      ((**(code **)(g_dwLuaHS + 0x18))
                 (s_aEntries____numEntries___0_100260b8,s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4,
-                 0x7f), 0 < param_2)) {
+                 0x7f), 0 < n)) {
     do {
       lua_pushCclosure(puVar2[1],0);
       lua_setglobal((byte *)*puVar2);
@@ -48,12 +48,12 @@ undefined4 __cdecl lua_openlib(undefined4 *param_1,int param_2)
       puVar2 = puVar2 + 2;
     } while (iVar3 != 0);
   }
-  uVar1 = lua_recognizelib((int)param_1,param_2);
+  uVar1 = lua_recognizelib((int)lib,n);
   return uVar1;
 }
 
 /* ---- 0x100010d0  lua_FuncPtrToID ---- */
-uint __cdecl lua_FuncPtrToID(int param_1)
+uint __cdecl lua_FuncPtrToID(int f)
 
 {
   uint *puVar1;
@@ -73,7 +73,7 @@ uint __cdecl lua_FuncPtrToID(int param_1)
     if (*puVar5 != 0) {
       piVar3 = (int *)(puVar5[1] + 4);
       do {
-        if (*piVar3 == param_1) {
+        if (*piVar3 == f) {
           return iVar2 << 0x10 | uVar4;
         }
         uVar4 = uVar4 + 1;
@@ -88,22 +88,22 @@ uint __cdecl lua_FuncPtrToID(int param_1)
 }
 
 /* ---- 0x10001120  lua_IDToFuncPtr ---- */
-undefined4 __cdecl lua_IDToFuncPtr(uint param_1)
+undefined4 __cdecl lua_IDToFuncPtr(uint id)
 
 {
   uint *puVar1;
   uint uVar2;
   
                     /* 0x1120  7  lua_IDToFuncPtr */
-  uVar2 = param_1 >> 0x10;
+  uVar2 = id >> 0x10;
   for (puVar1 = g_dwFirstFuncArray; puVar1 != (uint *)0x0; puVar1 = (uint *)puVar1[2]) {
     if (uVar2 == 0) goto LAB_10001148;
     uVar2 = uVar2 - 1;
   }
   if (uVar2 == 0) {
 LAB_10001148:
-    if ((puVar1 != (uint *)0x0) && ((param_1 & 0xffff) < *puVar1)) {
-      return *(undefined4 *)(puVar1[1] + 4 + (param_1 & 0xffff) * 8);
+    if ((puVar1 != (uint *)0x0) && ((id & 0xffff) < *puVar1)) {
+      return *(undefined4 *)(puVar1[1] + 4 + (id & 0xffff) * 8);
     }
   }
   return 0;
@@ -126,19 +126,19 @@ undefined4 __cdecl lua_closelibs(void)
 }
 
 /* ---- 0x10001190  lua_Initialize ---- */
-undefined4 __cdecl lua_Initialize(undefined4 param_1,undefined4 *param_2)
+undefined4 __cdecl lua_Initialize(undefined4 services,undefined4 *state)
 
 {
                     /* 0x1190  8  lua_Initialize */
-  g_dwLuaHS = param_1;
-  *param_2 = lua_Initialize;
-  param_2[1] = Lua_Terminate;
-  param_2[2] = Lua_Startup;
-  param_2[3] = Lua_Shutdown;
-  param_2[4] = lua_Save;
-  param_2[5] = lua_Restore;
-  param_2[6] = 0;
-  param_2[7] = 0;
+  g_dwLuaHS = services;
+  *state = lua_Initialize;
+  state[1] = Lua_Terminate;
+  state[2] = Lua_Startup;
+  state[3] = Lua_Shutdown;
+  state[4] = lua_Save;
+  state[5] = lua_Restore;
+  state[6] = 0;
+  state[7] = 0;
   g_nLuaInitialize = 1;
   return 0;
 }
@@ -147,10 +147,10 @@ undefined4 __cdecl lua_Initialize(undefined4 param_1,undefined4 *param_2)
 /* Original name luaA_Address (the remaster's libLua.so: stack + o - 1, used as
    luaA_Address(luaL_nonnullarg(1)) by nextvar / foreach); was lapi__11e0. */
 
-int __cdecl luaA_Address(int param_1)
+int __cdecl luaA_Address(int o)
 
 {
-  return (int)(g_pLuaState->pStack + param_1 + -1);
+  return (int)(g_pLuaState->pStack + o + -1);
 }
 
 /* ---- 0x10001200  luaA_packresults ---- */
@@ -212,10 +212,10 @@ undefined4 lua_pop(void)
    static checkCparams: error "API error - wrong number of arguments in C2lua stack" when top -
    stack < Cstack.num + nParams); was luaA_checkCparams. */
 
-void __cdecl checkCparams(int param_1)
+void __cdecl checkCparams(int nParams)
 
 {
-  if ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3 < (g_pLuaState->Cstack).nBase + param_1
+  if ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3 < (g_pLuaState->Cstack).nBase + nParams
      ) {
     lua_error((byte *)s_API_error___wrong_number_of_argu_100260f8);
   }
@@ -246,30 +246,30 @@ int put_luaObjectonTop(void)
 }
 
 /* ---- 0x10001340  lua_lua2C ---- */
-int __cdecl lua_lua2C(int param_1)
+int __cdecl lua_lua2C(int number)
 
 {
                     /* 0x1340  49  lua_lua2C */
-  if ((0 < param_1) && (param_1 <= (g_pLuaState->Cstack).nNum)) {
-    return (g_pLuaState->Cstack).nLua2C + param_1;
+  if ((0 < number) && (number <= (g_pLuaState->Cstack).nNum)) {
+    return (g_pLuaState->Cstack).nLua2C + number;
   }
   return 0;
 }
 
 /* ---- 0x10001360  lua_callfunction ---- */
-undefined4 __cdecl lua_callfunction(int param_1)
+undefined4 __cdecl lua_callfunction(int function)
 
 {
   undefined4 uVar1;
   
                     /* 0x1360  13  lua_callfunction */
-  if (param_1 == 0) {
+  if (function == 0) {
     return 1;
   }
   luaD_openstack(((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) -
                  (g_pLuaState->Cstack).nBase);
   set_normalized(g_pLuaState->pStack + (g_pLuaState->Cstack).nBase,
-                 g_pLuaState->pStack + param_1 + -1);
+                 g_pLuaState->pStack + function + -1);
   uVar1 = luaD_protectedrun((void *)0xff);
   return uVar1;
 }
@@ -316,14 +316,14 @@ int __cdecl normalized_type(TObject *o)
 }
 
 /* ---- 0x10001410  lua_gettagmethod ---- */
-int __cdecl lua_gettagmethod(int param_1,byte *param_2)
+int __cdecl lua_gettagmethod(int tag,byte *event)
 
 {
   TObject *o;
   int iVar1;
   
                     /* 0x1410  36  lua_gettagmethod */
-  o = (TObject *)luaT_gettagmethod(param_1,param_2);
+  o = (TObject *)luaT_gettagmethod(tag,event);
   iVar1 = put_luaObject(o);
   return iVar1;
 }
@@ -349,14 +349,14 @@ int __cdecl put_luaObject(TObject *o)
 }
 
 /* ---- 0x10001490  lua_settagmethod ---- */
-undefined4 __cdecl lua_settagmethod(int param_1,byte *param_2)
+undefined4 __cdecl lua_settagmethod(int tag,byte *event)
 
 {
   undefined4 uVar1;
   
                     /* 0x1490  78  lua_settagmethod */
   ((code *)checkCparams)(1);
-  luaT_settagmethod(param_1,param_2,&g_pLuaState->pTop[-1].nTtype);
+  luaT_settagmethod(tag,event,&g_pLuaState->pTop[-1].nTtype);
   uVar1 = put_luaObjectonTop();
   return uVar1;
 }
@@ -526,74 +526,74 @@ undefined4 __cdecl lua_rawsetglobal(byte *str)
 }
 
 /* ---- 0x10001700  lua_isnil ---- */
-undefined4 __cdecl lua_isnil(int param_1)
+undefined4 __cdecl lua_isnil(int o)
 
 {
                     /* 0x1700  42  lua_isnil */
-  if ((param_1 != 0) && (g_pLuaState->pStack[param_1 + -1].nTtype != -7)) {
+  if ((o != 0) && (g_pLuaState->pStack[o + -1].nTtype != -7)) {
     return 0;
   }
   return 1;
 }
 
 /* ---- 0x10001730  lua_istable ---- */
-undefined4 __cdecl lua_istable(int param_1)
+undefined4 __cdecl lua_istable(int o)
 
 {
                     /* 0x1730  45  lua_istable */
-  if ((param_1 != 0) && (g_pLuaState->pStack[param_1 + -1].nTtype == -3)) {
+  if ((o != 0) && (g_pLuaState->pStack[o + -1].nTtype == -3)) {
     return 1;
   }
   return 0;
 }
 
 /* ---- 0x10001760  lua_isuserdata ---- */
-undefined4 __cdecl lua_isuserdata(int param_1)
+undefined4 __cdecl lua_isuserdata(int o)
 
 {
                     /* 0x1760  47  lua_isuserdata */
-  if ((param_1 != 0) && (g_pLuaState->pStack[param_1 + -1].nTtype == 0)) {
+  if ((o != 0) && (g_pLuaState->pStack[o + -1].nTtype == 0)) {
     return 1;
   }
   return 0;
 }
 
 /* ---- 0x10001790  lua_iscfunction ---- */
-int __cdecl lua_iscfunction(int param_1)
+int __cdecl lua_iscfunction(int o)
 
 {
   int iVar1;
   
                     /* 0x1790  40  lua_iscfunction */
-  iVar1 = lua_tag(param_1);
+  iVar1 = lua_tag(o);
   return iVar1 == -5;
 }
 
 /* ---- 0x100017b0  lua_isnumber ---- */
-undefined4 __cdecl lua_isnumber(int param_1)
+undefined4 __cdecl lua_isnumber(int o)
 
 {
   int iVar1;
   
                     /* 0x17b0  43  lua_isnumber */
-  if (param_1 == 0) {
+  if (o == 0) {
     return 0;
   }
-  if ((g_pLuaState->pStack[param_1 + -1].nTtype != -1) &&
-     (iVar1 = luaV_tonumber(&g_pLuaState->pStack[param_1 + -1].nTtype), iVar1 != 0)) {
+  if ((g_pLuaState->pStack[o + -1].nTtype != -1) &&
+     (iVar1 = luaV_tonumber(&g_pLuaState->pStack[o + -1].nTtype), iVar1 != 0)) {
     return 0;
   }
   return 1;
 }
 
 /* ---- 0x100017f0  lua_isstring ---- */
-undefined4 __cdecl lua_isstring(int param_1)
+undefined4 __cdecl lua_isstring(int o)
 
 {
   int iVar1;
   
                     /* 0x17f0  44  lua_isstring */
-  iVar1 = lua_tag(param_1);
+  iVar1 = lua_tag(o);
   if ((iVar1 != -2) && (iVar1 != -1)) {
     return 0;
   }
@@ -601,13 +601,13 @@ undefined4 __cdecl lua_isstring(int param_1)
 }
 
 /* ---- 0x10001810  lua_isfunction ---- */
-undefined4 __cdecl lua_isfunction(int param_1)
+undefined4 __cdecl lua_isfunction(int o)
 
 {
   int iVar1;
   
                     /* 0x1810  41  lua_isfunction */
-  iVar1 = lua_tag(param_1);
+  iVar1 = lua_tag(o);
   if ((iVar1 != -4) && (iVar1 != -5)) {
     return 0;
   }
@@ -615,66 +615,66 @@ undefined4 __cdecl lua_isfunction(int param_1)
 }
 
 /* ---- 0x10001830  lua_istask ---- */
-undefined4 __cdecl lua_istask(int param_1)
+undefined4 __cdecl lua_istask(int o)
 
 {
                     /* 0x1830  46  lua_istask */
-  lua_tag(param_1);
-  if ((param_1 != 0) && (g_pLuaState->pStack[param_1 + -1].nTtype == -6)) {
+  lua_tag(o);
+  if ((o != 0) && (g_pLuaState->pStack[o + -1].nTtype == -6)) {
     return 1;
   }
   return 0;
 }
 
 /* ---- 0x10001860  lua_getnumber ---- */
-float __cdecl lua_getnumber(int param_1)
+float __cdecl lua_getnumber(int o)
 
 {
   int iVar1;
   
                     /* 0x1860  31  lua_getnumber */
-  if (param_1 == 0) {
+  if (o == 0) {
     return 0.0f;
   }
-  if (g_pLuaState->pStack[param_1 + -1].nTtype != -1) {
-    iVar1 = luaV_tonumber(&g_pLuaState->pStack[param_1 + -1].nTtype);
+  if (g_pLuaState->pStack[o + -1].nTtype != -1) {
+    iVar1 = luaV_tonumber(&g_pLuaState->pStack[o + -1].nTtype);
     if (iVar1 != 0) {
       return 0.0f;
     }
   }
-  return PUN(float,g_pLuaState->pStack[param_1 + -1].dwValue);
+  return PUN(float,g_pLuaState->pStack[o + -1].dwValue);
 }
 
 /* ---- 0x100018c0  lua_getstring ---- */
-int __cdecl lua_getstring(int param_1)
+int __cdecl lua_getstring(int o)
 
 {
   int iVar1;
   
                     /* 0x18c0  34  lua_getstring */
-  if (param_1 == 0) {
+  if (o == 0) {
     return 0;
   }
-  if ((g_pLuaState->pStack[param_1 + -1].nTtype != -2) &&
-     (iVar1 = luaV_tostring(&g_pLuaState->pStack[param_1 + -1].nTtype), iVar1 != 0)) {
+  if ((g_pLuaState->pStack[o + -1].nTtype != -2) &&
+     (iVar1 = luaV_tostring(&g_pLuaState->pStack[o + -1].nTtype), iVar1 != 0)) {
     return 0;
   }
-  return g_pLuaState->pStack[param_1 + -1].dwValue + 0x18;
+  return g_pLuaState->pStack[o + -1].dwValue + 0x18;
 }
 
 /* ---- 0x10001910  lua_getuserdata ---- */
-undefined4 __cdecl lua_getuserdata(int param_1)
+undefined4 __cdecl lua_getuserdata(int o)
 
 {
                     /* 0x1910  38  lua_getuserdata */
-  if ((param_1 != 0) && (g_pLuaState->pStack[param_1 + -1].nTtype == 0)) {
-    return *(undefined4 *)(g_pLuaState->pStack[param_1 + -1].dwValue + 0x14);
+  if ((o != 0) && (g_pLuaState->pStack[o + -1].nTtype == 0)) {
+    return *(undefined4 *)(g_pLuaState->pStack[o + -1].dwValue + 0x14);
   }
   return 0;
 }
 
 /* ---- 0x10001940  lua_getcfunction ---- */
-int __cdecl lua_getcfunction(int param_1)
+int __cdecl lua_getcfunction(int o)
 
 {
   bool bVar1;
@@ -682,11 +682,11 @@ int __cdecl lua_getcfunction(int param_1)
   TObject *pTVar2;
   
                     /* 0x1940  28  lua_getcfunction */
-  bVar1 = lua_iscfunction(param_1);
+  bVar1 = lua_iscfunction(o);
   if (((uint)(byte)(bVar1)) == 0) {
     return 0;
   }
-  pTVar2 = luaA_protovalue(g_pLuaState->pStack + param_1 + -1);
+  pTVar2 = luaA_protovalue(g_pLuaState->pStack + o + -1);
   return pTVar2->dwValue;
 }
 
@@ -722,14 +722,14 @@ int __cdecl lua_gettask(int obj)
 }
 
 /* ---- 0x100019c0  lua_pushtask ---- */
-undefined4 __cdecl lua_pushtask(int param_1)
+undefined4 __cdecl lua_pushtask(int task)
 
 {
   LState *pLVar1;
   
                     /* 0x19c0  62  lua_pushtask */
   g_pLuaState->pTop->nTtype = -6;
-  g_pLuaState->pTop->dwValue = PUN(uint,(float)((float)param_1));
+  g_pLuaState->pTop->dwValue = PUN(uint,(float)((float)task));
   if (g_pLuaState->pLast <= g_pLuaState->pTop) {
     luaD_checkstack(1);
   }
@@ -793,23 +793,23 @@ undefined4 __cdecl lua_pushstring(byte *str)
 }
 
 /* ---- 0x10001b10  lua_pushCclosure ---- */
-undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2)
+undefined4 __cdecl lua_pushCclosure(int fn,uint n)
 
 {
   undefined4 uVar1;
   
                     /* 0x1b10  57  lua_pushCclosure */
-  if (param_1 == 0) {
+  if (fn == 0) {
     lua_error((byte *)s_API_error___attempt_to_push_a_NU_10026160);
   }
-  checkCparams(param_2);
+  checkCparams(n);
   g_pLuaState->pTop->nTtype = -5;
-  g_pLuaState->pTop->dwValue = param_1;
+  g_pLuaState->pTop->dwValue = fn;
   if (g_pLuaState->pLast <= g_pLuaState->pTop) {
     luaD_checkstack(1);
   }
   g_pLuaState->pTop = g_pLuaState->pTop + 1;
-  uVar1 = ((code *)luaV_closure)(param_2);
+  uVar1 = ((code *)luaV_closure)(n);
   return uVar1;
 }
 
@@ -854,18 +854,18 @@ void __cdecl luaA_pushobject(TObject *o)
 }
 
 /* ---- 0x10001c40  lua_pushobject ---- */
-undefined4 __cdecl lua_pushobject(int param_1)
+undefined4 __cdecl lua_pushobject(int o)
 
 {
   LState *pLVar1;
   undefined4 uVar2;
   
                     /* 0x1c40  60  lua_pushobject */
-  if (param_1 == 0) {
+  if (o == 0) {
     uVar2 = lua_error((byte *)s_API_error___attempt_to_push_a_NO_10026190);
     return uVar2;
   }
-  set_normalized(g_pLuaState->pTop,g_pLuaState->pStack + param_1 + -1);
+  set_normalized(g_pLuaState->pTop,g_pLuaState->pStack + o + -1);
   if (g_pLuaState->pLast <= g_pLuaState->pTop) {
     luaD_checkstack(1);
   }
@@ -875,35 +875,35 @@ undefined4 __cdecl lua_pushobject(int param_1)
 }
 
 /* ---- 0x10001ca0  lua_tag ---- */
-undefined4 __cdecl lua_tag(int param_1)
+undefined4 __cdecl lua_tag(int o)
 
 {
   TObject *pTVar1;
   
                     /* 0x1ca0  81  lua_tag */
-  if (param_1 == 0) {
+  if (o == 0) {
     return 0xfffffff9;
   }
   pTVar1 = g_pLuaState->pStack;
-  switch(pTVar1[param_1 + -1].nTtype) {
+  switch(pTVar1[o + -1].nTtype) {
   case 0:
-    return *(undefined4 *)(pTVar1[param_1 + -1].dwValue + 0x10);
+    return *(undefined4 *)(pTVar1[o + -1].dwValue + 0x10);
   case -0xb:
     return 0xfffffffb;
   case -10:
     return 0xfffffffc;
   case -9:
   case -8:
-    return *(undefined4 *)(pTVar1[param_1 + -1].dwValue + 0xc);
+    return *(undefined4 *)(pTVar1[o + -1].dwValue + 0xc);
   default:
-    return pTVar1[param_1 + -1].nTtype;
+    return pTVar1[o + -1].nTtype;
   case -3:
-    return *(undefined4 *)(pTVar1[param_1 + -1].dwValue + 0x14);
+    return *(undefined4 *)(pTVar1[o + -1].dwValue + 0x14);
   }
 }
 
 /* ---- 0x10001d30  lua_settag ---- */
-LState * __cdecl lua_settag(int param_1)
+LState * __cdecl lua_settag(int tag)
 
 {
   TObject *pTVar1;
@@ -912,11 +912,11 @@ LState * __cdecl lua_settag(int param_1)
   
                     /* 0x1d30  77  lua_settag */
   ((code *)checkCparams)(1);
-  luaT_realtag(param_1);
+  luaT_realtag(tag);
   pTVar1 = g_pLuaState->pTop;
   iVar2 = pTVar1[-1].nTtype;
   if (iVar2 == -3) {
-    *(int *)(pTVar1[-1].dwValue + 0x14) = param_1;
+    *(int *)(pTVar1[-1].dwValue + 0x14) = tag;
     pLVar3 = g_pLuaState;
     g_pLuaState->pTop = g_pLuaState->pTop + -1;
     return pLVar3;
@@ -927,7 +927,7 @@ LState * __cdecl lua_settag(int param_1)
     g_pLuaState->pTop = g_pLuaState->pTop + -1;
     return pLVar3;
   }
-  *(int *)(pTVar1[-1].dwValue + 0x10) = param_1;
+  *(int *)(pTVar1[-1].dwValue + 0x10) = tag;
   pLVar3 = g_pLuaState;
   g_pLuaState->pTop = g_pLuaState->pTop + -1;
   return pLVar3;
@@ -1079,7 +1079,7 @@ LAB_1000201b:
 
 
 /* ---- 0x10002090  lua_stackedfunction ---- */
-int __cdecl lua_stackedfunction(int param_1)
+int __cdecl lua_stackedfunction(int level)
 
 {
   int iVar1;
@@ -1093,11 +1093,11 @@ int __cdecl lua_stackedfunction(int param_1)
     return 0;
   }
   pTVar3 = g_pLuaState->pStack + iVar2;
-  while ((((iVar1 = pTVar3->nTtype, iVar1 != -9 && (iVar1 != -10)) &&
-          (iVar4 = param_1, iVar1 != -0xb)) || (iVar4 = param_1 + -1, param_1 != 0))) {
+  while ((((iVar1 = pTVar3->nTtype, iVar1 != -9 && (iVar1 != -10)) && (iVar4 = level, iVar1 != -0xb)
+          ) || (iVar4 = level + -1, level != 0))) {
     iVar2 = iVar2 + -1;
     pTVar3 = pTVar3 + -1;
-    param_1 = iVar4;
+    level = iVar4;
     if (iVar2 < 0) {
       return 0;
     }
@@ -1112,77 +1112,77 @@ undefined4 __cdecl lua_printstack(int out)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int level;
   int iVar1;
   int iVar2;
-  int iVar3;
-  char *pcVar4;
+  char *pcVar3;
   #define local_8 (*(undefined4 *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
                     /* 0x20f0  56  lua_printstack */
-  iVar3 = lua_stackedfunction(1);
-  iVar2 = out;
-  iVar1 = 2;
+  iVar2 = lua_stackedfunction(1);
+  iVar1 = out;
+  level = 2;
   do {
-    if (iVar3 == 0) {
+    if (iVar2 == 0) {
       return 0;
     }
-    lua_funcinfo(iVar3,&out,&local_4);
-    if (iVar2 != 0) {
-      pcVar4 = s_Active_Stack__10026254;
-      if (iVar1 != 2) {
-        pcVar4 = &DAT_10026250;
+    lua_funcinfo(iVar2,&out,&local_4);
+    if (iVar1 != 0) {
+      pcVar3 = s_Active_Stack__10026254;
+      if (level != 2) {
+        pcVar3 = &DAT_10026250;
       }
-      (**(code **)(g_dwLuaHS + 0x54))(iVar2,pcVar4);
+      (**(code **)(g_dwLuaHS + 0x54))(iVar1,pcVar3);
     }
-    pcVar4 = lua_getobjname(iVar3,&local_8);
-    if (*pcVar4 == 'g') {
-      if (iVar2 != 0) {
-        (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_function__s_10026210,local_8);
+    pcVar3 = lua_getobjname(iVar2,&local_8);
+    if (*pcVar3 == 'g') {
+      if (iVar1 != 0) {
+        (**(code **)(g_dwLuaHS + 0x54))(iVar1,s_function__s_10026210,local_8);
       }
     }
-    else if (*pcVar4 == 't') {
-      if (iVar2 != 0) {
-        (**(code **)(g_dwLuaHS + 0x54))(iVar2,s___s__tag_method_1002621c,local_8);
+    else if (*pcVar3 == 't') {
+      if (iVar1 != 0) {
+        (**(code **)(g_dwLuaHS + 0x54))(iVar1,s___s__tag_method_1002621c,local_8);
       }
     }
     else {
       if (local_4 == 0) {
-        if (iVar2 != 0) {
-          (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_main_of__s_10026244,out);
+        if (iVar1 != 0) {
+          (**(code **)(g_dwLuaHS + 0x54))(iVar1,s_main_of__s_10026244,out);
           out = 0;
           goto LAB_10002208;
         }
       }
       else if (local_4 < 0) {
-        if (iVar2 != 0) {
-          (**(code **)(g_dwLuaHS + 0x54))(iVar2,&DAT_10026240,out);
+        if (iVar1 != 0) {
+          (**(code **)(g_dwLuaHS + 0x54))(iVar1,&DAT_10026240,out);
           out = 0;
           goto LAB_10002208;
         }
       }
-      else if (iVar2 != 0) {
-        (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_function___s__d__1002622c,out,local_4);
+      else if (iVar1 != 0) {
+        (**(code **)(g_dwLuaHS + 0x54))(iVar1,s_function___s__d__1002622c,out,local_4);
       }
       out = 0;
     }
 LAB_10002208:
-    iVar3 = lua_currentline(iVar3);
-    if ((0 < iVar3) && (iVar2 != 0)) {
-      (**(code **)(g_dwLuaHS + 0x54))(iVar2,s_at_line__d_10026204,iVar3);
+    iVar2 = lua_currentline(iVar2);
+    if ((0 < iVar2) && (iVar1 != 0)) {
+      (**(code **)(g_dwLuaHS + 0x54))(iVar1,s_at_line__d_10026204,iVar2);
     }
     if (out == 0) {
 LAB_1000224a:
-      if (iVar2 != 0) {
-        (**(code **)(g_dwLuaHS + 0x54))(iVar2,&DAT_100261f0);
+      if (iVar1 != 0) {
+        (**(code **)(g_dwLuaHS + 0x54))(iVar1,&DAT_100261f0);
       }
     }
-    else if (iVar2 != 0) {
-      (**(code **)(g_dwLuaHS + 0x54))(iVar2,s__in_file__s__100261f4,out);
+    else if (iVar1 != 0) {
+      (**(code **)(g_dwLuaHS + 0x54))(iVar1,s__in_file__s__100261f4,out);
       goto LAB_1000224a;
     }
-    iVar3 = lua_stackedfunction(iVar1);
-    iVar1 = iVar1 + 1;
+    iVar2 = lua_stackedfunction(level);
+    level = level + 1;
   } while( true );
 }
 #undef local_4
@@ -1192,15 +1192,15 @@ LAB_1000224a:
 
 
 /* ---- 0x10002280  lua_currentline ---- */
-uint __cdecl lua_currentline(int param_1)
+uint __cdecl lua_currentline(int func)
 
 {
   TObject *pTVar1;
   
                     /* 0x2280  20  lua_currentline */
-  pTVar1 = g_pLuaState->pStack + param_1;
+  pTVar1 = g_pLuaState->pStack + func;
   if ((pTVar1 < g_pLuaState->pTop) && (pTVar1->nTtype == -0xc)) {
-    return g_pLuaState->pStack[param_1].dwValue;
+    return g_pLuaState->pStack[func].dwValue;
   }
   return 0xffffffff;
 }
@@ -1214,7 +1214,7 @@ int lua_currenttask(void)
 }
 
 /* ---- 0x100022c0  lua_getlocal ---- */
-int __cdecl lua_getlocal(int param_1,int local_number,int *param_3)
+int __cdecl lua_getlocal(int param_1,int local_number,int *name)
 
 {
   TObject *pTVar1;
@@ -1231,7 +1231,7 @@ int __cdecl lua_getlocal(int param_1,int local_number,int *param_3)
     func = (TProtoFunc *)pTVar3->dwValue;
     iVar2 = lua_currentline(param_1);
     pcVar4 = luaF_getlocalname(func,local_number,iVar2);
-    *param_3 = (int)pcVar4;
+    *name = (int)pcVar4;
     if (pcVar4 != (char *)0x0) {
       return (((local_number * 8 + 8) - (int)g_pLuaState->pStack) + (int)(pTVar1 + param_1 + -1) >>
              3) + 1;
@@ -1271,7 +1271,7 @@ undefined4 __cdecl lua_setlocal(int param_1,int local_number)
 }
 
 /* ---- 0x100023c0  lua_funcinfo ---- */
-undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3)
+undefined4 __cdecl lua_funcinfo(int func,int *filename,undefined4 *linedefined)
 
 {
   uint uVar1;
@@ -1280,40 +1280,40 @@ undefined4 __cdecl lua_funcinfo(int param_1,int *param_2,undefined4 *param_3)
   TObject *o;
   
                     /* 0x23c0  27  lua_funcinfo */
-  iVar2 = lua_isfunction(param_1);
+  iVar2 = lua_isfunction(func);
   if (iVar2 == 0) {
     uVar3 = lua_error((byte *)s_API____funcinfo__called_with_a_n_10026268);
     return uVar3;
   }
-  o = luaA_protovalue(g_pLuaState->pStack + param_1 + -1);
+  o = luaA_protovalue(g_pLuaState->pStack + func + -1);
   iVar2 = normalized_type(o);
   if (iVar2 == -4) {
-    *param_2 = *(int *)(o->dwValue + 0x18) + 0x18;
+    *filename = *(int *)(o->dwValue + 0x18) + 0x18;
     uVar1 = o->dwValue;
-    *param_3 = *(undefined4 *)(uVar1 + 0x14);
+    *linedefined = *(undefined4 *)(uVar1 + 0x14);
     return uVar1;
   }
-  *param_2 = (int)&DAT_10026264;
-  *param_3 = 0xffffffff;
-  return param_2;
+  *filename = (int)&DAT_10026264;
+  *linedefined = 0xffffffff;
+  return filename;
 }
 
 /* ---- 0x10002440  lua_getobjname ---- */
-char * __cdecl lua_getobjname(int param_1,undefined4 *param_2)
+char * __cdecl lua_getobjname(int o,undefined4 *name)
 
 {
   char *pcVar1;
   int *piVar2;
   
                     /* 0x2440  32  lua_getobjname */
-  ((code *)set_normalized)(g_pLuaState->pTop,g_pLuaState->pStack + param_1 + -1);
+  ((code *)set_normalized)(g_pLuaState->pTop,g_pLuaState->pStack + o + -1);
   pcVar1 = luaT_travtagmethods(checkfunc);
-  *param_2 = pcVar1;
+  *name = pcVar1;
   if (pcVar1 != (char *)0x0) {
     return s_tag_method_100262a4;
   }
   piVar2 = luaS_travsymbol(checkfunc);
-  *param_2 = piVar2;
+  *name = piVar2;
   pcVar1 = s_global_1002629c;
   if (piVar2 == (int *)0x0) {
     pcVar1 = &DAT_1002bedc;
@@ -1375,14 +1375,14 @@ undefined4 __cdecl lua_endblock(void)
 }
 
 /* ---- 0x10002560  lua_ref ---- */
-uint __cdecl lua_ref(int param_1)
+uint __cdecl lua_ref(int lock)
 
 {
   uint uVar1;
   
                     /* 0x2560  69  lua_ref */
   ((code *)checkCparams)(1);
-  uVar1 = luaC_ref(&g_pLuaState->pTop[-1].nTtype,param_1);
+  uVar1 = luaC_ref(&g_pLuaState->pTop[-1].nTtype,lock);
   g_pLuaState->pTop = g_pLuaState->pTop + -1;
   return uVar1;
 }
@@ -1415,7 +1415,7 @@ undefined4 __cdecl lua_setfallback(byte *name,int fallback)
                     /* 0x25b0  73  lua_setfallback */
   lua_pushstring(name);
   lua_pushCclosure(in_stack_0000000c,0);
-  do_unprotectedrun(luaT_setfallback,2,(void *)0x1);
+  do_unprotectedrun(((unsigned)(uintptr_t)luaT_setfallback),2,(void *)0x1);
   uVar1 = put_luaObjectonTop();
   return uVar1;
 }
@@ -1428,15 +1428,15 @@ undefined4 __cdecl lua_setfallback(byte *name,int fallback)
    compatibility code: luaD_openstack(nParams), a CPROTO in the base slot, luaD_call; its only
    caller is lua_setfallback with luaT_setfallback, 2, 1); was luaA_callObject. */
 
-void __cdecl do_unprotectedrun(uint param_1,int param_2,void *nres)
+void __cdecl do_unprotectedrun(uint f,int nParams,void *nres)
 
 {
   int iVar1;
   
-  iVar1 = ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - param_2;
-  luaD_openstack(param_2);
+  iVar1 = ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - nParams;
+  luaD_openstack(nParams);
   g_pLuaState->pStack[iVar1].nTtype = -5;
-  g_pLuaState->pStack[iVar1].dwValue = param_1;
+  g_pLuaState->pStack[iVar1].dwValue = f;
   g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + 1;
   luaD_call(iVar1 + 1,(int)nres);
   g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + -1;
@@ -1455,7 +1455,7 @@ void luaA_ResetSaveCount(void)
 }
 
 /* ---- 0x10002670  lua_Save ---- */
-undefined4 __cdecl lua_Save(undefined *param_1)
+undefined4 __cdecl lua_Save(undefined *writer)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1465,20 +1465,20 @@ undefined4 __cdecl lua_Save(undefined *param_1)
   #define local_4 (*(undefined **)(_frame + (0x20 - 0x4)))
   
                     /* 0x2670  10  lua_Save */
-  puVar1 = param_1;
+  puVar1 = writer;
   local_4 = (undefined *)0x0;
-  g_dwSaveFunc = param_1;
+  g_dwSaveFunc = writer;
   lua_collectgarbage(0);
   LState_SaveGlobals(((unsigned)(uintptr_t)LuaSaveWriter));
   luaA_ResetSaveCount();
   for (pLVar2 = g_dwL_Main; pLVar2 != (LState *)0x0; pLVar2 = LState_next(pLVar2)) {
     if (pLVar2 == g_pLuaState) {
-      param_1 = local_4;
+      writer = local_4;
     }
     local_4 = local_4 + 1;
   }
   (*(code *)puVar1)(&local_4,4);
-  (*(code *)puVar1)(&param_1,4);
+  (*(code *)puVar1)(&writer,4);
   pLVar2 = g_dwL_Main;
   if (g_dwL_Main == (LState *)0x0) {
     return 0;
@@ -1500,13 +1500,13 @@ undefined4 __cdecl lua_Save(undefined *param_1)
 /* Original name LuaSaveWriter (the remaster's libLua.so: static LuaSaveWriter(void*, unsigned):
    lua_totalBytesSaved += size, then the save callback); was FUN_10002730. */
 
-uint __cdecl LuaSaveWriter(undefined4 param_1,int param_2)
+uint __cdecl LuaSaveWriter(undefined4 data,int size)
 
 {
   uint uVar1;
   
-  g_dwLua_totalBytesSaved = g_dwLua_totalBytesSaved + param_2;
-  uVar1 = (*g_dwSaveFunc)(param_1,param_2);
+  g_dwLua_totalBytesSaved = g_dwLua_totalBytesSaved + size;
+  uVar1 = (*g_dwSaveFunc)(data,size);
   return uVar1;
 }
 
@@ -1621,15 +1621,15 @@ void Lua_Shutdown(void)
 }
 
 /* ---- 0x10004650  lua_error ---- */
-undefined4 __cdecl lua_error(byte *param_1)
+undefined4 __cdecl lua_error(byte *s)
 
 {
   undefined4 extraout_EAX;
   undefined4 uVar1;
   
                     /* 0x4650  26  lua_error */
-  if (param_1 != (byte *)0x0) {
-    message(param_1);
+  if (s != (byte *)0x0) {
+    message(s);
   }
   if (g_pLuaState->pErrorJmp != (void *)0x0) {
     longjmp((int)g_pLuaState->pErrorJmp);
@@ -1642,56 +1642,56 @@ undefined4 __cdecl lua_error(byte *param_1)
 }
 
 /* ---- 0x10004890  lua_dofile ---- */
-int __cdecl lua_dofile(char *param_1)
+int __cdecl lua_dofile(char *filename)
 
 {
   unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  uint uVar2;
-  undefined **ppuVar3;
+  uint bin;
+  undefined **f;
   #define local_114 (*(int (*)[69])(_frame + (0x130 - 0x114)))
   
                     /* 0x4890  23  lua_dofile */
-  uVar2 = 1;
+  bin = 1;
   if (lua_assume_binary == 0) {
-    if (param_1 == (char *)0x0) {
-      ppuVar3 = &PTR_DAT_100282d0;
+    if (filename == (char *)0x0) {
+      f = &PTR_DAT_100282d0;
     }
     else {
-      ppuVar3 = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(param_1,&DAT_10026a80);
+      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,&DAT_10026a80);
     }
-    if (ppuVar3 == (undefined **)0x0) {
+    if (f == (undefined **)0x0) {
       return 2;
     }
-    if (param_1 == (char *)0x0) {
-      param_1 = s__stdin__10026a84;
+    if (filename == (char *)0x0) {
+      filename = s__stdin__10026a84;
     }
-    iVar1 = luaFGetc(ppuVar3);
-    luaFUngetc(iVar1,ppuVar3);
-    uVar2 = (uint)(iVar1 == 0x1b);
-    if (uVar2 != 0) {
-      (**(code **)(g_dwLuaHS + 0x34))(ppuVar3);
-      ppuVar3 = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(param_1,&DAT_10026a8c);
+    iVar1 = luaFGetc(f);
+    luaFUngetc(iVar1,f);
+    bin = (uint)(iVar1 == 0x1b);
+    if (bin != 0) {
+      (**(code **)(g_dwLuaHS + 0x34))(f);
+      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,&DAT_10026a8c);
     }
   }
   else {
-    if (param_1 == (char *)0x0) {
-      ppuVar3 = &PTR_DAT_100282d0;
+    if (filename == (char *)0x0) {
+      f = &PTR_DAT_100282d0;
     }
     else {
-      ppuVar3 = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(param_1,&DAT_10026a8c);
+      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,&DAT_10026a8c);
     }
-    if (ppuVar3 == (undefined **)0x0) {
+    if (f == (undefined **)0x0) {
       return 2;
     }
-    if (param_1 == (char *)0x0) {
-      param_1 = s__stdin__10026a84;
+    if (filename == (char *)0x0) {
+      filename = s__stdin__10026a84;
     }
   }
-  luaZ_Fopen(local_114,(int)ppuVar3,param_1);
-  iVar1 = do_main(local_114,uVar2);
-  if (ppuVar3 != &PTR_DAT_100282d0) {
-    (**(code **)(g_dwLuaHS + 0x34))(ppuVar3);
+  luaZ_Fopen(local_114,(int)f,filename);
+  iVar1 = do_main(local_114,bin);
+  if (f != &PTR_DAT_100282d0) {
+    (**(code **)(g_dwLuaHS + 0x34))(f);
   }
   return iVar1;
 }
@@ -1699,7 +1699,7 @@ int __cdecl lua_dofile(char *param_1)
 
 
 /* ---- 0x10004b20  lua_dostring ---- */
-int __cdecl lua_dostring(char *param_1)
+int __cdecl lua_dostring(char *str)
 
 {
   unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1709,15 +1709,15 @@ int __cdecl lua_dostring(char *param_1)
   #define local_114 (*(int (*)[69])(_frame + (0x160 - 0x114)))
   
                     /* 0x4b20  24  lua_dostring */
-  if (param_1 == (char *)0x0) {
+  if (str == (char *)0x0) {
     return 1;
   }
-  sprintf((char *)local_144,s__dostring_______20s_10026a90,param_1);
+  sprintf((char *)local_144,s__dostring_______20s_10026a90,str);
   puVar1 = strchr(local_144,'\n');
   if (puVar1 != (uint *)0x0) {
     *(undefined1 *)puVar1 = 0;
   }
-  luaZ_sopen(local_114,param_1,local_144);
+  luaZ_sopen(local_114,str,local_144);
   iVar2 = do_main(local_114,0);
   return iVar2;
 }
@@ -1726,22 +1726,22 @@ int __cdecl lua_dostring(char *param_1)
 
 
 /* ---- 0x10004e00  lua_unref ---- */
-uint __cdecl lua_unref(uint param_1)
+uint __cdecl lua_unref(uint ref)
 
 {
   uint uVar1;
   
                     /* 0x4e00  84  lua_unref */
-  uVar1 = param_1;
-  if ((-1 < (int)param_1) && (param_1 < g_dwLState_refSize)) {
-    uVar1 = param_1 * 3;
-    *(undefined4 *)(g_dwLState_refArray + 8 + param_1 * 0xc) = 2;
+  uVar1 = ref;
+  if ((-1 < (int)ref) && (ref < g_dwLState_refSize)) {
+    uVar1 = ref * 3;
+    *(undefined4 *)(g_dwLState_refArray + 8 + ref * 0xc) = 2;
   }
   return uVar1;
 }
 
 /* ---- 0x10004ee0  lua_collectgarbage ---- */
-int __cdecl lua_collectgarbage(int param_1)
+int __cdecl lua_collectgarbage(int limit)
 
 {
   int iVar1;
@@ -1766,11 +1766,11 @@ int __cdecl lua_collectgarbage(int param_1)
   luaS_free(l);
   luaF_freeproto(l_01);
   luaF_freeclosure(l_02);
-  if (param_1 == 0) {
+  if (limit == 0) {
     g_dwLState_GCthreshold = g_dwLState_nblocks * 2;
     return iVar1 - g_dwLState_nblocks;
   }
-  g_dwLState_GCthreshold = param_1 + g_dwLState_nblocks;
+  g_dwLState_GCthreshold = limit + g_dwLState_nblocks;
   return iVar1 - g_dwLState_nblocks;
 }
 
@@ -1798,25 +1798,25 @@ undefined4 __cdecl lua_iolibopen(void)
 void openwithtags(void)
 
 {
-  uint uVar1;
-  int iVar2;
-  undefined **ppuVar3;
+  uint tag;
+  int iVar1;
+  undefined **ppuVar2;
   
-  uVar1 = lua_newtag();
-  iVar2 = lua_newtag();
-  ppuVar3 = &g_pIolibtag;
+  tag = lua_newtag();
+  iVar1 = lua_newtag();
+  ppuVar2 = &g_pIolibtag;
   do {
-    lua_pushnumber((float)(int)uVar1);
-    lua_pushnumber((float)iVar2);
-    lua_pushCclosure((int)ppuVar3[1],2);
-    lua_setglobal(*ppuVar3);
-    ppuVar3 = ppuVar3 + 2;
-  } while (ppuVar3 < s_write_10026b78);
-  setfile((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00,uVar1);
-  setfile(&DAT_100282f0,(byte *)s__OUTPUT_10026c58,uVar1);
-  setfile((byte *)&PTR_DAT_100282d0,(byte *)s__STDIN_10026d04,uVar1);
-  setfile(&DAT_100282f0,(byte *)s__STDOUT_10026cfc,uVar1);
-  setfile(&DAT_10028310,(byte *)s__STDERR_10026cf4,uVar1);
+    lua_pushnumber((float)(int)tag);
+    lua_pushnumber((float)iVar1);
+    lua_pushCclosure((int)ppuVar2[1],2);
+    lua_setglobal(*ppuVar2);
+    ppuVar2 = ppuVar2 + 2;
+  } while (ppuVar2 < s_write_10026b78);
+  setfile((byte *)&PTR_DAT_100282d0,(byte *)s__INPUT_10026c00,tag);
+  setfile(&DAT_100282f0,(byte *)s__OUTPUT_10026c58,tag);
+  setfile((byte *)&PTR_DAT_100282d0,(byte *)s__STDIN_10026d04,tag);
+  setfile(&DAT_100282f0,(byte *)s__STDOUT_10026cfc,tag);
+  setfile(&DAT_10028310,(byte *)s__STDERR_10026cf4,tag);
   return;
 }
 
@@ -1826,7 +1826,7 @@ undefined4 __cdecl lua_mathlibopen(void)
 {
   int iVar1;
   undefined4 uVar2;
-  byte *pbVar3;
+  byte *event;
   
                     /* 0x7320  50  lua_mathlibopen */
   luaL_openlib(&g_pMathlib,0x15);
@@ -1835,10 +1835,10 @@ undefined4 __cdecl lua_mathlibopen(void)
   lua_setglobal((byte *)s__TRIGMODE_10027074);
   lua_pushCclosure(((unsigned)(uintptr_t)math_pow),0);
   lua_pushnumber(0.0f);
-  pbVar3 = &DAT_10027070;
+  event = &DAT_10027070;
   iVar1 = lua_pop();
   iVar1 = lua_tag(iVar1);
-  lua_settagmethod(iVar1,pbVar3);
+  lua_settagmethod(iVar1,event);
   lua_pushnumber(3.1415927f);
   uVar2 = lua_setglobal(&DAT_1002706c);
   return uVar2;
@@ -1979,26 +1979,26 @@ int lua_newtag(void)
 }
 
 /* ---- 0x1000c950  lua_copytagmethods ---- */
-int __cdecl lua_copytagmethods(int param_1,int param_2)
+int __cdecl lua_copytagmethods(int tagto,int tagfrom)
 
 {
   undefined4 *puVar1;
   int iVar2;
-  int iVar3;
+  int e;
   
                     /* 0xc950  18  lua_copytagmethods */
-  ((code *)luaT_checktag)(param_1);
-  luaT_checktag(param_2);
-  iVar3 = 0;
+  ((code *)luaT_checktag)(tagto);
+  luaT_checktag(tagfrom);
+  e = 0;
   do {
-    iVar2 = validevent(param_1,iVar3);
+    iVar2 = validevent(tagto,e);
     if (iVar2 != 0) {
-      puVar1 = (undefined4 *)(g_dwLState_IMtable + (iVar3 + param_2 * -0x12) * 8);
-      iVar2 = iVar3 + param_1 * -0x12;
+      puVar1 = (undefined4 *)(g_dwLState_IMtable + (e + tagfrom * -0x12) * 8);
+      iVar2 = e + tagto * -0x12;
       *(undefined4 *)(g_dwLState_IMtable + iVar2 * 8) = *puVar1;
       *(undefined4 *)(g_dwLState_IMtable + 4 + iVar2 * 8) = puVar1[1];
     }
-    iVar3 = iVar3 + 1;
-  } while (iVar3 < 0x12);
-  return param_1;
+    e = e + 1;
+  } while (e < 0x12);
+  return tagto;
 }

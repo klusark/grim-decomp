@@ -43,12 +43,12 @@ void __cdecl luaY_error(char *msg)
    with the line, remembered in the func state +0x10 (same body); called by luaY_lex); was
    luaY_code_word. */
 
-void __cdecl luaY_codedebugline(uint param_1)
+void __cdecl luaY_codedebugline(uint line)
 
 {
-  if ((lua_debug != 0) && (param_1 != *(uint *)((int)g_pLuaState->pLexState + 0x10))) {
-    code_oparg('|',0,param_1,0);
-    *(uint *)((int)g_pLuaState->pLexState + 0x10) = param_1;
+  if ((lua_debug != 0) && (line != *(uint *)((int)g_pLuaState->pLexState + 0x10))) {
+    code_oparg('|',0,line,0);
+    *(uint *)((int)g_pLuaState->pLexState + 0x10) = line;
   }
   return;
 }
@@ -58,7 +58,7 @@ void __cdecl luaY_codedebugline(uint param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: check_pc(3), pc +=
    code_oparg_at(pc, ...)); was luaY_code_opcode_arg. */
 
-void __cdecl code_oparg(char param_1,int param_2,uint param_3,int param_4)
+void __cdecl code_oparg(char op,int builtin,uint arg,int delta)
 
 {
   FuncState *pFVar1;
@@ -66,7 +66,7 @@ void __cdecl code_oparg(char param_1,int param_2,uint param_3,int param_4)
   
   check_pc(3);
   pFVar1 = g_pLuaState->pCurrState;
-  iVar2 = code_oparg_at(pFVar1->nPc,param_1,param_2,param_3,param_4);
+  iVar2 = code_oparg_at(pFVar1->nPc,op,builtin,arg,delta);
   pFVar1->nPc = pFVar1->nPc + iVar2;
   return;
 }
@@ -76,14 +76,14 @@ void __cdecl code_oparg(char param_1,int param_2,uint param_3,int param_4)
    source name (lua.stx: grows f->code for n more bytes, 'code size overflow'); was luaY_code_byte.
     */
 
-void __cdecl check_pc(int param_1)
+void __cdecl check_pc(int n)
 
 {
   FuncState *pFVar1;
   uint uVar2;
   
   pFVar1 = g_pLuaState->pCurrState;
-  if (pFVar1->nMaxCode < pFVar1->nPc + param_1) {
+  if (pFVar1->nMaxCode < pFVar1->nPc + n) {
     uVar2 = luaM_growaux(&pFVar1->pF->pCode,pFVar1->nMaxCode,1,(byte *)s_code_size_overflow_10027b08
                          ,0x7ffffffd);
     pFVar1->nMaxCode = uVar2;
@@ -96,28 +96,28 @@ void __cdecl check_pc(int param_1)
    the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: writes op/arg in the shortest
    form at pc, deltastack); was lparser__a810. */
 
-undefined4 __cdecl code_oparg_at(int param_1,char param_2,int param_3,uint param_4,int param_5)
+undefined4 __cdecl code_oparg_at(int pc,char op,int builtin,uint arg,int delta)
 
 {
   byte *pbVar1;
   byte bVar2;
   
   pbVar1 = g_pLuaState->pCurrState->pF->pCode;
-  deltastack(param_5);
-  bVar2 = (byte)param_4;
-  if ((int)param_4 < param_3) {
-    pbVar1[param_1] = bVar2 + param_2 + 1;
+  deltastack(delta);
+  bVar2 = (byte)arg;
+  if ((int)arg < builtin) {
+    pbVar1[pc] = bVar2 + op + 1;
     return 1;
   }
-  if ((int)param_4 < 0x100) {
-    pbVar1[param_1] = param_2;
-    pbVar1[param_1 + 1] = bVar2;
+  if ((int)arg < 0x100) {
+    pbVar1[pc] = op;
+    pbVar1[pc + 1] = bVar2;
     return 2;
   }
-  if (param_4 < 0xffff) {
-    pbVar1[param_1] = (char)param_3 + param_2 + 1;
-    pbVar1[param_1 + 1] = bVar2;
-    pbVar1[param_1 + 2] = (byte)(param_4 >> 8);
+  if (arg < 0xffff) {
+    pbVar1[pc] = (char)builtin + op + 1;
+    pbVar1[pc + 1] = bVar2;
+    pbVar1[pc + 2] = (byte)(arg >> 8);
     return 3;
   }
   luaY_error(s_code_too_long__limit_64K__10027b1c);
@@ -129,14 +129,14 @@ undefined4 __cdecl code_oparg_at(int param_1,char param_2,int param_3,uint param
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: stacksize += delta,
    'function/expression too complex'); was lparser__a8b0. */
 
-void __cdecl deltastack(int param_1)
+void __cdecl deltastack(int delta)
 
 {
   FuncState *pFVar1;
   int iVar2;
   
   pFVar1 = g_pLuaState->pCurrState;
-  iVar2 = pFVar1->nStackSize + param_1;
+  iVar2 = pFVar1->nStackSize + delta;
   pFVar1->nStackSize = iVar2;
   if (pFVar1->nMaxStackSize < iVar2) {
     if (0xff < iVar2) {
@@ -148,12 +148,12 @@ void __cdecl deltastack(int param_1)
 }
 
 /* ---- 0x1000a900  luaY_parser ---- */
-int __cdecl luaY_parser(int param_1)
+int __cdecl luaY_parser(int z)
 
 {
   unsigned char _frame[0x8e0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  TaggedString *pTVar1;
-  int iVar2;
+  TaggedString *filename;
+  int iVar1;
   #define local_8c4 (*(undefined1 (*)[84])(_frame + (0x8e0 - 0x8c4)))
   #define local_870 (*(FuncState (*)[6])(_frame + (0x8e0 - 0x870)))
   
@@ -161,15 +161,15 @@ int __cdecl luaY_parser(int param_1)
   g_pLuaState->pMainState = local_870;
   g_pLuaState->pCurrState = g_pLuaState->pMainState;
   g_pLuaState->pLexState = local_8c4;
-  luaX_setinput(param_1);
-  pTVar1 = luaS_new(*(char **)(param_1 + 0x10));
-  init_state(pTVar1);
-  iVar2 = luaY_parse();
-  if (iVar2 != 0) {
+  luaX_setinput(z);
+  filename = luaS_new(*(char **)(z + 0x10));
+  init_state(filename);
+  iVar1 = luaY_parse();
+  if (iVar1 != 0) {
     lua_error((byte *)s_parse_error_10027b58);
   }
-  iVar2 = close_func();
-  return iVar2;
+  iVar1 = close_func();
+  return iVar1;
 }
 #undef local_870
 #undef local_8c4
@@ -180,7 +180,7 @@ int __cdecl luaY_parser(int param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: a new prototype and a fresh
    FuncState, locvars only with lua_debug); was lparser__a980. */
 
-void __cdecl init_state(TaggedString *param_1)
+void __cdecl init_state(TaggedString *filename)
 
 {
   FuncState *pFVar1;
@@ -193,7 +193,7 @@ void __cdecl init_state(TaggedString *param_1)
   pFVar1->nLocalVar = 0;
   pFVar1->nUpvalues = 0;
   pFVar1->pF = pTVar2;
-  pTVar2->pFileName = param_1;
+  pTVar2->pFileName = filename;
   pFVar1->nPc = 0;
   pFVar1->nMaxCode = 0;
   pTVar2->pCode = (byte *)0x0;
@@ -216,13 +216,13 @@ void __cdecl init_state(TaggedString *param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: check_pc(1), f->code[pc++] = c);
    was lparser__aa10. */
 
-void __cdecl code_byte(byte param_1)
+void __cdecl code_byte(byte c)
 
 {
   int *piVar1;
   
   check_pc(1);
-  g_pLuaState->pCurrState->pF->pCode[g_pLuaState->pCurrState->nPc] = param_1;
+  g_pLuaState->pCurrState->pF->pCode[g_pLuaState->pCurrState->nPc] = c;
   piVar1 = &g_pLuaState->pCurrState->nPc;
   *piVar1 = *piVar1 + 1;
   return;
@@ -252,7 +252,7 @@ int close_func(void)
                      (pTVar1->pConsts,pTVar1->nNconsts << 3,s_lua_stx_10027b64,0x25d);
   pTVar1->pConsts = pTVar3;
   if (g_pLuaState->pCurrState->nMaxVars != -1) {
-    luaI_registerlocalvar(0,0xffffffff);
+    luaI_registerlocalvar((TaggedString *)0x0,-1);
     pLVar4 = (LocVar *)
              (**(code **)(g_dwLuaHS + 0x28))
                        (pTVar1->pLocvars,g_pLuaState->pCurrState->nVars << 3,s_lua_stx_10027b64,
@@ -268,10 +268,10 @@ int close_func(void)
    the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: code_opcode(op, 0)); was
    lparser__ab20. */
 
-void __cdecl code_neutralop(undefined1 param_1)
+void __cdecl code_neutralop(undefined1 op)
 
 {
-  code_opcode(param_1,0);
+  code_opcode(op,0);
   return;
 }
 
@@ -280,11 +280,11 @@ void __cdecl code_neutralop(undefined1 param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: deltastack(delta), code_byte(op));
    was lparser__ab30. */
 
-void __cdecl code_opcode(undefined1 param_1,int param_2)
+void __cdecl code_opcode(byte op,int delta)
 
 {
-  deltastack(param_2);
-  code_byte(param_1);
+  deltastack(delta);
+  code_byte(op);
   return;
 }
 
@@ -293,7 +293,7 @@ void __cdecl code_opcode(undefined1 param_1,int param_2)
    (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: appends {varname,
    line} to f->locvars when debug info is on); was luaY_growvector. */
 
-void __cdecl luaI_registerlocalvar(TaggedString *param_1,int param_2)
+void __cdecl luaI_registerlocalvar(TaggedString *varname,int line)
 
 {
   FuncState *pFVar1;
@@ -306,8 +306,8 @@ void __cdecl luaI_registerlocalvar(TaggedString *param_1,int param_2)
       uVar2 = luaM_growaux(&pFVar1->pF->pLocvars,uVar2,8,&DAT_1002bedc,0xfffe);
       pFVar1->nMaxVars = uVar2;
     }
-    pFVar1->pF->pLocvars[pFVar1->nVars].pVarname = param_1;
-    pFVar1->pF->pLocvars[pFVar1->nVars].nLine = param_2;
+    pFVar1->pF->pLocvars[pFVar1->nVars].pVarname = varname;
+    pFVar1->pF->pLocvars[pFVar1->nVars].nLine = line;
     pFVar1->nVars = pFVar1->nVars + 1;
   }
   return;
@@ -744,14 +744,14 @@ switchD_1000acd8_caseD_1f:
       fVar9 = pfVar9[-2] + 1;
       break;
     case 99:
-      store_localvar(*pfVar9,0);
+      store_localvar((TaggedString *)*pfVar9,0);
     case 0x46:
     case 0x5a:
     case 0x5f:
       fVar9 = 1;
       break;
     case 100:
-      store_localvar(*pfVar9,pfVar9[-2]);
+      store_localvar((TaggedString *)*pfVar9,pfVar9[-2]);
       fVar9 = pfVar9[-2] + 1;
     }
     local_bd8 = local_bd8 + -iVar8;
@@ -835,7 +835,7 @@ LAB_1000b464:
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: rewrites the op at pc, moving the
    code when the argument shrinks); was lparser__b770. */
 
-int __cdecl fix_opcode(int param_1,char param_2,int param_3,uint param_4)
+int __cdecl fix_opcode(int pc,char op,int builtin,uint arg)
 
 {
   FuncState *pFVar1;
@@ -843,22 +843,21 @@ int __cdecl fix_opcode(int param_1,char param_2,int param_3,uint param_4)
   int iVar3;
   
   pFVar1 = g_pLuaState->pCurrState;
-  if ((int)param_4 < param_3) {
+  if ((int)arg < builtin) {
     pbVar2 = pFVar1->pF->pCode;
-    memcpy((undefined4 *)(pbVar2 + param_1 + 1),(undefined4 *)(pbVar2 + param_1 + 2),
-           (pFVar1->nPc - param_1) - 2);
+    memcpy((undefined4 *)(pbVar2 + pc + 1),(undefined4 *)(pbVar2 + pc + 2),(pFVar1->nPc - pc) - 2);
     iVar3 = pFVar1->nPc + -1;
   }
   else {
-    if ((int)param_4 < 0x100) goto LAB_1000b7e3;
+    if ((int)arg < 0x100) goto LAB_1000b7e3;
     check_pc(1);
-    pbVar2 = pFVar1->pF->pCode + param_1;
-    memcpy((undefined4 *)(pbVar2 + 1),(undefined4 *)pbVar2,pFVar1->nPc - param_1);
+    pbVar2 = pFVar1->pF->pCode + pc;
+    memcpy((undefined4 *)(pbVar2 + 1),(undefined4 *)pbVar2,pFVar1->nPc - pc);
     iVar3 = pFVar1->nPc + 1;
   }
   pFVar1->nPc = iVar3;
 LAB_1000b7e3:
-  iVar3 = code_oparg_at(param_1,param_2,param_3,param_4,0);
+  iVar3 = code_oparg_at(pc,op,builtin,arg,0);
   return iVar3 + -2;
 }
 
@@ -867,10 +866,10 @@ LAB_1000b7e3:
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: code_opcode(op, -1)); was
    lparser__b800. */
 
-void __cdecl code_pop(undefined1 param_1)
+void __cdecl code_pop(undefined1 op)
 
 {
-  code_opcode(param_1,-1);
+  code_opcode(op,-1);
   return;
 }
 
@@ -880,20 +879,20 @@ void __cdecl code_pop(undefined1 param_1)
    the string's constindex when consts[i] is that string, else next_constant and stores it); was
    luaY_string_constant. */
 
-uint __cdecl string_constant(int param_1,int *param_2)
+uint __cdecl string_constant(int s,int *state)
 
 {
   int iVar1;
   uint uVar2;
   
-  iVar1 = *param_2;
-  uVar2 = *(uint *)(param_1 + 8);
+  iVar1 = *state;
+  uVar2 = *(uint *)(s + 8);
   if (((*(uint *)(iVar1 + 0xc) <= uVar2) || (*(int *)(*(int *)(iVar1 + 8) + uVar2 * 8) != -2)) ||
-     (*(int *)(*(int *)(iVar1 + 8) + uVar2 * 8 + 4) != param_1)) {
-    uVar2 = next_constant(param_2);
+     (*(int *)(*(int *)(iVar1 + 8) + uVar2 * 8 + 4) != s)) {
+    uVar2 = next_constant(state);
     *(undefined4 *)(*(int *)(iVar1 + 8) + uVar2 * 8) = 0xfffffffe;
-    *(int *)(*(int *)(iVar1 + 8) + 4 + uVar2 * 8) = param_1;
-    *(uint *)(param_1 + 8) = uVar2;
+    *(int *)(*(int *)(iVar1 + 8) + 4 + uVar2 * 8) = s;
+    *(uint *)(s + 8) = uVar2;
   }
   return uVar2;
 }
@@ -903,18 +902,18 @@ uint __cdecl string_constant(int param_1,int *param_2)
    Lua 3.1 source name (lua.stx static next_constant: luaM_growvector of consts, error "constant
    table overflow"); was luaY_next_constant. */
 
-int __cdecl next_constant(int *param_1)
+int __cdecl next_constant(int *state)
 
 {
   int iVar1;
   int iVar2;
   uint uVar3;
   
-  iVar1 = *param_1;
-  if ((uint)param_1[0x29] <= *(uint *)(iVar1 + 0xc)) {
-    uVar3 = luaM_growaux((undefined4 *)(iVar1 + 8),param_1[0x29],8,
+  iVar1 = *state;
+  if ((uint)state[0x29] <= *(uint *)(iVar1 + 0xc)) {
+    uVar3 = luaM_growaux((undefined4 *)(iVar1 + 8),state[0x29],8,
                          (byte *)s_constant_table_overflow_10027ba8,0xfffe);
-    param_1[0x29] = uVar3;
+    state[0x29] = uVar3;
   }
   iVar2 = *(int *)(iVar1 + 0xc);
   *(int *)(iVar1 + 0xc) = iVar2 + 1;
@@ -926,13 +925,13 @@ int __cdecl next_constant(int *param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: code_constant(string_constant(s,
    fs))); was lparser__b8a0. */
 
-void __cdecl code_string(int param_1)
+void __cdecl code_string(int s)
 
 {
-  uint uVar1;
+  uint c;
   
-  uVar1 = string_constant(param_1,(int *)g_pLuaState->pCurrState);
-  code_constant(uVar1);
+  c = string_constant(s,(int *)g_pLuaState->pCurrState);
+  code_constant(c);
   return;
 }
 
@@ -941,10 +940,10 @@ void __cdecl code_string(int param_1)
    the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: code_oparg(PUSHCONSTANT, 8, c,
    1)); was lparser__b8c0. */
 
-void __cdecl code_constant(uint param_1)
+void __cdecl code_constant(uint c)
 
 {
-  code_oparg('\b',8,param_1,1);
+  code_oparg('\b',8,c,1);
   return;
 }
 
@@ -954,21 +953,21 @@ void __cdecl code_constant(uint param_1)
    an integer in 0..65534 (code_oparg), else code_constant(real_constant(f))); was luaY_code_number.
     */
 
-void __cdecl code_number(float param_1)
+void __cdecl code_number(float f)
 
 {
-  uint uVar1;
-  longlong lVar2;
+  uint c;
+  longlong lVar1;
   
-  if ((0.0f <= param_1) && (param_1 <= 65534.0f)) {
-    lVar2 = FTOL((float10)param_1);
-    if ((float)(int)(uint)lVar2 == param_1) {
-      code_oparg('\x03',3,(uint)lVar2,1);
+  if ((0.0f <= f) && (f <= 65534.0f)) {
+    lVar1 = FTOL((float10)f);
+    if ((float)(int)(uint)lVar1 == f) {
+      code_oparg('\x03',3,(uint)lVar1,1);
       return;
     }
   }
-  uVar1 = real_constant(param_1);
-  code_constant(uVar1);
+  c = real_constant(f);
+  code_constant(c);
   return;
 }
 
@@ -978,7 +977,7 @@ void __cdecl code_number(float param_1)
    the last 20 constants for the number (LOOKBACKNUMS), else next_constant); was luaY_real_constant.
     */
 
-int __cdecl real_constant(float param_1)
+int __cdecl real_constant(float r)
 
 {
   TProtoFunc *pTVar1;
@@ -998,7 +997,7 @@ int __cdecl real_constant(float param_1)
   if (iVar4 <= iVar2) {
     pTVar3 = pTVar1->pConsts + iVar2;
     do {
-      if ((pTVar3->nTtype == -1) && (PUN(float,pTVar3->dwValue) == param_1)) {
+      if ((pTVar3->nTtype == -1) && (PUN(float,pTVar3->dwValue) == r)) {
         return iVar2;
       }
       iVar2 = iVar2 + -1;
@@ -1008,7 +1007,7 @@ int __cdecl real_constant(float param_1)
   iVar2 = next_constant((int *)g_pLuaState->pCurrState);
   pTVar3 = g_pLuaState->pCurrState->pF->pConsts;
   pTVar3[iVar2].nTtype = -1;
-  pTVar3[iVar2].dwValue = PUN(uint,(float)(param_1));
+  pTVar3[iVar2].dwValue = PUN(uint,(float)(r));
   return iVar2;
 }
 
@@ -1017,11 +1016,11 @@ int __cdecl real_constant(float param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: SETMAP n-1 with delta -2n); was
    lparser__b9c0. */
 
-void __cdecl flush_record(int param_1)
+void __cdecl flush_record(int n)
 
 {
-  if (0 < param_1) {
-    code_oparg('Y',1,param_1 - 1,param_1 * -2);
+  if (0 < n) {
+    code_oparg('Y',1,n - 1,n * -2);
   }
   return;
 }
@@ -1031,12 +1030,12 @@ void __cdecl flush_record(int param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: SETLIST m with delta -n, then the
    count byte); was lparser__b9e0. */
 
-void __cdecl flush_list(uint param_1,int param_2)
+void __cdecl flush_list(uint m,int n)
 
 {
-  if (param_2 != 0) {
-    code_oparg('V',1,param_1,-param_2);
-    code_byte((char)param_2);
+  if (n != 0) {
+    code_oparg('V',1,m,-n);
+    code_byte((byte)n);
   }
   return;
 }
@@ -1046,10 +1045,10 @@ void __cdecl flush_list(uint param_1,int param_2)
    (not in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx:
    luaI_registerlocalvar(NULL, line)); was lparser__ba10. */
 
-void __cdecl luaI_unregisterlocalvar(undefined4 param_1)
+void __cdecl luaI_unregisterlocalvar(int line)
 
 {
-  luaI_registerlocalvar(0,param_1);
+  luaI_registerlocalvar((TaggedString *)0x0,line);
   return;
 }
 
@@ -1058,19 +1057,19 @@ void __cdecl luaI_unregisterlocalvar(undefined4 param_1)
    the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: 'too many local variables',
    localvar[nlocalvar+n] = name, luaI_registerlocalvar); was lparser__ba20. */
 
-void __cdecl store_localvar(TaggedString *param_1,int param_2)
+void __cdecl store_localvar(TaggedString *name,int n)
 
 {
   int iVar1;
   
-  iVar1 = g_pLuaState->pCurrState->nLocalVar + param_2;
+  iVar1 = g_pLuaState->pCurrState->nLocalVar + n;
   if (iVar1 < 0x20) {
-    g_pLuaState->pCurrState->aLocalVar[iVar1] = param_1;
+    g_pLuaState->pCurrState->aLocalVar[iVar1] = name;
   }
   else {
     luaY_error(s_too_many_local_variables__limit__10027bc0);
   }
-  luaI_registerlocalvar(param_1,*(undefined4 *)((int)g_pLuaState->pLexState + 8));
+  luaI_registerlocalvar(name,*(int *)((int)g_pLuaState->pLexState + 8));
   return;
 }
 
@@ -1095,16 +1094,16 @@ void __cdecl add_localvar(TaggedString *pTaggedString)
    (the remaster's libLua.so: static add_varbuffer: string 'variable buffer overflow (limit=32)');
    was lparser__ba90. */
 
-void __cdecl add_varbuffer(int param_1,int param_2)
+void __cdecl add_varbuffer(int var,int n)
 
 {
   int iVar1;
   
-  if (0x1f < param_2) {
+  if (0x1f < n) {
     luaY_error(s_variable_buffer_overflow__limit__10027be4);
   }
-  iVar1 = var2store(param_1);
-  g_pLuaState->pCurrState->aUpvalues[param_2 + -0x20] = iVar1;
+  iVar1 = var2store(var);
+  g_pLuaState->pCurrState->aUpvalues[n + -0x20] = iVar1;
   return;
 }
 
@@ -1113,14 +1112,14 @@ void __cdecl add_varbuffer(int param_1,int param_2)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: a dotted variable codes its
    constant and becomes 0, used by add_varbuffer); was lparser__bad0. */
 
-int __cdecl var2store(int param_1)
+int __cdecl var2store(int var)
 
 {
-  if (param_1 < 0) {
-    code_constant(-param_1 - 1);
-    param_1 = 0;
+  if (var < 0) {
+    code_constant(-var - 1);
+    var = 0;
   }
-  return param_1;
+  return var;
 }
 
 /* ---- 0x1000baf0  singlevar ---- */
@@ -1128,30 +1127,30 @@ int __cdecl var2store(int param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: local, global or 'cannot access a
    variable in outer scope'); was lparser__baf0. */
 
-int __cdecl singlevar(int param_1,int *param_2)
+int __cdecl singlevar(int n,int *st)
 
 {
   int *piVar1;
   int iVar2;
   int iVar3;
   
-  iVar2 = aux_localname(param_1,(int)param_2);
+  iVar2 = aux_localname(n,(int)st);
   if (iVar2 != -1) {
     return iVar2 + 1;
   }
   iVar2 = 1;
-  piVar1 = param_2;
-  if (0 < ((int)param_2 - (int)g_pLuaState->pMainState) / 0x168) {
+  piVar1 = st;
+  if (0 < ((int)st - (int)g_pLuaState->pMainState) / 0x168) {
     do {
-      iVar3 = aux_localname(param_1,(int)(piVar1 + -0x5a));
+      iVar3 = aux_localname(n,(int)(piVar1 + -0x5a));
       if (-1 < iVar3) {
-        luaY_syntaxerror(s_cannot_access_a_variable_in_oute_10027c08,(char *)(param_1 + 0x18));
+        luaY_syntaxerror(s_cannot_access_a_variable_in_oute_10027c08,(char *)(n + 0x18));
       }
       iVar2 = iVar2 + 1;
       piVar1 = piVar1 + -0x5a;
-    } while (iVar2 <= ((int)param_2 - (int)g_pLuaState->pMainState) / 0x168);
+    } while (iVar2 <= ((int)st - (int)g_pLuaState->pMainState) / 0x168);
   }
-  iVar2 = string_constant(param_1,param_2);
+  iVar2 = string_constant(n,st);
   return iVar2 + 0x21;
 }
 
@@ -1160,17 +1159,17 @@ int __cdecl singlevar(int param_1,int *param_2)
    the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: the index of a local name in a
    FuncState or -1); was lparser__bba0. */
 
-int __cdecl aux_localname(int param_1,int param_2)
+int __cdecl aux_localname(int n,int st)
 
 {
   int iVar1;
   int *piVar2;
   
-  iVar1 = *(int *)(param_2 + 0x90) + -1;
+  iVar1 = *(int *)(st + 0x90) + -1;
   if (-1 < iVar1) {
-    piVar2 = (int *)(param_2 + 8 + iVar1 * 4);
+    piVar2 = (int *)(st + 8 + iVar1 * 4);
     do {
-      if (param_1 == *piVar2) {
+      if (n == *piVar2) {
         return iVar1;
       }
       iVar1 = iVar1 + -1;
@@ -1185,21 +1184,21 @@ int __cdecl aux_localname(int param_1,int param_2)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: 'cannot access upvalue in main',
    PUSHUPVALUE indexupvalue(n)); was lparser__bbd0. */
 
-void __cdecl pushupvalue(int param_1)
+void __cdecl pushupvalue(int n)
 
 {
   int iVar1;
-  uint uVar2;
+  uint arg;
   
   if (g_pLuaState->pCurrState == g_pLuaState->pMainState) {
     luaY_error(s_cannot_access_upvalue_in_main_10027c5c);
   }
-  iVar1 = aux_localname(param_1,(int)g_pLuaState->pCurrState);
+  iVar1 = aux_localname(n,(int)g_pLuaState->pCurrState);
   if (-1 < iVar1) {
-    luaY_syntaxerror(s_cannot_access_an_upvalue_in_curr_10027c30,(char *)(param_1 + 0x18));
+    luaY_syntaxerror(s_cannot_access_an_upvalue_in_curr_10027c30,(char *)(n + 0x18));
   }
-  uVar2 = indexupvalue(param_1);
-  code_oparg('\x12',2,uVar2,1);
+  arg = indexupvalue(n);
+  code_oparg('\x12',2,arg,1);
   return;
 }
 
@@ -1208,7 +1207,7 @@ void __cdecl pushupvalue(int param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: index of an upvalue, added if
    new); was lparser__bc40. */
 
-int __cdecl indexupvalue(int param_1)
+int __cdecl indexupvalue(int n)
 
 {
   FuncState *pFVar1;
@@ -1217,7 +1216,7 @@ int __cdecl indexupvalue(int param_1)
   int *piVar4;
   int iVar5;
   
-  iVar3 = singlevar(param_1,(int *)(g_pLuaState->pCurrState + -1));
+  iVar3 = singlevar(n,(int *)(g_pLuaState->pCurrState + -1));
   iVar5 = 0;
   pFVar1 = g_pLuaState->pCurrState;
   iVar2 = pFVar1->nUpvalues;
@@ -1244,15 +1243,15 @@ int __cdecl indexupvalue(int param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: POP n or PUSHNIL -n); was
    lparser__bcc0. */
 
-void __cdecl adjuststack(int param_1)
+void __cdecl adjuststack(int n)
 
 {
-  if (0 < param_1) {
-    code_oparg('~',2,param_1 - 1,-param_1);
+  if (0 < n) {
+    code_oparg('~',2,n - 1,-n);
     return;
   }
-  if (param_1 < 0) {
-    code_oparg('\x01',1,-param_1 - 1,-param_1);
+  if (n < 0) {
+    code_oparg('\x01',1,-n - 1,-n);
   }
   return;
 }
@@ -1262,7 +1261,7 @@ void __cdecl adjuststack(int param_1)
    in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: fixes the result count of a
    call); was lparser__bd00. */
 
-int __cdecl adjust_functioncall(int param_1,uint param_2)
+int __cdecl adjust_functioncall(int exp,uint nresults)
 
 {
   byte bVar1;
@@ -1270,19 +1269,19 @@ int __cdecl adjust_functioncall(int param_1,uint param_2)
   byte *pbVar3;
   int iVar4;
   
-  if (param_1 < 1) {
-    return -param_1;
+  if (exp < 1) {
+    return -exp;
   }
-  pbVar3 = g_pLuaState->pCurrState->pF->pCode + param_1;
+  pbVar3 = g_pLuaState->pCurrState->pF->pCode + exp;
   bVar1 = *pbVar3;
   bVar2 = pbVar3[-1];
-  iVar4 = fix_opcode(param_1 + -2,'x',2,param_2);
-  g_pLuaState->pCurrState->pF->pCode[param_1 + iVar4] = bVar2;
-  if (param_2 != 0xff) {
-    deltastack(param_2);
+  iVar4 = fix_opcode(exp + -2,'x',2,nresults);
+  g_pLuaState->pCurrState->pF->pCode[exp + iVar4] = bVar2;
+  if (nresults != 0xff) {
+    deltastack(nresults);
   }
   deltastack(-1 - (uint)bVar2);
-  return bVar1 + param_2;
+  return bVar1 + nresults;
 }
 
 /* ---- 0x1000bd80  adjust_mult_assign ---- */
@@ -1290,22 +1289,22 @@ int __cdecl adjust_functioncall(int param_1,uint param_2)
    in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: adjust_functioncall /
    adjuststack for vars = exps); was lparser__bd80. */
 
-void __cdecl adjust_mult_assign(int param_1,int param_2)
+void __cdecl adjust_mult_assign(int vars,int exps)
 
 {
-  int iVar1;
+  int n;
   
-  if (param_2 < 1) {
-    adjuststack(-(param_2 + param_1));
+  if (exps < 1) {
+    adjuststack(-(exps + vars));
     return;
   }
-  iVar1 = (uint)g_pLuaState->pCurrState->pF->pCode[param_2] - param_1;
-  if (iVar1 < 0) {
-    adjust_functioncall(param_2,-iVar1);
+  n = (uint)g_pLuaState->pCurrState->pF->pCode[exps] - vars;
+  if (n < 0) {
+    adjust_functioncall(exps,-n);
     return;
   }
-  adjust_functioncall(param_2,0);
-  adjuststack(iVar1);
+  adjust_functioncall(exps,0);
+  adjuststack(n);
   return;
 }
 
@@ -1314,23 +1313,23 @@ void __cdecl adjust_mult_assign(int param_1,int param_2)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: nlocalvar += nparams, VARARGS when
    dots); was lparser__bde0. */
 
-void __cdecl code_args(int param_1,int param_2)
+void __cdecl code_args(int nparams,int dots)
 
 {
   FuncState *pFVar1;
-  int iVar2;
+  int delta;
   TaggedString *pTaggedString;
   
-  g_pLuaState->pCurrState->nLocalVar = g_pLuaState->pCurrState->nLocalVar + param_1;
+  g_pLuaState->pCurrState->nLocalVar = g_pLuaState->pCurrState->nLocalVar + nparams;
   pFVar1 = g_pLuaState->pCurrState;
-  iVar2 = pFVar1->nLocalVar;
-  if (param_2 == 0) {
-    pFVar1->pF->pCode[1] = (byte)iVar2;
-    deltastack(iVar2);
+  delta = pFVar1->nLocalVar;
+  if (dots == 0) {
+    pFVar1->pF->pCode[1] = (byte)delta;
+    deltastack(delta);
     return;
   }
-  pFVar1->pF->pCode[1] = (byte)iVar2 + 0x40;
-  deltastack(iVar2 + 1);
+  pFVar1->pF->pCode[1] = (byte)delta + 0x40;
+  deltastack(delta + 1);
   pTaggedString = luaS_new(&DAT_10027cb0);
   add_localvar(pTaggedString);
   return;
@@ -1341,22 +1340,22 @@ void __cdecl code_args(int param_1,int param_2)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: PUSHLOCAL / GETGLOBAL / GETTABLE /
    GETDOTTED by vardesc); was lparser__be60. */
 
-void __cdecl lua_pushvar(int param_1)
+void __cdecl lua_pushvar(int number)
 
 {
-  if (0x20 < param_1) {
-    code_oparg('\x1e',8,param_1 - 0x21,1);
+  if (0x20 < number) {
+    code_oparg('\x1e',8,number - 0x21,1);
     return;
   }
-  if ((0 < param_1) && (param_1 < 0x21)) {
-    code_oparg('\x15',8,param_1 - 1,1);
+  if ((0 < number) && (number < 0x21)) {
+    code_oparg('\x15',8,number - 1,1);
     return;
   }
-  if (-1 < param_1) {
+  if (-1 < number) {
     code_pop(0x28);
     return;
   }
-  ((code *)code_oparg)(')',8,-param_1 - 1,0);
+  ((code *)code_oparg)(')',8,-number - 1,0);
   return;
 }
 
@@ -1365,18 +1364,18 @@ void __cdecl lua_pushvar(int param_1)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: SETLOCAL / SETGLOBAL / SETTABLE0
    by vardesc); was lparser__bec0. */
 
-void __cdecl storevar(int param_1)
+void __cdecl storevar(int number)
 
 {
-  if (param_1 == 0) {
+  if (number == 0) {
     code_opcode(0x54,-3);
     return;
   }
-  if (0x20 < param_1) {
-    code_oparg('J',8,param_1 - 0x21,-1);
+  if (0x20 < number) {
+    code_oparg('J',8,number - 0x21,-1);
     return;
   }
-  code_oparg('A',8,param_1 - 1,-1);
+  code_oparg('A',8,number - 1,-1);
   return;
 }
 
@@ -1385,18 +1384,18 @@ void __cdecl storevar(int param_1)
    the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: the store of assignment i,
    SETTABLE when left items are on the stack); was lparser__bf00. */
 
-int __cdecl lua_codestore(int param_1,int param_2)
+int __cdecl lua_codestore(int i,int left)
 
 {
-  int iVar1;
+  int number;
   
-  iVar1 = g_pLuaState->pCurrState->aUpvalues[param_1 + -0x20];
-  if ((iVar1 == 0) && (param_1 + param_2 != 0)) {
-    code_oparg('U',0,param_1 + param_2,-1);
-    return param_2 + 2;
+  number = g_pLuaState->pCurrState->aUpvalues[i + -0x20];
+  if ((number == 0) && (i + left != 0)) {
+    code_oparg('U',0,i + left,-1);
+    return left + 2;
   }
-  storevar(iVar1);
-  return param_2;
+  storevar(number);
+  return left;
 }
 
 /* ---- 0x1000bf50  fix_jump ---- */
@@ -1404,12 +1403,12 @@ int __cdecl lua_codestore(int param_1,int param_2)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: fix_opcode(pc, op, 0, n - pc -
    2)); was lparser__bf50. */
 
-int __cdecl fix_jump(int param_1,char param_2,int param_3)
+int __cdecl fix_jump(int pc,char op,int n)
 
 {
   int iVar1;
   
-  iVar1 = fix_opcode(param_1,param_2,0,(param_3 - param_1) - 2);
+  iVar1 = fix_opcode(pc,op,0,(n - pc) - 2);
   return iVar1;
 }
 
@@ -1418,18 +1417,18 @@ int __cdecl fix_jump(int param_1,char param_2,int param_3)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: a backward jump to pos); was
    lparser__bf70. */
 
-void __cdecl fix_upjmp(char param_1,int param_2)
+void __cdecl fix_upjmp(char op,int pos)
 
 {
   int iVar1;
-  uint uVar2;
+  uint arg;
   
-  iVar1 = g_pLuaState->pCurrState->nPc - param_2;
-  uVar2 = iVar1 + 2;
-  if (0xff < (int)uVar2) {
-    uVar2 = iVar1 + 3;
+  iVar1 = g_pLuaState->pCurrState->nPc - pos;
+  arg = iVar1 + 2;
+  if (0xff < (int)arg) {
+    arg = iVar1 + 3;
   }
-  code_oparg(param_1,0,uVar2,0);
+  code_oparg(op,0,arg,0);
   return;
 }
 
@@ -1438,19 +1437,19 @@ void __cdecl fix_upjmp(char param_1,int param_2)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: fix_jump of the then part and of
    the jump over the else part); was lparser__bfa0. */
 
-void __cdecl codeIf(int param_1,int param_2)
+void __cdecl codeIf(int thenAdd,int elseAdd)
 
 {
   int iVar1;
   
   iVar1 = g_pLuaState->pCurrState->nPc;
-  if (iVar1 == param_2 + 2) {
+  if (iVar1 == elseAdd + 2) {
     g_pLuaState->pCurrState->nPc = iVar1 + -2;
-    fix_jump(param_1,'o',g_pLuaState->pCurrState->nPc);
+    fix_jump(thenAdd,'o',g_pLuaState->pCurrState->nPc);
     return;
   }
-  iVar1 = fix_jump(param_2,'m',iVar1);
-  fix_jump(param_1,'o',param_2 + 2 + iVar1);
+  iVar1 = fix_jump(elseAdd,'m',iVar1);
+  fix_jump(thenAdd,'o',elseAdd + 2 + iVar1);
   return;
 }
 
@@ -1459,10 +1458,10 @@ void __cdecl codeIf(int param_1,int param_2)
    in the remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: fix_jump(pc, jmp, pc of the
    end)); was lparser__c000. */
 
-void __cdecl code_shortcircuit(int param_1,char param_2)
+void __cdecl code_shortcircuit(int pc,char jmp)
 
 {
-  fix_jump(param_1,param_2,g_pLuaState->pCurrState->nPc);
+  fix_jump(pc,jmp,g_pLuaState->pCurrState->nPc);
   return;
 }
 
@@ -1487,30 +1486,30 @@ void codereturn(void)
 void func_onstack(void)
 
 {
-  uint uVar1;
+  uint arg;
+  uint c;
+  int iVar1;
   uint uVar2;
-  int iVar3;
-  uint uVar4;
   
-  uVar1 = g_pLuaState->pCurrState[1].nUpvalues;
-  uVar2 = next_constant((int *)g_pLuaState->pCurrState);
-  g_pLuaState->pCurrState->pF->pConsts[uVar2].nTtype = -4;
-  g_pLuaState->pCurrState->pF->pConsts[uVar2].dwValue = (uint)g_pLuaState->pCurrState[1].pF;
-  if (uVar1 != 0) {
-    if (0 < (int)uVar1) {
-      iVar3 = 0x290;
-      uVar4 = uVar1;
+  arg = g_pLuaState->pCurrState[1].nUpvalues;
+  c = next_constant((int *)g_pLuaState->pCurrState);
+  g_pLuaState->pCurrState->pF->pConsts[c].nTtype = -4;
+  g_pLuaState->pCurrState->pF->pConsts[c].dwValue = (uint)g_pLuaState->pCurrState[1].pF;
+  if (arg != 0) {
+    if (0 < (int)arg) {
+      iVar1 = 0x290;
+      uVar2 = arg;
       do {
-        lua_pushvar(*(int *)((int)g_pLuaState->pCurrState->aLocalVar + iVar3 + -8));
-        iVar3 = iVar3 + 4;
-        uVar4 = uVar4 - 1;
-      } while (uVar4 != 0);
+        lua_pushvar(*(int *)((int)g_pLuaState->pCurrState->aLocalVar + iVar1 + -8));
+        iVar1 = iVar1 + 4;
+        uVar2 = uVar2 - 1;
+      } while (uVar2 != 0);
     }
-    code_constant(uVar2);
-    code_oparg('u',2,uVar1,-uVar1);
+    code_constant(c);
+    code_oparg('u',2,arg,-arg);
     return;
   }
-  code_constant(uVar2);
+  code_constant(c);
   return;
 }
 

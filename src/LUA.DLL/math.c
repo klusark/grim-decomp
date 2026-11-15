@@ -304,20 +304,20 @@ void __cdecl math_min(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
-  float fVar3;
+  int numArg;
+  float fVar2;
   #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   fStack_4 = luaL_check_number(1);
-  iVar2 = 2;
+  numArg = 2;
   iVar1 = lua_lua2C(2);
   while (iVar1 != 0) {
-    fVar3 = luaL_check_number(iVar2);
-    if (fVar3 < fStack_4) {
-      fStack_4 = fVar3;
+    fVar2 = luaL_check_number(numArg);
+    if (fVar2 < fStack_4) {
+      fStack_4 = fVar2;
     }
-    iVar2 = iVar2 + 1;
-    iVar1 = lua_lua2C(iVar2);
+    numArg = numArg + 1;
+    iVar1 = lua_lua2C(numArg);
   }
   lua_pushnumber(fStack_4);
   return;
@@ -333,20 +333,20 @@ void __cdecl math_max(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
-  float fVar3;
+  int numArg;
+  float fVar2;
   #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   fStack_4 = luaL_check_number(1);
-  iVar2 = 2;
+  numArg = 2;
   iVar1 = lua_lua2C(2);
   while (iVar1 != 0) {
-    fVar3 = luaL_check_number(iVar2);
-    if (fStack_4 < fVar3) {
-      fStack_4 = fVar3;
+    fVar2 = luaL_check_number(numArg);
+    if (fStack_4 < fVar2) {
+      fStack_4 = fVar2;
     }
-    iVar2 = iVar2 + 1;
-    iVar1 = lua_lua2C(iVar2);
+    numArg = numArg + 1;
+    iVar1 = lua_lua2C(numArg);
   }
   lua_pushnumber(fStack_4);
   return;

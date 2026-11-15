@@ -57,14 +57,14 @@ void str_sub(void)
 /* Named addnchar (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static
    addnchar: luaL_openspace, strncpy, luaL_addsize); was str_addnchar. */
 
-void __cdecl addnchar(uint *param_1,uint param_2)
+void __cdecl addnchar(uint *s,uint n)
 
 {
   uint *puVar1;
   
-  puVar1 = (uint *)luaL_openspace(param_2);
-  strncpy(puVar1,param_1,param_2);
-  luaL_addsize(param_2);
+  puVar1 = (uint *)luaL_openspace(n);
+  strncpy(puVar1,s,n);
+  luaL_addsize(n);
   return;
 }
 
@@ -139,21 +139,21 @@ void __cdecl str_upper(void)
 void __cdecl str_rep(void)
 
 {
-  uint *puVar1;
-  int iVar2;
-  longlong lVar3;
-  float fVar4;
+  uint *s;
+  int iVar1;
+  longlong lVar2;
+  float fVar3;
   
-  puVar1 = (uint *)luaL_check_string(1);
-  fVar4 = luaL_check_number(2);
-  lVar3 = FTOL((float10)fVar4);
-  iVar2 = (int)lVar3;
+  s = (uint *)luaL_check_string(1);
+  fVar3 = luaL_check_number(2);
+  lVar2 = FTOL((float10)fVar3);
+  iVar1 = (int)lVar2;
   luaL_resetbuffer();
-  if (0 < iVar2) {
+  if (0 < iVar1) {
     do {
-      addstr(puVar1);
-      iVar2 = iVar2 + -1;
-    } while (iVar2 != 0);
+      addstr(s);
+      iVar1 = iVar1 + -1;
+    } while (iVar1 != 0);
   }
   closeandpush();
   return;
@@ -163,7 +163,7 @@ void __cdecl str_rep(void)
 /* Named addstr (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstrlib.c static
    addstr: addnchar(s, strlen(s))); was str_addstr. */
 
-void __cdecl addstr(uint *param_1)
+void __cdecl addstr(uint *s)
 
 {
   uint uVar1;
@@ -171,14 +171,14 @@ void __cdecl addstr(uint *param_1)
   uint *puVar3;
   
   uVar2 = 0xffffffff;
-  puVar3 = param_1;
+  puVar3 = s;
   do {
     if (uVar2 == 0) break;
     uVar2 = uVar2 - 1;
     uVar1 = *puVar3;
     puVar3 = (uint *)((int)puVar3 + 1);
   } while ((char)uVar1 != '\0');
-  addnchar(param_1,~uVar2 - 1);
+  addnchar(s,~uVar2 - 1);
   return;
 }
 
@@ -222,7 +222,7 @@ LAB_100097c8:
    remaster's libLua.so: strings "incorrect pattern (ends with `%c')", "incorrect pattern (missing
    `]')"); was str_singlematch. */
 
-uint __cdecl luaI_singlematch(uint param_1,char *param_2,int *param_3)
+uint __cdecl luaI_singlematch(uint c,char *p,int *ep)
 
 {
   char *pcVar1;
@@ -233,38 +233,38 @@ uint __cdecl luaI_singlematch(uint param_1,char *param_2,int *param_3)
   uint *puVar6;
   uint *puVar7;
   
-  switch(*param_2) {
+  switch(*p) {
   case '\0':
-    *param_3 = (int)param_2;
+    *ep = (int)p;
     return 0;
   default:
-    *param_3 = (int)(param_2 + 1);
-    return (uint)((int)*param_2 == param_1);
+    *ep = (int)(p + 1);
+    return (uint)((int)*p == c);
   case '%':
-    if (param_2[1] == '\0') {
+    if (p[1] == '\0') {
       luaL_verror(s_incorrect_pattern__ends_with___c_100279a0,0x25);
     }
-    *param_3 = (int)(param_2 + 2);
-    uVar3 = matchclass(param_1,(int)param_2[1]);
+    *ep = (int)(p + 2);
+    uVar3 = matchclass(c,(int)p[1]);
     return uVar3;
   case '.':
-    *param_3 = (int)(param_2 + 1);
-    return (uint)(param_1 != 0);
+    *ep = (int)(p + 1);
+    return (uint)(c != 0);
   case '[':
     break;
   }
-  pcVar1 = param_2 + 1;
+  pcVar1 = p + 1;
   puVar2 = bracket_end(pcVar1);
-  pcVar5 = param_2;
+  pcVar5 = p;
   if (*pcVar1 == '^') {
     pcVar5 = pcVar1;
   }
-  param_2 = (char *)(uint)(*pcVar1 != '^');
+  p = (char *)(uint)(*pcVar1 != '^');
   if (puVar2 == (uint *)0x0) {
     lua_error((byte *)s_incorrect_pattern__missing______10027980);
   }
-  *param_3 = (int)puVar2 + 1;
-  if (param_1 != 0) {
+  *ep = (int)puVar2 + 1;
+  if (c != 0) {
     puVar6 = (uint *)(pcVar5 + 1);
     if (puVar6 < puVar2) {
       puVar4 = (uint *)(pcVar5 + 3);
@@ -276,9 +276,9 @@ uint __cdecl luaI_singlematch(uint param_1,char *param_2,int *param_3)
             puVar6 = (uint *)((int)puVar6 + 1);
             puVar7 = (uint *)((int)puVar7 + 1);
             puVar4 = (uint *)((int)puVar4 + 1);
-            uVar3 = matchclass(param_1,(int)*pcVar1);
+            uVar3 = matchclass(c,(int)*pcVar1);
             if (uVar3 != 0) {
-              return (uint)param_2;
+              return (uint)p;
             }
           }
         }
@@ -287,19 +287,19 @@ uint __cdecl luaI_singlematch(uint param_1,char *param_2,int *param_3)
           puVar6 = (uint *)((int)puVar6 + 2);
           puVar7 = (uint *)((int)puVar7 + 2);
           puVar4 = (uint *)((int)puVar4 + 2);
-          if (((int)(char)uVar3 <= (int)param_1) && ((int)param_1 <= (int)*(char *)puVar6)) {
-            return (uint)param_2;
+          if (((int)(char)uVar3 <= (int)c) && ((int)c <= (int)*(char *)puVar6)) {
+            return (uint)p;
           }
         }
-        else if ((int)(char)*puVar6 == param_1) {
-          return (uint)param_2;
+        else if ((int)(char)*puVar6 == c) {
+          return (uint)p;
         }
         puVar6 = (uint *)((int)puVar6 + 1);
         puVar7 = (uint *)((int)puVar7 + 1);
         puVar4 = (uint *)((int)puVar4 + 1);
       } while (puVar6 < puVar2);
     }
-    return (uint)(param_2 == (char *)0x0);
+    return (uint)(p == (char *)0x0);
   }
   return 0;
 }
@@ -309,17 +309,17 @@ uint __cdecl luaI_singlematch(uint param_1,char *param_2,int *param_3)
    static bracket_end: strchr for the closing bracket, skipping a leading ^); was str_bracket_end.
     */
 
-uint * __cdecl bracket_end(char *param_1)
+uint * __cdecl bracket_end(char *p)
 
 {
   uint *puVar1;
   
-  if (*param_1 == '\0') {
+  if (*p == '\0') {
     return (uint *)0x0;
   }
-  puVar1 = (uint *)(param_1 + 2);
-  if (*param_1 != '^') {
-    puVar1 = (uint *)(param_1 + 1);
+  puVar1 = (uint *)(p + 2);
+  if (*p != '^') {
+    puVar1 = (uint *)(p + 1);
   }
   puVar1 = strchr(puVar1,']');
   return puVar1;
@@ -329,82 +329,82 @@ uint * __cdecl bracket_end(char *param_1)
 /* %a %d %s ... character classes Original name matchclass (the remaster's libLua.so: static
    matchclass: the only callee of luaI_singlematch (character classes)); was str_matchclass. */
 
-uint __cdecl matchclass(uint param_1,uint param_2)
+uint __cdecl matchclass(uint c,uint cl)
 
 {
   uint uVar1;
   uint uVar2;
   
-  if (param_1 == 0) {
+  if (c == 0) {
     return 0;
   }
-  uVar2 = param_2 & 0xff;
+  uVar2 = cl & 0xff;
   uVar1 = tolower(uVar2);
   switch(uVar1) {
   case 0x61:
     if (DAT_10028b5c < 2) {
-      uVar1 = *(ushort *)(PTR_DAT_10028950 + (param_1 & 0xff) * 2) & 0x103;
+      uVar1 = *(ushort *)(PTR_DAT_10028950 + (c & 0xff) * 2) & 0x103;
     }
     else {
-      uVar1 = _isctype(param_1 & 0xff,0x103);
+      uVar1 = _isctype(c & 0xff,0x103);
     }
     break;
   default:
-    return (uint)(param_2 == param_1);
+    return (uint)(cl == c);
   case 99:
     if (DAT_10028b5c < 2) {
-      uVar1 = (byte)PTR_DAT_10028950[(param_1 & 0xff) * 2] & 0x20;
+      uVar1 = (byte)PTR_DAT_10028950[(c & 0xff) * 2] & 0x20;
     }
     else {
-      uVar1 = _isctype(param_1 & 0xff,0x20);
+      uVar1 = _isctype(c & 0xff,0x20);
     }
     break;
   case 100:
     if (DAT_10028b5c < 2) {
-      uVar1 = (byte)PTR_DAT_10028950[(param_1 & 0xff) * 2] & 4;
+      uVar1 = (byte)PTR_DAT_10028950[(c & 0xff) * 2] & 4;
     }
     else {
-      uVar1 = _isctype(param_1 & 0xff,4);
+      uVar1 = _isctype(c & 0xff,4);
     }
     break;
   case 0x6c:
     if (DAT_10028b5c < 2) {
-      uVar1 = (byte)PTR_DAT_10028950[(param_1 & 0xff) * 2] & 2;
+      uVar1 = (byte)PTR_DAT_10028950[(c & 0xff) * 2] & 2;
     }
     else {
-      uVar1 = _isctype(param_1 & 0xff,2);
+      uVar1 = _isctype(c & 0xff,2);
     }
     break;
   case 0x70:
     if (DAT_10028b5c < 2) {
-      uVar1 = (byte)PTR_DAT_10028950[(param_1 & 0xff) * 2] & 0x10;
+      uVar1 = (byte)PTR_DAT_10028950[(c & 0xff) * 2] & 0x10;
     }
     else {
-      uVar1 = _isctype(param_1 & 0xff,0x10);
+      uVar1 = _isctype(c & 0xff,0x10);
     }
     break;
   case 0x73:
     if (DAT_10028b5c < 2) {
-      uVar1 = (byte)PTR_DAT_10028950[(param_1 & 0xff) * 2] & 8;
+      uVar1 = (byte)PTR_DAT_10028950[(c & 0xff) * 2] & 8;
     }
     else {
-      uVar1 = _isctype(param_1 & 0xff,8);
+      uVar1 = _isctype(c & 0xff,8);
     }
     break;
   case 0x75:
     if (DAT_10028b5c < 2) {
-      uVar1 = (byte)PTR_DAT_10028950[(param_1 & 0xff) * 2] & 1;
+      uVar1 = (byte)PTR_DAT_10028950[(c & 0xff) * 2] & 1;
     }
     else {
-      uVar1 = _isctype(param_1 & 0xff,1);
+      uVar1 = _isctype(c & 0xff,1);
     }
     break;
   case 0x77:
     if (DAT_10028b5c < 2) {
-      uVar1 = *(ushort *)(PTR_DAT_10028950 + (param_1 & 0xff) * 2) & 0x107;
+      uVar1 = *(ushort *)(PTR_DAT_10028950 + (c & 0xff) * 2) & 0x107;
     }
     else {
-      uVar1 = _isctype(param_1 & 0xff,0x107);
+      uVar1 = _isctype(c & 0xff,0x107);
     }
   }
   if (DAT_10028b5c < 2) {
@@ -629,15 +629,15 @@ LAB_10009f5e:
    (lstrlib.c static capture_to_close: the last open capture (len -1), error "invalid pattern
    capture"); was str_capture_to_close. */
 
-int __cdecl capture_to_close(int *param_1)
+int __cdecl capture_to_close(int *cap)
 
 {
   int iVar1;
   int *piVar2;
   
-  iVar1 = *param_1 + -1;
+  iVar1 = *cap + -1;
   if (-1 < iVar1) {
-    piVar2 = param_1 + iVar1 * 2 + 2;
+    piVar2 = cap + iVar1 * 2 + 2;
     do {
       if (*piVar2 == -1) {
         return iVar1;
@@ -655,7 +655,7 @@ int __cdecl capture_to_close(int *param_1)
    source name (lstrlib.c static matchitem: %digit compares a capture (check_cap), %b calls
    matchbalance with error "unbalanced pattern", else luaI_singlematch); was str_matchbalance. */
 
-char * __cdecl matchitem(char *param_1,char *param_2,int *param_3,int *param_4)
+char * __cdecl matchitem(char *s,char *p,int *cap,int *ep)
 
 {
   uint uVar1;
@@ -663,8 +663,8 @@ char * __cdecl matchitem(char *param_1,char *param_2,int *param_3,int *param_4)
   char *pcVar3;
   byte *pbVar4;
   
-  if (*param_2 == '%') {
-    pbVar4 = (byte *)(param_2 + 1);
+  if (*p == '%') {
+    pbVar4 = (byte *)(p + 1);
     if (DAT_10028b5c < 2) {
       uVar1 = (byte)PTR_DAT_10028950[(uint)*pbVar4 * 2] & 4;
     }
@@ -672,28 +672,28 @@ char * __cdecl matchitem(char *param_1,char *param_2,int *param_3,int *param_4)
       uVar1 = _isctype((uint)*pbVar4,4);
     }
     if (uVar1 != 0) {
-      iVar2 = check_cap((int)(char)*pbVar4,param_3);
-      *param_4 = (int)(param_2 + 2);
-      uVar1 = strncmp((char *)param_3[iVar2 * 2 + 1],param_1,param_3[iVar2 * 2 + 2]);
+      iVar2 = check_cap((int)(char)*pbVar4,cap);
+      *ep = (int)(p + 2);
+      uVar1 = strncmp((char *)cap[iVar2 * 2 + 1],s,cap[iVar2 * 2 + 2]);
       if (uVar1 != 0) {
         return (char *)0x0;
       }
-      return param_1 + param_3[iVar2 * 2 + 2];
+      return s + cap[iVar2 * 2 + 2];
     }
     if (*pbVar4 == 0x62) {
-      if ((param_2[2] == '\0') || (param_2[3] == '\0')) {
+      if ((p[2] == '\0') || (p[3] == '\0')) {
         lua_error((byte *)s_unbalanced_pattern_10027a10);
       }
-      *param_4 = (int)(param_2 + 4);
-      pcVar3 = matchbalance(param_1,(int)param_2[2],(int)param_2[3]);
+      *ep = (int)(p + 4);
+      pcVar3 = matchbalance(s,(int)p[2],(int)p[3]);
       return pcVar3;
     }
   }
-  uVar1 = luaI_singlematch((int)*param_1,param_2,param_4);
+  uVar1 = luaI_singlematch((int)*s,p,ep);
   if (uVar1 == 0) {
     return (char *)0x0;
   }
-  return param_1 + 1;
+  return s + 1;
 }
 
 /* ---- 0x1000a150  check_cap ---- */
@@ -701,13 +701,13 @@ char * __cdecl matchitem(char *param_1,char *param_2,int *param_3,int *param_4)
    3.1 source name (lstrlib.c static check_cap: l = c - '1', error "invalid capture index"); was
    str_check_capture. */
 
-int __cdecl check_cap(int param_1,int *param_2)
+int __cdecl check_cap(int l,int *cap)
 
 {
   int iVar1;
   
-  iVar1 = param_1 + -0x31;
-  if (((iVar1 < 0) || (*param_2 <= iVar1)) || (param_2[iVar1 * 2 + 2] == -1)) {
+  iVar1 = l + -0x31;
+  if (((iVar1 < 0) || (*cap <= iVar1)) || (cap[iVar1 * 2 + 2] == -1)) {
     lua_error((byte *)s_invalid_capture_index_10027a24);
   }
   return iVar1;
@@ -718,28 +718,28 @@ int __cdecl check_cap(int param_1,int *param_2)
    it there): Lua 3.1 source name (lstrlib.c static matchbalance(s, b, e): counts nested b / e and
    returns the position after the balancing e; called by matchitem for %b); was str_expand. */
 
-char * __cdecl matchbalance(char *param_1,int param_2,int param_3)
+char * __cdecl matchbalance(char *s,int b,int e)
 
 {
   char cVar1;
   int iVar2;
   
-  if (*param_1 == param_2) {
-    cVar1 = param_1[1];
+  if (*s == b) {
+    cVar1 = s[1];
     iVar2 = 1;
     if (cVar1 != '\0') {
       do {
-        if (cVar1 == param_3) {
+        if (cVar1 == e) {
           iVar2 = iVar2 + -1;
           if (iVar2 == 0) {
-            return param_1 + 2;
+            return s + 2;
           }
         }
-        else if (cVar1 == param_2) {
+        else if (cVar1 == b) {
           iVar2 = iVar2 + 1;
         }
-        cVar1 = param_1[2];
-        param_1 = param_1 + 1;
+        cVar1 = s[2];
+        s = s + 1;
       } while (cVar1 != '\0');
       return (char *)0x0;
     }
@@ -757,35 +757,35 @@ void __cdecl str_gsub(void)
   uint uVar1;
   uint *s;
   int *pat;
-  int iVar2;
-  uint *puVar3;
-  uint uVar4;
-  bool bVar5;
-  longlong lVar6;
-  float fVar7;
+  int newp;
+  uint *puVar2;
+  uint uVar3;
+  bool bVar4;
+  longlong lVar5;
+  float fVar6;
   #define iStack_60 (*(int *)(_frame + (0x70 - 0x60)))
   #define aiStack_4c (*(int (*)[19])(_frame + (0x70 - 0x4c)))
   
   s = (uint *)luaL_check_string(1);
   pat = (int *)luaL_check_string(2);
-  iVar2 = lua_lua2C(3);
-  uVar4 = 0xffffffff;
-  puVar3 = s;
+  newp = lua_lua2C(3);
+  uVar3 = 0xffffffff;
+  puVar2 = s;
   do {
-    if (uVar4 == 0) break;
-    uVar4 = uVar4 - 1;
-    uVar1 = *puVar3;
-    puVar3 = (uint *)((int)puVar3 + 1);
+    if (uVar3 == 0) break;
+    uVar3 = uVar3 - 1;
+    uVar1 = *puVar2;
+    puVar2 = (uint *)((int)puVar2 + 1);
   } while ((char)uVar1 != '\0');
-  fVar7 = luaL_opt_number(4,(float)~uVar4);
-  lVar6 = FTOL((float10)fVar7);
-  bVar5 = (char)*pat == '^';
-  if (bVar5) {
+  fVar6 = luaL_opt_number(4,(float)~uVar3);
+  lVar5 = FTOL((float10)fVar6);
+  bVar4 = (char)*pat == '^';
+  if (bVar4) {
     pat = (int *)((int)pat + 1);
   }
   iStack_60 = 0;
   luaL_resetbuffer();
-  if ((int)lVar6 < 1) {
+  if ((int)lVar5 < 1) {
 LAB_1000a2b7:
     addstr(s);
     closeandpush();
@@ -794,20 +794,20 @@ LAB_1000a2b7:
   }
   do {
     aiStack_4c[0] = 0;
-    puVar3 = (uint *)match((char *)s,pat,aiStack_4c);
-    if (puVar3 == (uint *)0x0) {
+    puVar2 = (uint *)match((char *)s,pat,aiStack_4c);
+    if (puVar2 == (uint *)0x0) {
 LAB_1000a291:
       if ((char)*s == '\0') goto LAB_1000a2b7;
-      puVar3 = (uint *)((int)s + 1);
+      puVar2 = (uint *)((int)s + 1);
       luaL_addchar((char)*s);
     }
     else {
       iStack_60 = iStack_60 + 1;
-      add_s(iVar2,aiStack_4c);
-      if ((puVar3 == (uint *)0x0) || (puVar3 <= s)) goto LAB_1000a291;
+      add_s(newp,aiStack_4c);
+      if ((puVar2 == (uint *)0x0) || (puVar2 <= s)) goto LAB_1000a291;
     }
-    s = puVar3;
-    if ((bVar5) || ((int)lVar6 <= iStack_60)) goto LAB_1000a2b7;
+    s = puVar2;
+    if ((bVar4) || ((int)lVar5 <= iStack_60)) goto LAB_1000a2b7;
   } while( true );
 }
 #undef aiStack_4c
@@ -820,7 +820,7 @@ LAB_1000a291:
    %n captures or a function called with push_captures; error "string or function expected"); was
    str_add_value. */
 
-void __cdecl add_s(int param_1,int *ms)
+void __cdecl add_s(int newp,int *ms)
 
 {
   char cVar1;
@@ -828,17 +828,17 @@ void __cdecl add_s(int param_1,int *ms)
   char *pcVar3;
   uint uVar4;
   int iVar5;
-  uint *puVar6;
-  char *pcVar7;
+  uint *s;
+  char *pcVar6;
   
-  iVar2 = lua_isstring(param_1);
+  iVar2 = lua_isstring(newp);
   if (iVar2 == 0) {
-    iVar2 = lua_isfunction(param_1);
+    iVar2 = lua_isfunction(newp);
     if (iVar2 != 0) {
       lua_beginblock();
       push_captures(ms);
       iVar2 = luaL_newbuffer(0);
-      iVar5 = lua_callfunction(param_1);
+      iVar5 = lua_callfunction(newp);
       luaL_oldbuffer(iVar2);
       if (iVar5 != 0) {
         lua_endblock();
@@ -851,19 +851,19 @@ void __cdecl add_s(int param_1,int *ms)
         lua_endblock();
         return;
       }
-      puVar6 = (uint *)lua_getstring(iVar2);
-      addstr(puVar6);
+      s = (uint *)lua_getstring(iVar2);
+      addstr(s);
       lua_endblock();
       return;
     }
     luaL_argerror(3,((unsigned)(uintptr_t)&s_string_or_function_expected_10027a3c));
   }
   else {
-    pcVar3 = (char *)lua_getstring(param_1);
+    pcVar3 = (char *)lua_getstring(newp);
     cVar1 = *pcVar3;
     if (cVar1 != '\0') {
       do {
-        pcVar7 = pcVar3;
+        pcVar6 = pcVar3;
         if (cVar1 == '%') {
           if (DAT_10028b5c < 2) {
             uVar4 = (byte)PTR_DAT_10028950[(uint)(byte)pcVar3[1] * 2] & 4;
@@ -871,16 +871,16 @@ void __cdecl add_s(int param_1,int *ms)
           else {
             uVar4 = _isctype((uint)(byte)pcVar3[1],4);
           }
-          pcVar7 = pcVar3 + 1;
+          pcVar6 = pcVar3 + 1;
           if (uVar4 == 0) goto LAB_1000a36b;
           pcVar3 = pcVar3 + 2;
-          iVar2 = check_cap((int)*pcVar7,ms);
+          iVar2 = check_cap((int)*pcVar6,ms);
           addnchar((uint *)ms[iVar2 * 2 + 1],ms[iVar2 * 2 + 2]);
         }
         else {
 LAB_1000a36b:
-          pcVar3 = pcVar7 + 1;
-          luaL_addchar(*pcVar7);
+          pcVar3 = pcVar6 + 1;
+          luaL_addchar(*pcVar6);
         }
         cVar1 = *pcVar3;
         if (cVar1 == '\0') {
@@ -906,16 +906,16 @@ void __cdecl str_format(void)
   char *pcVar3;
   uint uVar4;
   char *buf;
-  int iVar5;
+  int numArg;
   uint *s;
-  float fVar6;
+  float fVar5;
   #define aiStack_114 (*(int (*)[2])(_frame + (0x130 - 0x114)))
   #define iStack_10c (*(int *)(_frame + (0x130 - 0x10c)))
   #define iStack_104 (*(int *)(_frame + (0x130 - 0x104)))
   #define cStack_c8 (*(char *)(_frame + (0x130 - 0xc8)))
   #define uStack_c7 (*(undefined4 *)(_frame + (0x130 - 0xc7)))
   
-  iVar5 = 1;
+  numArg = 1;
   pcVar2 = (char *)luaL_check_string(1);
   luaL_resetbuffer();
   cVar1 = *pcVar2;
@@ -944,10 +944,10 @@ void __cdecl str_format(void)
           uVar4 = _isctype((uint)(byte)*s,4);
         }
         if ((uVar4 != 0) && (pcVar2[2] == '$')) {
-          iVar5 = (char)(byte)*s + -0x30;
+          numArg = (char)(byte)*s + -0x30;
           s = (uint *)(pcVar2 + 3);
         }
-        iVar5 = iVar5 + 1;
+        numArg = numArg + 1;
         strncpy(&uStack_c7,s,(uint)(pcVar3 + (1 - (int)s)));
         pcVar3[(int)&uStack_c7 + (1 - (int)s)] = '\0';
         buf = (char *)luaL_openspace(1000);
@@ -958,8 +958,8 @@ void __cdecl str_format(void)
         case 'e':
         case 'f':
         case 'g':
-          fVar6 = luaL_check_number(iVar5);
-          sprintf(buf,&cStack_c8,(double)fVar6);
+          fVar5 = luaL_check_number(numArg);
+          sprintf(buf,&cStack_c8,(double)fVar5);
           break;
         default:
           lua_error((byte *)s_invalid_option_in__format__10027a58);
@@ -971,16 +971,16 @@ void __cdecl str_format(void)
         case 'o':
         case 'u':
         case 'x':
-          fVar6 = luaL_check_number(iVar5);
-          FTOL((float10)fVar6);
+          fVar5 = luaL_check_number(numArg);
+          FTOL((float10)fVar5);
           sprintf(buf,&cStack_c8);
           break;
         case 'q':
-          pcVar3 = (char *)luaL_check_string(iVar5);
+          pcVar3 = (char *)luaL_check_string(numArg);
           luaI_addquoted(pcVar3);
           goto LAB_1000a5fe;
         case 's':
-          pcVar3 = (char *)luaL_check_string(iVar5);
+          pcVar3 = (char *)luaL_check_string(numArg);
           uVar4 = 0xffffffff;
           do {
             if (uVar4 == 0) break;
@@ -1023,7 +1023,7 @@ LAB_1000a5fe:
    it there): Lua 3.1 source name (lstrlib.c luaI_addquoted: format %q, the string in double quotes
    with a backslash before the special characters; called by str_format); was str_add_s. */
 
-void __cdecl luaI_addquoted(char *param_1)
+void __cdecl luaI_addquoted(char *s)
 
 {
   char *pcVar1;
@@ -1031,15 +1031,15 @@ void __cdecl luaI_addquoted(char *param_1)
   uint *puVar3;
   
   luaL_addchar(0x22);
-  cVar2 = *param_1;
+  cVar2 = *s;
   while (cVar2 != '\0') {
     puVar3 = strchr((uint *)&DAT_10027ac0,cVar2);
     if (puVar3 != (uint *)0x0) {
       luaL_addchar(0x5c);
     }
-    luaL_addchar(*param_1);
-    pcVar1 = param_1 + 1;
-    param_1 = param_1 + 1;
+    luaL_addchar(*s);
+    pcVar1 = s + 1;
+    s = s + 1;
     cVar2 = *pcVar1;
   }
   luaL_addchar(0x22);

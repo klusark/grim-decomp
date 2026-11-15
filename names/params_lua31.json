@@ -1,0 +1,2294 @@
+{
+ "_comment": "LUA.DLL parameter names from the Lua 3.1 sources (lapi.c, lauxlib.c, ldo.c, lparser.c, lundump.c, ...), 2026-11-15.",
+ "program": "/LUA.DLL",
+ "params": [
+  {
+   "addr": "100053d0",
+   "index": 0,
+   "type": "int",
+   "name": "i",
+   "_fn": "gettag",
+   "_names_only": true
+  },
+  {
+   "addr": "100053f0",
+   "index": 0,
+   "type": "int",
+   "name": "i",
+   "_fn": "pushresult",
+   "_names_only": true
+  },
+  {
+   "addr": "100054c0",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "ishandler",
+   "_names_only": true
+  },
+  {
+   "addr": "10005550",
+   "index": 2,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "setfile",
+   "_names_only": true
+  },
+  {
+   "addr": "10005780",
+   "index": 1,
+   "type": "int *",
+   "name": "arg",
+   "_fn": "getfileparam",
+   "_names_only": true
+  },
+  {
+   "addr": "10001000",
+   "index": 0,
+   "type": "int",
+   "name": "lib",
+   "_fn": "lua_recognizelib",
+   "_names_only": true
+  },
+  {
+   "addr": "10001000",
+   "index": 1,
+   "type": "int",
+   "name": "n",
+   "_fn": "lua_recognizelib",
+   "_names_only": true
+  },
+  {
+   "addr": "10001060",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "lib",
+   "_fn": "lua_openlib",
+   "_names_only": true
+  },
+  {
+   "addr": "10001060",
+   "index": 1,
+   "type": "int",
+   "name": "n",
+   "_fn": "lua_openlib",
+   "_names_only": true
+  },
+  {
+   "addr": "100010d0",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "lua_FuncPtrToID",
+   "_names_only": true
+  },
+  {
+   "addr": "10001120",
+   "index": 0,
+   "type": "uint",
+   "name": "id",
+   "_fn": "lua_IDToFuncPtr",
+   "_names_only": true
+  },
+  {
+   "addr": "10001190",
+   "index": 0,
+   "type": "undefined4",
+   "name": "services",
+   "_fn": "lua_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "10001190",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "state",
+   "_fn": "lua_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "100011e0",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "luaA_Address",
+   "_names_only": true
+  },
+  {
+   "addr": "100012b0",
+   "index": 0,
+   "type": "int",
+   "name": "nParams",
+   "_fn": "checkCparams",
+   "_names_only": true
+  },
+  {
+   "addr": "10001340",
+   "index": 0,
+   "type": "int",
+   "name": "number",
+   "_fn": "lua_lua2C",
+   "_names_only": true
+  },
+  {
+   "addr": "10001360",
+   "index": 0,
+   "type": "int",
+   "name": "function",
+   "_fn": "lua_callfunction",
+   "_names_only": true
+  },
+  {
+   "addr": "10001410",
+   "index": 0,
+   "type": "int",
+   "name": "tag",
+   "_fn": "lua_gettagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "10001410",
+   "index": 1,
+   "type": "byte *",
+   "name": "event",
+   "_fn": "lua_gettagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "10001490",
+   "index": 0,
+   "type": "int",
+   "name": "tag",
+   "_fn": "lua_settagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "10001490",
+   "index": 1,
+   "type": "byte *",
+   "name": "event",
+   "_fn": "lua_settagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "10001700",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_isnil",
+   "_names_only": true
+  },
+  {
+   "addr": "10001730",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_istable",
+   "_names_only": true
+  },
+  {
+   "addr": "10001760",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_isuserdata",
+   "_names_only": true
+  },
+  {
+   "addr": "10001790",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_iscfunction",
+   "_names_only": true
+  },
+  {
+   "addr": "100017b0",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_isnumber",
+   "_names_only": true
+  },
+  {
+   "addr": "100017f0",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_isstring",
+   "_names_only": true
+  },
+  {
+   "addr": "10001810",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_isfunction",
+   "_names_only": true
+  },
+  {
+   "addr": "10001830",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_istask",
+   "_names_only": true
+  },
+  {
+   "addr": "10001860",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_getnumber",
+   "_names_only": true
+  },
+  {
+   "addr": "100018c0",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_getstring",
+   "_names_only": true
+  },
+  {
+   "addr": "10001910",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_getuserdata",
+   "_names_only": true
+  },
+  {
+   "addr": "10001940",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_getcfunction",
+   "_names_only": true
+  },
+  {
+   "addr": "100019c0",
+   "index": 0,
+   "type": "int",
+   "name": "task",
+   "_fn": "lua_pushtask",
+   "_names_only": true
+  },
+  {
+   "addr": "10001b10",
+   "index": 0,
+   "type": "int",
+   "name": "fn",
+   "_fn": "lua_pushCclosure",
+   "_names_only": true
+  },
+  {
+   "addr": "10001b10",
+   "index": 1,
+   "type": "uint",
+   "name": "n",
+   "_fn": "lua_pushCclosure",
+   "_names_only": true
+  },
+  {
+   "addr": "10001c40",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_pushobject",
+   "_names_only": true
+  },
+  {
+   "addr": "10001ca0",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_tag",
+   "_names_only": true
+  },
+  {
+   "addr": "10001d30",
+   "index": 0,
+   "type": "int",
+   "name": "tag",
+   "_fn": "lua_settag",
+   "_names_only": true
+  },
+  {
+   "addr": "10002090",
+   "index": 0,
+   "type": "int",
+   "name": "level",
+   "_fn": "lua_stackedfunction",
+   "_names_only": true
+  },
+  {
+   "addr": "10002280",
+   "index": 0,
+   "type": "int",
+   "name": "func",
+   "_fn": "lua_currentline",
+   "_names_only": true
+  },
+  {
+   "addr": "100022c0",
+   "index": 0,
+   "type": "int",
+   "name": "func",
+   "_fn": "lua_getlocal",
+   "_names_only": true
+  },
+  {
+   "addr": "100022c0",
+   "index": 2,
+   "type": "int *",
+   "name": "name",
+   "_fn": "lua_getlocal",
+   "_names_only": true
+  },
+  {
+   "addr": "10002330",
+   "index": 0,
+   "type": "int",
+   "name": "func",
+   "_fn": "lua_setlocal",
+   "_names_only": true
+  },
+  {
+   "addr": "100023c0",
+   "index": 0,
+   "type": "int",
+   "name": "func",
+   "_fn": "lua_funcinfo",
+   "_names_only": true
+  },
+  {
+   "addr": "100023c0",
+   "index": 1,
+   "type": "int *",
+   "name": "filename",
+   "_fn": "lua_funcinfo",
+   "_names_only": true
+  },
+  {
+   "addr": "100023c0",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "linedefined",
+   "_fn": "lua_funcinfo",
+   "_names_only": true
+  },
+  {
+   "addr": "10002440",
+   "index": 0,
+   "type": "int",
+   "name": "o",
+   "_fn": "lua_getobjname",
+   "_names_only": true
+  },
+  {
+   "addr": "10002440",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "name",
+   "_fn": "lua_getobjname",
+   "_names_only": true
+  },
+  {
+   "addr": "10002560",
+   "index": 0,
+   "type": "int",
+   "name": "lock",
+   "_fn": "lua_ref",
+   "_names_only": true
+  },
+  {
+   "addr": "100025f0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "do_unprotectedrun",
+   "_names_only": true
+  },
+  {
+   "addr": "100025f0",
+   "index": 1,
+   "type": "int",
+   "name": "nParams",
+   "_fn": "do_unprotectedrun",
+   "_names_only": true
+  },
+  {
+   "addr": "10002670",
+   "index": 0,
+   "type": "undefined *",
+   "name": "writer",
+   "_fn": "lua_Save",
+   "_names_only": true
+  },
+  {
+   "addr": "10002730",
+   "index": 0,
+   "type": "undefined4",
+   "name": "data",
+   "_fn": "LuaSaveWriter",
+   "_names_only": true
+  },
+  {
+   "addr": "10002730",
+   "index": 1,
+   "type": "int",
+   "name": "size",
+   "_fn": "LuaSaveWriter",
+   "_names_only": true
+  },
+  {
+   "addr": "10004650",
+   "index": 0,
+   "type": "byte *",
+   "name": "s",
+   "_fn": "lua_error",
+   "_names_only": true
+  },
+  {
+   "addr": "10004890",
+   "index": 0,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "lua_dofile",
+   "_names_only": true
+  },
+  {
+   "addr": "10004b20",
+   "index": 0,
+   "type": "char *",
+   "name": "str",
+   "_fn": "lua_dostring",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e00",
+   "index": 0,
+   "type": "uint",
+   "name": "ref",
+   "_fn": "lua_unref",
+   "_names_only": true
+  },
+  {
+   "addr": "10004ee0",
+   "index": 0,
+   "type": "int",
+   "name": "limit",
+   "_fn": "lua_collectgarbage",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c950",
+   "index": 0,
+   "type": "int",
+   "name": "tagto",
+   "_fn": "lua_copytagmethods",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c950",
+   "index": 1,
+   "type": "int",
+   "name": "tagfrom",
+   "_fn": "lua_copytagmethods",
+   "_names_only": true
+  },
+  {
+   "addr": "10002960",
+   "index": 0,
+   "type": "undefined4",
+   "name": "f",
+   "_fn": "luaFGetc",
+   "_names_only": true
+  },
+  {
+   "addr": "10002990",
+   "index": 0,
+   "type": "int",
+   "name": "c",
+   "_fn": "luaFUngetc",
+   "_names_only": true
+  },
+  {
+   "addr": "10002990",
+   "index": 1,
+   "type": "undefined4",
+   "name": "f",
+   "_fn": "luaFUngetc",
+   "_names_only": true
+  },
+  {
+   "addr": "100029d0",
+   "index": 0,
+   "type": "undefined4",
+   "name": "numarg",
+   "_fn": "luaL_argerror",
+   "_names_only": true
+  },
+  {
+   "addr": "100029d0",
+   "index": 1,
+   "type": "int",
+   "name": "extramsg",
+   "_fn": "luaL_argerror",
+   "_names_only": true
+  },
+  {
+   "addr": "10002a30",
+   "index": 0,
+   "type": "int",
+   "name": "numArg",
+   "_fn": "luaL_check_string",
+   "_names_only": true
+  },
+  {
+   "addr": "10002a70",
+   "index": 0,
+   "type": "int",
+   "name": "numArg",
+   "_fn": "luaL_opt_string",
+   "_names_only": true
+  },
+  {
+   "addr": "10002a70",
+   "index": 1,
+   "type": "undefined4",
+   "name": "def",
+   "_fn": "luaL_opt_string",
+   "_names_only": true
+  },
+  {
+   "addr": "10002aa0",
+   "index": 0,
+   "type": "int",
+   "name": "numArg",
+   "_fn": "luaL_check_number",
+   "_names_only": true
+  },
+  {
+   "addr": "10002ae0",
+   "index": 0,
+   "type": "int",
+   "name": "numArg",
+   "_fn": "luaL_opt_number",
+   "_names_only": true
+  },
+  {
+   "addr": "10002ae0",
+   "index": 1,
+   "type": "float",
+   "name": "def",
+   "_fn": "luaL_opt_number",
+   "_names_only": true
+  },
+  {
+   "addr": "10002b10",
+   "index": 0,
+   "type": "int",
+   "name": "arg",
+   "_fn": "luaL_tablearg",
+   "_names_only": true
+  },
+  {
+   "addr": "10002b50",
+   "index": 0,
+   "type": "int",
+   "name": "arg",
+   "_fn": "luaL_functionarg",
+   "_names_only": true
+  },
+  {
+   "addr": "10002b90",
+   "index": 0,
+   "type": "int",
+   "name": "numArg",
+   "_fn": "luaL_nonnullarg",
+   "_names_only": true
+  },
+  {
+   "addr": "10002bc0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "l",
+   "_fn": "luaL_openlib",
+   "_names_only": true
+  },
+  {
+   "addr": "10002bc0",
+   "index": 1,
+   "type": "int",
+   "name": "n",
+   "_fn": "luaL_openlib",
+   "_names_only": true
+  },
+  {
+   "addr": "10002c20",
+   "index": 0,
+   "type": "int",
+   "name": "size",
+   "_fn": "luaL_openspace",
+   "_names_only": true
+  },
+  {
+   "addr": "10002c50",
+   "index": 0,
+   "type": "int",
+   "name": "size",
+   "_fn": "Lbuffer_Openspace",
+   "_names_only": true
+  },
+  {
+   "addr": "10002cb0",
+   "index": 0,
+   "type": "undefined1",
+   "name": "c",
+   "_fn": "luaL_addchar",
+   "_names_only": true
+  },
+  {
+   "addr": "10002d10",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "luaL_addsize",
+   "_names_only": true
+  },
+  {
+   "addr": "10002d30",
+   "index": 0,
+   "type": "int",
+   "name": "size",
+   "_fn": "luaL_newbuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "10002d80",
+   "index": 0,
+   "type": "int",
+   "name": "old",
+   "_fn": "luaL_oldbuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "10002e40",
+   "index": 0,
+   "type": "uint",
+   "name": "s",
+   "_fn": "pushstring",
+   "_names_only": true
+  },
+  {
+   "addr": "10003170",
+   "index": 0,
+   "type": "int",
+   "name": "obj",
+   "_fn": "to_string",
+   "_names_only": true
+  },
+  {
+   "addr": "10003ba0",
+   "index": 0,
+   "type": "int",
+   "name": "table",
+   "_fn": "getnarg",
+   "_names_only": true
+  },
+  {
+   "addr": "10003e40",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "luaD_checkstack",
+   "_names_only": true
+  },
+  {
+   "addr": "10003ee0",
+   "index": 0,
+   "type": "int",
+   "name": "newtop",
+   "_fn": "luaD_adjusttop",
+   "_names_only": true
+  },
+  {
+   "addr": "10003f40",
+   "index": 0,
+   "type": "int",
+   "name": "nelems",
+   "_fn": "luaD_openstack",
+   "_names_only": true
+  },
+  {
+   "addr": "10003f90",
+   "index": 0,
+   "type": "undefined4",
+   "name": "line",
+   "_fn": "luaD_lineHook",
+   "_names_only": true
+  },
+  {
+   "addr": "10004000",
+   "index": 0,
+   "type": "int",
+   "name": "base",
+   "_fn": "luaD_callHook",
+   "_names_only": true
+  },
+  {
+   "addr": "10004000",
+   "index": 1,
+   "type": "int",
+   "name": "tf",
+   "_fn": "luaD_callHook",
+   "_names_only": true
+  },
+  {
+   "addr": "10004000",
+   "index": 2,
+   "type": "int",
+   "name": "isreturn",
+   "_fn": "luaD_callHook",
+   "_names_only": true
+  },
+  {
+   "addr": "100040c0",
+   "index": 0,
+   "type": "undefined4",
+   "name": "task",
+   "_fn": "luaD_taskHook",
+   "_names_only": true
+  },
+  {
+   "addr": "100040c0",
+   "index": 1,
+   "type": "undefined4",
+   "name": "event",
+   "_fn": "luaD_taskHook",
+   "_names_only": true
+  },
+  {
+   "addr": "100044e0",
+   "index": 0,
+   "type": "undefined *",
+   "name": "f",
+   "_fn": "callC",
+   "_names_only": true
+  },
+  {
+   "addr": "100044e0",
+   "index": 1,
+   "type": "int",
+   "name": "base",
+   "_fn": "callC",
+   "_names_only": true
+  },
+  {
+   "addr": "10004580",
+   "index": 0,
+   "type": "int",
+   "name": "cl",
+   "_fn": "callCclosure",
+   "_names_only": true
+  },
+  {
+   "addr": "10004580",
+   "index": 1,
+   "type": "undefined *",
+   "name": "f",
+   "_fn": "callCclosure",
+   "_names_only": true
+  },
+  {
+   "addr": "10004580",
+   "index": 2,
+   "type": "int",
+   "name": "base",
+   "_fn": "callCclosure",
+   "_names_only": true
+  },
+  {
+   "addr": "100049b0",
+   "index": 0,
+   "type": "int *",
+   "name": "z",
+   "_fn": "do_main",
+   "_names_only": true
+  },
+  {
+   "addr": "100049b0",
+   "index": 1,
+   "type": "int",
+   "name": "bin",
+   "_fn": "do_main",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d40",
+   "index": 0,
+   "type": "int *",
+   "name": "o",
+   "_fn": "luaC_ref",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d40",
+   "index": 1,
+   "type": "int",
+   "name": "lock",
+   "_fn": "luaC_ref",
+   "_names_only": true
+  },
+  {
+   "addr": "10005070",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "root",
+   "_fn": "listcollect",
+   "_names_only": true
+  },
+  {
+   "addr": "10005c30",
+   "index": 0,
+   "type": "undefined4",
+   "name": "z",
+   "_fn": "luaX_setinput",
+   "_names_only": true
+  },
+  {
+   "addr": "10005c70",
+   "index": 0,
+   "type": "int",
+   "name": "LS",
+   "_fn": "firstline",
+   "_names_only": true
+  },
+  {
+   "addr": "10006890",
+   "index": 0,
+   "type": "uint *",
+   "name": "LS",
+   "_fn": "inclinenumber",
+   "_names_only": true
+  },
+  {
+   "addr": "10006b10",
+   "index": 0,
+   "type": "uint *",
+   "name": "LS",
+   "_fn": "skipspace",
+   "_names_only": true
+  },
+  {
+   "addr": "10006b60",
+   "index": 0,
+   "type": "byte *",
+   "name": "buff",
+   "_fn": "checkcond",
+   "_names_only": true
+  },
+  {
+   "addr": "10006bb0",
+   "index": 0,
+   "type": "uint *",
+   "name": "LS",
+   "_fn": "readname",
+   "_names_only": true
+  },
+  {
+   "addr": "10006c30",
+   "index": 0,
+   "type": "uint *",
+   "name": "LS",
+   "_fn": "ifskip",
+   "_names_only": true
+  },
+  {
+   "addr": "10006cb0",
+   "index": 0,
+   "type": "uint *",
+   "name": "LS",
+   "_fn": "read_long_string",
+   "_names_only": true
+  },
+  {
+   "addr": "10006cb0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "l",
+   "_fn": "read_long_string",
+   "_names_only": true
+  },
+  {
+   "addr": "100073f0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "block",
+   "_fn": "luaM_growaux",
+   "_names_only": true
+  },
+  {
+   "addr": "100073f0",
+   "index": 1,
+   "type": "uint",
+   "name": "nelems",
+   "_fn": "luaM_growaux",
+   "_names_only": true
+  },
+  {
+   "addr": "100073f0",
+   "index": 2,
+   "type": "int",
+   "name": "size",
+   "_fn": "luaM_growaux",
+   "_names_only": true
+  },
+  {
+   "addr": "100073f0",
+   "index": 3,
+   "type": "byte *",
+   "name": "errormsg",
+   "_fn": "luaM_growaux",
+   "_names_only": true
+  },
+  {
+   "addr": "100073f0",
+   "index": 4,
+   "type": "uint",
+   "name": "limit",
+   "_fn": "luaM_growaux",
+   "_names_only": true
+  },
+  {
+   "addr": "10007450",
+   "index": 0,
+   "type": "int",
+   "name": "oldsize",
+   "_fn": "luaO_redimension",
+   "_names_only": true
+  },
+  {
+   "addr": "10007550",
+   "index": 0,
+   "type": "byte *",
+   "name": "name",
+   "_fn": "luaO_findstring",
+   "_names_only": true
+  },
+  {
+   "addr": "10007550",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "list",
+   "_fn": "luaO_findstring",
+   "_names_only": true
+  },
+  {
+   "addr": "100075c0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "root",
+   "_fn": "luaO_insertlist",
+   "_names_only": true
+  },
+  {
+   "addr": "100075c0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "node",
+   "_fn": "luaO_insertlist",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a750",
+   "index": 0,
+   "type": "uint",
+   "name": "line",
+   "_fn": "luaY_codedebugline",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a790",
+   "index": 0,
+   "type": "char",
+   "name": "op",
+   "_fn": "code_oparg",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a790",
+   "index": 1,
+   "type": "int",
+   "name": "builtin",
+   "_fn": "code_oparg",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a790",
+   "index": 2,
+   "type": "uint",
+   "name": "arg",
+   "_fn": "code_oparg",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a790",
+   "index": 3,
+   "type": "int",
+   "name": "delta",
+   "_fn": "code_oparg",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a7d0",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "check_pc",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a810",
+   "index": 0,
+   "type": "int",
+   "name": "pc",
+   "_fn": "code_oparg_at",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a810",
+   "index": 1,
+   "type": "char",
+   "name": "op",
+   "_fn": "code_oparg_at",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a810",
+   "index": 2,
+   "type": "int",
+   "name": "builtin",
+   "_fn": "code_oparg_at",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a810",
+   "index": 3,
+   "type": "uint",
+   "name": "arg",
+   "_fn": "code_oparg_at",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a810",
+   "index": 4,
+   "type": "int",
+   "name": "delta",
+   "_fn": "code_oparg_at",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a8b0",
+   "index": 0,
+   "type": "int",
+   "name": "delta",
+   "_fn": "deltastack",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a900",
+   "index": 0,
+   "type": "int",
+   "name": "z",
+   "_fn": "luaY_parser",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a980",
+   "index": 0,
+   "type": "TaggedString *",
+   "name": "filename",
+   "_fn": "init_state",
+   "_names_only": true
+  },
+  {
+   "addr": "1000aa10",
+   "index": 0,
+   "type": "byte",
+   "name": "c",
+   "_fn": "code_byte",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ab20",
+   "index": 0,
+   "type": "undefined1",
+   "name": "op",
+   "_fn": "code_neutralop",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ab30",
+   "index": 0,
+   "type": "undefined1",
+   "name": "op",
+   "_fn": "code_opcode",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ab30",
+   "index": 1,
+   "type": "int",
+   "name": "delta",
+   "_fn": "code_opcode",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ab50",
+   "index": 0,
+   "type": "TaggedString *",
+   "name": "varname",
+   "_fn": "luaI_registerlocalvar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ab50",
+   "index": 1,
+   "type": "int",
+   "name": "line",
+   "_fn": "luaI_registerlocalvar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b770",
+   "index": 0,
+   "type": "int",
+   "name": "pc",
+   "_fn": "fix_opcode",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b770",
+   "index": 1,
+   "type": "char",
+   "name": "op",
+   "_fn": "fix_opcode",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b770",
+   "index": 2,
+   "type": "int",
+   "name": "builtin",
+   "_fn": "fix_opcode",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b770",
+   "index": 3,
+   "type": "uint",
+   "name": "arg",
+   "_fn": "fix_opcode",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b800",
+   "index": 0,
+   "type": "undefined1",
+   "name": "op",
+   "_fn": "code_pop",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b810",
+   "index": 0,
+   "type": "int",
+   "name": "s",
+   "_fn": "string_constant",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b810",
+   "index": 1,
+   "type": "int *",
+   "name": "state",
+   "_fn": "string_constant",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b860",
+   "index": 0,
+   "type": "int *",
+   "name": "state",
+   "_fn": "next_constant",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b8a0",
+   "index": 0,
+   "type": "int",
+   "name": "s",
+   "_fn": "code_string",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b8c0",
+   "index": 0,
+   "type": "uint",
+   "name": "c",
+   "_fn": "code_constant",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b8e0",
+   "index": 0,
+   "type": "float",
+   "name": "f",
+   "_fn": "code_number",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b950",
+   "index": 0,
+   "type": "float",
+   "name": "r",
+   "_fn": "real_constant",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b9c0",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "flush_record",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b9e0",
+   "index": 0,
+   "type": "uint",
+   "name": "m",
+   "_fn": "flush_list",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b9e0",
+   "index": 1,
+   "type": "int",
+   "name": "n",
+   "_fn": "flush_list",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ba10",
+   "index": 0,
+   "type": "undefined4",
+   "name": "line",
+   "_fn": "luaI_unregisterlocalvar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ba20",
+   "index": 0,
+   "type": "TaggedString *",
+   "name": "name",
+   "_fn": "store_localvar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ba20",
+   "index": 1,
+   "type": "int",
+   "name": "n",
+   "_fn": "store_localvar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ba90",
+   "index": 0,
+   "type": "int",
+   "name": "var",
+   "_fn": "add_varbuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ba90",
+   "index": 1,
+   "type": "int",
+   "name": "n",
+   "_fn": "add_varbuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bad0",
+   "index": 0,
+   "type": "int",
+   "name": "var",
+   "_fn": "var2store",
+   "_names_only": true
+  },
+  {
+   "addr": "1000baf0",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "singlevar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000baf0",
+   "index": 1,
+   "type": "int *",
+   "name": "st",
+   "_fn": "singlevar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bba0",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "aux_localname",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bba0",
+   "index": 1,
+   "type": "int",
+   "name": "st",
+   "_fn": "aux_localname",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bbd0",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "pushupvalue",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bc40",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "indexupvalue",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bcc0",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "adjuststack",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bd00",
+   "index": 0,
+   "type": "int",
+   "name": "exp",
+   "_fn": "adjust_functioncall",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bd00",
+   "index": 1,
+   "type": "uint",
+   "name": "nresults",
+   "_fn": "adjust_functioncall",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bd80",
+   "index": 0,
+   "type": "int",
+   "name": "vars",
+   "_fn": "adjust_mult_assign",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bd80",
+   "index": 1,
+   "type": "int",
+   "name": "exps",
+   "_fn": "adjust_mult_assign",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bde0",
+   "index": 0,
+   "type": "int",
+   "name": "nparams",
+   "_fn": "code_args",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bde0",
+   "index": 1,
+   "type": "int",
+   "name": "dots",
+   "_fn": "code_args",
+   "_names_only": true
+  },
+  {
+   "addr": "1000be60",
+   "index": 0,
+   "type": "int",
+   "name": "number",
+   "_fn": "lua_pushvar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bec0",
+   "index": 0,
+   "type": "int",
+   "name": "number",
+   "_fn": "storevar",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bf00",
+   "index": 0,
+   "type": "int",
+   "name": "i",
+   "_fn": "lua_codestore",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bf00",
+   "index": 1,
+   "type": "int",
+   "name": "left",
+   "_fn": "lua_codestore",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bf50",
+   "index": 0,
+   "type": "int",
+   "name": "pc",
+   "_fn": "fix_jump",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bf50",
+   "index": 1,
+   "type": "char",
+   "name": "op",
+   "_fn": "fix_jump",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bf50",
+   "index": 2,
+   "type": "int",
+   "name": "n",
+   "_fn": "fix_jump",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bf70",
+   "index": 0,
+   "type": "char",
+   "name": "op",
+   "_fn": "fix_upjmp",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bf70",
+   "index": 1,
+   "type": "int",
+   "name": "pos",
+   "_fn": "fix_upjmp",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bfa0",
+   "index": 0,
+   "type": "int",
+   "name": "thenAdd",
+   "_fn": "codeIf",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bfa0",
+   "index": 1,
+   "type": "int",
+   "name": "elseAdd",
+   "_fn": "codeIf",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c000",
+   "index": 0,
+   "type": "int",
+   "name": "pc",
+   "_fn": "code_shortcircuit",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c000",
+   "index": 1,
+   "type": "char",
+   "name": "jmp",
+   "_fn": "code_shortcircuit",
+   "_names_only": true
+  },
+  {
+   "addr": "10007810",
+   "index": 0,
+   "type": "int",
+   "name": "a",
+   "_fn": "comparePtrIDs",
+   "_names_only": true
+  },
+  {
+   "addr": "10007810",
+   "index": 1,
+   "type": "int",
+   "name": "b",
+   "_fn": "comparePtrIDs",
+   "_names_only": true
+  },
+  {
+   "addr": "100085e0",
+   "index": 0,
+   "type": "int",
+   "name": "tf",
+   "_fn": "LState_CodeLength",
+   "_names_only": true
+  },
+  {
+   "addr": "10009180",
+   "index": 0,
+   "type": "undefined *",
+   "name": "writer",
+   "_fn": "luaS_writestrings",
+   "_names_only": true
+  },
+  {
+   "addr": "100092e0",
+   "index": 1,
+   "type": "uint *",
+   "name": "n",
+   "_fn": "luaS_count",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c200",
+   "index": 0,
+   "type": "undefined *",
+   "name": "writer",
+   "_fn": "luaH_save",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c200",
+   "index": 1,
+   "type": "int",
+   "name": "h",
+   "_fn": "luaH_save",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c2e0",
+   "index": 0,
+   "type": "undefined *",
+   "name": "reader",
+   "_fn": "luaH_load",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c8a0",
+   "index": 0,
+   "type": "int",
+   "name": "tag",
+   "_fn": "init_entry",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c920",
+   "index": 0,
+   "type": "int",
+   "name": "tag",
+   "_fn": "luaT_realtag",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c9c0",
+   "index": 0,
+   "type": "int",
+   "name": "t",
+   "_fn": "validevent",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c9c0",
+   "index": 1,
+   "type": "int",
+   "name": "e",
+   "_fn": "validevent",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c9f0",
+   "index": 0,
+   "type": "int",
+   "name": "tag",
+   "_fn": "luaT_checktag",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ca60",
+   "index": 0,
+   "type": "int",
+   "name": "t",
+   "_fn": "luaT_gettagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ca60",
+   "index": 1,
+   "type": "byte *",
+   "name": "event",
+   "_fn": "luaT_gettagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cab0",
+   "index": 0,
+   "type": "byte *",
+   "name": "name",
+   "_fn": "luaI_checkevent",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cae0",
+   "index": 0,
+   "type": "int",
+   "name": "t",
+   "_fn": "luaT_settagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cae0",
+   "index": 1,
+   "type": "byte *",
+   "name": "event",
+   "_fn": "luaT_settagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cae0",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "func",
+   "_fn": "luaT_settagmethod",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cb80",
+   "index": 0,
+   "type": "undefined *",
+   "name": "fn",
+   "_fn": "luaT_travtagmethods",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ce50",
+   "index": 0,
+   "type": "int",
+   "name": "n",
+   "_fn": "fillvalids",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ce50",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "t",
+   "_fn": "fillvalids",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cea0",
+   "index": 0,
+   "type": "int *",
+   "name": "Z",
+   "_fn": "luaU_undump1",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cf30",
+   "index": 0,
+   "type": "int *",
+   "name": "Z",
+   "_fn": "LoadFunction",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cfa0",
+   "index": 0,
+   "type": "int *",
+   "name": "Z",
+   "_fn": "LoadWord",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cfd0",
+   "index": 0,
+   "type": "int *",
+   "name": "Z",
+   "_fn": "ezgetc",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d010",
+   "index": 0,
+   "type": "int",
+   "name": "Z",
+   "_fn": "unexpectedEOZ",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d030",
+   "index": 0,
+   "type": "uint",
+   "name": "size",
+   "_fn": "LoadBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d030",
+   "index": 1,
+   "type": "uint *",
+   "name": "Z",
+   "_fn": "LoadBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d060",
+   "index": 0,
+   "type": "uint *",
+   "name": "Z",
+   "_fn": "ezread",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d060",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "b",
+   "_fn": "ezread",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d060",
+   "index": 2,
+   "type": "uint",
+   "name": "n",
+   "_fn": "ezread",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d090",
+   "index": 0,
+   "type": "int *",
+   "name": "Z",
+   "_fn": "LoadSize",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d0d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "Z",
+   "_fn": "LoadTString",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d0f0",
+   "index": 0,
+   "type": "uint *",
+   "name": "Z",
+   "_fn": "Undump_LoadString",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d130",
+   "index": 0,
+   "type": "uint *",
+   "name": "p",
+   "_fn": "Undump_InvertBytes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d130",
+   "index": 1,
+   "type": "uint",
+   "name": "n",
+   "_fn": "Undump_InvertBytes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d1a0",
+   "index": 0,
+   "type": "int",
+   "name": "tf",
+   "_fn": "LoadLocals",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d1a0",
+   "index": 1,
+   "type": "uint *",
+   "name": "Z",
+   "_fn": "LoadLocals",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d230",
+   "index": 0,
+   "type": "int",
+   "name": "tf",
+   "_fn": "LoadConstants",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d230",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "Z",
+   "_fn": "LoadConstants",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d2f0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "Z",
+   "_fn": "luaU_LoadNumber",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d360",
+   "index": 0,
+   "type": "undefined1 *",
+   "name": "p",
+   "_fn": "Undump_Swap4",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d380",
+   "index": 0,
+   "type": "undefined1 *",
+   "name": "p",
+   "_fn": "Undump_Swap8",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d3c0",
+   "index": 0,
+   "type": "int",
+   "name": "tf",
+   "_fn": "LoadFunctions",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d3c0",
+   "index": 1,
+   "type": "int *",
+   "name": "Z",
+   "_fn": "LoadFunctions",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d420",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "Z",
+   "_fn": "LoadHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d570",
+   "index": 0,
+   "type": "int *",
+   "name": "Z",
+   "_fn": "LoadSignature",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d5c0",
+   "index": 0,
+   "type": "int *",
+   "name": "obj",
+   "_fn": "luaV_tonumber",
+   "_names_only": true
+  },
+  {
+   "addr": "1000dd90",
+   "index": 0,
+   "type": "int",
+   "name": "es",
+   "_fn": "ExecutionState_Delete",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ebc0",
+   "index": 0,
+   "type": "char *",
+   "name": "l",
+   "_fn": "strconc",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ebc0",
+   "index": 1,
+   "type": "char *",
+   "name": "r",
+   "_fn": "strconc",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ec50",
+   "index": 0,
+   "type": "int",
+   "name": "event",
+   "_fn": "call_binTM",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ec50",
+   "index": 1,
+   "type": "byte *",
+   "name": "msg",
+   "_fn": "call_binTM",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ecf0",
+   "index": 0,
+   "type": "int",
+   "name": "event",
+   "_fn": "call_arith",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ed10",
+   "index": 0,
+   "type": "int",
+   "name": "op_lt",
+   "_fn": "comparison",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ed10",
+   "index": 1,
+   "type": "int",
+   "name": "op_eq",
+   "_fn": "comparison",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ed10",
+   "index": 2,
+   "type": "int",
+   "name": "op_gt",
+   "_fn": "comparison",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ed10",
+   "index": 3,
+   "type": "int",
+   "name": "event",
+   "_fn": "comparison",
+   "_names_only": true
+  },
+  {
+   "addr": "1000edc0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "z",
+   "_fn": "luaZ_mopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000edc0",
+   "index": 1,
+   "type": "int",
+   "name": "b",
+   "_fn": "luaZ_mopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000edc0",
+   "index": 2,
+   "type": "undefined4",
+   "name": "size",
+   "_fn": "luaZ_mopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000edc0",
+   "index": 3,
+   "type": "undefined4",
+   "name": "name",
+   "_fn": "luaZ_mopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ee00",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "z",
+   "_fn": "luaZ_sopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ee00",
+   "index": 1,
+   "type": "char *",
+   "name": "s",
+   "_fn": "luaZ_sopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ee00",
+   "index": 2,
+   "type": "undefined4",
+   "name": "name",
+   "_fn": "luaZ_sopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ee30",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "z",
+   "_fn": "luaZ_Fopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ee30",
+   "index": 1,
+   "type": "int",
+   "name": "f",
+   "_fn": "luaZ_Fopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ee30",
+   "index": 2,
+   "type": "undefined4",
+   "name": "name",
+   "_fn": "luaZ_Fopen",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ee60",
+   "index": 0,
+   "type": "int *",
+   "name": "z",
+   "_fn": "zffilbuf",
+   "_names_only": true
+  },
+  {
+   "addr": "1000eea0",
+   "index": 0,
+   "type": "uint *",
+   "name": "z",
+   "_fn": "luaZ_read",
+   "_names_only": true
+  },
+  {
+   "addr": "1000eea0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "b",
+   "_fn": "luaZ_read",
+   "_names_only": true
+  },
+  {
+   "addr": "1000eea0",
+   "index": 2,
+   "type": "uint",
+   "name": "n",
+   "_fn": "luaZ_read",
+   "_names_only": true
+  },
+  {
+   "addr": "10009650",
+   "index": 0,
+   "type": "uint *",
+   "name": "s",
+   "_fn": "addnchar",
+   "_names_only": true
+  },
+  {
+   "addr": "10009650",
+   "index": 1,
+   "type": "uint",
+   "name": "n",
+   "_fn": "addnchar",
+   "_names_only": true
+  },
+  {
+   "addr": "10009760",
+   "index": 0,
+   "type": "uint *",
+   "name": "s",
+   "_fn": "addstr",
+   "_names_only": true
+  },
+  {
+   "addr": "100097f0",
+   "index": 0,
+   "type": "uint",
+   "name": "c",
+   "_fn": "luaI_singlematch",
+   "_names_only": true
+  },
+  {
+   "addr": "100097f0",
+   "index": 1,
+   "type": "char *",
+   "name": "p",
+   "_fn": "luaI_singlematch",
+   "_names_only": true
+  },
+  {
+   "addr": "100097f0",
+   "index": 2,
+   "type": "int *",
+   "name": "ep",
+   "_fn": "luaI_singlematch",
+   "_names_only": true
+  },
+  {
+   "addr": "100099e0",
+   "index": 0,
+   "type": "char *",
+   "name": "p",
+   "_fn": "bracket_end",
+   "_names_only": true
+  },
+  {
+   "addr": "10009a10",
+   "index": 0,
+   "type": "uint",
+   "name": "c",
+   "_fn": "matchclass",
+   "_names_only": true
+  },
+  {
+   "addr": "10009a10",
+   "index": 1,
+   "type": "uint",
+   "name": "cl",
+   "_fn": "matchclass",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a030",
+   "index": 0,
+   "type": "int *",
+   "name": "cap",
+   "_fn": "capture_to_close",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a060",
+   "index": 0,
+   "type": "char *",
+   "name": "s",
+   "_fn": "matchitem",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a060",
+   "index": 1,
+   "type": "char *",
+   "name": "p",
+   "_fn": "matchitem",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a060",
+   "index": 2,
+   "type": "int *",
+   "name": "cap",
+   "_fn": "matchitem",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a060",
+   "index": 3,
+   "type": "int *",
+   "name": "ep",
+   "_fn": "matchitem",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a150",
+   "index": 0,
+   "type": "int",
+   "name": "l",
+   "_fn": "check_cap",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a150",
+   "index": 1,
+   "type": "int *",
+   "name": "cap",
+   "_fn": "check_cap",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a180",
+   "index": 0,
+   "type": "char *",
+   "name": "s",
+   "_fn": "matchbalance",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a180",
+   "index": 1,
+   "type": "int",
+   "name": "b",
+   "_fn": "matchbalance",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a180",
+   "index": 2,
+   "type": "int",
+   "name": "e",
+   "_fn": "matchbalance",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a2e0",
+   "index": 0,
+   "type": "int",
+   "name": "newp",
+   "_fn": "add_s",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a680",
+   "index": 0,
+   "type": "char *",
+   "name": "s",
+   "_fn": "luaI_addquoted",
+   "_names_only": true
+  }
+ ]
+}

@@ -8,10 +8,10 @@
 /* ---- 0x10002d10  luaL_addsize ---- */
 /* Original name luaL_addsize (the remaster's libLua.so: Mbuffnext += n); was lbuiltin__2d10. */
 
-void __cdecl luaL_addsize(int param_1)
+void __cdecl luaL_addsize(int n)
 
 {
-  g_dwLState_Mbuffnext = g_dwLState_Mbuffnext + param_1;
+  g_dwLState_Mbuffnext = g_dwLState_Mbuffnext + n;
   return;
 }
 
@@ -19,14 +19,14 @@ void __cdecl luaL_addsize(int param_1)
 /* Original name luaL_newbuffer (the remaster's libLua.so: returns the old base, opens space, new
    base = Mbuffer + Mbuffnext); was lbuiltin__2d30. */
 
-int __cdecl luaL_newbuffer(int param_1)
+int __cdecl luaL_newbuffer(int size)
 
 {
   int iVar1;
   
   iVar1 = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
-  if (g_dwLState_Mbuffsize < (uint)(param_1 + g_dwLState_Mbuffnext)) {
-    Lbuffer_Openspace(param_1);
+  if (g_dwLState_Mbuffsize < (uint)(size + g_dwLState_Mbuffnext)) {
+    Lbuffer_Openspace(size);
   }
   g_dwLState_Mbuffbase = g_dwLState_Mbuffnext + g_dwLState_Mbuffer;
   return iVar1;
@@ -36,11 +36,11 @@ int __cdecl luaL_newbuffer(int param_1)
 /* Original name luaL_oldbuffer (the remaster's libLua.so: restores Mbuffnext and the base); was
    lbuiltin__2d80. */
 
-void __cdecl luaL_oldbuffer(int param_1)
+void __cdecl luaL_oldbuffer(int old)
 
 {
   g_dwLState_Mbuffnext = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
-  g_dwLState_Mbuffbase = param_1 + g_dwLState_Mbuffer;
+  g_dwLState_Mbuffbase = old + g_dwLState_Mbuffer;
   return;
 }
 
@@ -60,31 +60,31 @@ undefined4 luaL_buffer(void)
 void __cdecl nextvar(void)
 
 {
-  int iVar1;
+  int o;
+  int *piVar1;
   int *piVar2;
-  int *piVar3;
   
-  iVar1 = luaL_nonnullarg(1);
-  piVar2 = (int *)luaA_Address(iVar1);
-  piVar3 = g_dwLState_rootglobal;
-  if (*piVar2 != -7) {
-    if (*piVar2 != -2) {
+  o = luaL_nonnullarg(1);
+  piVar1 = (int *)luaA_Address(o);
+  piVar2 = g_dwLState_rootglobal;
+  if (*piVar1 != -7) {
+    if (*piVar1 != -2) {
       luaL_argerror(1,((unsigned)(uintptr_t)&s_variable_name_expected_100266a0));
     }
-    piVar3 = (int *)piVar2[1];
-    if (piVar3 == (int *)*piVar3) {
+    piVar2 = (int *)piVar1[1];
+    if (piVar2 == (int *)*piVar2) {
       luaL_argerror(1,((unsigned)(uintptr_t)&s_variable_name_expected_100266a0));
     }
-    piVar3 = (int *)*piVar3;
+    piVar2 = (int *)*piVar2;
   }
-  if (piVar3 != (int *)0x0) {
+  if (piVar2 != (int *)0x0) {
     do {
-      if (piVar3[4] != -7) break;
-      piVar3 = (int *)*piVar3;
-    } while (piVar3 != (int *)0x0);
-    if (piVar3 != (int *)0x0) {
-      pushstring(piVar3);
-      luaA_pushobject((TObject *)(piVar3 + 4));
+      if (piVar2[4] != -7) break;
+      piVar2 = (int *)*piVar2;
+    } while (piVar2 != (int *)0x0);
+    if (piVar2 != (int *)0x0) {
+      pushstring((uint)piVar2);
+      luaA_pushobject((TObject *)(piVar2 + 4));
     }
   }
   return;
@@ -95,14 +95,14 @@ void __cdecl nextvar(void)
    TObject {LUA_T_STRING, ts} pushed with luaA_pushobject, used by nextvar / foreachvar); was
    lbuiltin__2e40. */
 
-void __cdecl pushstring(uint param_1)
+void __cdecl pushstring(uint s)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
   local_8.nTtype = -2;
-  local_8.dwValue = param_1;
+  local_8.dwValue = s;
   luaA_pushobject(&local_8);
   return;
 }
@@ -117,30 +117,30 @@ void __cdecl foreachvar(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 *puVar1;
-  int iVar2;
-  int *piVar3;
+  undefined4 *s;
+  int iVar1;
+  int *piVar2;
   #define TStack_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
-  iVar2 = luaL_functionarg(1);
-  piVar3 = (int *)luaA_Address(iVar2);
-  TStack_8.nTtype = *piVar3;
-  TStack_8.dwValue = piVar3[1];
-  iVar2 = (g_pLuaState->Cstack).nBase;
-  (g_pLuaState->Cstack).nBase = iVar2 + 1;
-  g_pLuaState->pStack[iVar2].nTtype = -7;
+  iVar1 = luaL_functionarg(1);
+  piVar2 = (int *)luaA_Address(iVar1);
+  TStack_8.nTtype = *piVar2;
+  TStack_8.dwValue = piVar2[1];
+  iVar1 = (g_pLuaState->Cstack).nBase;
+  (g_pLuaState->Cstack).nBase = iVar1 + 1;
+  g_pLuaState->pStack[iVar1].nTtype = -7;
   g_pLuaState->pTop = g_pLuaState->pTop + 1;
-  puVar1 = g_dwLState_rootglobal;
+  s = g_dwLState_rootglobal;
   do {
-    if (puVar1 == (undefined4 *)0x0) {
+    if (s == (undefined4 *)0x0) {
       return;
     }
-    if (puVar1[4] != -7) {
-      g_pLuaState->pStack[iVar2].nTtype = -2;
-      g_pLuaState->pStack[iVar2].dwValue = (uint)puVar1;
+    if (s[4] != -7) {
+      g_pLuaState->pStack[iVar1].nTtype = -2;
+      g_pLuaState->pStack[iVar1].dwValue = (uint)s;
       luaA_pushobject(&TStack_8);
-      pushstring(puVar1);
-      luaA_pushobject((TObject *)(puVar1 + 4));
+      pushstring((uint)s);
+      luaA_pushobject((TObject *)(s + 4));
       g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + 1;
       luaD_call(((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) + -2,1);
       g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + -1;
@@ -149,7 +149,7 @@ void __cdecl foreachvar(void)
       }
       g_pLuaState->pTop = g_pLuaState->pTop + -1;
     }
-    puVar1 = (undefined4 *)*puVar1;
+    s = (undefined4 *)*s;
   } while( true );
 }
 #undef TStack_8
@@ -161,20 +161,20 @@ void __cdecl foreachvar(void)
 void __cdecl next(void)
 
 {
-  int iVar1;
-  int iVar2;
+  int o;
+  int o_00;
   TObject *r;
-  TObject *o;
-  Node *o_00;
+  TObject *o_01;
+  Node *o_02;
   
-  iVar1 = luaL_tablearg(1);
-  iVar2 = luaL_nonnullarg(2);
-  r = (TObject *)luaA_Address(iVar2);
-  o = (TObject *)luaA_Address(iVar1);
-  o_00 = luaH_next(o,r);
-  if (o_00 != (Node *)0x0) {
-    luaA_pushobject(&o_00->ref);
-    luaA_pushobject(&o_00->val);
+  o = luaL_tablearg(1);
+  o_00 = luaL_nonnullarg(2);
+  r = (TObject *)luaA_Address(o_00);
+  o_01 = (TObject *)luaA_Address(o);
+  o_02 = luaH_next(o_01,r);
+  if (o_02 != (Node *)0x0) {
+    luaA_pushobject(&o_02->ref);
+    luaA_pushobject(&o_02->val);
   }
   return;
 }
@@ -235,14 +235,14 @@ void __cdecl internaldostring(void)
 
 {
   int iVar1;
-  char *pcVar2;
+  char *str;
   
   iVar1 = lua_lua2C(2);
   if (iVar1 != 0) {
     lua_error((byte *)s_invalid_2nd_argument__probably_o_100266b8);
   }
-  pcVar2 = (char *)luaL_check_string(1);
-  iVar1 = lua_dostring(pcVar2);
+  str = (char *)luaL_check_string(1);
+  iVar1 = lua_dostring(str);
   if (iVar1 == 0) {
     iVar1 = luaA_passresults();
     if (iVar1 == 0) {
@@ -259,14 +259,14 @@ void __cdecl internaldostring(void)
 void __cdecl internaldofile(void)
 
 {
-  char *pcVar1;
-  int iVar2;
+  char *filename;
+  int iVar1;
   
-  pcVar1 = (char *)luaL_opt_string(1,0);
-  iVar2 = lua_dofile(pcVar1);
-  if (iVar2 == 0) {
-    iVar2 = luaA_passresults();
-    if (iVar2 == 0) {
+  filename = (char *)luaL_opt_string(1,0);
+  iVar1 = lua_dofile(filename);
+  if (iVar1 == 0) {
+    iVar1 = luaA_passresults();
+    if (iVar1 == 0) {
       lua_pushusertag((byte *)0x0,0);
     }
   }
@@ -280,11 +280,11 @@ void __cdecl internaldofile(void)
 void __cdecl bi_tostring(void)
 
 {
-  int iVar1;
+  int obj;
   byte *str;
   
-  iVar1 = lua_lua2C(1);
-  str = to_string(iVar1);
+  obj = lua_lua2C(1);
+  str = to_string(obj);
   lua_pushstring(str);
   return;
 }
@@ -294,7 +294,7 @@ void __cdecl bi_tostring(void)
    remaster's libLua.so: static to_string: the strings 'nil', 'table: %p', 'task: %d', 'internal
    error', called by bi_tostring); was luaB_tostring. */
 
-undefined1 * __cdecl to_string(int param_1)
+undefined1 * __cdecl to_string(int obj)
 
 {
   char *buf;
@@ -304,7 +304,7 @@ undefined1 * __cdecl to_string(int param_1)
   undefined4 uVar4;
   
   buf = (char *)luaL_openspace(0x1e);
-  puVar1 = (undefined4 *)luaA_Address(param_1);
+  puVar1 = (undefined4 *)luaA_Address(obj);
   switch(*puVar1) {
   case 0:
     sprintf(buf,s_userdata___p_10026708,*(undefined4 *)(puVar1[1] + 0x14));
@@ -329,7 +329,7 @@ undefined1 * __cdecl to_string(int param_1)
     return buf;
   case 0xfffffffe:
   case 0xffffffff:
-    puVar2 = (undefined1 *)lua_getstring(param_1);
+    puVar2 = (undefined1 *)lua_getstring(obj);
     return puVar2;
   default:
     lua_error((byte *)s_internal_error_100266e8);
@@ -640,17 +640,17 @@ void luaI_breakhere(void)
 void __cdecl luaI_print(void)
 
 {
-  int iVar1;
-  int iVar2;
-  undefined1 *puVar3;
+  int number;
+  int obj;
+  undefined1 *puVar1;
   
-  iVar2 = lua_lua2C(1);
-  iVar1 = 2;
-  while (iVar2 != 0) {
-    puVar3 = to_string(iVar2);
-    printf(&DAT_10026960,puVar3);
-    iVar2 = lua_lua2C(iVar1);
-    iVar1 = iVar1 + 1;
+  obj = lua_lua2C(1);
+  number = 2;
+  while (obj != 0) {
+    puVar1 = to_string(obj);
+    printf(&DAT_10026960,puVar1);
+    obj = lua_lua2C(number);
+    number = number + 1;
   }
   printf(&DAT_100261f0);
   return;
@@ -681,43 +681,43 @@ void __cdecl tonumber(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int o;
   int iVar1;
-  int iVar2;
+  uint uVar2;
   uint uVar3;
-  uint uVar4;
-  longlong lVar5;
-  float fVar6;
+  longlong lVar4;
+  float fVar5;
   #define pbStack_c (*(byte **)(_frame + (0x20 - 0xc)))
   #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
-  fVar6 = luaL_opt_number(2,10.0f);
-  lVar5 = FTOL((float10)fVar6);
-  uVar3 = (uint)lVar5;
-  if (uVar3 == 10) {
-    iVar1 = lua_lua2C(1);
-    iVar2 = lua_isnumber(iVar1);
-    if (iVar2 != 0) {
-      fVar6 = lua_getnumber(iVar1);
-      lua_pushnumber(fVar6);
+  fVar5 = luaL_opt_number(2,10.0f);
+  lVar4 = FTOL((float10)fVar5);
+  uVar2 = (uint)lVar4;
+  if (uVar2 == 10) {
+    o = lua_lua2C(1);
+    iVar1 = lua_isnumber(o);
+    if (iVar1 != 0) {
+      fVar5 = lua_getnumber(o);
+      lua_pushnumber(fVar5);
       return;
     }
   }
   else {
     pbStack_c = (byte *)luaL_check_string(1);
-    if (((int)uVar3 < 0) || (0x24 < (int)uVar3)) {
+    if (((int)uVar2 < 0) || (0x24 < (int)uVar2)) {
       luaL_argerror(2,((unsigned)(uintptr_t)&s_base_out_of_range_10026964));
     }
-    uVar3 = ((code *)strtol)(pbStack_c,&pbStack_c,uVar3);
-    uVar4 = FUN_1000f620((int)(char)*pbStack_c);
-    while (uVar4 != 0) {
+    uVar2 = ((code *)strtol)(pbStack_c,&pbStack_c,uVar2);
+    uVar3 = FUN_1000f620((int)(char)*pbStack_c);
+    while (uVar3 != 0) {
       pbStack_c = pbStack_c + 1;
-      uVar4 = FUN_1000f620((int)(char)*pbStack_c);
+      uVar3 = FUN_1000f620((int)(char)*pbStack_c);
     }
     if (*pbStack_c == 0) {
       uStack_4 = 0;
-      uStack_8 = uVar3;
-      lua_pushnumber((float)uVar3);
+      uStack_8 = uVar2;
+      lua_pushnumber((float)uVar2);
     }
   }
   return;
@@ -734,12 +734,12 @@ void __cdecl tonumber(void)
 void __cdecl luaI_error(void)
 
 {
-  int iVar1;
-  byte *pbVar2;
+  int o;
+  byte *s;
   
-  iVar1 = lua_lua2C(1);
-  pbVar2 = (byte *)lua_getstring(iVar1);
-  lua_error(pbVar2);
+  o = lua_lua2C(1);
+  s = (byte *)lua_getstring(o);
+  lua_error(s);
   return;
 }
 
@@ -770,13 +770,13 @@ void __cdecl setglobal(void)
 
 {
   byte *str;
-  int iVar1;
+  int o;
   
   str = (byte *)luaL_check_string(1);
-  iVar1 = luaL_nonnullarg(2);
-  lua_pushobject(iVar1);
+  o = luaL_nonnullarg(2);
+  lua_pushobject(o);
   lua_setglobal(str);
-  lua_pushobject(iVar1);
+  lua_pushobject(o);
   return;
 }
 
@@ -788,13 +788,13 @@ void __cdecl rawsetglobal(void)
 
 {
   byte *str;
-  int iVar1;
+  int o;
   
   str = (byte *)luaL_check_string(1);
-  iVar1 = luaL_nonnullarg(2);
-  lua_pushobject(iVar1);
+  o = luaL_nonnullarg(2);
+  lua_pushobject(o);
   lua_rawsetglobal(str);
-  lua_pushobject(iVar1);
+  lua_pushobject(o);
   return;
 }
 
@@ -806,11 +806,11 @@ void __cdecl getglobal(void)
 
 {
   byte *str;
-  int iVar1;
+  int o;
   
   str = (byte *)luaL_check_string(1);
-  iVar1 = lua_getglobal(str);
-  lua_pushobject(iVar1);
+  o = lua_getglobal(str);
+  lua_pushobject(o);
   return;
 }
 
@@ -822,11 +822,11 @@ void __cdecl rawgetglobal(void)
 
 {
   byte *str;
-  int iVar1;
+  int o;
   
   str = (byte *)luaL_check_string(1);
-  iVar1 = lua_rawgetglobal(str);
-  lua_pushobject(iVar1);
+  o = lua_rawgetglobal(str);
+  lua_pushobject(o);
   return;
 }
 
@@ -852,51 +852,51 @@ void __cdecl luaI_call(void)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  int iVar2;
-  uint *puVar3;
+  int table;
+  uint *puVar2;
+  int iVar3;
   int iVar4;
+  int o;
   int iVar5;
-  int iVar6;
-  int iVar7;
   #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
   
   iVar1 = luaL_nonnullarg(1);
-  iVar2 = luaL_tablearg(2);
-  puVar3 = (uint *)luaL_opt_string(3,&DAT_1002bedc);
-  iVar4 = lua_lua2C(4);
-  iVar5 = getnarg(iVar2);
-  iVar6 = 0;
-  if (iVar4 != 0) {
-    lua_pushobject(iVar4);
-    iVar6 = lua_seterrormethod();
+  table = luaL_tablearg(2);
+  puVar2 = (uint *)luaL_opt_string(3,&DAT_1002bedc);
+  iVar3 = lua_lua2C(4);
+  iVar4 = getnarg(table);
+  o = 0;
+  if (iVar3 != 0) {
+    lua_pushobject(iVar3);
+    o = lua_seterrormethod();
   }
   iStack_c = 0;
-  if (0 < iVar5) {
+  if (0 < iVar4) {
     do {
-      lua_pushobject(iVar2);
+      lua_pushobject(table);
       lua_pushnumber((float)iStack_c - -1.0f);
-      iVar4 = lua_rawgettable();
-      if ((iVar5 == 0xfffe) && (iVar7 = lua_isnil(iVar4), iVar7 != 0)) break;
-      lua_pushobject(iVar4);
+      iVar3 = lua_rawgettable();
+      if ((iVar4 == 0xfffe) && (iVar5 = lua_isnil(iVar3), iVar5 != 0)) break;
+      lua_pushobject(iVar3);
       iStack_c = iStack_c + 1;
-    } while (iStack_c < iVar5);
+    } while (iStack_c < iVar4);
   }
   iVar1 = lua_callfunction(iVar1);
-  if (iVar6 != 0) {
-    lua_pushobject(iVar6);
+  if (o != 0) {
+    lua_pushobject(o);
     lua_seterrormethod();
   }
   if (iVar1 == 0) {
-    puVar3 = strchr(puVar3,'p');
-    if (puVar3 != (uint *)0x0) {
+    puVar2 = strchr(puVar2,'p');
+    if (puVar2 != (uint *)0x0) {
       luaA_packresults();
       return;
     }
     luaA_passresults();
   }
   else {
-    puVar3 = strchr(puVar3,'x');
-    if (puVar3 == (uint *)0x0) {
+    puVar2 = strchr(puVar2,'x');
+    if (puVar2 == (uint *)0x0) {
       lua_error((byte *)0x0);
       return;
     }
@@ -910,22 +910,22 @@ void __cdecl luaI_call(void)
 /* Named getnarg (not in the remaster, gcc inlined it there): Lua 3.1 source name (lbuiltin.c:
    rawgettable(table, "n"), number or MAX_WORD, used by luaI_call); was lbuiltin__3ba0. */
 
-int __cdecl getnarg(int param_1)
+int __cdecl getnarg(int table)
 
 {
+  int o;
   int iVar1;
-  int iVar2;
-  longlong lVar3;
-  float fVar4;
+  longlong lVar2;
+  float fVar3;
   
-  lua_pushobject(param_1);
+  lua_pushobject(table);
   lua_pushstring(&DAT_10026994);
-  iVar1 = lua_rawgettable();
-  iVar2 = lua_isnumber(iVar1);
-  if (iVar2 != 0) {
-    fVar4 = lua_getnumber(iVar1);
-    lVar3 = FTOL((float10)fVar4);
-    return (int)lVar3;
+  o = lua_rawgettable();
+  iVar1 = lua_isnumber(o);
+  if (iVar1 != 0) {
+    fVar3 = lua_getnumber(o);
+    lVar2 = FTOL((float10)fVar3);
+    return (int)lVar2;
   }
   return 0xfffe;
 }
@@ -936,15 +936,15 @@ int __cdecl getnarg(int param_1)
 void __cdecl settag(void)
 
 {
-  int iVar1;
-  longlong lVar2;
-  float fVar3;
+  int o;
+  longlong lVar1;
+  float fVar2;
   
-  iVar1 = luaL_tablearg(1);
-  lua_pushobject(iVar1);
-  fVar3 = luaL_check_number(2);
-  lVar2 = FTOL((float10)fVar3);
-  lua_settag((int)lVar2);
+  o = luaL_tablearg(1);
+  lua_pushobject(o);
+  fVar2 = luaL_check_number(2);
+  lVar1 = FTOL((float10)fVar2);
+  lua_settag((int)lVar1);
   return;
 }
 
@@ -990,12 +990,12 @@ void __cdecl rawgettable(void)
 
 {
   int iVar1;
-  int iVar2;
+  int o;
   
   iVar1 = luaL_nonnullarg(1);
-  iVar2 = luaL_nonnullarg(2);
+  o = luaL_nonnullarg(2);
   lua_pushobject(iVar1);
-  lua_pushobject(iVar2);
+  lua_pushobject(o);
   iVar1 = lua_rawgettable();
   lua_pushobject(iVar1);
   return;
@@ -1008,16 +1008,16 @@ void __cdecl rawgettable(void)
 void rawsettable(void)
 
 {
-  int iVar1;
-  int iVar2;
-  int iVar3;
+  int o;
+  int o_00;
+  int o_01;
   
-  iVar1 = luaL_nonnullarg(1);
-  iVar2 = luaL_nonnullarg(2);
-  iVar3 = luaL_nonnullarg(3);
-  lua_pushobject(iVar1);
-  lua_pushobject(iVar2);
-  lua_pushobject(iVar3);
+  o = luaL_nonnullarg(1);
+  o_00 = luaL_nonnullarg(2);
+  o_01 = luaL_nonnullarg(3);
+  lua_pushobject(o);
+  lua_pushobject(o_00);
+  lua_pushobject(o_01);
   lua_rawsettable();
   return;
 }
@@ -1030,16 +1030,16 @@ void __cdecl settagmethod(void)
 
 {
   int iVar1;
-  byte *pbVar2;
-  longlong lVar3;
-  float fVar4;
+  byte *event;
+  longlong lVar2;
+  float fVar3;
   
   iVar1 = luaL_nonnullarg(3);
   lua_pushobject(iVar1);
-  pbVar2 = (byte *)luaL_check_string(2);
-  fVar4 = luaL_check_number(1);
-  lVar3 = FTOL((float10)fVar4);
-  iVar1 = lua_settagmethod((int)lVar3,pbVar2);
+  event = (byte *)luaL_check_string(2);
+  fVar3 = luaL_check_number(1);
+  lVar2 = FTOL((float10)fVar3);
+  iVar1 = lua_settagmethod((int)lVar2,event);
   lua_pushobject(iVar1);
   return;
 }
@@ -1051,16 +1051,16 @@ void __cdecl settagmethod(void)
 void __cdecl gettagmethod(void)
 
 {
-  byte *pbVar1;
-  int iVar2;
-  longlong lVar3;
-  float fVar4;
+  byte *event;
+  int o;
+  longlong lVar1;
+  float fVar2;
   
-  pbVar1 = (byte *)luaL_check_string(2);
-  fVar4 = luaL_check_number(1);
-  lVar3 = FTOL((float10)fVar4);
-  iVar2 = lua_gettagmethod((int)lVar3,pbVar1);
-  lua_pushobject(iVar2);
+  event = (byte *)luaL_check_string(2);
+  fVar2 = luaL_check_number(1);
+  lVar1 = FTOL((float10)fVar2);
+  o = lua_gettagmethod((int)lVar1,event);
+  lua_pushobject(o);
   return;
 }
 

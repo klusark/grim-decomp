@@ -8,7 +8,7 @@
 /* ---- 0x10003e40  luaD_checkstack ---- */
 /* ldo.c: Lua2C - C2Lua overflow / stack size overflow */
 
-void __cdecl luaD_checkstack(int param_1)
+void __cdecl luaD_checkstack(int n)
 
 {
   TObject **ppTVar1;
@@ -21,9 +21,9 @@ void __cdecl luaD_checkstack(int param_1)
   pLVar4 = g_pLuaState;
   pTVar2 = g_pLuaState->pTop;
   ppTVar1 = &g_pLuaState->pTop;
-  if ((int)g_pLuaState->pLast - (int)pTVar2 >> 3 <= param_1) {
+  if ((int)g_pLuaState->pLast - (int)pTVar2 >> 3 <= n) {
     pTVar3 = g_pLuaState->pStack;
-    iVar6 = ((int)g_pLuaState->pLast - (int)pTVar3 >> 3) + 0x101 + param_1;
+    iVar6 = ((int)g_pLuaState->pLast - (int)pTVar3 >> 3) + 0x101 + n;
     pTVar5 = (TObject *)
              (**(code **)(g_dwLuaHS + 0x28))
                        (pTVar3,iVar6 * 8,s_C__grimsrc_libs_lua_src_ldo_cpp_10026a04,0x47);
@@ -45,32 +45,32 @@ void __cdecl luaD_checkstack(int param_1)
 /* ---- 0x10003ee0  luaD_adjusttop ---- */
 /* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
 
-void __cdecl luaD_adjusttop(int param_1)
+void __cdecl luaD_adjusttop(int newtop)
 
 {
-  int iVar1;
+  int n;
   
-  iVar1 = param_1 - ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3);
-  if (iVar1 < 1) {
-    g_pLuaState->pTop = g_pLuaState->pTop + iVar1;
+  n = newtop - ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3);
+  if (n < 1) {
+    g_pLuaState->pTop = g_pLuaState->pTop + n;
     return;
   }
-  luaD_checkstack(iVar1);
+  luaD_checkstack(n);
   do {
     g_pLuaState->pTop->nTtype = -7;
-    iVar1 = iVar1 + -1;
+    n = n + -1;
     g_pLuaState->pTop = g_pLuaState->pTop + 1;
-  } while (iVar1 != 0);
+  } while (n != 0);
   return;
 }
 
 /* ---- 0x10003f40  luaD_openstack ---- */
 /* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
 
-void __cdecl luaD_openstack(int param_1)
+void __cdecl luaD_openstack(int nelems)
 
 {
-  memcpy(&(g_pLuaState->pTop + -param_1)[1].nTtype,&g_pLuaState->pTop[-param_1].nTtype,param_1 * 8);
+  memcpy(&(g_pLuaState->pTop + -nelems)[1].nTtype,&g_pLuaState->pTop[-nelems].nTtype,nelems * 8);
   if (g_pLuaState->pLast <= g_pLuaState->pTop) {
     luaD_checkstack(1);
   }
@@ -81,7 +81,7 @@ void __cdecl luaD_openstack(int param_1)
 /* ---- 0x10003f90  luaD_lineHook ---- */
 /* Unidentified function of ldo.c (stack and call machinery, Grim task marks) */
 
-void __cdecl luaD_lineHook(undefined4 param_1)
+void __cdecl luaD_lineHook(undefined4 line)
 
 {
   int iVar1;
@@ -97,7 +97,7 @@ void __cdecl luaD_lineHook(undefined4 param_1)
   (g_pLuaState->Cstack).nLua2C = (g_pLuaState->Cstack).nBase;
   iVar4 = (g_pLuaState->Cstack).nLua2C;
   (g_pLuaState->Cstack).nNum = 0;
-  (*lua_linehook)(param_1);
+  (*lua_linehook)(line);
   g_pLuaState->pTop = g_pLuaState->pStack + iVar4;
   pLVar5 = g_pLuaState;
   (g_pLuaState->Cstack).nBase = iVar1;
@@ -109,7 +109,7 @@ void __cdecl luaD_lineHook(undefined4 param_1)
 /* ---- 0x10004000  luaD_callHook ---- */
 /* Calls the call hook with the function name or '(return)' */
 
-void __cdecl luaD_callHook(int param_1,int param_2,int param_3)
+void __cdecl luaD_callHook(int base,int tf,int isreturn)
 
 {
   int iVar1;
@@ -128,16 +128,16 @@ void __cdecl luaD_callHook(int param_1,int param_2,int param_3)
   (g_pLuaState->Cstack).nLua2C = (g_pLuaState->Cstack).nBase;
   iVar4 = (g_pLuaState->Cstack).nLua2C;
   (g_pLuaState->Cstack).nNum = 0;
-  if (param_3 == 0) {
-    if (param_2 == 0) {
+  if (isreturn == 0) {
+    if (tf == 0) {
       uVar8 = 0xffffffff;
       pcVar7 = &DAT_10026264;
     }
     else {
-      uVar8 = *(undefined4 *)(param_2 + 0x14);
-      pcVar7 = (char *)(*(int *)(param_2 + 0x18) + 0x18);
+      uVar8 = *(undefined4 *)(tf + 0x14);
+      pcVar7 = (char *)(*(int *)(tf + 0x18) + 0x18);
     }
-    iVar6 = (param_1 * 8 + -8 >> 3) + 1;
+    iVar6 = (base * 8 + -8 >> 3) + 1;
   }
   else {
     uVar8 = 0;
@@ -156,10 +156,10 @@ void __cdecl luaD_callHook(int param_1,int param_2,int param_3)
 /* ---- 0x100040c0  luaD_taskHook ---- */
 /* Original name luaD_taskHook (the remaster's libLua.so: calls lua_taskhook); was ldo__40c0. */
 
-void __cdecl luaD_taskHook(undefined4 param_1,undefined4 param_2)
+void __cdecl luaD_taskHook(undefined4 task,undefined4 event)
 
 {
-  (*lua_taskhook)(param_1,param_2);
+  (*lua_taskhook)(task,event);
   return;
 }
 
@@ -364,7 +364,7 @@ LAB_10004474:
    stack frame, runs the call hook, calls the C function, used by luaD_call / callCclosure); was
    ldo__44e0. */
 
-int __cdecl callC(undefined *param_1,int param_2)
+int __cdecl callC(undefined *f,int base)
 
 {
   CLuaStack *pCVar1;
@@ -379,18 +379,18 @@ int __cdecl callC(undefined *param_1,int param_2)
   iVar2 = pCVar1->nBase;
   iVar3 = (g_pLuaState->Cstack).nLua2C;
   iVar4 = (g_pLuaState->Cstack).nNum;
-  iVar6 = ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - param_2;
-  (g_pLuaState->Cstack).nLua2C = param_2;
+  iVar6 = ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - base;
+  (g_pLuaState->Cstack).nLua2C = base;
   (pLVar5->Cstack).nNum = iVar6;
-  pCVar1->nBase = iVar6 + param_2;
+  pCVar1->nBase = iVar6 + base;
   if (lua_callhook != 0) {
-    luaD_callHook(param_2,0,0);
+    luaD_callHook(base,0,0);
   }
   g_pLuaState->nNestingLevel = g_pLuaState->nNestingLevel + 1;
-  (*(code *)param_1)();
+  (*(code *)f)();
   g_pLuaState->nNestingLevel = g_pLuaState->nNestingLevel + -1;
   if (lua_callhook != 0) {
-    luaD_callHook(param_2,0,1);
+    luaD_callHook(base,0,1);
   }
   iVar6 = pCVar1->nBase;
   pCVar1->nBase = iVar2;
@@ -404,32 +404,32 @@ int __cdecl callC(undefined *param_1,int param_2)
    callCclosure: checkstack(nelems), moves the arguments up, copies the closure's upvalues
    (consts+1) below them, then callC; called by luaD_call); was luaD_callC. */
 
-int __cdecl callCclosure(int param_1,undefined *param_2,int param_3)
+int __cdecl callCclosure(int cl,undefined *f,int base)
 
 {
-  uint uVar1;
-  int iVar2;
-  int *piVar3;
-  TObject *pTVar4;
+  uint n;
+  int iVar1;
+  int *piVar2;
+  TObject *pTVar3;
   
-  uVar1 = *(uint *)(param_1 + 8);
-  luaD_checkstack(uVar1);
-  pTVar4 = g_pLuaState->pStack + param_3;
-  memcpy(&pTVar4[uVar1].nTtype,&pTVar4->nTtype,((int)g_pLuaState->pTop - (int)pTVar4 >> 3) << 3);
-  piVar3 = (int *)(param_1 + 0x14);
-  for (iVar2 = (uVar1 & 0x1fffffff) << 1; iVar2 != 0; iVar2 = iVar2 + -1) {
-    pTVar4->nTtype = *piVar3;
-    piVar3 = piVar3 + 1;
-    pTVar4 = (TObject *)&pTVar4->dwValue;
+  n = *(uint *)(cl + 8);
+  luaD_checkstack(n);
+  pTVar3 = g_pLuaState->pStack + base;
+  memcpy(&pTVar3[n].nTtype,&pTVar3->nTtype,((int)g_pLuaState->pTop - (int)pTVar3 >> 3) << 3);
+  piVar2 = (int *)(cl + 0x14);
+  for (iVar1 = (n & 0x1fffffff) << 1; iVar1 != 0; iVar1 = iVar1 + -1) {
+    pTVar3->nTtype = *piVar2;
+    piVar2 = piVar2 + 1;
+    pTVar3 = (TObject *)&pTVar3->dwValue;
   }
-  for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *(char *)&pTVar4->nTtype = (char)*piVar3;
-    piVar3 = (int *)((int)piVar3 + 1);
-    pTVar4 = (TObject *)((int)&pTVar4->nTtype + 1);
+  for (iVar1 = 0; iVar1 != 0; iVar1 = iVar1 + -1) {
+    *(char *)&pTVar3->nTtype = (char)*piVar2;
+    piVar2 = (int *)((int)piVar2 + 1);
+    pTVar3 = (TObject *)((int)&pTVar3->nTtype + 1);
   }
-  g_pLuaState->pTop = g_pLuaState->pTop + uVar1;
-  iVar2 = callC(param_2,param_3);
-  return iVar2;
+  g_pLuaState->pTop = g_pLuaState->pTop + n;
+  iVar1 = callC(f,base);
+  return iVar1;
 }
 
 /* ---- 0x10004600  luaD_travallstacks ---- */
@@ -489,10 +489,10 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
   void *pvVar3;
   int iVar4;
   ExecutionState *pEVar5;
-  ExecutionState *pEVar6;
-  LState *pLVar7;
-  int iVar8;
-  undefined4 uVar9;
+  ExecutionState *es;
+  LState *pLVar6;
+  int iVar7;
+  undefined4 uVar8;
   int in_stack_ffffffa8;
   undefined4 in_stack_ffffffac;
   
@@ -503,28 +503,28 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
   pEVar5 = g_pLuaState->pExecutionState;
   g_pLuaState->pErrorJmp = (_stkneg + 24);
   g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + 1;
-  iVar8 = _setjmp3((undefined4 *)(_stkneg + 24),0,in_stack_ffffffa8,in_stack_ffffffac);
-  pLVar7 = g_pLuaState;
-  if (iVar8 == 0) {
+  iVar7 = _setjmp3((undefined4 *)(_stkneg + 24),0,in_stack_ffffffa8,in_stack_ffffffac);
+  pLVar6 = g_pLuaState;
+  if (iVar7 == 0) {
     do_callinc(param_1);
-    uVar9 = 0;
+    uVar8 = 0;
   }
   else {
     (g_pLuaState->Cstack).nBase = iVar1;
-    (pLVar7->Cstack).nLua2C = iVar2;
-    (pLVar7->Cstack).nNum = iVar4;
+    (pLVar6->Cstack).nLua2C = iVar2;
+    (pLVar6->Cstack).nNum = iVar4;
     g_pLuaState->pTop = g_pLuaState->pStack + (g_pLuaState->Cstack).nBase;
-    pEVar6 = g_pLuaState->pExecutionState;
-    while (pEVar6 != pEVar5) {
-      g_pLuaState->pExecutionState = pEVar6->pPrev;
-      ExecutionState_Delete((int)pEVar6);
-      pEVar6 = g_pLuaState->pExecutionState;
+    es = g_pLuaState->pExecutionState;
+    while (es != pEVar5) {
+      g_pLuaState->pExecutionState = es->pPrev;
+      ExecutionState_Delete((int)es);
+      es = g_pLuaState->pExecutionState;
     }
-    uVar9 = 1;
+    uVar8 = 1;
   }
   g_pLuaState->pErrorJmp = pvVar3;
   g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + -1;
-  return uVar9;
+  return uVar8;
 }
 #endif
 
@@ -576,7 +576,7 @@ void __cdecl luaD_gcIM(TObject *o)
    remaster's libLua.so: static do_main(ZIO*, int): the only caller of luaD_protectedrun besides
    lua_dofile / lua_dostring paths); was luaD_domain. */
 
-int __cdecl do_main(int *param_1,int param_2)
+int __cdecl do_main(int *z,int bin)
 
 {
   int iVar1;
@@ -584,7 +584,7 @@ int __cdecl do_main(int *param_1,int param_2)
   
   luaC_checkGC();
   iVar2 = g_dwLState_nblocks;
-  iVar1 = protectedparser(param_1,param_2);
+  iVar1 = protectedparser(z,bin);
   while( true ) {
     if (iVar1 == 1) {
       return 1;
@@ -596,13 +596,13 @@ int __cdecl do_main(int *param_1,int param_2)
     g_dwLState_GCthreshold = g_dwLState_GCthreshold + iVar2 * 2;
     iVar1 = luaD_protectedrun((void *)0xff);
     g_dwLState_GCthreshold = g_dwLState_GCthreshold + iVar2 * -2;
-    if (param_2 == 0) {
+    if (bin == 0) {
       return iVar1;
     }
     if (iVar1 != 0) break;
     luaC_checkGC();
     iVar2 = g_dwLState_nblocks;
-    iVar1 = protectedparser(param_1,param_2);
+    iVar1 = protectedparser(z,bin);
   }
   return iVar1;
 }

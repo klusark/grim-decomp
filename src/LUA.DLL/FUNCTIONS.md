@@ -331,7 +331,7 @@
 | 1000ab30 | code_opcode | lparser.c | 11 |
 | 1000ab50 | luaI_registerlocalvar | lparser.c | 23 |
 | 1000abd0 | luaY_parse | lparser.c | 515 |
-| 1000b770 | fix_opcode | lparser.c | 30 |
+| 1000b770 | fix_opcode | lparser.c | 29 |
 | 1000b800 | code_pop | lparser.c | 10 |
 | 1000b810 | string_constant | lparser.c | 22 |
 | 1000b860 | next_constant | lparser.c | 21 |
@@ -400,7 +400,7 @@
 | 1000cfa0 | LoadWord | lundump.c | 13 |
 | 1000cfd0 | ezgetc | lundump.c | 23 |
 | 1000d010 | unexpectedEOZ | lundump.c | 9 |
-| 1000d030 | LoadBlock | lundump.c | 14 |
+| 1000d030 | LoadBlock | lundump.c | 13 |
 | 1000d060 | ezread | lundump.c | 14 |
 | 1000d090 | LoadSize | lundump.c | 19 |
 | 1000d0d0 | LoadTString | lundump.c | 16 |
@@ -438,7 +438,7 @@
 | 1000ec50 | call_binTM | lvm.c | 27 |
 | 1000ecf0 | call_arith | lvm.c | 10 |
 | 1000ed10 | comparison | lvm.c | 46 |
-| 1000edc0 | luaZ_mopen | lzio.c | 16 |
+| 1000edc0 | luaZ_mopen | lzio.c | 15 |
 | 1000edf0 | zmfilbuf | lzio.c | 8 |
 | 1000ee00 | luaZ_sopen | lzio.c | 24 |
 | 1000ee30 | luaZ_Fopen | lzio.c | 14 |

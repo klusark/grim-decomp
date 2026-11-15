@@ -11,14 +11,14 @@
 void luaT_init(void)
 
 {
-  int iVar1;
+  int tag;
   
   g_dwLState_IMtable_size = 0x10;
   g_dwLState_last_tag = -7;
   g_dwLState_IMtable =
        (**(code **)(g_dwLuaHS + 0x20))(0x900,s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4,0x4e);
-  for (iVar1 = g_dwLState_last_tag; iVar1 < 1; iVar1 = iVar1 + 1) {
-    init_entry(iVar1);
+  for (tag = g_dwLState_last_tag; tag < 1; tag = tag + 1) {
+    init_entry(tag);
   }
   return;
 }
@@ -27,7 +27,7 @@ void luaT_init(void)
 /* Named init_entry (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltm.c: sets
    the tag methods of a tag to nil, used by luaT_init / lua_newtag); was ltm__c8a0. */
 
-void __cdecl init_entry(int param_1)
+void __cdecl init_entry(int tag)
 
 {
   int iVar1;
@@ -35,7 +35,7 @@ void __cdecl init_entry(int param_1)
   
   iVar2 = 0;
   do {
-    iVar1 = iVar2 + param_1 * -0x90;
+    iVar1 = iVar2 + tag * -0x90;
     iVar2 = iVar2 + 8;
     *(undefined4 *)(g_dwLState_IMtable + iVar1) = 0xfffffff9;
   } while (iVar2 < 0x90);
@@ -46,11 +46,11 @@ void __cdecl init_entry(int param_1)
 /* ltm.c: not result of `newtag' Original name luaT_realtag (the remaster's libLua.so: string "tag
    %d is not result of `newtag'", callers lua_pushusertag, lua_settag); was luaT_checktag. */
 
-void __cdecl luaT_realtag(int param_1)
+void __cdecl luaT_realtag(int tag)
 
 {
-  if ((param_1 < g_dwLState_last_tag) || (-8 < param_1)) {
-    luaL_verror(s_tag__d_is_not_result_of__newtag__10027ef4,param_1);
+  if ((tag < g_dwLState_last_tag) || (-8 < tag)) {
+    luaL_verror(s_tag__d_is_not_result_of__newtag__10027ef4,tag);
   }
   return;
 }
@@ -59,13 +59,13 @@ void __cdecl luaT_realtag(int param_1)
 /* Named validevent (not in the remaster, gcc inlined it there): Lua 3.1 source name (ltm.c static
    validevent(t, e): 1 for tags below LUA_T_NIL, else validevents[-t][e]); was luaT_gettm. */
 
-int __cdecl validevent(int param_1,int param_2)
+int __cdecl validevent(int t,int e)
 
 {
-  if (param_1 < -7) {
+  if (t < -7) {
     return 1;
   }
-  return (int)g_aValidevents[-param_1][param_2];
+  return (int)g_aValidevents[-t][e];
 }
 
 /* ---- 0x1000c9f0  luaT_checktag ---- */
@@ -73,11 +73,11 @@ int __cdecl validevent(int param_1,int param_2)
    static checktag: '%d is not a valid tag'; the name luaT_realtag belongs to 1000c920; was
    luaT_realtag. */
 
-void __cdecl luaT_checktag(int param_1)
+void __cdecl luaT_checktag(int tag)
 
 {
-  if ((param_1 < g_dwLState_last_tag) || (0 < param_1)) {
-    luaL_verror(s__d_is_not_a_valid_tag_10027f18,param_1);
+  if ((tag < g_dwLState_last_tag) || (0 < tag)) {
+    luaL_verror(s__d_is_not_a_valid_tag_10027f18,tag);
   }
   return;
 }
@@ -113,17 +113,17 @@ int __cdecl luaT_efectivetag(TObject *o)
 /* Original name luaT_gettagmethod (the remaster's libLua.so: caller lua_gettagmethod); was
    ltm__ca60. */
 
-undefined * __cdecl luaT_gettagmethod(int param_1,byte *param_2)
+undefined * __cdecl luaT_gettagmethod(int t,byte *event)
 
 {
+  int e;
   int iVar1;
-  int iVar2;
   
-  iVar1 = luaI_checkevent(param_2,&g_pLuaT_eventname);
-  luaT_checktag(param_1);
-  iVar2 = validevent(param_1,iVar1);
-  if (iVar2 != 0) {
-    return (undefined *)(g_dwLState_IMtable + (iVar1 + param_1 * -0x12) * 8);
+  e = luaI_checkevent(event,&g_pLuaT_eventname);
+  luaT_checktag(t);
+  iVar1 = validevent(t,e);
+  if (iVar1 != 0) {
+    return (undefined *)(g_dwLState_IMtable + (e + t * -0x12) * 8);
   }
   return &g_LuaO_nilobject;
 }
@@ -131,14 +131,14 @@ undefined * __cdecl luaT_gettagmethod(int param_1,byte *param_2)
 /* ---- 0x1000cab0  luaI_checkevent ---- */
 /* ltm.c: not a valid event name */
 
-int __cdecl luaI_checkevent(byte *param_1,undefined4 *luaT_eventname)
+int __cdecl luaI_checkevent(byte *name,undefined4 *luaT_eventname)
 
 {
   int iVar1;
   
-  iVar1 = luaO_findstring(param_1,luaT_eventname);
+  iVar1 = luaO_findstring(name,luaT_eventname);
   if (iVar1 < 0) {
-    luaL_verror(s____50s__is_not_a_valid_event_nam_10027f30,param_1);
+    luaL_verror(s____50s__is_not_a_valid_event_nam_10027f30,name);
   }
   return iVar1;
 }
@@ -147,7 +147,7 @@ int __cdecl luaI_checkevent(byte *param_1,undefined4 *luaT_eventname)
 /* Original name luaT_settagmethod (the remaster's libLua.so: string "settagmethod: cannot change
    internal method `%.20s' for tag %d"); was ltm__cae0. */
 
-void __cdecl luaT_settagmethod(int param_1,byte *param_2,undefined4 *param_3)
+void __cdecl luaT_settagmethod(int t,byte *event,undefined4 *func)
 
 {
   undefined4 uVar1;
@@ -156,18 +156,18 @@ void __cdecl luaT_settagmethod(int param_1,byte *param_2,undefined4 *param_3)
   int iVar4;
   undefined4 *puVar5;
   
-  uVar1 = param_3[1];
-  uVar2 = *param_3;
-  iVar3 = luaI_checkevent(param_2,&g_pLuaT_eventname);
-  luaT_checktag(param_1);
-  iVar4 = validevent(param_1,iVar3);
+  uVar1 = func[1];
+  uVar2 = *func;
+  iVar3 = luaI_checkevent(event,&g_pLuaT_eventname);
+  luaT_checktag(t);
+  iVar4 = validevent(t,iVar3);
   if (iVar4 == 0) {
-    luaL_verror(s_settagmethod__cannot_change_inte_10027f54,(&g_pLuaT_eventname)[iVar3],param_1);
+    luaL_verror(s_settagmethod__cannot_change_inte_10027f54,(&g_pLuaT_eventname)[iVar3],t);
   }
-  iVar3 = (iVar3 + param_1 * -0x12) * 8;
+  iVar3 = (iVar3 + t * -0x12) * 8;
   puVar5 = (undefined4 *)(g_dwLState_IMtable + iVar3);
-  *param_3 = *puVar5;
-  param_3[1] = puVar5[1];
+  *func = *puVar5;
+  func[1] = puVar5[1];
   *(undefined4 *)(g_dwLState_IMtable + iVar3) = uVar2;
   *(undefined4 *)(g_dwLState_IMtable + 4 + iVar3) = uVar1;
   return;
@@ -177,7 +177,7 @@ void __cdecl luaT_settagmethod(int param_1,byte *param_2,undefined4 *param_3)
 /* Original name luaT_travtagmethods (the remaster's libLua.so: string 'error', callers
    lua_collectgarbage (markall) and lua_getobjname); was ltm__cb80. */
 
-char * __cdecl luaT_travtagmethods(undefined *param_1)
+char * __cdecl luaT_travtagmethods(undefined *fn)
 
 {
   int iVar1;
@@ -185,7 +185,7 @@ char * __cdecl luaT_travtagmethods(undefined *param_1)
   int iVar3;
   int iVar4;
   
-  iVar1 = (*(code *)param_1)(&g_dwLState_errorim);
+  iVar1 = (*(code *)fn)(&g_dwLState_errorim);
   if (iVar1 != 0) {
     return s_error_10026648;
   }
@@ -196,7 +196,7 @@ char * __cdecl luaT_travtagmethods(undefined *param_1)
     if (iVar1 < 1) {
       iVar3 = iVar2 * 8;
       do {
-        iVar1 = (*(code *)param_1)(g_dwLState_IMtable + iVar3);
+        iVar1 = (*(code *)fn)(g_dwLState_IMtable + iVar3);
         if (iVar1 != 0) {
           return (&g_pLuaT_eventname)[iVar2];
         }
@@ -217,10 +217,10 @@ char * __cdecl luaT_travtagmethods(undefined *param_1)
 void errorFB(void)
 
 {
-  int iVar1;
+  int o;
   
-  iVar1 = lua_lua2C(1);
-  lua_isstring(iVar1);
+  o = lua_lua2C(1);
+  lua_isstring(o);
   return;
 }
 
@@ -254,85 +254,85 @@ void luaT_setfallback(void)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  byte *pbVar1;
-  int iVar2;
-  int iVar3;
-  int *piVar4;
-  undefined4 *puVar5;
-  code *pcVar6;
+  byte *name;
+  int o;
+  int iVar1;
+  int *piVar2;
+  undefined4 *puVar3;
+  code *fn;
   #define local_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
   if (DAT_1002bf80 == 0) {
     lua_recognizelib(((unsigned)(uintptr_t)&PTR_s_typeFB_10027d98),3);
     DAT_1002bf80 = 1;
   }
-  pbVar1 = (byte *)luaL_check_string(1);
-  iVar2 = lua_lua2C(2);
-  iVar3 = lua_isfunction(iVar2);
-  if (iVar3 == 0) {
+  name = (byte *)luaL_check_string(1);
+  o = lua_lua2C(2);
+  iVar1 = lua_isfunction(o);
+  if (iVar1 == 0) {
     luaL_argerror(2,((unsigned)(uintptr_t)&s_function_expected_10026390));
   }
-  iVar3 = luaO_findstring(pbVar1,&g_pLuaT_setfallback_oldnames);
-  switch(iVar3) {
+  iVar1 = luaO_findstring(name,&g_pLuaT_setfallback_oldnames);
+  switch(iVar1) {
   case 0:
     local_8.nTtype = g_dwLState_errorim;
     local_8.dwValue = DAT_1002bf5c;
-    piVar4 = (int *)luaA_Address(iVar2);
-    g_dwLState_errorim = *piVar4;
-    DAT_1002bf5c = piVar4[1];
-    pcVar6 = errorFB;
+    piVar2 = (int *)luaA_Address(o);
+    g_dwLState_errorim = *piVar2;
+    DAT_1002bf5c = piVar2[1];
+    fn = errorFB;
     break;
   case 1:
     local_8.nTtype = *(int *)(g_dwLState_IMtable + 0x408);
     local_8.dwValue = *(uint *)(g_dwLState_IMtable + 0x40c);
-    puVar5 = (undefined4 *)luaA_Address(iVar2);
-    *(undefined4 *)(g_dwLState_IMtable + 0x408) = *puVar5;
-    *(undefined4 *)(g_dwLState_IMtable + 0x40c) = puVar5[1];
-    pcVar6 = nilFB;
+    puVar3 = (undefined4 *)luaA_Address(o);
+    *(undefined4 *)(g_dwLState_IMtable + 0x408) = *puVar3;
+    *(undefined4 *)(g_dwLState_IMtable + 0x40c) = puVar3[1];
+    fn = nilFB;
     break;
   case 2:
-    iVar3 = 5;
+    iVar1 = 5;
     local_8.nTtype = *(int *)(g_dwLState_IMtable + 0xd8);
     local_8.dwValue = *(uint *)(g_dwLState_IMtable + 0xdc);
     do {
-      puVar5 = (undefined4 *)luaA_Address(iVar2);
-      fillvalids(iVar3,puVar5);
-      iVar3 = iVar3 + 1;
-    } while (iVar3 < 0xb);
-    pcVar6 = typeFB;
+      puVar3 = (undefined4 *)luaA_Address(o);
+      fillvalids(iVar1,puVar3);
+      iVar1 = iVar1 + 1;
+    } while (iVar1 < 0xb);
+    fn = typeFB;
     break;
   case 3:
-    iVar3 = 0xb;
+    iVar1 = 0xb;
     local_8.nTtype = *(int *)(g_dwLState_IMtable + 0x448);
     local_8.dwValue = *(uint *)(g_dwLState_IMtable + 0x44c);
     do {
-      puVar5 = (undefined4 *)luaA_Address(iVar2);
-      fillvalids(iVar3,puVar5);
-      iVar3 = iVar3 + 1;
-    } while (iVar3 < 0xf);
-    pcVar6 = typeFB;
+      puVar3 = (undefined4 *)luaA_Address(o);
+      fillvalids(iVar1,puVar3);
+      iVar1 = iVar1 + 1;
+    } while (iVar1 < 0xf);
+    fn = typeFB;
     break;
   default:
-    iVar3 = luaO_findstring(pbVar1,&g_pLuaT_eventname);
-    if (iVar3 < 0) {
-      luaL_verror(s____50s__is_not_a_valid_fallback_n_10027fa4,pbVar1);
-      pcVar6 = (code *)0x0;
+    iVar1 = luaO_findstring(name,&g_pLuaT_eventname);
+    if (iVar1 < 0) {
+      luaL_verror(s____50s__is_not_a_valid_fallback_n_10027fa4,name);
+      fn = (code *)0x0;
     }
     else {
-      local_8.nTtype = *(int *)(g_dwLState_IMtable + 0x3f0 + iVar3 * 8);
-      local_8.dwValue = *(uint *)(g_dwLState_IMtable + 0x3f4 + iVar3 * 8);
-      puVar5 = (undefined4 *)luaA_Address(iVar2);
-      fillvalids(iVar3,puVar5);
-      if ((iVar3 == 0x10) || (iVar3 == 2)) {
-        pcVar6 = nilFB;
+      local_8.nTtype = *(int *)(g_dwLState_IMtable + 0x3f0 + iVar1 * 8);
+      local_8.dwValue = *(uint *)(g_dwLState_IMtable + 0x3f4 + iVar1 * 8);
+      puVar3 = (undefined4 *)luaA_Address(o);
+      fillvalids(iVar1,puVar3);
+      if ((iVar1 == 0x10) || (iVar1 == 2)) {
+        fn = nilFB;
       }
       else {
-        pcVar6 = typeFB;
+        fn = typeFB;
       }
     }
   }
   if (local_8.nTtype == -7) {
-    lua_pushCclosure((int)pcVar6,0);
+    lua_pushCclosure((int)fn,0);
     return;
   }
   luaA_pushobject(&local_8);
@@ -346,23 +346,23 @@ void luaT_setfallback(void)
    fillvalids(e, func): for each tag from LUA_T_NIL to LUA_T_USERDATA that validevent allows, stores
    func as its method e; called by luaT_setfallback); was luaT_gettmbyObj. */
 
-void __cdecl fillvalids(int param_1,undefined4 *param_2)
+void __cdecl fillvalids(int n,undefined4 *param_2)
 
 {
   int iVar1;
+  int t;
   int iVar2;
-  int iVar3;
   
-  iVar2 = -7;
-  iVar3 = param_1 * 8 + 0x3f0;
+  t = -7;
+  iVar2 = n * 8 + 0x3f0;
   do {
-    iVar1 = validevent(iVar2,param_1);
+    iVar1 = validevent(t,n);
     if (iVar1 != 0) {
-      *(undefined4 *)(g_dwLState_IMtable + iVar3) = *param_2;
-      *(undefined4 *)(g_dwLState_IMtable + 4 + iVar3) = param_2[1];
+      *(undefined4 *)(g_dwLState_IMtable + iVar2) = *param_2;
+      *(undefined4 *)(g_dwLState_IMtable + 4 + iVar2) = param_2[1];
     }
-    iVar2 = iVar2 + 1;
-    iVar3 = iVar3 + -0x90;
-  } while (iVar2 < 1);
+    t = t + 1;
+    iVar2 = iVar2 + -0x90;
+  } while (t < 1);
   return;
 }

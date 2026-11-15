@@ -1,0 +1,2758 @@
+{
+ "_comment": "IMUSE.DLL parameter names from what each function does with them (sound ids, params, hooks, triggers, streams, saves), 2026-11-15.",
+ "program": "/v101/IMUSE.DLL",
+ "params": [
+  {
+   "addr": "10001000",
+   "index": 0,
+   "type": "ushort *",
+   "name": "data",
+   "_fn": "AudioLib_DetectRawFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "10001000",
+   "index": 1,
+   "type": "uint",
+   "name": "size",
+   "_fn": "AudioLib_DetectRawFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "10001000",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "outBits",
+   "_fn": "AudioLib_DetectRawFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "10001000",
+   "index": 3,
+   "type": "undefined4 *",
+   "name": "outChannels",
+   "_fn": "AudioLib_DetectRawFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "10001000",
+   "index": 4,
+   "type": "undefined4 *",
+   "name": "outFlags",
+   "_fn": "AudioLib_DetectRawFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "100013c0",
+   "index": 0,
+   "type": "uint *",
+   "name": "header",
+   "_fn": "AudioLib_ParseWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100013c0",
+   "index": 1,
+   "type": "int *",
+   "name": "outFormat",
+   "_fn": "AudioLib_ParseWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100013c0",
+   "index": 2,
+   "type": "uint *",
+   "name": "outRate",
+   "_fn": "AudioLib_ParseWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100013c0",
+   "index": 3,
+   "type": "uint *",
+   "name": "outBits",
+   "_fn": "AudioLib_ParseWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100013c0",
+   "index": 4,
+   "type": "uint *",
+   "name": "outChannels",
+   "_fn": "AudioLib_ParseWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100013c0",
+   "index": 5,
+   "type": "int *",
+   "name": "outFlags",
+   "_fn": "AudioLib_ParseWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100013c0",
+   "index": 6,
+   "type": "uint *",
+   "name": "outDataSize",
+   "_fn": "AudioLib_ParseWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100017e0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "header",
+   "_fn": "AudioLib_CreateWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100017e0",
+   "index": 1,
+   "type": "int",
+   "name": "format",
+   "_fn": "AudioLib_CreateWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100017e0",
+   "index": 2,
+   "type": "uint",
+   "name": "rate",
+   "_fn": "AudioLib_CreateWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100017e0",
+   "index": 3,
+   "type": "uint",
+   "name": "byteRate",
+   "_fn": "AudioLib_CreateWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100017e0",
+   "index": 4,
+   "type": "uint",
+   "name": "blockAlign",
+   "_fn": "AudioLib_CreateWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "100017e0",
+   "index": 5,
+   "type": "uint",
+   "name": "dataSize",
+   "_fn": "AudioLib_CreateWaveFileHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "10001ba0",
+   "index": 0,
+   "type": "undefined1 *",
+   "name": "state",
+   "_fn": "AudioLib_ResetCompressor",
+   "_names_only": true
+  },
+  {
+   "addr": "10001bc0",
+   "index": 0,
+   "type": "byte *",
+   "name": "dst",
+   "_fn": "AudioLib_UncompressBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "10001bc0",
+   "index": 1,
+   "type": "undefined2 *",
+   "name": "src",
+   "_fn": "AudioLib_UncompressBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "10001bc0",
+   "index": 3,
+   "type": "uint",
+   "name": "size",
+   "_fn": "AudioLib_UncompressBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "10001c30",
+   "index": 0,
+   "type": "short *",
+   "name": "dst",
+   "_fn": "Im_ConvertBlockImpl",
+   "_names_only": true
+  },
+  {
+   "addr": "10001c30",
+   "index": 1,
+   "type": "undefined2 *",
+   "name": "src",
+   "_fn": "Im_ConvertBlockImpl",
+   "_names_only": true
+  },
+  {
+   "addr": "10001c30",
+   "index": 2,
+   "type": "byte *",
+   "name": "codes",
+   "_fn": "Im_ConvertBlockImpl",
+   "_names_only": true
+  },
+  {
+   "addr": "10001c30",
+   "index": 3,
+   "type": "int",
+   "name": "count",
+   "_fn": "Im_ConvertBlockImpl",
+   "_names_only": true
+  },
+  {
+   "addr": "10001c30",
+   "index": 4,
+   "type": "uint",
+   "name": "channels",
+   "_fn": "Im_ConvertBlockImpl",
+   "_names_only": true
+  },
+  {
+   "addr": "10001c30",
+   "index": 5,
+   "type": "int",
+   "name": "step",
+   "_fn": "Im_ConvertBlockImpl",
+   "_names_only": true
+  },
+  {
+   "addr": "10002260",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "DpSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10002260",
+   "index": 1,
+   "type": "undefined4",
+   "name": "offset",
+   "_fn": "DpSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10002260",
+   "index": 2,
+   "type": "uint",
+   "name": "fade",
+   "_fn": "DpSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10002260",
+   "index": 3,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "DpSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10002260",
+   "index": 4,
+   "type": "uint",
+   "name": "hookFlags",
+   "_fn": "DpSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10002570",
+   "index": 0,
+   "type": "int *",
+   "name": "track",
+   "_fn": "DpProcessTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "10002a60",
+   "index": 0,
+   "type": "int *",
+   "name": "dp",
+   "_fn": "GoToNextRegion",
+   "_names_only": true
+  },
+  {
+   "addr": "10002d30",
+   "index": 0,
+   "type": "int *",
+   "name": "dp",
+   "_fn": "Im_DispatchFetchNext",
+   "_names_only": true
+  },
+  {
+   "addr": "100036b0",
+   "index": 0,
+   "type": "undefined4",
+   "name": "services",
+   "_fn": "DwInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "10003930",
+   "index": 0,
+   "type": "int",
+   "name": "blocks",
+   "_fn": "Im_DSoundCreateBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "10003ae0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "FdSave",
+   "_names_only": true
+  },
+  {
+   "addr": "10003ae0",
+   "index": 1,
+   "type": "uint",
+   "name": "size",
+   "_fn": "FdSave",
+   "_names_only": true
+  },
+  {
+   "addr": "10003b10",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "FdRestore",
+   "_names_only": true
+  },
+  {
+   "addr": "10003b40",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "FdFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10003b40",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "FdFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10003b40",
+   "index": 2,
+   "type": "uint",
+   "name": "value",
+   "_fn": "FdFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10003b40",
+   "index": 3,
+   "type": "int",
+   "name": "time",
+   "_fn": "FdFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10003c70",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "FdStopFade",
+   "_names_only": true
+  },
+  {
+   "addr": "10003c70",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "FdStopFade",
+   "_names_only": true
+  },
+  {
+   "addr": "10004820",
+   "index": 0,
+   "type": "undefined2 *",
+   "name": "src",
+   "_fn": "Im_ApplyFXPreset",
+   "_names_only": true
+  },
+  {
+   "addr": "10004820",
+   "index": 1,
+   "type": "uint",
+   "name": "frames",
+   "_fn": "Im_ApplyFXPreset",
+   "_names_only": true
+  },
+  {
+   "addr": "10004820",
+   "index": 2,
+   "type": "undefined2 *",
+   "name": "dst",
+   "_fn": "Im_ApplyFXPreset",
+   "_names_only": true
+  },
+  {
+   "addr": "10004820",
+   "index": 3,
+   "type": "int *",
+   "name": "outBuf",
+   "_fn": "Im_ApplyFXPreset",
+   "_names_only": true
+  },
+  {
+   "addr": "10004820",
+   "index": 4,
+   "type": "int *",
+   "name": "outSize",
+   "_fn": "Im_ApplyFXPreset",
+   "_names_only": true
+  },
+  {
+   "addr": "10004820",
+   "index": 5,
+   "type": "int",
+   "name": "stereo",
+   "_fn": "Im_ApplyFXPreset",
+   "_names_only": true
+  },
+  {
+   "addr": "100049e0",
+   "index": 0,
+   "type": "uint",
+   "name": "group",
+   "_fn": "GrSetGroupVol",
+   "_names_only": true
+  },
+  {
+   "addr": "100049e0",
+   "index": 1,
+   "type": "uint",
+   "name": "vol",
+   "_fn": "GrSetGroupVol",
+   "_names_only": true
+  },
+  {
+   "addr": "10004a80",
+   "index": 0,
+   "type": "uint",
+   "name": "group",
+   "_fn": "GrGetGroupEffVol",
+   "_names_only": true
+  },
+  {
+   "addr": "10005360",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "info",
+   "_fn": "MxInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 0,
+   "type": "short *",
+   "name": "src",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 1,
+   "type": "int",
+   "name": "frames",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 2,
+   "type": "int",
+   "name": "bits",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 3,
+   "type": "int",
+   "name": "channels",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 4,
+   "type": "int",
+   "name": "compressed",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 5,
+   "type": "uint",
+   "name": "rate",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 6,
+   "type": "uint",
+   "name": "outPos",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 7,
+   "type": "int",
+   "name": "vol",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100054f0",
+   "index": 8,
+   "type": "int",
+   "name": "pan",
+   "_fn": "Mixer_MxMix",
+   "_names_only": true
+  },
+  {
+   "addr": "100057a0",
+   "index": 0,
+   "type": "short *",
+   "name": "src",
+   "_fn": "Im_MixLoopA",
+   "_names_only": true
+  },
+  {
+   "addr": "100057a0",
+   "index": 1,
+   "type": "int",
+   "name": "frames",
+   "_fn": "Im_MixLoopA",
+   "_names_only": true
+  },
+  {
+   "addr": "100057a0",
+   "index": 2,
+   "type": "uint",
+   "name": "rate",
+   "_fn": "Im_MixLoopA",
+   "_names_only": true
+  },
+  {
+   "addr": "100057a0",
+   "index": 3,
+   "type": "uint",
+   "name": "outPos",
+   "_fn": "Im_MixLoopA",
+   "_names_only": true
+  },
+  {
+   "addr": "100057a0",
+   "index": 4,
+   "type": "int",
+   "name": "volL",
+   "_fn": "Im_MixLoopA",
+   "_names_only": true
+  },
+  {
+   "addr": "100057a0",
+   "index": 5,
+   "type": "int",
+   "name": "volR",
+   "_fn": "Im_MixLoopA",
+   "_names_only": true
+  },
+  {
+   "addr": "100059a0",
+   "index": 0,
+   "type": "short *",
+   "name": "src",
+   "_fn": "Im_MixLoopB",
+   "_names_only": true
+  },
+  {
+   "addr": "100059a0",
+   "index": 1,
+   "type": "int",
+   "name": "frames",
+   "_fn": "Im_MixLoopB",
+   "_names_only": true
+  },
+  {
+   "addr": "100059a0",
+   "index": 2,
+   "type": "uint",
+   "name": "rate",
+   "_fn": "Im_MixLoopB",
+   "_names_only": true
+  },
+  {
+   "addr": "100059a0",
+   "index": 3,
+   "type": "uint",
+   "name": "outPos",
+   "_fn": "Im_MixLoopB",
+   "_names_only": true
+  },
+  {
+   "addr": "100059a0",
+   "index": 4,
+   "type": "int",
+   "name": "vol",
+   "_fn": "Im_MixLoopB",
+   "_names_only": true
+  },
+  {
+   "addr": "10005b80",
+   "index": 1,
+   "type": "int",
+   "name": "frames",
+   "_fn": "Im_MixLoopC",
+   "_names_only": true
+  },
+  {
+   "addr": "10005db0",
+   "index": 1,
+   "type": "int",
+   "name": "frames",
+   "_fn": "Im_MixLoopD",
+   "_names_only": true
+  },
+  {
+   "addr": "10006360",
+   "index": 0,
+   "type": "int",
+   "name": "callbacks",
+   "_fn": "Script_Init",
+   "_names_only": true
+  },
+  {
+   "addr": "10006360",
+   "index": 1,
+   "type": "uint",
+   "name": "loadSound",
+   "_fn": "Script_Init",
+   "_names_only": true
+  },
+  {
+   "addr": "10006360",
+   "index": 2,
+   "type": "uint",
+   "name": "unloadSound",
+   "_fn": "Script_Init",
+   "_names_only": true
+  },
+  {
+   "addr": "10006360",
+   "index": 3,
+   "type": "uint",
+   "name": "openSound",
+   "_fn": "Script_Init",
+   "_names_only": true
+  },
+  {
+   "addr": "10006360",
+   "index": 4,
+   "type": "uint",
+   "name": "closeSound",
+   "_fn": "Script_Init",
+   "_names_only": true
+  },
+  {
+   "addr": "10006360",
+   "index": 5,
+   "type": "undefined4",
+   "name": "hostCallback1",
+   "_fn": "Script_Init",
+   "_names_only": true
+  },
+  {
+   "addr": "10006360",
+   "index": 6,
+   "type": "undefined4",
+   "name": "hostCallback2",
+   "_fn": "Script_Init",
+   "_names_only": true
+  },
+  {
+   "addr": "10006360",
+   "index": 7,
+   "type": "undefined4",
+   "name": "localMusic",
+   "_fn": "Script_Init",
+   "_names_only": true
+  },
+  {
+   "addr": "10006400",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "Script_Save",
+   "_names_only": true
+  },
+  {
+   "addr": "10006400",
+   "index": 1,
+   "type": "int",
+   "name": "size",
+   "_fn": "Script_Save",
+   "_names_only": true
+  },
+  {
+   "addr": "10006470",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "Script_Restore",
+   "_names_only": true
+  },
+  {
+   "addr": "100067b0",
+   "index": 0,
+   "type": "uint",
+   "name": "attr",
+   "_fn": "Script_Attribute",
+   "_names_only": true
+  },
+  {
+   "addr": "100067b0",
+   "index": 1,
+   "type": "char *",
+   "name": "value",
+   "_fn": "Script_Attribute",
+   "_names_only": true
+  },
+  {
+   "addr": "100068b0",
+   "index": 0,
+   "type": "char *",
+   "name": "file",
+   "_fn": "Script_Trans",
+   "_names_only": true
+  },
+  {
+   "addr": "100068b0",
+   "index": 1,
+   "type": "uint",
+   "name": "state",
+   "_fn": "Script_Trans",
+   "_names_only": true
+  },
+  {
+   "addr": "100068b0",
+   "index": 2,
+   "type": "int",
+   "name": "sequence",
+   "_fn": "Script_Trans",
+   "_names_only": true
+  },
+  {
+   "addr": "100089b0",
+   "index": 0,
+   "type": "undefined4",
+   "name": "name",
+   "_fn": "LoadLip",
+   "_names_only": true
+  },
+  {
+   "addr": "100089b0",
+   "index": 1,
+   "type": "char *",
+   "name": "sound",
+   "_fn": "LoadLip",
+   "_names_only": true
+  },
+  {
+   "addr": "10008b60",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "Im_SoundsFreeSlot",
+   "_names_only": true
+  },
+  {
+   "addr": "10008bb0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "iMUSE_GetPhoneme",
+   "_names_only": true
+  },
+  {
+   "addr": "10008bb0",
+   "index": 1,
+   "type": "int",
+   "name": "offset",
+   "_fn": "iMUSE_GetPhoneme",
+   "_names_only": true
+  },
+  {
+   "addr": "10008c40",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "Lip_PhonemeAtTime",
+   "_names_only": true
+  },
+  {
+   "addr": "10008c40",
+   "index": 1,
+   "type": "int",
+   "name": "time",
+   "_fn": "Lip_PhonemeAtTime",
+   "_names_only": true
+  },
+  {
+   "addr": "100093d0",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "Im_SoundsPrepare",
+   "_names_only": true
+  },
+  {
+   "addr": "10009530",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "Sounds_GetSoundAddr",
+   "_names_only": true
+  },
+  {
+   "addr": "10009560",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "Sounds_GetMapAddr",
+   "_names_only": true
+  },
+  {
+   "addr": "100095d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "grimSound_LipSyncLoad",
+   "_names_only": true
+  },
+  {
+   "addr": "100096b0",
+   "index": 0,
+   "type": "int",
+   "name": "lip",
+   "_fn": "grimSound_LipSyncFree",
+   "_names_only": true
+  },
+  {
+   "addr": "10009710",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "iRes_FOPEN",
+   "_names_only": true
+  },
+  {
+   "addr": "10009710",
+   "index": 1,
+   "type": "char *",
+   "name": "mode",
+   "_fn": "iRes_FOPEN",
+   "_names_only": true
+  },
+  {
+   "addr": "10009b20",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "f",
+   "_fn": "iRes_FCLOSE",
+   "_names_only": true
+  },
+  {
+   "addr": "10009b90",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "f",
+   "_fn": "iRes_FREAD",
+   "_names_only": true
+  },
+  {
+   "addr": "10009b90",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "iRes_FREAD",
+   "_names_only": true
+  },
+  {
+   "addr": "10009b90",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "iRes_FREAD",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 0,
+   "type": "uint",
+   "name": "voiceBufferSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 1,
+   "type": "uint",
+   "name": "voiceGulpSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 2,
+   "type": "uint",
+   "name": "voiceCriticalSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 3,
+   "type": "uint",
+   "name": "musicBufferSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 4,
+   "type": "uint",
+   "name": "musicGulpSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 5,
+   "type": "uint",
+   "name": "musicCriticalSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 6,
+   "type": "uint",
+   "name": "largeFadeSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 7,
+   "type": "uint",
+   "name": "largeFadeCount",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 8,
+   "type": "uint",
+   "name": "smallFadeSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 9,
+   "type": "uint",
+   "name": "smallFadeCount",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 10,
+   "type": "uint",
+   "name": "nonPurgeCacheSize",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a070",
+   "index": 11,
+   "type": "uint",
+   "name": "waveMixCount",
+   "_fn": "iMUSE_DeclareBufferSizes",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a110",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "iMUSE_SetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a110",
+   "index": 1,
+   "type": "uint",
+   "name": "hook",
+   "_fn": "iMUSE_SetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a140",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "iMUSE_GetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a160",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "iMUSE_SetVoiceEffect",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a580",
+   "index": 0,
+   "type": "int",
+   "name": "stream",
+   "_fn": "StGetValidSize",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a5e0",
+   "index": 0,
+   "type": "int",
+   "name": "stream",
+   "_fn": "StQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a5e0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "outBufSize",
+   "_fn": "StQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a5e0",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "outCriticalSize",
+   "_fn": "StQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a5e0",
+   "index": 3,
+   "type": "int *",
+   "name": "outFreeSpace",
+   "_fn": "StQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a5e0",
+   "index": 4,
+   "type": "undefined4 *",
+   "name": "outPaused",
+   "_fn": "StQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a620",
+   "index": 0,
+   "type": "int",
+   "name": "stream",
+   "_fn": "StFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a620",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "data",
+   "_fn": "StFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a620",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "StFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a620",
+   "index": 3,
+   "type": "undefined4",
+   "name": "paused",
+   "_fn": "StFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a6d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "stream",
+   "_fn": "Stream_LoadData",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a910",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "TrSave",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a910",
+   "index": 1,
+   "type": "uint",
+   "name": "size",
+   "_fn": "TrSave",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a970",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "TrRestore",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ab00",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TrStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ab00",
+   "index": 1,
+   "type": "int",
+   "name": "priority",
+   "_fn": "TrStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ab00",
+   "index": 2,
+   "type": "uint",
+   "name": "group",
+   "_fn": "TrStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "1000abb0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TrStopSound",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ac20",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "TrGetNextSound",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ac60",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TrQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ac60",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "outBufSize",
+   "_fn": "TrQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ac60",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "outCriticalSize",
+   "_fn": "TrQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ac60",
+   "index": 3,
+   "type": "int *",
+   "name": "outFreeSpace",
+   "_fn": "TrQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ac60",
+   "index": 4,
+   "type": "undefined4 *",
+   "name": "outPaused",
+   "_fn": "TrQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ace0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TrFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ace0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "data",
+   "_fn": "TrFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ace0",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "TrFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ace0",
+   "index": 3,
+   "type": "undefined4",
+   "name": "paused",
+   "_fn": "TrFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ad50",
+   "index": 0,
+   "type": "int *",
+   "name": "track",
+   "_fn": "TrStopTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ada0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TrSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ada0",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "TrSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "1000ada0",
+   "index": 2,
+   "type": "uint",
+   "name": "value",
+   "_fn": "TrSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "1000af50",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TrGetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "1000af50",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "TrGetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b0a0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TrSetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b0a0",
+   "index": 1,
+   "type": "uint",
+   "name": "hook",
+   "_fn": "TrSetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b0e0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TrGetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b110",
+   "index": 0,
+   "type": "int",
+   "name": "priority",
+   "_fn": "Im_AllocTrackOrSteal",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b1a0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "TgSave",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b1a0",
+   "index": 1,
+   "type": "int",
+   "name": "size",
+   "_fn": "TgSave",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b1e0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "TgRestore",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b2e0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TgCheckTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b2e0",
+   "index": 1,
+   "type": "byte *",
+   "name": "marker",
+   "_fn": "TgCheckTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b2e0",
+   "index": 2,
+   "type": "int",
+   "name": "opcode",
+   "_fn": "TgCheckTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b380",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TgClearTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b380",
+   "index": 1,
+   "type": "byte *",
+   "name": "marker",
+   "_fn": "TgClearTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b380",
+   "index": 2,
+   "type": "int",
+   "name": "opcode",
+   "_fn": "TgClearTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b430",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TgProcessMarker",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b430",
+   "index": 1,
+   "type": "char *",
+   "name": "marker",
+   "_fn": "TgProcessMarker",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b630",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "TgGetPendCount",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b710",
+   "index": 0,
+   "type": "int",
+   "name": "cmd",
+   "_fn": "Im_RunDeferredCommand",
+   "_names_only": true
+  },
+  {
+   "addr": "10003d70",
+   "index": 0,
+   "type": "uint",
+   "name": "loadSound",
+   "_fn": "ImInitFilelist",
+   "_names_only": true
+  },
+  {
+   "addr": "10003d70",
+   "index": 1,
+   "type": "uint",
+   "name": "unloadSound",
+   "_fn": "ImInitFilelist",
+   "_names_only": true
+  },
+  {
+   "addr": "10003d70",
+   "index": 2,
+   "type": "uint",
+   "name": "openSound",
+   "_fn": "ImInitFilelist",
+   "_names_only": true
+  },
+  {
+   "addr": "10003d70",
+   "index": 3,
+   "type": "uint",
+   "name": "closeSound",
+   "_fn": "ImInitFilelist",
+   "_names_only": true
+  },
+  {
+   "addr": "10003dc0",
+   "index": 0,
+   "type": "int *",
+   "name": "buf",
+   "_fn": "ImSaveFilelist",
+   "_names_only": true
+  },
+  {
+   "addr": "10003dc0",
+   "index": 1,
+   "type": "uint",
+   "name": "size",
+   "_fn": "ImSaveFilelist",
+   "_names_only": true
+  },
+  {
+   "addr": "10003e50",
+   "index": 0,
+   "type": "int *",
+   "name": "buf",
+   "_fn": "ImRestoreFilelist",
+   "_names_only": true
+  },
+  {
+   "addr": "10003f90",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "ImLoadSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10003f90",
+   "index": 1,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "ImLoadSound",
+   "_names_only": true
+  },
+  {
+   "addr": "100040b0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImUnloadSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10004140",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "ImOpenSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10004140",
+   "index": 1,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "ImOpenSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10004260",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImCloseSound",
+   "_names_only": true
+  },
+  {
+   "addr": "100042f0",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "ImFindSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10004460",
+   "index": 0,
+   "type": "int *",
+   "name": "head",
+   "_fn": "ImList_AddHead",
+   "_names_only": true
+  },
+  {
+   "addr": "10004460",
+   "index": 1,
+   "type": "int *",
+   "name": "node",
+   "_fn": "ImList_AddHead",
+   "_names_only": true
+  },
+  {
+   "addr": "100044b0",
+   "index": 0,
+   "type": "int *",
+   "name": "head",
+   "_fn": "ImList_Remove",
+   "_names_only": true
+  },
+  {
+   "addr": "100044b0",
+   "index": 1,
+   "type": "int *",
+   "name": "node",
+   "_fn": "ImList_Remove",
+   "_names_only": true
+  },
+  {
+   "addr": "10004ba0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "ImSave",
+   "_names_only": true
+  },
+  {
+   "addr": "10004ba0",
+   "index": 1,
+   "type": "int",
+   "name": "size",
+   "_fn": "ImSave",
+   "_names_only": true
+  },
+  {
+   "addr": "10004c10",
+   "index": 0,
+   "type": "int *",
+   "name": "buf",
+   "_fn": "ImRestore",
+   "_names_only": true
+  },
+  {
+   "addr": "10004c60",
+   "index": 0,
+   "type": "uint",
+   "name": "group",
+   "_fn": "ImSetGroupVol",
+   "_names_only": true
+  },
+  {
+   "addr": "10004c60",
+   "index": 1,
+   "type": "uint",
+   "name": "vol",
+   "_fn": "ImSetGroupVol",
+   "_names_only": true
+  },
+  {
+   "addr": "10004c80",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "ImStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10004c80",
+   "index": 1,
+   "type": "int",
+   "name": "priority",
+   "_fn": "ImStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10004cd0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImStopSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d00",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "ImGetNextSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d10",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d10",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "ImSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d10",
+   "index": 2,
+   "type": "uint",
+   "name": "value",
+   "_fn": "ImSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d30",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImGetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d30",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "ImGetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d90",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d90",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "ImFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d90",
+   "index": 2,
+   "type": "uint",
+   "name": "value",
+   "_fn": "ImFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004d90",
+   "index": 3,
+   "type": "int",
+   "name": "time",
+   "_fn": "ImFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10004db0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImSetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "10004db0",
+   "index": 1,
+   "type": "uint",
+   "name": "hook",
+   "_fn": "ImSetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "10004dd0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImGetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e10",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImCheckTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e10",
+   "index": 1,
+   "type": "byte *",
+   "name": "marker",
+   "_fn": "ImCheckTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e10",
+   "index": 2,
+   "type": "int",
+   "name": "opcode",
+   "_fn": "ImCheckTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e30",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImClearTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e30",
+   "index": 1,
+   "type": "byte *",
+   "name": "marker",
+   "_fn": "ImClearTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e30",
+   "index": 2,
+   "type": "int",
+   "name": "opcode",
+   "_fn": "ImClearTrigger",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e80",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "ImStartStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e80",
+   "index": 1,
+   "type": "int",
+   "name": "priority",
+   "_fn": "ImStartStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004e80",
+   "index": 2,
+   "type": "uint",
+   "name": "group",
+   "_fn": "ImStartStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004ec0",
+   "index": 4,
+   "type": "uint",
+   "name": "hookFlags",
+   "_fn": "ImSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f00",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f00",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "outBufSize",
+   "_fn": "ImQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f00",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "outCriticalSize",
+   "_fn": "ImQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f00",
+   "index": 3,
+   "type": "int *",
+   "name": "outFreeSpace",
+   "_fn": "ImQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f00",
+   "index": 4,
+   "type": "undefined4 *",
+   "name": "outPaused",
+   "_fn": "ImQueryStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f30",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f30",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "data",
+   "_fn": "ImFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f30",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "ImFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004f30",
+   "index": 3,
+   "type": "undefined4",
+   "name": "paused",
+   "_fn": "ImFeedStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10005300",
+   "index": 0,
+   "type": "uint",
+   "name": "filename",
+   "_fn": "ImStartRecording",
+   "_names_only": true
+  },
+  {
+   "addr": "10005300",
+   "index": 1,
+   "type": "int",
+   "name": "append",
+   "_fn": "ImStartRecording",
+   "_names_only": true
+  },
+  {
+   "addr": "10007210",
+   "index": 0,
+   "type": "int",
+   "name": "slot",
+   "_fn": "SoundsAllocateBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "10007210",
+   "index": 1,
+   "type": "undefined4",
+   "name": "size",
+   "_fn": "SoundsAllocateBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "10007210",
+   "index": 2,
+   "type": "undefined4",
+   "name": "gulpSize",
+   "_fn": "SoundsAllocateBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "10007210",
+   "index": 3,
+   "type": "undefined4",
+   "name": "criticalSize",
+   "_fn": "SoundsAllocateBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "10007250",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ihost_close_sound",
+   "_names_only": true
+  },
+  {
+   "addr": "100072b0",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "SoundsRegisterVoice",
+   "_names_only": true
+  },
+  {
+   "addr": "10007410",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "SoundsLoadStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007410",
+   "index": 1,
+   "type": "int",
+   "name": "priority",
+   "_fn": "SoundsLoadStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007410",
+   "index": 2,
+   "type": "uint",
+   "name": "group",
+   "_fn": "SoundsLoadStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007470",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "SoundsLoadProcessStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007470",
+   "index": 1,
+   "type": "int",
+   "name": "priority",
+   "_fn": "SoundsLoadProcessStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007470",
+   "index": 2,
+   "type": "uint",
+   "name": "group",
+   "_fn": "SoundsLoadProcessStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007500",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "SoundsStopSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007520",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "SoundsGetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10007520",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "SoundsGetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10007550",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "SoundsSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10007550",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "SoundsSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10007550",
+   "index": 2,
+   "type": "uint",
+   "name": "value",
+   "_fn": "SoundsSetParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10007580",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "SoundsFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10007580",
+   "index": 1,
+   "type": "int",
+   "name": "param",
+   "_fn": "SoundsFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10007580",
+   "index": 2,
+   "type": "uint",
+   "name": "value",
+   "_fn": "SoundsFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "10007580",
+   "index": 3,
+   "type": "int",
+   "name": "ms",
+   "_fn": "SoundsFadeParam",
+   "_names_only": true
+  },
+  {
+   "addr": "100075d0",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "SoundsIsSoundInUse",
+   "_names_only": true
+  },
+  {
+   "addr": "10007640",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "SoundsIsSoundPlaying",
+   "_names_only": true
+  },
+  {
+   "addr": "10007670",
+   "index": 0,
+   "type": "int",
+   "name": "passes",
+   "_fn": "SoundsFillStreamsWhileMusicCritical",
+   "_names_only": true
+  },
+  {
+   "addr": "10007700",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "outBufSize",
+   "_fn": "Sounds_QueryMusicStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10007700",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "outCriticalSize",
+   "_fn": "Sounds_QueryMusicStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10007700",
+   "index": 2,
+   "type": "int *",
+   "name": "outFreeSpace",
+   "_fn": "Sounds_QueryMusicStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10007700",
+   "index": 3,
+   "type": "undefined4 *",
+   "name": "outPaused",
+   "_fn": "Sounds_QueryMusicStream",
+   "_names_only": true
+  },
+  {
+   "addr": "100078a0",
+   "index": 0,
+   "type": "undefined4",
+   "name": "local",
+   "_fn": "SoundsSetMuscriptLocal",
+   "_names_only": true
+  },
+  {
+   "addr": "100078b0",
+   "index": 0,
+   "type": "undefined4",
+   "name": "remote",
+   "_fn": "SoundsSetMuscriptRemote",
+   "_names_only": true
+  },
+  {
+   "addr": "100078c0",
+   "index": 0,
+   "type": "undefined4",
+   "name": "device",
+   "_fn": "Sounds_PlatformDevice",
+   "_names_only": true
+  },
+  {
+   "addr": "100078d0",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "SoundsInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "100078d0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "SoundsInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "10007a60",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "ihost_get_sound_addr",
+   "_names_only": true
+  },
+  {
+   "addr": "10007a70",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "ihost_get_map_addr",
+   "_names_only": true
+  },
+  {
+   "addr": "10007a80",
+   "index": 0,
+   "type": "int",
+   "name": "slot",
+   "_fn": "ihost_get_buffer_info",
+   "_names_only": true
+  },
+  {
+   "addr": "10007a90",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "ihost_open_sound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007a90",
+   "index": 1,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ihost_open_sound",
+   "_names_only": true
+  },
+  {
+   "addr": "10007bc0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ihost_fseek",
+   "_names_only": true
+  },
+  {
+   "addr": "10007bc0",
+   "index": 1,
+   "type": "int",
+   "name": "offset",
+   "_fn": "ihost_fseek",
+   "_names_only": true
+  },
+  {
+   "addr": "10007bc0",
+   "index": 2,
+   "type": "int",
+   "name": "whence",
+   "_fn": "ihost_fseek",
+   "_names_only": true
+  },
+  {
+   "addr": "10007ca0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "sound",
+   "_fn": "ihost_read",
+   "_names_only": true
+  },
+  {
+   "addr": "10007ca0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "ihost_read",
+   "_names_only": true
+  },
+  {
+   "addr": "10007ca0",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "size",
+   "_fn": "ihost_read",
+   "_names_only": true
+  },
+  {
+   "addr": "10008250",
+   "index": 0,
+   "type": "code *",
+   "name": "write",
+   "_fn": "sounds_save",
+   "_names_only": true
+  },
+  {
+   "addr": "10008ec0",
+   "index": 0,
+   "type": "uint *",
+   "name": "name",
+   "_fn": "CacheGetSoundId",
+   "_names_only": true
+  },
+  {
+   "addr": "10001ff0",
+   "index": 0,
+   "type": "int",
+   "name": "index",
+   "_fn": "DpGetDp",
+   "_names_only": true
+  },
+  {
+   "addr": "10002010",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "DpSave",
+   "_names_only": true
+  },
+  {
+   "addr": "10002010",
+   "index": 1,
+   "type": "uint",
+   "name": "size",
+   "_fn": "DpSave",
+   "_names_only": true
+  },
+  {
+   "addr": "10002040",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "DpBeginRestore",
+   "_names_only": true
+  },
+  {
+   "addr": "10002170",
+   "index": 0,
+   "type": "int",
+   "name": "dp",
+   "_fn": "DpStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10002170",
+   "index": 1,
+   "type": "uint",
+   "name": "group",
+   "_fn": "DpStartSound",
+   "_names_only": true
+  },
+  {
+   "addr": "10002200",
+   "index": 0,
+   "type": "int",
+   "name": "track",
+   "_fn": "DpStopTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "10002fe0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "src",
+   "_fn": "ConvertMap",
+   "_names_only": true
+  },
+  {
+   "addr": "10002fe0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "dst",
+   "_fn": "ConvertMap",
+   "_names_only": true
+  },
+  {
+   "addr": "10003130",
+   "index": 0,
+   "type": "int *",
+   "name": "dp",
+   "_fn": "PredictStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10003250",
+   "index": 0,
+   "type": "int *",
+   "name": "format",
+   "_fn": "PrepareToJump",
+   "_names_only": true
+  },
+  {
+   "addr": "10003250",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "region",
+   "_fn": "PrepareToJump",
+   "_names_only": true
+  },
+  {
+   "addr": "10003250",
+   "index": 2,
+   "type": "int",
+   "name": "jump",
+   "_fn": "PrepareToJump",
+   "_names_only": true
+  },
+  {
+   "addr": "10003250",
+   "index": 3,
+   "type": "int",
+   "name": "now",
+   "_fn": "PrepareToJump",
+   "_names_only": true
+  },
+  {
+   "addr": "10004540",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "FmGetSoundAddr",
+   "_names_only": true
+  },
+  {
+   "addr": "10004570",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "FmGetMapAddr",
+   "_names_only": true
+  },
+  {
+   "addr": "100045a0",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "FmValidateSoundId",
+   "_names_only": true
+  },
+  {
+   "addr": "100045c0",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "FmSeek",
+   "_names_only": true
+  },
+  {
+   "addr": "100045c0",
+   "index": 1,
+   "type": "undefined4",
+   "name": "offset",
+   "_fn": "FmSeek",
+   "_names_only": true
+  },
+  {
+   "addr": "100045c0",
+   "index": 2,
+   "type": "undefined4",
+   "name": "whence",
+   "_fn": "FmSeek",
+   "_names_only": true
+  },
+  {
+   "addr": "10004600",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "FmRead",
+   "_names_only": true
+  },
+  {
+   "addr": "10004600",
+   "index": 1,
+   "type": "undefined4",
+   "name": "buf",
+   "_fn": "FmRead",
+   "_names_only": true
+  },
+  {
+   "addr": "10004600",
+   "index": 2,
+   "type": "undefined4",
+   "name": "size",
+   "_fn": "FmRead",
+   "_names_only": true
+  },
+  {
+   "addr": "10004640",
+   "index": 0,
+   "type": "int",
+   "name": "slot",
+   "_fn": "FmGetBufInfo",
+   "_names_only": true
+  },
+  {
+   "addr": "10004750",
+   "index": 0,
+   "type": "uint",
+   "name": "preset",
+   "_fn": "ImFx_SelectPreset",
+   "_names_only": true
+  },
+  {
+   "addr": "10009e10",
+   "index": 0,
+   "type": "undefined *",
+   "name": "f",
+   "_fn": "iRes_FTELL",
+   "_names_only": true
+  },
+  {
+   "addr": "10009e40",
+   "index": 0,
+   "type": "undefined *",
+   "name": "f",
+   "_fn": "iRes_FSEEK",
+   "_names_only": true
+  },
+  {
+   "addr": "10009e40",
+   "index": 1,
+   "type": "int",
+   "name": "offset",
+   "_fn": "iRes_FSEEK",
+   "_names_only": true
+  },
+  {
+   "addr": "10009e40",
+   "index": 2,
+   "type": "int",
+   "name": "whence",
+   "_fn": "iRes_FSEEK",
+   "_names_only": true
+  },
+  {
+   "addr": "10009ef0",
+   "index": 0,
+   "type": "uint",
+   "name": "value",
+   "_fn": "Sounds_CompareRange",
+   "_names_only": true
+  },
+  {
+   "addr": "10009ef0",
+   "index": 1,
+   "type": "uint *",
+   "name": "range",
+   "_fn": "Sounds_CompareRange",
+   "_names_only": true
+  },
+  {
+   "addr": "10009f10",
+   "index": 0,
+   "type": "uint",
+   "name": "size",
+   "_fn": "iMUSE_Malloc",
+   "_names_only": true
+  },
+  {
+   "addr": "10009f40",
+   "index": 0,
+   "type": "int",
+   "name": "block",
+   "_fn": "Sounds_MlAdd",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a010",
+   "index": 0,
+   "type": "uint",
+   "name": "block",
+   "_fn": "iMUSE_Free",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a030",
+   "index": 0,
+   "type": "int",
+   "name": "block",
+   "_fn": "Sounds_MlRemove",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a210",
+   "index": 0,
+   "type": "uint",
+   "name": "sound",
+   "_fn": "StStartStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a210",
+   "index": 1,
+   "type": "uint",
+   "name": "slot",
+   "_fn": "StStartStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a210",
+   "index": 2,
+   "type": "uint",
+   "name": "offset",
+   "_fn": "StStartStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a2d0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "stream",
+   "_fn": "StStopStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a420",
+   "index": 0,
+   "type": "int",
+   "name": "stream",
+   "_fn": "StReadData",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a420",
+   "index": 1,
+   "type": "uint",
+   "name": "size",
+   "_fn": "StReadData",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a490",
+   "index": 0,
+   "type": "int",
+   "name": "stream",
+   "_fn": "StViewData",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a490",
+   "index": 1,
+   "type": "int",
+   "name": "offset",
+   "_fn": "StViewData",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a490",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "StViewData",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a500",
+   "index": 0,
+   "type": "int",
+   "name": "stream",
+   "_fn": "StEraseFromFront",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a500",
+   "index": 1,
+   "type": "uint",
+   "name": "size",
+   "_fn": "StEraseFromFront",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a540",
+   "index": 0,
+   "type": "int",
+   "name": "stream",
+   "_fn": "StEraseFromMid",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a540",
+   "index": 1,
+   "type": "uint",
+   "name": "offset",
+   "_fn": "StEraseFromMid",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a5a0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "stream",
+   "_fn": "StSpliceStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a5a0",
+   "index": 1,
+   "type": "undefined4",
+   "name": "offset",
+   "_fn": "StSpliceStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a5a0",
+   "index": 2,
+   "type": "undefined4",
+   "name": "sound",
+   "_fn": "StSpliceStream",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b760",
+   "index": 1,
+   "type": "int *",
+   "name": "node",
+   "_fn": "UtAddToList",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b7a0",
+   "index": 0,
+   "type": "int *",
+   "name": "head",
+   "_fn": "UtRemoveFromList",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b7a0",
+   "index": 1,
+   "type": "int *",
+   "name": "node",
+   "_fn": "UtRemoveFromList",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b810",
+   "index": 0,
+   "type": "undefined1 *",
+   "name": "p",
+   "_fn": "UtReadLongHilo",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b840",
+   "index": 0,
+   "type": "int *",
+   "name": "hook",
+   "_fn": "UtCheckHook",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b840",
+   "index": 1,
+   "type": "int",
+   "name": "value",
+   "_fn": "UtCheckHook",
+   "_names_only": true
+  }
+ ]
+}

@@ -38,7 +38,7 @@ void __cdecl freeHash(Hash *t)
 /* ---- 0x1000c200  luaH_save ---- */
 /* ltable.c: Grim save-game table writer (asserts writtenItems == numItems) */
 
-void __cdecl luaH_save(undefined *param_1,int param_2)
+void __cdecl luaH_save(undefined *writer,int h)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -52,10 +52,10 @@ void __cdecl luaH_save(undefined *param_1,int param_2)
   uVar3 = 0;
   local_8 = 0;
   local_4 = 0;
-  (*(code *)param_1)((int *)(param_2 + 0xc),4);
-  iVar2 = *(int *)(param_2 + 0xc);
+  (*(code *)writer)((int *)(h + 0xc),4);
+  iVar2 = *(int *)(h + 0xc);
   if (iVar2 != 0) {
-    piVar1 = *(int **)(param_2 + 8);
+    piVar1 = *(int **)(h + 8);
     do {
       if ((*piVar1 != -7) && (piVar1[2] != -7)) {
         local_8 = local_8 + 1;
@@ -64,20 +64,20 @@ void __cdecl luaH_save(undefined *param_1,int param_2)
       iVar2 = iVar2 + -1;
     } while (iVar2 != 0);
   }
-  (*(code *)param_1)(&local_8,4);
-  (*(code *)param_1)(param_2 + 0x14,4);
-  if (*(int *)(param_2 + 0xc) != 0) {
+  (*(code *)writer)(&local_8,4);
+  (*(code *)writer)(h + 0x14,4);
+  if (*(int *)(h + 0xc) != 0) {
     iVar2 = 0;
     do {
-      a1 = *(int *)(param_2 + 8) + iVar2;
-      if ((*(int *)(*(int *)(param_2 + 8) + iVar2) != -7) && (*(int *)(a1 + 8) != -7)) {
-        LState_SaveObject(a1,(int)param_1);
-        LState_SaveObject(*(int *)(param_2 + 8) + 8 + iVar2,(int)param_1);
+      a1 = *(int *)(h + 8) + iVar2;
+      if ((*(int *)(*(int *)(h + 8) + iVar2) != -7) && (*(int *)(a1 + 8) != -7)) {
+        LState_SaveObject(a1,(int)writer);
+        LState_SaveObject(*(int *)(h + 8) + 8 + iVar2,(int)writer);
         local_4 = local_4 + 1;
       }
       uVar3 = uVar3 + 1;
       iVar2 = iVar2 + 0x10;
-    } while (uVar3 < *(uint *)(param_2 + 0xc));
+    } while (uVar3 < *(uint *)(h + 0xc));
   }
   if (local_4 != local_8) {
     (**(code **)(g_dwLuaHS + 0x18))
@@ -94,33 +94,33 @@ void __cdecl luaH_save(undefined *param_1,int param_2)
 /* Original name luaH_load (the remaster's libLua.so: luaH_load: callee LoadObject, caller
    GlobalBeginRestore); was luaH_new. */
 
-undefined4 * __cdecl luaH_load(undefined *param_1)
+undefined4 * __cdecl luaH_load(undefined *reader)
 
 {
-  undefined4 *puVar1;
-  Node *pNVar2;
-  uint uVar3;
-  int iVar4;
+  undefined4 *node;
+  Node *pNVar1;
+  uint uVar2;
+  int iVar3;
   
-  puVar1 = (undefined4 *)
-           (**(code **)(g_dwLuaHS + 0x20))(0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0x91);
-  (*(code *)param_1)(puVar1 + 3,4);
-  (*(code *)param_1)(puVar1 + 4,4);
-  (*(code *)param_1)(puVar1 + 5,4);
-  pNVar2 = luaH_hashnodecreate(puVar1[3]);
-  puVar1[2] = pNVar2;
-  luaO_insertlist(&g_dwLState_roottable,puVar1);
-  uVar3 = 0;
-  if (puVar1[4] != 0) {
-    iVar4 = 0;
+  node = (undefined4 *)
+         (**(code **)(g_dwLuaHS + 0x20))(0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0x91);
+  (*(code *)reader)(node + 3,4);
+  (*(code *)reader)(node + 4,4);
+  (*(code *)reader)(node + 5,4);
+  pNVar1 = luaH_hashnodecreate(node[3]);
+  node[2] = pNVar1;
+  luaO_insertlist(&g_dwLState_roottable,node);
+  uVar2 = 0;
+  if (node[4] != 0) {
+    iVar3 = 0;
     do {
-      LState_LoadObject(puVar1[2] + iVar4,(int)param_1);
-      LState_LoadObject(puVar1[2] + 8 + iVar4,(int)param_1);
-      uVar3 = uVar3 + 1;
-      iVar4 = iVar4 + 0x10;
-    } while (uVar3 < (uint)puVar1[4]);
+      LState_LoadObject(node[2] + iVar3,(int)reader);
+      LState_LoadObject(node[2] + 8 + iVar3,(int)reader);
+      uVar2 = uVar2 + 1;
+      iVar3 = iVar3 + 0x10;
+    } while (uVar2 < (uint)node[4]);
   }
-  return puVar1;
+  return node;
 }
 
 /* ---- 0x1000c390  luaH_hashnodecreate ---- */
@@ -154,23 +154,23 @@ Node * __cdecl luaH_hashnodecreate(int nhash)
 Hash * __cdecl luaH_new(int nhash)
 
 {
-  Hash *pHVar1;
+  Hash *node;
   int nhash_00;
-  Node *pNVar2;
-  longlong lVar3;
+  Node *pNVar1;
+  longlong lVar2;
   
-  pHVar1 = (Hash *)(**(code **)(g_dwLuaHS + 0x20))
-                             (0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0xa4);
-  lVar3 = FTOL((float10)nhash * (float10)1.4285714285714286);
-  nhash_00 = luaO_redimension((int)lVar3);
-  pNVar2 = luaH_hashnodecreate(nhash_00);
-  pHVar1->pNode = pNVar2;
-  pHVar1->nNhash = nhash_00;
-  pHVar1->nNuse = 0;
-  pHVar1->nHtag = -3;
-  luaO_insertlist(&g_dwLState_roottable,(undefined4 *)pHVar1);
+  node = (Hash *)(**(code **)(g_dwLuaHS + 0x20))
+                           (0x18,s_C__grimsrc_libs_lua_src_ltable_c_10027cf4,0xa4);
+  lVar2 = FTOL((float10)nhash * (float10)1.4285714285714286);
+  nhash_00 = luaO_redimension((int)lVar2);
+  pNVar1 = luaH_hashnodecreate(nhash_00);
+  node->pNode = pNVar1;
+  node->nNhash = nhash_00;
+  node->nNuse = 0;
+  node->nHtag = -3;
+  luaO_insertlist(&g_dwLState_roottable,(undefined4 *)node);
   g_dwLState_nblocks = g_dwLState_nblocks + 1 + ((int)(nhash_00 + (nhash_00 >> 0x1f & 0xfU)) >> 4);
-  return pHVar1;
+  return node;
 }
 
 /* ---- 0x1000c450  luaH_forcerehash ---- */

@@ -13,15 +13,15 @@
 Closure * __cdecl luaF_newclosure(int nelems)
 
 {
-  Closure *pCVar1;
+  Closure *node;
   
-  pCVar1 = (Closure *)
-           (**(code **)(g_dwLuaHS + 0x20))
-                     (nelems * 8 + 0x14,s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4,0x16);
-  luaO_insertlist(&g_dwLState_rootcl,(undefined4 *)pCVar1);
+  node = (Closure *)
+         (**(code **)(g_dwLuaHS + 0x20))
+                   (nelems * 8 + 0x14,s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4,0x16);
+  luaO_insertlist(&g_dwLState_rootcl,(undefined4 *)node);
   g_dwLState_nblocks = g_dwLState_nblocks + 1;
-  pCVar1->nNelems = nelems;
-  return pCVar1;
+  node->nNelems = nelems;
+  return node;
 }
 
 /* ---- 0x10004bf0  luaF_newproto ---- */
@@ -32,19 +32,19 @@ Closure * __cdecl luaF_newclosure(int nelems)
 TProtoFunc * __cdecl luaF_newproto(void)
 
 {
-  TProtoFunc *pTVar1;
+  TProtoFunc *node;
   
-  pTVar1 = (TProtoFunc *)
-           (**(code **)(g_dwLuaHS + 0x20))(0x20,s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4,0x20);
-  pTVar1->pCode = (byte *)0x0;
-  pTVar1->nLineDefined = 0;
-  pTVar1->pFileName = (TaggedString *)0x0;
-  pTVar1->pConsts = (TObject *)0x0;
-  pTVar1->nNconsts = 0;
-  pTVar1->pLocvars = (LocVar *)0x0;
-  luaO_insertlist(&g_dwLState_rootproto,(undefined4 *)pTVar1);
+  node = (TProtoFunc *)
+         (**(code **)(g_dwLuaHS + 0x20))(0x20,s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4,0x20);
+  node->pCode = (byte *)0x0;
+  node->nLineDefined = 0;
+  node->pFileName = (TaggedString *)0x0;
+  node->pConsts = (TObject *)0x0;
+  node->nNconsts = 0;
+  node->pLocvars = (LocVar *)0x0;
+  luaO_insertlist(&g_dwLState_rootproto,(undefined4 *)node);
   g_dwLState_nblocks = g_dwLState_nblocks + 5;
-  return pTVar1;
+  return node;
 }
 
 /* ---- 0x10004c40  luaF_freeproto ---- */
@@ -140,7 +140,7 @@ char * __cdecl luaF_getlocalname(TProtoFunc *func,int local_number,int line)
 /* Original name luaC_ref (the remaster's libLua.so: string 'reference table overflow'); was
    lfunc__4d40. */
 
-uint __cdecl luaC_ref(int *param_1,int param_2)
+uint __cdecl luaC_ref(int *o,int lock)
 
 {
   uint uVar1;
@@ -149,7 +149,7 @@ uint __cdecl luaC_ref(int *param_1,int param_2)
   int *piVar4;
   
   uVar3 = g_dwLState_refSize;
-  if (*param_1 == -7) {
+  if (*o == -7) {
     return 0xffffffff;
   }
   uVar1 = 0;
@@ -174,9 +174,9 @@ uint __cdecl luaC_ref(int *param_1,int param_2)
     } while (uVar3 < g_dwLState_refSize);
   }
   iVar2 = uVar1 * 0xc;
-  *(int *)(g_dwLState_refArray + iVar2) = *param_1;
-  *(int *)(g_dwLState_refArray + 4 + iVar2) = param_1[1];
-  *(uint *)(g_dwLState_refArray + 8 + iVar2) = (uint)(param_2 == 0);
+  *(int *)(g_dwLState_refArray + iVar2) = *o;
+  *(int *)(g_dwLState_refArray + 4 + iVar2) = o[1];
+  *(uint *)(g_dwLState_refArray + 8 + iVar2) = (uint)(lock == 0);
   return uVar1;
 }
 

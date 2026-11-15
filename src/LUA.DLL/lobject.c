@@ -8,7 +8,7 @@
 /* ---- 0x10007450  luaO_redimension ---- */
 /* lmem.c: next prime size for a hash; table overflow past the last prime */
 
-undefined4 __cdecl luaO_redimension(int param_1)
+undefined4 __cdecl luaO_redimension(int oldsize)
 
 {
   int iVar1;
@@ -23,7 +23,7 @@ undefined4 __cdecl luaO_redimension(int param_1)
   piVar2 = g_dwDimensions;
   iVar1 = g_dwDimensions[0];
   do {
-    if (param_1 < iVar1) {
+    if (oldsize < iVar1) {
       return g_dwDimensions[iVar3];
     }
     iVar1 = piVar2[1];
@@ -72,7 +72,7 @@ int __cdecl luaO_equalObj(TObject *t1,TObject *t2)
 /* ---- 0x10007550  luaO_findstring ---- */
 /* Unidentified function of lobject.c */
 
-int __cdecl luaO_findstring(byte *param_1,undefined4 *param_2)
+int __cdecl luaO_findstring(byte *name,undefined4 *list)
 
 {
   byte bVar1;
@@ -83,8 +83,8 @@ int __cdecl luaO_findstring(byte *param_1,undefined4 *param_2)
   bool bVar6;
   
   iVar4 = 0;
-  pbVar2 = (byte *)*param_2;
-  pbVar5 = param_1;
+  pbVar2 = (byte *)*list;
+  pbVar5 = name;
   if (pbVar2 == (byte *)0x0) {
     return -1;
   }
@@ -110,10 +110,10 @@ LAB_1000758c:
     if (iVar3 == 0) {
       return iVar4;
     }
-    pbVar2 = (byte *)param_2[1];
-    param_2 = param_2 + 1;
+    pbVar2 = (byte *)list[1];
+    list = list + 1;
     iVar4 = iVar4 + 1;
-    pbVar5 = param_1;
+    pbVar5 = name;
     if (pbVar2 == (byte *)0x0) {
       return -1;
     }
@@ -123,11 +123,11 @@ LAB_1000758c:
 /* ---- 0x100075c0  luaO_insertlist ---- */
 /* Unidentified function of lobject.c */
 
-void __cdecl luaO_insertlist(undefined4 *param_1,undefined4 *param_2)
+void __cdecl luaO_insertlist(undefined4 *root,undefined4 *node)
 
 {
-  *param_2 = *param_1;
-  *param_1 = param_2;
-  param_2[1] = 0;
+  *node = *root;
+  *root = node;
+  node[1] = 0;
   return;
 }
