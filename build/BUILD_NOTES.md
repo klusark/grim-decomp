@@ -1941,3 +1941,15 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * build_src.py: a cast of a float member to a pointer (`(void *)cam->flAmbientLight`, a reused pointer slot in
   rdSprite_DrawThing) is a PUN: C has no float -> pointer conversion.
 * Clean room 0 of 5457.
+
+## Animation player, light editor, resources, and typed pointers (2026-11-14)
+
+* names/types_animplay.json: AnimPlayer (0x70, the Smush player of anm_Start; overrides_mixer_misc.c calls it AnimPlay,
+  hence the other name), anm_Render / anm_animator_Initialize / anm_animator_NewAnim take one; g_pLightEdSet is a Set *.
+* names/types_res.json: Resource (0x2c, Res_CreateRecord's record), ResRef in full (valid, data, source tag and line,
+  list links), Lab (0x120, an open .LAB archive) and LabEntry (0x1c, its directory record; Ghidra had a 24-byte one).
+* names/types_tail.json: the render / movie buffers (g_pSputRender_DecompressionBuffer / CleanBuffer / CleanZBuffer,
+  g_pPresentBuf) are VBuffer *, g_pShadowColormap an rdColormap *; rdPuppet_BuildJointMatrices takes an rdThing (its
+  `model` was the thing), sputActor_SetActorHead an Actor, Text_DrawChar a TextContext.
+* animplay.c 49 -> 0, lighted.c 40 -> 2, lab.c 26 -> 3, resref.c 19 -> 1, movie.c 12 -> 0; the EXE 530 -> 329.
+  Clean room 0 of 5457.

@@ -6,16 +6,16 @@
 #include "functions.h"
 
 /* ---- 0x0040cee0  rdPuppet_BuildJointMatrices ---- */
-void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint index,float *out)
+void __cdecl rdPuppet_BuildJointMatrices(rdThing *thing,float *frame,uint index,float *out)
 
 {
   int iVar1;
   float *pfVar2;
   
-  if (*(uint *)(*(int *)((int)model + 4) + 0x54) <= index) {
+  if (*(uint *)((int)thing->pModel + 0x54) <= index) {
     return;
   }
-  pfVar2 = (float *)(index * 0x30 + *(int *)((int)model + 0x20));
+  pfVar2 = thing->pHierarchyMatrices + index * 0xc;
   for (iVar1 = 0xc; iVar1 != 0; iVar1 = iVar1 + -1) {
     *out = *pfVar2;
     pfVar2 = pfVar2 + 1;

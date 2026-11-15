@@ -125,9 +125,9 @@ extern int g_nSputRender_b3DAcceleration; /* 0x008c9784 */
 extern uint g_dwRenderFlags; /* 0x008c9798 */
 extern void * g_pDirtyRectList; /* 0x008c979c */
 extern void * g_pSputRender_Canvas; /* 0x008c97a8 */
-extern void * g_pSputRender_DecompressionBuffer; /* 0x008c97ac */
-extern void * g_pSputRender_CleanBuffer; /* 0x008c97b0 */
-extern void * g_pSputRender_CleanZBuffer; /* 0x008c97b4 */
+extern VBuffer * g_pSputRender_DecompressionBuffer; /* 0x008c97ac */
+extern VBuffer * g_pSputRender_CleanBuffer; /* 0x008c97b0 */
+extern VBuffer * g_pSputRender_CleanZBuffer; /* 0x008c97b4 */
 extern void * g_pSputRender_PageFlipFunc; /* 0x008c97bc */
 extern ushort g_abSputRender_colorMap[3]; /* 0x008c97c0 */
 extern void ** g_pDirtyRectPool; /* 0x008c97ec */
@@ -143,7 +143,7 @@ extern void * g_hSpewDll; /* 0x008c9a6c */
 extern GrimServices * g_pMemoryHS; /* 0x008c9a70 */
 extern void ** g_pFirstPool; /* 0x008c9a80 */
 extern GrimServices * g_pSvcFileutil; /* 0x008c9a90 */
-extern void * g_pPresentBuf; /* 0x008c9aa0 */
+extern VBuffer * g_pPresentBuf; /* 0x008c9aa0 */
 extern char g_szCurMovieFile[128]; /* 0x008ca000 */
 extern int g_nSputSmushStarted; /* 0x008ca084 */
 extern int g_nSmushPlaying; /* 0x008ca088 */
@@ -168,7 +168,7 @@ extern Actor * g_pActors; /* 0x008ca758 */
 extern int g_nNumActors; /* 0x008ca75c */
 extern Actor * g_pSelectedActor; /* 0x008ca760 */
 extern int g_nNumActorsTalking; /* 0x008ca764 */
-extern void * g_pShadowColormap; /* 0x008ca790 */
+extern rdColormap * g_pShadowColormap; /* 0x008ca790 */
 extern void ** g_pCosNodePool; /* 0x008ca794 */
 extern GrimServices * g_pSputCosHS; /* 0x008ca7a0 */
 extern void * g_pShadowMaterial; /* 0x008cab38 */
@@ -208,7 +208,7 @@ extern int g_nWinMessageHookOn; /* 0x008d09ec */
 extern int g_nWinQuit; /* 0x008d0a74 */
 extern uint g_dwWinDialogCount; /* 0x008d0a78 */
 extern void * g_hLightEdDialog; /* 0x008d3630 */
-extern void * g_pLightEdSet; /* 0x008d3634 */
+extern Set * g_pLightEdSet; /* 0x008d3634 */
 extern Actor * g_pLightEdMarkerActor; /* 0x008d3638 */
 extern void * g_hLightEdHook; /* 0x008d363c */
 extern int g_nLightEdBusy; /* 0x008d3640 */

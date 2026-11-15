@@ -371,8 +371,7 @@ uint __cdecl sputActor_Restore(code *param_1)
   #define iStack_100 (*(int *)(_frame + (0x180 - 0x100)))
   #define aiStack_fc (*(int (*)[16])(_frame + (0x180 - 0xfc)))
   #define iStack_bc (*(int *)(_frame + (0x180 - 0xbc)))
-  #define iStack_b8 (*(int *)(_frame + (0x180 - 0xb8)))
-  #define aiStack_b4 (*(int (*)[13])(_frame + (0x180 - 0xb4)))
+  #define RStack_b8 (*(ResRef *)(_frame + (0x180 - 0xb8)))
   #define acStack_80 (*(char (*)[32])(_frame + (0x180 - 0x80)))
   #define acStack_60 (*(char (*)[32])(_frame + (0x180 - 0x60)))
   #define acStack_40 (*(char (*)[64])(_frame + (0x180 - 0x40)))
@@ -505,13 +504,13 @@ uint __cdecl sputActor_Restore(code *param_1)
           (*param_1)(&iStack_100,4);
           (*param_1)(aiStack_fc,0x40);
           (*param_1)(&iStack_bc,4);
-          (*param_1)(aiStack_b4,4);
-          Res_ResolveToSerialNumber(&iStack_b8);
-          if (iStack_b8 == 0) {
+          (*param_1)(&RStack_b8.pData,4);
+          Res_ResolveToSerialNumber(&RStack_b8.nValid);
+          if (RStack_b8.nValid == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
           }
-          pcVar5 = (char *)CosUtil_PtrFromHandle(aiStack_b4[0]);
+          pcVar5 = (char *)CosUtil_PtrFromHandle((int)RStack_b8.pData);
           if (iStack_164 == 0) {
             sputActor_SetCostume(pAVar14,pcVar5,0);
           }
@@ -538,7 +537,7 @@ uint __cdecl sputActor_Restore(code *param_1)
             piVar16 = piVar16 + 1;
           }
           pAVar14->pCostumes->nMumbleChore = iStack_bc;
-          Res_RemoveReference(&iStack_b8);
+          Res_RemoveReference(&RStack_b8);
           iStack_164 = iStack_164 + 1;
         } while (iStack_164 < iStack_148);
       }
@@ -707,10 +706,10 @@ uint __cdecl sputActor_Restore(code *param_1)
   }
   return 0;
 }
+#undef RStack_b8
 #undef acStack_40
 #undef acStack_60
 #undef acStack_80
-#undef aiStack_b4
 #undef aiStack_fc
 #undef auStack_134
 #undef fStack_110
@@ -732,7 +731,6 @@ uint __cdecl sputActor_Restore(code *param_1)
 #undef iStack_154
 #undef iStack_158
 #undef iStack_164
-#undef iStack_b8
 #undef iStack_bc
 #undef local_15c
 #undef pvStack_160

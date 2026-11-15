@@ -39,7 +39,7 @@ void __cdecl sputCostume_Terminate(void)
   if (g_dwSputCosInitialize != 0) {
     g_dwSputCosInitialize = 0;
     (*(code *)UINT_008ca774)();
-    if (g_pShadowColormap != (void *)0x0) {
+    if (g_pShadowColormap != (rdColormap *)0x0) {
       rdColormap_Free((uint)g_pShadowColormap);
     }
   }

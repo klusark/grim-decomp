@@ -243,29 +243,29 @@ int __cdecl sputActor_SetCostume(Actor *actor,char *name,int param_3)
 
 void __cdecl
 sputActor_SetActorHead
-          (void *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw)
+          (Actor *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  CostumeNode *pCVar1;
   uint uVar2;
   float fVar3;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   
-  iVar1 = *(int *)((int)actor + 0xa0);
-  if ((iVar1 != 0) && (*(int *)(iVar1 + 4) != 0)) {
-    uVar2 = *(uint *)(*(int *)(*(int *)(iVar1 + 4) + 4) + 0x54);
+  pCVar1 = actor->pCostumes;
+  if ((pCVar1 != (CostumeNode *)0x0) && (pCVar1->pMainModel != (void *)0x0)) {
+    uVar2 = *(uint *)(*(int *)((int)pCVar1->pMainModel + 4) + 0x54);
     if (((uint)joint1 <= uVar2) && (((uint)joint2 <= uVar2 && ((uint)joint3 <= uVar2)))) {
-      *(int *)(iVar1 + 0xc) = joint1;
-      *(int *)(iVar1 + 0x10) = joint2;
-      *(float *)(iVar1 + 0x1c) = maxPitch;
-      *(int *)(iVar1 + 0x14) = joint3;
-      *(float *)(iVar1 + 0x20) = maxYaw;
+      pCVar1->aHeadJoints[0] = joint1;
+      pCVar1->aHeadJoints[1] = joint2;
+      pCVar1->flMaxPitch = maxPitch;
+      pCVar1->aHeadJoints[2] = joint3;
+      pCVar1->flMaxYaw = maxYaw;
       fVar3 = maxRoll;
       if (maxRoll < 0.0) {
         fVar3 = -maxRoll;
       }
-      stdMath_SinCos(fVar3 * 0.5,(float *)&actor,(float *)(iVar1 + 0x24));
+      stdMath_SinCos(fVar3 * 0.5,(float *)&actor,&pCVar1->flViewCos);
     }
   }
   return;
@@ -2116,7 +2116,7 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
       iVar13 = pSVar8->nCurColormap;
       pSVar8 = sputRoom_GetCurrentRoom();
       pRVar6 = pSVar8->pColormaps;
-      if (pRVar6[iVar13].dwHandle == 0) {
+      if (pRVar6[iVar13].nValid == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
@@ -2125,7 +2125,7 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
       iVar13 = pSVar8->nCurColormap;
       pSVar8 = sputRoom_GetCurrentRoom();
       pRVar6 = pSVar8->pColormaps;
-      if (pRVar6[iVar13].dwHandle == 0) {
+      if (pRVar6[iVar13].nValid == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
@@ -2279,7 +2279,7 @@ void __cdecl sputActor_FreeActor(Actor *actor)
     (**(code **)(g_dwSputActHS + 0x24))(actor->pExtra);
     actor->pExtra = (ActorExtra *)0x0;
   }
-  if (actor->pColormapRef != (void *)0x0) {
+  if (actor->pColormapRef != (ResRef *)0x0) {
     Res_RemoveReference(actor->pColormapRef);
     (**(code **)(g_dwSputActHS + 0x24))(actor->pColormapRef);
     actor->pColormapRef = (void *)0x0;
@@ -2364,13 +2364,13 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
             if (g_pShadowMaterial == (void *)0x0) {
               g_pShadowMaterial = rdMaterial_Load(s_shadow_mat_004ea19c,0,0);
             }
-            if (g_pShadowColormap == (void *)0x0) {
+            if (g_pShadowColormap == (rdColormap *)0x0) {
               g_pShadowColormap = rdColormap_Load(s_shadow_cmp_004ea190);
             }
             if (g_pShadowMaterial != (void *)0x0) {
               rdroid_SetColormap((uint)g_pShadowColormap);
               if (g_nSputRender_b3DAcceleration != 0) {
-                std3D_SetCurrentPalette((void *)((int)g_pShadowColormap + 0x30),0);
+                std3D_SetCurrentPalette(g_pShadowColormap->aPalette,0);
               }
               sputCostume_OutputShadowPoly(local_c0,4,local_fc,local_e4,shadow);
               sputCostume_OutputShadowPoly(local_90,4,local_fc,local_e4,shadow);

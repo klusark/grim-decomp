@@ -229,6 +229,7 @@ typedef struct VS_VERSION_INFO VS_VERSION_INFO;
 typedef struct Actor Actor;
 typedef struct ActorExtra ActorExtra;
 typedef struct ActorShadow ActorShadow;
+typedef struct AnimPlayer AnimPlayer;
 typedef struct BlockyMotionVector BlockyMotionVector;
 typedef struct ColorFormat ColorFormat;
 typedef struct CostumeNode CostumeNode;
@@ -236,6 +237,8 @@ typedef struct DDSurfaceDesc DDSurfaceDesc;
 typedef struct DDrawSurfaceRec DDrawSurfaceRec;
 typedef struct DisplayDevice DisplayDevice;
 typedef struct GrimServices GrimServices;
+typedef struct Lab Lab;
+typedef struct LabEntry LabEntry;
 typedef struct LecPixelFormat LecPixelFormat;
 typedef struct ObjectState ObjectState;
 typedef struct ObjectStateImage ObjectStateImage;
@@ -244,6 +247,7 @@ typedef struct Primitive Primitive;
 typedef struct ProcEntry ProcEntry;
 typedef struct Puck Puck;
 typedef struct ResRef ResRef;
+typedef struct Resource Resource;
 typedef struct ScreenCoord ScreenCoord;
 typedef struct Set Set;
 typedef struct SetLight SetLight;
@@ -409,6 +413,59 @@ _Static_assert(__builtin_offsetof(ActorExtra, dwTalkColor) == 0x418, "ActorExtra
 _Static_assert(__builtin_offsetof(ActorExtra, flTimeScale) == 0x41c, "ActorExtra.flTimeScale");
 _Static_assert(__builtin_offsetof(ActorExtra, nInvClipNode) == 0x420, "ActorExtra.nInvClipNode");
 _Static_assert(sizeof(ActorExtra) == 0x4a0, "sizeof ActorExtra");
+/* AnimPlayer: A Smush animation player (0x70 bytes, anm_Start). */
+struct AnimPlayer {  /* 0x70 */
+    int nTimerSync;  /* 0x00: timer id of the clock timer */
+    int nTimerFrame;  /* 0x04: timer id of the frame timer */
+    uint dwFlags;  /* 0x08 */
+    int nDecoderC;  /* 0x0c: cleared by anm_animator_Initialize */
+    int nFailed;  /* 0x10: set when the player gave up */
+    int nFrameDue;  /* 0x14: set by the frame timer: a frame must be shown */
+    int nSyncTicks;  /* 0x18: ticks the player is ahead */
+    int nTargetDelay;  /* 0x1c: normal frame delay in timer ticks (1193180 / fps) */
+    int nDelay;  /* 0x20: current frame delay (kept in sync with the sound) */
+    uint8_t field_0x24, field_0x25, field_0x26, field_0x27;
+    int nDecoder28;  /* 0x28: decoder state, 0 after anm_animator_Initialize */
+    int nDecoder2c;  /* 0x2c: 1 after anm_animator_Initialize */
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33;
+    uint dwCodec;  /* 0x34: 'null' until a codec is chosen */
+    int nOpen;  /* 0x38: 1 once anm_animator_NewAnim opened the file */
+    uint dwOpenFlags;  /* 0x3c: anm_animator_NewAnim's flags */
+    int nOpenArg;  /* 0x40: anm_animator_NewAnim's last argument */
+    int nDecoder44;  /* 0x44 */
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53;
+    int nDecoder54;  /* 0x54 */
+    int nDecoder58;  /* 0x58 */
+    uint8_t field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    void *pStream;  /* 0x60: streamer handle */
+    int nLagMode;  /* 0x64 */
+    int nState;  /* 0x68: result of the last frame step: < 0 error, 1 finished, 5 first step */
+    int nStarted;  /* 0x6c */
+};
+_Static_assert(__builtin_offsetof(AnimPlayer, nTimerSync) == 0x0, "AnimPlayer.nTimerSync");
+_Static_assert(__builtin_offsetof(AnimPlayer, nTimerFrame) == 0x4, "AnimPlayer.nTimerFrame");
+_Static_assert(__builtin_offsetof(AnimPlayer, dwFlags) == 0x8, "AnimPlayer.dwFlags");
+_Static_assert(__builtin_offsetof(AnimPlayer, nDecoderC) == 0xc, "AnimPlayer.nDecoderC");
+_Static_assert(__builtin_offsetof(AnimPlayer, nFailed) == 0x10, "AnimPlayer.nFailed");
+_Static_assert(__builtin_offsetof(AnimPlayer, nFrameDue) == 0x14, "AnimPlayer.nFrameDue");
+_Static_assert(__builtin_offsetof(AnimPlayer, nSyncTicks) == 0x18, "AnimPlayer.nSyncTicks");
+_Static_assert(__builtin_offsetof(AnimPlayer, nTargetDelay) == 0x1c, "AnimPlayer.nTargetDelay");
+_Static_assert(__builtin_offsetof(AnimPlayer, nDelay) == 0x20, "AnimPlayer.nDelay");
+_Static_assert(__builtin_offsetof(AnimPlayer, nDecoder28) == 0x28, "AnimPlayer.nDecoder28");
+_Static_assert(__builtin_offsetof(AnimPlayer, nDecoder2c) == 0x2c, "AnimPlayer.nDecoder2c");
+_Static_assert(__builtin_offsetof(AnimPlayer, dwCodec) == 0x34, "AnimPlayer.dwCodec");
+_Static_assert(__builtin_offsetof(AnimPlayer, nOpen) == 0x38, "AnimPlayer.nOpen");
+_Static_assert(__builtin_offsetof(AnimPlayer, dwOpenFlags) == 0x3c, "AnimPlayer.dwOpenFlags");
+_Static_assert(__builtin_offsetof(AnimPlayer, nOpenArg) == 0x40, "AnimPlayer.nOpenArg");
+_Static_assert(__builtin_offsetof(AnimPlayer, nDecoder44) == 0x44, "AnimPlayer.nDecoder44");
+_Static_assert(__builtin_offsetof(AnimPlayer, nDecoder54) == 0x54, "AnimPlayer.nDecoder54");
+_Static_assert(__builtin_offsetof(AnimPlayer, nDecoder58) == 0x58, "AnimPlayer.nDecoder58");
+_Static_assert(__builtin_offsetof(AnimPlayer, pStream) == 0x60, "AnimPlayer.pStream");
+_Static_assert(__builtin_offsetof(AnimPlayer, nLagMode) == 0x64, "AnimPlayer.nLagMode");
+_Static_assert(__builtin_offsetof(AnimPlayer, nState) == 0x68, "AnimPlayer.nState");
+_Static_assert(__builtin_offsetof(AnimPlayer, nStarted) == 0x6c, "AnimPlayer.nStarted");
+_Static_assert(sizeof(AnimPlayer) == 0x70, "sizeof AnimPlayer");
 /* BlockyMotionVector: One motion vector of Blocky16 (SMUSH video codec): a block's source offset in pixels. */
 struct BlockyMotionVector {  /* 0x4 */
     short nX;  /* 0x00 */
@@ -617,6 +674,67 @@ _Static_assert(__builtin_offsetof(DisplayDevice, nPrimary) == 0x10c, "DisplayDev
 _Static_assert(__builtin_offsetof(DisplayDevice, nFullscreen) == 0x110, "DisplayDevice.nFullscreen");
 _Static_assert(__builtin_offsetof(DisplayDevice, aGuid) == 0x288, "DisplayDevice.aGuid");
 _Static_assert(sizeof(DisplayDevice) == 0x298, "sizeof DisplayDevice");
+/* Lab: An open .LAB archive (0x120 bytes, g_pLabPool / g_pLabList). */
+struct Lab {  /* 0x120 */
+    uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
+    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
+    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
+    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
+    uint8_t field_0x30, field_0x31, field_0x32, field_0x33, field_0x34, field_0x35, field_0x36, field_0x37;
+    uint8_t field_0x38, field_0x39, field_0x3a, field_0x3b, field_0x3c, field_0x3d, field_0x3e, field_0x3f;
+    uint8_t field_0x40, field_0x41, field_0x42, field_0x43, field_0x44, field_0x45, field_0x46, field_0x47;
+    uint8_t field_0x48, field_0x49, field_0x4a, field_0x4b, field_0x4c, field_0x4d, field_0x4e, field_0x4f;
+    uint8_t field_0x50, field_0x51, field_0x52, field_0x53, field_0x54, field_0x55, field_0x56, field_0x57;
+    uint8_t field_0x58, field_0x59, field_0x5a, field_0x5b, field_0x5c, field_0x5d, field_0x5e, field_0x5f;
+    uint8_t field_0x60, field_0x61, field_0x62, field_0x63, field_0x64, field_0x65, field_0x66, field_0x67;
+    uint8_t field_0x68, field_0x69, field_0x6a, field_0x6b, field_0x6c, field_0x6d, field_0x6e, field_0x6f;
+    uint8_t field_0x70, field_0x71, field_0x72, field_0x73, field_0x74, field_0x75, field_0x76, field_0x77;
+    uint8_t field_0x78, field_0x79, field_0x7a, field_0x7b, field_0x7c, field_0x7d, field_0x7e, field_0x7f;
+    uint8_t field_0x80, field_0x81, field_0x82, field_0x83, field_0x84, field_0x85, field_0x86, field_0x87;
+    uint8_t field_0x88, field_0x89, field_0x8a, field_0x8b, field_0x8c, field_0x8d, field_0x8e, field_0x8f;
+    uint8_t field_0x90, field_0x91, field_0x92, field_0x93, field_0x94, field_0x95, field_0x96, field_0x97;
+    uint8_t field_0x98, field_0x99, field_0x9a, field_0x9b, field_0x9c, field_0x9d, field_0x9e, field_0x9f;
+    uint8_t field_0xa0, field_0xa1, field_0xa2, field_0xa3, field_0xa4, field_0xa5, field_0xa6, field_0xa7;
+    uint8_t field_0xa8, field_0xa9, field_0xaa, field_0xab, field_0xac, field_0xad, field_0xae, field_0xaf;
+    uint8_t field_0xb0, field_0xb1, field_0xb2, field_0xb3, field_0xb4, field_0xb5, field_0xb6, field_0xb7;
+    uint8_t field_0xb8, field_0xb9, field_0xba, field_0xbb, field_0xbc, field_0xbd, field_0xbe, field_0xbf;
+    uint8_t field_0xc0, field_0xc1, field_0xc2, field_0xc3, field_0xc4, field_0xc5, field_0xc6, field_0xc7;
+    uint8_t field_0xc8, field_0xc9, field_0xca, field_0xcb, field_0xcc, field_0xcd, field_0xce, field_0xcf;
+    uint8_t field_0xd0, field_0xd1, field_0xd2, field_0xd3, field_0xd4, field_0xd5, field_0xd6, field_0xd7;
+    uint8_t field_0xd8, field_0xd9, field_0xda, field_0xdb, field_0xdc, field_0xdd, field_0xde, field_0xdf;
+    uint8_t field_0xe0, field_0xe1, field_0xe2, field_0xe3, field_0xe4, field_0xe5, field_0xe6, field_0xe7;
+    uint8_t field_0xe8, field_0xe9, field_0xea, field_0xeb, field_0xec, field_0xed, field_0xee, field_0xef;
+    uint8_t field_0xf0, field_0xf1, field_0xf2, field_0xf3, field_0xf4, field_0xf5, field_0xf6, field_0xf7;
+    uint8_t field_0xf8, field_0xf9, field_0xfa, field_0xfb, field_0xfc, field_0xfd, field_0xfe, field_0xff;
+    uint8_t field_0x100, field_0x101, field_0x102, field_0x103, field_0x104, field_0x105, field_0x106, field_0x107;
+    uint8_t field_0x108, field_0x109, field_0x10a, field_0x10b;
+    int nFile;  /* 0x10c: file handle (Res_FRead) */
+    uint8_t field_0x110, field_0x111, field_0x112, field_0x113, field_0x114, field_0x115, field_0x116, field_0x117;
+    LabEntry *pEntries;  /* 0x118: the directory */
+    char *pNames;  /* 0x11c: the name table */
+};
+_Static_assert(__builtin_offsetof(Lab, nFile) == 0x10c, "Lab.nFile");
+_Static_assert(__builtin_offsetof(Lab, pEntries) == 0x118, "Lab.pEntries");
+_Static_assert(__builtin_offsetof(Lab, pNames) == 0x11c, "Lab.pNames");
+_Static_assert(sizeof(Lab) == 0x120, "sizeof Lab");
+/* LabEntry: A file in a .LAB archive's directory (0x1c bytes). */
+struct LabEntry {  /* 0x1c */
+    uint dwHash;  /* 0x00: Res_HashName of the name */
+    char *pName;  /* 0x04: in the archive's name table */
+    uint8_t field_0x8, field_0x9, field_0xa, field_0xb;
+    uint dwFourcc;  /* 0x0c */
+    int nOffset;  /* 0x10: in the archive (Lab_ReadRaw) */
+    int nSize;  /* 0x14 */
+    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b;
+};
+_Static_assert(__builtin_offsetof(LabEntry, dwHash) == 0x0, "LabEntry.dwHash");
+_Static_assert(__builtin_offsetof(LabEntry, pName) == 0x4, "LabEntry.pName");
+_Static_assert(__builtin_offsetof(LabEntry, dwFourcc) == 0xc, "LabEntry.dwFourcc");
+_Static_assert(__builtin_offsetof(LabEntry, nOffset) == 0x10, "LabEntry.nOffset");
+_Static_assert(__builtin_offsetof(LabEntry, nSize) == 0x14, "LabEntry.nSize");
+_Static_assert(sizeof(LabEntry) == 0x1c, "sizeof LabEntry");
 /* LecPixelFormat: A pixel format of the LEC video library (Insane / Smush). */
 struct LecPixelFormat {  /* 0x54 */
     uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
@@ -655,17 +773,19 @@ _Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaLoss) == 0x50, "LecPixel
 _Static_assert(sizeof(LecPixelFormat) == 0x54, "sizeof LecPixelFormat");
 /* ResRef: A resource reference (0x34 bytes, Res_SetReference / Res_RemoveReference). */
 struct ResRef {  /* 0x34 */
-    uint dwHandle;  /* 0x00: non-zero while it refers to a resource */
+    int nValid;  /* 0x00: non-zero while it refers to a resource */
     void *pData;  /* 0x04: the resource's data (a bitmap: ObjectStateImage_VBuffer reads its frames) */
-    uint8_t field_0x8, field_0x9, field_0xa, field_0xb, field_0xc, field_0xd, field_0xe, field_0xf;
-    uint8_t field_0x10, field_0x11, field_0x12, field_0x13, field_0x14, field_0x15, field_0x16, field_0x17;
-    uint8_t field_0x18, field_0x19, field_0x1a, field_0x1b, field_0x1c, field_0x1d, field_0x1e, field_0x1f;
-    uint8_t field_0x20, field_0x21, field_0x22, field_0x23, field_0x24, field_0x25, field_0x26, field_0x27;
-    uint8_t field_0x28, field_0x29, field_0x2a, field_0x2b, field_0x2c, field_0x2d, field_0x2e, field_0x2f;
-    uint8_t field_0x30, field_0x31, field_0x32, field_0x33;
+    char aTag[32];  /* 0x08: source file of the code that took it (Res_SetReference's file, from the last backslash) */
+    int nLine;  /* 0x28: its line */
+    ResRef *pPrev;  /* 0x2c: the resource's reference list */
+    ResRef *pNext;  /* 0x30 */
 };
-_Static_assert(__builtin_offsetof(ResRef, dwHandle) == 0x0, "ResRef.dwHandle");
+_Static_assert(__builtin_offsetof(ResRef, nValid) == 0x0, "ResRef.nValid");
 _Static_assert(__builtin_offsetof(ResRef, pData) == 0x4, "ResRef.pData");
+_Static_assert(__builtin_offsetof(ResRef, aTag) == 0x8, "ResRef.aTag");
+_Static_assert(__builtin_offsetof(ResRef, nLine) == 0x28, "ResRef.nLine");
+_Static_assert(__builtin_offsetof(ResRef, pPrev) == 0x2c, "ResRef.pPrev");
+_Static_assert(__builtin_offsetof(ResRef, pNext) == 0x30, "ResRef.pNext");
 _Static_assert(sizeof(ResRef) == 0x34, "sizeof ResRef");
 /* ObjectStateImage: One image of an object state (0x74 bytes): the bitmap or its z-buffer. */
 struct ObjectStateImage {  /* 0x74 */
@@ -815,6 +935,33 @@ _Static_assert(__builtin_offsetof(Puck, pPrev) == 0x54, "Puck.pPrev");
 _Static_assert(__builtin_offsetof(Puck, pNext) == 0x58, "Puck.pNext");
 _Static_assert(__builtin_offsetof(Puck, pSector) == 0x5c, "Puck.pSector");
 _Static_assert(sizeof(Puck) == 0x60, "sizeof Puck");
+/* Resource: A resource record (0x2c bytes, Res_CreateRecord). */
+struct Resource {  /* 0x2c */
+    Resource *pNext;  /* 0x00 */
+    Resource *pPrev;  /* 0x04 */
+    char *pName;  /* 0x08 */
+    uint dwHash;  /* 0x0c: Res_HashName */
+    uint dwType;  /* 0x10: fourcc ('SET ', 'MAT ', ...) */
+    void *pData;  /* 0x14 */
+    int nHandle;  /* 0x18 */
+    byte bFlags;  /* 0x1c: purgable, ... */
+    uint8_t field_0x1d, field_0x1e, field_0x1f;
+    void *pLab;  /* 0x20: the archive it came from */
+    ResRef *pRefs;  /* 0x24: first reference */
+    int nSize;  /* 0x28: bytes (Res_GetSize) */
+};
+_Static_assert(__builtin_offsetof(Resource, pNext) == 0x0, "Resource.pNext");
+_Static_assert(__builtin_offsetof(Resource, pPrev) == 0x4, "Resource.pPrev");
+_Static_assert(__builtin_offsetof(Resource, pName) == 0x8, "Resource.pName");
+_Static_assert(__builtin_offsetof(Resource, dwHash) == 0xc, "Resource.dwHash");
+_Static_assert(__builtin_offsetof(Resource, dwType) == 0x10, "Resource.dwType");
+_Static_assert(__builtin_offsetof(Resource, pData) == 0x14, "Resource.pData");
+_Static_assert(__builtin_offsetof(Resource, nHandle) == 0x18, "Resource.nHandle");
+_Static_assert(__builtin_offsetof(Resource, bFlags) == 0x1c, "Resource.bFlags");
+_Static_assert(__builtin_offsetof(Resource, pLab) == 0x20, "Resource.pLab");
+_Static_assert(__builtin_offsetof(Resource, pRefs) == 0x24, "Resource.pRefs");
+_Static_assert(__builtin_offsetof(Resource, nSize) == 0x28, "Resource.nSize");
+_Static_assert(sizeof(Resource) == 0x2c, "sizeof Resource");
 /* ScreenCoord: rdPrimit3_GetScreenCoord's output */
 struct ScreenCoord {  /* 0xc */
     int nX;  /* 0x00: screen x (truncated) */

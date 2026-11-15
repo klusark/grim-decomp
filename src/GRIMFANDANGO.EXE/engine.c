@@ -13,26 +13,26 @@
 void __cdecl Res_FreeAll(void)
 
 {
-  int *piVar1;
-  int *res;
-  int *res_00;
+  Resource *pRVar1;
+  Resource *res;
+  Resource *res_00;
   
-  res = g_pNewestResNode;
-  res_00 = g_pNewestResNode;
+  res = (Resource *)g_pNewestResNode;
+  res_00 = (Resource *)g_pNewestResNode;
   if (g_pNewestResNode != (int *)0x0) {
     do {
-      piVar1 = (int *)*res_00;
-      if ((*(byte *)(res_00 + 7) & 8) == 0) {
+      pRVar1 = res_00->pNext;
+      if ((res_00->bFlags & 8) == 0) {
         Res_CallUnload(res_00);
         Res_Unlink(res_00);
-        res = g_pNewestResNode;
+        res = (Resource *)g_pNewestResNode;
       }
-      res_00 = piVar1;
-    } while (piVar1 != (int *)0x0);
-    while (res != (int *)0x0) {
+      res_00 = pRVar1;
+    } while (pRVar1 != (Resource *)0x0);
+    while (res != (Resource *)0x0) {
       Res_CallUnload(res);
-      Res_Unlink(g_pNewestResNode);
-      res = g_pNewestResNode;
+      Res_Unlink((Resource *)g_pNewestResNode);
+      res = (Resource *)g_pNewestResNode;
     }
   }
   return;

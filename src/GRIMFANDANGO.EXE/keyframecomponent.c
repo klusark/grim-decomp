@@ -46,7 +46,7 @@ KeyframeChanger(uint param_1,int *param_2,uint param_3,int param_4,uint param_5,
         return;
       }
       *(int *)(*(int *)(*param_2 + 0x40) + 0x48) = *param_2;
-      Res_SetReference((void *)(*param_2 + 0x54 + track * 0x34),data,
+      Res_SetReference((ResRef *)(*param_2 + 0x54 + track * 0x34),data,
                        s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xe3a);
       *(uint *)(*param_2 + 0x18c) = param_8;
       rdPuppet_SetCallback((int)puppet,track,((unsigned)(uintptr_t)sputCostume_PuppetHook));
@@ -172,7 +172,7 @@ void __cdecl sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
     iVar1 = Cos_InstGetUserData(*(int *)(param_1 + 0x18c));
     sputLua_DoCostumeMarkerCallback(g_pActors + iVar1,param_3);
     if (param_3 == 0) {
-      Res_RemoveReference((void *)(param_1 + 0x54 + param_2 * 0x34));
+      Res_RemoveReference((ResRef *)(param_1 + 0x54 + param_2 * 0x34));
     }
   }
   return;
@@ -197,7 +197,7 @@ int * __cdecl KeyframeInstancer(int inst,int component,int create)
   iVar1 = inst;
   if (create == 0) {
     iVar1 = Cos_InstGetInstanceData(inst,component,(int *)0x0);
-    Res_RemoveReference((void *)(iVar1 + 4));
+    Res_RemoveReference((ResRef *)(iVar1 + 4));
     (*g_pSputCosHS->pFree)(iVar1);
     return (int *)0x0;
   }
@@ -214,7 +214,7 @@ int * __cdecl KeyframeInstancer(int inst,int component,int create)
     *piVar4 = 0;
     piVar4 = piVar4 + 1;
   }
-  Res_SetReference(piVar2 + 1,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xeda);
+  Res_SetReference((ResRef *)(piVar2 + 1),data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xeda);
   piVar2[0xe] = *(int *)(component + 0x34);
   piVar2[0xf] = *(int *)(component + 0x38);
   iVar1 = Cos_InstGetInstanceData(iVar1,inst,(int *)0x0);
@@ -235,9 +235,10 @@ int __cdecl KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,u
   void *data;
   uint uVar1;
   uint *puVar2;
-  undefined4 *ref;
+  ResRef *ref;
   int iVar3;
   undefined4 *puVar4;
+  ResRef *pRVar5;
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
@@ -290,16 +291,16 @@ int __cdecl KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,u
       }
     }
     if (data != (void *)0x0) {
-      ref = (undefined4 *)
+      ref = (ResRef *)
             (*g_pSputCosHS->pAlloc)(0x3c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf27);
-      puVar4 = ref;
+      pRVar5 = ref;
       for (iVar3 = 0xf; iVar3 != 0; iVar3 = iVar3 + -1) {
-        *puVar4 = 0;
-        puVar4 = puVar4 + 1;
+        pRVar5->nValid = 0;
+        pRVar5 = (ResRef *)&pRVar5->pData;
       }
       Res_SetReference(ref,data,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf29);
-      ref[0xe] = local_2c;
-      ref[0xd] = local_28;
+      ref[1].pData = (void *)local_2c;
+      ref[1].nValid = local_28;
       if (param_5 == 0) {
         param_5 = local_24;
       }

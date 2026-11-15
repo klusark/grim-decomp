@@ -20,7 +20,7 @@ void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h)
   undefined4 *puVar1;
   VBuffer *pVVar2;
   int iVar3;
-  int *piVar4;
+  VBufferFormat *pVVar4;
   undefined4 *puVar5;
   VBufferFormat *pVVar6;
   #define VStack_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
@@ -41,11 +41,11 @@ void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h)
   puVar1[2] = y;
   puVar1[3] = w;
   puVar1[4] = h;
-  piVar4 = (int *)((int)g_pSputRender_CleanBuffer + 0xc);
+  pVVar4 = &g_pSputRender_CleanBuffer->format;
   pVVar6 = &VStack_4c;
   for (iVar3 = 0x13; iVar3 != 0; iVar3 = iVar3 + -1) {
-    pVVar6->nWidth = *piVar4;
-    piVar4 = piVar4 + 1;
+    pVVar6->nWidth = pVVar4->nWidth;
+    pVVar4 = (VBufferFormat *)&pVVar4->nHeight;
     pVVar6 = (VBufferFormat *)&pVVar6->nHeight;
   }
   VStack_4c.nHeight = h;
@@ -53,11 +53,11 @@ void * __cdecl sputRender_CreateCacheRect(int x,int y,int w,int h)
   pVVar2 = stdDisplay_VBufferNew(&VStack_4c,0,0,0);
   puVar1[5] = pVVar2;
   Surface_Blit(pVVar2,g_pSputRender_CleanBuffer,0,0,srcRect,0);
-  piVar4 = (int *)((int)g_pSputRender_CleanZBuffer + 0xc);
+  pVVar4 = &g_pSputRender_CleanZBuffer->format;
   pVVar6 = &VStack_4c;
   for (iVar3 = 0x13; iVar3 != 0; iVar3 = iVar3 + -1) {
-    pVVar6->nWidth = *piVar4;
-    piVar4 = piVar4 + 1;
+    pVVar6->nWidth = pVVar4->nWidth;
+    pVVar4 = (VBufferFormat *)&pVVar4->nHeight;
     pVVar6 = (VBufferFormat *)&pVVar6->nHeight;
   }
   VStack_4c.nWidth = w;

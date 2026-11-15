@@ -1118,7 +1118,7 @@ LAB_004ab66a:
 /* Picks the glyph blitter: 16-bit vs paletted 8-bit (flag 8), clipped vs unclipped; scaled glyphs
    are not implemented (Lua_Stub) */
 
-void __cdecl Text_DrawChar(void *ctx,void *font,int ch)
+void __cdecl Text_DrawChar(TextContext *ctx,void *font,int ch)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1127,7 +1127,7 @@ void __cdecl Text_DrawChar(void *ctx,void *font,int ch)
   int iVar3;
   int iVar4;
   int iVar5;
-  void *pvVar6;
+  TextContext *pTVar6;
   uint uVar7;
   uint uVar8;
   uint uVar9;
@@ -1139,13 +1139,13 @@ void __cdecl Text_DrawChar(void *ctx,void *font,int ch)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  pvVar6 = ctx;
+  pTVar6 = ctx;
   local_c = 0;
-  iVar1 = *(int *)((int)ctx + 0x10);
-  piVar2 = *(int **)((int)ctx + 4);
-  iVar3 = *(int *)((int)ctx + 0xc);
-  iVar4 = *(int *)((int)ctx + 0x20);
-  iVar5 = *(int *)((int)ctx + 0x24);
+  iVar1 = ctx->nY;
+  piVar2 = ctx->pClipRect;
+  iVar3 = ctx->nX;
+  iVar4 = ctx->nScaleX;
+  iVar5 = ctx->nScaleY;
   if (*(int *)((int)font + 0x20) < ch) {
     fmt = (int *)0x0;
   }
@@ -1171,38 +1171,37 @@ void __cdecl Text_DrawChar(void *ctx,void *font,int ch)
       local_c = 1;
     }
     local_14 = iVar1 + uVar10;
-    ctx = (void *)(iVar3 + uVar9);
+    ctx = (TextContext *)(iVar3 + uVar9);
     if (((((int)ctx < *piVar2) || ((int)local_14 < piVar2[1])) ||
-        (piVar2[2] + *piVar2 <= (int)(uVar7 + (int)ctx))) ||
+        (piVar2[2] + *piVar2 <= (int)((int)&ctx->pUnused + uVar7))) ||
        (piVar2[3] + piVar2[1] <= (int)(uVar8 + local_14))) {
       local_c = local_c | 2;
     }
-    if ((*(byte *)((int)pvVar6 + 0x28) & 8) != 0) {
+    if ((pTVar6->dwFlags & 8) != 0) {
       local_c = local_c | 4;
     }
     switch(local_c) {
     case 0:
-      Glyph_Blit16((int)fmt,(uint)font,pvVar6);
+      Glyph_Blit16((int)fmt,(uint)font,(int *)pTVar6);
       break;
     case 1:
     case 3:
-      Lua_Stub((char *)fmt,font,pvVar6);
+      Lua_Stub((char *)fmt,font,pTVar6);
       break;
     case 2:
-      Glyph_Blit16Clipped((int)fmt,(uint)font,pvVar6);
+      Glyph_Blit16Clipped((int)fmt,(uint)font,(int *)pTVar6);
       break;
     case 4:
-      Glyph_Blit8((int)fmt,(int)font,pvVar6);
+      Glyph_Blit8((int)fmt,(int)font,(int *)pTVar6);
       break;
     case 5:
     case 7:
-      Lua_Stub((char *)fmt,font,pvVar6);
+      Lua_Stub((char *)fmt,font,pTVar6);
       break;
     case 6:
-      Glyph_Blit8Clipped((int)fmt,(int)font,pvVar6);
+      Glyph_Blit8Clipped((int)fmt,(int)font,(int *)pTVar6);
     }
-    *(uint *)((int)pvVar6 + 0xc) =
-         *(int *)((int)pvVar6 + 0xc) + ((char)fmt[1] * iVar4 + 0xffffU >> 0x10);
+    pTVar6->nX = pTVar6->nX + ((char)fmt[1] * iVar4 + 0xffffU >> 0x10);
   }
   return;
 }

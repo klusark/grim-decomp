@@ -258,8 +258,8 @@ sputRender_SetDisplay
     iVar2 = 1;
   }
   g_pSputRender_CleanZBuffer = stdDisplay_VBufferNew(&local_4c,iVar2,iVar2,0);
-  if ((g_pSputRender_CleanBuffer != (void *)0x0) && (g_pSputRender_CleanZBuffer != (VBuffer *)0x0))
-  {
+  if ((g_pSputRender_CleanBuffer != (VBuffer *)0x0) &&
+     (g_pSputRender_CleanZBuffer != (VBuffer *)0x0)) {
     UINT_008a94b8 = UINT_0090563c;
     _DAT_008a94c4 = UINT_00905604 >> 3;
     UINT_008a94c0 = UINT_009055f0;
@@ -302,17 +302,17 @@ void __cdecl sputRender_Close(void)
     rdCanvas_Free((int)g_pSputRender_Canvas);
     g_pSputRender_Canvas = (void *)0x0;
   }
-  if (g_pSputRender_CleanBuffer != (void *)0x0) {
+  if (g_pSputRender_CleanBuffer != (VBuffer *)0x0) {
     stdDisplay_VBufferFree(g_pSputRender_CleanBuffer);
-    g_pSputRender_CleanBuffer = (void *)0x0;
+    g_pSputRender_CleanBuffer = (VBuffer *)0x0;
   }
-  if (g_pSputRender_CleanZBuffer != (void *)0x0) {
+  if (g_pSputRender_CleanZBuffer != (VBuffer *)0x0) {
     stdDisplay_VBufferFree(g_pSputRender_CleanZBuffer);
-    g_pSputRender_CleanZBuffer = (void *)0x0;
+    g_pSputRender_CleanZBuffer = (VBuffer *)0x0;
   }
-  if (g_pSputRender_DecompressionBuffer != (void *)0x0) {
+  if (g_pSputRender_DecompressionBuffer != (VBuffer *)0x0) {
     stdDisplay_VBufferFree(g_pSputRender_DecompressionBuffer);
-    g_pSputRender_DecompressionBuffer = (void *)0x0;
+    g_pSputRender_DecompressionBuffer = (VBuffer *)0x0;
   }
   _DAT_008c9790 = 0;
   return;
@@ -817,10 +817,10 @@ void __cdecl sputRender_PreRendered(int redrawBackground,int redrawDepth)
     pSVar2 = sputRoom_GetCurrentRoom();
     pSVar1 = pSVar2->pSetups + iVar3;
     if (pSVar1 != (Setup *)0x0) {
-      if ((redrawBackground != 0) && ((pSVar1->background).dwHandle != 0)) {
+      if ((redrawBackground != 0) && ((pSVar1->background).nValid != 0)) {
         g_dwRenderFlags = g_dwRenderFlags & 0xfffffffe;
       }
-      if ((redrawDepth != 0) && ((pSVar1->zBackground).dwHandle != 0)) {
+      if ((redrawDepth != 0) && ((pSVar1->zBackground).nValid != 0)) {
         g_dwRenderFlags = g_dwRenderFlags & 0xfffffffd;
       }
       local_10 = *(uint *)((int)g_pRdCamera_CurCamera->pCanvas + 0x18);
@@ -997,23 +997,22 @@ void __cdecl sputRender_Decompress(void *param_1)
   int iVar2;
   int iVar3;
   int *piVar4;
-  int *piVar5;
+  VBufferFormat *pVVar5;
   
   iVar1 = *(int *)((int)param_1 + 0x10);
   iVar2 = *(int *)((int)param_1 + 0xc);
   stdDisplay_VBufferDeCompressTo(param_1,g_pSputRender_DecompressionBuffer);
   piVar4 = (int *)((int)param_1 + 0xc);
-  piVar5 = (int *)((int)g_pSputRender_DecompressionBuffer + 0xc);
+  pVVar5 = &g_pSputRender_DecompressionBuffer->format;
   for (iVar3 = 0x13; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *piVar5 = *piVar4;
+    pVVar5->nWidth = *piVar4;
     piVar4 = piVar4 + 1;
-    piVar5 = piVar5 + 1;
+    pVVar5 = (VBufferFormat *)&pVVar5->nHeight;
   }
-  *(undefined4 *)((int)g_pSputRender_DecompressionBuffer + 0x60) = 0xf81f;
+  g_pSputRender_DecompressionBuffer->dwColorKey = 0xf81f;
   if (*(int *)((int)param_1 + 0x20) != 5) {
-    sputRender_ColorCorrect
-              (*(ushort **)((int)g_pSputRender_DecompressionBuffer + 0x5c),iVar1 * iVar2);
-    *(uint *)((int)g_pSputRender_DecompressionBuffer + 0x60) = (uint)DAT_008c856e;
+    sputRender_ColorCorrect(g_pSputRender_DecompressionBuffer->pPixels,iVar1 * iVar2);
+    g_pSputRender_DecompressionBuffer->dwColorKey = (uint)DAT_008c856e;
   }
   return;
 }
@@ -1028,9 +1027,9 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  undefined4 uVar1;
-  undefined4 uVar2;
-  void *surface;
+  uint uVar1;
+  uint uVar2;
+  VBuffer *surface;
   Set *pSVar3;
   uint uVar4;
   int iVar5;
@@ -1064,15 +1063,14 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
     Render_CopyBackBufferToBackground();
     surface = g_pSputRender_CleanBuffer;
     stdDisplay_VBufferLock(g_pSputRender_CleanBuffer);
-    uVar1 = *(undefined4 *)((int)surface + 0x2c);
-    uVar2 = *(undefined4 *)((int)surface + 0x30);
+    uVar1 = (surface->format).colorFormat.dwGreenBits;
+    uVar2 = (surface->format).colorFormat.dwBlueBits;
     local_1c = 0;
-    if (0 < *(int *)((int)surface + 0x10)) {
+    if (0 < (surface->format).nHeight) {
       do {
-        param_1 = (ushort *)
-                  (local_1c * *(int *)((int)surface + 0x18) + *(int *)((int)surface + 0x5c));
+        param_1 = (ushort *)(local_1c * (surface->format).nPitch + (int)surface->pPixels);
         local_20 = 0;
-        if (0 < *(int *)((int)surface + 0xc)) {
+        if (0 < (surface->format).nWidth) {
           do {
             pSVar3 = sputRoom_GetCurrentRoom();
             if (pSVar3 == (Set *)0x0) {
@@ -1081,10 +1079,11 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
             else {
               uVar8 = (uint)*param_1;
             }
-            bVar6 = (byte)*(undefined4 *)((int)surface + 0x40);
-            uVar9 = (uVar8 >> (*(byte *)((int)surface + 0x34) & 0x1f)) << (bVar6 & 0x1f);
-            bVar7 = (byte)*(undefined4 *)((int)surface + 0x44);
-            uVar4 = (uVar8 >> (*(byte *)((int)surface + 0x38) & 0x1f) &
+            bVar6 = (byte)(surface->format).colorFormat.dwRedLoss;
+            uVar9 = (uVar8 >> ((byte)(surface->format).colorFormat.dwRedShift & 0x1f)) <<
+                    (bVar6 & 0x1f);
+            bVar7 = (byte)(surface->format).colorFormat.dwGreenLoss;
+            uVar4 = (uVar8 >> ((byte)(surface->format).colorFormat.dwGreenShift & 0x1f) &
                     0xffffffffU >> (0x20U - (char)uVar1 & 0x1f)) << (bVar7 & 0x1f);
             uVar8 = 0xffffffffU >> (0x20U - (char)uVar2 & 0x1f) & uVar8;
             uVar10 = uVar9;
@@ -1096,22 +1095,22 @@ void __cdecl sputRender_Dim(ushort *param_1,byte param_2)
             }
             iVar5 = (int)uVar8 >> (param_2 & 0x1f);
             *param_1 = (ushort)((iVar5 >> (bVar6 & 0x1f)) <<
-                               ((byte)*(undefined4 *)((int)surface + 0x34) & 0x1f)) |
+                               ((byte)(surface->format).colorFormat.dwRedShift & 0x1f)) |
                        (ushort)((iVar5 >> (bVar7 & 0x1f)) <<
-                               ((byte)*(undefined4 *)((int)surface + 0x38) & 0x1f)) |
-                       (ushort)(iVar5 >> ((byte)*(undefined4 *)((int)surface + 0x48) & 0x1f));
+                               ((byte)(surface->format).colorFormat.dwGreenShift & 0x1f)) |
+                       (ushort)(iVar5 >> ((byte)(surface->format).colorFormat.dwBlueLoss & 0x1f));
             local_20 = local_20 + 1;
             param_1 = param_1 + 1;
-          } while ((int)local_20 < *(int *)((int)surface + 0xc));
+          } while ((int)local_20 < (surface->format).nWidth);
         }
         local_1c = local_1c + 1;
-      } while ((int)local_1c < *(int *)((int)surface + 0x10));
+      } while ((int)local_1c < (surface->format).nHeight);
     }
     stdDisplay_VBufferUnlock(surface);
     local_10 = 0;
     local_c = 0;
-    local_8 = *(uint *)((int)surface + 0xc);
-    local_4 = *(uint *)((int)surface + 0x10);
+    local_8 = (surface->format).nWidth;
+    local_4 = (surface->format).nHeight;
     MarkDirtyRect((int *)&local_10,0);
   }
   return;
@@ -1370,13 +1369,13 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
 
 {
   unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  void *pvVar1;
   uint uVar2;
-  void *surface;
+  VBuffer *surface;
   VBuffer *surface_00;
   undefined2 *puVar3;
   int iVar4;
-  uint *puVar5;
+  VBufferFormat *pVVar5;
   uint *puVar6;
   float10 fVar7;
   float10 extraout_ST0;
@@ -1397,11 +1396,11 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   g_nSputRender_Reset = 1;
   sputRender_Dim((ushort *)0x1,0);
   surface = g_pSputRender_CleanBuffer;
-  puVar5 = (uint *)((int)g_pSputRender_CleanBuffer + 0xc);
+  pVVar5 = &g_pSputRender_CleanBuffer->format;
   puVar6 = &local_4c;
   for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar6 = *puVar5;
-    puVar5 = puVar5 + 1;
+    *puVar6 = pVVar5->nWidth;
+    pVVar5 = (VBufferFormat *)&pVVar5->nHeight;
     puVar6 = puVar6 + 1;
   }
   local_4c = w;
@@ -1415,8 +1414,8 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
     fVar7 = (float10)0.0;
     do {
       lVar8 = FTOL(fVar7);
-      iVar4 = *(int *)((int)surface + 0x5c);
-      iVar1 = *(int *)((int)surface + 0x18);
+      pvVar1 = surface->pPixels;
+      iVar4 = (surface->format).nPitch;
       x = (float10)0.0;
       puVar3 = (undefined2 *)(local_58 * (surface_00->format).nPitch + (int)surface_00->pPixels);
       fVar7 = extraout_ST0;
@@ -1425,7 +1424,7 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
         do {
           lVar9 = FTOL(x);
           x = extraout_ST0_00 + (float10)(640.0 / (float)w);
-          *puVar3 = *(undefined2 *)((int)lVar8 * iVar1 + iVar4 + (int)lVar9 * 2);
+          *puVar3 = *(undefined2 *)((int)pvVar1 + (int)lVar9 * 2 + (int)lVar8 * iVar4);
           puVar3 = puVar3 + 1;
           local_5c = local_5c - 1;
           fVar7 = extraout_ST1;
@@ -1765,7 +1764,8 @@ void __cdecl sputRender_DrawLoadingImage(void)
           if (data == (void *)0x0) {
             return;
           }
-          Res_SetReference(&UINT_008a92d0,data,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc,0xb35);
+          Res_SetReference((ResRef *)&UINT_008a92d0,data,s_C__grimsrc_libs_grimlib_Engine_s_004e80bc
+                           ,0xb35);
           UINT_004e808c = 1;
           if (UINT_008a92d0 == 0) {
             (*g_pStd_HS->pAssertFail)

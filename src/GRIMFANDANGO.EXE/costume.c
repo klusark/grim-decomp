@@ -118,7 +118,7 @@ void __cdecl sputCostume_FreeCostumeNodes(CostumeNode *list,int free)
       Cos_FreeCosInstance(list->dwInstance);
     }
     if (list->aCostumeRef[0] != 0) {
-      Res_RemoveReference(list->aCostumeRef);
+      Res_RemoveReference((ResRef *)list->aCostumeRef);
     }
     Pool_Free(list);
     list = pCVar1;
@@ -185,8 +185,8 @@ CostumeNode * __cdecl sputCostume_PushCostume(CostumeNode *list,void *costumeRes
     }
     uVar2 = Cos_CreateCosInstance(costumeRes,uVar2);
     pCVar1->dwInstance = uVar2;
-    Res_SetReference(pCVar1->aCostumeRef,costumeRes,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,
-                     0x47a);
+    Res_SetReference((ResRef *)pCVar1->aCostumeRef,costumeRes,
+                     s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x47a);
   }
   else {
     pCVar1->dwInstance = flags;

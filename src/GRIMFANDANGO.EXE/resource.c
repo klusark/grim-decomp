@@ -305,10 +305,10 @@ void * __cdecl sputResource_Alloc(int fourcc,char *name)
     if ((g_nMaxRealMemoryUsage < iVar1) && (g_nStopPurge == 0)) {
       daTotalAllocated();
       local_34 = 0;
-      Res_SetReference(&local_34,data,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0xfb);
+      Res_SetReference((ResRef *)&local_34,data,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0xfb);
       Res_SysPurgeBySize(g_dwPurgeAmount,(uint *)&name);
       daTotalAllocated();
-      Res_RemoveReference(&local_34);
+      Res_RemoveReference((ResRef *)&local_34);
     }
   }
   return data;

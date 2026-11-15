@@ -579,7 +579,7 @@ void __cdecl rdModel3_CalcVertexNormals(int param_1); /* 0x0040cc30 */
 void __cdecl rdModel3_CountNodeChildren(int param_1); /* 0x0040ce90 */
 
 /* ===== rdpuppet.c ===== */
-void __cdecl rdPuppet_BuildJointMatrices(void *model,float *frame,uint index,float *out); /* 0x0040cee0 */
+void __cdecl rdPuppet_BuildJointMatrices(rdThing *thing,float *frame,uint index,float *out); /* 0x0040cee0 */
 undefined4 * __cdecl rdPuppet_New(void *param_1); /* 0x00450500 */
 int __cdecl rdPuppet_NewEntry(void *puppet,void *thing); /* 0x00450560 */
 uint __cdecl rdPuppet_AddTrack(void *puppet,uint keyframe,uint lowPri,uint highPri); /* 0x004505a0 */
@@ -1286,7 +1286,7 @@ int __cdecl Res_Dump(char *filename,int type); /* 0x00480680 */
 int __cdecl Res_Log(char *filename); /* 0x00480740 */
 void __cdecl Res_OverrideFileCalls(GrimServices *svc); /* 0x00480790 */
 void __cdecl Res_RestoreFileCalls(GrimServices *svc); /* 0x00480800 */
-void * __cdecl Res_FindByData(void *data); /* 0x004810e0 */
+Resource * __cdecl Res_FindByData(void *data); /* 0x004810e0 */
 void * __cdecl Res_HandleFromSerialNumber(void *handle); /* 0x00481100 */
 void * __cdecl Res_FindByHandle(void *handle); /* 0x00481120 */
 void * __cdecl Res_Loaded(int type,char *name); /* 0x00481140 */
@@ -1295,9 +1295,9 @@ void * __cdecl res_Load(int type,char *name,int *status); /* 0x00481210 */
 undefined * __cdecl res_LocateResByName(uint param_1,uint param_2); /* 0x00481300 */
 int * __cdecl Res_FindByNameInList(int param_1,char *param_2,int *param_3); /* 0x00481320 */
 void * __cdecl Res_CreateRecord(int type,char *name,void *data); /* 0x00481400 */
-void __cdecl Res_CallUnload(void *res); /* 0x00481510 */
-int __cdecl Res_Unlink(void *res); /* 0x004815c0 */
-int __cdecl Res_GetSize(void *res); /* 0x00481ef0 */
+void __cdecl Res_CallUnload(Resource *res); /* 0x00481510 */
+int __cdecl Res_Unlink(Resource *res); /* 0x004815c0 */
+int __cdecl Res_GetSize(Resource *res); /* 0x00481ef0 */
 void __cdecl Res_MoveToFront(void *res); /* 0x00481f00 */
 uint __cdecl Res_HashName(char *name,char *outLower); /* 0x00481f60 */
 void __cdecl Res_GetFirstType(int *param_1,int *param_2,int param_3); /* 0x00482170 */
@@ -1338,11 +1338,11 @@ int __cdecl Res_FileMoveToFront(char *name); /* 0x004804c0 */
 void * __cdecl Lab_Find(char *name); /* 0x00481070 */
 void __cdecl Lab_Unlink(int *param_1); /* 0x004813c0 */
 int __cdecl res_FindInternalFile(char *name,void *outEntry); /* 0x00481630 */
-void * __cdecl Lab_Open(char *name); /* 0x004816b0 */
+Lab * __cdecl Lab_Open(char *name); /* 0x004816b0 */
 int * Lab_AllocRecord(void); /* 0x00481750 */
-int __cdecl Lab_ReadDirectory(void *lab); /* 0x004817a0 */
-int __cdecl Lab_FindEntry(void *lab,int fourcc,char *lowerName,uint hash,void *outEntry); /* 0x00481a00 */
-int __cdecl Lab_ReadRaw(void *entry,void *buf,int offset,int n); /* 0x00482020 */
+int __cdecl Lab_ReadDirectory(Lab *lab); /* 0x004817a0 */
+int __cdecl Lab_FindEntry(Lab *lab,int fourcc,char *lowerName,uint hash,void *outEntry); /* 0x00481a00 */
+int __cdecl Lab_ReadRaw(LabEntry *entry,void *buf,int offset,int n); /* 0x00482020 */
 
 /* ===== restype.c ===== */
 int __cdecl Res_SysRegisterHandler(int fourcc,void *handler); /* 0x004801a0 */
@@ -1378,8 +1378,8 @@ void * __cdecl LabDir_Open(char *dir); /* 0x00481b00 */
 int __cdecl res_FindDirectoryEntry(int archive,int type,byte *name,uint hash,undefined4 *entry); /* 0x00481cf0 */
 
 /* ===== resref.c ===== */
-void __cdecl Res_SetReference(void *ref,void *data,char *file,int line); /* 0x00482070 */
-void Res_RemoveReference(void *ref); /* 0x00482110 */
+void __cdecl Res_SetReference(ResRef *ref,void *data,char *file,int line); /* 0x00482070 */
+void Res_RemoveReference(ResRef *ref); /* 0x00482110 */
 void __cdecl Res_ResolveToSerialNumber(undefined4 *param_1); /* 0x00482220 */
 
 /* ===== engine.c ===== */
@@ -1540,7 +1540,7 @@ void __cdecl Actor_ComputeScreenBox(Actor *actor); /* 0x00485290 */
 void __cdecl Actor_DrawDebugWalker(Actor *actor); /* 0x00485320 */
 TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int y); /* 0x0048b2e0 */
 int __cdecl sputActor_SetCostume(Actor *actor,char *name,int param_3); /* 0x0048f930 */
-void __cdecl sputActor_SetActorHead (void *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw); /* 0x0048f9d0 */
+void __cdecl sputActor_SetActorHead (Actor *actor,int joint1,int joint2,int joint3,float maxRoll,float maxPitch,float maxYaw); /* 0x0048f9d0 */
 int __cdecl sputActor_CanActorSeePoint(Actor *actor,float *point,float *outDistance); /* 0x0048fa60 */
 int __cdecl sputActor_CanActorSeeActor(Actor *viewer,Actor *target,float *outDistance); /* 0x0048fb80 */
 void __cdecl sputActor_Turn(Actor *actor,float param_2); /* 0x0048fbd0 */
@@ -1774,7 +1774,7 @@ char * __cdecl text_FindNextBreak(TextContext *param_1,void *param_2,char *param
 uint __cdecl Font_GlyphAdvance(TextContext *ctx,void *font,int ch); /* 0x004ab510 */
 uint __cdecl Font_GlyphWidth(int param_1,int param_2,uint param_3); /* 0x004ab570 */
 void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text); /* 0x004ab5d0 */
-void __cdecl Text_DrawChar(void *ctx,void *font,int ch); /* 0x004ab710 */
+void __cdecl Text_DrawChar(TextContext *ctx,void *font,int ch); /* 0x004ab710 */
 
 /* ===== textobject.c ===== */
 void __cdecl sputText_AddToQueue(TextObject *obj,int durationMs,int flags); /* 0x0048c470 */
@@ -2717,9 +2717,9 @@ uint __cdecl LecShare_Nop(void); /* 0x004c1e50 */
 /* ===== animplay.c ===== */
 int __cdecl anm_Start(void **out,char *name,int fps,int streamArg1,int streamArg2,uint flags); /* 0x004c23c0 */
 void __cdecl anm_Stop(void **pp); /* 0x004c2690 */
-int __cdecl anm_Render(void *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10); /* 0x004c27a0 */
-int __cdecl anm_animator_Initialize(void *p); /* 0x004c36b0 */
-int __cdecl anm_animator_NewAnim(void *p,char *name,uint flags,int a4,int a5,int a6); /* 0x004c3d30 */
+int __cdecl anm_Render(AnimPlayer *p,int a2,int a3,int a4,int a5,int a6,int a7,int a8,int a9,int a10); /* 0x004c27a0 */
+int __cdecl anm_animator_Initialize(AnimPlayer *p); /* 0x004c36b0 */
+int __cdecl anm_animator_NewAnim(AnimPlayer *p,char *name,uint flags,int a4,int a5,int a6); /* 0x004c3d30 */
 
 /* ===== zlib.c ===== */
 void * __cdecl gz_open(char *path,char *mode,int fd); /* 0x004c3e60 */

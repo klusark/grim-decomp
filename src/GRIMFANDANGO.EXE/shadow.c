@@ -15,25 +15,27 @@ void __cdecl sputCostume_SetShadowColor(int r,int g,int b)
 {
   int iVar1;
   int iVar2;
+  int iVar3;
   
   iVar1 = g;
   g = (g >> 2 | (r >> 3) << 6) << 5 | b >> 3;
   sputRender_ColorCorrect((ushort *)&g,1);
-  if (g_pShadowColormap == (void *)0x0) {
+  if (g_pShadowColormap == (rdColormap *)0x0) {
     g_pShadowColormap = rdColormap_Load(s_shadow_cmp_004ea190);
   }
-  iVar2 = 0;
+  iVar3 = 0;
   do {
-    iVar2 = iVar2 + 2;
-    *(undefined2 *)(*(int *)((int)g_pShadowColormap + 0x348) + -2 + iVar2) = (undefined2)g;
+    iVar2 = iVar3 + 2;
+    *(undefined2 *)((int)g_pShadowColormap->pRGB16 + iVar3) = (undefined2)g;
+    iVar3 = iVar2;
   } while (iVar2 < 0x8000);
-  iVar2 = 0;
+  iVar3 = 0;
   do {
-    *(undefined1 *)(iVar2 + 0x30 + (int)g_pShadowColormap) = (undefined1)r;
-    *(char *)(iVar2 + 0x31 + (int)g_pShadowColormap) = (char)iVar1;
-    *(undefined1 *)(iVar2 + 0x32 + (int)g_pShadowColormap) = (undefined1)b;
-    iVar2 = iVar2 + 3;
-  } while (iVar2 < 0x300);
+    g_pShadowColormap->aPalette[iVar3] = (byte)r;
+    g_pShadowColormap->aPalette[iVar3 + 1] = (byte)iVar1;
+    g_pShadowColormap->aPalette[iVar3 + 2] = (byte)b;
+    iVar3 = iVar3 + 3;
+  } while (iVar3 < 0x300);
   return;
 }
 

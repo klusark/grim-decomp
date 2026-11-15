@@ -75,7 +75,7 @@ void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
   
   pSVar2 = set->pSetups;
   ref = &pSVar2[setupIdx].background;
-  if (pSVar2[setupIdx].background.dwHandle == 0) {
+  if (pSVar2[setupIdx].background.nValid == 0) {
     iVar3 = _stricmp(&pSVar2[setupIdx].field_0x80,&DAT_004ec60c);
     if (iVar3 != 0) {
       pvVar4 = sputResource_Alloc(0x444e4b42,&pSVar2[setupIdx].field_0x80);
@@ -83,10 +83,10 @@ void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
         Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xa2);
       }
     }
-    if (ref->dwHandle != 0) goto LAB_004a3eb6;
+    if (ref->nValid != 0) goto LAB_004a3eb6;
     pvVar4 = sputResource_Alloc(0x444e4b42,s_dfltroom_bm_004ec5d4);
     Res_SetReference(ref,pvVar4,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0xaa);
-    if (ref->dwHandle == 0) {
+    if (ref->nValid == 0) {
       return (void *)0x0;
     }
     uVar5 = 0xffffffff;
@@ -117,12 +117,12 @@ void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
   else {
     Res_Touch(pSVar2[setupIdx].background.pData);
   }
-  if (ref->dwHandle == 0) {
+  if (ref->nValid == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
 LAB_004a3eb6:
   pvVar4 = pSVar2[setupIdx].background.pData;
-  if (ref->dwHandle == 0) {
+  if (ref->nValid == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
   }
   return *(void **)(*(int *)((int)pvVar4 + 0x78) +
@@ -148,7 +148,7 @@ void * __cdecl sputRoom_GetSetupZBackground(Set *set,int setupIdx)
   
   pSVar2 = set->pSetups;
   ref = &pSVar2[setupIdx].zBackground;
-  if (pSVar2[setupIdx].zBackground.dwHandle == 0) {
+  if (pSVar2[setupIdx].zBackground.nValid == 0) {
     if (pSVar2[setupIdx].field_0xa0 != '\0') {
       pbVar5 = &DAT_004ec60c;
       pbVar3 = &pSVar2[setupIdx].field_0xa0;
@@ -178,13 +178,13 @@ LAB_004a3f66:
     }
   }
   else {
-    if (ref->dwHandle == 0) {
+    if (ref->nValid == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Bad_ZBuffer_Reference_004ec614,s_main_sputResource_h_004e80a8,0x95);
     }
     Res_Touch(pSVar2[setupIdx].zBackground.pData);
   }
-  if (ref->dwHandle == 0) {
+  if (ref->nValid == 0) {
     return (void *)0x0;
   }
   return pSVar2[setupIdx].zBackground.pData;

@@ -10,35 +10,35 @@
    cannot be freed Original name Res_SetReference (the remaster's GrimFandango (Linux): the only
    unmatched callee of Lua_LockSet; 10 matched neighbours agree, 0 disagree); was ResRef_Add. */
 
-void __cdecl Res_SetReference(void *ref,void *data,char *file,int line)
+void __cdecl Res_SetReference(ResRef *ref,void *data,char *file,int line)
 
 {
-  void *res;
+  Resource *res;
   uint *puVar1;
   
   res = Res_FindByData(data);
-  if ((ref == (void *)0x0) || (*(int *)ref != 0)) {
+  if ((ref == (ResRef *)0x0) || (ref->nValid != 0)) {
     (**(code **)(g_dwResHS + 0x18))
               (s_ref_____ref__valid_004e7b00,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xe4c);
   }
-  if (res != (void *)0x0) {
-    *(undefined4 *)ref = 1;
-    *(void **)((int)ref + 4) = data;
-    *(undefined4 *)((int)ref + 0x2c) = 0;
-    *(undefined4 *)((int)ref + 0x30) = *(undefined4 *)((int)res + 0x24);
+  if (res != (Resource *)0x0) {
+    ref->nValid = 1;
+    ref->pData = data;
+    ref->pPrev = (ResRef *)0x0;
+    ref->pNext = res->pRefs;
     puVar1 = (uint *)strrchr(file,'\\');
     if (puVar1 != (uint *)0x0) {
-      strncpy((uint *)((int)ref + 8),puVar1,0x20);
+      strncpy((uint *)ref->aTag,puVar1,0x20);
     }
-    *(int *)((int)ref + 0x28) = line;
-    if (*(int *)((int)ref + 0x30) != 0) {
-      *(void **)(*(int *)((int)ref + 0x30) + 0x2c) = ref;
+    ref->nLine = line;
+    if (ref->pNext != (ResRef *)0x0) {
+      ref->pNext->pPrev = ref;
     }
-    *(void **)((int)res + 0x24) = ref;
+    res->pRefs = ref;
     Res_MoveToFront(res);
     return;
   }
-  *(undefined4 *)ref = 0;
+  ref->nValid = 0;
   return;
 }
 
@@ -48,26 +48,26 @@ void __cdecl Res_SetReference(void *ref,void *data,char *file,int line)
    of KeyframeComponent_TrackCallback; the only unmatched callee of Lua_UnLockSet; 5 matched
    neighbours agree, 0 disagree); was ResRef_Remove. */
 
-void Res_RemoveReference(void *ref)
+void Res_RemoveReference(ResRef *ref)
 
 {
-  void *pvVar1;
+  Resource *pRVar1;
   
-  if (*(int *)ref != 0) {
-    pvVar1 = Res_FindByData(*(void **)((int)ref + 4));
-    if (pvVar1 != (void *)0x0) {
-      if (*(void **)((int)pvVar1 + 0x24) == ref) {
-        *(undefined4 *)((int)pvVar1 + 0x24) = *(undefined4 *)((int)ref + 0x30);
+  if (ref->nValid != 0) {
+    pRVar1 = Res_FindByData(ref->pData);
+    if (pRVar1 != (Resource *)0x0) {
+      if (pRVar1->pRefs == ref) {
+        pRVar1->pRefs = ref->pNext;
       }
-      if (*(int *)((int)ref + 0x2c) != 0) {
-        *(undefined4 *)(*(int *)((int)ref + 0x2c) + 0x30) = *(undefined4 *)((int)ref + 0x30);
+      if (ref->pPrev != (ResRef *)0x0) {
+        ref->pPrev->pNext = ref->pNext;
       }
-      if (*(int *)((int)ref + 0x30) != 0) {
-        *(undefined4 *)(*(int *)((int)ref + 0x30) + 0x2c) = *(undefined4 *)((int)ref + 0x2c);
+      if (ref->pNext != (ResRef *)0x0) {
+        ref->pNext->pPrev = ref->pPrev;
       }
-      *(undefined4 *)ref = 0;
-      *(undefined4 *)((int)ref + 0x30) = 0;
-      *(undefined4 *)((int)ref + 0x2c) = 0;
+      ref->nValid = 0;
+      ref->pNext = (ResRef *)0x0;
+      ref->pPrev = (ResRef *)0x0;
     }
   }
   return;
@@ -88,7 +88,7 @@ void __cdecl Res_ResolveToSerialNumber(undefined4 *param_1)
     *param_1 = 0;
     param_1[0xc] = 0;
     param_1[0xb] = 0;
-    Res_SetReference(param_1,*(void **)((int)pvVar1 + 0x14),
+    Res_SetReference((ResRef *)param_1,*(void **)((int)pvVar1 + 0x14),
                      s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xeec);
   }
   return;

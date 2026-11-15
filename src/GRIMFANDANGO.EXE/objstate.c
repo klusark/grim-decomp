@@ -86,7 +86,7 @@ undefined4 * __fastcall ObjectStateImage_Construct(ObjectStateImage *image)
   image->aName[3] = '\0';
   pRVar2 = &image->ref;
   for (iVar1 = 0xd; iVar1 != 0; iVar1 = iVar1 + -1) {
-    pRVar2->dwHandle = 0;
+    pRVar2->nValid = 0;
     pRVar2 = (ResRef *)&pRVar2->pData;
   }
   image->pClean = (VBuffer *)0x0;
@@ -106,7 +106,7 @@ undefined4 * __fastcall ObjectStateImage_Construct(ObjectStateImage *image)
 void __fastcall ObjectStateImage_Clear(ObjectStateImage *image)
 
 {
-  if ((image->ref).dwHandle != 0) {
+  if ((image->ref).nValid != 0) {
     Res_RemoveReference(&image->ref);
   }
   if (image->pClean != (VBuffer *)0x0) {
@@ -145,7 +145,7 @@ void __thiscall ObjectStateImage_Load(ObjectStateImage *this,int load)
   int iVar1;
   
   if ((load == 0) || (this->aName[0] == '\0')) {
-    if ((this->ref).dwHandle != 0) {
+    if ((this->ref).nValid != 0) {
       Res_RemoveReference(&this->ref);
     }
     if (this->pClean != (VBuffer *)0x0) {
@@ -153,7 +153,7 @@ void __thiscall ObjectStateImage_Load(ObjectStateImage *this,int load)
       this->pClean = (VBuffer *)0x0;
     }
   }
-  else if ((this->ref).dwHandle == 0) {
+  else if ((this->ref).nValid == 0) {
     data = sputResource_Alloc(0x444e4b42,this->aName);
     if (data != (void *)0x0) {
       Res_SetReference(&this->ref,data,s_C__grimsrc_libs_grimlib_Engine_O_004ec9d0,0x3d);
@@ -179,18 +179,18 @@ undefined4 __fastcall ObjectStateImage_VBuffer(ObjectStateImage *image)
 
 {
   if (-1 < image->nFrame) {
-    if ((image->ref).dwHandle == 0) {
+    if ((image->ref).nValid == 0) {
       (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90)
       ;
     }
     if (*(int *)((int)(image->ref).pData + 100) <= image->nFrame) {
-      if ((image->ref).dwHandle == 0) {
+      if ((image->ref).nValid == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
       }
       image->nFrame = *(int *)((int)(image->ref).pData + 100) + -1;
     }
-    if ((image->ref).dwHandle == 0) {
+    if ((image->ref).nValid == 0) {
       (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90)
       ;
     }
@@ -208,15 +208,15 @@ undefined4 __fastcall ObjectStateImage_VBuffer(ObjectStateImage *image)
 void __thiscall ObjectStateImage_SetClean(ObjectStateImage *this,void *surface)
 
 {
-  uint uVar1;
+  int iVar1;
   VBuffer *dst;
   
   if (this->pClean != (VBuffer *)0x0) {
     stdDisplay_VBufferFree(this->pClean);
   }
-  uVar1 = (this->ref).dwHandle;
-  if (uVar1 != 0) {
-    if (uVar1 == 0) {
+  iVar1 = (this->ref).nValid;
+  if (iVar1 != 0) {
+    if (iVar1 == 0) {
       (*g_pStd_HS->pAssertFail)(s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90)
       ;
     }
@@ -238,50 +238,49 @@ void __thiscall ObjectStateImage_SetClean(ObjectStateImage *this,void *surface)
 void __thiscall ObjectStateImage_Draw(ObjectStateImage *this,void *dst)
 
 {
-  uint uVar1;
-  void *pvVar2;
-  int iVar3;
-  int *piVar4;
-  void *pvVar5;
+  void *pvVar1;
+  int iVar2;
+  int *piVar3;
+  void *pvVar4;
   VBuffer *src;
-  int iVar6;
+  int iVar5;
   int x;
   int y;
   
   if ((this->aName[0] != '\0') && (dst != (void *)0x0)) {
-    uVar1 = (this->ref).dwHandle;
-    iVar6 = this->nDrawn;
-    if (uVar1 != 0) {
-      if (uVar1 == 0) {
+    iVar2 = (this->ref).nValid;
+    iVar5 = this->nDrawn;
+    if (iVar2 != 0) {
+      if (iVar2 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
       }
-      pvVar2 = (this->ref).pData;
-      iVar3 = *(int *)((int)pvVar2 + 0x68);
-      this->nFrame = iVar3;
-      if (iVar3 == -1) {
-        iVar6 = 0;
+      pvVar1 = (this->ref).pData;
+      iVar2 = *(int *)((int)pvVar1 + 0x68);
+      this->nFrame = iVar2;
+      if (iVar2 == -1) {
+        iVar5 = 0;
       }
-      iVar3 = ObjectStateImage_VBuffer(this);
-      if (iVar3 != 0) {
-        piVar4 = (int *)ObjectStateImage_VBuffer(this);
-        iVar3 = iVar6;
-        if (*piVar4 == 2) {
-          pvVar5 = (void *)ObjectStateImage_VBuffer(this);
-          sputRender_Decompress(pvVar5);
-          y = *(int *)((int)pvVar2 + 0x70);
-          x = *(int *)((int)pvVar2 + 0x6c);
-          piVar4 = (int *)0x0;
+      iVar2 = ObjectStateImage_VBuffer(this);
+      if (iVar2 != 0) {
+        piVar3 = (int *)ObjectStateImage_VBuffer(this);
+        iVar2 = iVar5;
+        if (*piVar3 == 2) {
+          pvVar4 = (void *)ObjectStateImage_VBuffer(this);
+          sputRender_Decompress(pvVar4);
+          y = *(int *)((int)pvVar1 + 0x70);
+          x = *(int *)((int)pvVar1 + 0x6c);
+          piVar3 = (int *)0x0;
           src = g_pSputRender_DecompressionBuffer;
         }
         else {
-          y = *(int *)((int)pvVar2 + 0x70);
-          x = *(int *)((int)pvVar2 + 0x6c);
-          piVar4 = (int *)0x0;
+          y = *(int *)((int)pvVar1 + 0x70);
+          x = *(int *)((int)pvVar1 + 0x6c);
+          piVar3 = (int *)0x0;
           src = (VBuffer *)ObjectStateImage_VBuffer(this);
         }
-        Surface_Blit(dst,src,x,y,piVar4,iVar3);
-        if (iVar6 != 0) {
+        Surface_Blit(dst,src,x,y,piVar3,iVar2);
+        if (iVar5 != 0) {
           sputRender_MarkDirtyRect(&this->nX,1);
         }
       }
@@ -300,7 +299,7 @@ int __fastcall ObjectStateImage_InSync(ObjectStateImage *image)
   if (image->aName[0] == '\0') {
     return true;
   }
-  if ((image->ref).dwHandle == 0) {
+  if ((image->ref).nValid == 0) {
     return false;
   }
   return *(int *)((int)(image->ref).pData + 0x68) == image->nFrame;
@@ -405,7 +404,7 @@ void __thiscall ObjectState_Reset(ObjectState *this,void *bg,void *zbuf)
 void __thiscall ObjectState_Update(ObjectState *this,int type,void *dst,void *zdst)
 
 {
-  uint uVar1;
+  int iVar1;
   bool bVar2;
   undefined3 extraout_var;
   int iVar3;
@@ -416,9 +415,9 @@ void __thiscall ObjectState_Update(ObjectState *this,int type,void *dst,void *zd
       bVar2 = ObjectStateImage_InSync(&this->image);
       if (((uint)(byte)(bVar2)) == 0) {
         ObjectStateImage_Draw(&this->image,dst);
-        uVar1 = (this->zImage).ref.dwHandle;
-        if ((uVar1 != 0) && (zdst != (void *)0x0)) {
-          if (uVar1 == 0) {
+        iVar1 = (this->zImage).ref.nValid;
+        if ((iVar1 != 0) && (zdst != (void *)0x0)) {
+          if (iVar1 == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
           }
@@ -431,7 +430,7 @@ void __thiscall ObjectState_Update(ObjectState *this,int type,void *dst,void *zd
       }
     }
     else {
-      if ((this->image).ref.dwHandle == 0) {
+      if ((this->image).ref.nValid == 0) {
         iVar3 = -1;
       }
       else {

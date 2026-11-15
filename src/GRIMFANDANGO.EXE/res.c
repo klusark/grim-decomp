@@ -27,18 +27,18 @@ void * __cdecl Res_SysAddHandle(int fourcc,char *name,void *data)
 
 {
   undefined4 *puVar1;
-  void *pvVar2;
+  Resource *pRVar2;
   int iVar3;
   void *pvVar4;
   
   pvVar4 = (void *)0x0;
-  pvVar2 = Res_FindByData(data);
-  if (pvVar2 == (void *)0x0) {
-    pvVar2 = Res_CreateRecord(fourcc,name,data);
-    if (pvVar2 != (void *)0x0) {
+  pRVar2 = Res_FindByData(data);
+  if (pRVar2 == (Resource *)0x0) {
+    pRVar2 = Res_CreateRecord(fourcc,name,data);
+    if (pRVar2 != (Resource *)0x0) {
       if (g_dwLogFile != 0) {
         puVar1 = (undefined4 *)(g_dwResHS + 0x54);
-        iVar3 = Res_GetSize(pvVar2);
+        iVar3 = Res_GetSize(pRVar2);
         (*(code *)*puVar1)(g_dwLogFile,s_Resource____12s__allocated___8ld_004e79f4,name,iVar3);
       }
       return (void *)0x1;
@@ -130,19 +130,19 @@ uint __cdecl Res_SetPurgable(void *data,int unlock)
 
 {
   ushort uVar1;
-  void *pvVar2;
+  Resource *pRVar2;
   uint uVar3;
   
   uVar3 = 0;
-  pvVar2 = Res_FindByData(data);
-  if (pvVar2 != (void *)0x0) {
-    uVar1 = *(ushort *)((int)pvVar2 + 0x1c);
+  pRVar2 = Res_FindByData(data);
+  if (pRVar2 != (Resource *)0x0) {
+    uVar1 = *(ushort *)&pRVar2->bFlags;
     uVar3 = ((byte)~(byte)uVar1 & 8) >> 3;
     if (unlock != 0) {
-      *(ushort *)((int)pvVar2 + 0x1c) = uVar1 & 0xfff7;
+      *(ushort *)&pRVar2->bFlags = uVar1 & 0xfff7;
       return uVar3;
     }
-    *(ushort *)((int)pvVar2 + 0x1c) = uVar1 | 8;
+    *(ushort *)&pRVar2->bFlags = uVar1 | 8;
   }
   return uVar3;
 }
@@ -156,9 +156,9 @@ int __cdecl Res_SysPurgeBySize(uint bytesWanted,uint *bytesFreed)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  void *pvVar1;
+  Resource *pRVar1;
   bool bVar2;
-  void *res;
+  Resource *res;
   int iVar3;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
@@ -170,15 +170,15 @@ int __cdecl Res_SysPurgeBySize(uint bytesWanted,uint *bytesFreed)
   if (bytesWanted != 0) {
     while (bVar2) {
       bVar2 = false;
-      pvVar1 = (void *)g_dwOldestResNode;
-      while (res = pvVar1, res != (void *)0x0) {
+      pRVar1 = (Resource *)g_dwOldestResNode;
+      while (res = pRVar1, res != (Resource *)0x0) {
         if (bytesWanted <= *bytesFreed) goto LAB_0048065f;
         local_8 = local_8 + 1;
         if (((code *)g_dwRes_pPeriodicCallback != (code *)0x0) && ((int)local_8 % 5 == 0)) {
           (*(code *)g_dwRes_pPeriodicCallback)();
         }
-        pvVar1 = *(void **)((int)res + 4);
-        if ((*(int *)((int)res + 0x24) == 0) && ((*(byte *)((int)res + 0x1c) & 8) == 0)) {
+        pRVar1 = res->pPrev;
+        if ((res->pRefs == (ResRef *)0x0) && ((res->bFlags & 8) == 0)) {
           iVar3 = Res_GetSize(res);
           *bytesFreed = *bytesFreed + iVar3;
           Res_CallUnload(res);
@@ -209,7 +209,7 @@ int __cdecl Res_Dump(char *filename,int type)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
-  int *res;
+  Resource *res;
   int fh;
   char *pcVar2;
   int iVar3;
@@ -219,17 +219,17 @@ int __cdecl Res_Dump(char *filename,int type)
   local_4 = 0;
   iVar4 = 0;
   fh = Res_FOpen(filename,&DAT_004dd478);
-  res = g_pNewestResNode;
+  res = (Resource *)g_pNewestResNode;
   if (fh != 0) {
-    for (; res != (int *)0x0; res = (int *)*res) {
-      if ((type == 0) || (res[4] == type)) {
+    for (; res != (Resource *)0x0; res = res->pNext) {
+      if ((type == 0) || (res->dwType == type)) {
         pcVar2 = s_REFERENCED_004e7a80;
-        if (res[9] == 0) {
+        if (res->pRefs == (ResRef *)0x0) {
           pcVar2 = &DAT_004f5a98;
         }
         puVar1 = (undefined4 *)(g_dwResHS + 0x54);
         iVar3 = Res_GetSize(res);
-        (*(code *)*puVar1)(fh,s_Resource___12s__size____7ld__s_004e7a5c,res[2],iVar3,pcVar2);
+        (*(code *)*puVar1)(fh,s_Resource___12s__size____7ld__s_004e7a5c,res->pName,iVar3,pcVar2);
         iVar3 = Res_GetSize(res);
         iVar4 = iVar4 + iVar3;
         local_4 = local_4 + 1;
@@ -319,20 +319,20 @@ void __cdecl Res_RestoreFileCalls(GrimServices *svc)
 }
 
 /* ---- 0x004810e0  Res_FindByData ---- */
-void * __cdecl Res_FindByData(void *data)
+Resource * __cdecl Res_FindByData(void *data)
 
 {
-  int *piVar1;
+  Resource *pRVar1;
   
-  piVar1 = g_pNewestResNode;
+  pRVar1 = (Resource *)g_pNewestResNode;
   while( true ) {
-    if (piVar1 == (int *)0x0) {
-      return (void *)0x0;
+    if (pRVar1 == (Resource *)0x0) {
+      return (Resource *)0x0;
     }
-    if ((void *)piVar1[5] == data) break;
-    piVar1 = (int *)*piVar1;
+    if (pRVar1->pData == data) break;
+    pRVar1 = pRVar1->pNext;
   }
-  return piVar1;
+  return pRVar1;
 }
 
 /* ---- 0x00481100  Res_HandleFromSerialNumber ---- */
@@ -639,11 +639,11 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
 /* ---- 0x00481510  Res_CallUnload ---- */
 /* Invalidates all ResRefs of the record and sends {op=2, name, type, data} to the type handler */
 
-void __cdecl Res_CallUnload(void *res)
+void __cdecl Res_CallUnload(Resource *res)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
+  ResRef *pRVar1;
   void *pvVar2;
   int iVar3;
   int iVar4;
@@ -653,25 +653,24 @@ void __cdecl Res_CallUnload(void *res)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
   iVar4 = 0;
-  pvVar2 = ResType_Find(*(int *)((int)res + 0x10));
-  for (piVar1 = *(int **)((int)res + 0x24); piVar1 != (int *)0x0; piVar1 = (int *)piVar1[0xc]) {
+  pvVar2 = ResType_Find(res->dwType);
+  for (pRVar1 = res->pRefs; pRVar1 != (ResRef *)0x0; pRVar1 = pRVar1->pNext) {
     iVar4 = iVar4 + 1;
-    if (*piVar1 == 0) {
+    if (pRVar1->nValid == 0) {
       (**(code **)(g_dwResHS + 0x18))
                 (s_ref__valid____0_004e7ae0,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xb19);
     }
-    *piVar1 = 0;
+    pRVar1->nValid = 0;
   }
   if (pvVar2 != (void *)0x0) {
-    local_10 = *(uint *)((int)res + 8);
-    local_c = *(uint *)((int)res + 0x10);
-    local_8 = *(uint *)((int)res + 0x14);
+    local_10 = (uint)res->pName;
+    local_c = res->dwType;
+    local_8 = (uint)res->pData;
     local_14 = 2;
     iVar3 = (**(code **)((int)pvVar2 + 0xc))(&local_14);
     if ((iVar3 == 1) && (g_dwLogFile != 0)) {
       (**(code **)(g_dwResHS + 0x54))
-                (g_dwLogFile,s_Resource____12s__freed___d_refer_004e7ab8,
-                 *(undefined4 *)((int)res + 8),iVar4);
+                (g_dwLogFile,s_Resource____12s__freed___d_refer_004e7ab8,res->pName,iVar4);
     }
   }
   return;
@@ -683,34 +682,34 @@ void __cdecl Res_CallUnload(void *res)
 
 
 /* ---- 0x004815c0  Res_Unlink ---- */
-int __cdecl Res_Unlink(void *res)
+int __cdecl Res_Unlink(Resource *res)
 
 {
-  if (*(undefined4 **)((int)res + 4) != (undefined4 *)0x0) {
-    **(undefined4 **)((int)res + 4) = *(undefined4 *)res;
+  if (res->pPrev != (Resource *)0x0) {
+    res->pPrev->pNext = res->pNext;
   }
-  if (*(int *)res != 0) {
-    *(undefined4 *)(*(int *)res + 4) = *(undefined4 *)((int)res + 4);
+  if (res->pNext != (Resource *)0x0) {
+    res->pNext->pPrev = res->pPrev;
   }
-  if (g_pNewestResNode == res) {
-    g_pNewestResNode = *(int **)res;
+  if ((Resource *)g_pNewestResNode == res) {
+    g_pNewestResNode = (int *)res->pNext;
   }
-  if ((void *)g_dwOldestResNode == res) {
-    g_dwOldestResNode = *(uint *)((int)res + 4);
+  if ((Resource *)g_dwOldestResNode == res) {
+    g_dwOldestResNode = (uint)res->pPrev;
   }
-  if ((*(byte *)((int)res + 0x1c) & 4) != 0) {
-    (**(code **)(g_dwResHS + 0x24))(*(undefined4 *)((int)res + 8));
+  if ((res->bFlags & 4) != 0) {
+    (**(code **)(g_dwResHS + 0x24))(res->pName);
   }
   Pool_Free(res);
   return 1;
 }
 
 /* ---- 0x00481ef0  Res_GetSize ---- */
-int __cdecl Res_GetSize(void *res)
+int __cdecl Res_GetSize(Resource *res)
 
 {
-  if (res != (void *)0x0) {
-    return *(int *)((int)res + 0x28);
+  if (res != (Resource *)0x0) {
+    return res->nSize;
   }
   return 0;
 }
@@ -835,10 +834,10 @@ void __cdecl Res_GetNextType(int *param_1,int *param_2,int param_3)
 void __cdecl Res_Touch(void *data)
 
 {
-  void *res;
+  Resource *res;
   
   res = Res_FindByData(data);
-  if (res != (void *)0x0) {
+  if (res != (Resource *)0x0) {
     Res_MoveToFront(res);
   }
   return;
