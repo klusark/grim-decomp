@@ -12,13 +12,11 @@
 
 #ifdef GRIM_EXE
 #include "globals.h"
-#define FUN_004d5fd0 FUN_004d5fd0__ghidra
 #define msc_MemSet msc_MemSet__ghidra
 #define MaterialInstanceSaveLoad FUN_004965b0__ghidra
 #define D3D_CreateViewport D3D_CreateViewport__ghidra
 #include "functions.h"
 #undef D3D_CreateViewport
-#undef FUN_004d5fd0
 #undef msc_MemSet
 #undef MaterialInstanceSaveLoad
 
@@ -26,55 +24,14 @@
 #define S16(sym) (*(short *)&(sym))
 #define D32(sym) (*(uint *)&(sym))
 
-/* ==== FUN_004d5fd0 (0x004d5fd0): memset ====
- * Hand-written assembly of the original: fills `count` bytes at `dst` with the byte `value`, in blocks of 20000 bytes,
- * then the count % 4 single bytes, then the rest as dwords.  It is cdecl (the caller pops 12 bytes) although Ghidra
- * declared it __fastcall; the symbol keeps Ghidra's decoration.  A negative count crashes the original (`shr` of a
- * negative count gives a huge dword count); the C does the same unsigned arithmetic. */
-/* OVERRIDES: FUN_004d5fd0 */
-void FUN_004d5fd0(byte *dst, int value, int count) __asm__("@FUN_004d5fd0@20");
-void FUN_004d5fd0(byte *dst, int value, int count)
-{
-    uint fill = (byte)value * 0x01010101u;
-    uint n;
-
-    if (count >= 20000) {
-        do {
-            for (n = 0; n < 5000; n++) {
-                *(uint *)dst = fill;
-                dst += 4;
-            }
-            count -= 20000;
-        } while (count > 20000);
-    }
-    for (n = (uint)count & 3; n != 0; n--)
-        *dst++ = (byte)fill;
-    for (n = (uint)count >> 2; n != 0; n--) {
-        *(uint *)dst = fill;
-        dst += 4;
-    }
-}
-
 /* ==== msc_MemSet (0x004d5e50): memset wrapper ====
- * Calls FUN_004d5fd0(dst, value, count).  The original loads the count into EAX before the call, and the callee's
+ * Calls FUN_004d5fd0(dst, value, count) (the memset loop, generated: crt_unnamed.c).  The original loads the count into EAX before the call, and the callee's
  * pushad / popad keeps it there, so it returns the count. */
 /* OVERRIDES: msc_MemSet */
 int msc_MemSet(byte *dst, int value, int count)
 {
     FUN_004d5fd0(dst, value, count);
     return count;
-}
-
-/* ==== msc_rle_DecompressBlock (0x004d5e70) ====
- * Decodes `count` bytes of the run-length stream at `src` into `dst`.  The original passes a stale ECX to the __fastcall
- * msc_rle_DecompressGetbyte; the argument is only read in a state (not 0, 1 or 2) that msc_rle_DecompressInitialize never leaves, so 0 is passed.  Ends
- * with a jump to the empty Mem_DumpLog (its return value is not used by any caller). */
-void msc_rle_DecompressBlock(undefined1 *dst, undefined4 src, int count)
-{
-    msc_rle_DecompressInitialize((int *)src);
-    for (; count != 0; count--)
-        *dst++ = (undefined1)msc_rle_DecompressGetbyte(0);
-    Mem_DumpLog();
 }
 
 /* ==== MaterialInstanceSaveLoad (0x004965b0): colormap component callback ====

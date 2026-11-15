@@ -25,8 +25,6 @@ uint __cdecl stdPic_Load(uint param_1,uint param_2,uint param_3)
 }
 
 /* ---- 0x0047d2d0  stdPic_LoadEntry ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Decoder of '.pic' files (allocation string stdPic.c)
    Ported to C (build/overrides_big_stdpic_loadinto.c): differential test on generated inputs, 0
    differences (docs/notes/big_stdpic_loadinto.md). Original name stdPic_LoadEntry (the remaster's
@@ -463,6 +461,4 @@ uint __cdecl stdPic_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int pa
 #undef uStack_90
 #undef uStack_94
 #undef uStack_ec
-
-#endif
 

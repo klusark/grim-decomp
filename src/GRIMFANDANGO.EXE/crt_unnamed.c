@@ -4653,8 +4653,6 @@ int __cdecl msc_error_SaveString(char *fmt,...)
 }
 
 /* ---- 0x004d5fd0  FUN_004d5fd0 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Ported to C (build/overrides_asm_o2.c): differential test, 0 differences (docs/notes/asm_o2.md).
     */
 
@@ -4687,8 +4685,6 @@ void __cdecl FUN_004d5fd0(byte *dst,int value,int count)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d6030  FUN_004d6030 ---- */
 /* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */

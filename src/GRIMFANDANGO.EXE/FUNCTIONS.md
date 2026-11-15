@@ -1165,7 +1165,7 @@
 | 0047cb70 | stdBmp_LoadEntry | stdbmp.c | 224 |
 | 0047d050 | stdBmp_Write | stdbmp.c | 124 |
 | 0047d280 | stdPic_Load | stdpic.c | 17 |
-| 0047d2d0 | stdPic_LoadEntry | stdpic.c | 1 |
+| 0047d2d0 | stdPic_LoadEntry | stdpic.c | 437 |
 | 0047db00 | stdGif_Load | stdgif.c | 233 |
 | 0047e060 | stdGif_Write | stdgif.c | 144 |
 | 0047e3c0 | stdGif_LzwInitDecoder | stdgif.c | 35 |
@@ -2354,7 +2354,7 @@
 | 004d5e35 | FUN_004d5e35 | crt_unnamed.c | 1 |
 | 004d5e50 | msc_MemSet | crt_unnamed.c | 1 |
 | 004d5f70 | msc_error_SaveString | crt_unnamed.c | 23 |
-| 004d5fd0 | FUN_004d5fd0 | crt_unnamed.c | 1 |
+| 004d5fd0 | FUN_004d5fd0 | crt_unnamed.c | 32 |
 | 004d6030 | FUN_004d6030 | crt_unnamed.c | 1 |
 | 004d6046 | FUN_004d6046 | crt_unnamed.c | 1 |
 | 004d6050 | FUN_004d6050 | crt_unnamed.c | 1 |
@@ -2605,6 +2605,6 @@
 | 004d2940 | DsndDriver_InitDirectSound | dsnddriver.c | 1 |
 | 004d2aa0 | DsndDriver_CreateStreamBuffer | dsnddriver.c | 81 |
 | 004d2bf0 | DsndDriver_ReleaseDirectSound | dsnddriver.c | 21 |
-| 004d5e70 | msc_rle_DecompressBlock | rle.c | 1 |
+| 004d5e70 | msc_rle_DecompressBlock | rle.c | 23 |
 | 004d5eb0 | msc_rle_DecompressInitialize | rle.c | 10 |
 | 004d5ed0 | msc_rle_DecompressGetbyte | rle.c | 42 |

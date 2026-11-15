@@ -2055,3 +2055,18 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   changed 18 modules and 2 clean-room tests; with it, only the 7 modules that hold those doubles change (collision,
   math3d, plane, sector, sound, stddisplay, walker; .text compared byte for byte with the build before).
 * snd_test: 0 differences now (6 before). Clean room 0 of 5457.
+
+## stdPic_LoadEntry, msc_rle_DecompressBlock and the memset loop generated again; docs/OVERRIDES.md (2026-11-15)
+
+* Generated again, the twin matching the original machine code (build/mixdiff/twin.sh): stdPic_LoadEntry
+  (big_stdpic_loadinto/pic_test.c, 20,000 files of all eight kinds, the overlong packet lists included;
+  build/overrides_big_stdpic_loadinto.c is gone), msc_rle_DecompressBlock and FUN_004d5fd0 (asm_s5/small_test.c,
+  12,301 cases; the baseline assembly is 13b2e41's). msc_rle_DecompressBlock passes the stale `extraout_ECX` to
+  msc_rle_DecompressGetbyte, which ignores its register argument. FUN_004d5fd0's `@FUN_004d5fd0@20` alias in
+  overrides_asm_o2.c is gone with it: Ghidra's prototype is cdecl now.
+* Tested and kept (the results are in names/override_reasons.json): the input, display, costume-instance and GIF
+  encoder twins of asm_s5 (they crash or differ), the five matrix / clip helpers of asm_p2 (x87 rounding).
+* docs/OVERRIDES.md (tools/overrides_report.py) lists every hand-written function left, 548, with the reason it stays:
+  the 363 rasteriser span fillers, 63 with a recorded reason (names/override_reasons.json), 10 hooks, 67 x87-exact
+  ports, 14 asm() blocks and 31 that need a repair in Ghidra first.
+* Clean room 0 of 5457.
