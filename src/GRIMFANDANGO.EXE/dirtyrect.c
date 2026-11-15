@@ -265,7 +265,7 @@ void __cdecl DirtyRect_Flush(void *dst,void *zdst)
         if ((((byte)g_dwDebugFlags & 1) != 0) && (((byte)g_dwDebugFlags & 0x10) != 0)) {
           stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
           rdPrimit2_DrawRectangle
-                    (*(void **)((int)g_pRdCamera_CurCamera + 4),*srcRect,item[6],item[7] + *srcRect,
+                    (g_pRdCamera_CurCamera->pCanvas,*srcRect,item[6],item[7] + *srcRect,
                      item[8] + item[6],UINT_008c9820 & 0xffff,-1);
           stdDisplay_VBufferUnlock((VBuffer *)&g_dwStdDisplay_backBuffer);
         }

@@ -20,9 +20,9 @@ void __cdecl rdActive_AdvanceFrame(void)
   int iVar4;
   undefined4 *puVar5;
   
-  iVar4 = *(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x1c);
+  iVar4 = *(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x1c);
   _DAT_004f6ef8 = 0xffff0000;
-  uVar1 = (*(int *)(*(int *)((int)g_pRdCamera_CurCamera + 4) + 0x24) - iVar4) + 1;
+  uVar1 = (*(int *)((int)g_pRdCamera_CurCamera->pCanvas + 0x24) - iVar4) + 1;
   UINT_004f6f20 = (uint)&g_aActiveEdgeTail;
   _DAT_005e6f8c = &g_aActiveEdgeHead;
   puVar5 = (undefined4 *)(&g_apNewActiveEdges + iVar4 * 4);

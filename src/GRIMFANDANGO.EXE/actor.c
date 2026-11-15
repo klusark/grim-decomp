@@ -2509,7 +2509,7 @@ LAB_004951b3:
           pVVar5 = (VBuffer *)Render_GetBackBuffer();
           stdDisplay_VBufferLock(pVVar5);
         }
-        iVar6 = rdThing_Draw(*(void **)(iVar4 + 0x40),param_2);
+        iVar6 = rdThing_Draw(*(rdThing **)(iVar4 + 0x40),param_2);
         if ((iVar6 == 0) || (actor == (Actor *)0x0)) {
           actor->nScreenBoxValid = 0;
         }
@@ -2554,7 +2554,7 @@ LAB_004951b3:
           rdModel3_ActivateClipPlane(1);
           rdModel3_SetClipPlane(actor->aOrient + 3,actor->aPos);
         }
-        iVar7 = rdThing_Draw(*(void **)(iVar4 + 0x40),
+        iVar7 = rdThing_Draw(*(rdThing **)(iVar4 + 0x40),
                              (float *)(*(int *)(iVar7 + 0x20) + *(int *)(iVar4 + 0x48) * 0x30));
         if ((iVar7 != 0) && (actor != (Actor *)0x0)) {
           actor->nScreenBoxValid = 1;

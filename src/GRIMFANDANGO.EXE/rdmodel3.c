@@ -127,7 +127,7 @@ rdModel3_LoadEntryText
   uint *puVar2;
   int iVar3;
   uint uVar4;
-  void *pvVar5;
+  rdMaterial *prVar5;
   undefined4 *puVar6;
   int iVar7;
   undefined *puVar8;
@@ -230,8 +230,8 @@ rdModel3_LoadEntryText
         if (param_5 != 0) {
           pcVar15 = &STACK0X(0x00000488);
           do {
-            pvVar5 = rdMaterial_Load(pcVar15,0,0);
-            *(void **)(in_stack_00020490[0x12] + uVar17 * 4) = pvVar5;
+            prVar5 = rdMaterial_Load(pcVar15,0,0);
+            *(rdMaterial **)(in_stack_00020490[0x12] + uVar17 * 4) = prVar5;
             if (*(int *)(in_stack_00020490[0x12] + uVar17 * 4) == 0) goto LAB_0040b8c4;
             uVar17 = uVar17 + 1;
             pcVar15 = pcVar15 + 0x400;
@@ -603,7 +603,7 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
   int *piVar3;
   undefined4 *puVar4;
   undefined4 uVar5;
-  void *pvVar6;
+  rdMaterial *prVar6;
   int iVar7;
   int iVar8;
   int iVar9;
@@ -814,9 +814,9 @@ uint __cdecl rdModel3_LoadEntryBinary(int param_1,int param_2)
   name = (char *)local_1c;
   if (*(int *)(iVar12 + 0x4c) != 0) {
     do {
-      pvVar6 = rdMaterial_Load(name,0,0);
+      prVar6 = rdMaterial_Load(name,0,0);
       name = name + 0x20;
-      *(void **)(*(int *)(iVar12 + 0x48) + uVar14 * 4) = pvVar6;
+      *(rdMaterial **)(*(int *)(iVar12 + 0x48) + uVar14 * 4) = prVar6;
       uVar14 = uVar14 + 1;
     } while (uVar14 < *(uint *)(iVar12 + 0x4c));
   }

@@ -415,7 +415,7 @@ void __cdecl rdModel3_DrawHNode(int param_1)
   int iVar3;
   
   if ((*(int *)(param_1 + 0x4c) != -1) &&
-     (*(int *)(*(int *)((int)g_pCurThing + 0x2c) + *(int *)(param_1 + 0x44) * 4) != 0)) {
+     (*(int *)((int)g_pCurThing->pHierarchyExtra + *(int *)(param_1 + 0x44) * 4) != 0)) {
     if ((*(byte *)(param_1 + 0x40) & 2) != 0) {
       iVar3 = *(int *)(param_1 + 0x54);
       bVar1 = *(byte *)(iVar3 + 0x40);
@@ -429,14 +429,14 @@ void __cdecl rdModel3_DrawHNode(int param_1)
     }
     rdModel3_DrawMeshImpl
               ((void *)(*(int *)(g_dwCurGeo + 4) + *(int *)(param_1 + 0x4c) * 0x7c),
-               (float *)(*(int *)((int)g_pCurThing + 0x20) + *(int *)(param_1 + 0x44) * 0x30));
+               g_pCurThing->pHierarchyMatrices + *(int *)(param_1 + 0x44) * 0xc);
   }
   if (*(int *)(param_1 + 0x58) != 0) {
     iVar3 = *(int *)(param_1 + 0x5c);
     uVar2 = 0;
     if (*(int *)(param_1 + 0x58) != 0) {
       do {
-        if (*(int *)(*(int *)((int)g_pCurThing + 0x28) + *(int *)(iVar3 + 0x44) * 4) == 0) {
+        if (g_pCurThing->pHierarchyFlags[*(int *)(iVar3 + 0x44)] == 0) {
           rdModel3_DrawHNode(iVar3);
         }
         iVar3 = *(int *)(iVar3 + 0x60);
@@ -459,17 +459,16 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  float *a;
-  int iVar1;
+  float *pfVar1;
   int *piVar2;
   float fVar3;
   float fVar4;
   uint uVar5;
   int iVar6;
   undefined4 *puVar7;
-  void *pvVar8;
+  rdCamera *prVar8;
   uint uVar9;
-  void *pvVar10;
+  rdMesh *prVar10;
   int iVar11;
   float fVar12;
   #define local_ac (*(uint *)(_frame + (0xc0 - 0xac)))
@@ -488,8 +487,8 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
   
   g_pCurMesh = mesh;
   if (*(int *)((int)mesh + 0x24) != 0) {
-    a = matrix + 9;
-    rdMatrix_TransformPoint34(local_48,a,(float *)((int)g_pRdCamera_CurCamera + 8));
+    pfVar1 = matrix + 9;
+    rdMatrix_TransformPoint34(local_48,pfVar1,g_pRdCamera_CurCamera->aView);
     if (g_dwThingFrustrumCull == 0) {
       g_dwMeshFrustrumCull = 0;
     }
@@ -499,29 +498,28 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
     else {
       g_dwMeshFrustrumCull =
            rdClip_SphereInFrustrum
-                     (*(int **)((int)g_pRdCamera_CurCamera + 0x48),local_48,
-                      *(float *)((int)g_pCurMesh + 0x60));
+                     (&g_pRdCamera_CurCamera->pFrustum->nClipFar,local_48,g_pCurMesh->flRadius);
     }
     if ((g_dwMeshFrustrumCull != 2) &&
        ((g_dwClipPlaneActive == 0 ||
-        (-*(float *)((int)g_pCurMesh + 0x60) <=
-         (*a - FLOAT_007f3208) * FLOAT_004ddb70 +
+        (-g_pCurMesh->flRadius <=
+         (*pfVar1 - FLOAT_007f3208) * FLOAT_004ddb70 +
          (matrix[0xb] - FLOAT_007f3210) * FLOAT_004ddb78 +
          (matrix[10] - FLOAT_007f320c) * FLOAT_004ddb74)))) {
-      rdMatrix_Multiply34(local_30,(float *)((int)g_pRdCamera_CurCamera + 8),matrix);
+      rdMatrix_Multiply34(local_30,g_pRdCamera_CurCamera->aView,matrix);
       rdMatrix_TransformPointLst34
-                (local_30,*(float **)((int)g_pCurMesh + 0x30),(float *)&g_aRdModel3_View,
-                 *(int *)((int)g_pCurMesh + 0x48));
+                (local_30,g_pCurMesh->pVertices,(float *)&g_aRdModel3_View,g_pCurMesh->dwNumVertices
+                );
       rdMatrix_InvertOrtho34(local_84,matrix);
-      g_dwGeometryMode = *(uint *)((int)g_pCurMesh + 0x24);
+      g_dwGeometryMode = g_pCurMesh->nGeometryMode;
       if ((int)g_dwCurTextureMode <= (int)g_dwGeometryMode) {
         g_dwGeometryMode = g_dwCurTextureMode;
       }
-      g_dwTextureMode = *(uint *)((int)g_pCurMesh + 0x2c);
+      g_dwTextureMode = g_pCurMesh->nTextureMode;
       if ((int)UINT_007f189c <= (int)g_dwTextureMode) {
         g_dwTextureMode = UINT_007f189c;
       }
-      g_dwLightingMode = *(uint *)((int)g_pCurMesh + 0x28);
+      g_dwLightingMode = g_pCurMesh->nLightingMode;
       if (g_dwLightingMode == 6) {
         g_dwLightingMode = 6;
       }
@@ -529,8 +527,8 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         g_dwLightingMode = UINT_007f30dc;
       }
       _DAT_007f30b4 = &g_aRdModel3_View;
-      _DAT_007f30b8 = *(undefined4 *)((int)g_pCurMesh + 0x34);
-      _DAT_007f30bc = *(undefined4 *)((int)g_pCurMesh + 0x3c);
+      _DAT_007f30b8 = g_pCurMesh->pTexVertices;
+      _DAT_007f30bc = *(undefined4 *)&g_pCurMesh->field_0x3c;
       _DAT_007f30c0 = 0;
       UINT_007f1474 = (uint)&DAT_007f0fe8;
       switch(g_dwLightingMode) {
@@ -540,21 +538,20 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         local_a8 = 0;
         if (g_dwNumGeoLights != 0) {
           local_ac = (uint)&g_apGeoLights;
-          pvVar8 = g_pRdCamera_CurCamera;
-          pvVar10 = g_pCurMesh;
+          prVar8 = g_pRdCamera_CurCamera;
+          prVar10 = g_pCurMesh;
           do {
             piVar2 = *(int **)local_ac;
             if ((piVar2[2] != 0) &&
-               (iVar11 = *piVar2,
-               fVar12 = *(float *)((int)pvVar8 + iVar11 * 0xc + 0x160) - matrix[10],
-               fVar3 = *(float *)((int)pvVar8 + (iVar11 + 0x1d) * 0xc) - *a,
-               fVar4 = *(float *)((int)pvVar8 + iVar11 * 0xc + 0x164) - matrix[0xb],
+               (iVar11 = *piVar2, fVar12 = prVar8->aLightPositions[iVar11 * 3 + 1] - matrix[10],
+               fVar3 = prVar8->aLightPositions[iVar11 * 3] - *pfVar1,
+               fVar4 = prVar8->aLightPositions[iVar11 * 3 + 2] - matrix[0xb],
                SQRT(fVar4 * fVar4 + fVar12 * fVar12 + fVar3 * fVar3) <
-               PUN(float,piVar2[0xd]) + *(float *)((int)pvVar10 + 0x60))) {
+               PUN(float,piVar2[0xd]) + prVar10->flRadius)) {
               (&UINT_007f30e0)[uVar9] = (uint)piVar2;
               rdMatrix_TransformPoint34
                         ((float *)(&g_aLocalLightPos + uVar9 * 0xc),
-                         (float *)((int)pvVar8 + (*piVar2 + 0x1d) * 0xc),local_84);
+                         prVar8->aLightPositions + *piVar2 * 3,local_84);
               if (piVar2[1] != 2) {
                 local_60 = 0;
                 local_5c = 0;
@@ -568,8 +565,8 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
                 local_58 = local_34;
               }
               uVar9 = g_dwNumMeshLights + 1;
-              pvVar8 = g_pRdCamera_CurCamera;
-              pvVar10 = g_pCurMesh;
+              prVar8 = g_pRdCamera_CurCamera;
+              prVar10 = g_pCurMesh;
               g_dwNumMeshLights = uVar9;
             }
             local_a8 = local_a8 + 1;
@@ -581,29 +578,29 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         uVar9 = 0;
         g_dwNumMeshLights = 0;
         local_a8 = 0;
-        pvVar8 = g_pRdCamera_CurCamera;
-        pvVar10 = g_pCurMesh;
+        prVar8 = g_pRdCamera_CurCamera;
+        prVar10 = g_pCurMesh;
         if (g_dwNumGeoLights != 0) {
           local_ac = (uint)&g_apGeoLights;
           do {
             piVar2 = *(int **)local_ac;
             if (piVar2[2] != 0) {
               iVar11 = *piVar2;
-              fVar12 = *(float *)((int)pvVar8 + (iVar11 + 0x1d) * 0xc) - *a;
-              fVar4 = *(float *)((int)pvVar8 + iVar11 * 0xc + 0x160) - matrix[10];
-              fVar3 = *(float *)((int)pvVar8 + iVar11 * 0xc + 0x164) - matrix[0xb];
+              fVar12 = prVar8->aLightPositions[iVar11 * 3] - *pfVar1;
+              fVar4 = prVar8->aLightPositions[iVar11 * 3 + 1] - matrix[10];
+              fVar3 = prVar8->aLightPositions[iVar11 * 3 + 2] - matrix[0xb];
               if (piVar2[1] < 2) {
                 fVar12 = 0.0;
               }
               else {
                 fVar12 = fVar3 * fVar3 + fVar4 * fVar4 + fVar12 * fVar12;
               }
-              fVar3 = PUN(float,piVar2[0xd]) + *(float *)((int)pvVar10 + 0x60);
+              fVar3 = PUN(float,piVar2[0xd]) + prVar10->flRadius;
               if (fVar12 < fVar3 * fVar3) {
                 (&UINT_007f30e0)[uVar9] = (uint)piVar2;
                 rdMatrix_TransformPoint34
                           ((float *)(&g_aLocalLightPos + uVar9 * 0xc),
-                           (float *)((int)pvVar8 + (*piVar2 + 0x1d) * 0xc),local_84);
+                           prVar8->aLightPositions + *piVar2 * 3,local_84);
                 uVar5 = local_58;
                 if (piVar2[1] != 2) {
                   local_60 = 0;
@@ -617,8 +614,8 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
                              local_84);
                 }
                 uVar9 = g_dwNumMeshLights + 1;
-                pvVar8 = g_pRdCamera_CurCamera;
-                pvVar10 = g_pCurMesh;
+                prVar8 = g_pRdCamera_CurCamera;
+                prVar10 = g_pCurMesh;
                 g_dwNumMeshLights = uVar9;
                 local_58 = uVar5;
               }
@@ -629,9 +626,9 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
         }
         fVar12 = rdLight_CalcVertexIntensities
                            ((int *)&UINT_007f30e0,(float *)&g_aLocalLightPos,((unsigned)(uintptr_t)&g_aLocalLightDir),uVar9,
-                            *(int **)((int)pvVar10 + 0x44),*(uint *)((int)pvVar10 + 0x30),
-                            *(float **)((int)pvVar10 + 0x38),*(float **)((int)pvVar10 + 0x3c),
-                            *(uint *)((int)pvVar10 + 0x48),*(float *)((int)pvVar8 + 0x45c));
+                            (int *)prVar10->pVertexNormals,(uint)prVar10->pVertices,
+                            *(float **)&prVar10->field_0x38,*(float **)&prVar10->field_0x3c,
+                            prVar10->dwNumVertices,prVar8->flAttenuationMin);
         *(float *)((int)mesh + 0x5c) = fVar12;
         break;
       case 6:
@@ -653,12 +650,11 @@ void __cdecl rdModel3_DrawMeshImpl(void *mesh,float *matrix)
       uVar9 = 0;
       if (*(int *)((int)mesh + 0x50) != 0) {
         do {
-          iVar6 = *(int *)((int)g_pCurMesh + 0x30);
-          iVar1 = **(int **)(iVar11 + 0x18);
-          if (*(float *)(iVar11 + 0x44) * (FLOAT_007f0fdc - *(float *)(iVar6 + iVar1 * 0xc + 4)) +
-              (FLOAT_007f0fd8 - *(float *)(iVar6 + iVar1 * 0xc)) * *(float *)(iVar11 + 0x40) +
-              *(float *)(iVar11 + 0x48) * (FLOAT_007f0fe0 - *(float *)(iVar6 + 8 + iVar1 * 0xc)) <=
-              0.0) {
+          pfVar1 = g_pCurMesh->pVertices;
+          iVar6 = **(int **)(iVar11 + 0x18);
+          if (*(float *)(iVar11 + 0x44) * (FLOAT_007f0fdc - pfVar1[iVar6 * 3 + 1]) +
+              (FLOAT_007f0fd8 - pfVar1[iVar6 * 3]) * *(float *)(iVar11 + 0x40) +
+              *(float *)(iVar11 + 0x48) * (FLOAT_007f0fe0 - pfVar1[iVar6 * 3 + 2]) <= 0.0) {
             iVar6 = 1;
             if (((*(byte *)(iVar11 + 4) & 1) != 0) || (((byte)g_dwRdroid_curRenderOptions & 1) == 0)
                ) goto LAB_0040d640;
@@ -711,6 +707,7 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
   int iVar5;
   bool bVar6;
   float fVar7;
+  float *pfVar8;
   #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(float (*)[2])(_frame + (0x40 - 0x20)))
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
@@ -750,7 +747,7 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
                (uint *)&g_aVertexSrc,&g_dwVertexDst,(float *)(param_1 + 0x28));
   }
   else {
-    rdPrimit3_ClipFace(*(uint *)((int)g_pRdCamera_CurCamera + 0x48),pPVar2->nGeometryMode,
+    rdPrimit3_ClipFace((uint)g_pRdCamera_CurCamera->pFrustum,pPVar2->nGeometryMode,
                        pPVar2->nLightingMode,pPVar2->nTextureMode,(uint *)&g_aVertexSrc,
                        &g_dwVertexDst,(float *)(param_1 + 0x28));
   }
@@ -758,8 +755,8 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
     return 0;
   }
   if (g_dwClipPlaneActive != 0) {
-    rdMatrix_TransformVector34(local_c,&FLOAT_004ddb70,(float *)((int)g_pRdCamera_CurCamera + 8));
-    rdMatrix_TransformPoint34(local_18,&FLOAT_007f3208,(float *)((int)g_pRdCamera_CurCamera + 8));
+    rdMatrix_TransformVector34(local_c,&FLOAT_004ddb70,g_pRdCamera_CurCamera->aView);
+    rdMatrix_TransformPoint34(local_18,&FLOAT_007f3208,g_pRdCamera_CurCamera->aView);
     uVar3 = rdClip_FaceToPlane(local_c,local_18,(float *)UINT_007f1474,(uint *)UINT_007f1478,
                                (float *)UINT_007f147c,(uint *)g_dwVertexDst);
     if ((int)uVar3 < 2) {
@@ -770,29 +767,29 @@ uint __cdecl rdModel3_DrawFace(int param_1,int param_2)
   }
   if (pPVar2->nLightingMode == 2) {
     if (param_2 == 0) {
-      fVar7 = *(float *)((int)g_pRdCamera_CurCamera + 0x45c);
-      iVar5 = *(int *)((int)g_pCurMesh + 0x30);
+      fVar7 = g_pRdCamera_CurCamera->flAttenuationMin;
+      pfVar8 = g_pCurMesh->pVertices;
       pfVar4 = (float *)(param_1 + 0x40);
     }
     else {
       local_24 = -*(float *)(param_1 + 0x40);
       local_20[0] = -*(float *)(param_1 + 0x44);
       local_20[1] = -*(float *)(param_1 + 0x48);
-      fVar7 = *(float *)((int)g_pRdCamera_CurCamera + 0x45c);
-      iVar5 = *(int *)((int)g_pCurMesh + 0x30);
+      fVar7 = g_pRdCamera_CurCamera->flAttenuationMin;
+      pfVar8 = g_pCurMesh->pVertices;
       pfVar4 = &local_24;
     }
     fVar7 = rdLight_CalcFaceIntensity
                       ((int *)&UINT_007f30e0,((unsigned)(uintptr_t)&g_aLocalLightPos),((unsigned)(uintptr_t)&g_aLocalLightDir),g_dwNumMeshLights,param_1,pfVar4,
-                       iVar5,fVar7);
+                       (int)pfVar8,fVar7);
     pPVar2->flLightIndex = fVar7;
   }
-  (**(code **)((int)g_pRdCamera_CurCamera + 0x50))(UINT_007f1490,UINT_007f1474,g_dwVertexDst);
+  (*g_pRdCamera_CurCamera->pfnProjectLst)(UINT_007f1490,UINT_007f1474,g_dwVertexDst);
   if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
     pPVar2->flAlpha = 0.0;
   }
   else {
-    pPVar2->flAlpha = *(float *)((int)g_pRdCamera_CurCamera + 0x54);
+    pPVar2->flAlpha = g_pRdCamera_CurCamera->flAmbientLight;
   }
   iVar5 = *(int *)(param_1 + 0x24);
   if ((iVar5 == -1) && (*(int *)(param_1 + 0x20) != 0)) {

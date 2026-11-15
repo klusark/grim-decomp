@@ -242,7 +242,7 @@ uint __cdecl rdClip_SphereInFrustrum(int *param_1,float *param_2,float param_3)
   }
   fVar6 = param_3 + param_2[2];
   fVar7 = param_2[2] - param_3;
-  iVar3 = *(int *)g_pRdCamera_CurCamera;
+  iVar3 = g_pRdCamera_CurCamera->nProjectType;
   if (iVar3 == 1) {
     fVar1 = PUN(float,param_1[7]) * fVar2;
     param_2 = PUN(float *,(float)(PUN(float,param_1[7]) * fVar5));

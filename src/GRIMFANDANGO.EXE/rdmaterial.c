@@ -35,26 +35,27 @@ uint __cdecl rdMaterial_RegisterUnloader(uint param_1)
 }
 
 /* ---- 0x00417eb0  rdMaterial_Load ---- */
-void * __cdecl rdMaterial_Load(char *name,int a,int b)
+rdMaterial * __cdecl rdMaterial_Load(char *name,int a,int b)
 
 {
-  void *pvVar1;
+  rdMaterial *prVar1;
   int iVar2;
   
   if (g_dwMaterialsLoader != 0) {
-    pvVar1 = (void *)(*(code_std *)g_dwMaterialsLoader)(name,a,b);
-    return pvVar1;
+    prVar1 = (rdMaterial *)(*(code_std *)g_dwMaterialsLoader)(name,a,b);
+    return prVar1;
   }
-  pvVar1 = (void *)(*g_pRdroid_HS->pAlloc)
-                             (0xb0,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd7c + 10);
-  if (pvVar1 != (void *)0x0) {
-    iVar2 = rdMaterial_LoadEntry(name,pvVar1,a,b);
+  prVar1 = (rdMaterial *)
+           (*g_pRdroid_HS->pAlloc)
+                     (0xb0,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd7c + 10);
+  if (prVar1 != (rdMaterial *)0x0) {
+    iVar2 = rdMaterial_LoadEntry(name,prVar1,a,b);
     if (iVar2 != 0) {
-      return pvVar1;
+      return prVar1;
     }
   }
-  rdMaterial_Free((uint)pvVar1);
-  return (void *)0x0;
+  rdMaterial_Free((uint)prVar1);
+  return (rdMaterial *)0x0;
 }
 
 /* ---- 0x00417f30  rdMaterial_LoadEntry ---- */
@@ -62,21 +63,23 @@ void * __cdecl rdMaterial_Load(char *name,int a,int b)
    / type 0 solid) Original name rdMaterial_LoadEntry (the remaster's GrimFandango (Linux): strings:
    'MAT '); was rdMaterial_LoadFile. */
 
-int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
+int __cdecl rdMaterial_LoadEntry(char *filename,rdMaterial *material,int a,int b)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
+  void *pvVar2;
   VBuffer *surface;
-  uint *puVar2;
-  int iVar3;
+  uint *puVar3;
   int iVar4;
-  undefined4 *puVar5;
-  byte *pbVar6;
+  int iVar5;
+  void **ppvVar6;
   byte *pbVar7;
-  int *piVar8;
+  byte *pbVar8;
   int *piVar9;
-  byte *pbVar10;
+  rdMaterial *prVar10;
+  int *piVar11;
+  byte *pbVar12;
   #define uStack_428 (*(uint *)(_frame + (0x440 - 0x428)))
   #define iStack_420 (*(int *)(_frame + (0x440 - 0x420)))
   #define uStack_418 (*(uint *)(_frame + (0x440 - 0x418)))
@@ -96,156 +99,157 @@ int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b)
   #define VStack_3d8 (*(VBufferFormat *)(_frame + (0x440 - 0x3d8)))
   #define acStack_38c (*(char (*)[4])(_frame + (0x440 - 0x38c)))
   #define iStack_388 (*(int *)(_frame + (0x440 - 0x388)))
-  #define uStack_384 (*(undefined4 *)(_frame + (0x440 - 0x384)))
+  #define uStack_384 (*(uint *)(_frame + (0x440 - 0x384)))
   #define iStack_380 (*(int *)(_frame + (0x440 - 0x380)))
-  #define uStack_37c (*(undefined4 *)(_frame + (0x440 - 0x37c)))
+  #define iStack_37c (*(int *)(_frame + (0x440 - 0x37c)))
   #define aiStack_378 (*(int (*)[14])(_frame + (0x440 - 0x378)))
   #define aiStack_340 (*(int (*)[16])(_frame + (0x440 - 0x340)))
   #define auStack_300 (*(undefined1 (*)[768])(_frame + (0x440 - 0x300)))
   
-  puVar5 = material;
-  for (iVar3 = 0x2c; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar5 = 0;
-    puVar5 = puVar5 + 1;
+  prVar10 = material;
+  for (iVar4 = 0x2c; iVar4 != 0; iVar4 = iVar4 + -1) {
+    prVar10->dwType = 0;
+    prVar10 = (rdMaterial *)prVar10->aName;
   }
-  iVar3 = (*g_pRdroid_HS->pFopen)(filename,&DAT_004ddb18);
-  if (iVar3 == 0) {
+  iVar4 = (*g_pRdroid_HS->pFopen)(filename,&DAT_004ddb18);
+  if (iVar4 == 0) {
     return 0;
   }
-  (*g_pRdroid_HS->pFread)(iVar3,acStack_38c,0x4c);
+  (*g_pRdroid_HS->pFread)(iVar4,acStack_38c,0x4c);
   uVar1 = strncmp(acStack_38c,&DAT_004dddb0,4);
   if ((uVar1 == 0) && (iStack_388 == 0x32)) {
-    *(undefined4 *)((int)material + 0xa8) = uStack_37c;
-    *(undefined4 *)material = uStack_384;
-    *(int *)((int)material + 0x60) = iStack_380;
-    *(undefined4 *)((int)material + 100) = 0;
+    material->nNumTextures = iStack_37c;
+    material->dwType = uStack_384;
+    material->nNumCels = iStack_380;
+    material->nCurCel = 0;
     uStack_428 = 0;
-    piVar8 = aiStack_378;
-    piVar9 = (int *)((int)material + 0x28);
-    for (iVar4 = 0xe; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *piVar9 = *piVar8;
-      piVar8 = piVar8 + 1;
+    piVar9 = aiStack_378;
+    piVar11 = (int *)&material->field_0x28;
+    for (iVar5 = 0xe; iVar5 != 0; iVar5 = iVar5 + -1) {
+      *piVar11 = *piVar9;
       piVar9 = piVar9 + 1;
+      piVar11 = piVar11 + 1;
     }
     if (iStack_380 != 0) {
       piVar9 = aiStack_340;
-      piVar8 = (int *)((int)material + 0x68);
+      ppvVar6 = material->aCels;
       do {
-        iVar4 = (*g_pRdroid_HS->pAlloc)
-                          (0x20,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd80 + 0x4c);
-        *piVar8 = iVar4;
-        if (iVar4 == 0) goto LAB_0041833a;
-        (*g_pRdroid_HS->pFread)(iVar3,&uStack_400,0x18);
-        *(uint *)*piVar8 = uStack_400;
-        *(undefined4 *)(*piVar8 + 4) = uStack_3fc;
-        *(undefined4 *)(*piVar8 + 8) = uStack_3f8;
-        *(undefined4 *)(*piVar8 + 0xc) = uStack_3f4;
-        *(undefined4 *)(*piVar8 + 0x10) = uStack_3f0;
-        *(undefined4 *)(*piVar8 + 0x14) = uStack_3ec;
+        pvVar2 = (void *)(*g_pRdroid_HS->pAlloc)
+                                   (0x20,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,
+                                    DAT_004ddd80 + 0x4c);
+        *ppvVar6 = pvVar2;
+        if (pvVar2 == (void *)0x0) goto LAB_0041833a;
+        (*g_pRdroid_HS->pFread)(iVar4,&uStack_400,0x18);
+        *(uint *)*ppvVar6 = uStack_400;
+        *(undefined4 *)((int)*ppvVar6 + 4) = uStack_3fc;
+        *(undefined4 *)((int)*ppvVar6 + 8) = uStack_3f8;
+        *(undefined4 *)((int)*ppvVar6 + 0xc) = uStack_3f4;
+        *(undefined4 *)((int)*ppvVar6 + 0x10) = uStack_3f0;
+        *(undefined4 *)((int)*ppvVar6 + 0x14) = uStack_3ec;
         if ((uStack_400 & 8) != 0) {
-          (*g_pRdroid_HS->pFread)(iVar3,auStack_3e8,0x10);
-          *(undefined4 *)(*piVar8 + 0x18) = auStack_3e8[0];
+          (*g_pRdroid_HS->pFread)(iVar4,auStack_3e8,0x10);
+          *(undefined4 *)((int)*ppvVar6 + 0x18) = auStack_3e8[0];
           *piVar9 = iStack_3dc;
         }
         uStack_428 = uStack_428 + 1;
-        piVar8 = piVar8 + 1;
+        ppvVar6 = ppvVar6 + 1;
         piVar9 = piVar9 + 1;
-      } while (uStack_428 < *(uint *)((int)material + 0x60));
+      } while (uStack_428 < (uint)material->nNumCels);
     }
-    *(undefined4 *)((int)material + 0xac) = 0;
-    if (*(int *)((int)material + 0xa8) != 0) {
-      iVar4 = (*g_pRdroid_HS->pAlloc)
-                        (*(int *)((int)material + 0xa8) * 0x4ec,
-                         s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,DAT_004ddd80 + 0x7e);
-      *(int *)((int)material + 0xac) = iVar4;
-      if (iVar4 == 0) goto LAB_0041833a;
+    *(undefined4 *)&material->field_0xac = 0;
+    if (material->nNumTextures != 0) {
+      iVar5 = (*g_pRdroid_HS->pAlloc)
+                        (material->nNumTextures * 0x4ec,s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84,
+                         DAT_004ddd80 + 0x7e);
+      *(int *)&material->field_0xac = iVar5;
+      if (iVar5 == 0) goto LAB_0041833a;
     }
     uStack_428 = 0;
-    if (*(int *)((int)material + 0xa8) != 0) {
+    if (material->nNumTextures != 0) {
       iStack_420 = 0;
       do {
-        (*g_pRdroid_HS->pFread)(iVar3,&uStack_418,0x18);
-        pbVar7 = (byte *)(iStack_420 + *(int *)((int)material + 0xac));
-        *(undefined4 *)pbVar7 = uStack_410;
-        *(undefined4 *)(pbVar7 + 4) = uStack_40c;
-        iVar4 = stdCalcBitPos(uStack_418);
-        *(int *)(pbVar7 + 0xc) = iVar4;
-        *(uint *)(pbVar7 + 0x10) = uStack_418 - 1;
+        (*g_pRdroid_HS->pFread)(iVar4,&uStack_418,0x18);
+        pbVar8 = (byte *)(iStack_420 + *(int *)&material->field_0xac);
+        *(undefined4 *)pbVar8 = uStack_410;
+        *(undefined4 *)(pbVar8 + 4) = uStack_40c;
+        iVar5 = stdCalcBitPos(uStack_418);
+        *(int *)(pbVar8 + 0xc) = iVar5;
+        *(uint *)(pbVar8 + 0x10) = uStack_418 - 1;
         uVar1 = 0;
-        *(uint *)(pbVar7 + 0x14) = uStack_414 - 1;
-        *(undefined4 *)(pbVar7 + 0x18) = uStack_404;
-        *(undefined4 *)(pbVar7 + 8) = uStack_408;
+        *(uint *)(pbVar8 + 0x14) = uStack_414 - 1;
+        *(undefined4 *)(pbVar8 + 0x18) = uStack_404;
+        *(undefined4 *)(pbVar8 + 8) = uStack_408;
         VStack_3d8.nWidth = uStack_418;
         VStack_3d8.nHeight = uStack_414;
-        VStack_3d8.colorFormat.nColorMode = *(int *)((int)material + 0x28);
-        VStack_3d8.colorFormat.nBpp = *(int *)((int)material + 0x2c);
-        if (*(int *)(pbVar7 + 0x18) != 0) {
-          pbVar10 = pbVar7 + 0x1c;
-          pbVar6 = pbVar7 + 0xb8;
+        VStack_3d8.colorFormat.nColorMode = *(int *)&material->field_0x28;
+        VStack_3d8.colorFormat.nBpp = *(int *)&material->field_0x2c;
+        if (*(int *)(pbVar8 + 0x18) != 0) {
+          pbVar12 = pbVar8 + 0x1c;
+          pbVar7 = pbVar8 + 0xb8;
           do {
-            pbVar6[-0xffffffff00000014] = 0;
-            pbVar6[-0xffffffff00000013] = 0;
-            pbVar6[-0xffffffff00000012] = 0;
-            pbVar6[-0xffffffff00000011] = 0;
-            pbVar6[0] = 0;
-            pbVar6[1] = 0;
-            pbVar6[2] = 0;
-            pbVar6[3] = 0;
-            pbVar6[0x24c] = 0;
-            pbVar6[0x24d] = 0;
-            pbVar6[0x24e] = 0;
-            pbVar6[0x24f] = 0;
-            pbVar6[0x260] = 0;
-            pbVar6[0x261] = 0;
-            pbVar6[0x262] = 0;
-            pbVar6[0x263] = 0;
+            pbVar7[-0xffffffff00000014] = 0;
+            pbVar7[-0xffffffff00000013] = 0;
+            pbVar7[-0xffffffff00000012] = 0;
+            pbVar7[-0xffffffff00000011] = 0;
+            pbVar7[0] = 0;
+            pbVar7[1] = 0;
+            pbVar7[2] = 0;
+            pbVar7[3] = 0;
+            pbVar7[0x24c] = 0;
+            pbVar7[0x24d] = 0;
+            pbVar7[0x24e] = 0;
+            pbVar7[0x24f] = 0;
+            pbVar7[0x260] = 0;
+            pbVar7[0x261] = 0;
+            pbVar7[0x262] = 0;
+            pbVar7[0x263] = 0;
             surface = stdDisplay_VBufferNew(&VStack_3d8,a,b,0);
-            *(VBuffer **)pbVar10 = surface;
+            *(VBuffer **)pbVar12 = surface;
             if (surface == (VBuffer *)0x0) goto LAB_0041833a;
-            if ((*pbVar7 & 1) != 0) {
-              stdDisplay_VBufferSetColorKey(surface,*(int *)(pbVar7 + 8));
+            if ((*pbVar8 & 1) != 0) {
+              stdDisplay_VBufferSetColorKey(surface,*(int *)(pbVar8 + 8));
             }
-            stdDisplay_VBufferLock(*(VBuffer **)pbVar10);
+            stdDisplay_VBufferLock(*(VBuffer **)pbVar12);
             (*g_pRdroid_HS->pFread)
-                      (iVar3,*(undefined4 *)(*(int *)pbVar10 + 0x5c),
-                       *(undefined4 *)(*(int *)pbVar10 + 0x14));
-            stdDisplay_VBufferUnlock(*(VBuffer **)pbVar10);
+                      (iVar4,*(undefined4 *)(*(int *)pbVar12 + 0x5c),
+                       *(undefined4 *)(*(int *)pbVar12 + 0x14));
+            stdDisplay_VBufferUnlock(*(VBuffer **)pbVar12);
             VStack_3d8.nWidth = (uint)VStack_3d8.nWidth >> 1;
             VStack_3d8.nHeight = (uint)VStack_3d8.nHeight >> 1;
             uVar1 = uVar1 + 1;
-            pbVar10 = pbVar10 + 4;
-            pbVar6 = pbVar6 + 0x98;
-          } while (uVar1 < *(uint *)(pbVar7 + 0x18));
+            pbVar12 = pbVar12 + 4;
+            pbVar7 = pbVar7 + 0x98;
+          } while (uVar1 < *(uint *)(pbVar8 + 0x18));
         }
         uStack_428 = uStack_428 + 1;
         iStack_420 = iStack_420 + 0x4ec;
-      } while (uStack_428 < *(uint *)((int)material + 0xa8));
+      } while (uStack_428 < (uint)material->nNumTextures);
     }
     uVar1 = 0;
-    if (*(int *)((int)material + 0x60) != 0) {
-      piVar8 = aiStack_340;
-      puVar5 = (undefined4 *)((int)material + 0x68);
+    if (material->nNumCels != 0) {
+      piVar9 = aiStack_340;
+      ppvVar6 = material->aCels;
       do {
-        if ((*(byte *)*puVar5 & 8) != 0) {
-          *(int *)((byte *)*puVar5 + 0x1c) = *(int *)((int)material + 0xac) + *piVar8 * 0x4ec;
+        if ((*(byte *)*ppvVar6 & 8) != 0) {
+          *(int *)((int)*ppvVar6 + 0x1c) = *(int *)&material->field_0xac + *piVar9 * 0x4ec;
         }
         uVar1 = uVar1 + 1;
-        piVar8 = piVar8 + 1;
-        puVar5 = puVar5 + 1;
-      } while (uVar1 < *(uint *)((int)material + 0x60));
+        piVar9 = piVar9 + 1;
+        ppvVar6 = ppvVar6 + 1;
+      } while (uVar1 < (uint)material->nNumCels);
     }
-    if ((*(byte *)material & 1) != 0) {
-      (*g_pRdroid_HS->pFread)(iVar3,auStack_300,0x300);
+    if ((material->dwType & 1) != 0) {
+      (*g_pRdroid_HS->pFread)(iVar4,auStack_300,0x300);
     }
     uVar1 = 0x1f;
-    puVar2 = (uint *)stdFileFromPath(filename);
-    strncpy((uint *)((int)material + 4),puVar2,uVar1);
-    *(undefined1 *)((int)material + 0x23) = 0;
-    (*g_pRdroid_HS->pFclose)(iVar3);
+    puVar3 = (uint *)stdFileFromPath(filename);
+    strncpy((uint *)material->aName,puVar3,uVar1);
+    material->aName[0x1f] = '\0';
+    (*g_pRdroid_HS->pFclose)(iVar4);
     return 1;
   }
 LAB_0041833a:
-  (*g_pRdroid_HS->pFclose)(iVar3);
+  (*g_pRdroid_HS->pFclose)(iVar4);
   return 0;
 }
 #undef VStack_3d8
@@ -254,11 +258,11 @@ LAB_0041833a:
 #undef aiStack_378
 #undef auStack_300
 #undef auStack_3e8
+#undef iStack_37c
 #undef iStack_380
 #undef iStack_388
 #undef iStack_3dc
 #undef iStack_420
-#undef uStack_37c
 #undef uStack_384
 #undef uStack_3ec
 #undef uStack_3f0

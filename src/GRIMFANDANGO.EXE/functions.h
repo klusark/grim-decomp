@@ -478,8 +478,8 @@ void __cdecl rdRaster_Startup(void); /* 0x00404b80 */
 
 /* ===== rdcolormap.c ===== */
 uint __cdecl rdColormap_SetCurrent(uint param_1); /* 0x00404380 */
-void * __cdecl rdColormap_Load(char *name); /* 0x004043c0 */
-int __cdecl rdColormap_LoadEntry(char *name,void *cmp); /* 0x00404420 */
+rdColormap * __cdecl rdColormap_Load(char *name); /* 0x004043c0 */
+int __cdecl rdColormap_LoadEntry(char *name,rdColormap *cmp); /* 0x00404420 */
 void __cdecl rdColormap_Free(uint param_1); /* 0x00404730 */
 void __cdecl rdColormap_FreeEntry(int param_1); /* 0x00404750 */
 undefined8 __cdecl rdColormap_BuildRGB16 (undefined2 *param_1,ushort *param_2,uint param_3,uint param_4,uint param_5,int param_6); /* 0x004047e0 */
@@ -531,15 +531,15 @@ void __cdecl rdPrimit3_ClipFace(uint param_1,uint param_2,int param_3,uint param
 void __cdecl rdPrimit3_NoClipFace (uint param_1,int param_2,uint param_3,uint *param_4,uint *param_5,float *param_6); /* 0x0040e500 */
 
 /* ===== rdcamera.c ===== */
-void * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom); /* 0x00409f50 */
-int __cdecl rdCamera_NewEntry(void *camera,float fov,int projType,float aspectX,float aspectY,float zoom); /* 0x00409fb0 */
+rdCamera * __cdecl rdCamera_New(float fov,int type,float aspectX,float aspectY,float zoom); /* 0x00409f50 */
+int __cdecl rdCamera_NewEntry(rdCamera *camera,float fov,int projType,float aspectX,float aspectY,float zoom); /* 0x00409fb0 */
 void __cdecl rdCamera_Free(int param_1); /* 0x0040a080 */
 void __cdecl rdCamera_FreeEntry(int param_1); /* 0x0040a0a0 */
-void __cdecl rdCamera_SetCanvas(void *camera,void *canvas); /* 0x0040a0c0 */
+void __cdecl rdCamera_SetCanvas(rdCamera *camera,void *canvas); /* 0x0040a0c0 */
 uint __cdecl rdCamera_SetCurrent(void *param_1); /* 0x0040a0e0 */
-void __cdecl rdCamera_SetFOV(void *camera,float fov); /* 0x0040a100 */
-int __cdecl rdCamera_SetProjectType(void *camera,int type); /* 0x0040a150 */
-void __cdecl rdCamera_SetAspectRatio(void *camera,float zoom); /* 0x0040a1d0 */
+void __cdecl rdCamera_SetFOV(rdCamera *camera,float fov); /* 0x0040a100 */
+int __cdecl rdCamera_SetProjectType(rdCamera *camera,int type); /* 0x0040a150 */
+void __cdecl rdCamera_SetAspectRatio(rdCamera *camera,float zoom); /* 0x0040a1d0 */
 uint __cdecl rdCamera_BuildFOV(int *param_1); /* 0x0040a280 */
 void __cdecl rdCamera_Update(float *frame); /* 0x0040a430 */
 void __cdecl rdCamera_OrthoProject(float *param_1,float *param_2); /* 0x0040a470 */
@@ -550,8 +550,8 @@ void __cdecl rdCamera_PerspProject(float *param_1,float *param_2); /* 0x0040a5e0
 void __cdecl rdCamera_PerspProjectLst(float *param_1,float *param_2,int param_3); /* 0x0040a620 */
 void __cdecl rdCamera_PerspProjectSquare(float *param_1,float *param_2); /* 0x0040a6a0 */
 void __cdecl rdCamera_PerspProjectSquareLst(float *param_1,float *param_2,int param_3); /* 0x0040a6e0 */
-void __cdecl rdCamera_SetAmbientLight(void *camera,float ambient); /* 0x0040a750 */
-void __cdecl rdCamera_AddLight(void *camera,void *light,float *pos); /* 0x0040a760 */
+void __cdecl rdCamera_SetAmbientLight(rdCamera *camera,float ambient); /* 0x0040a750 */
+void __cdecl rdCamera_AddLight(rdCamera *camera,rdLight *light,float *pos); /* 0x0040a760 */
 void __cdecl rdCamera_AdvanceFrame(void); /* 0x0040a7d0 */
 void __cdecl rdModel3_ClearFrameCounters(void); /* 0x0040a860 */
 int __cdecl rdPrimit3_GetScreenCoord(float *world,ScreenCoord *outScreen); /* 0x0040dc30 */
@@ -601,15 +601,15 @@ void __cdecl rdKeyframe_Free(int param_1); /* 0x004c0e40 */
 void __cdecl rdKeyframe_FreeEntry(int param_1); /* 0x004c0e70 */
 
 /* ===== rdthing.c ===== */
-int __cdecl rdModel3_Draw(void *thing,float *position); /* 0x0040cf20 */
+int __cdecl rdModel3_Draw(rdThing *thing,float *position); /* 0x0040cf20 */
 uint __cdecl rdThing_New(uint param_1); /* 0x00471a40 */
 uint __cdecl rdThing_NewEntry(undefined4 *param_1,uint param_2); /* 0x00471a80 */
 void __cdecl rdThing_Free(int param_1); /* 0x00471af0 */
 void __cdecl rdThing_FreeEntry(int *param_1); /* 0x00471b10 */
-void __cdecl rdThing_SetModel3(void *thing,void *model); /* 0x00471bd0 */
+void __cdecl rdThing_SetModel3(rdThing *thing,void *model); /* 0x00471bd0 */
 uint __cdecl rdThing_SetCamera(undefined4 *param_1,uint param_2); /* 0x00471d40 */
 uint __cdecl rdThing_SetPolyline(undefined4 *param_1,uint param_2); /* 0x00471d60 */
-int __cdecl rdThing_Draw(void *thing,float *frame); /* 0x00471d80 */
+int __cdecl rdThing_Draw(rdThing *thing,float *frame); /* 0x00471d80 */
 void __cdecl rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3); /* 0x00471e00 */
 
 /* ===== rdraster.c ===== */
@@ -989,8 +989,8 @@ void __cdecl rdRaster_Span16_TexZw_13(uint *param_1,uint *param_2); /* 0x004710e
 /* ===== rdmaterial.c ===== */
 uint __cdecl rdMaterial_RegisterLoader(uint param_1); /* 0x00417e90 */
 uint __cdecl rdMaterial_RegisterUnloader(uint param_1); /* 0x00417ea0 */
-void * __cdecl rdMaterial_Load(char *name,int a,int b); /* 0x00417eb0 */
-int __cdecl rdMaterial_LoadEntry(char *filename,void *material,int a,int b); /* 0x00417f30 */
+rdMaterial * __cdecl rdMaterial_Load(char *name,int a,int b); /* 0x00417eb0 */
+int __cdecl rdMaterial_LoadEntry(char *filename,rdMaterial *material,int a,int b); /* 0x00417f30 */
 void __cdecl rdMaterial_Free(uint param_1); /* 0x00418360 */
 void __cdecl rdMaterial_FreeEntry(int param_1); /* 0x004183a0 */
 int __cdecl rdMaterial_AddToTextureCache(void *a,uint *material,int cel,int alt); /* 0x004184a0 */
@@ -1036,8 +1036,8 @@ uint __cdecl rdMath_PointsCollinear(float *param_1,float *param_2,float *param_3
 /* ===== rdclip.c ===== */
 undefined4 __cdecl rdClip_Line2(int canvas,undefined4 *x0,undefined4 *y0,undefined4 *x1,undefined4 *y1); /* 0x00446c10 */
 uint __cdecl rdClip_CalcOutcode2(int canvas,int x,int y); /* 0x00446e80 */
-int __cdecl rdClip_Point3(void *frustum,float *point); /* 0x00446ec0 */
-int __cdecl rdClip_Line3(void *frustum,float *p0,float *p1,int *clipped0,int *clipped1); /* 0x00446f80 */
+int __cdecl rdClip_Point3(rdClipFrustum *frustum,float *point); /* 0x00446ec0 */
+int __cdecl rdClip_Line3(rdClipFrustum *frustum,float *p0,float *p1,int *clipped0,int *clipped1); /* 0x00446f80 */
 uint __cdecl rdClip_Face3W(int *param_1,float *param_2,uint param_3); /* 0x004478c0 */
 int __cdecl rdClip_Face3WOrtho(int *param_1,float *param_2,int param_3); /* 0x00448260 */
 uint __cdecl rdClip_Face3S(int *param_1,float *param_2,uint param_3); /* 0x004489b0 */

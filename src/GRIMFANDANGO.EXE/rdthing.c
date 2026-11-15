@@ -11,72 +11,72 @@
    same body (bounding-sphere frustum test, geometry set, puppet update, node hierarchy; counts
    rdModel3_numDrawnModels); called by rdThing_Draw's model case); was rdThing_Draw. */
 
-int __cdecl rdModel3_Draw(void *thing,float *position)
+int __cdecl rdModel3_Draw(rdThing *thing,float *position)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
+  rdLight *prVar1;
   float fVar2;
   float fVar3;
-  void *pvVar4;
+  rdCamera *prVar4;
   int iVar5;
   float *pfVar6;
   uint uVar7;
-  uint *puVar8;
+  rdLight **pprVar8;
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   g_pCurThing = thing;
-  g_pCurModel3 = *(void **)((int)thing + 4);
+  g_pCurModel3 = thing->pModel;
   rdMatrix_TransformPoint34(local_c,(float *)((int)g_pCurModel3 + 0x78),position);
-  rdMatrix_TransformPoint34Acc(local_c,(float *)((int)g_pRdCamera_CurCamera + 8));
-  if (*(int *)((int)thing + 0x44) == 0) {
+  rdMatrix_TransformPoint34Acc(local_c,g_pRdCamera_CurCamera->aView);
+  if (thing->nFrustumCull == 0) {
     g_dwThingFrustrumCull = 1;
   }
   else {
     g_dwThingFrustrumCull =
          rdClip_SphereInFrustrum
-                   (*(int **)((int)g_pRdCamera_CurCamera + 0x48),local_c,
+                   (&g_pRdCamera_CurCamera->pFrustum->nClipFar,local_c,
                     *(float *)((int)g_pCurModel3 + 0x5c));
   }
   if (g_dwThingFrustrumCull != 2) {
     g_dwThingFrustrumCull = 1;
-    if (*(int *)((int)thing + 0x34) == -1) {
+    if (thing->nCurGeoset == -1) {
       iVar5 = *(int *)((int)g_pCurModel3 + 0x50);
     }
     else {
-      iVar5 = *(int *)((int)g_pCurThing + 0x34);
+      iVar5 = g_pCurThing->nCurGeoset;
     }
     g_dwCurGeo = (int)g_pCurModel3 + iVar5 * 8 + 0x24;
     rdPuppet_UpdateFrame(g_pCurThing,position);
-    pvVar4 = g_pRdCamera_CurCamera;
-    g_dwCurTextureMode = *(uint *)((int)g_pCurThing + 0x38);
+    prVar4 = g_pRdCamera_CurCamera;
+    g_dwCurTextureMode = g_pCurThing->nGeometryMode;
     if (g_nRdroid_curGeometryMode <= (int)g_dwCurTextureMode) {
       g_dwCurTextureMode = g_nRdroid_curGeometryMode;
     }
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
-       (*(float *)((int)g_pRdCamera_CurCamera + 0x54) < 1.0)) {
-      UINT_007f30dc = *(uint *)((int)g_pCurThing + 0x3c);
-      if (g_nRdroid_curLightingMode <= (int)*(uint *)((int)g_pCurThing + 0x3c)) {
+       (g_pRdCamera_CurCamera->flAmbientLight < 1.0)) {
+      UINT_007f30dc = g_pCurThing->nLightingMode;
+      if (g_nRdroid_curLightingMode <= g_pCurThing->nLightingMode) {
         UINT_007f30dc = g_nRdroid_curLightingMode;
       }
     }
     else {
       UINT_007f30dc = 0;
     }
-    UINT_007f189c = *(uint *)((int)g_pCurThing + 0x40);
+    UINT_007f189c = g_pCurThing->nTextureMode;
     if (g_nRdroid_curTextureMode <= (int)UINT_007f189c) {
       UINT_007f189c = g_nRdroid_curTextureMode;
     }
     if (1 < (int)UINT_007f30dc) {
       g_dwNumGeoLights = 0;
       uVar7 = 0;
-      if (*(int *)((int)g_pRdCamera_CurCamera + 0x58) != 0) {
-        pfVar6 = (float *)((int)g_pRdCamera_CurCamera + 0x160);
-        puVar8 = (uint *)((int)g_pRdCamera_CurCamera + 0x5c);
+      if (g_pRdCamera_CurCamera->dwNumLights != 0) {
+        pfVar6 = g_pRdCamera_CurCamera->aLightPositions + 1;
+        pprVar8 = g_pRdCamera_CurCamera->aLights;
         do {
-          uVar1 = *puVar8;
-          if (*(int *)(uVar1 + 8) != 0) {
-            if (*(int *)(uVar1 + 4) < 2) {
+          prVar1 = *pprVar8;
+          if (prVar1->nActive != 0) {
+            if (prVar1->nType < 2) {
               fVar2 = 0.0;
             }
             else {
@@ -84,16 +84,16 @@ int __cdecl rdModel3_Draw(void *thing,float *position)
                       (position[10] - *pfVar6) * (position[10] - *pfVar6) +
                       (position[9] - pfVar6[-1]) * (position[9] - pfVar6[-1]);
             }
-            fVar3 = *(float *)(uVar1 + 0x34) + *(float *)((int)g_pCurModel3 + 0x5c);
+            fVar3 = prVar1->flFalloffMin + *(float *)((int)g_pCurModel3 + 0x5c);
             if (fVar2 < fVar3 * fVar3) {
-              (&g_apGeoLights)[g_dwNumGeoLights] = uVar1;
+              (&g_apGeoLights)[g_dwNumGeoLights] = (uint)prVar1;
               g_dwNumGeoLights = g_dwNumGeoLights + 1;
             }
           }
           uVar7 = uVar7 + 1;
-          puVar8 = puVar8 + 1;
+          pprVar8 = pprVar8 + 1;
           pfVar6 = pfVar6 + 3;
-        } while (uVar7 < *(uint *)((int)pvVar4 + 0x58));
+        } while (uVar7 < prVar4->dwNumLights);
       }
     }
     rdModel3_DrawHNode(*(int *)((int)g_pCurModel3 + 0x58));
@@ -211,70 +211,69 @@ void __cdecl rdThing_FreeEntry(int *param_1)
 /* Original name rdThing_SetModel3 (the remaster's GrimFandango (Linux): aligned call in
    ThingInstancer); was rdThing_SetModel. */
 
-void __cdecl rdThing_SetModel3(void *thing,void *model)
+void __cdecl rdThing_SetModel3(rdThing *thing,void *model)
 
 {
-  undefined4 uVar1;
-  undefined4 *puVar2;
-  uint uVar3;
-  int iVar4;
-  uint *puVar5;
+  float *pfVar1;
+  int *piVar2;
+  void *pvVar3;
+  uint uVar4;
+  int iVar5;
+  uint *puVar6;
   
-  *(undefined4 *)thing = 1;
-  *(void **)((int)thing + 4) = model;
-  *(undefined4 *)((int)thing + 0x34) = 0xffffffff;
-  uVar1 = (*g_pRdroid_HS->pAlloc)
-                    (*(int *)((int)model + 0x54) * 0x30,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,
-                     DAT_004dde10 + 0xd);
-  *(undefined4 *)((int)thing + 0x20) = uVar1;
-  puVar2 = (undefined4 *)
-           (*g_pRdroid_HS->pAlloc)
-                     (*(int *)((int)model + 0x54) * 0xc,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,
-                      DAT_004dde10 + 0x10);
-  *(undefined4 **)((int)thing + 0x24) = puVar2;
-  for (uVar3 = *(int *)((int)model + 0x54) * 3 & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
+  thing->nType = 1;
+  thing->pModel = model;
+  thing->nCurGeoset = -1;
+  pfVar1 = (float *)(*g_pRdroid_HS->pAlloc)
+                              (*(int *)((int)model + 0x54) * 0x30,
+                               s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0xd);
+  thing->pHierarchyMatrices = pfVar1;
+  pfVar1 = (float *)(*g_pRdroid_HS->pAlloc)
+                              (*(int *)((int)model + 0x54) * 0xc,
+                               s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x10);
+  thing->pHierarchyRot = pfVar1;
+  for (uVar4 = *(int *)((int)model + 0x54) * 3 & 0x3fffffff; uVar4 != 0; uVar4 = uVar4 - 1) {
+    *pfVar1 = 0.0;
+    pfVar1 = pfVar1 + 1;
   }
-  for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *(undefined1 *)puVar2 = 0;
-    puVar2 = (undefined4 *)((int)puVar2 + 1);
+  for (iVar5 = 0; iVar5 != 0; iVar5 = iVar5 + -1) {
+    *(undefined1 *)pfVar1 = 0;
+    pfVar1 = (float *)((int)pfVar1 + 1);
   }
-  if ((*(int *)((int)thing + 0x20) != 0) && (*(int *)((int)thing + 0x24) != 0)) {
-    puVar2 = (undefined4 *)
-             (*g_pRdroid_HS->pAlloc)
-                       (*(int *)((int)model + 0x54) << 2,s_C__grimjedi_Libs_RDroid_Engine_R_004dde14
-                        ,DAT_004dde10 + 0x1a);
-    *(undefined4 **)((int)thing + 0x28) = puVar2;
-    if (puVar2 != (undefined4 *)0x0) {
-      for (uVar3 = *(uint *)((int)model + 0x54) & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-        *puVar2 = 0;
-        puVar2 = puVar2 + 1;
+  if ((thing->pHierarchyMatrices != (float *)0x0) && (thing->pHierarchyRot != (float *)0x0)) {
+    piVar2 = (int *)(*g_pRdroid_HS->pAlloc)
+                              (*(int *)((int)model + 0x54) << 2,
+                               s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x1a);
+    thing->pHierarchyFlags = piVar2;
+    if (piVar2 != (int *)0x0) {
+      for (uVar4 = *(uint *)((int)model + 0x54) & 0x3fffffff; uVar4 != 0; uVar4 = uVar4 - 1) {
+        *piVar2 = 0;
+        piVar2 = piVar2 + 1;
       }
-      for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
-        *(undefined1 *)puVar2 = 0;
-        puVar2 = (undefined4 *)((int)puVar2 + 1);
+      for (iVar5 = 0; iVar5 != 0; iVar5 = iVar5 + -1) {
+        *(undefined1 *)piVar2 = 0;
+        piVar2 = (int *)((int)piVar2 + 1);
       }
-      iVar4 = (*g_pRdroid_HS->pAlloc)
-                        (*(int *)((int)model + 0x54) << 2,
-                         s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x23);
-      *(int *)((int)thing + 0x2c) = iVar4;
-      if (iVar4 != 0) {
-        iVar4 = 0;
+      pvVar3 = (void *)(*g_pRdroid_HS->pAlloc)
+                                 (*(int *)((int)model + 0x54) << 2,
+                                  s_C__grimjedi_Libs_RDroid_Engine_R_004dde14,DAT_004dde10 + 0x23);
+      thing->pHierarchyExtra = pvVar3;
+      if (pvVar3 != (void *)0x0) {
+        iVar5 = 0;
         if (0 < *(int *)((int)model + 0x54)) {
           do {
-            iVar4 = iVar4 + 1;
-            *(undefined4 *)(*(int *)((int)thing + 0x2c) + -4 + iVar4 * 4) = 1;
-          } while (iVar4 < *(int *)((int)model + 0x54));
+            iVar5 = iVar5 + 1;
+            *(undefined4 *)((int)thing->pHierarchyExtra + iVar5 * 4 + -4) = 1;
+          } while (iVar5 < *(int *)((int)model + 0x54));
         }
-        uVar3 = 0;
+        uVar4 = 0;
         if (*(int *)((int)model + 0x54) != 0) {
-          puVar5 = (uint *)(*(int *)((int)model + 0x58) + 0x7c);
+          puVar6 = (uint *)(*(int *)((int)model + 0x58) + 0x7c);
           do {
-            rdMatrix_Build34((float *)(puVar5 + 3),puVar5,(float *)(puVar5 + -3));
-            puVar5 = puVar5 + 0x2e;
-            uVar3 = uVar3 + 1;
-          } while (uVar3 < *(uint *)((int)model + 0x54));
+            rdMatrix_Build34((float *)(puVar6 + 3),puVar6,(float *)(puVar6 + -3));
+            puVar6 = puVar6 + 0x2e;
+            uVar4 = uVar4 + 1;
+          } while (uVar4 < *(uint *)((int)model + 0x54));
         }
         return;
       }
@@ -311,14 +310,14 @@ uint __cdecl rdThing_SetPolyline(undefined4 *param_1,uint param_2)
    model, 4 sprite, 5 particles, 6 polyline) under rdroid_curGeometryMode != 0; rdThing.c); was
    rdThing_DrawAlt. */
 
-int __cdecl rdThing_Draw(void *thing,float *frame)
+int __cdecl rdThing_Draw(rdThing *thing,float *frame)
 
 {
   uint uVar1;
   int iVar2;
   
   if (g_nRdroid_curGeometryMode != 0) {
-    switch(*(undefined4 *)thing) {
+    switch(thing->nType) {
     case 0:
     case 2:
     case 3:
@@ -333,7 +332,7 @@ int __cdecl rdThing_Draw(void *thing,float *frame)
       iVar2 = rdSprite_DrawThing(thing,frame);
       return iVar2;
     case 6:
-      thing = (void *)rdPolyline_Draw((int)thing,frame);
+      thing = (rdThing *)rdPolyline_Draw((int)thing,frame);
     }
     return (int)thing;
   }

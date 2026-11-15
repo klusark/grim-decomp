@@ -108,9 +108,9 @@ void __cdecl sputRender_SyncCamera(void *set,int setupIdx)
   rdroid_SetColormap(*(uint *)(iVar3 + iVar2 * 0x34 + 4));
   rdCamera_SetCurrent(*(void **)(iVar1 + 0x48));
   if (g_pSputRender_Canvas != (void *)0x0) {
-    rdCamera_SetCanvas(*(void **)(iVar1 + 0x48),g_pSputRender_Canvas);
+    rdCamera_SetCanvas(*(rdCamera **)(iVar1 + 0x48),g_pSputRender_Canvas);
   }
-  rdCamera_SetAspectRatio(*(void **)(iVar1 + 0x48),1.0);
+  rdCamera_SetAspectRatio(*(rdCamera **)(iVar1 + 0x48),1.0);
   rdCamera_Update((float *)(iVar1 + 0x50));
   return;
 }
@@ -920,6 +920,7 @@ void __cdecl Set_FreeSetup(uint param_1,int param_2)
 }
 
 /* ---- 0x004a4fe0  sputRoom_LoadResources ---- */
+/* WARNING: Type propagation algorithm not settling */
 /* Loads colormaps (set+0x80, 0x34 each), each setup's background/depth bitmaps, creates the
    rdCamera (setup+0x48) and rdThing (+0x4c), builds the camera basis and adds the set's lights
    Original name sputRoom_LoadResources (the remaster's GrimFandango (Linux): strings:
@@ -936,14 +937,15 @@ int __cdecl sputRoom_LoadResources(Set *set)
   Set *pSVar4;
   int iVar5;
   void *pvVar6;
-  undefined4 *puVar7;
-  uint uVar8;
+  rdCamera *prVar7;
+  undefined4 *puVar8;
   uint uVar9;
+  uint uVar10;
   ResRef *ref_00;
-  int iVar10;
-  char *pcVar11;
-  float *pfVar12;
-  char *pcVar13;
+  int iVar11;
+  char *pcVar12;
+  float *pfVar13;
+  char *pcVar14;
   rdLight *light;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
@@ -952,32 +954,32 @@ int __cdecl sputRoom_LoadResources(Set *set)
   set->dwSize = 0x1b08;
   pSVar2 = set->pSetups;
   SoundsFloodMusicBuffer();
-  uVar9 = 0;
+  uVar10 = 0;
   if (set->nColormaps != 0) {
-    iVar10 = 0;
+    iVar11 = 0;
     do {
-      if (*(int *)((int)&set->pColormaps->dwHandle + iVar10) == 0) {
+      if (*(int *)((int)&set->pColormaps->dwHandle + iVar11) == 0) {
         iVar5 = _stricmp((byte *)set->aColormapName,&DAT_004ec60c);
         if (iVar5 != 0) {
           pvVar6 = sputResource_Alloc(0x50414d43,set->aColormapName);
-          Res_SetReference((void *)((int)&set->pColormaps->dwHandle + iVar10),pvVar6,
+          Res_SetReference((void *)((int)&set->pColormaps->dwHandle + iVar11),pvVar6,
                            s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6dc);
         }
-        if (*(int *)((int)&set->pColormaps->dwHandle + iVar10) == 0) {
+        if (*(int *)((int)&set->pColormaps->dwHandle + iVar11) == 0) {
           pvVar6 = sputResource_Alloc(0x50414d43,s_dfltcmp_cmp_004ec710);
-          Res_SetReference((void *)((int)&set->pColormaps->dwHandle + iVar10),pvVar6,
+          Res_SetReference((void *)((int)&set->pColormaps->dwHandle + iVar11),pvVar6,
                            s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6e3);
-          if (*(int *)((int)&set->pColormaps->dwHandle + iVar10) == 0) {
+          if (*(int *)((int)&set->pColormaps->dwHandle + iVar11) == 0) {
             return 0;
           }
         }
       }
       else {
-        Res_Touch(*(void **)((int)&set->pColormaps->pData + iVar10));
+        Res_Touch(*(void **)((int)&set->pColormaps->pData + iVar11));
       }
-      uVar9 = uVar9 + 1;
-      iVar10 = iVar10 + 0x34;
-    } while (uVar9 < (uint)set->nColormaps);
+      uVar10 = uVar10 + 1;
+      iVar11 = iVar11 + 0x34;
+    } while (uVar10 < (uint)set->nColormaps);
   }
   local_4 = 0;
   if (set->nSetups == 0) {
@@ -987,8 +989,8 @@ int __cdecl sputRoom_LoadResources(Set *set)
   do {
     if (g_nSkipSetupBitmaps == 0) {
       if (ref_00->dwHandle == 0) {
-        iVar10 = _stricmp((byte *)((int)(ref_00 + -2) + 0x28),&DAT_004ec60c);
-        if (iVar10 != 0) {
+        iVar11 = _stricmp((byte *)((int)(ref_00 + -2) + 0x28),&DAT_004ec60c);
+        if (iVar11 != 0) {
           pvVar6 = sputResource_Alloc(0x444e4b42,(char *)((int)(ref_00 + -2) + 0x28));
           Res_SetReference(ref_00,pvVar6,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x702);
         }
@@ -998,28 +1000,28 @@ int __cdecl sputRoom_LoadResources(Set *set)
           if (ref_00->dwHandle == 0) {
             return 0;
           }
-          uVar9 = 0xffffffff;
-          pcVar11 = &DAT_004ec60c;
+          uVar10 = 0xffffffff;
+          pcVar12 = &DAT_004ec60c;
           do {
-            pcVar13 = pcVar11;
-            if (uVar9 == 0) break;
-            uVar9 = uVar9 - 1;
-            pcVar13 = pcVar11 + 1;
-            cVar1 = *pcVar11;
-            pcVar11 = pcVar13;
+            pcVar14 = pcVar12;
+            if (uVar10 == 0) break;
+            uVar10 = uVar10 - 1;
+            pcVar14 = pcVar12 + 1;
+            cVar1 = *pcVar12;
+            pcVar12 = pcVar14;
           } while (cVar1 != '\0');
-          uVar9 = ~uVar9;
-          pcVar11 = pcVar13 + -uVar9;
-          pcVar13 = (undefined1 *)((int)(ref_00 + -2) + 0x28);
-          for (uVar8 = uVar9 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-            *(undefined4 *)pcVar13 = *(undefined4 *)pcVar11;
-            pcVar11 = pcVar11 + 4;
-            pcVar13 = pcVar13 + 4;
+          uVar10 = ~uVar10;
+          pcVar12 = pcVar14 + -uVar10;
+          pcVar14 = (undefined1 *)((int)(ref_00 + -2) + 0x28);
+          for (uVar9 = uVar10 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+            *(undefined4 *)pcVar14 = *(undefined4 *)pcVar12;
+            pcVar12 = pcVar12 + 4;
+            pcVar14 = pcVar14 + 4;
           }
-          for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
-            *pcVar13 = *pcVar11;
-            pcVar11 = pcVar11 + 1;
-            pcVar13 = pcVar13 + 1;
+          for (uVar10 = uVar10 & 3; uVar10 != 0; uVar10 = uVar10 - 1) {
+            *pcVar14 = *pcVar12;
+            pcVar12 = pcVar12 + 1;
+            pcVar14 = pcVar14 + 1;
           }
           *(undefined1 *)((int)(ref_00 + -1) + 0x14) = 0;
           goto LAB_004a51bd;
@@ -1048,29 +1050,29 @@ LAB_004a51bd:
       }
     }
     if (*(int *)((int)(ref_00 + -3) + 0x24) == 0) {
-      pvVar6 = rdCamera_New(*(float *)((int)(ref_00 + -3) + 0x18),1,
+      prVar7 = rdCamera_New(*(float *)((int)(ref_00 + -3) + 0x18),1,
                             *(float *)((int)(ref_00 + -3) + 0x1c),
                             *(float *)((int)(ref_00 + -3) + 0x20),1.0);
-      *(void **)((int)(ref_00 + -3) + 0x24) = pvVar6;
-      if (pvVar6 == (void *)0x0) {
+      *(rdCamera **)((int)(ref_00 + -3) + 0x24) = prVar7;
+      if (prVar7 == (rdCamera *)0x0) {
         return 0;
       }
-      puVar7 = (undefined4 *)rdThing_New(0);
-      *(undefined4 **)((int)(ref_00 + -3) + 0x28) = puVar7;
-      rdThing_SetCamera(puVar7,*(uint *)((int)(ref_00 + -3) + 0x24));
+      puVar8 = (undefined4 *)rdThing_New(0);
+      *(undefined4 **)((int)(ref_00 + -3) + 0x28) = puVar8;
+      rdThing_SetCamera(puVar8,*(uint *)((int)(ref_00 + -3) + 0x24));
       rdMatrix_LookAt((float *)((int)(ref_00 + -3) + 0x2c),(float *)((int)(ref_00 + -4) + 0x30),
                       (float *)((int)(ref_00 + -3) + 8),*(uint *)((int)(ref_00 + -3) + 0x14));
       set = (Set *)0x0;
       if (pSVar4->nLights != 0) {
         pSVar3 = pSVar4->aLights;
-        pfVar12 = &pSVar4->aLights[0].light.flInnerAngle;
+        pfVar13 = &pSVar4->aLights[0].light.flInnerAngle;
         do {
           light = &pSVar3->light;
-          rdLight_SetAngles((rdLight *)(pfVar12 + -8),*pfVar12,pfVar12[2]);
-          rdCamera_AddLight(*(void **)((int)(ref_00 + -3) + 0x24),light,
+          rdLight_SetAngles((rdLight *)(pfVar13 + -8),*pfVar13,pfVar13[2]);
+          rdCamera_AddLight(*(rdCamera **)((int)(ref_00 + -3) + 0x24),light,
                             (float *)((int)(light + -1) + 0x30));
           set = (Set *)(set->aName + 1);
-          pfVar12 = pfVar12 + 0x1a;
+          pfVar13 = pfVar13 + 0x1a;
           pSVar3 = (SetLight *)(light + 1);
         } while (set < (Set *)pSVar4->nLights);
       }
