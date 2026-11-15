@@ -197,7 +197,7 @@ def main():
         return name in others or re.search(r"\b%s\b" % re.escape(name), bodies.get(fn, ""))
 
     def real(n):
-        return n and not re.fullmatch(r"(param|local|uVar|iVar|pvVar|puVar|piVar|pcVar|pbVar|fVar|dVar|bVar|cVar|sVar|"
+        return n and not n.startswith("_") and not re.fullmatch(r"(param|local|uVar|iVar|pvVar|puVar|piVar|pcVar|pbVar|fVar|dVar|bVar|cVar|sVar|"
                                       r"lVar|uStack|iStack|pStack|in_stack|unaff|extraout|auStack|a)_?\w*\d+\w*|this",
                                       n) and not re.match(r"(DAT|UINT|PTR|FUN|LAB|s|_DAT|FLOAT|DOUBLE)_", n)             and not re.fullmatch(r"\w*Var\d+|\w*Stack_?\w*", n)
     for rnd in range(6):

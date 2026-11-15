@@ -50,11 +50,11 @@ void __cdecl PrimitiveList_AtExitClear(void)
 /* __fastcall: clears the head and tail of a primitive list. Original name PrimitiveQueue_Construct
    (the remaster's GrimFandango (Linux): same body (head and tail 0)); was PrimitiveList_Init. */
 
-void __fastcall PrimitiveQueue_Construct(undefined4 *param_1)
+void __fastcall PrimitiveQueue_Construct(undefined4 *primitiveQ)
 
 {
-  *param_1 = 0;
-  param_1[1] = 0;
+  *primitiveQ = 0;
+  primitiveQ[1] = 0;
   return;
 }
 
@@ -64,19 +64,19 @@ void __fastcall PrimitiveQueue_Construct(undefined4 *param_1)
    _Restore / _Shutdown and the at-exit destructor of the queue in both builds); was
    PrimitiveList_Clear. */
 
-void __fastcall PrimitiveQueue_purge(int *param_1)
+void __fastcall PrimitiveQueue_purge(int *primitiveQ)
 
 {
   Primitive *pPVar1;
   
-  pPVar1 = (Primitive *)*param_1;
+  pPVar1 = (Primitive *)*primitiveQ;
   while (pPVar1 != (Primitive *)0x0) {
-    pPVar1 = ((Primitive *)*param_1)->pNext;
-    PrimitiveQueue_markDirty(param_1,(Primitive *)*param_1);
-    Plat_Free((void *)*param_1);
-    *param_1 = (int)pPVar1;
+    pPVar1 = ((Primitive *)*primitiveQ)->pNext;
+    PrimitiveQueue_markDirty(primitiveQ,(Primitive *)*primitiveQ);
+    Plat_Free((void *)*primitiveQ);
+    *primitiveQ = (int)pPVar1;
   }
-  param_1[1] = 0;
+  primitiveQ[1] = 0;
   return;
 }
 

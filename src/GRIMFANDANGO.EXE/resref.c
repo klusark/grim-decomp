@@ -78,18 +78,17 @@ void Res_RemoveReference(ResRef *ref)
    Res_ResolveToSerialNumber (the remaster's GrimFandango (Linux): aligned call in
    sputActor_Restore); was ResRef_Release. */
 
-void __cdecl Res_ResolveToSerialNumber(undefined4 *param_1)
+void __cdecl Res_ResolveToSerialNumber(ResRef *ref)
 
 {
   Resource *pRVar1;
   
-  pRVar1 = Res_FindByHandle((void *)param_1[1]);
+  pRVar1 = Res_FindByHandle(ref->pData);
   if (pRVar1 != (Resource *)0x0) {
-    *param_1 = 0;
-    param_1[0xc] = 0;
-    param_1[0xb] = 0;
-    Res_SetReference((ResRef *)param_1,pRVar1->pData,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,
-                     0xeec);
+    ref->nValid = 0;
+    ref->pNext = (ResRef *)0x0;
+    ref->pPrev = (ResRef *)0x0;
+    Res_SetReference(ref,pRVar1->pData,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0xeec);
   }
   return;
 }

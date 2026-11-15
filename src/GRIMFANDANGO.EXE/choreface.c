@@ -81,7 +81,7 @@ uint __cdecl ChoreFace_CallSavedHook(void)
    pop/push the selected actor costume (forces windowed mode while editing), >=7 sets
    g_fixedFrameMs. */
 
-void __cdecl ChoreFace_OnCommand(uint param_1,int param_2)
+void __cdecl ChoreFace_OnCommand(uint flags,int param_2)
 
 {
   switch(param_2) {
@@ -110,7 +110,7 @@ void __cdecl ChoreFace_OnCommand(uint param_1,int param_2)
       Display_InitFromConfig();
     }
 switchD_00402299_caseD_0:
-    grimlib_OverrideSelectedActorCostume(param_1);
+    grimlib_OverrideSelectedActorCostume(flags);
     return;
   case 6:
     return;

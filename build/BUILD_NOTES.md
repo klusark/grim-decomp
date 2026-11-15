@@ -2097,3 +2097,17 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   ExecutionState_* methods and LState_Save / Restore / attach take them.
 * LUA.DLL's raw offset accesses: 46 -> 0. The hand-written LState_attach takes `LState *`.
 * Clean room 0 of 5457.
+
+## 298 parameters named (and 11 typed) from the calls that pass them on (2026-11-15)
+
+* tools/propagate_params.py proposes, for each `param_N` of a generated function: a pointer type and name when the
+  function passes it unchanged to a parameter that has a real pointer type (every such call agreeing), else the name
+  alone (the type stays: the generated code does not change) - forward, from the callee's parameter it is passed to,
+  or reverse, from the variable every caller passes (a global's name without g_ and its Hungarian prefix). A name the
+  function already uses, a Ghidra temporary (`iVar3`, `pTVar2`, `uStack_8`) or one that starts with `_` (globals.h's
+  width macros) is not taken. Repeated until nothing changes.
+* names/params_{grimfandango,lua,imuse,chore}.json: 231 + 40 + 18 + 9 parameters (EXE: ResRef *, LecPixelFormat *,
+  AnimPlayer *, rdKeyframe *, Std3DTexture *, FontData * among the typed ones). `param_N` in the prototypes:
+  EXE 2857 -> 2626, LUA.DLL 1076 -> 1034, IMUSE.DLL 690 -> 672, CHORE.DLL 268 -> 259. What is left is mostly the C
+  runtime and leaf functions with scalar parameters, which no call names.
+* Clean room 0 of 5457.

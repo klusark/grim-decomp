@@ -60,73 +60,73 @@ int __cdecl Res_FileClose(char *name)
   char cVar1;
   Resource *pRVar2;
   Resource *res;
-  int *piVar3;
-  char *pcVar4;
+  int *item;
+  char *pcVar3;
+  uint uVar4;
   uint uVar5;
-  uint uVar6;
+  char *pcVar6;
   char *pcVar7;
-  char *pcVar8;
   
-  piVar3 = Lab_Find(name);
+  item = Lab_Find(name);
   pRVar2 = g_pNewestResNode;
-  if (piVar3 != (int *)0x0) {
+  if (item != (int *)0x0) {
     while (res = pRVar2, res != (Resource *)0x0) {
       pRVar2 = res->pNext;
-      if (res->pLab == piVar3) {
+      if (res->pLab == item) {
         if ((res->pRefs == (ResRef *)0x0) && ((res->bFlags & 8) == 0)) {
           Res_CallUnload(res);
           Res_Unlink(res);
         }
         else if ((res->bFlags & 4) == 0) {
-          uVar5 = 0xffffffff;
-          pcVar7 = res->pName;
+          uVar4 = 0xffffffff;
+          pcVar6 = res->pName;
           do {
-            if (uVar5 == 0) break;
-            uVar5 = uVar5 - 1;
-            cVar1 = *pcVar7;
-            pcVar7 = pcVar7 + 1;
+            if (uVar4 == 0) break;
+            uVar4 = uVar4 - 1;
+            cVar1 = *pcVar6;
+            pcVar6 = pcVar6 + 1;
           } while (cVar1 != '\0');
-          pcVar4 = (char *)(**(code **)(g_dwResHS + 0x20))
-                                     (~uVar5,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x2fe);
-          uVar5 = 0xffffffff;
-          pcVar7 = res->pName;
+          pcVar3 = (char *)(**(code **)(g_dwResHS + 0x20))
+                                     (~uVar4,s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c,0x2fe);
+          uVar4 = 0xffffffff;
+          pcVar6 = res->pName;
           do {
-            pcVar8 = pcVar7;
-            if (uVar5 == 0) break;
-            uVar5 = uVar5 - 1;
-            pcVar8 = pcVar7 + 1;
-            cVar1 = *pcVar7;
-            pcVar7 = pcVar8;
+            pcVar7 = pcVar6;
+            if (uVar4 == 0) break;
+            uVar4 = uVar4 - 1;
+            pcVar7 = pcVar6 + 1;
+            cVar1 = *pcVar6;
+            pcVar6 = pcVar7;
           } while (cVar1 != '\0');
-          uVar5 = ~uVar5;
-          pcVar7 = pcVar8 + -uVar5;
-          pcVar8 = pcVar4;
-          for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-            *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
+          uVar4 = ~uVar4;
+          pcVar6 = pcVar7 + -uVar4;
+          pcVar7 = pcVar3;
+          for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+            *(undefined4 *)pcVar7 = *(undefined4 *)pcVar6;
+            pcVar6 = pcVar6 + 4;
             pcVar7 = pcVar7 + 4;
-            pcVar8 = pcVar8 + 4;
           }
-          for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-            *pcVar8 = *pcVar7;
+          for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
+            *pcVar7 = *pcVar6;
+            pcVar6 = pcVar6 + 1;
             pcVar7 = pcVar7 + 1;
-            pcVar8 = pcVar8 + 1;
           }
           res->bFlags = res->bFlags | 4;
-          res->pName = pcVar4;
+          res->pName = pcVar3;
           res->pLab = (void *)0x0;
         }
       }
     }
-    if ((*(byte *)(piVar3 + 0x45) & 2) != 0) {
-      Res_FClose(piVar3[0x43]);
+    if ((*(byte *)(item + 0x45) & 2) != 0) {
+      Res_FClose(item[0x43]);
     }
-    if (piVar3[0x46] != 0) {
-      (**(code **)(g_dwResHS + 0x24))(piVar3[0x46]);
+    if (item[0x46] != 0) {
+      (**(code **)(g_dwResHS + 0x24))(item[0x46]);
     }
-    if (piVar3[0x47] != 0) {
-      (**(code **)(g_dwResHS + 0x24))(piVar3[0x47]);
+    if (item[0x47] != 0) {
+      (**(code **)(g_dwResHS + 0x24))(item[0x47]);
     }
-    Lab_Unlink(piVar3);
+    Lab_Unlink(item);
   }
   return 1;
 }
@@ -210,19 +210,19 @@ LAB_004810b5:
 }
 
 /* ---- 0x004813c0  Lab_Unlink ---- */
-void __cdecl Lab_Unlink(int *param_1)
+void __cdecl Lab_Unlink(int *item)
 
 {
-  if ((int *)param_1[1] != (int *)0x0) {
-    *(int *)param_1[1] = *param_1;
+  if ((int *)item[1] != (int *)0x0) {
+    *(int *)item[1] = *item;
   }
-  if (*param_1 != 0) {
-    *(int *)(*param_1 + 4) = param_1[1];
+  if (*item != 0) {
+    *(int *)(*item + 4) = item[1];
   }
-  if (g_pResFileList == param_1) {
-    g_pResFileList = (int *)*param_1;
+  if (g_pResFileList == item) {
+    g_pResFileList = (int *)*item;
   }
-  Pool_Free(param_1);
+  Pool_Free(item);
   return;
 }
 

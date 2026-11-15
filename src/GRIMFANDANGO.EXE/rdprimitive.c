@@ -9,7 +9,7 @@
 /* WARNING: Variable defined which should be unmapped: local_b0 */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
+uint __cdecl rdPolyline_Draw(int thing,float *b)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -33,11 +33,11 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
   #define local_18 (*(uint *)(_frame + (0xc0 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0xc0 - 0x14)))
   
-  iVar1 = *(int *)(param_1 + 4);
+  iVar1 = *(int *)(thing + 4);
   local_20 = (uint)&DAT_007f4e80;
   local_18 = 0;
   local_14 = 0;
-  rdMatrix_Multiply34(local_78,g_pRdCamera_CurCamera->aView,param_2);
+  rdMatrix_Multiply34(local_78,g_pRdCamera_CurCamera->aView,b);
   local_38[0] = 0.0f;
   local_38[1] = *(float *)(iVar1 + 0x20);
   local_38[2] = 0.0f;
@@ -55,7 +55,7 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
   *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
-  rdPolyline_DrawFace(param_1,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
+  rdPolyline_DrawFace(thing,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   *(float *)&DAT_007f4e84 = local_54[1] - -0.001f;
   *(float *)&DAT_007f4e80 = local_54[0] - *(float *)(iVar1 + 0x24);
   *(float *)&DAT_007f4e88 = local_54[2] - *(float *)(iVar1 + 0x24);
@@ -69,7 +69,7 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
   *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
-  rdPolyline_DrawFace(param_1,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
+  rdPolyline_DrawFace(thing,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   local_94[1] = local_88[1] - local_54[0];
   fVar2 = local_7c - local_54[2];
   fVar3 = SQRT(fVar2 * fVar2 + local_94[1] * local_94[1]);
@@ -97,7 +97,7 @@ uint __cdecl rdPolyline_Draw(int param_1,float *param_2)
   *(float *)&DAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_54[2];
   *(float *)&DAT_007f4ea8 = local_54[1];
   local_1c = *(uint *)(iVar1 + 0xd0);
-  rdPolyline_DrawFace(param_1,iVar1 + 0x38,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
+  rdPolyline_DrawFace(thing,iVar1 + 0x38,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   return 1;
 }
 #undef local_14
@@ -531,7 +531,7 @@ void __cdecl rdSprite_FreeEntry(int param_1)
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Frustum tests the sprite, builds the quad in the cache and clips it */
 
-uint __cdecl rdSprite_Draw(int param_1,float *param_2)
+uint __cdecl rdSprite_Draw(int thing,float *param_2)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -567,7 +567,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
   #define local_18 (*(uint *)(_frame + (0x90 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
-  iVar1 = *(int *)(param_1 + 4);
+  iVar1 = *(int *)(thing + 4);
   rdMatrix_TransformPoint34(&local_64,param_2 + 9,g_pRdCamera_CurCamera->aView);
   rdMatrix_TransformVector34(&local_70,(float *)(iVar1 + 0xac),param_2);
   rdMatrix_TransformVector34Acc(&local_70,g_pRdCamera_CurCamera->aView);
@@ -578,7 +578,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
     local_78[0] = *(float *)(iVar1 + 0x54);
   }
   if ((g_bRdroid_curCullFlags & 2) == 0) {
-    uVar4 = *(uint *)(param_1 + 0x44);
+    uVar4 = *(uint *)(thing + 0x44);
   }
   else {
     uVar4 = rdClip_SphereInFrustrum
@@ -610,8 +610,8 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
     if ((int)uVar4 <= g_nRdroid_curGeometryMode) {
       uVar11 = uVar4;
     }
-    uVar8 = *(uint *)(param_1 + 0x38);
-    if (((int)uVar11 < (int)*(uint *)(param_1 + 0x38)) &&
+    uVar8 = *(uint *)(thing + 0x38);
+    if (((int)uVar11 < (int)*(uint *)(thing + 0x38)) &&
        (uVar8 = uVar4, g_nRdroid_curGeometryMode < (int)uVar4)) {
       uVar8 = g_nRdroid_curGeometryMode;
     }
@@ -627,7 +627,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
       if (iVar2 <= g_nRdroid_curLightingMode) {
         iVar10 = iVar2;
       }
-      iVar6 = *(int *)(param_1 + 0x3c);
+      iVar6 = *(int *)(thing + 0x3c);
       if ((iVar10 < iVar6) && (iVar6 = iVar2, g_nRdroid_curLightingMode < iVar2)) {
         iVar6 = g_nRdroid_curLightingMode;
       }
@@ -641,8 +641,8 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
     if ((int)uVar4 <= g_nRdroid_curTextureMode) {
       uVar11 = uVar4;
     }
-    uVar7 = *(uint *)(param_1 + 0x40);
-    if (((int)uVar11 < (int)*(uint *)(param_1 + 0x40)) &&
+    uVar7 = *(uint *)(thing + 0x40);
+    if (((int)uVar11 < (int)*(uint *)(thing + 0x40)) &&
        (uVar7 = uVar4, g_nRdroid_curTextureMode < (int)uVar4)) {
       uVar7 = g_nRdroid_curTextureMode;
     }
@@ -714,7 +714,7 @@ uint __cdecl rdSprite_Draw(int param_1,float *param_2)
       if (2 < pPVar5->nLightingMode) {
         flags = flags | 4;
       }
-      pPVar5->nCel = *(int *)(param_1 + 0x30);
+      pPVar5->nCel = *(int *)(thing + 0x30);
       pPVar5->nBackFacing = (uint)(local_78[0] < 0.0f);
       pPVar5->dwFlags = *(uint *)(iVar1 + 0x60);
       pPVar5->flLight = *(float *)(iVar1 + 0x8c);

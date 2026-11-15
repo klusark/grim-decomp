@@ -131,12 +131,12 @@ undefined * __cdecl luaT_gettagmethod(int param_1,byte *param_2)
 /* ---- 0x1000cab0  luaI_checkevent ---- */
 /* ltm.c: not a valid event name */
 
-int __cdecl luaI_checkevent(byte *param_1,undefined4 *param_2)
+int __cdecl luaI_checkevent(byte *param_1,undefined4 *luaT_eventname)
 
 {
   int iVar1;
   
-  iVar1 = luaO_findstring(param_1,param_2);
+  iVar1 = luaO_findstring(param_1,luaT_eventname);
   if (iVar1 < 0) {
     luaL_verror(s____50s__is_not_a_valid_event_nam_10027f30,param_1);
   }

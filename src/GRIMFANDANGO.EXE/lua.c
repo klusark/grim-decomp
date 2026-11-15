@@ -2680,7 +2680,7 @@ void __cdecl sputLua_WalkActorToL(void)
     local_c[0] = lua_getnumber(iVar5);
     local_c[1] = lua_getnumber(iVar5);
     local_c[2] = lua_getnumber(iVar5);
-    sputActor_ActorWalkTo(actor,(int)local_18,local_c,0);
+    sputActor_ActorWalkTo(actor,(int)local_18,local_c,(Actor *)0x0);
   }
   return;
 }
@@ -2708,8 +2708,8 @@ void __cdecl sputLua_WalkActorToAvoidingL(void)
   int iVar6;
   int iVar7;
   Actor *actor;
+  Actor *other;
   Actor *pAVar8;
-  Actor *pAVar9;
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
@@ -2732,7 +2732,7 @@ void __cdecl sputLua_WalkActorToAvoidingL(void)
     iVar1 = lua_getuserdata(iVar1);
     actor = sputActor_ActorDeref(iVar1);
     iVar1 = lua_getuserdata(iVar2);
-    pAVar8 = sputActor_ActorDeref(iVar1);
+    other = sputActor_ActorDeref(iVar1);
     iVar1 = lua_isnumber(iVar3);
     if (iVar1 == 0) {
       iVar1 = lua_isuserdata(iVar3);
@@ -2744,10 +2744,10 @@ void __cdecl sputLua_WalkActorToAvoidingL(void)
         return;
       }
       iVar1 = lua_getuserdata(iVar3);
-      pAVar9 = sputActor_ActorDeref(iVar1);
-      local_18[0] = pAVar9->aPos[0];
-      local_18[1] = pAVar9->aPos[1];
-      local_18[2] = pAVar9->aPos[2];
+      pAVar8 = sputActor_ActorDeref(iVar1);
+      local_18[0] = pAVar8->aPos[0];
+      local_18[1] = pAVar8->aPos[1];
+      local_18[2] = pAVar8->aPos[2];
     }
     else {
       local_18[0] = lua_getnumber(iVar3);
@@ -2757,7 +2757,7 @@ void __cdecl sputLua_WalkActorToAvoidingL(void)
     local_c[0] = lua_getnumber(iVar6);
     local_c[1] = lua_getnumber(iVar6);
     local_c[2] = lua_getnumber(iVar6);
-    sputActor_ActorWalkTo(actor,(int)local_18,local_c,pAVar8);
+    sputActor_ActorWalkTo(actor,(int)local_18,local_c,other);
   }
   return;
 }
@@ -6894,20 +6894,20 @@ void __cdecl sputLua_StartFullScreenMovieL(void)
   int iVar3;
   uint uVar4;
   uint uVar5;
-  uint uVar6;
-  uint uVar7;
+  uint x;
+  uint y;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
   iVar3 = lua_isstring(iVar1);
   if (iVar3 != 0) {
-    uVar7 = 0xffffffff;
-    uVar6 = 0xffffffff;
+    y = 0xffffffff;
+    x = 0xffffffff;
     iVar2 = lua_isnil(iVar2);
     uVar5 = (uint)(iVar2 == 0);
     iVar2 = 1;
     uVar4 = lua_getstring(iVar1);
-    uVar5 = grimlib_PlayMovie(uVar4,iVar2,uVar5,uVar6,uVar7);
+    uVar5 = grimlib_PlayMovie(uVar4,iVar2,uVar5,x,y);
     if (uVar5 == 1) {
       lua_pushnumber(1.0f);
       return;
@@ -10900,15 +10900,15 @@ void __cdecl sputLua_GetImage(void)
   int iVar3;
   char *filename;
   stdBitmap *bitmap;
-  int iVar4;
+  int b;
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_isstring(iVar2);
   if (iVar3 != 0) {
-    iVar4 = 0;
+    b = 0;
     iVar3 = 0;
     filename = (char *)lua_getstring(iVar2);
-    bitmap = stdLoadImage(filename,iVar3,iVar4);
+    bitmap = stdLoadImage(filename,iVar3,b);
     if (bitmap != (stdBitmap *)0x0) {
       pVVar1 = *bitmap->ppFrames;
       pVVar1->dwColorKey = 0xf81f;

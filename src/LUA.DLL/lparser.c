@@ -327,15 +327,15 @@ undefined4 luaY_parse(void)
   FuncState *pFVar3;
   FuncState *pFVar4;
   int iVar5;
-  TaggedString *pTVar6;
+  TaggedString *pTaggedString;
+  uint uVar6;
   uint uVar7;
-  uint uVar8;
   int *pfVar9;
   int fVar9;
-  int iVar9;
-  byte *pbVar10;
-  int iVar11;
-  byte *pbVar12;
+  int iVar8;
+  byte *pbVar9;
+  int iVar10;
+  byte *pbVar11;
   #define local_be0 (*(uint *)(_frame + (0xbf0 - 0xbe0)))
   #define local_bdc (*(int *)(_frame + (0xbf0 - 0xbdc)))
   #define local_bd8 (*(short **)(_frame + (0xbf0 - 0xbd8)))
@@ -354,7 +354,7 @@ undefined4 luaY_parse(void)
   int fVar4;
   
   local_bd8 = local_bb8;
-  iVar9 = 0;
+  iVar8 = 0;
   local_bdc = 0;
   local_bc4 = 0;
   local_be0 = 0xfffffffe;
@@ -367,10 +367,10 @@ LAB_1000b47d:
     return 2;
   }
 LAB_1000ac11:
-  sVar2 = g_wYypact[iVar9];
+  sVar2 = g_wYypact[iVar8];
   if (sVar2 == -0x8000) {
 LAB_1000b4fe:
-    local_bd4 = (int)g_wYydefact[iVar9];
+    local_bd4 = (int)g_wYydefact[iVar8];
     if (local_bd4 == 0) {
 LAB_1000b512:
       if (local_bdc == 0) {
@@ -385,9 +385,9 @@ LAB_1000b512:
       }
       local_bdc = 3;
       do {
-        if (((g_wYypact[iVar9] != -0x8000) && (iVar9 = g_wYypact[iVar9] + 1, -1 < iVar9)) &&
-           ((iVar9 < 0x107 && (g_aYycheck[iVar9] == 1)))) {
-          local_bd4 = (int)g_aYytable[iVar9];
+        if (((g_wYypact[iVar8] != -0x8000) && (iVar8 = g_wYypact[iVar8] + 1, -1 < iVar8)) &&
+           ((iVar8 < 0x107 && (g_aYycheck[iVar8] == 1)))) {
+          local_bd4 = (int)g_aYytable[iVar8];
           if (local_bd4 < 0) {
             if (local_bd4 != -0x8000) {
               local_bd4 = -local_bd4;
@@ -399,62 +399,62 @@ LAB_1000b512:
         if (local_bd8 == local_bb8) {
           return 1;
         }
-        iVar9 = (int)local_bd8[-1];
+        iVar8 = (int)local_bd8[-1];
         pfVar9 = pfVar9 + -1;
         local_bd8 = local_bd8 + -1;
       } while( true );
     }
 LAB_1000acaa:
-    iVar9 = (int)g_aYyr2[local_bd4];
-    if (0 < iVar9) {
-      fVar9 = pfVar9[1 - iVar9];
+    iVar8 = (int)g_aYyr2[local_bd4];
+    if (0 < iVar8) {
+      fVar9 = pfVar9[1 - iVar8];
     }
-    local_bcc = iVar9;
+    local_bcc = iVar8;
     switch(local_bd4) {
     case 6:
       codeIf(pfVar9[-5],pfVar9[-2]);
       break;
     case 8:
       pFVar3 = g_pLuaState->pCurrState;
-      uVar7 = pfVar9[-3] - pfVar9[-4];
+      uVar6 = pfVar9[-3] - pfVar9[-4];
       local_bc8 = pfVar9[-4] + 2;
-      local_bc0 = uVar7;
+      local_bc0 = uVar6;
       local_bbc = pFVar3;
-      check_pc(uVar7);
+      check_pc(uVar6);
       pFVar4 = local_bbc;
-      pbVar12 = pFVar3->pF->pCode;
-      pbVar10 = pbVar12 + pfVar9[-4];
-      pbVar12 = pbVar12 + pFVar3->nPc;
-      for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-        *(undefined4 *)pbVar12 = *(undefined4 *)pbVar10;
-        pbVar10 = pbVar10 + 4;
-        pbVar12 = pbVar12 + 4;
+      pbVar11 = pFVar3->pF->pCode;
+      pbVar9 = pbVar11 + pfVar9[-4];
+      pbVar11 = pbVar11 + pFVar3->nPc;
+      for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+        *(undefined4 *)pbVar11 = *(undefined4 *)pbVar9;
+        pbVar9 = pbVar9 + 4;
+        pbVar11 = pbVar11 + 4;
       }
-      for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-        *pbVar12 = *pbVar10;
-        pbVar10 = pbVar10 + 1;
-        pbVar12 = pbVar12 + 1;
+      for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+        *pbVar11 = *pbVar9;
+        pbVar9 = pbVar9 + 1;
+        pbVar11 = pbVar11 + 1;
       }
-      pbVar12 = local_bbc->pF->pCode;
-      memcpy((undefined4 *)(pbVar12 + pfVar9[-4]),(undefined4 *)(pbVar12 + pfVar9[-3]),
+      pbVar11 = local_bbc->pF->pCode;
+      memcpy((undefined4 *)(pbVar11 + pfVar9[-4]),(undefined4 *)(pbVar11 + pfVar9[-3]),
              local_bbc->nPc - pfVar9[-4]);
-      iVar9 = fix_jump(pfVar9[-4],'m',pFVar4->nPc - local_bc0);
-      fix_upjmp('q',local_bc8 + iVar9);
-      iVar9 = local_bcc;
+      iVar8 = fix_jump(pfVar9[-4],'m',pFVar4->nPc - local_bc0);
+      fix_upjmp('q',local_bc8 + iVar8);
+      iVar8 = local_bcc;
       break;
     case 9:
       fix_upjmp('s',pfVar9[-3]);
       deltastack(-1);
       break;
     case 10:
-      iVar9 = 0;
+      iVar8 = 0;
       adjust_mult_assign(pfVar9[-2],*pfVar9);
       fVar3 = pfVar9[-2];
       while (fVar3 = fVar3 + -1, -1 < fVar3) {
-        iVar9 = lua_codestore(fVar3,iVar9);
+        iVar8 = lua_codestore(fVar3,iVar8);
       }
-      adjuststack(iVar9);
-      iVar9 = local_bcc;
+      adjuststack(iVar8);
+      iVar8 = local_bcc;
       break;
     case 0xb:
       adjust_functioncall(*pfVar9,0);
@@ -489,8 +489,8 @@ LAB_1000acaa:
     case 0x12:
       fVar9 = 0;
       init_func();
-      pTVar6 = luaS_new(&DAT_10027ba0);
-      add_localvar(pTVar6);
+      pTaggedString = luaS_new(&DAT_10027ba0);
+      add_localvar(pTaggedString);
       break;
     case 0x13:
       lua_pushvar(*pfVar9);
@@ -657,8 +657,8 @@ switchD_1000acd8_caseD_1f:
       break;
     case 0x44:
       iVar5 = 1;
-      uVar8 = string_constant(*pfVar9,(int *)g_pLuaState->pCurrState);
-      code_oparg('3',8,uVar8,iVar5);
+      uVar7 = string_constant(*pfVar9,(int *)g_pLuaState->pCurrState);
+      code_oparg('3',8,uVar7,iVar5);
       fVar9 = 1;
       break;
     case 0x45:
@@ -697,42 +697,42 @@ switchD_1000acd8_caseD_1f:
       code_args(pfVar9[-2],1);
       break;
     case 0x51:
-      uVar8 = *pfVar9 >> 0x1f;
-      fVar9 = (*pfVar9 ^ uVar8) - uVar8;
+      uVar7 = *pfVar9 >> 0x1f;
+      fVar9 = (*pfVar9 ^ uVar7) - uVar7;
       break;
     case 0x52:
       if (0 < *pfVar9 * pfVar9[-2]) {
         luaY_error(s_invalid_constructor_syntax_10027b84);
       }
-      uVar8 = *pfVar9 >> 0x1f;
-      uVar7 = pfVar9[-2] >> 0x1f;
-      fVar9 = ((*pfVar9 ^ uVar8) - uVar8) + ((pfVar9[-2] ^ uVar7) - uVar7);
+      uVar7 = *pfVar9 >> 0x1f;
+      uVar6 = pfVar9[-2] >> 0x1f;
+      fVar9 = ((*pfVar9 ^ uVar7) - uVar7) + ((pfVar9[-2] ^ uVar6) - uVar6);
       break;
     case 0x58:
-      uVar8 = pfVar9[-1] >> 0x1f;
-      flush_record(((pfVar9[-1] ^ uVar8) - uVar8 & 0x1f ^ uVar8) - uVar8);
+      uVar7 = pfVar9[-1] >> 0x1f;
+      flush_record(((pfVar9[-1] ^ uVar7) - uVar7 & 0x1f ^ uVar7) - uVar7);
       fVar9 = -pfVar9[-1];
       break;
     case 0x59:
       fVar4 = pfVar9[-1];
-      uVar8 = fVar4 >> 0x1f;
-      flush_list((int)(fVar4 + (uVar8 & 0x3f)) >> 6,((fVar4 ^ uVar8) - uVar8 & 0x3f ^ uVar8) - uVar8
+      uVar7 = fVar4 >> 0x1f;
+      flush_list((int)(fVar4 + (uVar7 & 0x3f)) >> 6,((fVar4 ^ uVar7) - uVar7 & 0x3f ^ uVar7) - uVar7
                 );
     case 0x21:
       fVar9 = pfVar9[-1];
       break;
     case 0x5b:
       fVar9 = pfVar9[-2] + 1;
-      uVar8 = fVar9 >> 0x1f;
-      if (((fVar9 ^ uVar8) - uVar8 & 0x1f ^ uVar8) == uVar8) {
+      uVar7 = fVar9 >> 0x1f;
+      if (((fVar9 ^ uVar7) - uVar7 & 0x1f ^ uVar7) == uVar7) {
         flush_record(0x20);
       }
       break;
     case 0x60:
       fVar9 = pfVar9[-2] + 1;
-      uVar8 = fVar9 >> 0x1f;
-      if (((fVar9 ^ uVar8) - uVar8 & 0x3f ^ uVar8) == uVar8) {
-        flush_list(((int)(fVar9 + (uVar8 & 0x3f)) >> 6) - 1,0x40);
+      uVar7 = fVar9 >> 0x1f;
+      if (((fVar9 ^ uVar7) - uVar7 & 0x3f ^ uVar7) == uVar7) {
+        flush_list(((int)(fVar9 + (uVar7 & 0x3f)) >> 6) - 1,0x40);
       }
       break;
     case 0x61:
@@ -754,15 +754,15 @@ switchD_1000acd8_caseD_1f:
       store_localvar(*pfVar9,pfVar9[-2]);
       fVar9 = pfVar9[-2] + 1;
     }
-    local_bd8 = local_bd8 + -iVar9;
-    pfVar9 = pfVar9 + (1 - iVar9);
+    local_bd8 = local_bd8 + -iVar8;
+    pfVar9 = pfVar9 + (1 - iVar8);
     *pfVar9 = fVar9;
-    iVar9 = (int)g_wYypact[g_aYyr1[local_bd4] + 0x87] + (int)*local_bd8;
-    if (((iVar9 < 0) || (0x106 < iVar9)) || (g_aYycheck[iVar9] != *local_bd8)) {
+    iVar8 = (int)g_wYypact[g_aYyr1[local_bd4] + 0x87] + (int)*local_bd8;
+    if (((iVar8 < 0) || (0x106 < iVar8)) || (g_aYycheck[iVar8] != *local_bd8)) {
       local_bd4 = (int)g_wYydefact[g_aYyr1[local_bd4] + 0x87];
     }
     else {
-      local_bd4 = (int)g_aYytable[iVar9];
+      local_bd4 = (int)g_aYytable[iVar8];
     }
   }
   else {
@@ -779,9 +779,9 @@ switchD_1000acd8_caseD_1f:
     else {
       iVar5 = 0x5d;
     }
-    iVar11 = sVar2 + iVar5;
-    if (((iVar11 < 0) || (0x106 < iVar11)) || (g_aYycheck[iVar11] != iVar5)) goto LAB_1000b4fe;
-    local_bd4 = (int)g_aYytable[iVar11];
+    iVar10 = sVar2 + iVar5;
+    if (((iVar10 < 0) || (0x106 < iVar10)) || (g_aYycheck[iVar10] != iVar5)) goto LAB_1000b4fe;
+    local_bd4 = (int)g_aYytable[iVar10];
     if (local_bd4 < 0) {
       if (local_bd4 == -0x8000) goto LAB_1000b512;
       local_bd4 = -local_bd4;
@@ -810,7 +810,7 @@ LAB_1000b5bf:
 LAB_1000b464:
   local_bd8 = local_bd8 + 1;
   *local_bd8 = (short)local_bd4;
-  iVar9 = local_bd4;
+  iVar8 = local_bd4;
   if (&local_7d2 <= local_bd8) goto LAB_1000b47d;
   goto LAB_1000ac11;
 }
@@ -1079,12 +1079,12 @@ void __cdecl store_localvar(TaggedString *param_1,int param_2)
    remaster, gcc inlined it there): Lua 3.1 source name (lua.stx: store_localvar(name, 0),
    nlocalvar++); was lparser__ba70. */
 
-void __cdecl add_localvar(undefined4 param_1)
+void __cdecl add_localvar(TaggedString *pTaggedString)
 
 {
   int *piVar1;
   
-  store_localvar(param_1,0);
+  store_localvar(pTaggedString,0);
   piVar1 = &g_pLuaState->pCurrState->nLocalVar;
   *piVar1 = *piVar1 + 1;
   return;
@@ -1319,7 +1319,7 @@ void __cdecl code_args(int param_1,int param_2)
 {
   FuncState *pFVar1;
   int iVar2;
-  TaggedString *pTVar3;
+  TaggedString *pTaggedString;
   
   g_pLuaState->pCurrState->nLocalVar = g_pLuaState->pCurrState->nLocalVar + param_1;
   pFVar1 = g_pLuaState->pCurrState;
@@ -1331,8 +1331,8 @@ void __cdecl code_args(int param_1,int param_2)
   }
   pFVar1->pF->pCode[1] = (byte)iVar2 + 0x40;
   deltastack(iVar2 + 1);
-  pTVar3 = luaS_new(&DAT_10027cb0);
-  add_localvar(pTVar3);
+  pTaggedString = luaS_new(&DAT_10027cb0);
+  add_localvar(pTaggedString);
   return;
 }
 

@@ -2840,7 +2840,7 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 #define _DAT_008ca348 (*(undefined4 *)&DAT_008ca348) /* same address as DAT_008ca348, other width */
 #define _DAT_008ca34c (*(undefined4 *)&DAT_008ca34c) /* same address as DAT_008ca34c, other width */
 #define _DAT_008ca350 (*(undefined4 *)&DAT_008ca350) /* same address as DAT_008ca350, other width */
-#define _g_dwRecentBM (*(void * *)&g_dwRecentBM) /* same address as g_dwRecentBM, other width */
+#define _g_dwRecentBM (*(ResRef * *)&g_dwRecentBM) /* same address as g_dwRecentBM, other width */
 #define _g_pSputTimeHS (*(uint *)&g_pSputTimeHS) /* same address as g_pSputTimeHS, other width */
 #define _DAT_008cf284 (*(undefined4 *)&DAT_008cf284) /* same address as DAT_008cf284, other width */
 #define _g_pGraphHS (*(GrimServices * *)&g_pGraphHS) /* same address as g_pGraphHS, other width */

@@ -187,15 +187,15 @@ void __cdecl luaD_callTM(TObject *f,int nParams,int nResults)
 /* Original name luaD_deletestates (the remaster's libLua.so: frees a chain of execution states
    (next at +0xc, ExecutionState_Delete)); was ldo__4160. */
 
-void __cdecl luaD_deletestates(int param_1)
+void __cdecl luaD_deletestates(int pExecutionState)
 
 {
   int iVar1;
   
-  while (param_1 != 0) {
-    iVar1 = *(int *)(param_1 + 0xc);
-    ExecutionState_Delete(param_1);
-    param_1 = iVar1;
+  while (pExecutionState != 0) {
+    iVar1 = *(int *)(pExecutionState + 0xc);
+    ExecutionState_Delete(pExecutionState);
+    pExecutionState = iVar1;
   }
   return;
 }
@@ -436,7 +436,7 @@ int __cdecl callCclosure(int param_1,undefined *param_2,int param_3)
 /* Original name luaD_travallstacks (the remaster's libLua.so: walks every state (LState_next) and
    calls the function on each stack slot); was ldo__4600. */
 
-void __cdecl luaD_travallstacks(undefined *param_1)
+void __cdecl luaD_travallstacks(undefined *markobject)
 
 {
   LState *L;
@@ -444,7 +444,7 @@ void __cdecl luaD_travallstacks(undefined *param_1)
   
   for (L = g_dwL_Main; L != (LState *)0x0; L = LState_next(L)) {
     for (iVar1 = (int)L->pTop + (-8 - (int)L->pStack) >> 3; -1 < iVar1; iVar1 = iVar1 + -1) {
-      (*(code *)param_1)(L->pStack + iVar1);
+      (*(code *)markobject)(L->pStack + iVar1);
     }
   }
   return;
@@ -534,13 +534,13 @@ undefined4 __cdecl luaD_protectedrun(void *param_1)
    do_callinc: luaD_call(base+1, nResults), then Cstack.lua2C / num / base from the new top); was
    luaD_callinc. */
 
-void __cdecl do_callinc(void *param_1)
+void __cdecl do_callinc(void *nres)
 
 {
   int iVar1;
   
   iVar1 = (g_pLuaState->Cstack).nBase;
-  luaD_call(iVar1 + 1,(int)param_1);
+  luaD_call(iVar1 + 1,(int)nres);
   (g_pLuaState->Cstack).nLua2C = iVar1;
   (g_pLuaState->Cstack).nNum = ((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - iVar1;
   (g_pLuaState->Cstack).nBase = (g_pLuaState->Cstack).nNum + iVar1;

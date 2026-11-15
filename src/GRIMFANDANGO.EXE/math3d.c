@@ -1079,14 +1079,14 @@ void __cdecl rdMatrix_PostMultiply34(float *param_1,float *param_2)
 /* ---- 0x0044fe50  Matrix_BuildTransform ---- */
 /* Rotation then translation */
 
-void __cdecl Matrix_BuildTransform(float *param_1,uint param_2)
+void __cdecl Matrix_BuildTransform(float *m,uint param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
   rdMatrix_BuildRotate34(local_30,(uint *)param_2);
-  rdMatrix_PreMultiply34(param_1,local_30);
+  rdMatrix_PreMultiply34(m,local_30);
   return;
 }
 #undef local_30
@@ -1109,14 +1109,14 @@ void __cdecl rdMatrix_PostTranslate34(int param_1,float *param_2)
 /* Original name rdMatrix_PreScale34 (the remaster's GrimFandango (Linux): aligned call in
    sputActor_DrawToClean, sputRender_Update); was Matrix_BuildTransform2. */
 
-void __cdecl rdMatrix_PreScale34(float *param_1,uint param_2)
+void __cdecl rdMatrix_PreScale34(float *m,uint param_2)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_30 (*(float (*)[12])(_frame + (0x40 - 0x30)))
   
   rdMatrix_BuildScale34(local_30,(undefined4 *)param_2);
-  rdMatrix_PreMultiply34(param_1,local_30);
+  rdMatrix_PreMultiply34(m,local_30);
   return;
 }
 #undef local_30

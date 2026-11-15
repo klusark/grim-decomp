@@ -9,7 +9,7 @@
 /* Original name Res_NumRefs (the remaster's GrimFandango (Linux): aligned call in sputRoom_Save);
    was Set_GetRefCount. */
 
-int __cdecl Res_NumRefs(void *param_1)
+int __cdecl Res_NumRefs(void *data)
 
 {
   ResRef *pRVar1;
@@ -17,7 +17,7 @@ int __cdecl Res_NumRefs(void *param_1)
   int iVar3;
   
   iVar3 = 0;
-  pRVar2 = Res_FindByData(param_1);
+  pRVar2 = Res_FindByData(data);
   if (pRVar2 != (Resource *)0x0) {
     for (pRVar1 = pRVar2->pRefs; pRVar1 != (ResRef *)0x0; pRVar1 = pRVar1->pNext) {
       iVar3 = iVar3 + 1;
@@ -429,9 +429,9 @@ int __cdecl sputRoom_Save(void *writeFn)
   Setup *pSVar1;
   WalkPlane *pWVar2;
   code *pcVar3;
-  Set *pSVar4;
+  Set *data;
+  int iVar4;
   int iVar5;
-  int iVar6;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(Set **)(_frame + (0x30 - 0x10)))
   #define pSStack_c (*(Set **)(_frame + (0x30 - 0xc)))
@@ -442,17 +442,17 @@ int __cdecl sputRoom_Save(void *writeFn)
   Res_GetFirstType((int *)&local_14,(int *)&local_10,0x20544553);
   pcVar3 = writeFn;
   while (writeFn = pcVar3, local_14 != 0) {
-    iVar5 = Res_NumRefs(local_10);
-    if (0 < iVar5) {
+    iVar4 = Res_NumRefs(local_10);
+    if (0 < iVar4) {
       local_8 = local_8 + 1;
     }
     Res_GetNextType((int *)&local_14,(int *)&local_10,0x20544553);
     pcVar3 = writeFn;
   }
-  iVar5 = (*pcVar3)(&local_8,4);
-  if (iVar5 == 0) {
+  iVar4 = (*pcVar3)(&local_8,4);
+  if (iVar4 == 0) {
     Res_GetFirstType((int *)&local_14,(int *)&local_10,0x20544553);
-    pSVar4 = local_10;
+    data = local_10;
     do {
       if (local_14 == 0) {
         pSStack_c = sputRoom_GetCurrentRoom();
@@ -478,46 +478,46 @@ int __cdecl sputRoom_Save(void *writeFn)
         }
         return 0;
       }
-      iVar6 = 0;
-      local_10 = pSVar4;
-      iVar5 = Res_NumRefs(pSVar4);
-      if (iVar5 != 0) {
+      iVar5 = 0;
+      local_10 = data;
+      iVar4 = Res_NumRefs(data);
+      if (iVar4 != 0) {
         (*pcVar3)(&local_10,4);
-        (*pcVar3)(&pSVar4->nCurSetup,4);
-        (*pcVar3)(&pSVar4->nLocked,4);
+        (*pcVar3)(&data->nCurSetup,4);
+        (*pcVar3)(&data->nLocked,4);
         fStack_4 = 0.0f;
-        if (0 < pSVar4->nSetups) {
+        if (0 < data->nSetups) {
           do {
-            pSVar1 = pSVar4->pSetups;
+            pSVar1 = data->pSetups;
             writeFn = (void *)0x0;
-            for (iVar5 = *(int *)((int)(&pSVar1->zBackground + 1) + iVar6); iVar5 != 0;
-                iVar5 = *(int *)(iVar5 + 0xf8)) {
+            for (iVar4 = *(int *)((int)(&pSVar1->zBackground + 1) + iVar5); iVar4 != 0;
+                iVar4 = *(int *)(iVar4 + 0xf8)) {
               writeFn = (void *)((int)writeFn + 1);
             }
-            iVar5 = (*pcVar3)(&writeFn,4);
-            if (iVar5 != 0) {
+            iVar4 = (*pcVar3)(&writeFn,4);
+            if (iVar4 != 0) {
               return 1;
             }
-            for (iVar5 = *(int *)((int)(&pSVar1->zBackground + 1) + iVar6); iVar5 != 0;
-                iVar5 = *(int *)(iVar5 + 0xf8)) {
-              (*pcVar3)(iVar5 + 4,4);
-              (*pcVar3)(iVar5 + 0x20,0x20);
-              (*pcVar3)(iVar5 + 0x94,0x20);
-              (*pcVar3)(iVar5 + 0x7c,4);
-              if (*(int *)(iVar5 + 0x40) == 0) {
+            for (iVar4 = *(int *)((int)(&pSVar1->zBackground + 1) + iVar5); iVar4 != 0;
+                iVar4 = *(int *)(iVar4 + 0xf8)) {
+              (*pcVar3)(iVar4 + 4,4);
+              (*pcVar3)(iVar4 + 0x20,0x20);
+              (*pcVar3)(iVar4 + 0x94,0x20);
+              (*pcVar3)(iVar4 + 0x7c,4);
+              if (*(int *)(iVar4 + 0x40) == 0) {
                 (*g_pStd_HS->pAssertFail)
                           (s_Bad_Bitmap_Reference_004e8114,s_main_sputResource_h_004e80a8,0x90);
               }
-              (*pcVar3)(*(int *)(iVar5 + 0x44) + 0x68,4);
-              (*pcVar3)(iVar5 + 0xec,4);
+              (*pcVar3)(*(int *)(iVar4 + 0x44) + 0x68,4);
+              (*pcVar3)(iVar4 + 0xec,4);
             }
             fStack_4 = PUN(float,(PUN(int,(float)fStack_4) + 1));
-            iVar6 = iVar6 + 300;
-          } while (PUN(int,(float)fStack_4) < pSVar4->nSetups);
+            iVar5 = iVar5 + 300;
+          } while (PUN(int,(float)fStack_4) < data->nSetups);
         }
       }
       Res_GetNextType((int *)&local_14,(int *)&local_10,0x20544553);
-      pSVar4 = local_10;
+      data = local_10;
     } while( true );
   }
   return 1;
@@ -1140,12 +1140,12 @@ int Set_FindHandle(char *name)
 /* ---- 0x004a55d0  Set_IsHandleValid ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 
-int Set_IsHandleValid(char *param_1)
+int Set_IsHandleValid(char *name)
 
 {
   int iVar1;
   
-  iVar1 = Set_FindHandle(param_1);
+  iVar1 = Set_FindHandle(name);
   if (iVar1 == -1) {
     return 1;
   }

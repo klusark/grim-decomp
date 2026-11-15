@@ -1,0 +1,325 @@
+{
+ "_comment": "Parameter types and names propagated from the calls that pass them on (tools/propagate_params.py, 2026-11-15).",
+ "program": "/LUA.DLL",
+ "params": [
+  {
+   "addr": "1000ba70",
+   "index": 0,
+   "type": "TaggedString *",
+   "name": "pTaggedString",
+   "_fn": "add_localvar"
+  },
+  {
+   "addr": "1000de30",
+   "index": 0,
+   "type": "int *",
+   "name": "es",
+   "_fn": "ExecutionState_execute",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cf10",
+   "index": 0,
+   "type": "int *",
+   "name": "local_c",
+   "_fn": "LoadChunk",
+   "_names_only": true
+  },
+  {
+   "addr": "1000a2e0",
+   "index": 1,
+   "type": "int *",
+   "name": "ms",
+   "_fn": "add_s",
+   "_names_only": true
+  },
+  {
+   "addr": "1000dee0",
+   "index": 0,
+   "type": "int",
+   "name": "firstel",
+   "_fn": "adjust_varargs",
+   "_names_only": true
+  },
+  {
+   "addr": "10012390",
+   "index": 4,
+   "type": "undefined *",
+   "name": "comparePtrIDs",
+   "_fn": "bsearch",
+   "_names_only": true
+  },
+  {
+   "addr": "10005430",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "closefile",
+   "_names_only": true
+  },
+  {
+   "addr": "100047c0",
+   "index": 0,
+   "type": "void *",
+   "name": "nres",
+   "_fn": "do_callinc",
+   "_names_only": true
+  },
+  {
+   "addr": "100025f0",
+   "index": 2,
+   "type": "void *",
+   "name": "nres",
+   "_fn": "do_unprotectedrun",
+   "_names_only": true
+  },
+  {
+   "addr": "10005480",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "getfile",
+   "_names_only": true
+  },
+  {
+   "addr": "10005780",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "getfileparam",
+   "_names_only": true
+  },
+  {
+   "addr": "10008f10",
+   "index": 0,
+   "type": "byte *",
+   "name": "buff",
+   "_fn": "hash",
+   "_names_only": true
+  },
+  {
+   "addr": "10008f10",
+   "index": 1,
+   "type": "int",
+   "name": "tag",
+   "_fn": "hash",
+   "_names_only": true
+  },
+  {
+   "addr": "1000fd58",
+   "index": 0,
+   "type": "int",
+   "name": "pErrorJmp",
+   "_fn": "longjmp",
+   "_names_only": true
+  },
+  {
+   "addr": "10004160",
+   "index": 0,
+   "type": "int",
+   "name": "pExecutionState",
+   "_fn": "luaD_deletestates",
+   "_names_only": true
+  },
+  {
+   "addr": "10004600",
+   "index": 0,
+   "type": "undefined *",
+   "name": "markobject",
+   "_fn": "luaD_travallstacks",
+   "_names_only": true
+  },
+  {
+   "addr": "1000cab0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "luaT_eventname",
+   "_fn": "luaI_checkevent",
+   "_names_only": true
+  },
+  {
+   "addr": "100092e0",
+   "index": 0,
+   "type": "int *",
+   "name": "LState_string_root",
+   "_fn": "luaS_count",
+   "_names_only": true
+  },
+  {
+   "addr": "10009110",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "luaS_newfixedstring",
+   "_names_only": true
+  },
+  {
+   "addr": "10009290",
+   "index": 0,
+   "type": "int *",
+   "name": "LState_string_root",
+   "_fn": "luaS_resolvestrings",
+   "_names_only": true
+  },
+  {
+   "addr": "10009510",
+   "index": 0,
+   "type": "undefined *",
+   "name": "checkfunc",
+   "_fn": "luaS_travsymbol",
+   "_names_only": true
+  },
+  {
+   "addr": "10009180",
+   "index": 1,
+   "type": "int *",
+   "name": "LState_string_root",
+   "_fn": "luaS_writestrings",
+   "_names_only": true
+  },
+  {
+   "addr": "1000d6d0",
+   "index": 0,
+   "type": "uint",
+   "name": "nelems",
+   "_fn": "luaV_closure",
+   "_names_only": true
+  },
+  {
+   "addr": "10001640",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "lua_getglobal",
+   "_names_only": true
+  },
+  {
+   "addr": "100022c0",
+   "index": 1,
+   "type": "int",
+   "name": "local_number",
+   "_fn": "lua_getlocal",
+   "_names_only": true
+  },
+  {
+   "addr": "10002590",
+   "index": 0,
+   "type": "uint",
+   "name": "ref",
+   "_fn": "lua_getref",
+   "_names_only": true
+  },
+  {
+   "addr": "10001aa0",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "lua_pushstring",
+   "_names_only": true
+  },
+  {
+   "addr": "10001b90",
+   "index": 0,
+   "type": "byte *",
+   "name": "udata",
+   "_fn": "lua_pushusertag",
+   "_names_only": true
+  },
+  {
+   "addr": "10001b90",
+   "index": 1,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "lua_pushusertag",
+   "_names_only": true
+  },
+  {
+   "addr": "10001670",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "lua_rawgetglobal",
+   "_names_only": true
+  },
+  {
+   "addr": "100016c0",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "lua_rawsetglobal",
+   "_names_only": true
+  },
+  {
+   "addr": "10001690",
+   "index": 0,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "lua_setglobal",
+   "_names_only": true
+  },
+  {
+   "addr": "10002330",
+   "index": 1,
+   "type": "int",
+   "name": "local_number",
+   "_fn": "lua_setlocal",
+   "_names_only": true
+  },
+  {
+   "addr": "10012430",
+   "index": 3,
+   "type": "undefined *",
+   "name": "comparePtrIDs",
+   "_fn": "qsort",
+   "_names_only": true
+  },
+  {
+   "addr": "10006bb0",
+   "index": 1,
+   "type": "int",
+   "name": "token",
+   "_fn": "readname",
+   "_names_only": true
+  },
+  {
+   "addr": "100093e0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "LState_rootglobal",
+   "_fn": "remove_from_list",
+   "_names_only": true
+  },
+  {
+   "addr": "10005550",
+   "index": 0,
+   "type": "byte *",
+   "name": "udata",
+   "_fn": "setfile",
+   "_names_only": true
+  },
+  {
+   "addr": "10005550",
+   "index": 1,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "setfile",
+   "_names_only": true
+  },
+  {
+   "addr": "10005520",
+   "index": 0,
+   "type": "byte *",
+   "name": "udata",
+   "_fn": "setreturn",
+   "_names_only": true
+  },
+  {
+   "addr": "10005520",
+   "index": 1,
+   "type": "byte *",
+   "name": "str",
+   "_fn": "setreturn",
+   "_names_only": true
+  }
+ ]
+}

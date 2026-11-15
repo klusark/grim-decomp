@@ -335,10 +335,10 @@ void __cdecl stdShutdown(void)
 /* Original name stdInitServices (the remaster's GrimFandango (Linux): the host-service set-up call
    of Main_Startup before stdStartup); was Services_InitPlatform. */
 
-void __cdecl stdInitServices(GrimServices *param_1)
+void __cdecl stdInitServices(GrimServices *svc)
 
 {
-  stdPlatform_InitServices(param_1);
+  stdPlatform_InitServices(svc);
   return;
 }
 

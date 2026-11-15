@@ -340,12 +340,12 @@ void __cdecl sputLua_StartMovieL(void)
   int iVar3;
   int iVar4;
   int iVar5;
+  uint x;
   uint uVar6;
   uint uVar7;
-  uint uVar8;
-  longlong lVar9;
-  float fVar10;
-  uint uVar11;
+  longlong lVar8;
+  float fVar9;
+  uint uVar10;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -356,28 +356,28 @@ void __cdecl sputLua_StartMovieL(void)
     SoundsFloodMusicBuffer();
     iVar5 = lua_isnumber(iVar4);
     if (iVar5 == 0) {
-      uVar8 = 0xffffffff;
+      uVar7 = 0xffffffff;
     }
     else {
-      fVar10 = lua_getnumber(iVar4);
-      lVar9 = FTOL((float10)fVar10);
-      uVar8 = (uint)lVar9;
+      fVar9 = lua_getnumber(iVar4);
+      lVar8 = FTOL((float10)fVar9);
+      uVar7 = (uint)lVar8;
     }
     iVar4 = lua_isnumber(iVar3);
     if (iVar4 == 0) {
-      uVar6 = 0xffffffff;
+      x = 0xffffffff;
     }
     else {
-      fVar10 = lua_getnumber(iVar3);
-      lVar9 = FTOL((float10)fVar10);
-      uVar6 = (uint)lVar9;
+      fVar9 = lua_getnumber(iVar3);
+      lVar8 = FTOL((float10)fVar9);
+      x = (uint)lVar8;
     }
     iVar2 = lua_isnil(iVar2);
-    uVar11 = (uint)(iVar2 == 0);
+    uVar10 = (uint)(iVar2 == 0);
     iVar2 = 0;
-    uVar7 = lua_getstring(iVar1);
-    uVar8 = grimlib_PlayMovie(uVar7,iVar2,uVar11,uVar6,uVar8);
-    if (uVar8 == 1) {
+    uVar6 = lua_getstring(iVar1);
+    uVar7 = grimlib_PlayMovie(uVar6,iVar2,uVar10,x,uVar7);
+    if (uVar7 == 1) {
       lua_pushnumber(1.0f);
       return;
     }

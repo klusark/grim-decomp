@@ -522,7 +522,7 @@ undefined * __cdecl res_LocateResByName(uint param_1,uint param_2)
 }
 
 /* ---- 0x00481320  Res_FindByNameInList ---- */
-int * __cdecl Res_FindByNameInList(int param_1,char *param_2,int *param_3)
+int * __cdecl Res_FindByNameInList(int param_1,char *name,int *newestResNode)
 
 {
   unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -534,13 +534,13 @@ int * __cdecl Res_FindByNameInList(int param_1,char *param_2,int *param_3)
   bool bVar6;
   #define local_104 (*(byte (*)[260])(_frame + (0x120 - 0x104)))
   
-  uVar2 = Res_HashName(param_2,(char *)local_104);
-  if (param_3 == (int *)0x0) {
+  uVar2 = Res_HashName(name,(char *)local_104);
+  if (newestResNode == (int *)0x0) {
     return (int *)0x0;
   }
   do {
-    if ((param_3[4] == param_1) && (param_3[3] == uVar2)) {
-      pbVar3 = (byte *)param_3[2];
+    if ((newestResNode[4] == param_1) && (newestResNode[3] == uVar2)) {
+      pbVar3 = (byte *)newestResNode[2];
       pbVar5 = local_104;
       do {
         bVar1 = *pbVar3;
@@ -560,11 +560,11 @@ LAB_00481387:
       iVar4 = 0;
 LAB_0048138c:
       if (iVar4 == 0) {
-        return param_3;
+        return newestResNode;
       }
     }
-    param_3 = (int *)*param_3;
-    if (param_3 == (int *)0x0) {
+    newestResNode = (int *)*newestResNode;
+    if (newestResNode == (int *)0x0) {
       return (int *)0x0;
     }
   } while( true );

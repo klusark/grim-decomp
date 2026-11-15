@@ -9,7 +9,7 @@
 /* stdLoadImageData loader for '.gif' (LZW through stdGif_LzwInitDecoder/DecodeNext, allocation
    string Stdgif.c); was named stdPcx_Load. */
 
-stdBitmap * __cdecl stdGif_Load(char *param_1,int param_2,int param_3)
+stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -51,7 +51,7 @@ stdBitmap * __cdecl stdGif_Load(char *param_1,int param_2,int param_3)
   #define auStack_50 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x50)))
   #define VStack_4c (*(VBufferFormat *)(_frame + (0xa0 - 0x4c)))
   
-  uVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
+  uVar2 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
   if (uVar2 == 0) {
     return (stdBitmap *)0x0;
   }
@@ -106,7 +106,7 @@ stdBitmap * __cdecl stdGif_Load(char *param_1,int param_2,int param_3)
         (*g_pStd_HS->pFread)(uVar2,&sStack_60,2);
         (*g_pStd_HS->pFread)(uVar2,abStack_5e,1);
         uVar5 = 0x1f;
-        puVar6 = (uint *)stdFileFromPath(param_1);
+        puVar6 = (uint *)stdFileFromPath(path);
         strncpy((uint *)bitmap,puVar6,uVar5);
         bitmap->aName[0x1f] = '\0';
         bitmap->nType = 0;
@@ -124,7 +124,7 @@ stdBitmap * __cdecl stdGif_Load(char *param_1,int param_2,int param_3)
           VStack_4c.nHeight = (int)sStack_60;
           VStack_4c.colorFormat.nColorMode = 0;
           VStack_4c.colorFormat.nBpp = 8;
-          pVVar8 = stdDisplay_VBufferNew(&VStack_4c,param_2,param_3,0);
+          pVVar8 = stdDisplay_VBufferNew(&VStack_4c,videoMem,b,0);
           *bitmap->ppFrames = pVVar8;
           if (*bitmap->ppFrames != (VBuffer *)0x0) {
             if ((abStack_5e[0] & 0x80) != 0) {
@@ -245,7 +245,7 @@ LAB_0047e02f:
    the screen descriptor from the first frame, the LZW image data); stdWriteImage's "gif" case in
    both builds); was stdGif_Save. */
 
-uint __cdecl stdGif_Write(uint param_1,int param_2)
+uint __cdecl stdGif_Write(uint filename,int bitmap)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -271,15 +271,15 @@ uint __cdecl stdGif_Write(uint param_1,int param_2)
   #define uStack_5 (*(undefined1 *)(_frame + (0x30 - 0x5)))
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x30 - 0x4)))
   
-  iVar4 = param_2;
-  uVar1 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddd78);
+  iVar4 = bitmap;
+  uVar1 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
   if (uVar1 != 0) {
     strncpy((uint *)auStack_10,(uint *)&DAT_004e78b0,3);
     (*g_pStd_HS->pFwrite)(uVar1,auStack_10,3);
     strncpy((uint *)(auStack_10 + 3),(uint *)&DAT_004e78ac,3);
     (*g_pStd_HS->pFwrite)(uVar1,auStack_10 + 3,3);
-    uStack_a = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0xc);
-    uStack_8 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0x10);
+    uStack_a = *(undefined2 *)(**(int **)(bitmap + 0x78) + 0xc);
+    uStack_8 = *(undefined2 *)(**(int **)(bitmap + 0x78) + 0x10);
     uStack_6 = 0xf7;
     uStack_5 = 0;
     auStack_4[0] = 0;
@@ -288,12 +288,12 @@ uint __cdecl stdGif_Write(uint param_1,int param_2)
     (*g_pStd_HS->pFwrite)(uVar1,&uStack_6,1);
     (*g_pStd_HS->pFwrite)(uVar1,&uStack_5,1);
     (*g_pStd_HS->pFwrite)(uVar1,auStack_4,1);
-    (*g_pStd_HS->pFwrite)(uVar1,*(undefined4 *)(param_2 + 0x60),0x300);
+    (*g_pStd_HS->pFwrite)(uVar1,*(undefined4 *)(bitmap + 0x60),0x300);
     auStack_1c[0] = 0x2c;
     uStack_1a = 0;
     uStack_18 = 0;
-    uStack_16 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0xc);
-    uStack_14 = *(undefined2 *)(**(int **)(param_2 + 0x78) + 0x10);
+    uStack_16 = *(undefined2 *)(**(int **)(bitmap + 0x78) + 0xc);
+    uStack_14 = *(undefined2 *)(**(int **)(bitmap + 0x78) + 0x10);
     abStack_12[0] = 0;
     (*g_pStd_HS->pFwrite)(uVar1,auStack_1c,1);
     (*g_pStd_HS->pFwrite)(uVar1,&uStack_1a,2);
@@ -317,16 +317,16 @@ uint __cdecl stdGif_Write(uint param_1,int param_2)
     if (((short)uVar8 == 0) &&
        (puVar3 = (undefined4 *)
                  (*g_pStd_HS->pAlloc)
-                           (*(undefined4 *)(**(int **)(param_2 + 0x78) + 0xc),
+                           (*(undefined4 *)(**(int **)(bitmap + 0x78) + 0xc),
                             s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e7880 + 0x55),
        puVar3 != (undefined4 *)0x0)) {
-      stdDisplay_VBufferLock((VBuffer *)**(undefined4 **)(param_2 + 0x78));
-      iVar2 = **(int **)(param_2 + 0x78);
-      param_2 = 0;
+      stdDisplay_VBufferLock((VBuffer *)**(undefined4 **)(bitmap + 0x78));
+      iVar2 = **(int **)(bitmap + 0x78);
+      bitmap = 0;
       if (0 < *(int *)(iVar2 + 0x10)) {
         do {
           uVar8 = *(uint *)(iVar2 + 0xc);
-          puVar7 = (undefined4 *)(param_2 * uVar8 + *(int *)(iVar2 + 0x5c));
+          puVar7 = (undefined4 *)(bitmap * uVar8 + *(int *)(iVar2 + 0x5c));
           puVar9 = puVar3;
           for (uVar5 = uVar8 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
             *puVar9 = *puVar7;
@@ -350,9 +350,9 @@ uint __cdecl stdGif_Write(uint param_1,int param_2)
               iVar2 = iVar2 + 1;
             } while (iVar2 < *(int *)(**(int **)(iVar4 + 0x78) + 0xc));
           }
-          param_2 = param_2 + 1;
+          bitmap = bitmap + 1;
           iVar2 = **(int **)(iVar4 + 0x78);
-        } while (param_2 < *(int *)(iVar2 + 0x10));
+        } while (bitmap < *(int *)(iVar2 + 0x10));
       }
       stdDisplay_VBufferUnlock((VBuffer *)**(undefined4 **)(iVar4 + 0x78));
       stdGif_LzwFinishEncode(uVar1);

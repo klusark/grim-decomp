@@ -281,11 +281,11 @@ void __cdecl bi_tostring(void)
 
 {
   int iVar1;
-  byte *pbVar2;
+  byte *str;
   
   iVar1 = lua_lua2C(1);
-  pbVar2 = to_string(iVar1);
-  lua_pushstring(pbVar2);
+  str = to_string(iVar1);
+  lua_pushstring(str);
   return;
 }
 
@@ -769,14 +769,14 @@ void __cdecl luaI_assert(void)
 void __cdecl setglobal(void)
 
 {
-  byte *pbVar1;
-  int iVar2;
+  byte *str;
+  int iVar1;
   
-  pbVar1 = (byte *)luaL_check_string(1);
-  iVar2 = luaL_nonnullarg(2);
-  lua_pushobject(iVar2);
-  lua_setglobal(pbVar1);
-  lua_pushobject(iVar2);
+  str = (byte *)luaL_check_string(1);
+  iVar1 = luaL_nonnullarg(2);
+  lua_pushobject(iVar1);
+  lua_setglobal(str);
+  lua_pushobject(iVar1);
   return;
 }
 
@@ -787,14 +787,14 @@ void __cdecl setglobal(void)
 void __cdecl rawsetglobal(void)
 
 {
-  byte *pbVar1;
-  int iVar2;
+  byte *str;
+  int iVar1;
   
-  pbVar1 = (byte *)luaL_check_string(1);
-  iVar2 = luaL_nonnullarg(2);
-  lua_pushobject(iVar2);
-  lua_rawsetglobal(pbVar1);
-  lua_pushobject(iVar2);
+  str = (byte *)luaL_check_string(1);
+  iVar1 = luaL_nonnullarg(2);
+  lua_pushobject(iVar1);
+  lua_rawsetglobal(str);
+  lua_pushobject(iVar1);
   return;
 }
 
@@ -805,12 +805,12 @@ void __cdecl rawsetglobal(void)
 void __cdecl getglobal(void)
 
 {
-  byte *pbVar1;
-  int iVar2;
+  byte *str;
+  int iVar1;
   
-  pbVar1 = (byte *)luaL_check_string(1);
-  iVar2 = lua_getglobal(pbVar1);
-  lua_pushobject(iVar2);
+  str = (byte *)luaL_check_string(1);
+  iVar1 = lua_getglobal(str);
+  lua_pushobject(iVar1);
   return;
 }
 
@@ -821,12 +821,12 @@ void __cdecl getglobal(void)
 void __cdecl rawgetglobal(void)
 
 {
-  byte *pbVar1;
-  int iVar2;
+  byte *str;
+  int iVar1;
   
-  pbVar1 = (byte *)luaL_check_string(1);
-  iVar2 = lua_rawgetglobal(pbVar1);
-  lua_pushobject(iVar2);
+  str = (byte *)luaL_check_string(1);
+  iVar1 = lua_rawgetglobal(str);
+  lua_pushobject(iVar1);
   return;
 }
 

@@ -468,7 +468,7 @@ int __cdecl lua_createtable(void)
 
 
 /* ---- 0x10001640  lua_getglobal ---- */
-undefined4 __cdecl lua_getglobal(byte *param_1)
+undefined4 __cdecl lua_getglobal(byte *str)
 
 {
   TaggedString *ts;
@@ -476,27 +476,27 @@ undefined4 __cdecl lua_getglobal(byte *param_1)
   
                     /* 0x1640  29  lua_getglobal */
   ((code *)luaD_checkstack)(2);
-  ts = luaS_new((char *)param_1);
+  ts = luaS_new((char *)str);
   luaV_getglobal(ts);
   uVar1 = put_luaObjectonTop();
   return uVar1;
 }
 
 /* ---- 0x10001670  lua_rawgetglobal ---- */
-int __cdecl lua_rawgetglobal(byte *param_1)
+int __cdecl lua_rawgetglobal(byte *str)
 
 {
   TaggedString *pTVar1;
   int iVar2;
   
                     /* 0x1670  64  lua_rawgetglobal */
-  pTVar1 = luaS_new((char *)param_1);
+  pTVar1 = luaS_new((char *)str);
   iVar2 = put_luaObject(&pTVar1->globalval);
   return iVar2;
 }
 
 /* ---- 0x10001690  lua_setglobal ---- */
-undefined4 __cdecl lua_setglobal(byte *param_1)
+undefined4 __cdecl lua_setglobal(byte *str)
 
 {
   TaggedString *ts;
@@ -505,20 +505,20 @@ undefined4 __cdecl lua_setglobal(byte *param_1)
                     /* 0x1690  74  lua_setglobal */
   ((code *)checkCparams)(1);
   luaD_checkstack(2);
-  ts = luaS_new((char *)param_1);
+  ts = luaS_new((char *)str);
   luaV_setglobal(ts);
   return extraout_EAX;
 }
 
 /* ---- 0x100016c0  lua_rawsetglobal ---- */
-undefined4 __cdecl lua_rawsetglobal(byte *param_1)
+undefined4 __cdecl lua_rawsetglobal(byte *str)
 
 {
   TaggedString *ts;
   undefined4 extraout_EAX;
   
                     /* 0x16c0  66  lua_rawsetglobal */
-  ts = luaS_new((char *)param_1);
+  ts = luaS_new((char *)str);
   checkCparams(1);
   g_pLuaState->pTop = g_pLuaState->pTop + -1;
   luaS_rawsetglobal(ts,g_pLuaState->pTop);
@@ -769,18 +769,18 @@ void __cdecl lua_pushnumber(float n)
 }
 
 /* ---- 0x10001aa0  lua_pushstring ---- */
-undefined4 __cdecl lua_pushstring(byte *param_1)
+undefined4 __cdecl lua_pushstring(byte *str)
 
 {
   TaggedString *pTVar1;
   undefined4 uVar2;
   
                     /* 0x1aa0  61  lua_pushstring */
-  if (param_1 == (byte *)0x0) {
+  if (str == (byte *)0x0) {
     g_pLuaState->pTop->nTtype = -7;
   }
   else {
-    pTVar1 = luaS_new((char *)param_1);
+    pTVar1 = luaS_new((char *)str);
     g_pLuaState->pTop->dwValue = (uint)pTVar1;
     g_pLuaState->pTop->nTtype = -2;
   }
@@ -814,17 +814,17 @@ undefined4 __cdecl lua_pushCclosure(int param_1,uint param_2)
 }
 
 /* ---- 0x10001b90  lua_pushusertag ---- */
-undefined4 __cdecl lua_pushusertag(byte *param_1,uint param_2)
+undefined4 __cdecl lua_pushusertag(byte *udata,uint tag)
 
 {
   TaggedString *pTVar1;
   undefined4 uVar2;
   
                     /* 0x1b90  63  lua_pushusertag */
-  if (((int)param_2 < 0) && (param_2 != 0xffffffff)) {
-    luaT_realtag(param_2);
+  if (((int)tag < 0) && (tag != 0xffffffff)) {
+    luaT_realtag(tag);
   }
-  pTVar1 = luaS_createudata(param_1,param_2);
+  pTVar1 = luaS_createudata(udata,tag);
   g_pLuaState->pTop->dwValue = (uint)pTVar1;
   g_pLuaState->pTop->nTtype = 0;
   if (g_pLuaState->pLast <= g_pLuaState->pTop) {
@@ -1214,7 +1214,7 @@ int lua_currenttask(void)
 }
 
 /* ---- 0x100022c0  lua_getlocal ---- */
-int __cdecl lua_getlocal(int param_1,int param_2,int *param_3)
+int __cdecl lua_getlocal(int param_1,int local_number,int *param_3)
 
 {
   TObject *pTVar1;
@@ -1230,18 +1230,18 @@ int __cdecl lua_getlocal(int param_1,int param_2,int *param_3)
     pTVar3 = luaA_protovalue(pTVar1 + param_1 + -1);
     func = (TProtoFunc *)pTVar3->dwValue;
     iVar2 = lua_currentline(param_1);
-    pcVar4 = luaF_getlocalname(func,param_2,iVar2);
+    pcVar4 = luaF_getlocalname(func,local_number,iVar2);
     *param_3 = (int)pcVar4;
     if (pcVar4 != (char *)0x0) {
-      return (((param_2 * 8 + 8) - (int)g_pLuaState->pStack) + (int)(pTVar1 + param_1 + -1) >> 3) +
-             1;
+      return (((local_number * 8 + 8) - (int)g_pLuaState->pStack) + (int)(pTVar1 + param_1 + -1) >>
+             3) + 1;
     }
   }
   return 0;
 }
 
 /* ---- 0x10002330  lua_setlocal ---- */
-undefined4 __cdecl lua_setlocal(int param_1,int param_2)
+undefined4 __cdecl lua_setlocal(int param_1,int local_number)
 
 {
   TObject *o;
@@ -1257,13 +1257,13 @@ undefined4 __cdecl lua_setlocal(int param_1,int param_2)
     pTVar2 = luaA_protovalue(o);
     func = (TProtoFunc *)pTVar2->dwValue;
     iVar1 = lua_currentline(param_1);
-    pcVar3 = luaF_getlocalname(func,param_2,iVar1);
+    pcVar3 = luaF_getlocalname(func,local_number,iVar1);
     checkCparams(1);
     g_pLuaState->pTop = g_pLuaState->pTop + -1;
     if (pcVar3 != (char *)0x0) {
       pTVar2 = g_pLuaState->pTop;
-      o[param_2 + 1].nTtype = pTVar2->nTtype;
-      o[param_2 + 1].dwValue = pTVar2->dwValue;
+      o[local_number + 1].nTtype = pTVar2->nTtype;
+      o[local_number + 1].dwValue = pTVar2->dwValue;
       return 1;
     }
   }
@@ -1388,14 +1388,14 @@ uint __cdecl lua_ref(int param_1)
 }
 
 /* ---- 0x10002590  lua_getref ---- */
-int __cdecl lua_getref(uint param_1)
+int __cdecl lua_getref(uint ref)
 
 {
   TObject *o;
   int iVar1;
   
                     /* 0x2590  33  lua_getref */
-  o = luaC_getref(param_1);
+  o = luaC_getref(ref);
   if (o != (TObject *)0x0) {
     iVar1 = put_luaObject(o);
     return iVar1;
@@ -1428,7 +1428,7 @@ undefined4 __cdecl lua_setfallback(byte *name,int fallback)
    compatibility code: luaD_openstack(nParams), a CPROTO in the base slot, luaD_call; its only
    caller is lua_setfallback with luaT_setfallback, 2, 1); was luaA_callObject. */
 
-void __cdecl do_unprotectedrun(uint param_1,int param_2,void *param_3)
+void __cdecl do_unprotectedrun(uint param_1,int param_2,void *nres)
 
 {
   int iVar1;
@@ -1438,7 +1438,7 @@ void __cdecl do_unprotectedrun(uint param_1,int param_2,void *param_3)
   g_pLuaState->pStack[iVar1].nTtype = -5;
   g_pLuaState->pStack[iVar1].dwValue = param_1;
   g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + 1;
-  luaD_call(iVar1 + 1,(int)param_3);
+  luaD_call(iVar1 + 1,(int)nres);
   g_pLuaState->nPreventBreak = g_pLuaState->nPreventBreak + -1;
   return;
 }

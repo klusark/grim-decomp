@@ -2051,8 +2051,7 @@ int __cdecl Surface_BlitSoftware(VBuffer *dst,VBuffer *src,uint x,uint y,int *sr
 }
 
 /* ---- 0x004755e0  Surface_BlitDDraw ---- */
-uint __cdecl
-Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint param_3,uint param_4,uint *param_5,byte param_6)
+uint __cdecl Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint x,uint y,uint *srcRect,byte colorKey)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2077,9 +2076,9 @@ Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint param_3,uint param_4,uint *para
     return 0;
   }
   if ((dst->nVideoMemory == 0) || (src->nVideoMemory == 0)) {
-    local_74 = param_3;
-    local_70 = param_4;
-    if (param_5 == (uint *)0x0) {
+    local_74 = x;
+    local_70 = y;
+    if (srcRect == (uint *)0x0) {
       local_7c = (src->format).nWidth;
       local_84 = 0;
       local_80 = 0;
@@ -2088,21 +2087,21 @@ Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint param_3,uint param_4,uint *para
       uVar2 = local_7c;
     }
     else {
-      uVar2 = param_5[2];
+      uVar2 = srcRect[2];
       if (uVar2 == 0) {
         return 0;
       }
-      uVar3 = param_5[3];
+      uVar3 = srcRect[3];
       if (uVar3 == 0) {
         return 0;
       }
-      local_84 = *param_5;
-      local_80 = param_5[1];
+      local_84 = *srcRect;
+      local_80 = srcRect[1];
       local_7c = local_84 + uVar2;
       local_78 = local_80 + uVar3;
     }
-    local_6c = param_3 + uVar2;
-    local_68 = param_4 + uVar3;
+    local_6c = x + uVar2;
+    local_68 = y + uVar3;
     puVar6 = &local_64;
     for (iVar5 = 0x19; iVar5 != 0; iVar5 = iVar5 + -1) {
       *puVar6 = 0;
@@ -2110,7 +2109,7 @@ Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint param_3,uint param_4,uint *para
     }
     local_64 = 100;
     uVar7 = 0x1000000;
-    if ((param_6 & 1) != 0) {
+    if ((colorKey & 1) != 0) {
       uVar7 = 0x1008000;
     }
     while (piVar1 = (dst->ddraw).pSurface,
@@ -2148,23 +2147,23 @@ Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint param_3,uint param_4,uint *para
     }
   }
   else {
-    if (param_5 == (uint *)0x0) {
+    if (srcRect == (uint *)0x0) {
       local_7c = (src->format).nWidth;
       local_84 = 0;
       local_80 = 0;
       local_78 = (src->format).nHeight;
     }
     else {
-      if (param_5[2] == 0) {
+      if (srcRect[2] == 0) {
         return 0;
       }
-      if (param_5[3] == 0) {
+      if (srcRect[3] == 0) {
         return 0;
       }
-      local_84 = *param_5;
-      local_80 = param_5[1];
-      local_7c = local_84 + param_5[2];
-      local_78 = local_80 + param_5[3];
+      local_84 = *srcRect;
+      local_80 = srcRect[1];
+      local_7c = local_84 + srcRect[2];
+      local_78 = local_80 + srcRect[3];
     }
     puVar6 = &local_64;
     for (iVar5 = 0x19; iVar5 != 0; iVar5 = iVar5 + -1) {
@@ -2173,12 +2172,11 @@ Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint param_3,uint param_4,uint *para
     }
     local_64 = 100;
     uVar7 = 0x10;
-    if ((param_6 & 1) != 0) {
+    if ((colorKey & 1) != 0) {
       uVar7 = 0x11;
     }
     while (piVar1 = (dst->ddraw).pSurface,
-          iVar5 = (**(code_std **)(*piVar1 + 0x1c))
-                            (piVar1,param_3,param_4,(src->ddraw).pSurface,&local_84,uVar7),
+          iVar5 = (**(code_std **)(*piVar1 + 0x1c))(piVar1,x,y,(src->ddraw).pSurface,&local_84,uVar7),
           iVar5 != 0) {
       if (iVar5 == -0x7789fe3e) {
         if (((dst->ddraw).desc.dwCaps & 4) == 0) {
@@ -2225,8 +2223,7 @@ Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint param_3,uint param_4,uint *para
 
 /* ---- 0x004758a0  Surface_BlitLockedSrc ---- */
 uint __cdecl
-Surface_BlitLockedSrc
-          (VBuffer *dst,VBuffer *src,void *param_3,uint param_4,int *param_5,void *param_6)
+Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRect,void *param_6)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2250,32 +2247,32 @@ Surface_BlitLockedSrc
   
   pVVar2 = src;
   if (dst->nLockCount == 0) {
-    if (param_5 == (int *)0x0) {
+    if (srcRect == (int *)0x0) {
       iVar8 = (src->format).nWidth;
       iVar9 = (src->format).nHeight;
       src = (VBuffer *)0x0;
       iVar11 = 0;
     }
     else {
-      iVar8 = param_5[2];
+      iVar8 = srcRect[2];
       if (iVar8 == 0) {
         return 0;
       }
-      iVar9 = param_5[3];
+      iVar9 = srcRect[3];
       if (iVar9 == 0) {
         return 0;
       }
-      src = (VBuffer *)*param_5;
-      iVar11 = param_5[1];
+      src = (VBuffer *)*srcRect;
+      iVar11 = srcRect[1];
     }
     pvVar15 = (void *)(dst->format).nWidth;
     if (((((int)param_3 < (int)pvVar15) && (iVar8 + (int)param_3 != 0)) &&
-        (uVar3 = (dst->format).nHeight, (int)param_4 < (int)uVar3)) && (iVar9 + param_4 != 0)) {
+        (uVar3 = (dst->format).nHeight, (int)y < (int)uVar3)) && (iVar9 + y != 0)) {
       pvVar7 = (void *)((iVar8 + (int)param_3) - 1);
-      uVar10 = (iVar9 + param_4) - 1;
-      if ((int)param_4 < 0) {
-        iVar11 = iVar11 - param_4;
-        param_4 = 0;
+      uVar10 = (iVar9 + y) - 1;
+      if ((int)y < 0) {
+        iVar11 = iVar11 - y;
+        y = 0;
       }
       if (uVar3 <= uVar10) {
         uVar10 = uVar3 - 1;
@@ -2296,10 +2293,9 @@ Surface_BlitLockedSrc
           if (((uint)param_6 & 1) == 0) {
             param_6 = (void *)((int)(iVar11 * (pVVar2->format).nStride + (int)pVVar2->pPixels) +
                               (int)src);
-            pvVar15 = (void *)((int)(param_4 * (dst->format).nStride + (int)dst->pPixels) +
-                              (int)param_3);
-            if (param_4 <= uVar10) {
-              iVar8 = (uVar10 - param_4) + 1;
+            pvVar15 = (void *)((int)(y * (dst->format).nStride + (int)dst->pPixels) + (int)param_3);
+            if (y <= uVar10) {
+              iVar8 = (uVar10 - y) + 1;
               do {
                 Mem_Copy(pvVar15,param_6,uVar3);
                 param_6 = (void *)((int)param_6 + (pVVar2->format).nStride);
@@ -2312,10 +2308,9 @@ Surface_BlitLockedSrc
             iVar9 = (pVVar2->format).nStride;
             iVar1 = (dst->format).nStride;
             pcVar14 = (char *)((int)(iVar11 * iVar9 + (int)pVVar2->pPixels) + (int)src);
-            pcVar6 = (char *)((int)(param_4 * (dst->format).nStride + (int)dst->pPixels) +
-                             (int)param_3);
-            if (param_4 <= uVar10) {
-              iVar11 = (uVar10 - param_4) + 1;
+            pcVar6 = (char *)((int)(y * (dst->format).nStride + (int)dst->pPixels) + (int)param_3);
+            if (y <= uVar10) {
+              iVar11 = (uVar10 - y) + 1;
               do {
                 iVar16 = iVar8;
                 if (param_3 <= pvVar7) {
@@ -2340,9 +2335,9 @@ Surface_BlitLockedSrc
             pvVar15 = (void *)((int)pVVar2->pPixels +
                               (int)((int)&src->nType + iVar11 * (pVVar2->format).nStride) * 2);
             param_3 = (void *)((int)dst->pPixels +
-                              (int)(param_4 * (dst->format).nStride + (int)param_3) * 2);
-            if (param_4 <= uVar10) {
-              iVar8 = (uVar10 - param_4) + 1;
+                              (int)(y * (dst->format).nStride + (int)param_3) * 2);
+            if (y <= uVar10) {
+              iVar8 = (uVar10 - y) + 1;
               do {
                 Mem_Copy(param_3,pvVar15,uVar3);
                 iVar8 = iVar8 + -1;
@@ -2357,9 +2352,9 @@ Surface_BlitLockedSrc
             psVar13 = (short *)((int)pVVar2->pPixels + (int)((int)&src->nType + iVar11 * iVar9) * 2)
             ;
             psVar5 = (short *)((int)dst->pPixels +
-                              (int)(param_4 * (dst->format).nStride + (int)param_3) * 2);
-            if (param_4 <= uVar10) {
-              iVar11 = (uVar10 - param_4) + 1;
+                              (int)(y * (dst->format).nStride + (int)param_3) * 2);
+            if (y <= uVar10) {
+              iVar11 = (uVar10 - y) + 1;
               do {
                 iVar16 = iVar8;
                 if (param_3 <= pvVar7) {
@@ -2384,9 +2379,9 @@ Surface_BlitLockedSrc
             pvVar15 = (void *)((int)pVVar2->pPixels +
                               (int)((int)&src->nType + iVar11 * (pVVar2->format).nStride) * 4);
             param_3 = (void *)((int)dst->pPixels +
-                              (int)(param_4 * (dst->format).nStride + (int)param_3) * 4);
-            if (param_4 <= uVar10) {
-              iVar8 = (uVar10 - param_4) + 1;
+                              (int)(y * (dst->format).nStride + (int)param_3) * 4);
+            if (y <= uVar10) {
+              iVar8 = (uVar10 - y) + 1;
               do {
                 Mem_Copy(param_3,pvVar15,uVar3);
                 iVar8 = iVar8 + -1;
@@ -2400,9 +2395,9 @@ Surface_BlitLockedSrc
             iVar1 = (dst->format).nStride;
             puVar12 = (uint *)((int)pVVar2->pPixels + (int)((int)&src->nType + iVar11 * iVar9) * 4);
             puVar4 = (uint *)((int)dst->pPixels +
-                             (int)(param_4 * (dst->format).nStride + (int)param_3) * 4);
-            if (param_4 <= uVar10) {
-              iVar11 = (uVar10 - param_4) + 1;
+                             (int)(y * (dst->format).nStride + (int)param_3) * 4);
+            if (y <= uVar10) {
+              iVar11 = (uVar10 - y) + 1;
               do {
                 iVar16 = iVar8;
                 if (param_3 <= pvVar7) {
@@ -2434,8 +2429,7 @@ Surface_BlitLockedSrc
 
 /* ---- 0x00475c90  Surface_BlitLockedDst ---- */
 uint __cdecl
-Surface_BlitLockedDst
-          (VBuffer *dst,VBuffer *src,void *param_3,uint param_4,int *param_5,void *param_6)
+Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRect,void *param_6)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2462,36 +2456,35 @@ Surface_BlitLockedDst
   surface = src;
   pVVar4 = dst;
   if (src->nLockCount == 0) {
-    if (param_5 == (int *)0x0) {
+    if (srcRect == (int *)0x0) {
       iVar7 = (src->format).nWidth;
       pVVar5 = (VBuffer *)0x0;
       iVar12 = 0;
       src = (VBuffer *)(src->format).nHeight;
     }
     else {
-      iVar7 = param_5[2];
+      iVar7 = srcRect[2];
       if (iVar7 == 0) {
         return 0;
       }
-      if ((VBuffer *)param_5[3] == (VBuffer *)0x0) {
+      if ((VBuffer *)srcRect[3] == (VBuffer *)0x0) {
         return 0;
       }
-      pVVar5 = (VBuffer *)*param_5;
-      iVar12 = param_5[1];
-      src = (VBuffer *)param_5[3];
+      pVVar5 = (VBuffer *)*srcRect;
+      iVar12 = srcRect[1];
+      src = (VBuffer *)srcRect[3];
     }
     if (((((int)param_3 < (dst->format).nWidth) && (iVar7 + (int)param_3 != 0)) &&
-        ((int)param_4 < (dst->format).nHeight)) &&
-       (iVar10 = (int)&src->nType + param_4, iVar10 != 0)) {
+        ((int)y < (dst->format).nHeight)) && (iVar10 = (int)&src->nType + y, iVar10 != 0)) {
       pvVar11 = (void *)((iVar7 + (int)param_3) - 1);
-      param_5 = (int *)(iVar10 - 1);
-      if ((int)param_4 < 0) {
-        iVar12 = iVar12 - param_4;
-        param_4 = 0;
+      srcRect = (int *)(iVar10 - 1);
+      if ((int)y < 0) {
+        iVar12 = iVar12 - y;
+        y = 0;
       }
       piVar1 = (int *)(dst->format).nHeight;
-      if (piVar1 <= param_5) {
-        param_5 = (int *)((int)piVar1 - 1);
+      if (piVar1 <= srcRect) {
+        srcRect = (int *)((int)piVar1 - 1);
       }
       dst = pVVar5;
       if ((int)param_3 < 0) {
@@ -2511,10 +2504,10 @@ Surface_BlitLockedDst
           if (((uint)param_6 & 1) == 0) {
             param_6 = (void *)((int)(iVar12 * (surface->format).nStride + (int)surface->pPixels) +
                               (int)dst);
-            pvVar11 = (void *)((int)(param_4 * (pVVar4->format).nStride + (int)pVVar4->pPixels) +
+            pvVar11 = (void *)((int)(y * (pVVar4->format).nStride + (int)pVVar4->pPixels) +
                               (int)param_3);
-            if (param_4 <= param_5) {
-              iVar7 = (int)param_5 + (1 - param_4);
+            if (y <= srcRect) {
+              iVar7 = (int)srcRect + (1 - y);
               do {
                 Mem_Copy(pvVar11,param_6,n);
                 param_6 = (void *)((int)param_6 + (surface->format).nStride);
@@ -2527,10 +2520,10 @@ Surface_BlitLockedDst
             iVar10 = (surface->format).nStride;
             iVar3 = (pVVar4->format).nStride;
             pcVar15 = (char *)((int)(iVar12 * iVar10 + (int)surface->pPixels) + (int)dst);
-            pcVar9 = (char *)((int)(param_4 * (pVVar4->format).nStride + (int)pVVar4->pPixels) +
+            pcVar9 = (char *)((int)(y * (pVVar4->format).nStride + (int)pVVar4->pPixels) +
                              (int)param_3);
-            if (param_4 <= param_5) {
-              iVar12 = (int)param_5 + (1 - param_4);
+            if (y <= srcRect) {
+              iVar12 = (int)srcRect + (1 - y);
               do {
                 iVar16 = iVar7;
                 if (param_3 <= pvVar11) {
@@ -2557,9 +2550,9 @@ Surface_BlitLockedDst
             pvVar11 = (void *)((int)surface->pPixels +
                               (int)((int)&dst->nType + iVar12 * (surface->format).nStride) * 2);
             param_3 = (void *)((int)pVVar4->pPixels +
-                              (int)(param_4 * (pVVar4->format).nStride + (int)param_3) * 2);
-            if (param_4 <= param_5) {
-              iVar7 = (int)param_5 + (1 - param_4);
+                              (int)(y * (pVVar4->format).nStride + (int)param_3) * 2);
+            if (y <= srcRect) {
+              iVar7 = (int)srcRect + (1 - y);
               do {
                 Mem_Copy(param_3,pvVar11,n);
                 pvVar11 = (void *)((int)pvVar11 + (surface->format).nStride * 2);
@@ -2576,9 +2569,9 @@ Surface_BlitLockedDst
             psVar14 = (short *)((int)surface->pPixels +
                                (int)((int)&dst->nType + iVar12 * iVar10) * 2);
             psVar8 = (short *)((int)pVVar4->pPixels +
-                              (int)(param_4 * (pVVar4->format).nStride + (int)param_3) * 2);
-            if (param_4 <= param_5) {
-              iVar12 = (int)param_5 + (1 - param_4);
+                              (int)(y * (pVVar4->format).nStride + (int)param_3) * 2);
+            if (y <= srcRect) {
+              iVar12 = (int)srcRect + (1 - y);
               do {
                 iVar16 = iVar7;
                 if (param_3 <= pvVar11) {
@@ -2605,9 +2598,9 @@ Surface_BlitLockedDst
             pvVar11 = (void *)((int)surface->pPixels +
                               (int)((int)&dst->nType + iVar12 * (surface->format).nStride) * 4);
             param_3 = (void *)((int)pVVar4->pPixels +
-                              (int)(param_4 * (pVVar4->format).nStride + (int)param_3) * 4);
-            if (param_4 <= param_5) {
-              iVar7 = (int)param_5 + (1 - param_4);
+                              (int)(y * (pVVar4->format).nStride + (int)param_3) * 4);
+            if (y <= srcRect) {
+              iVar7 = (int)srcRect + (1 - y);
               do {
                 Mem_Copy(param_3,pvVar11,n);
                 pvVar11 = (void *)((int)pvVar11 + (surface->format).nStride * 4);
@@ -2624,9 +2617,9 @@ Surface_BlitLockedDst
             puVar13 = (uint *)((int)surface->pPixels + (int)((int)&dst->nType + iVar12 * iVar10) * 4
                               );
             puVar6 = (uint *)((int)pVVar4->pPixels +
-                             (int)(param_4 * (pVVar4->format).nStride + (int)param_3) * 4);
-            if (param_4 <= param_5) {
-              iVar12 = (int)param_5 + (1 - param_4);
+                             (int)(y * (pVVar4->format).nStride + (int)param_3) * 4);
+            if (y <= srcRect) {
+              iVar12 = (int)srcRect + (1 - y);
               do {
                 iVar16 = iVar7;
                 if (param_3 <= pvVar11) {
@@ -3263,7 +3256,7 @@ uint __cdecl DDraw_Flip(void)
 }
 
 /* ---- 0x00476cd0  DDraw_FillSurface ---- */
-uint __cdecl DDraw_FillSurface(DDrawSurfaceRec *rec,uint param_2,uint *param_3)
+uint __cdecl DDraw_FillSurface(DDrawSurfaceRec *rec,uint color,uint *rect)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3282,24 +3275,24 @@ uint __cdecl DDraw_FillSurface(DDrawSurfaceRec *rec,uint param_2,uint *param_3)
     puVar2 = puVar2 + 1;
   }
   local_64 = 100;
-  local_14 = param_2;
-  if (param_3 == (uint *)0x0) {
+  local_14 = color;
+  if (rect == (uint *)0x0) {
     local_6c = (rec->desc).dwWidth;
     local_68 = (rec->desc).dwHeight;
     local_74 = 0;
     local_70 = 0;
   }
   else {
-    if (param_3[2] == 0) {
+    if (rect[2] == 0) {
       return 0;
     }
-    if (param_3[3] == 0) {
+    if (rect[3] == 0) {
       return 0;
     }
-    local_74 = *param_3;
-    local_70 = param_3[1];
-    local_6c = local_74 + param_3[2];
-    local_68 = local_70 + param_3[3];
+    local_74 = *rect;
+    local_70 = rect[1];
+    local_6c = local_74 + rect[2];
+    local_68 = local_70 + rect[3];
   }
   do {
     iVar1 = (**(code_std **)(*(int *)rec->pSurface + 0x14))
@@ -3600,9 +3593,9 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
 /* Original name stdColor_ColorConvertOnePixel (the remaster's GrimFandango (Linux): aligned call in
    stdBitmap_ConvertColorFormat, stdDisplay_VBufferConvertColorFormat); was Pixel_ConvertOne. */
 
-int __cdecl stdColor_ColorConvertOnePixel(int param_1,uint param_2,int param_3)
+int __cdecl stdColor_ColorConvertOnePixel(int dstFormat,uint param_2,int srcFormat)
 
 {
-  stdColor_ColorConvertOneRow((ushort *)&param_3,param_1,(ushort *)&param_2,param_3,1);
-  return param_3;
+  stdColor_ColorConvertOneRow((ushort *)&srcFormat,dstFormat,(ushort *)&param_2,srcFormat,1);
+  return srcFormat;
 }

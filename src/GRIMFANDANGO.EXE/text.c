@@ -350,36 +350,36 @@ int __cdecl Text_GetStringWidth(TextContext *ctx,char *text)
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
-  void *pvVar2;
-  int iVar3;
-  uint uVar4;
+  FontData *font;
+  int iVar2;
+  uint uVar3;
+  TextContext *pTVar4;
   TextContext *pTVar5;
-  TextContext *pTVar6;
   #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
   #define local_30 (*(TextContext *)(_frame + (0x50 - 0x30)))
   
-  uVar4 = 0;
-  pTVar5 = ctx;
-  pTVar6 = &local_30;
-  for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
-    pTVar6->pUnused = pTVar5->pUnused;
+  uVar3 = 0;
+  pTVar4 = ctx;
+  pTVar5 = &local_30;
+  for (iVar2 = 0xc; iVar2 != 0; iVar2 = iVar2 + -1) {
+    pTVar5->pUnused = pTVar4->pUnused;
+    pTVar4 = (TextContext *)&pTVar4->pClipRect;
     pTVar5 = (TextContext *)&pTVar5->pClipRect;
-    pTVar6 = (TextContext *)&pTVar6->pClipRect;
   }
   pvVar1 = ctx->pFont;
   local_34 = 0;
   if (pvVar1 == (void *)0x0) {
     (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x28d);
   }
-  pvVar2 = (void *)(*g_pTextHS->pHLock)(pvVar1);
+  font = (FontData *)(*g_pTextHS->pHLock)(pvVar1);
   do {
-    text = text_FindNextBreak(&local_30,pvVar2,text,(int *)&local_34,(uint *)0x0,1);
-    if ((int)uVar4 <= (int)local_34) {
-      uVar4 = local_34;
+    text = text_FindNextBreak(&local_30,font,text,(int *)&local_34,(uint *)0x0,1);
+    if ((int)uVar3 <= (int)local_34) {
+      uVar3 = local_34;
     }
   } while (text != (char *)0x0);
   (*g_pTextHS->pHUnlock)(pvVar1);
-  return uVar4;
+  return uVar3;
 }
 #undef local_30
 #undef local_34
@@ -396,31 +396,31 @@ int __cdecl Text_GetStringHeight(TextContext *ctx,char *text)
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
-  void *pvVar2;
-  int iVar3;
+  FontData *font;
+  int iVar2;
+  TextContext *pTVar3;
   TextContext *pTVar4;
-  TextContext *pTVar5;
   #define local_30 (*(TextContext *)(_frame + (0x40 - 0x30)))
   
   pvVar1 = ctx->pFont;
-  pTVar4 = ctx;
-  pTVar5 = &local_30;
-  for (iVar3 = 0xc; iVar3 != 0; iVar3 = iVar3 + -1) {
-    pTVar5->pUnused = pTVar4->pUnused;
+  pTVar3 = ctx;
+  pTVar4 = &local_30;
+  for (iVar2 = 0xc; iVar2 != 0; iVar2 = iVar2 + -1) {
+    pTVar4->pUnused = pTVar3->pUnused;
+    pTVar3 = (TextContext *)&pTVar3->pClipRect;
     pTVar4 = (TextContext *)&pTVar4->pClipRect;
-    pTVar5 = (TextContext *)&pTVar5->pClipRect;
   }
-  iVar3 = 0;
+  iVar2 = 0;
   if (pvVar1 == (void *)0x0) {
     (*g_pTextHS->pAssertFail)(s_hFont_004ed078,s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054,0x2b0);
   }
-  pvVar2 = (void *)(*g_pTextHS->pHLock)(pvVar1);
+  font = (FontData *)(*g_pTextHS->pHLock)(pvVar1);
   do {
-    text = text_FindNextBreak(&local_30,pvVar2,text,(int *)0x0,(uint *)0x0,1);
-    iVar3 = iVar3 + (*(int *)(*(int *)ctx->pFont + 4) * ctx->nScaleY + 0xffffU >> 0x10);
+    text = text_FindNextBreak(&local_30,font,text,(int *)0x0,(uint *)0x0,1);
+    iVar2 = iVar2 + (*(int *)(*(int *)ctx->pFont + 4) * ctx->nScaleY + 0xffffU >> 0x10);
   } while (text != (char *)0x0);
   (*g_pTextHS->pHUnlock)(pvVar1);
-  return iVar3;
+  return iVar2;
 }
 #undef local_30
 
@@ -456,7 +456,7 @@ uint __cdecl Text_DrawFormatted(TextContext *ctx,char *fmt,...)
 /* ---- 0x004aac40  Text_WrapLines ---- */
 /* Builds the default font from the packed glyph table at g_BuiltinFontData */
 
-uint __cdecl Text_WrapLines(uint *param_1)
+uint __cdecl Text_WrapLines(uint *defaultFont)
 
 {
   unsigned char _frame[0x460] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -606,10 +606,10 @@ uint __cdecl Text_WrapLines(uint *param_1)
     }
     uVar4 = uStack_438;
     (*g_pTextHS->pHUnlock)(uStack_438);
-    *param_1 = uVar4;
+    *defaultFont = uVar4;
     return 0;
   }
-  *param_1 = 0;
+  *defaultFont = 0;
   return 1;
 }
 #undef iStack_434
@@ -684,7 +684,7 @@ void __cdecl Text_CopyRunes(byte *param_1,undefined4 *param_2,int param_3,int pa
    glyph records {dataOffset, advance, xoff, yoff, ?, dataPtr, width, height} and the glyph bitmaps
     */
 
-uint __cdecl Text_BuildLineTable(uint param_1,int *param_2)
+uint __cdecl Text_BuildLineTable(uint param_1,int *outFont)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -795,10 +795,10 @@ uint __cdecl Text_BuildLineTable(uint param_1,int *param_2)
     (*g_pTextHS->pFread)(uVar1,(int)piVar2 + iVar5,iStack_34);
     iVar5 = iStack_38;
     (*g_pTextHS->pHUnlock)(iStack_38);
-    *param_2 = iVar5;
+    *outFont = iVar5;
     return 0;
   }
-  *param_2 = 0;
+  *outFont = 0;
   return 1;
 }
 #undef aiStack_30
@@ -818,7 +818,7 @@ uint __cdecl Text_BuildLineTable(uint param_1,int *param_2)
    Text_GetStringHeight, Text_GetStringWidth); was Text_LayoutString. */
 
 char * __cdecl
-text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *param_4,uint *param_5,
+text_FindNextBreak(TextContext *param_1,FontData *font,char *text,int *param_4,uint *param_5,
                   int param_6)
 
 {
@@ -844,7 +844,7 @@ text_FindNextBreak(TextContext *param_1,void *param_2,char *param_3,int *param_4
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   int ch;
   
-  local_c = (uint)param_3;
+  local_c = (uint)text;
   ctx = param_1;
   uVar1 = param_1->dwFlags;
   iVar7 = *param_1->pClipRect;
@@ -867,33 +867,33 @@ LAB_004ab257:
   param_1 = (TextContext *)0x0;
   local_18 = 0;
   local_1c = 0;
-  cVar3 = Text_NextChar(&param_3);
+  cVar3 = Text_NextChar(&text);
   ch = ((uint)(byte)(cVar3));
   pTVar6 = param_1;
   do {
     param_1 = pTVar6;
-    pcVar2 = param_3;
+    pcVar2 = text;
     if (ch == 0) {
 LAB_004ab425:
-      param_3 = pcVar2;
+      text = pcVar2;
       if (ch == 0) {
         pTVar6 = (TextContext *)((int)&param_1->pUnused + uVar4 + local_14);
         if (((int)local_10 < (int)pTVar6) && ((uVar1 & 4) != 0)) {
-          param_3 = (char *)local_c;
+          text = (char *)local_c;
           if (local_1c == 0) {
             local_1c = iVar7 + local_18;
-            param_3 = (char *)0x0;
+            text = (char *)0x0;
             param_1 = pTVar6;
           }
         }
         else {
           local_1c = local_1c + iVar7 + local_18;
-          param_3 = (char *)0x0;
+          text = (char *)0x0;
           param_1 = pTVar6;
         }
       }
       if (param_6 != 0) {
-        if (param_3 == (char *)0x0) {
+        if (text == (char *)0x0) {
           if ((uVar1 & 1) == 0) {
             pTVar6 = param_1;
             if ((uVar1 & 2) != 0) {
@@ -915,7 +915,7 @@ LAB_004ab425:
       if (param_4 != (int *)0x0) {
         *param_4 = (int)param_1;
       }
-      return param_3;
+      return text;
     }
     if (((ch == 0x20) || (ch == 0xfe)) && ((uVar1 & 4) != 0)) {
       param_1 = (TextContext *)((int)&pTVar6->pUnused + uVar4 + local_14);
@@ -925,33 +925,33 @@ LAB_004ab425:
         if (local_1c == 0) {
           local_1c = iVar7 + local_18;
           param_1 = (TextContext *)((int)&pTVar6->pUnused + uVar4 + local_14);
-          pcVar2 = param_3;
+          pcVar2 = text;
         }
       }
       else {
         local_1c = local_1c + iVar7 + local_18;
-        uVar4 = Font_GlyphAdvance(ctx,param_2,ch);
+        uVar4 = Font_GlyphAdvance(ctx,font,ch);
         local_14 = 0;
         local_18 = 0;
         iVar7 = 1;
-        local_c = (uint)param_3;
-        cVar3 = Text_NextChar(&param_3);
+        local_c = (uint)text;
+        cVar3 = Text_NextChar(&text);
         ch = ((uint)(byte)(cVar3));
         if (ch != 0) {
           do {
             if ((ch != 0x20) && (ch != 0xfe)) break;
-            uVar5 = Font_GlyphAdvance(ctx,param_2,ch);
+            uVar5 = Font_GlyphAdvance(ctx,font,ch);
             uVar4 = uVar4 + uVar5;
             iVar7 = iVar7 + 1;
-            local_c = (uint)param_3;
-            cVar3 = Text_NextChar(&param_3);
+            local_c = (uint)text;
+            cVar3 = Text_NextChar(&text);
             ch = ((uint)(byte)(cVar3));
           } while (ch != 0);
           if (ch != 0) goto LAB_004ab344;
         }
         local_1c = local_1c + iVar7;
         param_1 = (TextContext *)((int)&param_1->pUnused + uVar4);
-        pcVar2 = param_3;
+        pcVar2 = text;
       }
       goto LAB_004ab425;
     }
@@ -959,23 +959,23 @@ LAB_004ab344:
     if ((ch == 0xd) || (ch == 10)) {
       pTVar6 = (TextContext *)((int)&param_1->pUnused + uVar4 + local_14);
       if (((int)local_10 < (int)pTVar6) && ((uVar1 & 4) != 0)) {
-        param_3 = (char *)local_c;
-        pcVar2 = param_3;
+        text = (char *)local_c;
+        pcVar2 = text;
       }
       else {
         local_1c = local_1c + iVar7 + local_18;
         param_1 = pTVar6;
-        pcVar2 = param_3;
-        if ((ch == 0xd) && (*param_3 == '\n')) {
-          pcVar2 = param_3 + 1;
+        pcVar2 = text;
+        if ((ch == 0xd) && (*text == '\n')) {
+          pcVar2 = text + 1;
         }
       }
       goto LAB_004ab425;
     }
-    uVar5 = Font_GlyphAdvance(ctx,param_2,ch);
+    uVar5 = Font_GlyphAdvance(ctx,font,ch);
     local_14 = local_14 + uVar5;
     local_18 = local_18 + 1;
-    cVar3 = Text_NextChar(&param_3);
+    cVar3 = Text_NextChar(&text);
     ch = ((uint)(byte)(cVar3));
     pTVar6 = param_1;
   } while( true );
@@ -1015,22 +1015,22 @@ uint __cdecl Font_GlyphAdvance(TextContext *ctx,FontData *font,int ch)
 }
 
 /* ---- 0x004ab570  Font_GlyphWidth ---- */
-uint __cdecl Font_GlyphWidth(int param_1,int param_2,uint param_3)
+uint __cdecl Font_GlyphWidth(int ctx,int param_2,uint ch)
 
 {
   int iVar1;
   
-  if (*(int *)(param_2 + 0x20) < (int)(param_3 & 0xff)) {
+  if (*(int *)(param_2 + 0x20) < (int)(ch & 0xff)) {
     iVar1 = 0;
   }
   else {
     iVar1 = *(int *)(param_2 + 0x28) +
             (uint)*(ushort *)
-                   (*(int *)(param_2 + 0x24) + ((param_3 & 0xff) - *(int *)(param_2 + 0x1c)) * 2 +
+                   (*(int *)(param_2 + 0x24) + ((ch & 0xff) - *(int *)(param_2 + 0x1c)) * 2 +
                    param_2) * 0x5c + param_2;
   }
   if (iVar1 != 0) {
-    return (int)*(char *)(iVar1 + 4) * *(int *)(param_1 + 0x20) + 0xffffU >> 0x10;
+    return (int)*(char *)(iVar1 + 4) * *(int *)(ctx + 0x20) + 0xffffU >> 0x10;
   }
   return 0;
 }

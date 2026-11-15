@@ -492,20 +492,20 @@ void __cdecl Input_CreateMouse(void)
 
 
 /* ---- 0x00477680  Input_MarkAxisUsed ---- */
-void __cdecl Input_MarkAxisUsed(uint param_1)
+void __cdecl Input_MarkAxisUsed(uint axis)
 
 {
   uint uVar1;
   
-  if ((0xb < param_1) && (param_1 < 0xf)) {
+  if ((0xb < axis) && (axis < 0xf)) {
     UINT_004dea40 = 1;
     return;
   }
-  if (param_1 < 0xc) {
+  if (axis < 0xc) {
     UINT_00805fb8 = 1;
-    uVar1 = (uint)(5 < param_1);
+    uVar1 = (uint)(5 < axis);
     (&UINT_00803fc8)[uVar1] = 1;
-    switch(param_1 + uVar1 * -6) {
+    switch(axis + uVar1 * -6) {
     case 0:
       (&UINT_00804010)[uVar1] = (&UINT_00804010)[uVar1] | 1;
       return;

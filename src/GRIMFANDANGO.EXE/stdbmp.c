@@ -8,7 +8,7 @@
 /* ---- 0x0047cb20  stdBmp_Load ---- */
 /* Stdbmp.c: allocates a bitmap record and reads a Windows .bmp */
 
-uint __cdecl stdBmp_Load(uint param_1,uint param_2,uint param_3)
+uint __cdecl stdBmp_Load(uint name,uint videoMem,uint b)
 
 {
   stdBitmap *bitmap;
@@ -19,7 +19,7 @@ uint __cdecl stdBmp_Load(uint param_1,uint param_2,uint param_3)
   if (bitmap == (stdBitmap *)0x0) {
     return 0;
   }
-  uVar1 = stdBmp_LoadEntry((char *)param_1,bitmap,param_2,param_3);
+  uVar1 = stdBmp_LoadEntry((char *)name,bitmap,videoMem,b);
   return -(uint)(uVar1 != 0) & (uint)bitmap;
 }
 
@@ -30,7 +30,7 @@ uint __cdecl stdBmp_Load(uint param_1,uint param_2,uint param_3)
    a bit-depth which I do not support yet.' | 'Unable to read the palette.  Your file is
    corrupted.'); was stdBmp_LoadInto. */
 
-uint __cdecl stdBmp_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int param_4)
+uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
 
 {
   unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -60,7 +60,7 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int pa
   #define asStack_10 (*(short (*)[8])(_frame + (0xb0 - 0x10)))
   
   local_98 = 0;
-  iVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
+  iVar2 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
   if (iVar2 == 0) {
     return 0;
   }
@@ -94,7 +94,7 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int pa
       psVar13 = (stdBitmap *)(psVar13->aName + 4);
     }
     uVar17 = 0x1f;
-    puVar5 = (uint *)stdFileFromPath(param_1);
+    puVar5 = (uint *)stdFileFromPath(path);
     strncpy((uint *)bitmap,puVar5,uVar17);
     bitmap->aName[0x1f] = '\0';
     bitmap->nType = 0;
@@ -169,7 +169,7 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int pa
     if (bVar16) {
       VStack_84.nHeight = -VStack_84.nHeight;
     }
-    pVVar7 = stdDisplay_VBufferNew(&VStack_84,param_3,param_4,local_98);
+    pVVar7 = stdDisplay_VBufferNew(&VStack_84,videoMem,b,local_98);
     *bitmap->ppFrames = pVVar7;
     if (*bitmap->ppFrames == (VBuffer *)0x0) {
       (*g_pStd_HS->pAssertFail)
@@ -253,7 +253,7 @@ uint __cdecl stdBmp_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int pa
 /* Original name stdBmp_Write (the remaster's GrimFandango (Linux): aligned call in stdWriteImage);
    was stdBmp_Save. */
 
-uint __cdecl stdBmp_Write(uint param_1,int param_2)
+uint __cdecl stdBmp_Write(uint filename,int bitmap)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -280,7 +280,7 @@ uint __cdecl stdBmp_Write(uint param_1,int param_2)
   #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
   
-  iVar1 = **(int **)(param_2 + 0x78);
+  iVar1 = **(int **)(bitmap + 0x78);
   if (*(int *)(iVar1 + 0x20) == 0) {
     iVar7 = (1 << ((byte)*(undefined4 *)(iVar1 + 0x24) & 0x1f)) << 2;
   }
@@ -316,7 +316,7 @@ uint __cdecl stdBmp_Write(uint param_1,int param_2)
   local_10 = 0xb12;
   local_c = 0xb12;
   local_14 = uVar6;
-  iVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddd78);
+  iVar2 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
   if (iVar2 == 0) {
     return 0;
   }
@@ -328,7 +328,7 @@ uint __cdecl stdBmp_Write(uint param_1,int param_2)
   iVar3 = (*g_pStd_HS->pFwrite)(iVar2,&local_28,0x28);
   if (iVar3 == 0x28) {
     if ((0 < iVar7) &&
-       (iVar3 = (*g_pStd_HS->pFwrite)(iVar2,*(undefined4 *)(param_2 + 0x60),iVar7), iVar3 != iVar7))
+       (iVar3 = (*g_pStd_HS->pFwrite)(iVar2,*(undefined4 *)(bitmap + 0x60),iVar7), iVar3 != iVar7))
     {
       (*g_pStd_HS->pFclose)(iVar2);
       return 0;

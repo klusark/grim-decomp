@@ -7,14 +7,14 @@ void __cdecl AudioLib_DetectRawFormat (ushort *param_1,uint param_2,undefined4 *
 uint * __cdecl AudioLib_ParseWaveFileHeader (uint *param_1,int *param_2,uint *param_3,uint *param_4,uint *param_5,int *param_6, uint *param_7); /* 0x100013c0 */
 int __cdecl AudioLib_CreateWaveFileHeader (undefined4 *param_1,int param_2,uint param_3,uint param_4,uint param_5,uint param_6); /* 0x100017e0 */
 void __cdecl AudioLib_ResetCompressor(undefined1 *param_1); /* 0x10001ba0 */
-void __cdecl AudioLib_UncompressBlock(byte *param_1,undefined2 *param_2,byte *param_3,uint param_4); /* 0x10001bc0 */
+void __cdecl AudioLib_UncompressBlock(byte *param_1,undefined2 *param_2,byte *local_c,uint param_4); /* 0x10001bc0 */
 void __cdecl Im_ConvertBlockImpl(short *param_1,undefined2 *param_2,byte *param_3,int param_4,uint param_5, int param_6); /* 0x10001c30 */
 undefined4 DpInitialize(void); /* 0x10001f10 */
 undefined4 __cdecl DpSwitchStream(int param_1,undefined4 param_2,uint param_3,uint param_4,uint param_5); /* 0x10002260 */
-void __cdecl DpProcessTrack(int *param_1,uint param_2,uint param_3); /* 0x10002570 */
+void __cdecl DpProcessTrack(int *param_1,uint trIntHandler_outFramesNeeded,uint trIntHandler_outSampleRate); /* 0x10002570 */
 int __cdecl GoToNextRegion(int *param_1); /* 0x10002a60 */
 int __cdecl Im_DispatchFetchNext(int *param_1); /* 0x10002d30 */
-undefined4 __cdecl DwInitialize(undefined4 param_1,undefined4 *param_2); /* 0x100036b0 */
+undefined4 __cdecl DwInitialize(undefined4 param_1,undefined4 *trInitialize_waveDriverInfo); /* 0x100036b0 */
 int __cdecl DwQuery(int **buf_out,uint *count_out,int *rate_out); /* 0x10003730 */
 undefined4 DwTerminate(void); /* 0x100038d0 */
 void __cdecl Im_DSoundCreateBuffer(int param_1); /* 0x10003930 */
@@ -36,7 +36,7 @@ undefined4 __cdecl MxInitialize(undefined4 *param_1); /* 0x10005360 */
 undefined4 MxTerminate(void); /* 0x10005490 */
 undefined4 MxBeginMix(void); /* 0x100054c0 */
 void __cdecl Mixer_MxMix(short *param_1,int param_2,int param_3,int param_4,int param_5,uint param_6,uint param_7 ,int param_8,int param_9); /* 0x100054f0 */
-undefined4 __cdecl MxEndMix(int *param_1,int param_2); /* 0x10005610 */
+undefined4 __cdecl MxEndMix(int *trIntHandler_outPtr,int trIntHandler_outFramesNeeded); /* 0x10005610 */
 void __cdecl Im_MixLoopA(short *param_1,int param_2,uint param_3,uint param_4,int param_5,int param_6); /* 0x100057a0 */
 void __cdecl Im_MixLoopB(short *param_1,int param_2,uint param_3,uint param_4,int param_5); /* 0x100059a0 */
 void __cdecl Im_MixLoopC(undefined2 *param_1,int param_2,uint param_3,int param_4,int param_5,int param_6); /* 0x10005b80 */
@@ -131,7 +131,7 @@ void DpPredictStreams(void); /* 0x10002a00 */
 int __cdecl ConvertMap(undefined4 *param_1,undefined4 *param_2); /* 0x10002fe0 */
 uint __cdecl iMUSE_Dispatch__30d0(int param_1,int param_2,int param_3); /* 0x100030d0 */
 void __cdecl PredictStream(int *param_1); /* 0x10003130 */
-int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *param_3); /* 0x100031d0 */
+int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *predictStream_jumpHook); /* 0x100031d0 */
 void __cdecl PrepareToJump(int *param_1,undefined4 *param_2,int param_3,int param_4); /* 0x10003250 */
 void __cdecl iMUSE_Dispatch__3430(int *param_1,int param_2); /* 0x10003430 */
 int __cdecl iMUSE_Dispatch__34b0(int *param_1); /* 0x100034b0 */
@@ -148,7 +148,7 @@ undefined4 __cdecl FmValidateSoundId(uint param_1); /* 0x100045a0 */
 undefined4 __cdecl FmSeek(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x100045c0 */
 undefined4 __cdecl FmRead(uint param_1,undefined4 param_2,undefined4 param_3); /* 0x10004600 */
 undefined4 __cdecl FmGetBufInfo(int param_1); /* 0x10004640 */
-uint __cdecl ImFx_Initialize(uint param_1); /* 0x10004660 */
+uint __cdecl ImFx_Initialize(uint heapSize); /* 0x10004660 */
 int __cdecl ImFx_SelectPreset(uint param_1); /* 0x10004750 */
 
 /* ===== imuse_api.c ===== */
@@ -186,7 +186,7 @@ int __cdecl ImCheckTrigger(int param_1,byte *param_2,int param_3); /* 0x10004e10
 undefined4 __cdecl ImClearTrigger(int param_1,byte *param_2,int param_3); /* 0x10004e30 */
 undefined4 __cdecl ImDeferCommand(int time,int cmd,int p0,int p1,int p2,int p3,int p4,int p5,int p6,int p7,int p8, int p9); /* 0x10004e50 */
 undefined4 __cdecl ImStartStream(uint param_1,int param_2,uint param_3); /* 0x10004e80 */
-undefined4 __cdecl ImSwitchStream(int param_1,undefined4 param_2,uint param_3,uint param_4,uint param_5); /* 0x10004ec0 */
+undefined4 __cdecl ImSwitchStream(int sound,undefined4 offset,uint fade,uint flags,uint param_5); /* 0x10004ec0 */
 undefined4 __cdecl ImQueryStream(int param_1,undefined4 *param_2,undefined4 *param_3,int *param_4,undefined4 *param_5); /* 0x10004f00 */
 undefined4 __cdecl ImFeedStream(int param_1,undefined4 *param_2,uint param_3,undefined4 param_4); /* 0x10004f30 */
 uint __cdecl ImHeartbeat(void); /* 0x10005190 */
@@ -241,15 +241,15 @@ uint __cdecl sounds_pause(void); /* 0x10008860 */
 uint __cdecl sounds_resume(void); /* 0x100088a0 */
 int __cdecl CacheGetSoundId(uint *param_1); /* 0x10008ec0 */
 int CachePurgeOldestStoppedSound(void); /* 0x100092f0 */
-int __cdecl ImFile_Read(int *param_1,int param_2,int param_3); /* 0x1000b940 */
+int __cdecl ImFile_Read(int *recordFile,int param_2,int param_3); /* 0x1000b940 */
 int __cdecl ImFile_ReadImpl(int *param_1,int param_2,int param_3); /* 0x1000b980 */
 undefined4 __cdecl FUN_1000ba20(undefined4 param_1,char *param_2,undefined4 param_3); /* 0x1000ba20 */
 int __cdecl FUN_1000ba60(undefined4 param_1,undefined4 param_2); /* 0x1000ba60 */
 void __cdecl FUN_1000ba80(void); /* 0x1000ba80 */
 void __cdecl FUN_1000baa0(void); /* 0x1000baa0 */
-undefined4 __cdecl ImFile_Close(int *param_1); /* 0x1000bb10 */
+undefined4 __cdecl ImFile_Close(int *recordFile); /* 0x1000bb10 */
 undefined4 __cdecl ImFile_CloseImpl(int *param_1); /* 0x1000bb50 */
-uint __cdecl ImFile_Open(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bbc0 */
+uint __cdecl ImFile_Open(char *param_1,uint param_2,uint param_3,int *recordFile); /* 0x1000bbc0 */
 uint __cdecl ImFile_OpenImpl(char *param_1,uint param_2,uint param_3,int *param_4); /* 0x1000bc00 */
 void __cdecl ImFile_LockInit(int param_1); /* 0x1000c4f0 */
 int __cdecl ImFile_UnlockInner(int param_1); /* 0x1000c570 */
@@ -294,11 +294,11 @@ int __cdecl StViewData(int param_1,int param_2,uint param_3); /* 0x1000a490 */
 undefined4 __cdecl StEraseFromFront(int param_1,uint param_2); /* 0x1000a500 */
 undefined4 __cdecl StEraseFromMid(int param_1,uint param_2); /* 0x1000a540 */
 undefined4 __cdecl StSpliceStream(undefined4 *param_1,undefined4 param_2,undefined4 param_3); /* 0x1000a5a0 */
-undefined4 __cdecl UtAddToList(int *param_1,int *param_2); /* 0x1000b760 */
+undefined4 __cdecl UtAddToList(int *trackList,int *param_2); /* 0x1000b760 */
 undefined4 __cdecl UtRemoveFromList(int *param_1,int *param_2); /* 0x1000b7a0 */
 undefined4 __cdecl UtReadLongHilo(undefined1 *param_1); /* 0x1000b810 */
 undefined4 __cdecl UtCheckHook(int *param_1,int param_2); /* 0x1000b840 */
-int __cdecl FUN_1000b8d0(undefined1 *param_1,char *param_2,undefined4 *param_3); /* 0x1000b8d0 */
+int __cdecl FUN_1000b8d0(undefined1 *param_1,char *fmt,undefined4 *param_3); /* 0x1000b8d0 */
 
 /* ===== hmi.c ===== */
 longlong hmi__bae0(void); /* 0x1000bae0 */
@@ -306,7 +306,7 @@ longlong hmi__bae0(void); /* 0x1000bae0 */
 /* ===== crt.c ===== */
 int __cdecl atol(byte *param_1); /* 0x1000bf50 */
 int __cdecl atoi(byte *param_1); /* 0x1000bff0 */
-uint __cdecl bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,undefined *param_5); /* 0x1000c000 */
+uint __cdecl bsearch(undefined4 param_1,uint param_2,uint param_3,int param_4,undefined *sounds_CompareRange); /* 0x1000c000 */
 undefined4 __stdcall entry(int a1,int a2,int a3); /* 0x1000c350 */
 void __cdecl _amsg_exit(int param_1); /* 0x1000c400 */
 uint __cdecl _flsbuf(uint param_1,int *param_2); /* 0x1000d210 */

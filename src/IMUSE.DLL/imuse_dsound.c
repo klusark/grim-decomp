@@ -139,7 +139,7 @@ undefined4 __cdecl FmGetBufInfo(int param_1)
    the preset library IMUSE.PSL; sets the input and output formats (22050 Hz, 16 bit, mono in,
    stereo 44100 out). 1 on success (or when already running), 0 on failure; was FUN_10004660. */
 
-uint __cdecl ImFx_Initialize(uint param_1)
+uint __cdecl ImFx_Initialize(uint heapSize)
 
 {
   int iVar1;
@@ -154,7 +154,7 @@ uint __cdecl ImFx_Initialize(uint param_1)
     puVar2 = puVar2 + 1;
   }
   _DAT_1002dd58 = iMUSE_Malloc;
-  _DAT_1002dd50 = param_1;
+  _DAT_1002dd50 = heapSize;
   _DAT_1002dd5c = iMUSE_Free;
   iVar1 = hmiFXInitSystem(((unsigned)(uintptr_t)&DAT_1002dd48));
   if (iVar1 != 0) {

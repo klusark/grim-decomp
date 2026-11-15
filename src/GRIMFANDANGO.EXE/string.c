@@ -122,12 +122,12 @@ char * __cdecl stdFnames_FindExt(char *path)
 }
 
 /* ---- 0x0047fda0  Str_StripExtension ---- */
-void __cdecl Str_StripExtension(char *param_1)
+void __cdecl Str_StripExtension(char *path)
 
 {
   char *pcVar1;
   
-  pcVar1 = stdFnames_FindExt(param_1);
+  pcVar1 = stdFnames_FindExt(path);
   if (pcVar1 != (char *)0x0) {
     pcVar1[-1] = '\0';
   }

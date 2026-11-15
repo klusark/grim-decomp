@@ -134,7 +134,7 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
    stdDisplay_Startup, the shutdown / palette / page-flip / debug-toggle callbacks,
    grimlib_FindResources)); was Grim_Init. */
 
-uint __cdecl Main_Startup(char *param_1)
+uint __cdecl Main_Startup(char *cmdline)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -164,7 +164,7 @@ uint __cdecl Main_Startup(char *param_1)
   }
   *(undefined1 *)puVar8 = 0;
   HostServicesInitialize((GrimServices *)&g_aHs);
-  iVar7 = Grim_ParseCommandLine(param_1);
+  iVar7 = Grim_ParseCommandLine(cmdline);
   if (iVar7 == 0) {
     return 0;
   }
@@ -554,13 +554,13 @@ void __cdecl grimdemo_PleaseShutdown(void)
    Main_Startup, same body (two display palette calls, std3D_SetCurrentPalette with a device)); was
    Grim_OnDisplayModeChange. */
 
-uint __cdecl grimdemo_SetPalette(void *param_1,int param_2)
+uint __cdecl grimdemo_SetPalette(void *param_1,int flags)
 
 {
   stdDisplay_SetPalette((uint)param_1);
   stdDisplay_SetMasterPalette(param_1);
   if (g_pStd3D_CurDevice != (Std3DDevice *)0x0) {
-    std3D_SetCurrentPalette(param_1,param_2);
+    std3D_SetCurrentPalette(param_1,flags);
   }
   return 1;
 }

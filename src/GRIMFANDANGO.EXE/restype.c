@@ -331,33 +331,33 @@ void * __cdecl sputResource_ColormapHandler(int *param_1)
    remaster's GrimFandango (Linux): the 'FONT' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_FontHandler. */
 
-void * __cdecl sputResource_FontHandler(int *param_1)
+void * __cdecl sputResource_FontHandler(int *data)
 
 {
   int *piVar1;
   int iVar2;
   void *pvVar3;
   
-  piVar1 = param_1;
-  if (param_1[2] != 0x544e4f46) {
+  piVar1 = data;
+  if (data[2] != 0x544e4f46) {
     return (void *)0x0;
   }
-  iVar2 = *param_1;
+  iVar2 = *data;
   if (iVar2 == 1) {
-    iVar2 = Text_LoadNativeFont((char *)param_1[1],&param_1);
+    iVar2 = Text_LoadNativeFont((char *)data[1],&data);
     if (iVar2 == 0) {
-      pvVar3 = Res_SysAddHandle(piVar1[2],(char *)piVar1[1],param_1);
-      Res_SetPurgable(param_1,0);
+      pvVar3 = Res_SysAddHandle(piVar1[2],(char *)piVar1[1],data);
+      Res_SetPurgable(data,0);
       return pvVar3;
     }
   }
   else {
     if (iVar2 == 2) {
-      Text_FreeFont((void *)param_1[3]);
+      Text_FreeFont((void *)data[3]);
       return (void *)0x1;
     }
     if (iVar2 == 3) {
-      param_1[4] = 1;
+      data[4] = 1;
       return (void *)0x1;
     }
   }

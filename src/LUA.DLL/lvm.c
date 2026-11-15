@@ -8,7 +8,7 @@
 /* ---- 0x1000d6d0  luaV_closure ---- */
 /* Unidentified function of lvm.c (virtual machine) */
 
-void __cdecl luaV_closure(uint param_1)
+void __cdecl luaV_closure(uint nelems)
 
 {
   TObject **ppTVar1;
@@ -18,15 +18,15 @@ void __cdecl luaV_closure(uint param_1)
   undefined4 *puVar5;
   Closure *pCVar6;
   
-  if (0 < (int)param_1) {
+  if (0 < (int)nelems) {
     ppTVar1 = &g_pLuaState->pTop;
-    pCVar3 = luaF_newclosure(param_1);
+    pCVar3 = luaF_newclosure(nelems);
     pTVar2 = *ppTVar1;
     pCVar3->aConsts[0].nTtype = pTVar2[-1].nTtype;
     pCVar3->aConsts[0].dwValue = pTVar2[-1].dwValue;
-    puVar5 = (undefined4 *)((int)*ppTVar1 - (param_1 * 8 + 8));
+    puVar5 = (undefined4 *)((int)*ppTVar1 - (nelems * 8 + 8));
     pCVar6 = pCVar3 + 1;
-    for (iVar4 = (param_1 & 0x1fffffff) << 1; iVar4 != 0; iVar4 = iVar4 + -1) {
+    for (iVar4 = (nelems & 0x1fffffff) << 1; iVar4 != 0; iVar4 = iVar4 + -1) {
       pCVar6->pNext = (Closure *)*puVar5;
       puVar5 = puVar5 + 1;
       pCVar6 = (Closure *)&pCVar6->nMarked;
@@ -37,8 +37,8 @@ void __cdecl luaV_closure(uint param_1)
       pCVar6 = (Closure *)((int)&pCVar6->pNext + 1);
     }
     pTVar2 = *ppTVar1;
-    *ppTVar1 = pTVar2 + -param_1;
-    (pTVar2 + -param_1)[-1].nTtype = -8;
+    *ppTVar1 = pTVar2 + -nelems;
+    (pTVar2 + -nelems)[-1].nTtype = -8;
     (*ppTVar1)[-1].dwValue = (uint)pCVar3;
   }
   return;
@@ -466,35 +466,35 @@ void __fastcall ExecutionState_resetcounter(ExecutionState *es)
 /* Original name ExecutionState_execute (the remaster's libLua.so: ExecutionState::execute:
    checkstack, adjust varargs, call hook, CrunchOpcodes (caller luaD_call)); was lvm__de30. */
 
-int __fastcall ExecutionState_execute(int *param_1)
+int __fastcall ExecutionState_execute(int *es)
 
 {
   byte bVar1;
   int iVar2;
   
-  if (param_1[6] == 0) {
-    ExecutionState_resetcounter((ExecutionState *)param_1);
+  if (es[6] == 0) {
+    ExecutionState_resetcounter((ExecutionState *)es);
     if (lua_callhook != 0) {
-      luaD_callHook(param_1[2],param_1[1],0);
+      luaD_callHook(es[2],es[1],0);
     }
-    bVar1 = *(byte *)param_1[8];
-    param_1[8] = (int)((byte *)param_1[8] + 1);
+    bVar1 = *(byte *)es[8];
+    es[8] = (int)((byte *)es[8] + 1);
     luaD_checkstack(bVar1 + 5);
-    bVar1 = *(byte *)param_1[8];
+    bVar1 = *(byte *)es[8];
     if (bVar1 < 0x40) {
-      param_1[8] = (int)((byte *)param_1[8] + 1);
-      luaD_adjusttop(param_1[2] + (uint)bVar1);
-      param_1[6] = 1;
-      iVar2 = ExecutionState_CrunchOpcodes(param_1);
+      es[8] = (int)((byte *)es[8] + 1);
+      luaD_adjusttop(es[2] + (uint)bVar1);
+      es[6] = 1;
+      iVar2 = ExecutionState_CrunchOpcodes(es);
       return iVar2;
     }
     luaC_checkGC();
-    bVar1 = *(byte *)param_1[8];
-    param_1[8] = (int)((byte *)param_1[8] + 1);
-    adjust_varargs(param_1[2] + -0x40 + (uint)bVar1);
-    param_1[6] = 1;
+    bVar1 = *(byte *)es[8];
+    es[8] = (int)((byte *)es[8] + 1);
+    adjust_varargs(es[2] + -0x40 + (uint)bVar1);
+    es[6] = 1;
   }
-  iVar2 = ExecutionState_CrunchOpcodes(param_1);
+  iVar2 = ExecutionState_CrunchOpcodes(es);
   return iVar2;
 }
 
@@ -503,15 +503,15 @@ int __fastcall ExecutionState_execute(int *param_1)
    static adjust_varargs: luaV_pack of the extra arguments into a table, luaD_adjusttop, push the
    table); was luaV_adjust_varargs. */
 
-void __cdecl adjust_varargs(int param_1)
+void __cdecl adjust_varargs(int firstel)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   TObject *pTVar1;
   #define local_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
-  luaV_pack(param_1,((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - param_1,&local_8);
-  luaD_adjusttop(param_1);
+  luaV_pack(firstel,((int)g_pLuaState->pTop - (int)g_pLuaState->pStack >> 3) - firstel,&local_8);
+  luaD_adjusttop(firstel);
   pTVar1 = g_pLuaState->pTop;
   pTVar1->nTtype = local_8.nTtype;
   pTVar1->dwValue = local_8.dwValue;

@@ -1,0 +1,78 @@
+{
+ "_comment": "Parameter types and names propagated from the calls that pass them on (tools/propagate_params.py, 2026-11-15).",
+ "program": "/CHORE.DLL",
+ "params": [
+  {
+   "addr": "10005de0",
+   "index": 1,
+   "type": "uint",
+   "name": "pKeys",
+   "_fn": "msvc_bsearch",
+   "_names_only": true
+  },
+  {
+   "addr": "10005de0",
+   "index": 2,
+   "type": "uint",
+   "name": "dwNumKeys",
+   "_fn": "msvc_bsearch",
+   "_names_only": true
+  },
+  {
+   "addr": "10005de0",
+   "index": 4,
+   "type": "void *",
+   "name": "cos_CompareKeys",
+   "_fn": "msvc_bsearch",
+   "_names_only": true
+  },
+  {
+   "addr": "10005ba0",
+   "index": 0,
+   "type": "uint",
+   "name": "pKeys",
+   "_fn": "msvc_qsort",
+   "_names_only": true
+  },
+  {
+   "addr": "10005ba0",
+   "index": 1,
+   "type": "uint",
+   "name": "dwNumKeys",
+   "_fn": "msvc_qsort",
+   "_names_only": true
+  },
+  {
+   "addr": "10005ba0",
+   "index": 3,
+   "type": "void *",
+   "name": "cos_CompareKeys",
+   "_fn": "msvc_qsort",
+   "_names_only": true
+  },
+  {
+   "addr": "10005810",
+   "index": 0,
+   "type": "char *",
+   "name": "parseLine",
+   "_fn": "msvc_sscanf",
+   "_names_only": true
+  },
+  {
+   "addr": "10005e90",
+   "index": 0,
+   "type": "uint *",
+   "name": "buf",
+   "_fn": "msvc_strchr",
+   "_names_only": true
+  },
+  {
+   "addr": "100056a0",
+   "index": 0,
+   "type": "char *",
+   "name": "fileName",
+   "_fn": "msvc_strrchr",
+   "_names_only": true
+  }
+ ]
+}

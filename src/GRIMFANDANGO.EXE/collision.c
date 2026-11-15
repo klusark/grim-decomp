@@ -146,34 +146,33 @@ Collision_PointInBox
    corners of the box +0x60 .. +0x70 grown by the radius, transformed by the matrix)); was
    Collision_BoxCorners. */
 
-void __cdecl
-FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *param_5)
+void __cdecl FindObjectCorners(int param_1,float param_2,float *param_3,float param_4,float *vec)
 
 {
   int iVar1;
   float *pfVar2;
   
   if (0.999 <= param_3[8]) {
-    *param_5 = *(float *)(param_1 + 0x60) - param_2;
-    param_5[1] = *(float *)(param_1 + 100) - param_2;
-    param_5[2] = *(float *)(param_1 + 0x68);
-    pfVar2 = param_5 + 0xc;
+    *vec = *(float *)(param_1 + 0x60) - param_2;
+    vec[1] = *(float *)(param_1 + 100) - param_2;
+    vec[2] = *(float *)(param_1 + 0x68);
+    pfVar2 = vec + 0xc;
     iVar1 = 4;
-    param_5[3] = param_2 + *(float *)(param_1 + 0x6c);
-    param_5[4] = *(float *)(param_1 + 100) - param_2;
-    param_5[5] = *(float *)(param_1 + 0x68);
-    param_5[6] = param_2 + *(float *)(param_1 + 0x6c);
-    param_5[7] = param_2 + *(float *)(param_1 + 0x70);
-    param_5[8] = *(float *)(param_1 + 0x68);
-    param_5[9] = *(float *)(param_1 + 0x60) - param_2;
-    param_5[10] = param_2 + *(float *)(param_1 + 0x70);
-    param_5[0xb] = *(float *)(param_1 + 0x68);
+    vec[3] = param_2 + *(float *)(param_1 + 0x6c);
+    vec[4] = *(float *)(param_1 + 100) - param_2;
+    vec[5] = *(float *)(param_1 + 0x68);
+    vec[6] = param_2 + *(float *)(param_1 + 0x6c);
+    vec[7] = param_2 + *(float *)(param_1 + 0x70);
+    vec[8] = *(float *)(param_1 + 0x68);
+    vec[9] = *(float *)(param_1 + 0x60) - param_2;
+    vec[10] = param_2 + *(float *)(param_1 + 0x70);
+    vec[0xb] = *(float *)(param_1 + 0x68);
     do {
-      rdMatrix_TransformPoint34Acc(param_5,param_3);
-      param_5[2] = param_4;
+      rdMatrix_TransformPoint34Acc(vec,param_3);
+      vec[2] = param_4;
       *pfVar2 = 1.4013e-45f;
       pfVar2 = pfVar2 + 1;
-      param_5 = param_5 + 3;
+      vec = vec + 3;
       iVar1 = iVar1 + -1;
     } while (iVar1 != 0);
   }

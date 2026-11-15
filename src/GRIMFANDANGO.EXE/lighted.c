@@ -220,7 +220,7 @@ void __cdecl LightEd_DeleteLight(uint index)
 /* ---- 0x004be730  LightEd_MakeUniqueName ---- */
 /* newlight%d, skipping names already used in the set */
 
-void __cdecl LightEd_MakeUniqueName(int param_1,char *param_2)
+void __cdecl LightEd_MakeUniqueName(int lightEdSet,char *buf)
 
 {
   int iVar1;
@@ -228,22 +228,22 @@ void __cdecl LightEd_MakeUniqueName(int param_1,char *param_2)
   uint uVar3;
   byte *pbVar4;
   
-  uVar2 = *(uint *)(param_1 + 0xb8);
+  uVar2 = *(uint *)(lightEdSet + 0xb8);
   do {
     if (0x3f < uVar2) {
       return;
     }
-    sprintf(param_2,s_newlight_d_004f0d6c,uVar2);
+    sprintf(buf,s_newlight_d_004f0d6c,uVar2);
     uVar3 = 0;
-    if (*(int *)(param_1 + 0xb8) != 0) {
-      pbVar4 = (byte *)(param_1 + 0xbc);
+    if (*(int *)(lightEdSet + 0xb8) != 0) {
+      pbVar4 = (byte *)(lightEdSet + 0xbc);
       do {
-        if ((uVar3 != uVar2) && (iVar1 = _stricmp((byte *)param_2,pbVar4), iVar1 == 0)) break;
+        if ((uVar3 != uVar2) && (iVar1 = _stricmp((byte *)buf,pbVar4), iVar1 == 0)) break;
         uVar3 = uVar3 + 1;
         pbVar4 = pbVar4 + 0x68;
-      } while (uVar3 < *(uint *)(param_1 + 0xb8));
+      } while (uVar3 < *(uint *)(lightEdSet + 0xb8));
     }
-    if (*(uint *)(param_1 + 0xb8) <= uVar3) {
+    if (*(uint *)(lightEdSet + 0xb8) <= uVar3) {
       return;
     }
     uVar2 = uVar2 + 1;
@@ -946,7 +946,7 @@ LAB_004bf718:
 
 
 /* ---- 0x004bf760  LightEd_SetLightPosComponent ---- */
-void __cdecl LightEd_SetLightPosComponent(int param_1,short param_2,uint param_3)
+void __cdecl LightEd_SetLightPosComponent(int lightEdSelected,short param_2,uint param_3)
 
 {
   int iVar1;
@@ -954,7 +954,7 @@ void __cdecl LightEd_SetLightPosComponent(int param_1,short param_2,uint param_3
   uint uVar3;
   
   uVar3 = 0;
-  *(uint *)((&UINT_008d1730)[param_1 * 5] + 0x20 + param_2 * 4) = param_3;
+  *(uint *)((&UINT_008d1730)[lightEdSelected * 5] + 0x20 + param_2 * 4) = param_3;
   if (g_pLightEdSet->nSetups != 0) {
     iVar2 = 0;
     do {
@@ -962,7 +962,7 @@ void __cdecl LightEd_SetLightPosComponent(int param_1,short param_2,uint param_3
       iVar1 = iVar2 + 0x28;
       iVar2 = iVar2 + 300;
       *(uint *)(*(int *)((int)g_pLightEdSet->pSetups->aPos + iVar1) +
-               ((int)param_2 + (param_1 + 0x1d) * 3) * 4) = param_3;
+               ((int)param_2 + (lightEdSelected + 0x1d) * 3) * 4) = param_3;
     } while (uVar3 < (uint)g_pLightEdSet->nSetups);
   }
   return;
@@ -971,7 +971,7 @@ void __cdecl LightEd_SetLightPosComponent(int param_1,short param_2,uint param_3
 /* ---- 0x004bf7d0  LightEd_SetLightAngle ---- */
 /* Stores the angle and recomputes the direction vector */
 
-void __cdecl LightEd_SetLightAngle(int param_1,short param_2,uint param_3)
+void __cdecl LightEd_SetLightAngle(int lightEdSelected,short param_2,uint param_3)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -981,11 +981,11 @@ void __cdecl LightEd_SetLightAngle(int param_1,short param_2,uint param_3)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_c = 0.0f;
-  (&UINT_008d1738)[param_1 * 5 + (int)param_2] = param_3;
+  (&UINT_008d1738)[lightEdSelected * 5 + (int)param_2] = param_3;
   local_8 = 0x3f800000;
   local_4 = 0;
-  rdVector_Rotate3Acc(&local_c,(float *)(&UINT_008d1738 + param_1 * 5));
-  uVar1 = (&UINT_008d1730)[param_1 * 5];
+  rdVector_Rotate3Acc(&local_c,(float *)(&UINT_008d1738 + lightEdSelected * 5));
+  uVar1 = (&UINT_008d1730)[lightEdSelected * 5];
   *(float *)(uVar1 + 0x38) = local_c;
   *(uint *)(uVar1 + 0x3c) = local_8;
   *(uint *)(uVar1 + 0x40) = local_4;
@@ -1043,10 +1043,10 @@ void __cdecl LightEd_MoveMarkerActor(void)
 }
 
 /* ---- 0x004bf930  LightEd_GetLightAngles ---- */
-void __cdecl LightEd_GetLightAngles(int param_1,float *param_2)
+void __cdecl LightEd_GetLightAngles(int param_1,float *outAngles)
 
 {
-  rdVector_ExtractAngles((float *)(param_1 + 0xc),param_2);
+  rdVector_ExtractAngles((float *)(param_1 + 0xc),outAngles);
   return;
 }
 

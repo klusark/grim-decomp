@@ -823,7 +823,7 @@ uint __cdecl checkcond(byte *param_1)
 /* Original name readname (the remaster's libLua.so: static readname(LexState*, char*): string
    'pragma too long'); was llex__6bb0. */
 
-void __cdecl readname(uint *param_1,int param_2)
+void __cdecl readname(uint *param_1,int token)
 
 {
   byte bVar1;
@@ -837,10 +837,10 @@ void __cdecl readname(uint *param_1,int param_2)
     uVar3 = FUN_1000f650(*param_1);
     if ((uVar3 == 0) && (*param_1 != 0x5f)) break;
     if (0x13 < iVar4) {
-      *(undefined1 *)(param_2 + 0x14) = 0;
-      luaY_syntaxerror(s_pragma_too_long_10026f20,(char *)param_2);
+      *(undefined1 *)(token + 0x14) = 0;
+      luaY_syntaxerror(s_pragma_too_long_10026f20,(char *)token);
     }
-    *(char *)(iVar4 + param_2) = (char)*param_1;
+    *(char *)(iVar4 + token) = (char)*param_1;
     iVar4 = iVar4 + 1;
     *(int *)param_1[1] = *(int *)param_1[1] + -1;
     piVar2 = (int *)param_1[1];
@@ -854,7 +854,7 @@ void __cdecl readname(uint *param_1,int param_2)
       *param_1 = (uint)bVar1;
     }
   }
-  *(undefined1 *)(iVar4 + param_2) = 0;
+  *(undefined1 *)(iVar4 + token) = 0;
   return;
 }
 

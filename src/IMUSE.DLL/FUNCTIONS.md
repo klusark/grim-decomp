@@ -12,7 +12,7 @@
 | 10001c30 | Im_ConvertBlockImpl | imuse.c | 140 |
 | 10001f10 | DpInitialize | imuse.c | 33 |
 | 10002260 | DpSwitchStream | imuse.c | 136 |
-| 10002570 | DpProcessTrack | imuse.c | 154 |
+| 10002570 | DpProcessTrack | imuse.c | 155 |
 | 10002a60 | GoToNextRegion | imuse.c | 128 |
 | 10002d30 | Im_DispatchFetchNext | imuse.c | 169 |
 | 100036b0 | DwInitialize | imuse.c | 26 |
@@ -37,7 +37,7 @@
 | 10005490 | MxTerminate | imuse.c | 10 |
 | 100054c0 | MxBeginMix | imuse.c | 22 |
 | 100054f0 | Mixer_MxMix | imuse.c | 44 |
-| 10005610 | MxEndMix | imuse.c | 78 |
+| 10005610 | MxEndMix | imuse.c | 79 |
 | 100057a0 | Im_MixLoopA | imuse.c | 71 |
 | 100059a0 | Im_MixLoopB | imuse.c | 72 |
 | 10005b80 | Im_MixLoopC | imuse.c | 1 |
@@ -181,7 +181,7 @@
 | 10004e30 | ImClearTrigger | imuse_api.c | 9 |
 | 10004e50 | ImDeferCommand | imuse_api.c | 11 |
 | 10004e80 | ImStartStream | imuse_api.c | 16 |
-| 10004ec0 | ImSwitchStream | imuse_api.c | 10 |
+| 10004ec0 | ImSwitchStream | imuse_api.c | 9 |
 | 10004f00 | ImQueryStream | imuse_api.c | 10 |
 | 10004f30 | ImFeedStream | imuse_api.c | 9 |
 | 10005190 | ImHeartbeat | imuse_api.c | 69 |

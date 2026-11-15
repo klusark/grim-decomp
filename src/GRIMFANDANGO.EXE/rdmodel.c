@@ -404,41 +404,42 @@ uint __cdecl rdCache_ProcFaceCompare(int param_1,int param_2)
    (mesh index +0x4c, geoset flag +0x40 bit 1 walks +0x54, draws the mesh, recurses over +0x58 /
    +0x5c children)); was rdModel_DrawNode. */
 
-void __cdecl rdModel3_DrawHNode(int param_1)
+void __cdecl rdModel3_DrawHNode(int pHierarchyNodes)
 
 {
   byte bVar1;
   uint uVar2;
   int iVar3;
   
-  if ((*(int *)(param_1 + 0x4c) != -1) &&
-     (*(int *)((int)g_pCurThing->pHierarchyExtra + *(int *)(param_1 + 0x44) * 4) != 0)) {
-    if ((*(byte *)(param_1 + 0x40) & 2) != 0) {
-      iVar3 = *(int *)(param_1 + 0x54);
+  if ((*(int *)(pHierarchyNodes + 0x4c) != -1) &&
+     (*(int *)((int)g_pCurThing->pHierarchyExtra + *(int *)(pHierarchyNodes + 0x44) * 4) != 0)) {
+    if ((*(byte *)(pHierarchyNodes + 0x40) & 2) != 0) {
+      iVar3 = *(int *)(pHierarchyNodes + 0x54);
       bVar1 = *(byte *)(iVar3 + 0x40);
       while ((bVar1 & 2) != 0) {
         iVar3 = *(int *)(iVar3 + 0x54);
         bVar1 = *(byte *)(iVar3 + 0x40);
       }
-      *(undefined4 *)(*(int *)(g_dwCurGeo + 4) + 0x28 + *(int *)(param_1 + 0x4c) * 0x7c) = 6;
-      *(undefined4 *)(*(int *)(g_dwCurGeo + 4) + 0x5c + *(int *)(param_1 + 0x4c) * 0x7c) =
+      *(undefined4 *)(*(int *)(g_dwCurGeo + 4) + 0x28 + *(int *)(pHierarchyNodes + 0x4c) * 0x7c) = 6
+      ;
+      *(undefined4 *)(*(int *)(g_dwCurGeo + 4) + 0x5c + *(int *)(pHierarchyNodes + 0x4c) * 0x7c) =
            *(undefined4 *)(*(int *)(g_dwCurGeo + 4) + 0x5c + *(int *)(iVar3 + 0x4c) * 0x7c);
     }
     rdModel3_DrawMeshImpl
-              ((rdMesh *)(*(int *)(g_dwCurGeo + 4) + *(int *)(param_1 + 0x4c) * 0x7c),
-               g_pCurThing->pHierarchyMatrices + *(int *)(param_1 + 0x44) * 0xc);
+              ((rdMesh *)(*(int *)(g_dwCurGeo + 4) + *(int *)(pHierarchyNodes + 0x4c) * 0x7c),
+               g_pCurThing->pHierarchyMatrices + *(int *)(pHierarchyNodes + 0x44) * 0xc);
   }
-  if (*(int *)(param_1 + 0x58) != 0) {
-    iVar3 = *(int *)(param_1 + 0x5c);
+  if (*(int *)(pHierarchyNodes + 0x58) != 0) {
+    iVar3 = *(int *)(pHierarchyNodes + 0x5c);
     uVar2 = 0;
-    if (*(int *)(param_1 + 0x58) != 0) {
+    if (*(int *)(pHierarchyNodes + 0x58) != 0) {
       do {
         if (g_pCurThing->pHierarchyFlags[*(int *)(iVar3 + 0x44)] == 0) {
           rdModel3_DrawHNode(iVar3);
         }
         iVar3 = *(int *)(iVar3 + 0x60);
         uVar2 = uVar2 + 1;
-      } while (uVar2 < *(uint *)(param_1 + 0x58));
+      } while (uVar2 < *(uint *)(pHierarchyNodes + 0x58));
     }
   }
   return;

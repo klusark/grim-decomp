@@ -12,18 +12,18 @@
    shutdown, 0...) and its pHS (the old name was wrong: it is the polyglot module)); was
    IMuseModule_Init. */
 
-uint __cdecl PolyglotInitialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl PolyglotInitialize(GrimServices *hs,undefined4 *polyglotServices)
 
 {
-  g_pPolyglot_HS = param_1;
-  *param_2 = PolyglotInitialize;
-  param_2[1] = 0;
-  param_2[2] = LecShare_Nop;
-  param_2[3] = polyglot_shutdown;
-  param_2[4] = 0;
-  param_2[5] = 0;
-  param_2[6] = 0;
-  param_2[7] = 0;
+  g_pPolyglot_HS = hs;
+  *polyglotServices = PolyglotInitialize;
+  polyglotServices[1] = 0;
+  polyglotServices[2] = LecShare_Nop;
+  polyglotServices[3] = polyglot_shutdown;
+  polyglotServices[4] = 0;
+  polyglotServices[5] = 0;
+  polyglotServices[6] = 0;
+  polyglotServices[7] = 0;
   return 0;
 }
 

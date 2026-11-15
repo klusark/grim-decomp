@@ -95,10 +95,10 @@ void __cdecl rdSetRenderOptions(uint param_1)
    (the remaster's GrimFandango (Linux): same body (rdroid_curGeometryMode = mode)); was
    rdroid_SetGeometryMode. */
 
-void __cdecl rdSetGeometryMode(int param_1)
+void __cdecl rdSetGeometryMode(int renderVars)
 
 {
-  g_nRdroid_curGeometryMode = param_1;
+  g_nRdroid_curGeometryMode = renderVars;
   return;
 }
 

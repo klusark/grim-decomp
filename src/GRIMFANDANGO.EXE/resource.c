@@ -413,12 +413,12 @@ int __cdecl sputResource_AddResourcePath(char *dir)
 /* Original name sputResource_LogToFile (the remaster's GrimFandango (Linux): same body
    (Res_Log(file) == 1)); was Resource_OpenLog. */
 
-int __cdecl sputResource_LogToFile(char *param_1)
+int __cdecl sputResource_LogToFile(char *filename)
 
 {
   int iVar1;
   
-  iVar1 = Res_Log(param_1);
+  iVar1 = Res_Log(filename);
   return (uint)(iVar1 == 1);
 }
 
@@ -832,14 +832,14 @@ void * __cdecl sputResource_MatLoader(char *param_1)
    the count reaches 0. Original name sputResource_MatUnloader (the remaster's GrimFandango (Linux):
    aligned call in sputResource_Startup); was Resource_MaterialFreeHook. */
 
-void __cdecl sputResource_MatUnloader(void *param_1)
+void __cdecl sputResource_MatUnloader(void *data)
 
 {
-  if (*(int *)((int)param_1 + 0x24) != 0) {
-    *(int *)((int)param_1 + 0x24) = *(int *)((int)param_1 + 0x24) + -1;
+  if (*(int *)((int)data + 0x24) != 0) {
+    *(int *)((int)data + 0x24) = *(int *)((int)data + 0x24) + -1;
   }
-  if ((param_1 != (void *)0x0) && (*(int *)((int)param_1 + 0x24) == 0)) {
-    Res_SetPurgable(param_1,1);
+  if ((data != (void *)0x0) && (*(int *)((int)data + 0x24) == 0)) {
+    Res_SetPurgable(data,1);
   }
   return;
 }

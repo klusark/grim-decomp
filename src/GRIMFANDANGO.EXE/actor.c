@@ -211,13 +211,13 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor,char *text,int x,int 
    sputActor_SetCostume (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_SetActorCostume; 3 matched neighbours agree, 0 disagree); was Actor_SetCostume. */
 
-int __cdecl sputActor_SetCostume(Actor *actor,char *name,int param_3)
+int __cdecl sputActor_SetCostume(Actor *actor,char *name,int flags)
 
 {
   void *costumeRes;
   CostumeNode *pCVar1;
   
-  if ((name == (char *)0x0) || (param_3 != 0)) {
+  if ((name == (char *)0x0) || (flags != 0)) {
     costumeRes = (void *)0x0;
     pCVar1 = actor->pCostumes;
   }
@@ -226,10 +226,10 @@ int __cdecl sputActor_SetCostume(Actor *actor,char *name,int param_3)
     if (costumeRes == (void *)0x0) {
       return 0;
     }
-    param_3 = 0;
+    flags = 0;
     pCVar1 = actor->pCostumes;
   }
-  pCVar1 = sputCostume_SetCostume(pCVar1,costumeRes,param_3);
+  pCVar1 = sputCostume_SetCostume(pCVar1,costumeRes,flags);
   actor->pCostumes = pCVar1;
   Cos_InstSetUserData(actor->pCostumes->dwInstance,((int)actor - (int)g_pActors) / 0xa8);
   sputActor_SetFrustrumCull(actor,~actor->dwFlags >> 2 & 1);
@@ -915,7 +915,7 @@ void __cdecl sputActor_EnablePuck(Actor *actor,int param_2)
    callee of Lua_PutActorAt; the only unmatched callee of Lua_PutActorAtInterest; 2 matched
    neighbours agree, 1 disagree); was Actor_SetPositionClamped. */
 
-void __cdecl sputActor_SetActorPosition(Actor *actor,float *param_2)
+void __cdecl sputActor_SetActorPosition(Actor *actor,float *pos)
 
 {
   float fVar1;
@@ -927,7 +927,7 @@ void __cdecl sputActor_SetActorPosition(Actor *actor,float *param_2)
   }
   actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
   if (this != (Puck *)0x0) {
-    Puck_SetPos(this,param_2);
+    Puck_SetPos(this,pos);
     if (actor->pExtra->nFollowBoxes != 0) {
       Puck_Validate(this);
     }
@@ -938,9 +938,9 @@ void __cdecl sputActor_SetActorPosition(Actor *actor,float *param_2)
     actor->aPos[2] = fVar1;
     return;
   }
-  actor->aPos[0] = *param_2;
-  actor->aPos[1] = param_2[1];
-  fVar1 = param_2[2];
+  actor->aPos[0] = *pos;
+  actor->aPos[1] = pos[1];
+  fVar1 = pos[2];
   actor->nMatrixDirty = 0;
   actor->aPos[2] = fVar1;
   return;
@@ -1122,13 +1122,13 @@ void __cdecl sputActor_SetRestChore(Actor *actor,int chore,CostumeNode *costume)
    callee of Lua_PushActorCostume; 2 matched neighbours agree, 0 disagree); was Actor_PushCostume.
     */
 
-int __cdecl sputActor_PushCostume(Actor *actor,char *name,int param_3)
+int __cdecl sputActor_PushCostume(Actor *actor,char *name,int flags)
 
 {
   void *costumeRes;
   CostumeNode *pCVar1;
   
-  if ((name == (char *)0x0) || (param_3 != 0)) {
+  if ((name == (char *)0x0) || (flags != 0)) {
     costumeRes = (void *)0x0;
     pCVar1 = actor->pCostumes;
   }
@@ -1137,10 +1137,10 @@ int __cdecl sputActor_PushCostume(Actor *actor,char *name,int param_3)
     if (costumeRes == (void *)0x0) {
       return 0;
     }
-    param_3 = 0;
+    flags = 0;
     pCVar1 = actor->pCostumes;
   }
-  pCVar1 = sputCostume_PushCostume(pCVar1,costumeRes,param_3);
+  pCVar1 = sputCostume_PushCostume(pCVar1,costumeRes,flags);
   actor->pCostumes = pCVar1;
   Cos_InstSetUserData(actor->pCostumes->dwInstance,((int)actor - (int)g_pActors) / 0xa8);
   sputActor_SetFrustrumCull(actor,~actor->dwFlags >> 2 & 1);
@@ -2088,10 +2088,10 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
   Set *pSVar8;
   void *pvVar9;
   code *pcVar10;
+  float *m;
   float *pfVar11;
-  float *pfVar12;
-  int iVar13;
-  undefined4 uVar14;
+  int iVar12;
+  undefined4 uVar13;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
   #define fStack_c (*(float *)(_frame + (0x20 - 0xc)))
   #define fStack_8 (*(float *)(_frame + (0x20 - 0x8)))
@@ -2101,38 +2101,38 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
   iVar1 = pSVar8->nCurSetup;
   pSVar8 = sputRoom_GetCurrentRoom();
   pSVar2 = pSVar8->pSetups;
-  iVar13 = *(int *)(*(int *)&pSVar2[iVar1].field_0x48 + 4);
-  if (iVar13 != 0) {
-    uVar3 = *(undefined4 *)(iVar13 + 0x10);
-    uVar4 = *(undefined4 *)(iVar13 + 4);
+  iVar12 = *(int *)(*(int *)&pSVar2[iVar1].field_0x48 + 4);
+  if (iVar12 != 0) {
+    uVar3 = *(undefined4 *)(iVar12 + 0x10);
+    uVar4 = *(undefined4 *)(iVar12 + 4);
     pvVar9 = sputRender_CleanArtBuffer();
     *(void **)(*(int *)(*(int *)&pSVar2[iVar1].field_0x48 + 4) + 4) = pvVar9;
     pvVar9 = sputRender_CleanZBuffer();
     *(void **)(*(int *)(*(int *)&pSVar2[iVar1].field_0x48 + 4) + 0x10) = pvVar9;
     piVar5 = actor->pColormapRef;
-    iVar13 = *piVar5;
-    if (iVar13 == 0) {
+    iVar12 = *piVar5;
+    if (iVar12 == 0) {
       pSVar8 = sputRoom_GetCurrentRoom();
-      iVar13 = pSVar8->nCurColormap;
+      iVar12 = pSVar8->nCurColormap;
       pSVar8 = sputRoom_GetCurrentRoom();
       pRVar6 = pSVar8->pColormaps;
-      if (pRVar6[iVar13].nValid == 0) {
+      if (pRVar6[iVar12].nValid == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      rdroid_SetColormap((uint)pRVar6[iVar13].pData);
+      rdroid_SetColormap((uint)pRVar6[iVar12].pData);
       pSVar8 = sputRoom_GetCurrentRoom();
-      iVar13 = pSVar8->nCurColormap;
+      iVar12 = pSVar8->nCurColormap;
       pSVar8 = sputRoom_GetCurrentRoom();
       pRVar6 = pSVar8->pColormaps;
-      if (pRVar6[iVar13].nValid == 0) {
+      if (pRVar6[iVar12].nValid == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
-      pvVar9 = pRVar6[iVar13].pData;
+      pvVar9 = pRVar6[iVar12].pData;
     }
     else {
-      if (iVar13 == 0) {
+      if (iVar12 == 0) {
         (*g_pStd_HS->pAssertFail)
                   (s_Bad_Colormap_Reference_004e8090,s_main_sputResource_h_004e80a8,0x9f);
       }
@@ -2144,21 +2144,21 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
       }
       pvVar9 = (void *)piVar5[1];
     }
-    iVar13 = (int)pvVar9 + 0x30;
-    uVar14 = 0;
+    iVar12 = (int)pvVar9 + 0x30;
+    uVar13 = 0;
     pcVar10 = sputRender_SetPaletteFunc();
-    (*pcVar10)(iVar13,uVar14);
+    (*pcVar10)(iVar12,uVar13);
     fVar7 = actor->flScale;
     if (fVar7 != 1.0f) {
-      pfVar12 = &fStack_c;
+      pfVar11 = &fStack_c;
       fStack_c = fVar7;
       fStack_8 = fVar7;
       fStack_4 = fVar7;
-      pfVar11 = sputActor_GetOrientMatrix(actor);
-      rdMatrix_PreScale34(pfVar11,(uint)pfVar12);
+      m = sputActor_GetOrientMatrix(actor);
+      rdMatrix_PreScale34(m,(uint)pfVar11);
     }
-    pfVar12 = sputActor_GetOrientMatrix(actor);
-    sputCostume_Draw3D((uint)actor->pCostumes,(uint)pfVar12);
+    pfVar11 = sputActor_GetOrientMatrix(actor);
+    sputCostume_Draw3D((uint)actor->pCostumes,(uint)pfVar11);
     actor->nMatrixDirty = 0;
     rdCache_Flush();
     *(undefined4 *)(*(int *)(*(int *)&pSVar2[iVar1].field_0x48 + 4) + 4) = uVar4;
@@ -2191,7 +2191,7 @@ int __cdecl Actor_CountCostumes(Actor *actor)
    callee of Lua_SetActorClipPlane; 1 matched neighbours agree, 1 disagree); was Actor_SetClipPlane.
     */
 
-void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *param_2,undefined4 *param_3)
+void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *param_2,undefined4 *local_c)
 
 {
   ActorExtra *pAVar1;
@@ -2204,9 +2204,9 @@ void __cdecl sputActor_SetClipPlane(Actor *actor,undefined4 *param_2,undefined4 
   pAVar1->aClipNormal[1] = PUN(float,param_2[1]);
   pAVar1->aClipNormal[2] = PUN(float,param_2[2]);
   pAVar1 = actor->pExtra;
-  pAVar1->aClipPoint[0] = PUN(float,*param_3);
-  pAVar1->aClipPoint[1] = PUN(float,param_3[1]);
-  pAVar1->aClipPoint[2] = PUN(float,param_3[2]);
+  pAVar1->aClipPoint[0] = PUN(float,*local_c);
+  pAVar1->aClipPoint[1] = PUN(float,local_c[1]);
+  pAVar1->aClipPoint[2] = PUN(float,local_c[2]);
   return;
 }
 
@@ -2422,10 +2422,10 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
 /* Original name sputCostume_Draw3D (the remaster's GrimFandango (Linux): aligned call in
    sputActor_DrawToClean, sputRender_Update); was Actor_DrawCostumes. */
 
-void __cdecl sputCostume_Draw3D(uint param_1,uint param_2)
+void __cdecl sputCostume_Draw3D(uint pCostumes,uint param_2)
 
 {
-  sputCostume_InternalDraw3D((int *)param_1,(float *)param_2);
+  sputCostume_InternalDraw3D((int *)pCostumes,(float *)param_2);
   return;
 }
 

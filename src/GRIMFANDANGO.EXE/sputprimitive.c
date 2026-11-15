@@ -69,7 +69,7 @@ uint __cdecl sputPrimitive_Save(code *param_1)
    GrimFandango (Linux): aligned call in sputPrimitive_Initialize); was sputPrimitive_RestoreState.
     */
 
-uint __cdecl sputPrimitive_Restore(code *param_1)
+uint __cdecl sputPrimitive_Restore(code *id)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -87,8 +87,8 @@ uint __cdecl sputPrimitive_Restore(code *param_1)
   #define iStack_4 (*(int *)(_frame + (0x40 - 0x4)))
   
   PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
-  pcVar1 = param_1;
-  (*param_1)(&local_28,4);
+  pcVar1 = id;
+  (*id)(&local_28,4);
   while (local_28 != 0) {
     local_28 = local_28 + -1;
     iStack_10 = 0;
@@ -96,14 +96,14 @@ uint __cdecl sputPrimitive_Restore(code *param_1)
     iStack_8 = 0;
     iStack_4 = 0;
     (*pcVar1)(&iStack_20,4);
-    (*pcVar1)(&param_1,4);
+    (*pcVar1)(&id,4);
     (*pcVar1)(&iStack_24,4);
     (*pcVar1)(&iStack_10,8);
     (*pcVar1)(&iStack_8,8);
     (*pcVar1)(&iStack_1c,4);
     (*pcVar1)(&iStack_18,4);
     (*pcVar1)(&iStack_14,4);
-    pPVar2 = PrimitiveQueue_addObject(&g_dwPrimitiveQ,(int)param_1,iStack_24);
+    pPVar2 = PrimitiveQueue_addObject(&g_dwPrimitiveQ,(int)id,iStack_24);
     if (pPVar2 != (Primitive *)0x0) {
       pPVar2->nType = iStack_20;
       pPVar2->nX1 = iStack_10;
@@ -114,7 +114,7 @@ uint __cdecl sputPrimitive_Restore(code *param_1)
       pPVar2->nPattern = iStack_18;
       pPVar2->nFilled = iStack_14;
     }
-    g_nPrimitiveQueue_nextId = (int)(param_1 + 1);
+    g_nPrimitiveQueue_nextId = (int)(id + 1);
   }
   return 0;
 }
