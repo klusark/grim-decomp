@@ -2308,6 +2308,15 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
   driver table is empty there, as EMI's original found), and on the visible desktop the clean room's synthetic materials
   (their texture format's first word is the bit depth, 8, where the game's are 0) are skipped by std3D_AddToTextureCache,
   as the original would. The default build: clean room 0 of 5490, whole-game autorun passes.
+* **Flip.** The emulated flip swaps the contents of the front and back buffers through a third 16-bit surface (three
+  blits), as a real flip does: the back buffer then holds the frame before last. Without the swap the back buffer kept
+  the newest frame.
+* **The clean room in Direct3D mode** (`GRIM_3D=1 run.py decomp --visible`: windows on the desktop, Direct3D does not
+  start on the hidden one): 5348 of 5490 the same, no crash or hang. The 142 that differ are 13 tests of the hardware flag
+  (Is3DHardwareEnabled / HardwareAccelerated: the reference was recorded with the software renderer) and 129 that
+  measure the screen (cr_snap boxes and brightness): the synthetic models' textures are skipped (their format's first
+  word is 8, see above), and a flipping display's back buffer holds the frame before last where the software renderer's
+  single buffer holds the last one. Every value that is not read off the screen is the same.
 * **Not working yet:** fullscreen (`GRIM_3D=2`): IDirect3DDevice::Execute fails with E_OUTOFMEMORY in two runs of three,
   which a stand-alone program with the game's own execute buffer, render states, z-buffer and exclusive mode does not
   reproduce; and the game sometimes hangs on exit in that mode.

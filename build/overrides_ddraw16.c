@@ -37,6 +37,7 @@
 #define DD_SETDISPLAYMODE     0x54
 /* IDirectDrawSurface */
 #define DDS_RELEASE           0x08
+#define DDS_BLT               0x14
 #define DDS_FLIP              0x2c
 #define DDS_GETATTACHEDSURFACE 0x30
 #define DDS_GETSURFACEDESC    0x58
@@ -58,6 +59,7 @@ static int g_bDDraw16Emu;            /* the display has no 16-bit mode: the 16-b
 static int g_bDDraw16Window;         /* GRIM_3D=1: the DirectDraw display in the game's window (GRIM_DDraw16SetWindowed) */
 static int g_bDDraw16Open;           /* an emulated or windowed 16-bit mode is open */
 static void *g_pDDraw16RealPrimary;  /* while an emulated fullscreen mode is open: the real (32-bit) primary surface */
+static void *g_pDDraw16Spare;        /* the third 16-bit surface DDraw_Flip swaps the front and back buffers through */
 
 /* 1 while an emulated 16-bit mode is open: stdDisplay_VBufferNew gives its DirectDraw surfaces an explicit 5:6:5 format */
 int GRIM_DDraw16Active(void)
@@ -203,6 +205,13 @@ undefined4 __cdecl DDraw_CreateSurfaces(undefined4 hwnd, VideoMode *mode, byte *
         }
         if (!ddraw16_make_surface(g_pDDrawPrimary, src->nWidth, src->nHeight))
             return 0;
+        if (UINT_00803f9c != 0) {
+            /* the spare surface of the flip (DDraw_Flip swaps the contents of the front and back buffers through it) */
+            DDrawSurfaceRec spare;
+            if (!ddraw16_make_surface(&spare, src->nWidth, src->nHeight))
+                return 0;
+            g_pDDraw16Spare = spare.pSurface;
+        }
         g_bDDraw16Open = 1;
         g_dwStdDisplay_numDrawBuffers = UINT_00803f9c != 0 ? 2 : 1;
     } else {
@@ -370,13 +379,23 @@ static uint ddraw16_present(void)
 
 /* ==== DDraw_Flip (0x00476c90) ====
  * Flips the primary chain (restoring it when it was lost, retrying while the hardware is still drawing); returns 1
- * when it flipped. An emulated 16-bit mode converts the game's picture to the real primary instead. */
+ * when it flipped. An emulated 16-bit mode shows the back buffer (ddraw16_present) and then swaps the contents of the
+ * front and back buffers as a flip does (the surfaces themselves stay: the Direct3D device is bound to the back buffer):
+ * the game's next frame starts from the frame before the one just shown, which is what its dirty-rectangle repair and
+ * a picture of the back buffer (sputRender_SaveDrawBuffer) expect. */
 uint __cdecl DDraw_Flip(void)
 {
     int r;
 
-    if (g_bDDraw16Open)
-        return ddraw16_present();
+    if (g_bDDraw16Open) {
+        uint ok = ddraw16_present();
+        if (g_pDDraw16Spare != 0) {
+            COMX(g_pDDraw16Spare, DDS_BLT, 0, g_pDDrawBack->pSurface, 0, 0x1000000, 0);           /* DDBLT_WAIT */
+            COMX(g_pDDrawBack->pSurface, DDS_BLT, 0, g_pDDrawPrimary->pSurface, 0, 0x1000000, 0);
+            COMX(g_pDDrawPrimary->pSurface, DDS_BLT, 0, g_pDDraw16Spare, 0, 0x1000000, 0);
+        }
+        return ok;
+    }
     do {
         r = COMX(g_pDDrawPrimary->pSurface, DDS_FLIP, 0, 0);
         if (r == 0)
@@ -403,6 +422,10 @@ void __cdecl DDraw_ReleaseSurfaces(void)
     if (g_pDDraw16RealPrimary != 0) {
         COMX(g_pDDraw16RealPrimary, DDS_RELEASE);
         g_pDDraw16RealPrimary = 0;
+    }
+    if (g_pDDraw16Spare != 0) {
+        COMX(g_pDDraw16Spare, DDS_RELEASE);
+        g_pDDraw16Spare = 0;
     }
     g_bDDraw16Open = 0;
 }
