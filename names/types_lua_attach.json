@@ -1,0 +1,11 @@
+{
+ "_comment": "LState_attach returns nothing its callers read (2026-11-15).",
+ "program": "/LUA.DLL",
+ "returns": [
+  {
+   "addr": "10008b70",
+   "type": "void",
+   "_fn": "LState_attach"
+  }
+ ]
+}

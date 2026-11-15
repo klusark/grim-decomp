@@ -291,7 +291,7 @@ byte * __cdecl LState_CodeLength(int tf); /* 0x100085e0 */
 undefined4 __thiscall LState_Save(LState *this,int a1); /* 0x10008640 */
 undefined4 __thiscall LState_Restore(LState *this,int a1); /* 0x100087f0 */
 undefined4 * lua_newstate(void); /* 0x10008ad0 */
-int __thiscall LState_attach(LState *this,int a1); /* 0x10008b70 */
+void __thiscall LState_attach(LState *this,int a1); /* 0x10008b70 */
 void __fastcall LState_detach(LState *L); /* 0x10008bb0 */
 LState * __fastcall LState_next(LState *L); /* 0x10008bf0 */
 void __fastcall LState_Destruct(LState *L); /* 0x10008c00 */

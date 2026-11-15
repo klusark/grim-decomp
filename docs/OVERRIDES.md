@@ -7,13 +7,13 @@ Every function below is built from the hand-written C of `build/overrides*.c`; `
 | Category | Count | Meaning |
 |---|---|---|
 | rasteriser | 363 | rdraster.c span fillers: the original switches the x87 control word part-way through each span (24-bit truncation), which generated C cannot express; built from macro templates and tested against the original (build/difftest/asm_q4 .. q6). Kept on purpose. |
-| documented | 61 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
+| documented | 66 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
 | hook | 10 | the build's own test and mod hooks, host-runtime handling (kept on purpose) |
-| x87 | 67 | x87-exact ports (float rounding through memory, FCOMP compares, ST0 results) the generated C does not match |
+| x87 | 66 | x87-exact ports (float rounding through memory, FCOMP compares, ST0 results) the generated C does not match |
 | assembly | 14 | top-level asm(): a register convention C cannot declare |
-| repair | 33 | Ghidra's text is wrong for it (lost or register arguments, unrecovered jump tables): needs a fix in the Ghidra project before it can be generated again |
+| repair | 26 | Ghidra's text is wrong for it (lost or register arguments, unrecovered jump tables): needs a fix in the Ghidra project before it can be generated again |
 
-Total: 548.
+Total: 545.
 
 ## GRIMFANDANGO.EXE (498)
 
@@ -132,10 +132,10 @@ Total: 548.
 | `std3D_DrawRenderList` | 00478b40 | std3d.c | overrides_asm_o2.c | documented | the execute-buffer descriptor comes from EDI |
 | `Display_InitFromConfig` | 00402930 | stddisplay.c | overrides.c | hook | Display_InitFromConfig (0x402930): |
 | `stdColor_ColorConvertOneRow` | 0047b8a0 | stddisplay.c | overrides_logic.c | x87 | Converts `count` pixels between the RGB layouts described by two format records (bits per pixel at +4, bits per channel at +8 / +0xc / +0x10, left shifts at +0x14 / +0x18 / +0x1c, expansion shifts for 24 bit at +0x20 / + |
-| `stdDisplay_EnumDevicesCallback` | 004761b0 | stddisplay.c | overrides_asm_o2.c | repair | (guid, description, driver name, context): |
+| `stdDisplay_EnumDevicesCallback` | 004761b0 | stddisplay.c | overrides_asm_o2.c | documented | twin test: crashes (DirectDrawEnumerate callback, unaff_ registers) |
 | `stdDisplay_TextOut` | 00474e40 | stddisplay.c | overrides_asm_o2.c | documented | twin test: crashes (unaff_ registers) |
 | `stdDisplay_Update` | 00474420 | stddisplay.c | fastpaths.c | hook |  |
-| `stdDisplay_VBufferNew` | 00474480 | stddisplay.c | overrides_logic.c | repair | Std/Win95/Stddisplay.c: |
+| `stdDisplay_VBufferNew` | 00474480 | stddisplay.c | overrides_logic.c | documented | the DirectDraw palette loop reads the palette argument from a stack slot the decompiler lost (puStack_8, never set) and drops the 0x40 flags of entries 0 and 255; the two allocations have their file / line arguments now (call-site overrides) |
 | `stdFileClose` | 00473450 | stdfileutil.c | overrides.c | documented | host runtime: text-mode file table |
 | `stdFileGets` | 004734a0 | stdfileutil.c | overrides.c | documented | host runtime: text-mode reads (CR LF to LF) |
 | `stdFileOpen` | 00473430 | stdfileutil.c | overrides.c | documented | host runtime: text-mode reads (CR LF to LF) emulated over binary files |
@@ -157,7 +157,7 @@ Total: 548.
 | `gz_open` | 004c3e60 | zlib.c | overrides_mixer_misc.c | documented | undecided: misc_test's group needs the overrides rebuilt with -Dmalloc=test_malloc, which twin.sh does not do |
 | `gz_putLong` | 004c49c0 | zlib.c | overrides_mixer_misc.c | documented | undecided: misc_test's group needs the overrides rebuilt with -Dmalloc=test_malloc, which twin.sh does not do |
 
-## LUA.DLL (24)
+## LUA.DLL (23)
 
 | Function | Address | Module | Hand-written in | Category | Why |
 |---|---|---|---|---|---|
@@ -174,7 +174,6 @@ Total: 548.
 | `protectedparser` | 10004a50 | ldo.c | overrides_lua_core.c | x87 | Parses (luaY_parser) or undumps (luaU_undump1, param_2 != 0) one chunk from the stream param_1 under a setjmp. |
 | `luaY_lex` | 10005d00 | llex.c | overrides.c | repair |  |
 | `luaO_equalObj` | 100074b0 | lobject.c | overrides.c | documented | TEST AH,0x40 after FCOMPP: an unordered compare counts as equal, the twin's == does not |
-| `LState_attach` | 10008b70 | lstate.c | overrides.c | x87 | moves task state `this` into the task list right after `after` (it is first unlinked from where it is); |
 | `luaV_tostring` | 1000d620 | lundump.c | overrides.c | documented | its twin converts the word as an integer and its sprintf lost the number |
 | `math_abs` | 10006ea0 | math.c | overrides.c | documented | its local is undefined4, compared as an integer |
 | `math_ceil` | 10007020 | math.c | overrides.c | x87 |  |
@@ -186,12 +185,11 @@ Total: 548.
 | `push_captures` | 10009e40 | str.c | overrides.c | x87 | push_captures (lstrlib.c push_captures): |
 | `str_format` | 1000a440 | str.c | overrides.c | repair | ---- agentJ: string.format (LUA.DLL 0x1000a440) ---- format(fmt, ...): |
 
-## IMUSE.DLL (21)
+## IMUSE.DLL (19)
 
 | Function | Address | Module | Hand-written in | Category | Why |
 |---|---|---|---|---|---|
 | `DwQuery` | 10003730 | imuse.c | overrides_imuse.c | repair | Called twice per 20 ms heartbeat step by TrIntHandler, alternating between two phases (DAT_1002d848 toggles): |
-| `DwTerminate` | 100038d0 | imuse.c | overrides_imuse.c | repair | Releases the two DirectSound objects (COM Release, vtable slot 2, __stdcall) and frees the scratch block. |
 | `ImSoundCall` | 10004f70 | imuse.c | overrides_imuse.c | repair | Command dispatcher: cmd = number of the Im* call, a2..a11 = ten argument words. |
 | `ImWaveHalt` | 10004f50 | imuse.c | overrides.c | assembly | The iMUSE re-entrancy guard (g_dwWvSlicingHalted, Enter/Leave around nearly every Im* call) is a plain counter: |
 | `ImWaveProceed` | 10004f60 | imuse.c | overrides.c | assembly | The iMUSE re-entrancy guard (g_dwWvSlicingHalted, Enter/Leave around nearly every Im* call) is a plain counter: |
@@ -201,14 +199,13 @@ Total: 548.
 | `Im_RunTriggerCommand` | 1000b6a0 | imuse.c | overrides_imuse.c | documented | the twin calls the callback with the marker alone; the code pushes eleven words |
 | `MxInitialize` | 10005360 | imuse.c | overrides_imuse.c | x87 |  |
 | `Script_SetSequence` | 10006620 | imuse.c | overrides_imuse_r1.c | assembly | id = sequence id (-1: |
-| `Script_SetState` | 10006560 | imuse.c | overrides_imuse_r1.c | repair |  |
-| `Script_Trans` | 100068b0 | imuse.c | overrides_imuse_r1.c | repair |  |
-| `Script_Update` | 100064d0 | imuse.c | overrides_imuse_r1.c | repair |  |
+| `Script_SetState` | 10006560 | imuse.c | overrides_imuse_r1.c | documented | the twin passes unaff_EDI / unaff_ESI / the return address on to Script_Trans (register arguments of the dispatcher) |
+| `Script_Trans` | 100068b0 | imuse.c | overrides_imuse_r1.c | documented | its callers pass register arguments (the dispatcher ESI); the twin reads unaff_ registers |
+| `Script_Update` | 100064d0 | imuse.c | overrides_imuse_r1.c | documented | calls Script_SetSequence with a hidden register argument (the dispatcher's ESI) |
 | `Timer_Start` | 10008ce0 | imuse.c | overrides.c | hook | Timer_Start (iMUSE heartbeat timer start-up): |
 | `FUN_1000c670` | 1000c670 | imuse_api.c | overrides.c | x87 | not the CRT port's own vsprintf |
 | `SoundsFillStreamsWhileMusicCritical` | 10007670 | imuse_api.c | overrides.c | hook |  |
 | `SoundsFloodMusicBuffer` | 10007790 | imuse_api.c | overrides.c | hook |  |
-| `ihost_get_buffer_info` | 10007a80 | imuse_api.c | overrides_imuse.c | repair | &sound_slots[i] of the 16-byte slot table at DAT_1002ebe0. |
 | `sounds_restore` | 10008580 | imuse_api.c | overrides_imuse.c | repair | The sounds module's restore callback (SoundsInitialize registers it): |
 | `iMUSE_dsound__3a80` | 10003a80 | imuse_dsound.c | overrides.c | assembly | the 20 ms of real time between heartbeats ImHeartbeat insists on ImHeartbeat(); |
 

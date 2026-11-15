@@ -259,6 +259,20 @@
    "args": 1,
    "cc": "__cdecl",
    "in": "rdKeyframe_Free"
+  },
+  {
+   "func": "00474480",
+   "call": "004744a5",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "stdDisplay_VBufferNew"
+  },
+  {
+   "func": "00474480",
+   "call": "00474695",
+   "args": 3,
+   "cc": "__cdecl",
+   "in": "stdDisplay_VBufferNew"
   }
  ],
  "IMUSE.DLL": [

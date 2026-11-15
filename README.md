@@ -91,7 +91,7 @@ included, is compiled C (much of
 it hand-written in `build/overrides*.c` where Ghidra's C is wrong about x87 results, register calling conventions and
 lost arguments), verified against the original machine code by differential tests and the clean-room tests
 (`grim_tools/cleanroom`, `run.py decomp`: all 5457 the same as the original) and the whole-game autorun (chapters 1
-to 65 of grim_tools' autorun on the rebuilt programs). The result is playable. 548 functions are still built from
+to 65 of grim_tools' autorun on the rebuilt programs). The result is playable. 545 functions are still built from
 hand-written C instead of their generated twins; docs/OVERRIDES.md lists each with the reason (363 of them are the
 rasteriser's span fillers, whose x87 control-word switches generated C cannot express). What is stubbed: 32 dead C
 runtime fragments in the EXE that only other dead code and data refer to.

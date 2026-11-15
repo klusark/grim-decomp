@@ -17,7 +17,7 @@
 | 10002d30 | Im_DispatchFetchNext | imuse.c | 168 |
 | 100036b0 | DwInitialize | imuse.c | 26 |
 | 10003730 | DwQuery | imuse.c | 1 |
-| 100038d0 | DwTerminate | imuse.c | 1 |
+| 100038d0 | DwTerminate | imuse.c | 18 |
 | 10003930 | Im_DSoundCreateBuffer | imuse.c | 1 |
 | 10003ac0 | FdInitialize | imuse.c | 17 |
 | 10003ae0 | FdSave | imuse.c | 20 |
@@ -42,7 +42,7 @@
 | 100059a0 | Im_MixLoopB | imuse.c | 72 |
 | 10005b80 | Im_MixLoopC | imuse.c | 1 |
 | 10005db0 | Im_MixLoopD | imuse.c | 1 |
-| 10006070 | ScriptCall | imuse.c | 80 |
+| 10006070 | ScriptCall | imuse.c | 84 |
 | 10006360 | Script_Init | imuse.c | 28 |
 | 100063d0 | Script_Terminate | imuse.c | 20 |
 | 10006400 | Script_Save | imuse.c | 33 |
@@ -196,7 +196,7 @@
 | 100071d0 | ImSetSequence | imuse_api.c | 9 |
 | 100071e0 | ImSetCuePoint | imuse_api.c | 9 |
 | 100071f0 | ImSetAttribute | imuse_api.c | 9 |
-| 10007210 | SoundsAllocateBuffer | imuse_api.c | 17 |
+| 10007210 | SoundsAllocateBuffer | imuse_api.c | 14 |
 | 10007250 | ihost_close_sound | imuse_api.c | 25 |
 | 100072b0 | SoundsRegisterVoice | imuse_api.c | 82 |
 | 100073c0 | SoundsCloseVoiceFile | imuse_api.c | 16 |
@@ -224,7 +224,7 @@
 | 10007a20 | Sounds_MlInit | imuse_api.c | 24 |
 | 10007a60 | ihost_get_sound_addr | imuse_api.c | 11 |
 | 10007a70 | ihost_get_map_addr | imuse_api.c | 11 |
-| 10007a80 | ihost_get_buffer_info | imuse_api.c | 1 |
+| 10007a80 | ihost_get_buffer_info | imuse_api.c | 8 |
 | 10007a90 | ihost_open_sound | imuse_api.c | 72 |
 | 10007bc0 | ihost_fseek | imuse_api.c | 34 |
 | 10007ca0 | ihost_read | imuse_api.c | 241 |

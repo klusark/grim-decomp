@@ -1,0 +1,9 @@
+[
+ {
+  "program": "/v101/IMUSE.DLL",
+  "addr": "1002ebe0",
+  "global": "g_aImBufferInfo",
+  "type": "ImBufferInfo[3]",
+  "comment": "iMUSE's stream buffers: 0 unused, 1 voice, 2 music (SoundsAllocateBuffer)."
+ }
+]

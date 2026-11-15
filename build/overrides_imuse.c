@@ -74,30 +74,6 @@ int DwQuery(int **buf_out, uint *count_out, int *rate_out)
     return 0;
 }
 
-/* ==== DwTerminate (0x100038d0) ====
- * Releases the two DirectSound objects (COM Release, vtable slot 2, __stdcall) and frees the scratch block. */
-undefined4 DwTerminate(void)
-{
-    DAT_1002d844 = 1;
-    if (PTR_1002d838 != 0)
-        COM(PTR_1002d838, DSB_RELEASE);
-    PTR_1002d838 = 0;
-    if (PTR_1002d83c != 0)
-        COM(PTR_1002d83c, DSB_RELEASE);
-    PTR_1002d83c = 0;
-    (**(code **)(g_dwSounds_pHS + 0x24))(PTR_1002d830);          /* services->free */
-    return 0;
-}
-
-/* ==== ihost_get_buffer_info (0x10007a80) ====
- * &sound_slots[i] of the 16-byte slot table at DAT_1002ebe0.  Ghidra prints the table's address as a plain number inside
- * an arithmetic expression, which tools/build_src.py cannot tell from a constant; the DLL is loaded away from 0x10000000 and
- * the table lives in the rebuilt .data section, so the address has to be relocated (IMG_ADDR). */
-int ihost_get_buffer_info(int param_1)
-{
-    return param_1 * 0x10 + IMG_ADDR(0x1002ebe0);
-}
-
 /* ==== MxInitialize (0x10005360) ====
  * Builds the two lookup tables of the software mixer and allocates its accumulator.  The decompiler lost the arithmetic that
  * is done in x87 registers between the calls of the _ftol helper (hmi__bae0), so it is written from the disassembly:

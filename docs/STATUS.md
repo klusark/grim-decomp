@@ -10,17 +10,17 @@ A one-page summary; build/BUILD_NOTES.md has the history and the details of ever
   plays through on them (grim_tools' autorun, chapters 1 to 65, `grimW_work/wg_start.sh`).
 * **Names.** Every function of the game, LEC and engine code is named; the `FUN_` left are C runtime (most of it dead,
   kept out of the build). Coverage table: README.md.
-* **Generated code.** Everything is Ghidra's C except 548 hand-written functions, each listed with the reason in
+* **Generated code.** Everything is Ghidra's C except 545 hand-written functions, each listed with the reason in
   docs/OVERRIDES.md:
 
   | Why it stays hand-written | Count |
   |---|---|
   | The rasteriser's span fillers: the original switches the x87 control word part-way through a span (24-bit truncation); kept on purpose, differentially tested | 363 |
-  | A recorded reason: a twin test result, a deliberate fix, a hook (names/override_reasons.json) | 63 |
-  | x87-exact ports (rounding to float through memory, FCOMP compares, values left in ST0) | 67 |
+  | A recorded reason: a twin test result, a deliberate fix, a hook (names/override_reasons.json) | 66 |
+  | x87-exact ports (rounding to float through memory, FCOMP compares, values left in ST0) | 66 |
   | The build's own hooks (GRIM_SIMTIME, the debug log, host file handling) | 10 |
   | asm() blocks (register conventions C cannot declare) | 14 |
-  | Ghidra's text needs a repair first (register arguments, lost arguments, unrecovered jump tables) | 31 |
+  | Ghidra's text needs a repair first (register arguments, lost arguments, unrecovered jump tables) | 26 |
 
 * **Parameters.** Named in the prototypes, from the calls (tools/propagate_params.py), the hand-written definitions
   (tools/names_from_overrides.py), the Lua 3.1 sources and what each function does with them (names/params_*.py,
@@ -41,7 +41,7 @@ A one-page summary; build/BUILD_NOTES.md has the history and the details of ever
 
 ## What is left
 
-* **31 hand-written functions that need a Ghidra repair** before their twins can replace them (docs/OVERRIDES.md,
+* **26 hand-written functions that need a Ghidra repair** before their twins can replace them (docs/OVERRIDES.md,
   category `repair`): mostly register arguments the decompiler does not model and calls whose arguments it loses.
   Each needs its own fix (a custom storage prototype, a call-site override) and a twin test.
 * **Parameters.** In live game code 81 `param_N` are left (EXE 48, LUA.DLL 9, IMUSE.DLL 24): names that collide

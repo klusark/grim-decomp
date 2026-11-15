@@ -511,10 +511,11 @@ extern undefined DAT_004dded4; /* used by 1 fn(s), first 0x00473810 */
 extern undefined DAT_004dded8; /* used by 1 fn(s), first 0x00473810 */
 extern undefined DAT_004ddedc; /* used by 1 fn(s), first 0x00473810 */
 extern undefined DAT_004ddee0; /* used by 1 fn(s), first 0x00473810 */
+extern undefined DAT_004de1d0; /* used by 1 fn(s), first 0x00474480 */
 extern undefined2 DAT_004de1d8; /* used by 1 fn(s), first 0x00474b30 */
 extern char s_DIBsection_windowed_display_004de9dc[]; /* used by 1 fn(s), first 0x00473a40 */
 extern char s_Window_Display_Device_004de9f8[]; /* used by 1 fn(s), first 0x00473a40 */
-extern char s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18[]; /* used by 1 fn(s), first 0x00474b30 */
+extern char s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18[]; /* used by 2 fn(s), first 0x00474480 */
 extern undefined4 UINT_004dea40; /* used by 5 fn(s), first 0x00477040 */
 extern undefined DAT_004dea44; /* used by 1 fn(s), first 0x004770d0 */
 extern undefined DAT_004dea48; /* used by 1 fn(s), first 0x004770d0 */
@@ -2740,6 +2741,7 @@ extern undefined4 in_stack_ffffffe2; /* used by 1 fn(s), first 0x004b9b1c */
 #define _DAT_004dd34c (*(undefined4 *)&DAT_004dd34c) /* same address as DAT_004dd34c, other width */
 #define _g_dwDeadmanCounter (*(undefined4 *)&g_dwDeadmanCounter) /* same address as g_dwDeadmanCounter, other width */
 #define _g_aRdroid_MipDistances (*(undefined4 *)&g_aRdroid_MipDistances) /* same address as g_aRdroid_MipDistances, other width */
+#define _DAT_004de1d0 (*(undefined2 *)&DAT_004de1d0) /* same address as DAT_004de1d0, other width */
 #define _DAT_004dee54 (*(int *)&DAT_004dee54) /* same address as DAT_004dee54, other width */
 #define _DAT_004ed534 (*(undefined4 *)&DAT_004ed534) /* same address as DAT_004ed534, other width */
 #define _DAT_004efba0 (*(undefined4 *)&DAT_004efba0) /* same address as DAT_004efba0, other width */

@@ -1552,8 +1552,6 @@ int __cdecl DwQuery(int **buf_out,uint *count_out,int *rate_out)
 
 
 /* ---- 0x100038d0  DwTerminate ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name DwTerminate (the remaster's GrimFandango (Linux): called by TrTerminate at the same
    place); was Im_DSoundShutdown. */
 
@@ -1572,8 +1570,6 @@ undefined4 DwTerminate(void)
   (**(code **)(g_dwSounds_pHS + 0x24))(PTR_1002d830);
   return 0;
 }
-#endif
-
 
 /* ---- 0x10003930  Im_DSoundCreateBuffer ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -2724,8 +2720,10 @@ undefined4 __cdecl ScriptCall(int cmd,...)
   undefined4 uVar2;
   char **ppcVar3;
   int iVar4;
-  #define local_28 (*(char *(*)[4])(_frame + (0x40 - 0x28)))
-  #define uStack_18 (*(undefined4 *)(_frame + (0x40 - 0x18)))
+  #define local_28 (*(char *(*)[2])(_frame + (0x40 - 0x28)))
+  #define uStack_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define uStack_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define uStack_18 (*(uint *)(_frame + (0x40 - 0x18)))
   #define uStack_14 (*(undefined4 *)(_frame + (0x40 - 0x14)))
   #define uStack_10 (*(undefined4 *)(_frame + (0x40 - 0x10)))
   #define uStack_c (*(undefined4 *)(_frame + (0x40 - 0xc)))
@@ -2781,7 +2779,7 @@ undefined4 __cdecl ScriptCall(int cmd,...)
     return 0xffffffff;
   }
   _DAT_1002e330 = 1;
-  uVar2 = Script_Init((int)local_28[0],local_28[1],local_28[2],local_28[3],uStack_18,uStack_14,
+  uVar2 = Script_Init((int)local_28[0],(uint)local_28[1],uStack_20,uStack_1c,uStack_18,uStack_14,
                       uStack_10,uStack_c);
   return uVar2;
 }
@@ -2789,6 +2787,8 @@ undefined4 __cdecl ScriptCall(int cmd,...)
 #undef uStack_10
 #undef uStack_14
 #undef uStack_18
+#undef uStack_1c
+#undef uStack_20
 #undef uStack_c
 
 
