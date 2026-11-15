@@ -9,7 +9,7 @@
 #include "fx.h"
 
 extern void orig_FUN_004cc7d0(int), fob_block_maketiles(int);
-extern int orig_FUN_004cc250(int, ...), Blocky16_SetOption(int, ...);
+extern int orig_FUN_004cc250(int, ...), fob_flobdec_blocky16_config(int, ...);
 extern void orig_4cd550(unsigned char *, unsigned char *, int, int, int, short *, short *, int, int, unsigned char *, unsigned char *, unsigned short *) __asm__("@orig_FUN_004cd550@56");
 extern void Blocky16_DecodeBlocks(unsigned char *, unsigned char *, int, int, int, short *, short *, int, int, unsigned char *, unsigned char *, unsigned short *);
 
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
             FXU32(0x8da508) = (unsigned)fx_rnd();
             fx_save();
             fx_reset(); ra = orig_FUN_004cc250(k1, v1, k2, v2, 0, 0); fx_snap_a();
-            fx_restore(); fx_reset(); rb = Blocky16_SetOption(k1, v1, k2, v2, 0, 0) + neg;
+            fx_restore(); fx_reset(); rb = fob_flobdec_blocky16_config(k1, v1, k2, v2, 0, 0) + neg;
             break; }
         default: {  /* block decoders */
             int width = 1 + (int)R(64), height = 1 + (int)R(40);

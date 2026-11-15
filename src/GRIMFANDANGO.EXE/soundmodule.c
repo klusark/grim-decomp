@@ -119,8 +119,6 @@ void SoundModule_module_shutdown(void)
 }
 
 /* ---- 0x004d0550  engine_Initialize ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Zero-terminated list of track buffer sizes follows the three fixed arguments Original name
    engine_Initialize (the remaster's GrimFandango (Linux): the sound engine set-up
    SoundModule_module_startup calls with sound_samplerate, sound_reserveram, sound_bufsize, ... on
@@ -160,8 +158,6 @@ int __cdecl engine_Initialize(int rate,int limit,uint size,...)
   SoundModule_Close();
   return -1;
 }
-#endif
-
 
 /* ---- 0x004d0610  SoundModule_Close ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -201,8 +197,6 @@ int SoundModule_Close(void)
 }
 
 /* ---- 0x004d06a0  SoundModule_AddTrackBuffer ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 int __cdecl SoundModule_AddTrackBuffer(uint size,int limit)
 
 {
@@ -269,12 +263,8 @@ LAB_004d0827:
   g_dwSou_chans = g_dwSou_chans + 1;
   return 0;
 }
-#endif
-
 
 /* ---- 0x004d0860  sou_engine_Start ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Dispatches a sound chunk by its four-character tag: Crea(tive VOC), PSAD / SAUD (Smush audio)
    Original name sou_engine_Start (the remaster's GrimFandango (Linux): slot 0 of the "SOUND=insane"
    service table); was SoundModule_PlayChunk. */
@@ -330,8 +320,6 @@ void __cdecl sou_engine_Start(byte *p,int id,int volume,int pan,uint flags)
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004d0a50  sou_engine_Stop ---- */
 /* Original name sou_engine_Stop (the remaster's GrimFandango (Linux): slot 1 of the "SOUND=insane"
@@ -527,8 +515,6 @@ void __cdecl sou_engine_SetHVol(int arg)
 }
 
 /* ---- 0x004d0bf0  sou_engine_GetHVol ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Original name sou_engine_GetHVol (the remaster's GrimFandango (Linux): slot 9 of the
    "SOUND=insane" service table); was SoundModule_DriverCommand3. */
@@ -546,8 +532,6 @@ int sou_engine_GetHVol(void)
   }
   return -1;
 }
-#endif
-
 
 /* ---- 0x004d0c00  sou_engine_SetRate ---- */
 /* Original name sou_engine_SetRate (the remaster's GrimFandango (Linux): the only unpaired writer
@@ -718,8 +702,6 @@ void __cdecl SoundModule_SetChannelVolume(byte channel,byte value)
 }
 
 /* ---- 0x004d0f00  SoundModule_PlayVoc ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,uint flags)
 
 {
@@ -858,8 +840,6 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
 #undef aiStack_40
 #undef local_44
 #undef local_48
-
-#endif
 
 
 /* ---- 0x004d1180  sou_engine_start_stream ---- */

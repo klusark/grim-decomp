@@ -2000,3 +2000,42 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   decompiler cannot recover the jump table; a jump-table override (JumpTable.writeOverride with the 14 entries) prints
   only the first case of each shared destination, so formats 7..12 would fall out of the switch. Not applied.
 * Clean room 0 of 5457.
+
+## Smush codec and sound glue generated again; twin.sh links the original data image (2026-11-15)
+
+* build/mixdiff/twin.sh, fixed so that the old tests run against today's tree:
+  - twinsrc.py writes only the twins (the module's object of the build stays linked): an assembler binds a call to a
+    function of the same object file directly, so a twin compiled with its whole module skipped the test's recorders
+    (`-ffunction-sections` does not change that). For the same reason a hand-written function that calls another one
+    of its own file never reaches that one's twin: test the callers' twins together, or the callee directly.
+  - build/mixdiff/gendata.py (the old build/gendata.py) writes the original data image with a label for every global
+    at its original offset; it is linked before the build's data.o. The original code addresses `_sect_data + n` and
+    `_sect_rdata + n`, and today's data.c does not keep that layout (sect_rdata + 0x27dc is inside another span), so
+    without it the original read other constants (DSound_SetPrimaryVolume's 1.0 and -5000 read as 0).
+  - build/mixdiff/renames.py writes the old names a test uses as today's (from the "was X." of the plate comments and
+    from the addresses of the baseline assembly's labels); build/mixdiff/ftol.s is the MSVC __ftol the original calls.
+  - codec_test.c calls fob_flobdec_blocky16_config (it called Blocky16_SetOption, a stub now).
+* Generated again (twin against the original): Blocky16_DecodeFrame (frame_test, 200,000 frames), Dsnd_MemCopy,
+  Dsnd_MemFill, dsn_fill_thread (drv_test, 30,000), engine_Initialize, SoundModule_AddTrackBuffer, sou_engine_Start,
+  sou_engine_GetHVol, SoundModule_PlayVoc (snd_test, 4,998: the 6 differences of today's build, which the twins
+  neither add to nor remove, are sou_engine_QueryTime's, see below). engine_Initialize reads its size list through
+  STACK0X; sou_engine_GetHVol's "indirect jump treated as call" is the original's tail jump to the driver slot.
+* Kept, with what the twin test found:
+  - fob_flobdec_blocky16_config: walks its varargs through `REGISTER0X(0x10)` (ESP); 7,612 of 30,000 differ.
+  - fob_block_maketiles: writes a split-mask byte the original does not (14,863 of 30,000 differ).
+  - Blocky16_DecodeBlocks / DecodeBlock8 / RenderBlock4 / RenderBlock2: the original's register convention (source and
+    destination in ESI / EDI, both returned advanced); the twin of DecodeBlocks calls the block decoder with
+    `unaff_EDI, unaff_ESI` and crashes.
+  - InsaneTimer_StopThread (compares `unaff_ESI` with STILL_ACTIVE where the original reads the exit code it just
+    stored) and sys_timer_dispatcher (setjmp / longjmp through unaff_ registers): their tests pass only because the
+    recorded calls do not depend on it.
+  - Mixer_InitTables (54 of 54 differ), sou_engine_fill (1,604 of 4,998), SoundModule_AdvanceClock (233),
+    LightEd_KeyboardProc (1,620 of 20,000).
+  - LecShare_Subscribe, gz_open, gz_putLong: undecided. misc_test's groups 3, 5 and 6 need the overrides recompiled
+    with -Dmalloc=test_malloc ..., which twin.sh does not do (it links the build's objects), so they differ for the
+    current build too.
+  - DSound_GetPlayBlock, timer_thread, sys_Delay: GRIM_SIMTIME hooks.
+* Found in today's generated code: sou_engine_QueryTime (`voice / (rate * 0.001)`) multiplies by the float 0.001 where
+  the original has the double (`FMUL qword ptr`): -fsingle-precision-constant (build/Makefile) makes every unsuffixed
+  literal a float, and Ghidra prints an 8-byte constant without a suffix. Off by up to 6 samples at 10^8.
+* Clean room 0 of 5457.

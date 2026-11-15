@@ -140,8 +140,6 @@ void __cdecl DSound_SetPrimaryVolume(int volume)
 }
 
 /* ---- 0x004d27d0  dsn_fill_thread ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Locks the next 0x1800-byte block(s) of the streaming buffer behind the play cursor and fills them
    from the mixer Original name dsn_fill_thread (the remaster's GrimFandango (Linux): the fill
    routine dsn_initialize starts (a timer callback here, a thread in the remaster's platform layer):
@@ -227,8 +225,6 @@ void __cdecl dsn_fill_thread(void)
 #undef local_4
 #undef local_8
 #undef local_c
-
-#endif
 
 
 /* ---- 0x004d2c60  DSound_GetPlayBlock ---- */
