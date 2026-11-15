@@ -294,6 +294,20 @@
    "args": 1,
    "cc": "__cdecl",
    "in": "rdModel3_LoadEntry"
+  },
+  {
+   "func": "004d2940",
+   "call": "004d2997",
+   "args": 3,
+   "cc": "__stdcall",
+   "in": "DsndDriver_InitDirectSound"
+  },
+  {
+   "func": "004d2940",
+   "call": "004d2970",
+   "args": 2,
+   "cc": "__cdecl",
+   "in": "DsndDriver_InitDirectSound"
   }
  ],
  "IMUSE.DLL": [
