@@ -2633,6 +2633,8 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void
 }
 
 /* ---- 0x004760d0  DDraw_Create ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 int __cdecl DDraw_Create(uint device)
 
 {
@@ -2670,6 +2672,8 @@ int __cdecl DDraw_Create(uint device)
   iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,device,8);
   return (uint)(iVar1 == 0);
 }
+#endif
+
 
 /* ---- 0x00476190  DDraw_Release ---- */
 void __cdecl DDraw_Release(void)
@@ -3002,6 +3006,8 @@ void * __cdecl DDraw_Get(void)
 }
 
 /* ---- 0x004767d0  DDraw_CreateSurfaces ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Sets the display mode and creates the primary (+ back buffer when triple buffering) surfaces and
    palette */
@@ -3156,8 +3162,12 @@ LAB_00476b98:
 }
 #undef abStack_400
 
+#endif
+
 
 /* ---- 0x00476bc0  DDraw_ReleaseSurfaces ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 void __cdecl DDraw_ReleaseSurfaces(void)
 
 {
@@ -3168,6 +3178,8 @@ void __cdecl DDraw_ReleaseSurfaces(void)
   Surface_Release((VBuffer *)&g_dwStdDisplay_frontBuffer);
   return;
 }
+#endif
+
 
 /* ---- 0x00476bf0  DDraw_LockSurface ---- */
 uint __cdecl DDraw_LockSurface(DDrawSurfaceRec *rec)
@@ -3214,6 +3226,8 @@ uint __cdecl DDraw_UnlockSurface(DDrawSurfaceRec *rec)
 }
 
 /* ---- 0x00476c90  DDraw_Flip ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 uint __cdecl DDraw_Flip(void)
 
 {
@@ -3235,6 +3249,8 @@ uint __cdecl DDraw_Flip(void)
   } while (iVar1 == -0x7789fde4);
   return 0;
 }
+#endif
+
 
 /* ---- 0x00476cd0  DDraw_FillSurface ---- */
 uint __cdecl DDraw_FillSurface(DDrawSurfaceRec *rec,uint color,uint *rect)

@@ -202,11 +202,27 @@ unsigned long __attribute__((stdcall)) GRIM_GetEnv(const char *, char *, unsigne
 /* Display_InitFromConfig (0x402930): the game normally restores the last display from the registry
  * or picks the closest fullscreen DirectDraw device. This build runs in the software renderer: device
  * 0 is "Window Display Device" (a DIB section in the game window), which works on any machine.
- * GRIM_DISPLAY_DEVICE=<n> selects another enumerated device (1 is the DirectDraw display). */
+ * GRIM_DISPLAY_DEVICE=<n> selects another enumerated device (1 is the DirectDraw display); GRIM_3D=1 the original's
+ * Direct3D renderer in the window, GRIM_3D=2 fullscreen. */
 undefined *Display_InitFromConfig(void)
 {
     char e[8] = "";
     int dev;
+    GRIM_GetEnv("GRIM_3D", e, sizeof e);
+    if (e[0] == '1' || e[0] == '2') {
+        /* GRIM_3D: the original's own default (Display_PickDefault: a fullscreen DirectDraw device, its closest mode, and
+         * the Direct3D driver D3D_FindClosestDriver picks, the hardware one; none: the software renderer). GRIM_3D=1 draws
+         * it in the window (overrides_ddraw16.c), which then gets the windowed style and size; GRIM_3D=2 is fullscreen. */
+        int d3dev, d3mode, d3idx, r;
+        Display_PickDefault(0, 1, &d3dev, &d3mode, &d3idx);
+        r = Display_Select(d3dev, d3mode, d3idx);
+        if (r != 0 && e[0] == '1') {
+            Win_SetWindowedSize(0, g_pVideoMode->format.nWidth, g_pVideoMode->format.nHeight);
+            g_bWindowedMode = 1;
+        }
+        return (undefined *)(unsigned)r;
+    }
+    e[0] = 0;
     GRIM_GetEnv("GRIM_DISPLAY_DEVICE", e, sizeof e);
     dev = (e[0] >= '0' && e[0] <= '9') ? e[0] - '0' : 0;
     unsigned mode;

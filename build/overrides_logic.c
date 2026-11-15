@@ -1126,6 +1126,8 @@ TextObject * __cdecl sputText_CreateActorText(Actor *actor_, char *text, int x, 
  * the table gives no duration it is (characters * ms per character + base ms) * 16.666668 - the two values at 0x004e8470 /
  * 0x004e8474 are in front of UINT_004e8480.  The decompiler lost the operand of that _ftol. */
 
+int GRIM_DDraw16Active(void);           /* overrides_ddraw16.c */
+
 /* ==== stdDisplay_VBufferNew (0x00474480) ====
  * Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format / size description `info` (copied to
  * +0xc: width +0xc, height +0x10, bits per pixel +0x24) and, when `videoMem` is set and the display device is a DirectDraw one,
@@ -1180,6 +1182,22 @@ VBuffer * __cdecl stdDisplay_VBufferNew(VBufferFormat *info, int videoMem, int b
         s[0x35] = 0x840;                     /* ... in system memory */
     s[0x1e] = s[3];                          /* dwWidth */
     s[0x1d] = s[4];                          /* dwHeight */
+    if (GRIM_DDraw16Active() && (s[9] == 16 || s[9] == 8)) {
+        /* an emulated 16-bit display (overrides_ddraw16.c): without a pixel format the surface would get the real
+         * display's 32 bits */
+        desc[1] |= 0x1000;                   /* DDSD_PIXELFORMAT */
+        desc[0x48 / 4] = 0x20;
+        if (s[9] == 8) {
+            desc[0x4c / 4] = 0x60;           /* DDPF_RGB | DDPF_PALETTEINDEXED8 */
+            desc[0x54 / 4] = 8;
+        } else {
+            desc[0x4c / 4] = 0x40;           /* DDPF_RGB */
+            desc[0x54 / 4] = 16;
+            desc[0x58 / 4] = 0xf800;
+            desc[0x5c / 4] = 0x07e0;
+            desc[0x60 / 4] = 0x001f;
+        }
+    }
     hr = (**(int (__stdcall **)(void *, void *, void *, void *))(*(int *)g_pDirectDraw + 0x18))(g_pDirectDraw, desc, &s[0x19], (void *)0);
     if (hr != 0)
         return (void *)0;
