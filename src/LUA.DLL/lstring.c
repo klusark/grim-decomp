@@ -135,25 +135,25 @@ LAB_10008e86:
 /* Named hash (not in the remaster, gcc inlined it there): Lua 3.1 source name (lstring.c: h = h*31
    ^ c for strings, the pointer otherwise, used by insert); was lstring__8f10. */
 
-byte * __cdecl hash(byte *param_1,int param_2)
+byte * __cdecl hash(byte *buff,int tag)
 
 {
   byte *pbVar1;
   byte bVar2;
   byte *pbVar3;
   
-  if (param_2 == -2) {
+  if (tag == -2) {
     pbVar3 = (byte *)0x0;
-    bVar2 = *param_1;
+    bVar2 = *buff;
     while (bVar2 != 0) {
       pbVar3 = (byte *)((int)pbVar3 * 0x1f ^ (uint)bVar2);
-      pbVar1 = param_1 + 1;
-      param_1 = param_1 + 1;
+      pbVar1 = buff + 1;
+      buff = buff + 1;
       bVar2 = *pbVar1;
     }
     return pbVar3;
   }
-  return param_1;
+  return buff;
 }
 
 /* ---- 0x10008f50  grow ---- */
@@ -292,12 +292,12 @@ TaggedString * __cdecl luaS_new(char *str)
 /* ---- 0x10009110  luaS_newfixedstring ---- */
 /* lstring.c (string table) */
 
-void __cdecl luaS_newfixedstring(byte *param_1)
+void __cdecl luaS_newfixedstring(byte *str)
 
 {
   TaggedString *pTVar1;
   
-  pTVar1 = luaS_new((char *)param_1);
+  pTVar1 = luaS_new((char *)str);
   if (pTVar1->nMarked == 0) {
     pTVar1->nMarked = 2;
   }
@@ -345,7 +345,7 @@ void __cdecl luaS_free(TaggedString *l)
 /* Original name luaS_writestrings (the remaster's libLua.so: callee SaveObject, caller
    SaveGlobals); was lstring__9180. */
 
-void __cdecl luaS_writestrings(undefined *param_1,int *param_2)
+void __cdecl luaS_writestrings(undefined *param_1,int *LState_string_root)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -361,30 +361,30 @@ void __cdecl luaS_writestrings(undefined *param_1,int *param_2)
   
   a2 = param_1;
   local_c = 0x3d;
-  piVar4 = param_2;
+  piVar4 = LState_string_root;
   do {
     iVar3 = 0;
     if (0 < *piVar4) {
       do {
-        param_2 = *(int **)(piVar4[2] + iVar3 * 4);
-        if ((param_2 != (int *)0x0) && (param_2 != (int *)&g_EMPTY)) {
-          (*(code *)a2)(&param_2,4);
-          (*(code *)a2)(param_2 + 2,4);
-          if (param_2[2] == -1) {
-            iStack_8 = param_2[4];
-            iStack_4 = param_2[5];
+        LState_string_root = *(int **)(piVar4[2] + iVar3 * 4);
+        if ((LState_string_root != (int *)0x0) && (LState_string_root != (int *)&g_EMPTY)) {
+          (*(code *)a2)(&LState_string_root,4);
+          (*(code *)a2)(LState_string_root + 2,4);
+          if (LState_string_root[2] == -1) {
+            iStack_8 = LState_string_root[4];
+            iStack_4 = LState_string_root[5];
             if (lua_savehook != (code *)0x0) {
               iStack_4 = (*lua_savehook)(iStack_8,iStack_4,a2);
             }
             piVar5 = &iStack_8;
           }
           else {
-            piVar5 = param_2 + 4;
+            piVar5 = LState_string_root + 4;
           }
           LState_SaveObject((int)piVar5,(int)a2);
-          if (param_2[2] != -1) {
+          if (LState_string_root[2] != -1) {
             uVar2 = 0xffffffff;
-            piVar5 = param_2 + 6;
+            piVar5 = LState_string_root + 6;
             do {
               if (uVar2 == 0) break;
               uVar2 = uVar2 - 1;
@@ -393,7 +393,7 @@ void __cdecl luaS_writestrings(undefined *param_1,int *param_2)
             } while ((char)iVar1 != '\0');
             param_1 = (undefined *)(~uVar2 - 1);
             (*(code *)a2)(&param_1,4);
-            (*(code *)a2)(param_2 + 6,param_1);
+            (*(code *)a2)(LState_string_root + 6,param_1);
           }
         }
         iVar3 = iVar3 + 1;
@@ -415,7 +415,7 @@ void __cdecl luaS_writestrings(undefined *param_1,int *param_2)
 /* Original name luaS_resolvestrings (the remaster's libLua.so: callee ResolveObject, caller
    GlobalBeginRestore); was lstring__9290. */
 
-void __cdecl luaS_resolvestrings(int *param_1)
+void __cdecl luaS_resolvestrings(int *LState_string_root)
 
 {
   undefined *puVar1;
@@ -425,17 +425,17 @@ void __cdecl luaS_resolvestrings(int *param_1)
   iVar2 = 0x3d;
   do {
     iVar3 = 0;
-    if (0 < *param_1) {
+    if (0 < *LState_string_root) {
       do {
-        puVar1 = *(undefined **)(param_1[2] + iVar3 * 4);
+        puVar1 = *(undefined **)(LState_string_root[2] + iVar3 * 4);
         if (((puVar1 != (undefined *)0x0) && (puVar1 != &g_EMPTY)) && (*(int *)(puVar1 + 8) != -1))
         {
           LState_ResolveObject((int)(puVar1 + 0x10));
         }
         iVar3 = iVar3 + 1;
-      } while (iVar3 < *param_1);
+      } while (iVar3 < *LState_string_root);
     }
-    param_1 = param_1 + 3;
+    LState_string_root = LState_string_root + 3;
     iVar2 = iVar2 + -1;
   } while (iVar2 != 0);
   return;
@@ -445,7 +445,7 @@ void __cdecl luaS_resolvestrings(int *param_1)
 /* Original name luaS_count (the remaster's libLua.so: caller SaveGlobals (string count for the save
    file)); was lstring__92e0. */
 
-int __cdecl luaS_count(int *param_1,uint *param_2)
+int __cdecl luaS_count(int *LState_string_root,uint *param_2)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -464,9 +464,9 @@ int __cdecl luaS_count(int *param_1,uint *param_2)
   param_2 = (uint *)0x3d;
   do {
     iVar6 = 0;
-    if (0 < *param_1) {
+    if (0 < *LState_string_root) {
       do {
-        puVar2 = *(undefined **)(param_1[2] + iVar6 * 4);
+        puVar2 = *(undefined **)(LState_string_root[2] + iVar6 * 4);
         if (((puVar2 != (undefined *)0x0) && (puVar2 != &g_EMPTY)) &&
            (local_4 = local_4 + 1, *(int *)(puVar2 + 8) != -1)) {
           uVar5 = 0xffffffff;
@@ -484,9 +484,9 @@ int __cdecl luaS_count(int *param_1,uint *param_2)
           *puVar3 = uVar4;
         }
         iVar6 = iVar6 + 1;
-      } while (iVar6 < *param_1);
+      } while (iVar6 < *LState_string_root);
     }
-    param_1 = param_1 + 3;
+    LState_string_root = LState_string_root + 3;
     param_2 = (uint *)((int)param_2 + -1);
     if (param_2 == (uint *)0x0) {
       return local_4;
@@ -540,16 +540,16 @@ int luaS_collector(void)
 /* Named remove_from_list (not in the remaster, gcc inlined it there): Lua 3.1 source name
    (lstring.c: unlinks the unmarked nodes, used by luaS_collector); was lstring__93e0. */
 
-void __cdecl remove_from_list(undefined4 *param_1)
+void __cdecl remove_from_list(undefined4 *LState_rootglobal)
 
 {
   undefined4 *puVar1;
   
-  while (puVar1 = param_1, puVar1 != (undefined4 *)0x0) {
-    param_1 = (undefined4 *)*puVar1;
-    while ((param_1 != (undefined4 *)0x0 && (param_1[1] == 0))) {
-      param_1 = (undefined4 *)*param_1;
-      *puVar1 = param_1;
+  while (puVar1 = LState_rootglobal, puVar1 != (undefined4 *)0x0) {
+    LState_rootglobal = (undefined4 *)*puVar1;
+    while ((LState_rootglobal != (undefined4 *)0x0 && (LState_rootglobal[1] == 0))) {
+      LState_rootglobal = (undefined4 *)*LState_rootglobal;
+      *puVar1 = LState_rootglobal;
     }
   }
   return;
@@ -643,7 +643,7 @@ void __cdecl luaS_rawsetglobal(TaggedString *ts,TObject *newval)
 /* Original name luaS_travsymbol (the remaster's libLua.so: caller lua_getobjname); was
    lstring__9510. */
 
-int * __cdecl luaS_travsymbol(undefined *param_1)
+int * __cdecl luaS_travsymbol(undefined *checkfunc)
 
 {
   int iVar1;
@@ -654,7 +654,7 @@ int * __cdecl luaS_travsymbol(undefined *param_1)
     return (int *)0x0;
   }
   do {
-    iVar1 = (*(code *)param_1)(piVar2 + 4);
+    iVar1 = (*(code *)checkfunc)(piVar2 + 4);
     if (iVar1 != 0) {
       return piVar2 + 6;
     }

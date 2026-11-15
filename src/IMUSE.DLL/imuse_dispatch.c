@@ -366,7 +366,7 @@ void __cdecl PredictStream(int *param_1)
 /* WARNING: Removing unreachable block (ram,0x10003234) */
 /* Unidentified function of iMUSE_Dispatch.c (command dispatch, fades, triggers) */
 
-int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *param_3)
+int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *predictStream_jumpHook)
 
 {
   uint uVar1;
@@ -384,8 +384,8 @@ int * __cdecl iMUSE_Dispatch__31d0(int *param_1,int param_2,int *param_3)
       return (int *)0x0;
     }
     if ((((*piVar5 == 0x4a554d50) && (uVar1 < (uint)piVar5[2])) &&
-        ((uint)piVar5[2] <= iVar3 + uVar1)) && (iVar4 = UtCheckHook(param_3,piVar5[4]), iVar4 == 0))
-    break;
+        ((uint)piVar5[2] <= iVar3 + uVar1)) &&
+       (iVar4 = UtCheckHook(predictStream_jumpHook,piVar5[4]), iVar4 == 0)) break;
     piVar5 = (int *)((int)piVar5 + piVar5[1] + 8);
   }
   return piVar5;

@@ -23,13 +23,13 @@ uint __cdecl sputRoom_LoadZBuffer(uint param_1)
 /* Loads a z-buffer .zbm through stdLoadImageData and detaches the pixel plane (bitmap+0x78) from
    the bitmap, returning it. */
 
-uint __cdecl ZBuffer_LoadFile(char *param_1)
+uint __cdecl ZBuffer_LoadFile(char *name)
 
 {
   VBuffer *pVVar1;
   stdBitmap *bitmap;
   
-  bitmap = stdLoadImageData(param_1,0,0);
+  bitmap = stdLoadImageData(name,0,0);
   if (bitmap == (stdBitmap *)0x0) {
     return 0;
   }

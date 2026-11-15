@@ -145,12 +145,12 @@ void __cdecl rdPuppet_RemoveTrack(void *puppet,int track)
 /* Original name rdPuppet_SetStatus (the remaster's GrimFandango (Linux): aligned call in
    KeyframeChanger); was rdPuppet_SetTrackFlags. */
 
-uint __cdecl rdPuppet_SetStatus(int param_1,int param_2,uint param_3)
+uint __cdecl rdPuppet_SetStatus(int puppet,int track,uint param_3)
 
 {
   uint *puVar1;
   
-  puVar1 = (uint *)(param_1 + 8 + param_2 * 0x134);
+  puVar1 = (uint *)(puppet + 8 + track * 0x134);
   *puVar1 = *puVar1 | param_3;
   return 1;
 }
@@ -160,23 +160,23 @@ uint __cdecl rdPuppet_SetStatus(int param_1,int param_2,uint param_3)
    remaster's GrimFandango (Linux): aligned call in KeyframeChanger); was rdPuppet_SetTrackUserData.
     */
 
-void __cdecl rdPuppet_SetCallback(int param_1,int param_2,uint param_3)
+void __cdecl rdPuppet_SetCallback(int puppet,int param_2,uint param_3)
 
 {
-  *(uint *)(param_1 + (param_2 + 1) * 0x134) = param_3;
+  *(uint *)(puppet + (param_2 + 1) * 0x134) = param_3;
   return;
 }
 
 /* ---- 0x004506f0  rdPuppet_PlayTrack ---- */
 /* Status bits: clears 0x10, sets 2, speed 1.0 */
 
-uint __cdecl rdPuppet_PlayTrack(int param_1,int param_2)
+uint __cdecl rdPuppet_PlayTrack(int puppet,int track)
 
 {
   uint *puVar1;
   
-  puVar1 = (uint *)(param_1 + 8 + param_2 * 0x134);
-  *puVar1 = *(uint *)(param_1 + 8 + param_2 * 0x134) & 0xffffffef | 2;
+  puVar1 = (uint *)(puppet + 8 + track * 0x134);
+  *puVar1 = *(uint *)(puppet + 8 + track * 0x134) & 0xffffffef | 2;
   puVar1[6] = 0x3f800000;
   return 1;
 }
@@ -415,15 +415,15 @@ void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds)
    (the remaster's GrimFandango (Linux): aligned call in KeyframeChanger, rdPuppet_AddTrack); was
    rdPuppet_ClearTrackNodes. */
 
-void __cdecl rdPuppet_ResetTrack(int param_1,int param_2)
+void __cdecl rdPuppet_ResetTrack(int puppet,int param_2)
 
 {
   undefined4 *puVar1;
   uint uVar2;
   undefined4 *puVar3;
   
-  puVar1 = (undefined4 *)(param_1 + 8 + param_2 * 0x134);
-  uVar2 = *(uint *)(*(int *)(*(int *)(param_1 + 4) + 4) + 0x54);
+  puVar1 = (undefined4 *)(puppet + 8 + param_2 * 0x134);
+  uVar2 = *(uint *)(*(int *)(*(int *)(puppet + 4) + 4) + 0x54);
   if (0x3f < uVar2) {
     uVar2 = 0x40;
   }
@@ -798,9 +798,9 @@ int __cdecl rdKeyframe_Load(char *param_1)
   char *path;
   int iVar1;
   uint uVar2;
-  uint *puVar3;
-  uint uVar4;
-  uint *puVar5;
+  rdKeyframe *keyframe;
+  uint uVar3;
+  uint *puVar4;
   
   path = param_1;
   if (g_dwKeyframeLoader != 0) {
@@ -809,32 +809,32 @@ int __cdecl rdKeyframe_Load(char *param_1)
   }
   uVar2 = (*g_pRdroid_HS->pFopen)(param_1,&DAT_004ddb18);
   if (uVar2 != 0) {
-    puVar3 = (uint *)(*g_pRdroid_HS->pAlloc)
-                               (0x84,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,DAT_004f0f08 + 0x11
-                               );
-    if (puVar3 != (uint *)0x0) {
+    keyframe = (rdKeyframe *)
+               (*g_pRdroid_HS->pAlloc)
+                         (0x84,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,DAT_004f0f08 + 0x11);
+    if (keyframe != (rdKeyframe *)0x0) {
       (*g_pRdroid_HS->pFread)(uVar2,&param_1,4);
       if (param_1 == (char *)0x4b455946) {
-        uVar4 = rdKeyframe_LoadEntryBinary(uVar2,(int)puVar3);
-        if (uVar4 != 0) {
-          uVar4 = 0x1f;
-          puVar5 = (uint *)stdFileFromPath(path);
-          strncpy(puVar3,puVar5,uVar4);
-          *(undefined1 *)((int)puVar3 + 0x1f) = 0;
+        uVar3 = rdKeyframe_LoadEntryBinary(uVar2,(int)keyframe);
+        if (uVar3 != 0) {
+          uVar3 = 0x1f;
+          puVar4 = (uint *)stdFileFromPath(path);
+          strncpy((uint *)keyframe,puVar4,uVar3);
+          keyframe->aName[0x1f] = '\0';
           (*g_pRdroid_HS->pFclose)(uVar2);
-          return (int)puVar3;
+          return (int)keyframe;
         }
         (*g_pRdroid_HS->pFclose)(uVar2);
-        rdKeyframe_Free((int)puVar3);
+        rdKeyframe_Free((int)keyframe);
         return 0;
       }
       (*g_pRdroid_HS->pFclose)(uVar2);
-      uVar2 = rdKeyframe_LoadEntry(path,(int)puVar3);
+      uVar2 = rdKeyframe_LoadEntry(path,keyframe);
       if (uVar2 != 0) {
-        return (int)puVar3;
+        return (int)keyframe;
       }
     }
-    rdKeyframe_Free((int)puVar3);
+    rdKeyframe_Free((int)keyframe);
   }
   return 0;
 }
@@ -843,20 +843,20 @@ int __cdecl rdKeyframe_Load(char *param_1)
 /* Parser of the text .key format (flags, type, frames, fps, joints, entries; stdConffile). Source
    file Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-uint __cdecl rdKeyframe_LoadEntry(char *param_1,int param_2)
+uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
 
 {
   unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
-  int iVar2;
+  rdKeyframe *prVar2;
   uint *puVar3;
   int iVar4;
   undefined4 *puVar5;
   byte *pbVar6;
   uint uVar7;
-  int iVar8;
-  uint uVar9;
-  byte *pbVar10;
+  uint uVar8;
+  byte *pbVar9;
+  undefined1 *puVar10;
   bool bVar11;
   uint uVar12;
   #define uStack_68 (*(uint *)(_frame + (0x80 - 0x68)))
@@ -879,13 +879,13 @@ uint __cdecl rdKeyframe_LoadEntry(char *param_1,int param_2)
   #define auStack_24 (*(undefined1 (*)[4])(_frame + (0x80 - 0x24)))
   #define auStack_20 (*(uint (*)[8])(_frame + (0x80 - 0x20)))
   
-  iVar2 = param_2;
-  rdKeyframe_NewEntry((rdKeyframe *)param_2);
+  prVar2 = keyframe;
+  rdKeyframe_NewEntry(keyframe);
   uVar12 = 0x1f;
-  puVar3 = (uint *)stdFileFromPath(param_1);
-  strncpy((uint *)iVar2,puVar3,uVar12);
-  *(undefined1 *)(iVar2 + 0x1f) = 0;
-  uVar12 = stdConffile_Open((uint)param_1);
+  puVar3 = (uint *)stdFileFromPath(path);
+  strncpy((uint *)prVar2,puVar3,uVar12);
+  prVar2->aName[0x1f] = '\0';
+  uVar12 = stdConffile_Open((uint)path);
   if (uVar12 == 0) {
     return 0;
   }
@@ -895,33 +895,35 @@ uint __cdecl rdKeyframe_LoadEntry(char *param_1,int param_2)
     if (iVar4 == 1) {
       uVar12 = stdConffile_ReadLine();
       if (uVar12 != 0) {
-        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_flags__x_004f0ff0,iVar2 + 0x24);
+        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_flags__x_004f0ff0,&prVar2->field_0x24);
         if (iVar4 == 1) {
           uVar12 = stdConffile_ReadLine();
           if (uVar12 != 0) {
-            iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_type__x_004f0fe4,iVar2 + 0x2c);
+            iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_type__x_004f0fe4,&prVar2->field_0x2c);
             if (iVar4 == 1) {
               uVar12 = stdConffile_ReadLine();
               if (uVar12 != 0) {
-                iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_frames__d_004f0fd8,iVar2 + 0x34);
+                iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_frames__d_004f0fd8,
+                               &prVar2->field_0x34);
                 if (iVar4 == 1) {
                   uVar12 = stdConffile_ReadLine();
                   if (uVar12 != 0) {
                     iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_fps__f_004f0fd0,&local_58);
                     if (iVar4 == 1) {
-                      *(uint *)(iVar2 + 0x30) = local_58;
+                      *(uint *)&prVar2->field_0x30 = local_58;
                       uVar12 = stdConffile_ReadLine();
                       if (uVar12 != 0) {
-                        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_joints__d_004f0fc4,&param_2);
+                        iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_joints__d_004f0fc4,&keyframe)
+                        ;
                         if (iVar4 == 1) {
                           puVar5 = (undefined4 *)
                                    (*g_pRdroid_HS->pAlloc)
-                                             (param_2 * 0x2c,
+                                             ((int)keyframe * 0x2c,
                                               s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
                                               DAT_004f0f0c + 0x42);
-                          *(undefined4 **)(iVar2 + 0x3c) = puVar5;
+                          *(undefined4 **)&prVar2->field_0x3c = puVar5;
                           if (puVar5 != (undefined4 *)0x0) {
-                            for (uVar12 = param_2 * 0xb & 0x3fffffff; uVar12 != 0;
+                            for (uVar12 = (int)keyframe * 0xb & 0x3fffffff; uVar12 != 0;
                                 uVar12 = uVar12 - 1) {
                               *puVar5 = 0;
                               puVar5 = puVar5 + 1;
@@ -930,29 +932,29 @@ uint __cdecl rdKeyframe_LoadEntry(char *param_1,int param_2)
                               *(undefined1 *)puVar5 = 0;
                               puVar5 = (undefined4 *)((int)puVar5 + 1);
                             }
-                            *(int *)(iVar2 + 0x28) = param_2;
-                            *(int *)(iVar2 + 0x38) = param_2;
+                            *(rdKeyframe **)&prVar2->field_0x28 = keyframe;
+                            *(rdKeyframe **)&prVar2->field_0x38 = keyframe;
                             uVar12 = stdConffile_ReadLine();
                             if (uVar12 != 0) {
                               iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64,
                                              &g_bStd_genBuffer);
                               if (iVar4 == 1) {
-                                pbVar10 = &DAT_004f0fbc;
+                                pbVar9 = &DAT_004f0fbc;
                                 pbVar6 = &g_bStd_genBuffer;
                                 do {
                                   bVar1 = *pbVar6;
-                                  bVar11 = bVar1 < *pbVar10;
-                                  if (bVar1 != *pbVar10) {
+                                  bVar11 = bVar1 < *pbVar9;
+                                  if (bVar1 != *pbVar9) {
 LAB_004c099a:
                                     iVar4 = (1 - (uint)bVar11) - (uint)(bVar11 != 0);
                                     goto LAB_004c099f;
                                   }
                                   if (bVar1 == 0) break;
                                   bVar1 = pbVar6[1];
-                                  bVar11 = bVar1 < pbVar10[1];
-                                  if (bVar1 != pbVar10[1]) goto LAB_004c099a;
+                                  bVar11 = bVar1 < pbVar9[1];
+                                  if (bVar1 != pbVar9[1]) goto LAB_004c099a;
                                   pbVar6 = pbVar6 + 2;
-                                  pbVar10 = pbVar10 + 2;
+                                  pbVar9 = pbVar9 + 2;
                                 } while (bVar1 != 0);
                                 iVar4 = 0;
 LAB_004c099f:
@@ -963,17 +965,17 @@ LAB_004c099f:
                                                  ,&uStack_68);
                                   if ((iVar4 != 1) || (8 < uStack_68)) goto LAB_004c0cbf;
                                   uVar12 = 0;
-                                  *(uint *)(iVar2 + 0x40) = uStack_68;
+                                  *(uint *)&prVar2->field_0x40 = uStack_68;
                                   if (uStack_68 != 0) {
-                                    iVar4 = iVar2 + 0x44;
+                                    puVar10 = &prVar2->field_0x44;
                                     do {
                                       uVar7 = stdConffile_ReadLine();
                                       if (uVar7 == 0) goto LAB_004c0cbf;
-                                      iVar8 = sscanf((char *)g_dwStdConffile_aLine,s__f__d_004f0fa8,
-                                                     iVar4,iVar4 + 0x20);
-                                      if (iVar8 != 2) goto LAB_004c0cbf;
+                                      iVar4 = sscanf((char *)g_dwStdConffile_aLine,s__f__d_004f0fa8,
+                                                     puVar10,puVar10 + 0x20);
+                                      if (iVar4 != 2) goto LAB_004c0cbf;
                                       uVar12 = uVar12 + 1;
-                                      iVar4 = iVar4 + 4;
+                                      puVar10 = puVar10 + 4;
                                     } while (uVar12 < uStack_68);
                                   }
                                   uVar12 = stdConffile_ReadLine();
@@ -987,7 +989,7 @@ LAB_004c099f:
                                   iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_nodes__d_004f0f9c,
                                                  &pcStack_5c);
                                   if (iVar4 == 1) {
-                                    param_1 = (char *)0x0;
+                                    path = (char *)0x0;
                                     if (pcStack_5c == (char *)0x0) {
                                       stdConffile_Close();
                                       return 1;
@@ -1003,7 +1005,8 @@ LAB_004c099f:
                                       iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                      s_mesh_name__s_004f0f80,auStack_20);
                                       if (iVar4 != 1) break;
-                                      puVar3 = (uint *)(*(int *)(iVar2 + 0x3c) + uStack_64 * 0x2c);
+                                      puVar3 = (uint *)(*(int *)&prVar2->field_0x3c +
+                                                       uStack_64 * 0x2c);
                                       strncpy(puVar3,auStack_20,0x1f);
                                       *(undefined1 *)((int)puVar3 + 0x1f) = 0;
                                       uVar12 = stdConffile_ReadLine();
@@ -1023,8 +1026,8 @@ LAB_004c099f:
                                       uVar7 = 0;
                                       if (puVar3[9] != 0) {
                                         do {
-                                          uVar9 = stdConffile_ReadLine();
-                                          if (uVar9 == 0) goto LAB_004c0cbf;
+                                          uVar8 = stdConffile_ReadLine();
+                                          if (uVar8 == 0) goto LAB_004c0cbf;
                                           iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                          s__d___f__x__f__f__f__f__f__f_004f0f54,
                                                          auStack_24,uVar12,uVar12 + 4,&uStack_54,
@@ -1037,8 +1040,8 @@ LAB_004c099f:
                                           *(undefined4 *)(uVar12 + 0x14) = uStack_48;
                                           *(undefined4 *)(uVar12 + 0x18) = uStack_44;
                                           *(undefined4 *)(uVar12 + 0x1c) = uStack_40;
-                                          uVar9 = stdConffile_ReadLine();
-                                          if (uVar9 == 0) goto LAB_004c0cbf;
+                                          uVar8 = stdConffile_ReadLine();
+                                          if (uVar8 == 0) goto LAB_004c0cbf;
                                           iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                          s__f__f__f__f__f__f_004f0f40,&uStack_3c,
                                                          &uStack_38,&uStack_34,&uStack_30,&uStack_2c
@@ -1054,8 +1057,8 @@ LAB_004c099f:
                                           uVar7 = uVar7 + 1;
                                         } while (uVar7 < puVar3[9]);
                                       }
-                                      param_1 = param_1 + 1;
-                                      if (pcStack_5c <= param_1) {
+                                      path = path + 1;
+                                      if (pcStack_5c <= path) {
                                         stdConffile_Close();
                                         return 1;
                                       }

@@ -90,7 +90,7 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *param_2)
 /* Original name sputActor_ActorWalkTo (the remaster's GrimFandango (Linux): aligned call in
    sputLua_WalkActorToAvoidingL, sputLua_WalkActorToL); was Walker_ReplanPath. */
 
-void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,Actor *param_4)
+void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *local_c,Actor *other)
 
 {
   unsigned char _frame[0x2f0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -136,7 +136,7 @@ void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,
           puVar6 = puVar6 + 3;
         } while (uVar8 != 0);
       }
-      uVar5 = Walker_AvoidActorPath(actor,param_4,&local_2d0,uVar5,(float *)&local_168);
+      uVar5 = Walker_AvoidActorPath(actor,other,&local_2d0,uVar5,(float *)&local_168);
       actor->pExtra->nPathNodes = uVar5;
       actor->pExtra->nPathIndex = 1;
       if (0 < (int)uVar5) {
@@ -161,9 +161,9 @@ void __cdecl sputActor_ActorWalkTo(Actor *actor,int param_2,undefined4 *param_3,
       }
     }
     pAVar3 = actor->pExtra;
-    pAVar3->aDest[0] = PUN(float,*param_3);
-    pAVar3->aDest[1] = PUN(float,param_3[1]);
-    pAVar3->aDest[2] = PUN(float,param_3[2]);
+    pAVar3->aDest[0] = PUN(float,*local_c);
+    pAVar3->aDest[1] = PUN(float,local_c[1]);
+    pAVar3->aDest[2] = PUN(float,local_c[2]);
   }
   return;
 }

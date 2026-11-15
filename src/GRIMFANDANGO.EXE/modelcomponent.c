@@ -264,10 +264,10 @@ int __cdecl ThingRequester(uint param_1,int param_2,int param_3,int param_4,char
 /* Original name ThingFreer (the remaster's GrimFandango (Linux): the same handler slot (freer) of
    the same costume tag registration in sputCostume_Startup); was ModelComponent_Destroy. */
 
-undefined4 ThingFreer(undefined4 param_1,undefined4 param_2,void *param_3)
+undefined4 ThingFreer(undefined4 param_1,undefined4 param_2,ResRef *ref)
 
 {
-  Res_RemoveReference(param_3);
-  (*g_pSputCosHS->pFree)(param_3);
+  Res_RemoveReference(ref);
+  (*g_pSputCosHS->pFree)(ref);
   return 1;
 }

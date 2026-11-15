@@ -26,14 +26,14 @@ int __cdecl Controls_DebugKeysHook(uint param_1)
 void __cdecl sputControl_Reset(void)
 
 {
-  uint *puVar1;
+  ControlSymbol *pCVar1;
   int iVar2;
   
-  puVar1 = &g_dwSputControl_aControlSymbols;
+  pCVar1 = g_aControlSymbols;
   for (iVar2 = g_nSputControl_numControlSymbols; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar1 = *puVar1 & 0xfffffff6;
-    puVar1[2] = 0;
-    puVar1 = puVar1 + 4;
+    pCVar1->dwFlags = pCVar1->dwFlags & 0xfffffff6;
+    pCVar1->dwValue = 0;
+    pCVar1 = pCVar1 + 1;
   }
   stdControl_Reset();
   return;

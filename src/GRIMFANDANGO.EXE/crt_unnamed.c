@@ -1136,15 +1136,14 @@ void __cdecl AnimPlay_module_shutdown(void)
    bitmap.'); was FUN_004c21e0. */
 
 int __cdecl
-anm_EasyPlay(char *param_1,int param_2,uint param_3,uint param_4,uint param_5,uint param_6,
-            uint param_7,uint param_8,uint param_9,code *param_10,int param_11,int param_12,
-            int param_13)
+anm_EasyPlay(char *param_1,int fps,uint flags,uint param_4,uint param_5,uint param_6,uint param_7,
+            uint param_8,uint param_9,code *param_10,int param_11,int streamArg1,int streamArg2)
 
 {
   unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
-  #define pvStack_418 (*(void **)(_frame + (0x430 - 0x418)))
+  #define pAStack_418 (*(AnimPlayer **)(_frame + (0x430 - 0x418)))
   #define local_414 (*(uint *)(_frame + (0x430 - 0x414)))
   #define local_410 (*(uint *)(_frame + (0x430 - 0x410)))
   #define local_40c (*(uint *)(_frame + (0x430 - 0x40c)))
@@ -1154,8 +1153,8 @@ anm_EasyPlay(char *param_1,int param_2,uint param_3,uint param_4,uint param_5,ui
   
   local_40c = 0;
   local_410 = 0;
-  if (param_2 == 0) {
-    param_2 = 0xf;
+  if (fps == 0) {
+    fps = 0xf;
   }
   iVar2 = (**(code **)g_dwAnimPlay_bitmap_services)(&local_414,param_6,param_7,0xffffffff);
   if (iVar2 != 0) {
@@ -1172,13 +1171,13 @@ anm_EasyPlay(char *param_1,int param_2,uint param_3,uint param_4,uint param_5,ui
         (**(code **)(g_dwAnimPlay_bitmap_services + 8))(&local_414);
         return iStack_404;
       }
-      iStack_404 = anm_Start(&pvStack_418,param_1,param_2,param_12,param_13,param_3);
+      iStack_404 = anm_Start(&pAStack_418,param_1,fps,streamArg1,streamArg2,flags);
       param_11 = iStack_408;
     } while (iStack_404 != 0);
 LAB_004c22ac:
     local_40c = 0;
     local_410 = 0;
-    iVar2 = FUN_004c25c0(pvStack_418,local_414,0,0,0,(int)auStack_400,(int)&local_410,
+    iVar2 = FUN_004c25c0(pAStack_418,local_414,0,0,0,(int)auStack_400,(int)&local_410,
                          (int)&local_40c,param_8,param_9);
     if (((iVar2 != 0) && (iVar2 != 2)) && (iVar2 != 1)) {
 LAB_004c2364:
@@ -1186,17 +1185,17 @@ LAB_004c2364:
       goto LAB_004c22ac;
     }
     if (((param_10 == (code *)0x0) ||
-        (iVar1 = *(int *)((int)pvStack_418 + 0x54),
-        (*param_10)(pvStack_418,local_414,auStack_400,local_410,local_40c), iVar1 != 0)) ||
-       (*(int *)((int)pvStack_418 + 0x54) == 0)) {
+        (iVar1 = pAStack_418->nDecoder54,
+        (*param_10)(pAStack_418,local_414,auStack_400,local_410,local_40c), iVar1 != 0)) ||
+       (pAStack_418->nDecoder54 == 0)) {
       AnimPlay_anm_Display
-                ((uint)pvStack_418,local_414,0,param_4,param_5,(uint)auStack_400,local_410,local_40c
-                 ,param_3);
+                ((uint)pAStack_418,local_414,0,param_4,param_5,(uint)auStack_400,local_410,local_40c
+                 ,flags);
       goto LAB_004c2364;
     }
     iStack_408 = 0;
 LAB_004c2376:
-    anm_Stop(&pvStack_418);
+    anm_Stop(&pAStack_418);
     param_11 = iStack_408;
   } while( true );
 }
@@ -1206,7 +1205,7 @@ LAB_004c2376:
 #undef local_40c
 #undef local_410
 #undef local_414
-#undef pvStack_418
+#undef pAStack_418
 
 
 /* ---- 0x004c2590  anm_GetTime ---- */
@@ -1221,14 +1220,14 @@ int __cdecl anm_GetTime(int param_1)
 
 /* ---- 0x004c25c0  FUN_004c25c0 ---- */
 int __cdecl
-FUN_004c25c0(void *param_1,int param_2,int param_3,int param_4,int param_5,int param_6,int param_7,
+FUN_004c25c0(AnimPlayer *p,int param_2,int param_3,int param_4,int param_5,int param_6,int param_7,
             int param_8,int param_9,int param_10)
 
 {
   int iVar1;
   
-  if (*(int *)((int)param_1 + 0x10) == 0) {
-    iVar1 = (*(code *)g_pAnm_streamer_services[7])(*(undefined4 *)((int)param_1 + 0x60));
+  if (p->nFailed == 0) {
+    iVar1 = (*(code *)g_pAnm_streamer_services[7])(p->pStream);
     if ((iVar1 < 0x3d) || ((int)g_dwAnm_Render_count < 5)) {
       if ((iVar1 < 0x3c) && ((int)g_dwAnm_Render_count < 0xc)) {
         g_dwAnm_Render_count = g_dwAnm_Render_count + 1;
@@ -1237,10 +1236,8 @@ FUN_004c25c0(void *param_1,int param_2,int param_3,int param_4,int param_5,int p
     else {
       g_dwAnm_Render_count = g_dwAnm_Render_count - 1;
     }
-    (*(code *)g_pAnm_streamer_services[4])
-              (*(undefined4 *)((int)param_1 + 0x60),g_dwAnm_Render_count << 0xb);
-    iVar1 = anm_Render(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
-                       param_10);
+    (*(code *)g_pAnm_streamer_services[4])(p->pStream,g_dwAnm_Render_count << 0xb);
+    iVar1 = anm_Render(p,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,param_10);
     return iVar1;
   }
   return -1;
@@ -1625,7 +1622,7 @@ uint __cdecl anm_DecodeHeader(undefined1 *param_1,int param_2)
    FUN_004c2fa0. */
 
 uint __cdecl
-anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *param_5,uint *param_6,
+anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *src,uint *param_6,
               uint *param_7,uint param_8,uint param_9,uint param_10,byte *param_11,int param_12)
 
 {
@@ -1648,14 +1645,14 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *param_5
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
-  puVar7 = param_5;
+  puVar7 = src;
   bVar6 = false;
   local_10 = 0;
   uVar9 = param_8 & 0x30 | param_8 >> 0xd & 4;
   do {
     if (param_12 < 5) {
       if (g_dwAnm_transform_count != 0) {
-        param_5 = (uint *)0x100;
+        src = (uint *)0x100;
         *param_7 = *param_7 | 1;
         puVar13 = puVar7;
         do {
@@ -1673,9 +1670,9 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *param_5
                                              g_dwAnm_transform_count) + (char)param_7),
                               (char)(((uVar12 & 0xff) - (uVar9 & 0xff)) / g_dwAnm_transform_count) +
                               (char)uVar9);
-          param_5 = (uint *)((int)param_5 + -1);
+          src = (uint *)((int)src + -1);
           puVar13 = puVar13 + 1;
-        } while (param_5 != (uint *)0x0);
+        } while (src != (uint *)0x0);
         g_dwAnm_transform_count = g_dwAnm_transform_count - 1;
       }
       return local_10;
@@ -1708,8 +1705,8 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *param_5
             bVar6 = false;
           }
           uVar8 = (**(code **)((&g_dwAnm_flobdec_services)[uVar10] + 0x14))
-                            (param_1,param_2,param_3,param_4,param_5,param_11 + 8,iVar11,uVar9,
-                             param_9,param_10);
+                            (param_1,param_2,param_3,param_4,src,param_11 + 8,iVar11,uVar9,param_9,
+                             param_10);
           if ((uVar8 & 1) != 0) {
             *param_6 = *param_6 | 1;
           }
@@ -1735,7 +1732,7 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *param_5
         else if (uVar12 == 0x66746368) {
           if ((g_dwAnm_overlay_buffer != 0) && (-1 < (int)g_dwAnm_overlay_flobdec)) {
             uVar12 = (**(code **)((&g_dwAnm_flobdec_services)[g_dwAnm_overlay_flobdec] + 0x14))
-                               (param_1,param_2,param_3,param_4,param_5,g_dwAnm_overlay_buffer + 8,
+                               (param_1,param_2,param_3,param_4,src,g_dwAnm_overlay_buffer + 8,
                                 CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)
                                                             (g_dwAnm_overlay_buffer + 4),
                                                            *(undefined1 *)
@@ -1775,13 +1772,13 @@ LAB_004c3182:
       }
       else if (uVar12 == 0x6e70616c) {
         if (*(short *)(param_11 + 0x14) == 0) {
-          msc_MemCopy(param_5 + *(short *)(param_11 + 0x16) * 4,param_11 + 0x1c,
+          msc_MemCopy(src + *(short *)(param_11 + 0x16) * 4,param_11 + 0x1c,
                       (int)*(short *)(param_11 + 0x18) << 2);
           *param_7 = *param_7 | *(uint *)(param_11 + 0x10);
           g_dwAnm_transform_count = 0;
         }
         else {
-          msc_MemCopy(&g_aAnm_transform_palette,param_5,0x400);
+          msc_MemCopy(&g_aAnm_transform_palette,src,0x400);
           msc_MemCopy(&g_aAnm_transform_palette + *(short *)(param_11 + 0x16) * 0x10,param_11 + 0x1c
                       ,(int)*(short *)(param_11 + 0x18) << 2);
           g_dwAnm_transform_count = (uint)*(short *)(param_11 + 0x14);
@@ -1936,7 +1933,7 @@ uint __cdecl AnimFrame_anm_DebugGetState(void)
    frame header %c%c%c%c -- CD may be dirty or da); was FUN_004c36f0. */
 
 uint __cdecl
-anm_animator_Render(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
+anm_animator_Render(int param_1,uint fmt,uint param_3,uint param_4,uint param_5,uint dst,
                    uint param_7,uint param_8,uint param_9,uint param_10,uint param_11)
 
 {
@@ -1989,7 +1986,7 @@ LAB_004c371b:
         }
         *(undefined4 *)(param_1 + 0x34) = 0x6e756c6c;
         if (iVar3 != 0) {
-          FUN_004c3c90(param_1,iVar3,(void *)param_6,(uint *)param_8);
+          FUN_004c3c90(param_1,iVar3,(void *)dst,(uint *)param_8);
         }
       }
       else {
@@ -2006,8 +2003,8 @@ LAB_004c371b:
         if (iVar3 != 0) {
           *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + 1;
           if ((*(int *)(param_1 + 0x44) != 0) || (uVar2 = FUN_004c3bb0(param_1), uVar2 == 0)) {
-            FUN_004c3c00(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
-                         param_10,param_11);
+            FUN_004c3c00(param_1,fmt,param_3,param_4,param_5,dst,param_7,param_8,param_9,param_10,
+                         param_11);
             if ((*(int *)(param_1 + 0x28) < *(int *)(param_1 + 0x2c) + -1) ||
                (*(int *)(param_1 + 0x44) != 0)) {
               if (*(int *)(param_1 + 0x58) == 1) {
@@ -2049,8 +2046,8 @@ LAB_004c371b:
     }
     if (0x6e756c6c < uVar2) {
       if (uVar2 == 0x70617773) {
-        FUN_004c3c00(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
-                     param_10,param_11);
+        FUN_004c3c00(param_1,fmt,param_3,param_4,param_5,dst,param_7,param_8,param_9,param_10,
+                     param_11);
         if (*(int *)(param_1 + 0x58) != 1) {
           if (*(int *)(param_1 + 0x58) == 3) {
             *(undefined4 *)(param_1 + 0x58) = 1;
@@ -2101,8 +2098,8 @@ LAB_004c371b:
       *(int *)(param_1 + 0x28) = *(int *)(param_1 + 0x28) + 1;
       uVar2 = FUN_004c3bb0(param_1);
       if (uVar2 == 0) {
-        FUN_004c3c00(param_1,param_2,param_3,param_4,param_5,param_6,param_7,param_8,param_9,
-                     param_10,param_11);
+        FUN_004c3c00(param_1,fmt,param_3,param_4,param_5,dst,param_7,param_8,param_9,param_10,
+                     param_11);
       }
       iVar3 = (*(code *)g_pAnm_streamer_services[3])(*(undefined4 *)(param_1 + 0x60));
       if ((iVar3 != 0) ||
@@ -2177,17 +2174,17 @@ uint __cdecl FUN_004c3bb0(int param_1)
 
 /* ---- 0x004c3c00  FUN_004c3c00 ---- */
 uint __cdecl
-FUN_004c3c00(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,
-            uint param_7,uint param_8,uint param_9,uint param_10,uint param_11)
+FUN_004c3c00(int param_1,uint fmt,uint param_3,uint param_4,uint param_5,uint param_6,uint param_7,
+            uint param_8,uint param_9,uint param_10,uint param_11)
 
 {
   uint uVar1;
   
   if (((param_9 | *(uint *)(param_1 + 0xc)) & 4) == 0) {
-    gra_SetBitmap((undefined4 *)param_2,0);
+    gra_SetBitmap((undefined4 *)fmt,0);
   }
   uVar1 = (*(code *)g_pAnm_animframe_services[2])
-                    (param_2,param_3,param_4,param_5,param_6,param_7,param_8,
+                    (fmt,param_3,param_4,param_5,param_6,param_7,param_8,
                      param_9 | *(uint *)(param_1 + 0xc),param_10,param_11,
                      *(undefined4 *)(param_1 + 0x24),*(undefined4 *)(param_1 + 0x30));
   if ((uVar1 & 1) != 0) {
@@ -2200,12 +2197,12 @@ FUN_004c3c00(int param_1,uint param_2,uint param_3,uint param_4,uint param_5,uin
 }
 
 /* ---- 0x004c3c90  FUN_004c3c90 ---- */
-void __cdecl FUN_004c3c90(int param_1,int param_2,void *param_3,uint *param_4)
+void __cdecl FUN_004c3c90(int param_1,int param_2,void *dst,uint *param_4)
 
 {
   *(uint *)(param_1 + 0xc) = *(uint *)(param_1 + 0x3c);
   if ((*(uint *)(param_1 + 0x3c) & 0x2000) == 0) {
-    msc_MemCopy(param_3,(void *)(param_2 + 0x16),0x400);
+    msc_MemCopy(dst,(void *)(param_2 + 0x16),0x400);
     *param_4 = *param_4 | 3;
   }
   *(int *)(param_1 + 0x2c) = (int)*(short *)(param_2 + 2);
@@ -2239,12 +2236,12 @@ void __cdecl anm_animator_Quit(int param_1)
 }
 
 /* ---- 0x004c3d90  FUN_004c3d90 ---- */
-void __cdecl FUN_004c3d90(int param_1,uint param_2,uint param_3)
+void __cdecl FUN_004c3d90(int p,uint param_2,uint param_3)
 
 {
-  *(uint *)(param_1 + 0x48) = param_3;
-  *(undefined4 *)(param_1 + 0x4c) = *(undefined4 *)(param_1 + 0x28);
-  *(uint *)(param_1 + 0x50) = param_2;
+  *(uint *)(p + 0x48) = param_3;
+  *(undefined4 *)(p + 0x4c) = *(undefined4 *)(p + 0x28);
+  *(uint *)(p + 0x50) = param_2;
   return;
 }
 
@@ -3402,7 +3399,7 @@ void __cdecl Zfile_module_shutdown(void)
    fle_Open (two in the remaster, hence the prefix); strings: 'Zfile Memory Alloc fail'); was
    FUN_004c5950. */
 
-int * Zfile_fle_Open(char *param_1,char *param_2)
+int * Zfile_fle_Open(char *param_1,char *mode)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3426,19 +3423,19 @@ int * Zfile_fle_Open(char *param_1,char *param_2)
   else {
     *piVar1 = 0;
     piVar1[1] = 0;
-    if (((((*param_2 == 'r') || (*param_2 == 'R')) && (param_2[1] != '+')) &&
-        ((param_2[1] == '\0' || (param_2[2] != '+')))) && (0 < (int)UINT_004f1c20)) {
+    if (((((*mode == 'r') || (*mode == 'R')) && (mode[1] != '+')) &&
+        ((mode[1] == '\0' || (mode[2] != '+')))) && (0 < (int)UINT_004f1c20)) {
       ppuVar5 = &PTR_DAT_004f1c28;
       do {
         puVar2 = String_ContainsSubstring((uint *)param_1,*ppuVar5);
         if (puVar2 != (uint *)0x0) {
-          pvVar3 = SaveFile_Open(param_1,param_2);
+          pvVar3 = SaveFile_Open(param_1,mode);
           *piVar1 = (int)pvVar3;
           if (pvVar3 != (void *)0x0) {
             piVar1[1] = 1;
             piVar1[3] = 0;
             piVar1[4] = 0;
-            uVar4 = (*(code *)*g_pZf_filio_services)(param_1,param_2);
+            uVar4 = (*(code *)*g_pZf_filio_services)(param_1,mode);
             (*(code *)g_pZf_filio_services[5])(uVar4,0xfffffffc,2);
             (*(code *)g_pZf_filio_services[2])(uVar4,&iStack_4,4);
             piVar1[2] = iStack_4;
@@ -3451,7 +3448,7 @@ int * Zfile_fle_Open(char *param_1,char *param_2)
         ppuVar5 = ppuVar5 + 1;
       } while (iVar6 < (int)UINT_004f1c20);
     }
-    iVar6 = (*(code *)*g_pZf_filio_services)(param_1,param_2);
+    iVar6 = (*(code *)*g_pZf_filio_services)(param_1,mode);
     *piVar1 = iVar6;
     if (iVar6 != 0) {
       return piVar1;
@@ -4507,7 +4504,7 @@ void __cdecl bmp_bitmap_Free(int *param_1)
 /* Original name gra_SetBitmap (the remaster's GrimFandango (Linux): same body (memset or convert
    colour + SetBuffer); called from the animator render); was FUN_004ce9b0. */
 
-void __cdecl gra_SetBitmap(undefined4 *param_1,uint param_2)
+void __cdecl gra_SetBitmap(undefined4 *fmt,uint param_2)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -4516,16 +4513,16 @@ void __cdecl gra_SetBitmap(undefined4 *param_1,uint param_2)
   int iVar3;
   #define local_14 (*(char (*)[20])(_frame + (0x30 - 0x14)))
   
-  if (0 < (int)param_1[5]) {
-    if (param_1[8] == 0) {
-      msc_MemSet(*param_1,param_2,param_1[3] * param_1[2] * param_1[5]);
+  if (0 < (int)fmt[5]) {
+    if (fmt[8] == 0) {
+      msc_MemSet(*fmt,param_2,fmt[3] * fmt[2] * fmt[5]);
       return;
     }
-    iVar1 = param_1[2];
-    pcVar2 = (char *)*param_1;
-    iVar3 = param_1[1];
-    gra_ConvertFromLecColor(local_14,(LecPixelFormat *)param_1,1,0,(byte *)&param_2);
-    gra_SetBuffer(pcVar2,(int)param_1,iVar1 * iVar3,local_14);
+    iVar1 = fmt[2];
+    pcVar2 = (char *)*fmt;
+    iVar3 = fmt[1];
+    gra_ConvertFromLecColor(local_14,(LecPixelFormat *)fmt,1,0,(byte *)&param_2);
+    gra_SetBuffer(pcVar2,(int)fmt,iVar1 * iVar3,local_14);
   }
   return;
 }
@@ -4537,16 +4534,15 @@ void __cdecl gra_SetBitmap(undefined4 *param_1,uint param_2)
    source, non-indexed destination: gra_ConvertFromLecColor of 0x100 palette entries into the
    lookup); called by gra_BlitRectLookup in both builds); was FUN_004ced70. */
 
-uint __cdecl gra_ConvertMakeLookup(int param_1,void *param_2,void *param_3,byte *param_4)
+uint __cdecl gra_ConvertMakeLookup(int param_1,LecPixelFormat *fmt,void *dst,byte *param_4)
 
 {
   byte *src;
   
-  if ((((*(int *)(param_1 + 0x20) == 0) && (*(int *)(param_1 + 0xc) == 1)) &&
-      (*(int *)((int)param_2 + 0x20) != 0)) &&
-     ((src = *(byte **)(param_1 + 0x24), *(byte **)(param_1 + 0x24) != (byte *)0x0 ||
-      (src = param_4, param_4 != (byte *)0x0)))) {
-    gra_ConvertFromLecColor(param_3,param_2,0x100,0,src);
+  if ((((*(int *)(param_1 + 0x20) == 0) && (*(int *)(param_1 + 0xc) == 1)) && (fmt->nColorMode != 0)
+      ) && ((src = *(byte **)(param_1 + 0x24), *(byte **)(param_1 + 0x24) != (byte *)0x0 ||
+            (src = param_4, param_4 != (byte *)0x0)))) {
+    gra_ConvertFromLecColor(dst,fmt,0x100,0,src);
     return 0;
   }
   return 0xffffffff;
@@ -4556,10 +4552,10 @@ uint __cdecl gra_ConvertMakeLookup(int param_1,void *param_2,void *param_3,byte 
 /* Original name sou_mixer_terminate (the remaster's GrimFandango (Linux): dsn_terminate's
    (DsndDriver_Close's) mixer call; frees the mixer tables through Mixer_Free); was FUN_004d2d70. */
 
-void __cdecl sou_mixer_terminate(int *param_1)
+void __cdecl sou_mixer_terminate(int *services)
 
 {
-  Mixer_Free(param_1);
+  Mixer_Free(services);
   return;
 }
 

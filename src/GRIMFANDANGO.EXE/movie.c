@@ -110,7 +110,7 @@ int __cdecl sputSmush_SetTarget(void *surface)
 /* Original name sputSmush_StartMovie (the remaster's GrimFandango (Linux): aligned call in
    grimlib_PlayMovie, sputSmush_Restore); was Movie_Start. */
 
-uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint param_4)
+uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint x,uint y)
 
 {
   int iVar1;
@@ -122,10 +122,10 @@ uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint param_3,uint pa
     }
     SmushPlay_SetTranslationTable(((unsigned)(uintptr_t)&g_wSputRender_ColorLookup));
     g_nSmushLooping = param_2;
-    g_dwSmushX = param_3;
-    g_dwSmushY = param_4;
+    g_dwSmushX = x;
+    g_dwSmushY = y;
     iVar1 = SmushPlay_StartMovie
-                      (param_1,-(uint)(param_2 != 0) & 0x10,100000,param_3,param_4,
+                      (param_1,-(uint)(param_2 != 0) & 0x10,100000,x,y,
                        (g_pPresentBuf->format).nWidth,(g_pPresentBuf->format).nHeight,0,
                        (uint)(UINT_009016ac != 6));
     if (iVar1 == 0) {

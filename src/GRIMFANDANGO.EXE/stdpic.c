@@ -9,7 +9,7 @@
 /* stdLoadImageData loader for '.pic' (wrapper of stdPic_LoadEntry, allocation string stdPic.c); was
    named stdGif_Load. */
 
-uint __cdecl stdPic_Load(uint param_1,uint param_2,uint param_3)
+uint __cdecl stdPic_Load(uint name,uint a,uint b)
 
 {
   stdBitmap *bitmap;
@@ -20,7 +20,7 @@ uint __cdecl stdPic_Load(uint param_1,uint param_2,uint param_3)
   if (bitmap == (stdBitmap *)0x0) {
     return 0;
   }
-  uVar1 = stdPic_LoadEntry((char *)param_1,bitmap,param_2,param_3);
+  uVar1 = stdPic_LoadEntry((char *)name,bitmap,a,b);
   return -(uint)(uVar1 != 0) & (uint)bitmap;
 }
 
@@ -31,7 +31,7 @@ uint __cdecl stdPic_Load(uint param_1,uint param_2,uint param_3)
    GrimFandango (Linux): the only unmatched callee of stdPic_Load; 1 matched neighbours agree, 0
    disagree); was stdPic_LoadInto. */
 
-uint __cdecl stdPic_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int param_4)
+uint __cdecl stdPic_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int param_4)
 
 {
   unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -127,7 +127,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int pa
   local_58 = 0;
   local_54 = 0;
   local_50 = 0;
-  iVar6 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
+  iVar6 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
   if (iVar6 == 0) {
     return 0;
   }
@@ -215,7 +215,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int pa
             psVar16 = (stdBitmap *)(psVar16->aName + 4);
           }
           iStack_12c = iVar14;
-          puVar8 = (uint *)stdFileFromPath(param_1);
+          puVar8 = (uint *)stdFileFromPath(path);
           strncpy((uint *)bitmap,puVar8,uVar21);
           bitmap->aName[0x1f] = '\0';
           bitmap->nType = 0;
@@ -248,7 +248,7 @@ uint __cdecl stdPic_LoadEntry(char *param_1,stdBitmap *bitmap,int param_3,int pa
             pCVar18 = (ColorFormat *)&pCVar18->nBpp;
           }
           VStack_4c.nHeight = (int)CONCAT11(uStack_8d,uStack_8e);
-          pVVar10 = stdDisplay_VBufferNew(&VStack_4c,param_3,param_4,0);
+          pVVar10 = stdDisplay_VBufferNew(&VStack_4c,videoMem,param_4,0);
           *bitmap->ppFrames = pVVar10;
           if (*bitmap->ppFrames == (VBuffer *)0x0) {
             (*g_pStd_HS->pAssertFail)

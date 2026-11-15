@@ -222,9 +222,7 @@ void __cdecl MarkDirtyRect(int *rect,int flag)
    rdCanvas_New; 3 matched neighbours agree, 1 disagree); was Render_Open. */
 
 uint __cdecl
-sputRender_SetDisplay
-          (uint param_1,uint param_2,uint param_3,uint param_4,uint param_5,uint param_6,int param_7
-          )
+sputRender_SetDisplay(uint surface,uint zSurface,uint x0,uint y0,uint x1,uint y1,int param_7)
 
 {
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -236,11 +234,10 @@ sputRender_SetDisplay
   #define local_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
   
   sputRender_Close();
-  g_pSputRender_Canvas =
-       (rdCanvas *)rdCanvas_New(1,param_1,param_2,param_3,param_4,param_5,param_6,0);
-  UINT_008c97a4 = param_2;
-  UINT_008c97a0 = param_1;
-  piVar3 = (int *)(param_1 + 0xc);
+  g_pSputRender_Canvas = (rdCanvas *)rdCanvas_New(1,surface,zSurface,x0,y0,x1,y1,0);
+  UINT_008c97a4 = zSurface;
+  UINT_008c97a0 = surface;
+  piVar3 = (int *)(surface + 0xc);
   pVVar4 = &local_4c;
   for (iVar2 = 0x13; iVar2 != 0; iVar2 = iVar2 + -1) {
     pVVar4->nWidth = *piVar3;
@@ -248,7 +245,7 @@ sputRender_SetDisplay
     pVVar4 = (VBufferFormat *)&pVVar4->nHeight;
   }
   g_pSputRender_DecompressionBuffer = stdDisplay_VBufferNew(&local_4c,0,0,0);
-  bVar5 = *(int *)(param_1 + 8) != 0;
+  bVar5 = *(int *)(surface + 8) != 0;
   g_pSputRender_CleanBuffer = stdDisplay_VBufferNew(&local_4c,(uint)bVar5,(uint)bVar5,0);
   if ((g_nSputRender_b3DAcceleration == 0) || (UINT_004e806c != 0)) {
     iVar2 = 0;

@@ -125,7 +125,7 @@ void __cdecl sputLua_CollisionHandler(int self,int other,float *a,float *b,float
    inlined it into sputRoom_LoadRoom; the earlier hand-made name, back from the orig-names guess
    sputRoom_LoadRoom, which is 0x4a49a0); was sputRoom_LoadRoom. */
 
-int __cdecl SetFile_Parse(char *param_1,uint param_2)
+int __cdecl SetFile_Parse(char *path,uint param_2)
 
 {
   uint *puVar1;
@@ -133,10 +133,10 @@ int __cdecl SetFile_Parse(char *param_1,uint param_2)
   
   uVar2 = 0x7f;
   g_dwLoadingRoom = param_2;
-  puVar1 = (uint *)stdFnames_FindMedName(param_1);
+  puVar1 = (uint *)stdFnames_FindMedName(path);
   strncpy((uint *)param_2,puVar1,uVar2);
   *(undefined1 *)(param_2 + 0x7f) = 0;
-  uVar2 = sputRoom_LoadRoomEntry((uint)param_1);
+  uVar2 = sputRoom_LoadRoomEntry((uint)path);
   return (uint)(uVar2 != 0);
 }
 
@@ -262,11 +262,11 @@ LAB_004a5c4e:
 uint __cdecl sputRoom_ParseSectors(void)
 
 {
-  char *pcVar1;
+  char *name;
   
-  pcVar1 = ParseCollection(g_dwLoadingRoom);
-  if (pcVar1 != (char *)0x0) {
-    Set_IsHandleValid(pcVar1);
+  name = ParseCollection(g_dwLoadingRoom);
+  if (name != (char *)0x0) {
+    Set_IsHandleValid(name);
   }
   return 1;
 }
@@ -1757,7 +1757,7 @@ void __cdecl WalkPlane_RemoveVertex(int *param_1)
    visibility, height, numvertices, numgates, vertices:); WalkPlane.cpp); was SetFile_ParseSectors.
     */
 
-undefined * __cdecl ParseCollection(int param_1)
+undefined * __cdecl ParseCollection(int loadingRoom)
 
 {
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1807,7 +1807,7 @@ undefined * __cdecl ParseCollection(int param_1)
           pWVar6 = (WalkPlane *)0x0;
         }
         else {
-          pWVar6 = WalkPlane_Construct(pWVar6,(int)local_184,local_1fc,param_1);
+          pWVar6 = WalkPlane_Construct(pWVar6,(int)local_184,local_1fc,loadingRoom);
         }
         if (pWVar6 != (WalkPlane *)0x0) {
           Mem_CheckAlloc(pWVar6,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x4a0);
@@ -1852,7 +1852,7 @@ LAB_004a8147:
           pWVar6 = (WalkPlane *)0x0;
         }
         else {
-          pWVar6 = WalkPlane_Construct(pWVar6,(int)local_184,local_1fc,param_1);
+          pWVar6 = WalkPlane_Construct(pWVar6,(int)local_184,local_1fc,loadingRoom);
         }
         if (pWVar6 != (WalkPlane *)0x0) {
           Mem_CheckAlloc(pWVar6,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x42e);
@@ -1875,7 +1875,7 @@ LAB_004a8147:
             pWVar6 = (WalkPlane *)0x0;
           }
           else {
-            pWVar6 = WalkPlane_Construct(pWVar6,(int)local_184,local_1fc,param_1);
+            pWVar6 = WalkPlane_Construct(pWVar6,(int)local_184,local_1fc,loadingRoom);
           }
           if (pWVar6 != (WalkPlane *)0x0) {
             Mem_CheckAlloc(pWVar6,s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8,0x445);

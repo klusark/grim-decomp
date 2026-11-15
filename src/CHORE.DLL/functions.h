@@ -107,18 +107,18 @@ void __cdecl Chore_ApplyKey(int reason,ComponentTag *pTag,int instData,ChoreKey 
 
 /* ===== msvc.c ===== */
 uint * __cdecl msvc_strncpy(uint *param_1,uint *param_2,uint param_3); /* 0x100055a0 */
-char * __cdecl msvc_strrchr(char *param_1,char param_2); /* 0x100056a0 */
+char * __cdecl msvc_strrchr(char *fileName,char param_2); /* 0x100056a0 */
 void __cdecl msvc_fpmath(void); /* 0x100056d0 */
 void __cdecl msvc_fpclear(void); /* 0x100056f0 */
 void __cdecl msvc_cfltcvt_init(void); /* 0x10005700 */
 int __cdecl msvc_stricmp(byte *a,byte *b); /* 0x10005740 */
-int __cdecl msvc_sscanf(char *param_1,char *param_2,...); /* 0x10005810 */
+int __cdecl msvc_sscanf(char *parseLine,char *param_2,...); /* 0x10005810 */
 undefined4 * msvc_memmove(undefined4 *param_1,undefined4 *param_2,uint param_3); /* 0x10005860 */
-void __cdecl msvc_qsort(uint param_1,uint param_2,uint param_3,void *param_4); /* 0x10005ba0 */
+void __cdecl msvc_qsort(uint pKeys,uint dwNumKeys,uint param_3,void *cos_CompareKeys); /* 0x10005ba0 */
 void __cdecl msvc_shortsort(uint param_1,uint param_2,int param_3,void *param_4); /* 0x10005d50 */
 void __cdecl msvc_qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3); /* 0x10005db0 */
-uint __cdecl msvc_bsearch(uint param_1,uint param_2,uint param_3,int param_4,void *param_5); /* 0x10005de0 */
-uint * __cdecl msvc_strchr(uint *param_1,char param_2); /* 0x10005e90 */
+uint __cdecl msvc_bsearch(uint param_1,uint pKeys,uint dwNumKeys,int param_4,void *cos_CompareKeys); /* 0x10005de0 */
+uint * __cdecl msvc_strchr(uint *buf,char param_2); /* 0x10005e90 */
 undefined4 __stdcall FUN_10005f50(int a1,int a2,int a3); /* 0x10005f50 */
 uint __cdecl msvc_CPtoLCID(uint param_1); /* 0x10008520 */
 

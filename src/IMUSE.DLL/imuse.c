@@ -627,30 +627,30 @@ void __cdecl AudioLib_ResetCompressor(undefined1 *param_1)
    inferred Original name AudioLib_UncompressBlock (the remaster's GrimFandango (Linux): aligned
    call in iRes_FREAD); was Im_ConvertBlock. */
 
-void __cdecl AudioLib_UncompressBlock(byte *param_1,undefined2 *param_2,byte *param_3,uint param_4)
+void __cdecl AudioLib_UncompressBlock(byte *param_1,undefined2 *param_2,byte *local_c,uint param_4)
 
 {
   byte bVar1;
   byte *pbVar2;
   uint uVar3;
   
-  bVar1 = *param_3;
+  bVar1 = *local_c;
   uVar3 = 1;
   *param_1 = bVar1;
   if ((char)bVar1 < '\0') {
     *param_1 = ~bVar1;
     uVar3 = 2;
   }
-  pbVar2 = param_3 + 3;
+  pbVar2 = local_c + 3;
   *(ushort *)(param_1 + 2) =
-       CONCAT11((char)*(undefined2 *)(param_3 + 1),(char)((ushort)*(undefined2 *)(param_3 + 1) >> 8)
+       CONCAT11((char)*(undefined2 *)(local_c + 1),(char)((ushort)*(undefined2 *)(local_c + 1) >> 8)
                );
   if (1 < uVar3) {
     param_1[1] = *pbVar2;
-    pbVar2 = param_3 + 6;
+    pbVar2 = local_c + 6;
     *(ushort *)(param_1 + 4) =
-         CONCAT11((char)*(undefined2 *)(param_3 + 4),
-                  (char)((ushort)*(undefined2 *)(param_3 + 4) >> 8));
+         CONCAT11((char)*(undefined2 *)(local_c + 4),
+                  (char)((ushort)*(undefined2 *)(local_c + 4) >> 8));
   }
   Im_ConvertBlockImpl((short *)param_1,param_2,pbVar2,param_4 / (uVar3 * 2),uVar3,1);
   return;
@@ -976,7 +976,8 @@ DpSwitchStream(int param_1,undefined4 param_2,uint param_3,uint param_4,uint par
 /* Pulls decoded data for one track and mixes it (Im_MixSamples) Original name DpProcessTrack (the
    remaster's GrimFandango (Linux): aligned call in TrIntHandler); was Im_DispatchMixTrack. */
 
-void __cdecl DpProcessTrack(int *param_1,uint param_2,uint param_3)
+void __cdecl
+DpProcessTrack(int *param_1,uint trIntHandler_outFramesNeeded,uint trIntHandler_outSampleRate)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -997,13 +998,13 @@ void __cdecl DpProcessTrack(int *param_1,uint param_2,uint param_3)
   if (piVar1[0x20b] != 0) {
     uVar2 = (uint)(piVar1[0x20d] << 3) / (uint)(piVar1[0x20e] * piVar1[0x210]);
     local_8 = piVar1[0x20f] * param_1[0xc] >> 8;
-    uVar3 = (param_2 * local_8) / param_3;
+    uVar3 = (trIntHandler_outFramesNeeded * local_8) / trIntHandler_outSampleRate;
     if (uVar2 < uVar3) {
-      local_8 = (uVar2 * param_3) / local_8;
+      local_8 = (uVar2 * trIntHandler_outSampleRate) / local_8;
       uVar3 = uVar2;
     }
     else {
-      local_8 = param_2;
+      local_8 = trIntHandler_outFramesNeeded;
     }
     if (uVar3 != 0) {
       uVar2 = uVar3 * piVar1[0x20e] * piVar1[0x210] >> 3;
@@ -1034,16 +1035,16 @@ LAB_10002693:
         if (piVar1[0x211] == 0) {
           return;
         }
-        piVar1[0x212] = piVar1[0x212] + param_2;
+        piVar1[0x212] = piVar1[0x212] + trIntHandler_outFramesNeeded;
         return;
       }
       if (g_dwFadeStartedFlag != 0) {
         uVar2 = (uint)(piVar1[0x20d] << 3) / (uint)(piVar1[0x20e] * piVar1[0x210]);
         uVar6 = piVar1[0x20f] * param_1[0xc] >> 8;
-        uVar3 = (param_2 * uVar6) / param_3;
-        local_8 = param_2;
+        uVar3 = (trIntHandler_outFramesNeeded * uVar6) / trIntHandler_outSampleRate;
+        local_8 = trIntHandler_outFramesNeeded;
         if (uVar2 < uVar3) {
-          local_8 = (uVar2 * param_3) / uVar6;
+          local_8 = (uVar2 * trIntHandler_outSampleRate) / uVar6;
           uVar3 = uVar2;
         }
         uVar2 = uVar3 * piVar1[0x20e] * piVar1[0x210] >> 3;
@@ -1059,15 +1060,15 @@ LAB_10002693:
         }
       }
     }
-    if (param_2 == 0) {
+    if (trIntHandler_outFramesNeeded == 0) {
       return;
     }
     uVar2 = (uint)(piVar1[6] << 3) / (uint)(piVar1[3] * piVar1[1]);
     uVar6 = piVar1[2] * param_1[0xc] >> 8;
-    local_8 = (param_2 * uVar6) / param_3;
-    uVar3 = param_2;
+    local_8 = (trIntHandler_outFramesNeeded * uVar6) / trIntHandler_outSampleRate;
+    uVar3 = trIntHandler_outFramesNeeded;
     if (uVar2 < local_8) {
-      uVar3 = (uVar2 * param_3) / uVar6;
+      uVar3 = (uVar2 * trIntHandler_outSampleRate) / uVar6;
       local_8 = uVar2;
     }
     if (local_8 == 0) {
@@ -1087,7 +1088,7 @@ LAB_10002693:
       if (psVar5 == (short *)0x0) {
         piVar1[0x20a] = 1;
         if ((piVar1[0x20b] != 0) && (piVar1[0x211] != 0)) {
-          piVar1[0x212] = piVar1[0x212] + param_2;
+          piVar1[0x212] = piVar1[0x212] + trIntHandler_outFramesNeeded;
         }
         StQueryStream(piVar1[0x207],(undefined4 *)&g_dwDpProcessTrack_bufSize,
                       (undefined4 *)&g_dwDpProcessTrack_critSize,(int *)&g_dwDpProcessTrack_curLevel
@@ -1110,7 +1111,7 @@ LAB_100028ef:
         }
         uVar3 = uVar3 - uVar7;
         piVar1[0x212] = uVar6 - uVar7;
-        local_8 = ((piVar1[2] * param_1[0xc] >> 8) * uVar3) / param_3;
+        local_8 = ((piVar1[2] * param_1[0xc] >> 8) * uVar3) / trIntHandler_outSampleRate;
         psVar5 = (short *)((int)psVar5 + (uVar2 - (local_8 * piVar1[3] * piVar1[1] >> 3)));
       }
       if (piVar1[0x20b] == 0) goto LAB_100028ef;
@@ -1120,7 +1121,7 @@ LAB_100028ef:
     local_4 = local_4 + uVar3;
     piVar1[5] = piVar1[5] + uVar2;
     piVar1[6] = piVar1[6] - uVar2;
-    param_2 = param_2 - uVar3;
+    trIntHandler_outFramesNeeded = trIntHandler_outFramesNeeded - uVar3;
   } while( true );
 }
 #undef local_4
@@ -1432,7 +1433,7 @@ LAB_10002f3c:
 /* iMUSE_dsound.c Original name DwInitialize (the remaster's GrimFandango (Linux): aligned call in
    TrInitialize); was Im_DSoundInit. */
 
-undefined4 __cdecl DwInitialize(undefined4 param_1,undefined4 *param_2)
+undefined4 __cdecl DwInitialize(undefined4 param_1,undefined4 *trInitialize_waveDriverInfo)
 
 {
   int iVar1;
@@ -1443,10 +1444,10 @@ undefined4 __cdecl DwInitialize(undefined4 param_1,undefined4 *param_2)
   DAT_1002d818 = PTR_1002d830 + 0x600;
   PTR_1002d834 = DAT_100336bc;
   Im_DSoundCreateBuffer(3);
-  *param_2 = 2;
-  param_2[2] = 0x1800;
-  param_2[3] = 0;
-  param_2[1] = PTR_1002d830;
+  *trInitialize_waveDriverInfo = 2;
+  trInitialize_waveDriverInfo[2] = 0x1800;
+  trInitialize_waveDriverInfo[3] = 0;
+  trInitialize_waveDriverInfo[1] = PTR_1002d830;
   piVar2 = PTR_1002d830;
   for (iVar1 = 0xc00; iVar1 != 0; iVar1 = iVar1 + -1) {
     *piVar2 = 0;
@@ -2319,7 +2320,7 @@ Mixer_MxMix(short *param_1,int param_2,int param_3,int param_4,int param_5,uint 
    limiter table (mixBuf, outChannelCount, softLTable) and feeds the recorder (recordState), as the
    remaster's MxEndMix); was Im_ReadSoundData. */
 
-undefined4 __cdecl MxEndMix(int *param_1,int param_2)
+undefined4 __cdecl MxEndMix(int *trIntHandler_outPtr,int trIntHandler_outFramesNeeded)
 
 {
   int *piVar1;
@@ -2328,12 +2329,13 @@ undefined4 __cdecl MxEndMix(int *param_1,int param_2)
   int iVar4;
   int *piVar5;
   
-  if (((g_pMixBuf != (int *)0x0) && (param_1 != (int *)0x0)) && (param_2 != 0)) {
-    piVar5 = param_1;
-    iVar3 = param_2;
+  if (((g_pMixBuf != (int *)0x0) && (trIntHandler_outPtr != (int *)0x0)) &&
+     (trIntHandler_outFramesNeeded != 0)) {
+    piVar5 = trIntHandler_outPtr;
+    iVar3 = trIntHandler_outFramesNeeded;
     piVar1 = g_pMixBuf;
     if (g_dwOutChannelCount == 2) {
-      iVar3 = param_2 << 1;
+      iVar3 = trIntHandler_outFramesNeeded << 1;
     }
     for (; iVar3 != 0; iVar3 = iVar3 + -1) {
       iVar4 = *piVar1 >> 7;
@@ -2348,8 +2350,8 @@ undefined4 __cdecl MxEndMix(int *param_1,int param_2)
       piVar1 = piVar1 + 1;
     }
     if (g_dwRecordState != 0) {
-      piVar5 = param_1;
-      iVar3 = param_2;
+      piVar5 = trIntHandler_outPtr;
+      iVar3 = trIntHandler_outFramesNeeded;
       if (g_dwRecordState == 1) {
         while( true ) {
           iVar3 = iVar3 + -1;
@@ -2384,9 +2386,9 @@ undefined4 __cdecl MxEndMix(int *param_1,int param_2)
         }
       }
       if (g_dwRecordFile != (int *)0x0) {
-        ImFile_Open((char *)param_1,param_2 * 4,1,g_dwRecordFile);
+        ImFile_Open((char *)trIntHandler_outPtr,trIntHandler_outFramesNeeded * 4,1,g_dwRecordFile);
       }
-      g_dwDataSizeInBytes = g_dwDataSizeInBytes + param_2 * 4;
+      g_dwDataSizeInBytes = g_dwDataSizeInBytes + trIntHandler_outFramesNeeded * 4;
     }
     return 0;
   }

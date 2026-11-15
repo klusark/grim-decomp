@@ -231,16 +231,16 @@ undefined4 __cdecl StSpliceStream(undefined4 *param_1,undefined4 param_2,undefin
    Original name UtAddToList (the remaster's GrimFandango (Linux): aligned call in TrRestore,
    TrStartSound); was iMUSE_stream__b760. */
 
-undefined4 __cdecl UtAddToList(int *param_1,int *param_2)
+undefined4 __cdecl UtAddToList(int *trackList,int *param_2)
 
 {
   if (((param_2 != (int *)0x0) && (*param_2 == 0)) && (param_2[1] == 0)) {
-    param_2[1] = *param_1;
-    if ((undefined4 *)*param_1 != (undefined4 *)0x0) {
-      *(undefined4 *)*param_1 = param_2;
+    param_2[1] = *trackList;
+    if ((undefined4 *)*trackList != (undefined4 *)0x0) {
+      *(undefined4 *)*trackList = param_2;
     }
     *param_2 = 0;
-    *param_1 = (int)param_2;
+    *trackList = (int)param_2;
     return 0;
   }
   return 0xfffffffb;

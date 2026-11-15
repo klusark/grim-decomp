@@ -233,10 +233,12 @@ typedef struct AnimPlayer AnimPlayer;
 typedef struct BlockyMotionVector BlockyMotionVector;
 typedef struct CacheRect CacheRect;
 typedef struct ColorFormat ColorFormat;
+typedef struct ControlSymbol ControlSymbol;
 typedef struct CostumeNode CostumeNode;
 typedef struct DDSurfaceDesc DDSurfaceDesc;
 typedef struct DDrawSurfaceRec DDrawSurfaceRec;
 typedef struct DisplayDevice DisplayDevice;
+typedef struct DxErrorName DxErrorName;
 typedef struct FontData FontData;
 typedef struct GrimServices GrimServices;
 typedef struct Lab Lab;
@@ -541,6 +543,18 @@ _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown2c) == 0x2c, "ColorForma
 _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown30) == 0x30, "ColorFormat.dwUnknown30");
 _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown34) == 0x34, "ColorFormat.dwUnknown34");
 _Static_assert(sizeof(ColorFormat) == 0x38, "sizeof ColorFormat");
+/* ControlSymbol: One input control of the engine (keys, mouse and joystick axes), g_aControlSymbols: system.controls maps its name to its index. */
+struct ControlSymbol {  /* 0x10 */
+    uint dwFlags;  /* 0x00: 1 enabled (sputLua_NotifyControlHandlers reports it), 4 a key (else an axis), 8 axis inverted */
+    int nId;  /* 0x04: the key (DirectInput scan code) or axis stdControl_ReadKey / stdControl_ReadAxis takes */
+    uint dwValue;  /* 0x08: an axis's last value reported to system.axisHandler (float bits) */
+    char *pName;  /* 0x0c: KEY_ESCAPE, AXIS_MOUSE_X, ... */
+};
+_Static_assert(__builtin_offsetof(ControlSymbol, dwFlags) == 0x0, "ControlSymbol.dwFlags");
+_Static_assert(__builtin_offsetof(ControlSymbol, nId) == 0x4, "ControlSymbol.nId");
+_Static_assert(__builtin_offsetof(ControlSymbol, dwValue) == 0x8, "ControlSymbol.dwValue");
+_Static_assert(__builtin_offsetof(ControlSymbol, pName) == 0xc, "ControlSymbol.pName");
+_Static_assert(sizeof(ControlSymbol) == 0x10, "sizeof ControlSymbol");
 /* CostumeNode: One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults. */
 struct CostumeNode {  /* 0xb4 */
     uint dwInstance;  /* 0x00: CHORE.DLL costume instance (Cos_CreateCosInstance) */
@@ -709,6 +723,14 @@ _Static_assert(__builtin_offsetof(DisplayDevice, nPrimary) == 0x10c, "DisplayDev
 _Static_assert(__builtin_offsetof(DisplayDevice, nFullscreen) == 0x110, "DisplayDevice.nFullscreen");
 _Static_assert(__builtin_offsetof(DisplayDevice, aGuid) == 0x288, "DisplayDevice.aGuid");
 _Static_assert(sizeof(DisplayDevice) == 0x298, "sizeof DisplayDevice");
+/* DxErrorName: HRESULT and its name (the DirectDraw and Direct3D error tables). */
+struct DxErrorName {  /* 0x8 */
+    uint dwCode;  /* 0x00 */
+    char *pName;  /* 0x04 */
+};
+_Static_assert(__builtin_offsetof(DxErrorName, dwCode) == 0x0, "DxErrorName.dwCode");
+_Static_assert(__builtin_offsetof(DxErrorName, pName) == 0x4, "DxErrorName.pName");
+_Static_assert(sizeof(DxErrorName) == 0x8, "sizeof DxErrorName");
 /* FontData: The header of a locked font (Text_DrawChar): offsets are from the header. */
 struct FontData {  /* 0x30 */
     uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;

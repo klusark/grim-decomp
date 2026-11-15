@@ -163,15 +163,15 @@ LAB_00497bc4:
    GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1 matched
    neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback. */
 
-void __cdecl sputCostume_PuppetHook(int param_1,int param_2,uint param_3)
+void __cdecl sputCostume_PuppetHook(int param_1,int param_2,uint marker)
 
 {
   int iVar1;
   
   if (param_1 != 0) {
     iVar1 = Cos_InstGetUserData(*(int *)(param_1 + 0x18c));
-    sputLua_DoCostumeMarkerCallback(g_pActors + iVar1,param_3);
-    if (param_3 == 0) {
+    sputLua_DoCostumeMarkerCallback(g_pActors + iVar1,marker);
+    if (marker == 0) {
       Res_RemoveReference((ResRef *)(param_1 + 0x54 + param_2 * 0x34));
     }
   }
@@ -367,11 +367,11 @@ uint __cdecl KeyframeAdjuster(int *param_1,uint param_2)
    same handler slot (freer) of the same costume tag registration in sputCostume_Startup); was
    KeyframeComponent_Destroy. */
 
-undefined4 KeyframeFreer(undefined4 param_1,undefined4 param_2,void *param_3)
+undefined4 KeyframeFreer(undefined4 param_1,undefined4 param_2,ResRef *ref)
 
 {
-  Res_RemoveReference(param_3);
-  (*g_pSputCosHS->pFree)(param_3);
+  Res_RemoveReference(ref);
+  (*g_pSputCosHS->pFree)(ref);
   return 1;
 }
 

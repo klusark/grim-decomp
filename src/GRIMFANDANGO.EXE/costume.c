@@ -11,12 +11,12 @@
    (Linux): the only unmatched caller of Chore_FadeIn; 1 matched neighbours agree, 0 disagree); was
    Cos_StartChoreFaded. */
 
-void __cdecl FadeInChore(void *param_1,uint param_2,int param_3)
+void __cdecl FadeInChore(void *cosInst,uint param_2,int param_3)
 
 {
-  Cos_InstPlayChore((int)param_1,param_2,1,0);
-  Cos_InstUpdateChore((int)param_1,param_2,0x46);
-  sputCostume_FadeKeysIn(param_1,param_2,param_3);
+  Cos_InstPlayChore((int)cosInst,param_2,1,0);
+  Cos_InstUpdateChore((int)cosInst,param_2,0x46);
+  sputCostume_FadeKeysIn(cosInst,param_2,param_3);
   return;
 }
 
@@ -26,7 +26,7 @@ void __cdecl FadeInChore(void *param_1,uint param_2,int param_3)
    unmatched callee of sputActor_SetWalkChore; the only unmatched caller of Chore_FadeOut; 2 matched
    neighbours agree, 0 disagree); was Cos_StopChoreFaded. */
 
-undefined * __cdecl FadeOutChore(void *param_1,int param_2,int param_3)
+undefined * __cdecl FadeOutChore(void *cosInst,int param_2,int param_3)
 
 {
   undefined *puVar1;
@@ -34,19 +34,19 @@ undefined * __cdecl FadeOutChore(void *param_1,int param_2,int param_3)
   int iVar3;
   
   if (param_2 == -1) {
-    puVar1 = (undefined *)Cos_InstCountChores((int)param_1);
+    puVar1 = (undefined *)Cos_InstCountChores((int)cosInst);
     iVar3 = 0;
     if (0 < (int)puVar1) {
       do {
-        puVar2 = FadeOutChore(param_1,iVar3,param_3);
+        puVar2 = FadeOutChore(cosInst,iVar3,param_3);
         iVar3 = iVar3 + 1;
       } while (iVar3 < (int)puVar1);
       return puVar2;
     }
   }
   else {
-    sputCostume_FadeKeysOut(param_1,param_2,param_3);
-    puVar1 = (undefined *)Cos_InstStopChore((int)param_1,param_2);
+    sputCostume_FadeKeysOut(cosInst,param_2,param_3);
+    puVar1 = (undefined *)Cos_InstStopChore((int)cosInst,param_2);
   }
   return puVar1;
 }
@@ -500,7 +500,7 @@ void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt)
    (Linux): the only unpaired user of psputCosHS, same body and strings ("Name chore list file...",
    "-- Chore numbering for %s.")); was Costume_SaveChoreListFile. */
 
-uint __cdecl sputCostume_SaveHook(char *param_1,uint *param_2,uint param_3)
+uint __cdecl sputCostume_SaveHook(char *path,uint *param_2,uint param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -518,8 +518,8 @@ uint __cdecl sputCostume_SaveHook(char *param_1,uint *param_2,uint param_3)
   uint uVar12;
   #define acStack_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
-  pcVar3 = strrchr(param_1,'\\');
-  pbVar9 = (byte *)param_1;
+  pcVar3 = strrchr(path,'\\');
+  pbVar9 = (byte *)path;
   if (pcVar3 != (char *)0x0) {
     pbVar9 = (byte *)(pcVar3 + 1);
   }
@@ -527,7 +527,7 @@ uint __cdecl sputCostume_SaveHook(char *param_1,uint *param_2,uint param_3)
   iVar5 = _stricmp(pbVar9,pbVar4);
   if (iVar5 == 0) {
     uVar7 = 0xffffffff;
-    pcVar3 = param_1;
+    pcVar3 = path;
     do {
       pcVar11 = pcVar3;
       if (uVar7 == 0) break;
@@ -562,10 +562,10 @@ uint __cdecl sputCostume_SaveHook(char *param_1,uint *param_2,uint param_3)
   iVar5 = (*g_pSputCosHS->pFopen)(g_szGrimlib_aFilename,&DAT_004dd478);
   if (iVar5 != 0) {
     ppvVar1 = &g_pSputCosHS->pFprintf;
-    pcVar3 = stdFnames_FindMedName(param_1);
+    pcVar3 = stdFnames_FindMedName(path);
     (*(code *)*ppvVar1)(iVar5,s____Chore_numbering_for__s__004ea3d4,pcVar3);
     (*g_pSputCosHS->pFprintf)(iVar5,s_____s_004ea3cc,param_3);
-    stdFnames_CopyShortName(acStack_20,0x20,param_1);
+    stdFnames_CopyShortName(acStack_20,0x20,path);
     iVar6 = Cos_CreateCosInstance(param_2,0);
     uVar7 = Cos_InstCountChores(iVar6);
     uVar10 = 0;

@@ -190,9 +190,9 @@ char * __cdecl grimdemo_DebugPrint(char *fmt,...)
 }
 
 /* ---- 0x00402560  DebugLog_Write ---- */
-void __cdecl DebugLog_Write(char *param_1,uint param_2)
+void __cdecl DebugLog_Write(char *fmt,uint param_2)
 
 {
-  Res_FPrintf(UINT_004f44e0,param_1,param_2);
+  Res_FPrintf(UINT_004f44e0,fmt,param_2);
   return;
 }

@@ -508,7 +508,7 @@ uint __cdecl sputActor_Restore(code *param_1)
           (*param_1)(aiStack_fc,0x40);
           (*param_1)(&iStack_bc,4);
           (*param_1)(&RStack_b8.pData,4);
-          Res_ResolveToSerialNumber(&RStack_b8.nValid);
+          Res_ResolveToSerialNumber(&RStack_b8);
           if (RStack_b8.nValid == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);

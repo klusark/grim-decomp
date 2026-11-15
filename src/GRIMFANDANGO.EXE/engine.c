@@ -43,10 +43,10 @@ void __cdecl Res_FreeAll(void)
    sputResource_LogToFile in both builds (the remaster's is a jump to it); called by
    grimdemo_EnableDebugging); was Engine_OpenResourceLog. */
 
-void __cdecl grimlib_LogResources(uint param_1)
+void __cdecl grimlib_LogResources(uint filename)
 
 {
-  sputResource_LogToFile((char *)param_1);
+  sputResource_LogToFile((char *)filename);
   return;
 }
 
@@ -55,12 +55,12 @@ void __cdecl grimlib_LogResources(uint param_1)
    unmatched caller of Actor_PushCostume; 2 matched neighbours agree, 0 disagree); was
    Engine_PushSelectedActorCostume. */
 
-void __cdecl grimlib_OverrideSelectedActorCostume(int param_1)
+void __cdecl grimlib_OverrideSelectedActorCostume(int flags)
 
 {
   if (g_pSelectedActor != (Actor *)0x0) {
     sputLua_DoCostumeOverrideCallback(g_pSelectedActor,1);
-    sputActor_PushCostume(g_pSelectedActor,(char *)0x0,param_1);
+    sputActor_PushCostume(g_pSelectedActor,(char *)0x0,flags);
   }
   return;
 }
@@ -189,10 +189,10 @@ void __cdecl grimlib_Using3DHardware(uint param_1)
    of sputResource_AddResourcePath in both builds (the remaster's is a jump to it), called with the
    command-line data directory); was Engine_SetExtraDataDir. */
 
-void __cdecl grimlib_AddResourcePath(char *param_1)
+void __cdecl grimlib_AddResourcePath(char *dir)
 
 {
-  sputResource_AddResourcePath(param_1);
+  sputResource_AddResourcePath(dir);
   return;
 }
 
@@ -214,7 +214,7 @@ int __cdecl grimlib_FindSystemFiles(void)
    body (once flag bSputmOpen, sputLua_Boot, grimlib_mode = 2, sputRender_Open, sputControl_Open));
    was Engine_CallSystemFunction. */
 
-uint __cdecl grimlib_Open(int param_1,char *param_2)
+uint __cdecl grimlib_Open(int param_1,char *str)
 
 {
   int iVar1;
@@ -223,7 +223,7 @@ uint __cdecl grimlib_Open(int param_1,char *param_2)
   if (g_dwSputmOpen != 0) {
     return 1;
   }
-  iVar1 = sputLua_Boot(param_1,param_2);
+  iVar1 = sputLua_Boot(param_1,str);
   if (iVar1 == 0) {
     return 1;
   }
@@ -314,12 +314,12 @@ void __cdecl grimlib_SetPause(int paused)
    of sputLua_DoCharacterCallback in both builds (the remaster's is a jump to it), after the pause
    callback in the same grimlib order); was Engine_CallCharacterHandler. */
 
-undefined * __cdecl grimlib_CharacterCallback(int param_1)
+undefined * __cdecl grimlib_CharacterCallback(int ch)
 
 {
   undefined *puVar1;
   
-  puVar1 = (undefined *)sputLua_DoCharacterCallback(param_1);
+  puVar1 = (undefined *)sputLua_DoCharacterCallback(ch);
   return puVar1;
 }
 
@@ -620,7 +620,7 @@ undefined * __cdecl PerfEnd(int param_1)
    of Lua_StartFullscreenMovie; 2 matched neighbours agree, 0 disagree); was
    Engine_BlitToBackBuffer. */
 
-uint __cdecl grimlib_PlayMovie(uint param_1,int param_2,uint param_3,uint param_4,uint param_5)
+uint __cdecl grimlib_PlayMovie(uint param_1,int param_2,uint param_3,uint x,uint y)
 
 {
   uint uVar1;
@@ -633,7 +633,7 @@ uint __cdecl grimlib_PlayMovie(uint param_1,int param_2,uint param_3,uint param_
     surface = &g_dwStdDisplay_frontBuffer;
   }
   sputSmush_SetTarget(surface);
-  uVar1 = sputSmush_StartMovie((char *)param_1,param_3,param_4,param_5);
+  uVar1 = sputSmush_StartMovie((char *)param_1,param_3,x,y);
   if (uVar1 == 0) {
     if (param_2 != 0) {
       g_dwGrimlib_mode = 3;
@@ -885,10 +885,10 @@ void __cdecl Engine_LoadGame(void)
    (the remaster's GrimFandango (Linux): aligned call in sputLua_RenderModeUser); was
    Engine_SetSavedValue. */
 
-void __cdecl SetPrevMode(uint param_1)
+void __cdecl SetPrevMode(uint grimlib_mode)
 
 {
-  g_dwGrimlib_prevmode = param_1;
+  g_dwGrimlib_prevmode = grimlib_mode;
   return;
 }
 

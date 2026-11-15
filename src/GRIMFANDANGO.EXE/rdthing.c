@@ -345,7 +345,7 @@ int __cdecl rdThing_Draw(rdThing *thing,float *frame)
    Multiply34 into the node matrix, recurse into the children not yet done)); was
    rdThing_BuildNodeMatrix. */
 
-void __cdecl rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3)
+void __cdecl rdThing_AccumulateMatrices(int param_1,int param_2,float *a)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -364,7 +364,7 @@ void __cdecl rdThing_AccumulateMatrices(int param_1,int param_2,float *param_3)
     local_3c[2] = -*(float *)(iVar2 + 0x6c);
     rdMatrix_PostTranslate34((int)local_30,local_3c);
   }
-  rdMatrix_Multiply34((float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)),param_3,
+  rdMatrix_Multiply34((float *)(*(int *)(param_2 + 0x44) * 0x30 + *(int *)(param_1 + 0x20)),a,
                       local_30);
   if (*(int *)(param_2 + 0x58) != 0) {
     iVar2 = *(int *)(param_2 + 0x5c);

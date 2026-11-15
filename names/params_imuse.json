@@ -1,0 +1,150 @@
+{
+ "_comment": "Parameter types and names propagated from the calls that pass them on (tools/propagate_params.py, 2026-11-15).",
+ "program": "/v101/IMUSE.DLL",
+ "params": [
+  {
+   "addr": "10001bc0",
+   "index": 2,
+   "type": "byte *",
+   "name": "local_c",
+   "_fn": "AudioLib_UncompressBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "10002570",
+   "index": 1,
+   "type": "uint",
+   "name": "trIntHandler_outFramesNeeded",
+   "_fn": "DpProcessTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "10002570",
+   "index": 2,
+   "type": "uint",
+   "name": "trIntHandler_outSampleRate",
+   "_fn": "DpProcessTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "100036b0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "trInitialize_waveDriverInfo",
+   "_fn": "DwInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b8d0",
+   "index": 1,
+   "type": "char *",
+   "name": "fmt",
+   "_fn": "FUN_1000b8d0",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bb10",
+   "index": 0,
+   "type": "int *",
+   "name": "recordFile",
+   "_fn": "ImFile_Close",
+   "_names_only": true
+  },
+  {
+   "addr": "1000bbc0",
+   "index": 3,
+   "type": "int *",
+   "name": "recordFile",
+   "_fn": "ImFile_Open",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b940",
+   "index": 0,
+   "type": "int *",
+   "name": "recordFile",
+   "_fn": "ImFile_Read",
+   "_names_only": true
+  },
+  {
+   "addr": "10004660",
+   "index": 0,
+   "type": "uint",
+   "name": "heapSize",
+   "_fn": "ImFx_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "10004ec0",
+   "index": 0,
+   "type": "int",
+   "name": "sound",
+   "_fn": "ImSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004ec0",
+   "index": 1,
+   "type": "undefined4",
+   "name": "offset",
+   "_fn": "ImSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004ec0",
+   "index": 2,
+   "type": "uint",
+   "name": "fade",
+   "_fn": "ImSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10004ec0",
+   "index": 3,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "ImSwitchStream",
+   "_names_only": true
+  },
+  {
+   "addr": "10005610",
+   "index": 0,
+   "type": "int *",
+   "name": "trIntHandler_outPtr",
+   "_fn": "MxEndMix",
+   "_names_only": true
+  },
+  {
+   "addr": "10005610",
+   "index": 1,
+   "type": "int",
+   "name": "trIntHandler_outFramesNeeded",
+   "_fn": "MxEndMix",
+   "_names_only": true
+  },
+  {
+   "addr": "1000b760",
+   "index": 0,
+   "type": "int *",
+   "name": "trackList",
+   "_fn": "UtAddToList",
+   "_names_only": true
+  },
+  {
+   "addr": "1000c000",
+   "index": 4,
+   "type": "undefined *",
+   "name": "sounds_CompareRange",
+   "_fn": "bsearch",
+   "_names_only": true
+  },
+  {
+   "addr": "100031d0",
+   "index": 2,
+   "type": "int *",
+   "name": "predictStream_jumpHook",
+   "_fn": "iMUSE_Dispatch__31d0",
+   "_names_only": true
+  }
+ ]
+}

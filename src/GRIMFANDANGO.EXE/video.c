@@ -13,8 +13,8 @@
     */
 
 void __cdecl
-gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param_5,byte *param_6,
-                  byte *param_7)
+gra_BlitRectLookup(LecPixelFormat *pLecPixelFormat,uint *param_2,int param_3,int param_4,int *srcFmt
+                  ,byte *palette,byte *expandTable)
 
 {
   unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -37,12 +37,12 @@ gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param
     param_2 = &local_410;
     local_410 = 0;
     local_40c = 0;
-    local_408 = param_1[1];
-    local_404 = param_1[2];
+    local_408 = *(uint *)&pLecPixelFormat->field_0x4;
+    local_404 = *(uint *)&pLecPixelFormat->field_0x8;
   }
   local_420 = 0;
-  local_41c = param_5[1];
-  local_418 = param_5[2];
+  local_41c = srcFmt[1];
+  local_418 = srcFmt[2];
   uVar2 = *param_2 - param_3;
   if (0 < (int)uVar2) {
     local_41c = local_41c - uVar2;
@@ -64,30 +64,34 @@ gra_BlitRectLookup(int *param_1,uint *param_2,int param_3,int param_4,int *param
     local_418 = iVar3 - param_4;
   }
   if ((0 < (int)local_41c) && (0 < (int)local_418)) {
-    dst = (byte *)(param_3 * param_1[3] + param_4 * param_1[5] + *param_1);
-    src = (byte *)(iVar1 * param_5[5] + local_420 * param_5[3] + *param_5);
-    if (((param_5[4] == param_1[4]) && (iVar1 = param_5[8], iVar1 == param_1[8])) &&
+    dst = (byte *)(param_3 * pLecPixelFormat->nBytesPerPixel +
+                   param_4 * *(uint *)&pLecPixelFormat->field_0x14 + *(int *)pLecPixelFormat);
+    src = (byte *)(iVar1 * srcFmt[5] + local_420 * srcFmt[3] + *srcFmt);
+    if (((srcFmt[4] == *(int *)&pLecPixelFormat->field_0x10) &&
+        (iVar1 = srcFmt[8], iVar1 == pLecPixelFormat->nColorMode)) &&
        (((iVar1 != 1 && (iVar1 != 2)) ||
-        ((param_5[0xc] == param_1[0xc] &&
-         ((param_5[0xd] == param_1[0xd] && (param_5[0xe] == param_1[0xe])))))))) {
-      ((code *)Video_CopyRectDstFirst)(dst,src,0,0,0,0,local_41c * param_1[3],local_418,param_1[5],param_5[5])
-      ;
+        ((srcFmt[0xc] == pLecPixelFormat->nRedShift &&
+         ((srcFmt[0xd] == pLecPixelFormat->nGreenShift &&
+          (srcFmt[0xe] == pLecPixelFormat->nBlueShift)))))))) {
+      Video_CopyRectDstFirst
+                (dst,src,0,0,0,0,local_41c * pLecPixelFormat->nBytesPerPixel,local_418,
+                 *(uint *)&pLecPixelFormat->field_0x14,srcFmt[5]);
       return;
     }
     local_420 = local_418;
-    if ((param_7 == (byte *)0x0) && (param_5[3] == 1)) {
-      gra_ConvertMakeLookup((int)param_5,param_1,local_400,param_6);
-      param_7 = local_400;
+    if ((expandTable == (byte *)0x0) && (srcFmt[3] == 1)) {
+      gra_ConvertMakeLookup((int)srcFmt,pLecPixelFormat,local_400,palette);
+      expandTable = local_400;
     }
     do {
       local_420 = local_420 - 1;
-      iVar1 = gra_ConvertCopy(src,(LecPixelFormat *)param_5,local_41c,param_6,dst,
-                              (LecPixelFormat *)param_1,param_7);
+      iVar1 = gra_ConvertCopy(src,(LecPixelFormat *)srcFmt,local_41c,palette,dst,pLecPixelFormat,
+                              expandTable);
       if (iVar1 != 0) {
         return;
       }
-      src = src + param_5[5];
-      dst = dst + param_1[5];
+      src = src + srcFmt[5];
+      dst = dst + *(int *)&pLecPixelFormat->field_0x14;
     } while (local_420 != 0);
   }
   return;

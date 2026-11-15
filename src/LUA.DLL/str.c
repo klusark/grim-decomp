@@ -75,11 +75,11 @@ void __cdecl addnchar(uint *param_1,uint param_2)
 void closeandpush(void)
 
 {
-  byte *pbVar1;
+  byte *str;
   
   luaL_addchar(0);
-  pbVar1 = (byte *)luaL_buffer();
-  lua_pushstring(pbVar1);
+  str = (byte *)luaL_buffer();
+  lua_pushstring(str);
   return;
 }
 
@@ -513,26 +513,26 @@ void __cdecl push_captures(int *ms)
 
 {
   uint uVar1;
-  uint *puVar2;
-  int *piVar3;
-  int iVar4;
+  uint *str;
+  int *piVar2;
+  int iVar3;
   int *in_stack_00000008;
   
-  iVar4 = 0;
+  iVar3 = 0;
   if (0 < *ms) {
-    piVar3 = ms + 1;
+    piVar2 = ms + 1;
     do {
-      uVar1 = piVar3[1];
-      puVar2 = (uint *)luaL_openspace(uVar1 + 1);
+      uVar1 = piVar2[1];
+      str = (uint *)luaL_openspace(uVar1 + 1);
       if (uVar1 == 0xffffffff) {
         lua_error((byte *)s_unfinished_capture_100279d0);
       }
-      strncpy(puVar2,(uint *)*piVar3,uVar1);
-      *(undefined1 *)((int)puVar2 + uVar1) = 0;
-      lua_pushstring((byte *)puVar2);
-      iVar4 = iVar4 + 1;
-      piVar3 = piVar3 + 2;
-    } while (iVar4 < *in_stack_00000008);
+      strncpy(str,(uint *)*piVar2,uVar1);
+      *(undefined1 *)((int)str + uVar1) = 0;
+      lua_pushstring((byte *)str);
+      iVar3 = iVar3 + 1;
+      piVar2 = piVar2 + 2;
+    } while (iVar3 < *in_stack_00000008);
   }
   return;
 }
@@ -822,7 +822,7 @@ LAB_1000a291:
    %n captures or a function called with push_captures; error "string or function expected"); was
    str_add_value. */
 
-void __cdecl add_s(int param_1,int *param_2)
+void __cdecl add_s(int param_1,int *ms)
 
 {
   char cVar1;
@@ -838,7 +838,7 @@ void __cdecl add_s(int param_1,int *param_2)
     iVar2 = lua_isfunction(param_1);
     if (iVar2 != 0) {
       lua_beginblock();
-      push_captures(param_2);
+      push_captures(ms);
       iVar2 = luaL_newbuffer(0);
       iVar5 = lua_callfunction(param_1);
       luaL_oldbuffer(iVar2);
@@ -876,8 +876,8 @@ void __cdecl add_s(int param_1,int *param_2)
           pcVar7 = pcVar3 + 1;
           if (uVar4 == 0) goto LAB_1000a36b;
           pcVar3 = pcVar3 + 2;
-          iVar2 = check_cap((int)*pcVar7,param_2);
-          addnchar((uint *)param_2[iVar2 * 2 + 1],param_2[iVar2 * 2 + 2]);
+          iVar2 = check_cap((int)*pcVar7,ms);
+          addnchar((uint *)ms[iVar2 * 2 + 1],ms[iVar2 * 2 + 2]);
         }
         else {
 LAB_1000a36b:

@@ -57,12 +57,12 @@ void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3)
 /* Original name stdFileWrite (the remaster's GrimFandango (Linux): the std.c host file service
    after stdFileRead; fwrite wrapper in both builds); was stdFile_Write. */
 
-uint __cdecl stdFileWrite(uint param_1,uint param_2,uint param_3)
+uint __cdecl stdFileWrite(uint fh,uint param_2,uint param_3)
 
 {
   uint uVar1;
   
-  uVar1 = fwrite(param_2,1,param_3,param_1);
+  uVar1 = fwrite(param_2,1,param_3,fh);
   return uVar1;
 }
 

@@ -1,0 +1,88 @@
+{
+ "_comment": "Tables in the EXE's data that were untyped bytes (2026-11-15): the control symbols, the DirectX error names, the text table of Text_WrapLines, the C runtime's _ctype and zlib's static literal tree.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "ControlSymbol",
+   "size": 16,
+   "comment": "One input control of the engine (keys, mouse and joystick axes), g_aControlSymbols: system.controls maps its name to its index.",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwFlags",
+     "1 enabled (sputLua_NotifyControlHandlers reports it), 4 a key (else an axis), 8 axis inverted"
+    ],
+    [
+     4,
+     "int",
+     "nId",
+     "the key (DirectInput scan code) or axis stdControl_ReadKey / stdControl_ReadAxis takes"
+    ],
+    [
+     8,
+     "uint",
+     "dwValue",
+     "an axis's last value reported to system.axisHandler (float bits)"
+    ],
+    [
+     12,
+     "char *",
+     "pName",
+     "KEY_ESCAPE, AXIS_MOUSE_X, ..."
+    ]
+   ]
+  },
+  {
+   "name": "DxErrorName",
+   "size": 8,
+   "comment": "HRESULT and its name (the DirectDraw and Direct3D error tables).",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwCode",
+     ""
+    ],
+    [
+     4,
+     "char *",
+     "pName",
+     ""
+    ]
+   ]
+  }
+ ],
+ "globals": [
+  {
+   "addr": "004e87c8",
+   "type": "ControlSymbol[167]",
+   "_g": "g_aControlSymbols (was g_dwSputControl_aControlSymbols; g_nSputControl_numControlSymbols = 167 follows)"
+  },
+  {
+   "addr": "004dee68",
+   "type": "DxErrorName[121]",
+   "_g": "g_aD3DErrorNames"
+  },
+  {
+   "addr": "004ddee8",
+   "type": "DxErrorName[93]",
+   "_g": "g_aDDErrorNames"
+  },
+  {
+   "addr": "004eca04",
+   "type": "uint[385]",
+   "_g": "UINT_004eca04 (Text_WrapLines copies it)"
+  },
+  {
+   "addr": "004ed32a",
+   "type": "ushort[257]",
+   "_g": "_ctype (the C runtime's character classes)"
+  },
+  {
+   "addr": "004d9e50",
+   "type": "ushort[576]",
+   "_g": "static_ltree (zlib 1.1.3: 288 ct_data {freq/code, dad/len})"
+  }
+ ]
+}

@@ -31,7 +31,7 @@ int __cdecl SmushPlay_GetMovieTime(void)
    ...), sets fSmushPlaySysInitialized, fills the module interface {Initialize, Terminate, Startup,
    Shutdown}); was Insane_RegisterFilio. */
 
-uint __cdecl SmushPlay_SysInitialize(uint param_1,undefined4 *param_2)
+uint __cdecl SmushPlay_SysInitialize(uint param_1,undefined4 *smushPlayMS)
 
 {
   uint uVar1;
@@ -45,15 +45,15 @@ uint __cdecl SmushPlay_SysInitialize(uint param_1,undefined4 *param_2)
       return 1;
     }
     g_dwSmushPlaySysInitialized = 1;
-    if (param_2 != (undefined4 *)0x0) {
-      *param_2 = SmushPlay_SysInitialize;
-      param_2[1] = SmushPlay_SysTerminate;
-      param_2[2] = SmushPlay_SysStartup;
-      param_2[3] = SmushPlay_SysShutdown;
-      param_2[4] = 0;
-      param_2[5] = 0;
-      param_2[6] = 0;
-      param_2[7] = 0;
+    if (smushPlayMS != (undefined4 *)0x0) {
+      *smushPlayMS = SmushPlay_SysInitialize;
+      smushPlayMS[1] = SmushPlay_SysTerminate;
+      smushPlayMS[2] = SmushPlay_SysStartup;
+      smushPlayMS[3] = SmushPlay_SysShutdown;
+      smushPlayMS[4] = 0;
+      smushPlayMS[5] = 0;
+      smushPlayMS[6] = 0;
+      smushPlayMS[7] = 0;
     }
     uVar1 = 0;
   }
@@ -129,7 +129,7 @@ void __cdecl SmushPlay_SysShutdown(void)
    SmushPlay_SysSetVideoCallbacks (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Initialize); was Insane_SetOutputParams. */
 
-void __cdecl SmushPlay_SysSetVideoCallbacks(uint *param_1)
+void __cdecl SmushPlay_SysSetVideoCallbacks(uint *sputVideoCallBacks)
 
 {
   int iVar1;
@@ -137,8 +137,8 @@ void __cdecl SmushPlay_SysSetVideoCallbacks(uint *param_1)
   
   puVar2 = &g_dwVideoCallbacks;
   for (iVar1 = 6; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = *param_1;
-    param_1 = param_1 + 1;
+    *puVar2 = *sputVideoCallBacks;
+    sputVideoCallBacks = sputVideoCallBacks + 1;
     puVar2 = puVar2 + 1;
   }
   return;
@@ -184,7 +184,7 @@ uint __cdecl smushplay_GetInfo(int param_1,int param_2)
 /* Validates the frame against the output size and chooses the blit mode bits in g_dwInsaneBlitFlags
     */
 
-uint __cdecl Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
+uint __cdecl Insane_PrepareFrame(int *param_1,undefined4 *smush_pInternalBitmap,uint *param_3)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -203,7 +203,7 @@ uint __cdecl Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
-  if ((param_1 != (int *)0x0) && (param_2 != (undefined4 *)0x0)) {
+  if ((param_1 != (int *)0x0) && (smush_pInternalBitmap != (undefined4 *)0x0)) {
     _DAT_008d16c0 = 0;
     if ((_g_bMovieFlags & 1) != 0) {
       _g_bMovieFlags = _g_bMovieFlags & 0xfffffff9;
@@ -239,10 +239,10 @@ uint __cdecl Insane_PrepareFrame(int *param_1,undefined4 *param_2,uint *param_3)
       iVar4 = (uVar1 + param_3[3]) - uVar10;
     }
     iVar4 = iVar4 / iVar9;
-    iVar2 = param_2[5];
-    iVar5 = (iVar7 / iVar6) * param_2[3];
+    iVar2 = smush_pInternalBitmap[5];
+    iVar5 = (iVar7 / iVar6) * smush_pInternalBitmap[3];
     iVar7 = param_1[5];
-    puVar3 = (ushort *)*param_2;
+    puVar3 = (ushort *)*smush_pInternalBitmap;
     puVar8 = (undefined4 *)(param_1[3] * uVar11 * iVar6 + uVar10 * iVar9 * iVar7 + *param_1);
     if ((_g_bMovieFlags & 4) == 0) {
       if ((_g_bMovieFlags & 2) == 0) {

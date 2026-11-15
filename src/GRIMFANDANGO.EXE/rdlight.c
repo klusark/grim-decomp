@@ -176,8 +176,8 @@ LAB_0045173f:
 
 float __cdecl
 rdLight_CalcFaceIntensity
-          (int *param_1,int param_2,uint param_3,uint param_4,int param_5,float *param_6,int param_7
-          ,float param_8)
+          (int *param_1,int param_2,uint param_3,uint numMeshLights,int param_5,float *param_6,
+          int param_7,float param_8)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -192,7 +192,7 @@ rdLight_CalcFaceIntensity
   
   uVar4 = 0;
   local_10 = 0.0f;
-  if (param_4 != 0) {
+  if (numMeshLights != 0) {
     pfVar5 = (float *)(param_2 + 8);
     do {
       iVar1 = *param_1;
@@ -216,7 +216,7 @@ rdLight_CalcFaceIntensity
       uVar4 = uVar4 + 1;
       param_1 = param_1 + 1;
       pfVar5 = pfVar5 + 3;
-    } while (uVar4 < param_4);
+    } while (uVar4 < numMeshLights);
   }
   return local_10;
 }

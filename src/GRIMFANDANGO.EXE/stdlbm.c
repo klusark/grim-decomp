@@ -9,7 +9,7 @@
 /* stdLoadImageData loader for '.lbm' (IFF PBM: FORM, BMHD, BODY chunks; allocation string
    Stdlbm.c). */
 
-stdBitmap * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
+stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
 
 {
   unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -46,7 +46,7 @@ stdBitmap * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
   #define uStack_54 (*(uint *)(_frame + (0xb0 - 0x54)))
   #define VStack_4c (*(VBufferFormat *)(_frame + (0xb0 - 0x4c)))
   
-  uVar6 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddb18);
+  uVar6 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
   if (uVar6 == 0) {
     return (stdBitmap *)0x0;
   }
@@ -123,7 +123,7 @@ stdBitmap * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
       }
       uStack_7c = Std_Swap32(uStack_7c);
       uVar7 = 0x1f;
-      puVar9 = (uint *)stdFileFromPath(param_1);
+      puVar9 = (uint *)stdFileFromPath(path);
       strncpy((uint *)bitmap,puVar9,uVar7);
       bitmap->aName[0x1f] = '\0';
       bitmap->nType = 0;
@@ -146,7 +146,7 @@ stdBitmap * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
         VStack_4c.nHeight = (int)uStack_72;
         VStack_4c.colorFormat.nColorMode = 0;
         VStack_4c.colorFormat.nBpp = 8;
-        pVVar11 = stdDisplay_VBufferNew(&VStack_4c,param_2,param_3,0);
+        pVVar11 = stdDisplay_VBufferNew(&VStack_4c,videoMem,b,0);
         *bitmap->ppFrames = pVVar11;
         if (*bitmap->ppFrames != (VBuffer *)0x0) {
           stdDisplay_VBufferLock(*bitmap->ppFrames);
@@ -264,7 +264,7 @@ stdBitmap * __cdecl stdLbm_Load(char *param_1,int param_2,int param_3)
 
 
 /* ---- 0x0047f720  stdLbm_Write ---- */
-uint __cdecl stdLbm_Write(uint param_1,int param_2)
+uint __cdecl stdLbm_Write(uint filename,int bitmap)
 
 {
   unsigned char _frame[0x800] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -290,7 +290,7 @@ uint __cdecl stdLbm_Write(uint param_1,int param_2)
   #define iStack_7d4 (*(int *)(_frame + (0x800 - 0x7d4)))
   #define acStack_7d0 (*(char (*)[2000])(_frame + (0x800 - 0x7d0)))
   
-  uVar2 = (*g_pStd_HS->pFopen)(param_1,&DAT_004ddd78);
+  uVar2 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
   if (uVar2 == 0) {
     return 0;
   }
@@ -302,23 +302,23 @@ uint __cdecl stdLbm_Write(uint param_1,int param_2)
   (*g_pStd_HS->pFwrite)(uVar2,&DAT_004e7920,4);
   uStack_7ec = Std_Swap32(0x300);
   (*g_pStd_HS->pFwrite)(uVar2,&uStack_7ec,4);
-  (*g_pStd_HS->pFwrite)(uVar2,*(undefined4 *)(param_2 + 0x60),0x300);
+  (*g_pStd_HS->pFwrite)(uVar2,*(undefined4 *)(bitmap + 0x60),0x300);
   iStack_7d4 = (*g_pStd_HS->pFtell)(uVar2);
   (*g_pStd_HS->pFwrite)(uVar2,s_BODYxxxx_004e7914,8);
-  stdDisplay_VBufferLock((VBuffer *)**(undefined4 **)(param_2 + 0x78));
+  stdDisplay_VBufferLock((VBuffer *)**(undefined4 **)(bitmap + 0x78));
   uVar5 = 0;
-  iVar4 = **(int **)(param_2 + 0x78);
+  iVar4 = **(int **)(bitmap + 0x78);
   puVar6 = *(undefined1 **)(iVar4 + 0x5c);
   if (*(int *)(iVar4 + 0x10) != 0) {
     iVar4 = *(int *)(iVar4 + 0xc);
     do {
       stdLbm_PackBits(uVar2,puVar6,iVar4,acStack_7d0);
-      iVar4 = *(int *)(**(int **)(param_2 + 0x78) + 0xc);
+      iVar4 = *(int *)(**(int **)(bitmap + 0x78) + 0xc);
       puVar6 = puVar6 + iVar4;
       uVar5 = uVar5 + 1;
-    } while (uVar5 < *(uint *)(**(int **)(param_2 + 0x78) + 0x10));
+    } while (uVar5 < *(uint *)(**(int **)(bitmap + 0x78) + 0x10));
   }
-  stdDisplay_VBufferUnlock((VBuffer *)**(undefined4 **)(param_2 + 0x78));
+  stdDisplay_VBufferUnlock((VBuffer *)**(undefined4 **)(bitmap + 0x78));
   iVar3 = (*g_pStd_HS->pFtell)(uVar2);
   iVar4 = iStack_7d4;
   uStack_7ec = iVar3 + (-8 - iStack_7d4);
@@ -329,7 +329,7 @@ uint __cdecl stdLbm_Write(uint param_1,int param_2)
   iVar4 = (*g_pStd_HS->pFtell)(uVar2);
   uStack_7ec = iVar4 - 8;
   uStack_7ec = Std_Swap32(uStack_7ec);
-  piVar1 = *(int **)(param_2 + 0x78);
+  piVar1 = *(int **)(bitmap + 0x78);
   uStack_7e8 = *(undefined2 *)(*piVar1 + 0xc);
   uStack_7e6 = *(undefined2 *)(*piVar1 + 0x10);
   uStack_7e4 = 0;

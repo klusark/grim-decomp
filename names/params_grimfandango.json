@@ -1,0 +1,1843 @@
+{
+ "_comment": "Parameter types and names propagated from the calls that pass them on (tools/propagate_params.py, 2026-11-15).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "params": [
+  {
+   "addr": "00496340",
+   "index": 2,
+   "type": "ResRef *",
+   "name": "ref",
+   "_fn": "BitmapFreer"
+  },
+  {
+   "addr": "00496580",
+   "index": 2,
+   "type": "ResRef *",
+   "name": "ref",
+   "_fn": "ColormapFreer"
+  },
+  {
+   "addr": "004c25c0",
+   "index": 0,
+   "type": "AnimPlayer *",
+   "name": "p",
+   "_fn": "FUN_004c25c0"
+  },
+  {
+   "addr": "004980b0",
+   "index": 2,
+   "type": "ResRef *",
+   "name": "ref",
+   "_fn": "KeyframeFreer"
+  },
+  {
+   "addr": "00482220",
+   "index": 0,
+   "type": "ResRef *",
+   "name": "ref",
+   "_fn": "Res_ResolveToSerialNumber"
+  },
+  {
+   "addr": "00496d10",
+   "index": 2,
+   "type": "ResRef *",
+   "name": "ref",
+   "_fn": "ThingFreer"
+  },
+  {
+   "addr": "004cea30",
+   "index": 0,
+   "type": "LecPixelFormat *",
+   "name": "pLecPixelFormat",
+   "_fn": "gra_BlitRectLookup"
+  },
+  {
+   "addr": "004ced70",
+   "index": 1,
+   "type": "LecPixelFormat *",
+   "name": "fmt",
+   "_fn": "gra_ConvertMakeLookup"
+  },
+  {
+   "addr": "004c0770",
+   "index": 1,
+   "type": "rdKeyframe *",
+   "name": "keyframe",
+   "_fn": "rdKeyframe_LoadEntry"
+  },
+  {
+   "addr": "00479a70",
+   "index": 0,
+   "type": "Std3DTexture *",
+   "name": "texture",
+   "_fn": "std3D_UpdateFrameCount"
+  },
+  {
+   "addr": "004ab210",
+   "index": 1,
+   "type": "FontData *",
+   "name": "font",
+   "_fn": "text_FindNextBreak"
+  },
+  {
+   "addr": "004cd300",
+   "index": 0,
+   "type": "void *",
+   "name": "dst",
+   "_fn": "Blocky16_DecodeHalfRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004cd300",
+   "index": 1,
+   "type": "ushort *",
+   "name": "src",
+   "_fn": "Blocky16_DecodeHalfRows16",
+   "_names_only": true
+  },
+  {
+   "addr": "004cd450",
+   "index": 0,
+   "type": "void *",
+   "name": "dst",
+   "_fn": "Blocky16_DecodeHalfRows8",
+   "_names_only": true
+  },
+  {
+   "addr": "004cd450",
+   "index": 1,
+   "type": "byte *",
+   "name": "src",
+   "_fn": "Blocky16_DecodeHalfRows8",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc620",
+   "index": 0,
+   "type": "void *",
+   "name": "dst",
+   "_fn": "Blocky16_flobdec_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc620",
+   "index": 1,
+   "type": "uint *",
+   "name": "clip",
+   "_fn": "Blocky16_flobdec_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc620",
+   "index": 2,
+   "type": "int",
+   "name": "x",
+   "_fn": "Blocky16_flobdec_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc620",
+   "index": 3,
+   "type": "int",
+   "name": "y",
+   "_fn": "Blocky16_flobdec_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc620",
+   "index": 4,
+   "type": "int",
+   "name": "palette",
+   "_fn": "Blocky16_flobdec_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc620",
+   "index": 5,
+   "type": "byte *",
+   "name": "hdr",
+   "_fn": "Blocky16_flobdec_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "004cc620",
+   "index": 7,
+   "type": "byte",
+   "name": "flags",
+   "_fn": "Blocky16_flobdec_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "00402290",
+   "index": 0,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "ChoreFace_OnCommand",
+   "_names_only": true
+  },
+  {
+   "addr": "00479cc0",
+   "index": 0,
+   "type": "uint *",
+   "name": "srcRect",
+   "_fn": "D3D_SetViewportRect",
+   "_names_only": true
+  },
+  {
+   "addr": "00476cd0",
+   "index": 1,
+   "type": "uint",
+   "name": "color",
+   "_fn": "DDraw_FillSurface",
+   "_names_only": true
+  },
+  {
+   "addr": "00476cd0",
+   "index": 2,
+   "type": "uint *",
+   "name": "rect",
+   "_fn": "DDraw_FillSurface",
+   "_names_only": true
+  },
+  {
+   "addr": "00402560",
+   "index": 0,
+   "type": "char *",
+   "name": "fmt",
+   "_fn": "DebugLog_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "004c3c00",
+   "index": 1,
+   "type": "uint",
+   "name": "fmt",
+   "_fn": "FUN_004c3c00",
+   "_names_only": true
+  },
+  {
+   "addr": "004c3c90",
+   "index": 2,
+   "type": "void *",
+   "name": "dst",
+   "_fn": "FUN_004c3c90",
+   "_names_only": true
+  },
+  {
+   "addr": "004c3d90",
+   "index": 0,
+   "type": "int",
+   "name": "p",
+   "_fn": "FUN_004c3d90",
+   "_names_only": true
+  },
+  {
+   "addr": "00493410",
+   "index": 0,
+   "type": "void *",
+   "name": "cosInst",
+   "_fn": "FadeInChore",
+   "_names_only": true
+  },
+  {
+   "addr": "00493450",
+   "index": 0,
+   "type": "void *",
+   "name": "cosInst",
+   "_fn": "FadeOutChore",
+   "_names_only": true
+  },
+  {
+   "addr": "004925c0",
+   "index": 4,
+   "type": "float *",
+   "name": "vec",
+   "_fn": "FindObjectCorners",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab570",
+   "index": 0,
+   "type": "int",
+   "name": "ctx",
+   "_fn": "Font_GlyphWidth",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab570",
+   "index": 2,
+   "type": "uint",
+   "name": "ch",
+   "_fn": "Font_GlyphWidth",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab910",
+   "index": 0,
+   "type": "int",
+   "name": "fmt",
+   "_fn": "Glyph_Blit16",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab910",
+   "index": 1,
+   "type": "uint",
+   "name": "font",
+   "_fn": "Glyph_Blit16",
+   "_names_only": true
+  },
+  {
+   "addr": "004abae0",
+   "index": 0,
+   "type": "int",
+   "name": "fmt",
+   "_fn": "Glyph_Blit16Clipped",
+   "_names_only": true
+  },
+  {
+   "addr": "004abae0",
+   "index": 1,
+   "type": "uint",
+   "name": "font",
+   "_fn": "Glyph_Blit16Clipped",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab9d0",
+   "index": 0,
+   "type": "int",
+   "name": "fmt",
+   "_fn": "Glyph_Blit8",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab9d0",
+   "index": 1,
+   "type": "int",
+   "name": "font",
+   "_fn": "Glyph_Blit8",
+   "_names_only": true
+  },
+  {
+   "addr": "004abc80",
+   "index": 0,
+   "type": "int",
+   "name": "fmt",
+   "_fn": "Glyph_Blit8Clipped",
+   "_names_only": true
+  },
+  {
+   "addr": "004abc80",
+   "index": 1,
+   "type": "int",
+   "name": "font",
+   "_fn": "Glyph_Blit8Clipped",
+   "_names_only": true
+  },
+  {
+   "addr": "00477680",
+   "index": 0,
+   "type": "uint",
+   "name": "axis",
+   "_fn": "Input_MarkAxisUsed",
+   "_names_only": true
+  },
+  {
+   "addr": "004bdb00",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "smush_pInternalBitmap",
+   "_fn": "Insane_PrepareFrame",
+   "_names_only": true
+  },
+  {
+   "addr": "004813c0",
+   "index": 0,
+   "type": "int *",
+   "name": "item",
+   "_fn": "Lab_Unlink",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf930",
+   "index": 1,
+   "type": "float *",
+   "name": "outAngles",
+   "_fn": "LightEd_GetLightAngles",
+   "_names_only": true
+  },
+  {
+   "addr": "004be730",
+   "index": 0,
+   "type": "int",
+   "name": "lightEdSet",
+   "_fn": "LightEd_MakeUniqueName",
+   "_names_only": true
+  },
+  {
+   "addr": "004be730",
+   "index": 1,
+   "type": "char *",
+   "name": "buf",
+   "_fn": "LightEd_MakeUniqueName",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf7d0",
+   "index": 0,
+   "type": "int",
+   "name": "lightEdSelected",
+   "_fn": "LightEd_SetLightAngle",
+   "_names_only": true
+  },
+  {
+   "addr": "004bf760",
+   "index": 0,
+   "type": "int",
+   "name": "lightEdSelected",
+   "_fn": "LightEd_SetLightPosComponent",
+   "_names_only": true
+  },
+  {
+   "addr": "004012b0",
+   "index": 0,
+   "type": "char *",
+   "name": "cmdline",
+   "_fn": "Main_Startup",
+   "_names_only": true
+  },
+  {
+   "addr": "0044fe50",
+   "index": 0,
+   "type": "float *",
+   "name": "m",
+   "_fn": "Matrix_BuildTransform",
+   "_names_only": true
+  },
+  {
+   "addr": "004d38a0",
+   "index": 0,
+   "type": "short *",
+   "name": "data",
+   "_fn": "Mixer_Mix16Mono",
+   "_names_only": true
+  },
+  {
+   "addr": "004d38a0",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Mixer_Mix16Mono",
+   "_names_only": true
+  },
+  {
+   "addr": "004d38a0",
+   "index": 2,
+   "type": "uint",
+   "name": "outFrames",
+   "_fn": "Mixer_Mix16Mono",
+   "_names_only": true
+  },
+  {
+   "addr": "004d38a0",
+   "index": 3,
+   "type": "int",
+   "name": "accumOffset",
+   "_fn": "Mixer_Mix16Mono",
+   "_names_only": true
+  },
+  {
+   "addr": "004d36e0",
+   "index": 0,
+   "type": "short *",
+   "name": "data",
+   "_fn": "Mixer_Mix16MonoLR",
+   "_names_only": true
+  },
+  {
+   "addr": "004d36e0",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Mixer_Mix16MonoLR",
+   "_names_only": true
+  },
+  {
+   "addr": "004d36e0",
+   "index": 2,
+   "type": "uint",
+   "name": "outFrames",
+   "_fn": "Mixer_Mix16MonoLR",
+   "_names_only": true
+  },
+  {
+   "addr": "004d36e0",
+   "index": 3,
+   "type": "int",
+   "name": "accumOffset",
+   "_fn": "Mixer_Mix16MonoLR",
+   "_names_only": true
+  },
+  {
+   "addr": "004d36e0",
+   "index": 4,
+   "type": "int",
+   "name": "volL",
+   "_fn": "Mixer_Mix16MonoLR",
+   "_names_only": true
+  },
+  {
+   "addr": "004d34a0",
+   "index": 0,
+   "type": "byte *",
+   "name": "data",
+   "_fn": "Mixer_Mix8Mono",
+   "_names_only": true
+  },
+  {
+   "addr": "004d34a0",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Mixer_Mix8Mono",
+   "_names_only": true
+  },
+  {
+   "addr": "004d34a0",
+   "index": 2,
+   "type": "uint",
+   "name": "outFrames",
+   "_fn": "Mixer_Mix8Mono",
+   "_names_only": true
+  },
+  {
+   "addr": "004d34a0",
+   "index": 3,
+   "type": "int",
+   "name": "accumOffset",
+   "_fn": "Mixer_Mix8Mono",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3a60",
+   "index": 0,
+   "type": "ushort *",
+   "name": "data",
+   "_fn": "Mixer_MixStereoLR_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3a60",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Mixer_MixStereoLR_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3a60",
+   "index": 2,
+   "type": "uint",
+   "name": "outFrames",
+   "_fn": "Mixer_MixStereoLR_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3a60",
+   "index": 3,
+   "type": "uint",
+   "name": "accumOffset",
+   "_fn": "Mixer_MixStereoLR_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3a60",
+   "index": 4,
+   "type": "int",
+   "name": "volL",
+   "_fn": "Mixer_MixStereoLR_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3e60",
+   "index": 0,
+   "type": "ushort *",
+   "name": "data",
+   "_fn": "Mixer_MixStereoLR_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3e60",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Mixer_MixStereoLR_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3e60",
+   "index": 2,
+   "type": "uint",
+   "name": "outFrames",
+   "_fn": "Mixer_MixStereoLR_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3e60",
+   "index": 3,
+   "type": "uint",
+   "name": "accumOffset",
+   "_fn": "Mixer_MixStereoLR_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3e60",
+   "index": 4,
+   "type": "int",
+   "name": "volL",
+   "_fn": "Mixer_MixStereoLR_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3c40",
+   "index": 0,
+   "type": "ushort *",
+   "name": "data",
+   "_fn": "Mixer_MixStereo_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3c40",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Mixer_MixStereo_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3c40",
+   "index": 2,
+   "type": "uint",
+   "name": "outFrames",
+   "_fn": "Mixer_MixStereo_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d3c40",
+   "index": 3,
+   "type": "uint",
+   "name": "accumOffset",
+   "_fn": "Mixer_MixStereo_A",
+   "_names_only": true
+  },
+  {
+   "addr": "004d40d0",
+   "index": 0,
+   "type": "ushort *",
+   "name": "data",
+   "_fn": "Mixer_MixStereo_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004d40d0",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "Mixer_MixStereo_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004d40d0",
+   "index": 2,
+   "type": "uint",
+   "name": "outFrames",
+   "_fn": "Mixer_MixStereo_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004d40d0",
+   "index": 3,
+   "type": "uint",
+   "name": "accumOffset",
+   "_fn": "Mixer_MixStereo_B",
+   "_names_only": true
+  },
+  {
+   "addr": "004a7bc0",
+   "index": 0,
+   "type": "int",
+   "name": "loadingRoom",
+   "_fn": "ParseCollection",
+   "_names_only": true
+  },
+  {
+   "addr": "004836b0",
+   "index": 0,
+   "type": "GrimServices *",
+   "name": "hs",
+   "_fn": "PolyglotInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004836b0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "polyglotServices",
+   "_fn": "PolyglotInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0048a500",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "primitiveQ",
+   "_fn": "PrimitiveQueue_Construct",
+   "_names_only": true
+  },
+  {
+   "addr": "0048a520",
+   "index": 0,
+   "type": "int *",
+   "name": "primitiveQ",
+   "_fn": "PrimitiveQueue_purge",
+   "_names_only": true
+  },
+  {
+   "addr": "00481320",
+   "index": 1,
+   "type": "char *",
+   "name": "name",
+   "_fn": "Res_FindByNameInList",
+   "_names_only": true
+  },
+  {
+   "addr": "00481320",
+   "index": 2,
+   "type": "int *",
+   "name": "newestResNode",
+   "_fn": "Res_FindByNameInList",
+   "_names_only": true
+  },
+  {
+   "addr": "004824c0",
+   "index": 0,
+   "type": "void *",
+   "name": "data",
+   "_fn": "Res_NumRefs",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4b00",
+   "index": 0,
+   "type": "char *",
+   "name": "path",
+   "_fn": "SetFile_Parse",
+   "_names_only": true
+  },
+  {
+   "addr": "004835f0",
+   "index": 0,
+   "type": "uint",
+   "name": "grimlib_mode",
+   "_fn": "SetPrevMode",
+   "_names_only": true
+  },
+  {
+   "addr": "004a55d0",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "Set_IsHandleValid",
+   "_names_only": true
+  },
+  {
+   "addr": "004bd3a0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "smushPlayMS",
+   "_fn": "SmushPlay_SysInitialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004bd540",
+   "index": 0,
+   "type": "uint *",
+   "name": "sputVideoCallBacks",
+   "_fn": "SmushPlay_SysSetVideoCallbacks",
+   "_names_only": true
+  },
+  {
+   "addr": "0047fda0",
+   "index": 0,
+   "type": "char *",
+   "name": "path",
+   "_fn": "Str_StripExtension",
+   "_names_only": true
+  },
+  {
+   "addr": "004755e0",
+   "index": 2,
+   "type": "uint",
+   "name": "x",
+   "_fn": "Surface_BlitDDraw",
+   "_names_only": true
+  },
+  {
+   "addr": "004755e0",
+   "index": 3,
+   "type": "uint",
+   "name": "y",
+   "_fn": "Surface_BlitDDraw",
+   "_names_only": true
+  },
+  {
+   "addr": "004755e0",
+   "index": 4,
+   "type": "uint *",
+   "name": "srcRect",
+   "_fn": "Surface_BlitDDraw",
+   "_names_only": true
+  },
+  {
+   "addr": "004755e0",
+   "index": 5,
+   "type": "byte",
+   "name": "colorKey",
+   "_fn": "Surface_BlitDDraw",
+   "_names_only": true
+  },
+  {
+   "addr": "00475c90",
+   "index": 3,
+   "type": "uint",
+   "name": "y",
+   "_fn": "Surface_BlitLockedDst",
+   "_names_only": true
+  },
+  {
+   "addr": "00475c90",
+   "index": 4,
+   "type": "int *",
+   "name": "srcRect",
+   "_fn": "Surface_BlitLockedDst",
+   "_names_only": true
+  },
+  {
+   "addr": "004758a0",
+   "index": 3,
+   "type": "uint",
+   "name": "y",
+   "_fn": "Surface_BlitLockedSrc",
+   "_names_only": true
+  },
+  {
+   "addr": "004758a0",
+   "index": 4,
+   "type": "int *",
+   "name": "srcRect",
+   "_fn": "Surface_BlitLockedSrc",
+   "_names_only": true
+  },
+  {
+   "addr": "004aaf30",
+   "index": 1,
+   "type": "int *",
+   "name": "outFont",
+   "_fn": "Text_BuildLineTable",
+   "_names_only": true
+  },
+  {
+   "addr": "004aac40",
+   "index": 0,
+   "type": "uint *",
+   "name": "defaultFont",
+   "_fn": "Text_WrapLines",
+   "_names_only": true
+  },
+  {
+   "addr": "00402fd0",
+   "index": 2,
+   "type": "int",
+   "name": "ch",
+   "_fn": "Win_WndProc",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4930",
+   "index": 0,
+   "type": "char *",
+   "name": "name",
+   "_fn": "ZBuffer_LoadFile",
+   "_names_only": true
+  },
+  {
+   "addr": "004c5950",
+   "index": 1,
+   "type": "char *",
+   "name": "mode",
+   "_fn": "Zfile_fle_Open",
+   "_names_only": true
+  },
+  {
+   "addr": "004c2fa0",
+   "index": 4,
+   "type": "uint *",
+   "name": "src",
+   "_fn": "anm_DecodeBody",
+   "_names_only": true
+  },
+  {
+   "addr": "004c21e0",
+   "index": 1,
+   "type": "int",
+   "name": "fps",
+   "_fn": "anm_EasyPlay",
+   "_names_only": true
+  },
+  {
+   "addr": "004c21e0",
+   "index": 2,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "anm_EasyPlay",
+   "_names_only": true
+  },
+  {
+   "addr": "004c21e0",
+   "index": 11,
+   "type": "int",
+   "name": "streamArg1",
+   "_fn": "anm_EasyPlay",
+   "_names_only": true
+  },
+  {
+   "addr": "004c21e0",
+   "index": 12,
+   "type": "int",
+   "name": "streamArg2",
+   "_fn": "anm_EasyPlay",
+   "_names_only": true
+  },
+  {
+   "addr": "004c36f0",
+   "index": 1,
+   "type": "uint",
+   "name": "fmt",
+   "_fn": "anm_animator_Render",
+   "_names_only": true
+  },
+  {
+   "addr": "004c36f0",
+   "index": 5,
+   "type": "uint",
+   "name": "dst",
+   "_fn": "anm_animator_Render",
+   "_names_only": true
+  },
+  {
+   "addr": "004ad3d0",
+   "index": 0,
+   "type": "uint",
+   "name": "buf",
+   "_fn": "fread",
+   "_names_only": true
+  },
+  {
+   "addr": "004ad3d0",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "fread",
+   "_names_only": true
+  },
+  {
+   "addr": "004ad3d0",
+   "index": 3,
+   "type": "uint",
+   "name": "file",
+   "_fn": "fread",
+   "_names_only": true
+  },
+  {
+   "addr": "004cea30",
+   "index": 4,
+   "type": "int *",
+   "name": "srcFmt",
+   "_fn": "gra_BlitRectLookup",
+   "_names_only": true
+  },
+  {
+   "addr": "004cea30",
+   "index": 5,
+   "type": "byte *",
+   "name": "palette",
+   "_fn": "gra_BlitRectLookup",
+   "_names_only": true
+  },
+  {
+   "addr": "004cea30",
+   "index": 6,
+   "type": "byte *",
+   "name": "expandTable",
+   "_fn": "gra_BlitRectLookup",
+   "_names_only": true
+  },
+  {
+   "addr": "004ced70",
+   "index": 2,
+   "type": "void *",
+   "name": "dst",
+   "_fn": "gra_ConvertMakeLookup",
+   "_names_only": true
+  },
+  {
+   "addr": "004ce9b0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "fmt",
+   "_fn": "gra_SetBitmap",
+   "_names_only": true
+  },
+  {
+   "addr": "00402060",
+   "index": 1,
+   "type": "int",
+   "name": "flags",
+   "_fn": "grimdemo_SetPalette",
+   "_names_only": true
+  },
+  {
+   "addr": "00482770",
+   "index": 0,
+   "type": "char *",
+   "name": "dir",
+   "_fn": "grimlib_AddResourcePath",
+   "_names_only": true
+  },
+  {
+   "addr": "00482980",
+   "index": 0,
+   "type": "int",
+   "name": "ch",
+   "_fn": "grimlib_CharacterCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "00482530",
+   "index": 0,
+   "type": "uint",
+   "name": "filename",
+   "_fn": "grimlib_LogResources",
+   "_names_only": true
+  },
+  {
+   "addr": "004827a0",
+   "index": 1,
+   "type": "char *",
+   "name": "str",
+   "_fn": "grimlib_Open",
+   "_names_only": true
+  },
+  {
+   "addr": "004825c0",
+   "index": 0,
+   "type": "int",
+   "name": "flags",
+   "_fn": "grimlib_OverrideSelectedActorCostume",
+   "_names_only": true
+  },
+  {
+   "addr": "00482f00",
+   "index": 3,
+   "type": "uint",
+   "name": "x",
+   "_fn": "grimlib_PlayMovie",
+   "_names_only": true
+  },
+  {
+   "addr": "00482f00",
+   "index": 4,
+   "type": "uint",
+   "name": "y",
+   "_fn": "grimlib_PlayMovie",
+   "_names_only": true
+  },
+  {
+   "addr": "004aec30",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "buf",
+   "_fn": "memmove",
+   "_names_only": true
+  },
+  {
+   "addr": "004aec30",
+   "index": 2,
+   "type": "uint",
+   "name": "nBufCount",
+   "_fn": "memmove",
+   "_names_only": true
+  },
+  {
+   "addr": "004d5e70",
+   "index": 0,
+   "type": "byte *",
+   "name": "fob_blk16_render_buffer",
+   "_fn": "msc_rle_DecompressBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "004d5e70",
+   "index": 1,
+   "type": "uint",
+   "name": "src",
+   "_fn": "msc_rle_DecompressBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "004c04f0",
+   "index": 0,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "rdCanvas_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004c04f0",
+   "index": 1,
+   "type": "uint",
+   "name": "surface",
+   "_fn": "rdCanvas_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004c04f0",
+   "index": 2,
+   "type": "uint",
+   "name": "zSurface",
+   "_fn": "rdCanvas_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004c04f0",
+   "index": 3,
+   "type": "uint",
+   "name": "x0",
+   "_fn": "rdCanvas_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004c04f0",
+   "index": 4,
+   "type": "uint",
+   "name": "y0",
+   "_fn": "rdCanvas_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004c04f0",
+   "index": 5,
+   "type": "uint",
+   "name": "x1",
+   "_fn": "rdCanvas_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004c04f0",
+   "index": 6,
+   "type": "uint",
+   "name": "y1",
+   "_fn": "rdCanvas_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004c04f0",
+   "index": 7,
+   "type": "uint",
+   "name": "extra",
+   "_fn": "rdCanvas_New",
+   "_names_only": true
+  },
+  {
+   "addr": "004c0770",
+   "index": 0,
+   "type": "char *",
+   "name": "path",
+   "_fn": "rdKeyframe_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00451800",
+   "index": 3,
+   "type": "uint",
+   "name": "numMeshLights",
+   "_fn": "rdLight_CalcFaceIntensity",
+   "_names_only": true
+  },
+  {
+   "addr": "0044feb0",
+   "index": 0,
+   "type": "float *",
+   "name": "m",
+   "_fn": "rdMatrix_PreScale34",
+   "_names_only": true
+  },
+  {
+   "addr": "0040d140",
+   "index": 0,
+   "type": "int",
+   "name": "pHierarchyNodes",
+   "_fn": "rdModel3_DrawHNode",
+   "_names_only": true
+  },
+  {
+   "addr": "00471ee0",
+   "index": 0,
+   "type": "int",
+   "name": "thing",
+   "_fn": "rdPolyline_Draw",
+   "_names_only": true
+  },
+  {
+   "addr": "00471ee0",
+   "index": 1,
+   "type": "float *",
+   "name": "b",
+   "_fn": "rdPolyline_Draw",
+   "_names_only": true
+  },
+  {
+   "addr": "004506f0",
+   "index": 0,
+   "type": "int",
+   "name": "puppet",
+   "_fn": "rdPuppet_PlayTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "004506f0",
+   "index": 1,
+   "type": "int",
+   "name": "track",
+   "_fn": "rdPuppet_PlayTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "00450b50",
+   "index": 0,
+   "type": "int",
+   "name": "puppet",
+   "_fn": "rdPuppet_ResetTrack",
+   "_names_only": true
+  },
+  {
+   "addr": "004506d0",
+   "index": 0,
+   "type": "int",
+   "name": "puppet",
+   "_fn": "rdPuppet_SetCallback",
+   "_names_only": true
+  },
+  {
+   "addr": "004506a0",
+   "index": 0,
+   "type": "int",
+   "name": "puppet",
+   "_fn": "rdPuppet_SetStatus",
+   "_names_only": true
+  },
+  {
+   "addr": "004506a0",
+   "index": 1,
+   "type": "int",
+   "name": "track",
+   "_fn": "rdPuppet_SetStatus",
+   "_names_only": true
+  },
+  {
+   "addr": "004042a0",
+   "index": 0,
+   "type": "int",
+   "name": "renderVars",
+   "_fn": "rdSetGeometryMode",
+   "_names_only": true
+  },
+  {
+   "addr": "00472bd0",
+   "index": 0,
+   "type": "int",
+   "name": "thing",
+   "_fn": "rdSprite_Draw",
+   "_names_only": true
+  },
+  {
+   "addr": "00471e00",
+   "index": 2,
+   "type": "float *",
+   "name": "a",
+   "_fn": "rdThing_AccumulateMatrices",
+   "_names_only": true
+  },
+  {
+   "addr": "004d2d70",
+   "index": 0,
+   "type": "int *",
+   "name": "services",
+   "_fn": "sou_mixer_terminate",
+   "_names_only": true
+  },
+  {
+   "addr": "00491650",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "local_c",
+   "_fn": "sputActor_ActorWalkTo",
+   "_names_only": true
+  },
+  {
+   "addr": "00491650",
+   "index": 3,
+   "type": "Actor *",
+   "name": "other",
+   "_fn": "sputActor_ActorWalkTo",
+   "_names_only": true
+  },
+  {
+   "addr": "00490d30",
+   "index": 2,
+   "type": "int",
+   "name": "flags",
+   "_fn": "sputActor_PushCostume",
+   "_names_only": true
+  },
+  {
+   "addr": "00490870",
+   "index": 1,
+   "type": "float *",
+   "name": "pos",
+   "_fn": "sputActor_SetActorPosition",
+   "_names_only": true
+  },
+  {
+   "addr": "004946b0",
+   "index": 2,
+   "type": "undefined4 *",
+   "name": "local_c",
+   "_fn": "sputActor_SetClipPlane",
+   "_names_only": true
+  },
+  {
+   "addr": "0048f930",
+   "index": 2,
+   "type": "int",
+   "name": "flags",
+   "_fn": "sputActor_SetCostume",
+   "_names_only": true
+  },
+  {
+   "addr": "00495080",
+   "index": 0,
+   "type": "uint",
+   "name": "pCostumes",
+   "_fn": "sputCostume_Draw3D",
+   "_names_only": true
+  },
+  {
+   "addr": "00497cb0",
+   "index": 2,
+   "type": "uint",
+   "name": "marker",
+   "_fn": "sputCostume_PuppetHook",
+   "_names_only": true
+  },
+  {
+   "addr": "00495e90",
+   "index": 0,
+   "type": "char *",
+   "name": "path",
+   "_fn": "sputCostume_SaveHook",
+   "_names_only": true
+  },
+  {
+   "addr": "004896b0",
+   "index": 0,
+   "type": "code *",
+   "name": "id",
+   "_fn": "sputPrimitive_Restore",
+   "_names_only": true
+  },
+  {
+   "addr": "00484030",
+   "index": 0,
+   "type": "uint",
+   "name": "surface",
+   "_fn": "sputRender_SetDisplay",
+   "_names_only": true
+  },
+  {
+   "addr": "00484030",
+   "index": 1,
+   "type": "uint",
+   "name": "zSurface",
+   "_fn": "sputRender_SetDisplay",
+   "_names_only": true
+  },
+  {
+   "addr": "00484030",
+   "index": 2,
+   "type": "uint",
+   "name": "x0",
+   "_fn": "sputRender_SetDisplay",
+   "_names_only": true
+  },
+  {
+   "addr": "00484030",
+   "index": 3,
+   "type": "uint",
+   "name": "y0",
+   "_fn": "sputRender_SetDisplay",
+   "_names_only": true
+  },
+  {
+   "addr": "00484030",
+   "index": 4,
+   "type": "uint",
+   "name": "x1",
+   "_fn": "sputRender_SetDisplay",
+   "_names_only": true
+  },
+  {
+   "addr": "00484030",
+   "index": 5,
+   "type": "uint",
+   "name": "y1",
+   "_fn": "sputRender_SetDisplay",
+   "_names_only": true
+  },
+  {
+   "addr": "0048dbd0",
+   "index": 0,
+   "type": "int *",
+   "name": "data",
+   "_fn": "sputResource_FontHandler",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d550",
+   "index": 0,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "sputResource_LogToFile",
+   "_names_only": true
+  },
+  {
+   "addr": "0048e1b0",
+   "index": 0,
+   "type": "void *",
+   "name": "data",
+   "_fn": "sputResource_MatUnloader",
+   "_names_only": true
+  },
+  {
+   "addr": "004892a0",
+   "index": 2,
+   "type": "uint",
+   "name": "x",
+   "_fn": "sputSmush_StartMovie",
+   "_names_only": true
+  },
+  {
+   "addr": "004892a0",
+   "index": 3,
+   "type": "uint",
+   "name": "y",
+   "_fn": "sputSmush_StartMovie",
+   "_names_only": true
+  },
+  {
+   "addr": "0048acc0",
+   "index": 0,
+   "type": "GrimServices *",
+   "name": "svc",
+   "_fn": "sputText_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b2b0",
+   "index": 0,
+   "type": "int *",
+   "name": "want",
+   "_fn": "stdBitmap_ConvertColorFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ae90",
+   "index": 0,
+   "type": "int",
+   "name": "bitmap",
+   "_fn": "stdBitmap_FreeEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ab20",
+   "index": 1,
+   "type": "int",
+   "name": "a",
+   "_fn": "stdBitmap_LoadEntryFromFile",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ab20",
+   "index": 2,
+   "type": "int",
+   "name": "videoMem",
+   "_fn": "stdBitmap_LoadEntryFromFile",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ab20",
+   "index": 3,
+   "type": "int",
+   "name": "b",
+   "_fn": "stdBitmap_LoadEntryFromFile",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b540",
+   "index": 2,
+   "type": "uint",
+   "name": "surface",
+   "_fn": "stdBitmap_SetSurface",
+   "_names_only": true
+  },
+  {
+   "addr": "0047cb20",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "stdBmp_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047cb20",
+   "index": 1,
+   "type": "uint",
+   "name": "videoMem",
+   "_fn": "stdBmp_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047cb20",
+   "index": 2,
+   "type": "uint",
+   "name": "b",
+   "_fn": "stdBmp_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047cb70",
+   "index": 0,
+   "type": "char *",
+   "name": "path",
+   "_fn": "stdBmp_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047cb70",
+   "index": 2,
+   "type": "int",
+   "name": "videoMem",
+   "_fn": "stdBmp_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047cb70",
+   "index": 3,
+   "type": "int",
+   "name": "b",
+   "_fn": "stdBmp_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047d050",
+   "index": 0,
+   "type": "uint",
+   "name": "filename",
+   "_fn": "stdBmp_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "0047d050",
+   "index": 1,
+   "type": "int",
+   "name": "bitmap",
+   "_fn": "stdBmp_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "0047bbb0",
+   "index": 0,
+   "type": "int",
+   "name": "dstFormat",
+   "_fn": "stdColor_ColorConvertOnePixel",
+   "_names_only": true
+  },
+  {
+   "addr": "0047bbb0",
+   "index": 2,
+   "type": "int",
+   "name": "srcFormat",
+   "_fn": "stdColor_ColorConvertOnePixel",
+   "_names_only": true
+  },
+  {
+   "addr": "00473480",
+   "index": 0,
+   "type": "uint",
+   "name": "fh",
+   "_fn": "stdFileWrite",
+   "_names_only": true
+  },
+  {
+   "addr": "0047db00",
+   "index": 0,
+   "type": "char *",
+   "name": "path",
+   "_fn": "stdGif_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047db00",
+   "index": 1,
+   "type": "int",
+   "name": "videoMem",
+   "_fn": "stdGif_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047db00",
+   "index": 2,
+   "type": "int",
+   "name": "b",
+   "_fn": "stdGif_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e060",
+   "index": 0,
+   "type": "uint",
+   "name": "filename",
+   "_fn": "stdGif_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e060",
+   "index": 1,
+   "type": "int",
+   "name": "bitmap",
+   "_fn": "stdGif_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "00473420",
+   "index": 0,
+   "type": "GrimServices *",
+   "name": "svc",
+   "_fn": "stdInitServices",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f120",
+   "index": 0,
+   "type": "char *",
+   "name": "path",
+   "_fn": "stdLbm_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f120",
+   "index": 1,
+   "type": "int",
+   "name": "videoMem",
+   "_fn": "stdLbm_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f120",
+   "index": 2,
+   "type": "int",
+   "name": "b",
+   "_fn": "stdLbm_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f720",
+   "index": 0,
+   "type": "uint",
+   "name": "filename",
+   "_fn": "stdLbm_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f720",
+   "index": 1,
+   "type": "int",
+   "name": "bitmap",
+   "_fn": "stdLbm_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "00473630",
+   "index": 2,
+   "type": "int",
+   "name": "b",
+   "_fn": "stdLoadImage",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b710",
+   "index": 0,
+   "type": "byte *",
+   "name": "palette",
+   "_fn": "stdPcx_DecodeRun16",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b780",
+   "index": 0,
+   "type": "byte *",
+   "name": "palette",
+   "_fn": "stdPcx_DecodeRun8",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b810",
+   "index": 0,
+   "type": "byte *",
+   "name": "palette",
+   "_fn": "stdPcx_DecodeRunMasked",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b810",
+   "index": 3,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "stdPcx_DecodeRunMasked",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ec80",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "stdPcx_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ec80",
+   "index": 1,
+   "type": "int",
+   "name": "videoMem",
+   "_fn": "stdPcx_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ec80",
+   "index": 2,
+   "type": "int",
+   "name": "b",
+   "_fn": "stdPcx_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ef10",
+   "index": 0,
+   "type": "uint",
+   "name": "filename",
+   "_fn": "stdPcx_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ef10",
+   "index": 1,
+   "type": "int",
+   "name": "bitmap",
+   "_fn": "stdPcx_Write",
+   "_names_only": true
+  },
+  {
+   "addr": "0047d280",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "stdPic_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047d280",
+   "index": 1,
+   "type": "uint",
+   "name": "a",
+   "_fn": "stdPic_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047d280",
+   "index": 2,
+   "type": "uint",
+   "name": "b",
+   "_fn": "stdPic_Load",
+   "_names_only": true
+  },
+  {
+   "addr": "0047d2d0",
+   "index": 0,
+   "type": "char *",
+   "name": "path",
+   "_fn": "stdPic_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047d2d0",
+   "index": 2,
+   "type": "int",
+   "name": "videoMem",
+   "_fn": "stdPic_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab210",
+   "index": 2,
+   "type": "char *",
+   "name": "text",
+   "_fn": "text_FindNextBreak",
+   "_names_only": true
+  },
+  {
+   "addr": "004ada30",
+   "index": 0,
+   "type": "uint",
+   "name": "fp",
+   "_fn": "vfprintf",
+   "_names_only": true
+  },
+  {
+   "addr": "004ada30",
+   "index": 1,
+   "type": "uint",
+   "name": "fmt",
+   "_fn": "vfprintf",
+   "_names_only": true
+  },
+  {
+   "addr": "004acca0",
+   "index": 1,
+   "type": "uint",
+   "name": "fmt",
+   "_fn": "vsprintf",
+   "_names_only": true
+  }
+ ]
+}

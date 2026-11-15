@@ -21,7 +21,7 @@ undefined * __stdcall Win_WinMain(int a1,int a2,int a3,int a4)
    Backspace-chord debug keys (C choreface, F fps, P profile, S screenshot, T reset textures, Z
    z-buffer dump, F12 grimpatch.bin, NumLock spew). */
 
-undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int param_3)
+undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int ch)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -38,7 +38,7 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int param_3)
   if (0x10 < param_2) {
     if (param_2 < 0x1d) {
       if (param_2 == 0x1c) {
-        if ((param_3 == 0) && (INT_004dd38c != 0)) {
+        if ((ch == 0) && (INT_004dd38c != 0)) {
           if (g_bWindowedMode == 0) {
             grimlib_SetPause(1);
             Grim_ShutdownDisplay();
@@ -50,7 +50,7 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int param_3)
           INT_004dd38c = 0;
           return (undefined *)0x0;
         }
-        if (param_3 == 0) {
+        if (ch == 0) {
           return (undefined *)0x0;
         }
         if (INT_004dd38c != 0) {
@@ -75,7 +75,7 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int param_3)
     }
     else if (param_2 < 0x101) {
       if (param_2 == 0x100) {
-        switch(param_3) {
+        switch(ch) {
         case 8:
           if (g_nGrimlib_bDebugKeys != 0) {
             g_bDebugChordHeld = 1;
@@ -144,23 +144,23 @@ undefined * __cdecl Win_WndProc(uint param_1,uint param_2,int param_3)
     }
     else if (param_2 < 0x219) {
       if (param_2 == 0x218) {
-        if (param_3 == 0) {
+        if (ch == 0) {
           return (undefined *)0x0;
         }
       }
       else {
         switch(param_2) {
         case 0x101:
-          if (param_3 == 8) {
+          if (ch == 8) {
             g_bDebugChordHeld = 0;
             return (undefined *)0x0;
           }
-          if ((param_3 == 0x43) && (g_bDebugChordHeld != 0)) {
+          if ((ch == 0x43) && (g_bDebugChordHeld != 0)) {
             return (undefined *)0x1;
           }
           break;
         case 0x102:
-          puVar4 = grimlib_CharacterCallback(param_3);
+          puVar4 = grimlib_CharacterCallback(ch);
           return puVar4;
         case 0x104:
           return (undefined *)0x1;
@@ -191,7 +191,7 @@ switchD_0040336f_caseD_105:
   if (g_dwZg_App_bAppActive == 0) {
     return (undefined *)0x0;
   }
-  sVar5 = (short)param_3;
+  sVar5 = (short)ch;
   if (g_nStdControl_bOpen != 0) {
     Input_SetAcquired((uint)(sVar5 != 0));
     if (sVar5 == 0) goto LAB_0040303f;

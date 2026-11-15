@@ -153,7 +153,7 @@ LAB_100057ef:
    served by the host runtime and not linked) and keeps the rebuilt chore.dll, which exports every
    symbol, from exporting a qsort that the EXE would bind to. */
 
-void __cdecl msvc_qsort(uint param_1,uint param_2,uint param_3,void *param_4)
+void __cdecl msvc_qsort(uint pKeys,uint dwNumKeys,uint param_3,void *cos_CompareKeys)
 
 {
   unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -168,41 +168,41 @@ void __cdecl msvc_qsort(uint param_1,uint param_2,uint param_3,void *param_4)
   #define aiStack_f0 (*(int (*)[30])(_frame + (0x110 - 0xf0)))
   #define auStack_78 (*(undefined4 (*)[30])(_frame + (0x110 - 0x78)))
   
-  if ((param_2 < 2) || (param_3 == 0)) {
+  if ((dwNumKeys < 2) || (param_3 == 0)) {
     return;
   }
-  puStack_100 = (undefined1 *)((param_2 - 1) * param_3 + param_1);
+  puStack_100 = (undefined1 *)((dwNumKeys - 1) * param_3 + pKeys);
   piStack_fc = aiStack_f0;
   puStack_f8 = auStack_78;
   iStack_f4 = 0;
 LAB_10005bf4:
-  uVar1 = ((int)puStack_100 - param_1) / param_3 + 1;
+  uVar1 = ((int)puStack_100 - pKeys) / param_3 + 1;
   if (8 < uVar1) {
-    msvc_qsort_swap((undefined1 *)(param_1 + (uVar1 >> 1) * param_3),(undefined1 *)param_1,param_3);
+    msvc_qsort_swap((undefined1 *)(pKeys + (uVar1 >> 1) * param_3),(undefined1 *)pKeys,param_3);
     puVar4 = puStack_100 + param_3;
-    puVar3 = (undefined1 *)param_1;
+    puVar3 = (undefined1 *)pKeys;
 LAB_10005c6e:
     puVar3 = puVar3 + param_3;
     if (puVar3 <= puStack_100) goto code_r0x10005c78;
     goto LAB_10005c88;
   }
-  msvc_shortsort(param_1,(uint)puStack_100,param_3,param_4);
+  msvc_shortsort(pKeys,(uint)puStack_100,param_3,cos_CompareKeys);
   goto LAB_10005c15;
 code_r0x10005c78:
-  iVar2 = (*(code *)param_4)(puVar3,param_1);
+  iVar2 = (*(code *)cos_CompareKeys)(puVar3,pKeys);
   if (iVar2 < 1) goto LAB_10005c6e;
 LAB_10005c88:
   do {
     puVar4 = puVar4 + -param_3;
-    if (puVar4 <= param_1) break;
-    iVar2 = (*(code *)param_4)(puVar4,param_1);
+    if (puVar4 <= pKeys) break;
+    iVar2 = (*(code *)cos_CompareKeys)(puVar4,pKeys);
   } while (-1 < iVar2);
   if (puVar3 <= puVar4) {
     msvc_qsort_swap(puVar3,puVar4,param_3);
     goto LAB_10005c6e;
   }
-  msvc_qsort_swap((undefined1 *)param_1,puVar4,param_3);
-  if ((int)(puVar4 + (-1 - param_1)) < (int)puStack_100 - (int)puVar3) {
+  msvc_qsort_swap((undefined1 *)pKeys,puVar4,param_3);
+  if ((int)(puVar4 + (-1 - pKeys)) < (int)puStack_100 - (int)puVar3) {
     if (puVar3 < puStack_100) {
       *puStack_f8 = puVar3;
       *piStack_fc = (int)puStack_100;
@@ -210,20 +210,20 @@ LAB_10005c88:
       puStack_f8 = puStack_f8 + 1;
       piStack_fc = piStack_fc + 1;
     }
-    if ((undefined1 *)(param_1 + param_3) < puVar4) {
+    if ((undefined1 *)(pKeys + param_3) < puVar4) {
       puStack_100 = puVar4 + -param_3;
       goto LAB_10005bf4;
     }
   }
   else {
-    if ((undefined1 *)(param_1 + param_3) < puVar4) {
-      *puStack_f8 = param_1;
+    if ((undefined1 *)(pKeys + param_3) < puVar4) {
+      *puStack_f8 = pKeys;
       *piStack_fc = (int)puVar4 - param_3;
       iStack_f4 = iStack_f4 + 1;
       puStack_f8 = puStack_f8 + 1;
       piStack_fc = piStack_fc + 1;
     }
-    param_1 = (uint)puVar3;
+    pKeys = (uint)puVar3;
     if (puVar3 < puStack_100) goto LAB_10005bf4;
   }
 LAB_10005c15:
@@ -234,7 +234,7 @@ LAB_10005c15:
     return;
   }
   puStack_100 = (undefined1 *)*piStack_fc;
-  param_1 = (uint)*puStack_f8;
+  pKeys = (uint)*puStack_f8;
   goto LAB_10005bf4;
 }
 #undef aiStack_f0

@@ -247,11 +247,10 @@ void __cdecl Blocky16_flobdec_Reset(void)
 
 void __cdecl
 Blocky16_flobdec_DecodeBody
-          (void *param_1,uint *param_2,int param_3,int param_4,int param_5,byte *param_6,
-          uint param_7,byte param_8)
+          (void *dst,uint *clip,int x,int y,int palette,byte *hdr,uint param_7,byte flags)
 
 {
-  Blocky16_DecodeFrame(param_1,param_2,param_3,param_4,param_5,param_6,param_8);
+  Blocky16_DecodeFrame(dst,clip,x,y,palette,hdr,flags);
   return;
 }
 
@@ -719,7 +718,7 @@ int __cdecl Blocky16_DecodeFrame(void *dst,uint *clip,int x,int y,int palette,by
   int extraout_ECX;
   int iVar7;
   uint uVar8;
-  LecPixelFormat *pLVar9;
+  LecPixelFormat *srcFmt;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -831,11 +830,11 @@ LAB_004ccf67:
       pbVar6 = (byte *)0x0;
     }
     if (g_pFob_blit_routine == (void *)0x0) {
-      pLVar9 = g_pBlkBitmap0;
+      srcFmt = g_pBlkBitmap0;
       if (((g_pbBlkOutput == *(byte **)g_pBlkBitmap0) ||
-          (pLVar9 = (LecPixelFormat *)g_pBlkBitmap1, g_pbBlkOutput == (byte *)*g_pBlkBitmap1)) ||
-         (pLVar9 = (LecPixelFormat *)g_pBlkBitmap2, g_pbBlkOutput == (byte *)*g_pBlkBitmap2)) {
-        gra_BlitRectLookup(dst,clip,x,y,(int *)pLVar9,(byte *)palette,pbVar6);
+          (srcFmt = (LecPixelFormat *)g_pBlkBitmap1, g_pbBlkOutput == (byte *)*g_pBlkBitmap1)) ||
+         (srcFmt = (LecPixelFormat *)g_pBlkBitmap2, g_pbBlkOutput == (byte *)*g_pBlkBitmap2)) {
+        gra_BlitRectLookup(dst,clip,x,y,(int *)srcFmt,(byte *)palette,pbVar6);
       }
       palette = 1;
     }
@@ -906,7 +905,7 @@ void __cdecl Blocky16_BuildExpandTable(LecPixelFormat *fmt)
 /* ---- 0x004cd300  Blocky16_DecodeHalfRows16 ---- */
 /* Decodes a method 1 frame: 16 bit pixels of every second row, the rows between are averaged */
 
-void __cdecl Blocky16_DecodeHalfRows16(void *param_1,ushort *param_2,int param_3,int param_4)
+void __cdecl Blocky16_DecodeHalfRows16(void *dst,ushort *src,int param_3,int param_4)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -934,18 +933,18 @@ void __cdecl Blocky16_DecodeHalfRows16(void *param_1,ushort *param_2,int param_3
   uVar7 = param_3 * 2;
   if (0 < param_4) {
     local_10 = param_4 + 1U >> 1;
-    puVar12 = (undefined4 *)((int)param_1 + uVar7);
+    puVar12 = (undefined4 *)((int)dst + uVar7);
     do {
       puVar11 = puVar12 + 1;
-      uVar1 = *param_2;
-      param_2 = param_2 + 1;
+      uVar1 = *src;
+      src = src + 1;
       *puVar12 = CONCAT22(uVar1,uVar1);
       if (0 < param_3 + -2) {
         uVar8 = param_3 - 1U >> 1;
         uVar5 = (uint)uVar1;
         do {
-          uVar9 = (uint)*param_2;
-          param_2 = param_2 + 1;
+          uVar9 = (uint)*src;
+          src = src + 1;
           uVar5 = FUN_004cd3f0(uVar5,uVar9);
           *puVar11 = uVar5 & 0xffff | uVar9 << 0x10;
           puVar11 = puVar11 + 1;
@@ -957,8 +956,8 @@ void __cdecl Blocky16_DecodeHalfRows16(void *param_1,ushort *param_2,int param_3
       local_10 = local_10 - 1;
     } while (local_10 != 0);
   }
-  msc_MemCopy(param_1,(undefined4 *)((int)param_1 + uVar7),uVar7);
-  puVar10 = (undefined2 *)((int)param_1 + param_3 * 4);
+  msc_MemCopy(dst,(undefined4 *)((int)dst + uVar7),uVar7);
+  puVar10 = (undefined2 *)((int)dst + param_3 * 4);
   if (param_4 != 2 && -1 < param_4 + -2) {
     uVar7 = param_4 - 1U >> 1;
     iVar2 = param_3;
@@ -990,8 +989,7 @@ void __cdecl Blocky16_DecodeHalfRows16(void *param_1,ushort *param_2,int param_3
 /* Decodes a method 7 frame: 8 bit indexes of every second row through a colour table, the rows
    between are averaged */
 
-void __cdecl
-Blocky16_DecodeHalfRows8(void *param_1,byte *param_2,int param_3,int param_4,int param_5)
+void __cdecl Blocky16_DecodeHalfRows8(void *dst,byte *src,int param_3,int param_4,int param_5)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1020,10 +1018,10 @@ Blocky16_DecodeHalfRows8(void *param_1,byte *param_2,int param_3,int param_4,int
   uVar8 = param_3 * 2;
   if (0 < param_4) {
     local_10 = param_4 + 1U >> 1;
-    puVar13 = (undefined4 *)((int)param_1 + uVar8);
+    puVar13 = (undefined4 *)((int)dst + uVar8);
     do {
-      bVar1 = *param_2;
-      param_2 = param_2 + 1;
+      bVar1 = *src;
+      src = src + 1;
       puVar12 = puVar13 + 1;
       uVar2 = *(ushort *)(param_5 + (uint)bVar1 * 2);
       *puVar13 = CONCAT22(uVar2,uVar2);
@@ -1031,8 +1029,8 @@ Blocky16_DecodeHalfRows8(void *param_1,byte *param_2,int param_3,int param_4,int
         uVar9 = param_3 - 1U >> 1;
         uVar6 = (uint)uVar2;
         do {
-          bVar1 = *param_2;
-          param_2 = param_2 + 1;
+          bVar1 = *src;
+          src = src + 1;
           uVar10 = (uint)*(ushort *)(param_5 + (uint)bVar1 * 2);
           uVar6 = FUN_004cd3f0(uVar6,uVar10);
           *puVar12 = uVar6 & 0xffff | uVar10 << 0x10;
@@ -1045,8 +1043,8 @@ Blocky16_DecodeHalfRows8(void *param_1,byte *param_2,int param_3,int param_4,int
       local_10 = local_10 - 1;
     } while (local_10 != 0);
   }
-  msc_MemCopy(param_1,(undefined4 *)((int)param_1 + uVar8),uVar8);
-  puVar11 = (undefined2 *)((int)param_1 + param_3 * 4);
+  msc_MemCopy(dst,(undefined4 *)((int)dst + uVar8),uVar8);
+  puVar11 = (undefined2 *)((int)dst + param_3 * 4);
   if (param_4 != 2 && -1 < param_4 + -2) {
     uVar8 = param_4 - 1U >> 1;
     iVar3 = param_3;

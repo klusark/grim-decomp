@@ -825,14 +825,13 @@ undefined4 __cdecl ImStartStream(uint param_1,int param_2,uint param_3)
 }
 
 /* ---- 0x10004ec0  ImSwitchStream ---- */
-undefined4 __cdecl
-ImSwitchStream(int param_1,undefined4 param_2,uint param_3,uint param_4,uint param_5)
+undefined4 __cdecl ImSwitchStream(int sound,undefined4 offset,uint fade,uint flags,uint param_5)
 
 {
   undefined4 uVar1;
   
                     /* 0x4ec0  45  ImSwitchStream */
-  uVar1 = DpSwitchStream(param_1,param_2,param_3,param_4,param_5);
+  uVar1 = DpSwitchStream(sound,offset,fade,flags,param_5);
   return uVar1;
 }
 

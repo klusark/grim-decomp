@@ -48,13 +48,13 @@ undefined4 __cdecl luaU_undump1(int *param_1)
 /* Named LoadChunk (not in the remaster, gcc inlined it there): Lua 3.1 source name (lundump.c
    static LoadChunk: LoadHeader, then LoadFunction); was luaU_LoadChunk. */
 
-undefined4 * __cdecl LoadChunk(int *param_1)
+undefined4 * __cdecl LoadChunk(int *local_c)
 
 {
   undefined4 *puVar1;
   
-  LoadHeader(param_1);
-  puVar1 = LoadFunction(param_1);
+  LoadHeader(local_c);
+  puVar1 = LoadFunction(local_c);
   return puVar1;
 }
 

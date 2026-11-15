@@ -706,12 +706,12 @@ def emit(model, srcdir):
         return "(void *)&%s" % sp.name if off == 0 else "(void *)((unsigned char *)&%s + 0x%x)" % (sp.name, off)
 
     stats = {"spans": 0, "typed": 0, "string": 0, "pointer": 0, "table": 0, "bytes": 0, "struct": 0,
-             "bytes_untyped": 0, "zero": 0, "unused": 0, "unused_bytes": 0}
+             "bytes_untyped": 0, "zero": 0, "unused": 0, "unused_bytes": 0, "untyped_spans": []}
     unused = {}
     up = os.path.join(ROOT, "names", "data_unused.json")
     if os.path.exists(up):
         for r in json.load(open(up)).get(prog, []):
-            unused[(int(r["addr"], 16), r["name"])] = r["reader"]
+            unused[(int(r["addr"], 16), r["size"])] = r["reader"]   # (by address and size: a rename keeps it)
     first_of_sec = {}
     run_key = None
     for sp in model.spans:
@@ -730,7 +730,7 @@ def emit(model, srcdir):
         base, is_arr, count = sp.decl if sp.decl else ("", False, None)
         base = base.replace("const ", "").strip()
         where = "/* 0x%08x, %d bytes */" % (sp.start, n)
-        reader = unused.get((sp.start, sp.name))
+        reader = unused.get((sp.start, sp.end - sp.start))
         if reader is not None:
             # nothing in the rebuilt program reads it (tools/data_unused.py): zero bytes, the same size, so the layout
             # stays the original's
@@ -775,6 +775,7 @@ def emit(model, srcdir):
                 if b.strip(b"\0"):
                     stats["bytes"] += 1
                     stats["bytes_untyped"] += n
+                    stats["untyped_spans"].append((n, sp.name, sp.start))
                 else:
                     stats["zero"] += 1
         elif n == 4 and 0 in relocs:
@@ -810,6 +811,7 @@ def emit(model, srcdir):
             init = "{\n" + ",\n".join("    " + v.replace("\n", "\n    ") for v in vals) + "\n}"
             stats["struct"] += 1
             stats["bytes_untyped"] += n - 4 * len(relocs)
+            stats["untyped_spans"].append((n - 4 * len(relocs), sp.name + " (with pointers)", sp.start))
         if not decl.startswith("static "):
             decls.append("extern %s;" % decl)
         defs.append("%s %s %s = %s;" % (where, attr, decl, init))
@@ -958,6 +960,8 @@ def report(prog, srcdir):
     print("  scalars %(typed)d, strings %(string)d, pointers %(pointer)d, pointer tables %(table)d, "
           "mixed structs %(struct)d, byte arrays %(bytes)d, zero arrays %(zero)d" % stats)
     print("  untyped initialised bytes: %d" % stats["bytes_untyped"])
+    for n, name, a in sorted(stats["untyped_spans"], reverse=True)[:int(os.environ.get("DATAGEN_TOP", "0"))]:
+        print("    %6d  0x%08x  %s" % (n, a, name))
     print("  unused spans emitted as zeros (names/data_unused.json): %d, %d bytes" % (stats["unused"], stats["unused_bytes"]))
     print("  scalars longer than their declared type, with data after it: %d" % len(big))
     for sp in big[:8]:

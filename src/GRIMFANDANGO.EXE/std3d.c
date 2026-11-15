@@ -1152,12 +1152,12 @@ uint __cdecl D3D_SetVertexLimit(void)
 /* Original name std3D_UpdateFrameCount (the remaster's GrimFandango (Linux): aligned call in
    rdMaterial_AddToTextureCache); was D3D_TouchTexture. */
 
-void __cdecl std3D_UpdateFrameCount(int param_1)
+void __cdecl std3D_UpdateFrameCount(Std3DTexture *texture)
 
 {
-  *(uint *)(param_1 + 0x8c) = UINT_004dee58;
-  D3D_UnlinkTexture((Std3DTexture *)param_1);
-  D3D_LinkTexture((Std3DTexture *)param_1);
+  texture->dwFrameStamp = UINT_004dee58;
+  D3D_UnlinkTexture(texture);
+  D3D_LinkTexture(texture);
   return;
 }
 
@@ -1309,7 +1309,7 @@ uint __cdecl D3D_FindTextureFormat(int *param_1,int param_2,uint param_3)
 /* ---- 0x00479cc0  D3D_SetViewportRect ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 
-void __cdecl D3D_SetViewportRect(uint *param_1)
+void __cdecl D3D_SetViewportRect(uint *srcRect)
 
 {
   uint uVar1;
@@ -1317,12 +1317,12 @@ void __cdecl D3D_SetViewportRect(uint *param_1)
   int iVar3;
   float *pfVar4;
   
-  UINT_00900600 = *param_1;
-  uVar1 = param_1[1];
+  UINT_00900600 = *srcRect;
+  uVar1 = srcRect[1];
   FLOAT_00900580 = (float)(int)UINT_00900600;
-  UINT_00900608 = param_1[2];
+  UINT_00900608 = srcRect[2];
   iVar3 = UINT_00900600 + UINT_00900608;
-  UINT_0090060c = param_1[3];
+  UINT_0090060c = srcRect[3];
   pfVar4 = &FLOAT_00900580;
   UINT_00900604 = uVar1;
   for (iVar2 = 0x20; iVar2 != 0; iVar2 = iVar2 + -1) {

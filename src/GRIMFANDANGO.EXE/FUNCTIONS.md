@@ -362,9 +362,9 @@
 | 00475090 | Display_FindClosestMode | stddisplay.c | 48 |
 | 00475140 | Display_CompareVideoModes | stddisplay.c | 30 |
 | 004751b0 | Surface_BlitSoftware | stddisplay.c | 208 |
-| 004755e0 | Surface_BlitDDraw | stddisplay.c | 171 |
-| 004758a0 | Surface_BlitLockedSrc | stddisplay.c | 207 |
-| 00475c90 | Surface_BlitLockedDst | stddisplay.c | 224 |
+| 004755e0 | Surface_BlitDDraw | stddisplay.c | 169 |
+| 004758a0 | Surface_BlitLockedSrc | stddisplay.c | 204 |
+| 00475c90 | Surface_BlitLockedDst | stddisplay.c | 222 |
 | 004760d0 | DDraw_Create | stddisplay.c | 37 |
 | 00476190 | DDraw_Release | stddisplay.c | 9 |
 | 004761b0 | stdDisplay_EnumDevicesCallback | stddisplay.c | 1 |
@@ -473,7 +473,7 @@
 | 00405770 | rdActive_AddActiveFace | rdcanvas.c | 1 |
 | 00451950 | rdCanvas_DrawLine | rdcanvas.c | 111 |
 | 00451dd0 | rdCanvas_DrawPoint | rdcanvas.c | 1 |
-| 004c04f0 | rdCanvas_New | rdcanvas.c | 18 |
+| 004c04f0 | rdCanvas_New | rdcanvas.c | 17 |
 | 004c0550 | rdCanvas_NewEntry | rdcanvas.c | 29 |
 | 004c0610 | rdCanvas_Free | rdcanvas.c | 9 |
 | 00406650 | rdCache_AdvanceFrame | rdcache.c | 12 |
@@ -492,7 +492,7 @@
 | 00408af0 | rdCache_DrawFaceZ | rdcache.c | 459 |
 | 00409580 | rdCache_DrawFaceUser | rdmodel.c | 1 |
 | 00409d20 | rdCache_ProcFaceCompare | rdmodel.c | 14 |
-| 0040d140 | rdModel3_DrawHNode | rdmodel.c | 44 |
+| 0040d140 | rdModel3_DrawHNode | rdmodel.c | 45 |
 | 0040d230 | rdModel3_DrawMeshImpl | rdmodel.c | 1 |
 | 0040d880 | rdModel3_DrawFace | rdmodel.c | 175 |
 | 00409d50 | rdCache_InsertFace | rdprimit3.c | 1 |
@@ -558,7 +558,7 @@
 | 00450ba0 | rdPuppet_UpdateFrame | rdpuppet.c | 1 |
 | 004c0630 | rdKeyframe_NewEntry | rdpuppet.c | 21 |
 | 004c0660 | rdKeyframe_Load | rdpuppet.c | 50 |
-| 004c0770 | rdKeyframe_LoadEntry | rdpuppet.c | 261 |
+| 004c0770 | rdKeyframe_LoadEntry | rdpuppet.c | 264 |
 | 004c0ce0 | rdKeyframe_LoadEntryBinary | rdpuppet.c | 72 |
 | 004c0e40 | rdKeyframe_Free | rdpuppet.c | 16 |
 | 004c0e70 | rdKeyframe_FreeEntry | rdpuppet.c | 27 |
@@ -1281,7 +1281,7 @@
 | 00481cf0 | res_FindDirectoryEntry | labdir.c | 89 |
 | 00482070 | Res_SetReference | resref.c | 35 |
 | 00482110 | Res_RemoveReference | resref.c | 29 |
-| 00482220 | Res_ResolveToSerialNumber | resref.c | 19 |
+| 00482220 | Res_ResolveToSerialNumber | resref.c | 18 |
 | 00482460 | Res_FreeAll | engine.c | 31 |
 | 00482530 | grimlib_LogResources | engine.c | 10 |
 | 004825c0 | grimlib_OverrideSelectedActorCostume | engine.c | 13 |
@@ -1377,7 +1377,7 @@
 | 00483eb0 | sputRender_PageCountIs | render.c | 13 |
 | 00483ed0 | sputRender_MarkDirtyRect | render.c | 29 |
 | 00483f60 | MarkDirtyRect | render.c | 35 |
-| 00484030 | sputRender_SetDisplay | render.c | 73 |
+| 00484030 | sputRender_SetDisplay | render.c | 70 |
 | 004841f0 | sputRender_Close | render.c | 26 |
 | 004849a0 | sputRender_PageFlip | render.c | 14 |
 | 004849d0 | Render_SetPixelFormat | render.c | 23 |
@@ -1674,7 +1674,7 @@
 | 004a9ca0 | Planner_SharedSector | walker.c | 15 |
 | 004922d0 | GetOuttaTheBox | collision.c | 83 |
 | 00492510 | Collision_PointInBox | collision.c | 1 |
-| 004925c0 | FindObjectCorners | collision.c | 38 |
+| 004925c0 | FindObjectCorners | collision.c | 37 |
 | 00492680 | TestCollision | collision.c | 93 |
 | 00492a50 | Collision_PickDetour | collision.c | 41 |
 | 004939a0 | Collision_UpdateMovedActors | collision.c | 36 |
@@ -2206,9 +2206,9 @@
 | 004c1fb0 | AnimPlay_module_terminate | crt_unnamed.c | 12 |
 | 004c1ff0 | AnimPlay_module_startup | crt_unnamed.c | 51 |
 | 004c2150 | AnimPlay_module_shutdown | crt_unnamed.c | 21 |
-| 004c21e0 | anm_EasyPlay | crt_unnamed.c | 76 |
+| 004c21e0 | anm_EasyPlay | crt_unnamed.c | 75 |
 | 004c2590 | anm_GetTime | crt_unnamed.c | 8 |
-| 004c25c0 | FUN_004c25c0 | crt_unnamed.c | 25 |
+| 004c25c0 | FUN_004c25c0 | crt_unnamed.c | 23 |
 | 004c2650 | AnimPlay_anm_Display | crt_unnamed.c | 14 |
 | 004c2720 | anm_SetRate | crt_unnamed.c | 15 |
 | 004c2760 | anm_SyncUp | crt_unnamed.c | 10 |
@@ -2338,7 +2338,7 @@
 | 004ce840 | bmp_bitmap_AllocRaw | crt_unnamed.c | 68 |
 | 004ce980 | bmp_bitmap_Free | crt_unnamed.c | 13 |
 | 004ce9b0 | gra_SetBitmap | crt_unnamed.c | 27 |
-| 004ced70 | gra_ConvertMakeLookup | crt_unnamed.c | 18 |
+| 004ced70 | gra_ConvertMakeLookup | crt_unnamed.c | 17 |
 | 004d2d70 | sou_mixer_terminate | crt_unnamed.c | 9 |
 | 004d54b4 | FUN_004d54b4 | crt_unnamed.c | 1 |
 | 004d56f0 | FUN_004d56f0 | crt_unnamed.c | 1 |
@@ -2515,14 +2515,14 @@
 | 004cc3c0 | Blocky16_flobdec_DecodeHeader | blocky16.c | 21 |
 | 004cc410 | AllocBuffers | blocky16.c | 44 |
 | 004cc590 | Blocky16_flobdec_Reset | blocky16.c | 26 |
-| 004cc620 | Blocky16_flobdec_DecodeBody | blocky16.c | 14 |
+| 004cc620 | Blocky16_flobdec_DecodeBody | blocky16.c | 13 |
 | 004cc650 | Blocky16_flobdec_GetVal | blocky16.c | 27 |
 | 004cc6a0 | fob_blk16_configure | blocky16.c | 79 |
 | 004cc7d0 | fob_block_maketiles | blocky16.c | 1 |
 | 004ccd00 | Blocky16_DecodeFrame | blocky16.c | 172 |
 | 004cd1e0 | Blocky16_BuildExpandTable | blocky16.c | 29 |
 | 004cd300 | Blocky16_DecodeHalfRows16 | blocky16.c | 81 |
-| 004cd450 | Blocky16_DecodeHalfRows8 | blocky16.c | 86 |
+| 004cd450 | Blocky16_DecodeHalfRows8 | blocky16.c | 85 |
 | 004cd550 | Blocky16_DecodeBlocks | blocky16.c | 1 |
 | 004cd610 | Blocky16_DecodeBlock8 | blocky16.c | 1 |
 | 004cd9b0 | block16_RenderBlock4 | blocky16.c | 1 |
@@ -2546,7 +2546,7 @@
 | 004ce260 | InsaneTimer_RunDeferred | insanetimer.c | 34 |
 | 004ce3e0 | bmp_bitmap_Alloc | videobitmap.c | 1 |
 | 004cedc0 | gra_ConvertCopy | videobitmap.c | 85 |
-| 004cea30 | gra_BlitRectLookup | video.c | 96 |
+| 004cea30 | gra_BlitRectLookup | video.c | 100 |
 | 004cec40 | gra_SetBuffer | video.c | 63 |
 | 004cf010 | gra_ConvertToLecColor | video.c | 176 |
 | 004cf520 | gra_ConvertFromLecColor | video.c | 210 |
