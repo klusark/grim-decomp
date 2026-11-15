@@ -169,8 +169,6 @@ void __cdecl gra_SetBuffer(char *param_1,int param_2,int param_3,char *param_4)
 }
 
 /* ---- 0x004cf010  gra_ConvertToLecColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name gra_ConvertToLecColor (the remaster's GrimFandango (Linux): the counterpart of
    gra_ConvertFromLecColor: unpacks 16 / 32-bit pixels by the format's shifts and the
    convert_bitmask table into 4-byte colours; called from gra_ConvertCopy in both builds); was
@@ -347,12 +345,8 @@ int __cdecl gra_ConvertToLecColor(void *src,LecPixelFormat *fmt,int count,byte *
   }
   return 0;
 }
-#endif
-
 
 /* ---- 0x004cf520  gra_ConvertFromLecColor ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name gra_ConvertFromLecColor (the remaster's GrimFandango (Linux): gra_SetBitmap's call
    (dst, bitmap, 1, 0, &colour)); was Video_PixelsFromRgba. */
 
@@ -563,12 +557,8 @@ int __cdecl gra_ConvertFromLecColor(void *dst,LecPixelFormat *fmt,int count,int 
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004cfdb0  Video_CopyRectDstFirst ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* The remaster calls this function gra_CopyRect (GrimFandango (Linux): the same-format copy of
    gra_BlitRectLookup (dst, src, 0, 0, 0, 0, width * bpp, rows, dst pitch, src pitch) in both
    builds; here it calls the assembler copy Video_CopyRect, the remaster msc_MemCopy per row). Not
@@ -584,12 +574,8 @@ Video_CopyRectDstFirst
   Video_CopyRect(src,dst,srcX,srcY,dstX,dstY,width,rows,srcPitch,dstPitch);
   return;
 }
-#endif
-
 
 /* ---- 0x004cfdf0  Video_ExpandIndexed8 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Video_ExpandIndexed8(byte *dst,byte *src,int count,int bytesPerPixel,byte *table)
 
 {
@@ -658,12 +644,8 @@ void __cdecl Video_ExpandIndexed8(byte *dst,byte *src,int count,int bytesPerPixe
   }
   return;
 }
-#endif
-
 
 /* ---- 0x004cfea0  Video_ExpandIndexed16 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* WARNING: Variable defined which should be unmapped: local_8 */
 /* WARNING: Variable defined which should be unmapped: local_4 */
 /* WARNING: Variable defined which should be unmapped: local_c */
@@ -748,12 +730,8 @@ void __cdecl Video_ExpandIndexed16(byte *dst,ushort *src,int count,int bytesPerP
 #undef local_8
 #undef local_c
 
-#endif
-
 
 /* ---- 0x004cff60  Video_Rgba32To555 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Video_Rgba32To555(ushort *dst,uint *src,uint count)
 
 {
@@ -790,12 +768,8 @@ void __cdecl Video_Rgba32To555(ushort *dst,uint *src,uint count)
   } while (uVar3 != 0 && bVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x004cffe0  Video_555ToRgba32 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Video_555ToRgba32(uint *dst,ushort *src,uint count)
 
 {
@@ -838,12 +812,8 @@ void __cdecl Video_555ToRgba32(uint *dst,ushort *src,uint count)
   } while (uVar7 != 0 && bVar2);
   return;
 }
-#endif
-
 
 /* ---- 0x004d0070  Video_Rgba32To565 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Video_Rgba32To565(ushort *dst,uint *src,uint count)
 
 {
@@ -880,12 +850,8 @@ void __cdecl Video_Rgba32To565(ushort *dst,uint *src,uint count)
   } while (uVar3 != 0 && bVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x004d00f0  Video_565ToRgba32 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Video_565ToRgba32(uint *dst,ushort *src,uint count)
 
 {
@@ -923,12 +889,8 @@ void __cdecl Video_565ToRgba32(uint *dst,ushort *src,uint count)
   } while (uVar5 != 0 && bVar3);
   return;
 }
-#endif
-
 
 /* ---- 0x004d0180  Video_Rgba32To565Alt ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Video_Rgba32To565Alt(ushort *dst,uint *src,uint count)
 
 {
@@ -968,12 +930,8 @@ void __cdecl Video_Rgba32To565Alt(ushort *dst,uint *src,uint count)
   } while (uVar7 != 0 && bVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x004d01f0  Video_565AltToRgba32 ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl Video_565AltToRgba32(uint *dst,ushort *src,uint count)
 
 {
@@ -1003,12 +961,8 @@ void __cdecl Video_565AltToRgba32(uint *dst,ushort *src,uint count)
   } while (uVar5 != 0 && bVar1);
   return;
 }
-#endif
-
 
 /* ---- 0x004d0260  Video_CopyRect ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 void __cdecl
 Video_CopyRect(byte *src,byte *dst,int srcX,uint srcY,int dstX,uint dstY,uint width,int rows,
               uint srcPitch,uint dstPitch)
@@ -1090,6 +1044,4 @@ Video_CopyRect(byte *src,byte *dst,int srcX,uint srcY,int dstX,uint dstY,uint wi
 }
 #undef local_34
 #undef local_38
-
-#endif
 

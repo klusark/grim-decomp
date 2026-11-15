@@ -85,8 +85,6 @@ LAB_004ce7b5:
 
 
 /* ---- 0x004cedc0  gra_ConvertCopy ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name gra_ConvertCopy (the remaster's GrimFandango (Linux): same parameters (src, srcFmt,
    count, palette, dst, dstFmt, lookup) and body (memcpy when the formats agree, the lookup
    expansion, then gra_ConvertToLecColor / gra_ConvertFromLecColor in chunks); called after the
@@ -171,6 +169,4 @@ gra_ConvertCopy(byte *src,LecPixelFormat *srcFmt,int count,byte *palette,byte *d
   return -1;
 }
 #undef local_4
-
-#endif
 

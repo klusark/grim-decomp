@@ -1983,3 +1983,20 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   fourcc (sputResource_Alloc, ResRef.pData, Res_Loaded), costume instance data (Cos_InstGetInstanceData), strtok /
   allocated name buffers terminated at +0x1f, the CRT (crt_unnamed.c), the puppet's +0x130, and functions whose
   hand-written overrides run instead (rdModel3_DrawMeshImpl's faces, three in rdraster.c).
+
+## Video pixel converters generated again; twin tests against the original machine code (2026-11-15)
+
+* build/mixdiff/twin.sh builds a differential test of *generated* code: the generated twin of a hand-written function
+  (src/<prog>/<module>.c with its `#if 0` block switched on by build/mixdiff/twinsrc.py), the original machine code
+  (sliced from the assembly of 223e097), then every object of the current build behind them (first definition wins, so
+  whatever the twin calls is today's code and the old names of the baseline assembly resolve through slice_orig.py).
+  The existing tests of build/mixdiff and build/difftest run unchanged against it (`MODULE=video bash build/mixdiff/twin.sh
+  build/mixdiff/video_test.c out.exe <orig names>`); a deliberately broken twin (TWIN_SED) is caught.
+* Generated again (video_test.c: 0 differences in 200,000 cases, the 16 bit expander group included):
+  Video_ExpandIndexed8 / 16, Video_Rgba32To555 / 565 / 565Alt, Video_555 / 565 / 565AltToRgba32, Video_CopyRect,
+  Video_CopyRectDstFirst, gra_ConvertToLecColor, gra_ConvertFromLecColor, gra_ConvertCopy. The `unaff_EBX` / `CONCAT`
+  in the leaf converters only carry bits the original masks off (`| 0xff070307`).
+* Kept: bmp_bitmap_Alloc. Its second switch (on the format, at 0x004ce4a6) has no bounds check of its own, so the
+  decompiler cannot recover the jump table; a jump-table override (JumpTable.writeOverride with the 14 entries) prints
+  only the first case of each shared destination, so formats 7..12 would fall out of the switch. Not applied.
+* Clean room 0 of 5457.
