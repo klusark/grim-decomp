@@ -31,12 +31,12 @@ int __cdecl SmushPlay_GetMovieTime(void)
    ...), sets fSmushPlaySysInitialized, fills the module interface {Initialize, Terminate, Startup,
    Shutdown}); was Insane_RegisterFilio. */
 
-uint __cdecl SmushPlay_SysInitialize(uint param_1,undefined4 *smushPlayMS)
+uint __cdecl SmushPlay_SysInitialize(uint services,undefined4 *smushPlayMS)
 
 {
   uint uVar1;
   
-  g_dwSmushPlayHS = param_1;
+  g_dwSmushPlayHS = services;
   uVar1 = 1;
   if (g_dwSmushPlaySysInitialized == 0) {
     g_pSmushPlay_share_services =
@@ -149,31 +149,31 @@ void __cdecl SmushPlay_SysSetVideoCallbacks(uint *sputVideoCallBacks)
    Original name smushplay_GetInfo (the remaster's GrimFandango (Linux): aligned call in
    SmushPlay_GetMovieLength); was Insane_ReadFrameHeader. */
 
-uint __cdecl smushplay_GetInfo(int param_1,int param_2)
+uint __cdecl smushplay_GetInfo(int file,int header)
 
 {
   undefined4 uVar1;
   
-  if (param_1 == 0) {
+  if (file == 0) {
     return 0;
   }
-  uVar1 = (*(code *)g_pSmushPlay_file_services[4])(param_1);
-  (*(code *)g_pSmushPlay_file_services[5])(param_1,0x10,0);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2,1);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 1,1);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 2,2);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 4,2);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 6,2);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,(short *)(param_2 + 8),2);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,(short *)(param_2 + 10),2);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 0xc,2);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 0xe,4);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,(int *)(param_2 + 0x12),4);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 0x16,0x400);
-  (*(code *)g_pSmushPlay_file_services[2])(param_1,param_2 + 0x416,2);
-  if (((0 < *(short *)(param_2 + 8)) && (0 < *(short *)(param_2 + 10))) &&
-     (0 < *(int *)(param_2 + 0x12))) {
-    (*(code *)g_pSmushPlay_file_services[5])(param_1,uVar1,0);
+  uVar1 = (*(code *)g_pSmushPlay_file_services[4])(file);
+  (*(code *)g_pSmushPlay_file_services[5])(file,0x10,0);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header,1);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header + 1,1);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header + 2,2);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header + 4,2);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header + 6,2);
+  (*(code *)g_pSmushPlay_file_services[2])(file,(short *)(header + 8),2);
+  (*(code *)g_pSmushPlay_file_services[2])(file,(short *)(header + 10),2);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header + 0xc,2);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header + 0xe,4);
+  (*(code *)g_pSmushPlay_file_services[2])(file,(int *)(header + 0x12),4);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header + 0x16,0x400);
+  (*(code *)g_pSmushPlay_file_services[2])(file,header + 0x416,2);
+  if (((0 < *(short *)(header + 8)) && (0 < *(short *)(header + 10))) &&
+     (0 < *(int *)(header + 0x12))) {
+    (*(code *)g_pSmushPlay_file_services[5])(file,uVar1,0);
     return 0;
   }
   return 0xfffffffe;
@@ -184,31 +184,31 @@ uint __cdecl smushplay_GetInfo(int param_1,int param_2)
 /* Validates the frame against the output size and chooses the blit mode bits in g_dwInsaneBlitFlags
     */
 
-uint __cdecl Insane_PrepareFrame(int *param_1,undefined4 *smush_pInternalBitmap,uint *param_3)
+uint __cdecl Insane_PrepareFrame(int *player,undefined4 *smush_pInternalBitmap,uint *rect)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
+  int srcPitch;
+  ushort *src;
   int iVar2;
-  ushort *puVar3;
+  int width;
+  int iVar3;
   int iVar4;
+  undefined4 *dst;
   int iVar5;
-  int iVar6;
-  int iVar7;
-  undefined4 *puVar8;
-  int iVar9;
-  uint uVar10;
-  uint uVar11;
+  uint uVar6;
+  uint uVar7;
   #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   
-  if ((param_1 != (int *)0x0) && (smush_pInternalBitmap != (undefined4 *)0x0)) {
+  if ((player != (int *)0x0) && (smush_pInternalBitmap != (undefined4 *)0x0)) {
     _DAT_008d16c0 = 0;
     if ((_g_bMovieFlags & 1) != 0) {
       _g_bMovieFlags = _g_bMovieFlags & 0xfffffff9;
-      if ((int)param_3[2] / 2 < (int)UINT_008d11e8) {
-        if ((int)UINT_008d11ec < (int)param_3[3]) {
+      if ((int)rect[2] / 2 < (int)UINT_008d11e8) {
+        if ((int)UINT_008d11ec < (int)rect[3]) {
           _g_bMovieFlags = _g_bMovieFlags | 2;
         }
       }
@@ -216,44 +216,44 @@ uint __cdecl Insane_PrepareFrame(int *param_1,undefined4 *smush_pInternalBitmap,
         _g_bMovieFlags = _g_bMovieFlags | 4;
       }
     }
-    iVar9 = ((_g_bMovieFlags & 6) != 0) + 1;
-    iVar6 = ((_g_bMovieFlags & 4) != 0) + 1;
-    iVar7 = iVar6 * UINT_008d11e8;
-    iVar4 = UINT_008d11ec * iVar9;
-    uVar1 = *param_3;
-    uVar11 = UINT_008d11e0;
+    iVar5 = ((_g_bMovieFlags & 6) != 0) + 1;
+    iVar3 = ((_g_bMovieFlags & 4) != 0) + 1;
+    iVar4 = iVar3 * UINT_008d11e8;
+    iVar2 = UINT_008d11ec * iVar5;
+    uVar1 = *rect;
+    uVar7 = UINT_008d11e0;
     if ((int)UINT_008d11e0 < (int)uVar1) {
-      iVar7 = iVar7 + (UINT_008d11e0 - uVar1);
-      uVar11 = uVar1;
+      iVar4 = iVar4 + (UINT_008d11e0 - uVar1);
+      uVar7 = uVar1;
     }
-    if ((int)(uVar1 + param_3[2]) < (int)(uVar11 + iVar7)) {
-      iVar7 = (uVar1 + param_3[2]) - uVar11;
+    if ((int)(uVar1 + rect[2]) < (int)(uVar7 + iVar4)) {
+      iVar4 = (uVar1 + rect[2]) - uVar7;
     }
-    uVar1 = param_3[1];
-    uVar10 = UINT_008d11e4;
+    uVar1 = rect[1];
+    uVar6 = UINT_008d11e4;
     if ((int)UINT_008d11e4 < (int)uVar1) {
-      iVar4 = iVar4 + (UINT_008d11e4 - uVar1);
-      uVar10 = uVar1;
+      iVar2 = iVar2 + (UINT_008d11e4 - uVar1);
+      uVar6 = uVar1;
     }
-    if ((int)(uVar1 + param_3[3]) < (int)(uVar10 + iVar4)) {
-      iVar4 = (uVar1 + param_3[3]) - uVar10;
+    if ((int)(uVar1 + rect[3]) < (int)(uVar6 + iVar2)) {
+      iVar2 = (uVar1 + rect[3]) - uVar6;
     }
-    iVar4 = iVar4 / iVar9;
-    iVar2 = smush_pInternalBitmap[5];
-    iVar5 = (iVar7 / iVar6) * smush_pInternalBitmap[3];
-    iVar7 = param_1[5];
-    puVar3 = (ushort *)*smush_pInternalBitmap;
-    puVar8 = (undefined4 *)(param_1[3] * uVar11 * iVar6 + uVar10 * iVar9 * iVar7 + *param_1);
+    iVar2 = iVar2 / iVar5;
+    srcPitch = smush_pInternalBitmap[5];
+    width = (iVar4 / iVar3) * smush_pInternalBitmap[3];
+    iVar4 = player[5];
+    src = (ushort *)*smush_pInternalBitmap;
+    dst = (undefined4 *)(player[3] * uVar7 * iVar3 + uVar6 * iVar5 * iVar4 + *player);
     if ((_g_bMovieFlags & 4) == 0) {
       if ((_g_bMovieFlags & 2) == 0) {
-        Insane_BlitRows16(puVar3,iVar2,(int)puVar8,iVar7,iVar5,iVar4);
+        Insane_BlitRows16(src,srcPitch,(int)dst,iVar4,width,iVar2);
       }
       else {
-        Insane_BlitRowsDual((int)puVar3,iVar2,puVar8,iVar7,iVar5,iVar4);
+        Insane_BlitRowsDual((int)src,srcPitch,dst,iVar4,width,iVar2);
       }
     }
     else {
-      ((code *)Insane_Blit8To16Doubled)(puVar3,iVar2,puVar8,iVar7,iVar5,iVar4);
+      ((code *)Insane_Blit8To16Doubled)(src,srcPitch,dst,iVar4,width,iVar2);
     }
   }
   _DAT_008d16ac = 0;
@@ -315,27 +315,27 @@ Insane_Blit8To16Doubled
 /* Copies frame rows to two destinations (front and back buffer) */
 
 void __cdecl
-Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4,int param_5,int param_6)
+Insane_BlitRowsDual(int src,int srcPitch,undefined4 *dst,int dstPitch,int width,int rows)
 
 {
   undefined4 uVar1;
   undefined4 *puVar2;
   int iVar3;
   
-  for (; param_6 != 0; param_6 = param_6 + -1) {
-    if (param_5 >> 2 != 0) {
-      puVar2 = param_3;
-      iVar3 = param_5 >> 2;
+  for (; rows != 0; rows = rows + -1) {
+    if (width >> 2 != 0) {
+      puVar2 = dst;
+      iVar3 = width >> 2;
       do {
-        uVar1 = *(undefined4 *)((int)puVar2 + (param_1 - (int)param_3));
-        *(undefined4 *)((int)puVar2 + param_4) = uVar1;
+        uVar1 = *(undefined4 *)((int)puVar2 + (src - (int)dst));
+        *(undefined4 *)((int)puVar2 + dstPitch) = uVar1;
         *puVar2 = uVar1;
         puVar2 = puVar2 + 1;
         iVar3 = iVar3 + -1;
       } while (iVar3 != 0);
     }
-    param_1 = param_1 + param_2;
-    param_3 = (undefined4 *)((int)param_3 + param_4 * 2);
+    src = src + srcPitch;
+    dst = (undefined4 *)((int)dst + dstPitch * 2);
   }
   return;
 }
@@ -343,8 +343,7 @@ Insane_BlitRowsDual(int param_1,int param_2,undefined4 *param_3,int param_4,int 
 /* ---- 0x004bddb0  Insane_BlitRows16 ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-void __cdecl
-Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_5,int param_6)
+void __cdecl Insane_BlitRows16(ushort *src,int srcPitch,int dst,int dstPitch,int width,int rows)
 
 {
   ushort *puVar1;
@@ -352,46 +351,46 @@ Insane_BlitRows16(ushort *param_1,int param_2,int param_3,int param_4,int param_
   int iVar3;
   uint uVar4;
   
-  iVar2 = param_5 >> 2;
+  iVar2 = width >> 2;
   if (g_dwSmushPlay_TranslationTable == 0) {
-    if (param_6 != 0) {
-      param_5 = param_6;
+    if (rows != 0) {
+      width = rows;
       do {
         if (iVar2 != 0) {
-          puVar1 = param_1;
+          puVar1 = src;
           iVar3 = iVar2;
           do {
-            *(undefined4 *)((int)puVar1 + (param_3 - (int)param_1)) = *(undefined4 *)puVar1;
+            *(undefined4 *)((int)puVar1 + (dst - (int)src)) = *(undefined4 *)puVar1;
             puVar1 = puVar1 + 2;
             iVar3 = iVar3 + -1;
           } while (iVar3 != 0);
         }
-        param_1 = (ushort *)((int)param_1 + param_2);
-        param_3 = param_3 + param_4;
-        param_5 = param_5 + -1;
-      } while (param_5 != 0);
+        src = (ushort *)((int)src + srcPitch);
+        dst = dst + dstPitch;
+        width = width + -1;
+      } while (width != 0);
     }
   }
   else {
     uVar4 = g_dwSmushPlay_TranslationTable;
-    if (param_6 != 0) {
+    if (rows != 0) {
       do {
         if (iVar2 != 0) {
-          puVar1 = param_1;
+          puVar1 = src;
           iVar3 = iVar2;
           do {
             iVar3 = iVar3 + -1;
-            *(uint *)((int)puVar1 + (param_3 - (int)param_1)) =
+            *(uint *)((int)puVar1 + (dst - (int)src)) =
                  CONCAT22(*(undefined2 *)(uVar4 + (uint)puVar1[1] * 2),
                           *(undefined2 *)(uVar4 + (uint)*puVar1 * 2));
             puVar1 = puVar1 + 2;
             uVar4 = g_dwSmushPlay_TranslationTable;
           } while (iVar3 != 0);
         }
-        param_3 = param_3 + param_4;
-        param_1 = (ushort *)((int)param_1 + param_2);
-        param_6 = param_6 + -1;
-      } while (param_6 != 0);
+        dst = dst + dstPitch;
+        src = (ushort *)((int)src + srcPitch);
+        rows = rows + -1;
+      } while (rows != 0);
       return;
     }
   }

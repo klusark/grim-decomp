@@ -50,11 +50,11 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
 
 {
   unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int *piVar1;
-  VBuffer *pVVar2;
-  int iVar3;
+  int *file;
+  VBuffer *pVVar1;
+  int iVar2;
+  uint *puVar3;
   uint *puVar4;
-  uint *puVar5;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -91,37 +91,37 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
   local_58 = 0;
   local_54 = 0;
   local_50 = 0;
-  piVar1 = SaveFile_Open(filename,&DAT_004ddb18);
-  if (piVar1 == (int *)0x0) {
+  file = SaveFile_Open(filename,&DAT_004ddb18);
+  if (file == (int *)0x0) {
     return (void *)0x0;
   }
-  gzread(piVar1,(int)&local_88,4);
-  gzseek(piVar1,local_88,1);
+  gzread(file,(int)&local_88,4);
+  gzseek(file,local_88,1);
   local_3c = 2;
   local_4c = 0xfa;
   local_48 = 0xbc;
   local_40 = 500;
-  puVar4 = &local_84;
-  puVar5 = local_38;
-  for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar5 = *puVar4;
+  puVar3 = &local_84;
+  puVar4 = local_38;
+  for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
+    *puVar4 = *puVar3;
+    puVar3 = puVar3 + 1;
     puVar4 = puVar4 + 1;
-    puVar5 = puVar5 + 1;
   }
-  pVVar2 = stdDisplay_VBufferNew((VBufferFormat *)&local_4c,0,0,0);
-  if (pVVar2 == (VBuffer *)0x0) {
-    gzclose((int)piVar1);
+  pVVar1 = stdDisplay_VBufferNew((VBufferFormat *)&local_4c,0,0,0);
+  if (pVVar1 == (VBuffer *)0x0) {
+    gzclose((int)file);
     return (void *)0x0;
   }
-  gzread(piVar1,(int)&local_8c,4);
-  if (local_8c != (pVVar2->format).dwSize) {
+  gzread(file,(int)&local_8c,4);
+  if (local_8c != (pVVar1->format).dwSize) {
     (*g_pSputmHS->pAssertFail)
               (s_size_____int_vbuf__rasterInfo_si_004e7ff4,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x6f6);
   }
-  gzread(piVar1,(int)pVVar2->pPixels,local_8c);
-  gzclose((int)piVar1);
-  return pVVar2;
+  gzread(file,(int)pVVar1->pPixels,local_8c);
+  gzclose((int)file);
+  return pVVar1;
 }
 #undef local_38
 #undef local_3c

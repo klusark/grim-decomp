@@ -1,0 +1,1718 @@
+{
+ "_comment": "GRIMFANDANGO.EXE parameter names from what each function does with them (part d), 2026-11-15.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "params": [
+  {
+   "addr": "00498550",
+   "index": 0,
+   "type": "uint",
+   "name": "cosInst",
+   "_fn": "SpriteChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00498550",
+   "index": 1,
+   "type": "int",
+   "name": "inst",
+   "_fn": "SpriteChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00498550",
+   "index": 2,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "SpriteChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00498550",
+   "index": 3,
+   "type": "int",
+   "name": "command",
+   "_fn": "SpriteChanger",
+   "_names_only": true
+  },
+  {
+   "addr": "00498580",
+   "index": 0,
+   "type": "uint",
+   "name": "tag",
+   "_fn": "SpriteFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "00498580",
+   "index": 1,
+   "type": "uint",
+   "name": "inst",
+   "_fn": "SpriteFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "00498580",
+   "index": 2,
+   "type": "int *",
+   "name": "data",
+   "_fn": "SpriteFreer",
+   "_names_only": true
+  },
+  {
+   "addr": "004985c0",
+   "index": 0,
+   "type": "int",
+   "name": "comp",
+   "_fn": "SpriteInstancer",
+   "_names_only": true
+  },
+  {
+   "addr": "004985c0",
+   "index": 1,
+   "type": "uint *",
+   "name": "inst",
+   "_fn": "SpriteInstancer",
+   "_names_only": true
+  },
+  {
+   "addr": "004985c0",
+   "index": 2,
+   "type": "int",
+   "name": "create",
+   "_fn": "SpriteInstancer",
+   "_names_only": true
+  },
+  {
+   "addr": "004986e0",
+   "index": 0,
+   "type": "uint *",
+   "name": "comp",
+   "_fn": "SpriteAdjuster",
+   "_names_only": true
+  },
+  {
+   "addr": "004986e0",
+   "index": 1,
+   "type": "uint",
+   "name": "text",
+   "_fn": "SpriteAdjuster",
+   "_names_only": true
+  },
+  {
+   "addr": "0048e2c0",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "sputActor_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0048e2c0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputActor_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0048e330",
+   "index": 0,
+   "type": "code *",
+   "name": "write",
+   "_fn": "sputActor_Save",
+   "_names_only": true
+  },
+  {
+   "addr": "0048ecd0",
+   "index": 0,
+   "type": "code *",
+   "name": "read",
+   "_fn": "sputActor_Restore",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d100",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "sputControl_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d100",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputControl_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004957f0",
+   "index": 0,
+   "type": "GrimServices *",
+   "name": "services",
+   "_fn": "sputCostume_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004957f0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputCostume_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0049c9f0",
+   "index": 0,
+   "type": "GrimServices *",
+   "name": "services",
+   "_fn": "sputLua_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0049c9f0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputLua_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00489580",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "sputPrimitive_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00489580",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputPrimitive_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00489600",
+   "index": 0,
+   "type": "code *",
+   "name": "write",
+   "_fn": "sputPrimitive_Save",
+   "_names_only": true
+  },
+  {
+   "addr": "00483d40",
+   "index": 0,
+   "type": "GrimServices *",
+   "name": "services",
+   "_fn": "sputRender_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00483d40",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputRender_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d4e0",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "sputResource_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0048d4e0",
+   "index": 1,
+   "type": "undefined **",
+   "name": "iface",
+   "_fn": "sputResource_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004a48c0",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "sputRoom_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004a48c0",
+   "index": 1,
+   "type": "undefined **",
+   "name": "iface",
+   "_fn": "sputRoom_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00488fb0",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "sputSmush_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "00488fb0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputSmush_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0048acc0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputText_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0048cbc0",
+   "index": 0,
+   "type": "code *",
+   "name": "write",
+   "_fn": "sputText_Save",
+   "_names_only": true
+  },
+  {
+   "addr": "0048cd80",
+   "index": 0,
+   "type": "code *",
+   "name": "read",
+   "_fn": "sputText_Restore",
+   "_names_only": true
+  },
+  {
+   "addr": "004a3d00",
+   "index": 0,
+   "type": "uint",
+   "name": "services",
+   "_fn": "sputTime_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "004a3d00",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "iface",
+   "_fn": "sputTime_Initialize",
+   "_names_only": true
+  },
+  {
+   "addr": "0047fc50",
+   "index": 0,
+   "type": "uint",
+   "name": "v",
+   "_fn": "Std_Swap32",
+   "_names_only": true
+  },
+  {
+   "addr": "0047fd00",
+   "index": 0,
+   "type": "uint",
+   "name": "v",
+   "_fn": "Std_Swap16",
+   "_names_only": true
+  },
+  {
+   "addr": "00479070",
+   "index": 0,
+   "type": "uint",
+   "name": "width",
+   "_fn": "std3D_GetValidDimensions",
+   "_names_only": true
+  },
+  {
+   "addr": "00479070",
+   "index": 1,
+   "type": "uint",
+   "name": "height",
+   "_fn": "std3D_GetValidDimensions",
+   "_names_only": true
+  },
+  {
+   "addr": "00479070",
+   "index": 2,
+   "type": "uint *",
+   "name": "outWidth",
+   "_fn": "std3D_GetValidDimensions",
+   "_names_only": true
+  },
+  {
+   "addr": "00479070",
+   "index": 3,
+   "type": "uint *",
+   "name": "outHeight",
+   "_fn": "std3D_GetValidDimensions",
+   "_names_only": true
+  },
+  {
+   "addr": "00479b50",
+   "index": 0,
+   "type": "int *",
+   "name": "drivers",
+   "_fn": "D3D_FindClosestDriver",
+   "_names_only": true
+  },
+  {
+   "addr": "00479b50",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "D3D_FindClosestDriver",
+   "_names_only": true
+  },
+  {
+   "addr": "00479b50",
+   "index": 2,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "D3D_FindClosestDriver",
+   "_names_only": true
+  },
+  {
+   "addr": "00479be0",
+   "index": 0,
+   "type": "int *",
+   "name": "formats",
+   "_fn": "D3D_FindTextureFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "00479be0",
+   "index": 1,
+   "type": "int",
+   "name": "count",
+   "_fn": "D3D_FindTextureFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "00479be0",
+   "index": 2,
+   "type": "uint",
+   "name": "bpp",
+   "_fn": "D3D_FindTextureFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "0047a240",
+   "index": 0,
+   "type": "int",
+   "name": "width",
+   "_fn": "D3D_CreateZBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "0047a240",
+   "index": 1,
+   "type": "int",
+   "name": "height",
+   "_fn": "D3D_CreateZBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "0047a850",
+   "index": 0,
+   "type": "uint",
+   "name": "caps",
+   "_fn": "D3D_CapsToFilterBits",
+   "_names_only": true
+  },
+  {
+   "addr": "0047a890",
+   "index": 0,
+   "type": "byte",
+   "name": "bits",
+   "_fn": "D3D_FilterBitsToMask",
+   "_names_only": true
+  },
+  {
+   "addr": "0047a8e0",
+   "index": 0,
+   "type": "byte",
+   "name": "bits",
+   "_fn": "D3D_FilterBitsToEnum",
+   "_names_only": true
+  },
+  {
+   "addr": "00473630",
+   "index": 1,
+   "type": "int",
+   "name": "videoMem",
+   "_fn": "stdLoadImage",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ab20",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdBitmap_LoadEntryFromFile",
+   "_names_only": true
+  },
+  {
+   "addr": "0047aef0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdBitmap_AppendToFile",
+   "_names_only": true
+  },
+  {
+   "addr": "0047aef0",
+   "index": 1,
+   "type": "int",
+   "name": "bitmap",
+   "_fn": "stdBitmap_AppendToFile",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b2b0",
+   "index": 1,
+   "type": "int",
+   "name": "have",
+   "_fn": "stdBitmap_ConvertColorFormat",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b4b0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "bitmap",
+   "_fn": "stdBitmap_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b4b0",
+   "index": 1,
+   "type": "uint",
+   "name": "width",
+   "_fn": "stdBitmap_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b4b0",
+   "index": 2,
+   "type": "uint",
+   "name": "height",
+   "_fn": "stdBitmap_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b4b0",
+   "index": 3,
+   "type": "uint",
+   "name": "frames",
+   "_fn": "stdBitmap_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b4b0",
+   "index": 4,
+   "type": "uint",
+   "name": "flags",
+   "_fn": "stdBitmap_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b4b0",
+   "index": 5,
+   "type": "undefined4 *",
+   "name": "format",
+   "_fn": "stdBitmap_NewEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b540",
+   "index": 0,
+   "type": "int",
+   "name": "bitmap",
+   "_fn": "stdBitmap_SetSurface",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b540",
+   "index": 1,
+   "type": "int",
+   "name": "frame",
+   "_fn": "stdBitmap_SetSurface",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b590",
+   "index": 0,
+   "type": "int",
+   "name": "bitmap",
+   "_fn": "stdBitmap_DeCompress",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b5f0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "effect",
+   "_fn": "stdPalEffects_ResetEffect",
+   "_names_only": true
+  },
+  {
+   "addr": "0047c7c0",
+   "index": 0,
+   "type": "uint",
+   "name": "path",
+   "_fn": "stdConffile_Open",
+   "_names_only": true
+  },
+  {
+   "addr": "0047c7e0",
+   "index": 0,
+   "type": "byte *",
+   "name": "path",
+   "_fn": "stdConffile_OpenMode",
+   "_names_only": true
+  },
+  {
+   "addr": "0047c7e0",
+   "index": 1,
+   "type": "uint",
+   "name": "mode",
+   "_fn": "stdConffile_OpenMode",
+   "_names_only": true
+  },
+  {
+   "addr": "004730d0",
+   "index": 0,
+   "type": "int",
+   "name": "info",
+   "_fn": "stdDisplay_BuildBitmapInfo8",
+   "_names_only": true
+  },
+  {
+   "addr": "004730d0",
+   "index": 1,
+   "type": "uint",
+   "name": "width",
+   "_fn": "stdDisplay_BuildBitmapInfo8",
+   "_names_only": true
+  },
+  {
+   "addr": "004730d0",
+   "index": 2,
+   "type": "int",
+   "name": "height",
+   "_fn": "stdDisplay_BuildBitmapInfo8",
+   "_names_only": true
+  },
+  {
+   "addr": "004730d0",
+   "index": 3,
+   "type": "int",
+   "name": "bpp",
+   "_fn": "stdDisplay_BuildBitmapInfo8",
+   "_names_only": true
+  },
+  {
+   "addr": "004730d0",
+   "index": 4,
+   "type": "undefined1 *",
+   "name": "palette",
+   "_fn": "stdDisplay_BuildBitmapInfo8",
+   "_names_only": true
+  },
+  {
+   "addr": "00473180",
+   "index": 0,
+   "type": "int",
+   "name": "info",
+   "_fn": "stdDisplay_BuildBitmapInfo16",
+   "_names_only": true
+  },
+  {
+   "addr": "00473180",
+   "index": 1,
+   "type": "uint",
+   "name": "width",
+   "_fn": "stdDisplay_BuildBitmapInfo16",
+   "_names_only": true
+  },
+  {
+   "addr": "00473180",
+   "index": 2,
+   "type": "int",
+   "name": "height",
+   "_fn": "stdDisplay_BuildBitmapInfo16",
+   "_names_only": true
+  },
+  {
+   "addr": "00473180",
+   "index": 3,
+   "type": "int",
+   "name": "bpp",
+   "_fn": "stdDisplay_BuildBitmapInfo16",
+   "_names_only": true
+  },
+  {
+   "addr": "004731f0",
+   "index": 0,
+   "type": "uint",
+   "name": "hdc",
+   "_fn": "DIB_CreateSection565",
+   "_names_only": true
+  },
+  {
+   "addr": "004731f0",
+   "index": 1,
+   "type": "uint",
+   "name": "width",
+   "_fn": "DIB_CreateSection565",
+   "_names_only": true
+  },
+  {
+   "addr": "004731f0",
+   "index": 2,
+   "type": "int",
+   "name": "height",
+   "_fn": "DIB_CreateSection565",
+   "_names_only": true
+  },
+  {
+   "addr": "004731f0",
+   "index": 3,
+   "type": "uint",
+   "name": "outBits",
+   "_fn": "DIB_CreateSection565",
+   "_names_only": true
+  },
+  {
+   "addr": "00473270",
+   "index": 0,
+   "type": "int",
+   "name": "count",
+   "_fn": "Palette_SwapRedBlue",
+   "_names_only": true
+  },
+  {
+   "addr": "00473270",
+   "index": 1,
+   "type": "undefined1 *",
+   "name": "palette",
+   "_fn": "Palette_SwapRedBlue",
+   "_names_only": true
+  },
+  {
+   "addr": "00474d10",
+   "index": 0,
+   "type": "uint",
+   "name": "palette",
+   "_fn": "stdDisplay_SetPalette",
+   "_names_only": true
+  },
+  {
+   "addr": "00475000",
+   "index": 0,
+   "type": "uint *",
+   "name": "want",
+   "_fn": "Display_FindClosestDevice",
+   "_names_only": true
+  },
+  {
+   "addr": "004758a0",
+   "index": 2,
+   "type": "void *",
+   "name": "x",
+   "_fn": "Surface_BlitLockedSrc",
+   "_names_only": true
+  },
+  {
+   "addr": "004758a0",
+   "index": 5,
+   "type": "void *",
+   "name": "flags",
+   "_fn": "Surface_BlitLockedSrc",
+   "_names_only": true
+  },
+  {
+   "addr": "00475c90",
+   "index": 2,
+   "type": "void *",
+   "name": "x",
+   "_fn": "Surface_BlitLockedDst",
+   "_names_only": true
+  },
+  {
+   "addr": "00475c90",
+   "index": 5,
+   "type": "void *",
+   "name": "flags",
+   "_fn": "Surface_BlitLockedDst",
+   "_names_only": true
+  },
+  {
+   "addr": "004760d0",
+   "index": 0,
+   "type": "uint",
+   "name": "device",
+   "_fn": "DDraw_Create",
+   "_names_only": true
+  },
+  {
+   "addr": "00476dc0",
+   "index": 0,
+   "type": "undefined1 *",
+   "name": "palette",
+   "_fn": "DDraw_SetPalette",
+   "_names_only": true
+  },
+  {
+   "addr": "0047bbb0",
+   "index": 1,
+   "type": "uint",
+   "name": "pixel",
+   "_fn": "stdColor_ColorConvertOnePixel",
+   "_names_only": true
+  },
+  {
+   "addr": "00473430",
+   "index": 0,
+   "type": "uint",
+   "name": "path",
+   "_fn": "stdFileOpen",
+   "_names_only": true
+  },
+  {
+   "addr": "00473430",
+   "index": 1,
+   "type": "uint",
+   "name": "mode",
+   "_fn": "stdFileOpen",
+   "_names_only": true
+  },
+  {
+   "addr": "00473450",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdFileClose",
+   "_names_only": true
+  },
+  {
+   "addr": "00473460",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdFileRead",
+   "_names_only": true
+  },
+  {
+   "addr": "00473460",
+   "index": 1,
+   "type": "uint",
+   "name": "buf",
+   "_fn": "stdFileRead",
+   "_names_only": true
+  },
+  {
+   "addr": "00473460",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "stdFileRead",
+   "_names_only": true
+  },
+  {
+   "addr": "00473480",
+   "index": 1,
+   "type": "uint",
+   "name": "buf",
+   "_fn": "stdFileWrite",
+   "_names_only": true
+  },
+  {
+   "addr": "00473480",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "stdFileWrite",
+   "_names_only": true
+  },
+  {
+   "addr": "004734a0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdFileGets",
+   "_names_only": true
+  },
+  {
+   "addr": "004734a0",
+   "index": 1,
+   "type": "uint",
+   "name": "buf",
+   "_fn": "stdFileGets",
+   "_names_only": true
+  },
+  {
+   "addr": "004734a0",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "stdFileGets",
+   "_names_only": true
+  },
+  {
+   "addr": "004734c0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdFileGetws",
+   "_names_only": true
+  },
+  {
+   "addr": "004734c0",
+   "index": 1,
+   "type": "uint",
+   "name": "buf",
+   "_fn": "stdFileGetws",
+   "_names_only": true
+  },
+  {
+   "addr": "004734c0",
+   "index": 2,
+   "type": "uint",
+   "name": "size",
+   "_fn": "stdFileGetws",
+   "_names_only": true
+  },
+  {
+   "addr": "004734e0",
+   "index": 0,
+   "type": "int",
+   "name": "f",
+   "_fn": "stdFeof",
+   "_names_only": true
+  },
+  {
+   "addr": "004734f0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdFtell",
+   "_names_only": true
+  },
+  {
+   "addr": "00473500",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdFseek",
+   "_names_only": true
+  },
+  {
+   "addr": "00473500",
+   "index": 1,
+   "type": "uint",
+   "name": "offset",
+   "_fn": "stdFseek",
+   "_names_only": true
+  },
+  {
+   "addr": "00473500",
+   "index": 2,
+   "type": "uint",
+   "name": "whence",
+   "_fn": "stdFseek",
+   "_names_only": true
+  },
+  {
+   "addr": "00473520",
+   "index": 0,
+   "type": "uint",
+   "name": "path",
+   "_fn": "stdFileSize",
+   "_names_only": true
+  },
+  {
+   "addr": "004735f0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdFGetc",
+   "_names_only": true
+  },
+  {
+   "addr": "00473610",
+   "index": 0,
+   "type": "uint",
+   "name": "c",
+   "_fn": "stdFPutc",
+   "_names_only": true
+  },
+  {
+   "addr": "00473610",
+   "index": 1,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdFPutc",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e3c0",
+   "index": 0,
+   "type": "short",
+   "name": "bits",
+   "_fn": "stdGif_LzwInitDecoder",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e470",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdGif_LzwDecodeNext",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e600",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "getcode",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e770",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdGif_ReadByte",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e8b0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "putcode",
+   "_names_only": true
+  },
+  {
+   "addr": "0047e8b0",
+   "index": 1,
+   "type": "short",
+   "name": "code",
+   "_fn": "putcode",
+   "_names_only": true
+  },
+  {
+   "addr": "0047eba0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdGif_LzwClearTable",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ebe0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdGif_LzwFinishEncode",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ec40",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdGif_WriteSubBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "0047ec40",
+   "index": 1,
+   "type": "short",
+   "name": "size",
+   "_fn": "stdGif_WriteSubBlock",
+   "_names_only": true
+  },
+  {
+   "addr": "00477380",
+   "index": 0,
+   "type": "int",
+   "name": "show",
+   "_fn": "stdControl_ShowMouseCursor",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f9d0",
+   "index": 0,
+   "type": "uint",
+   "name": "f",
+   "_fn": "stdLbm_PackBits",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f9d0",
+   "index": 1,
+   "type": "undefined1 *",
+   "name": "src",
+   "_fn": "stdLbm_PackBits",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f9d0",
+   "index": 2,
+   "type": "int",
+   "name": "count",
+   "_fn": "stdLbm_PackBits",
+   "_names_only": true
+  },
+  {
+   "addr": "0047f9d0",
+   "index": 3,
+   "type": "char *",
+   "name": "buf",
+   "_fn": "stdLbm_PackBits",
+   "_names_only": true
+  },
+  {
+   "addr": "0047fa70",
+   "index": 0,
+   "type": "char",
+   "name": "c",
+   "_fn": "stdLbm_PackByte",
+   "_names_only": true
+  },
+  {
+   "addr": "0047fc80",
+   "index": 0,
+   "type": "undefined2 *",
+   "name": "header",
+   "_fn": "stdLbm_SwapHeader",
+   "_names_only": true
+  },
+  {
+   "addr": "0047fe20",
+   "index": 0,
+   "type": "int",
+   "name": "p",
+   "_fn": "stdMemory_CheckMagic",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b710",
+   "index": 1,
+   "type": "ushort *",
+   "name": "dst",
+   "_fn": "stdPcx_DecodeRun16",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b710",
+   "index": 2,
+   "type": "int",
+   "name": "count",
+   "_fn": "stdPcx_DecodeRun16",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b780",
+   "index": 1,
+   "type": "int",
+   "name": "dst",
+   "_fn": "stdPcx_DecodeRun8",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b780",
+   "index": 2,
+   "type": "int",
+   "name": "count",
+   "_fn": "stdPcx_DecodeRun8",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b810",
+   "index": 1,
+   "type": "int",
+   "name": "dst",
+   "_fn": "stdPcx_DecodeRunMasked",
+   "_names_only": true
+  },
+  {
+   "addr": "0047b810",
+   "index": 2,
+   "type": "int",
+   "name": "count",
+   "_fn": "stdPcx_DecodeRunMasked",
+   "_names_only": true
+  },
+  {
+   "addr": "0047d2d0",
+   "index": 3,
+   "type": "int",
+   "name": "sysMem",
+   "_fn": "stdPic_LoadEntry",
+   "_names_only": true
+  },
+  {
+   "addr": "00403ae0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "a",
+   "_fn": "Str_ComparePtrs",
+   "_names_only": true
+  },
+  {
+   "addr": "00403ae0",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "b",
+   "_fn": "Str_ComparePtrs",
+   "_names_only": true
+  },
+  {
+   "addr": "004838c0",
+   "index": 0,
+   "type": "char *",
+   "name": "s",
+   "_fn": "Str_FindChar",
+   "_names_only": true
+  },
+  {
+   "addr": "004838c0",
+   "index": 1,
+   "type": "int",
+   "name": "c",
+   "_fn": "Str_FindChar",
+   "_names_only": true
+  },
+  {
+   "addr": "004aef70",
+   "index": 0,
+   "type": "uint *",
+   "name": "s",
+   "_fn": "String_ContainsSubstring",
+   "_names_only": true
+  },
+  {
+   "addr": "004aef70",
+   "index": 1,
+   "type": "char *",
+   "name": "sub",
+   "_fn": "String_ContainsSubstring",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1e00",
+   "index": 0,
+   "type": "byte *",
+   "name": "s",
+   "_fn": "Str_ModuleNameLength",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1e60",
+   "index": 0,
+   "type": "byte *",
+   "name": "s",
+   "_fn": "Str_StripNonPrintable",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1e90",
+   "index": 0,
+   "type": "char *",
+   "name": "a",
+   "_fn": "Str_CompareNoCase",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1e90",
+   "index": 1,
+   "type": "char *",
+   "name": "b",
+   "_fn": "Str_CompareNoCase",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1ee0",
+   "index": 0,
+   "type": "char *",
+   "name": "a",
+   "_fn": "Str_CompareNoCaseN",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1ee0",
+   "index": 1,
+   "type": "char *",
+   "name": "b",
+   "_fn": "Str_CompareNoCaseN",
+   "_names_only": true
+  },
+  {
+   "addr": "004c1ee0",
+   "index": 2,
+   "type": "int",
+   "name": "n",
+   "_fn": "Str_CompareNoCaseN",
+   "_names_only": true
+  },
+  {
+   "addr": "004aae90",
+   "index": 0,
+   "type": "byte *",
+   "name": "dst",
+   "_fn": "Text_CopyRunes",
+   "_names_only": true
+  },
+  {
+   "addr": "004aae90",
+   "index": 1,
+   "type": "undefined4 *",
+   "name": "src",
+   "_fn": "Text_CopyRunes",
+   "_names_only": true
+  },
+  {
+   "addr": "004aae90",
+   "index": 2,
+   "type": "int",
+   "name": "count",
+   "_fn": "Text_CopyRunes",
+   "_names_only": true
+  },
+  {
+   "addr": "004aae90",
+   "index": 3,
+   "type": "int",
+   "name": "stride",
+   "_fn": "Text_CopyRunes",
+   "_names_only": true
+  },
+  {
+   "addr": "004aaf30",
+   "index": 0,
+   "type": "uint",
+   "name": "text",
+   "_fn": "Text_BuildLineTable",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab210",
+   "index": 0,
+   "type": "TextContext *",
+   "name": "ctx",
+   "_fn": "text_FindNextBreak",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab210",
+   "index": 3,
+   "type": "int *",
+   "name": "outWidth",
+   "_fn": "text_FindNextBreak",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab210",
+   "index": 4,
+   "type": "uint *",
+   "name": "outBreak",
+   "_fn": "text_FindNextBreak",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab210",
+   "index": 5,
+   "type": "int",
+   "name": "maxWidth",
+   "_fn": "text_FindNextBreak",
+   "_names_only": true
+  },
+  {
+   "addr": "004ab570",
+   "index": 1,
+   "type": "int",
+   "name": "font",
+   "_fn": "Font_GlyphWidth",
+   "_names_only": true
+  },
+  {
+   "addr": "004aa880",
+   "index": 0,
+   "type": "code *",
+   "name": "write",
+   "_fn": "Text_SysSave",
+   "_names_only": true
+  },
+  {
+   "addr": "004aa8d0",
+   "index": 0,
+   "type": "code *",
+   "name": "read",
+   "_fn": "Text_SysRestore",
+   "_names_only": true
+  },
+  {
+   "addr": "004a3c80",
+   "index": 0,
+   "type": "uint",
+   "name": "ms",
+   "_fn": "sputTime_AdvanceManual",
+   "_names_only": true
+  },
+  {
+   "addr": "004cea30",
+   "index": 1,
+   "type": "uint *",
+   "name": "clip",
+   "_fn": "gra_BlitRectLookup",
+   "_names_only": true
+  },
+  {
+   "addr": "004cea30",
+   "index": 2,
+   "type": "int",
+   "name": "x",
+   "_fn": "gra_BlitRectLookup",
+   "_names_only": true
+  },
+  {
+   "addr": "004cea30",
+   "index": 3,
+   "type": "int",
+   "name": "y",
+   "_fn": "gra_BlitRectLookup",
+   "_names_only": true
+  },
+  {
+   "addr": "004cec40",
+   "index": 0,
+   "type": "char *",
+   "name": "dst",
+   "_fn": "gra_SetBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "004cec40",
+   "index": 1,
+   "type": "int",
+   "name": "format",
+   "_fn": "gra_SetBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "004cec40",
+   "index": 2,
+   "type": "int",
+   "name": "count",
+   "_fn": "gra_SetBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "004cec40",
+   "index": 3,
+   "type": "char *",
+   "name": "value",
+   "_fn": "gra_SetBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "00491650",
+   "index": 1,
+   "type": "int",
+   "name": "flags",
+   "_fn": "sputActor_ActorWalkTo",
+   "_names_only": true
+  },
+  {
+   "addr": "004a94d0",
+   "index": 0,
+   "type": "float *",
+   "name": "from",
+   "_fn": "Planner_FindPath",
+   "_names_only": true
+  },
+  {
+   "addr": "004a94d0",
+   "index": 1,
+   "type": "float *",
+   "name": "to",
+   "_fn": "Planner_FindPath",
+   "_names_only": true
+  },
+  {
+   "addr": "004a96f0",
+   "index": 1,
+   "type": "float *",
+   "name": "pos",
+   "_fn": "FindExitPoints",
+   "_names_only": true
+  },
+  {
+   "addr": "004a96f0",
+   "index": 2,
+   "type": "uint *",
+   "name": "outCount",
+   "_fn": "FindExitPoints",
+   "_names_only": true
+  },
+  {
+   "addr": "00402fd0",
+   "index": 0,
+   "type": "uint",
+   "name": "hwnd",
+   "_fn": "Win_WndProc",
+   "_names_only": true
+  },
+  {
+   "addr": "00402fd0",
+   "index": 1,
+   "type": "uint",
+   "name": "msg",
+   "_fn": "Win_WndProc",
+   "_names_only": true
+  },
+  {
+   "addr": "00473360",
+   "index": 0,
+   "type": "void *",
+   "name": "hwnd",
+   "_fn": "Win_SetMainHwnd",
+   "_names_only": true
+  },
+  {
+   "addr": "00473380",
+   "index": 0,
+   "type": "uint",
+   "name": "hInstance",
+   "_fn": "Win_SetInstance",
+   "_names_only": true
+  },
+  {
+   "addr": "004772d0",
+   "index": 0,
+   "type": "uint",
+   "name": "hwnd",
+   "_fn": "Win_IsSysCommandBlocked",
+   "_names_only": true
+  },
+  {
+   "addr": "004772d0",
+   "index": 1,
+   "type": "int",
+   "name": "cmd",
+   "_fn": "Win_IsSysCommandBlocked",
+   "_names_only": true
+  },
+  {
+   "addr": "004772d0",
+   "index": 2,
+   "type": "int",
+   "name": "lParam",
+   "_fn": "Win_IsSysCommandBlocked",
+   "_names_only": true
+  },
+  {
+   "addr": "004ac160",
+   "index": 0,
+   "type": "void *",
+   "name": "hook",
+   "_fn": "Win_AddMessageHook",
+   "_names_only": true
+  },
+  {
+   "addr": "004ac1f0",
+   "index": 0,
+   "type": "uint",
+   "name": "hInstance",
+   "_fn": "Win_CreateMainWindow",
+   "_names_only": true
+  },
+  {
+   "addr": "004ac1f0",
+   "index": 1,
+   "type": "uint",
+   "name": "title",
+   "_fn": "Win_CreateMainWindow",
+   "_names_only": true
+  },
+  {
+   "addr": "004ac1f0",
+   "index": 2,
+   "type": "int",
+   "name": "nCmdShow",
+   "_fn": "Win_CreateMainWindow",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4920",
+   "index": 0,
+   "type": "uint",
+   "name": "name",
+   "_fn": "sputRoom_LoadZBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4980",
+   "index": 0,
+   "type": "uint",
+   "name": "zbuffer",
+   "_fn": "sputRoom_FreeZBuffer",
+   "_names_only": true
+  },
+  {
+   "addr": "004a4990",
+   "index": 0,
+   "type": "void *",
+   "name": "data",
+   "_fn": "ZBuffer_FreeData",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4120",
+   "index": 0,
+   "type": "int *",
+   "name": "s",
+   "_fn": "gz_check_header",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4280",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "s",
+   "_fn": "gz_get_byte",
+   "_names_only": true
+  },
+  {
+   "addr": "004c42f0",
+   "index": 0,
+   "type": "int",
+   "name": "s",
+   "_fn": "gz_destroy",
+   "_names_only": true
+  },
+  {
+   "addr": "004c43a0",
+   "index": 0,
+   "type": "int *",
+   "name": "file",
+   "_fn": "gzread",
+   "_names_only": true
+  },
+  {
+   "addr": "004c43a0",
+   "index": 1,
+   "type": "int",
+   "name": "buf",
+   "_fn": "gzread",
+   "_names_only": true
+  },
+  {
+   "addr": "004c43a0",
+   "index": 2,
+   "type": "int",
+   "name": "len",
+   "_fn": "gzread",
+   "_names_only": true
+  },
+  {
+   "addr": "004c45b0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "file",
+   "_fn": "gzwrite",
+   "_names_only": true
+  },
+  {
+   "addr": "004c45b0",
+   "index": 1,
+   "type": "uint",
+   "name": "buf",
+   "_fn": "gzwrite",
+   "_names_only": true
+  },
+  {
+   "addr": "004c45b0",
+   "index": 2,
+   "type": "int",
+   "name": "len",
+   "_fn": "gzwrite",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4690",
+   "index": 0,
+   "type": "int",
+   "name": "file",
+   "_fn": "gz_do_flush",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4690",
+   "index": 1,
+   "type": "uint",
+   "name": "flush",
+   "_fn": "gz_do_flush",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4750",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "file",
+   "_fn": "gzseek",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4750",
+   "index": 1,
+   "type": "uint",
+   "name": "offset",
+   "_fn": "gzseek",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4750",
+   "index": 2,
+   "type": "int",
+   "name": "whence",
+   "_fn": "gzseek",
+   "_names_only": true
+  },
+  {
+   "addr": "004c48a0",
+   "index": 0,
+   "type": "undefined4 *",
+   "name": "file",
+   "_fn": "gzrewind",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4920",
+   "index": 0,
+   "type": "int",
+   "name": "s",
+   "_fn": "gz_getLong",
+   "_names_only": true
+  },
+  {
+   "addr": "004c4970",
+   "index": 0,
+   "type": "int",
+   "name": "file",
+   "_fn": "gzclose",
+   "_names_only": true
+  }
+ ]
+}

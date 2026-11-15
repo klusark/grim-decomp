@@ -11,26 +11,27 @@
    module-interface filler Main_Startup calls with hs and ms, same slots (itself, terminate,
    grimlib_GameStartup, shutdown) and base-module loop); was EngineModule_Init. */
 
-undefined * __cdecl grimlib_GameInitialize(GrimServices *param_1,undefined **param_2)
+undefined * __cdecl grimlib_GameInitialize(GrimServices *services,undefined **iface)
 
 {
   undefined *puVar1;
   
-  g_pSputmHS = param_1;
-  *param_2 = grimlib_GameInitialize;
-  param_2[1] = grimlib_GameTerminate;
-  param_2[2] = grimlib_GameStartup;
-  param_2[3] = grimlib_GameShutdown;
-  param_2[4] = (undefined *)0x0;
-  param_2[5] = (undefined *)0x0;
-  param_2[6] = (undefined *)0x0;
-  param_2[7] = (undefined *)0x0;
+  g_pSputmHS = services;
+  *iface = grimlib_GameInitialize;
+  iface[1] = grimlib_GameTerminate;
+  iface[2] = grimlib_GameStartup;
+  iface[3] = grimlib_GameShutdown;
+  iface[4] = (undefined *)0x0;
+  iface[5] = (undefined *)0x0;
+  iface[6] = (undefined *)0x0;
+  iface[7] = (undefined *)0x0;
   puVar1 = (undefined *)
-           Engine_RegisterSubsystems((uint)param_1,&PTR_FileUtil_SysInitialize_004e7dc0,((unsigned)(uintptr_t)&DAT_008a85f0),8);
+           Engine_RegisterSubsystems((uint)services,&PTR_FileUtil_SysInitialize_004e7dc0,((unsigned)(uintptr_t)&DAT_008a85f0),8)
+  ;
   if (puVar1 == (undefined *)0x0) {
     puVar1 = (undefined *)
              Engine_RegisterSubsystems
-                       ((uint)param_1,&PTR_sputControl_Initialize_004e7e00,((unsigned)(uintptr_t)&DAT_008a8778),6);
+                       ((uint)services,&PTR_sputControl_Initialize_004e7e00,((unsigned)(uintptr_t)&DAT_008a8778),6);
   }
   g_dwSputmInitialize = (uint)(puVar1 == (undefined *)0x0);
   return puVar1;

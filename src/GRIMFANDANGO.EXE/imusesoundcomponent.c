@@ -14,7 +14,7 @@
    ImuseSoundComponent_OnKey. */
 
 void __cdecl
-SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param_6,uint param_7,
+SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint value1,uint value2,uint value3,
             uint inst)
 
 {
@@ -26,8 +26,8 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
   int iVar5;
   int iVar6;
   Set *set;
-  uint uVar7;
-  uint uVar8;
+  uint sound;
+  uint minVol;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   iVar5 = Cos_InstGetUserData(inst);
@@ -46,7 +46,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
       return;
     }
     set = sputRoom_GetCurrentRoom();
-    uVar7 = SoundsLoadStartSound(iVar2,*(int *)(iVar2 + 0x24),1);
+    sound = SoundsLoadStartSound(iVar2,*(int *)(iVar2 + 0x24),1);
     if (set == (Set *)0x0) {
       return;
     }
@@ -56,11 +56,11 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
     if ((byte)tag < *(byte *)(iVar2 + 0x20)) {
       bVar4 = (byte)tag;
     }
-    uVar8 = inst & 0xff;
+    minVol = inst & 0xff;
     if ((int)(inst & 0xff) <= (int)*(uint *)(iVar2 + 0x28)) {
-      uVar8 = *(uint *)(iVar2 + 0x28);
+      minVol = *(uint *)(iVar2 + 0x28);
     }
-    sputRoom_SetSoundPosition(uVar7,(undefined **)pAVar1[iVar5].aPos,uVar8,(uint)bVar4,snd,slot);
+    sputRoom_SetSoundPosition(sound,(undefined **)pAVar1[iVar5].aPos,minVol,(uint)bVar4,snd,slot);
     return;
   }
   if (*(int *)(&g_aSoundCommands + iVar3 * 4) == 1) {
@@ -87,7 +87,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint param_5,uint param
    / Minimum Volume. Original name SoundAdjuster (the remaster's GrimFandango (Linux): strings:
    '%s,%d,%d,%d,%d'); was ImuseSoundComponent_EditKey. */
 
-uint __cdecl SoundAdjuster(int *param_1,uint param_2)
+uint __cdecl SoundAdjuster(int *comp,uint text)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -108,7 +108,7 @@ uint __cdecl SoundAdjuster(int *param_1,uint param_2)
   #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
   #define local_20 (*(uint (*)[8])(_frame + (0x50 - 0x20)))
   
-  iVar1 = *param_1;
+  iVar1 = *comp;
   local_30 = (uint)s_Maximum_Volume_004ea6a8;
   local_2c = (uint)&DAT_004ea6a4;
   local_28 = (uint)s_Priority_004ea698;
@@ -117,9 +117,9 @@ uint __cdecl SoundAdjuster(int *param_1,uint param_2)
   local_3c = (uint)*(char *)(iVar1 + 0x21);
   local_38 = *(uint *)(iVar1 + 0x24);
   local_34 = *(uint *)(iVar1 + 0x28);
-  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_30,&local_40,4);
+  iVar2 = grimPlat_SpinDialog(text,(int)&local_30,&local_40,4);
   if ((iVar2 != 0) && ((int)local_34 <= (int)local_40)) {
-    puVar3 = (uint *)strtok((byte *)param_2,&DAT_004ea52c);
+    puVar3 = (uint *)strtok((byte *)text,&DAT_004ea52c);
     if ((int)local_40 < 0) {
       uVar5 = 0;
     }
@@ -185,7 +185,7 @@ uint __cdecl SoundAdjuster(int *param_1,uint param_2)
    'Select sound file to add...' | 'Sound files (*.imu, *.imc, *.wvc, *.wav)'); was
    ImuseSoundComponent_Create. */
 
-int __cdecl SoundRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -214,10 +214,10 @@ int __cdecl SoundRequester(uint param_1,int param_2,int param_3,int param_4,char
   local_25 = 0x40;
   puVar6 = (undefined *)0x64;
   local_24 = 1;
-  if (param_3 != 0) {
+  if (parent != 0) {
     return 0;
   }
-  if (param_5 == (char *)0x0) {
+  if (name == (char *)0x0) {
     if (g_bSoundPath != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bSoundPath));
     }
@@ -231,10 +231,10 @@ int __cdecl SoundRequester(uint param_1,int param_2,int param_3,int param_4,char
     puVar2 = (uint *)grimPlat_GetDefaultOpenPath();
     strncpy((uint *)&g_bSoundPath,puVar2,uVar1);
     DAT_008caab7 = 0;
-    param_5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
+    name = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
-    strncpy((uint *)&local_20,(uint *)param_5,0x1f);
+    strncpy((uint *)&local_20,(uint *)name,0x1f);
     local_1 = 0;
     strtok(&local_20,&DAT_004ea52c);
     uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
@@ -256,7 +256,7 @@ int __cdecl SoundRequester(uint param_1,int param_2,int param_3,int param_4,char
   }
   puVar3 = (uint *)&local_20;
   if (local_20 == 0) {
-    puVar3 = (uint *)param_5;
+    puVar3 = (uint *)name;
   }
   strncpy(puVar2,puVar3,0x1f);
   *(undefined1 *)((int)puVar2 + 0x21) = local_25;
@@ -264,7 +264,7 @@ int __cdecl SoundRequester(uint param_1,int param_2,int param_3,int param_4,char
   *(undefined1 *)((int)puVar2 + 0x1f) = 0;
   *(undefined1 *)(puVar2 + 8) = uVar5;
   puVar2[9] = (uint)puVar6;
-  iVar4 = Cos_RegisterComponent(param_1,(int)param_5,(int)puVar2,param_2,0,param_4,((unsigned)(uintptr_t)&DAT_004ea018));
+  iVar4 = Cos_RegisterComponent(cosInst,(int)name,(int)puVar2,tag,0,type,((unsigned)(uintptr_t)&DAT_004ea018));
   return (uint)(iVar4 != 0);
 }
 #undef local_1
@@ -280,10 +280,10 @@ int __cdecl SoundRequester(uint param_1,int param_2,int param_3,int param_4,char
    (the remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag
    registration in sputCostume_Startup); was ImuseSoundComponent_Destroy. */
 
-uint __cdecl SoundFreer(uint param_1,uint param_2,uint param_3)
+uint __cdecl SoundFreer(uint tag,uint inst,uint data)
 
 {
-  (*g_pSputCosHS->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(data);
   return 1;
 }
 
@@ -293,9 +293,9 @@ uint __cdecl SoundFreer(uint param_1,uint param_2,uint param_3)
    (the remaster's GrimFandango (Linux): the same handler slot (stopper) of the same costume tag
    registration in sputCostume_Startup); was ImuseSoundComponent_Stop. */
 
-uint __cdecl SoundStopper(int param_1)
+uint __cdecl SoundStopper(int name)
 
 {
-  SoundsStopSound(param_1);
+  SoundsStopSound(name);
   return 1;
 }

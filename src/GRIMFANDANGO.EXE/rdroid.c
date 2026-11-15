@@ -83,10 +83,10 @@ void __cdecl rdClose(void)
    rdSetRenderOptions (the remaster's GrimFandango (Linux): same body (rdroid_curRenderOptions =
    flags)); was rdroid_SetRenderFlags. */
 
-void __cdecl rdSetRenderOptions(uint param_1)
+void __cdecl rdSetRenderOptions(uint options)
 
 {
-  g_dwRdroid_curRenderOptions = param_1;
+  g_dwRdroid_curRenderOptions = options;
   return;
 }
 
@@ -107,10 +107,10 @@ void __cdecl rdSetGeometryMode(int renderVars)
    (rdroid_curLightingMode = mode); between rdSetGeometryMode and rdSetTextureMode in both builds);
    was rdroid_SetLightingMode. */
 
-void __cdecl rdSetLightingMode(int param_1)
+void __cdecl rdSetLightingMode(int mode)
 
 {
-  g_nRdroid_curLightingMode = param_1;
+  g_nRdroid_curLightingMode = mode;
   return;
 }
 
@@ -119,10 +119,10 @@ void __cdecl rdSetLightingMode(int param_1)
    (rdroid_curTextureMode = mode); after rdSetLightingMode in both builds); was
    rdroid_SetTextureMode. */
 
-void __cdecl rdSetTextureMode(int param_1)
+void __cdecl rdSetTextureMode(int mode)
 
 {
-  g_nRdroid_curTextureMode = param_1;
+  g_nRdroid_curTextureMode = mode;
   return;
 }
 
@@ -131,10 +131,10 @@ void __cdecl rdSetTextureMode(int param_1)
    remaster's GrimFandango (Linux): same body (rdroid_curSortingMethod = method)); was
    rdroid_SetSortMode. */
 
-void __cdecl rdSetSortingMethod(int param_1)
+void __cdecl rdSetSortingMethod(int method)
 
 {
-  g_nRdroid_curSortingMethod = param_1;
+  g_nRdroid_curSortingMethod = method;
   return;
 }
 
@@ -143,10 +143,10 @@ void __cdecl rdSetSortingMethod(int param_1)
    remaster's GrimFandango (Linux): same body (rdroid_curOcclusionMethod = method); after
    rdSetSortingMethod in both builds); was rdroid_SetOcclusionMode. */
 
-void __cdecl rdSetOcclusionMethod(int param_1)
+void __cdecl rdSetOcclusionMethod(int method)
 
 {
-  g_nRdroid_curOcclusionMethod = param_1;
+  g_nRdroid_curOcclusionMethod = method;
   return;
 }
 
@@ -155,10 +155,10 @@ void __cdecl rdSetOcclusionMethod(int param_1)
    remaster's GrimFandango (Linux): same body (rdroid_curZBufferMethod = method); after
    rdSetOcclusionMethod in both builds); was rdroid_SetZBufferMode. */
 
-void __cdecl rdSetZBufferMethod(int param_1)
+void __cdecl rdSetZBufferMethod(int method)
 
 {
-  g_nRdroid_curZBufferMethod = param_1;
+  g_nRdroid_curZBufferMethod = method;
   return;
 }
 
@@ -207,14 +207,14 @@ void rdClearPreStatistics(void)
 }
 
 /* ---- 0x00404350  rdroid_SetColormap ---- */
-uint __cdecl rdroid_SetColormap(uint param_1)
+uint __cdecl rdroid_SetColormap(uint colormap)
 
 {
-  if (g_dwRdColormap_pIdentityMap != param_1) {
-    g_dwRdColormap_pIdentityMap = param_1;
+  if (g_dwRdColormap_pIdentityMap != colormap) {
+    g_dwRdColormap_pIdentityMap = colormap;
   }
   if (g_dwRdColormap_pCurMap == 0) {
-    rdColormap_SetCurrent(param_1);
+    rdColormap_SetCurrent(colormap);
   }
   return 1;
 }

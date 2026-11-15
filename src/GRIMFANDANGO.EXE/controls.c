@@ -8,7 +8,7 @@
 /* ---- 0x0048d030  Controls_DebugKeysHook ---- */
 /* Hook registered by sputControl_Startup: forwards to sputControl_StandardHandler. */
 
-int __cdecl Controls_DebugKeysHook(uint param_1)
+int __cdecl Controls_DebugKeysHook(uint key)
 
 {
   uint uVar1;

@@ -93,10 +93,10 @@ void __cdecl defaultAssert(char *expr,char *file,int line)
 /* Original name defaultAtExit (the remaster's GrimFandango (Linux): slot 7 of defaultHostServices
    (g_aDefaultHostServices)); was Svc_Fn1c. */
 
-void __cdecl defaultAtExit(uint param_1)
+void __cdecl defaultAtExit(uint fn)
 
 {
-  atexit(param_1);
+  atexit(fn);
   return;
 }
 
@@ -127,10 +127,10 @@ void * __cdecl defaultFileOpen(char *name,char *mode)
 /* Original name defaultFileClose (the remaster's GrimFandango (Linux): slot 13 of
    defaultHostServices (g_aDefaultHostServices)); was Svc_Fclose. */
 
-void __cdecl defaultFileClose(uint param_1)
+void __cdecl defaultFileClose(uint f)
 
 {
-  fclose(param_1);
+  fclose(f);
   return;
 }
 
@@ -177,20 +177,20 @@ int __cdecl defaultFileWrite(void *file,void *buf,int size)
 /* Original name defaultFileEOF (the remaster's GrimFandango (Linux): slot 17 of defaultHostServices
    (g_aDefaultHostServices)); was Svc_Feof. */
 
-uint __cdecl defaultFileEOF(int param_1)
+uint __cdecl defaultFileEOF(int f)
 
 {
-  return *(uint *)(param_1 + 0xc) & 0x10;
+  return *(uint *)(f + 0xc) & 0x10;
 }
 
 /* ---- 0x004037b0  defaultFileTell ---- */
 /* Original name defaultFileTell (the remaster's GrimFandango (Linux): slot 18 of
    defaultHostServices (g_aDefaultHostServices)); was Svc_Ftell. */
 
-void __cdecl defaultFileTell(uint param_1)
+void __cdecl defaultFileTell(uint f)
 
 {
-  ftell(param_1);
+  ftell(f);
   return;
 }
 
@@ -261,10 +261,10 @@ void __cdecl Svc_Free(void *p)
    (the remaster's GrimFandango (Linux): slot 26 of defaultHostServices (g_aDefaultHostServices));
    was Svc_Identity. */
 
-uint __cdecl defaultLockHandle(uint param_1)
+uint __cdecl defaultLockHandle(uint handle)
 
 {
-  return param_1;
+  return handle;
 }
 
 /* ---- 0x00403880  HostServicesInitialize ---- */

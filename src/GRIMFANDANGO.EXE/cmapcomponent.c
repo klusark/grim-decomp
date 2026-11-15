@@ -56,7 +56,7 @@ int * __cdecl ColormapInstancer(int inst,int component,int create)
 /* Registers a 'cmap' colormap component (CMAP resource, 0x34-byte ResRef); with no name a file
    dialog asks for one (editor) */
 
-int __cdecl ColormapRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int __cdecl ColormapRequester(uint cosInst,int tag,int parent,int type,char *param_5)
 
 {
   uint *puVar1;
@@ -69,7 +69,7 @@ int __cdecl ColormapRequester(uint param_1,int param_2,int param_3,int param_4,c
   char *name;
   
   pcVar2 = param_5;
-  if (((param_4 != 0x4c444f4d) && (param_4 != 0x4c444d4d)) && (param_4 != 0x74727073)) {
+  if (((type != 0x4c444f4d) && (type != 0x4c444d4d)) && (type != 0x74727073)) {
     return 0;
   }
   name = param_5;
@@ -101,7 +101,7 @@ int __cdecl ColormapRequester(uint param_1,int param_2,int param_3,int param_4,c
     if (pcVar2 == (char *)0x0) {
       pcVar2 = param_5;
     }
-    iVar3 = Cos_RegisterComponent(param_1,(int)pcVar2,(int)ref,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9f20));
+    iVar3 = Cos_RegisterComponent(cosInst,(int)pcVar2,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9f20));
     return (uint)(iVar3 != 0);
   }
   return 0;

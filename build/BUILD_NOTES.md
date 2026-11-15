@@ -2169,3 +2169,15 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
   four programs).
 * All four programs' .text sections are byte-identical to the build before (names only); datacmp 0 differences.
   `param_N` in the prototypes: LUA.DLL 1027 -> 745, IMUSE.DLL 656 -> 314. Clean room 0 of 5457.
+
+## The EXE's parameters named (2026-11-15)
+
+* names/params_exe_{a,b,c,d}.py and names/params_exe_raster.py (-> .json, tools/names_batch.py): 1,115 parameters of
+  the EXE, from what each function does with them (the costume components' Requester / Changer / Freer / Adjuster
+  callbacks, the module entry points' services / iface, the save / restore callbacks' write / read, the matrix and
+  vector helpers, the camera projections, files, zlib, ...); the rasteriser's by role: scan lines (left, right),
+  polygon drawers (poly), span fillers (span), edge set-ups (edge). A handful are refused by the bridge (the name is
+  a local's already, or an `undefined **` it will not set again) and stay `param_N`.
+* All four programs' .text sections are byte-identical to the build before; no live function casts an image address;
+  datacmp 0 differences. `param_N` in live game code: EXE 48, LUA.DLL 9, IMUSE.DLL 24 (the prototypes' other
+  `param_N` are the C runtime). Clean room 0 of 5457.

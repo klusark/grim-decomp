@@ -9,24 +9,24 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl FileUtil_SysInitialize(GrimServices *param_1,undefined4 *param_2)
+uint __cdecl FileUtil_SysInitialize(GrimServices *services,undefined4 *iface)
 
 {
   uint uVar1;
   
   uVar1 = 1;
-  g_pSvcFileutil = param_1;
+  g_pSvcFileutil = services;
   if (g_dwFileUtilSysInitialized == 0) {
     g_dwFileUtilSysInitialized = 1;
-    if (param_2 != (undefined4 *)0x0) {
-      *param_2 = FileUtil_SysInitialize;
-      param_2[1] = FileUtil_SysTerminate;
-      param_2[2] = FileUtil_SysStartup;
-      param_2[3] = FileUtil_SysShutdown;
-      param_2[4] = FileUtil_SysSave;
-      param_2[5] = FileUtil_SysRestore;
-      param_2[6] = zlibVersion;
-      param_2[7] = zlibVersion;
+    if (iface != (undefined4 *)0x0) {
+      *iface = FileUtil_SysInitialize;
+      iface[1] = FileUtil_SysTerminate;
+      iface[2] = FileUtil_SysStartup;
+      iface[3] = FileUtil_SysShutdown;
+      iface[4] = FileUtil_SysSave;
+      iface[5] = FileUtil_SysRestore;
+      iface[6] = zlibVersion;
+      iface[7] = zlibVersion;
     }
     uVar1 = 0;
   }
@@ -81,18 +81,18 @@ void __cdecl FileUtil_SysShutdown(void)
    handed for every field. Original name FileUtil_SysSave (the remaster's GrimFandango (Linux):
    aligned call in FileUtil_SysInitialize); was FileUtil_Sys_SaveState. */
 
-uint __cdecl FileUtil_SysSave(code *param_1)
+uint __cdecl FileUtil_SysSave(code *write)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   local_4 = 0x42545546;
-  (*param_1)(&local_4,4);
+  (*write)(&local_4,4);
   local_4 = 1;
-  (*param_1)(&local_4,4);
+  (*write)(&local_4,4);
   local_4 = 0;
-  (*param_1)(&local_4,4);
+  (*write)(&local_4,4);
   return 0;
 }
 #undef local_4

@@ -10,19 +10,19 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputSmush_Initialize(uint param_1,undefined4 *param_2)
+uint __cdecl sputSmush_Initialize(uint services,undefined4 *iface)
 
 {
-  _g_dwSmushHS = param_1;
-  *param_2 = sputSmush_Initialize;
-  param_2[1] = &DAT_004891a0;
-  param_2[2] = sputSmush_Startup;
-  param_2[3] = sputSmush_Shutdown;
-  param_2[4] = sputSmush_Save;
-  param_2[5] = sputSmush_Restore;
-  param_2[6] = 0;
-  param_2[7] = 0;
-  SmushPlay_SysInitialize(param_1,(undefined4 *)&g_aSmushPlayMS);
+  _g_dwSmushHS = services;
+  *iface = sputSmush_Initialize;
+  iface[1] = &DAT_004891a0;
+  iface[2] = sputSmush_Startup;
+  iface[3] = sputSmush_Shutdown;
+  iface[4] = sputSmush_Save;
+  iface[5] = sputSmush_Restore;
+  iface[6] = 0;
+  iface[7] = 0;
+  SmushPlay_SysInitialize(services,(undefined4 *)&g_aSmushPlayMS);
   SmushPlay_SysSetVideoCallbacks((uint *)&g_pSputVideoCallBacks);
   g_pPresentBuf = (VBuffer *)0x0;
   _g_dwSmushBuf = 1;

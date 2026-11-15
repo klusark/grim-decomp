@@ -11,10 +11,10 @@
    remaster's GrimFandango (Linux): the same handler slot (freer) of the same costume tag
    registration in sputCostume_Startup); was SmushComponent_Destroy. */
 
-uint __cdecl SmushFreer(uint param_1,uint param_2,uint param_3)
+uint __cdecl SmushFreer(uint tag,uint inst,uint data)
 
 {
-  (*g_pSputCosHS->pFree)(param_3);
+  (*g_pSputCosHS->pFree)(data);
   return 1;
 }
 
@@ -25,11 +25,11 @@ uint __cdecl SmushFreer(uint param_1,uint param_2,uint param_3)
    unmatched caller of Engine_BlitToBackBuffer; 1 matched neighbours agree, 0 disagree); was
    SmushComponent_OnKey. */
 
-void __cdecl SmushChanger(uint param_1,uint param_2,uint param_3,int param_4)
+void __cdecl SmushChanger(uint cosInst,uint name,uint tag,int loop)
 
 {
-  if (param_4 == 0) {
-    grimlib_PlayMovie(param_2,0,0,0xffffffff,0xffffffff);
+  if (loop == 0) {
+    grimlib_PlayMovie(name,0,0,0xffffffff,0xffffffff);
   }
   return;
 }
@@ -40,7 +40,7 @@ void __cdecl SmushChanger(uint param_1,uint param_2,uint param_3,int param_4)
    editor and stores its name. Original name SmushRequester (the remaster's GrimFandango (Linux):
    strings: 'Select smush file...' | 'Smush files (*.snm)'); was SmushComponent_Create. */
 
-int __cdecl SmushRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int __cdecl SmushRequester(uint cosInst,int tag,int parent,int type,char *name)
 
 {
   char cVar1;
@@ -53,8 +53,8 @@ int __cdecl SmushRequester(uint param_1,int param_2,int param_3,int param_4,char
   char *pcVar8;
   uint uVar9;
   
-  pcVar4 = param_5;
-  if (param_5 == (char *)0x0) {
+  pcVar4 = name;
+  if (name == (char *)0x0) {
     if (g_bSmushPath != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bSmushPath));
     }
@@ -102,9 +102,9 @@ int __cdecl SmushRequester(uint param_1,int param_2,int param_3,int param_4,char
     pcVar7 = pcVar7 + 1;
     pcVar8 = pcVar8 + 1;
   }
-  if (param_5 != (char *)0x0) {
-    pcVar4 = param_5;
+  if (name != (char *)0x0) {
+    pcVar4 = name;
   }
-  iVar2 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)pcVar5,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004ea040));
+  iVar2 = Cos_RegisterComponent(cosInst,(int)pcVar4,(int)pcVar5,tag,parent,type,((unsigned)(uintptr_t)&DAT_004ea040));
   return (uint)(iVar2 != 0);
 }

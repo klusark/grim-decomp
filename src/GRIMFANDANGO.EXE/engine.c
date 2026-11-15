@@ -129,10 +129,10 @@ void __cdecl grimlib_Close(void)
    sputLua_SetDebugToggleCallback (the remaster's jumps to it), set in Main_Startup); was
    Engine_SetDebugKeysCallback. */
 
-void __cdecl grimlib_SetDebugToggleCallback(uint param_1)
+void __cdecl grimlib_SetDebugToggleCallback(uint callback)
 
 {
-  sputLua_SetDebugToggleCallback(param_1);
+  sputLua_SetDebugToggleCallback(callback);
   return;
 }
 
@@ -141,10 +141,10 @@ void __cdecl grimlib_SetDebugToggleCallback(uint param_1)
    callback set in Main_Startup (the remaster's jumps to sputRender_SetPaletteCallback, as this
    calls it)); was Engine_SetRenderUserCallback. */
 
-void __cdecl grimlib_SetPaletteCallback(uint param_1)
+void __cdecl grimlib_SetPaletteCallback(uint callback)
 
 {
-  sputRender_SetPaletteCallback(param_1);
+  sputRender_SetPaletteCallback(callback);
   return;
 }
 
@@ -153,10 +153,10 @@ void __cdecl grimlib_SetPaletteCallback(uint param_1)
    callback set in Main_Startup, with grimdemo_PleaseShutdown on both sides, same body); was
    Engine_SetIdleCallback. */
 
-void __cdecl grimlib_SetShutdownCallback(uint param_1)
+void __cdecl grimlib_SetShutdownCallback(uint callback)
 
 {
-  g_dwGrimlib_shutdownCallback = param_1;
+  g_dwGrimlib_shutdownCallback = callback;
   return;
 }
 
@@ -165,10 +165,10 @@ void __cdecl grimlib_SetShutdownCallback(uint param_1)
    wrapper of sputRender_SetPageFlipCallback (the remaster's is a 5-byte jmp), called from
    Main_Startup); was Engine_SetFlipCallback. */
 
-void __cdecl grimlib_SetPageFlipCallback(uint param_1)
+void __cdecl grimlib_SetPageFlipCallback(uint callback)
 
 {
-  sputRender_SetPageFlipCallback((void *)param_1);
+  sputRender_SetPageFlipCallback((void *)callback);
   return;
 }
 
@@ -177,10 +177,10 @@ void __cdecl grimlib_SetPageFlipCallback(uint param_1)
    of sputRender_Using3DHardware in both builds (the remaster's is a jump to it)); was
    Engine_SetZBufferEnabled. */
 
-void __cdecl grimlib_Using3DHardware(uint param_1)
+void __cdecl grimlib_Using3DHardware(uint hardware)
 
 {
-  sputRender_Using3DHardware(param_1);
+  sputRender_Using3DHardware(hardware);
   return;
 }
 
@@ -214,7 +214,7 @@ int __cdecl grimlib_FindSystemFiles(void)
    body (once flag bSputmOpen, sputLua_Boot, grimlib_mode = 2, sputRender_Open, sputControl_Open));
    was Engine_CallSystemFunction. */
 
-uint __cdecl grimlib_Open(int param_1,char *str)
+uint __cdecl grimlib_Open(int services,char *str)
 
 {
   int iVar1;
@@ -223,7 +223,7 @@ uint __cdecl grimlib_Open(int param_1,char *str)
   if (g_dwSputmOpen != 0) {
     return 1;
   }
-  iVar1 = sputLua_Boot(param_1,str);
+  iVar1 = sputLua_Boot(services,str);
   if (iVar1 == 0) {
     return 1;
   }
@@ -336,8 +336,8 @@ void __cdecl grimlib_UpdateManual(int draw,int frameMs)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  uint uVar1;
-  float fVar2;
+  uint reserved;
+  float fVar1;
   #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   
@@ -353,9 +353,9 @@ void __cdecl grimlib_UpdateManual(int draw,int frameMs)
   PerfEnd(10);
   if (g_dwGrimlib_mode != 0) {
     PerfBegin(1);
-    uVar1 = sputTime_GetFrameTime();
-    fVar2 = sputTime_GetFrameTimeFlex();
-    sputControl_Update(PUN(undefined4,(float)(fVar2)),uVar1);
+    reserved = sputTime_GetFrameTime();
+    fVar1 = sputTime_GetFrameTimeFlex();
+    sputControl_Update(PUN(undefined4,(float)(fVar1)),reserved);
     PerfEnd(1);
     if ((g_dwGrimlib_mode != 1) || (frameMs != 0)) {
       g_dwGrimlib_frameNumber = g_dwGrimlib_frameNumber + 1;
@@ -372,8 +372,8 @@ void __cdecl grimlib_UpdateManual(int draw,int frameMs)
       }
       if ((g_dwGrimlib_mode != 3) && (g_dwGrimlib_mode != 4)) {
         PerfBegin(3);
-        fVar2 = sputTime_GetFrameTimeFlex();
-        sputActor_UpdateActors(fVar2);
+        fVar1 = sputTime_GetFrameTimeFlex();
+        sputActor_UpdateActors(fVar1);
         PerfEnd(3);
       }
     }
@@ -440,7 +440,7 @@ void __cdecl grimlib_Display(void)
 /* ---- 0x00482cf0  Engine_RegisterSubsystems ---- */
 /* Walks the {fn,name} subsystem table and calls each init, stopping at the first failure */
 
-uint __cdecl Engine_RegisterSubsystems(uint param_1,undefined4 *param_2,int param_3,int param_4)
+uint __cdecl Engine_RegisterSubsystems(uint services,undefined4 *entries,int modules,int count)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -452,18 +452,18 @@ uint __cdecl Engine_RegisterSubsystems(uint param_1,undefined4 *param_2,int para
   
   iVar3 = 0;
   local_4 = 0;
-  iVar2 = param_3;
-  if (0 < param_4) {
-    while (iVar1 = (*(code *)*param_2)(param_1,iVar2), iVar1 == 0) {
+  iVar2 = modules;
+  if (0 < count) {
+    while (iVar1 = (*(code *)*entries)(services,iVar2), iVar1 == 0) {
       iVar3 = iVar3 + 1;
-      param_2 = param_2 + 2;
+      entries = entries + 2;
       iVar2 = iVar2 + 0x20;
-      if (param_4 <= iVar3) {
+      if (count <= iVar3) {
         return 0;
       }
     }
     if (-1 < iVar3 + -1) {
-      puVar4 = (undefined4 *)((iVar3 + -1) * 0x20 + 4 + param_3);
+      puVar4 = (undefined4 *)((iVar3 + -1) * 0x20 + 4 + modules);
       do {
         if ((code *)*puVar4 != (code *)0x0) {
           (*(code *)*puVar4)();
@@ -480,7 +480,7 @@ uint __cdecl Engine_RegisterSubsystems(uint param_1,undefined4 *param_2,int para
 
 
 /* ---- 0x00482d60  Engine_InitSubsystems ---- */
-uint __cdecl Engine_InitSubsystems(int param_1,int param_2)
+uint __cdecl Engine_InitSubsystems(int modules,int count)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -490,19 +490,19 @@ uint __cdecl Engine_InitSubsystems(int param_1,int param_2)
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar2 = 0;
-  if (param_2 < 1) {
+  if (count < 1) {
     return 0;
   }
-  puVar3 = (undefined4 *)(param_1 + 8);
+  puVar3 = (undefined4 *)(modules + 8);
   while (((code *)*puVar3 == (code *)0x0 || (iVar1 = (*(code *)*puVar3)(), iVar1 == 0))) {
     iVar2 = iVar2 + 1;
     puVar3 = puVar3 + 8;
-    if (param_2 <= iVar2) {
+    if (count <= iVar2) {
       return 0;
     }
   }
   if (-1 < iVar2 + -1) {
-    puVar3 = (undefined4 *)((iVar2 + -1) * 0x20 + 0xc + param_1);
+    puVar3 = (undefined4 *)((iVar2 + -1) * 0x20 + 0xc + modules);
     do {
       if ((code *)*puVar3 != (code *)0x0) {
         (*(code *)*puVar3)();
@@ -519,20 +519,20 @@ uint __cdecl Engine_InitSubsystems(int param_1,int param_2)
 /* ---- 0x00482dd0  Engine_ShutdownSubsystems ---- */
 /* Calls the +0xc entry of each 0x20-byte subsystem record in reverse order */
 
-uint __cdecl Engine_ShutdownSubsystems(int param_1,int param_2)
+uint __cdecl Engine_ShutdownSubsystems(int modules,int count)
 
 {
   undefined4 *puVar1;
   
-  if (-1 < param_2 + -1) {
-    puVar1 = (undefined4 *)((param_2 + -1) * 0x20 + 0xc + param_1);
+  if (-1 < count + -1) {
+    puVar1 = (undefined4 *)((count + -1) * 0x20 + 0xc + modules);
     do {
       if ((code *)*puVar1 != (code *)0x0) {
         (*(code *)*puVar1)();
       }
       puVar1 = puVar1 + -8;
-      param_2 = param_2 + -1;
-    } while (param_2 != 0);
+      count = count + -1;
+    } while (count != 0);
   }
   return 0;
 }
@@ -540,20 +540,20 @@ uint __cdecl Engine_ShutdownSubsystems(int param_1,int param_2)
 /* ---- 0x00482e00  Engine_ResetSubsystems ---- */
 /* Calls the +4 entry of each 0x20-byte subsystem record in reverse order */
 
-uint __cdecl Engine_ResetSubsystems(int param_1,int param_2)
+uint __cdecl Engine_ResetSubsystems(int modules,int count)
 
 {
   undefined4 *puVar1;
   
-  if (-1 < param_2 + -1) {
-    puVar1 = (undefined4 *)((param_2 + -1) * 0x20 + 4 + param_1);
+  if (-1 < count + -1) {
+    puVar1 = (undefined4 *)((count + -1) * 0x20 + 4 + modules);
     do {
       if ((code *)*puVar1 != (code *)0x0) {
         (*(code *)*puVar1)();
       }
       puVar1 = puVar1 + -8;
-      param_2 = param_2 + -1;
-    } while (param_2 != 0);
+      count = count + -1;
+    } while (count != 0);
   }
   return 0;
 }
@@ -563,19 +563,19 @@ uint __cdecl Engine_ResetSubsystems(int param_1,int param_2)
    name PerfBegin (the remaster's GrimFandango (Linux): aligned call in grimlib_Display,
    sputCostume_DrawActorShadow, sputRender_Update); was Profile_Begin. */
 
-void __cdecl PerfBegin(int param_1)
+void __cdecl PerfBegin(int slot)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   #define local_8 (*(longlong *)(_frame + (0x20 - 0x8)))
   
-  if ((param_1 < 0) || (0xc < param_1)) {
+  if ((slot < 0) || (0xc < slot)) {
     (*g_pSputmHS->pAssertFail)
               (s_slot____1____slot___PerfTotalEnt_004e7f74,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x5ad);
   }
   QueryPerformanceCounter((int)&local_8);
-  *(double *)(&DAT_004e7b48 + param_1 * 0x30) = (double)local_8;
+  *(double *)(&DAT_004e7b48 + slot * 0x30) = (double)local_8;
   return;
 }
 #undef local_8
@@ -586,7 +586,7 @@ void __cdecl PerfBegin(int param_1)
    name PerfEnd (the remaster's GrimFandango (Linux): aligned call in grimlib_Display,
    sputCostume_DrawActorShadow, sputRender_Update); was Profile_End. */
 
-undefined * __cdecl PerfEnd(int param_1)
+undefined * __cdecl PerfEnd(int slot)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -596,7 +596,7 @@ undefined * __cdecl PerfEnd(int param_1)
   #define lStack_10 (*(longlong *)(_frame + (0x30 - 0x10)))
   #define dStack_8 (*(double *)(_frame + (0x30 - 0x8)))
   
-  if ((param_1 < 0) || (0xc < param_1)) {
+  if ((slot < 0) || (0xc < slot)) {
     (*g_pSputmHS->pAssertFail)
               (s_slot____1____slot___PerfTotalEnt_004e7f74,
                s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c,0x5b6);
@@ -604,9 +604,9 @@ undefined * __cdecl PerfEnd(int param_1)
   QueryPerformanceFrequency((int)&local_18);
   dStack_8 = (double)local_18;
   QueryPerformanceCounter((int)&lStack_10);
-  x = (((float10)lStack_10 - (float10)*(double *)(&DAT_004e7b48 + param_1 * 0x30)) /
-      (float10)dStack_8) * (float10)1000.0;
-  *(double *)(&g_dwGrimlib_PerfData + param_1 * 0xc) = (double)x;
+  x = (((float10)lStack_10 - (float10)*(double *)(&DAT_004e7b48 + slot * 0x30)) / (float10)dStack_8)
+      * (float10)1000.0;
+  *(double *)(&g_dwGrimlib_PerfData + slot * 0xc) = (double)x;
   lVar1 = FTOL(x);
   return (undefined *)lVar1;
 }
@@ -620,22 +620,22 @@ undefined * __cdecl PerfEnd(int param_1)
    of Lua_StartFullscreenMovie; 2 matched neighbours agree, 0 disagree); was
    Engine_BlitToBackBuffer. */
 
-uint __cdecl grimlib_PlayMovie(uint param_1,int param_2,uint param_3,uint x,uint y)
+uint __cdecl grimlib_PlayMovie(uint name,int loop,uint flags,uint x,uint y)
 
 {
   uint uVar1;
   uint *surface;
   
-  if (param_2 == 0) {
+  if (loop == 0) {
     surface = Render_GetBackBuffer();
   }
   else {
     surface = &g_dwStdDisplay_frontBuffer;
   }
   sputSmush_SetTarget(surface);
-  uVar1 = sputSmush_StartMovie((char *)param_1,param_3,x,y);
+  uVar1 = sputSmush_StartMovie((char *)name,flags,x,y);
   if (uVar1 == 0) {
-    if (param_2 != 0) {
+    if (loop != 0) {
       g_dwGrimlib_mode = 3;
       return 1;
     }
@@ -668,11 +668,11 @@ void __cdecl grimlib_UserPaint(void)
    what to save) for the next frame; the only call of sputLua_SaveL in both builds (the remaster
    saves to a slot, v1.01 to a file name)); was Engine_RequestSave. */
 
-void __cdecl grimlib_Save(char *param_1)
+void __cdecl grimlib_Save(char *filename)
 
 {
   UINT_008a8c7c = 1;
-  g_pSaveFileName = param_1;
+  g_pSaveFileName = filename;
   return;
 }
 
@@ -680,11 +680,11 @@ void __cdecl grimlib_Save(char *param_1)
 /* Original name grimlib_Load (the remaster's GrimFandango (Linux): the only unmatched callee of
    Lua_Load; 1 matched neighbours agree, 0 disagree); was Engine_RequestLoad. */
 
-void __cdecl grimlib_Load(char *param_1)
+void __cdecl grimlib_Load(char *filename)
 
 {
   g_dwDoLoad = 1;
-  g_pSaveFileName = param_1;
+  g_pSaveFileName = filename;
   return;
 }
 
@@ -1217,7 +1217,7 @@ void __cdecl sputControl_AddCallback(void *fn)
    Original name sputControl_Update (the remaster's GrimFandango (Linux): aligned call in
    grimlib_UpdateManual); was Engine_RunShutdownHooks. */
 
-void __cdecl sputControl_Update(undefined4 param_1,undefined4 param_2)
+void __cdecl sputControl_Update(undefined4 dt,undefined4 reserved)
 
 {
   int iVar1;
@@ -1231,7 +1231,7 @@ void __cdecl sputControl_Update(undefined4 param_1,undefined4 param_2)
       ppvVar2 = &g_apControlCallbacks;
       do {
         if (*ppvVar2 != (code *)0x0) {
-          iVar1 = (*(code *)*ppvVar2)(param_1);
+          iVar1 = (*(code *)*ppvVar2)(dt);
           if (iVar1 != 0) break;
         }
         iVar3 = iVar3 + 1;

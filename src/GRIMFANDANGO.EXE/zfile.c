@@ -14,15 +14,15 @@
 void __cdecl Zfile_fle_Close(int *z)
 
 {
-  int a0;
+  int file;
   
-  a0 = *z;
-  if (a0 != 0) {
+  file = *z;
+  if (file != 0) {
     if (z[1] == 0) {
-      (*(code *)g_pZf_filio_services[1])(a0);
+      (*(code *)g_pZf_filio_services[1])(file);
     }
     else {
-      gzclose(a0);
+      gzclose(file);
     }
   }
   if (z != (int *)0x0) {

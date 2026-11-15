@@ -54,11 +54,11 @@ void __cdecl LightMgr_Refresh(void)
 
 
 /* ---- 0x004beee0  LightMgr_UpdateDialog ---- */
-void __cdecl LightMgr_UpdateDialog(uint param_1)
+void __cdecl LightMgr_UpdateDialog(uint hDlg)
 
 {
   if (g_pLightEdSet != (Set *)0x0) {
-    LightEd_FillListBox(param_1);
+    LightEd_FillListBox(hDlg);
     return;
   }
   (*g_pStd_HS->pDebug)(0,s_LightManager_UpdateDialog__No_cu_004f0e3c);

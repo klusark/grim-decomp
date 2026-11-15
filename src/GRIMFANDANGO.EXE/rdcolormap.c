@@ -6,12 +6,12 @@
 #include "functions.h"
 
 /* ---- 0x00404380  rdColormap_SetCurrent ---- */
-uint __cdecl rdColormap_SetCurrent(uint param_1)
+uint __cdecl rdColormap_SetCurrent(uint colormap)
 
 {
-  if ((g_dwRdColormap_pCurMap != param_1) &&
-     (g_dwRdColormap_pCurMap = param_1, 0 < g_nRdroid_curAcceleration)) {
-    std3D_SetCurrentPalette((void *)(param_1 + 0x30),0x5a);
+  if ((g_dwRdColormap_pCurMap != colormap) &&
+     (g_dwRdColormap_pCurMap = colormap, 0 < g_nRdroid_curAcceleration)) {
+    std3D_SetCurrentPalette((void *)(colormap + 0x30),0x5a);
   }
   return 1;
 }
@@ -191,34 +191,34 @@ LAB_00404659:
 
 
 /* ---- 0x00404730  rdColormap_Free ---- */
-void __cdecl rdColormap_Free(uint param_1)
+void __cdecl rdColormap_Free(uint colormap)
 
 {
-  rdColormap_FreeEntry(param_1);
-  (*g_pRdroid_HS->pFree)(param_1);
+  rdColormap_FreeEntry(colormap);
+  (*g_pRdroid_HS->pFree)(colormap);
   return;
 }
 
 /* ---- 0x00404750  rdColormap_FreeEntry ---- */
-void __cdecl rdColormap_FreeEntry(int param_1)
+void __cdecl rdColormap_FreeEntry(int colormap)
 
 {
-  if (*(int *)(param_1 + 0x334) != 0) {
-    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x334));
-    *(undefined4 *)(param_1 + 0x334) = 0;
+  if (*(int *)(colormap + 0x334) != 0) {
+    (*g_pRdroid_HS->pFree)(*(int *)(colormap + 0x334));
+    *(undefined4 *)(colormap + 0x334) = 0;
   }
-  if (*(int *)(param_1 + 0x348) != 0) {
-    (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x348));
-    *(undefined4 *)(param_1 + 0x348) = 0;
+  if (*(int *)(colormap + 0x348) != 0) {
+    (*g_pRdroid_HS->pFree)(*(int *)(colormap + 0x348));
+    *(undefined4 *)(colormap + 0x348) = 0;
   }
-  if ((*(byte *)(param_1 + 0x20) & 1) != 0) {
-    if (*(int *)(param_1 + 0x33c) != 0) {
-      (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x33c));
-      *(undefined4 *)(param_1 + 0x33c) = 0;
+  if ((*(byte *)(colormap + 0x20) & 1) != 0) {
+    if (*(int *)(colormap + 0x33c) != 0) {
+      (*g_pRdroid_HS->pFree)(*(int *)(colormap + 0x33c));
+      *(undefined4 *)(colormap + 0x33c) = 0;
     }
-    if (*(int *)(param_1 + 0x34c) != 0) {
-      (*g_pRdroid_HS->pFree)(*(int *)(param_1 + 0x34c));
-      *(undefined4 *)(param_1 + 0x34c) = 0;
+    if (*(int *)(colormap + 0x34c) != 0) {
+      (*g_pRdroid_HS->pFree)(*(int *)(colormap + 0x34c));
+      *(undefined4 *)(colormap + 0x34c) = 0;
     }
   }
   return;
@@ -412,22 +412,22 @@ uint __cdecl rdColormap_BuildGrayRamp(rdColormap *colormap)
    0x10100 / 0x8000 / 0x10000 by the table flags); sputResource_ColormapHandler's size query); was
    FUN_00404b30. */
 
-int __cdecl rdColormap_Size(int param_1)
+int __cdecl rdColormap_Size(int colormap)
 
 {
   int iVar1;
   
   iVar1 = 0x350;
-  if (*(int *)(param_1 + 0x334) != 0) {
+  if (*(int *)(colormap + 0x334) != 0) {
     iVar1 = 0x4450;
   }
-  if (*(int *)(param_1 + 0x33c) != 0) {
+  if (*(int *)(colormap + 0x33c) != 0) {
     iVar1 = iVar1 + 0x10100;
   }
-  if (*(int *)(param_1 + 0x348) != 0) {
+  if (*(int *)(colormap + 0x348) != 0) {
     iVar1 = iVar1 + 0x8000;
   }
-  if (*(int *)(param_1 + 0x34c) != 0) {
+  if (*(int *)(colormap + 0x34c) != 0) {
     iVar1 = iVar1 + 0x10000;
   }
   return iVar1;

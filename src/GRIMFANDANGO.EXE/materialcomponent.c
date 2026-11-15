@@ -12,10 +12,10 @@
    same handler slot (changer) of the same costume tag registration in sputCostume_Startup); was
    MaterialComponent_OnKey. */
 
-void __cdecl MaterialChanger(uint param_1,int param_2,uint param_3,uint param_4)
+void __cdecl MaterialChanger(uint cosInst,int inst,uint tag,uint frame)
 
 {
-  *(uint *)(param_2 + 8) = param_4;
+  *(uint *)(inst + 8) = frame;
   return;
 }
 
@@ -55,7 +55,7 @@ void * __cdecl MaterialInstancer(void *cosInst,int componentIdx,int create)
    remaster's GrimFandango (Linux): strings: 'Select mat file to animate...'); was
    MaterialComponent_Create. */
 
-int __cdecl MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,char *param_5)
+int __cdecl MaterialRequester(uint cosInst,int tag,int *parent,int type,char *name)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -79,14 +79,14 @@ int __cdecl MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,
   local_c = 0;
   local_8 = 0;
   local_4 = 0;
-  if (((param_4 != 0x4c444f4d) && (param_4 != 0x4c444d4d)) && (param_4 != 0x74727073)) {
+  if (((type != 0x4c444f4d) && (type != 0x4c444d4d)) && (type != 0x74727073)) {
     return 0;
   }
-  if (*param_3 == 0) {
+  if (*parent == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
   }
-  iVar5 = param_3[1];
-  if (param_5 == (char *)0x0) {
+  iVar5 = parent[1];
+  if (name == (char *)0x0) {
     if (g_bMaterialPath != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bMaterialPath));
     }
@@ -105,8 +105,8 @@ int __cdecl MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,
   uStack_1c = 0;
   if (*(int *)(iVar5 + 0x4c) != 0) {
     do {
-      pbVar4 = (byte *)param_5;
-      if (param_5 == (char *)0x0) {
+      pbVar4 = (byte *)name;
+      if (name == (char *)0x0) {
         pbVar4 = pbStack_18;
       }
       iVar2 = _stricmp(pbVar4,(byte *)(*(int *)(*(int *)(iVar5 + 0x48) + uVar7 * 4) + 4));
@@ -142,11 +142,10 @@ int __cdecl MaterialRequester(uint param_1,int param_2,int *param_3,int param_4,
     }
     local_4 = 0;
     local_8 = g_dwLECBitmaps;
-    if (param_5 == (char *)0x0) {
-      param_5 = (char *)pbStack_18;
+    if (name == (char *)0x0) {
+      name = (char *)pbStack_18;
     }
-    iVar5 = Cos_RegisterComponent
-                      (param_1,(int)param_5,uStack_1c,param_2,(int)param_3,param_4,(int)&local_14);
+    iVar5 = Cos_RegisterComponent(cosInst,(int)name,uStack_1c,tag,(int)parent,type,(int)&local_14);
     return (uint)(iVar5 != 0);
   }
   return 0;

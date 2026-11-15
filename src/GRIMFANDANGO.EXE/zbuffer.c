@@ -10,12 +10,12 @@
    remaster's GrimFandango (Linux): the load call of the 'ZBUF' resource handler
    (sputResource_ZBufferHandler); the remaster inlined ZBuffer_LoadFile); was ZBuffer_Load. */
 
-uint __cdecl sputRoom_LoadZBuffer(uint param_1)
+uint __cdecl sputRoom_LoadZBuffer(uint name)
 
 {
   uint uVar1;
   
-  uVar1 = ZBuffer_LoadFile((char *)param_1);
+  uVar1 = ZBuffer_LoadFile((char *)name);
   return uVar1;
 }
 
@@ -46,19 +46,19 @@ uint __cdecl ZBuffer_LoadFile(char *name)
    remaster's GrimFandango (Linux): the free call of the 'ZBUF' resource handler
    (sputResource_ZBufferHandler) on both sides); was ZBuffer_Free. */
 
-void __cdecl sputRoom_FreeZBuffer(uint param_1)
+void __cdecl sputRoom_FreeZBuffer(uint zbuffer)
 
 {
-  ZBuffer_FreeData((void *)param_1);
+  ZBuffer_FreeData((void *)zbuffer);
   return;
 }
 
 /* ---- 0x004a4990  ZBuffer_FreeData ---- */
 /* stdDisplay_VBufferFree of the z-buffer surface. */
 
-void __cdecl ZBuffer_FreeData(void *param_1)
+void __cdecl ZBuffer_FreeData(void *data)
 
 {
-  stdDisplay_VBufferFree(param_1);
+  stdDisplay_VBufferFree(data);
   return;
 }

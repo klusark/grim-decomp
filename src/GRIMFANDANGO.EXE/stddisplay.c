@@ -398,8 +398,7 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 /* ---- 0x004730d0  stdDisplay_BuildBitmapInfo8 ---- */
 /* Fills a BITMAPINFO (0x28 header, negative height) with a 256-entry palette */
 
-void __cdecl
-stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,undefined1 *param_5)
+void __cdecl stdDisplay_BuildBitmapInfo8(int info,uint width,int height,int bpp,undefined1 *palette)
 
 {
   unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -419,8 +418,8 @@ stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,und
   #define local_404 (*(uint *)(_frame + (0x440 - 0x404)))
   #define local_400 (*(undefined1 (*)[1024])(_frame + (0x440 - 0x400)))
   
-  local_420 = -param_3;
-  local_424 = param_2;
+  local_420 = -height;
+  local_424 = width;
   local_428 = 0x28;
   local_41c = 1;
   local_41a = 8;
@@ -433,16 +432,16 @@ stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,und
   iVar3 = 0x100;
   puVar2 = local_400 + 1;
   do {
-    puVar2[1] = *param_5;
-    puVar1 = param_5 + 2;
-    *puVar2 = param_5[1];
-    param_5 = param_5 + 3;
+    puVar2[1] = *palette;
+    puVar1 = palette + 2;
+    *puVar2 = palette[1];
+    palette = palette + 3;
     puVar2[-1] = *puVar1;
     puVar2[2] = 0;
     iVar3 = iVar3 + -1;
     puVar2 = puVar2 + 4;
   } while (iVar3 != 0);
-  CreateDIBSection(param_1,(int)&local_428,0,param_4,0,0);
+  CreateDIBSection(info,(int)&local_428,0,bpp,0,0);
   return;
 }
 #undef local_400
@@ -460,7 +459,7 @@ stdDisplay_BuildBitmapInfo8(int param_1,uint param_2,int param_3,int param_4,und
 
 
 /* ---- 0x00473180  stdDisplay_BuildBitmapInfo16 ---- */
-void __cdecl stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,int param_4)
+void __cdecl stdDisplay_BuildBitmapInfo16(int info,uint width,int height,int bpp)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -476,9 +475,9 @@ void __cdecl stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,i
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
-  local_28 = param_2;
+  local_28 = width;
   local_2c = 0x28;
-  local_24 = -param_3;
+  local_24 = -height;
   local_1c = 0;
   local_18 = 0;
   local_14 = 0;
@@ -487,7 +486,7 @@ void __cdecl stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,i
   local_8 = 0;
   local_20 = 1;
   local_1e = 0x10;
-  CreateDIBSection(param_1,(int)&local_2c,0,param_4,0,0);
+  CreateDIBSection(info,(int)&local_2c,0,bpp,0,0);
   return;
 }
 #undef local_10
@@ -506,7 +505,7 @@ void __cdecl stdDisplay_BuildBitmapInfo16(int param_1,uint param_2,int param_3,i
 /* ---- 0x004731f0  DIB_CreateSection565 ---- */
 /* CreateDIBSection of a top-down 16-bit surface with the RGB565 bit masks (0xf800, 0x7e0, 0x1f). */
 
-undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,uint param_4)
+undefined * __cdecl DIB_CreateSection565(uint hdc,uint width,int height,uint outBits)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -526,9 +525,9 @@ undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,u
   #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
   
-  local_30 = param_2;
+  local_30 = width;
   local_34 = 0x28;
-  local_2c = -param_3;
+  local_2c = -height;
   local_20 = 0;
   local_1c = 0;
   local_18 = 0;
@@ -540,7 +539,7 @@ undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,u
   local_c = 0xf800;
   local_8 = 0x7e0;
   local_4 = 0x1f;
-  puVar1 = (undefined *)CreateDIBSection(param_1,(int)&local_34,0,param_4,0,0);
+  puVar1 = (undefined *)CreateDIBSection(hdc,(int)&local_34,0,outBits,0,0);
   return puVar1;
 }
 #undef local_10
@@ -562,7 +561,7 @@ undefined * __cdecl DIB_CreateSection565(uint param_1,uint param_2,int param_3,u
 /* ---- 0x00473270  Palette_SwapRedBlue ---- */
 /* Converts a 768-byte RGB palette to BGR order */
 
-uint __cdecl Palette_SwapRedBlue(int param_1,undefined1 *param_2)
+uint __cdecl Palette_SwapRedBlue(int count,undefined1 *palette)
 
 {
   unsigned char _frame[0x820] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -577,7 +576,7 @@ uint __cdecl Palette_SwapRedBlue(int param_1,undefined1 *param_2)
   #define local_400 (*(undefined1 (*)[1024])(_frame + (0x820 - 0x400)))
   
   iVar4 = 0x100;
-  puVar2 = param_2;
+  puVar2 = palette;
   puVar3 = local_400 + 1;
   do {
     puVar3[1] = *puVar2;
@@ -589,7 +588,7 @@ uint __cdecl Palette_SwapRedBlue(int param_1,undefined1 *param_2)
     iVar4 = iVar4 + -1;
     puVar3 = puVar3 + 4;
   } while (iVar4 != 0);
-  iVar4 = SetDIBColorTable(param_1,0,0x100,(int)local_400);
+  iVar4 = SetDIBColorTable(count,0,0x100,(int)local_400);
   if (iVar4 == 0) {
     return 0;
   }
@@ -598,20 +597,20 @@ uint __cdecl Palette_SwapRedBlue(int param_1,undefined1 *param_2)
   iVar4 = 0x100;
   puVar2 = auStack_800 + 1;
   do {
-    puVar2[-1] = *param_2;
-    puVar3 = param_2 + 2;
-    *puVar2 = param_2[1];
-    param_2 = param_2 + 3;
+    puVar2[-1] = *palette;
+    puVar3 = palette + 2;
+    *puVar2 = palette[1];
+    palette = palette + 3;
     puVar2[1] = *puVar3;
     puVar2[2] = 1;
     iVar4 = iVar4 + -1;
     puVar2 = puVar2 + 4;
   } while (iVar4 != 0);
   iVar4 = CreatePalette((int)&uStack_808);
-  a2 = SelectPalette(param_1,iVar4,1);
+  a2 = SelectPalette(count,iVar4,1);
   AnimatePalette(iVar4,0,0x100,(int)auStack_800);
-  RealizePalette(param_1);
-  SelectPalette(param_1,a2,0);
+  RealizePalette(count);
+  SelectPalette(count,a2,0);
   DeleteObject(iVar4);
   return 1;
 }
@@ -678,8 +677,8 @@ void __cdecl stdDisplay_Shutdown(void)
 int __cdecl Display_SelectDevice(int deviceIdx)
 
 {
-  void *pvVar1;
-  int iVar2;
+  void *device;
+  int iVar1;
   
   if (g_nDisplayDeviceOpen != 0) {
     return 0;
@@ -831,9 +830,9 @@ int __cdecl Display_SelectDevice(int deviceIdx)
     g_dwVideoModeCount = 10;
   }
   else if ((&UINT_00902d60)[deviceIdx * 0xa6] == 1) {
-    pvVar1 = Win_GetMainHwnd();
-    iVar2 = DDraw_Create((uint)pvVar1);
-    if (iVar2 == 0) {
+    device = Win_GetMainHwnd();
+    iVar1 = DDraw_Create((uint)device);
+    if (iVar1 == 0) {
       return 0;
     }
   }
@@ -1575,7 +1574,7 @@ VBuffer * __cdecl stdDisplay_VBufferConvertColorFormat(ColorFormat *want,VBuffer
 /* Original name stdDisplay_SetPalette (the remaster's GrimFandango (Linux): the first call of
    grimdemo_SetPalette; the remaster's is a stub); was Display_SetDIBPalette. */
 
-int __cdecl stdDisplay_SetPalette(uint param_1)
+int __cdecl stdDisplay_SetPalette(uint palette)
 
 {
   int iVar1;
@@ -1585,7 +1584,7 @@ int __cdecl stdDisplay_SetPalette(uint param_1)
     return 0;
   }
   if (g_pDisplayDevice->nType == 0) {
-    uVar2 = Palette_SwapRedBlue(UINT_007f6498,(undefined1 *)param_1);
+    uVar2 = Palette_SwapRedBlue(UINT_007f6498,(undefined1 *)palette);
     if (uVar2 == 0) {
       return 0;
     }
@@ -1596,7 +1595,7 @@ int __cdecl stdDisplay_SetPalette(uint param_1)
   else {
     iVar1 = g_pDisplayDevice->nType + -1;
     if (iVar1 == 0) {
-      uVar2 = DDraw_SetPalette((undefined1 *)param_1);
+      uVar2 = DDraw_SetPalette((undefined1 *)palette);
       return uVar2;
     }
   }
@@ -1720,7 +1719,7 @@ int __cdecl stdDisplay_TextOut(char *text,int x,int y)
 
 
 /* ---- 0x00475000  Display_FindClosestDevice ---- */
-uint __cdecl Display_FindClosestDevice(uint *param_1)
+uint __cdecl Display_FindClosestDevice(uint *want)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1740,9 +1739,9 @@ uint __cdecl Display_FindClosestDevice(uint *param_1)
     puVar3 = &UINT_00902d60;
     do {
       uVar2 = 0;
-      if ((((puVar3[4] == param_1[4]) && (uVar2 = 1, *puVar3 == *param_1)) &&
-          (uVar2 = 2, puVar3[3] == param_1[3])) &&
-         ((uVar2 = 3, puVar3[2] == param_1[2] && (uVar2 = 4, puVar3[1] == param_1[1])))) {
+      if ((((puVar3[4] == want[4]) && (uVar2 = 1, *puVar3 == *want)) &&
+          (uVar2 = 2, puVar3[3] == want[3])) &&
+         ((uVar2 = 3, puVar3[2] == want[2] && (uVar2 = 4, puVar3[1] == want[1])))) {
         return uVar1;
       }
       if (uVar4 < uVar2) {
@@ -2223,7 +2222,7 @@ uint __cdecl Surface_BlitDDraw(VBuffer *dst,VBuffer *src,uint x,uint y,uint *src
 
 /* ---- 0x004758a0  Surface_BlitLockedSrc ---- */
 uint __cdecl
-Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRect,void *param_6)
+Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void *flags)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2266,9 +2265,9 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
       iVar11 = srcRect[1];
     }
     pvVar15 = (void *)(dst->format).nWidth;
-    if (((((int)param_3 < (int)pvVar15) && (iVar8 + (int)param_3 != 0)) &&
+    if (((((int)x < (int)pvVar15) && (iVar8 + (int)x != 0)) &&
         (uVar3 = (dst->format).nHeight, (int)y < (int)uVar3)) && (iVar9 + y != 0)) {
-      pvVar7 = (void *)((iVar8 + (int)param_3) - 1);
+      pvVar7 = (void *)((iVar8 + (int)x) - 1);
       uVar10 = (iVar9 + y) - 1;
       if ((int)y < 0) {
         iVar11 = iVar11 - y;
@@ -2277,28 +2276,28 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
       if (uVar3 <= uVar10) {
         uVar10 = uVar3 - 1;
       }
-      if ((int)param_3 < 0) {
-        src = (VBuffer *)((int)src - (int)param_3);
-        param_3 = (void *)0x0;
+      if ((int)x < 0) {
+        src = (VBuffer *)((int)src - (int)x);
+        x = (void *)0x0;
       }
       if (pvVar15 <= pvVar7) {
         pvVar7 = (void *)((int)pvVar15 - 1);
       }
-      iVar8 = (int)pvVar7 + (1 - (int)param_3);
+      iVar8 = (int)pvVar7 + (1 - (int)x);
       if (iVar8 != 0) {
         uVar3 = ((uint)(pVVar2->format).colorFormat.nBpp >> 3) * iVar8;
         stdDisplay_VBufferLock(dst);
         iVar9 = (pVVar2->format).colorFormat.nBpp;
         if (iVar9 == 8) {
-          if (((uint)param_6 & 1) == 0) {
-            param_6 = (void *)((int)(iVar11 * (pVVar2->format).nStride + (int)pVVar2->pPixels) +
-                              (int)src);
-            pvVar15 = (void *)((int)(y * (dst->format).nStride + (int)dst->pPixels) + (int)param_3);
+          if (((uint)flags & 1) == 0) {
+            flags = (void *)((int)(iVar11 * (pVVar2->format).nStride + (int)pVVar2->pPixels) +
+                            (int)src);
+            pvVar15 = (void *)((int)(y * (dst->format).nStride + (int)dst->pPixels) + (int)x);
             if (y <= uVar10) {
               iVar8 = (uVar10 - y) + 1;
               do {
-                Mem_Copy(pvVar15,param_6,uVar3);
-                param_6 = (void *)((int)param_6 + (pVVar2->format).nStride);
+                Mem_Copy(pvVar15,flags,uVar3);
+                flags = (void *)((int)flags + (pVVar2->format).nStride);
                 pvVar15 = (void *)((int)pvVar15 + (dst->format).nStride);
                 iVar8 = iVar8 + -1;
               } while (iVar8 != 0);
@@ -2308,12 +2307,12 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
             iVar9 = (pVVar2->format).nStride;
             iVar1 = (dst->format).nStride;
             pcVar14 = (char *)((int)(iVar11 * iVar9 + (int)pVVar2->pPixels) + (int)src);
-            pcVar6 = (char *)((int)(y * (dst->format).nStride + (int)dst->pPixels) + (int)param_3);
+            pcVar6 = (char *)((int)(y * (dst->format).nStride + (int)dst->pPixels) + (int)x);
             if (y <= uVar10) {
               iVar11 = (uVar10 - y) + 1;
               do {
                 iVar16 = iVar8;
-                if (param_3 <= pvVar7) {
+                if (x <= pvVar7) {
                   do {
                     if (*pcVar14 != (char)pVVar2->dwColorKey) {
                       *pcVar6 = *pcVar14;
@@ -2331,18 +2330,17 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
           }
         }
         else if (iVar9 == 0x10) {
-          if (((uint)param_6 & 1) == 0) {
+          if (((uint)flags & 1) == 0) {
             pvVar15 = (void *)((int)pVVar2->pPixels +
                               (int)((int)&src->nType + iVar11 * (pVVar2->format).nStride) * 2);
-            param_3 = (void *)((int)dst->pPixels +
-                              (int)(y * (dst->format).nStride + (int)param_3) * 2);
+            x = (void *)((int)dst->pPixels + (int)(y * (dst->format).nStride + (int)x) * 2);
             if (y <= uVar10) {
               iVar8 = (uVar10 - y) + 1;
               do {
-                Mem_Copy(param_3,pvVar15,uVar3);
+                Mem_Copy(x,pvVar15,uVar3);
                 iVar8 = iVar8 + -1;
                 pvVar15 = (void *)((int)pvVar15 + (pVVar2->format).nStride * 2);
-                param_3 = (void *)((int)param_3 + (dst->format).nStride * 2);
+                x = (void *)((int)x + (dst->format).nStride * 2);
               } while (iVar8 != 0);
             }
           }
@@ -2351,13 +2349,12 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
             iVar1 = (dst->format).nStride;
             psVar13 = (short *)((int)pVVar2->pPixels + (int)((int)&src->nType + iVar11 * iVar9) * 2)
             ;
-            psVar5 = (short *)((int)dst->pPixels +
-                              (int)(y * (dst->format).nStride + (int)param_3) * 2);
+            psVar5 = (short *)((int)dst->pPixels + (int)(y * (dst->format).nStride + (int)x) * 2);
             if (y <= uVar10) {
               iVar11 = (uVar10 - y) + 1;
               do {
                 iVar16 = iVar8;
-                if (param_3 <= pvVar7) {
+                if (x <= pvVar7) {
                   do {
                     if (*psVar13 != (short)pVVar2->dwColorKey) {
                       *psVar5 = *psVar13;
@@ -2375,18 +2372,17 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
           }
         }
         else if (iVar9 == 0x20) {
-          if (((uint)param_6 & 1) == 0) {
+          if (((uint)flags & 1) == 0) {
             pvVar15 = (void *)((int)pVVar2->pPixels +
                               (int)((int)&src->nType + iVar11 * (pVVar2->format).nStride) * 4);
-            param_3 = (void *)((int)dst->pPixels +
-                              (int)(y * (dst->format).nStride + (int)param_3) * 4);
+            x = (void *)((int)dst->pPixels + (int)(y * (dst->format).nStride + (int)x) * 4);
             if (y <= uVar10) {
               iVar8 = (uVar10 - y) + 1;
               do {
-                Mem_Copy(param_3,pvVar15,uVar3);
+                Mem_Copy(x,pvVar15,uVar3);
                 iVar8 = iVar8 + -1;
                 pvVar15 = (void *)((int)pvVar15 + (pVVar2->format).nStride * 4);
-                param_3 = (void *)((int)param_3 + (dst->format).nStride * 4);
+                x = (void *)((int)x + (dst->format).nStride * 4);
               } while (iVar8 != 0);
             }
           }
@@ -2394,13 +2390,12 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
             iVar9 = (pVVar2->format).nStride;
             iVar1 = (dst->format).nStride;
             puVar12 = (uint *)((int)pVVar2->pPixels + (int)((int)&src->nType + iVar11 * iVar9) * 4);
-            puVar4 = (uint *)((int)dst->pPixels +
-                             (int)(y * (dst->format).nStride + (int)param_3) * 4);
+            puVar4 = (uint *)((int)dst->pPixels + (int)(y * (dst->format).nStride + (int)x) * 4);
             if (y <= uVar10) {
               iVar11 = (uVar10 - y) + 1;
               do {
                 iVar16 = iVar8;
-                if (param_3 <= pvVar7) {
+                if (x <= pvVar7) {
                   do {
                     if (*puVar12 != pVVar2->dwColorKey) {
                       *puVar4 = *puVar12;
@@ -2429,7 +2424,7 @@ Surface_BlitLockedSrc(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
 
 /* ---- 0x00475c90  Surface_BlitLockedDst ---- */
 uint __cdecl
-Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRect,void *param_6)
+Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *x,uint y,int *srcRect,void *flags)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -2474,9 +2469,9 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
       iVar12 = srcRect[1];
       src = (VBuffer *)srcRect[3];
     }
-    if (((((int)param_3 < (dst->format).nWidth) && (iVar7 + (int)param_3 != 0)) &&
+    if (((((int)x < (dst->format).nWidth) && (iVar7 + (int)x != 0)) &&
         ((int)y < (dst->format).nHeight)) && (iVar10 = (int)&src->nType + y, iVar10 != 0)) {
-      pvVar11 = (void *)((iVar7 + (int)param_3) - 1);
+      pvVar11 = (void *)((iVar7 + (int)x) - 1);
       srcRect = (int *)(iVar10 - 1);
       if ((int)y < 0) {
         iVar12 = iVar12 - y;
@@ -2487,30 +2482,29 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
         srcRect = (int *)((int)piVar1 - 1);
       }
       dst = pVVar5;
-      if ((int)param_3 < 0) {
-        dst = (VBuffer *)((int)pVVar5 - (int)param_3);
-        param_3 = (void *)0x0;
+      if ((int)x < 0) {
+        dst = (VBuffer *)((int)pVVar5 - (int)x);
+        x = (void *)0x0;
       }
       pvVar2 = (void *)(pVVar4->format).nWidth;
       if (pvVar2 <= pvVar11) {
         pvVar11 = (void *)((int)pvVar2 - 1);
       }
-      iVar7 = (int)pvVar11 + (1 - (int)param_3);
+      iVar7 = (int)pvVar11 + (1 - (int)x);
       if (iVar7 != 0) {
         n = ((uint)(surface->format).colorFormat.nBpp >> 3) * iVar7;
         stdDisplay_VBufferLock(surface);
         iVar10 = (surface->format).colorFormat.nBpp;
         if (iVar10 == 8) {
-          if (((uint)param_6 & 1) == 0) {
-            param_6 = (void *)((int)(iVar12 * (surface->format).nStride + (int)surface->pPixels) +
-                              (int)dst);
-            pvVar11 = (void *)((int)(y * (pVVar4->format).nStride + (int)pVVar4->pPixels) +
-                              (int)param_3);
+          if (((uint)flags & 1) == 0) {
+            flags = (void *)((int)(iVar12 * (surface->format).nStride + (int)surface->pPixels) +
+                            (int)dst);
+            pvVar11 = (void *)((int)(y * (pVVar4->format).nStride + (int)pVVar4->pPixels) + (int)x);
             if (y <= srcRect) {
               iVar7 = (int)srcRect + (1 - y);
               do {
-                Mem_Copy(pvVar11,param_6,n);
-                param_6 = (void *)((int)param_6 + (surface->format).nStride);
+                Mem_Copy(pvVar11,flags,n);
+                flags = (void *)((int)flags + (surface->format).nStride);
                 pvVar11 = (void *)((int)pvVar11 + (pVVar4->format).nStride);
                 iVar7 = iVar7 + -1;
               } while (iVar7 != 0);
@@ -2520,13 +2514,12 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
             iVar10 = (surface->format).nStride;
             iVar3 = (pVVar4->format).nStride;
             pcVar15 = (char *)((int)(iVar12 * iVar10 + (int)surface->pPixels) + (int)dst);
-            pcVar9 = (char *)((int)(y * (pVVar4->format).nStride + (int)pVVar4->pPixels) +
-                             (int)param_3);
+            pcVar9 = (char *)((int)(y * (pVVar4->format).nStride + (int)pVVar4->pPixels) + (int)x);
             if (y <= srcRect) {
               iVar12 = (int)srcRect + (1 - y);
               do {
                 iVar16 = iVar7;
-                if (param_3 <= pvVar11) {
+                if (x <= pvVar11) {
                   do {
                     if (*pcVar15 != (char)surface->dwColorKey) {
                       *pcVar9 = *pcVar15;
@@ -2546,18 +2539,17 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
           }
         }
         else if (iVar10 == 0x10) {
-          if (((uint)param_6 & 1) == 0) {
+          if (((uint)flags & 1) == 0) {
             pvVar11 = (void *)((int)surface->pPixels +
                               (int)((int)&dst->nType + iVar12 * (surface->format).nStride) * 2);
-            param_3 = (void *)((int)pVVar4->pPixels +
-                              (int)(y * (pVVar4->format).nStride + (int)param_3) * 2);
+            x = (void *)((int)pVVar4->pPixels + (int)(y * (pVVar4->format).nStride + (int)x) * 2);
             if (y <= srcRect) {
               iVar7 = (int)srcRect + (1 - y);
               do {
-                Mem_Copy(param_3,pvVar11,n);
+                Mem_Copy(x,pvVar11,n);
                 pvVar11 = (void *)((int)pvVar11 + (surface->format).nStride * 2);
                 iVar7 = iVar7 + -1;
-                param_3 = (void *)((int)param_3 + (pVVar4->format).nStride * 2);
+                x = (void *)((int)x + (pVVar4->format).nStride * 2);
               } while (iVar7 != 0);
               stdDisplay_VBufferUnlock(surface);
               return 1;
@@ -2569,12 +2561,12 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
             psVar14 = (short *)((int)surface->pPixels +
                                (int)((int)&dst->nType + iVar12 * iVar10) * 2);
             psVar8 = (short *)((int)pVVar4->pPixels +
-                              (int)(y * (pVVar4->format).nStride + (int)param_3) * 2);
+                              (int)(y * (pVVar4->format).nStride + (int)x) * 2);
             if (y <= srcRect) {
               iVar12 = (int)srcRect + (1 - y);
               do {
                 iVar16 = iVar7;
-                if (param_3 <= pvVar11) {
+                if (x <= pvVar11) {
                   do {
                     if (*psVar14 != (short)surface->dwColorKey) {
                       *psVar8 = *psVar14;
@@ -2594,18 +2586,17 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
           }
         }
         else if (iVar10 == 0x20) {
-          if (((uint)param_6 & 1) == 0) {
+          if (((uint)flags & 1) == 0) {
             pvVar11 = (void *)((int)surface->pPixels +
                               (int)((int)&dst->nType + iVar12 * (surface->format).nStride) * 4);
-            param_3 = (void *)((int)pVVar4->pPixels +
-                              (int)(y * (pVVar4->format).nStride + (int)param_3) * 4);
+            x = (void *)((int)pVVar4->pPixels + (int)(y * (pVVar4->format).nStride + (int)x) * 4);
             if (y <= srcRect) {
               iVar7 = (int)srcRect + (1 - y);
               do {
-                Mem_Copy(param_3,pvVar11,n);
+                Mem_Copy(x,pvVar11,n);
                 pvVar11 = (void *)((int)pvVar11 + (surface->format).nStride * 4);
                 iVar7 = iVar7 + -1;
-                param_3 = (void *)((int)param_3 + (pVVar4->format).nStride * 4);
+                x = (void *)((int)x + (pVVar4->format).nStride * 4);
               } while (iVar7 != 0);
               stdDisplay_VBufferUnlock(surface);
               return 1;
@@ -2617,12 +2608,12 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
             puVar13 = (uint *)((int)surface->pPixels + (int)((int)&dst->nType + iVar12 * iVar10) * 4
                               );
             puVar6 = (uint *)((int)pVVar4->pPixels +
-                             (int)(y * (pVVar4->format).nStride + (int)param_3) * 4);
+                             (int)(y * (pVVar4->format).nStride + (int)x) * 4);
             if (y <= srcRect) {
               iVar12 = (int)srcRect + (1 - y);
               do {
                 iVar16 = iVar7;
-                if (param_3 <= pvVar11) {
+                if (x <= pvVar11) {
                   do {
                     if (*puVar13 != surface->dwColorKey) {
                       *puVar6 = *puVar13;
@@ -2652,7 +2643,7 @@ Surface_BlitLockedDst(VBuffer *dst,VBuffer *src,void *param_3,uint y,int *srcRec
 
 
 /* ---- 0x004760d0  DDraw_Create ---- */
-int __cdecl DDraw_Create(uint param_1)
+int __cdecl DDraw_Create(uint device)
 
 {
   int iVar1;
@@ -2669,7 +2660,7 @@ int __cdecl DDraw_Create(uint param_1)
     return 0;
   }
   g_dwVideoModeCount = 0;
-  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,0x51);
+  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,device,0x51);
   if (iVar1 != 0) {
     return 0;
   }
@@ -2678,7 +2669,7 @@ int __cdecl DDraw_Create(uint param_1)
   if (iVar1 != 0) {
     return 0;
   }
-  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,0x11);
+  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,device,0x11);
   if (iVar1 != 0) {
     return 0;
   }
@@ -2686,7 +2677,7 @@ int __cdecl DDraw_Create(uint param_1)
   if (iVar1 != 0) {
     return 0;
   }
-  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,param_1,8);
+  iVar1 = (**(code_std **)(*(int *)g_pDirectDraw + 0x50))(g_pDirectDraw,device,8);
   return (uint)(iVar1 == 0);
 }
 
@@ -3320,7 +3311,7 @@ uint __cdecl DDraw_FillSurface(DDrawSurfaceRec *rec,uint color,uint *rect)
 
 
 /* ---- 0x00476dc0  DDraw_SetPalette ---- */
-uint __cdecl DDraw_SetPalette(undefined1 *param_1)
+uint __cdecl DDraw_SetPalette(undefined1 *palette)
 
 {
   unsigned char _frame[0x410] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -3333,10 +3324,10 @@ uint __cdecl DDraw_SetPalette(undefined1 *param_1)
     iVar3 = 0x100;
     puVar2 = local_400 + 1;
     do {
-      puVar2[-1] = *param_1;
-      puVar1 = param_1 + 2;
-      *puVar2 = param_1[1];
-      param_1 = param_1 + 3;
+      puVar2[-1] = *palette;
+      puVar1 = palette + 2;
+      *puVar2 = palette[1];
+      palette = palette + 3;
       puVar2[1] = *puVar1;
       iVar3 = iVar3 + -1;
       puVar2 = puVar2 + 4;
@@ -3357,7 +3348,7 @@ void * __cdecl DIB_CreateSurface(VideoMode *mode,VBuffer *surface,void *palette,
 
 {
   int iVar1;
-  uint uVar2;
+  uint width;
   
   UINT_00803f7c = GetDC((int)hwnd);
   iVar1 = (mode->format).colorFormat.nColorMode;
@@ -3371,12 +3362,12 @@ void * __cdecl DIB_CreateSurface(VideoMode *mode,VBuffer *surface,void *palette,
   }
   else if ((iVar1 == 1) && ((mode->format).colorFormat.nBpp == 0x10)) {
     iVar1 = (mode->format).nHeight;
-    uVar2 = (mode->format).nWidth;
+    width = (mode->format).nWidth;
     if ((mode->format).colorFormat.dwGreenBits == 6) {
-      UINT_00803fb4 = (uint)DIB_CreateSection565(UINT_00803f7c,uVar2,iVar1,(uint)surface);
+      UINT_00803fb4 = (uint)DIB_CreateSection565(UINT_00803f7c,width,iVar1,(uint)surface);
     }
     else {
-      UINT_00803fb4 = ((code *)stdDisplay_BuildBitmapInfo16)(UINT_00803f7c,uVar2,iVar1,(int)surface);
+      UINT_00803fb4 = ((code *)stdDisplay_BuildBitmapInfo16)(UINT_00803f7c,width,iVar1,(int)surface);
     }
     if ((undefined *)UINT_00803fb4 == (undefined *)0x0) {
       return (void *)0x0;
@@ -3593,9 +3584,9 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
 /* Original name stdColor_ColorConvertOnePixel (the remaster's GrimFandango (Linux): aligned call in
    stdBitmap_ConvertColorFormat, stdDisplay_VBufferConvertColorFormat); was Pixel_ConvertOne. */
 
-int __cdecl stdColor_ColorConvertOnePixel(int dstFormat,uint param_2,int srcFormat)
+int __cdecl stdColor_ColorConvertOnePixel(int dstFormat,uint pixel,int srcFormat)
 
 {
-  stdColor_ColorConvertOneRow((ushort *)&srcFormat,dstFormat,(ushort *)&param_2,srcFormat,1);
+  stdColor_ColorConvertOneRow((ushort *)&srcFormat,dstFormat,(ushort *)&pixel,srcFormat,1);
   return srcFormat;
 }

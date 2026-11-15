@@ -10,7 +10,7 @@
    (Linux): strings: '%s,%d' | 'Resolve parent offset (0 = off)'); was
    ModelComponent_EditParentOffset. */
 
-uint __cdecl ThingAdjuster(int *param_1,uint param_2)
+uint __cdecl ThingAdjuster(int *comp,uint text)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -21,15 +21,15 @@ uint __cdecl ThingAdjuster(int *param_1,uint param_2)
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(uint (*)[8])(_frame + (0x40 - 0x20)))
   
-  uVar2 = param_2;
-  iVar1 = *param_1;
+  uVar2 = text;
+  iVar1 = *comp;
   local_24 = (uint)s_Resolve_parent_offset__0___off__004ea5e0;
-  param_1 = (int *)(uint)(*(int *)(iVar1 + 0x34) != 0);
-  iVar3 = grimPlat_SpinDialog(param_2,(int)&local_24,&param_1,1);
+  comp = (int *)(uint)(*(int *)(iVar1 + 0x34) != 0);
+  iVar3 = grimPlat_SpinDialog(text,(int)&local_24,&comp,1);
   if (iVar3 != 0) {
     puVar4 = (uint *)strtok((byte *)uVar2,&DAT_004ea52c);
-    *(int **)(iVar1 + 0x34) = param_1;
-    sprintf((char *)local_20,s__s__d_004ea5d8,puVar4,param_1);
+    *(int **)(iVar1 + 0x34) = comp;
+    sprintf((char *)local_20,s__s__d_004ea5d8,puVar4,comp);
     strncpy(puVar4,local_20,0x1f);
     *(undefined1 *)((int)puVar4 + 0x1f) = 0;
     return 1;
@@ -45,10 +45,10 @@ uint __cdecl ThingAdjuster(int *param_1,uint param_2)
    of the same costume tag registration in sputCostume_Startup); was ModelComponent_SetVisibleFlag.
     */
 
-void __cdecl ThingChanger(uint param_1,int param_2,uint param_3,int param_4)
+void __cdecl ThingChanger(uint cosInst,int inst,uint tag,int command)
 
 {
-  *(uint *)(param_2 + 0x38) = (uint)(*(int *)(&g_aThingCommands + param_4 * 4) != 0);
+  *(uint *)(inst + 0x38) = (uint)(*(int *)(&g_aThingCommands + command * 4) != 0);
   return;
 }
 
@@ -166,10 +166,10 @@ void * __cdecl ThingInstancer(void *cosInst,int componentIdx,int create)
    (Linux): the same handler slot (stopper) of the same costume tag registration in
    sputCostume_Startup); was ModelComponent_Stop. */
 
-uint __cdecl ThingStopper(int param_1)
+uint __cdecl ThingStopper(int inst)
 
 {
-  *(uint *)(param_1 + 0x38) = (uint)(*(int *)(param_1 + 0x44) == 0);
+  *(uint *)(inst + 0x38) = (uint)(*(int *)(inst + 0x44) == 0);
   return 1;
 }
 
@@ -179,7 +179,7 @@ uint __cdecl ThingStopper(int param_1)
    x y' text or asks for a .3do file ('Select model file to add...') and loads it as a model
    resource. */
 
-int __cdecl ThingRequester(uint param_1,int param_2,int param_3,int param_4,char *param_5)
+int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -207,7 +207,7 @@ int __cdecl ThingRequester(uint param_1,int param_2,int param_3,int param_4,char
   }
   *(undefined2 *)puVar5 = 0;
   *(undefined1 *)((int)puVar5 + 2) = 0;
-  if ((param_3 != 0) && (param_4 != 0x4853454d)) {
+  if ((parent != 0) && (type != 0x4853454d)) {
     return 0;
   }
   if (param_5 == (char *)0x0) {
@@ -250,7 +250,7 @@ int __cdecl ThingRequester(uint param_1,int param_2,int param_3,int param_4,char
   if (pcVar4 == (char *)0x0) {
     pcVar4 = param_5;
   }
-  iVar3 = Cos_RegisterComponent(param_1,(int)pcVar4,(int)ref,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9f08));
+  iVar3 = Cos_RegisterComponent(cosInst,(int)pcVar4,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9f08));
   return (uint)(iVar3 != 0);
 }
 #undef local_1

@@ -10,20 +10,20 @@
    otherwise. Original name FileUtil_SysRestore (the remaster's GrimFandango (Linux): aligned call
    in FileUtil_SysInitialize); was SaveFile_CheckFUTBHeader. */
 
-uint __cdecl FileUtil_SysRestore(code *param_1)
+uint __cdecl FileUtil_SysRestore(code *read)
 
 {
   code *pcVar1;
   uint uVar2;
   
-  pcVar1 = param_1;
+  pcVar1 = read;
   uVar2 = 1;
-  (*param_1)(&param_1,4);
-  if (param_1 == (code *)0x42545546) {
-    (*pcVar1)(&param_1,4);
-    if (param_1 == (code *)0x1) {
-      (*pcVar1)(&param_1,4);
-      if (param_1 == (code *)0x0) {
+  (*read)(&read,4);
+  if (read == (code *)0x42545546) {
+    (*pcVar1)(&read,4);
+    if (read == (code *)0x1) {
+      (*pcVar1)(&read,4);
+      if (read == (code *)0x0) {
         uVar2 = 0;
       }
     }

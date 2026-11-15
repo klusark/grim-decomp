@@ -64,24 +64,24 @@ void * __cdecl grimlib_MakeCurrentSetup(uint setup)
 
 {
   uint uVar1;
+  Set *set;
   Set *pSVar2;
-  Set *pSVar3;
   
-  pSVar2 = sputRoom_GetCurrentRoom();
-  uVar1 = pSVar2->nSetups;
-  pSVar3 = pSVar2;
+  set = sputRoom_GetCurrentRoom();
+  uVar1 = set->nSetups;
+  pSVar2 = set;
   if (uVar1 <= setup) {
-    pSVar3 = (Set *)(setup / uVar1);
+    pSVar2 = (Set *)(setup / uVar1);
     setup = setup % uVar1;
   }
-  uVar1 = pSVar2->nCurSetup;
+  uVar1 = set->nCurSetup;
   if (setup != uVar1) {
-    pSVar2->nCurSetup = setup;
-    sputRoom_SetSoundParameters((int)pSVar2,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
+    set->nCurSetup = setup;
+    sputRoom_SetSoundParameters((int)set,0x41000000,0x14,0x7f,0x3fc00000,0x3f4ccccd);
     sputLua_CameraChange(uVar1,setup);
-    pSVar3 = (Set *)((code *)sputRoom_RelocateSounds)();
+    pSVar2 = (Set *)((code *)sputRoom_RelocateSounds)();
   }
-  return pSVar3;
+  return pSVar2;
 }
 
 /* ---- 0x00483aa0  sputRender_SyncCamera ---- */
@@ -214,7 +214,7 @@ void __cdecl sputRender_UseSetup(Set *set,int setupIdx)
 /* Debug overlay of every light in the set: point/omni lights as a line and circle, spot lights as a
    cone frustum */
 
-void __cdecl Set_DrawDebugLights(int param_1)
+void __cdecl Set_DrawDebugLights(int set)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -237,8 +237,8 @@ void __cdecl Set_DrawDebugLights(int param_1)
   #define local_30 (*(float (*)[12])(_frame + (0x90 - 0x30)))
   
   local_70 = 0;
-  if (*(int *)(param_1 + 0xb8) != 0) {
-    pfVar2 = (float *)(param_1 + 0x11c);
+  if (*(int *)(set + 0xb8) != 0) {
+    pfVar2 = (float *)(set + 0x11c);
     do {
       if (PUN(int,(float)pfVar2[-0xc]) < 3) {
         local_6c = PUN(uint,(float)pfVar2[-0x10]);
@@ -284,7 +284,7 @@ void __cdecl Set_DrawDebugLights(int param_1)
       }
       local_70 = local_70 + 1;
       pfVar2 = pfVar2 + 0x1a;
-    } while (local_70 < *(uint *)(param_1 + 0xb8));
+    } while (local_70 < *(uint *)(set + 0xb8));
   }
   return;
 }
@@ -308,20 +308,20 @@ void __cdecl Set_DrawDebugLights(int param_1)
 void __cdecl Set_DrawDebugCameras(Set *set,uint setupIdx)
 
 {
-  Setup *pSVar1;
-  uint uVar2;
+  Setup *setup;
+  uint uVar1;
   
   if (setupIdx == 0xffffffff) {
-    uVar2 = 0;
-    pSVar1 = set->pSetups;
+    uVar1 = 0;
+    setup = set->pSetups;
     if (set->nSetups != 0) {
       do {
-        if (uVar2 != set->nCurSetup) {
-          Setup_DrawDebugCamera((int)pSVar1);
+        if (uVar1 != set->nCurSetup) {
+          Setup_DrawDebugCamera((int)setup);
         }
-        uVar2 = uVar2 + 1;
-        pSVar1 = pSVar1 + 1;
-      } while (uVar2 < (uint)set->nSetups);
+        uVar1 = uVar1 + 1;
+        setup = setup + 1;
+      } while (uVar1 < (uint)set->nSetups);
       return;
     }
   }
@@ -337,15 +337,14 @@ void __cdecl Set_DrawDebugCameras(Set *set,uint setupIdx)
    Set_SetSoundParams. */
 
 void __cdecl
-sputRoom_SetSoundParameters
-          (int param_1,uint param_2,byte param_3,byte param_4,uint param_5,uint param_6)
+sputRoom_SetSoundParameters(int set,uint reverb,byte volume,byte pan,uint param1,uint param2)
 
 {
-  *(byte *)(param_1 + 0x1af8) = param_3;
-  *(uint *)(param_1 + 0x1afc) = param_2;
-  *(byte *)(param_1 + 0x1af9) = param_4;
-  *(uint *)(param_1 + 0x1b00) = param_5;
-  *(uint *)(param_1 + 0x1b04) = param_6;
+  *(byte *)(set + 0x1af8) = volume;
+  *(uint *)(set + 0x1afc) = reverb;
+  *(byte *)(set + 0x1af9) = pan;
+  *(uint *)(set + 0x1b00) = param1;
+  *(uint *)(set + 0x1b04) = param2;
   return;
 }
 
@@ -372,7 +371,7 @@ sputRoom_GetSoundParameters(Set *set,float *minVol,char *maxVol,char *c,float *d
    GrimFandango (Linux): the only unmatched caller of Set_LoadResources; 4 matched neighbours agree,
    1 disagree); was Set_SetCurrent. */
 
-void __cdecl sputRoom_SetCurrentRoom(Set *set,int param_2)
+void __cdecl sputRoom_SetCurrentRoom(Set *set,int force)
 
 {
   if ((g_dwSputRoom_pCurrentRoom == 0) || (g_pCurrentSet != set)) {
@@ -702,7 +701,7 @@ int __cdecl sputRoom_Restore(void *readFn)
    (Linux): same body (alloc the set record, LoadRoomEntry, look the name up in the set list, Puck
    validate, free on failure); sputResource_SetHandler's call); was sputResource_SetHandler. */
 
-Set * __cdecl sputRoom_LoadRoom(char *param_1)
+Set * __cdecl sputRoom_LoadRoom(char *name)
 
 {
   RoomActorNode *pRVar1;
@@ -723,11 +722,11 @@ Set * __cdecl sputRoom_LoadRoom(char *param_1)
       pSVar5 = (Set *)(pSVar5->aName + 4);
     }
     Set_InitRecord(set);
-    iVar4 = SetFile_Parse(param_1,(uint)set);
+    iVar4 = SetFile_Parse(name,(uint)set);
     if (iVar4 != 0) {
-      pRVar3 = Set_FindNameInList((int)param_1);
+      pRVar3 = Set_FindNameInList((int)name);
       if (pRVar3 == (RoomActors *)0x0) {
-        pRVar3 = Set_NormalizeName(param_1);
+        pRVar3 = Set_NormalizeName(name);
       }
       set->pRoomActors = pRVar3;
       for (pRVar1 = pRVar3->pActors; pRVar1 != (RoomActorNode *)0x0; pRVar1 = pRVar1->pNext) {
@@ -832,11 +831,11 @@ void __cdecl sputRoom_UnReference(Set *set)
    sputRoom_FreeRoom (the remaster's GrimFandango (Linux): same body (free the contents, then the
    record); the free call of sputResource_SetHandler); was Set_Free. */
 
-void __cdecl sputRoom_FreeRoom(uint param_1)
+void __cdecl sputRoom_FreeRoom(uint set)
 
 {
-  sputRoom_FreeRoomEntry((Set *)param_1);
-  (*g_pSputRoomHS->pFree)(param_1);
+  sputRoom_FreeRoomEntry((Set *)set);
+  (*g_pSputRoomHS->pFree)(set);
   return;
 }
 
@@ -875,44 +874,44 @@ void __cdecl sputRoom_FreeRoomEntry(Set *set)
 /* ---- 0x004a4d10  Set_FreeSetups ---- */
 /* Frees every setup (300-byte records at set+0xac, count at +0xb0) and the array. */
 
-void __cdecl Set_FreeSetups(int param_1)
+void __cdecl Set_FreeSetups(int set)
 
 {
   int iVar1;
   uint uVar2;
   
   uVar2 = 0;
-  if (*(int *)(param_1 + 0xb0) != 0) {
+  if (*(int *)(set + 0xb0) != 0) {
     iVar1 = 0;
     do {
-      Set_FreeSetup(param_1,*(int *)(param_1 + 0xac) + iVar1);
+      Set_FreeSetup(set,*(int *)(set + 0xac) + iVar1);
       uVar2 = uVar2 + 1;
       iVar1 = iVar1 + 300;
-    } while (uVar2 < *(uint *)(param_1 + 0xb0));
-    if ((*(uint *)(param_1 + 0xb0) != 0) && (*(int *)(param_1 + 0xac) != 0)) {
-      (*g_pSputRoomHS->pFree)(*(int *)(param_1 + 0xac));
+    } while (uVar2 < *(uint *)(set + 0xb0));
+    if ((*(uint *)(set + 0xb0) != 0) && (*(int *)(set + 0xac) != 0)) {
+      (*g_pSputRoomHS->pFree)(*(int *)(set + 0xac));
     }
   }
-  *(undefined4 *)(param_1 + 0xac) = 0;
-  *(undefined4 *)(param_1 + 0xb0) = 0;
+  *(undefined4 *)(set + 0xac) = 0;
+  *(undefined4 *)(set + 0xb0) = 0;
   return;
 }
 
 /* ---- 0x004a4d80  Set_FreeSetup ---- */
 /* Frees one setup: camera (rdCamera_Free), rdThing, and clears the pointer fields. */
 
-void __cdecl Set_FreeSetup(uint param_1,int param_2)
+void __cdecl Set_FreeSetup(uint set,int setup)
 
 {
-  if (*(int *)(param_2 + 0x48) != 0) {
-    rdCamera_Free(*(int *)(param_2 + 0x48));
-    *(undefined4 *)(param_2 + 0x48) = 0;
+  if (*(int *)(setup + 0x48) != 0) {
+    rdCamera_Free(*(int *)(setup + 0x48));
+    *(undefined4 *)(setup + 0x48) = 0;
   }
-  if (*(int *)(param_2 + 0x4c) != 0) {
-    rdThing_Free(*(int *)(param_2 + 0x4c));
-    *(undefined4 *)(param_2 + 0x4c) = 0;
+  if (*(int *)(setup + 0x4c) != 0) {
+    rdThing_Free(*(int *)(setup + 0x4c));
+    *(undefined4 *)(setup + 0x4c) = 0;
   }
-  *(undefined4 *)(param_2 + 0x128) = 0;
+  *(undefined4 *)(setup + 0x128) = 0;
   return;
 }
 
@@ -935,16 +934,16 @@ int __cdecl sputRoom_LoadResources(Set *set)
   int iVar5;
   void *pvVar6;
   rdCamera *prVar7;
-  undefined4 *puVar8;
+  undefined4 *thing;
+  uint uVar8;
   uint uVar9;
-  uint uVar10;
   ResRef *ref_00;
-  int iVar11;
-  int *piVar12;
-  float *pfVar13;
+  int iVar10;
+  int *piVar11;
+  float *pfVar12;
+  char *pcVar13;
   char *pcVar14;
-  char *pcVar15;
-  ResRef **ppRVar16;
+  ResRef **ppRVar15;
   rdLight *light;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
@@ -953,32 +952,32 @@ int __cdecl sputRoom_LoadResources(Set *set)
   set->dwSize = 0x1b08;
   pSVar2 = set->pSetups;
   SoundsFloodMusicBuffer();
-  uVar10 = 0;
+  uVar9 = 0;
   if (set->nColormaps != 0) {
-    iVar11 = 0;
+    iVar10 = 0;
     do {
-      if (*(int *)(set->pColormaps->aTag + iVar11 + -8) == 0) {
+      if (*(int *)(set->pColormaps->aTag + iVar10 + -8) == 0) {
         iVar5 = _stricmp((byte *)set->aColormapName,&DAT_004ec60c);
         if (iVar5 != 0) {
           pvVar6 = sputResource_Alloc(0x50414d43,set->aColormapName);
-          Res_SetReference((ResRef *)(set->pColormaps->aTag + iVar11 + -8),pvVar6,
+          Res_SetReference((ResRef *)(set->pColormaps->aTag + iVar10 + -8),pvVar6,
                            s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6dc);
         }
-        if (*(int *)(set->pColormaps->aTag + iVar11 + -8) == 0) {
+        if (*(int *)(set->pColormaps->aTag + iVar10 + -8) == 0) {
           pvVar6 = sputResource_Alloc(0x50414d43,s_dfltcmp_cmp_004ec710);
-          Res_SetReference((ResRef *)(set->pColormaps->aTag + iVar11 + -8),pvVar6,
+          Res_SetReference((ResRef *)(set->pColormaps->aTag + iVar10 + -8),pvVar6,
                            s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x6e3);
-          if (*(int *)(set->pColormaps->aTag + iVar11 + -8) == 0) {
+          if (*(int *)(set->pColormaps->aTag + iVar10 + -8) == 0) {
             return 0;
           }
         }
       }
       else {
-        Res_Touch(*(void **)(set->pColormaps->aTag + iVar11 + -4));
+        Res_Touch(*(void **)(set->pColormaps->aTag + iVar10 + -4));
       }
-      uVar10 = uVar10 + 1;
-      iVar11 = iVar11 + 0x34;
-    } while (uVar10 < (uint)set->nColormaps);
+      uVar9 = uVar9 + 1;
+      iVar10 = iVar10 + 0x34;
+    } while (uVar9 < (uint)set->nColormaps);
   }
   local_4 = 0;
   if (set->nSetups == 0) {
@@ -988,8 +987,8 @@ int __cdecl sputRoom_LoadResources(Set *set)
   do {
     if (g_nSkipSetupBitmaps == 0) {
       if (ref_00->nValid == 0) {
-        iVar11 = _stricmp((byte *)&ref_00[-2].nLine,&DAT_004ec60c);
-        if (iVar11 != 0) {
+        iVar10 = _stricmp((byte *)&ref_00[-2].nLine,&DAT_004ec60c);
+        if (iVar10 != 0) {
           pvVar6 = sputResource_Alloc(0x444e4b42,(char *)&ref_00[-2].nLine);
           Res_SetReference(ref_00,pvVar6,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x702);
         }
@@ -999,28 +998,28 @@ int __cdecl sputRoom_LoadResources(Set *set)
           if (ref_00->nValid == 0) {
             return 0;
           }
-          uVar10 = 0xffffffff;
-          pcVar14 = &DAT_004ec60c;
+          uVar9 = 0xffffffff;
+          pcVar13 = &DAT_004ec60c;
           do {
-            pcVar15 = pcVar14;
-            if (uVar10 == 0) break;
-            uVar10 = uVar10 - 1;
-            pcVar15 = pcVar14 + 1;
-            cVar1 = *pcVar14;
-            pcVar14 = pcVar15;
+            pcVar14 = pcVar13;
+            if (uVar9 == 0) break;
+            uVar9 = uVar9 - 1;
+            pcVar14 = pcVar13 + 1;
+            cVar1 = *pcVar13;
+            pcVar13 = pcVar14;
           } while (cVar1 != '\0');
-          uVar10 = ~uVar10;
-          piVar12 = (int *)(pcVar15 + -uVar10);
-          ppRVar16 = (ResRef **)&ref_00[-2].nLine;
-          for (uVar9 = uVar10 >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
-            *ppRVar16 = (ResRef *)*piVar12;
-            piVar12 = piVar12 + 1;
-            ppRVar16 = ppRVar16 + 1;
+          uVar9 = ~uVar9;
+          piVar11 = (int *)(pcVar14 + -uVar9);
+          ppRVar15 = (ResRef **)&ref_00[-2].nLine;
+          for (uVar8 = uVar9 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
+            *ppRVar15 = (ResRef *)*piVar11;
+            piVar11 = piVar11 + 1;
+            ppRVar15 = ppRVar15 + 1;
           }
-          for (uVar10 = uVar10 & 3; uVar10 != 0; uVar10 = uVar10 - 1) {
-            *(char *)ppRVar16 = (char)*piVar12;
-            piVar12 = (int *)((int)piVar12 + 1);
-            ppRVar16 = (ResRef **)((int)ppRVar16 + 1);
+          for (uVar9 = uVar9 & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
+            *(char *)ppRVar15 = (char)*piVar11;
+            piVar11 = (int *)((int)piVar11 + 1);
+            ppRVar15 = (ResRef **)((int)ppRVar15 + 1);
           }
           ref_00[-1].aTag[0xc] = '\0';
           goto LAB_004a51bd;
@@ -1054,23 +1053,23 @@ LAB_004a51bd:
       if (prVar7 == (rdCamera *)0x0) {
         return 0;
       }
-      puVar8 = (undefined4 *)rdThing_New(0);
-      uVar10 = *(uint *)(ref_00[-3].aTag + 0x1c);
-      ref_00[-3].nLine = (int)puVar8;
-      rdThing_SetCamera(puVar8,uVar10);
+      thing = (undefined4 *)rdThing_New(0);
+      uVar9 = *(uint *)(ref_00[-3].aTag + 0x1c);
+      ref_00[-3].nLine = (int)thing;
+      rdThing_SetCamera(thing,uVar9);
       rdMatrix_LookAt((float *)&ref_00[-3].pPrev,(float *)&ref_00[-4].pNext,(float *)ref_00[-3].aTag
                       ,*(uint *)(ref_00[-3].aTag + 0xc));
       set = (Set *)0x0;
       if (pSVar4->nLights != 0) {
         pSVar3 = pSVar4->aLights;
-        pfVar13 = &pSVar4->aLights[0].light.flInnerAngle;
+        pfVar12 = &pSVar4->aLights[0].light.flInnerAngle;
         do {
           light = &pSVar3->light;
-          rdLight_SetAngles((rdLight *)(pfVar13 + -8),*pfVar13,pfVar13[2]);
+          rdLight_SetAngles((rdLight *)(pfVar12 + -8),*pfVar12,pfVar12[2]);
           rdCamera_AddLight(*(rdCamera **)(ref_00[-3].aTag + 0x1c),light,
                             (float *)((int)(light + -1) + 0x30));
           set = (Set *)(set->aName + 1);
-          pfVar13 = pfVar13 + 0x1a;
+          pfVar12 = pfVar12 + 0x1a;
           pSVar3 = (SetLight *)(light + 1);
         } while (set < (Set *)pSVar4->nLights);
       }
@@ -1174,15 +1173,15 @@ RoomActorNode * __cdecl GetRoomActors(char *setName)
 /* ---- 0x004a60c0  Set_FindNameInList ---- */
 /* Case-insensitive lookup in the linked set-name list */
 
-RoomActors * __cdecl Set_FindNameInList(int param_1)
+RoomActors * __cdecl Set_FindNameInList(int name)
 
 {
   int iVar1;
   RoomActors *pRVar2;
   
-  if ((param_1 != 0) && (pRVar2 = g_pRoomList, g_pRoomList != (RoomActors *)0x0)) {
+  if ((name != 0) && (pRVar2 = g_pRoomList, g_pRoomList != (RoomActors *)0x0)) {
     do {
-      iVar1 = _stricmp((byte *)pRVar2,(byte *)param_1);
+      iVar1 = _stricmp((byte *)pRVar2,(byte *)name);
       if (iVar1 == 0) {
         return pRVar2;
       }
@@ -1250,14 +1249,14 @@ RoomActors * __cdecl Set_NormalizeName(char *setName)
    remaster's GrimFandango (Linux): same body (select the named collection like SetCollection,
    unlink and free all its planes, restore the previous wp_head)); was Set_FreeSectors. */
 
-void __cdecl WalkPlane_KillCollection(void *param_1)
+void __cdecl WalkPlane_KillCollection(void *collection)
 
 {
   WalkPlane *plane;
   WalkPlane *pWVar1;
   
   pWVar1 = g_pWalkPlane_wp_head;
-  WalkPlane_SetCollection(param_1);
+  WalkPlane_SetCollection(collection);
   plane = g_pWalkPlane_wp_head;
   if (pWVar1 == g_pWalkPlane_wp_head) {
     pWVar1 = (WalkPlane *)0x0;

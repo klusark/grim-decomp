@@ -115,29 +115,29 @@ int __cdecl res_DefaultHandler(ResMsg *msg)
    GrimFandango (Linux): the 'SYNC' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_LipSyncHandler. */
 
-void * __cdecl sputResource_LipSyncHandler(int *param_1)
+void * __cdecl sputResource_LipSyncHandler(int *msg)
 
 {
   int iVar1;
   uint *data;
   void *pvVar2;
   
-  if (param_1[2] == 0x53594e43) {
-    iVar1 = *param_1;
+  if (msg[2] == 0x53594e43) {
+    iVar1 = *msg;
     if (iVar1 == 1) {
-      data = grimSound_LipSyncLoad((uint *)param_1[1]);
+      data = grimSound_LipSyncLoad((uint *)msg[1]);
       if (data != (uint *)0x0) {
-        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
+        pvVar2 = Res_SysAddHandle(msg[2],(char *)msg[1],data);
         return pvVar2;
       }
     }
     else {
       if (iVar1 == 2) {
-        grimSound_LipSyncFree(param_1[3]);
+        grimSound_LipSyncFree(msg[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
-        param_1[4] = *(int *)(param_1[3] + 0x20) + 0x28;
+        msg[4] = *(int *)(msg[3] + 0x20) + 0x28;
         return (void *)0x1;
       }
     }
@@ -247,7 +247,7 @@ int __cdecl sputResource_CostumeHandler(ResMsg *msg)
    sputResource_ColormapHandler (the remaster's GrimFandango (Linux): the only unmatched caller of
    rdColormap_Free; 2 matched neighbours agree, 0 disagree); was ResType_ColormapHandler. */
 
-void * __cdecl sputResource_ColormapHandler(int *param_1)
+void * __cdecl sputResource_ColormapHandler(int *msg)
 
 {
   unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -283,27 +283,27 @@ void * __cdecl sputResource_ColormapHandler(int *param_1)
   local_c = 0;
   local_8 = 0;
   local_4 = 0;
-  if (param_1[2] != 0x50414d43) {
+  if (msg[2] != 0x50414d43) {
     return (void *)0x0;
   }
-  iVar1 = *param_1;
+  iVar1 = *msg;
   if (iVar1 == 1) {
-    data = rdColormap_Load((char *)param_1[1]);
+    data = rdColormap_Load((char *)msg[1]);
     if (data != (rdColormap *)0x0) {
       rdColormap_BuildRGB16(data->pRGB16,(ushort *)data->aPalette,0,0,0,(int)&local_38);
       sputRender_ColorCorrect(data->pRGB16,0x4000);
-      pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
+      pvVar2 = Res_SysAddHandle(msg[2],(char *)msg[1],data);
       return pvVar2;
     }
   }
   else {
     if (iVar1 == 2) {
-      rdColormap_Free(param_1[3]);
+      rdColormap_Free(msg[3]);
       return (void *)0x1;
     }
     if (iVar1 == 3) {
-      iVar1 = rdColormap_Size(param_1[3]);
-      param_1[4] = iVar1;
+      iVar1 = rdColormap_Size(msg[3]);
+      msg[4] = iVar1;
       return (void *)0x1;
     }
   }
@@ -423,7 +423,7 @@ void * __cdecl sputResource_KeyframeHandler(ResMsg *msg)
    sputResource_MaterialHandler (the remaster's GrimFandango (Linux): strings: 'dflt.mat'); was
    ResType_MaterialHandler. */
 
-void * __cdecl sputResource_MaterialHandler(int *param_1)
+void * __cdecl sputResource_MaterialHandler(int *msg)
 
 {
   rdMaterial *material;
@@ -431,15 +431,15 @@ void * __cdecl sputResource_MaterialHandler(int *param_1)
   void *pvVar2;
   
   pvVar2 = (void *)0x0;
-  if (param_1[2] != 0x2054414d) {
+  if (msg[2] != 0x2054414d) {
     return (void *)0x0;
   }
-  iVar1 = *param_1;
+  iVar1 = *msg;
   if (iVar1 == 1) {
     material = (rdMaterial *)
                (**(code **)(g_dwSputResHS + 0x20))
                          (0xb0,s_C__grimsrc_libs_grimlib_Main_spu_004e9c30,0x49f);
-    iVar1 = rdMaterial_LoadEntry((char *)param_1[1],material,0,0);
+    iVar1 = rdMaterial_LoadEntry((char *)msg[1],material,0,0);
     if (iVar1 == 0) {
       iVar1 = rdMaterial_LoadEntry(s_dflt_mat_004e9c68,material,0,0);
       if (iVar1 == 0) {
@@ -448,17 +448,17 @@ void * __cdecl sputResource_MaterialHandler(int *param_1)
         return (void *)0x0;
       }
     }
-    pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],material);
+    pvVar2 = Res_SysAddHandle(msg[2],(char *)msg[1],material);
     Res_SetPurgable(material,0);
   }
   else {
     if (iVar1 == 2) {
-      rdMaterial_FreeEntry(param_1[3]);
-      (**(code **)(g_dwSputResHS + 0x24))(param_1[3]);
+      rdMaterial_FreeEntry(msg[3]);
+      (**(code **)(g_dwSputResHS + 0x24))(msg[3]);
       return (void *)0x1;
     }
     if (iVar1 == 3) {
-      param_1[4] = 0;
+      msg[4] = 0;
       return (void *)0x1;
     }
   }
@@ -471,29 +471,29 @@ void * __cdecl sputResource_MaterialHandler(int *param_1)
    GrimFandango (Linux): the 'MODL' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_ModelHandler. */
 
-void * __cdecl sputResource_ModelHandler(int *param_1)
+void * __cdecl sputResource_ModelHandler(int *msg)
 
 {
   int iVar1;
   undefined4 *data;
   void *pvVar2;
   
-  if (param_1[2] == 0x4c444f4d) {
-    iVar1 = *param_1;
+  if (msg[2] == 0x4c444f4d) {
+    iVar1 = *msg;
     if (iVar1 == 1) {
-      data = rdModel3_Load(param_1[1]);
+      data = rdModel3_Load(msg[1]);
       if (data != (undefined4 *)0x0) {
-        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
+        pvVar2 = Res_SysAddHandle(msg[2],(char *)msg[1],data);
         return pvVar2;
       }
     }
     else {
       if (iVar1 == 2) {
-        rdModel3_Free(param_1[3]);
+        rdModel3_Free(msg[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
-        param_1[4] = 1;
+        msg[4] = 1;
         return (void *)0x1;
       }
     }
@@ -507,29 +507,29 @@ void * __cdecl sputResource_ModelHandler(int *param_1)
    (Linux): the 'SET ' entry of the resource type table (g_ResTypeTable / TypesToRegister)); was
    ResType_SetHandler. */
 
-void * __cdecl sputResource_SetHandler(int *param_1)
+void * __cdecl sputResource_SetHandler(int *msg)
 
 {
   int iVar1;
   Set *data;
   void *pvVar2;
   
-  if (param_1[2] == 0x20544553) {
-    iVar1 = *param_1;
+  if (msg[2] == 0x20544553) {
+    iVar1 = *msg;
     if (iVar1 == 1) {
-      data = sputRoom_LoadRoom((char *)param_1[1]);
+      data = sputRoom_LoadRoom((char *)msg[1]);
       if (data != (Set *)0x0) {
-        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],data);
+        pvVar2 = Res_SysAddHandle(msg[2],(char *)msg[1],data);
         return pvVar2;
       }
     }
     else {
       if (iVar1 == 2) {
-        sputRoom_FreeRoom(param_1[3]);
+        sputRoom_FreeRoom(msg[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
-        param_1[4] = *(int *)(param_1[3] + 0x1af4);
+        msg[4] = *(int *)(msg[3] + 0x1af4);
         return (void *)0x1;
       }
     }
@@ -543,28 +543,28 @@ void * __cdecl sputResource_SetHandler(int *param_1)
    remaster's GrimFandango (Linux): the 'ZBUF' entry of the resource type table (g_ResTypeTable /
    TypesToRegister)); was ResType_ZBufferHandler. */
 
-void * __cdecl sputResource_ZBufferHandler(int *param_1)
+void * __cdecl sputResource_ZBufferHandler(int *msg)
 
 {
   int iVar1;
   void *pvVar2;
   
-  if (param_1[2] == 0x4655425a) {
-    iVar1 = *param_1;
+  if (msg[2] == 0x4655425a) {
+    iVar1 = *msg;
     if (iVar1 == 1) {
-      pvVar2 = (void *)sputRoom_LoadZBuffer(param_1[1]);
+      pvVar2 = (void *)sputRoom_LoadZBuffer(msg[1]);
       if (pvVar2 != (void *)0x0) {
-        pvVar2 = Res_SysAddHandle(param_1[2],(char *)param_1[1],pvVar2);
+        pvVar2 = Res_SysAddHandle(msg[2],(char *)msg[1],pvVar2);
         return pvVar2;
       }
     }
     else {
       if (iVar1 == 2) {
-        sputRoom_FreeZBuffer(param_1[3]);
+        sputRoom_FreeZBuffer(msg[3]);
         return (void *)0x1;
       }
       if (iVar1 == 3) {
-        param_1[4] = *(int *)(param_1[3] + 0x14);
+        msg[4] = *(int *)(msg[3] + 0x14);
         return (void *)0x1;
       }
     }
@@ -578,21 +578,21 @@ void * __cdecl sputResource_ZBufferHandler(int *param_1)
    sputResource_MemoryHandler (the remaster's GrimFandango (Linux): the 'MEM ' entry of the resource
    type table (g_ResTypeTable / TypesToRegister)); was ResType_MemoryHandler. */
 
-uint __cdecl sputResource_MemoryHandler(int *param_1)
+uint __cdecl sputResource_MemoryHandler(int *msg)
 
 {
   int iVar1;
   undefined4 *puVar2;
   
-  iVar1 = *param_1;
+  iVar1 = *msg;
   if (iVar1 != 1) {
     if (iVar1 == 2) {
-      puVar2 = (undefined4 *)param_1[3];
+      puVar2 = (undefined4 *)msg[3];
       (**(code **)(g_dwSputResHS + 0x24))(*puVar2);
       (**(code **)(g_dwSputResHS + 0x24))(puVar2);
     }
     else if (iVar1 == 3) {
-      param_1[4] = *(int *)(param_1[3] + 4);
+      msg[4] = *(int *)(msg[3] + 4);
       return 1;
     }
   }

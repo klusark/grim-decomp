@@ -12,12 +12,12 @@
    the same table order (stdFileOpen .. stdFilePrintf); fopen wrapper in both builds); was
    stdFile_Open. */
 
-undefined * __cdecl stdFileOpen(uint param_1,uint param_2)
+undefined * __cdecl stdFileOpen(uint path,uint mode)
 
 {
   undefined *puVar1;
   
-  puVar1 = fopen(param_1,param_2);
+  puVar1 = fopen(path,mode);
   return puVar1;
 }
 #endif
@@ -29,10 +29,10 @@ undefined * __cdecl stdFileOpen(uint param_1,uint param_2)
 /* Original name stdFileClose (the remaster's GrimFandango (Linux): the std.c host file service
    after stdFileOpen; fclose wrapper in both builds); was stdFile_Close. */
 
-void __cdecl stdFileClose(uint param_1)
+void __cdecl stdFileClose(uint f)
 
 {
-  fclose(param_1);
+  fclose(f);
   return;
 }
 #endif
@@ -44,10 +44,10 @@ void __cdecl stdFileClose(uint param_1)
 /* GrimServices.pFread of the platform table: fread(buf, 1, n, file). Original name stdFileRead (the
    remaster's GrimFandango (Linux): same body (fread(buf, 1, n, fh))); was stdFile_Read. */
 
-void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3)
+void __cdecl stdFileRead(uint f,uint buf,uint size)
 
 {
-  fread(param_2,1,param_3,param_1);
+  fread(buf,1,size,f);
   return;
 }
 #endif
@@ -57,12 +57,12 @@ void __cdecl stdFileRead(uint param_1,uint param_2,uint param_3)
 /* Original name stdFileWrite (the remaster's GrimFandango (Linux): the std.c host file service
    after stdFileRead; fwrite wrapper in both builds); was stdFile_Write. */
 
-uint __cdecl stdFileWrite(uint fh,uint param_2,uint param_3)
+uint __cdecl stdFileWrite(uint fh,uint buf,uint size)
 
 {
   uint uVar1;
   
-  uVar1 = fwrite(param_2,1,param_3,fh);
+  uVar1 = fwrite(buf,1,size,fh);
   return uVar1;
 }
 
@@ -72,10 +72,10 @@ uint __cdecl stdFileWrite(uint fh,uint param_2,uint param_3)
 /* GrimServices.pFgets of the platform table: fgets. Original name stdFileGets (the remaster's
    GrimFandango (Linux): same body (fgets(buf, n, fh))); was stdFile_Gets. */
 
-void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
+void __cdecl stdFileGets(uint f,uint buf,uint size)
 
 {
-  fgets((char *)param_2,param_3,(undefined4 *)param_1);
+  fgets((char *)buf,size,(undefined4 *)f);
   return;
 }
 #endif
@@ -85,12 +85,12 @@ void __cdecl stdFileGets(uint param_1,uint param_2,uint param_3)
 /* Original name stdFileGetws (the remaster's GrimFandango (Linux): same body (fgetws(buf, n, fh));
    between stdFileGets and stdFeof in both builds); was FUN_004734c0. */
 
-uint __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3)
+uint __cdecl stdFileGetws(uint f,uint buf,uint size)
 
 {
   short *psVar1;
   
-  psVar1 = FUN_004adef0((short *)param_2,param_3,param_1);
+  psVar1 = FUN_004adef0((short *)buf,size,f);
   return (uint)psVar1;
 }
 
@@ -99,22 +99,22 @@ uint __cdecl stdFileGetws(uint param_1,uint param_2,uint param_3)
    GrimFandango (Linux): the std.c end-of-file service after stdFileGetws in both builds); was
    stdFile_Eof. */
 
-uint __cdecl stdFeof(int param_1)
+uint __cdecl stdFeof(int f)
 
 {
-  return *(uint *)(param_1 + 0xc) & 0x10;
+  return *(uint *)(f + 0xc) & 0x10;
 }
 
 /* ---- 0x004734f0  stdFtell ---- */
 /* Original name stdFtell (the remaster's GrimFandango (Linux): the std.c tell service after stdFeof
    in both builds); was stdFile_Tell. */
 
-undefined * __cdecl stdFtell(uint param_1)
+undefined * __cdecl stdFtell(uint f)
 
 {
   undefined *puVar1;
   
-  puVar1 = (undefined *)ftell(param_1);
+  puVar1 = (undefined *)ftell(f);
   return puVar1;
 }
 
@@ -122,12 +122,12 @@ undefined * __cdecl stdFtell(uint param_1)
 /* Original name stdFseek (the remaster's GrimFandango (Linux): the std.c seek service after
    stdFtell in both builds); was stdFile_Seek. */
 
-uint __cdecl stdFseek(uint param_1,uint param_2,uint param_3)
+uint __cdecl stdFseek(uint f,uint offset,uint whence)
 
 {
   uint uVar1;
   
-  uVar1 = fseek(param_1,param_2,param_3);
+  uVar1 = fseek(f,offset,whence);
   return uVar1;
 }
 
@@ -136,20 +136,20 @@ uint __cdecl stdFseek(uint param_1,uint param_2,uint param_3)
    Original name stdFileSize (the remaster's GrimFandango (Linux): same body (open "rb", seek to the
    end, tell, close)); was stdFile_Size. */
 
-undefined * __cdecl stdFileSize(uint param_1)
+undefined * __cdecl stdFileSize(uint path)
 
 {
+  undefined *f;
   undefined *puVar1;
-  undefined *puVar2;
   
-  puVar1 = stdFileOpen(param_1,((unsigned)(uintptr_t)&DAT_004ddb18));
-  if (puVar1 == (undefined *)0x0) {
+  f = stdFileOpen(path,((unsigned)(uintptr_t)&DAT_004ddb18));
+  if (f == (undefined *)0x0) {
     return (undefined *)0x0;
   }
-  stdFseek((uint)puVar1,0,2);
-  puVar2 = stdFtell((uint)puVar1);
-  stdFileClose((uint)puVar1);
-  return puVar2;
+  stdFseek((uint)f,0,2);
+  puVar1 = stdFtell((uint)f);
+  stdFileClose((uint)f);
+  return puVar1;
 }
 
 /* ---- 0x00473570  stdFilePrintf ---- */
@@ -160,10 +160,10 @@ undefined * __cdecl stdFileSize(uint param_1)
 uint __cdecl stdFilePrintf(uint fh,char *fmt,...)
 
 {
-  uint uVar1;
+  uint size;
   
-  uVar1 = _vsnprintf(&DAT_007f6090,0x400,fmt,&STACK0X(0x0000000c));
-  stdFileWrite(fh,((unsigned)(uintptr_t)&DAT_007f6090),uVar1);
+  size = _vsnprintf(&DAT_007f6090,0x400,fmt,&STACK0X(0x0000000c));
+  stdFileWrite(fh,((unsigned)(uintptr_t)&DAT_007f6090),size);
   return 0;
 }
 
@@ -171,23 +171,23 @@ uint __cdecl stdFilePrintf(uint fh,char *fmt,...)
 /* Original name stdFGetc (the remaster's GrimFandango (Linux): aligned call in stdGif_Load,
    stdLbm_Load, stdPcx_Load); was stdFile_ReadByte. */
 
-uint __cdecl stdFGetc(uint param_1)
+uint __cdecl stdFGetc(uint f)
 
 {
   undefined4 uVar1;
   
-  uVar1 = (*g_pStd_HS->pFread)(param_1,&param_1,1);
-  return CONCAT31((int3)((uint)uVar1 >> 8),(undefined1)param_1);
+  uVar1 = (*g_pStd_HS->pFread)(f,&f,1);
+  return CONCAT31((int3)((uint)uVar1 >> 8),(undefined1)f);
 }
 
 /* ---- 0x00473610  stdFPutc ---- */
 /* Original name stdFPutc (the remaster's GrimFandango (Linux): aligned call in stdPcx_Write); was
    stdFile_WriteByte. */
 
-void __cdecl stdFPutc(uint param_1,uint param_2)
+void __cdecl stdFPutc(uint c,uint f)
 
 {
-  (*g_pStd_HS->pFwrite)(param_2,&param_1,1);
+  (*g_pStd_HS->pFwrite)(f,&c,1);
   return;
 }
 

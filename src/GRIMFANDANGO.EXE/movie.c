@@ -28,17 +28,17 @@ int __cdecl sputSmush_Save(void *fn)
    playing. Original name sputSmush_Restore (the remaster's GrimFandango (Linux): aligned call in
    sputSmush_Initialize); was Movie_RestoreState. */
 
-uint __cdecl sputSmush_Restore(code *param_1)
+uint __cdecl sputSmush_Restore(code *read)
 
 {
   sputSmush_SetTarget(&g_dwStdDisplay_frontBuffer);
-  (*param_1)(&g_nSmushPlaying,4);
-  (*param_1)(&g_nSmushPaused,4);
-  (*param_1)(&g_nSmushAbort,4);
-  (*param_1)(g_szCurMovieFile,0x80);
-  (*param_1)(&g_nSmushLooping,4);
-  (*param_1)(&g_dwSmushX,4);
-  (*param_1)(&g_dwSmushY,4);
+  (*read)(&g_nSmushPlaying,4);
+  (*read)(&g_nSmushPaused,4);
+  (*read)(&g_nSmushAbort,4);
+  (*read)(g_szCurMovieFile,0x80);
+  (*read)(&g_nSmushLooping,4);
+  (*read)(&g_dwSmushX,4);
+  (*read)(&g_dwSmushY,4);
   if (g_nSmushPlaying != 0) {
     sputSmush_StartMovie(g_szCurMovieFile,g_nSmushLooping,g_dwSmushX,g_dwSmushY);
   }
@@ -110,7 +110,7 @@ int __cdecl sputSmush_SetTarget(void *surface)
 /* Original name sputSmush_StartMovie (the remaster's GrimFandango (Linux): aligned call in
    grimlib_PlayMovie, sputSmush_Restore); was Movie_Start. */
 
-uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint x,uint y)
+uint __cdecl sputSmush_StartMovie(char *name,int loop,uint x,uint y)
 
 {
   int iVar1;
@@ -121,18 +121,17 @@ uint __cdecl sputSmush_StartMovie(char *param_1,int param_2,uint x,uint y)
       g_nSmushPlaying = 0;
     }
     SmushPlay_SetTranslationTable(((unsigned)(uintptr_t)&g_wSputRender_ColorLookup));
-    g_nSmushLooping = param_2;
+    g_nSmushLooping = loop;
     g_dwSmushX = x;
     g_dwSmushY = y;
     iVar1 = SmushPlay_StartMovie
-                      (param_1,-(uint)(param_2 != 0) & 0x10,100000,x,y,
-                       (g_pPresentBuf->format).nWidth,(g_pPresentBuf->format).nHeight,0,
-                       (uint)(UINT_009016ac != 6));
+                      (name,-(uint)(loop != 0) & 0x10,100000,x,y,(g_pPresentBuf->format).nWidth,
+                       (g_pPresentBuf->format).nHeight,0,(uint)(UINT_009016ac != 6));
     if (iVar1 == 0) {
       g_nSmushPlaying = 1;
       g_nSmushPaused = iVar1;
       g_nSmushAbort = iVar1;
-      strncpy((uint *)g_szCurMovieFile,(uint *)param_1,0x80);
+      strncpy((uint *)g_szCurMovieFile,(uint *)name,0x80);
       _g_dwSmushStartTime = timeGetTime();
       return 0;
     }
@@ -159,14 +158,14 @@ void __cdecl sputSmush_StopMovie(void)
    Original name sputSmush_GetMovieLength (the remaster's GrimFandango (Linux): the only unmatched
    callee of Lua_GetSmushLength; 1 matched neighbours agree, 0 disagree); was Movie_SetFile. */
 
-int __cdecl sputSmush_GetMovieLength(char *param_1)
+int __cdecl sputSmush_GetMovieLength(char *name)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   #define local_80 (*(char (*)[128])(_frame + (0x90 - 0x80)))
   
-  iVar1 = Res_FindExternalFile(param_1,local_80,0x80);
+  iVar1 = Res_FindExternalFile(name,local_80,0x80);
   if (iVar1 != 1) {
     return 0;
   }
@@ -181,12 +180,12 @@ int __cdecl sputSmush_GetMovieLength(char *param_1)
    per pixel. Original name sputSmush_StartVideo (the remaster's GrimFandango (Linux): slot 0 of
    sputVideoCallBacks (g_pSputVideoCallBacks)); was Movie_CheckSurfaceFormat. */
 
-uint __cdecl sputSmush_StartVideo(int param_1,int param_2,int param_3)
+uint __cdecl sputSmush_StartVideo(int width,int height,int bpp)
 
 {
-  if ((((g_nSputSmushStarted != 0) && ((g_pPresentBuf->format).nWidth == param_1)) &&
-      ((g_pPresentBuf->format).nHeight == param_2)) &&
-     ((g_pPresentBuf->format).colorFormat.nBpp == param_3)) {
+  if ((((g_nSputSmushStarted != 0) && ((g_pPresentBuf->format).nWidth == width)) &&
+      ((g_pPresentBuf->format).nHeight == height)) &&
+     ((g_pPresentBuf->format).colorFormat.nBpp == bpp)) {
     return 0;
   }
   return 1;
@@ -208,22 +207,22 @@ int __cdecl sputSmush_StopVideo(void)
    remaster's GrimFandango (Linux): slot 2 of sputVideoCallBacks (g_pSputVideoCallBacks)); was
    Movie_LockSurface. */
 
-uint __cdecl sputSmush_LockMovieBuffer(undefined4 *param_1,undefined4 *param_2)
+uint __cdecl sputSmush_LockMovieBuffer(undefined4 *outBuffer,undefined4 *outOrigin)
 
 {
   if (g_nSputSmushStarted == 0) {
     return 1;
   }
   stdDisplay_VBufferLock(g_pPresentBuf);
-  param_1[3] = (uint)(g_pPresentBuf->format).colorFormat.nBpp >> 3;
-  *param_1 = g_pPresentBuf->pPixels;
-  param_1[2] = (g_pPresentBuf->format).nHeight;
-  param_1[1] = (g_pPresentBuf->format).nWidth;
-  param_1[5] = (g_pPresentBuf->format).nPitch;
-  param_2[1] = 0;
-  *param_2 = 0;
-  param_2[3] = (g_pPresentBuf->format).nHeight;
-  param_2[2] = (g_pPresentBuf->format).nWidth;
+  outBuffer[3] = (uint)(g_pPresentBuf->format).colorFormat.nBpp >> 3;
+  *outBuffer = g_pPresentBuf->pPixels;
+  outBuffer[2] = (g_pPresentBuf->format).nHeight;
+  outBuffer[1] = (g_pPresentBuf->format).nWidth;
+  outBuffer[5] = (g_pPresentBuf->format).nPitch;
+  outOrigin[1] = 0;
+  *outOrigin = 0;
+  outOrigin[3] = (g_pPresentBuf->format).nHeight;
+  outOrigin[2] = (g_pPresentBuf->format).nWidth;
   return 0;
 }
 

@@ -606,7 +606,7 @@ void __cdecl Mixer_Mix8MonoLR(byte *src,int count,uint rateFrac,int accumOffset,
 }
 
 /* ---- 0x004d34a0  Mixer_Mix8Mono ---- */
-void __cdecl Mixer_Mix8Mono(byte *data,int count,uint outFrames,int accumOffset,int param_5)
+void __cdecl Mixer_Mix8Mono(byte *data,int count,uint outFrames,int accumOffset,int vol)
 
 {
   byte bVar1;
@@ -621,19 +621,19 @@ void __cdecl Mixer_Mix8Mono(byte *data,int count,uint outFrames,int accumOffset,
   uVar2 = (uint)(count << 0x10) / outFrames;
   if (uVar2 == 0x8000) {
     while (count = count + -1, count != 0) {
-      *piVar5 = *piVar5 + (*data ^ 0x80) * 0x100 * param_5;
-      piVar5[1] = piVar5[1] + (data[1] ^ 0x80) * 0x100 * param_5;
+      *piVar5 = *piVar5 + (*data ^ 0x80) * 0x100 * vol;
+      piVar5[1] = piVar5[1] + (data[1] ^ 0x80) * 0x100 * vol;
       pbVar4 = data + 1;
-      piVar5[2] = piVar5[2] + (((uint)data[2] + (uint)*data) * 0x80 ^ 0x8000) * param_5;
+      piVar5[2] = piVar5[2] + (((uint)data[2] + (uint)*data) * 0x80 ^ 0x8000) * vol;
       pbVar3 = data + 3;
       data = data + 2;
-      piVar5[3] = piVar5[3] + (((uint)*pbVar3 + (uint)*pbVar4) * 0x80 ^ 0x8000) * param_5;
+      piVar5[3] = piVar5[3] + (((uint)*pbVar3 + (uint)*pbVar4) * 0x80 ^ 0x8000) * vol;
       piVar5 = piVar5 + 4;
     }
-    *piVar5 = *piVar5 + (*data ^ 0x80) * 0x100 * param_5;
-    piVar5[1] = piVar5[1] + (data[1] ^ 0x80) * 0x100 * param_5;
-    piVar5[2] = piVar5[2] + (*data ^ 0x80) * 0x100 * param_5;
-    piVar5[3] = piVar5[3] + (data[1] ^ 0x80) * 0x100 * param_5;
+    *piVar5 = *piVar5 + (*data ^ 0x80) * 0x100 * vol;
+    piVar5[1] = piVar5[1] + (data[1] ^ 0x80) * 0x100 * vol;
+    piVar5[2] = piVar5[2] + (*data ^ 0x80) * 0x100 * vol;
+    piVar5[3] = piVar5[3] + (data[1] ^ 0x80) * 0x100 * vol;
   }
   else if (uVar2 == 0x10000) {
     iVar7 = outFrames * 2;
@@ -641,7 +641,7 @@ void __cdecl Mixer_Mix8Mono(byte *data,int count,uint outFrames,int accumOffset,
       do {
         bVar1 = *data;
         data = data + 1;
-        *piVar5 = *piVar5 + (bVar1 ^ 0x80) * 0x100 * param_5;
+        *piVar5 = *piVar5 + (bVar1 ^ 0x80) * 0x100 * vol;
         iVar7 = iVar7 + -1;
         piVar5 = piVar5 + 1;
       } while (iVar7 != 0);
@@ -652,10 +652,10 @@ void __cdecl Mixer_Mix8Mono(byte *data,int count,uint outFrames,int accumOffset,
     if (outFrames != 0) {
       do {
         pbVar3 = data + 1;
-        *piVar5 = *piVar5 + (*data ^ 0x80) * 0x100 * param_5;
+        *piVar5 = *piVar5 + (*data ^ 0x80) * 0x100 * vol;
         data = data + 4;
         outFrames = outFrames - 1;
-        piVar5[1] = piVar5[1] + (*pbVar3 ^ 0x80) * 0x100 * param_5;
+        piVar5[1] = piVar5[1] + (*pbVar3 ^ 0x80) * 0x100 * vol;
         piVar5 = piVar5 + 2;
       } while (outFrames != 0);
       return;
@@ -666,8 +666,8 @@ void __cdecl Mixer_Mix8Mono(byte *data,int count,uint outFrames,int accumOffset,
     if (outFrames != 0) {
       do {
         uVar6 = uVar6 + uVar2 * 2;
-        *piVar5 = *piVar5 + (*data ^ 0x80) * 0x100 * param_5;
-        piVar5[1] = piVar5[1] + (data[1] ^ 0x80) * 0x100 * param_5;
+        *piVar5 = *piVar5 + (*data ^ 0x80) * 0x100 * vol;
+        piVar5[1] = piVar5[1] + (data[1] ^ 0x80) * 0x100 * vol;
         data = data + ((int)uVar6 >> 0x10);
         uVar6 = uVar6 & 0xffff;
         outFrames = outFrames - 1;
@@ -681,7 +681,7 @@ void __cdecl Mixer_Mix8Mono(byte *data,int count,uint outFrames,int accumOffset,
 
 /* ---- 0x004d36e0  Mixer_Mix16MonoLR ---- */
 void __cdecl
-Mixer_Mix16MonoLR(short *data,int count,uint outFrames,int accumOffset,int volL,int param_6)
+Mixer_Mix16MonoLR(short *data,int count,uint outFrames,int accumOffset,int volL,int volR)
 
 {
   uint uVar1;
@@ -694,22 +694,22 @@ Mixer_Mix16MonoLR(short *data,int count,uint outFrames,int accumOffset,int volL,
   if (uVar1 == 0x8000) {
     while (count = count + -1, count != 0) {
       *piVar2 = *piVar2 + *data * volL;
-      piVar2[1] = piVar2[1] + *data * param_6;
+      piVar2[1] = piVar2[1] + *data * volR;
       piVar2[2] = piVar2[2] + ((int)*data + (int)data[2] >> 1) * volL;
-      piVar2[3] = piVar2[3] + ((int)*data + (int)data[2] >> 1) * param_6;
+      piVar2[3] = piVar2[3] + ((int)*data + (int)data[2] >> 1) * volR;
       piVar2 = piVar2 + 4;
       data = data + 1;
     }
     *piVar2 = *piVar2 + *data * volL;
-    piVar2[1] = piVar2[1] + *data * param_6;
+    piVar2[1] = piVar2[1] + *data * volR;
     piVar2[2] = piVar2[2] + *data * volL;
-    piVar2[3] = piVar2[3] + *data * param_6;
+    piVar2[3] = piVar2[3] + *data * volR;
   }
   else if (uVar1 == 0x10000) {
     if (outFrames != 0) {
       do {
         *piVar2 = *piVar2 + *data * volL;
-        piVar2[1] = piVar2[1] + *data * param_6;
+        piVar2[1] = piVar2[1] + *data * volR;
         piVar2 = piVar2 + 2;
         outFrames = outFrames - 1;
         data = data + 1;
@@ -721,7 +721,7 @@ Mixer_Mix16MonoLR(short *data,int count,uint outFrames,int accumOffset,int volL,
     if (outFrames != 0) {
       do {
         *piVar2 = *piVar2 + *data * volL;
-        piVar2[1] = piVar2[1] + *data * param_6;
+        piVar2[1] = piVar2[1] + *data * volR;
         piVar2 = piVar2 + 2;
         outFrames = outFrames - 1;
         data = data + 2;
@@ -734,7 +734,7 @@ Mixer_Mix16MonoLR(short *data,int count,uint outFrames,int accumOffset,int volL,
     if (outFrames != 0) {
       do {
         *piVar2 = *piVar2 + *data * volL;
-        piVar2[1] = piVar2[1] + *data * param_6;
+        piVar2[1] = piVar2[1] + *data * volR;
         uVar4 = uVar3 + uVar1;
         piVar2 = piVar2 + 2;
         uVar3 = uVar4 & 0xffff;
@@ -748,7 +748,7 @@ Mixer_Mix16MonoLR(short *data,int count,uint outFrames,int accumOffset,int volL,
 }
 
 /* ---- 0x004d38a0  Mixer_Mix16Mono ---- */
-void __cdecl Mixer_Mix16Mono(short *data,int count,uint outFrames,int accumOffset,int param_5)
+void __cdecl Mixer_Mix16Mono(short *data,int count,uint outFrames,int accumOffset,int vol)
 
 {
   short sVar1;
@@ -762,17 +762,17 @@ void __cdecl Mixer_Mix16Mono(short *data,int count,uint outFrames,int accumOffse
   uVar2 = (uint)(count << 0x10) / outFrames;
   if (uVar2 == 0x8000) {
     while (count = count + -1, count != 0) {
-      *piVar3 = *piVar3 + *data * param_5;
-      piVar3[1] = piVar3[1] + param_5 * data[1];
-      piVar3[2] = piVar3[2] + ((int)data[2] + (int)*data >> 1) * param_5;
-      piVar3[3] = piVar3[3] + ((int)data[3] + (int)data[1] >> 1) * param_5;
+      *piVar3 = *piVar3 + *data * vol;
+      piVar3[1] = piVar3[1] + vol * data[1];
+      piVar3[2] = piVar3[2] + ((int)data[2] + (int)*data >> 1) * vol;
+      piVar3[3] = piVar3[3] + ((int)data[3] + (int)data[1] >> 1) * vol;
       piVar3 = piVar3 + 4;
       data = data + 2;
     }
-    *piVar3 = *piVar3 + *data * param_5;
-    piVar3[1] = piVar3[1] + param_5 * data[1];
-    piVar3[2] = piVar3[2] + *data * param_5;
-    piVar3[3] = piVar3[3] + param_5 * data[1];
+    *piVar3 = *piVar3 + *data * vol;
+    piVar3[1] = piVar3[1] + vol * data[1];
+    piVar3[2] = piVar3[2] + *data * vol;
+    piVar3[3] = piVar3[3] + vol * data[1];
   }
   else if (uVar2 == 0x10000) {
     iVar6 = outFrames * 2;
@@ -780,7 +780,7 @@ void __cdecl Mixer_Mix16Mono(short *data,int count,uint outFrames,int accumOffse
       do {
         sVar1 = *data;
         data = data + 1;
-        *piVar3 = *piVar3 + sVar1 * param_5;
+        *piVar3 = *piVar3 + sVar1 * vol;
         piVar3 = piVar3 + 1;
         iVar6 = iVar6 + -1;
       } while (iVar6 != 0);
@@ -790,8 +790,8 @@ void __cdecl Mixer_Mix16Mono(short *data,int count,uint outFrames,int accumOffse
   else if (uVar2 == 0x20000) {
     if (outFrames != 0) {
       do {
-        *piVar3 = *piVar3 + *data * param_5;
-        piVar3[1] = piVar3[1] + data[1] * param_5;
+        *piVar3 = *piVar3 + *data * vol;
+        piVar3[1] = piVar3[1] + data[1] * vol;
         piVar3 = piVar3 + 2;
         outFrames = outFrames - 1;
         data = data + 4;
@@ -803,8 +803,8 @@ void __cdecl Mixer_Mix16Mono(short *data,int count,uint outFrames,int accumOffse
     uVar4 = 0;
     if (outFrames != 0) {
       do {
-        *piVar3 = *piVar3 + *data * param_5;
-        piVar3[1] = piVar3[1] + data[1] * param_5;
+        *piVar3 = *piVar3 + *data * vol;
+        piVar3[1] = piVar3[1] + data[1] * vol;
         uVar5 = uVar4 + uVar2 * 2;
         piVar3 = piVar3 + 2;
         uVar4 = uVar5 & 0xffff;
@@ -821,7 +821,7 @@ void __cdecl Mixer_Mix16Mono(short *data,int count,uint outFrames,int accumOffse
 /* Stereo sample-pair resampler with left/right volumes (format A) */
 
 void __cdecl
-Mixer_MixStereoLR_A(ushort *data,int count,uint outFrames,uint accumOffset,int volL,int param_6)
+Mixer_MixStereoLR_A(ushort *data,int count,uint outFrames,uint accumOffset,int volL,int volR)
 
 {
   ushort uVar1;
@@ -839,15 +839,15 @@ Mixer_MixStereoLR_A(ushort *data,int count,uint outFrames,uint accumOffset,int v
       uVar1 = data[2];
       iVar5 = (int)(short)(*data ^ 0x8000);
       *piVar3 = *piVar3 + volL * iVar5;
-      piVar3[1] = piVar3[1] + param_6 * iVar5;
+      piVar3[1] = piVar3[1] + volR * iVar5;
       iVar5 = (short)(uVar1 ^ 0x8000) + iVar5 >> 1;
       piVar3[2] = piVar3[2] + volL * iVar5;
       data = data + 1;
-      piVar3[3] = piVar3[3] + param_6 * iVar5;
+      piVar3[3] = piVar3[3] + volR * iVar5;
       piVar3 = piVar3 + 4;
     }
     iVar4 = volL * (short)(*data ^ 0x8000);
-    iVar5 = param_6 * (short)(*data ^ 0x8000);
+    iVar5 = volR * (short)(*data ^ 0x8000);
     *piVar3 = *piVar3 + iVar4;
     piVar3[1] = piVar3[1] + iVar5;
     piVar3[2] = piVar3[2] + iVar4;
@@ -859,7 +859,7 @@ Mixer_MixStereoLR_A(ushort *data,int count,uint outFrames,uint accumOffset,int v
         uVar1 = *data;
         *piVar3 = *piVar3 + volL * (short)(uVar1 ^ 0x8000);
         data = data + 1;
-        piVar3[1] = piVar3[1] + param_6 * (short)(uVar1 ^ 0x8000);
+        piVar3[1] = piVar3[1] + volR * (short)(uVar1 ^ 0x8000);
         piVar3 = piVar3 + 2;
         outFrames = outFrames - 1;
       } while (outFrames != 0);
@@ -872,7 +872,7 @@ Mixer_MixStereoLR_A(ushort *data,int count,uint outFrames,uint accumOffset,int v
         uVar1 = *data;
         *piVar3 = *piVar3 + volL * (short)(uVar1 ^ 0x8000);
         data = data + 2;
-        piVar3[1] = piVar3[1] + param_6 * (short)(uVar1 ^ 0x8000);
+        piVar3[1] = piVar3[1] + volR * (short)(uVar1 ^ 0x8000);
         outFrames = outFrames - 1;
         piVar3 = piVar3 + 2;
       } while (outFrames != 0);
@@ -887,7 +887,7 @@ Mixer_MixStereoLR_A(ushort *data,int count,uint outFrames,uint accumOffset,int v
         uVar1 = *data;
         *piVar3 = *piVar3 + volL * (short)(uVar1 ^ 0x8000);
         uVar7 = uVar6 + uVar2;
-        piVar3[1] = piVar3[1] + param_6 * (short)(uVar1 ^ 0x8000);
+        piVar3[1] = piVar3[1] + volR * (short)(uVar1 ^ 0x8000);
         piVar3 = piVar3 + 2;
         uVar6 = uVar7 & 0xffff;
         data = data + ((int)uVar7 >> 0x10);
@@ -900,7 +900,7 @@ Mixer_MixStereoLR_A(ushort *data,int count,uint outFrames,uint accumOffset,int v
 }
 
 /* ---- 0x004d3c40  Mixer_MixStereo_A ---- */
-void __cdecl Mixer_MixStereo_A(ushort *data,int count,uint outFrames,uint accumOffset,int param_5)
+void __cdecl Mixer_MixStereo_A(ushort *data,int count,uint outFrames,uint accumOffset,int vol)
 
 {
   ushort uVar1;
@@ -922,18 +922,18 @@ void __cdecl Mixer_MixStereo_A(ushort *data,int count,uint outFrames,uint accumO
       uVar2 = data[1];
       uVar3 = *data;
       uVar4 = data[3];
-      *piVar6 = *piVar6 + param_5 * (short)(uVar3 ^ 0x8000);
-      piVar6[1] = piVar6[1] + param_5 * (short)(uVar2 ^ 0x8000);
+      *piVar6 = *piVar6 + vol * (short)(uVar3 ^ 0x8000);
+      piVar6[1] = piVar6[1] + vol * (short)(uVar2 ^ 0x8000);
       data = data + 2;
       piVar6[2] = piVar6[2] +
                   ((int)(((int)(short)uVar1 ^ 0xffff8000U) + (int)(short)(uVar3 ^ 0x8000)) >> 1) *
-                  param_5;
+                  vol;
       piVar6[3] = piVar6[3] +
-                  ((int)(short)(uVar4 ^ 0x8000) + (int)(short)(uVar2 ^ 0x8000) >> 1) * param_5;
+                  ((int)(short)(uVar4 ^ 0x8000) + (int)(short)(uVar2 ^ 0x8000) >> 1) * vol;
       piVar6 = piVar6 + 4;
     }
-    iVar8 = (short)(*data ^ 0x8000) * param_5;
-    iVar7 = (short)(data[1] ^ 0x8000) * param_5;
+    iVar8 = (short)(*data ^ 0x8000) * vol;
+    iVar7 = (short)(data[1] ^ 0x8000) * vol;
     *piVar6 = *piVar6 + iVar8;
     piVar6[1] = piVar6[1] + iVar7;
     piVar6[2] = piVar6[2] + iVar8;
@@ -945,7 +945,7 @@ void __cdecl Mixer_MixStereo_A(ushort *data,int count,uint outFrames,uint accumO
       do {
         uVar1 = *data;
         data = data + 1;
-        *piVar6 = *piVar6 + ((int)(short)uVar1 ^ 0xffff8000U) * param_5;
+        *piVar6 = *piVar6 + ((int)(short)uVar1 ^ 0xffff8000U) * vol;
         piVar6 = piVar6 + 1;
         iVar7 = iVar7 + -1;
       } while (iVar7 != 0);
@@ -956,9 +956,9 @@ void __cdecl Mixer_MixStereo_A(ushort *data,int count,uint outFrames,uint accumO
     if (outFrames != 0) {
       do {
         uVar1 = data[1];
-        *piVar6 = *piVar6 + ((int)(short)*data ^ 0xffff8000U) * param_5;
+        *piVar6 = *piVar6 + ((int)(short)*data ^ 0xffff8000U) * vol;
         data = data + 4;
-        piVar6[1] = piVar6[1] + ((int)(short)uVar1 ^ 0xffff8000U) * param_5;
+        piVar6[1] = piVar6[1] + ((int)(short)uVar1 ^ 0xffff8000U) * vol;
         piVar6 = piVar6 + 2;
         outFrames = outFrames - 1;
       } while (outFrames != 0);
@@ -971,9 +971,9 @@ void __cdecl Mixer_MixStereo_A(ushort *data,int count,uint outFrames,uint accumO
       accumOffset = outFrames;
       do {
         uVar1 = data[1];
-        *piVar6 = *piVar6 + ((int)(short)*data ^ 0xffff8000U) * param_5;
+        *piVar6 = *piVar6 + ((int)(short)*data ^ 0xffff8000U) * vol;
         uVar10 = uVar9 + uVar5 * 2;
-        piVar6[1] = piVar6[1] + (short)(uVar1 ^ 0x8000) * param_5;
+        piVar6[1] = piVar6[1] + (short)(uVar1 ^ 0x8000) * vol;
         piVar6 = piVar6 + 2;
         uVar9 = uVar10 & 0xffff;
         data = data + ((int)uVar10 >> 0x10);
@@ -987,7 +987,7 @@ void __cdecl Mixer_MixStereo_A(ushort *data,int count,uint outFrames,uint accumO
 
 /* ---- 0x004d3e60  Mixer_MixStereoLR_B ---- */
 void __cdecl
-Mixer_MixStereoLR_B(ushort *data,int count,uint outFrames,uint accumOffset,int volL,int param_6)
+Mixer_MixStereoLR_B(ushort *data,int count,uint outFrames,uint accumOffset,int volL,int volR)
 
 {
   ushort uVar1;
@@ -1003,17 +1003,17 @@ Mixer_MixStereoLR_B(ushort *data,int count,uint outFrames,uint accumOffset,int v
   if (uVar2 == 0x8000) {
     while (count = count + -1, count != 0) {
       *piVar4 = *piVar4 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * volL;
-      piVar4[1] = piVar4[1] + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * param_6;
+      piVar4[1] = piVar4[1] + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * volR;
       iVar3 = (int)(short)data[2] + (int)(short)*data >> 1;
       iVar3 = (int)(short)CONCAT31((int3)iVar3,(char)((uint)iVar3 >> 8));
       piVar4[2] = piVar4[2] + volL * iVar3;
-      piVar4[3] = piVar4[3] + param_6 * iVar3;
+      piVar4[3] = piVar4[3] + volR * iVar3;
       piVar4 = piVar4 + 4;
       data = data + 1;
     }
     iVar3 = (int)CONCAT11((char)*data,(char)(*data >> 8));
     iVar5 = volL * iVar3;
-    iVar3 = param_6 * iVar3;
+    iVar3 = volR * iVar3;
     *piVar4 = *piVar4 + iVar5;
     piVar4[1] = piVar4[1] + iVar3;
     piVar4[2] = piVar4[2] + iVar5;
@@ -1026,7 +1026,7 @@ Mixer_MixStereoLR_B(ushort *data,int count,uint outFrames,uint accumOffset,int v
         *piVar4 = *piVar4 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * volL;
         uVar1 = *data;
         data = data + 1;
-        piVar4[1] = piVar4[1] + ((uint)(uVar1 >> 8) | (uint)(byte)uVar1 << 8) * param_6;
+        piVar4[1] = piVar4[1] + ((uint)(uVar1 >> 8) | (uint)(byte)uVar1 << 8) * volR;
         accumOffset = accumOffset - 1;
         piVar4 = piVar4 + 2;
       } while (accumOffset != 0);
@@ -1039,7 +1039,7 @@ Mixer_MixStereoLR_B(ushort *data,int count,uint outFrames,uint accumOffset,int v
         *piVar4 = *piVar4 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * volL;
         uVar1 = *data;
         data = data + 2;
-        piVar4[1] = piVar4[1] + ((uint)(uVar1 >> 8) | (uint)(byte)uVar1 << 8) * param_6;
+        piVar4[1] = piVar4[1] + ((uint)(uVar1 >> 8) | (uint)(byte)uVar1 << 8) * volR;
         outFrames = outFrames - 1;
         piVar4 = piVar4 + 2;
       } while (outFrames != 0);
@@ -1053,7 +1053,7 @@ Mixer_MixStereoLR_B(ushort *data,int count,uint outFrames,uint accumOffset,int v
       do {
         *piVar4 = *piVar4 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * volL;
         uVar7 = uVar6 + uVar2;
-        piVar4[1] = piVar4[1] + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * param_6;
+        piVar4[1] = piVar4[1] + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * volR;
         piVar4 = piVar4 + 2;
         uVar6 = uVar7 & 0xffff;
         accumOffset = accumOffset - 1;
@@ -1066,7 +1066,7 @@ Mixer_MixStereoLR_B(ushort *data,int count,uint outFrames,uint accumOffset,int v
 }
 
 /* ---- 0x004d40d0  Mixer_MixStereo_B ---- */
-void __cdecl Mixer_MixStereo_B(ushort *data,int count,uint outFrames,uint accumOffset,int param_5)
+void __cdecl Mixer_MixStereo_B(ushort *data,int count,uint outFrames,uint accumOffset,int vol)
 
 {
   uint uVar1;
@@ -1080,26 +1080,26 @@ void __cdecl Mixer_MixStereo_B(ushort *data,int count,uint outFrames,uint accumO
   uVar1 = (uint)(count << 0x10) / outFrames;
   if (uVar1 == 0x8000) {
     while (count = count + -1, count != 0) {
-      *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * param_5;
-      piVar2[1] = piVar2[1] + ((uint)(data[1] >> 8) | (uint)(byte)data[1] << 8) * param_5;
+      *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * vol;
+      piVar2[1] = piVar2[1] + ((uint)(data[1] >> 8) | (uint)(byte)data[1] << 8) * vol;
       uVar1 = (int)(short)data[2] + (int)(short)*data >> 1;
-      piVar2[2] = piVar2[2] + ((uVar1 & 0xff) << 8 | (uVar1 & 0xffff) >> 8) * param_5;
+      piVar2[2] = piVar2[2] + ((uVar1 & 0xff) << 8 | (uVar1 & 0xffff) >> 8) * vol;
       uVar1 = (int)(short)data[3] + (int)(short)data[1] >> 1;
-      piVar2[3] = piVar2[3] + ((uVar1 & 0xff) << 8 | (uVar1 & 0xffff) >> 8) * param_5;
+      piVar2[3] = piVar2[3] + ((uVar1 & 0xff) << 8 | (uVar1 & 0xffff) >> 8) * vol;
       piVar2 = piVar2 + 4;
       data = data + 2;
     }
-    *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * param_5;
-    piVar2[1] = piVar2[1] + ((uint)(data[1] >> 8) | (uint)(byte)data[1] << 8) * param_5;
-    piVar2[2] = piVar2[2] + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * param_5;
-    piVar2[3] = piVar2[3] + ((uint)(data[1] >> 8) | (uint)(byte)data[1] << 8) * param_5;
+    *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * vol;
+    piVar2[1] = piVar2[1] + ((uint)(data[1] >> 8) | (uint)(byte)data[1] << 8) * vol;
+    piVar2[2] = piVar2[2] + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * vol;
+    piVar2[3] = piVar2[3] + ((uint)(data[1] >> 8) | (uint)(byte)data[1] << 8) * vol;
   }
   else if (uVar1 == 0x10000) {
     iVar4 = outFrames * 2;
     if (iVar4 != 0) {
       do {
         iVar4 = iVar4 + -1;
-        *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * param_5;
+        *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * vol;
         piVar2 = piVar2 + 1;
       } while (iVar4 != 0);
       return;
@@ -1109,9 +1109,9 @@ void __cdecl Mixer_MixStereo_B(ushort *data,int count,uint outFrames,uint accumO
     if (outFrames != 0) {
       do {
         puVar3 = data + 1;
-        *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * param_5;
+        *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * vol;
         data = data + 4;
-        piVar2[1] = piVar2[1] + ((uint)(*puVar3 >> 8) | (uint)(byte)*puVar3 << 8) * param_5;
+        piVar2[1] = piVar2[1] + ((uint)(*puVar3 >> 8) | (uint)(byte)*puVar3 << 8) * vol;
         piVar2 = piVar2 + 2;
         outFrames = outFrames - 1;
       } while (outFrames != 0);
@@ -1123,9 +1123,9 @@ void __cdecl Mixer_MixStereo_B(ushort *data,int count,uint outFrames,uint accumO
     if (outFrames != 0) {
       accumOffset = outFrames;
       do {
-        *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * param_5;
+        *piVar2 = *piVar2 + ((uint)(*data >> 8) | (uint)(byte)*data << 8) * vol;
         uVar6 = uVar5 + uVar1 * 2;
-        piVar2[1] = piVar2[1] + ((uint)(data[1] >> 8) | (uint)(byte)data[1] << 8) * param_5;
+        piVar2[1] = piVar2[1] + ((uint)(data[1] >> 8) | (uint)(byte)data[1] << 8) * vol;
         uVar5 = uVar6 & 0xffff;
         accumOffset = accumOffset - 1;
         data = data + ((int)uVar6 >> 0x10);

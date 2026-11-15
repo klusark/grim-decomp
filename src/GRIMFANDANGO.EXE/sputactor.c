@@ -9,18 +9,18 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputActor_Initialize(uint param_1,undefined4 *param_2)
+uint __cdecl sputActor_Initialize(uint services,undefined4 *iface)
 
 {
-  g_dwSputActHS = param_1;
-  *param_2 = sputActor_Initialize;
-  param_2[1] = sputActor_Terminate;
-  param_2[2] = sputActor_Startup;
-  param_2[3] = sputActor_Shutdown;
-  param_2[4] = sputActor_Save;
-  param_2[5] = sputActor_Restore;
-  param_2[6] = 0;
-  param_2[7] = 0;
+  g_dwSputActHS = services;
+  *iface = sputActor_Initialize;
+  iface[1] = sputActor_Terminate;
+  iface[2] = sputActor_Startup;
+  iface[3] = sputActor_Shutdown;
+  iface[4] = sputActor_Save;
+  iface[5] = sputActor_Restore;
+  iface[6] = 0;
+  iface[7] = 0;
   g_pTalkingActors[0] = (Actor *)0x0;
   g_dwSputActInitialize = 1;
   g_pTalkingActors[1] = (Actor *)0x0;
@@ -34,7 +34,7 @@ uint __cdecl sputActor_Initialize(uint param_1,undefined4 *param_2)
    handed for every field. Original name sputActor_Save (the remaster's GrimFandango (Linux):
    aligned call in sputActor_Initialize); was sputActor_SaveState. */
 
-uint __cdecl sputActor_Save(code *param_1)
+uint __cdecl sputActor_Save(code *write)
 
 {
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -61,8 +61,8 @@ uint __cdecl sputActor_Save(code *param_1)
   #define aiStack_80 (*(int (*)[32])(_frame + (0xc0 - 0x80)))
   
   local_84 = g_nNumActors;
-  (*param_1)(&g_nMaxActors,4);
-  (*param_1)(&local_84,4);
+  (*write)(&g_nMaxActors,4);
+  (*write)(&local_84,4);
   iStack_94 = 0;
   pAVar7 = g_pActors;
   if (0 < g_nMaxActors) {
@@ -71,43 +71,43 @@ uint __cdecl sputActor_Save(code *param_1)
       actor = (Actor *)((int)pAVar7->aPos + iStack_98 + -0xc);
       if (*(int *)(pAVar7->aSetName + iStack_98 + 0x20) != 0) {
         iStack_8c = ((int)actor - (int)pAVar7) / 0xa8;
-        (*param_1)(&iStack_8c,4);
-        (*param_1)((int)actor->pColormapRef + 4,4);
-        (*param_1)(&actor->dwFlags,4);
-        (*param_1)(&actor->dwMoveFlags,4);
-        (*param_1)(actor->aPos,4);
-        (*param_1)(actor->aPos + 1,4);
-        (*param_1)(actor->aPos + 2,4);
-        (*param_1)(actor->aPrevPos,4);
-        (*param_1)(actor->aPrevPos + 1,4);
-        (*param_1)(actor->aPrevPos + 2,4);
-        (*param_1)(actor->aRot,4);
-        (*param_1)(actor->aRot + 1,4);
-        (*param_1)(actor->aRot + 2,4);
-        (*param_1)(&actor->flScale,4);
-        (*param_1)(&actor->nMatrixDirty,4);
-        (*param_1)(actor->aOrient,4);
-        (*param_1)(actor->aOrient + 1,4);
-        (*param_1)(actor->aOrient + 2,4);
-        (*param_1)(actor->aOrient + 3,4);
-        (*param_1)(actor->aOrient + 4,4);
-        (*param_1)(actor->aOrient + 5,4);
-        (*param_1)(actor->aOrient + 6,4);
-        (*param_1)(actor->aOrient + 7,4);
-        (*param_1)(actor->aOrient + 8,4);
-        (*param_1)(actor->aOrient + 9,4);
-        (*param_1)(actor->aOrient + 10,4);
-        (*param_1)(actor->aOrient + 0xb,4);
-        (*param_1)(&actor->nScreenBoxValid,4);
-        (*param_1)(actor->aScreenBox,4);
-        (*param_1)(actor->aScreenBox + 1,4);
-        (*param_1)(actor->aScreenBox + 2,4);
-        (*param_1)(actor->aScreenBox + 3,4);
-        (*param_1)(actor->aSetName,0x20);
+        (*write)(&iStack_8c,4);
+        (*write)((int)actor->pColormapRef + 4,4);
+        (*write)(&actor->dwFlags,4);
+        (*write)(&actor->dwMoveFlags,4);
+        (*write)(actor->aPos,4);
+        (*write)(actor->aPos + 1,4);
+        (*write)(actor->aPos + 2,4);
+        (*write)(actor->aPrevPos,4);
+        (*write)(actor->aPrevPos + 1,4);
+        (*write)(actor->aPrevPos + 2,4);
+        (*write)(actor->aRot,4);
+        (*write)(actor->aRot + 1,4);
+        (*write)(actor->aRot + 2,4);
+        (*write)(&actor->flScale,4);
+        (*write)(&actor->nMatrixDirty,4);
+        (*write)(actor->aOrient,4);
+        (*write)(actor->aOrient + 1,4);
+        (*write)(actor->aOrient + 2,4);
+        (*write)(actor->aOrient + 3,4);
+        (*write)(actor->aOrient + 4,4);
+        (*write)(actor->aOrient + 5,4);
+        (*write)(actor->aOrient + 6,4);
+        (*write)(actor->aOrient + 7,4);
+        (*write)(actor->aOrient + 8,4);
+        (*write)(actor->aOrient + 9,4);
+        (*write)(actor->aOrient + 10,4);
+        (*write)(actor->aOrient + 0xb,4);
+        (*write)(&actor->nScreenBoxValid,4);
+        (*write)(actor->aScreenBox,4);
+        (*write)(actor->aScreenBox + 1,4);
+        (*write)(actor->aScreenBox + 2,4);
+        (*write)(actor->aScreenBox + 3,4);
+        (*write)(actor->aSetName,0x20);
         uStack_88 = (uint)(actor->pExtra != (ActorExtra *)0x0);
-        (*param_1)(&uStack_88,4);
+        (*write)(&uStack_88,4);
         iStack_9c = Actor_CountCostumes(actor);
-        (*param_1)(&iStack_9c,4);
+        (*write)(&iStack_9c,4);
         pCVar4 = actor->pCostumes;
         if (-1 < iStack_9c + -1) {
           piVar6 = aiStack_80 + iStack_9c + -1;
@@ -124,25 +124,25 @@ uint __cdecl sputActor_Save(code *param_1)
           piVar6 = aiStack_80;
           do {
             puVar1 = (undefined4 *)*piVar6;
-            (*param_1)(puVar1,4);
-            (*param_1)(puVar1 + 3,0xc);
-            (*param_1)(puVar1 + 6,4);
-            (*param_1)(puVar1 + 7,4);
-            (*param_1)(puVar1 + 8,4);
-            (*param_1)(puVar1 + 9,4);
-            (*param_1)(puVar1 + 10,4);
-            (*param_1)(puVar1 + 0xb,4);
-            (*param_1)(puVar1 + 0xc,4);
-            (*param_1)(puVar1 + 0xd,4);
-            (*param_1)(puVar1 + 0xe,0x40);
-            (*param_1)(puVar1 + 0x1e,4);
+            (*write)(puVar1,4);
+            (*write)(puVar1 + 3,0xc);
+            (*write)(puVar1 + 6,4);
+            (*write)(puVar1 + 7,4);
+            (*write)(puVar1 + 8,4);
+            (*write)(puVar1 + 9,4);
+            (*write)(puVar1 + 10,4);
+            (*write)(puVar1 + 0xb,4);
+            (*write)(puVar1 + 0xc,4);
+            (*write)(puVar1 + 0xd,4);
+            (*write)(puVar1 + 0xe,0x40);
+            (*write)(puVar1 + 0x1e,4);
             if (puVar1[0x1f] == 0) {
               (**(code **)(g_dwSputActHS + 0x18))
                         (s_Valid_Ref___pCosNode__rCostume___004e9e1c,
                          s_C__grimsrc_libs_grimlib_Engine_s_004e9e40,0x1c1);
             }
-            (*param_1)(puVar1 + 0x20,4);
-            Cos_SaveInstance(*puVar1,param_1);
+            (*write)(puVar1 + 0x20,4);
+            Cos_SaveInstance(*puVar1,write);
             iStack_a8 = iStack_a8 + 1;
             piVar6 = piVar6 + 1;
           } while (iStack_a8 < iStack_9c);
@@ -153,24 +153,24 @@ uint __cdecl sputActor_Save(code *param_1)
               pMVar2 = pMVar2->pNext) {
             iStack_a4 = iStack_a4 + 1;
           }
-          (*param_1)(&iStack_a4,4);
+          (*write)(&iStack_a4,4);
           for (pMVar2 = actor->pCostumes->pComponents; pMVar2 != (ModelComponent *)0x0;
               pMVar2 = pMVar2->pNext) {
-            (*param_1)(&pMVar2->nRoot,4);
-            (*param_1)(&pMVar2->nComponentFlags,4);
-            (*param_1)(&pMVar2->nParentNode,4);
+            (*write)(&pMVar2->nRoot,4);
+            (*write)(&pMVar2->nComponentFlags,4);
+            (*write)(&pMVar2->nParentNode,4);
             if (pMVar2->pThing->nType == 1) {
               if ((pMVar2->modelRef).nValid == 0) {
                 (*g_pStd_HS->pAssertFail)
                           (s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
               }
-              (*param_1)(pMVar2->pThing->pHierarchyExtra,
-                         *(int *)((int)(pMVar2->modelRef).pData + 0x54) << 2);
+              (*write)(pMVar2->pThing->pHierarchyExtra,
+                       *(int *)((int)(pMVar2->modelRef).pData + 0x54) << 2);
             }
             iStack_a0 = 0;
             if ((pMVar2->pThing == (rdThing *)0x0) ||
                (pvVar3 = pMVar2->pThing->pPuppet, pvVar3 == (void *)0x0)) {
-              (*param_1)(&iStack_a0,4);
+              (*write)(&iStack_a0,4);
             }
             else {
               piVar6 = (int *)((int)pvVar3 + 0x130);
@@ -183,18 +183,18 @@ uint __cdecl sputActor_Save(code *param_1)
                 piVar9 = piVar9 + 0x4d;
                 iVar8 = iVar8 + -1;
               } while (iVar8 != 0);
-              (*param_1)(&iStack_a0,4);
+              (*write)(&iStack_a0,4);
               iStack_a8 = 6;
               do {
                 if (*piVar6 != 0) {
-                  (*param_1)(*piVar6,0x20);
-                  (*param_1)(piVar6 + -0x48,4);
-                  (*param_1)(piVar6 + -0x47,4);
-                  (*param_1)(piVar6 + -0x4a,4);
-                  (*param_1)(piVar6 + -2,4);
-                  (*param_1)(piVar6 + -1,4);
-                  (*param_1)(piVar6 + -0x44,4);
-                  (*param_1)(piVar6 + -0x43,4);
+                  (*write)(*piVar6,0x20);
+                  (*write)(piVar6 + -0x48,4);
+                  (*write)(piVar6 + -0x47,4);
+                  (*write)(piVar6 + -0x4a,4);
+                  (*write)(piVar6 + -2,4);
+                  (*write)(piVar6 + -1,4);
+                  (*write)(piVar6 + -0x44,4);
+                  (*write)(piVar6 + -0x43,4);
                 }
                 piVar6 = piVar6 + 0x4d;
                 iStack_a8 = iStack_a8 + -1;
@@ -204,57 +204,57 @@ uint __cdecl sputActor_Save(code *param_1)
         }
         pAVar7 = g_pActors;
         if (actor->pExtra != (ActorExtra *)0x0) {
-          (*param_1)(actor->pExtra,4);
-          (*param_1)(actor->pExtra->aLookAt + 1,4);
-          (*param_1)(actor->pExtra->aLookAt + 2,4);
-          (*param_1)(&actor->pExtra->nWalking,4);
-          (*param_1)(&actor->pExtra->nTurning,4);
-          (*param_1)(&actor->pExtra->nResting,4);
-          (*param_1)(&actor->pExtra->flWalkRate,4);
-          (*param_1)(&actor->pExtra->flTurnRate,4);
-          (*param_1)(&actor->pExtra->nAlignTurn,4);
-          (*param_1)(&actor->pExtra->flOffsetYaw,4);
-          (*param_1)(&actor->pExtra->flYawLeft,4);
-          (*param_1)(actor->pExtra->aWaypoint,4);
-          (*param_1)(actor->pExtra->aWaypoint + 1,4);
-          (*param_1)(actor->pExtra->aWaypoint + 2,4);
-          (*param_1)(actor->pExtra->aDest,4);
-          (*param_1)(actor->pExtra->aDest + 1,4);
-          (*param_1)(actor->pExtra->aDest + 2,4);
-          (*param_1)(&actor->pExtra->nPathNodes,4);
+          (*write)(actor->pExtra,4);
+          (*write)(actor->pExtra->aLookAt + 1,4);
+          (*write)(actor->pExtra->aLookAt + 2,4);
+          (*write)(&actor->pExtra->nWalking,4);
+          (*write)(&actor->pExtra->nTurning,4);
+          (*write)(&actor->pExtra->nResting,4);
+          (*write)(&actor->pExtra->flWalkRate,4);
+          (*write)(&actor->pExtra->flTurnRate,4);
+          (*write)(&actor->pExtra->nAlignTurn,4);
+          (*write)(&actor->pExtra->flOffsetYaw,4);
+          (*write)(&actor->pExtra->flYawLeft,4);
+          (*write)(actor->pExtra->aWaypoint,4);
+          (*write)(actor->pExtra->aWaypoint + 1,4);
+          (*write)(actor->pExtra->aWaypoint + 2,4);
+          (*write)(actor->pExtra->aDest,4);
+          (*write)(actor->pExtra->aDest + 1,4);
+          (*write)(actor->pExtra->aDest + 2,4);
+          (*write)(&actor->pExtra->nPathNodes,4);
           iVar8 = 0;
           do {
-            (*param_1)((int)actor->pExtra->aPath[0] + iVar8,4);
-            (*param_1)((int)actor->pExtra->aPath[0] + iVar8 + 4,4);
-            (*param_1)((int)actor->pExtra->aPath[0] + iVar8 + 8,4);
+            (*write)((int)actor->pExtra->aPath[0] + iVar8,4);
+            (*write)((int)actor->pExtra->aPath[0] + iVar8 + 4,4);
+            (*write)((int)actor->pExtra->aPath[0] + iVar8 + 8,4);
             iVar8 = iVar8 + 0xc;
           } while (iVar8 < 0x168);
-          (*param_1)(&actor->pExtra->nPathIndex,4);
-          (*param_1)(&actor->pExtra->pPuck,4);
-          (*param_1)(&actor->pExtra->nFollowBoxes,4);
-          (*param_1)(&actor->pExtra->nWalkDominate,4);
-          (*param_1)(&actor->pExtra->flPuckRadius,4);
-          (*param_1)(&actor->pExtra->nTalking,4);
-          (*param_1)(&actor->pExtra->nVoiceSound,4);
-          (*param_1)(&actor->pExtra->nTalkTime,4);
-          (*param_1)(actor->pExtra->aMsgId,0xc);
-          (*param_1)(actor->pExtra->aVoiceFile,0xf);
-          (*param_1)(&actor->pExtra->pText,4);
-          (*param_1)(&actor->pExtra->nLipSync,4);
-          (*param_1)(&actor->pExtra->nActiveShadow,4);
-          (*param_1)(&actor->pExtra->nCollisionMode,4);
-          (*param_1)(&actor->pExtra->flCollisionScale,4);
-          (*param_1)(&actor->pExtra->nCollided,4);
-          (*param_1)(&actor->pExtra->nClipPlaneActive,4);
-          (*param_1)(actor->pExtra->aClipNormal,4);
-          (*param_1)(actor->pExtra->aClipNormal + 1,4);
-          (*param_1)(actor->pExtra->aClipNormal + 2,4);
-          (*param_1)(actor->pExtra->aClipPoint,4);
-          (*param_1)(actor->pExtra->aClipPoint + 1,4);
-          (*param_1)(actor->pExtra->aClipPoint + 2,4);
-          (*param_1)(&actor->pExtra->dwTalkColor,4);
-          (*param_1)(&actor->pExtra->flTimeScale,4);
-          (*param_1)(&actor->pExtra->nInvClipNode,4);
+          (*write)(&actor->pExtra->nPathIndex,4);
+          (*write)(&actor->pExtra->pPuck,4);
+          (*write)(&actor->pExtra->nFollowBoxes,4);
+          (*write)(&actor->pExtra->nWalkDominate,4);
+          (*write)(&actor->pExtra->flPuckRadius,4);
+          (*write)(&actor->pExtra->nTalking,4);
+          (*write)(&actor->pExtra->nVoiceSound,4);
+          (*write)(&actor->pExtra->nTalkTime,4);
+          (*write)(actor->pExtra->aMsgId,0xc);
+          (*write)(actor->pExtra->aVoiceFile,0xf);
+          (*write)(&actor->pExtra->pText,4);
+          (*write)(&actor->pExtra->nLipSync,4);
+          (*write)(&actor->pExtra->nActiveShadow,4);
+          (*write)(&actor->pExtra->nCollisionMode,4);
+          (*write)(&actor->pExtra->flCollisionScale,4);
+          (*write)(&actor->pExtra->nCollided,4);
+          (*write)(&actor->pExtra->nClipPlaneActive,4);
+          (*write)(actor->pExtra->aClipNormal,4);
+          (*write)(actor->pExtra->aClipNormal + 1,4);
+          (*write)(actor->pExtra->aClipNormal + 2,4);
+          (*write)(actor->pExtra->aClipPoint,4);
+          (*write)(actor->pExtra->aClipPoint + 1,4);
+          (*write)(actor->pExtra->aClipPoint + 2,4);
+          (*write)(&actor->pExtra->dwTalkColor,4);
+          (*write)(&actor->pExtra->flTimeScale,4);
+          (*write)(&actor->pExtra->nInvClipNode,4);
           pSVar5 = sputRoom_GetCurrentRoom();
           if (pSVar5 == (Set *)0x0) {
             sputActor_ResetShadows(actor);
@@ -263,15 +263,15 @@ uint __cdecl sputActor_Save(code *param_1)
           do {
             iVar8 = (int)actor->pExtra->aLookAt + iStack_a8;
             iStack_a4 = 0;
-            (*param_1)(iVar8,4);
-            (*param_1)(iVar8 + 4,4);
-            (*param_1)(iVar8 + 8,4);
-            (*param_1)(iVar8 + 0xc,4);
-            (*param_1)(iVar8 + 0x10,4);
-            (*param_1)(iVar8 + 0x14,4);
-            (*param_1)(iVar8 + 0x18,4);
-            (*param_1)(iVar8 + 0x1c,4);
-            (*param_1)(iVar8 + 0x20,4);
+            (*write)(iVar8,4);
+            (*write)(iVar8 + 4,4);
+            (*write)(iVar8 + 8,4);
+            (*write)(iVar8 + 0xc,4);
+            (*write)(iVar8 + 0x10,4);
+            (*write)(iVar8 + 0x14,4);
+            (*write)(iVar8 + 0x18,4);
+            (*write)(iVar8 + 0x1c,4);
+            (*write)(iVar8 + 0x20,4);
             piVar9 = (int *)(iVar8 + 0x24);
             iVar8 = 0xc;
             piVar6 = piVar9;
@@ -282,11 +282,11 @@ uint __cdecl sputActor_Save(code *param_1)
               piVar6 = piVar6 + 1;
               iVar8 = iVar8 + -1;
             } while (iVar8 != 0);
-            (*param_1)(&iStack_a4,4);
+            (*write)(&iStack_a4,4);
             iVar8 = 0xc;
             do {
               if (*piVar9 != 0) {
-                (*param_1)(*piVar9,0x20);
+                (*write)(*piVar9,0x20);
               }
               piVar9 = piVar9 + 1;
               iVar8 = iVar8 + -1;
@@ -304,7 +304,7 @@ uint __cdecl sputActor_Save(code *param_1)
   if (g_pSelectedActor != (Actor *)0x0) {
     iStack_90 = ((int)g_pSelectedActor - (int)pAVar7) / 0xa8;
   }
-  (*param_1)(&iStack_90,4);
+  (*write)(&iStack_90,4);
   return 0;
 }
 #undef aiStack_80
@@ -326,7 +326,7 @@ uint __cdecl sputActor_Save(code *param_1)
    GrimFandango (Linux): the only unmatched caller of rdPuppet_AddTrack; 4 matched neighbours agree,
    2 disagree); was sputActor_RestoreState. */
 
-uint __cdecl sputActor_Restore(code *param_1)
+uint __cdecl sputActor_Restore(code *read)
 
 {
   unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -393,7 +393,7 @@ uint __cdecl sputActor_Restore(code *param_1)
       iVar12 = iVar12 + 0xa8;
     } while (iVar14 < g_nMaxActors);
   }
-  (*param_1)(&local_15c,4);
+  (*read)(&local_15c,4);
   if (g_nMaxActors < local_15c) {
     g_pActors = (Actor *)(**(code **)(g_dwSputActHS + 0x28))
                                    (g_pActors,local_15c * 0xa8,
@@ -410,11 +410,11 @@ uint __cdecl sputActor_Restore(code *param_1)
     }
     g_nMaxActors = local_15c;
   }
-  (*param_1)(&g_nNumActors,4);
+  (*read)(&g_nNumActors,4);
   iStack_150 = 0;
   if (0 < g_nNumActors) {
     do {
-      (*param_1)(&iStack_140,4);
+      (*read)(&iStack_140,4);
       pAVar15 = g_pActors + iStack_140;
       pAVar1 = g_pActors + iStack_140;
       pAVar15->nInUse = 1;
@@ -428,41 +428,41 @@ uint __cdecl sputActor_Restore(code *param_1)
           puVar5 = puVar5 + 1;
         }
       }
-      (*param_1)((int)pAVar15->pColormapRef + 4,4);
-      (*param_1)(&pAVar15->dwFlags,4);
-      (*param_1)(&pAVar15->dwMoveFlags,4);
-      (*param_1)(pAVar15->aPos,4);
-      (*param_1)(pAVar15->aPos + 1,4);
-      (*param_1)(pAVar15->aPos + 2,4);
-      (*param_1)(pAVar15->aPrevPos,4);
-      (*param_1)(pAVar15->aPrevPos + 1,4);
-      (*param_1)(pAVar15->aPrevPos + 2,4);
-      (*param_1)(pAVar15->aRot,4);
-      (*param_1)(pAVar15->aRot + 1,4);
-      (*param_1)(pAVar15->aRot + 2,4);
-      (*param_1)(&pAVar15->flScale,4);
-      (*param_1)(&pAVar15->nMatrixDirty,4);
+      (*read)((int)pAVar15->pColormapRef + 4,4);
+      (*read)(&pAVar15->dwFlags,4);
+      (*read)(&pAVar15->dwMoveFlags,4);
+      (*read)(pAVar15->aPos,4);
+      (*read)(pAVar15->aPos + 1,4);
+      (*read)(pAVar15->aPos + 2,4);
+      (*read)(pAVar15->aPrevPos,4);
+      (*read)(pAVar15->aPrevPos + 1,4);
+      (*read)(pAVar15->aPrevPos + 2,4);
+      (*read)(pAVar15->aRot,4);
+      (*read)(pAVar15->aRot + 1,4);
+      (*read)(pAVar15->aRot + 2,4);
+      (*read)(&pAVar15->flScale,4);
+      (*read)(&pAVar15->nMatrixDirty,4);
       pAVar15->nMatrixDirty = 0;
-      (*param_1)(pAVar15->aOrient,4);
-      (*param_1)(pAVar15->aOrient + 1,4);
-      (*param_1)(pAVar15->aOrient + 2,4);
-      (*param_1)(pAVar15->aOrient + 3,4);
-      (*param_1)(pAVar15->aOrient + 4,4);
-      (*param_1)(pAVar15->aOrient + 5,4);
-      (*param_1)(pAVar15->aOrient + 6,4);
-      (*param_1)(pAVar15->aOrient + 7,4);
-      (*param_1)(pAVar15->aOrient + 8,4);
-      (*param_1)(pAVar15->aOrient + 9,4);
-      (*param_1)(pAVar15->aOrient + 10,4);
-      (*param_1)(pAVar15->aOrient + 0xb,4);
-      (*param_1)(&pAVar15->nScreenBoxValid,4);
-      (*param_1)(pAVar15->aScreenBox,4);
-      (*param_1)(pAVar15->aScreenBox + 1,4);
-      (*param_1)(pAVar15->aScreenBox + 2,4);
-      (*param_1)(pAVar15->aScreenBox + 3,4);
+      (*read)(pAVar15->aOrient,4);
+      (*read)(pAVar15->aOrient + 1,4);
+      (*read)(pAVar15->aOrient + 2,4);
+      (*read)(pAVar15->aOrient + 3,4);
+      (*read)(pAVar15->aOrient + 4,4);
+      (*read)(pAVar15->aOrient + 5,4);
+      (*read)(pAVar15->aOrient + 6,4);
+      (*read)(pAVar15->aOrient + 7,4);
+      (*read)(pAVar15->aOrient + 8,4);
+      (*read)(pAVar15->aOrient + 9,4);
+      (*read)(pAVar15->aOrient + 10,4);
+      (*read)(pAVar15->aOrient + 0xb,4);
+      (*read)(&pAVar15->nScreenBoxValid,4);
+      (*read)(pAVar15->aScreenBox,4);
+      (*read)(pAVar15->aScreenBox + 1,4);
+      (*read)(pAVar15->aScreenBox + 2,4);
+      (*read)(pAVar15->aScreenBox + 3,4);
       pcVar6 = pAVar15->aSetName;
-      (*param_1)(pcVar6,0x20);
-      (*param_1)(&iStack_13c,4);
+      (*read)(pcVar6,0x20);
+      (*read)(&iStack_13c,4);
       Res_ResolveToSerialNumber(pAVar15->pColormapRef);
       if (*pcVar6 != '\0') {
         uVar10 = 0xffffffff;
@@ -491,23 +491,23 @@ uint __cdecl sputActor_Restore(code *param_1)
         sputRoom_AddActor(acStack_40,pAVar15);
       }
       pAVar15->pCostumes = (CostumeNode *)0x0;
-      (*param_1)(&iStack_148,4);
+      (*read)(&iStack_148,4);
       iStack_164 = 0;
       if (0 < iStack_148) {
         do {
-          (*param_1)(auStack_134,4);
-          (*param_1)(&iStack_128,0xc);
-          (*param_1)(&fStack_11c,4);
-          (*param_1)(&fStack_118,4);
-          (*param_1)(&fStack_114,4);
-          (*param_1)(&fStack_110,4);
-          (*param_1)(&iStack_10c,4);
-          (*param_1)(&iStack_108,4);
-          (*param_1)(&iStack_104,4);
-          (*param_1)(&iStack_100,4);
-          (*param_1)(aiStack_fc,0x40);
-          (*param_1)(&iStack_bc,4);
-          (*param_1)(&RStack_b8.pData,4);
+          (*read)(auStack_134,4);
+          (*read)(&iStack_128,0xc);
+          (*read)(&fStack_11c,4);
+          (*read)(&fStack_118,4);
+          (*read)(&fStack_114,4);
+          (*read)(&fStack_110,4);
+          (*read)(&iStack_10c,4);
+          (*read)(&iStack_108,4);
+          (*read)(&iStack_104,4);
+          (*read)(&iStack_100,4);
+          (*read)(aiStack_fc,0x40);
+          (*read)(&iStack_bc,4);
+          (*read)(&RStack_b8.pData,4);
           Res_ResolveToSerialNumber(&RStack_b8);
           if (RStack_b8.nValid == 0) {
             (*g_pStd_HS->pAssertFail)
@@ -520,7 +520,7 @@ uint __cdecl sputActor_Restore(code *param_1)
           else {
             sputActor_PushCostume(pAVar15,pcVar6,0);
           }
-          Cos_RestoreInstance(pAVar15->pCostumes->dwInstance,param_1);
+          Cos_RestoreInstance(pAVar15->pCostumes->dwInstance,read);
           pAVar15->pCostumes->aHeadJoints[0] = iStack_128;
           pAVar15->pCostumes->aHeadJoints[1] = iStack_124;
           pAVar15->pCostumes->aHeadJoints[2] = iStack_120;
@@ -546,37 +546,37 @@ uint __cdecl sputActor_Restore(code *param_1)
       }
       if (pAVar15->pCostumes != (CostumeNode *)0x0) {
         pMVar3 = pAVar15->pCostumes->pComponents;
-        (*param_1)(&iStack_158,4);
+        (*read)(&iStack_158,4);
         if (0 < iStack_158) {
           for (; pMVar3 != (ModelComponent *)0x0; pMVar3 = pMVar3->pNext) {
-            (*param_1)(&pMVar3->nRoot,4);
-            (*param_1)(&pMVar3->nComponentFlags,4);
-            (*param_1)(&pMVar3->nParentNode,4);
+            (*read)(&pMVar3->nRoot,4);
+            (*read)(&pMVar3->nComponentFlags,4);
+            (*read)(&pMVar3->nParentNode,4);
             if (pMVar3->pThing->nType == 1) {
               if ((pMVar3->modelRef).nValid == 0) {
                 (*g_pStd_HS->pAssertFail)
                           (s_Bad_model_Reference_004e9e08,s_main_sputResource_h_004e80a8,0xae);
               }
-              (*param_1)(pMVar3->pThing->pHierarchyExtra,
-                         *(int *)((int)(pMVar3->modelRef).pData + 0x54) << 2);
+              (*read)(pMVar3->pThing->pHierarchyExtra,
+                      *(int *)((int)(pMVar3->modelRef).pData + 0x54) << 2);
             }
-            (*param_1)(&iStack_14c,4);
+            (*read)(&iStack_14c,4);
             iStack_164 = 0;
             if (0 < iStack_14c) {
               do {
                 pvStack_160 = pMVar3->pThing->pPuppet;
-                (*param_1)(acStack_60,0x20);
+                (*read)(acStack_60,0x20);
                 keyframe = sputResource_Alloc(0x4659454b,acStack_60);
                 if (keyframe != (void *)0x0) {
-                  (*param_1)(&uStack_144,4);
-                  (*param_1)(&uStack_138,4);
+                  (*read)(&uStack_144,4);
+                  (*read)(&uStack_138,4);
                   pvVar4 = pvStack_160;
                   uVar10 = rdPuppet_AddTrack(pvStack_160,(uint)keyframe,uStack_144,uStack_138);
-                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 8,4);
-                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 0x128,4);
-                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 300,4);
-                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 0x20,4);
-                  (*param_1)((int)pvVar4 + uVar10 * 0x134 + 0x24,4);
+                  (*read)((int)pvVar4 + uVar10 * 0x134 + 8,4);
+                  (*read)((int)pvVar4 + uVar10 * 0x134 + 0x128,4);
+                  (*read)((int)pvVar4 + uVar10 * 0x134 + 300,4);
+                  (*read)((int)pvVar4 + uVar10 * 0x134 + 0x20,4);
+                  (*read)((int)pvVar4 + uVar10 * 0x134 + 0x24,4);
                 }
                 iStack_164 = iStack_164 + 1;
               } while (iStack_164 < iStack_14c);
@@ -588,57 +588,57 @@ uint __cdecl sputActor_Restore(code *param_1)
       if (iStack_13c != 0) {
         pAVar15->pExtra = (ActorExtra *)0x0;
         sputActor_AllocateActorExtra(pAVar15);
-        (*param_1)(pAVar15->pExtra,4);
-        (*param_1)(pAVar15->pExtra->aLookAt + 1,4);
-        (*param_1)(pAVar15->pExtra->aLookAt + 2,4);
-        (*param_1)(&pAVar15->pExtra->nWalking,4);
-        (*param_1)(&pAVar15->pExtra->nTurning,4);
-        (*param_1)(&pAVar15->pExtra->nResting,4);
-        (*param_1)(&pAVar15->pExtra->flWalkRate,4);
-        (*param_1)(&pAVar15->pExtra->flTurnRate,4);
-        (*param_1)(&pAVar15->pExtra->nAlignTurn,4);
-        (*param_1)(&pAVar15->pExtra->flOffsetYaw,4);
-        (*param_1)(&pAVar15->pExtra->flYawLeft,4);
-        (*param_1)(pAVar15->pExtra->aWaypoint,4);
-        (*param_1)(pAVar15->pExtra->aWaypoint + 1,4);
-        (*param_1)(pAVar15->pExtra->aWaypoint + 2,4);
-        (*param_1)(pAVar15->pExtra->aDest,4);
-        (*param_1)(pAVar15->pExtra->aDest + 1,4);
-        (*param_1)(pAVar15->pExtra->aDest + 2,4);
-        (*param_1)(&pAVar15->pExtra->nPathNodes,4);
+        (*read)(pAVar15->pExtra,4);
+        (*read)(pAVar15->pExtra->aLookAt + 1,4);
+        (*read)(pAVar15->pExtra->aLookAt + 2,4);
+        (*read)(&pAVar15->pExtra->nWalking,4);
+        (*read)(&pAVar15->pExtra->nTurning,4);
+        (*read)(&pAVar15->pExtra->nResting,4);
+        (*read)(&pAVar15->pExtra->flWalkRate,4);
+        (*read)(&pAVar15->pExtra->flTurnRate,4);
+        (*read)(&pAVar15->pExtra->nAlignTurn,4);
+        (*read)(&pAVar15->pExtra->flOffsetYaw,4);
+        (*read)(&pAVar15->pExtra->flYawLeft,4);
+        (*read)(pAVar15->pExtra->aWaypoint,4);
+        (*read)(pAVar15->pExtra->aWaypoint + 1,4);
+        (*read)(pAVar15->pExtra->aWaypoint + 2,4);
+        (*read)(pAVar15->pExtra->aDest,4);
+        (*read)(pAVar15->pExtra->aDest + 1,4);
+        (*read)(pAVar15->pExtra->aDest + 2,4);
+        (*read)(&pAVar15->pExtra->nPathNodes,4);
         iVar14 = 0;
         do {
-          (*param_1)((int)pAVar15->pExtra->aPath[0] + iVar14,4);
-          (*param_1)((int)pAVar15->pExtra->aPath[0] + iVar14 + 4,4);
-          (*param_1)((int)pAVar15->pExtra->aPath[0] + iVar14 + 8,4);
+          (*read)((int)pAVar15->pExtra->aPath[0] + iVar14,4);
+          (*read)((int)pAVar15->pExtra->aPath[0] + iVar14 + 4,4);
+          (*read)((int)pAVar15->pExtra->aPath[0] + iVar14 + 8,4);
           iVar14 = iVar14 + 0xc;
         } while (iVar14 < 0x168);
-        (*param_1)(&pAVar15->pExtra->nPathIndex,4);
-        (*param_1)(&pAVar15->pExtra->pPuck,4);
-        (*param_1)(&pAVar15->pExtra->nFollowBoxes,4);
-        (*param_1)(&pAVar15->pExtra->nWalkDominate,4);
-        (*param_1)(&pAVar15->pExtra->flPuckRadius,4);
-        (*param_1)(&pAVar15->pExtra->nTalking,4);
-        (*param_1)(&pAVar15->pExtra->nVoiceSound,4);
-        (*param_1)(&pAVar15->pExtra->nTalkTime,4);
-        (*param_1)(pAVar15->pExtra->aMsgId,0xc);
-        (*param_1)(pAVar15->pExtra->aVoiceFile,0xf);
-        (*param_1)(&pAVar15->pExtra->pText,4);
-        (*param_1)(&pAVar15->pExtra->nLipSync,4);
-        (*param_1)(&pAVar15->pExtra->nActiveShadow,4);
-        (*param_1)(&pAVar15->pExtra->nCollisionMode,4);
-        (*param_1)(&pAVar15->pExtra->flCollisionScale,4);
-        (*param_1)(&pAVar15->pExtra->nCollided,4);
-        (*param_1)(&pAVar15->pExtra->nClipPlaneActive,4);
-        (*param_1)(pAVar15->pExtra->aClipNormal,4);
-        (*param_1)(pAVar15->pExtra->aClipNormal + 1,4);
-        (*param_1)(pAVar15->pExtra->aClipNormal + 2,4);
-        (*param_1)(pAVar15->pExtra->aClipPoint,4);
-        (*param_1)(pAVar15->pExtra->aClipPoint + 1,4);
-        (*param_1)(pAVar15->pExtra->aClipPoint + 2,4);
-        (*param_1)(&pAVar15->pExtra->dwTalkColor,4);
-        (*param_1)(&pAVar15->pExtra->flTimeScale,4);
-        (*param_1)(&pAVar15->pExtra->nInvClipNode,4);
+        (*read)(&pAVar15->pExtra->nPathIndex,4);
+        (*read)(&pAVar15->pExtra->pPuck,4);
+        (*read)(&pAVar15->pExtra->nFollowBoxes,4);
+        (*read)(&pAVar15->pExtra->nWalkDominate,4);
+        (*read)(&pAVar15->pExtra->flPuckRadius,4);
+        (*read)(&pAVar15->pExtra->nTalking,4);
+        (*read)(&pAVar15->pExtra->nVoiceSound,4);
+        (*read)(&pAVar15->pExtra->nTalkTime,4);
+        (*read)(pAVar15->pExtra->aMsgId,0xc);
+        (*read)(pAVar15->pExtra->aVoiceFile,0xf);
+        (*read)(&pAVar15->pExtra->pText,4);
+        (*read)(&pAVar15->pExtra->nLipSync,4);
+        (*read)(&pAVar15->pExtra->nActiveShadow,4);
+        (*read)(&pAVar15->pExtra->nCollisionMode,4);
+        (*read)(&pAVar15->pExtra->flCollisionScale,4);
+        (*read)(&pAVar15->pExtra->nCollided,4);
+        (*read)(&pAVar15->pExtra->nClipPlaneActive,4);
+        (*read)(pAVar15->pExtra->aClipNormal,4);
+        (*read)(pAVar15->pExtra->aClipNormal + 1,4);
+        (*read)(pAVar15->pExtra->aClipNormal + 2,4);
+        (*read)(pAVar15->pExtra->aClipPoint,4);
+        (*read)(pAVar15->pExtra->aClipPoint + 1,4);
+        (*read)(pAVar15->pExtra->aClipPoint + 2,4);
+        (*read)(&pAVar15->pExtra->dwTalkColor,4);
+        (*read)(&pAVar15->pExtra->flTimeScale,4);
+        (*read)(&pAVar15->pExtra->nInvClipNode,4);
         if (pAVar15->pExtra->pPuck != (Puck *)0x0) {
           pAVar15->pExtra->pPuck = (Puck *)0x0;
           sputActor_EnablePuck(pAVar15,1);
@@ -670,16 +670,16 @@ uint __cdecl sputActor_Restore(code *param_1)
           iVar12 = (int)pvStack_160 + (int)pAVar15->pExtra;
           iVar14 = 0;
           iStack_164 = 0;
-          (*param_1)(iVar12,4);
-          (*param_1)(iVar12 + 4,4);
-          (*param_1)(iVar12 + 8,4);
-          (*param_1)(iVar12 + 0xc,4);
-          (*param_1)(iVar12 + 0x10,4);
-          (*param_1)(iVar12 + 0x14,4);
-          (*param_1)(iVar12 + 0x18,4);
-          (*param_1)(iVar12 + 0x1c,4);
-          (*param_1)(iVar12 + 0x20,4);
-          (*param_1)(&iStack_164,4);
+          (*read)(iVar12,4);
+          (*read)(iVar12 + 4,4);
+          (*read)(iVar12 + 8,4);
+          (*read)(iVar12 + 0xc,4);
+          (*read)(iVar12 + 0x10,4);
+          (*read)(iVar12 + 0x14,4);
+          (*read)(iVar12 + 0x18,4);
+          (*read)(iVar12 + 0x1c,4);
+          (*read)(iVar12 + 0x20,4);
+          (*read)(&iStack_164,4);
           if (0xb < iStack_164) {
             (**(code **)(g_dwSputActHS + 0x18))
                       (s_tot_clips___MAX_SHADOW_CLIPS_004e9e70,
@@ -689,7 +689,7 @@ uint __cdecl sputActor_Restore(code *param_1)
             puVar5 = (undefined4 *)(iVar12 + 0x24);
             do {
               acStack_80[0] = '\0';
-              (*param_1)(acStack_80,0x20);
+              (*read)(acStack_80,0x20);
               pWVar9 = WalkPlane_PlaneNamed(acStack_80);
               *puVar5 = pWVar9;
               iVar14 = iVar14 + 1;
@@ -704,7 +704,7 @@ uint __cdecl sputActor_Restore(code *param_1)
   }
   iStack_154 = -1;
   g_pSelectedActor = (Actor *)0x0;
-  (*param_1)(&iStack_154,4);
+  (*read)(&iStack_154,4);
   if (iStack_154 != -1) {
     g_pSelectedActor = g_pActors + iStack_154;
   }

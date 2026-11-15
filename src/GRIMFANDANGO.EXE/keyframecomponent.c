@@ -14,8 +14,8 @@
    KeyframeComponent_OnKey. */
 
 void __cdecl
-KeyframeChanger(uint param_1,int *param_2,uint param_3,int param_4,uint param_5,uint param_6,
-               uint param_7,uint param_8)
+KeyframeChanger(uint cosInst,int *inst,uint tag,int command,uint ms,uint value2,uint value3,
+               uint hookData)
 
 {
   void *puppet;
@@ -25,12 +25,12 @@ KeyframeChanger(uint param_1,int *param_2,uint param_3,int param_4,uint param_5,
   undefined4 *puVar3;
   uint track;
   
-  puppet = *(void **)(*(int *)(*param_2 + 0x40) + 0x14);
-  if (param_2[1] == 0) {
+  puppet = *(void **)(*(int *)(*inst + 0x40) + 0x14);
+  if (inst[1] == 0) {
     (*g_pStd_HS->pAssertFail)(s_Bad_keyframe_Reference_004ea1e0,s_main_sputResource_h_004e80a8,0xb3)
     ;
   }
-  data = (void *)param_2[2];
+  data = (void *)inst[2];
   bVar2 = false;
   track = 0;
   puVar3 = (undefined4 *)((int)puppet + 0x130);
@@ -39,16 +39,16 @@ KeyframeChanger(uint param_1,int *param_2,uint param_3,int param_4,uint param_5,
     track = track + 1;
     puVar3 = puVar3 + 0x4d;
   } while ((int)track < 6);
-  if (*(uint *)(&g_aKeyCommands + param_4 * 4) < 8) {
+  if (*(uint *)(&g_aKeyCommands + command * 4) < 8) {
     if (track == 6) {
-      track = rdPuppet_AddTrack(puppet,(uint)data,param_2[0xf],param_2[0xe]);
+      track = rdPuppet_AddTrack(puppet,(uint)data,inst[0xf],inst[0xe]);
       if ((int)track < 0) {
         return;
       }
-      *(int *)(*(int *)(*param_2 + 0x40) + 0x48) = *param_2;
-      Res_SetReference((ResRef *)(*param_2 + 0x54 + track * 0x34),data,
+      *(int *)(*(int *)(*inst + 0x40) + 0x48) = *inst;
+      Res_SetReference((ResRef *)(*inst + 0x54 + track * 0x34),data,
                        s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xe3a);
-      *(uint *)(*param_2 + 0x18c) = param_8;
+      *(uint *)(*inst + 0x18c) = hookData;
       rdPuppet_SetCallback((int)puppet,track,((unsigned)(uintptr_t)sputCostume_PuppetHook));
       bVar2 = true;
       goto LAB_00497960;
@@ -60,10 +60,10 @@ LAB_00497960:
       return;
     }
   }
-  switch(*(undefined4 *)(&g_aKeyCommands + param_4 * 4)) {
+  switch(*(undefined4 *)(&g_aKeyCommands + command * 4)) {
   case 0:
     if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001f);
+      rdPuppet_AdvanceTrack(puppet,track,(float)ms * 0.001f);
     }
     rdPuppet_ResetTrack((int)puppet,track);
     rdPuppet_SetStatus((int)puppet,track,0x20);
@@ -71,7 +71,7 @@ LAB_00497960:
     return;
   case 1:
     if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001f);
+      rdPuppet_AdvanceTrack(puppet,track,(float)ms * 0.001f);
     }
     if ((*(byte *)((int)puppet + track * 0x134 + 8) & 0xc) == 0) {
       rdPuppet_PlayTrack((int)puppet,track);
@@ -80,7 +80,7 @@ LAB_00497960:
     break;
   case 2:
     if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001f);
+      rdPuppet_AdvanceTrack(puppet,track,(float)ms * 0.001f);
     }
     rdPuppet_ResetTrack((int)puppet,track);
     rdPuppet_SetStatus((int)puppet,track,0x40);
@@ -88,7 +88,7 @@ LAB_00497960:
     return;
   case 3:
     if (bVar2) {
-      rdPuppet_AdvanceTrack(puppet,track,(float)param_5 * 0.001f);
+      rdPuppet_AdvanceTrack(puppet,track,(float)ms * 0.001f);
     }
     rdPuppet_ResetTrack((int)puppet,track);
     rdPuppet_SetStatus((int)puppet,track,0x80);
@@ -97,7 +97,7 @@ LAB_00497960:
   case 4:
     rdPuppet_FadeInTrack(puppet,track,1.0f);
     if (bVar2) {
-      fVar1 = (float)param_5;
+      fVar1 = (float)ms;
 LAB_00497bc4:
       rdPuppet_AdvanceTrack(puppet,track,fVar1 * 0.001f);
       return;
@@ -106,21 +106,21 @@ LAB_00497bc4:
   case 5:
     rdPuppet_FadeInTrack(puppet,track,0.5f);
     if (bVar2) {
-      fVar1 = (float)param_5;
+      fVar1 = (float)ms;
       goto LAB_00497bc4;
     }
     break;
   case 6:
     rdPuppet_FadeInTrack(puppet,track,0.25f);
     if (bVar2) {
-      fVar1 = (float)param_5;
+      fVar1 = (float)ms;
       goto LAB_00497bc4;
     }
     break;
   case 7:
     rdPuppet_FadeInTrack(puppet,track,0.125f);
     if (bVar2) {
-      fVar1 = (float)param_5;
+      fVar1 = (float)ms;
       goto LAB_00497bc4;
     }
     break;
@@ -137,7 +137,7 @@ LAB_00497bc4:
     *(uint *)((int)puppet + track * 0x134 + 8) =
          *(uint *)((int)puppet + track * 0x134 + 8) & 0xffffffef | 2;
     if (bVar2) {
-      fVar1 = (float)param_5;
+      fVar1 = (float)ms;
       goto LAB_00497bc4;
     }
     break;
@@ -163,16 +163,16 @@ LAB_00497bc4:
    GrimFandango (Linux): the only unmatched caller of Lua_CallCostumeMarkerHandler; 1 matched
    neighbours agree, 0 disagree); was KeyframeComponent_TrackCallback. */
 
-void __cdecl sputCostume_PuppetHook(int param_1,int param_2,uint marker)
+void __cdecl sputCostume_PuppetHook(int data,int track,uint marker)
 
 {
   int iVar1;
   
-  if (param_1 != 0) {
-    iVar1 = Cos_InstGetUserData(*(int *)(param_1 + 0x18c));
+  if (data != 0) {
+    iVar1 = Cos_InstGetUserData(*(int *)(data + 0x18c));
     sputLua_DoCostumeMarkerCallback(g_pActors + iVar1,marker);
     if (marker == 0) {
-      Res_RemoveReference((ResRef *)(param_1 + 0x54 + param_2 * 0x34));
+      Res_RemoveReference((ResRef *)(data + 0x54 + track * 0x34));
     }
   }
   return;
@@ -227,7 +227,7 @@ int * __cdecl KeyframeInstancer(int inst,int component,int create)
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 1, builds a key from 'name priority tagged' text or
    asks for a .key file and loads it as a Keyframe resource. */
 
-int __cdecl KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,uint param_5)
+int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint param_5)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -257,8 +257,8 @@ int __cdecl KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,u
   *(undefined1 *)((int)puVar4 + 2) = 0;
   local_2c = 1;
   local_28 = 5;
-  if ((param_4 == 0x4c444f4d) || (param_4 == 0x4c444d4d)) {
-    if (param_3 == 0) {
+  if ((type == 0x4c444f4d) || (type == 0x4c444d4d)) {
+    if (parent == 0) {
       return 0;
     }
     if (param_5 == 0) {
@@ -304,7 +304,7 @@ int __cdecl KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,u
       if (param_5 == 0) {
         param_5 = local_24;
       }
-      iVar3 = Cos_RegisterComponent(param_1,param_5,(int)ref,param_2,param_3,param_4,((unsigned)(uintptr_t)&DAT_004e9fe0));
+      iVar3 = Cos_RegisterComponent(cosInst,param_5,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9fe0));
       return (uint)(iVar3 != 0);
     }
   }
@@ -323,7 +323,7 @@ int __cdecl KeyframeRequester(uint param_1,int param_2,int param_3,int param_4,u
    Cos_NewStateBasedTag/Cos_NewIntTag): slot 4, editor dialog for the Normal/Tagged priority of a
    keyframe key. */
 
-uint __cdecl KeyframeAdjuster(int *param_1,uint param_2)
+uint __cdecl KeyframeAdjuster(int *comp,uint text)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -338,12 +338,12 @@ uint __cdecl KeyframeAdjuster(int *param_1,uint param_2)
   
   local_28 = (uint)s_Tagged_Priority_004ea7dc;
   local_24 = (uint)s_Normal_Priority_004ea7cc;
-  iVar1 = *param_1;
+  iVar1 = *comp;
   local_30 = *(uint *)(iVar1 + 0x34);
   local_2c = *(uint *)(iVar1 + 0x38);
-  iVar2 = grimPlat_SpinDialog(param_2,(int)&local_28,&local_30,2);
+  iVar2 = grimPlat_SpinDialog(text,(int)&local_28,&local_30,2);
   if (iVar2 != 0) {
-    puVar3 = (uint *)strtok((byte *)param_2,&DAT_004ea52c);
+    puVar3 = (uint *)strtok((byte *)text,&DAT_004ea52c);
     *(uint *)(iVar1 + 0x34) = local_30;
     *(uint *)(iVar1 + 0x38) = local_2c;
     sprintf((char *)local_20,s__s__d__d_004ea7c0,puVar3,local_2c,local_30);
@@ -381,21 +381,21 @@ undefined4 KeyframeFreer(undefined4 param_1,undefined4 param_2,ResRef *ref)
    handler slot (stopper) of the same costume tag registration in sputCostume_Startup); was
    KeyframeComponent_Stop. */
 
-uint __cdecl KeyframeStopper(int *param_1)
+uint __cdecl KeyframeStopper(int *inst)
 
 {
   void *puppet;
   int track;
   int *piVar1;
   
-  puppet = *(void **)(*(int *)(*param_1 + 0x40) + 0x14);
-  if (param_1[1] == 0) {
+  puppet = *(void **)(*(int *)(*inst + 0x40) + 0x14);
+  if (inst[1] == 0) {
     return 0;
   }
   track = 0;
   piVar1 = (int *)((int)puppet + 0x130);
   do {
-    if (*piVar1 == param_1[2]) {
+    if (*piVar1 == inst[2]) {
       if ((*(byte *)((int)puppet + track * 0x134 + 8) & 8) == 0) {
         rdPuppet_RemoveTrack(puppet,track);
       }

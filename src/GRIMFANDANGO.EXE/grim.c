@@ -18,12 +18,12 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
   int iVar3;
   char *pcVar4;
   char *pcVar5;
-  void *pvVar6;
+  void *hwnd;
+  uint uVar6;
   uint uVar7;
-  uint uVar8;
+  char *pcVar8;
   char *pcVar9;
   char *pcVar10;
-  char *pcVar11;
   #define acStack_174 (*(char (*)[52])(_frame + (0x190 - 0x174)))
   #define auStack_140 (*(undefined1 (*)[320])(_frame + (0x190 - 0x140)))
   
@@ -37,61 +37,61 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
     while (((pcVar5 != (char *)0x0 && (*pcVar5 != '\0')) && (!bVar2))) {
       iVar3 = GetDriveTypeA((int)pcVar5);
       if ((iVar3 == 5) || ((g_nDeveloper != 0 && (iVar3 == 4)))) {
-        uVar7 = 0xffffffff;
-        pcVar9 = pcVar5;
+        uVar6 = 0xffffffff;
+        pcVar8 = pcVar5;
         do {
-          pcVar11 = pcVar9;
-          if (uVar7 == 0) break;
-          uVar7 = uVar7 - 1;
-          pcVar11 = pcVar9 + 1;
-          cVar1 = *pcVar9;
-          pcVar9 = pcVar11;
+          pcVar10 = pcVar8;
+          if (uVar6 == 0) break;
+          uVar6 = uVar6 - 1;
+          pcVar10 = pcVar8 + 1;
+          cVar1 = *pcVar8;
+          pcVar8 = pcVar10;
         } while (cVar1 != '\0');
-        uVar7 = ~uVar7;
-        pcVar9 = pcVar11 + -uVar7;
-        pcVar11 = acStack_174;
-        for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-          *(undefined4 *)pcVar11 = *(undefined4 *)pcVar9;
-          pcVar9 = pcVar9 + 4;
-          pcVar11 = pcVar11 + 4;
+        uVar6 = ~uVar6;
+        pcVar8 = pcVar10 + -uVar6;
+        pcVar10 = acStack_174;
+        for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+          *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+          pcVar8 = pcVar8 + 4;
+          pcVar10 = pcVar10 + 4;
         }
-        for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-          *pcVar11 = *pcVar9;
-          pcVar9 = pcVar9 + 1;
-          pcVar11 = pcVar11 + 1;
+        for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+          *pcVar10 = *pcVar8;
+          pcVar8 = pcVar8 + 1;
+          pcVar10 = pcVar10 + 1;
         }
-        uVar7 = 0xffffffff;
-        pcVar9 = subdir;
+        uVar6 = 0xffffffff;
+        pcVar8 = subdir;
         do {
-          pcVar11 = pcVar9;
-          if (uVar7 == 0) break;
-          uVar7 = uVar7 - 1;
-          pcVar11 = pcVar9 + 1;
-          cVar1 = *pcVar9;
-          pcVar9 = pcVar11;
+          pcVar10 = pcVar8;
+          if (uVar6 == 0) break;
+          uVar6 = uVar6 - 1;
+          pcVar10 = pcVar8 + 1;
+          cVar1 = *pcVar8;
+          pcVar8 = pcVar10;
         } while (cVar1 != '\0');
-        uVar7 = ~uVar7;
+        uVar6 = ~uVar6;
         iVar3 = -1;
-        pcVar9 = acStack_174;
+        pcVar8 = acStack_174;
         do {
-          pcVar10 = pcVar9;
+          pcVar9 = pcVar8;
           if (iVar3 == 0) break;
           iVar3 = iVar3 + -1;
-          pcVar10 = pcVar9 + 1;
-          cVar1 = *pcVar9;
-          pcVar9 = pcVar10;
+          pcVar9 = pcVar8 + 1;
+          cVar1 = *pcVar8;
+          pcVar8 = pcVar9;
         } while (cVar1 != '\0');
-        pcVar9 = pcVar11 + -uVar7;
-        pcVar11 = pcVar10 + -1;
-        for (uVar8 = uVar7 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
-          *(undefined4 *)pcVar11 = *(undefined4 *)pcVar9;
-          pcVar9 = pcVar9 + 4;
-          pcVar11 = pcVar11 + 4;
+        pcVar8 = pcVar10 + -uVar6;
+        pcVar10 = pcVar9 + -1;
+        for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+          *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+          pcVar8 = pcVar8 + 4;
+          pcVar10 = pcVar10 + 4;
         }
-        for (uVar7 = uVar7 & 3; uVar7 != 0; uVar7 = uVar7 - 1) {
-          *pcVar11 = *pcVar9;
-          pcVar9 = pcVar9 + 1;
-          pcVar11 = pcVar11 + 1;
+        for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
+          *pcVar10 = *pcVar8;
+          pcVar8 = pcVar8 + 1;
+          pcVar10 = pcVar10 + 1;
         }
         iVar3 = FindFirstFileA((int)acStack_174,(int)auStack_140);
         if (iVar3 != -1) {
@@ -99,15 +99,15 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
           FindClose(iVar3);
         }
       }
-      uVar7 = 0xffffffff;
-      pcVar9 = pcVar5;
+      uVar6 = 0xffffffff;
+      pcVar8 = pcVar5;
       do {
-        if (uVar7 == 0) break;
-        uVar7 = uVar7 - 1;
-        cVar1 = *pcVar9;
-        pcVar9 = pcVar9 + 1;
+        if (uVar6 == 0) break;
+        uVar6 = uVar6 - 1;
+        cVar1 = *pcVar8;
+        pcVar8 = pcVar8 + 1;
       } while (cVar1 != '\0');
-      pcVar5 = pcVar5 + ~uVar7;
+      pcVar5 = pcVar5 + ~uVar6;
     }
     (*g_pStd_HS->pFree)(pcVar4);
   }
@@ -115,8 +115,8 @@ int __cdecl Grim_FindDataOnDrives(char *subdir)
     iVar3 = 0;
     pcVar5 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
     pcVar4 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
-    pvVar6 = Win_GetMainHwnd();
-    Grim_FatalMessageBox((int)pvVar6,(int)pcVar4,(int)pcVar5,iVar3);
+    hwnd = Win_GetMainHwnd();
+    Grim_FatalMessageBox((int)hwnd,(int)pcVar4,(int)pcVar5,iVar3);
     return 0;
   }
   return 1;
@@ -293,15 +293,15 @@ void __cdecl Grim_DecodeRegKeyName(char *s)
 /* ---- 0x004018b0  Grim_FatalMessageBox ---- */
 /* MessageBoxA wrapper that first tears down the display so the box is visible */
 
-int __cdecl Grim_FatalMessageBox(int param_1,int param_2,int param_3,int param_4)
+int __cdecl Grim_FatalMessageBox(int hwnd,int text,int caption,int type)
 
 {
   int iVar1;
   
   UINT_004e814c = 0;
-  iVar1 = MessageBoxA(param_1,param_2,param_3,param_4);
+  iVar1 = MessageBoxA(hwnd,text,caption,type);
   Grim_ShutdownDisplay();
-  CloseWindow(param_1);
+  CloseWindow(hwnd);
   stdControl_ShowMouseCursor(1);
   UINT_004e814c = 1;
   return iVar1;
@@ -554,13 +554,13 @@ void __cdecl grimdemo_PleaseShutdown(void)
    Main_Startup, same body (two display palette calls, std3D_SetCurrentPalette with a device)); was
    Grim_OnDisplayModeChange. */
 
-uint __cdecl grimdemo_SetPalette(void *param_1,int flags)
+uint __cdecl grimdemo_SetPalette(void *palette,int flags)
 
 {
-  stdDisplay_SetPalette((uint)param_1);
-  stdDisplay_SetMasterPalette(param_1);
+  stdDisplay_SetPalette((uint)palette);
+  stdDisplay_SetMasterPalette(palette);
   if (g_pStd3D_CurDevice != (Std3DDevice *)0x0) {
-    std3D_SetCurrentPalette(param_1,flags);
+    std3D_SetCurrentPalette(palette,flags);
   }
   return 1;
 }
@@ -577,8 +577,8 @@ int __cdecl Grim_ParseCommandLine(char *cmdline)
   int iVar2;
   uint *puVar3;
   uint uVar4;
-  void *pvVar5;
-  char *pcVar6;
+  void *hwnd;
+  char *pcVar5;
   
   pbVar1 = (byte *)strtok((byte *)cmdline,&DAT_004dd918);
   if (pbVar1 == (byte *)0x0) {
@@ -641,8 +641,8 @@ LAB_00402f60:
       }
       iVar2 = _stricmp(pbVar1,&DAT_004dd8cc);
       if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8c8), iVar2 == 0)) {
-        pcVar6 = (char *)strtok((byte *)0x0,&DAT_004dd918);
-        grimlib_AddResourcePath(pcVar6);
+        pcVar5 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+        grimlib_AddResourcePath(pcVar5);
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(pbVar1,&DAT_004dd8c4);
@@ -652,9 +652,9 @@ LAB_00402f60:
           cmdline = s_Usage_004dd8b0;
         }
         iVar2 = 0;
-        pcVar6 = s_GRIME__Grim_Fandango_Executable_U_004dd048;
-        pvVar5 = Win_GetMainHwnd();
-        Grim_FatalMessageBox((int)pvVar5,(int)pcVar6,(int)cmdline,iVar2);
+        pcVar5 = s_GRIME__Grim_Fandango_Executable_U_004dd048;
+        hwnd = Win_GetMainHwnd();
+        Grim_FatalMessageBox((int)hwnd,(int)pcVar5,(int)cmdline,iVar2);
         return 0;
       }
       pbVar1 = (byte *)strtok((byte *)0x0,&DAT_004dd918);

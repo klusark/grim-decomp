@@ -8,7 +8,7 @@
 /* ---- 0x00403ae0  Str_ComparePtrs ---- */
 /* qsort/bsearch comparator for arrays of char *: compares the strings the two entries point to. */
 
-int __cdecl Str_ComparePtrs(undefined4 *param_1,undefined4 *param_2)
+int __cdecl Str_ComparePtrs(undefined4 *a,undefined4 *b)
 
 {
   byte bVar1;
@@ -16,8 +16,8 @@ int __cdecl Str_ComparePtrs(undefined4 *param_1,undefined4 *param_2)
   byte *pbVar3;
   bool bVar4;
   
-  pbVar3 = (byte *)*param_2;
-  pbVar2 = (byte *)*param_1;
+  pbVar3 = (byte *)*b;
+  pbVar2 = (byte *)*a;
   while( true ) {
     bVar1 = *pbVar2;
     bVar4 = bVar1 < *pbVar3;
@@ -151,23 +151,23 @@ void __cdecl stdFnames_CopyShortName(char *dst,int size,char *path)
 }
 
 /* ---- 0x004838c0  Str_FindChar ---- */
-undefined * __cdecl Str_FindChar(char *param_1,int param_2)
+undefined * __cdecl Str_FindChar(char *s,int c)
 
 {
   char *pcVar1;
   char cVar2;
   
-  cVar2 = *param_1;
-  while ((cVar2 != '\0' && (cVar2 != param_2))) {
-    pcVar1 = param_1 + 1;
-    param_1 = param_1 + 1;
+  cVar2 = *s;
+  while ((cVar2 != '\0' && (cVar2 != c))) {
+    pcVar1 = s + 1;
+    s = s + 1;
     cVar2 = *pcVar1;
   }
-  return param_1;
+  return s;
 }
 
 /* ---- 0x004aef70  String_ContainsSubstring ---- */
-uint * __cdecl String_ContainsSubstring(uint *param_1,char *param_2)
+uint * __cdecl String_ContainsSubstring(uint *s,char *sub)
 
 {
   char *pcVar1;
@@ -181,29 +181,29 @@ uint * __cdecl String_ContainsSubstring(uint *param_1,char *param_2)
   char *pcVar9;
   uint *puVar10;
   
-  cVar3 = *param_2;
+  cVar3 = *sub;
   if (cVar3 == '\0') {
-    return param_1;
+    return s;
   }
-  if (param_2[1] == '\0') {
-    while (((uint)param_1 & 3) != 0) {
-      uVar5 = *param_1;
+  if (sub[1] == '\0') {
+    while (((uint)s & 3) != 0) {
+      uVar5 = *s;
       if ((char)uVar5 == cVar3) {
-        return param_1;
+        return s;
       }
-      param_1 = (uint *)((int)param_1 + 1);
+      s = (uint *)((int)s + 1);
       if ((char)uVar5 == '\0') {
         return (uint *)0x0;
       }
     }
     while( true ) {
       while( true ) {
-        uVar5 = *param_1;
+        uVar5 = *s;
         uVar8 = uVar5 ^ CONCAT22(CONCAT11(cVar3,cVar3),CONCAT11(cVar3,cVar3));
         uVar7 = uVar5 ^ 0xffffffff ^ uVar5 + 0x7efefeff;
-        puVar10 = param_1 + 1;
+        puVar10 = s + 1;
         if (((uVar8 ^ 0xffffffff ^ uVar8 + 0x7efefeff) & 0x81010100) != 0) break;
-        param_1 = puVar10;
+        s = puVar10;
         if ((uVar7 & 0x81010100) != 0) {
           if ((uVar7 & 0x1010100) != 0) {
             return (uint *)0x0;
@@ -213,30 +213,30 @@ uint * __cdecl String_ContainsSubstring(uint *param_1,char *param_2)
           }
         }
       }
-      uVar5 = *param_1;
+      uVar5 = *s;
       if ((char)uVar5 == cVar3) {
-        return param_1;
+        return s;
       }
       if ((char)uVar5 == '\0') {
         return (uint *)0x0;
       }
       cVar6 = (char)(uVar5 >> 8);
       if (cVar6 == cVar3) {
-        return (uint *)((int)param_1 + 1);
+        return (uint *)((int)s + 1);
       }
       if (cVar6 == '\0') {
         return (uint *)0x0;
       }
       cVar6 = (char)(uVar5 >> 0x10);
       if (cVar6 == cVar3) {
-        return (uint *)((int)param_1 + 2);
+        return (uint *)((int)s + 2);
       }
       if (cVar6 == '\0') break;
       cVar6 = (char)(uVar5 >> 0x18);
       if (cVar6 == cVar3) {
-        return (uint *)((int)param_1 + 3);
+        return (uint *)((int)s + 3);
       }
-      param_1 = puVar10;
+      s = puVar10;
       if (cVar6 == '\0') {
         return (uint *)0x0;
       }
@@ -244,18 +244,18 @@ uint * __cdecl String_ContainsSubstring(uint *param_1,char *param_2)
     return (uint *)0x0;
   }
   do {
-    cVar6 = (char)*param_1;
+    cVar6 = (char)*s;
     do {
-      while (puVar10 = param_1, param_1 = (uint *)((int)puVar10 + 1), cVar6 != cVar3) {
+      while (puVar10 = s, s = (uint *)((int)puVar10 + 1), cVar6 != cVar3) {
         if (cVar6 == '\0') {
           return (uint *)0x0;
         }
-        cVar6 = *(char *)param_1;
+        cVar6 = *(char *)s;
       }
-      cVar6 = *(char *)param_1;
-      pcVar9 = param_2;
+      cVar6 = *(char *)s;
+      pcVar9 = sub;
       puVar4 = puVar10;
-    } while (cVar6 != param_2[1]);
+    } while (cVar6 != sub[1]);
     do {
       if (pcVar9[2] == '\0') {
         return puVar10;
@@ -441,48 +441,48 @@ LAB_004c1d16:
 /* ---- 0x004c1e00  Str_ModuleNameLength ---- */
 /* Length of a module name up to the first '.' or '=' (trailing spaces before '=' trimmed) */
 
-int __cdecl Str_ModuleNameLength(byte *param_1)
+int __cdecl Str_ModuleNameLength(byte *s)
 
 {
   byte bVar1;
   byte *pbVar2;
   byte *pbVar3;
   
-  bVar1 = *param_1;
-  pbVar2 = param_1;
+  bVar1 = *s;
+  pbVar2 = s;
   while (((bVar1 != 0 && (bVar1 != 0x2e)) && (bVar1 != 0x3d))) {
     pbVar3 = pbVar2 + 1;
     pbVar2 = pbVar2 + 1;
     bVar1 = *pbVar3;
   }
-  if ((param_1 < pbVar2) && (pbVar3 = pbVar2, *pbVar2 == 0x3d)) {
+  if ((s < pbVar2) && (pbVar3 = pbVar2, *pbVar2 == 0x3d)) {
     do {
       pbVar2 = pbVar3;
       pbVar3 = pbVar2 + -1;
-      if ((pbVar3 <= param_1) || (bVar1 = *pbVar3, bVar1 == 0)) break;
+      if ((pbVar3 <= s) || (bVar1 = *pbVar3, bVar1 == 0)) break;
     } while ((((bVar1 < 0x21) || (0x7f < bVar1)) || (bVar1 == 0x2c)) || (bVar1 == 0x3b));
   }
-  return (int)pbVar2 - (int)param_1;
+  return (int)pbVar2 - (int)s;
 }
 
 /* ---- 0x004c1e60  Str_StripNonPrintable ---- */
-void __cdecl Str_StripNonPrintable(byte *param_1)
+void __cdecl Str_StripNonPrintable(byte *s)
 
 {
   byte *pbVar1;
   byte bVar2;
   byte *pbVar3;
   
-  bVar2 = *param_1;
-  pbVar3 = param_1;
+  bVar2 = *s;
+  pbVar3 = s;
   while (bVar2 != 0) {
-    bVar2 = *param_1;
+    bVar2 = *s;
     if ((0x20 < bVar2) && (bVar2 < 0x80)) {
       *pbVar3 = bVar2;
       pbVar3 = pbVar3 + 1;
     }
-    pbVar1 = param_1 + 1;
-    param_1 = param_1 + 1;
+    pbVar1 = s + 1;
+    s = s + 1;
     bVar2 = *pbVar1;
   }
   *pbVar3 = 0;
@@ -490,7 +490,7 @@ void __cdecl Str_StripNonPrintable(byte *param_1)
 }
 
 /* ---- 0x004c1e90  Str_CompareNoCase ---- */
-int __cdecl Str_CompareNoCase(char *param_1,char *param_2)
+int __cdecl Str_CompareNoCase(char *a,char *b)
 
 {
   byte bVar1;
@@ -500,10 +500,10 @@ int __cdecl Str_CompareNoCase(char *param_1,char *param_2)
   int iVar5;
   
   iVar5 = -1;
-  while ((bVar1 = *param_1, bVar1 != 0 || (*param_2 != 0))) {
-    bVar2 = *param_2;
-    param_1 = param_1 + 1;
-    param_2 = param_2 + 1;
+  while ((bVar1 = *a, bVar1 != 0 || (*b != 0))) {
+    bVar2 = *b;
+    a = a + 1;
+    b = b + 1;
     iVar3 = toupper((uint)bVar1);
     iVar4 = toupper((uint)bVar2);
     iVar5 = 0;
@@ -515,7 +515,7 @@ int __cdecl Str_CompareNoCase(char *param_1,char *param_2)
 }
 
 /* ---- 0x004c1ee0  Str_CompareNoCaseN ---- */
-int __cdecl Str_CompareNoCaseN(char *param_1,char *param_2,int param_3)
+int __cdecl Str_CompareNoCaseN(char *a,char *b,int n)
 
 {
   byte bVar1;
@@ -524,21 +524,21 @@ int __cdecl Str_CompareNoCaseN(char *param_1,char *param_2,int param_3)
   int iVar4;
   
   iVar3 = -1;
-  if (param_3 != 0) {
+  if (n != 0) {
     while( true ) {
-      param_3 = param_3 + -1;
-      bVar1 = *param_1;
-      if ((bVar1 == 0) && (*param_2 == 0)) break;
-      bVar2 = *param_2;
-      param_1 = param_1 + 1;
-      param_2 = param_2 + 1;
+      n = n + -1;
+      bVar1 = *a;
+      if ((bVar1 == 0) && (*b == 0)) break;
+      bVar2 = *b;
+      a = a + 1;
+      b = b + 1;
       iVar3 = toupper((uint)bVar2);
       iVar4 = toupper((uint)bVar1);
       if (iVar4 - iVar3 != 0) {
         return iVar4 - iVar3;
       }
       iVar3 = 0;
-      if (param_3 == 0) {
+      if (n == 0) {
         return 0;
       }
     }

@@ -69,11 +69,11 @@ void __cdecl sputTime_Advance(void)
    Game_FrameUpdate). Original name sputTime_AdvanceManual (the remaster's GrimFandango (Linux):
    aligned call in grimlib_UpdateManual, sputRender_Dim); was Timer_UpdateFixedStep. */
 
-void __cdecl sputTime_AdvanceManual(uint param_1)
+void __cdecl sputTime_AdvanceManual(uint ms)
 
 {
-  g_dwSputTime_frameTime_ms = param_1;
-  if (299 < param_1) {
+  g_dwSputTime_frameTime_ms = ms;
+  if (299 < ms) {
     g_dwSputTime_frameTime_ms = 300;
   }
   g_dwSputTime_gameTime_ms = g_dwSputTime_gameTime_ms + g_dwSputTime_frameTime_ms;

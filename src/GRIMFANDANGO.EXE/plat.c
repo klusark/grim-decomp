@@ -58,10 +58,10 @@ int __cdecl grimPlat_QueryDialog(char *text,char *caption,uint flags)
 /* Original name grimPlat_SetDefaultOpenPath (the remaster's GrimFandango (Linux): aligned call in
    BitmapRequester, ColormapRequester, MaterialRequester); was Plat_SetDialogDirectory. */
 
-void __cdecl grimPlat_SetDefaultOpenPath(uint param_1)
+void __cdecl grimPlat_SetDefaultOpenPath(uint path)
 
 {
-  strncpy((uint *)g_szDialogOpenDir,(uint *)param_1,0x103);
+  strncpy((uint *)g_szDialogOpenDir,(uint *)path,0x103);
   g_szDialogOpenDir[0x103] = '\0';
   return;
 }
@@ -212,7 +212,7 @@ int __cdecl grimPlat_SaveFileRequest(char *title,char *filter)
    remaster's GrimFandango (Linux): aligned call in KeyframeAdjuster, SoundAdjuster, ThingAdjuster);
    was Plat_PromptDialog. */
 
-int __cdecl grimPlat_SpinDialog(int param_1,int param_2,undefined4 *param_3,uint param_4)
+int __cdecl grimPlat_SpinDialog(int hwnd,int title,undefined4 *fields,uint count)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -238,35 +238,35 @@ int __cdecl grimPlat_SpinDialog(int param_1,int param_2,undefined4 *param_3,uint
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
   
-  if (((param_2 != 0) && (param_3 != (undefined4 *)0x0)) && (0 < (int)param_4)) {
-    UINT_008c9850 = (uint)param_3;
+  if (((title != 0) && (fields != (undefined4 *)0x0)) && (0 < (int)count)) {
+    UINT_008c9850 = (uint)fields;
     UINT_004e814c = 0;
-    _DAT_008c9848 = param_1;
-    _DAT_008c984c = param_2;
-    UINT_008c9854 = param_4;
-    uVar10 = (param_4 + 1) * 0xc;
+    _DAT_008c9848 = hwnd;
+    _DAT_008c984c = title;
+    UINT_008c9854 = count;
+    uVar10 = (count + 1) * 0xc;
     piVar3 = (int *)malloc(uVar10);
     puVar4 = (uint *)malloc(uVar10);
     puVar5 = Dlg_MakeDialogTemplate
-                       ((undefined4 *)0x90c80884,(short)(param_4 + 1) * 3 - 1,0,0,0x8a,
-                        (short)param_4 * 0x14 + 0x19,param_1,((unsigned)(uintptr_t)&s_MS_Sans_Serif_004e8184),8,puVar4);
+                       ((undefined4 *)0x90c80884,(short)(count + 1) * 3 - 1,0,0,0x8a,
+                        (short)count * 0x14 + 0x19,hwnd,((unsigned)(uintptr_t)&s_MS_Sans_Serif_004e8184),8,puVar4);
     *piVar3 = (int)puVar5;
     uVar10 = *puVar4;
     iVar13 = 0;
-    param_1 = 1;
-    if (0 < (int)param_4) {
+    hwnd = 1;
+    if (0 < (int)count) {
       puVar5 = puVar4 + 1;
       piVar11 = piVar3 + 1;
-      iVar8 = param_2 - (int)param_3;
+      iVar8 = title - (int)fields;
       do {
         sVar2 = (short)iVar13;
         uVar15 = sVar2 * 0x14 + 5;
         puVar6 = Dlg_MakeItemTemplate
-                           (0x50000082,5,uVar15,0x32,0xe,sVar2 + 0x41e,
-                            *(int *)(iVar8 + (int)param_3),((unsigned)(uintptr_t)&s_STATIC_004e817c),puVar5);
+                           (0x50000082,5,uVar15,0x32,0xe,sVar2 + 0x41e,*(int *)(iVar8 + (int)fields)
+                            ,((unsigned)(uintptr_t)&s_STATIC_004e817c),puVar5);
         *piVar11 = (int)puVar6;
         uVar9 = *puVar5;
-        sprintf(local_20,&DAT_004ddc18,*param_3);
+        sprintf(local_20,&DAT_004ddc18,*fields);
         puVar6 = Dlg_MakeItemTemplate
                            (0x50810003,0x41,uVar15,0x32,0xe,sVar2 + 0x3ec,(int)local_20,((unsigned)(uintptr_t)&DAT_004e8174),
                             puVar5 + 1);
@@ -276,25 +276,24 @@ int __cdecl grimPlat_SpinDialog(int param_1,int param_2,undefined4 *param_3,uint
                            (0x500000b6,0x55,uVar15,0x32,0xe,sVar2 + 0x450,0,((unsigned)(uintptr_t)&s_msctls_updown32_004e8164),puVar5 + 2);
         piVar11[2] = (int)puVar6;
         uVar10 = uVar10 + uVar9 + uVar1 + puVar5[2];
-        param_1 = param_1 + 3;
+        hwnd = hwnd + 3;
         piVar11 = piVar11 + 3;
         puVar5 = puVar5 + 3;
         iVar13 = iVar13 + 1;
-        param_3 = param_3 + 1;
-      } while (iVar13 < (int)param_4);
+        fields = fields + 1;
+      } while (iVar13 < (int)count);
     }
     uVar15 = (short)iVar13 * 0x14 + 5;
-    puVar6 = Dlg_MakeItemTemplate(0x50010001,5,uVar15,0x32,0xe,1,((unsigned)(uintptr_t)&DAT_004e8158),((unsigned)(uintptr_t)&s_BUTTON_004e815c),puVar4 + param_1)
-    ;
-    piVar3[param_1] = (int)puVar6;
-    uVar9 = puVar4[param_1];
-    iVar13 = param_1 + 1;
+    puVar6 = Dlg_MakeItemTemplate(0x50010001,5,uVar15,0x32,0xe,1,((unsigned)(uintptr_t)&DAT_004e8158),((unsigned)(uintptr_t)&s_BUTTON_004e815c),puVar4 + hwnd);
+    piVar3[hwnd] = (int)puVar6;
+    uVar9 = puVar4[hwnd];
+    iVar13 = hwnd + 1;
     puVar6 = Dlg_MakeItemTemplate
                        (0x50010000,0x41,uVar15,0x32,0xe,2,((unsigned)(uintptr_t)&s_Cancel_004e8150),((unsigned)(uintptr_t)&s_BUTTON_004e815c),puVar4 + iVar13);
     piVar3[iVar13] = (int)puVar6;
-    param_1 = param_1 + 2;
+    hwnd = hwnd + 2;
     puVar6 = (undefined4 *)malloc(uVar10 + uVar9 + puVar4[iVar13]);
-    if (0 < param_1) {
+    if (0 < hwnd) {
       puVar7 = puVar6;
       piVar11 = piVar3;
       do {
@@ -314,8 +313,8 @@ int __cdecl grimPlat_SpinDialog(int param_1,int param_2,undefined4 *param_3,uint
         puVar7 = (undefined4 *)((int)puVar7 + *(int *)(((int)puVar4 - (int)piVar3) + (int)piVar11));
         free(*piVar11);
         piVar11 = piVar11 + 1;
-        param_1 = param_1 + -1;
-      } while (param_1 != 0);
+        hwnd = hwnd + -1;
+      } while (hwnd != 0);
     }
     iVar13 = 0;
     a4 = Plat_PromptDialogProc;

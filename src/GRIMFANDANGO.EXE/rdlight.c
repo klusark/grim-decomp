@@ -176,8 +176,8 @@ LAB_0045173f:
 
 float __cdecl
 rdLight_CalcFaceIntensity
-          (int *param_1,int param_2,uint param_3,uint numMeshLights,int param_5,float *param_6,
-          int param_7,float param_8)
+          (int *lights,int verts,uint numLights,uint numMeshLights,int face,float *normal,
+          int vertices,float scale)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -193,20 +193,20 @@ rdLight_CalcFaceIntensity
   uVar4 = 0;
   local_10 = 0.0f;
   if (numMeshLights != 0) {
-    pfVar5 = (float *)(param_2 + 8);
+    pfVar5 = (float *)(verts + 8);
     do {
-      iVar1 = *param_1;
+      iVar1 = *lights;
       if (*(int *)(iVar1 + 8) != 0) {
-        piVar2 = *(int **)(param_5 + 0x18);
-        local_c[0] = pfVar5[-2] - *(float *)(param_7 + *piVar2 * 0xc);
-        local_c[1] = pfVar5[-1] - *(float *)(param_7 + 4 + *piVar2 * 0xc);
-        local_c[2] = *pfVar5 - *(float *)(param_7 + 8 + *piVar2 * 0xc);
+        piVar2 = *(int **)(face + 0x18);
+        local_c[0] = pfVar5[-2] - *(float *)(vertices + *piVar2 * 0xc);
+        local_c[1] = pfVar5[-1] - *(float *)(vertices + 4 + *piVar2 * 0xc);
+        local_c[2] = *pfVar5 - *(float *)(vertices + 8 + *piVar2 * 0xc);
         if (local_c[2] * local_c[2] + local_c[1] * local_c[1] + local_c[0] * local_c[0] <
             *(float *)(iVar1 + 0x34) * *(float *)(iVar1 + 0x34)) {
           fVar6 = rdVector_Normalize3Acc(local_c);
-          fVar3 = local_c[0] * *param_6 + param_6[1] * local_c[1] + param_6[2] * local_c[2];
+          fVar3 = local_c[0] * *normal + normal[1] * local_c[1] + normal[2] * local_c[2];
           if (0.0f < fVar3) {
-            local_10 = (*(float *)(iVar1 + 0x18) - fVar6 * param_8) * fVar3 + local_10;
+            local_10 = (*(float *)(iVar1 + 0x18) - fVar6 * scale) * fVar3 + local_10;
           }
         }
       }
@@ -214,7 +214,7 @@ rdLight_CalcFaceIntensity
         return local_10;
       }
       uVar4 = uVar4 + 1;
-      param_1 = param_1 + 1;
+      lights = lights + 1;
       pfVar5 = pfVar5 + 3;
     } while (uVar4 < numMeshLights);
   }

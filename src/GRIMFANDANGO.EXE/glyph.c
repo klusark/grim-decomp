@@ -6,7 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x004ab910  Glyph_Blit16 ---- */
-void __cdecl Glyph_Blit16(int fmt,uint font,int *param_3)
+void __cdecl Glyph_Blit16(int fmt,uint font,int *glyph)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -30,18 +30,18 @@ void __cdecl Glyph_Blit16(int fmt,uint font,int *param_3)
   iVar2 = *(int *)(fmt + 0xc);
   iVar9 = *(int *)(fmt + 0x10);
   pcVar13 = *(char **)(fmt + 8);
-  piVar3 = (int *)*param_3;
+  piVar3 = (int *)*glyph;
   iVar4 = piVar3[5];
   iVar5 = piVar3[3];
   puVar14 = (undefined2 *)
-            (((int)*(char *)(fmt + 5) + param_3[3]) * iVar5 +
-             ((int)*(char *)(fmt + 6) + param_3[4]) * iVar4 + *piVar3);
-  puVar10 = (undefined1 *)param_3[0xb];
+            (((int)*(char *)(fmt + 5) + glyph[3]) * iVar5 +
+             ((int)*(char *)(fmt + 6) + glyph[4]) * iVar4 + *piVar3);
+  puVar10 = (undefined1 *)glyph[0xb];
   if (puVar10 == (undefined1 *)0x0) {
     puVar10 = &g_bLookup;
   }
-  iVar6 = param_3[5];
-  iVar7 = param_3[7];
+  iVar6 = glyph[5];
+  iVar7 = glyph[7];
   do {
     if (iVar9 == 0) {
       return;
@@ -80,7 +80,7 @@ LAB_004ab9af:
 
 
 /* ---- 0x004ab9d0  Glyph_Blit8 ---- */
-void __cdecl Glyph_Blit8(int fmt,int font,int *param_3)
+void __cdecl Glyph_Blit8(int fmt,int font,int *glyph)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -100,12 +100,12 @@ void __cdecl Glyph_Blit8(int fmt,int font,int *param_3)
   iVar8 = *(int *)(fmt + 0x10);
   iVar2 = *(int *)(fmt + 0xc);
   pbVar7 = *(byte **)(fmt + 8);
-  iVar3 = ((int *)*param_3)[5];
+  iVar3 = ((int *)*glyph)[5];
   iVar6 = (int)*(char *)(fmt + 6) - *(int *)(font + 0x14);
-  puVar9 = (undefined1 *)param_3[0xb];
+  puVar9 = (undefined1 *)glyph[0xb];
   puVar4 = (undefined1 *)
-           ((param_3[4] + *(int *)(font + 0x14)) * iVar3 + (int)*(char *)(fmt + 5) + param_3[3] +
-           *(int *)*param_3);
+           ((glyph[4] + *(int *)(font + 0x14)) * iVar3 + (int)*(char *)(fmt + 5) + glyph[3] +
+           *(int *)*glyph);
   if (puVar9 == (undefined1 *)0x0) {
     puVar9 = &g_bLookup;
   }
@@ -155,7 +155,7 @@ void __cdecl Glyph_Blit8(int fmt,int font,int *param_3)
 
 
 /* ---- 0x004abae0  Glyph_Blit16Clipped ---- */
-void __cdecl Glyph_Blit16Clipped(int fmt,uint font,int *param_3)
+void __cdecl Glyph_Blit16Clipped(int fmt,uint font,int *glyph)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -186,11 +186,11 @@ void __cdecl Glyph_Blit16Clipped(int fmt,uint font,int *param_3)
   #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
-  iVar2 = *(int *)(*param_3 + 0xc);
-  iVar3 = *(int *)(*param_3 + 0x14);
-  piVar4 = (int *)param_3[1];
-  iVar12 = (int)*(char *)(fmt + 6) + param_3[4];
-  iVar6 = (int)*(char *)(fmt + 5) + param_3[3];
+  iVar2 = *(int *)(*glyph + 0xc);
+  iVar3 = *(int *)(*glyph + 0x14);
+  piVar4 = (int *)glyph[1];
+  iVar12 = (int)*(char *)(fmt + 6) + glyph[4];
+  iVar6 = (int)*(char *)(fmt + 5) + glyph[3];
   iVar9 = *piVar4;
   iVar11 = iVar6;
   if (iVar6 <= iVar9) {
@@ -214,13 +214,13 @@ void __cdecl Glyph_Blit16Clipped(int fmt,uint font,int *param_3)
   }
   if ((iVar11 < iVar14 - iVar6) && (iVar13 < iVar9 - iVar12)) {
     pcVar10 = (char *)(iVar13 * *(int *)(fmt + 0xc) + *(int *)(fmt + 8) + iVar11);
-    puVar7 = (undefined1 *)param_3[0xb];
-    puVar16 = (undefined2 *)((iVar11 + iVar6) * iVar2 + iVar3 * iVar12 + *(int *)*param_3);
+    puVar7 = (undefined1 *)glyph[0xb];
+    puVar16 = (undefined2 *)((iVar11 + iVar6) * iVar2 + iVar3 * iVar12 + *(int *)*glyph);
     if (puVar7 == (undefined1 *)0x0) {
       puVar7 = &g_bLookup;
     }
-    iVar5 = param_3[5];
-    iVar15 = param_3[7];
+    iVar5 = glyph[5];
+    iVar15 = glyph[7];
     uVar17 = (iVar14 - iVar6) - iVar11;
     for (iVar13 = (iVar9 - iVar12) - iVar13; iVar13 != 0; iVar13 = iVar13 + -1) {
       if (((piVar4[1] <= iVar12) && (iVar12 < piVar4[1] + piVar4[3])) &&
@@ -260,7 +260,7 @@ LAB_004abc47:
 
 
 /* ---- 0x004abc80  Glyph_Blit8Clipped ---- */
-void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *param_3)
+void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *glyph)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -286,11 +286,11 @@ void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *param_3)
   #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
   
   iVar10 = *(int *)(fmt + 0x10);
-  iVar8 = param_3[3] + (int)*(char *)(fmt + 5);
-  iVar1 = *(int *)(*param_3 + 0x14);
-  piVar2 = (int *)param_3[1];
+  iVar8 = glyph[3] + (int)*(char *)(fmt + 5);
+  iVar1 = *(int *)(*glyph + 0x14);
+  piVar2 = (int *)glyph[1];
   iVar13 = (int)*(char *)(fmt + 6) - *(int *)(font + 0x14);
-  iVar12 = param_3[4] + *(int *)(font + 0x14);
+  iVar12 = glyph[4] + *(int *)(font + 0x14);
   iVar14 = *piVar2;
   iVar4 = iVar8;
   if (iVar8 <= iVar14) {
@@ -311,9 +311,9 @@ void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *param_3)
     iVar14 = iVar10 + iVar12;
   }
   if ((iVar4 < iVar6 - iVar8) && (iVar5 - iVar12 < iVar14 - iVar12)) {
-    puVar11 = (undefined1 *)param_3[0xb];
+    puVar11 = (undefined1 *)glyph[0xb];
     iVar14 = *(int *)(fmt + 8) + iVar4;
-    puVar7 = (undefined1 *)(iVar1 * iVar12 + *(int *)*param_3 + iVar4 + iVar8);
+    puVar7 = (undefined1 *)(iVar1 * iVar12 + *(int *)*glyph + iVar4 + iVar8);
     if (puVar11 == (undefined1 *)0x0) {
       puVar11 = &g_bLookup;
     }

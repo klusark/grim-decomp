@@ -303,10 +303,10 @@ void __cdecl Input_SetAcquired(int acquire)
    full-screen mouse cursor call of Main_Shutdown (ShowCursor(1)) in both builds; the remaster's is
    a stub); was Input_ShowCursor. */
 
-void __cdecl stdControl_ShowMouseCursor(int param_1)
+void __cdecl stdControl_ShowMouseCursor(int show)
 
 {
-  ShowCursor(param_1);
+  ShowCursor(show);
   return;
 }
 

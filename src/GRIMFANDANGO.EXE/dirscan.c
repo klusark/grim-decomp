@@ -9,7 +9,7 @@
 /* Temp/Fileutil.c: allocates a 0x20c-byte directory scanner. mode 0-2: pattern dir\*.*, mode 3:
    dir\*.ext (leading '.' stripped). */
 
-undefined4 * __cdecl DirScan_Create(uint param_1,int param_2,char *param_3)
+undefined4 * __cdecl DirScan_Create(uint dir,int mode,char *pattern)
 
 {
   undefined4 *puVar1;
@@ -26,15 +26,15 @@ undefined4 * __cdecl DirScan_Create(uint param_1,int param_2,char *param_3)
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
   }
-  if (-1 < param_2) {
-    if (param_2 < 3) {
-      sprintf((char *)(puVar1 + 2),s__s____004e82fc,param_1);
+  if (-1 < mode) {
+    if (mode < 3) {
+      sprintf((char *)(puVar1 + 2),s__s____004e82fc,dir);
     }
-    else if (param_2 == 3) {
-      if (*param_3 == '.') {
-        param_3 = param_3 + 1;
+    else if (mode == 3) {
+      if (*pattern == '.') {
+        pattern = pattern + 1;
       }
-      sprintf((char *)(puVar1 + 2),s__s___s_004e8304,param_1,param_3);
+      sprintf((char *)(puVar1 + 2),s__s___s_004e8304,dir,pattern);
       return puVar1;
     }
   }
@@ -42,15 +42,15 @@ undefined4 * __cdecl DirScan_Create(uint param_1,int param_2,char *param_3)
 }
 
 /* ---- 0x00488e70  DirScan_Destroy ---- */
-void __cdecl DirScan_Destroy(int param_1)
+void __cdecl DirScan_Destroy(int scan)
 
 {
-  if (param_1 != 0) {
-    if (*(int *)(param_1 + 4) != 0) {
-      _findclose(*(int *)(param_1 + 0x208));
+  if (scan != 0) {
+    if (*(int *)(scan + 4) != 0) {
+      _findclose(*(int *)(scan + 0x208));
     }
-    if (param_1 != 0) {
-      (*g_pSvcFileutil->pFree)(param_1);
+    if (scan != 0) {
+      (*g_pSvcFileutil->pFree)(scan);
     }
   }
   return;
@@ -59,14 +59,14 @@ void __cdecl DirScan_Destroy(int param_1)
 /* ---- 0x00488eb0  DirScan_Reset ---- */
 /* Closes the find handle so the next DirScan_Next restarts with _findfirst */
 
-void __cdecl DirScan_Reset(int param_1)
+void __cdecl DirScan_Reset(int scan)
 
 {
-  if ((param_1 != 0) && (*(int *)(param_1 + 4) != 0)) {
-    _findclose(*(int *)(param_1 + 0x208));
+  if ((scan != 0) && (*(int *)(scan + 4) != 0)) {
+    _findclose(*(int *)(scan + 0x208));
   }
-  if (param_1 != 0) {
-    *(undefined4 *)(param_1 + 4) = 0;
+  if (scan != 0) {
+    *(undefined4 *)(scan + 4) = 0;
   }
   return;
 }
@@ -75,7 +75,7 @@ void __cdecl DirScan_Reset(int param_1)
 /* _findfirst/_findnext wrapper. Copies the entry name into out, out+0x104 = is-directory flag
    (attrib & 0x10), out+0x108 = file size. */
 
-uint __cdecl DirScan_Next(int param_1,char *param_2)
+uint __cdecl DirScan_Next(int scan,char *outEntry)
 
 {
   unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -89,17 +89,17 @@ uint __cdecl DirScan_Next(int param_1,char *param_2)
   #define local_10c (*(uint *)(_frame + (0x130 - 0x10c)))
   #define local_104 (*(char (*)[260])(_frame + (0x130 - 0x104)))
   
-  if (param_1 == 0) {
+  if (scan == 0) {
     return 0;
   }
-  iVar2 = *(int *)(param_1 + 4);
-  *(int *)(param_1 + 4) = iVar2 + 1;
+  iVar2 = *(int *)(scan + 4);
+  *(int *)(scan + 4) = iVar2 + 1;
   if (iVar2 == 0) {
-    uVar3 = _findfirst(param_1 + 8,&local_118);
-    *(uint *)(param_1 + 0x208) = uVar3;
+    uVar3 = _findfirst(scan + 8,&local_118);
+    *(uint *)(scan + 0x208) = uVar3;
   }
   else {
-    uVar3 = _findnext(*(int *)(param_1 + 0x208),&local_118);
+    uVar3 = _findnext(*(int *)(scan + 0x208),&local_118);
   }
   if (uVar3 == 0xffffffff) {
     return 0;
@@ -116,7 +116,7 @@ uint __cdecl DirScan_Next(int param_1,char *param_2)
   } while (cVar1 != '\0');
   uVar3 = ~uVar3;
   pcVar5 = pcVar6 + -uVar3;
-  pcVar6 = param_2;
+  pcVar6 = outEntry;
   for (uVar4 = uVar3 >> 2; uVar4 != 0; uVar4 = uVar4 - 1) {
     *(undefined4 *)pcVar6 = *(undefined4 *)pcVar5;
     pcVar5 = pcVar5 + 4;
@@ -127,8 +127,8 @@ uint __cdecl DirScan_Next(int param_1,char *param_2)
     pcVar5 = pcVar5 + 1;
     pcVar6 = pcVar6 + 1;
   }
-  *(uint *)(param_2 + 0x108) = local_10c;
-  *(uint *)(param_2 + 0x104) = local_118 & 0x10;
+  *(uint *)(outEntry + 0x108) = local_10c;
+  *(uint *)(outEntry + 0x104) = local_118 & 0x10;
   return 1;
 }
 #undef local_104

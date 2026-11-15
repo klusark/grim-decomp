@@ -9,44 +9,44 @@
 /* Draws the three axis lines at the setup's interest point and the camera actor's costume at its
    position */
 
-void __cdecl Setup_DrawDebugCamera(int param_1)
+void __cdecl Setup_DrawDebugCamera(int setup)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
-  uint uVar2;
+  uint matrix;
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
-  local_18[1] = *(float *)(param_1 + 0x30);
-  local_18[2] = *(float *)(param_1 + 0x34);
-  local_c[0] = *(float *)(param_1 + 0x2c) - -1.0f;
-  local_18[0] = *(float *)(param_1 + 0x2c) - 1.0f;
+  local_18[1] = *(float *)(setup + 0x30);
+  local_18[2] = *(float *)(setup + 0x34);
+  local_c[0] = *(float *)(setup + 0x2c) - -1.0f;
+  local_18[0] = *(float *)(setup + 0x2c) - 1.0f;
   local_c[1] = local_18[1];
   local_c[2] = local_18[2];
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                      UINT_008c97cc & 0xffff,0xffffffff);
-  local_18[0] = *(float *)(param_1 + 0x2c);
-  local_18[2] = *(float *)(param_1 + 0x34);
-  local_c[1] = *(float *)(param_1 + 0x30) - -1.0f;
-  local_18[1] = *(float *)(param_1 + 0x30) - 1.0f;
+  local_18[0] = *(float *)(setup + 0x2c);
+  local_18[2] = *(float *)(setup + 0x34);
+  local_c[1] = *(float *)(setup + 0x30) - -1.0f;
+  local_18[1] = *(float *)(setup + 0x30) - 1.0f;
   local_c[0] = local_18[0];
   local_c[2] = local_18[2];
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                      UINT_008c97cc & 0xffff,0xffffffff);
-  local_18[0] = *(float *)(param_1 + 0x2c);
-  local_18[1] = *(float *)(param_1 + 0x30);
-  local_c[2] = *(float *)(param_1 + 0x34) - -1.0f;
-  local_18[2] = *(float *)(param_1 + 0x34) - 1.0f;
+  local_18[0] = *(float *)(setup + 0x2c);
+  local_18[1] = *(float *)(setup + 0x30);
+  local_c[2] = *(float *)(setup + 0x34) - -1.0f;
+  local_18[2] = *(float *)(setup + 0x34) - 1.0f;
   local_c[0] = local_18[0];
   local_c[1] = local_18[1];
   rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                      UINT_008c97cc & 0xffff,0xffffffff);
   pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
   if (pAVar1->pCostumes != (CostumeNode *)0x0) {
-    uVar2 = param_1 + 0x50;
+    matrix = setup + 0x50;
     pAVar1 = sputActor_ActorDeref(g_nCamActorIndex);
-    sputCostume_Draw3D((uint)pAVar1->pCostumes,uVar2);
+    sputCostume_Draw3D((uint)pAVar1->pCostumes,matrix);
   }
   return;
 }

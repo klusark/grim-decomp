@@ -11,12 +11,12 @@
    (Linux): the only unmatched caller of Chore_FadeIn; 1 matched neighbours agree, 0 disagree); was
    Cos_StartChoreFaded. */
 
-void __cdecl FadeInChore(void *cosInst,uint param_2,int param_3)
+void __cdecl FadeInChore(void *cosInst,uint chore,int ms)
 
 {
-  Cos_InstPlayChore((int)cosInst,param_2,1,0);
-  Cos_InstUpdateChore((int)cosInst,param_2,0x46);
-  sputCostume_FadeKeysIn(cosInst,param_2,param_3);
+  Cos_InstPlayChore((int)cosInst,chore,1,0);
+  Cos_InstUpdateChore((int)cosInst,chore,0x46);
+  sputCostume_FadeKeysIn(cosInst,chore,ms);
   return;
 }
 
@@ -26,27 +26,27 @@ void __cdecl FadeInChore(void *cosInst,uint param_2,int param_3)
    unmatched callee of sputActor_SetWalkChore; the only unmatched caller of Chore_FadeOut; 2 matched
    neighbours agree, 0 disagree); was Cos_StopChoreFaded. */
 
-undefined * __cdecl FadeOutChore(void *cosInst,int param_2,int param_3)
+undefined * __cdecl FadeOutChore(void *cosInst,int chore,int ms)
 
 {
   undefined *puVar1;
   undefined *puVar2;
-  int iVar3;
+  int chore_00;
   
-  if (param_2 == -1) {
+  if (chore == -1) {
     puVar1 = (undefined *)Cos_InstCountChores((int)cosInst);
-    iVar3 = 0;
+    chore_00 = 0;
     if (0 < (int)puVar1) {
       do {
-        puVar2 = FadeOutChore(cosInst,iVar3,param_3);
-        iVar3 = iVar3 + 1;
-      } while (iVar3 < (int)puVar1);
+        puVar2 = FadeOutChore(cosInst,chore_00,ms);
+        chore_00 = chore_00 + 1;
+      } while (chore_00 < (int)puVar1);
       return puVar2;
     }
   }
   else {
-    sputCostume_FadeKeysOut(cosInst,param_2,param_3);
-    puVar1 = (undefined *)Cos_InstStopChore((int)cosInst,param_2);
+    sputCostume_FadeKeysOut(cosInst,chore,ms);
+    puVar1 = (undefined *)Cos_InstStopChore((int)cosInst,chore);
   }
   return puVar1;
 }
@@ -433,7 +433,7 @@ void __cdecl sputCostume_BuildThingStateMatrices(ModelComponent *component,float
 /* Original name sputCostume_Draw2D (the remaster's GrimFandango (Linux): aligned call in
    sputRender_Update); was Costume_TouchComponents. */
 
-void __cdecl sputCostume_Draw2D(int param_1)
+void __cdecl sputCostume_Draw2D(int cosInst)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -442,11 +442,11 @@ void __cdecl sputCostume_Draw2D(int param_1)
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   sputRoom_GetCurrentRoom();
-  iVar1 = Cos_InstCountComponents(param_1);
+  iVar1 = Cos_InstCountComponents(cosInst);
   iVar2 = 0;
   if (0 < iVar1) {
     do {
-      Cos_InstGetInstanceData(param_1,iVar2,&local_4);
+      Cos_InstGetInstanceData(cosInst,iVar2,&local_4);
       iVar2 = iVar2 + 1;
     } while (iVar2 < iVar1);
   }
@@ -500,7 +500,7 @@ void __cdecl sputCostume_Update(CostumeNode *costumeList,float dt)
    (Linux): the only unpaired user of psputCosHS, same body and strings ("Name chore list file...",
    "-- Chore numbering for %s.")); was Costume_SaveChoreListFile. */
 
-uint __cdecl sputCostume_SaveHook(char *path,uint *param_2,uint param_3)
+uint __cdecl sputCostume_SaveHook(char *path,uint *costume,uint f)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -523,7 +523,7 @@ uint __cdecl sputCostume_SaveHook(char *path,uint *param_2,uint param_3)
   if (pcVar3 != (char *)0x0) {
     pbVar9 = (byte *)(pcVar3 + 1);
   }
-  pbVar4 = (byte *)Cos_GetCostumeName((int)param_2);
+  pbVar4 = (byte *)Cos_GetCostumeName((int)costume);
   iVar5 = _stricmp(pbVar9,pbVar4);
   if (iVar5 == 0) {
     uVar7 = 0xffffffff;
@@ -564,9 +564,9 @@ uint __cdecl sputCostume_SaveHook(char *path,uint *param_2,uint param_3)
     ppvVar1 = &g_pSputCosHS->pFprintf;
     pcVar3 = stdFnames_FindMedName(path);
     (*(code *)*ppvVar1)(iVar5,s____Chore_numbering_for__s__004ea3d4,pcVar3);
-    (*g_pSputCosHS->pFprintf)(iVar5,s_____s_004ea3cc,param_3);
+    (*g_pSputCosHS->pFprintf)(iVar5,s_____s_004ea3cc,f);
     stdFnames_CopyShortName(acStack_20,0x20,path);
-    iVar6 = Cos_CreateCosInstance(param_2,0);
+    iVar6 = Cos_CreateCosInstance(costume,0);
     uVar7 = Cos_InstCountChores(iVar6);
     uVar10 = 0;
     if (uVar7 != 0) {
@@ -592,13 +592,13 @@ uint __cdecl sputCostume_SaveHook(char *path,uint *param_2,uint param_3)
 /* Callback given to Cos_RegisterInstanceHook: clears the instance's user data (the actor index)
    when an instance is created or destroyed. */
 
-uint __cdecl Costume_InstanceHook(int param_1,int param_2)
+uint __cdecl Costume_InstanceHook(int cosInst,int create)
 
 {
-  if (param_2 != 0) {
-    Cos_InstSetUserData(param_1,0);
+  if (create != 0) {
+    Cos_InstSetUserData(cosInst,0);
     return 1;
   }
-  Cos_InstSetUserData(param_1,0);
+  Cos_InstSetUserData(cosInst,0);
   return 1;
 }

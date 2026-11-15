@@ -145,13 +145,13 @@ void __cdecl rdPuppet_RemoveTrack(void *puppet,int track)
 /* Original name rdPuppet_SetStatus (the remaster's GrimFandango (Linux): aligned call in
    KeyframeChanger); was rdPuppet_SetTrackFlags. */
 
-uint __cdecl rdPuppet_SetStatus(int puppet,int track,uint param_3)
+uint __cdecl rdPuppet_SetStatus(int puppet,int track,uint flags)
 
 {
   uint *puVar1;
   
   puVar1 = (uint *)(puppet + 8 + track * 0x134);
-  *puVar1 = *puVar1 | param_3;
+  *puVar1 = *puVar1 | flags;
   return 1;
 }
 
@@ -160,10 +160,10 @@ uint __cdecl rdPuppet_SetStatus(int puppet,int track,uint param_3)
    remaster's GrimFandango (Linux): aligned call in KeyframeChanger); was rdPuppet_SetTrackUserData.
     */
 
-void __cdecl rdPuppet_SetCallback(int puppet,int param_2,uint param_3)
+void __cdecl rdPuppet_SetCallback(int puppet,int track,uint callback)
 
 {
-  *(uint *)(puppet + (param_2 + 1) * 0x134) = param_3;
+  *(uint *)(puppet + (track + 1) * 0x134) = callback;
   return;
 }
 
@@ -415,14 +415,14 @@ void __cdecl rdPuppet_UpdateTracks(void *puppet,float seconds)
    (the remaster's GrimFandango (Linux): aligned call in KeyframeChanger, rdPuppet_AddTrack); was
    rdPuppet_ClearTrackNodes. */
 
-void __cdecl rdPuppet_ResetTrack(int puppet,int param_2)
+void __cdecl rdPuppet_ResetTrack(int puppet,int track)
 
 {
   undefined4 *puVar1;
   uint uVar2;
   undefined4 *puVar3;
   
-  puVar1 = (undefined4 *)(puppet + 8 + param_2 * 0x134);
+  puVar1 = (undefined4 *)(puppet + 8 + track * 0x134);
   uVar2 = *(uint *)(*(int *)(*(int *)(puppet + 4) + 4) + 0x54);
   if (0x3f < uVar2) {
     uVar2 = 0x40;
@@ -792,7 +792,7 @@ void __cdecl rdKeyframe_NewEntry(rdKeyframe *keyframe)
    magic 'KEYF' selects rdKeyframe_LoadEntryBinary, anything else rdKeyframe_LoadEntry. Source file
    Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-int __cdecl rdKeyframe_Load(char *param_1)
+int __cdecl rdKeyframe_Load(char *name)
 
 {
   char *path;
@@ -802,19 +802,19 @@ int __cdecl rdKeyframe_Load(char *param_1)
   uint uVar3;
   uint *puVar4;
   
-  path = param_1;
+  path = name;
   if (g_dwKeyframeLoader != 0) {
-    iVar1 = (*(code *)g_dwKeyframeLoader)(param_1);
+    iVar1 = (*(code *)g_dwKeyframeLoader)(name);
     return iVar1;
   }
-  uVar2 = (*g_pRdroid_HS->pFopen)(param_1,&DAT_004ddb18);
+  uVar2 = (*g_pRdroid_HS->pFopen)(name,&DAT_004ddb18);
   if (uVar2 != 0) {
     keyframe = (rdKeyframe *)
                (*g_pRdroid_HS->pAlloc)
                          (0x84,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,DAT_004f0f08 + 0x11);
     if (keyframe != (rdKeyframe *)0x0) {
-      (*g_pRdroid_HS->pFread)(uVar2,&param_1,4);
-      if (param_1 == (char *)0x4b455946) {
+      (*g_pRdroid_HS->pFread)(uVar2,&name,4);
+      if (name == (char *)0x4b455946) {
         uVar3 = rdKeyframe_LoadEntryBinary(uVar2,(int)keyframe);
         if (uVar3 != 0) {
           uVar3 = 0x1f;
@@ -1110,7 +1110,7 @@ LAB_004c0cbf:
    (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). Original name rdKeyframe_LoadEntryBinary (the
    remaster's GrimFandango (Linux): aligned call in rdKeyframe_Load); was rdKeyframe_LoadBinary. */
 
-uint __cdecl rdKeyframe_LoadEntryBinary(uint param_1,int param_2)
+uint __cdecl rdKeyframe_LoadEntryBinary(uint f,int keyframe)
 
 {
   int *piVar1;
@@ -1123,20 +1123,20 @@ uint __cdecl rdKeyframe_LoadEntryBinary(uint param_1,int param_2)
   int iVar8;
   int iVar9;
   
-  iVar2 = param_2;
-  (*g_pRdroid_HS->pFread)(param_1,param_2,0x84);
+  iVar2 = keyframe;
+  (*g_pRdroid_HS->pFread)(f,keyframe,0x84);
   puVar3 = (undefined4 *)
            (*g_pRdroid_HS->pAlloc)
-                     (*(int *)(param_2 + 0x38) * 0x2c,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
+                     (*(int *)(keyframe + 0x38) * 0x2c,s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14,
                       DAT_004f0f10 + 0x16);
-  *(undefined4 **)(param_2 + 0x3c) = puVar3;
+  *(undefined4 **)(keyframe + 0x3c) = puVar3;
   if (puVar3 == (undefined4 *)0x0) {
 LAB_004c0e2c:
-    (*g_pRdroid_HS->pFclose)(param_1);
+    (*g_pRdroid_HS->pFclose)(f);
     return 0;
   }
-  piVar1 = (int *)(param_2 + 0x38);
-  param_2 = 0;
+  piVar1 = (int *)(keyframe + 0x38);
+  keyframe = 0;
   for (uVar6 = *piVar1 * 0xb & 0x3fffffff; uVar6 != 0; uVar6 = uVar6 - 1) {
     *puVar3 = 0;
     puVar3 = puVar3 + 1;
@@ -1148,7 +1148,7 @@ LAB_004c0e2c:
   if (0 < *(int *)(iVar2 + 0x38)) {
     iVar7 = 0;
     do {
-      (*g_pRdroid_HS->pFread)(param_1,*(int *)(iVar2 + 0x3c) + iVar7,0x2c);
+      (*g_pRdroid_HS->pFread)(f,*(int *)(iVar2 + 0x3c) + iVar7,0x2c);
       iVar9 = 0;
       iVar5 = *(int *)(*(int *)(iVar2 + 0x3c) + 0x24 + iVar7);
       if (iVar5 == 0) {
@@ -1164,18 +1164,18 @@ LAB_004c0e2c:
         if (0 < *(int *)(iVar5 + 0x24)) {
           iVar8 = 0;
           do {
-            (*g_pRdroid_HS->pFread)(param_1,*(int *)(iVar5 + 0x28) + iVar8,0x38);
+            (*g_pRdroid_HS->pFread)(f,*(int *)(iVar5 + 0x28) + iVar8,0x38);
             iVar5 = *(int *)(iVar2 + 0x3c) + iVar7;
             iVar9 = iVar9 + 1;
             iVar8 = iVar8 + 0x38;
           } while (iVar9 < *(int *)(iVar5 + 0x24));
         }
       }
-      param_2 = param_2 + 1;
+      keyframe = keyframe + 1;
       iVar7 = iVar7 + 0x2c;
-    } while (param_2 < *(int *)(iVar2 + 0x38));
+    } while (keyframe < *(int *)(iVar2 + 0x38));
   }
-  (*g_pRdroid_HS->pFclose)(param_1);
+  (*g_pRdroid_HS->pFclose)(f);
   return 1;
 }
 
@@ -1183,16 +1183,16 @@ LAB_004c0e2c:
 /* Frees a keyframe (custom free hook if installed, else rdKeyframe_FreeEntry and the record).
    Source file Rdkeyframe.c (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-void __cdecl rdKeyframe_Free(int param_1)
+void __cdecl rdKeyframe_Free(int keyframe)
 
 {
-  if (param_1 != 0) {
+  if (keyframe != 0) {
     if (g_dwKeyframeUnloader != 0) {
-      (*(code *)g_dwKeyframeUnloader)(param_1);
+      (*(code *)g_dwKeyframeUnloader)(keyframe);
       return;
     }
-    rdKeyframe_FreeEntry(param_1);
-    (*g_pRdroid_HS->pFree)(param_1);
+    rdKeyframe_FreeEntry(keyframe);
+    (*g_pRdroid_HS->pFree)(keyframe);
   }
   return;
 }
@@ -1201,16 +1201,16 @@ void __cdecl rdKeyframe_Free(int param_1)
 /* Frees the per-joint node arrays of a keyframe record. Source file Rdkeyframe.c
    (C:\grimjedi\Libs\RDroid\Engine\Rdkeyframe.c). */
 
-void __cdecl rdKeyframe_FreeEntry(int param_1)
+void __cdecl rdKeyframe_FreeEntry(int keyframe)
 
 {
   int *piVar1;
   uint uVar2;
   
-  if (*(int *)(param_1 + 0x3c) != 0) {
+  if (*(int *)(keyframe + 0x3c) != 0) {
     uVar2 = 0;
-    if (*(int *)(param_1 + 0x38) != 0) {
-      piVar1 = (int *)(*(int *)(param_1 + 0x3c) + 0x28);
+    if (*(int *)(keyframe + 0x38) != 0) {
+      piVar1 = (int *)(*(int *)(keyframe + 0x3c) + 0x28);
       do {
         if (*piVar1 != 0) {
           (*g_pRdroid_HS->pFree)(*piVar1);
@@ -1218,10 +1218,10 @@ void __cdecl rdKeyframe_FreeEntry(int param_1)
         }
         piVar1 = piVar1 + 0xb;
         uVar2 = uVar2 + 1;
-      } while (uVar2 < *(uint *)(param_1 + 0x38));
+      } while (uVar2 < *(uint *)(keyframe + 0x38));
     }
-    (*g_pRdroid_HS->pFree)(*(undefined4 *)(param_1 + 0x3c));
-    *(undefined4 *)(param_1 + 0x3c) = 0;
+    (*g_pRdroid_HS->pFree)(*(undefined4 *)(keyframe + 0x3c));
+    *(undefined4 *)(keyframe + 0x3c) = 0;
   }
   return;
 }

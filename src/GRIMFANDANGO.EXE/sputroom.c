@@ -9,21 +9,21 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-undefined * __cdecl sputRoom_Initialize(uint param_1,undefined **param_2)
+undefined * __cdecl sputRoom_Initialize(uint services,undefined **iface)
 
 {
   int iVar1;
   uint *puVar2;
   
-  g_pSputRoomHS = (GrimServices *)param_1;
-  *param_2 = sputRoom_Initialize;
-  param_2[1] = sputRoom_Terminate;
-  param_2[2] = sputRoom_Startup;
-  param_2[3] = sputRoom_Shutdown;
-  param_2[4] = sputRoom_Save;
-  param_2[5] = sputRoom_Restore;
-  param_2[6] = (undefined *)0x0;
-  param_2[7] = (undefined *)0x0;
+  g_pSputRoomHS = (GrimServices *)services;
+  *iface = sputRoom_Initialize;
+  iface[1] = sputRoom_Terminate;
+  iface[2] = sputRoom_Startup;
+  iface[3] = sputRoom_Shutdown;
+  iface[4] = sputRoom_Save;
+  iface[5] = sputRoom_Restore;
+  iface[6] = (undefined *)0x0;
+  iface[7] = (undefined *)0x0;
   puVar2 = &g_dwSputRoom_pCurrentRoom;
   for (iVar1 = 0xd; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = 0;

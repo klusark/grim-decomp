@@ -10,20 +10,20 @@
 /* Subsystem init entry registered through EngineModule_Init; fills the module's 8-entry interface
    {init, shutdown, save, restore, ...} */
 
-uint __cdecl sputText_Initialize(GrimServices *svc,undefined4 *param_2)
+uint __cdecl sputText_Initialize(GrimServices *svc,undefined4 *iface)
 
 {
   int iVar1;
   
   _g_pSputtextHS = svc;
-  *param_2 = sputText_Initialize;
-  param_2[1] = sputText_Terminate;
-  param_2[2] = sputText_Startup;
-  param_2[3] = sputText_Shutdown;
-  param_2[4] = sputText_Save;
-  param_2[5] = sputText_Restore;
-  param_2[6] = 0;
-  param_2[7] = 0;
+  *iface = sputText_Initialize;
+  iface[1] = sputText_Terminate;
+  iface[2] = sputText_Startup;
+  iface[3] = sputText_Shutdown;
+  iface[4] = sputText_Save;
+  iface[5] = sputText_Restore;
+  iface[6] = 0;
+  iface[7] = 0;
   iVar1 = Graph_SysInitialize(svc,(SysModuleIface *)&g_aGraphMS);
   if (iVar1 == 0) {
     iVar1 = Text_SysInitialize(svc,(SysModuleIface *)&g_aTextMS);
@@ -153,7 +153,7 @@ void __cdecl sputText_Shutdown(void)
    handed for every field. Original name sputText_Save (the remaster's GrimFandango (Linux): aligned
    call in sputText_Initialize); was sputText_SaveState. */
 
-uint __cdecl sputText_Save(code *param_1)
+uint __cdecl sputText_Save(code *write)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -166,39 +166,39 @@ uint __cdecl sputText_Save(code *param_1)
   for (pTVar1 = g_pTextQueue; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
     local_4 = local_4 + 1;
   }
-  uVar2 = (*param_1)(&local_4,4);
+  uVar2 = (*write)(&local_4,4);
   pTVar1 = g_pTextQueue;
   if (((uint)(byte)(uVar2)) != 0) {
     return 1;
   }
   for (; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
     pTVar1->nSerial = (int)pTVar1;
-    (*param_1)(pTVar1->aText,0x200);
-    (*param_1)(&pTVar1->ctx,4);
-    (*param_1)(&(pTVar1->ctx).pClipRect,4);
-    (*param_1)(&(pTVar1->ctx).pFont,4);
-    (*param_1)(&(pTVar1->ctx).nX,4);
-    (*param_1)(&(pTVar1->ctx).nY,4);
-    (*param_1)(&(pTVar1->ctx).dwFgColor,4);
-    (*param_1)(&(pTVar1->ctx).dwBgColor,4);
-    (*param_1)(&(pTVar1->ctx).dwFxColor,4);
-    (*param_1)(&(pTVar1->ctx).nScaleX,4);
-    (*param_1)(&(pTVar1->ctx).nScaleY,4);
-    (*param_1)(&(pTVar1->ctx).dwFlags,4);
-    (*param_1)(&pTVar1->nX,4);
-    (*param_1)(&pTVar1->nY,4);
-    (*param_1)(pTVar1->aRect,4);
-    (*param_1)(pTVar1->aRect + 1,4);
-    (*param_1)(pTVar1->aRect + 2,4);
-    (*param_1)(pTVar1->aRect + 3,4);
-    (*param_1)(&pTVar1->nDuration,4);
-    (*param_1)(&pTVar1->pActor,4);
-    (*param_1)(&pTVar1->dwFlags,4);
-    (*param_1)(&pTVar1->nSerial,4);
+    (*write)(pTVar1->aText,0x200);
+    (*write)(&pTVar1->ctx,4);
+    (*write)(&(pTVar1->ctx).pClipRect,4);
+    (*write)(&(pTVar1->ctx).pFont,4);
+    (*write)(&(pTVar1->ctx).nX,4);
+    (*write)(&(pTVar1->ctx).nY,4);
+    (*write)(&(pTVar1->ctx).dwFgColor,4);
+    (*write)(&(pTVar1->ctx).dwBgColor,4);
+    (*write)(&(pTVar1->ctx).dwFxColor,4);
+    (*write)(&(pTVar1->ctx).nScaleX,4);
+    (*write)(&(pTVar1->ctx).nScaleY,4);
+    (*write)(&(pTVar1->ctx).dwFlags,4);
+    (*write)(&pTVar1->nX,4);
+    (*write)(&pTVar1->nY,4);
+    (*write)(pTVar1->aRect,4);
+    (*write)(pTVar1->aRect + 1,4);
+    (*write)(pTVar1->aRect + 2,4);
+    (*write)(pTVar1->aRect + 3,4);
+    (*write)(&pTVar1->nDuration,4);
+    (*write)(&pTVar1->pActor,4);
+    (*write)(&pTVar1->dwFlags,4);
+    (*write)(&pTVar1->nSerial,4);
   }
-  (*param_1)(((unsigned)(uintptr_t)((unsigned char *)&g_PrintLineTextCtx + 0x8)),4);
-  (*param_1)(((unsigned)(uintptr_t)((unsigned char *)&g_SubtitleTextCtx + 0x8)),4);
-  (*param_1)(((unsigned)(uintptr_t)((unsigned char *)&g_TextObjectCtx + 0x8)),4);
+  (*write)(((unsigned)(uintptr_t)((unsigned char *)&g_PrintLineTextCtx + 0x8)),4);
+  (*write)(((unsigned)(uintptr_t)((unsigned char *)&g_SubtitleTextCtx + 0x8)),4);
+  (*write)(((unsigned)(uintptr_t)((unsigned char *)&g_TextObjectCtx + 0x8)),4);
   return 0;
 }
 #undef local_4
@@ -210,7 +210,7 @@ uint __cdecl sputText_Save(code *param_1)
    GrimFandango (Linux): the module's restore slot: empties textQueue, reads the text events into
    pTextEventPool); was sputText_RestoreState. */
 
-uint __cdecl sputText_Restore(code *param_1)
+uint __cdecl sputText_Restore(code *read)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -223,13 +223,13 @@ uint __cdecl sputText_Restore(code *param_1)
   void *pvVar6;
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  pcVar3 = param_1;
+  pcVar3 = read;
   while (g_pTextQueue != (TextObject *)0x0) {
     List_Unlink(g_pTextQueue);
   }
-  uVar4 = (*param_1)(&local_4,4);
+  uVar4 = (*read)(&local_4,4);
   if (((uint)(byte)(uVar4)) == 0) {
-    param_1 = (code *)0x0;
+    read = (code *)0x0;
     if (0 < local_4) {
       do {
         pTVar5 = (TextObject *)Memory_AllocFixed((int *)g_pTextEventPool);
@@ -271,9 +271,9 @@ uint __cdecl sputText_Restore(code *param_1)
         if (g_pTextQueue != (TextObject *)0x0) {
           g_pTextQueue->pPrev = pTVar5;
         }
-        param_1 = param_1 + 1;
+        read = read + 1;
         g_pTextQueue = pTVar5;
-      } while ((int)param_1 < local_4);
+      } while ((int)read < local_4);
     }
     (*pcVar3)(((unsigned)(uintptr_t)((unsigned char *)&g_PrintLineTextCtx + 0x8)),4);
     (*pcVar3)(((unsigned)(uintptr_t)((unsigned char *)&g_SubtitleTextCtx + 0x8)),4);
