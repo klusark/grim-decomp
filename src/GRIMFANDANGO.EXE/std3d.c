@@ -55,6 +55,8 @@ uint __cdecl D3D_IsAvailable(void)
 }
 
 /* ---- 0x004782e0  D3D_SelectDriver ---- */
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Creates the Direct3D device, z-buffer, viewport, execute buffer and picks the texture formats */
 
@@ -168,7 +170,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
       UINT_00806950 = (uint)stdDisplay_VBufferNew(&VStack_74,1,0,0);
     }
   }
-  D3D_SetVertexLimit();
+  D3D_SetVertexLimit(&g_pStd3D_CurDevice->dwTextureMemTotal,&g_pStd3D_CurDevice->nTextureMemFree);
   UINT_00806970 = 1;
   return 1;
 }
@@ -177,6 +179,8 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
 #undef piStack_a0
 #undef pvStack_ac
 #undef uStack_a4
+
+#endif
 
 
 /* ---- 0x00478660  D3D_ReleaseDriver ---- */
@@ -1115,7 +1119,9 @@ void __cdecl D3D_UnlinkTexture(Std3DTexture *texture)
 }
 
 /* ---- 0x00479a00  D3D_SetVertexLimit ---- */
-uint __cdecl D3D_SetVertexLimit(void)
+/* replaced by the hand-written version in build/overrides.c */
+#if 0
+uint __cdecl D3D_SetVertexLimit(uint *total,int *free)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
@@ -1146,6 +1152,8 @@ uint __cdecl D3D_SetVertexLimit(void)
 #undef puStack_10
 #undef puStack_c
 #undef uStack_4
+
+#endif
 
 
 /* ---- 0x00479a70  std3D_UpdateFrameCount ---- */

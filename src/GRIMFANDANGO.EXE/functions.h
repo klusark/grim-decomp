@@ -1204,7 +1204,7 @@ int __cdecl std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int u
 void __cdecl D3D_FreeAllTextures(void); /* 0x00479860 */
 void __cdecl D3D_LinkTexture(Std3DTexture *texture); /* 0x004798e0 */
 void __cdecl D3D_UnlinkTexture(Std3DTexture *texture); /* 0x00479950 */
-uint __cdecl D3D_SetVertexLimit(void); /* 0x00479a00 */
+uint __cdecl D3D_SetVertexLimit(uint *total,int *free); /* 0x00479a00 */
 void __cdecl std3D_UpdateFrameCount(Std3DTexture *texture); /* 0x00479a70 */
 uint __cdecl std3D_ClearZBuffer(void); /* 0x00479aa0 */
 uint __cdecl D3D_FindClosestDriver(int *drivers,int count,uint flags); /* 0x00479b50 */

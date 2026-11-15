@@ -171,6 +171,7 @@ Environment variables read by the rebuilt EXE (set them before `tools/run_game.s
 | `GRIM_LUA_FILE=<file>` | the **Lua test hook**: every complete line appended to this file runs as Lua once per frame (also while a menu pauses the engine) | `GRIM_lua_cmd_poll` |
 | `GRIM_LUA_LOG=<file>` | target of `grimlog("text")` and of the hook's `rc=0: <line>` result lines | same |
 | `GRIM_DISPLAY_DEVICE=<n>` | pick another enumerated display device (1 = DirectDraw); default 0 = windowed DIB, software renderer | `Display_InitFromConfig` |
+| `GRIM_3D=1` / `GRIM_3D=2` | the original's Direct3D hardware renderer, in the window (1) or fullscreen (2); on a desktop without 16-bit modes the 16-bit display is emulated (`build/overrides_ddraw16.c`) | `Display_InitFromConfig` |
 | `GRIM_MODS=1` | the Lua functions of example mod 10 b; off = the original exe's builtins (`tools/run_game.sh` sets it) | `GRIM_ModsOn`, `overrides.c` |
 | `GRIM_INI=<file>`, `GRIM_IMUSE_REALTIME=1`, `GRIM_SMUSH_REALTIME=1` | settings from an ini file instead of the registry; iMUSE, or the movies, on real time under `GRIM_SIMTIME` (grim_tools/cleanroom, `build/cleanroom/README.md`) | `build/cleanroom/`, `overrides.c`, `overrides_mixer_drv.c` |
 | `GRIM_SAVETRACE=<file>` | log every `SaveGame_Write` / `SaveGame_Read` (offset, size, caller) = the layout of a save; read it with `tools/savetrace.py` (BUILD_NOTES "Saves of the original game") | `overrides.c` |

@@ -2282,3 +2282,32 @@ whole-game autorun).
   build/difftest/asm_p1/test_canvas.c; that harness takes the twin through `OVERRIDES=<twinsrc.py output>`), and
   rdCache_SendFaceListToHardware (its twin does not compile: a material pointer stored into a float local).
 * docs/OVERRIDES.md: 524 hand-written functions. Clean room 0 of 5490.
+
+## The Direct3D renderer, in a window (2026-11-15)
+
+`GRIM_3D=1` starts the original's Direct3D hardware renderer in the game's window; `GRIM_3D=2` fullscreen. Both use the
+original's own choice (Display_PickDefault: a fullscreen DirectDraw device, its closest mode, the Direct3D driver
+D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the software renderer in a DIB window.
+
+* **No 16-bit display modes.** The original's DirectDraw and Direct3D renderers draw in 16 bits (5:6:5). Windows 8 and
+  later list only 32-bit modes and refuse SetDisplayMode(w, h, 16) (E_NOTIMPL; the compatibility layers 16BITCOLOR and
+  DWM8And16BitMitigation did not change that): the original cannot use them on this machine either. A Direct3D HAL device
+  does take a 16-bit 5:6:5 off-screen surface in video memory as its target on a 32-bit desktop (checked with a stand-alone
+  program), so build/overrides_ddraw16.c emulates the 16-bit modes: DDraw_Create offers each 32-bit mode again as 16-bit
+  (through the original callback), DDraw_CreateSurfaces gives the game 16-bit off-screen surfaces as its primary and back
+  buffer, and DDraw_Flip converts the picture to the screen: to a real 32-bit primary when fullscreen, into the window with
+  GDI (SetDIBitsToDevice) when windowed. The game's surfaces are not swapped on a flip (the Direct3D device stays bound to
+  the back buffer), which the dirty-rectangle repair tolerates. stdDisplay_VBufferNew gives its DirectDraw surfaces an
+  explicit 8- or 16-bit format while such a mode is open (without one the background buffer was a 32-bit surface and the
+  background came out squeezed into half the width).
+* **Direct3D start-up.** D3D_SelectDriver and D3D_SetVertexLimit (which reads the texture memory, IDirectDraw2
+  GetAvailableVidMem) lost their COM calls' arguments in the decompilation (tools/audit_call_args.py); they are written out
+  in build/overrides_std3d.c. D3D_SetVertexLimit takes (uint *total, int *free) in Ghidra.
+* **Checked:** the real game draws Manny's office with the hardware renderer in the window (textured, filtered), the same
+  scene as the software renderer. The clean room cannot run it: Direct3D does not start on run.py's hidden desktop (the
+  driver table is empty there, as EMI's original found), and on the visible desktop the clean room's synthetic materials
+  (their texture format's first word is the bit depth, 8, where the game's are 0) are skipped by std3D_AddToTextureCache,
+  as the original would. The default build: clean room 0 of 5490, whole-game autorun passes.
+* **Not working yet:** fullscreen (`GRIM_3D=2`): IDirect3DDevice::Execute fails with E_OUTOFMEMORY in two runs of three,
+  which a stand-alone program with the game's own execute buffer, render states, z-buffer and exclusive mode does not
+  reproduce; and the game sometimes hangs on exit in that mode.
