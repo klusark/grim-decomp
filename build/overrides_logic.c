@@ -836,6 +836,74 @@ static inline int ceil_to_int(float x)
     return (int)(long long)x;
 }
 
+int rdCache_AddProcFace(void *mesh, uint vertexCount, byte flags)
+{
+    uint idx = g_dwRdCache_numProcFaces;
+    char *e;
+    float *v;
+    float xlo, xhi, ylo, yhi, zlo, zhi;
+    uint i;
+
+    if (idx >= 0x400)
+        return 0;
+    e = (char *)&g_bRdCache_aProcFaces + idx * 0x78;
+    v = *(float **)(e + 0x20);
+    *(void **)e = mesh;
+    *(uint *)(e + 0x1c) = vertexCount;
+    *(uint *)(e + 0x74) = g_dwRdroid_curProcFaceUserData;
+    xlo = xhi = v[0];
+    ylo = yhi = v[1];
+    zlo = zhi = v[2];
+    *(uint *)(e + 0x70) = 0;
+    *(uint *)(e + 0x6c) = 0;
+    for (i = 1; i < vertexCount; i++) {
+        float x = v[3 * i], y = v[3 * i + 1], z = v[3 * i + 2];
+
+        if (!(x >= xlo))
+            xlo = x;
+        else if (x > xhi)
+            xhi = x;
+        if (!(y >= ylo)) {
+            ylo = y;
+            *(uint *)(e + 0x6c) = i;
+        } else if (y > yhi) {
+            *(uint *)(e + 0x70) = i;
+            yhi = y;
+        }
+        if (!(z >= zlo))
+            zlo = z;
+        else if (z > zhi)
+            zhi = z;
+    }
+    *(float *)(e + 0x64) = zlo;
+    *(float *)(e + 0x68) = zhi;
+    if (xlo >= xhi)
+        return 0;
+    if (ylo >= yhi)
+        return 0;
+    *(int *)(e + 0x54) = ceil_to_int(xlo);
+    *(int *)(e + 0x58) = ceil_to_int(xhi);
+    *(int *)(e + 0x5c) = ceil_to_int(ylo);
+    *(int *)(e + 0x60) = ceil_to_int(yhi);
+    if (flags & 1)
+        g_dwNumUsedVertices = g_dwNumUsedVertices + vertexCount;
+    if (flags & 2)
+        g_dwNumUsedTexVertices = g_dwNumUsedTexVertices + vertexCount;
+    if (flags & 4)
+        g_dwNumUsedIntensities = g_dwNumUsedIntensities + vertexCount;
+    *(uint *)(e + 0x4c) = g_dwRdColormap_pIdentityMap;
+    g_dwRdCache_numProcFaces = g_dwRdCache_numProcFaces + 1;
+    if (*(uint *)(e + 0x54) < (uint)g_nRdCache_ulcExtent)
+        g_nRdCache_ulcExtent = *(uint *)(e + 0x54);
+    if ((uint)g_nRdCache_lrcExtent < *(uint *)(e + 0x58))
+        g_nRdCache_lrcExtent = *(uint *)(e + 0x58);
+    if (*(uint *)(e + 0x5c) < (uint)g_nDrawBoxMinY)
+        g_nDrawBoxMinY = *(uint *)(e + 0x5c);
+    if ((uint)g_nDrawBoxMaxY < *(uint *)(e + 0x60))
+        g_nDrawBoxMaxY = *(uint *)(e + 0x60);
+    return 1;
+}
+
 /* ==== stdStartup (0x004733a0) ====
  * Stores the module service table and captures the x87 control word the game runs with: the other three words used by the
  * rounding helpers keep its low byte and replace the high byte (rounding control): 0x0b = round up (0x0090052a), 0x07 =
@@ -1101,6 +1169,100 @@ void sputLua_GetActorChoresL(void)
 void sputLua_GetActorLoopingChoresL(void)
 {
     actor_chores_table(3);
+}
+
+/* ==== sputLua_NotifyControlHandlers (0x0049e0b0) ====
+ * Calls system.buttonHandler / system.axisHandler (a function, or a table holding the function under the same name, which
+ * is then called with the table as first argument) for every enabled control (16 byte records at 0x004e87c8: flags, input
+ * id, last value) whose state changed.  Button controls (flags & 4) report (index, 1 or nil, x, y); axis controls report
+ * (index, value).  The last value of a button is its integer state, that of an axis the float (the same slot).  Ghidra
+ * typed the loop counter and the handler references float, which broke the conversions. */
+undefined4 sputLua_NotifyControlHandlers(void)
+{
+    int btnIsMethod = 0, axisIsMethod = 0;
+    int hasBtn = 0, hasAxis = 0;
+    int sys, btnTab, btnFunc = 0, axisTab, axisFunc = 0;
+    uint i;
+    uint *rec;
+
+    lua_beginblock();
+    sys = lua_getref(g_nLrSystemTable);
+    lua_pushobject(sys);
+    lua_pushstring(s_buttonHandler_004ec574);
+    btnTab = lua_gettable();
+    if (lua_istable(btnTab) == 0) {
+        if (lua_isfunction(btnTab) != 0) {
+            btnIsMethod = 0;
+            hasBtn = 1;
+            btnFunc = btnTab;
+        }
+    } else {
+        lua_pushobject(btnTab);
+        lua_pushstring(s_buttonHandler_004ec574);
+        btnFunc = lua_gettable();
+        if (lua_isfunction(btnFunc) != 0) {
+            btnIsMethod = 1;
+            hasBtn = 1;
+        }
+    }
+    sys = lua_getref(g_nLrSystemTable);
+    lua_pushobject(sys);
+    lua_pushstring(s_axisHandler_004ec568);
+    axisTab = lua_gettable();
+    if (lua_istable(axisTab) == 0) {
+        if (lua_isfunction(axisTab) != 0) {
+            axisIsMethod = 0;
+            hasAxis = 1;
+            axisFunc = axisTab;
+        }
+    } else {
+        lua_pushobject(axisTab);
+        lua_pushstring(s_axisHandler_004ec568);
+        axisFunc = lua_gettable();
+        if (lua_isfunction(axisFunc) != 0) {
+            axisIsMethod = 1;
+            hasAxis = 1;
+        }
+    }
+    rec = (uint *)&g_aControlSymbols[0].uValue;
+    for (i = 0; i < (uint)g_nSputControl_numControlSymbols; i++, rec += 4) {
+        if ((rec[-2] & 1) == 0)
+            continue;
+        if ((rec[-2] & 4) == 0) {
+            float v = stdControl_ReadAxis(rec[-1]);
+
+            if ((rec[-2] & 8) != 0)
+                v = -v;
+            if ((v < *(float *)rec || v > *(float *)rec) && hasAxis != 0) {
+                if (axisIsMethod != 0)
+                    lua_pushobject(axisTab);
+                lua_pushnumber((float)i);
+                lua_pushnumber(v);
+                lua_callfunction(axisFunc);
+                *(float *)rec = v;
+            }
+        } else {
+            uint x = 0;
+            int y;
+            int state = stdControl_ReadKey(rec[-1], (int *)&x, &y);
+
+            if (state != (int)*rec && hasBtn != 0) {
+                if (btnIsMethod != 0)
+                    lua_pushobject(btnTab);
+                lua_pushnumber((float)i);
+                if (state == 0)
+                    lua_pushnil();
+                else
+                    lua_pushnumber(1.0f);
+                lua_pushnumber((float)x);
+                lua_pushnumber((float)y);
+                lua_callfunction(btnFunc);
+                *rec = (uint)state;
+            }
+        }
+    }
+    lua_endblock();
+    return 0;
 }
 
 /* ==== Actor_PuckOrient (0x00490f50) ====
