@@ -1075,6 +1075,7 @@ extern unsigned char DAT_004dded8[4];
 extern unsigned char DAT_004ddedc[4];
 extern unsigned char DAT_004ddee0[8];
 extern DxErrorName g_aDDErrorNames[93];
+extern unsigned char DAT_004de1d0[8];
 extern unsigned char DAT_004de1d8[4];
 extern unsigned char DAT_004de1dc[24];
 extern unsigned char DAT_004de1f4[20];
@@ -6032,7 +6033,7 @@ extern grim_span_004d5400 DAT_004d5400;
 /* 0x004dded8, 4 bytes */ GRIM_DATA("004dded8") unsigned char DAT_004dded8[4] = { 0x6c, 0x62, 0x6d };
 /* 0x004ddedc, 4 bytes */ GRIM_DATA("004ddedc") unsigned char DAT_004ddedc[4] = { 0x7a, 0x62, 0x6d };
 /* 0x004ddee0, 8 bytes */ GRIM_DATA("004ddee0") unsigned char DAT_004ddee0[8] = { 0x62, 0x6d };
-/* 0x004ddee8, 752 bytes */ GRIM_DATA("004ddee8") DxErrorName g_aDDErrorNames[93] = {
+/* 0x004ddee8, 744 bytes */ GRIM_DATA("004ddee8") DxErrorName g_aDDErrorNames[93] = {
     { .pName = (void *)&DAT_004de9d4 },
     { .dwCode = 0x88760005, .pName = (void *)&DAT_004de9b8 },
     { .dwCode = 0x8876000a, .pName = (void *)&DAT_004de99c },
@@ -6127,7 +6128,7 @@ extern grim_span_004d5400 DAT_004d5400;
     { .dwCode = 0x8876024d, .pName = (void *)&DAT_004de1f4 },
     { .dwCode = 0x8876024e, .pName = (void *)&DAT_004de1dc }
 };
-/* 0x004de1d0, 8 bytes: the rest of g_aDDErrorNames's span */ GRIM_DATA("004ddee8") static unsigned char g_aDDErrorNames__tail[8] __attribute__((used)) = { 0x6e, 0x04, 0x00, 0x00, 0xff, 0x06 };
+/* 0x004de1d0, 8 bytes */ GRIM_DATA("004de1d0") unsigned char DAT_004de1d0[8] = { 0x6e, 0x04, 0x00, 0x00, 0xff, 0x06 };
 /* 0x004de1d8, 4 bytes */ GRIM_DATA("004de1d8") unsigned char DAT_004de1d8[4] = { 0x31, 0x07 };
 /* 0x004de1dc, 24 bytes */ GRIM_DATA("004de1dc") unsigned char DAT_004de1dc[24] = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x55, 0x4e, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54, 0x45,

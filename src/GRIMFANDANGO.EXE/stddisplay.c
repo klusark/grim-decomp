@@ -1033,6 +1033,7 @@ int __cdecl stdDisplay_Update(void)
 /* ---- 0x00474480  stdDisplay_VBufferNew ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Std/Win95/Stddisplay.c: creates a surface record (0xd8 bytes) from a 19-dword format/size
    description Original name stdDisplay_VBufferNew (the remaster's GrimFandango (Linux): aligned
    call in rdMaterial_LoadEntry, stdBmp_LoadEntry, stdPic_LoadEntry); was Surface_Create. */
@@ -1055,7 +1056,9 @@ VBuffer * __cdecl stdDisplay_VBufferNew(VBufferFormat *format,int videoMem,int b
   DDSurfaceDesc *pDVar11;
   #define puStack_8 (*(undefined1 **)(_frame + (0x20 - 0x8)))
   
-  pVVar5 = (VBuffer *)(*g_pStd_HS->pAlloc)(0xd8);
+  pVVar5 = (VBuffer *)
+           (*g_pStd_HS->pAlloc)
+                     (0xd8,s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18,_DAT_004de1d0 + 0xd);
   if (pVVar5 == (VBuffer *)0x0) {
     return (VBuffer *)0x0;
   }
@@ -1074,7 +1077,9 @@ VBuffer * __cdecl stdDisplay_VBufferNew(VBufferFormat *format,int videoMem,int b
   if (((videoMem == 0) || (g_nDisplayDeviceOpen == 0)) || (g_pDisplayDevice->nType != 1)) {
     pVVar5->nType = 0;
     pVVar5->nVideoMemory = 0;
-    pvVar7 = (void *)(*g_pStd_HS->pAlloc)(uVar6);
+    pvVar7 = (void *)(*g_pStd_HS->pAlloc)
+                               (uVar6,s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18,
+                                _DAT_004de1d0 + 0x2a);
     pVVar5->pPixels = pvVar7;
     if (pvVar7 == (void *)0x0) {
       return (VBuffer *)0x0;

@@ -270,7 +270,7 @@
 | 10008640 | LState_Save | lstate.c | 76 |
 | 100087f0 | LState_Restore | lstate.c | 95 |
 | 10008ad0 | lua_newstate | lstate.c | 21 |
-| 10008b70 | LState_attach | lstate.c | 1 |
+| 10008b70 | LState_attach | lstate.c | 20 |
 | 10008bb0 | LState_detach | lstate.c | 16 |
 | 10008bf0 | LState_next | lstate.c | 8 |
 | 10008c00 | LState_Destruct | lstate.c | 13 |

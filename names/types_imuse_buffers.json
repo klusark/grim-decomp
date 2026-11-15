@@ -1,0 +1,51 @@
+{
+ "_comment": "iMUSE's three stream buffer slots (SoundsAllocateBuffer, ihost_get_buffer_info), 2026-11-15.",
+ "program": "/v101/IMUSE.DLL",
+ "structs": [
+  {
+   "name": "ImBufferInfo",
+   "size": 16,
+   "comment": "One of iMUSE's stream buffers (1 voice, 2 music): SoundsAllocateBuffer fills it, ihost_get_buffer_info hands it to iMUSE.",
+   "fields": [
+    [
+     0,
+     "void *",
+     "pBuffer",
+     ""
+    ],
+    [
+     4,
+     "uint",
+     "dwSize",
+     ""
+    ],
+    [
+     8,
+     "uint",
+     "dwGulpSize",
+     "bytes fed per refill"
+    ],
+    [
+     12,
+     "uint",
+     "dwCriticalSize",
+     "refill below this"
+    ]
+   ]
+  }
+ ],
+ "globals": [
+  {
+   "addr": "1002ebe0",
+   "type": "ImBufferInfo[3]",
+   "_g": "g_aImBufferInfo"
+  }
+ ],
+ "returns": [
+  {
+   "addr": "10007a80",
+   "type": "ImBufferInfo *",
+   "_fn": "ihost_get_buffer_info"
+  }
+ ]
+}

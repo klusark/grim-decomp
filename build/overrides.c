@@ -1424,24 +1424,6 @@ undefined4 __cdecl luaV_tostring(int *o)
     return 0;
 }
 
-/* moves task state `this` into the task list right after `after` (it is first unlinked from where it is); doubly linked
- * through +0xcc (next) and +0xd0 (previous) */
-int __thiscall LState_attach(LState *self_, int after)
-{
-    void *self = self_;
-    int next = 0;
-    LState_detach((int)self);
-    if (after != 0) {
-        next = *(int *)(after + 0xcc);
-        *(int *)((int)self + 0xcc) = next;
-        if (next != 0)
-            *(void **)(next + 0xd0) = self;
-        *(void **)(after + 0xcc) = self;
-        *(int *)((int)self + 0xd0) = after;
-    }
-    return next;
-}
-
 /* ---- agentJ: lua_printstack (LUA.DLL 0x100020f0) ----
  * Prints the active Lua call stack, innermost call first, through the host's printf callback (nothing when `out` is 0):
  *   Active Stack:

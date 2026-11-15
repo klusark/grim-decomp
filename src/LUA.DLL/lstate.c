@@ -952,19 +952,15 @@ undefined4 * lua_newstate(void)
 }
 
 /* ---- 0x10008b70  LState_attach ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name LState_attach (the remaster's libLua.so: LState::attach(LState*): links the state
    after another (+0xcc next, +0xd0 prev)); was lstate__8b70. */
 
-int __thiscall LState_attach(LState *this,int a1)
+void __thiscall LState_attach(LState *this,int a1)
 
 {
-  LState *extraout_EAX;
   LState *pLVar1;
   
   LState_detach(this);
-  pLVar1 = extraout_EAX;
   if (a1 != 0) {
     pLVar1 = *(LState **)(a1 + 0xcc);
     this->pNext = pLVar1;
@@ -974,10 +970,8 @@ int __thiscall LState_attach(LState *this,int a1)
     *(LState **)(a1 + 0xcc) = this;
     this->pPrev = (LState *)a1;
   }
-  return (int)pLVar1;
+  return;
 }
-#endif
-
 
 /* ---- 0x10008bb0  LState_detach ---- */
 /* Original name LState_detach (the remaster's libLua.so: LState::detach: unlinks the state); was

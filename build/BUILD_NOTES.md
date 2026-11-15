@@ -2181,3 +2181,18 @@ Clean room (Linux, Wine, grim-autorun PR 9): 0 of 5457 differ.
 * All four programs' .text sections are byte-identical to the build before; no live function casts an image address;
   datacmp 0 differences. `param_N` in live game code: EXE 48, LUA.DLL 9, IMUSE.DLL 24 (the prototypes' other
   `param_N` are the C runtime). Clean room 0 of 5457.
+
+## Three more overrides generated again: DwTerminate, ihost_get_buffer_info, LState_attach (2026-11-15)
+
+* DwTerminate: its twin says what the hand-written version says (two COM Releases, the scratch block freed).
+* ihost_get_buffer_info: iMUSE's stream buffer slots are typed (ImBufferInfo {pBuffer, dwSize, dwGulpSize,
+  dwCriticalSize}, g_aImBufferInfo[3] at 0x1002ebe0, names/types_imuse_buffers.json), and the function returns an
+  ImBufferInfo *: the twin is `return g_aImBufferInfo + slot;` instead of the original's address as a number (which
+  the rebuilt DLL could not relocate). SoundsAllocateBuffer reads as g_aImBufferInfo[slot].dw... too.
+* LState_attach: returns nothing its callers read (names/types_lua_attach.json, void); the twin is the hand-written
+  code. (The LState_attach of overrides.c is gone.)
+* stdDisplay_VBufferNew keeps its hand-written version, but its two allocations have their file / line arguments now
+  (names/callsite_overrides.json): what is left is the DirectDraw palette loop, which reads the palette argument from a
+  stack slot the decompiler lost. Its reason, and those of the functions renamed since (Script_Update,
+  stdDisplay_EnumDevicesCallback, Script_SetState, Script_Trans), are in names/override_reasons.json.
+* docs/OVERRIDES.md: 545 hand-written functions (repair 26). datacmp 0 differences; clean room 0 of 5457.

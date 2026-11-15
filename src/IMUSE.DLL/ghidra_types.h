@@ -219,9 +219,22 @@ static inline void *img_addr_(unsigned a) {
 
 /* Ghidra's structures (raw/<prog>/structs.json). Those build/compat.h defines by hand
  * are only declared here: none. */
+typedef struct ImBufferInfo ImBufferInfo;
 typedef struct ImMusicEntry ImMusicEntry;
 typedef struct ImNameAlias ImNameAlias;
 
+/* ImBufferInfo: One of iMUSE's stream buffers (1 voice, 2 music): SoundsAllocateBuffer fills it, ihost_get_buffer_info hands it to iMUSE. */
+struct ImBufferInfo {  /* 0x10 */
+    void *pBuffer;  /* 0x00 */
+    uint dwSize;  /* 0x04 */
+    uint dwGulpSize;  /* 0x08: bytes fed per refill */
+    uint dwCriticalSize;  /* 0x0c: refill below this */
+};
+_Static_assert(__builtin_offsetof(ImBufferInfo, pBuffer) == 0x0, "ImBufferInfo.pBuffer");
+_Static_assert(__builtin_offsetof(ImBufferInfo, dwSize) == 0x4, "ImBufferInfo.dwSize");
+_Static_assert(__builtin_offsetof(ImBufferInfo, dwGulpSize) == 0x8, "ImBufferInfo.dwGulpSize");
+_Static_assert(__builtin_offsetof(ImBufferInfo, dwCriticalSize) == 0xc, "ImBufferInfo.dwCriticalSize");
+_Static_assert(sizeof(ImBufferInfo) == 0x10, "sizeof ImBufferInfo");
 /* ImMusicEntry: One record of iMUSE's state table g_aImStateTable or sequence table g_aImSeqTable (Script_Trans). */
 struct ImMusicEntry {  /* 0x54 */
     char aFilename[32];  /* 0x00: the sound file, renamed through g_aImNameAlias; empty: no music */

@@ -1056,22 +1056,19 @@ undefined4 __cdecl ImSetAttribute(int a1,int a2)
 }
 
 /* ---- 0x10007210  SoundsAllocateBuffer ---- */
-undefined4 __cdecl
-SoundsAllocateBuffer(int slot,undefined4 size,undefined4 gulpSize,undefined4 criticalSize)
+void * __cdecl SoundsAllocateBuffer(int slot,uint size,uint gulpSize,uint criticalSize)
 
 {
-  undefined4 uVar1;
-  int iVar2;
+  void *pvVar1;
   
                     /* 0x7210  53  SoundsAllocateBuffer */
-  iVar2 = slot * 0x10;
-  uVar1 = (**(code **)(g_dwSounds_pHS + 0x20))(size,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x11d)
-  ;
-  *(undefined4 *)(iVar2 + ((unsigned)(uintptr_t)&DAT_1002ebe4)) = size;
-  *(undefined4 *)(iVar2 + ((unsigned)(uintptr_t)&DAT_1002ebe0)) = uVar1;
-  *(undefined4 *)(iVar2 + ((unsigned)(uintptr_t)&DAT_1002ebe8)) = gulpSize;
-  *(undefined4 *)(iVar2 + ((unsigned)(uintptr_t)&DAT_1002ebec)) = criticalSize;
-  return uVar1;
+  pvVar1 = (void *)(**(code **)(g_dwSounds_pHS + 0x20))
+                             (size,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x11d);
+  g_aImBufferInfo[slot].dwSize = size;
+  g_aImBufferInfo[slot].pBuffer = pvVar1;
+  g_aImBufferInfo[slot].dwGulpSize = gulpSize;
+  g_aImBufferInfo[slot].dwCriticalSize = criticalSize;
+  return pvVar1;
 }
 
 /* ---- 0x10007250  ihost_close_sound ---- */
@@ -1716,18 +1713,14 @@ uint __cdecl ihost_get_map_addr(uint sound)
 }
 
 /* ---- 0x10007a80  ihost_get_buffer_info ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Original name ihost_get_buffer_info (the remaster's GrimFandango (Linux): aligned call in
    sounds_startup); was FUN_10007a80. */
 
-int __cdecl ihost_get_buffer_info(int slot)
+ImBufferInfo * __cdecl ihost_get_buffer_info(int slot)
 
 {
-  return slot * 0x10 + 0x1002ebe0;
+  return g_aImBufferInfo + slot;
 }
-#endif
-
 
 /* ---- 0x10007a90  ihost_open_sound ---- */
 /* Original name ihost_open_sound (the remaster's GrimFandango (Linux): same body (0x28-byte stream
@@ -2090,7 +2083,7 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
 void __cdecl sounds_shutdown(void)
 
 {
-  int *piVar1;
+  ImBufferInfo *pIVar1;
   
   if (DAT_100336bc != 0) {
     Timer_Stop();
@@ -2110,14 +2103,14 @@ void __cdecl sounds_shutdown(void)
       _g_dwVoxFxBuf = 0;
     }
     _g_bImuseInitialized = 0;
-    piVar1 = (int *)((unsigned)(uintptr_t)&DAT_1002ebe0);
+    pIVar1 = g_aImBufferInfo;
     do {
-      if (*piVar1 != 0) {
-        (**(code **)(g_dwSounds_pHS + 0x24))(*piVar1);
-        *piVar1 = 0;
+      if (pIVar1->pBuffer != (void *)0x0) {
+        (**(code **)(g_dwSounds_pHS + 0x24))(pIVar1->pBuffer);
+        pIVar1->pBuffer = (void *)0x0;
       }
-      piVar1 = piVar1 + 4;
-    } while ((int)piVar1 < ((unsigned)(uintptr_t)&g_dwMlEntryCount));
+      pIVar1 = pIVar1 + 1;
+    } while ((int)pIVar1 < ((unsigned)(uintptr_t)&g_dwMlEntryCount));
     ImTerminate();
     Sounds_FreeAll();
     Sounds_MlFreeAll();

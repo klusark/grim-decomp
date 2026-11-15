@@ -1,9 +1,7 @@
 {
   "_about": "Why a function stays hand-written (build/overrides*.c); read by tools/overrides_report.py for docs/OVERRIDES.md. Twin test = build/mixdiff/twin.sh: the generated twin against the original machine code.",
-
   "_video": "build/mixdiff/video_test.c",
   "bmp_bitmap_Alloc": "its second switch (0x004ce4a6) has no bounds check of its own: the decompiler cannot recover the jump table, and a jump-table override prints only the first case of each shared destination (formats 7..12 would fall out)",
-
   "_codec": "build/mixdiff/codec_test.c, frame_test.c",
   "fob_flobdec_blocky16_config": "walks its varargs through REGISTER0X(0x10) (ESP); twin test: 7,612 of 30,000 differ",
   "fob_block_maketiles": "twin test: writes a split-mask byte the original does not (14,863 of 30,000 differ)",
@@ -11,7 +9,6 @@
   "Blocky16_DecodeBlock8": "register convention of the block decoders (ESI / EDI in and out); only reachable through Blocky16_DecodeBlocks",
   "block16_RenderBlock4": "register convention of the block decoders (ESI / EDI in and out)",
   "block16_RenderBlock2": "register convention of the block decoders (ESI / EDI in and out)",
-
   "_sound": "build/mixdiff/drv_test.c, timer_test.c, mixcore_test.c, snd_test.c, misc_test.c",
   "InsaneTimer_StopThread": "the twin compares unaff_ESI with STILL_ACTIVE where the original reads the exit code it just stored (its test passes only because the recorded calls do not depend on it)",
   "sys_timer_dispatcher": "setjmp / longjmp through unaff_ registers",
@@ -25,30 +22,26 @@
   "DSound_GetPlayBlock": "GRIM_SIMTIME hook: the play cursor follows the simulated clock",
   "timer_thread": "GRIM_SIMTIME hook",
   "sys_Delay": "GRIM_SIMTIME hook",
-
   "_asm_s5": "build/difftest/asm_s5 (dx_test, cos_test, display_test, small_test)",
   "Input_PollKeyboard": "twin test: crashes (lost DirectInput call arguments)",
   "Input_PollMouse": "twin test: 19,662 of 50,000 differ",
   "Input_FlushJoystick": "twin test: 17,482 of 50,000 differ",
   "ThingInstancer": "twin test: crashes",
-  "FUN_004761b0": "twin test: crashes (DirectDrawEnumerate callback, unaff_ registers)",
+  "stdDisplay_EnumDevicesCallback": "twin test: crashes (DirectDrawEnumerate callback, unaff_ registers)",
   "stdDisplay_TextOut": "twin test: crashes (unaff_ registers)",
   "D3D_InitRenderState": "twin test: crashes (the execute buffer descriptor comes from unaff_ registers)",
   "msc_MemSet": "the original returns the count, left in EAX by the callee's pushad / popad; twin test: 1,448 of 12,301 differ",
   "MaterialInstanceSaveLoad": "called with five arguments, Ghidra sees in_stack_ reads; twin test: crashes",
   "stdGif_LzwInitEncoder": "twin test: 414 of 12,301 differ",
   "stdGif_LzwEncodePixel": "twin test: 301 of 12,301 differ",
-
   "_math": "build/difftest/asm_p2/math_test.c: the twins differ in the x87 rounding",
   "rdClip_SphereInFrustrum": "x87-exact; twin test: 2,407 of 100,000 differ",
   "rdClip_FaceToPlane": "x87-exact; twin test: 136,054 of 100,000 calls differ",
   "rdMatrix_Build34": "x87-exact; twin test: 17,799 of 100,000 differ",
   "rdMatrix_BuildRotate34": "x87-exact; twin test: 17,706 of 100,000 differ",
   "rdMatrix_BuildFromVectorAngle34": "x87-exact; twin test: 39,484 of 100,000 differ",
-
   "_imuse": "build/difftest/imuse_r1",
-  "FUN_100064d0": "calls Script_SetSequence with a hidden register argument (the dispatcher's ESI)",
-
+  "Script_Update": "calls Script_SetSequence with a hidden register argument (the dispatcher's ESI)",
   "_recorded_earlier": "reasons from BUILD_NOTES.md",
   "Costume_ApplyScale": "deliberate fix: the same scale factor for all components, the reciprocal stored once per call",
   "Cos_AllocCostumeSlot": "deliberate fix: the original leaves records undefined after a failed allocation",
@@ -76,5 +69,8 @@
   "Math_Sqrt": "x87: FLD x; FSQRT; RET, the result stays in ST0 unrounded",
   "Math_Floor": "x87: FRNDINT under the round-down control word, which the decompiler does not see",
   "stdMath_NormalizeAngle": "x87: stores the result in a float local and compares that with 360.0",
-  "rdVector_Normalize3": "x87: leaves |v| unrounded in ST0 for its caller"
+  "rdVector_Normalize3": "x87: leaves |v| unrounded in ST0 for its caller",
+  "Script_SetState": "the twin passes unaff_EDI / unaff_ESI / the return address on to Script_Trans (register arguments of the dispatcher)",
+  "Script_Trans": "its callers pass register arguments (the dispatcher ESI); the twin reads unaff_ registers",
+  "stdDisplay_VBufferNew": "the DirectDraw palette loop reads the palette argument from a stack slot the decompiler lost (puStack_8, never set) and drops the 0x40 flags of entries 0 and 255; the two allocations have their file / line arguments now (call-site overrides)"
 }

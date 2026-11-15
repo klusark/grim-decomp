@@ -201,7 +201,7 @@ undefined4 __cdecl ImSetState(int a1); /* 0x100071c0 */
 undefined4 __cdecl ImSetSequence(int a1); /* 0x100071d0 */
 undefined4 __cdecl ImSetCuePoint(int a1); /* 0x100071e0 */
 undefined4 __cdecl ImSetAttribute(int a1,int a2); /* 0x100071f0 */
-undefined4 __cdecl SoundsAllocateBuffer(int slot,undefined4 size,undefined4 gulpSize,undefined4 criticalSize); /* 0x10007210 */
+void * __cdecl SoundsAllocateBuffer(int slot,uint size,uint gulpSize,uint criticalSize); /* 0x10007210 */
 undefined4 __cdecl ihost_close_sound(int sound); /* 0x10007250 */
 int * __cdecl SoundsRegisterVoice(char *name); /* 0x100072b0 */
 undefined4 __cdecl SoundsCloseVoiceFile(void); /* 0x100073c0 */
@@ -229,7 +229,7 @@ uint __cdecl sounds_startup(void); /* 0x10007920 */
 void __cdecl Sounds_MlInit(void); /* 0x10007a20 */
 uint __cdecl ihost_get_sound_addr(uint sound); /* 0x10007a60 */
 uint __cdecl ihost_get_map_addr(uint sound); /* 0x10007a70 */
-int __cdecl ihost_get_buffer_info(int slot); /* 0x10007a80 */
+ImBufferInfo * __cdecl ihost_get_buffer_info(int slot); /* 0x10007a80 */
 int __cdecl ihost_open_sound(uint *name,int sound); /* 0x10007a90 */
 int __cdecl ihost_fseek(int sound,int offset,int whence); /* 0x10007bc0 */
 undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *size); /* 0x10007ca0 */
