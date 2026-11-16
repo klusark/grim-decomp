@@ -14,7 +14,7 @@
  * Makes driver `driverIdx` of D3D_Enumerate's table (g_aStd3DDevices, 0x22c bytes each) the current device: a z-buffer
  * when wanted and the driver has one and the render flags allow it (its fill depth 16 or 2, UINT_00900534), the
  * Direct3D device from the back buffer surface (QueryInterface with the driver GUID), its texture formats
- * (EnumTextureFormats into DAT_00900620, 0xa4 bytes each, UINT_00806930 of them), the viewport, the render state, an
+ * (EnumTextureFormats into g_abD3D_TextureFormats, 0xa4 bytes each, UINT_00806930 of them), the viewport, the render state, an
  * execute buffer (D3DEXECUTEBUFFERDESC at DAT_008063f0: the driver's size, else 0x10000), the vertex limit (the
  * driver's, at most 0x200), the texture size limits, and the texture formats the renderer uses: the display's own
  * (UINT_00806934), and with paletted textures the 5:5:5 one with 1-bit alpha (UINT_00806938) and, unless the driver
@@ -68,25 +68,25 @@ int __cdecl D3D_SelectDriver(uint driverIdx, int useZBuffer)
     D3D_SetTextureLimits(dev->nMinTexWidth, dev->nMinTexHeight, dev->nMaxTexWidth, dev->nMaxTexHeight);
     g_pD3dTextureList = (Std3DTexture *)0;
     PTR_0080694c = (Std3DTexture *)0;
-    _DAT_00900568 = D3D_FindTextureFormat(&g_pVideoMode->format.colorFormat.nColorMode, (int)&DAT_00900620,
+    _DAT_00900568 = D3D_FindTextureFormat(&g_pVideoMode->format.colorFormat.nColorMode, (int)g_abD3D_TextureFormats,
                                           UINT_00806930);
-    UINT_00806934 = (uint)(&DAT_00900620 + _DAT_00900568 * 0xa4);
+    UINT_00806934 = (uint)(g_abD3D_TextureFormats + _DAT_00900568 * 0xa4);
     if (dev->nPalettedTextures != 0) {
         memset(want, 0, sizeof want);
         want[0] = 2;
         want[1] = 0x10;
         want[2] = want[3] = want[4] = 5;
         want[11] = 1;
-        _DAT_009014d8 = D3D_FindTextureFormat((int *)want, (int)&DAT_00900620, UINT_00806930);
-        UINT_00806938 = (uint)(&DAT_00900620 + _DAT_009014d8 * 0xa4);
+        _DAT_009014d8 = D3D_FindTextureFormat((int *)want, (int)g_abD3D_TextureFormats, UINT_00806930);
+        UINT_00806938 = (uint)(g_abD3D_TextureFormats + _DAT_009014d8 * 0xa4);
         if (dev->nUnknown18 == 0) {
             memset(want, 0, sizeof want);
             want[0] = 2;
             want[1] = 0x10;
             want[2] = want[3] = want[4] = 4;
             want[11] = 4;
-            _DAT_0090052c = D3D_FindTextureFormat((int *)want, (int)&DAT_00900620, UINT_00806930);
-            UINT_0080693c = (uint)(&DAT_00900620 + _DAT_0090052c * 0xa4);
+            _DAT_0090052c = D3D_FindTextureFormat((int *)want, (int)g_abD3D_TextureFormats, UINT_00806930);
+            UINT_0080693c = (uint)(g_abD3D_TextureFormats + _DAT_0090052c * 0xa4);
             memset(&scratch, 0, sizeof scratch);
             scratch.nWidth = 0x20;
             scratch.nHeight = 0x20;

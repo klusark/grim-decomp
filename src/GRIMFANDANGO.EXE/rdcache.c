@@ -354,15 +354,21 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
   else if (g_nRdroid_curZBufferMethod == 3) {
     local_44 = 0x833;
   }
-  if (((0.0f < FLOAT_0090002c) || (0.0f < FLOAT_00900030)) || (0.0f < FLOAT_00900034)) {
+  if (((0.0f < (float)g_dwRdroid_curColorEffects[3]) || (0.0f < (float)g_dwRdroid_curColorEffects[4]))
+     || (0.0f < (float)g_dwRdroid_curColorEffects[5])) {
     bVar6 = true;
     bVar9 = true;
-    local_58 = PUN(uint,(float)(FLOAT_0090002c - (FLOAT_00900034 * 0.5f + FLOAT_00900030 * 0.5f)));
-    local_20 = FLOAT_0090002c * 0.5f;
-    local_60 = PUN(uint,(float)(FLOAT_00900030 - (local_20 + FLOAT_00900034 * 0.5f)));
-    local_5c = PUN(uint,(float)(FLOAT_00900034 - (local_20 + FLOAT_00900030 * 0.5f)));
+    local_58 = PUN(uint,(float)((float)g_dwRdroid_curColorEffects[3] -
+                     ((float)g_dwRdroid_curColorEffects[5] * 0.5f +
+                     (float)g_dwRdroid_curColorEffects[4] * 0.5f)));
+    local_20 = (float)g_dwRdroid_curColorEffects[3] * 0.5f;
+    local_60 = PUN(uint,(float)((float)g_dwRdroid_curColorEffects[4] -
+                     (local_20 + (float)g_dwRdroid_curColorEffects[5] * 0.5f)));
+    local_5c = PUN(uint,(float)((float)g_dwRdroid_curColorEffects[5] -
+                     (local_20 + (float)g_dwRdroid_curColorEffects[4] * 0.5f)));
   }
-  if (((g_dwRdroid_curColorEffects != 0) || (UINT_00900024 != 0)) || (UINT_00900028 != 0)) {
+  if (((g_dwRdroid_curColorEffects[0] != 0) || (g_dwRdroid_curColorEffects[1] != 0)) ||
+     (g_dwRdroid_curColorEffects[2] != 0)) {
     bVar7 = true;
     bVar8 = true;
   }
@@ -774,14 +780,14 @@ LAB_00407a22:
             }
             local_30 = local_30 | 0x8000;
             if (bVar8) {
-              if (g_dwRdroid_curColorEffects == 0) {
+              if (g_dwRdroid_curColorEffects[0] == 0) {
                 local_1c = 0;
               }
-              if (UINT_00900024 == 0) {
+              if (g_dwRdroid_curColorEffects[1] == 0) {
                 uVar13 = 0;
                 local_10 = 0;
               }
-              if (UINT_00900028 == 0) {
+              if (g_dwRdroid_curColorEffects[2] == 0) {
                 local_18 = 0;
               }
             }
@@ -794,12 +800,15 @@ LAB_00407a22:
               lVar17 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
               local_18 = local_18 + (int)lVar17;
             }
-            if (FLOAT_00900044 < 1.0f) {
-              lVar17 = FTOL((float10)(int)local_1c * (float10)FLOAT_00900044);
+            if ((float)g_dwRdroid_curColorEffects[9] < 1.0f) {
+              lVar17 = FTOL((float10)(int)local_1c * (float10)(float)g_dwRdroid_curColorEffects[9])
+              ;
               local_1c = (uint)lVar17;
-              lVar17 = FTOL((float10)(int)local_10 * (float10)FLOAT_00900044);
+              lVar17 = FTOL((float10)(int)local_10 * (float10)(float)g_dwRdroid_curColorEffects[9])
+              ;
               uVar13 = (uint)lVar17;
-              lVar17 = FTOL((float10)(int)local_18 * (float10)FLOAT_00900044);
+              lVar17 = FTOL((float10)(int)local_18 * (float10)(float)g_dwRdroid_curColorEffects[9])
+              ;
               local_18 = (uint)lVar17;
             }
             if ((int)local_1c < 0) {
@@ -1109,14 +1118,14 @@ LAB_004071fa:
               local_30 = local_30 | 0x8000;
             }
             if (bVar8) {
-              if (g_dwRdroid_curColorEffects == 0) {
+              if (g_dwRdroid_curColorEffects[0] == 0) {
                 uVar16 = 0;
                 local_1c = 0;
               }
-              if (UINT_00900024 == 0) {
+              if (g_dwRdroid_curColorEffects[1] == 0) {
                 local_10 = 0;
               }
-              if (UINT_00900028 == 0) {
+              if (g_dwRdroid_curColorEffects[2] == 0) {
                 local_18 = 0;
               }
             }
@@ -1130,12 +1139,15 @@ LAB_004071fa:
               lVar17 = FTOL((float10)(int)local_18 * (float10)(float)local_5c);
               local_18 = uVar13 + (int)lVar17;
             }
-            if (FLOAT_00900044 < 1.0f) {
-              lVar17 = FTOL((float10)(int)local_1c * (float10)FLOAT_00900044);
+            if ((float)g_dwRdroid_curColorEffects[9] < 1.0f) {
+              lVar17 = FTOL((float10)(int)local_1c * (float10)(float)g_dwRdroid_curColorEffects[9])
+              ;
               uVar16 = (uint)lVar17;
-              lVar17 = FTOL((float10)(int)local_10 * (float10)FLOAT_00900044);
+              lVar17 = FTOL((float10)(int)local_10 * (float10)(float)g_dwRdroid_curColorEffects[9])
+              ;
               local_10 = (uint)lVar17;
-              lVar17 = FTOL((float10)(int)local_18 * (float10)FLOAT_00900044);
+              lVar17 = FTOL((float10)(int)local_18 * (float10)(float)g_dwRdroid_curColorEffects[9])
+              ;
               local_18 = (uint)lVar17;
             }
             if ((int)uVar16 < 0) {
@@ -2279,12 +2291,6 @@ extern unsigned char grim_def_DAT_006f0fc8[4] __asm__("_DAT_006f0fc8");
 extern unsigned char grim_def_DAT_006f0fcc[4] __asm__("_DAT_006f0fcc");
 extern unsigned char grim_def_DAT_006f0fd0[4] __asm__("_DAT_006f0fd0");
 extern unsigned char grim_def_DAT_006f0fd4[1048548] __asm__("_DAT_006f0fd4");
-extern float grim_def_FLOAT_0090002c __asm__("_FLOAT_0090002c");
-extern float grim_def_FLOAT_00900030 __asm__("_FLOAT_00900030");
-extern float grim_def_FLOAT_00900034 __asm__("_FLOAT_00900034");
-extern float grim_def_FLOAT_00900044 __asm__("_FLOAT_00900044");
-extern unsigned int grim_def_UINT_00900024 __asm__("_UINT_00900024");
-extern unsigned int grim_def_UINT_00900028 __asm__("_UINT_00900028");
 extern unsigned char grim_def_g_aBlueIntensities[131072] __asm__("_g_aBlueIntensities");
 extern unsigned char grim_def_g_aGreenIntensities[131072] __asm__("_g_aGreenIntensities");
 extern unsigned char grim_def_g_aHWNormalTris[4] __asm__("_g_aHWNormalTris");
@@ -2329,22 +2335,9 @@ extern unsigned char grim_def_g_dwTotalVerts[8] __asm__("_g_dwTotalVerts");
 /* 0x007f0fbc, 4 bytes */ GRIM_DATA("007f0fbc") unsigned int grim_def_g_dwNumUsedVertices __asm__("_g_dwNumUsedVertices") = 0x0;
 /* 0x007f0fc0, 4 bytes */ GRIM_DATA("007f0fc0") unsigned int grim_def_g_dwNumUsedTexVertices __asm__("_g_dwNumUsedTexVertices") = 0x0;
 /* 0x007f0fc4, 4 bytes */ GRIM_DATA("007f0fc4") unsigned int grim_def_g_dwNumUsedIntensities __asm__("_g_dwNumUsedIntensities") = 0x0;
-/* 0x00900024, 4 bytes */ GRIM_DATA("00900024") unsigned int grim_def_UINT_00900024 __asm__("_UINT_00900024") = 0x0;
-/* 0x00900028, 4 bytes */ GRIM_DATA("00900028") unsigned int grim_def_UINT_00900028 __asm__("_UINT_00900028") = 0x0;
-/* 0x0090002c, 4 bytes */ GRIM_DATA("0090002c") float grim_def_FLOAT_0090002c __asm__("_FLOAT_0090002c") = 0.0f;
-/* 0x00900030, 4 bytes */ GRIM_DATA("00900030") float grim_def_FLOAT_00900030 __asm__("_FLOAT_00900030") = 0.0f;
-/* 0x00900034, 16 bytes */ GRIM_DATA("00900034") float grim_def_FLOAT_00900034 __asm__("_FLOAT_00900034") = 0.0f;
-/* 0x00900038, 12 bytes: the rest of grim_def_FLOAT_00900034's span */ GRIM_DATA("00900034") static unsigned char FLOAT_00900034__tail[12] __attribute__((used)) = {0};
-/* 0x00900044, 4 bytes */ GRIM_DATA("00900044") float grim_def_FLOAT_00900044 __asm__("_FLOAT_00900044") = 0.0f;
 __asm__(".globl _grim_img_exe_0x00606fa0\n\t.set _grim_img_exe_0x00606fa0, _g_aHWSolidTris + 0\n");
 __asm__(".globl _grim_img_exe_0x0060bfa0\n\t.set _grim_img_exe_0x0060bfa0, _g_dwTotalNormalTris + 0\n");
 __asm__(".globl _grim_img_exe_0x0068bfa8\n\t.set _grim_img_exe_0x0068bfa8, _g_dwTotalVerts + 0\n");
 __asm__(".globl _grim_img_exe_0x006cbfb0\n\t.set _grim_img_exe_0x006cbfb0, _g_aHWNormalTris + 0\n");
 __asm__(".globl _grim_img_exe_0x006f0fb0\n\t.set _grim_img_exe_0x006f0fb0, _g_dwTotalSolidTris + 0\n");
 __asm__(".globl _grim_img_exe_0x006f0fb8\n\t.set _grim_img_exe_0x006f0fb8, _g_aHWVertices + 0\n");
-__asm__(".globl _grim_img_exe_0x00900024\n\t.set _grim_img_exe_0x00900024, _UINT_00900024 + 0\n");
-__asm__(".globl _grim_img_exe_0x00900028\n\t.set _grim_img_exe_0x00900028, _UINT_00900028 + 0\n");
-__asm__(".globl _grim_img_exe_0x0090002c\n\t.set _grim_img_exe_0x0090002c, _FLOAT_0090002c + 0\n");
-__asm__(".globl _grim_img_exe_0x00900030\n\t.set _grim_img_exe_0x00900030, _FLOAT_00900030 + 0\n");
-__asm__(".globl _grim_img_exe_0x00900034\n\t.set _grim_img_exe_0x00900034, _FLOAT_00900034 + 0\n");
-__asm__(".globl _grim_img_exe_0x00900044\n\t.set _grim_img_exe_0x00900044, _FLOAT_00900044 + 0\n");

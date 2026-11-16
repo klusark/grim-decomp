@@ -566,7 +566,7 @@ void Render_BuildColorTable(int fmt, float gamma)
         fr = (float)((long double)((1 << (f[2] & 31)) - 1) * fr);
         fg = (float)((long double)((1 << (f[3] & 31)) - 1) * fg);
         fb = (float)((long double)((1 << (f[4] & 31)) - 1) * fb);
-        (&g_wSputRender_ColorLookup)[i] = (ushort)((((int)(long long)fr) << (f[5] & 31)) |
+        g_wSputRender_ColorLookup[i] = (ushort)((((int)(long long)fr) << (f[5] & 31)) |
                                        (((int)(long long)fg) << (f[6] & 31)) |
                                        (((int)(long long)fb) << (f[7] & 31)));
     }

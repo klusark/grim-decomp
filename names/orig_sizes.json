@@ -1,0 +1,2740 @@
+{
+ "GRIMFANDANGO.EXE": {
+  "004d75a0": [
+   "rdroid_identMatrix34",
+   48
+  ],
+  "004d9838": [
+   "configuration_table",
+   120
+  ],
+  "004d98a8": [
+   "crc_table",
+   8192
+  ],
+  "004dd384": [
+   "deadmanCounter",
+   4
+  ],
+  "004dd9a8": [
+   "defaultHostServices",
+   116
+  ],
+  "004dda94": [
+   "rdroid_aMipDistances",
+   16
+  ],
+  "004ddaa0": [
+   "rdColormap_colorInfo",
+   56
+  ],
+  "004df600": [
+   "aSinTable",
+   16384
+  ],
+  "004e3600": [
+   "aTanTable",
+   16384
+  ],
+  "004e7b20": [
+   "max_ram",
+   4
+  ],
+  "004e7b50": [
+   "grimlib_PerfData",
+   624
+  ],
+  "004e7d98": [
+   "bUpdateLua",
+   1
+  ],
+  "004e7da0": [
+   "grimlib_renderOptions",
+   28
+  ],
+  "004e7e30": [
+   "grimlib_NewImuseState",
+   4
+  ],
+  "004e8024": [
+   "pTabFilename",
+   4
+  ],
+  "004e8088": [
+   "LoadImageAllowed",
+   4
+  ],
+  "004e8338": [
+   "sputVideoCallBacks",
+   24
+  ],
+  "004e8398": [
+   "primitiveFunctionsToRegister",
+   48
+  ],
+  "004e8528": [
+   "textFunctionsToRegister",
+   176
+  ],
+  "004e87c8": [
+   "sputControl_aControlSymbols",
+   2608
+  ],
+  "004e9a30": [
+   "PurgeAmount",
+   4
+  ],
+  "004e9c88": [
+   "phonemeTable",
+   368
+  ],
+  "004e9ef8": [
+   "thingCommands",
+   8
+  ],
+  "004e9f60": [
+   "keyCommands",
+   60
+  ],
+  "004e9ff8": [
+   "soundCommands",
+   12
+  ],
+  "004ea058": [
+   "luaCostumeFuncs",
+   16
+  ],
+  "004f0b70": [
+   "subscription_info",
+   48
+  ],
+  "004f0ba0": [
+   "shl_modules",
+   120
+  ],
+  "004f0c18": [
+   "grimmem_module_services",
+   16
+  ],
+  "004f0c28": [
+   "grimmem_memory_services",
+   12
+  ],
+  "004f0c38": [
+   "grimio_services",
+   16
+  ],
+  "004f0c48": [
+   "filio_services",
+   null
+  ],
+  "004f1200": [
+   "lecShareServices",
+   36
+  ],
+  "004f12f0": [
+   "anm_animplay_services",
+   52
+  ],
+  "004f1334": [
+   "anm_Render::count",
+   null
+  ],
+  "004f1720": [
+   "anm_overlay_flobdec",
+   4
+  ],
+  "004f1724": [
+   "anm_preload_out",
+   4
+  ],
+  "004f1738": [
+   "animframe_services",
+   24
+  ],
+  "004f1a40": [
+   "streamer_services",
+   32
+  ],
+  "004f1b80": [
+   "directory_services",
+   36
+  ],
+  "004f1d08": [
+   "zfilio_services",
+   28
+  ],
+  "004f2058": [
+   "static_l_desc",
+   20
+  ],
+  "004f2070": [
+   "static_d_desc",
+   20
+  ],
+  "004f2088": [
+   "static_bl_desc",
+   20
+  ],
+  "004f3320": [
+   "flobdec_services",
+   32
+  ],
+  "004f3340": [
+   "flobdec_DecodeBody::last_id",
+   null
+  ],
+  "004f34c8": [
+   "block16_flobdec_services",
+   32
+  ],
+  "004f38e4": [
+   "fob_blk16_configure.old_mod",
+   4
+  ],
+  "004f3c08": [
+   "timer_services",
+   null
+  ],
+  "004f3da0": [
+   "convert_bitmask",
+   36
+  ],
+  "004f3e18": [
+   "sou_samplesize",
+   24
+  ],
+  "004f3e30": [
+   "sou_chans",
+   4
+  ],
+  "004f3e34": [
+   "sou_global_volume",
+   4
+  ],
+  "004f3e38": [
+   "sou_sample_rate",
+   4
+  ],
+  "004f3e40": [
+   "sou_damp_rate",
+   4
+  ],
+  "004f3e44": [
+   "sou_engine_fill.damp_vol",
+   4
+  ],
+  "004f3e48": [
+   "sou_engine_fill.first",
+   1
+  ],
+  "004f3f78": [
+   "snddriver_services",
+   null
+  ],
+  "004f44e4": [
+   "Main_Service.frameRate",
+   4
+  ],
+  "004f4538": [
+   "grimdemo_StatusPrint.grimStatusBuffer",
+   1024
+  ],
+  "004f4938": [
+   "grimdemo_DebugPrint.grimDebugBuffer",
+   1024
+  ],
+  "004f4db0": [
+   "grimdemo_ErrorPrint.grimErrorBuffer",
+   1024
+  ],
+  "004f51b0": [
+   "grimdemo_WarningPrint.grimWarningBuffer",
+   1024
+  ],
+  "004f55b0": [
+   "grimdemo_MessagePrint.grimMessageBuffer",
+   1024
+  ],
+  "004f5a00": [
+   "grimlib_MinimizeWhenInactive",
+   4
+  ],
+  "004f5a0c": [
+   "bQuitApp",
+   1
+  ],
+  "004f5a24": [
+   "bDeveloper",
+   1
+  ],
+  "004f5a30": [
+   "bDrawPerfData",
+   4
+  ],
+  "004f5a60": [
+   "Main_Service.frameTime",
+   4
+  ],
+  "004f5a64": [
+   "Main_Service.frameTime0",
+   4
+  ],
+  "004f5aa0": [
+   "buffer",
+   1024
+  ],
+  "004f5eb4": [
+   "rdroid_frameTrue",
+   4
+  ],
+  "004f5eb8": [
+   "bRDroidStartup",
+   1
+  ],
+  "004f5ebc": [
+   "bRDroidOpen",
+   1
+  ],
+  "004f5ec0": [
+   "rdColormap_pIdentityMap",
+   4
+  ],
+  "004f5ec4": [
+   "rdColormap_pCurMap",
+   4
+  ],
+  "004f5ec8": [
+   "apNewActiveEdges",
+   4096
+  ],
+  "004f6ec8": [
+   "yMinEdge",
+   4
+  ],
+  "004f6ed0": [
+   "activeEdgeHead",
+   88
+  ],
+  "004f6f28": [
+   "yMaxEdge",
+   4
+  ],
+  "004f6f2c": [
+   "numActiveSpans",
+   4
+  ],
+  "0050cf30": [
+   "yCurScanLine",
+   4
+  ],
+  "0050cf38": [
+   "apRemoveActiveEdges",
+   4096
+  ],
+  "005e6f38": [
+   "numActiveEdges",
+   4
+  ],
+  "005e6f3c": [
+   "numActiveFaces",
+   4
+  ],
+  "005e6f40": [
+   "activeEdgeTail",
+   88
+  ],
+  "005e6f98": [
+   "rdActive_drawnFaces",
+   4
+  ],
+  "005e6fa0": [
+   "aGreenIntensities",
+   1048576
+  ],
+  "00606fa0": [
+   "aHWSolidTris",
+   163840
+  ],
+  "0060bfa0": [
+   "totalNormalTris",
+   4
+  ],
+  "0060bfa8": [
+   "aIntensities",
+   null
+  ],
+  "0062bfa8": [
+   "aVertices",
+   null
+  ],
+  "0068bfa8": [
+   "totalVerts",
+   4
+  ],
+  "006cbfb0": [
+   "aHWNormalTris",
+   163840
+  ],
+  "006d0fb0": [
+   "aBlueIntensities",
+   1048576
+  ],
+  "006f0fb0": [
+   "totalSolidTris",
+   4
+  ],
+  "006f0fb8": [
+   "aHWVertices",
+   8388608
+  ],
+  "007f0fb8": [
+   "rdCache_drawnFaces",
+   4
+  ],
+  "007f0fbc": [
+   "numUsedVertices",
+   4
+  ],
+  "007f0fc0": [
+   "numUsedTexVertices",
+   4
+  ],
+  "007f0fc4": [
+   "numUsedIntensities",
+   4
+  ],
+  "007f0fd0": [
+   "pCurGeo",
+   4
+  ],
+  "007f1168": [
+   "aLocalLightDir",
+   768
+  ],
+  "007f1468": [
+   "vertexDst",
+   44
+  ],
+  "007f1494": [
+   "curTextureMode",
+   4
+  ],
+  "007f1498": [
+   "apGeoLights",
+   256
+  ],
+  "007f1598": [
+   "aLocalLightPos",
+   768
+  ],
+  "007f1898": [
+   "meshFrustrumCull",
+   4
+  ],
+  "007f18a0": [
+   "aView",
+   null
+  ],
+  "007f30a0": [
+   "pCurMesh",
+   4
+  ],
+  "007f30a4": [
+   "thingFrustrumCull",
+   4
+  ],
+  "007f30a8": [
+   "vertexSrc",
+   44
+  ],
+  "007f30d8": [
+   "textureMode",
+   4
+  ],
+  "007f31e4": [
+   "lightingMode",
+   4
+  ],
+  "007f31e8": [
+   "geometryMode",
+   4
+  ],
+  "007f31ec": [
+   "rdModel3_numDrawnModels",
+   4
+  ],
+  "007f31f0": [
+   "pModel3Loader",
+   4
+  ],
+  "007f31f4": [
+   "pModel3Unloader",
+   4
+  ],
+  "007f31f8": [
+   "numGeoLights",
+   4
+  ],
+  "007f31fc": [
+   "numMeshLights",
+   4
+  ],
+  "007f3200": [
+   "maxGeoRadius",
+   4
+  ],
+  "007f3204": [
+   "ClipPlaneActive",
+   4
+  ],
+  "007f4238": [
+   "pMaterialsLoader",
+   4
+  ],
+  "007f423c": [
+   "pMaterialsUnloader",
+   4
+  ],
+  "007f4240": [
+   "flexEndScrap",
+   4
+  ],
+  "007f4244": [
+   "endScrap",
+   4
+  ],
+  "007f4248": [
+   "endVOverZ",
+   4
+  ],
+  "007f4250": [
+   "maxMipMap",
+   4
+  ],
+  "007f4254": [
+   "vStep",
+   4
+  ],
+  "007f4258": [
+   "uOverZ",
+   4
+  ],
+  "007f4260": [
+   "aUOverZ",
+   128
+  ],
+  "007f42e0": [
+   "oneOverEndScrap",
+   4
+  ],
+  "007f42e4": [
+   "vOverZ",
+   4
+  ],
+  "007f42f0": [
+   "flexStartScrap",
+   4
+  ],
+  "007f42f4": [
+   "oneOverZ",
+   4
+  ],
+  "007f4300": [
+   "pDest",
+   4
+  ],
+  "007f4304": [
+   "aIntensities",
+   null
+  ],
+  "007f4310": [
+   "aVOverZ",
+   128
+  ],
+  "007f4390": [
+   "numSubdivisions",
+   4
+  ],
+  "007f4398": [
+   "aTexVertices",
+   null
+  ],
+  "007f439c": [
+   "iStep",
+   4
+  ],
+  "007f43a0": [
+   "oneOverStartScrap",
+   4
+  ],
+  "007f43a4": [
+   "endOneOverZ",
+   4
+  ],
+  "007f43a8": [
+   "pWDest",
+   4
+  ],
+  "007f43ac": [
+   "startScrap",
+   4
+  ],
+  "007f43b0": [
+   "endU",
+   4
+  ],
+  "007f43b4": [
+   "endV",
+   4
+  ],
+  "007f43b8": [
+   "endZ",
+   4
+  ],
+  "007f43bc": [
+   "uStep",
+   4
+  ],
+  "007f43c0": [
+   "curU",
+   4
+  ],
+  "007f43c4": [
+   "curV",
+   4
+  ],
+  "007f43c8": [
+   "aOneOverZ",
+   128
+  ],
+  "007f4448": [
+   "curZ",
+   4
+  ],
+  "007f444c": [
+   "endUOverZ",
+   4
+  ],
+  "007f4450": [
+   "fixI",
+   4
+  ],
+  "007f4454": [
+   "fixU",
+   4
+  ],
+  "007f4458": [
+   "fixV",
+   4
+  ],
+  "007f4460": [
+   "numVertices",
+   4
+  ],
+  "007f4464": [
+   "maxMipMap",
+   4
+  ],
+  "007f4468": [
+   "aUOverZ",
+   128
+  ],
+  "007f44e8": [
+   "yMinVert",
+   4
+  ],
+  "007f44ec": [
+   "leftVertexStep",
+   4
+  ],
+  "007f44f4": [
+   "yMaxVert",
+   4
+  ],
+  "007f44f8": [
+   "aIntensities",
+   null
+  ],
+  "007f44fc": [
+   "aVertices",
+   null
+  ],
+  "007f4500": [
+   "aVOverZ",
+   128
+  ],
+  "007f4580": [
+   "rightVertexStep",
+   4
+  ],
+  "007f4584": [
+   "aTexVertices",
+   null
+  ],
+  "007f4588": [
+   "aOneOverZ",
+   128
+  ],
+  "007f4618": [
+   "pSourceIVert",
+   4
+  ],
+  "007f461c": [
+   "pSourceTVert",
+   4
+  ],
+  "007f46a8": [
+   "pDestTVert",
+   4
+  ],
+  "007f46ac": [
+   "pDestVert",
+   4
+  ],
+  "007f46b0": [
+   "pDestIVert",
+   4
+  ],
+  "007f46b8": [
+   "workTVerts",
+   256
+  ],
+  "007f47b8": [
+   "pSourceVert",
+   4
+  ],
+  "007f47c0": [
+   "workIVerts",
+   128
+  ],
+  "007f48c0": [
+   "workVerts",
+   384
+  ],
+  "007f4ac4": [
+   "rdClip_faceStatus",
+   4
+  ],
+  "007f5d88": [
+   "aFaceVerts",
+   384
+  ],
+  "00803f80": [
+   "stdDisplay_bStartup",
+   4
+  ],
+  "00803fa0": [
+   "stdDisplay_numDrawBuffers",
+   4
+  ],
+  "00804018": [
+   "aKeyInfo",
+   17472
+  ],
+  "00805f98": [
+   "stdControl_bStartup",
+   4
+  ],
+  "00805fa4": [
+   "stdControl_bControlsIdle",
+   4
+  ],
+  "00805fbc": [
+   "curReadTime",
+   4
+  ],
+  "00805fc0": [
+   "lastReadTime",
+   4
+  ],
+  "00805fd4": [
+   "stdPlatform_Assert(char*,char*,int)::enteredOnce",
+   null
+  ],
+  "00806940": [
+   "std3D_maxVertices",
+   4
+  ],
+  "00806c80": [
+   "stdColor_ColorConvertOneRow.row",
+   4
+  ],
+  "0080cbc8": [
+   "stdConffile_linenum",
+   4
+  ],
+  "0080cbcc": [
+   "stdConffile_bOpen",
+   4
+  ],
+  "0080cbd8": [
+   "stackLevel",
+   4
+  ],
+  "00825e7c": [
+   "stdMemory_curState",
+   44
+  ],
+  "00825e90": [
+   "lowLevelHS",
+   116
+  ],
+  "00825f00": [
+   "aFoundFiles",
+   64
+  ],
+  "008a856c": [
+   "pResHS",
+   4
+  ],
+  "008a8570": [
+   "pLowLevelHS",
+   4
+  ],
+  "008a8578": [
+   "aFoundFileNodes",
+   64
+  ],
+  "008a85b8": [
+   "fResSysInitialized",
+   1
+  ],
+  "008a85bc": [
+   "fResSysStarted",
+   1
+  ],
+  "008a85c0": [
+   "pResFilePool",
+   4
+  ],
+  "008a85c4": [
+   "pResFileList",
+   4
+  ],
+  "008a85c8": [
+   "pResTypePool",
+   4
+  ],
+  "008a85cc": [
+   "pResTypeList",
+   4
+  ],
+  "008a85d0": [
+   "pResNodePool",
+   4
+  ],
+  "008a85d4": [
+   "pNewestResNode",
+   4
+  ],
+  "008a85d8": [
+   "pOldestResNode",
+   4
+  ],
+  "008a85e0": [
+   "lastFound",
+   4
+  ],
+  "008a85e4": [
+   "logFile",
+   4
+  ],
+  "008a85e8": [
+   "Res_pPeriodicCallback",
+   4
+  ],
+  "008a85f0": [
+   "grimlib_aFilenames",
+   1024
+  ],
+  "008a8778": [
+   "BaseModuleServices",
+   288
+  ],
+  "008a8c3c": [
+   "grimlib_frameNumber",
+   4
+  ],
+  "008a8c40": [
+   "grimlib_mode",
+   8
+  ],
+  "008a8c48": [
+   "grimlib_prevmode",
+   4
+  ],
+  "008a8c58": [
+   "bsputmInitialize",
+   4
+  ],
+  "008a8c5c": [
+   "bsputmStartup",
+   4
+  ],
+  "008a8c70": [
+   "grimlib_shutdownCallback",
+   4
+  ],
+  "008a8c78": [
+   "bSputmOpen",
+   1
+  ],
+  "008a8c80": [
+   "doLoad",
+   1
+  ],
+  "008a8c84": [
+   "justLoaded",
+   1
+  ],
+  "008a8c94": [
+   "grimlib_SetPause::oldmode",
+   8
+  ],
+  "008a8c9c": [
+   "ppLanguageLine",
+   4
+  ],
+  "008a8ca4": [
+   "lineCount",
+   4
+  ],
+  "008a92b8": [
+   "sputRender_MarkDirtyRect::trect",
+   16
+  ],
+  "008a92c8": [
+   "sputRender_DrawLoadingImage::FrameAccum",
+   4
+  ],
+  "008a9510": [
+   "renderVars",
+   28
+  ],
+  "008a952c": [
+   "TotDrawItems",
+   4
+  ],
+  "008c9568": [
+   "pDrawItems",
+   512
+  ],
+  "008c9788": [
+   "bsputRendInitialize",
+   1
+  ],
+  "008c978c": [
+   "bsputRendStartup",
+   1
+  ],
+  "008c97b8": [
+   "sputRender_pSetPaletteFunc",
+   4
+  ],
+  "008c97f8": [
+   "MovieJustFinished",
+   4
+  ],
+  "008c9808": [
+   "sputRender_ControlHandler::bLastL",
+   null
+  ],
+  "008c980c": [
+   "sputRender_ControlHandler::bLastC",
+   null
+  ],
+  "008c9810": [
+   "sputRender_ControlHandler::bLastB",
+   null
+  ],
+  "008c9814": [
+   "sputRender_ControlHandler::bLastR",
+   null
+  ],
+  "008c9818": [
+   "sputRender_ControlHandler::bLastSpace",
+   null
+  ],
+  "008c9a74": [
+   "fMemorySysInitialized",
+   1
+  ],
+  "008c9a78": [
+   "fMemorySysStarted",
+   1
+  ],
+  "008c9a80": [
+   "pFirstPool",
+   4
+  ],
+  "008c9a94": [
+   "fFileUtilSysInitialized",
+   1
+  ],
+  "008c9a98": [
+   "fFileUtilSysStarted",
+   1
+  ],
+  "008c9ca8": [
+   "SmushHS",
+   4
+  ],
+  "008c9fb0": [
+   "SmushX",
+   4
+  ],
+  "008c9fb4": [
+   "SmushY",
+   4
+  ],
+  "008c9fb8": [
+   "smushPlayMS",
+   32
+  ],
+  "008c9ff8": [
+   "SmushStartTime",
+   4
+  ],
+  "008ca080": [
+   "SmushBuf",
+   4
+  ],
+  "008ca0a0": [
+   "PrimitiveQ",
+   8
+  ],
+  "008ca0a8": [
+   "bsputPrimitiveInitialize",
+   1
+  ],
+  "008ca0ac": [
+   "bsputPrimitiveStartup",
+   1
+  ],
+  "008ca0b0": [
+   "psputPrimitiveHS",
+   4
+  ],
+  "008ca0b8": [
+   "textMS",
+   32
+  ],
+  "008ca0d8": [
+   "lrHeight",
+   4
+  ],
+  "008ca0dc": [
+   "lrX",
+   4
+  ],
+  "008ca0e0": [
+   "lrY",
+   4
+  ],
+  "008ca0e4": [
+   "lrBackground",
+   4
+  ],
+  "008ca0e8": [
+   "lrHiColor",
+   4
+  ],
+  "008ca0ec": [
+   "lrDuration",
+   4
+  ],
+  "008ca0f0": [
+   "lrFXColor",
+   4
+  ],
+  "008ca0f4": [
+   "lrCenter",
+   4
+  ],
+  "008ca0f8": [
+   "lrWidth",
+   4
+  ],
+  "008ca0fc": [
+   "lrBGColor",
+   4
+  ],
+  "008ca100": [
+   "lrVolume",
+   4
+  ],
+  "008ca104": [
+   "lrFont",
+   4
+  ],
+  "008ca108": [
+   "lrLJustify",
+   4
+  ],
+  "008ca10c": [
+   "lrRJustify",
+   4
+  ],
+  "008ca110": [
+   "lrFGColor",
+   4
+  ],
+  "008ca114": [
+   "lrPan",
+   4
+  ],
+  "008ca118": [
+   "graphMS",
+   32
+  ],
+  "008ca138": [
+   "bsputtextInitialize",
+   1
+  ],
+  "008ca13c": [
+   "bsputtextStartup",
+   1
+  ],
+  "008ca144": [
+   "psputtextHS",
+   4
+  ],
+  "008ca148": [
+   "hFont",
+   4
+  ],
+  "008ca1b8": [
+   "psputConHS",
+   4
+  ],
+  "008ca1bc": [
+   "bsputConInitialize",
+   1
+  ],
+  "008ca1c0": [
+   "bsputConStartup",
+   1
+  ],
+  "008ca1d0": [
+   "psputResHS",
+   4
+  ],
+  "008ca1d8": [
+   "resModServices",
+   32
+  ],
+  "008ca1fc": [
+   "bsputResStartup",
+   4
+  ],
+  "008ca200": [
+   "prdMatLoader",
+   4
+  ],
+  "008ca204": [
+   "prdMatUnloader",
+   4
+  ],
+  "008ca32c": [
+   "psputActHS",
+   4
+  ],
+  "008ca768": [
+   "bsputActInitialize",
+   1
+  ],
+  "008ca76c": [
+   "bsputActStartup",
+   1
+  ],
+  "008ca770": [
+   "choreMS",
+   32
+  ],
+  "008ca798": [
+   "bsputCosInitialize",
+   4
+  ],
+  "008ca79c": [
+   "bsputCosStartup",
+   1
+  ],
+  "008ca7a4": [
+   "aLECBitmaps",
+   4
+  ],
+  "008ca7ac": [
+   "oldInstanceHook",
+   4
+  ],
+  "008ca7b0": [
+   "oldSaveHook",
+   4
+  ],
+  "008ca7b4": [
+   "RecentBM",
+   4
+  ],
+  "008ca7b8": [
+   "keyframePath",
+   255
+  ],
+  "008ca838": [
+   "bitmapPath",
+   255
+  ],
+  "008ca8b8": [
+   "colormapPath",
+   255
+  ],
+  "008ca938": [
+   "materialPath",
+   255
+  ],
+  "008ca9b8": [
+   "modelPath",
+   255
+  ],
+  "008caa38": [
+   "soundPath",
+   255
+  ],
+  "008caab8": [
+   "smushPath",
+   255
+  ],
+  "008cab44": [
+   "lrOldConcatFallback",
+   4
+  ],
+  "008cab48": [
+   "lrTypeFunction",
+   4
+  ],
+  "008cab50": [
+   "LuaMS",
+   32
+  ],
+  "008cab7c": [
+   "bsputLuaInitialize",
+   1
+  ],
+  "008cab8c": [
+   "pDebugToggleFunc",
+   4
+  ],
+  "008cab94": [
+   "psputTimeHS",
+   4
+  ],
+  "008cab98": [
+   "bsputTimeInitialize",
+   1
+  ],
+  "008cab9c": [
+   "bsputTimeStartup",
+   1
+  ],
+  "008cabb0": [
+   "sputRoom_pCurrentRoom",
+   52
+  ],
+  "008cb098": [
+   "bsputRoomInitialize",
+   1
+  ],
+  "008cb09c": [
+   "bsputRoomStartup",
+   1
+  ],
+  "008cb0a8": [
+   "pLoadingRoom",
+   4
+  ],
+  "008cf0b0": [
+   "WorkingPath",
+   1536
+  ],
+  "008cf248": [
+   "TotWorkingPathPoints",
+   4
+  ],
+  "008cf250": [
+   "Puck::Rot::ret",
+   null
+  ],
+  "008cf26c": [
+   "WalkPlane::tot_verts",
+   4
+  ],
+  "008cf288": [
+   "WalkPlane::Collection",
+   5600
+  ],
+  "008d0868": [
+   "wpCacheBuilt",
+   1
+  ],
+  "008d086c": [
+   "Puck::p_head",
+   4
+  ],
+  "008d0870": [
+   "Puck::Forward::recursion_level",
+   null
+  ],
+  "008d0880": [
+   "aLookup",
+   256
+  ],
+  "008d0980": [
+   "fTextSysInitialized",
+   1
+  ],
+  "008d0984": [
+   "fTextSysStarted",
+   1
+  ],
+  "008d098c": [
+   "pGraphHS",
+   4
+  ],
+  "008d0990": [
+   "fGraphSysInitialized",
+   1
+  ],
+  "008d0994": [
+   "fGraphSysStarted",
+   1
+  ],
+  "008d0a70": [
+   "zg_App_bAppActive",
+   4
+  ],
+  "008d1090": [
+   "movieFlags",
+   4
+  ],
+  "008d1098": [
+   "videoCallbacks",
+   24
+  ],
+  "008d10c8": [
+   "file_services",
+   null
+  ],
+  "008d10d0": [
+   "CurFileName",
+   255
+  ],
+  "008d11d4": [
+   "share_services",
+   4
+  ],
+  "008d11d8": [
+   "ah",
+   4
+  ],
+  "008d11f0": [
+   "grimmem_share_config",
+   4
+  ],
+  "008d11f4": [
+   "pSmushPlayHS",
+   4
+  ],
+  "008d11f8": [
+   "grimmem_share_services",
+   4
+  ],
+  "008d1200": [
+   "animplay_services",
+   4
+  ],
+  "008d1630": [
+   "share_config",
+   4
+  ],
+  "008d1648": [
+   "fakeBM",
+   88
+  ],
+  "008d169c": [
+   "sound_services",
+   null
+  ],
+  "008d16a0": [
+   "fSmushPlaySysInitialized",
+   1
+  ],
+  "008d16a4": [
+   "fSmushPlaySysStarted",
+   1
+  ],
+  "008d16a8": [
+   "fMovieIsPlaying",
+   1
+  ],
+  "008d16b4": [
+   "smushplay_pUserLookup",
+   4
+  ],
+  "008d16b8": [
+   "smush_pInternalBitmap",
+   4
+  ],
+  "008d16bc": [
+   "smushPlay_TranslationTable",
+   4
+  ],
+  "008d364c": [
+   "pKeyframeLoader",
+   4
+  ],
+  "008d3650": [
+   "pKeyframeUnloader",
+   4
+  ],
+  "008d3680": [
+   "GetCatalogEntry.pLastType",
+   100
+  ],
+  "008d36e8": [
+   "FindMatch.stringBuffer",
+   8192
+  ],
+  "008d56e8": [
+   "privateData",
+   6164
+  ],
+  "008d6f04": [
+   "bitmap_services",
+   null
+  ],
+  "008d6f14": [
+   "share_config",
+   4
+  ],
+  "008d6f24": [
+   "anm_audio_halted",
+   1
+  ],
+  "008d6f28": [
+   "RenderHandler.totalTime",
+   4
+  ],
+  "008d6f30": [
+   "anm_flobdec_types",
+   400
+  ],
+  "008d70c0": [
+   "anm_flobdec_services",
+   400
+  ],
+  "008d7250": [
+   "anm_flobdec_ids",
+   400
+  ],
+  "008d73e0": [
+   "share_config",
+   4
+  ],
+  "008d73e8": [
+   "anm_transform_palette",
+   1024
+  ],
+  "008d77ec": [
+   "anm_flobdec_count",
+   4
+  ],
+  "008d77f0": [
+   "anm_overlay_buffer",
+   4
+  ],
+  "008d77f4": [
+   "anm_preload_buffer",
+   4
+  ],
+  "008d77f8": [
+   "anm_overlay_size",
+   4
+  ],
+  "008d7800": [
+   "anm_preload_in",
+   4
+  ],
+  "008d7804": [
+   "anm_transform_count",
+   4
+  ],
+  "008d7808": [
+   "anm_PreloadPut::lastblock",
+   null
+  ],
+  "008d7814": [
+   "memory_services",
+   4
+  ],
+  "008d7818": [
+   "share_services",
+   4
+  ],
+  "008d781c": [
+   "filio_services",
+   null
+  ],
+  "008d7820": [
+   "share_config",
+   4
+  ],
+  "008d7824": [
+   "fle_StreamerDispense.incremented",
+   1
+  ],
+  "008d7828": [
+   "file_services",
+   null
+  ],
+  "008d782c": [
+   "share_services",
+   4
+  ],
+  "008d7830": [
+   "share_config",
+   4
+  ],
+  "008d7838": [
+   "share_services",
+   4
+  ],
+  "008d783c": [
+   "virtherc_services",
+   4
+  ],
+  "008d7840": [
+   "share_config",
+   4
+  ],
+  "008d7844": [
+   "share_services",
+   4
+  ],
+  "008d784c": [
+   "share_config",
+   4
+  ],
+  "008d7850": [
+   "memoryServices",
+   4
+  ],
+  "008d7864": [
+   "share_services",
+   4
+  ],
+  "008d7868": [
+   "aDeltaTable",
+   11392
+  ],
+  "008da4e8": [
+   "share_config",
+   4
+  ],
+  "008da4ec": [
+   "soundServices",
+   4
+  ],
+  "008da4f0": [
+   "outputBuffer",
+   4
+  ],
+  "008da4f4": [
+   "bDeltaTableInitialized",
+   1
+  ],
+  "008da4f8": [
+   "memory_services",
+   4
+  ],
+  "008da4fc": [
+   "bitmap_services",
+   null
+  ],
+  "008da500": [
+   "share_services",
+   4
+  ],
+  "008da504": [
+   "share_config",
+   4
+  ],
+  "008da540": [
+   "memory_services",
+   4
+  ],
+  "008da544": [
+   "timer_rate",
+   4
+  ],
+  "008da85c": [
+   "share_config",
+   4
+  ],
+  "008da864": [
+   "timer_thread.lastTime",
+   4
+  ],
+  "008da878": [
+   "sys_disable_flag",
+   4
+  ],
+  "008da890": [
+   "memory_services",
+   4
+  ],
+  "008da894": [
+   "share_services",
+   4
+  ],
+  "008da898": [
+   "share_config",
+   4
+  ],
+  "008da89c": [
+   "video_services",
+   4
+  ],
+  "008da8a8": [
+   "memory_services",
+   4
+  ],
+  "008dacb0": [
+   "sound_bufsize",
+   64
+  ],
+  "008dacf0": [
+   "snddriver_services",
+   null
+  ],
+  "008dacf4": [
+   "sound_ticks",
+   4
+  ],
+  "008dacf8": [
+   "share_services",
+   4
+  ],
+  "008dacfc": [
+   "sound_reserveram",
+   4
+  ],
+  "008dad40": [
+   "sound_music_on",
+   4
+  ],
+  "008dad44": [
+   "sound_sound_on",
+   4
+  ],
+  "008dad48": [
+   "timer_services",
+   null
+  ],
+  "008dad4c": [
+   "sound_voice_on",
+   4
+  ],
+  "008dad50": [
+   "sound_flipped",
+   4
+  ],
+  "008dad6c": [
+   "sou_hooks",
+   256
+  ],
+  "008db098": [
+   "share_config",
+   4
+  ],
+  "008db09c": [
+   "sound_samplerate",
+   4
+  ],
+  "008db0a0": [
+   "sound_name",
+   4
+  ],
+  "008db1e8": [
+   "sound_channel",
+   4
+  ],
+  "008db1ec": [
+   "sou_paused_flag",
+   4
+  ],
+  "008db1f0": [
+   "sou_active_flag",
+   4
+  ],
+  "008db208": [
+   "memory_services",
+   4
+  ],
+  "008db430": [
+   "share_config",
+   4
+  ],
+  "008dcdb8": [
+   "msc_uncompress_count",
+   4
+  ],
+  "008dcdbc": [
+   "msc_uncompress_state",
+   4
+  ],
+  "008dcdc0": [
+   "msc_uncompress_val",
+   1
+  ],
+  "008dcdc4": [
+   "msc_uncompress_data",
+   4
+  ],
+  "008dcdc8": [
+   "msc_error_string",
+   4000
+  ],
+  "008ddd68": [
+   "msc_error_loc",
+   4
+  ],
+  "008ddd6c": [
+   "msc_error_count",
+   4
+  ],
+  "008ddd80": [
+   "polyglotServices",
+   32
+  ],
+  "008ddda0": [
+   "hs",
+   116
+  ],
+  "008dde20": [
+   "ms",
+   32
+  ],
+  "008dde44": [
+   "rdZRaster_aRGBToPalette",
+   4
+  ],
+  "008dde48": [
+   "rdZRaster_uWrap",
+   4
+  ],
+  "008dde4c": [
+   "rdZRaster_oneOverZStep",
+   4
+  ],
+  "008dde50": [
+   "rdZRaster_dVdXModifier",
+   4
+  ],
+  "008dde54": [
+   "rdZRaster_mipMapNum",
+   4
+  ],
+  "008dde58": [
+   "rdZRaster_vWrap",
+   4
+  ],
+  "008dde5c": [
+   "rdZRaster_aRGBMap",
+   4
+  ],
+  "008dde60": [
+   "rdZRaster_dUOverZdX",
+   4
+  ],
+  "008dde64": [
+   "rdZRaster_dUOverZdY",
+   4
+  ],
+  "008dde68": [
+   "rdZRaster_texPitch",
+   4
+  ],
+  "008dde6c": [
+   "rdZRaster_aMonoMap",
+   4
+  ],
+  "008dde70": [
+   "rdZRaster_RGBcolor",
+   2
+  ],
+  "008dde74": [
+   "rdZRaster_vOverZStep",
+   4
+  ],
+  "008dde78": [
+   "rdZRaster_dUdXModifier",
+   4
+  ],
+  "008dde7c": [
+   "rdZRaster_pPixels",
+   4
+  ],
+  "008dde80": [
+   "rdZRaster_dVOverZdX",
+   4
+  ],
+  "008dde84": [
+   "rdZRaster_dVOverZdY",
+   4
+  ],
+  "008dde88": [
+   "rdZRaster_dOneOverZdXFixed",
+   4
+  ],
+  "008dde8c": [
+   "rdZRaster_texRowShift",
+   4
+  ],
+  "008dde90": [
+   "rdZRaster_aAlphaMap",
+   4
+  ],
+  "008dde94": [
+   "rdZRaster_uOverZStep",
+   4
+  ],
+  "008dde98": [
+   "rdZRaster_color",
+   1
+  ],
+  "008dde9c": [
+   "rdZRaster_dOneOverZdY",
+   4
+  ],
+  "008ddea0": [
+   "rdZRaster_dOneOverZdX",
+   4
+  ],
+  "008ddea4": [
+   "rdZRaster_zScaleShift",
+   4
+  ],
+  "008ddea8": [
+   "rdNRaster_aAlphaMap",
+   4
+  ],
+  "008ddeac": [
+   "rdNRaster_dVdXModifier",
+   4
+  ],
+  "008ddeb0": [
+   "rdNRaster_aMonoMap",
+   4
+  ],
+  "008ddeb4": [
+   "rdNRaster_texPitch",
+   4
+  ],
+  "008ddeb8": [
+   "rdNRaster_RGBcolor",
+   2
+  ],
+  "008ddebc": [
+   "rdNRaster_aRGBMap",
+   4
+  ],
+  "008ddec0": [
+   "rdNRaster_color",
+   1
+  ],
+  "008ddec4": [
+   "rdNRaster_dUOverZdY",
+   4
+  ],
+  "008ddec8": [
+   "rdNRaster_dUOverZdX",
+   4
+  ],
+  "008ddecc": [
+   "rdNRaster_uWrap",
+   4
+  ],
+  "008dded0": [
+   "rdNRaster_uOverZStep",
+   4
+  ],
+  "008dded4": [
+   "rdNRaster_aRGBToPalette",
+   4
+  ],
+  "008dded8": [
+   "rdNRaster_texRowShift",
+   4
+  ],
+  "008ddedc": [
+   "rdNRaster_dVOverZdX",
+   4
+  ],
+  "008ddee0": [
+   "rdNRaster_dVOverZdY",
+   4
+  ],
+  "008ddee4": [
+   "rdNRaster_mipMapNum",
+   4
+  ],
+  "008ddee8": [
+   "rdNRaster_pPixels",
+   4
+  ],
+  "008ddeec": [
+   "rdNRaster_oneOverZStep",
+   4
+  ],
+  "008ddef0": [
+   "rdNRaster_dOneOverZdY",
+   4
+  ],
+  "008ddef4": [
+   "rdNRaster_dOneOverZdX",
+   4
+  ],
+  "008ddef8": [
+   "rdNRaster_dUdXModifier",
+   4
+  ],
+  "008ddefc": [
+   "rdNRaster_vWrap",
+   4
+  ],
+  "008ddf00": [
+   "rdNRaster_vOverZStep",
+   4
+  ],
+  "008ddf04": [
+   "rdAFRaster_mipMapNum",
+   4
+  ],
+  "008ddf08": [
+   "rdAFRaster_RGBcolor",
+   2
+  ],
+  "008ddf0c": [
+   "rdAFRaster_aMonoMap",
+   4
+  ],
+  "008ddf10": [
+   "rdAFRaster_texRowShift",
+   4
+  ],
+  "008ddf14": [
+   "rdAFRaster_vWrap",
+   4
+  ],
+  "008ddf18": [
+   "rdAFRaster_dVdXModifier",
+   4
+  ],
+  "008ddf1c": [
+   "rdAFRaster_dOneOverZdX",
+   4
+  ],
+  "008ddf20": [
+   "rdAFRaster_dUOverZdX",
+   4
+  ],
+  "008ddf24": [
+   "rdAFRaster_dOneOverZdXFixed",
+   4
+  ],
+  "008ddf28": [
+   "rdAFRaster_oneOverZStep",
+   4
+  ],
+  "008ddf2c": [
+   "rdAFRaster_uOverZStep",
+   4
+  ],
+  "008ddf30": [
+   "rdAFRaster_aRGBMap",
+   4
+  ],
+  "008ddf34": [
+   "rdAFRaster_texPitch",
+   4
+  ],
+  "008ddf38": [
+   "rdAFRaster_dVOverZdX",
+   4
+  ],
+  "008ddf3c": [
+   "rdAFRaster_pPixels",
+   4
+  ],
+  "008ddf40": [
+   "rdAFRaster_color",
+   1
+  ],
+  "008ddf44": [
+   "rdAFRaster_dUdXModifier",
+   4
+  ],
+  "008ddf48": [
+   "rdAFRaster_vOverZStep",
+   4
+  ],
+  "008ddf4c": [
+   "rdAFRaster_uWrap",
+   4
+  ],
+  "008ddf50": [
+   "rdCamera_camPYR",
+   12
+  ],
+  "008ddfc0": [
+   "rdCache_aProcFaces",
+   983040
+  ],
+  "008fbfc0": [
+   "rdRaster_aOneOverNFixed",
+   8192
+  ],
+  "008fe000": [
+   "rdRaster_aOneOverNFlex",
+   8192
+  ],
+  "00900020": [
+   "rdroid_curColorEffects",
+   40
+  ],
+  "0090004c": [
+   "rdroid_curVertexColorMode",
+   4
+  ],
+  "00900054": [
+   "rdroid_curProcFaceUserData",
+   4
+  ],
+  "00900068": [
+   "rdroid_curCullFlags",
+   4
+  ],
+  "009004a0": [
+   "stdConffile_pFilename",
+   255
+  ],
+  "00900520": [
+   "stdConffile_aLine",
+   4
+  ],
+  "00901500": [
+   "stdControl_aAxes",
+   360
+  ],
+  "00901680": [
+   "stdDisplay_frontBuffer",
+   108
+  ],
+  "009055e0": [
+   "stdDisplay_backBuffer",
+   108
+  ],
+  "009056c0": [
+   "std_genBuffer",
+   1024
+  ],
+  "00906c1c": [
+   "memory_services",
+   4
+  ],
+  "00906c20": [
+   "bitmap_services",
+   null
+  ],
+  "00906c24": [
+   "share_services",
+   4
+  ],
+  "00906c28": [
+   "virtherc_services",
+   4
+  ],
+  "00906c2c": [
+   "video_services",
+   4
+  ],
+  "00906c40": [
+   "anm_share_services",
+   4
+  ]
+ },
+ "IMUSE.DLL": {
+  "100172c0": [
+   "wvSlicingHalted",
+   4
+  ],
+  "1001e688": [
+   "localMusic",
+   4
+  ],
+  "1001e8a4": [
+   "TAIL_BYTES",
+   4
+  ],
+  "1001e8a8": [
+   "imVoiceBufferSize",
+   4
+  ],
+  "1001e8ac": [
+   "imVoiceGulpSize",
+   4
+  ],
+  "1001e8b0": [
+   "imVoiceCriticalSize",
+   4
+  ],
+  "1001e8b4": [
+   "imMusicBufferSize",
+   4
+  ],
+  "1001e8b8": [
+   "imMusicGulpSize",
+   4
+  ],
+  "1001e8bc": [
+   "imMusicCriticalSize",
+   4
+  ],
+  "1001e8c0": [
+   "imLargeFadeSize",
+   4
+  ],
+  "1001e8c4": [
+   "imLargeFadeCount",
+   4
+  ],
+  "1001e8c8": [
+   "imSmallFadeSize",
+   4
+  ],
+  "1001e8cc": [
+   "imSmallFadeCount",
+   4
+  ],
+  "1001e8d0": [
+   "imNonPurgeCacheSize",
+   4
+  ],
+  "1001e8d4": [
+   "imWaveMixCount",
+   4
+  ],
+  "1001e8d8": [
+   "effectsHeapSize",
+   4
+  ],
+  "1001e8dc": [
+   "bMuscriptLocal",
+   4
+  ],
+  "10024dcc": [
+   "largeFadeBufs",
+   4
+  ],
+  "10024dd0": [
+   "largeFadeFlags",
+   4
+  ],
+  "10024dd4": [
+   "smallFadeBufs",
+   4
+  ],
+  "10024dd8": [
+   "PredictStream.jumpHook",
+   4
+  ],
+  "10024ddc": [
+   "DpProcessTrack.critSize",
+   4
+  ],
+  "10024de0": [
+   "fadeStartedFlag",
+   1
+  ],
+  "10024de8": [
+   "streamZones",
+   1200
+  ],
+  "10025298": [
+   "smallFadeFlags",
+   4
+  ],
+  "100252a0": [
+   "dispatches",
+   34112
+  ],
+  "1002d7e0": [
+   "DpProcessTrack.curLevel",
+   4
+  ],
+  "1002d7e4": [
+   "DpProcessTrack.pauseFlag",
+   4
+  ],
+  "1002d7e8": [
+   "GoToNextRegion.fadeSize",
+   4
+  ],
+  "1002d808": [
+   "memAddr",
+   4
+  ],
+  "1002d80c": [
+   "PrepareToJump.fadeSize",
+   4
+  ],
+  "1002d810": [
+   "DpProcessTrack.bufSize",
+   4
+  ],
+  "1002d84c": [
+   "currentWriteIndex",
+   4
+  ],
+  "1002d858": [
+   "fadesOn",
+   1
+  ],
+  "1002d860": [
+   "fades",
+   640
+  ],
+  "1002dae0": [
+   "openSoundFunc",
+   4
+  ],
+  "1002dae4": [
+   "closeSoundFunc",
+   4
+  ],
+  "1002dcf0": [
+   "loadSoundFunc",
+   4
+  ],
+  "1002dcf4": [
+   "unloadSoundFunc",
+   4
+  ],
+  "1002dcf8": [
+   "loadedList",
+   4
+  ],
+  "1002dcfc": [
+   "openedList",
+   4
+  ],
+  "1002dd00": [
+   "initFlag",
+   1
+  ],
+  "1002dd80": [
+   "groupVols",
+   64
+  ],
+  "1002ddc0": [
+   "groupEffVols",
+   64
+  ],
+  "1002df00": [
+   "pauseCount",
+   4
+  ],
+  "1002df04": [
+   "running50HzCount",
+   4
+  ],
+  "1002df08": [
+   "running10HzCount",
+   4
+  ],
+  "1002df0c": [
+   "initialized",
+   1
+  ],
+  "1002df10": [
+   "intFlag",
+   4
+  ],
+  "1002df18": [
+   "outChannelCount",
+   4
+  ],
+  "1002df1c": [
+   "dataSizeInBytes",
+   4
+  ],
+  "1002df20": [
+   "softLTable",
+   4
+  ],
+  "1002df24": [
+   "mixBufSize",
+   4
+  ],
+  "1002df30": [
+   "MxEndMix.wavHeader",
+   44
+  ],
+  "1002df5c": [
+   "mixBuf",
+   4
+  ],
+  "1002df60": [
+   "recordState",
+   4
+  ],
+  "1002df64": [
+   "recordFile",
+   4
+  ],
+  "1002df70": [
+   "currentState",
+   4
+  ],
+  "1002e308": [
+   "currentSequence",
+   4
+  ],
+  "1002e30c": [
+   "currentCuePoint",
+   4
+  ],
+  "1002e310": [
+   "Trans.name",
+   32
+  ],
+  "1002e340": [
+   "lipSfx1Data",
+   2000
+  ],
+  "1002eb10": [
+   "streamID",
+   200
+  ],
+  "1002ebd8": [
+   "mlListSize",
+   4
+  ],
+  "1002ec10": [
+   "mlEntryCount",
+   4
+  ],
+  "1002ec18": [
+   "lipSfx2Data",
+   2000
+  ],
+  "1002f3e8": [
+   "lipStreamData",
+   2000
+  ],
+  "1002fbd0": [
+   "lipSfx3Data",
+   2000
+  ],
+  "100303a0": [
+   "aMcmpFileHandles",
+   4480
+  ],
+  "10031528": [
+   "soundCache",
+   2048
+  ],
+  "10031d2c": [
+   "iMuseMasterVolHold",
+   4
+  ],
+  "10031d30": [
+   "useVoxFx",
+   4
+  ],
+  "10031d38": [
+   "mlEntries",
+   4
+  ],
+  "10031d3c": [
+   "nextHandle",
+   4
+  ],
+  "10031d44": [
+   "bImuseInitialized",
+   1
+  ],
+  "10031d50": [
+   "lastVoiceFilename",
+   4096
+  ],
+  "10031e54": [
+   "bMuscriptRemote",
+   4
+  ],
+  "10031e60": [
+   "voxFxBuf",
+   4
+  ],
+  "10031e70": [
+   "lipStreamID",
+   4
+  ],
+  "10031e74": [
+   "lipSfx1ID",
+   4
+  ],
+  "10031e78": [
+   "lipSfx2ID",
+   4
+  ],
+  "10031e7c": [
+   "lipSfx3ID",
+   4
+  ],
+  "10031e84": [
+   "timerCounter",
+   4
+  ],
+  "10031e88": [
+   "nextToAllocate",
+   4
+  ],
+  "10031e8c": [
+   "csInit",
+   1
+  ],
+  "10031e90": [
+   "lastStreamLoaded",
+   4
+  ],
+  "10031e94": [
+   "bailFlag",
+   1
+  ],
+  "10031e98": [
+   "streams",
+   144
+  ],
+  "100322e8": [
+   "TrIntHandler.outSampleRate",
+   4
+  ],
+  "100322f0": [
+   "TrInitialize.waveDriverInfo",
+   16
+  ],
+  "10032300": [
+   "trackList",
+   4
+  ],
+  "10032304": [
+   "TrIntHandler.outFramesNeeded",
+   4
+  ],
+  "1003230c": [
+   "pauseTimer",
+   1
+  ],
+  "10032314": [
+   "TrIntHandler.outPtr",
+   4
+  ],
+  "10032320": [
+   "trigs",
+   2464
+  ],
+  "10032e40": [
+   "TgProcessMarker.textCopy",
+   256
+  ],
+  "10032f40": [
+   "defersOn",
+   1
+  ],
+  "10032f44": [
+   "midProcessing",
+   4
+  ],
+  "1003350c": [
+   "trackCount",
+   4
+  ],
+  "10033510": [
+   "pHS",
+   4
+  ],
+  "10033520": [
+   "voxFxName",
+   40
+  ],
+  "10033560": [
+   "panTable",
+   289
+  ],
+  "100336a0": [
+   "imuseInitData",
+   32
+  ]
+ },
+ "LUA.DLL": {
+  "10023188": [
+   "yytranslate",
+   285
+  ],
+  "100232a8": [
+   "yyr1",
+   206
+  ],
+  "10023378": [
+   "yyr2",
+   206
+  ],
+  "10023448": [
+   "yydefact",
+   364
+  ],
+  "10023556": [
+   "yydefgoto",
+   88
+  ],
+  "10023610": [
+   "yypact",
+   364
+  ],
+  "1002371e": [
+   "yypgoto",
+   88
+  ],
+  "100237d8": [
+   "yytable",
+   526
+  ],
+  "100239e8": [
+   "yycheck",
+   526
+  ],
+  "100263d8": [
+   "int_funcs",
+   288
+  ],
+  "10026ae8": [
+   "setloc.cat",
+   24
+  ],
+  "10026b00": [
+   "iolib",
+   80
+  ],
+  "10026b50": [
+   "iolibtag",
+   40
+  ],
+  "10026d90": [
+   "checkcond::opts",
+   null
+  ],
+  "10026da0": [
+   "inclinenumber::pragmas",
+   null
+  ],
+  "10026f30": [
+   "mathlib",
+   168
+  ],
+  "100270a8": [
+   "luaO_typenames",
+   56
+  ],
+  "100270e0": [
+   "luaO_nilobject",
+   16
+  ],
+  "100270e8": [
+   "dimensions",
+   92
+  ],
+  "100271ac": [
+   "opcodeDirectory",
+   1548
+  ],
+  "10027898": [
+   "EMPTY",
+   36
+  ],
+  "100278d8": [
+   "strlib",
+   72
+  ],
+  "10027d48": [
+   "luaT_eventname",
+   76
+  ],
+  "10027db0": [
+   "validevents",
+   144
+  ],
+  "10027e40": [
+   "luaT_setfallback::oldnames",
+   20
+  ],
+  "1002beb0": [
+   "pSaveFunc",
+   4
+  ],
+  "1002beb4": [
+   "lua_totalBytesSaved",
+   4
+  ],
+  "1002beb8": [
+   "pLuaHS",
+   4
+  ],
+  "1002bebc": [
+   "bLuaInitialize",
+   1
+  ],
+  "1002bec0": [
+   "bLuaStartup",
+   1
+  ],
+  "1002bec4": [
+   "pFirstFuncArray",
+   4
+  ],
+  "1002bee8": [
+   "LState::last_tag",
+   4
+  ],
+  "1002beec": [
+   "LState::nblocks",
+   4
+  ],
+  "1002bef0": [
+   "LState::IMtable_size",
+   4
+  ],
+  "1002bef4": [
+   "LState::string_root",
+   4
+  ],
+  "1002bef8": [
+   "LState::protoPtrTotal",
+   4
+  ],
+  "1002befc": [
+   "LState::Mbuffbase",
+   4
+  ],
+  "1002bf00": [
+   "LState::rootglobal",
+   8
+  ],
+  "1002bf08": [
+   "LState::refSize",
+   4
+  ],
+  "1002bf10": [
+   "LState::aTablePtrs",
+   4
+  ],
+  "1002bf18": [
+   "LState::roottable",
+   8
+  ],
+  "1002bf20": [
+   "LState::rootcl",
+   8
+  ],
+  "1002bf28": [
+   "LState::Mbuffsize",
+   4
+  ],
+  "1002bf2c": [
+   "LState::tablePtrTotal",
+   4
+  ],
+  "1002bf30": [
+   "LState::stringPtrTotal",
+   4
+  ],
+  "1002bf34": [
+   "LState::refArray",
+   4
+  ],
+  "1002bf38": [
+   "LState::rootproto",
+   8
+  ],
+  "1002bf40": [
+   "LState::Mbuffer",
+   4
+  ],
+  "1002bf44": [
+   "LState::aStringPtrs",
+   4
+  ],
+  "1002bf48": [
+   "LState::IMtable",
+   4
+  ],
+  "1002bf4c": [
+   "LState::Mbuffnext",
+   4
+  ],
+  "1002bf50": [
+   "LState::closurePtrTotal",
+   4
+  ],
+  "1002bf58": [
+   "LState::errorim",
+   16
+  ],
+  "1002bf60": [
+   "LState::aClosurePtrs",
+   4
+  ],
+  "1002bf64": [
+   "LState::GCthreshold",
+   4
+  ],
+  "1002bf68": [
+   "LState::aProtoPtrs",
+   4
+  ],
+  "1002bf6c": [
+   "L",
+   4
+  ],
+  "1002bf70": [
+   "L_Main",
+   4
+  ],
+  "1002bf74": [
+   "LState::lstate_class_initialized",
+   4
+  ],
+  "1002bf78": [
+   "LState::numThreads",
+   4
+  ],
+  "1002bf7c": [
+   "LState::bPtrsSorted",
+   4
+  ],
+  "1002bf84": [
+   "ExecutionState::pFreeStates",
+   4
+  ]
+ }
+}

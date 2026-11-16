@@ -15,15 +15,15 @@ int __cdecl Res_FOpen(char *name,char *mode)
 
 {
   unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  char cVar2;
+  char cVar1;
+  ResFile *pRVar2;
   uint *puVar3;
-  uint *puVar4;
-  int iVar5;
+  int iVar4;
+  uint uVar5;
   uint uVar6;
-  uint uVar7;
-  int iVar8;
-  char *pcVar9;
+  int iVar7;
+  char *pcVar8;
+  ResFile *pRVar9;
   char *pcVar10;
   #define local_21c (*(uint *)(_frame + (0x230 - 0x21c)))
   #define local_214 (*(uint *)(_frame + (0x230 - 0x214)))
@@ -31,68 +31,67 @@ int __cdecl Res_FOpen(char *name,char *mode)
   #define local_20c (*(uint *)(_frame + (0x230 - 0x20c)))
   #define local_208 (*(uint *)(_frame + (0x230 - 0x208)))
   
-  puVar3 = &UINT_00825f40;
-  iVar8 = 0;
+  pRVar2 = g_aResFiles;
+  iVar7 = 0;
   do {
-    if (*puVar3 == 0) break;
-    puVar3 = puVar3 + 0x40b;
-    iVar8 = iVar8 + 1;
-  } while ((int)puVar3 < ((unsigned)(uintptr_t)&DAT_008a7540));
-  if (iVar8 != 0x80) {
-    iVar1 = iVar8 * 0x102c;
-    puVar3 = &UINT_00825f40 + iVar8 * 0x40b;
-    puVar4 = puVar3;
-    for (iVar5 = 0x40b; iVar5 != 0; iVar5 = iVar5 + -1) {
-      *puVar4 = 0;
-      puVar4 = puVar4 + 1;
+    if (pRVar2->dwHandle == 0) break;
+    pRVar2 = pRVar2 + 1;
+    iVar7 = iVar7 + 1;
+  } while ((int)pRVar2 < ((unsigned)(uintptr_t)&DAT_008a7540));
+  if (iVar7 != 0x80) {
+    pRVar2 = g_aResFiles + iVar7;
+    pRVar9 = pRVar2;
+    for (iVar4 = 0x40b; iVar4 != 0; iVar4 = iVar4 + -1) {
+      pRVar9->dwHandle = 0;
+      pRVar9 = (ResFile *)&pRVar9->nPos;
     }
-    uVar6 = 0xffffffff;
-    *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f60)) = 0x1000;
-    pcVar9 = mode;
+    uVar5 = 0xffffffff;
+    g_aResFiles[iVar7].nBufSize = 0x1000;
+    pcVar8 = mode;
     do {
-      pcVar10 = pcVar9;
-      if (uVar6 == 0) break;
-      uVar6 = uVar6 - 1;
-      pcVar10 = pcVar9 + 1;
-      cVar2 = *pcVar9;
-      pcVar9 = pcVar10;
-    } while (cVar2 != '\0');
-    uVar6 = ~uVar6;
-    pcVar9 = pcVar10 + -uVar6;
-    pcVar10 = (char *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f64));
-    for (uVar7 = uVar6 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
-      *(undefined4 *)pcVar10 = *(undefined4 *)pcVar9;
-      pcVar9 = pcVar9 + 4;
+      pcVar10 = pcVar8;
+      if (uVar5 == 0) break;
+      uVar5 = uVar5 - 1;
+      pcVar10 = pcVar8 + 1;
+      cVar1 = *pcVar8;
+      pcVar8 = pcVar10;
+    } while (cVar1 != '\0');
+    uVar5 = ~uVar5;
+    pcVar8 = pcVar10 + -uVar5;
+    pcVar10 = g_aResFiles[iVar7].aMode;
+    for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *(undefined4 *)pcVar10 = *(undefined4 *)pcVar8;
+      pcVar8 = pcVar8 + 4;
       pcVar10 = pcVar10 + 4;
     }
-    for (uVar6 = uVar6 & 3; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *pcVar10 = *pcVar9;
-      pcVar9 = pcVar9 + 1;
+    for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
+      *pcVar10 = *pcVar8;
+      pcVar8 = pcVar8 + 1;
       pcVar10 = pcVar10 + 1;
     }
-    iVar5 = tolower((int)*mode);
-    if (((iVar5 == 0x72) && (puVar4 = strchr((uint *)name,'\\'), puVar4 == (uint *)0x0)) &&
-       (iVar5 = res_FindInternalFile(name,(LabFile *)(_frame + (0x230 - 0x218))), iVar5 != 0)) {
+    iVar4 = tolower((int)*mode);
+    if (((iVar4 == 0x72) && (puVar3 = strchr((uint *)name,'\\'), puVar3 == (uint *)0x0)) &&
+       (iVar4 = res_FindInternalFile(name,(LabFile *)(_frame + (0x230 - 0x218))), iVar4 != 0)) {
       if (local_208 != 0) {
-        *puVar3 = local_214;
-        *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f5c)) = 0;
-        *(uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f50)) = local_210;
-        *(uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f54)) = local_20c;
-        return iVar8 + 1;
+        pRVar2->dwHandle = local_214;
+        g_aResFiles[iVar7].nDirect = 0;
+        g_aResFiles[iVar7].nLength = local_210;
+        g_aResFiles[iVar7].nBase = local_20c;
+        return iVar7 + 1;
       }
-      uVar6 = (**(code **)(g_dwLowLevelHS + 0x30))((_frame + (0x230 - 0x103)),mode);
-      *puVar3 = uVar6;
-      if (uVar6 == 0) {
+      uVar5 = (**(code **)(g_dwLowLevelHS + 0x30))((_frame + (0x230 - 0x103)),mode);
+      pRVar2->dwHandle = uVar5;
+      if (uVar5 == 0) {
         return 0;
       }
-      *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f5c)) = 1;
-      return iVar8 + 1;
+      g_aResFiles[iVar7].nDirect = 1;
+      return iVar7 + 1;
     }
-    uVar6 = (**(code **)(g_dwLowLevelHS + 0x30))(name,mode);
-    *puVar3 = uVar6;
-    if (uVar6 != 0) {
-      *(undefined4 *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00825f5c)) = 1;
-      return iVar8 + 1;
+    uVar5 = (**(code **)(g_dwLowLevelHS + 0x30))(name,mode);
+    pRVar2->dwHandle = uVar5;
+    if (uVar5 != 0) {
+      g_aResFiles[iVar7].nDirect = 1;
+      return iVar7 + 1;
     }
   }
   return 0;
@@ -508,13 +507,8 @@ extern unsigned char grim_def_DAT_00824f2c[4] __asm__("_DAT_00824f2c");
 extern unsigned char grim_def_DAT_00824f30[4] __asm__("_DAT_00824f30");
 extern unsigned char grim_def_DAT_00824f34[12] __asm__("_DAT_00824f34");
 extern unsigned char grim_def_DAT_00824f40[3896] __asm__("_DAT_00824f40");
-extern unsigned char grim_def_DAT_00825f50[4] __asm__("_DAT_00825f50");
-extern unsigned char grim_def_DAT_00825f54[8] __asm__("_DAT_00825f54");
-extern unsigned char grim_def_DAT_00825f5c[4] __asm__("_DAT_00825f5c");
-extern unsigned char grim_def_DAT_00825f60[4] __asm__("_DAT_00825f60");
-extern unsigned char grim_def_DAT_00825f64[529884] __asm__("_DAT_00825f64");
 extern unsigned char grim_def_DAT_008a7540[4140] __asm__("_DAT_008a7540");
-extern unsigned char grim_def_UINT_00825f40[16] __asm__("_UINT_00825f40");
+extern ResFile grim_def_g_aResFiles[128] __asm__("_g_aResFiles");
 extern char grim_def_s__int_fh___0_____int_fh____MAX_OP_004e7a8c[44] __asm__("_s__int_fh___0_____int_fh____MAX_OP_004e7a8c");
 /* 0x004e7a8c, 44 bytes */ /* loose */ char grim_def_s__int_fh___0_____int_fh____MAX_OP_004e7a8c[44] __asm__("_s__int_fh___0_____int_fh____MAX_OP_004e7a8c") = "(int)fh > 0 && (int)fh <= MAX_OPEN_FILES";
 /* 0x00824f14, 4 bytes */ GRIM_DATA("00824f14") unsigned char grim_def_DAT_00824f14[4] __asm__("_DAT_00824f14") = {0};
@@ -526,10 +520,5 @@ extern char grim_def_s__int_fh___0_____int_fh____MAX_OP_004e7a8c[44] __asm__("_s
 /* 0x00824f30, 4 bytes */ GRIM_DATA("00824f30") unsigned char grim_def_DAT_00824f30[4] __asm__("_DAT_00824f30") = {0};
 /* 0x00824f34, 12 bytes */ GRIM_DATA("00824f34") unsigned char grim_def_DAT_00824f34[12] __asm__("_DAT_00824f34") = {0};
 /* 0x00824f40, 3896 bytes */ GRIM_DATA("00824f40") unsigned char grim_def_DAT_00824f40[3896] __asm__("_DAT_00824f40") = {0};
-/* 0x00825f40, 16 bytes */ GRIM_DATA("00825f40") unsigned char grim_def_UINT_00825f40[16] __asm__("_UINT_00825f40") = {0};
-/* 0x00825f50, 4 bytes */ GRIM_DATA("00825f50") unsigned char grim_def_DAT_00825f50[4] __asm__("_DAT_00825f50") = {0};
-/* 0x00825f54, 8 bytes */ GRIM_DATA("00825f54") unsigned char grim_def_DAT_00825f54[8] __asm__("_DAT_00825f54") = {0};
-/* 0x00825f5c, 4 bytes */ GRIM_DATA("00825f5c") unsigned char grim_def_DAT_00825f5c[4] __asm__("_DAT_00825f5c") = {0};
-/* 0x00825f60, 4 bytes */ GRIM_DATA("00825f60") unsigned char grim_def_DAT_00825f60[4] __asm__("_DAT_00825f60") = {0};
-/* 0x00825f64, 529884 bytes */ GRIM_DATA("00825f64") unsigned char grim_def_DAT_00825f64[529884] __asm__("_DAT_00825f64") = {0};
+/* 0x00825f40, 529920 bytes */ GRIM_DATA("00825f40") ResFile grim_def_g_aResFiles[128] __asm__("_g_aResFiles") = {0};
 /* 0x008a7540, 4140 bytes */ GRIM_DATA("008a7540") unsigned char grim_def_DAT_008a7540[4140] __asm__("_DAT_008a7540") = {0};

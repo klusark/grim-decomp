@@ -2592,3 +2592,55 @@ field labels.
   * The EXE's independent chains: 70 -> 93.
   * The DLLs are as before.
 * datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490; whole-game autorun passes.
+
+## Data extents from the remaster's symbols (2026-11-16)
+
+* **The remaster's Linux build is i386** like the originals, built from the same sources. Its data symbols have
+  sizes (`nm -S`), and they match where checked: aLookup 0x100, polyglotServices 0x20, aTanTable 0x4000.
+* **tools/orig_sizes.py** writes names/orig_sizes.json: address, original name and the symbol's size, for every global
+  the earlier naming rounds (names/orig*_globals*.json) matched to a remaster symbol.
+  * EXE: 518 named, 487 with a size.
+  * IMUSE: 103, all with a size.
+  * LUA: 62, 60 with a size.
+* **tools/data_reach.py:** such a global reaches as far as its symbol's size, but no further than the next named
+  global. The remaster grew some buffers: aHWVertices is 8 MB against 1 MB, crc_table 8 KB against 1 KB.
+* **The sizes found a type of mine too small:** VbrAdpcm's delta table is indexed `(.. | index << 6)` with the index
+  clamped to 0x58: 89 rows of 64 words, ushort[5696], the remaster's 11392 bytes. I had typed it ushort[64], from the
+  span length alone. Where the remaster is bigger by design, the code says otherwise: BaseModuleServices 9 modules
+  against 6, the 255-character paths against 128.
+* **Loop end pointers:** an end pointer belongs to the table the loop walks. The nearest table before it, reached by
+  address or index, reaches up to and including the end pointer, over any global in between. InsaneTimer_Tick walks
+  the timers from 0x8da60c `while (p < &DAT_008da86c)`, past share_config and timer_thread.lastTime. The old rule tied
+  only the span just before the end pointer.
+* **Biased table bases:** `biased()` finds a base the code steps by a stride with a named global within the first
+  stride (Res_F*'s `&DAT_00824f14 + fh * 0x102c`, handles 1..128, over stdMemory's counters before the files at
+  0x825f40). It never ends a chain early. The ResFile table also has a known extent up to Res_FOpen's end pointer.
+  Inside a sized table, an index at a field offset stays in the table (aHWVertices's `[EAX*0x20 + 0x6f0fd4]` is its
+  +0x1c field). That holds only for an indexed access, not for an object passed by its address that falls inside a
+  reach. The dirty rect at 0x8a92a8 is the draw-item pool's end pointer and is passed to DirtyRect_Add. Taken for a
+  field of the pool, its other three fields moved away, and 129 render, iris, screen and movie values differed in the
+  full clean room: a stale rectangle drew where the reference draws nothing. render_modes.lua as a whole reproduced
+  it; its tests alone did not. Bisected with GRIM_PIN_RANGES.
+* **Not on by default: a named global as a chain boundary** (GRIM_ORIG_BOUNDARY=1).
+  * The idea: a named global is an object of its own, so the chain of an untyped object before it ends there.
+  * It gives the most: EXE loose 1383 instead of 894, and 224 independent chains instead of 98; IMUSE 98 / 52.
+  * But the movie clean-room tests (movie_*, smv_*, costume_smush) crash with it: InsaneTimer_Tick calls a float
+    (0x44b4434e) read from the first timer entry.
+  * Fixing the timer table's end pointer, the biased ResFile base and the dirty rect (all above) did not end it.
+  * GRIM_BOUNDARY_RANGES=lo-hi (the boundary only there) bisects it to the cut at std3D_maxVertices (0x806940), which
+    ends the chain of g_pStd3D_CurDevice. Pinning the spans after the cut (GRIM_PIN_RANGES, up to 0x8a8778) does not
+    help, so the dependency is not on one of the freed globals. Not explained yet.
+  * Allowing the boundary below 0x806000 passes the movie tests, but stopping at an unexplained address is no rule.
+* **Also this round:**
+  * Types (names/types_data_extents_exe_2.json): g_wSputRender_ColorLookup (ushort[65536]), g_aWinMessageHooks
+    (WinMessageHook[16], a new structure {code *pHook; int nOn}), g_aResFiles (ResFile[128] from 00825f40), the
+    LecShare catalog, the D3D texture formats, the found-file ring, the colour effect, the codec tables.
+    - The ResFile table is used from 00824f14 with handles 1..128. Entry 0 is not a file: stdMemory's counters live
+      there, which a first ResFile[129] showed (`g_aResFiles[0].aBuffer._3900_4_`).
+  * An address pushed for InterlockedIncrement / InterlockedDecrement (the C runtime's locale counter) is a 4-byte
+    access.
+* **Loose now:**
+  * EXE: 886 spans and 95 independent chains, up from 879 and 93.
+  * LUA: 270 and 43, from 275 and 41 (the end pointers keep a little more together).
+  * IMUSE and CHORE: as before.
+* datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490; whole-game autorun passes.

@@ -377,14 +377,14 @@ void __cdecl Win_AddMessageHook(void *hook)
   int iVar2;
   
   iVar2 = 0;
-  piVar1 = &g_nWinMessageHookOn;
+  piVar1 = &g_aWinMessageHooks[0].nOn;
   do {
     if (*piVar1 == 0) break;
     piVar1 = piVar1 + 2;
     iVar2 = iVar2 + 1;
   } while ((int)piVar1 < ((unsigned)(uintptr_t)&UINT_008d0a6c));
-  (&g_pWinMessageHooks)[iVar2 * 2] = hook;
-  (&g_nWinMessageHookOn)[iVar2 * 2] = 1;
+  g_aWinMessageHooks[iVar2].pHook = hook;
+  g_aWinMessageHooks[iVar2].nOn = 1;
   UINT_008d0a7c = UINT_008d0a7c + 1;
   return;
 }
@@ -393,18 +393,18 @@ void __cdecl Win_AddMessageHook(void *hook)
 undefined4 __cdecl Win_RemoveMessageHook(void *hook)
 
 {
-  void **ppvVar1;
+  WinMessageHook *pWVar1;
   int iVar2;
   
   iVar2 = 0;
-  ppvVar1 = &g_pWinMessageHooks;
+  pWVar1 = g_aWinMessageHooks;
   do {
-    if (*ppvVar1 == hook) break;
-    ppvVar1 = ppvVar1 + 2;
+    if (pWVar1->pHook == hook) break;
+    pWVar1 = pWVar1 + 1;
     iVar2 = iVar2 + 1;
-  } while ((int)ppvVar1 < ((unsigned)(uintptr_t)&DAT_008d0a68));
-  (&g_pWinMessageHooks)[iVar2 * 2] = (void *)0x0;
-  (&g_nWinMessageHookOn)[iVar2 * 2] = 0;
+  } while ((int)pWVar1 < ((unsigned)(uintptr_t)&DAT_008d0a68));
+  g_aWinMessageHooks[iVar2].pHook = (code *)0x0;
+  g_aWinMessageHooks[iVar2].nOn = 0;
   UINT_008d0a7c = UINT_008d0a7c - 1;
   return 1;
 }
@@ -504,16 +504,18 @@ undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   int a1_00;
-  undefined *puVar2;
-  int iVar3;
-  void **ppvVar4;
-  int iVar5;
-  bool bVar6;
+  undefined uVar2;
+  undefined3 extraout_var;
+  undefined *puVar3;
+  int iVar4;
+  WinMessageHook *pWVar5;
+  int iVar6;
+  bool bVar7;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(undefined **)(_frame + (0x20 - 0x4)))
   
   a1_00 = a4;
-  iVar5 = 0;
+  iVar6 = 0;
   bVar1 = true;
   switch(a2) {
   case 1:
@@ -537,10 +539,10 @@ undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
     else {
       if ((((UINT_008d09dc == 1) && (UINT_008d0a8c != 0)) && (g_dwZg_App_bAppActive != 0)) &&
          (UINT_008d0a90 == 0)) {
-        bVar6 = a4 != 0;
+        bVar7 = a4 != 0;
         local_8 = 0;
         a4 = 1;
-        if (bVar6) {
+        if (bVar7) {
           GetWindowThreadProcessId(a1_00,(int)&a4);
           GetWindowThreadProcessId(a1,(int)&local_8);
         }
@@ -557,20 +559,23 @@ undefined * __stdcall Win_KernelWndProc(int a1,int a2,int a3,int a4)
   if ((g_dwZg_App_bAppActive == 0) || (_DAT_008d0a68 = 1, UINT_008d0a6c == 0)) {
     _DAT_008d0a68 = 0;
   }
-  if ((bVar1) && (iVar3 = 0, 0 < (int)UINT_008d0a7c)) {
-    ppvVar4 = &g_pWinMessageHooks;
+  if ((bVar1) && (iVar4 = 0, 0 < (int)UINT_008d0a7c)) {
+    pWVar5 = g_aWinMessageHooks;
     do {
-      if ((ppvVar4[1] != (void *)0x0) && (iVar5 = (*(code *)*ppvVar4)(a1,a2,a3,a1_00,&local_4), iVar5 != 0))
-      {
-        return local_4;
+      if (pWVar5->nOn != 0) {
+        uVar2 = (*pWVar5->pHook)(a1,a2,a3,a1_00,&local_4);
+        iVar6 = ((uint)(byte)(uVar2));
+        if (iVar6 != 0) {
+          return local_4;
+        }
       }
-      iVar3 = iVar3 + 1;
-      ppvVar4 = ppvVar4 + 2;
-    } while (iVar3 < (int)UINT_008d0a7c);
+      iVar4 = iVar4 + 1;
+      pWVar5 = pWVar5 + 1;
+    } while (iVar4 < (int)UINT_008d0a7c);
   }
-  if (iVar5 == 0) {
-    puVar2 = (undefined *)DefWindowProcA(a1,a2,a3,a1_00);
-    return puVar2;
+  if (iVar6 == 0) {
+    puVar3 = (undefined *)DefWindowProcA(a1,a2,a3,a1_00);
+    return puVar3;
   }
   return (undefined *)0x1;
 }
@@ -622,14 +627,13 @@ extern unsigned int grim_def_UINT_008d0a8c __asm__("_UINT_008d0a8c");
 extern unsigned int grim_def_UINT_008d0a90 __asm__("_UINT_008d0a90");
 extern unsigned int grim_def_UINT_008d0a94 __asm__("_UINT_008d0a94");
 extern unsigned int grim_def_UINT_008d0a98 __asm__("_UINT_008d0a98");
+extern WinMessageHook grim_def_g_aWinMessageHooks[16] __asm__("_g_aWinMessageHooks");
 extern int grim_def_g_bDebugChordHeld __asm__("_g_bDebugChordHeld");
 extern unsigned int grim_def_g_dwWinDialogCount __asm__("_g_dwWinDialogCount");
-extern int grim_def_g_nWinMessageHookOn __asm__("_g_nWinMessageHookOn");
 extern int grim_def_g_nWinQuit __asm__("_g_nWinQuit");
 extern unsigned char grim_def_g_pMainHwnd[4] __asm__("_g_pMainHwnd");
 extern unsigned char grim_def_g_pWinDialogs[64] __asm__("_g_pWinDialogs");
 extern unsigned char grim_def_g_pWinMainHwnd[4] __asm__("_g_pWinMainHwnd");
-extern unsigned char grim_def_g_pWinMessageHooks[4] __asm__("_g_pWinMessageHooks");
 extern char grim_def_s_APPICON_004ed088[16] __asm__("_s_APPICON_004ed088");
 extern char grim_def_s_Grim_Fandango_004dd404[16] __asm__("_s_Grim_Fandango_004dd404");
 extern char grim_def_s__s_d_bmp_004dd928[12] __asm__("_s__s_d_bmp_004dd928");
@@ -662,9 +666,7 @@ static unsigned char grim_pad_004f5a94[4] __attribute__((section(".data$grim_004
 /* 0x008d09dc, 4 bytes */ GRIM_DATA("008d09dc") int grim_def_UINT_008d09dc __asm__("_UINT_008d09dc") = 0;
 /* 0x008d09e0, 4 bytes */ GRIM_DATA("008d09e0") int grim_def_INT_008d09e0 __asm__("_INT_008d09e0") = 0;
 /* 0x008d09e4, 4 bytes */ GRIM_DATA("008d09e4") unsigned int grim_def_UINT_008d09e4 __asm__("_UINT_008d09e4") = 0x0;
-/* 0x008d09e8, 4 bytes */ GRIM_DATA("008d09e8") unsigned char grim_def_g_pWinMessageHooks[4] __asm__("_g_pWinMessageHooks") = {0};
-/* 0x008d09ec, 124 bytes */ GRIM_DATA("008d09ec") int grim_def_g_nWinMessageHookOn __asm__("_g_nWinMessageHookOn") = 0;
-/* 0x008d09f0, 120 bytes: the rest of grim_def_g_nWinMessageHookOn's span */ GRIM_DATA("008d09ec") static unsigned char g_nWinMessageHookOn__tail[120] __attribute__((used)) = {0};
+/* 0x008d09e8, 128 bytes */ GRIM_DATA("008d09e8") WinMessageHook grim_def_g_aWinMessageHooks[16] __asm__("_g_aWinMessageHooks") = {0};
 /* 0x008d0a68, 4 bytes */ GRIM_DATA("008d0a68") unsigned char grim_def_DAT_008d0a68[4] __asm__("_DAT_008d0a68") = {0};
 /* 0x008d0a6c, 4 bytes */ GRIM_DATA("008d0a6c") unsigned int grim_def_UINT_008d0a6c __asm__("_UINT_008d0a6c") = 0x0;
 /* 0x008d0a74, 4 bytes */ GRIM_DATA("008d0a74") int grim_def_g_nWinQuit __asm__("_g_nWinQuit") = 0;

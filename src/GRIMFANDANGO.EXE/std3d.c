@@ -66,7 +66,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
-  int *piVar3;
+  byte *pbVar3;
   ColorFormat *pCVar4;
   #define pvStack_ac (*(void **)(_frame + (0xc0 - 0xac)))
   #define pcStack_a8 (*(code_std **)(_frame + (0xc0 - 0xa8)))
@@ -142,29 +142,29 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
   g_pD3dTextureList = (Std3DTexture *)0x0;
   PTR_0080694c = (Std3DTexture *)0x0;
   _DAT_00900568 =
-       D3D_FindTextureFormat(&(g_pVideoMode->format).colorFormat.nColorMode,((unsigned)(uintptr_t)&DAT_00900620),UINT_00806930);
-  UINT_00806934 = (uint)(&DAT_00900620 + _DAT_00900568 * 0xa4);
+       D3D_FindTextureFormat(&(g_pVideoMode->format).colorFormat.nColorMode,((unsigned)(uintptr_t)&g_abD3D_TextureFormats),UINT_00806930);
+  UINT_00806934 = (uint)(g_abD3D_TextureFormats + _DAT_00900568 * 0xa4);
   if (g_pStd3D_CurDevice->nPalettedTextures != 0) {
     pvStack_ac = (void *)0x2;
     pcStack_a8 = (code *)0x10;
     uStack_a4 = 5;
     piStack_a0 = (int *)0x5;
-    _DAT_009014d8 = D3D_FindTextureFormat((int *)&pvStack_ac,((unsigned)(uintptr_t)&DAT_00900620),UINT_00806930);
-    UINT_00806938 = (uint)(&DAT_00900620 + _DAT_009014d8 * 0xa4);
+    _DAT_009014d8 = D3D_FindTextureFormat((int *)&pvStack_ac,((unsigned)(uintptr_t)&g_abD3D_TextureFormats),UINT_00806930);
+    UINT_00806938 = (uint)(g_abD3D_TextureFormats + _DAT_009014d8 * 0xa4);
     if (g_pStd3D_CurDevice->nUnknown18 == 0) {
       pvStack_ac = (void *)0x2;
       pcStack_a8 = (code *)0x10;
       uStack_a4 = 4;
       piStack_a0 = (int *)0x4;
-      _DAT_0090052c = D3D_FindTextureFormat((int *)&pvStack_ac,((unsigned)(uintptr_t)&DAT_00900620),UINT_00806930);
+      _DAT_0090052c = D3D_FindTextureFormat((int *)&pvStack_ac,((unsigned)(uintptr_t)&g_abD3D_TextureFormats),UINT_00806930);
       VStack_74.nWidth = 0x20;
       VStack_74.nHeight = 0x20;
-      UINT_0080693c = (uint)(&DAT_00900620 + _DAT_0090052c * 0xa4);
-      piVar3 = (int *)UINT_0080693c;
+      UINT_0080693c = (uint)(g_abD3D_TextureFormats + _DAT_0090052c * 0xa4);
+      pbVar3 = (byte *)UINT_0080693c;
       pCVar4 = &VStack_74.colorFormat;
       for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-        pCVar4->nColorMode = *piVar3;
-        piVar3 = piVar3 + 1;
+        pCVar4->nColorMode = *(int *)pbVar3;
+        pbVar3 = pbVar3 + 4;
         pCVar4 = (ColorFormat *)&pCVar4->nBpp;
       }
       UINT_00806950 = (uint)stdDisplay_VBufferNew(&VStack_74,1,0,0);
@@ -1717,133 +1717,195 @@ undefined * __stdcall D3D_EnumDevicesCallback(int a1,int a2,int a3,int a4,int a5
 undefined * __stdcall D3D_EnumTextureFormatsCallback(int a1,int a2)
 
 {
-  int iVar1;
-  undefined4 *puVar2;
-  int iVar3;
-  uint uVar4;
+  byte *pbVar1;
+  int iVar2;
+  byte *pbVar3;
+  int iVar4;
+  uint uVar5;
   
   if (7 < UINT_00806930) {
     return (undefined *)0x0;
   }
-  iVar1 = UINT_00806930 * 0xa4;
-  puVar2 = (undefined4 *)(&DAT_00900620 + iVar1);
-  Mem_Copy((void *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900658)),(void *)a1,0x6c);
-  uVar4 = *(uint *)(a1 + 0x4c);
-  if ((uVar4 & 0x20) == 0) {
-    if ((uVar4 & 8) != 0) {
+  iVar2 = UINT_00806930 * 0xa4;
+  pbVar3 = g_abD3D_TextureFormats + iVar2;
+  Mem_Copy(g_abD3D_TextureFormats + iVar2 + 0x38,(void *)a1,0x6c);
+  uVar5 = *(uint *)(a1 + 0x4c);
+  if ((uVar5 & 0x20) == 0) {
+    if ((uVar5 & 8) != 0) {
       return (undefined *)0x1;
     }
-    if ((uVar4 & 1) != 0) {
-      *puVar2 = 2;
-      *(undefined4 *)(&DAT_00900624 + iVar1) = *(undefined4 *)(a1 + 0x54);
-      iVar3 = 0;
-      for (uVar4 = *(uint *)(a1 + 0x58); (uVar4 & 1) == 0; uVar4 = uVar4 >> 1) {
-        iVar3 = iVar3 + 1;
+    if ((uVar5 & 1) != 0) {
+      pbVar3[0] = 2;
+      pbVar3[1] = 0;
+      pbVar3[2] = 0;
+      pbVar3[3] = 0;
+      *(undefined4 *)(g_abD3D_TextureFormats + iVar2 + 4) = *(undefined4 *)(a1 + 0x54);
+      iVar4 = 0;
+      for (uVar5 = *(uint *)(a1 + 0x58); (uVar5 & 1) == 0; uVar5 = uVar5 >> 1) {
+        iVar4 = iVar4 + 1;
       }
-      *(int *)(&DAT_00900634 + iVar1) = iVar3;
-      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar3 & 0x1f))))
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x14) = iVar4;
+      iVar4 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar4 & 0x1f))))
       ;
-      *(int *)(&DAT_00900640 + iVar1) = iVar3;
-      iVar3 = 0;
-      for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
-        iVar3 = iVar3 + 1;
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x20) = iVar4;
+      iVar4 = 0;
+      for (; (uVar5 & 1) != 0; uVar5 = uVar5 >> 1) {
+        iVar4 = iVar4 + 1;
       }
-      *(int *)(&DAT_00900628 + iVar1) = iVar3;
-      iVar3 = 0;
-      for (uVar4 = *(uint *)(a1 + 0x5c); (uVar4 & 1) == 0; uVar4 = uVar4 >> 1) {
-        iVar3 = iVar3 + 1;
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 8) = iVar4;
+      iVar4 = 0;
+      for (uVar5 = *(uint *)(a1 + 0x5c); (uVar5 & 1) == 0; uVar5 = uVar5 >> 1) {
+        iVar4 = iVar4 + 1;
       }
-      *(int *)(&DAT_00900638 + iVar1) = iVar3;
-      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar3 & 0x1f))))
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x18) = iVar4;
+      iVar4 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar4 & 0x1f))))
       ;
-      *(int *)(&DAT_00900644 + iVar1) = iVar3;
-      iVar3 = 0;
-      for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
-        iVar3 = iVar3 + 1;
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x24) = iVar4;
+      iVar4 = 0;
+      for (; (uVar5 & 1) != 0; uVar5 = uVar5 >> 1) {
+        iVar4 = iVar4 + 1;
       }
-      *(int *)(&DAT_0090062c + iVar1) = iVar3;
-      iVar3 = 0;
-      for (uVar4 = *(uint *)(a1 + 0x60); (uVar4 & 1) == 0; uVar4 = uVar4 >> 1) {
-        iVar3 = iVar3 + 1;
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0xc) = iVar4;
+      iVar4 = 0;
+      for (uVar5 = *(uint *)(a1 + 0x60); (uVar5 & 1) == 0; uVar5 = uVar5 >> 1) {
+        iVar4 = iVar4 + 1;
       }
-      *(int *)(&DAT_0090063c + iVar1) = iVar3;
-      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar3 & 0x1f))))
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x1c) = iVar4;
+      iVar4 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar4 & 0x1f))))
       ;
-      *(int *)(&DAT_00900648 + iVar1) = iVar3;
-      iVar3 = 0;
-      for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
-        iVar3 = iVar3 + 1;
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x28) = iVar4;
+      iVar4 = 0;
+      for (; (uVar5 & 1) != 0; uVar5 = uVar5 >> 1) {
+        iVar4 = iVar4 + 1;
       }
-      *(int *)(&DAT_00900630 + iVar1) = iVar3;
-      iVar3 = 0;
-      for (uVar4 = *(uint *)(a1 + 100); (uVar4 & 1) == 0; uVar4 = uVar4 >> 1) {
-        iVar3 = iVar3 + 1;
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x10) = iVar4;
+      iVar4 = 0;
+      for (uVar5 = *(uint *)(a1 + 100); (uVar5 & 1) == 0; uVar5 = uVar5 >> 1) {
+        iVar4 = iVar4 + 1;
       }
-      *(int *)(&DAT_00900650 + iVar1) = iVar3;
-      iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 100) >> ((byte)iVar3 & 0x1f))));
-      *(int *)(&DAT_00900654 + iVar1) = iVar3;
-      iVar3 = 0;
-      for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
-        iVar3 = iVar3 + 1;
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x30) = iVar4;
+      iVar4 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 100) >> ((byte)iVar4 & 0x1f))));
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x34) = iVar4;
+      iVar4 = 0;
+      for (; (uVar5 & 1) != 0; uVar5 = uVar5 >> 1) {
+        iVar4 = iVar4 + 1;
       }
-      *(int *)(&DAT_0090064c + iVar1) = iVar3;
+      *(int *)(g_abD3D_TextureFormats + iVar2 + 0x2c) = iVar4;
       goto LAB_0047a825;
     }
-    *puVar2 = 1;
-    *(undefined4 *)(&DAT_00900624 + iVar1) = *(undefined4 *)(a1 + 0x54);
-    iVar3 = 0;
-    for (uVar4 = *(uint *)(a1 + 0x58); (uVar4 & 1) == 0; uVar4 = uVar4 >> 1) {
-      iVar3 = iVar3 + 1;
+    pbVar3[0] = 1;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    *(undefined4 *)(g_abD3D_TextureFormats + iVar2 + 4) = *(undefined4 *)(a1 + 0x54);
+    iVar4 = 0;
+    for (uVar5 = *(uint *)(a1 + 0x58); (uVar5 & 1) == 0; uVar5 = uVar5 >> 1) {
+      iVar4 = iVar4 + 1;
     }
-    *(int *)(&DAT_00900634 + iVar1) = iVar3;
-    iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar3 & 0x1f))));
-    *(int *)(&DAT_00900640 + iVar1) = iVar3;
-    iVar3 = 0;
-    for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
-      iVar3 = iVar3 + 1;
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 0x14) = iVar4;
+    iVar4 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x58) >> ((byte)iVar4 & 0x1f))));
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 0x20) = iVar4;
+    iVar4 = 0;
+    for (; (uVar5 & 1) != 0; uVar5 = uVar5 >> 1) {
+      iVar4 = iVar4 + 1;
     }
-    *(int *)(&DAT_00900628 + iVar1) = iVar3;
-    iVar3 = 0;
-    for (uVar4 = *(uint *)(a1 + 0x5c); (uVar4 & 1) == 0; uVar4 = uVar4 >> 1) {
-      iVar3 = iVar3 + 1;
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 8) = iVar4;
+    iVar4 = 0;
+    for (uVar5 = *(uint *)(a1 + 0x5c); (uVar5 & 1) == 0; uVar5 = uVar5 >> 1) {
+      iVar4 = iVar4 + 1;
     }
-    *(int *)(&DAT_00900638 + iVar1) = iVar3;
-    iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar3 & 0x1f))));
-    *(int *)(&DAT_00900644 + iVar1) = iVar3;
-    iVar3 = 0;
-    for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
-      iVar3 = iVar3 + 1;
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 0x18) = iVar4;
+    iVar4 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x5c) >> ((byte)iVar4 & 0x1f))));
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 0x24) = iVar4;
+    iVar4 = 0;
+    for (; (uVar5 & 1) != 0; uVar5 = uVar5 >> 1) {
+      iVar4 = iVar4 + 1;
     }
-    *(int *)(&DAT_0090062c + iVar1) = iVar3;
-    iVar3 = 0;
-    for (uVar4 = *(uint *)(a1 + 0x60); (uVar4 & 1) == 0; uVar4 = uVar4 >> 1) {
-      iVar3 = iVar3 + 1;
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 0xc) = iVar4;
+    iVar4 = 0;
+    for (uVar5 = *(uint *)(a1 + 0x60); (uVar5 & 1) == 0; uVar5 = uVar5 >> 1) {
+      iVar4 = iVar4 + 1;
     }
-    *(int *)(&DAT_0090063c + iVar1) = iVar3;
-    iVar3 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar3 & 0x1f))));
-    *(int *)(&DAT_00900648 + iVar1) = iVar3;
-    iVar3 = 0;
-    for (; (uVar4 & 1) != 0; uVar4 = uVar4 >> 1) {
-      iVar3 = iVar3 + 1;
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 0x1c) = iVar4;
+    iVar4 = stdCalcBitPos((int)(0xff / (ulonglong)(*(uint *)(a1 + 0x60) >> ((byte)iVar4 & 0x1f))));
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 0x28) = iVar4;
+    iVar4 = 0;
+    for (; (uVar5 & 1) != 0; uVar5 = uVar5 >> 1) {
+      iVar4 = iVar4 + 1;
     }
-    *(int *)(&DAT_00900630 + iVar1) = iVar3;
+    *(int *)(g_abD3D_TextureFormats + iVar2 + 0x10) = iVar4;
   }
   else {
-    *(undefined4 *)(&DAT_00900624 + iVar1) = 8;
-    *puVar2 = 0;
-    *(undefined4 *)(&DAT_00900634 + iVar1) = 0;
-    *(undefined4 *)(&DAT_00900640 + iVar1) = 0;
-    *(undefined4 *)(&DAT_00900628 + iVar1) = 0;
-    *(undefined4 *)(&DAT_00900638 + iVar1) = 0;
-    *(undefined4 *)(&DAT_00900644 + iVar1) = 0;
-    *(undefined4 *)(&DAT_0090062c + iVar1) = 0;
-    *(undefined4 *)(&DAT_0090063c + iVar1) = 0;
-    *(undefined4 *)(&DAT_00900648 + iVar1) = 0;
-    *(undefined4 *)(&DAT_00900630 + iVar1) = 0;
+    pbVar1 = g_abD3D_TextureFormats + iVar2 + 4;
+    pbVar1[0] = 8;
+    pbVar1[1] = 0;
+    pbVar1[2] = 0;
+    pbVar1[3] = 0;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x14;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x20;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 8;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x18;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x24;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 0xc;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x1c;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x28;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
+    pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x10;
+    pbVar3[0] = 0;
+    pbVar3[1] = 0;
+    pbVar3[2] = 0;
+    pbVar3[3] = 0;
   }
-  *(undefined4 *)(&DAT_00900650 + iVar1) = 0;
-  *(undefined4 *)(&DAT_00900654 + iVar1) = 0;
-  *(undefined4 *)(&DAT_0090064c + iVar1) = 0;
+  pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x30;
+  pbVar3[0] = 0;
+  pbVar3[1] = 0;
+  pbVar3[2] = 0;
+  pbVar3[3] = 0;
+  pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x34;
+  pbVar3[0] = 0;
+  pbVar3[1] = 0;
+  pbVar3[2] = 0;
+  pbVar3[3] = 0;
+  pbVar3 = g_abD3D_TextureFormats + iVar2 + 0x2c;
+  pbVar3[0] = 0;
+  pbVar3[1] = 0;
+  pbVar3[2] = 0;
+  pbVar3[3] = 0;
 LAB_0047a825:
   UINT_00806930 = UINT_00806930 + 1;
   return (undefined *)0x1;
@@ -2019,21 +2081,6 @@ extern unsigned char grim_def_DAT_00900560[4] __asm__("_DAT_00900560");
 extern unsigned char grim_def_DAT_00900564[4] __asm__("_DAT_00900564");
 extern unsigned char grim_def_DAT_00900568[24] __asm__("_DAT_00900568");
 extern unsigned char grim_def_DAT_009005e0[4] __asm__("_DAT_009005e0");
-extern unsigned char grim_def_DAT_00900620[4] __asm__("_DAT_00900620");
-extern unsigned char grim_def_DAT_00900624[4] __asm__("_DAT_00900624");
-extern unsigned char grim_def_DAT_00900628[4] __asm__("_DAT_00900628");
-extern unsigned char grim_def_DAT_0090062c[4] __asm__("_DAT_0090062c");
-extern unsigned char grim_def_DAT_00900630[4] __asm__("_DAT_00900630");
-extern unsigned char grim_def_DAT_00900634[4] __asm__("_DAT_00900634");
-extern unsigned char grim_def_DAT_00900638[4] __asm__("_DAT_00900638");
-extern unsigned char grim_def_DAT_0090063c[4] __asm__("_DAT_0090063c");
-extern unsigned char grim_def_DAT_00900640[4] __asm__("_DAT_00900640");
-extern unsigned char grim_def_DAT_00900644[4] __asm__("_DAT_00900644");
-extern unsigned char grim_def_DAT_00900648[4] __asm__("_DAT_00900648");
-extern unsigned char grim_def_DAT_0090064c[4] __asm__("_DAT_0090064c");
-extern unsigned char grim_def_DAT_00900650[4] __asm__("_DAT_00900650");
-extern unsigned char grim_def_DAT_00900654[4] __asm__("_DAT_00900654");
-extern unsigned char grim_def_DAT_00900658[1256] __asm__("_DAT_00900658");
 extern unsigned char grim_def_DAT_00901408[4] __asm__("_DAT_00901408");
 extern unsigned char grim_def_DAT_0090140c[76] __asm__("_DAT_0090140c");
 extern unsigned char grim_def_DAT_00901458[4] __asm__("_DAT_00901458");
@@ -2082,6 +2129,7 @@ extern unsigned int grim_def_UINT_00900604 __asm__("_UINT_00900604");
 extern unsigned int grim_def_UINT_00900608 __asm__("_UINT_00900608");
 extern unsigned char grim_def_UINT_0090060c[20] __asm__("_UINT_0090060c");
 extern unsigned char grim_def_UINT_0090146c[108] __asm__("_UINT_0090146c");
+extern unsigned char grim_def_g_abD3D_TextureFormats[1312] __asm__("_g_abD3D_TextureFormats");
 extern unsigned int grim_def_g_dwD3dRenderFlags __asm__("_g_dwD3dRenderFlags");
 extern unsigned char grim_def_g_pD3dDevice[4] __asm__("_g_pD3dDevice");
 extern unsigned char grim_def_g_pD3dExecuteBuffer[4] __asm__("_g_pD3dExecuteBuffer");
@@ -2193,21 +2241,7 @@ static unsigned char grim_pad_00900568[8] __attribute__((section(".data$grim_009
 /* 0x00900604, 4 bytes */ GRIM_DATA("00900604") unsigned int grim_def_UINT_00900604 __asm__("_UINT_00900604") = 0x0;
 /* 0x00900608, 4 bytes */ GRIM_DATA("00900608") unsigned int grim_def_UINT_00900608 __asm__("_UINT_00900608") = 0x0;
 /* 0x0090060c, 20 bytes */ GRIM_DATA("0090060c") unsigned char grim_def_UINT_0090060c[20] __asm__("_UINT_0090060c") = {0};
-/* 0x00900620, 4 bytes */ GRIM_DATA("00900620") unsigned char grim_def_DAT_00900620[4] __asm__("_DAT_00900620") = {0};
-/* 0x00900624, 4 bytes */ GRIM_DATA("00900624") unsigned char grim_def_DAT_00900624[4] __asm__("_DAT_00900624") = {0};
-/* 0x00900628, 4 bytes */ GRIM_DATA("00900628") unsigned char grim_def_DAT_00900628[4] __asm__("_DAT_00900628") = {0};
-/* 0x0090062c, 4 bytes */ GRIM_DATA("0090062c") unsigned char grim_def_DAT_0090062c[4] __asm__("_DAT_0090062c") = {0};
-/* 0x00900630, 4 bytes */ GRIM_DATA("00900630") unsigned char grim_def_DAT_00900630[4] __asm__("_DAT_00900630") = {0};
-/* 0x00900634, 4 bytes */ GRIM_DATA("00900634") unsigned char grim_def_DAT_00900634[4] __asm__("_DAT_00900634") = {0};
-/* 0x00900638, 4 bytes */ GRIM_DATA("00900638") unsigned char grim_def_DAT_00900638[4] __asm__("_DAT_00900638") = {0};
-/* 0x0090063c, 4 bytes */ GRIM_DATA("0090063c") unsigned char grim_def_DAT_0090063c[4] __asm__("_DAT_0090063c") = {0};
-/* 0x00900640, 4 bytes */ GRIM_DATA("00900640") unsigned char grim_def_DAT_00900640[4] __asm__("_DAT_00900640") = {0};
-/* 0x00900644, 4 bytes */ GRIM_DATA("00900644") unsigned char grim_def_DAT_00900644[4] __asm__("_DAT_00900644") = {0};
-/* 0x00900648, 4 bytes */ GRIM_DATA("00900648") unsigned char grim_def_DAT_00900648[4] __asm__("_DAT_00900648") = {0};
-/* 0x0090064c, 4 bytes */ GRIM_DATA("0090064c") unsigned char grim_def_DAT_0090064c[4] __asm__("_DAT_0090064c") = {0};
-/* 0x00900650, 4 bytes */ GRIM_DATA("00900650") unsigned char grim_def_DAT_00900650[4] __asm__("_DAT_00900650") = {0};
-/* 0x00900654, 4 bytes */ GRIM_DATA("00900654") unsigned char grim_def_DAT_00900654[4] __asm__("_DAT_00900654") = {0};
-/* 0x00900658, 1256 bytes */ GRIM_DATA("00900658") unsigned char grim_def_DAT_00900658[1256] __asm__("_DAT_00900658") = {0};
+/* 0x00900620, 1312 bytes */ GRIM_DATA("00900620") unsigned char grim_def_g_abD3D_TextureFormats[1312] __asm__("_g_abD3D_TextureFormats") = {0};
 /* 0x00901408, 4 bytes */ GRIM_DATA("00901408") unsigned char grim_def_DAT_00901408[4] __asm__("_DAT_00901408") = {0};
 /* 0x0090140c, 76 bytes */ GRIM_DATA("0090140c") unsigned char grim_def_DAT_0090140c[76] __asm__("_DAT_0090140c") = {0};
 /* 0x00901458, 4 bytes */ GRIM_DATA("00901458") unsigned char grim_def_DAT_00901458[4] __asm__("_DAT_00901458") = {0};

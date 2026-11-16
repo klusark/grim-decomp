@@ -1445,7 +1445,7 @@ int __cdecl AnimFrame_module_startup(void)
       return iVar1;
     }
   }
-  puVar4 = &g_dwAnm_flobdec_services;
+  puVar4 = g_dwAnm_flobdec_services;
   for (iVar1 = 100; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar4 = 0;
     puVar4 = puVar4 + 1;
@@ -1456,15 +1456,15 @@ int __cdecl AnimFrame_module_startup(void)
   }
   iVar1 = 0;
   if (0 < (int)g_dwAnm_flobdec_count) {
-    puVar4 = &g_dwAnm_flobdec_types;
+    puVar4 = g_dwAnm_flobdec_types;
     do {
       iVar2 = (*(code *)g_pAnimFrame_share_services[6])(s_FLOBDEC_004f17ac,iVar1);
       if (iVar2 != 0) {
         uVar3 = (*(code *)g_pAnimFrame_share_services[2])(s_FLOBDEC_temp_004f179c,iVar2);
-        (&g_dwAnm_flobdec_services)[iVar1] = uVar3;
+        g_dwAnm_flobdec_services[iVar1] = uVar3;
         uVar3 = (**(code **)(uVar3 + 4))();
         g_dwAnm_flobdec_ids[iVar1] = uVar3;
-        uVar3 = (**(code **)((&g_dwAnm_flobdec_services)[iVar1] + 8))();
+        uVar3 = (**(code **)(g_dwAnm_flobdec_services[iVar1] + 8))();
         *puVar4 = uVar3;
       }
       iVar1 = iVar1 + 1;
@@ -1506,7 +1506,7 @@ void __cdecl AnimFrame_module_shutdown(void)
   }
   iVar3 = 0;
   if (0 < (int)g_dwAnm_flobdec_count) {
-    puVar2 = &g_dwAnm_flobdec_services;
+    puVar2 = g_dwAnm_flobdec_services;
     do {
       if (*puVar2 != 0) {
         (*(code *)g_pAnimFrame_share_services[3])(*puVar2);
@@ -1533,7 +1533,7 @@ void __cdecl anm_Reset(void)
   
   iVar2 = 0;
   if (0 < (int)g_dwAnm_flobdec_count) {
-    puVar1 = &g_dwAnm_flobdec_services;
+    puVar1 = g_dwAnm_flobdec_services;
     do {
       if (*puVar1 != 0) {
         (**(code_std **)(*puVar1 + 0xc))();
@@ -1567,8 +1567,8 @@ uint __cdecl anm_DecodeHeader(undefined1 *param_1,int param_2)
     if (0 < (int)uVar3) {
       do {
         if (((uVar2 != 0) && (uVar2 == g_dwAnm_flobdec_ids[iVar5])) &&
-           ((&g_dwAnm_flobdec_services)[iVar5] != 0)) {
-          (**(code **)((&g_dwAnm_flobdec_services)[iVar5] + 0x10))(param_1 + 8,iVar4);
+           (g_dwAnm_flobdec_services[iVar5] != 0)) {
+          (**(code **)(g_dwAnm_flobdec_services[iVar5] + 0x10))(param_1 + 8,iVar4);
           uVar3 = g_dwAnm_flobdec_count;
         }
         iVar5 = iVar5 + 1;
@@ -1659,9 +1659,9 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *src,uin
     if (0 < (int)g_dwAnm_flobdec_count) {
       do {
         if (((uVar12 != 0) && (uVar12 == g_dwAnm_flobdec_ids[uVar10])) &&
-           ((&g_dwAnm_flobdec_services)[uVar10] != 0)) {
+           (g_dwAnm_flobdec_services[uVar10] != 0)) {
           if (((bVar6) && (g_dwAnm_overlay_buffer != 0)) &&
-             (((&g_dwAnm_flobdec_types)[uVar10] & 0x10) != 0)) {
+             ((g_dwAnm_flobdec_types[uVar10] & 0x10) != 0)) {
             if (iVar11 + 8U < g_dwAnm_overlay_size) {
               msc_MemCopy((void *)g_dwAnm_overlay_buffer,param_11,iVar11 + 8U);
               g_dwAnm_overlay_flobdec = uVar10;
@@ -1671,7 +1671,7 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *src,uin
             }
             bVar6 = false;
           }
-          uVar8 = (**(code **)((&g_dwAnm_flobdec_services)[uVar10] + 0x14))
+          uVar8 = (**(code **)(g_dwAnm_flobdec_services[uVar10] + 0x14))
                             (param_1,param_2,param_3,param_4,src,param_11 + 8,iVar11,uVar9,param_9,
                              param_10);
           if ((uVar8 & 1) != 0) {
@@ -1698,7 +1698,7 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *src,uin
         }
         else if (uVar12 == 0x66746368) {
           if ((g_dwAnm_overlay_buffer != 0) && (-1 < (int)g_dwAnm_overlay_flobdec)) {
-            uVar12 = (**(code **)((&g_dwAnm_flobdec_services)[g_dwAnm_overlay_flobdec] + 0x14))
+            uVar12 = (**(code **)(g_dwAnm_flobdec_services[g_dwAnm_overlay_flobdec] + 0x14))
                                (param_1,param_2,param_3,param_4,src,g_dwAnm_overlay_buffer + 8,
                                 CONCAT31(CONCAT21(CONCAT11(*(undefined1 *)
                                                             (g_dwAnm_overlay_buffer + 4),
@@ -4181,7 +4181,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
       } while (psVar8 < &DAT_004dab0a);
       uVar7 = uVar7 + 1;
       local_28 = local_28 + 2;
-    } while (local_28 < &DAT_008d78e8);
+    } while (local_28 < 0x8d78e8);
     g_dwDWave_bDeltaTableInitialized = 1;
   }
   local_24 = (uint)CONCAT11(*param_2,param_2[1]);
@@ -4822,7 +4822,6 @@ extern unsigned char grim_def_DAT_008d7859 __asm__("_DAT_008d7859");
 extern unsigned short grim_def_DAT_008d785a __asm__("_DAT_008d785a");
 extern unsigned short grim_def_DAT_008d785c __asm__("_DAT_008d785c");
 extern unsigned short grim_def_DAT_008d785e __asm__("_DAT_008d785e");
-extern unsigned char grim_def_DAT_008d78e8[11264] __asm__("_DAT_008d78e8");
 extern void *grim_def_PTR_AnimFrame_anm_DebugInfo_004f1750[3] __asm__("_PTR_AnimFrame_anm_DebugInfo_004f1750");
 extern void *grim_def_PTR_AnimPlay_anm_DebugInfo_004f1328[3] __asm__("_PTR_AnimPlay_anm_DebugInfo_004f1328");
 extern void *grim_def_PTR_DAT_004f1f50[2] __asm__("_PTR_DAT_004f1f50");
@@ -4866,8 +4865,8 @@ extern unsigned int grim_def_g_dwAnm_PreloadPut_lastblock __asm__("_g_dwAnm_Prel
 extern unsigned int grim_def_g_dwAnm_Render_count __asm__("_g_dwAnm_Render_count");
 extern unsigned int grim_def_g_dwAnm_flobdec_count __asm__("_g_dwAnm_flobdec_count");
 extern unsigned int grim_def_g_dwAnm_flobdec_ids[100] __asm__("_g_dwAnm_flobdec_ids");
-extern unsigned char grim_def_g_dwAnm_flobdec_services[400] __asm__("_g_dwAnm_flobdec_services");
-extern unsigned char grim_def_g_dwAnm_flobdec_types[400] __asm__("_g_dwAnm_flobdec_types");
+extern unsigned int grim_def_g_dwAnm_flobdec_services[100] __asm__("_g_dwAnm_flobdec_services");
+extern unsigned int grim_def_g_dwAnm_flobdec_types[100] __asm__("_g_dwAnm_flobdec_types");
 extern unsigned int grim_def_g_dwAnm_overlay_buffer __asm__("_g_dwAnm_overlay_buffer");
 extern unsigned int grim_def_g_dwAnm_overlay_flobdec __asm__("_g_dwAnm_overlay_flobdec");
 extern unsigned int grim_def_g_dwAnm_overlay_size __asm__("_g_dwAnm_overlay_size");
@@ -4915,7 +4914,7 @@ extern unsigned char grim_def_g_pVideo_share_services[4] __asm__("_g_pVideo_shar
 extern unsigned char grim_def_g_pZfile_share_services[4] __asm__("_g_pZfile_share_services");
 extern void *grim_def_g_pZfilio_services[7] __asm__("_g_pZfilio_services");
 extern short grim_def_g_wAdpcmStepTable[89] __asm__("_g_wAdpcmStepTable");
-extern unsigned short grim_def_g_wDWave_aDeltaTable[64] __asm__("_g_wDWave_aDeltaTable");
+extern unsigned short grim_def_g_wDWave_aDeltaTable[5696] __asm__("_g_wDWave_aDeltaTable");
 extern char grim_def_s_ANIMFRAME_insane_004f176c[20] __asm__("_s_ANIMFRAME_insane_004f176c");
 extern char grim_def_s_ANIMFRAME_render_004f14b4[20] __asm__("_s_ANIMFRAME_render_004f14b4");
 extern char grim_def_s_ANIMPLAY_insane_004f1350[16] __asm__("_s_ANIMPLAY_insane_004f1350");
@@ -5235,8 +5234,8 @@ static unsigned char grim_pad_004f34a0[0] __attribute__((section(".data$grim_004
 /* 0x008d6f08, 4 bytes */ GRIM_DATA("008d6f08") unsigned char grim_def_DAT_008d6f08[4] __asm__("_DAT_008d6f08") = {0};
 /* 0x008d6f0c, 4 bytes */ GRIM_DATA("008d6f0c") unsigned char grim_def_DAT_008d6f0c[4] __asm__("_DAT_008d6f0c") = {0};
 /* 0x008d6f14, 4 bytes */ GRIM_DATA("008d6f14") unsigned int grim_def_g_dwAnimPlay_share_config __asm__("_g_dwAnimPlay_share_config") = 0x0;
-/* 0x008d6f30, 400 bytes */ GRIM_DATA("008d6f30") unsigned char grim_def_g_dwAnm_flobdec_types[400] __asm__("_g_dwAnm_flobdec_types") = {0};
-/* 0x008d70c0, 400 bytes */ GRIM_DATA("008d70c0") unsigned char grim_def_g_dwAnm_flobdec_services[400] __asm__("_g_dwAnm_flobdec_services") = {0};
+/* 0x008d6f30, 400 bytes */ GRIM_DATA("008d6f30") unsigned int grim_def_g_dwAnm_flobdec_types[100] __asm__("_g_dwAnm_flobdec_types") = {0};
+/* 0x008d70c0, 400 bytes */ GRIM_DATA("008d70c0") unsigned int grim_def_g_dwAnm_flobdec_services[100] __asm__("_g_dwAnm_flobdec_services") = {0};
 /* 0x008d7250, 400 bytes */ GRIM_DATA("008d7250") unsigned int grim_def_g_dwAnm_flobdec_ids[100] __asm__("_g_dwAnm_flobdec_ids") = {0};
 /* 0x008d73e0, 8 bytes */ GRIM_DATA("008d73e0") unsigned int grim_def_g_dwAnimFrame_share_config __asm__("_g_dwAnimFrame_share_config") = 0x0;
 /* 0x008d73e4, 4 bytes: the rest of grim_def_g_dwAnimFrame_share_config's span */ GRIM_DATA("008d73e0") static unsigned char g_dwAnimFrame_share_config__tail[4] __attribute__((used)) = {0};
@@ -5272,8 +5271,7 @@ static unsigned char grim_pad_004f34a0[0] __attribute__((section(".data$grim_004
 /* 0x008d785e, 2 bytes */ GRIM_DATA("008d785c") unsigned short grim_def_DAT_008d785e __asm__("_DAT_008d785e") = 0x0;
 /* 0x008d7860, 4 bytes */ GRIM_DATA("008d7860") unsigned int grim_def_UINT_008d7860 __asm__("_UINT_008d7860") = 0x0;
 /* 0x008d7864, 4 bytes */ GRIM_DATA("008d7864") unsigned char grim_def_g_pDWave_share_services[4] __asm__("_g_pDWave_share_services") = {0};
-/* 0x008d7868, 128 bytes */ GRIM_DATA("008d7868") unsigned short grim_def_g_wDWave_aDeltaTable[64] __asm__("_g_wDWave_aDeltaTable") = {0};
-/* 0x008d78e8, 11264 bytes */ GRIM_DATA("008d78e8") unsigned char grim_def_DAT_008d78e8[11264] __asm__("_DAT_008d78e8") = {0};
+/* 0x008d7868, 11392 bytes */ GRIM_DATA("008d7868") unsigned short grim_def_g_wDWave_aDeltaTable[5696] __asm__("_g_wDWave_aDeltaTable") = {0};
 /* 0x008da4e8, 4 bytes */ GRIM_DATA("008da4e8") unsigned int grim_def_g_dwDWave_share_config __asm__("_g_dwDWave_share_config") = 0x0;
 /* 0x008da4ec, 4 bytes */ GRIM_DATA("008da4ec") unsigned int grim_def_g_dwSoundServices __asm__("_g_dwSoundServices") = 0x0;
 /* 0x008da4f0, 4 bytes */ GRIM_DATA("008da4f0") unsigned char grim_def_g_pDWave_outputBuffer[4] __asm__("_g_pDWave_outputBuffer") = {0};
