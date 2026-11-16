@@ -7,14 +7,14 @@ Every function below is built from the hand-written C of `build/overrides*.c`; `
 | Category | Count | Meaning |
 |---|---|---|
 | rasteriser | 363 | rdraster.c span fillers: the original switches the x87 control word part-way through each span (24-bit truncation), which generated C cannot express; built from macro templates and tested against the original (build/difftest/asm_q4 .. q6). Kept on purpose. |
-| documented | 80 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
+| documented | 79 | the reason is recorded (names/override_reasons.json): a twin test result, a deliberate fix, a hook |
 | hook | 10 | the build's own test and mod hooks, host-runtime handling (kept on purpose) |
 | x87 | 63 | x87-exact ports (float rounding through memory, FCOMP compares, ST0 results) the generated C does not match |
 | assembly | 14 | top-level asm(): a register convention C cannot declare |
 
-Total: 530.
+Total: 529.
 
-## GRIMFANDANGO.EXE (491)
+## GRIMFANDANGO.EXE (490)
 
 363 rasteriser span fillers of rdraster.c are not listed one by one.
 
@@ -135,7 +135,6 @@ Total: 530.
 | `stdGif_LzwEncodePixel` | 0047ea30 | stdgif.c | overrides_asm_o2.c | documented | twin test: 301 of 12,301 differ |
 | `stdGif_LzwInitEncoder` | 0047e7f0 | stdgif.c | overrides_asm_o2.c | documented | twin test: 414 of 12,301 differ |
 | `Input_CreateKeyboard` | 00477530 | stdinput.c | overrides.c | documented | sets a cooperative level the original does not (deliberate) |
-| `Input_CreateMouse` | 004775a0 | stdinput.c | overrides.c | documented | its SetCooperativeLevel call is pushed around a Win_GetMainHwnd() call and the DIPROPDWORD is a lost stack block |
 | `Input_FlushJoystick` | 00477dc0 | stdinput.c | overrides_asm_o2.c | documented | twin test: 17,482 of 50,000 differ |
 | `Input_PollKeyboard` | 00477730 | stdinput.c | overrides_asm_o2.c | documented | twin test: crashes (lost DirectInput call arguments) |
 | `Input_PollMouse` | 00477c20 | stdinput.c | overrides_asm_o2.c | documented | twin test: 19,662 of 50,000 differ |

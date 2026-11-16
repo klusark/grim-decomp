@@ -308,6 +308,12 @@
    "args": 2,
    "cc": "__cdecl",
    "in": "DsndDriver_InitDirectSound"
+  },
+  {
+   "func": "004775a0",
+   "call": "00477606",
+   "args": 3,
+   "cc": "__stdcall"
   }
  ],
  "IMUSE.DLL": [

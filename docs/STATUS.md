@@ -10,13 +10,13 @@ A one-page summary; build/BUILD_NOTES.md has the history and the details of ever
   plays through on them (grim_tools' autorun, chapters 1 to 65, `grimW_work/wg_start.sh`).
 * **Names.** Every function of the game, LEC and engine code is named; the `FUN_` left are C runtime (most of it dead,
   kept out of the build). Coverage table: README.md.
-* **Generated code.** Everything is Ghidra's C except 530 hand-written functions, each listed with the reason in
+* **Generated code.** Everything is Ghidra's C except 529 hand-written functions, each listed with the reason in
   docs/OVERRIDES.md:
 
   | Why it stays hand-written | Count |
   |---|---|
   | The rasteriser's span fillers: the original switches the x87 control word part-way through a span (24-bit truncation); kept on purpose, differentially tested | 363 |
-  | A recorded reason: a twin test result, a deliberate fix, a hook, a decompiler limit (names/override_reasons.json) | 80 |
+  | A recorded reason: a twin test result, a deliberate fix, a hook, a decompiler limit (names/override_reasons.json) | 79 |
   | x87-exact ports (rounding to float through memory, FCOMP compares, values left in ST0) | 63 |
   | The build's own hooks (GRIM_SIMTIME, the debug log, host file handling) | 10 |
   | asm() blocks (register conventions C cannot declare) | 14 |
