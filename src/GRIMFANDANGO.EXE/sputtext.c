@@ -24,9 +24,9 @@ uint __cdecl sputText_Initialize(GrimServices *svc,undefined4 *iface)
   iface[5] = sputText_Restore;
   iface[6] = 0;
   iface[7] = 0;
-  iVar1 = Graph_SysInitialize(svc,(SysModuleIface *)&g_aGraphMS);
+  iVar1 = Graph_SysInitialize(svc,&g_aGraphMS);
   if (iVar1 == 0) {
-    iVar1 = Text_SysInitialize(svc,(SysModuleIface *)&g_aTextMS);
+    iVar1 = Text_SysInitialize(svc,&g_aTextMS);
     if (iVar1 == 0) {
       g_dwSputtextInitialize = 1;
       return 0;
@@ -44,8 +44,8 @@ void __cdecl sputText_Terminate(void)
 
 {
   _g_pSputtextHS = 0;
-  (*(code *)UINT_008ca11c)();
-  (*(code *)UINT_008ca0bc)();
+  (*g_aGraphMS.pfnTerminate)();
+  (*g_aTextMS.pfnTerminate)();
   if (g_dwSputtextInitialize != 0) {
     g_dwSputtextInitialize = 0;
   }
@@ -60,13 +60,15 @@ void __cdecl sputText_Terminate(void)
 uint __cdecl sputText_Startup(void)
 
 {
-  int iVar1;
+  undefined uVar1;
+  undefined3 extraout_var;
+  undefined3 extraout_var_00;
   
   if (g_dwSputtextStartup == 0) {
-    iVar1 = (*(code *)UINT_008ca120)();
-    if (iVar1 == 0) {
-      iVar1 = (*(code *)UINT_008ca0c0)();
-      if (iVar1 == 0) {
+    uVar1 = (*g_aGraphMS.pfnStartup)();
+    if (((uint)(byte)(uVar1)) == 0) {
+      uVar1 = (*g_aTextMS.pfnStartup)();
+      if (((uint)(byte)(uVar1)) == 0) {
         g_PrintLineTextCtx.pFont = Text_GetSystemFont();
         g_SubtitleTextCtx.pFont = g_PrintLineTextCtx.pFont;
         g_TextObjectCtx.pFont = g_PrintLineTextCtx.pFont;
@@ -122,8 +124,8 @@ uint __cdecl sputText_Startup(void)
 void __cdecl sputText_Shutdown(void)
 
 {
-  (*(code *)UINT_008ca124)();
-  (*(code *)UINT_008ca0c4)();
+  (*g_aGraphMS.pfnShutdown)();
+  (*g_aTextMS.pfnShutdown)();
   lua_unref(g_dwLrX);
   lua_unref(g_dwLrY);
   lua_unref(g_dwLrFont);
@@ -320,14 +322,8 @@ extern char f_sputText_SetOffscreenTextPosL[] __asm__("_sputText_SetOffscreenTex
 extern char f_sputText_SetSayLineDefaultsL[] __asm__("_sputText_SetSayLineDefaultsL");
 extern char f_sputText_SetTranslationModeL[] __asm__("_sputText_SetTranslationModeL");
 extern unsigned int grim_def_UINT_004e85d8 __asm__("_UINT_004e85d8");
-extern unsigned int grim_def_UINT_008ca0bc __asm__("_UINT_008ca0bc");
-extern unsigned int grim_def_UINT_008ca0c0 __asm__("_UINT_008ca0c0");
-extern unsigned char grim_def_UINT_008ca0c4[20] __asm__("_UINT_008ca0c4");
-extern unsigned int grim_def_UINT_008ca11c __asm__("_UINT_008ca11c");
-extern unsigned int grim_def_UINT_008ca120 __asm__("_UINT_008ca120");
-extern unsigned char grim_def_UINT_008ca124[20] __asm__("_UINT_008ca124");
-extern unsigned char grim_def_g_aGraphMS[4] __asm__("_g_aGraphMS");
-extern unsigned char grim_def_g_aTextMS[4] __asm__("_g_aTextMS");
+extern SysModuleIface grim_def_g_aGraphMS __asm__("_g_aGraphMS");
+extern SysModuleIface grim_def_g_aTextMS __asm__("_g_aTextMS");
 extern unsigned int grim_def_g_dwLrHiColor __asm__("_g_dwLrHiColor");
 extern unsigned int grim_def_g_dwSputtextInitialize __asm__("_g_dwSputtextInitialize");
 extern unsigned int grim_def_g_dwSputtextStartup __asm__("_g_dwSputtextStartup");
@@ -398,16 +394,16 @@ extern char grim_def_s_width_004e8440[8] __asm__("_s_width_004e8440");
 /* 0x004e87b0, 8 bytes */ /* loose */ char grim_def_s_bgcolor_004e87b0[8] __asm__("_s_bgcolor_004e87b0") = "bgcolor";
 /* 0x004e87b8, 8 bytes */ /* loose */ char grim_def_s_fgcolor_004e87b8[8] __asm__("_s_fgcolor_004e87b8") = "fgcolor";
 /* 0x004e87c0, 8 bytes */ /* loose */ char grim_def_s_font_004e87c0[8] __asm__("_s_font_004e87c0") = "font";
-/* 0x008ca0b8, 4 bytes */ GRIM_DATA("008ca0b8") unsigned char grim_def_g_aTextMS[4] __asm__("_g_aTextMS") = {0};
-/* 0x008ca0bc, 4 bytes */ GRIM_DATA("008ca0bc") unsigned int grim_def_UINT_008ca0bc __asm__("_UINT_008ca0bc") = 0x0;
-/* 0x008ca0c0, 4 bytes */ GRIM_DATA("008ca0c0") unsigned int grim_def_UINT_008ca0c0 __asm__("_UINT_008ca0c0") = 0x0;
-/* 0x008ca0c4, 20 bytes */ GRIM_DATA("008ca0c4") unsigned char grim_def_UINT_008ca0c4[20] __asm__("_UINT_008ca0c4") = {0};
-/* 0x008ca0e8, 4 bytes */ GRIM_DATA("008ca0e8") unsigned int grim_def_g_dwLrHiColor __asm__("_g_dwLrHiColor") = 0x0;
-/* 0x008ca118, 4 bytes */ GRIM_DATA("008ca118") unsigned char grim_def_g_aGraphMS[4] __asm__("_g_aGraphMS") = {0};
-/* 0x008ca11c, 4 bytes */ GRIM_DATA("008ca11c") unsigned int grim_def_UINT_008ca11c __asm__("_UINT_008ca11c") = 0x0;
-/* 0x008ca120, 4 bytes */ GRIM_DATA("008ca120") unsigned int grim_def_UINT_008ca120 __asm__("_UINT_008ca120") = 0x0;
-/* 0x008ca124, 20 bytes */ GRIM_DATA("008ca124") unsigned char grim_def_UINT_008ca124[20] __asm__("_UINT_008ca124") = {0};
-/* 0x008ca138, 4 bytes */ GRIM_DATA("008ca138") unsigned int grim_def_g_dwSputtextInitialize __asm__("_g_dwSputtextInitialize") = 0x0;
-/* 0x008ca13c, 4 bytes */ GRIM_DATA("008ca13c") unsigned int grim_def_g_dwSputtextStartup __asm__("_g_dwSputtextStartup") = 0x0;
-/* 0x008ca144, 4 bytes */ GRIM_DATA("008ca144") unsigned char grim_def_g_pSputtextHS[4] __asm__("_g_pSputtextHS") = {0};
-/* 0x008ca148, 4 bytes */ GRIM_DATA("008ca148") unsigned int grim_def_g_hFont __asm__("_g_hFont") = 0x0;
+static unsigned char grim_anchor_008ca0b8[0] __attribute__((section(".data$grim_008ca0b8"), aligned(16), used));
+static unsigned char grim_pad_008ca0b8[8] __attribute__((section(".data$grim_008ca0b8_"), aligned(4), used));
+/* 0x008ca0b8, 32 bytes */ GRIM_DATA("008ca0b8z") SysModuleIface grim_def_g_aTextMS __asm__("_g_aTextMS") = {0};
+/* 0x008ca0e8, 4 bytes */ /* loose */ unsigned int grim_def_g_dwLrHiColor __asm__("_g_dwLrHiColor") = 0x0;
+static unsigned char grim_anchor_008ca118[0] __attribute__((section(".data$grim_008ca118"), aligned(16), used));
+static unsigned char grim_pad_008ca118[8] __attribute__((section(".data$grim_008ca118_"), aligned(4), used));
+/* 0x008ca118, 32 bytes */ GRIM_DATA("008ca118z") SysModuleIface grim_def_g_aGraphMS __asm__("_g_aGraphMS") = {0};
+/* 0x008ca138, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputtextInitialize __asm__("_g_dwSputtextInitialize") = 0x0;
+/* 0x008ca13c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputtextStartup __asm__("_g_dwSputtextStartup") = 0x0;
+/* 0x008ca144, 4 bytes */ /* loose */ unsigned char grim_def_g_pSputtextHS[4] __asm__("_g_pSputtextHS") = {0};
+static unsigned char grim_anchor_008ca148[0] __attribute__((section(".data$grim_008ca148"), aligned(16), used));
+static unsigned char grim_pad_008ca148[8] __attribute__((section(".data$grim_008ca148_"), aligned(4), used));
+/* 0x008ca148, 4 bytes */ GRIM_DATA("008ca148z") unsigned int grim_def_g_hFont __asm__("_g_hFont") = 0x0;

@@ -18,7 +18,7 @@ void __cdecl Glyph_Blit16(int fmt,uint font,int *glyph)
   int iVar7;
   undefined2 uVar8;
   int iVar9;
-  undefined1 *puVar10;
+  byte *pbVar10;
   undefined2 *puVar11;
   int iVar12;
   char *pcVar13;
@@ -35,9 +35,9 @@ void __cdecl Glyph_Blit16(int fmt,uint font,int *glyph)
   puVar14 = (undefined2 *)
             (((int)*(char *)(fmt + 5) + glyph[3]) * iVar5 +
              ((int)*(char *)(fmt + 6) + glyph[4]) * iVar4 + *piVar3);
-  puVar10 = (undefined1 *)glyph[0xb];
-  if (puVar10 == (undefined1 *)0x0) {
-    puVar10 = &g_bLookup;
+  pbVar10 = (byte *)glyph[0xb];
+  if (pbVar10 == (byte *)0x0) {
+    pbVar10 = g_bLookup;
   }
   iVar6 = glyph[5];
   iVar7 = glyph[7];
@@ -57,13 +57,13 @@ LAB_004ab9b2:
         }
         else {
           if (cVar1 == -0x80) {
-            uVar8 = *(undefined2 *)(puVar10 + iVar7 * iVar5);
+            uVar8 = *(undefined2 *)(pbVar10 + iVar7 * iVar5);
 LAB_004ab9af:
             *puVar11 = uVar8;
             goto LAB_004ab9b2;
           }
           if (cVar1 == -1) {
-            uVar8 = *(undefined2 *)(puVar10 + iVar6 * iVar5);
+            uVar8 = *(undefined2 *)(pbVar10 + iVar6 * iVar5);
             goto LAB_004ab9af;
           }
         }
@@ -82,12 +82,12 @@ void __cdecl Glyph_Blit8(int fmt,int font,int *glyph)
   byte bVar1;
   int iVar2;
   int iVar3;
-  undefined1 *puVar4;
-  undefined1 *puVar5;
+  byte *pbVar4;
+  byte *pbVar5;
   int iVar6;
   byte *pbVar7;
   int iVar8;
-  undefined1 *puVar9;
+  byte *pbVar9;
   int iVar10;
   uint local_8;
   uint local_4;
@@ -97,51 +97,50 @@ void __cdecl Glyph_Blit8(int fmt,int font,int *glyph)
   pbVar7 = *(byte **)(fmt + 8);
   iVar3 = ((int *)*glyph)[5];
   iVar6 = (int)*(char *)(fmt + 6) - *(int *)(font + 0x14);
-  puVar9 = (undefined1 *)glyph[0xb];
-  puVar4 = (undefined1 *)
-           ((glyph[4] + *(int *)(font + 0x14)) * iVar3 + (int)*(char *)(fmt + 5) + glyph[3] +
-           *(int *)*glyph);
-  if (puVar9 == (undefined1 *)0x0) {
-    puVar9 = &g_bLookup;
+  pbVar9 = (byte *)glyph[0xb];
+  pbVar4 = (byte *)((glyph[4] + *(int *)(font + 0x14)) * iVar3 + (int)*(char *)(fmt + 5) + glyph[3]
+                   + *(int *)*glyph);
+  if (pbVar9 == (byte *)0x0) {
+    pbVar9 = g_bLookup;
   }
   for (; iVar6 != 0; iVar6 = iVar6 + -1) {
-    puVar5 = puVar4;
+    pbVar5 = pbVar4;
     iVar10 = iVar2;
     if (0 < iVar2) {
       do {
-        *puVar5 = *puVar9;
+        *pbVar5 = *pbVar9;
         iVar10 = iVar10 + -1;
-        puVar5 = puVar5 + 1;
+        pbVar5 = pbVar5 + 1;
       } while (iVar10 != 0);
     }
-    puVar4 = puVar4 + iVar3;
+    pbVar4 = pbVar4 + iVar3;
   }
   iVar6 = (*(int *)(font + 0x18) - iVar8) - (int)*(char *)(fmt + 6);
   for (; iVar8 != 0; iVar8 = iVar8 + -1) {
-    puVar5 = puVar4;
+    pbVar5 = pbVar4;
     iVar10 = iVar2;
     if (0 < iVar2) {
       do {
         bVar1 = *pbVar7;
         pbVar7 = pbVar7 + 1;
         iVar10 = iVar10 + -1;
-        *puVar5 = puVar9[bVar1];
-        puVar5 = puVar5 + 1;
+        *pbVar5 = pbVar9[bVar1];
+        pbVar5 = pbVar5 + 1;
       } while (iVar10 != 0);
     }
-    puVar4 = puVar4 + iVar3;
+    pbVar4 = pbVar4 + iVar3;
   }
   for (; iVar6 != 0; iVar6 = iVar6 + -1) {
-    puVar5 = puVar4;
+    pbVar7 = pbVar4;
     iVar8 = iVar2;
     if (0 < iVar2) {
       do {
-        *puVar5 = *puVar9;
+        *pbVar7 = *pbVar9;
         iVar8 = iVar8 + -1;
-        puVar5 = puVar5 + 1;
+        pbVar7 = pbVar7 + 1;
       } while (iVar8 != 0);
     }
-    puVar4 = puVar4 + iVar3;
+    pbVar4 = pbVar4 + iVar3;
   }
   return;
 }
@@ -156,7 +155,7 @@ void __cdecl Glyph_Blit16Clipped(int fmt,uint font,int *glyph)
   int *piVar4;
   int iVar5;
   int iVar6;
-  undefined1 *puVar7;
+  byte *pbVar7;
   undefined2 *puVar8;
   int iVar9;
   char *pcVar10;
@@ -205,10 +204,10 @@ void __cdecl Glyph_Blit16Clipped(int fmt,uint font,int *glyph)
   }
   if ((iVar11 < iVar14 - iVar6) && (iVar13 < iVar9 - iVar12)) {
     pcVar10 = (char *)(iVar13 * *(int *)(fmt + 0xc) + *(int *)(fmt + 8) + iVar11);
-    puVar7 = (undefined1 *)glyph[0xb];
+    pbVar7 = (byte *)glyph[0xb];
     puVar16 = (undefined2 *)((iVar11 + iVar6) * iVar2 + iVar3 * iVar12 + *(int *)*glyph);
-    if (puVar7 == (undefined1 *)0x0) {
-      puVar7 = &g_bLookup;
+    if (pbVar7 == (byte *)0x0) {
+      pbVar7 = g_bLookup;
     }
     iVar5 = glyph[5];
     iVar15 = glyph[7];
@@ -225,7 +224,7 @@ LAB_004abc47:
           else {
             iVar9 = iVar15;
             if ((cVar1 == -0x80) || (iVar9 = iVar5, cVar1 == -1)) {
-              *puVar8 = *(undefined2 *)(puVar7 + iVar9 * iVar2);
+              *puVar8 = *(undefined2 *)(pbVar7 + iVar9 * iVar2);
               goto LAB_004abc47;
             }
           }
@@ -251,11 +250,11 @@ void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *glyph)
   int iVar4;
   int iVar5;
   int iVar6;
-  undefined1 *puVar7;
+  byte *pbVar7;
   int iVar8;
-  undefined1 *puVar9;
+  byte *pbVar9;
   int iVar10;
-  undefined1 *puVar11;
+  byte *pbVar11;
   int iVar12;
   int iVar13;
   int iVar14;
@@ -292,50 +291,50 @@ void __cdecl Glyph_Blit8Clipped(int fmt,int font,int *glyph)
     iVar14 = iVar10 + iVar12;
   }
   if ((iVar4 < iVar6 - iVar8) && (iVar5 - iVar12 < iVar14 - iVar12)) {
-    puVar11 = (undefined1 *)glyph[0xb];
+    pbVar11 = (byte *)glyph[0xb];
     iVar14 = *(int *)(fmt + 8) + iVar4;
-    puVar7 = (undefined1 *)(iVar1 * iVar12 + *(int *)*glyph + iVar4 + iVar8);
-    if (puVar11 == (undefined1 *)0x0) {
-      puVar11 = &g_bLookup;
+    pbVar7 = (byte *)(iVar1 * iVar12 + *(int *)*glyph + iVar4 + iVar8);
+    if (pbVar11 == (byte *)0x0) {
+      pbVar11 = g_bLookup;
     }
     iVar4 = (iVar6 - iVar8) - iVar4;
     for (; iVar13 != 0; iVar13 = iVar13 + -1) {
       if (((piVar2[1] <= iVar12) && (iVar12 < piVar2[1] + piVar2[3])) &&
-         (puVar9 = puVar7, iVar8 = iVar4, 0 < iVar4)) {
+         (pbVar9 = pbVar7, iVar8 = iVar4, 0 < iVar4)) {
         do {
-          *puVar9 = *puVar11;
-          puVar9 = puVar9 + 1;
+          *pbVar9 = *pbVar11;
+          pbVar9 = pbVar9 + 1;
           iVar8 = iVar8 + -1;
         } while (iVar8 != 0);
       }
-      puVar7 = puVar7 + iVar1;
+      pbVar7 = pbVar7 + iVar1;
       iVar12 = iVar12 + 1;
     }
     iVar13 = (*(int *)(font + 0x18) - iVar10) - (int)*(char *)(fmt + 6);
     for (; iVar10 != 0; iVar10 = iVar10 + -1) {
       if (((piVar2[1] <= iVar12) && (iVar12 < piVar2[1] + piVar2[3])) && (0 < iVar4)) {
-        puVar9 = puVar7;
+        pbVar9 = pbVar7;
         iVar8 = iVar4;
         do {
           iVar8 = iVar8 + -1;
-          *puVar9 = puVar11[(byte)puVar9[iVar14 - (int)puVar7]];
-          puVar9 = puVar9 + 1;
+          *pbVar9 = pbVar11[pbVar9[iVar14 - (int)pbVar7]];
+          pbVar9 = pbVar9 + 1;
         } while (iVar8 != 0);
       }
       iVar14 = iVar14 + *(int *)(fmt + 0xc);
-      puVar7 = puVar7 + iVar1;
+      pbVar7 = pbVar7 + iVar1;
       iVar12 = iVar12 + 1;
     }
     for (; iVar13 != 0; iVar13 = iVar13 + -1) {
       if (((piVar2[1] <= iVar12) && (iVar12 < piVar2[1] + piVar2[3])) &&
-         (puVar9 = puVar7, iVar10 = iVar4, 0 < iVar4)) {
+         (pbVar9 = pbVar7, iVar10 = iVar4, 0 < iVar4)) {
         do {
-          *puVar9 = *puVar11;
+          *pbVar9 = *pbVar11;
           iVar10 = iVar10 + -1;
-          puVar9 = puVar9 + 1;
+          pbVar9 = pbVar9 + 1;
         } while (iVar10 != 0);
       }
-      puVar7 = puVar7 + iVar1;
+      pbVar7 = pbVar7 + iVar1;
       iVar12 = iVar12 + 1;
     }
   }

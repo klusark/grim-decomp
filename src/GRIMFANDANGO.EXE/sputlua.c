@@ -294,7 +294,7 @@ void __cdecl sputLua_Terminate(void)
 {
   g_pSputLuaHS = (GrimServices *)0x0;
   if (g_dwSputLuaInitialize != 0) {
-    (*(code *)UINT_008cab54)();
+    (*g_aLuaMS.pfnTerminate)();
     g_dwSputLuaInitialize = 0;
   }
   return;
@@ -316,7 +316,7 @@ void __cdecl sputLua_Shutdown(void)
   lua_unref(g_nLrSystemTable);
   *(undefined4 *)lua_savehook_exref = 0;
   *(undefined4 *)lua_restorehook_exref = 0;
-  (*(code *)UINT_008cab5c)();
+  (*g_aLuaMS.pfnShutdown)();
   UINT_008cab80 = 0;
   return;
 }
@@ -960,9 +960,6 @@ void __cdecl sputLua_SubmitSaveGameData(void)
 #ifndef GRIM_DATA
 #define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
 #endif
-extern unsigned int grim_def_UINT_008cab54 __asm__("_UINT_008cab54");
-extern unsigned char grim_def_UINT_008cab5c[20] __asm__("_UINT_008cab5c");
-extern unsigned char grim_def_g_aLuaMS[4] __asm__("_g_aLuaMS");
 extern unsigned int grim_def_g_dwSputLuaInitialize __asm__("_g_dwSputLuaInitialize");
 extern unsigned int grim_def_g_dwSputLua_Update_collectionTime __asm__("_g_dwSputLua_Update_collectionTime");
 extern unsigned int grim_def_g_dwSputLua_Update_movieTimeMsec __asm__("_g_dwSputLua_Update_movieTimeMsec");
@@ -986,9 +983,6 @@ extern char grim_def_s_unnamed_function_004ec43c[20] __asm__("_s_unnamed_functio
 /* 0x004ec474, 8 bytes */ /* loose */ char grim_def_s_actor_004ec474[8] __asm__("_s_actor_004ec474") = "actor";
 /* 0x004ec47c, 8 bytes */ /* loose */ char grim_def_s_costume_004ec47c[8] __asm__("_s_costume_004ec47c") = "costume";
 /* 0x004ec484, 12 bytes */ /* loose */ char grim_def_s_keyframe_004ec484[12] __asm__("_s_keyframe_004ec484") = "keyframe";
-/* 0x008cab50, 4 bytes */ GRIM_DATA("008cab50") unsigned char grim_def_g_aLuaMS[4] __asm__("_g_aLuaMS") = {0};
-/* 0x008cab54, 4 bytes */ GRIM_DATA("008cab54") unsigned int grim_def_UINT_008cab54 __asm__("_UINT_008cab54") = 0x0;
-/* 0x008cab5c, 20 bytes */ GRIM_DATA("008cab5c") unsigned char grim_def_UINT_008cab5c[20] __asm__("_UINT_008cab5c") = {0};
-/* 0x008cab74, 4 bytes */ GRIM_DATA("008cab74") unsigned int grim_def_g_dwSputLua_Update_movieTimeMsec __asm__("_g_dwSputLua_Update_movieTimeMsec") = 0x0;
-/* 0x008cab7c, 4 bytes */ GRIM_DATA("008cab7c") unsigned int grim_def_g_dwSputLuaInitialize __asm__("_g_dwSputLuaInitialize") = 0x0;
-/* 0x008cab90, 4 bytes */ GRIM_DATA("008cab90") unsigned int grim_def_g_dwSputLua_Update_collectionTime __asm__("_g_dwSputLua_Update_collectionTime") = 0x0;
+/* 0x008cab74, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputLua_Update_movieTimeMsec __asm__("_g_dwSputLua_Update_movieTimeMsec") = 0x0;
+/* 0x008cab7c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputLuaInitialize __asm__("_g_dwSputLuaInitialize") = 0x0;
+/* 0x008cab90, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputLua_Update_collectionTime __asm__("_g_dwSputLua_Update_collectionTime") = 0x0;

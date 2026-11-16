@@ -11,7 +11,7 @@
 #define COMX(obj, off, ...) ((int (__stdcall *)())(*(void ***)(obj))[(off) / 4])((obj), ##__VA_ARGS__)
 
 /* ==== D3D_SelectDriver (0x004782e0) ====
- * Makes driver `driverIdx` of D3D_Enumerate's table (UINT_00900b40, 0x22c bytes each) the current device: a z-buffer
+ * Makes driver `driverIdx` of D3D_Enumerate's table (g_aStd3DDevices, 0x22c bytes each) the current device: a z-buffer
  * when wanted and the driver has one and the render flags allow it (its fill depth 16 or 2, UINT_00900534), the
  * Direct3D device from the back buffer surface (QueryInterface with the driver GUID), its texture formats
  * (EnumTextureFormats into DAT_00900620, 0xa4 bytes each, UINT_00806930 of them), the viewport, the render state, an
@@ -32,7 +32,7 @@ int __cdecl D3D_SelectDriver(uint driverIdx, int useZBuffer)
     if (UINT_00806970 != 0 || driverIdx >= g_dwD3dDriverCount)
         return 0;
     UINT_00900530 = driverIdx;
-    dev = (Std3DDevice *)((byte *)&UINT_00900b40 + driverIdx * 0x22c);
+    dev = (Std3DDevice *)((byte *)&g_aStd3DDevices + driverIdx * 0x22c);
     g_pStd3D_CurDevice = dev;
     if (useZBuffer != 0 && dev->nHasZBuffer != 0 && (g_dwD3dRenderFlags & 0x1800) != 0) {
         UINT_004dee60 = 1;

@@ -100,7 +100,7 @@ int __cdecl grimPlat_OpenFileRequest(char *title,char *filter)
   ofn.pOwner = Win_GetMainHwnd();
   ofn.pFilter = filter;
   ofn.pFile = local_104;
-  ofn.pInitialDir = (char *)(-(uint)(g_szDialogOpenDir[0] != '\0') & 0x8c9858);
+  ofn.pInitialDir = (char *)(-(uint)(g_szDialogOpenDir[0] != '\0') & ((unsigned)(uintptr_t)&g_szDialogOpenDir));
   ofn.dwFilterIndex = 1;
   ofn.dwMaxFile = 0x104;
   ofn.pTitle = title;
@@ -147,7 +147,7 @@ int __cdecl grimPlat_SaveFileRequest(char *title,char *filter)
   ofn.pOwner = Win_GetMainHwnd();
   ofn.pFilter = filter;
   ofn.pFile = local_104;
-  ofn.pInitialDir = (char *)(-(uint)(g_szDialogSaveDir[0] != '\0') & 0x8c9960);
+  ofn.pInitialDir = (char *)(-(uint)(g_szDialogSaveDir[0] != '\0') & ((unsigned)(uintptr_t)&g_szDialogSaveDir));
   ofn.dwFilterIndex = 1;
   ofn.dwMaxFile = 0x104;
   ofn.pTitle = title;

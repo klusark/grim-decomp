@@ -462,9 +462,7 @@ extern unsigned char DAT_10034800[4];
 extern unsigned char DAT_10034804[4];
 extern unsigned char DAT_10034808[4];
 
-static unsigned char grim_anchor_10015000[0] __attribute__((section(".data$grim_10015000"), aligned(16), used));
-static unsigned char grim_pad_10015000[0] __attribute__((section(".data$grim_10015000_"), aligned(4), used));
-/* 0x10015000, 296 bytes */ GRIM_DATA("10015000z") unsigned char PTR_hmiFXPresetRelease_10015000[296] __asm__("_PTR_hmiFXPresetRelease_10015000") = {
+/* 0x10015000, 296 bytes */ /* loose */ unsigned char PTR_hmiFXPresetRelease_10015000[296] __asm__("_PTR_hmiFXPresetRelease_10015000") = {
     0x76, 0x62, 0x01, 0x00, 0xc8, 0x62, 0x01, 0x00, 0xae, 0x62, 0x01, 0x00, 0x9a, 0x62, 0x01, 0x00,
     0x8c, 0x62, 0x01, 0x00, 0x4e, 0x62, 0x01, 0x00, 0x60, 0x62, 0x01, 0x00, 0x22, 0x62, 0x01, 0x00,
     0x3c, 0x62, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf8, 0x61, 0x01, 0x00, 0xe0, 0x61, 0x01, 0x00,
@@ -484,8 +482,10 @@ static unsigned char grim_pad_10015000[0] __attribute__((section(".data$grim_100
     0x40, 0x66, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x5c, 0x61, 0x01, 0x00, 0x8a, 0x61, 0x01, 0x00,
     0x6a, 0x61, 0x01, 0x00, 0x7a, 0x61, 0x01, 0x00, 0x9a, 0x61, 0x01, 0x00, 0xac, 0x61, 0x01
 };
-/* 0x10015128, 8 bytes */ GRIM_DATA("10015128") signed char g_abAdpcmIndexAdjust2[4] __asm__("_g_abAdpcmIndexAdjust2") = { -1, 4, -1, 4 };
-/* 0x1001512c, 4 bytes: the rest of g_abAdpcmIndexAdjust2's span */ GRIM_DATA("10015128") static unsigned char g_abAdpcmIndexAdjust2__tail[4] __attribute__((used)) = {0};
+static unsigned char grim_anchor_10015128[0] __attribute__((section(".data$grim_10015128"), aligned(16), used));
+static unsigned char grim_pad_10015128[8] __attribute__((section(".data$grim_10015128_"), aligned(4), used));
+/* 0x10015128, 8 bytes */ GRIM_DATA("10015128z") signed char g_abAdpcmIndexAdjust2[4] __asm__("_g_abAdpcmIndexAdjust2") = { -1, 4, -1, 4 };
+/* 0x1001512c, 4 bytes: the rest of g_abAdpcmIndexAdjust2's span */ GRIM_DATA("10015128z") static unsigned char g_abAdpcmIndexAdjust2__tail[4] __attribute__((used)) = {0};
 /* 0x10015130, 8 bytes */ GRIM_DATA("10015130") signed char g_abAdpcmIndexAdjust3[8] __asm__("_g_abAdpcmIndexAdjust3") = { -1, -1, 2, 6, -1, -1, 2, 6 };
 /* 0x10015138, 16 bytes */ GRIM_DATA("10015138") signed char g_abAdpcmIndexAdjust4[16] __asm__("_g_abAdpcmIndexAdjust4") = { -1, -1, -1, -1, 1, 2, 4, 6, -1, -1, -1, -1, 1, 2, 4, 6 };
 /* 0x10015148, 32 bytes */ GRIM_DATA("10015148") signed char g_abAdpcmIndexAdjust5[32] __asm__("_g_abAdpcmIndexAdjust5") = {

@@ -1044,15 +1044,21 @@ def generate(prog, srcdir, extra_img=()):
     targets = {a for a in img_targets_of(texts.values()) if mapped(a)} | {a for a in extra_img if mapped(a)}
     model = build_model(prog, srcdir, targets)
     model.loose = data_reach.loose_starts(model, targets) if os.environ.get("GRIM_PIN_DATA") != "1" else set()
+    # GRIM_PIN_RANGES=lo-hi,lo-hi (hex): keep the spans there pinned (to bisect a span that should not be loose)
+    for r in filter(None, os.environ.get("GRIM_PIN_RANGES", "").split(",")):
+        lo, hi = (int(x, 16) for x in r.split("-"))
+        model.loose = {a for a in model.loose if not lo <= a < hi}
     model.img_labels = {a for a in data_reach.override_targets(prog, ranges) if span_containing(model, a) is not None}
     new_names = {}
+    # the names globals.h declares (a global Ghidra types but no function names is in model.decls, not in globals.h)
+    in_globals = set(IDENT.findall(open(os.path.join(out, "globals.h"), encoding="utf-8").read()))
 
     def rep(m):
         a = int(m.group(1), 16)
         if not mapped(a):
             return "0x%s" % m.group(1)
         sp, off = resolve(model, a)
-        if sp.name not in model.decls:
+        if sp.name not in in_globals:
             new_names[sp.name] = sp
         if off == 0:
             return "((unsigned)(uintptr_t)&%s)" % sp.name
@@ -1063,7 +1069,7 @@ def generate(prog, srcdir, extra_img=()):
     for a in sorted(extra_img):
         if mapped(a):
             sp, off = resolve(model, a)
-            if sp is not None and off == 0 and sp.name not in model.decls:
+            if sp is not None and off == 0 and sp.name not in in_globals:
                 new_names[sp.name] = sp
 
     n_img = 0

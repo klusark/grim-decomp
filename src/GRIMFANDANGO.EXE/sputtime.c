@@ -78,6 +78,6 @@ void __cdecl sputTime_Shutdown(void)
 extern unsigned int grim_def_g_dwSputTimeInitialize __asm__("_g_dwSputTimeInitialize");
 extern unsigned int grim_def_g_dwSputTimeStartup __asm__("_g_dwSputTimeStartup");
 extern unsigned char grim_def_g_pSputTimeHS[4] __asm__("_g_pSputTimeHS");
-/* 0x008cab94, 4 bytes */ GRIM_DATA("008cab94") unsigned char grim_def_g_pSputTimeHS[4] __asm__("_g_pSputTimeHS") = {0};
-/* 0x008cab98, 4 bytes */ GRIM_DATA("008cab98") unsigned int grim_def_g_dwSputTimeInitialize __asm__("_g_dwSputTimeInitialize") = 0x0;
-/* 0x008cab9c, 4 bytes */ GRIM_DATA("008cab9c") unsigned int grim_def_g_dwSputTimeStartup __asm__("_g_dwSputTimeStartup") = 0x0;
+/* 0x008cab94, 4 bytes */ /* loose */ unsigned char grim_def_g_pSputTimeHS[4] __asm__("_g_pSputTimeHS") = {0};
+/* 0x008cab98, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputTimeInitialize __asm__("_g_dwSputTimeInitialize") = 0x0;
+/* 0x008cab9c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputTimeStartup __asm__("_g_dwSputTimeStartup") = 0x0;

@@ -22,7 +22,7 @@ void PrimitiveList_StaticConstruct(void)
 void PrimitiveList_InitGlobal(void)
 
 {
-  PrimitiveQueue_Construct(&g_dwPrimitiveQ);
+  PrimitiveQueue_Construct(g_dwPrimitiveQ);
   return;
 }
 
@@ -42,7 +42,7 @@ void __cdecl PrimitiveList_RegisterAtExit(void)
 void __cdecl PrimitiveList_AtExitClear(void)
 
 {
-  PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
+  PrimitiveQueue_purge((int *)g_dwPrimitiveQ);
   return;
 }
 

@@ -19,7 +19,7 @@
 | 004ac1f0 | Win_CreateMainWindow | window.c | 1 |
 | 004ac340 | Win_KernelWndProc | window.c | 83 |
 | 004bff70 | Win_IsFocusWithin | window.c | 21 |
-| 00401040 | grimdemo_EnableDebugging | debuglog.c | 51 |
+| 00401040 | grimdemo_EnableDebugging | debuglog.c | 50 |
 | 004020a0 | DebugLog_Load | debuglog.c | 24 |
 | 00402330 | grimdemo_MessagePrint | debuglog.c | 19 |
 | 004023a0 | grimdemo_StatusPrint | debuglog.c | 19 |
@@ -28,12 +28,12 @@
 | 004024f0 | grimdemo_DebugPrint | debuglog.c | 19 |
 | 00402560 | DebugLog_Write | debuglog.c | 6 |
 | 00401140 | Grim_FindDataOnDrives | grim.c | 118 |
-| 004012b0 | Main_Startup | grim.c | 144 |
+| 004012b0 | Main_Startup | grim.c | 146 |
 | 00401640 | Grim_DecodeRegKeyName | grim.c | 17 |
 | 004018b0 | Grim_FatalMessageBox | grim.c | 15 |
 | 00401900 | Grim_ShutdownDisplay | grim.c | 18 |
 | 00401950 | Main_Shutdown | grim.c | 59 |
-| 00401a50 | Grim_EnumDisplayModes | grim.c | 120 |
+| 00401a50 | Grim_EnumDisplayModes | grim.c | 122 |
 | 00402050 | grimdemo_PleaseShutdown | grim.c | 9 |
 | 00402060 | grimdemo_SetPalette | grim.c | 14 |
 | 00402c80 | Grim_ParseCommandLine | grim.c | 99 |
@@ -325,7 +325,7 @@
 | 00402200 | ChoreFace_CallSavedHook | choreface.c | 9 |
 | 00402290 | ChoreFace_OnCommand | choreface.c | 42 |
 | 00402580 | Display_Shutdown3D | stddisplay.c | 14 |
-| 004025b0 | Display_Select | stddisplay.c | 107 |
+| 004025b0 | Display_Select | stddisplay.c | 106 |
 | 00402860 | Display_Select3DDevice | stddisplay.c | 45 |
 | 00402930 | Display_InitFromConfig | stddisplay.c | 1 |
 | 004029b0 | Display_GetLastFromRegistry | stddisplay.c | 146 |
@@ -336,7 +336,7 @@
 | 00473270 | Palette_SwapRedBlue | stddisplay.c | 60 |
 | 00473a40 | stdDisplay_Startup | stddisplay.c | 32 |
 | 00473b30 | stdDisplay_Shutdown | stddisplay.c | 15 |
-| 00473c80 | Display_SelectDevice | stddisplay.c | 168 |
+| 00473c80 | Display_SelectDevice | stddisplay.c | 166 |
 | 00474100 | stdDisplay_Close | stddisplay.c | 18 |
 | 00474140 | Display_OpenMode | stddisplay.c | 64 |
 | 00474310 | stdDisplay_ClearMode | stddisplay.c | 26 |
@@ -368,8 +368,8 @@
 | 004760d0 | DDraw_Create | stddisplay.c | 1 |
 | 00476190 | DDraw_Release | stddisplay.c | 9 |
 | 004761b0 | stdDisplay_EnumDevicesCallback | stddisplay.c | 1 |
-| 00476390 | DDraw_EnumModesCallback | stddisplay.c | 100 |
-| 004765a0 | DDraw_EnumModesCallback320 | stddisplay.c | 100 |
+| 00476390 | DDraw_EnumModesCallback | stddisplay.c | 101 |
+| 004765a0 | DDraw_EnumModesCallback320 | stddisplay.c | 101 |
 | 004767c0 | DDraw_Get | stddisplay.c | 5 |
 | 004767d0 | DDraw_CreateSurfaces | stddisplay.c | 1 |
 | 00476bc0 | DDraw_ReleaseSurfaces | stddisplay.c | 1 |
@@ -1131,7 +1131,7 @@
 | 00478c00 | D3D_SetRenderFlags | std3d.c | 127 |
 | 00479070 | std3D_GetValidDimensions | std3d.c | 39 |
 | 00479110 | std3D_PurgeTextureCache | std3d.c | 17 |
-| 00479170 | std3D_AddToTextureCache | std3d.c | 342 |
+| 00479170 | std3D_AddToTextureCache | std3d.c | 343 |
 | 00479860 | D3D_FreeAllTextures | std3d.c | 33 |
 | 004798e0 | D3D_LinkTexture | std3d.c | 19 |
 | 00479950 | D3D_UnlinkTexture | std3d.c | 32 |
@@ -1144,7 +1144,7 @@
 | 00479db0 | D3D_InitRenderState | std3d.c | 1 |
 | 0047a130 | D3D_CreateViewport | std3d.c | 1 |
 | 0047a240 | D3D_CreateZBuffer | std3d.c | 59 |
-| 0047a3b0 | D3D_EnumDevicesCallback | std3d.c | 87 |
+| 0047a3b0 | D3D_EnumDevicesCallback | std3d.c | 91 |
 | 0047a590 | D3D_EnumTextureFormatsCallback | std3d.c | 137 |
 | 0047a850 | D3D_CapsToFilterBits | std3d.c | 26 |
 | 0047a890 | D3D_FilterBitsToMask | std3d.c | 29 |
@@ -1537,8 +1537,8 @@
 | 00488eb0 | DirScan_Reset | dirscan.c | 13 |
 | 00488ee0 | DirScan_Next | dirscan.c | 63 |
 | 00488fb0 | sputSmush_Initialize | sputsmush.c | 22 |
-| 00489130 | sputSmush_Startup | sputsmush.c | 25 |
-| 00489190 | sputSmush_Shutdown | sputsmush.c | 16 |
+| 00489130 | sputSmush_Startup | sputsmush.c | 27 |
+| 00489190 | sputSmush_Shutdown | sputsmush.c | 15 |
 | 00489030 | sputSmush_Save | movie.c | 15 |
 | 00489090 | sputSmush_Restore | movie.c | 21 |
 | 004891b0 | sputSmush_Periodic | movie.c | 44 |
@@ -1592,7 +1592,7 @@
 | 0048ad50 | sputText_Resume | textobjects.c | 9 |
 | 0048acc0 | sputText_Initialize | sputtext.c | 28 |
 | 0048c4d0 | sputText_Terminate | sputtext.c | 15 |
-| 0048c500 | sputText_Startup | sputtext.c | 59 |
+| 0048c500 | sputText_Startup | sputtext.c | 61 |
 | 0048c6f0 | sputText_Shutdown | sputtext.c | 33 |
 | 0048cbc0 | sputText_Save | sputtext.c | 51 |
 | 0048cd80 | sputText_Restore | sputtext.c | 89 |
@@ -1633,7 +1633,7 @@
 | 0048d210 | sputControl_StandardHandler | debug.c | 38 |
 | 0048d4e0 | sputResource_Initialize | sputresource.c | 24 |
 | 0048d770 | sputResource_Terminate | sputresource.c | 12 |
-| 0048d790 | sputResource_Startup | sputresource.c | 24 |
+| 0048d790 | sputResource_Startup | sputresource.c | 25 |
 | 0048d830 | sputResource_Shutdown | sputresource.c | 14 |
 | 0048e240 | sputActor_NukeCostumeStacks | actors.c | 36 |
 | 0048fcc0 | sputActor_UpdateSpeechOnly | actors.c | 18 |
@@ -1835,7 +1835,7 @@
 | 004aa880 | Text_SysSave | textmodule.c | 17 |
 | 004aa8d0 | Text_SysRestore | textmodule.c | 23 |
 | 004ab910 | Glyph_Blit16 | glyph.c | 68 |
-| 004ab9d0 | Glyph_Blit8 | glyph.c | 69 |
+| 004ab9d0 | Glyph_Blit8 | glyph.c | 68 |
 | 004abae0 | Glyph_Blit16Clipped | glyph.c | 93 |
 | 004abc80 | Glyph_Blit8Clipped | glyph.c | 99 |
 | 004abe90 | Graph_SysInitialize | platmodule.c | 28 |
@@ -2327,7 +2327,7 @@
 | 004cbbe0 | DWave_flobdec_DecodeHeader | crt_unnamed.c | 11 |
 | 004cbc00 | DWave_flobdec_DecodeBody | crt_unnamed.c | 97 |
 | 004cbf40 | FUN_004cbf40 | crt_unnamed.c | 5 |
-| 004cbf50 | VbrAdpcm_Uncompress | crt_unnamed.c | 127 |
+| 004cbf50 | VbrAdpcm_Uncompress | crt_unnamed.c | 126 |
 | 004cd3f0 | FUN_004cd3f0 | crt_unnamed.c | 7 |
 | 004ce010 | sys_GetCount | crt_unnamed.c | 8 |
 | 004ce020 | sys_ExtSync | crt_unnamed.c | 20 |
@@ -2562,7 +2562,7 @@
 | 004d0260 | Video_CopyRect | video.c | 78 |
 | 004d0300 | sou_sound_module | soundmodule.c | 36 |
 | 004d03a0 | SoundModule_module_terminate | soundmodule.c | 12 |
-| 004d03d0 | SoundModule_module_startup | soundmodule.c | 43 |
+| 004d03d0 | SoundModule_module_startup | soundmodule.c | 44 |
 | 004d0510 | SoundModule_module_shutdown | soundmodule.c | 14 |
 | 004d0550 | engine_Initialize | soundmodule.c | 39 |
 | 004d0610 | SoundModule_Close | soundmodule.c | 35 |

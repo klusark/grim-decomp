@@ -82,7 +82,7 @@ static void ddraw16_read_env(void)
 
 /* ==== DDraw_Create (0x004760d0) ====
  * Creates the DirectDraw object of the selected device and enumerates its display modes (the 320 x 200 Mode X ones
- * with DDSCL_ALLOWMODEX, then the others) into the mode table (UINT_00901760, 0x54 bytes each). Then, when none of the
+ * with DDSCL_ALLOWMODEX, then the others) into the mode table (g_aVideoModes, 0x54 bytes each). Then, when none of the
  * modes is 16 bits, every 32-bit mode is added again as 16-bit 5:6:5. */
 int __cdecl DDraw_Create(uint device)
 {
@@ -105,13 +105,13 @@ int __cdecl DDraw_Create(uint device)
         return 0;
     n = g_dwVideoModeCount;
     for (i = 0; i < n; i++)
-        if (((VideoMode *)&UINT_00901760)[i].format.colorFormat.nBpp == 16)
+        if (((VideoMode *)&g_aVideoModes)[i].format.colorFormat.nBpp == 16)
             have16 = 1;
     if (g_bDDraw16Window)
         have16 = 0;                                         /* (the desktop's depth decides nothing in a window) */
     if (!have16) {
         for (i = 0; i < n; i++) {
-            VideoMode *m = &((VideoMode *)&UINT_00901760)[i];
+            VideoMode *m = &((VideoMode *)&g_aVideoModes)[i];
             uint sd[0x6c / 4];
             if (m->format.colorFormat.nBpp != 32)
                 continue;

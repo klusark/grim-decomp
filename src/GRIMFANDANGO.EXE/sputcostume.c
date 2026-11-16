@@ -38,7 +38,7 @@ void __cdecl sputCostume_Terminate(void)
   g_pSputCosHS = (GrimServices *)0x0;
   if (g_dwSputCosInitialize != 0) {
     g_dwSputCosInitialize = 0;
-    (*(code *)UINT_008ca774)();
+    (*g_aChoreMS.pfnTerminate)();
     if (g_pShadowColormap != (rdColormap *)0x0) {
       rdColormap_Free((uint)g_pShadowColormap);
     }
@@ -72,7 +72,7 @@ uint __cdecl sputCostume_Startup(void)
   if (g_dwSputCosStartup != 0) {
     return 1;
   }
-  (*(code *)UINT_008ca778)();
+  (*g_aChoreMS.pfnStartup)();
   g_pCosNodePool = Memory_AllocatePool(0xb4,(void *)0xa,(void *)0x2);
   ppcVar2 = local_38;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
@@ -207,7 +207,7 @@ uint __cdecl sputCostume_Startup(void)
   Config_GetPath(s_MaterialPath_004ea244,&g_bMaterialPath,s_Materials_004ea254);
   Config_GetPath(s_ModelPath_004ea230,&g_bModelPath,s_Models_004ea23c);
   Config_GetPath(s_SoundPath_004ea220,&g_bSoundPath,s_SFX_004ea22c);
-  Config_GetPath(s_SmushPath_004ea20c,&g_bSmushPath,s_Movies_004ea218);
+  Config_GetPath(s_SmushPath_004ea20c,g_bSmushPath,s_Movies_004ea218);
   Config_GetPath(s_BitmapPath_004ea1f8,&g_bBitmapPath,s_Objects_004ea204);
   return 0;
 }
@@ -229,7 +229,7 @@ void __cdecl sputCostume_Shutdown(void)
   Config_SetPath(s_MaterialPath_004ea244,&g_bMaterialPath);
   Config_SetPath(s_ModelPath_004ea230,&g_bModelPath);
   Config_SetPath(s_SoundPath_004ea220,&g_bSoundPath);
-  Config_SetPath(s_SmushPath_004ea20c,&g_bSmushPath);
+  Config_SetPath(s_SmushPath_004ea20c,g_bSmushPath);
   if (g_pCosNodePool != (void **)0x0) {
     Memory_FreePool(g_pCosNodePool);
     g_pCosNodePool = (void **)0x0;
@@ -239,7 +239,7 @@ void __cdecl sputCostume_Shutdown(void)
   if (g_dwLECBitmaps != 0) {
     (*g_pSputCosHS->pFree)(g_dwLECBitmaps);
   }
-  (*(code *)UINT_008ca77c)();
+  (*g_aChoreMS.pfnShutdown)();
   g_dwSputCosStartup = 0;
   return;
 }
@@ -256,10 +256,7 @@ extern unsigned char grim_def_DAT_004ea334[24] __asm__("_DAT_004ea334");
 extern unsigned char grim_def_DAT_004ea38c[20] __asm__("_DAT_004ea38c");
 extern unsigned char grim_def_DAT_004ea3a0[28] __asm__("_DAT_004ea3a0");
 extern unsigned int grim_def_UINT_004ea068 __asm__("_UINT_004ea068");
-extern unsigned int grim_def_UINT_008ca774 __asm__("_UINT_008ca774");
-extern unsigned int grim_def_UINT_008ca778 __asm__("_UINT_008ca778");
-extern unsigned char grim_def_UINT_008ca77c[20] __asm__("_UINT_008ca77c");
-extern unsigned char grim_def_g_aChoreMS[4] __asm__("_g_aChoreMS");
+extern SysModuleIface grim_def_g_aChoreMS __asm__("_g_aChoreMS");
 extern unsigned int grim_def_g_dwOldInstanceHook __asm__("_g_dwOldInstanceHook");
 extern unsigned int grim_def_g_dwOldSaveHook __asm__("_g_dwOldSaveHook");
 extern unsigned int grim_def_g_dwSputCosInitialize __asm__("_g_dwSputCosInitialize");
@@ -337,10 +334,7 @@ static unsigned char grim_pad_004ea38c[12] __attribute__((section(".data$grim_00
     0x4d, 0x41, 0x49, 0x4e, 0x20, 0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x54, 0x68, 0x69, 0x6e,
     0x67, 0x20, 0x28, 0x2e, 0x33, 0x44, 0x4f, 0x29
 };
-/* 0x008ca770, 4 bytes */ GRIM_DATA("008ca770") unsigned char grim_def_g_aChoreMS[4] __asm__("_g_aChoreMS") = {0};
-/* 0x008ca774, 4 bytes */ GRIM_DATA("008ca774") unsigned int grim_def_UINT_008ca774 __asm__("_UINT_008ca774") = 0x0;
-/* 0x008ca778, 4 bytes */ GRIM_DATA("008ca778") unsigned int grim_def_UINT_008ca778 __asm__("_UINT_008ca778") = 0x0;
-/* 0x008ca77c, 20 bytes */ GRIM_DATA("008ca77c") unsigned char grim_def_UINT_008ca77c[20] __asm__("_UINT_008ca77c") = {0};
+/* 0x008ca770, 32 bytes */ GRIM_DATA("008ca770") SysModuleIface grim_def_g_aChoreMS __asm__("_g_aChoreMS") = {0};
 /* 0x008ca798, 4 bytes */ GRIM_DATA("008ca798") unsigned int grim_def_g_dwSputCosInitialize __asm__("_g_dwSputCosInitialize") = 0x0;
 /* 0x008ca79c, 4 bytes */ GRIM_DATA("008ca79c") unsigned int grim_def_g_dwSputCosStartup __asm__("_g_dwSputCosStartup") = 0x0;
 /* 0x008ca7ac, 4 bytes */ GRIM_DATA("008ca7ac") unsigned int grim_def_g_dwOldInstanceHook __asm__("_g_dwOldInstanceHook") = 0x0;

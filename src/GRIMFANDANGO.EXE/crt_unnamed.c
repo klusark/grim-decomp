@@ -1463,7 +1463,7 @@ int __cdecl AnimFrame_module_startup(void)
         uVar3 = (*(code *)g_pAnimFrame_share_services[2])(s_FLOBDEC_temp_004f179c,iVar2);
         (&g_dwAnm_flobdec_services)[iVar1] = uVar3;
         uVar3 = (**(code **)(uVar3 + 4))();
-        (&g_dwAnm_flobdec_ids)[iVar1] = uVar3;
+        g_dwAnm_flobdec_ids[iVar1] = uVar3;
         uVar3 = (**(code **)((&g_dwAnm_flobdec_services)[iVar1] + 8))();
         *puVar4 = uVar3;
       }
@@ -1566,7 +1566,7 @@ uint __cdecl anm_DecodeHeader(undefined1 *param_1,int param_2)
     iVar4 = CONCAT31(CONCAT21(CONCAT11(param_1[4],param_1[5]),param_1[6]),bVar1);
     if (0 < (int)uVar3) {
       do {
-        if (((uVar2 != 0) && (uVar2 == (&g_dwAnm_flobdec_ids)[iVar5])) &&
+        if (((uVar2 != 0) && (uVar2 == g_dwAnm_flobdec_ids[iVar5])) &&
            ((&g_dwAnm_flobdec_services)[iVar5] != 0)) {
           (**(code **)((&g_dwAnm_flobdec_services)[iVar5] + 0x10))(param_1 + 8,iVar4);
           uVar3 = g_dwAnm_flobdec_count;
@@ -1625,7 +1625,7 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *src,uin
         do {
           uVar9 = *puVar13;
           PIECE(param_12,2,1) = (byte)(uVar9 >> 0x10);
-          uVar12 = *(uint *)(((int)&g_aAnm_transform_palette - (int)puVar7) + (int)puVar13);
+          uVar12 = *(uint *)(((int)g_aAnm_transform_palette - (int)puVar7) + (int)puVar13);
           PIECE(param_10,0,1) = (char)(uVar9 >> 0x18);
           PIECE(param_7,0,1) = (char)(uVar9 >> 8);
           *puVar13 = CONCAT31(CONCAT21(CONCAT11((char)(((uVar12 >> 0x18) - (uVar9 >> 0x18)) /
@@ -1658,7 +1658,7 @@ anm_DecodeBody(uint param_1,uint param_2,uint param_3,uint param_4,uint *src,uin
     uVar10 = 0;
     if (0 < (int)g_dwAnm_flobdec_count) {
       do {
-        if (((uVar12 != 0) && (uVar12 == (&g_dwAnm_flobdec_ids)[uVar10])) &&
+        if (((uVar12 != 0) && (uVar12 == g_dwAnm_flobdec_ids[uVar10])) &&
            ((&g_dwAnm_flobdec_services)[uVar10] != 0)) {
           if (((bVar6) && (g_dwAnm_overlay_buffer != 0)) &&
              (((&g_dwAnm_flobdec_types)[uVar10] & 0x10) != 0)) {
@@ -1745,9 +1745,9 @@ LAB_004c3182:
           g_dwAnm_transform_count = 0;
         }
         else {
-          msc_MemCopy(&g_aAnm_transform_palette,src,0x400);
-          msc_MemCopy(&g_aAnm_transform_palette + *(short *)(param_11 + 0x16) * 0x10,param_11 + 0x1c
-                      ,(int)*(short *)(param_11 + 0x18) << 2);
+          msc_MemCopy(g_aAnm_transform_palette,src,0x400);
+          msc_MemCopy(g_aAnm_transform_palette + *(short *)(param_11 + 0x16) * 4,param_11 + 0x1c,
+                      (int)*(short *)(param_11 + 0x18) << 2);
           g_dwAnm_transform_count = (uint)*(short *)(param_11 + 0x14);
         }
       }
@@ -4160,7 +4160,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
   iVar6 = 0;
   if (g_dwDWave_bDeltaTableInitialized == 0) {
     uVar7 = 0;
-    local_28 = (uint)&g_wDWave_aDeltaTable;
+    local_28 = (uint)g_wDWave_aDeltaTable;
     do {
       psVar8 = g_wAdpcmStepTable;
       puVar9 = (undefined2 *)local_28;
@@ -4222,8 +4222,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
             local_28 = local_28 + 2;
           }
           else {
-            uVar3 = (uint)(ushort)(&g_wDWave_aDeltaTable)
-                                  [uVar2 << (7 - bVar1 & 0x1f) | (int)param_2 << 6];
+            uVar3 = (uint)g_wDWave_aDeltaTable[uVar2 << (7 - bVar1 & 0x1f) | (int)param_2 << 6];
             if (uVar2 != 0) {
               uVar3 = uVar3 + ((ushort)g_wAdpcmStepTable[(int)param_2] >> (bVar1 - 1 & 0x1f));
             }
@@ -4577,7 +4576,7 @@ int __cdecl msc_error_SaveString(char *fmt,...)
 {
   uint uVar1;
   
-  vsprintf((uint)(&g_aMsc_error_string + g_dwMsc_error_loc * 200),(uint)fmt,(uint)&STACK0X(0x00000008));
+  vsprintf((uint)(g_aMsc_error_string + g_dwMsc_error_loc * 200),(uint)fmt,(uint)&STACK0X(0x00000008));
   uVar1 = 0x13;
   if (g_dwMsc_error_loc == 0x13) {
     g_dwMsc_error_loc = 0;
@@ -4847,8 +4846,8 @@ extern unsigned int grim_def_UINT_008d16b0 __asm__("_UINT_008d16b0");
 extern unsigned int grim_def_UINT_008d77e8 __asm__("_UINT_008d77e8");
 extern unsigned int grim_def_UINT_008d77fc __asm__("_UINT_008d77fc");
 extern unsigned int grim_def_UINT_008d7860 __asm__("_UINT_008d7860");
-extern unsigned char grim_def_g_aAnm_transform_palette[1024] __asm__("_g_aAnm_transform_palette");
-extern unsigned char grim_def_g_aMsc_error_string[4000] __asm__("_g_aMsc_error_string");
+extern unsigned int grim_def_g_aAnm_transform_palette[256] __asm__("_g_aAnm_transform_palette");
+extern char grim_def_g_aMsc_error_string[4000] __asm__("_g_aMsc_error_string");
 extern char grim_def_g_abAdpcmIndexAdjust2[] __asm__("_g_abAdpcmIndexAdjust2");
 extern char grim_def_g_abAdpcmIndexAdjust3[] __asm__("_g_abAdpcmIndexAdjust3");
 extern char grim_def_g_abAdpcmIndexAdjust4[] __asm__("_g_abAdpcmIndexAdjust4");
@@ -4866,7 +4865,7 @@ extern unsigned int grim_def_g_dwAnimPlay_share_config __asm__("_g_dwAnimPlay_sh
 extern unsigned int grim_def_g_dwAnm_PreloadPut_lastblock __asm__("_g_dwAnm_PreloadPut_lastblock");
 extern unsigned int grim_def_g_dwAnm_Render_count __asm__("_g_dwAnm_Render_count");
 extern unsigned int grim_def_g_dwAnm_flobdec_count __asm__("_g_dwAnm_flobdec_count");
-extern unsigned char grim_def_g_dwAnm_flobdec_ids[400] __asm__("_g_dwAnm_flobdec_ids");
+extern unsigned int grim_def_g_dwAnm_flobdec_ids[100] __asm__("_g_dwAnm_flobdec_ids");
 extern unsigned char grim_def_g_dwAnm_flobdec_services[400] __asm__("_g_dwAnm_flobdec_services");
 extern unsigned char grim_def_g_dwAnm_flobdec_types[400] __asm__("_g_dwAnm_flobdec_types");
 extern unsigned int grim_def_g_dwAnm_overlay_buffer __asm__("_g_dwAnm_overlay_buffer");
@@ -4916,7 +4915,7 @@ extern unsigned char grim_def_g_pVideo_share_services[4] __asm__("_g_pVideo_shar
 extern unsigned char grim_def_g_pZfile_share_services[4] __asm__("_g_pZfile_share_services");
 extern void *grim_def_g_pZfilio_services[7] __asm__("_g_pZfilio_services");
 extern short grim_def_g_wAdpcmStepTable[89] __asm__("_g_wAdpcmStepTable");
-extern unsigned char grim_def_g_wDWave_aDeltaTable[128] __asm__("_g_wDWave_aDeltaTable");
+extern unsigned short grim_def_g_wDWave_aDeltaTable[64] __asm__("_g_wDWave_aDeltaTable");
 extern char grim_def_s_ANIMFRAME_insane_004f176c[20] __asm__("_s_ANIMFRAME_insane_004f176c");
 extern char grim_def_s_ANIMFRAME_render_004f14b4[20] __asm__("_s_ANIMFRAME_render_004f14b4");
 extern char grim_def_s_ANIMPLAY_insane_004f1350[16] __asm__("_s_ANIMPLAY_insane_004f1350");
@@ -5238,10 +5237,10 @@ static unsigned char grim_pad_004f34a0[0] __attribute__((section(".data$grim_004
 /* 0x008d6f14, 4 bytes */ GRIM_DATA("008d6f14") unsigned int grim_def_g_dwAnimPlay_share_config __asm__("_g_dwAnimPlay_share_config") = 0x0;
 /* 0x008d6f30, 400 bytes */ GRIM_DATA("008d6f30") unsigned char grim_def_g_dwAnm_flobdec_types[400] __asm__("_g_dwAnm_flobdec_types") = {0};
 /* 0x008d70c0, 400 bytes */ GRIM_DATA("008d70c0") unsigned char grim_def_g_dwAnm_flobdec_services[400] __asm__("_g_dwAnm_flobdec_services") = {0};
-/* 0x008d7250, 400 bytes */ GRIM_DATA("008d7250") unsigned char grim_def_g_dwAnm_flobdec_ids[400] __asm__("_g_dwAnm_flobdec_ids") = {0};
+/* 0x008d7250, 400 bytes */ GRIM_DATA("008d7250") unsigned int grim_def_g_dwAnm_flobdec_ids[100] __asm__("_g_dwAnm_flobdec_ids") = {0};
 /* 0x008d73e0, 8 bytes */ GRIM_DATA("008d73e0") unsigned int grim_def_g_dwAnimFrame_share_config __asm__("_g_dwAnimFrame_share_config") = 0x0;
 /* 0x008d73e4, 4 bytes: the rest of grim_def_g_dwAnimFrame_share_config's span */ GRIM_DATA("008d73e0") static unsigned char g_dwAnimFrame_share_config__tail[4] __attribute__((used)) = {0};
-/* 0x008d73e8, 1024 bytes */ GRIM_DATA("008d73e8") unsigned char grim_def_g_aAnm_transform_palette[1024] __asm__("_g_aAnm_transform_palette") = {0};
+/* 0x008d73e8, 1024 bytes */ GRIM_DATA("008d73e8") unsigned int grim_def_g_aAnm_transform_palette[256] __asm__("_g_aAnm_transform_palette") = {0};
 /* 0x008d77e8, 4 bytes */ GRIM_DATA("008d77e8") unsigned int grim_def_UINT_008d77e8 __asm__("_UINT_008d77e8") = 0x0;
 /* 0x008d77ec, 4 bytes */ GRIM_DATA("008d77ec") unsigned int grim_def_g_dwAnm_flobdec_count __asm__("_g_dwAnm_flobdec_count") = 0x0;
 /* 0x008d77f0, 4 bytes */ GRIM_DATA("008d77f0") unsigned int grim_def_g_dwAnm_overlay_buffer __asm__("_g_dwAnm_overlay_buffer") = 0x0;
@@ -5273,7 +5272,7 @@ static unsigned char grim_pad_004f34a0[0] __attribute__((section(".data$grim_004
 /* 0x008d785e, 2 bytes */ GRIM_DATA("008d785c") unsigned short grim_def_DAT_008d785e __asm__("_DAT_008d785e") = 0x0;
 /* 0x008d7860, 4 bytes */ GRIM_DATA("008d7860") unsigned int grim_def_UINT_008d7860 __asm__("_UINT_008d7860") = 0x0;
 /* 0x008d7864, 4 bytes */ GRIM_DATA("008d7864") unsigned char grim_def_g_pDWave_share_services[4] __asm__("_g_pDWave_share_services") = {0};
-/* 0x008d7868, 128 bytes */ GRIM_DATA("008d7868") unsigned char grim_def_g_wDWave_aDeltaTable[128] __asm__("_g_wDWave_aDeltaTable") = {0};
+/* 0x008d7868, 128 bytes */ GRIM_DATA("008d7868") unsigned short grim_def_g_wDWave_aDeltaTable[64] __asm__("_g_wDWave_aDeltaTable") = {0};
 /* 0x008d78e8, 11264 bytes */ GRIM_DATA("008d78e8") unsigned char grim_def_DAT_008d78e8[11264] __asm__("_DAT_008d78e8") = {0};
 /* 0x008da4e8, 4 bytes */ GRIM_DATA("008da4e8") unsigned int grim_def_g_dwDWave_share_config __asm__("_g_dwDWave_share_config") = 0x0;
 /* 0x008da4ec, 4 bytes */ GRIM_DATA("008da4ec") unsigned int grim_def_g_dwSoundServices __asm__("_g_dwSoundServices") = 0x0;
@@ -5281,7 +5280,7 @@ static unsigned char grim_pad_004f34a0[0] __attribute__((section(".data$grim_004
 /* 0x008da4f4, 4 bytes */ GRIM_DATA("008da4f4") unsigned int grim_def_g_dwDWave_bDeltaTableInitialized __asm__("_g_dwDWave_bDeltaTableInitialized") = 0x0;
 /* 0x008da894, 4 bytes */ GRIM_DATA("008da894") unsigned char grim_def_g_pVideo_share_services[4] __asm__("_g_pVideo_share_services") = {0};
 /* 0x008da898, 4 bytes */ GRIM_DATA("008da898") unsigned int grim_def_g_dwVideo_share_config __asm__("_g_dwVideo_share_config") = 0x0;
-/* 0x008dcdc8, 4000 bytes */ GRIM_DATA("008dcdc8") unsigned char grim_def_g_aMsc_error_string[4000] __asm__("_g_aMsc_error_string") = {0};
+/* 0x008dcdc8, 4000 bytes */ GRIM_DATA("008dcdc8") char grim_def_g_aMsc_error_string[4000] __asm__("_g_aMsc_error_string") = "";
 /* 0x008ddd68, 4 bytes */ GRIM_DATA("008ddd68") unsigned int grim_def_g_dwMsc_error_loc __asm__("_g_dwMsc_error_loc") = 0x0;
 /* 0x008ddd6c, 20 bytes */ GRIM_DATA("008ddd6c") unsigned int grim_def_g_dwMsc_error_count __asm__("_g_dwMsc_error_count") = 0x0;
 /* 0x008ddd70, 16 bytes: the rest of grim_def_g_dwMsc_error_count's span */ GRIM_DATA("008ddd6c") static unsigned char g_dwMsc_error_count__tail[16] __attribute__((used)) = {0};

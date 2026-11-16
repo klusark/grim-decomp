@@ -900,6 +900,9 @@ CMP_BEFORE_RE = re.compile(PTR_OPERAND + r"\s*(?:<=|>=|==|!=|<|>)$")
 CMP_AFTER_RE = re.compile(r"^(?:<=|>=|==|!=|<|>)\s*" + PTR_OPERAND + r"\b")
 
 
+SELECT_MASK_RE = re.compile(r"-\s*\(uint\)\s*\((?:[^()]|\([^()]*\))*\)\s*&$")
+
+
 def fix_image_addrs(code):
     """A literal such as 0x4ed080 that falls inside a dumped data section is an
     address Ghidra printed as a number (typically an argument to an import with
@@ -925,6 +928,10 @@ def fix_image_addrs(code):
         # bound at the end of a table (sometimes end + 1), `0x8da86b < (int)piVar3`
         # the same the other way round. The literal relocates with the table.
         if CMP_BEFORE_RE.search(before) or CMP_AFTER_RE.match(after):
+            return "IMG_ADDR(0x%08x)" % v
+        # `-(uint)(UINT_004f5a14 != 0) & 0x4f59b0`: the branchless `cond ? buffer : NULL` (the original's NEG / SBB /
+        # AND): the literal is the buffer's address (Main_Startup's -b file name, the file dialogs' initial dirs)
+        if SELECT_MASK_RE.search(before[-200:]) and after[:1] == ")":
             return "IMG_ADDR(0x%08x)" % v
         if before.endswith(("&", "|", "^", "+", "-", "*", "/", "%", "<<", ">>", "~", "<", ">")) \
                 or before.endswith("case") or (before[-1:] not in "(,=)" and not before.endswith("return")):

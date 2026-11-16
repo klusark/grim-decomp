@@ -158,9 +158,9 @@ extern char grim_def_s__choreface_Initialize_004dd6d4[24] __asm__("_s__choreface
 /* 0x004f4d94, 4 bytes */ GRIM_DATA("004f4d94") unsigned int grim_def_UINT_004f4d94 __asm__("_UINT_004f4d94") = 0x0;
 /* 0x004f4d98, 4 bytes */ GRIM_DATA("004f4d98") unsigned int grim_def_UINT_004f4d98 __asm__("_UINT_004f4d98") = 0x0;
 /* 0x004f4d9c, 20 bytes */ GRIM_DATA("004f4d9c") unsigned char grim_def_UINT_004f4d9c[20] __asm__("_UINT_004f4d9c") = {0};
-/* 0x004f5a6c, 4 bytes */ GRIM_DATA("004f5a6c") unsigned int grim_def_UINT_004f5a6c __asm__("_UINT_004f5a6c") = 0x0;
-/* 0x004f5a70, 4 bytes */ GRIM_DATA("004f5a70") unsigned int grim_def_UINT_004f5a70 __asm__("_UINT_004f5a70") = 0x0;
-/* 0x004f5a74, 4 bytes */ GRIM_DATA("004f5a74") unsigned int grim_def_UINT_004f5a74 __asm__("_UINT_004f5a74") = 0x0;
-/* 0x004f5a78, 4 bytes */ GRIM_DATA("004f5a78") unsigned int grim_def_UINT_004f5a78 __asm__("_UINT_004f5a78") = 0x0;
-/* 0x004f5a7c, 4 bytes */ GRIM_DATA("004f5a7c") unsigned char grim_def_DAT_004f5a7c[4] __asm__("_DAT_004f5a7c") = {0};
-/* 0x004f5a80, 4 bytes */ GRIM_DATA("004f5a80") unsigned char grim_def_DAT_004f5a80[4] __asm__("_DAT_004f5a80") = {0};
+/* 0x004f5a6c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a6c __asm__("_UINT_004f5a6c") = 0x0;
+/* 0x004f5a70, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a70 __asm__("_UINT_004f5a70") = 0x0;
+/* 0x004f5a74, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a74 __asm__("_UINT_004f5a74") = 0x0;
+/* 0x004f5a78, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a78 __asm__("_UINT_004f5a78") = 0x0;
+/* 0x004f5a7c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004f5a7c[4] __asm__("_DAT_004f5a7c") = {0};
+/* 0x004f5a80, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004f5a80[4] __asm__("_DAT_004f5a80") = {0};

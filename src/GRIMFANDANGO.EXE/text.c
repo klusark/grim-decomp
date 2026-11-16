@@ -1014,10 +1014,10 @@ void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text)
   context = ctx;
   ch = 0;
   local_10 = ctx->dwFlags;
-  g_bLookup = (undefined1)ctx->dwBgColor;
+  g_bLookup[0] = (byte)ctx->dwBgColor;
   ctx->dwFlags = local_10 & 0xfffffff7;
-  DAT_008d0900 = (undefined1)ctx->dwFxColor;
-  DAT_008d097f = (undefined1)ctx->dwFgColor;
+  g_bLookup[0x80] = (byte)ctx->dwFxColor;
+  g_bLookup[0xff] = (byte)ctx->dwFgColor;
   if (text == (char *)0x0) {
 LAB_004ab6fb:
     context->dwFlags = local_10;
@@ -1163,8 +1163,6 @@ void __cdecl Text_DrawChar(TextContext *ctx,FontData *font,int ch)
 #ifndef GRIM_DATA
 #define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
 #endif
-extern unsigned char grim_def_DAT_008d0900[127] __asm__("_DAT_008d0900");
-extern unsigned char grim_def_DAT_008d097f __asm__("_DAT_008d097f");
 extern unsigned int grim_def_UINT_004eca00 __asm__("_UINT_004eca00");
 extern unsigned int grim_def_g_adwTextWrapTable[385] __asm__("_g_adwTextWrapTable");
 extern char grim_def_s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054[36] __asm__("_s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054");
@@ -1229,5 +1227,3 @@ static unsigned char grim_pad_004eca00[0] __attribute__((section(".data$grim_004
 /* 0x004ed03c, 24 bytes */ /* loose */ char grim_def_s__ppText______void___0__004ed03c[24] __asm__("_s__ppText______void___0__004ed03c") = "*ppText != ((void *)0)";
 /* 0x004ed054, 36 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054[36] __asm__("_s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054") = "C:\\grimsrc\\libs\\grimlib\\Temp\\Text.c";
 /* 0x004ed078, 8 bytes */ /* loose */ char grim_def_s_hFont_004ed078[8] __asm__("_s_hFont_004ed078") = "hFont";
-/* 0x008d0900, 127 bytes */ GRIM_DATA("008d0900") unsigned char grim_def_DAT_008d0900[127] __asm__("_DAT_008d0900") = {0};
-/* 0x008d097f, 1 bytes */ GRIM_DATA("008d0900") unsigned char grim_def_DAT_008d097f __asm__("_DAT_008d097f") = 0x0;

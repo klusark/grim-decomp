@@ -851,7 +851,7 @@ static void p1_light_dir(int light, float *mt, int slot)
  * frustum tested (g_dwMeshFrustrumCull: 0 inside, 1 crossing, 2 outside, which returns), culled against the clip plane of
  * g_dwClipPlaneActive, its vertices are transformed into the camera frame (g_aRdModel3_View), the geometry / texture / light
  * modes are clamped to the renderer limits, and by the light mode: 2 or 3 collect the lights that reach the mesh
- * (UINT_007f30e0 list, positions g_aLocalLightPos and directions g_aLocalLightDir in the model frame); 3 also computes the
+ * (g_adwRdModel3_meshLights list, positions g_aLocalLightPos and directions g_aLocalLightDir in the model frame); 3 also computes the
  * vertex intensities; 6 copies the mesh intensity into every face.  Last, every face whose plane faces the eye (the
  * eye in the model frame at FLOAT_007f0fd8) goes to rdModel3_DrawFace with flag 0; back faces go with flag 1 if
  * the face is two-sided (+0x04 bit 0) or culling is off (g_dwRdroid_curRenderOptions bit 0).
@@ -941,7 +941,7 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh_,float *matrix)
             }
             if (!reach)
                 continue;
-            (&UINT_007f30e0)[g_dwNumMeshLights] = light;
+            g_adwRdModel3_meshLights[g_dwNumMeshLights] = light;
             rdMatrix_TransformPoint34((float *)((int)&g_aLocalLightPos + g_dwNumMeshLights * 12), (float *)P1_LIGHTPOS(cam, light), mt);
             if (P1_I32(light + 4) != 2)
                 p1_light_dir(light, mt, g_dwNumMeshLights);
@@ -953,7 +953,7 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh_,float *matrix)
             P1_F((int)mesh + 0x5c) =
                 ((float (*)(int *, float *, int, uint, int *, uint, float *, float *, uint, uint))
                      rdLight_CalcVertexIntensities)(
-                    (int *)&UINT_007f30e0, (float *)&g_aLocalLightPos, (int)&g_aLocalLightDir, g_dwNumMeshLights,
+                    (int *)&g_adwRdModel3_meshLights, (float *)&g_aLocalLightPos, (int)&g_aLocalLightDir, g_dwNumMeshLights,
                     *(int **)(m + 0x44), P1_U32(m + 0x30), *(float **)(m + 0x38), *(float **)(m + 0x3c),
                     P1_U32(m + 0x48), P1_U32((int)g_pRdCamera_CurCamera + 0x45c));
         }

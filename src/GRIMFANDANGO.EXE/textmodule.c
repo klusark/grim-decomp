@@ -61,7 +61,7 @@ void __cdecl Text_SysStartup(void)
     g_dwTextSysStarted = 1;
     iVar1 = 0;
     do {
-      (&g_bLookup)[iVar1] = (char)iVar1;
+      g_bLookup[iVar1] = (byte)iVar1;
       iVar1 = iVar1 + 1;
     } while (iVar1 < 0xff);
     Text_WrapLines((uint *)&g_pDefaultFont);

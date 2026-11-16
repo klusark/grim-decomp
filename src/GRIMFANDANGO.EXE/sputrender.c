@@ -54,13 +54,13 @@ int __cdecl sputRender_Startup(void)
   bVar1 = g_dwSputRendStartup != 0;
   if (!bVar1) {
     g_dwSputRendStartup = 1;
-    g_dwRenderVars = 4;
-    UINT_008a9514 = 3;
-    UINT_008a9518 = 1;
-    UINT_008a951c = 1;
-    UINT_008a9520 = 0;
-    UINT_008a9524 = 0;
-    UINT_008a9528 = 2;
+    g_dwRenderVars[0] = 4;
+    g_dwRenderVars[1] = 3;
+    g_dwRenderVars[2] = 1;
+    g_dwRenderVars[3] = 1;
+    g_dwRenderVars[4] = 0;
+    g_dwRenderVars[5] = 0;
+    g_dwRenderVars[6] = 2;
     g_pDirtyRectPool = Memory_AllocatePool(0x24,(void *)0x20,(void *)0x8);
   }
   return (uint)bVar1;

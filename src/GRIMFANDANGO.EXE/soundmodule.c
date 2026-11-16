@@ -31,7 +31,7 @@ int __cdecl sou_sound_module(int *services,uint moduleSize)
   g_dwSound_flipped = 0;
   g_dwSound_ticks = 0;
   g_dwSound_name = 0;
-  puVar2 = &g_dwSound_bufsize;
+  puVar2 = g_dwSound_bufsize;
   do {
     bVar1 = 0 < iVar4;
     puVar3 = puVar2 + 1;
@@ -39,7 +39,7 @@ int __cdecl sou_sound_module(int *services,uint moduleSize)
     *puVar2 = bVar1 - 1 & 100000;
     puVar2 = puVar3;
   } while ((int)puVar3 < ((unsigned)(uintptr_t)&g_pSoundModule_snddriver_services));
-  g_dwSound_bufsize = 500000;
+  g_dwSound_bufsize[0] = 500000;
   return 0;
 }
 
@@ -94,11 +94,12 @@ int SoundModule_module_startup(void)
     (*(code *)g_pSoundModule_share_services[8])(s_Sound_Module__Cannot_allocate_sn_004f3e74);
     return -1;
   }
-  iVar2 = engine_Initialize(g_dwSound_samplerate,g_dwSound_reserveram,g_dwSound_bufsize,
-                            UINT_008dacb4,UINT_008dacb8,UINT_008dacbc,UINT_008dacc0,UINT_008dacc4,
-                            UINT_008dacc8,UINT_008daccc,UINT_008dacd0,UINT_008dacd4,UINT_008dacd8,
-                            UINT_008dacdc,UINT_008dace0,UINT_008dace4,UINT_008dace8,UINT_008dacec,0)
-  ;
+  iVar2 = engine_Initialize(g_dwSound_samplerate,g_dwSound_reserveram,g_dwSound_bufsize[0],
+                            g_dwSound_bufsize[1],g_dwSound_bufsize[2],g_dwSound_bufsize[3],
+                            g_dwSound_bufsize[4],g_dwSound_bufsize[5],g_dwSound_bufsize[6],
+                            g_dwSound_bufsize[7],g_dwSound_bufsize[8],g_dwSound_bufsize[9],
+                            g_dwSound_bufsize[10],g_dwSound_bufsize[0xb],g_dwSound_bufsize[0xc],
+                            g_dwSound_bufsize[0xd],g_dwSound_bufsize[0xe],g_dwSound_bufsize[0xf],0);
   return iVar2;
 }
 
@@ -1152,7 +1153,7 @@ void __cdecl sou_engine_fill(int frames,void *mix)
         puVar7[-4] = 0;
         *puVar7 = 0;
         puVar7 = puVar7 + 0xf;
-      } while ((int)puVar7 < ((unsigned)(uintptr_t)&UINT_008dace8));
+      } while ((int)puVar7 < ((unsigned)(uintptr_t)((unsigned char *)&g_dwSound_bufsize + 0x38)));
     }
     bVar6 = false;
     local_10 = 0;
@@ -1645,21 +1646,6 @@ extern unsigned int grim_def_UINT_008da918 __asm__("_UINT_008da918");
 extern unsigned int grim_def_UINT_008da920 __asm__("_UINT_008da920");
 extern unsigned int grim_def_UINT_008da924 __asm__("_UINT_008da924");
 extern unsigned char grim_def_UINT_008da928[904] __asm__("_UINT_008da928");
-extern unsigned int grim_def_UINT_008dacb4 __asm__("_UINT_008dacb4");
-extern unsigned int grim_def_UINT_008dacb8 __asm__("_UINT_008dacb8");
-extern unsigned int grim_def_UINT_008dacbc __asm__("_UINT_008dacbc");
-extern unsigned int grim_def_UINT_008dacc0 __asm__("_UINT_008dacc0");
-extern unsigned int grim_def_UINT_008dacc4 __asm__("_UINT_008dacc4");
-extern unsigned int grim_def_UINT_008dacc8 __asm__("_UINT_008dacc8");
-extern unsigned int grim_def_UINT_008daccc __asm__("_UINT_008daccc");
-extern unsigned int grim_def_UINT_008dacd0 __asm__("_UINT_008dacd0");
-extern unsigned int grim_def_UINT_008dacd4 __asm__("_UINT_008dacd4");
-extern unsigned int grim_def_UINT_008dacd8 __asm__("_UINT_008dacd8");
-extern unsigned int grim_def_UINT_008dacdc __asm__("_UINT_008dacdc");
-extern unsigned int grim_def_UINT_008dace0 __asm__("_UINT_008dace0");
-extern unsigned int grim_def_UINT_008dace4 __asm__("_UINT_008dace4");
-extern unsigned int grim_def_UINT_008dace8 __asm__("_UINT_008dace8");
-extern unsigned int grim_def_UINT_008dacec __asm__("_UINT_008dacec");
 extern unsigned int grim_def_UINT_008dad58 __asm__("_UINT_008dad58");
 extern unsigned int grim_def_UINT_008dad5c __asm__("_UINT_008dad5c");
 extern unsigned int grim_def_UINT_008dad60 __asm__("_UINT_008dad60");
@@ -1687,7 +1673,7 @@ extern unsigned int grim_def_g_dwSou_paused_flag __asm__("_g_dwSou_paused_flag")
 extern unsigned int grim_def_g_dwSou_sample_rate __asm__("_g_dwSou_sample_rate");
 extern unsigned int grim_def_g_dwSoundModule_share_config __asm__("_g_dwSoundModule_share_config");
 extern unsigned int grim_def_g_dwSoundModule_timer_services __asm__("_g_dwSoundModule_timer_services");
-extern unsigned int grim_def_g_dwSound_bufsize __asm__("_g_dwSound_bufsize");
+extern unsigned int grim_def_g_dwSound_bufsize[16] __asm__("_g_dwSound_bufsize");
 extern unsigned char grim_def_g_dwSound_channel[4] __asm__("_g_dwSound_channel");
 extern unsigned char grim_def_g_dwSound_flipped[8] __asm__("_g_dwSound_flipped");
 extern unsigned int grim_def_g_dwSound_music_on __asm__("_g_dwSound_music_on");
@@ -1752,22 +1738,7 @@ extern char grim_def_s_TIMER_external_sync_004f3f1c[20] __asm__("_s_TIMER_extern
 /* 0x008da920, 4 bytes */ GRIM_DATA("008da920") unsigned int grim_def_UINT_008da920 __asm__("_UINT_008da920") = 0x0;
 /* 0x008da924, 4 bytes */ GRIM_DATA("008da924") unsigned int grim_def_UINT_008da924 __asm__("_UINT_008da924") = 0x0;
 /* 0x008da928, 904 bytes */ GRIM_DATA("008da928") unsigned char grim_def_UINT_008da928[904] __asm__("_UINT_008da928") = {0};
-/* 0x008dacb0, 4 bytes */ GRIM_DATA("008dacb0") unsigned int grim_def_g_dwSound_bufsize __asm__("_g_dwSound_bufsize") = 0x0;
-/* 0x008dacb4, 4 bytes */ GRIM_DATA("008dacb4") unsigned int grim_def_UINT_008dacb4 __asm__("_UINT_008dacb4") = 0x0;
-/* 0x008dacb8, 4 bytes */ GRIM_DATA("008dacb8") unsigned int grim_def_UINT_008dacb8 __asm__("_UINT_008dacb8") = 0x0;
-/* 0x008dacbc, 4 bytes */ GRIM_DATA("008dacbc") unsigned int grim_def_UINT_008dacbc __asm__("_UINT_008dacbc") = 0x0;
-/* 0x008dacc0, 4 bytes */ GRIM_DATA("008dacc0") unsigned int grim_def_UINT_008dacc0 __asm__("_UINT_008dacc0") = 0x0;
-/* 0x008dacc4, 4 bytes */ GRIM_DATA("008dacc4") unsigned int grim_def_UINT_008dacc4 __asm__("_UINT_008dacc4") = 0x0;
-/* 0x008dacc8, 4 bytes */ GRIM_DATA("008dacc8") unsigned int grim_def_UINT_008dacc8 __asm__("_UINT_008dacc8") = 0x0;
-/* 0x008daccc, 4 bytes */ GRIM_DATA("008daccc") unsigned int grim_def_UINT_008daccc __asm__("_UINT_008daccc") = 0x0;
-/* 0x008dacd0, 4 bytes */ GRIM_DATA("008dacd0") unsigned int grim_def_UINT_008dacd0 __asm__("_UINT_008dacd0") = 0x0;
-/* 0x008dacd4, 4 bytes */ GRIM_DATA("008dacd4") unsigned int grim_def_UINT_008dacd4 __asm__("_UINT_008dacd4") = 0x0;
-/* 0x008dacd8, 4 bytes */ GRIM_DATA("008dacd8") unsigned int grim_def_UINT_008dacd8 __asm__("_UINT_008dacd8") = 0x0;
-/* 0x008dacdc, 4 bytes */ GRIM_DATA("008dacdc") unsigned int grim_def_UINT_008dacdc __asm__("_UINT_008dacdc") = 0x0;
-/* 0x008dace0, 4 bytes */ GRIM_DATA("008dace0") unsigned int grim_def_UINT_008dace0 __asm__("_UINT_008dace0") = 0x0;
-/* 0x008dace4, 4 bytes */ GRIM_DATA("008dace4") unsigned int grim_def_UINT_008dace4 __asm__("_UINT_008dace4") = 0x0;
-/* 0x008dace8, 4 bytes */ GRIM_DATA("008dace8") unsigned int grim_def_UINT_008dace8 __asm__("_UINT_008dace8") = 0x0;
-/* 0x008dacec, 4 bytes */ GRIM_DATA("008dacec") unsigned int grim_def_UINT_008dacec __asm__("_UINT_008dacec") = 0x0;
+/* 0x008dacb0, 64 bytes */ GRIM_DATA("008dacb0") unsigned int grim_def_g_dwSound_bufsize[16] __asm__("_g_dwSound_bufsize") = {0};
 /* 0x008dacf4, 4 bytes */ GRIM_DATA("008dacf4") unsigned int grim_def_g_dwSound_ticks __asm__("_g_dwSound_ticks") = 0x0;
 /* 0x008dacf8, 4 bytes */ GRIM_DATA("008dacf8") unsigned char grim_def_g_pSoundModule_share_services[4] __asm__("_g_pSoundModule_share_services") = {0};
 /* 0x008dacfc, 4 bytes */ GRIM_DATA("008dacfc") unsigned int grim_def_g_dwSound_reserveram __asm__("_g_dwSound_reserveram") = 0x0;

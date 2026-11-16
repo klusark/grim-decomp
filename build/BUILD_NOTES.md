@@ -2542,3 +2542,53 @@ The data no longer has to sit in the original order as a whole: only the parts t
   * CHORE: 1309 -> 1028.
 * build/datacmp.py reads the `/* loose */` marks in every file.
 * datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490. The whole-game autorun passes; one earlier run stopped at the same morgue step as the data-typing run did (corpse 1 with dog tags not offered, the same numbers), and the same build then passed.
+
+## Data extents: typed tables and objects free the data after them (2026-11-16)
+
+What keeps data pinned is the tables and objects the code reaches through their address with no known size: each one
+keeps everything after it, up to the next string, in the original layout.
+
+**tools/data_reach.py** bounds them where something says how far they go:
+* `CMP reg,0xADDR` is a loop's end pointer (Win_AddMessageHook). It ties the span before, not the one after.
+* A value read wider than its span reaches exactly that far.
+* A span whose every `&name` in the generated code is a call given its byte count reaches that many bytes. This covers
+  the save-game writers, `(*writeFn)(&g_dwMovieJustFinished,4)`.
+* A span whose Ghidra type is an array or a structure reaches as far as its type. Sizes come from the program's
+  structs.json and, for a global the code declares only by address, from globals.json.
+  - A scalar type does not count: it says how the code reads the global, not how far an object passed by its address
+    goes. A first run counted it, and about a hundred clean-room tests crashed when loading a set.
+    `Res_SetReference((ResRef *)&g_dwSputRoom_pCurrentRoom, ..)` fills the `ResRef` that starts at that `uint`. Its
+    next field is g_pCurrentSet, which had moved, so the set stayed null.
+  - The clean room caught it (actor, costume, collision and draw tests).
+  - GRIM_PIN_RANGES=lo-hi (hex) keeps the spans there pinned. Bisecting with it found the span.
+  - A type too small is as bad. The two Engine_RegisterSubsystems tables were typed first as uint[12] / uint[20], from
+    its 8-byte step through the initializer list, and every save test crashed in Engine_SaveGame. Their entries are
+    32-byte SysModuleIface (it steps the modules by 0x20): SysModuleIface[6] and [8]. The overrides now call the
+    slots as fields: g_pfnIMuseSaveHook / RestoreHook are g_aBaseModuleServices[1].pfnSave / pfnRestore, and
+    Grim_LoadGame's restore calls are g_aGrimlib_Filenames[i].pfnRestore.
+* The overrides' fixed-address reads (RG32(0x...), Q3G(0x...)) are direct reads, and comments are not uses. These had
+  pinned g_dwRdZRaster_*.
+* `explain PROG ADDR...` lists the instructions that glue a span.
+
+**Ghidra types** (names/types_data_extents_exe.json, with the evidence for each):
+* the nine module service tables (`SysModuleIface`: every initializer writes slots 0..7) and `g_aHs` (`GrimServices`);
+* `g_aVideoModes` (VideoMode[64]) and `g_aStd3DDevices` (Std3DDevice[4]);
+* the lookup, draw-list, palette, path, message and codec tables;
+* the C runtime's `__pioinfo` and one-character string.
+The arrays need real names: Ghidra's `UINT_ARRAY_...` default is not in globals.json's named labels, so build_src
+declared it as a pointer. Functions that address anything inside a retyped extent are re-exported, or they keep the
+field labels.
+
+**Other fixes:**
+* datagen declares an address-rewritten global in globals.h whenever globals.h does not, not only when Ghidra has no
+  type for it (g_aGrimlib_Filenames).
+* link.py takes the data definitions of every object, not only data.o. With data in the modules it had added
+  placeholder definitions and warnings for the moved strings.
+* **The `-b` boot file and the file dialogs' initial folders were broken in the rebuild:** the branchless
+  `cond ? buffer : NULL` (`-(uint)(UINT_004f5a14 != 0) & 0x4f59b0`) kept the original's address as a plain number.
+  build_src now writes the literal of that mask as IMG_ADDR (Main_Startup, two in plat.c).
+* **Loose now:**
+  * EXE: 879 spans, up from 748. Its spans fall from 3849 to 3590, as typed tables take in their field labels.
+  * The EXE's independent chains: 70 -> 93.
+  * The DLLs are as before.
+* datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490; whole-game autorun passes.

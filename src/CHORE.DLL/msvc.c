@@ -324,7 +324,7 @@ extern unsigned char grim_def_DAT_10015af0[4] __asm__("_DAT_10015af0");
 /* 0x100106d4, 4 bytes */ GRIM_DATA("100106d4") void *grim_def_DAT_100106d4 __asm__("_DAT_100106d4") = (void *)f_FUN_10009500;
 /* 0x100106d8, 4 bytes */ GRIM_DATA("100106d8") void *grim_def_DAT_100106d8 __asm__("_DAT_100106d8") = (void *)f_FUN_10009500;
 /* 0x100106dc, 4 bytes */ GRIM_DATA("100106dc") void *grim_def_DAT_100106dc __asm__("_DAT_100106dc") = (void *)f_FUN_10009500;
-/* 0x100143f8, 4 bytes */ GRIM_DATA("100143f8") unsigned char grim_def_DAT_100143f8[4] __asm__("_DAT_100143f8") = {0};
+/* 0x100143f8, 4 bytes */ /* loose */ unsigned char grim_def_DAT_100143f8[4] __asm__("_DAT_100143f8") = {0};
 /* 0x10014478, 4 bytes, unused (rest of grim_def_DAT_10014458) */ GRIM_DATA("10014478") unsigned char grim_def_DAT_10014478[4] __asm__("_DAT_10014478");
 /* 0x10015aec, 4 bytes, unused (rest of grim_def_DAT_10015ae8) */ GRIM_DATA("10015aec") unsigned char grim_def_DAT_10015aec[4] __asm__("_DAT_10015aec");
 /* 0x10015af0, 4 bytes, unused (dead) */ GRIM_DATA("10015af0") unsigned char grim_def_DAT_10015af0[4] __asm__("_DAT_10015af0");
