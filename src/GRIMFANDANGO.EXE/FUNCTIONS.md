@@ -1087,7 +1087,7 @@
 | 00477380 | stdControl_ShowMouseCursor | stdinput.c | 10 |
 | 00477390 | Input_InitJoysticks | stdinput.c | 98 |
 | 00477530 | Input_CreateKeyboard | stdinput.c | 1 |
-| 004775a0 | Input_CreateMouse | stdinput.c | 1 |
+| 004775a0 | Input_CreateMouse | stdinput.c | 47 |
 | 00477680 | Input_MarkAxisUsed | stdinput.c | 35 |
 | 00477730 | Input_PollKeyboard | stdinput.c | 1 |
 | 004778a0 | Input_FlushKeyboard | stdinput.c | 25 |

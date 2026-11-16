@@ -177,26 +177,6 @@ void Input_CreateKeyboard(void)
     OutputDebugStringA(msg);
 }
 
-/* Input_CreateMouse (0x4775a0): system mouse, c_dfDIMouse format, exclusive
- * foreground access, buffered input; axes 12/13/14 are x, y, wheel. */
-void Input_CreateMouse(void)
-{
-    unsigned prop[5] = { 0x14, 0x10, 0, 0, 0x20 };
-    if (g_pDirectInput == 0)
-        return;
-    GetSystemMetrics(0x2b);
-    if (COM(g_pDirectInput, 0xc, &DAT_004d8340, &g_pDInputMouse, 0) != 0)
-        return;
-    if (COM(g_pDInputMouse, 0x2c, &DAT_004d5400) != 0)
-        return;
-    if (COM(g_pDInputMouse, 0x34, Win_GetMainHwnd(), 5) != 0)
-        return;
-    COM(g_pDInputMouse, 0x18, 1, prop);
-    Input_SetAxisRange(0xc, -0xfa, 0xfa, 0.0);
-    Input_SetAxisRange(0xd, -200, 200, 0.0);
-    Input_SetAxisRange(0xe, -0x14, 0x14, 0.0);
-}
-
 unsigned long __attribute__((stdcall)) GRIM_GetEnv(const char *, char *, unsigned long) __asm__("_GetEnvironmentVariableA@12");
 
 /* Display_InitFromConfig (0x402930): the game normally restores the last display from the registry

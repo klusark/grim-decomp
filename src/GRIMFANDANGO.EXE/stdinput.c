@@ -457,15 +457,20 @@ void __cdecl Input_CreateKeyboard(void)
 
 
 /* ---- 0x004775a0  Input_CreateMouse ---- */
-/* replaced by the hand-written version in build/overrides.c */
-#if 0
 /* Mouse axes 12 (x), 13 (y), 14 (wheel) in relative mode */
 
 void __cdecl Input_CreateMouse(void)
 
 {
-  unsigned char _stkneg[48] __attribute__((aligned(16)));  /* the original frame below the return address */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
+  void *a1;
+  undefined4 a2;
+  #define uStack_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
+  #define uStack_10 (*(undefined4 *)(_frame + (0x30 - 0x10)))
+  #define iStack_c (*(int *)(_frame + (0x30 - 0xc)))
+  #define iStack_8 (*(int *)(_frame + (0x30 - 0x8)))
+  #define uStack_4 (*(undefined4 *)(_frame + (0x30 - 0x4)))
   
   if (g_pDirectInput != (void *)0x0) {
     GetSystemMetrics(0x2b);
@@ -474,11 +479,16 @@ void __cdecl Input_CreateMouse(void)
     if (iVar1 == 0) {
       iVar1 = (**(code_std **)(*(int *)g_pDInputMouse + 0x2c))(g_pDInputMouse,&DAT_004d5400);
       if (iVar1 == 0) {
+        a2 = 5;
         iVar1 = *(int *)g_pDInputMouse;
-        Win_GetMainHwnd();
-        iVar1 = (**(code_std **)(iVar1 + 0x34))(g_pDInputMouse);
-        if (iVar1 == 0) {
-          (**(code_std **)(*(int *)g_pDInputMouse + 0x18))(g_pDInputMouse,1,(_stkneg + 16));
+        a1 = Win_GetMainHwnd();
+        iStack_c = (**(code_std **)(iVar1 + 0x34))(g_pDInputMouse,a1,a2);
+        if (iStack_c == 0) {
+          uStack_14 = 0x14;
+          uStack_10 = 0x10;
+          uStack_4 = 0x20;
+          iStack_8 = iStack_c;
+          (**(code_std **)(*(int *)g_pDInputMouse + 0x18))(g_pDInputMouse,1,&uStack_14);
           Input_SetAxisRange(0xc,-0xfa,0xfa,0.0f);
           Input_SetAxisRange(0xd,-200,200,0.0f);
           Input_SetAxisRange(0xe,-0x14,0x14,0.0f);
@@ -488,7 +498,11 @@ void __cdecl Input_CreateMouse(void)
   }
   return;
 }
-#endif
+#undef iStack_8
+#undef iStack_c
+#undef uStack_10
+#undef uStack_14
+#undef uStack_4
 
 
 /* ---- 0x00477680  Input_MarkAxisUsed ---- */

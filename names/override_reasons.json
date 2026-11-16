@@ -47,7 +47,6 @@
   "Cos_AllocCostumeSlot": "deliberate fix: the original leaves records undefined after a failed allocation",
   "Cos_AllocInstanceSlot": "deliberate fix: the original leaves records undefined after a failed allocation",
   "Collision_TestActorAgainstOthers": "x87-exact: the twin differs in NaN compares",
-  "Input_CreateMouse": "its SetCooperativeLevel call is pushed around a Win_GetMainHwnd() call and the DIPROPDWORD is a lost stack block",
   "Input_CreateKeyboard": "sets a cooperative level the original does not (deliberate)",
   "std3D_DrawRenderList": "the execute-buffer descriptor comes from EDI",
   "Im_DSoundCreateBuffer": "mutes the buffer under GRIM_SIMTIME",

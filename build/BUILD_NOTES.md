@@ -2371,3 +2371,30 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
     sputRoom_GetSetupBackground, the keyframe of sputResource_KeyframeHandler, Res_Load's Resource.
   * Raw `((int)p + 0x..)` accesses in the EXE: 76 -> 46.
 * Clean room 0 of 5490.
+
+## The failing groups one by one; Input_CreateMouse generated again (2026-11-15)
+
+* The 48 functions of the override files that failed the clean room as a group (previous section), removed one at a
+  time with the clean room on each: 27 pass alone. The clean room does not see x87 rounding, so their twin tests decide,
+  with the twins compiled at -O0 and with their module's flags from build/opt.mk (all but crt_unnamed and rdmodel3 are
+  OPT_FAST); the original machine code for the harnesses that read it from an asm_funcs.s came from tools/gen_asm.py
+  with names/asm_funcs.json set to the functions for one run:
+  - asm_s5 dx_test (Input_FlushJoystick, D3D_CreateViewport): 16,551 of 20,000 differ (the hand-written C: 0);
+    sector_test (WalkPlane_Within): 33,672 of 1,000,000.
+  - asm_p1: test_prep (rdActive_AddActiveFace) 306 / 321 differences at -O0 / OPT_FAST, test_canvas
+    (rdActive_BuildSpans) 3,168, test_light (rdCache_DrawFaceUser) 252 / 256; the hand-written C 0 in each.
+  - asm_q3 puppet_test: rdPuppet_UpdateFrame 9,287 / 14,140 of 50,000.
+  - msc_MemSet: the twin returns nothing where its callers use the count (asm_s5 small_test exits without output even
+    for the hand-written C now).
+  - No test, or logic_dt.c, whose all-assembly dual.s is gone (Input_SetAxisRange, stdColor_ColorConvertOneRow,
+    stdMath_Tan, stdMath_ArcSin1, stdMath_FlexPower, stdMath_NormalizeAngleAcute (ST0 result), Im_MixLoopC / D (the
+    sign extension), Im_RunTriggerCommand, Actor_PuckOrient, SetSoundPosition, ShrinkBoxes, rdCache_InsertFace,
+    rdModel3_CalcRadii / CalcVertexNormals, sputLua_GetActorChoresL / LoopingChoresL, sputText_CreateActorText): kept,
+    since every twin that does have a test still differs.
+* **Input_CreateMouse generated again.** Its reason was a lost call argument, the kind of repair of #53:
+  SetCooperativeLevel's `push 5` comes before the Win_GetMainHwnd() call and the decompiler gave the COM call one
+  argument, which also moved the stack model so that the DIPROPDWORD stored before SetProperty was lost.
+  names/callsite_overrides.json: 0x477606 takes 3 (__stdcall). The generated code calls SetCooperativeLevel(mouse,
+  hwnd, 5) and builds {0x14, 0x10, 0, 0, 0x20} in its `_frame` before SetProperty, as the machine code and the
+  hand-written version do.
+* docs/OVERRIDES.md: 529. Clean room 0 of 5490; whole-game autorun passes.
