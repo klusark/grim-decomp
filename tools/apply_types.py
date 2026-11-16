@@ -13,6 +13,7 @@ A batch is one JSON object:
    "globals": [{"addr": "008ca758", "type": "Actor *"}],
    "this":    [{"addr": "004a8310", "type": "Puck *"}],          # the implicit this of a __thiscall function
    "locals":  [{"addr": "0049cf60", "name": "local_c", "type": "ScreenCoord"}]}   # a stack local, by its Ghidra name
+                                     # ({"stack": -0x68, ...} makes one there, removing the variables it covers)
 Structures of all the batches given are applied first, in dependency order (held by value before the holder); a new
 one is created with its pointers to other batch structures as void * and typed after, so pointer cycles work
 (Actor -> ActorExtra -> TextObject -> Actor). Every entry is idempotent. A new structure changes no decompilation by
@@ -282,15 +283,59 @@ def apply_this(prog, e, log):
         log.append(f"FAIL this {e['addr']}: {str(r)[:200]}")
 
 
+STACK_LOCAL_SCRIPT = """import ghidra.app.script.GhidraScript;
+import ghidra.program.model.listing.*;
+import ghidra.program.model.data.*;
+import ghidra.program.model.symbol.SourceType;
+import ghidra.util.data.DataTypeParser;
+public class StackLocal extends GhidraScript {
+  public void run() throws Exception {
+    Function f = getFunctionAt(toAddr("%s"));
+    DataTypeManager dtm = currentProgram.getDataTypeManager();
+    DataType t = new DataTypeParser(dtm, dtm, null, DataTypeParser.AllowedDataTypes.ALL).parse("%s");
+    int off = %d;
+    String name = "%s";
+    for (Variable v : f.getLocalVariables()) {
+      if (v.isStackVariable() && v.getStackOffset() < off + t.getLength() && v.getStackOffset() + v.getLength() > off)
+        f.removeVariable(v);
+    }
+    f.addLocalVariable(new LocalVariableImpl(name, t, off, currentProgram), SourceType.USER_DEFINED);
+    println("STACK LOCAL OK " + name + " " + t.getName() + " " + off);
+  }
+}"""
+
+
 def apply_local(prog, e, log):
     """A stack local of one function (Ghidra's name for it, local_<offset>): the decompiler keeps the type it is given.
     Journaled per function address."""
     if DRY:
         return
+    if "stack" in e:
+        # {"stack": -0x68}: a variable of this name and type at that frame offset, the variables it covers removed
+        # (a structure that starts at a slot Ghidra has no variable for)
+        code = STACK_LOCAL_SCRIPT % (e["addr"], e["type"], int(e["stack"]), e["name"])
+        r = g.post("run_script_inline", code=code, program=prog)
+        out = str(r.get("_raw", r) if isinstance(r, dict) else r)
+        if "STACK LOCAL OK" not in out:
+            log.append(f"FAIL local {e['addr']} {e['name']} @{e['stack']}: {out[-300:]}")
+        g._touched.setdefault(prog, set()).add(e["addr"])   # (the script endpoint is not journaled by itself)
+        return
     r = g.post("set_local_variable_type", program=prog, function_address=e["addr"], variable_name=e["name"],
                new_type=e["type"])
+    if not g.ok(r) and e.get("rename"):
+        # {"rename": "header"}: the local's own name; on a second run it already has it
+        r = g.post("set_local_variable_type", program=prog, function_address=e["addr"], variable_name=e["rename"],
+                   new_type=e["type"])
+        if not g.ok(r):
+            log.append(f"FAIL local {e['addr']} {e['name']} / {e['rename']}: {str(r)[:200]}")
+        return
     if not g.ok(r):
         log.append(f"FAIL local {e['addr']} {e['name']}: {str(r)[:200]}")
+    elif e.get("rename"):
+        r = g.post("rename_variable", program=prog, function_address=e["addr"], old_variable_name=e["name"],
+                   new_variable_name=e["rename"])
+        if not g.ok(r):
+            log.append(f"FAIL rename {e['addr']} {e['name']} -> {e['rename']}: {str(r)[:200]}")
 
 
 def struct_order(items):

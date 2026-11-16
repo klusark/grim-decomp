@@ -149,7 +149,6 @@ void __cdecl Res_SysShutdown(void)
 uint __cdecl Res_SysSave(code *write)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   code *pcVar2;
   undefined uVar3;
@@ -162,7 +161,7 @@ uint __cdecl Res_SysSave(code *write)
   uint uVar5;
   Resource *pRVar6;
   char *pcVar7;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0;
   pcVar2 = write;
@@ -216,8 +215,6 @@ uint __cdecl Res_SysSave(code *write)
     }
   } while( true );
 }
-#undef local_4
-
 
 /* ---- 0x00482380  Res_SysLoad ---- */
 /* Module interface slot 5 (Resource_Filio): save-game reader, calls the SaveGame_Read callback it
@@ -236,9 +233,9 @@ uint __cdecl Res_SysLoad(code *read)
   void *pvVar2;
   undefined3 extraout_var_03;
   int iVar3;
-  #define iStack_110 (*(int *)(_frame + (0x120 - 0x110)))
-  #define local_10c (*(int *)(_frame + (0x120 - 0x10c)))
-  #define iStack_108 (*(int *)(_frame + (0x120 - 0x108)))
+  int iStack_110;
+  int local_10c;
+  int iStack_108;
   #define iStack_104 (*(int *)(_frame + (0x120 - 0x104)))
   #define acStack_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
   
@@ -279,9 +276,6 @@ uint __cdecl Res_SysLoad(code *read)
 }
 #undef acStack_100
 #undef iStack_104
-#undef iStack_108
-#undef iStack_110
-#undef local_10c
 
 
 /* ---- 0x0048d340  Resource_SetNoPurge ---- */

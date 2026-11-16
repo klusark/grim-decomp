@@ -317,29 +317,14 @@ void __cdecl stdControl_ShowMouseCursor(int show)
 void __cdecl Input_InitJoysticks(void)
 
 {
-  unsigned char _frame[0x1c0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
   uint uVar3;
   uint *puVar4;
   int axis;
   uint a1;
-  #define local_1a4 (*(undefined1 (*)[16])(_frame + (0x1c0 - 0x1a4)))
-  #define local_194 (*(undefined1 (*)[36])(_frame + (0x1c0 - 0x194)))
-  #define local_170 (*(uint *)(_frame + (0x1c0 - 0x170)))
-  #define local_16c (*(uint *)(_frame + (0x1c0 - 0x16c)))
-  #define local_168 (*(uint *)(_frame + (0x1c0 - 0x168)))
-  #define local_164 (*(uint *)(_frame + (0x1c0 - 0x164)))
-  #define local_160 (*(uint *)(_frame + (0x1c0 - 0x160)))
-  #define local_15c (*(uint *)(_frame + (0x1c0 - 0x15c)))
-  #define local_14c (*(uint *)(_frame + (0x1c0 - 0x14c)))
-  #define local_148 (*(uint *)(_frame + (0x1c0 - 0x148)))
-  #define local_144 (*(uint *)(_frame + (0x1c0 - 0x144)))
-  #define local_140 (*(uint *)(_frame + (0x1c0 - 0x140)))
-  #define local_13c (*(uint *)(_frame + (0x1c0 - 0x13c)))
-  #define local_138 (*(uint *)(_frame + (0x1c0 - 0x138)))
-  #define local_134 (*(byte *)(_frame + (0x1c0 - 0x134)))
-  #define local_128 (*(uint *)(_frame + (0x1c0 - 0x128)))
+  JoyInfo pos;
+  JoyCaps caps;
   
   UINT_009014e8 = 0;
   UINT_00901668 = 0;
@@ -356,31 +341,31 @@ void __cdecl Input_InitJoysticks(void)
     puVar4 = &UINT_009014e0;
     axis = 2;
     do {
-      iVar2 = joyGetPos(a1,(int)local_1a4);
+      iVar2 = joyGetPos(a1,(int)&pos);
       if (iVar2 == 0) {
-        iVar2 = joyGetDevCapsA(a1,(int)local_194,0x194);
+        iVar2 = joyGetDevCapsA(a1,(int)&caps,0x194);
         if (iVar2 == 0) {
           (&UINT_009014e8)[a1] = 1;
-          uVar3 = local_128;
-          if (0xd < local_128) {
+          uVar3 = caps.dwMaxButtons;
+          if (0xd < caps.dwMaxButtons) {
             uVar3 = 0xe;
           }
           (&UINT_00901668)[a1] = uVar3;
-          Input_SetAxisRange(axis + -2,local_170,local_16c,0.1f);
-          Input_SetAxisRange(axis + -1,local_168,local_164,0.1f);
-          if ((local_134 & 1) != 0) {
-            Input_SetAxisRange(axis,local_160,local_15c,0.1f);
+          Input_SetAxisRange(axis + -2,caps.dwXMin,caps.dwXMax,0.1f);
+          Input_SetAxisRange(axis + -1,caps.dwYMin,caps.dwYMax,0.1f);
+          if (((byte)caps.dwCaps & 1) != 0) {
+            Input_SetAxisRange(axis,caps.dwZMin,caps.dwZMax,0.1f);
           }
-          if ((local_134 & 2) != 0) {
-            Input_SetAxisRange(axis + 1,local_14c,local_148,0.1f);
+          if (((byte)caps.dwCaps & 2) != 0) {
+            Input_SetAxisRange(axis + 1,caps.dwRMin,caps.dwRMax,0.1f);
           }
-          if ((local_134 & 4) != 0) {
-            Input_SetAxisRange(axis + 2,local_144,local_140,0.1f);
+          if (((byte)caps.dwCaps & 4) != 0) {
+            Input_SetAxisRange(axis + 2,caps.dwUMin,caps.dwUMax,0.1f);
           }
-          if ((local_134 & 8) != 0) {
-            Input_SetAxisRange(axis + 3,local_13c,local_138,0.1f);
+          if (((byte)caps.dwCaps & 8) != 0) {
+            Input_SetAxisRange(axis + 3,caps.dwVMin,caps.dwVMax,0.1f);
           }
-          if ((local_134 & 0x10) != 0) {
+          if (((byte)caps.dwCaps & 0x10) != 0) {
             *puVar4 = 1;
           }
         }
@@ -392,23 +377,6 @@ void __cdecl Input_InitJoysticks(void)
   }
   return;
 }
-#undef local_128
-#undef local_134
-#undef local_138
-#undef local_13c
-#undef local_140
-#undef local_144
-#undef local_148
-#undef local_14c
-#undef local_15c
-#undef local_160
-#undef local_164
-#undef local_168
-#undef local_16c
-#undef local_170
-#undef local_194
-#undef local_1a4
-
 
 /* ---- 0x00477530  Input_CreateKeyboard ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -693,20 +661,12 @@ void __cdecl Input_PollJoysticks(void)
   int iVar3;
   uint uVar4;
   uint uVar5;
+  JoyInfoEx *pJVar6;
   uint local_44;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
   #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  JoyInfoEx info;
   
   local_40 = 1;
   local_38 = 0;
@@ -715,36 +675,36 @@ void __cdecl Input_PollJoysticks(void)
   uVar5 = 0x1c00;
   do {
     if (((&UINT_00803fc8)[local_38] != 0) && ((&UINT_009014e8)[local_38] != 0)) {
-      puVar2 = &local_34;
+      pJVar6 = &info;
       for (iVar3 = 0xd; iVar3 != 0; iVar3 = iVar3 + -1) {
-        *puVar2 = 0;
-        puVar2 = puVar2 + 1;
+        pJVar6->dwSize = 0;
+        pJVar6 = (JoyInfoEx *)&pJVar6->dwFlags;
       }
-      local_34 = 0x34;
-      local_30 = *(uint *)local_3c;
-      iVar3 = joyGetPosEx(local_38,(int)&local_34);
+      info.dwSize = 0x34;
+      info.dwFlags = *(uint *)local_3c;
+      iVar3 = joyGetPosEx(local_38,(int)&info);
       if (iVar3 != 0) {
         return;
       }
-      *(uint *)(local_44 - 4) = local_2c;
-      *(uint *)local_44 = local_28;
-      if ((local_30 & 4) != 0) {
-        *(uint *)(local_44 + 4) = local_24;
+      *(uint *)(local_44 - 4) = info.dwXPos;
+      *(uint *)local_44 = info.dwYPos;
+      if ((info.dwFlags & 4) != 0) {
+        *(uint *)(local_44 + 4) = info.dwZPos;
       }
-      if ((local_30 & 8) != 0) {
-        *(uint *)(local_44 + 8) = local_20;
+      if ((info.dwFlags & 8) != 0) {
+        *(uint *)(local_44 + 8) = info.dwRPos;
       }
-      if ((local_30 & 0x10) != 0) {
-        *(uint *)(local_44 + 0xc) = local_1c;
+      if ((info.dwFlags & 0x10) != 0) {
+        *(uint *)(local_44 + 0xc) = info.dwUPos;
       }
-      if ((local_30 & 0x20) != 0) {
-        *(uint *)(local_44 + 0x10) = local_18;
+      if ((info.dwFlags & 0x20) != 0) {
+        *(uint *)(local_44 + 0x10) = info.dwVPos;
       }
       uVar1 = g_dwCurReadTime;
       puVar2 = (uint *)((int)&UINT_00804020 + uVar5);
       iVar3 = 10;
       do {
-        uVar4 = local_14 & local_40;
+        uVar4 = info.dwButtons & local_40;
         if (uVar4 == *puVar2) {
           if (uVar4 != 0) {
 LAB_004779fd:
@@ -767,8 +727,8 @@ LAB_004779fd:
         local_40 = local_40 << 1;
         iVar3 = iVar3 + -1;
       } while (iVar3 != 0);
-      if ((local_30 & 0x200) != 0) {
-        if (((int)local_c < 0x57e4) || (0x7b0c < (int)local_c)) {
+      if ((info.dwFlags & 0x200) != 0) {
+        if (((int)info.dwPOV < 0x57e4) || (0x7b0c < (int)info.dwPOV)) {
           iVar3 = 0;
         }
         else {
@@ -792,8 +752,8 @@ LAB_00477a8e:
             goto LAB_00477a8e;
           }
         }
-        if (((((int)local_c < 0x7b0c) && (0x1194 < (int)local_c)) || ((int)local_c < 0)) ||
-           (local_c == 0xffff)) {
+        if (((((int)info.dwPOV < 0x7b0c) && (0x1194 < (int)info.dwPOV)) || ((int)info.dwPOV < 0)) ||
+           (info.dwPOV == 0xffff)) {
           iVar3 = 0;
         }
         else {
@@ -817,7 +777,7 @@ LAB_00477b03:
             goto LAB_00477b03;
           }
         }
-        if (((int)local_c < 0x1194) || (0x34bc < (int)local_c)) {
+        if (((int)info.dwPOV < 0x1194) || (0x34bc < (int)info.dwPOV)) {
           iVar3 = 0;
         }
         else {
@@ -841,7 +801,7 @@ LAB_00477b6c:
             goto LAB_00477b6c;
           }
         }
-        if (((int)local_c < 0x34bc) || (0x57e4 < (int)local_c)) {
+        if (((int)info.dwPOV < 0x34bc) || (0x57e4 < (int)info.dwPOV)) {
           iVar3 = 0;
         }
         else {
@@ -876,19 +836,9 @@ LAB_00477bd5:
     }
   } while( true );
 }
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
 #undef local_38
 #undef local_3c
 #undef local_40
-#undef local_c
 
 
 /* ---- 0x00477c20  Input_PollMouse ---- */

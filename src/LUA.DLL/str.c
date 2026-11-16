@@ -908,7 +908,7 @@ void __cdecl str_format(void)
   #define iStack_10c (*(int *)(_frame + (0x130 - 0x10c)))
   #define iStack_104 (*(int *)(_frame + (0x130 - 0x104)))
   #define cStack_c8 (*(char *)(_frame + (0x130 - 0xc8)))
-  #define uStack_c7 (*(undefined4 *)(_frame + (0x130 - 0xc7)))
+  #define uStack_c7 (*(char (*)[199])(_frame + (0x130 - 0xc7)))
   
   numArg = 1;
   pcVar2 = (char *)luaL_check_string(1);
@@ -943,8 +943,8 @@ void __cdecl str_format(void)
           s = (uint *)(pcVar2 + 3);
         }
         numArg = numArg + 1;
-        strncpy(&uStack_c7,s,(uint)(pcVar3 + (1 - (int)s)));
-        pcVar3[(int)&uStack_c7 + (1 - (int)s)] = '\0';
+        strncpy((uint *)uStack_c7,s,(uint)(pcVar3 + (1 - (int)s)));
+        pcVar3[(int)(uStack_c7 + (1 - (int)s))] = '\0';
         buf = (char *)luaL_openspace(1000);
         pcVar2 = pcVar3 + 1;
         switch(*pcVar3) {

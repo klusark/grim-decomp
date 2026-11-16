@@ -2414,3 +2414,27 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
   lone local is short of what the code uses, and the frame's slack takes the rest. Every function with a frame keeps
   one: 497 still.
 * Frame views 3457 -> 3058. Clean room 0 of 5490; whole-game autorun passes.
+
+## Split frame locals typed: vectors, strings, file headers, Win32 structures (2026-11-16)
+
+* Ghidra splits a block the code fills by address into one local per slot; each became one `_frame` view. Typed in
+  Ghidra now (frame views 3058 -> 2581, 1152 of them in compiled code, the rest in `#if 0` functions):
+  * names/types_frame_vectors.json: 55 locals passed to the rd* / Puck / WalkPlane math as a vector or a matrix,
+    float[3] / float[12] (found from the callee's argument, the following slots free or short float arrays).
+    Actor_UpdateLookAt's first guess (one float[12]) was four vectors: up, angles, direction, axis.
+  * names/types_frame_strings_*.json: 11 char buffers given to string functions, to the next local used on its own.
+  * names/types_file_headers.json: PicHeader / PicChannel (Softimage), BitmapFileHeader (packed) / BitmapInfoHeader,
+    PcxHeader, LbmBitmapHeader (stdLbm_SwapHeader's parameter), GifHeader / GifImageDesc, with stdBmp_Write's
+    parameters.
+  * names/types_win32_frames.json: OpenFileName (the file requesters), JoyInfo / JoyInfoEx / JoyCaps, the DIB
+    sections' BitmapInfoHeader, and the ColorFormat / VBufferFormat the save and screenshot code builds
+    (stdBitmap_ConvertColorFormat's `want` is a ColorFormat *).
+* tools/apply_types.py: a local may carry `"rename"` (its own name; a second run finds it under that name) and
+  `"stack": <offset>` (a new variable there, the ones it covers removed: GifImageDesc starts at a slot with none).
+* tools/build_src.py: a structure whose size C would pad up is packed (GifHeader, 13 bytes with ushort fields).
+* tools/frame_locals.py: a local whose address goes to a call with its own size right after it,
+  `(*read)(&local_15c,4)`, no longer counts as address taken (the save-game readers and writers).
+* That moved some Lua locals out of the frame, and build_src's evidence for a LUA.DLL global's pointer type
+  (`p = DAT_x + 1` with p a frame view) went with them: g_dwLState_aClosurePtrs / aProtoPtrs became non-pointers
+  and 26 save tests crashed. A plain offset-named local is the same evidence now; globals.h is unchanged.
+* Clean room 0 of 5490; whole-game autorun passes.

@@ -125,15 +125,22 @@ SCAN_FUNCS = ("sscanf",)
 
 
 def address_seen(name, typ, stars, code):
-    """True when `&name` is used where the layout around the local can matter. An int, uint or float whose address
-    only goes to sscanf as one argument is written as one %d / %f: its neighbours are not reached through it."""
+    """True when `&name` is used where the layout around the local can matter. Two uses cannot reach the neighbours:
+    an int, uint or float whose address goes to sscanf as one argument (written as one %d / %f), and a call that is
+    given the address and right after it the local's own size, `(*read)(&local_15c,4)`, `gzread(f,(int)&local_88,4)`
+    (a save-game reader or writer moving exactly that local)."""
     refs = list(re.finditer(r"(?<!&)&\s*%s\b" % name, code))
     if not refs:
         return False
-    if stars or typ not in ("int", "uint", "float"):
-        return True
+    size = 4 if stars else PRIM_SIZE.get(typ)
     for r in refs:
-        if not re.match(r"\s*[,)]", code[r.end():]) or not re.search(r",\s*$", code[:r.start()]):
+        before, after = code[:r.start()], code[r.end():]
+        if not re.search(r"[,(]\s*(?:\([\w\s*]+\)\s*)?$", before):
+            return True
+        sized = re.match(r"\s*,\s*(0x[0-9a-fA-F]+|\d+)\s*\)", after)
+        if size and sized and int(sized.group(1), 0) == size:
+            continue
+        if stars or typ not in ("int", "uint", "float") or not re.match(r"\s*[,)]", after) or                 not re.search(r",\s*$", before):
             return True
         i, depth = r.start(), 0
         while i > 0:

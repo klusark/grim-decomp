@@ -1454,11 +1454,10 @@ void luaA_ResetSaveCount(void)
 undefined4 __cdecl lua_Save(undefined *writer)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined *puVar1;
   LState *pLVar2;
   int iVar3;
-  #define local_4 (*(undefined **)(_frame + (0x20 - 0x4)))
+  undefined *local_4;
   
                     /* 0x2670  10  lua_Save */
   puVar1 = writer;
@@ -1489,8 +1488,6 @@ undefined4 __cdecl lua_Save(undefined *writer)
   } while (pLVar2 != (LState *)0x0);
   return 0;
 }
-#undef local_4
-
 
 /* ---- 0x10002730  LuaSaveWriter ---- */
 /* Original name LuaSaveWriter (the remaster's libLua.so: static LuaSaveWriter(void*, unsigned):
@@ -1510,16 +1507,15 @@ uint __cdecl LuaSaveWriter(undefined4 data,int size)
 uint __cdecl lua_Restore(void *readFunc)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   undefined4 uVar2;
   LState *this;
   int iVar3;
   LState *a1;
   uint uVar4;
-  #define iStack_18 (*(int *)(_frame + (0x30 - 0x18)))
-  #define uStack_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define pLStack_10 (*(LState **)(_frame + (0x30 - 0x10)))
+  int iStack_18;
+  uint uStack_14;
+  LState *pLStack_10;
   
                     /* 0x2760  9  lua_Restore */
   lua_close();
@@ -1570,10 +1566,6 @@ uint __cdecl lua_Restore(void *readFunc)
   g_dwLState_numThreads = uVar2;
   return 0;
 }
-#undef iStack_18
-#undef pLStack_10
-#undef uStack_14
-
 
 /* ---- 0x10002900  Lua_Terminate ---- */
 /* Original name Lua_Terminate (the remaster's libLua.so: static Lua_Terminate: service table = 0,

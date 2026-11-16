@@ -22,8 +22,7 @@ uint __cdecl rdPolyline_Draw(int thing,float *b)
   #define local_94 (*(float (*)[2])(_frame + (0xb0 - 0x94)))
   #define local_88 (*(float (*)[3])(_frame + (0xb0 - 0x88)))
   #define local_7c (*(float *)(_frame + (0xb0 - 0x7c)))
-  #define local_78 (*(float (*)[9])(_frame + (0xb0 - 0x78)))
-  #define local_54 (*(float (*)[3])(_frame + (0xb0 - 0x54)))
+  #define local_78 (*(float (*)[12])(_frame + (0xb0 - 0x78)))
   float local_48;
   float local_40;
   #define local_38 (*(float (*)[3])(_frame + (0xb0 - 0x38)))
@@ -56,22 +55,22 @@ uint __cdecl rdPolyline_Draw(int thing,float *b)
   *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
   rdPolyline_DrawFace(thing,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
-  *(float *)&DAT_007f4e84 = local_54[1] - -0.001f;
-  *(float *)&DAT_007f4e80 = local_54[0] - *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4e88 = local_54[2] - *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4e8c = local_54[0] + *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4e94 = local_54[2] - *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4e98 = local_54[0] + *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4ea0 = local_54[2] + *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4ea4 = local_54[0] - *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4eac = local_54[2] + *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e84 = local_78[10] - -0.001f;
+  *(float *)&DAT_007f4e80 = local_78[9] - *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e88 = local_78[0xb] - *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e8c = local_78[9] + *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e94 = local_78[0xb] - *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4e98 = local_78[9] + *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4ea0 = local_78[0xb] + *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4ea4 = local_78[9] - *(float *)(iVar1 + 0x24);
+  *(float *)&DAT_007f4eac = local_78[0xb] + *(float *)(iVar1 + 0x24);
   local_1c = *(uint *)(iVar1 + 0xd4);
   *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
   *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
   rdPolyline_DrawFace(thing,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
-  local_94[1] = local_88[1] - local_54[0];
-  fVar2 = local_7c - local_54[2];
+  local_94[1] = local_88[1] - local_78[9];
+  fVar2 = local_7c - local_78[0xb];
   fVar3 = SQRT(fVar2 * fVar2 + local_94[1] * local_94[1]);
   local_9c = stdMath_ArcSin3(-local_94[1] / fVar3);
   if (fVar2 < 0.0f) {
@@ -84,18 +83,18 @@ uint __cdecl rdPolyline_Draw(int thing,float *b)
   }
   stdMath_SinCos(local_9c,local_88,local_94);
   *(float *)&DAT_007f4e84 = local_88[2];
-  *(float *)&DAT_007f4e80 = (*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
-  *(float *)&DAT_007f4e88 = *(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
-  *(float *)&DAT_007f4e8c = (-*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_54[0];
+  *(float *)&DAT_007f4e80 = (*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_78[9];
+  *(float *)&DAT_007f4e88 = *(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_78[0xb];
+  *(float *)&DAT_007f4e8c = (-*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_78[9];
   local_94[1] = 0.0f;
-  *(float *)&DAT_007f4e94 = -*(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_54[2];
-  *(float *)&DAT_007f4e98 = (-*(float *)(iVar1 + 0x24) * local_94[0] - 0.0f) + local_54[0];
-  *(float *)&DAT_007f4ea0 = -*(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_54[2];
+  *(float *)&DAT_007f4e94 = -*(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_78[0xb];
+  *(float *)&DAT_007f4e98 = (-*(float *)(iVar1 + 0x24) * local_94[0] - 0.0f) + local_78[9];
+  *(float *)&DAT_007f4ea0 = -*(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_78[0xb];
   *(float *)&DAT_007f4e90 = local_88[2];
-  *(float *)&DAT_007f4e9c = local_54[1];
-  *(float *)&DAT_007f4ea4 = (*(float *)(iVar1 + 0x24) * local_94[0] - 0.0f) + local_54[0];
-  *(float *)&DAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_54[2];
-  *(float *)&DAT_007f4ea8 = local_54[1];
+  *(float *)&DAT_007f4e9c = local_78[10];
+  *(float *)&DAT_007f4ea4 = (*(float *)(iVar1 + 0x24) * local_94[0] - 0.0f) + local_78[9];
+  *(float *)&DAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_78[0xb];
+  *(float *)&DAT_007f4ea8 = local_78[10];
   local_1c = *(uint *)(iVar1 + 0xd0);
   rdPolyline_DrawFace(thing,iVar1 + 0x38,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   return 1;
@@ -106,7 +105,6 @@ uint __cdecl rdPolyline_Draw(int thing,float *b)
 #undef local_20
 #undef local_2c
 #undef local_38
-#undef local_54
 #undef local_78
 #undef local_7c
 #undef local_88
@@ -544,10 +542,8 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
   bool bVar10;
   uint local_7c;
   #define local_78 (*(float (*)[2])(_frame + (0x90 - 0x78)))
-  #define local_70 (*(float *)(_frame + (0x90 - 0x70)))
-  #define local_6c (*(float (*)[2])(_frame + (0x90 - 0x6c)))
-  #define local_64 (*(float *)(_frame + (0x90 - 0x64)))
-  #define local_60 (*(float (*)[2])(_frame + (0x90 - 0x60)))
+  #define local_70 (*(float (*)[3])(_frame + (0x90 - 0x70)))
+  #define local_64 (*(float (*)[3])(_frame + (0x90 - 0x64)))
   #define local_58 (*(uint *)(_frame + (0x90 - 0x58)))
   #define local_4c (*(uint *)(_frame + (0x90 - 0x4c)))
   #define local_48 (*(uint *)(_frame + (0x90 - 0x48)))
@@ -562,10 +558,10 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
   #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
   
   iVar1 = *(int *)(thing + 4);
-  rdMatrix_TransformPoint34(&local_64,matrix + 9,g_pRdCamera_CurCamera->aView);
-  rdMatrix_TransformVector34(&local_70,(float *)(iVar1 + 0xac),matrix);
-  rdMatrix_TransformVector34Acc(&local_70,g_pRdCamera_CurCamera->aView);
-  if (0.0f <= local_70) {
+  rdMatrix_TransformPoint34(local_64,matrix + 9,g_pRdCamera_CurCamera->aView);
+  rdMatrix_TransformVector34(local_70,(float *)(iVar1 + 0xac),matrix);
+  rdMatrix_TransformVector34Acc(local_70,g_pRdCamera_CurCamera->aView);
+  if (0.0f <= local_70[0]) {
     local_78[0] = -*(float *)(iVar1 + 0x54);
   }
   else {
@@ -576,18 +572,18 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
   }
   else {
     uVar4 = rdClip_SphereInFrustrum
-                      (&g_pRdCamera_CurCamera->pFrustum->nClipFar,&local_64,*(float *)(iVar1 + 0x24)
-                      );
+                      (&g_pRdCamera_CurCamera->pFrustum->nClipFar,local_64,*(float *)(iVar1 + 0x24))
+    ;
   }
   if ((uVar4 != 2) && (pPVar5 = rdCache_GetProcEntry(), pPVar5 != (ProcEntry *)0x0)) {
-    *(float *)&DAT_007f5f0c = local_6c[0] + local_60[0];
-    *(float *)&DAT_007f5f10 = local_6c[1] + local_60[1];
-    *(float *)&DAT_007f5f08 = local_64 + (local_70 - local_78[0]);
-    *(float *)&DAT_007f5f14 = local_64 + local_78[0] + local_70;
-    *(float *)&DAT_007f5f20 = local_64 + local_78[0] + local_70;
-    *(float *)&DAT_007f5f28 = local_60[1] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_6c[1];
-    *(float *)&DAT_007f5f2c = local_64 + (local_70 - local_78[0]);
-    *(float *)&DAT_007f5f34 = local_60[1] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_6c[1];
+    *(float *)&DAT_007f5f0c = local_70[1] + local_64[1];
+    *(float *)&DAT_007f5f10 = local_70[2] + local_64[2];
+    *(float *)&DAT_007f5f08 = local_64[0] + (local_70[0] - local_78[0]);
+    *(float *)&DAT_007f5f14 = local_64[0] + local_78[0] + local_70[0];
+    *(float *)&DAT_007f5f20 = local_64[0] + local_78[0] + local_70[0];
+    *(float *)&DAT_007f5f28 = local_64[2] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_70[2];
+    *(float *)&DAT_007f5f2c = local_64[0] + (local_70[0] - local_78[0]);
+    *(float *)&DAT_007f5f34 = local_64[2] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_70[2];
     local_2c = *(uint *)(iVar1 + 0x70);
     local_28 = *(uint *)(iVar1 + 0x74);
     local_24 = *(uint *)(iVar1 + 0x78);
@@ -731,9 +727,7 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
 #undef local_48
 #undef local_4c
 #undef local_58
-#undef local_60
 #undef local_64
-#undef local_6c
 #undef local_70
 #undef local_78
 

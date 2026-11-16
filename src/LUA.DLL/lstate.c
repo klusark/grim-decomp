@@ -245,7 +245,7 @@ undefined4 __stdcall LState_GlobalEndRestore(int a1)
 undefined4 __stdcall LState_GlobalBeginRestore(int a1)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
   Hash *t;
   int reader;
@@ -259,16 +259,16 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   int iVar8;
   int iVar9;
   undefined4 *puStack_2c;
-  #define puStack_28 (*(undefined4 **)(_frame + (0x40 - 0x28)))
-  #define puStack_24 (*(undefined4 **)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(int *)(_frame + (0x40 - 0x20)))
-  #define pvStack_1c (*(void **)(_frame + (0x40 - 0x1c)))
-  #define uStack_18 (*(undefined4 *)(_frame + (0x40 - 0x18)))
-  #define iStack_14 (*(int *)(_frame + (0x40 - 0x14)))
-  #define puStack_10 (*(undefined4 **)(_frame + (0x40 - 0x10)))
-  #define uStack_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define iStack_8 (*(int *)(_frame + (0x40 - 0x8)))
-  #define iStack_4 (*(int *)(_frame + (0x40 - 0x4)))
+  undefined4 *puStack_28;
+  undefined4 *puStack_24;
+  int local_20;
+  #define pvStack_1c (*(void **)(_frame + (0x30 - 0x1c)))
+  #define uStack_18 (*(undefined4 *)(_frame + (0x30 - 0x18)))
+  #define iStack_14 (*(int *)(_frame + (0x30 - 0x14)))
+  #define puStack_10 (*(undefined4 **)(_frame + (0x30 - 0x10)))
+  #define uStack_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define iStack_8 (*(int *)(_frame + (0x30 - 0x8)))
+  #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
   
   reader = a1;
   (*(code *)a1)(&g_dwLState_stringPtrTotal,4);
@@ -541,10 +541,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
 #undef iStack_14
 #undef iStack_4
 #undef iStack_8
-#undef local_20
 #undef puStack_10
-#undef puStack_24
-#undef puStack_28
 #undef pvStack_1c
 #undef uStack_18
 #undef uStack_c
@@ -559,25 +556,25 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
 undefined4 __stdcall LState_SaveGlobals(int a1)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   undefined4 *puVar2;
   int writer;
   int iVar3;
   uint uVar4;
   int iVar5;
-  #define puStack_34 (*(undefined4 **)(_frame + (0x50 - 0x34)))
-  #define puStack_30 (*(undefined4 **)(_frame + (0x50 - 0x30)))
-  #define puStack_2c (*(undefined4 **)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(int *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(int *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(int *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(int *)(_frame + (0x50 - 0x1c)))
-  #define apuStack_18 (*(undefined4 *(*)[2])(_frame + (0x50 - 0x18)))
-  #define local_10 (*(int *)(_frame + (0x50 - 0x10)))
-  #define pbStack_c (*(byte **)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
-  #define iStack_4 (*(int *)(_frame + (0x50 - 0x4)))
+  undefined4 *puStack_34;
+  undefined4 *puStack_30;
+  undefined4 *puStack_2c;
+  int local_28;
+  int local_24;
+  int local_20;
+  int local_1c;
+  #define apuStack_18 (*(undefined4 *(*)[2])(_frame + (0x30 - 0x18)))
+  #define local_10 (*(int *)(_frame + (0x30 - 0x10)))
+  #define pbStack_c (*(byte **)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
   
   local_1c = 0;
   local_20 = 0;
@@ -715,15 +712,8 @@ undefined4 __stdcall LState_SaveGlobals(int a1)
 #undef apuStack_18
 #undef iStack_4
 #undef local_10
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
 #undef local_8
 #undef pbStack_c
-#undef puStack_2c
-#undef puStack_30
-#undef puStack_34
 
 
 /* ---- 0x100085e0  LState_CodeLength ---- */
@@ -759,13 +749,12 @@ byte * __cdecl LState_CodeLength(int tf)
 undefined4 __thiscall LState_Save(LState *this,int a1)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ExecutionState *pEVar1;
   int iVar2;
   int *piVar3;
-  #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int iStack_c;
+  int local_8;
+  int local_4;
   
   local_8 = 0;
   local_4 = -1;
@@ -825,10 +814,6 @@ undefined4 __thiscall LState_Save(LState *this,int a1)
   LState_SaveObject((int)&this->taskFunc,a1);
   return 0;
 }
-#undef iStack_c
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x100087f0  LState_Restore ---- */
 /* Original name LState_Restore (the remaster's libLua.so: LState::Restore(reader): caller
@@ -837,7 +822,6 @@ undefined4 __thiscall LState_Save(LState *this,int a1)
 undefined4 __thiscall LState_Restore(LState *this,int a1)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   bool bVar1;
   int a1_00;
   ExecutionState *pEVar2;
@@ -845,10 +829,10 @@ undefined4 __thiscall LState_Restore(LState *this,int a1)
   int iVar4;
   int *piVar5;
   int iVar6;
-  #define local_1c (*(int *)(_frame + (0x30 - 0x1c)))
-  #define iStack_18 (*(int *)(_frame + (0x30 - 0x18)))
-  #define iStack_14 (*(int *)(_frame + (0x30 - 0x14)))
-  #define pEStack_10 (*(ExecutionState **)(_frame + (0x30 - 0x10)))
+  int local_1c;
+  int iStack_18;
+  int iStack_14;
+  ExecutionState *pEStack_10;
   
   a1_00 = a1;
   iVar6 = 0;
@@ -921,11 +905,6 @@ undefined4 __thiscall LState_Restore(LState *this,int a1)
   LState_LoadResolvedObject((int)&this->taskFunc,a1_00);
   return 0;
 }
-#undef iStack_14
-#undef iStack_18
-#undef local_1c
-#undef pEStack_10
-
 
 /* ---- 0x10008ad0  lua_newstate ---- */
 /* Original name lua_newstate (the remaster's libLua.so: lua_newstate(): new LState (0xd4 bytes),

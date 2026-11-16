@@ -84,8 +84,7 @@ void __cdecl FileUtil_SysShutdown(void)
 uint __cdecl FileUtil_SysSave(code *write)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0x42545546;
   (*write)(&local_4,4);
@@ -95,5 +94,3 @@ uint __cdecl FileUtil_SysSave(code *write)
   (*write)(&local_4,4);
   return 0;
 }
-#undef local_4
-

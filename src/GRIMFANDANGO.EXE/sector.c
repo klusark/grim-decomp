@@ -741,12 +741,8 @@ void __thiscall WalkPlane_SetType(WalkPlane *this,uint type)
   uint local_24;
   uint local_20;
   uint local_1c;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   this->dwType = type;
   this->flHeight = 9999.0f;
@@ -762,31 +758,31 @@ void __thiscall WalkPlane_SetType(WalkPlane *this,uint type)
     pWVar2 = this->aVerts[0];
     pWVar3 = this->aVerts[3];
     pWVar4 = this->aVerts[2];
-    local_c = pWVar1->aPos[0] - pWVar2->aPos[0];
-    local_8 = pWVar1->aPos[1] - pWVar2->aPos[1];
-    local_4 = pWVar1->aPos[2] - pWVar2->aPos[2];
-    local_18 = pWVar3->aPos[0] - pWVar4->aPos[0];
-    local_14 = pWVar3->aPos[1] - pWVar4->aPos[1];
-    local_10 = pWVar3->aPos[2] - pWVar4->aPos[2];
-    fVar7 = rdVector_Normalize3Acc(&local_c);
-    fVar8 = rdVector_Normalize3Acc(&local_18);
-    fVar5 = local_10 * local_4 + local_14 * local_8 + local_18 * local_c;
+    local_c[0] = pWVar1->aPos[0] - pWVar2->aPos[0];
+    local_c[1] = pWVar1->aPos[1] - pWVar2->aPos[1];
+    local_c[2] = pWVar1->aPos[2] - pWVar2->aPos[2];
+    local_18[0] = pWVar3->aPos[0] - pWVar4->aPos[0];
+    local_18[1] = pWVar3->aPos[1] - pWVar4->aPos[1];
+    local_18[2] = pWVar3->aPos[2] - pWVar4->aPos[2];
+    fVar7 = rdVector_Normalize3Acc(local_c);
+    fVar8 = rdVector_Normalize3Acc(local_18);
+    fVar5 = local_18[2] * local_c[2] + local_18[1] * local_c[1] + local_18[0] * local_c[0];
     if (fVar5 < 0.0f) {
       fVar5 = -fVar5;
     }
     pWVar1 = this->aVerts[2];
     pWVar2 = this->aVerts[1];
-    local_c = pWVar1->aPos[0] - pWVar2->aPos[0];
+    local_c[0] = pWVar1->aPos[0] - pWVar2->aPos[0];
     pWVar3 = this->aVerts[0];
     pWVar4 = this->aVerts[3];
-    local_8 = pWVar1->aPos[1] - pWVar2->aPos[1];
-    local_4 = pWVar1->aPos[2] - pWVar2->aPos[2];
-    local_18 = pWVar3->aPos[0] - pWVar4->aPos[0];
-    local_14 = pWVar3->aPos[1] - pWVar4->aPos[1];
-    local_10 = pWVar3->aPos[2] - pWVar4->aPos[2];
-    fVar9 = rdVector_Normalize3Acc(&local_c);
-    fVar10 = rdVector_Normalize3Acc(&local_18);
-    fVar6 = local_10 * local_4 + local_14 * local_8 + local_18 * local_c;
+    local_c[1] = pWVar1->aPos[1] - pWVar2->aPos[1];
+    local_c[2] = pWVar1->aPos[2] - pWVar2->aPos[2];
+    local_18[0] = pWVar3->aPos[0] - pWVar4->aPos[0];
+    local_18[1] = pWVar3->aPos[1] - pWVar4->aPos[1];
+    local_18[2] = pWVar3->aPos[2] - pWVar4->aPos[2];
+    fVar9 = rdVector_Normalize3Acc(local_c);
+    fVar10 = rdVector_Normalize3Acc(local_18);
+    fVar6 = local_18[2] * local_c[2] + local_18[1] * local_c[1] + local_18[0] * local_c[0];
     if (fVar6 < 0.0f) {
       fVar6 = -fVar6;
     }
@@ -806,11 +802,7 @@ void __thiscall WalkPlane_SetType(WalkPlane *this,uint type)
   }
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -1045,12 +1037,8 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
   uint local_24;
   uint local_20;
   uint local_1c;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   local_1c = 0;
   this->nHitEdge = -1;
@@ -1070,10 +1058,10 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
         pfVar11 = (float *)(iVar2 + 4);
         iVar12 = iVar8 * 4;
         iVar9 = iVar1 * 4;
-        local_14 = pfVar11[iVar1] - pfVar10[iVar1];
-        local_18 = -(pfVar11[iVar8] - pfVar10[iVar8]);
-        fVar13 = (*(float *)(a3 + iVar9) - pfVar10[iVar1]) * local_18 +
-                 (*(float *)(a3 + iVar12) - pfVar10[iVar8]) * local_14;
+        local_18[1] = pfVar11[iVar1] - pfVar10[iVar1];
+        local_18[0] = -(pfVar11[iVar8] - pfVar10[iVar8]);
+        fVar13 = (*(float *)(a3 + iVar9) - pfVar10[iVar1]) * local_18[0] +
+                 (*(float *)(a3 + iVar12) - pfVar10[iVar8]) * local_18[1];
         fVar3 = fVar13;
         if (fVar13 < 0.0f) {
           fVar3 = -fVar13;
@@ -1085,7 +1073,7 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
         if (fVar4 < 0.0f) {
           fVar3 = *(float *)(a3 + iVar9) - *(float *)(a1 + iVar9);
           fVar7 = *(float *)(a3 + iVar12) - *(float *)(a1 + iVar12);
-          fVar6 = -(fVar3 * local_18) - fVar7 * local_14;
+          fVar6 = -(fVar3 * local_18[0]) - fVar7 * local_18[1];
           fVar4 = fVar6;
           if (fVar6 < 0.0f) {
             fVar4 = -fVar6;
@@ -1098,9 +1086,9 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
             *(float *)(a3 + iVar9) = fVar3 * (fVar13 / fVar6) + *(float *)(a3 + iVar9);
             *(float *)(a3 + this->nAxisU * 4) =
                  fVar7 * (fVar13 / fVar6) + *(float *)(a3 + this->nAxisU * 4);
-            local_c = *pfVar10 - *pfVar11;
-            local_8 = pfVar10[1] - *(float *)(iVar2 + 8);
-            local_4 = pfVar10[2] - *(float *)(iVar2 + 0xc);
+            local_c[0] = *pfVar10 - *pfVar11;
+            local_c[1] = pfVar10[1] - *(float *)(iVar2 + 8);
+            local_c[2] = pfVar10[2] - *(float *)(iVar2 + 0xc);
             this->nHitEdge = local_28;
             local_1c = (uint)pfVar10;
           }
@@ -1112,12 +1100,12 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
     }
     WalkPlane_Project(this,a3);
     if (local_1c != 0) {
-      local_18 = *(float *)a1 - *(float *)a2;
-      local_14 = *(float *)(a1 + 4) - *(float *)(a2 + 4);
-      local_10 = *(float *)(a1 + 8) - *(float *)(a2 + 8);
-      rdVector_Normalize3Acc(&local_c);
-      rdVector_Normalize3Acc(&local_18);
-      fVar13 = rdVector_Dot3(&local_c,&local_18);
+      local_18[0] = *(float *)a1 - *(float *)a2;
+      local_18[1] = *(float *)(a1 + 4) - *(float *)(a2 + 4);
+      local_18[2] = *(float *)(a1 + 8) - *(float *)(a2 + 8);
+      rdVector_Normalize3Acc(local_c);
+      rdVector_Normalize3Acc(local_18);
+      fVar13 = rdVector_Dot3(local_c,local_18);
       fVar13 = stdMath_ArcSin3(fVar13);
       if (fVar13 <= 0.0f) {
         return -90.2f - fVar13;
@@ -1128,11 +1116,7 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
   }
   return 0.0f;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -1379,9 +1363,7 @@ void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker)
   #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
   #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
   #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   if (this->nNumVerts == 4) {
     local_18 = *walker;
@@ -1390,7 +1372,7 @@ void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker)
     local_24 = walker[6] * -10.0f + local_18;
     local_20 = walker[7] * -10.0f + local_14;
     local_1c = walker[8] * -10.0f + local_10;
-    WalkPlane_Intersection(this,(int)&local_18,(int)&local_24,(int)&local_c);
+    WalkPlane_Intersection(this,(int)&local_18,(int)&local_24,(int)local_c);
     iVar7 = this->nHitEdge;
     if (iVar7 != -1) {
       pWVar1 = this->aVerts[iVar7];
@@ -1408,10 +1390,10 @@ void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker)
         fVar4 = 0.0f;
       }
       if (fVar4 == 0.0f) {
-        fVar3 = (local_8 - pWVar1->aPos[1]) / (this->aVerts[uVar6]->aPos[1] - pWVar1->aPos[1]);
+        fVar3 = (local_c[1] - pWVar1->aPos[1]) / (this->aVerts[uVar6]->aPos[1] - pWVar1->aPos[1]);
       }
       else {
-        fVar3 = (local_c - pWVar1->aPos[0]) / fVar3;
+        fVar3 = (local_c[0] - pWVar1->aPos[0]) / fVar3;
       }
       fVar3 = 1.0f - fVar3;
       iVar7 = (iVar7 + 2) % this->nNumVerts;
@@ -1422,10 +1404,10 @@ void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker)
         uVar6 = this->nNumVerts - 1;
       }
       pWVar2 = this->aVerts[uVar6];
-      local_c = (pWVar2->aPos[0] - pWVar1->aPos[0]) * fVar3 + pWVar1->aPos[0];
-      local_8 = (pWVar2->aPos[1] - pWVar1->aPos[1]) * fVar3 + pWVar1->aPos[1];
-      local_4 = (pWVar2->aPos[2] - pWVar1->aPos[2]) * fVar3 + pWVar1->aPos[2];
-      Puck_SetPos((Puck *)walker,&local_c);
+      local_c[0] = (pWVar2->aPos[0] - pWVar1->aPos[0]) * fVar3 + pWVar1->aPos[0];
+      local_c[1] = (pWVar2->aPos[1] - pWVar1->aPos[1]) * fVar3 + pWVar1->aPos[1];
+      local_c[2] = (pWVar2->aPos[2] - pWVar1->aPos[2]) * fVar3 + pWVar1->aPos[2];
+      Puck_SetPos((Puck *)walker,local_c);
     }
   }
   return;
@@ -1436,8 +1418,6 @@ void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker)
 #undef local_1c
 #undef local_20
 #undef local_24
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -1471,9 +1451,7 @@ float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
   #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
   #define local_2c (*(float *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(float *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(float *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(float *)(_frame + (0x40 - 0x1c)))
+  #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
   #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
   #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
   #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
@@ -1537,18 +1515,18 @@ float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
         if ((int)uVar11 < 0) {
           uVar9 = this->nNumVerts - 1;
         }
-        local_24 = this->aVerts[uVar9]->aPos[0] - pWVar2->aPos[0];
+        local_24[0] = this->aVerts[uVar9]->aPos[0] - pWVar2->aPos[0];
         uVar9 = uVar11;
         if ((int)uVar11 < 0) {
           uVar9 = this->nNumVerts - 1;
         }
-        local_20 = this->aVerts[uVar9]->aPos[1] - this->aVerts[this->nHitEdge]->aPos[1];
+        local_24[1] = this->aVerts[uVar9]->aPos[1] - this->aVerts[this->nHitEdge]->aPos[1];
         if (0x7fffffff < uVar11) {
           uVar11 = this->nNumVerts - 1;
         }
-        local_1c = this->aVerts[uVar11]->aPos[2] - this->aVerts[this->nHitEdge]->aPos[2];
-        rdVector_Normalize3Acc(&local_24);
-        fVar13 = rdVector_Dot3(&local_24,walker + 6);
+        local_24[2] = this->aVerts[uVar11]->aPos[2] - this->aVerts[this->nHitEdge]->aPos[2];
+        rdVector_Normalize3Acc(local_24);
+        fVar13 = rdVector_Dot3(local_24,walker + 6);
         fVar13 = stdMath_ArcSin3(fVar13);
         if ((90.0f - fVar13 < 1.0f) || (179.0f < 90.0f - fVar13)) {
           uVar9 = this->nHitEdge - 1;
@@ -1565,18 +1543,18 @@ float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
       if ((int)uVar9 < 0) {
         uVar12 = this->nNumVerts - 1;
       }
-      local_24 = this->aVerts[uVar12]->aPos[0] - pWVar2->aPos[0];
+      local_24[0] = this->aVerts[uVar12]->aPos[0] - pWVar2->aPos[0];
       uVar12 = uVar9;
       if ((int)uVar9 < 0) {
         uVar12 = this->nNumVerts - 1;
       }
-      local_20 = this->aVerts[uVar12]->aPos[1] - this->aVerts[iVar1]->aPos[1];
+      local_24[1] = this->aVerts[uVar12]->aPos[1] - this->aVerts[iVar1]->aPos[1];
       if (0x7fffffff < uVar9) {
         uVar9 = this->nNumVerts - 1;
       }
-      local_1c = this->aVerts[uVar9]->aPos[2] - this->aVerts[iVar1]->aPos[2];
-      rdVector_Normalize3Acc(&local_24);
-      fVar13 = rdVector_Dot3(&local_24,walker + 6);
+      local_24[2] = this->aVerts[uVar9]->aPos[2] - this->aVerts[iVar1]->aPos[2];
+      rdVector_Normalize3Acc(local_24);
+      fVar13 = rdVector_Dot3(local_24,walker + 6);
       fVar13 = stdMath_ArcSin3(fVar13);
       if (90.0f - fVar13 < 1.0f) {
         this->nHitEdge = (this->nHitEdge + 1) % this->nNumVerts;
@@ -1634,8 +1612,6 @@ float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
 #undef local_24
 #undef local_28
 #undef local_2c
@@ -2282,18 +2258,10 @@ float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point)
   float fVar4;
   #define fStack_38 (*(float *)(_frame + (0x50 - 0x38)))
   #define fStack_34 (*(float *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(float *)(_frame + (0x50 - 0x30)))
-  #define fStack_2c (*(float *)(_frame + (0x50 - 0x2c)))
-  #define fStack_28 (*(float *)(_frame + (0x50 - 0x28)))
-  #define fStack_24 (*(float *)(_frame + (0x50 - 0x24)))
-  #define fStack_20 (*(float *)(_frame + (0x50 - 0x20)))
-  #define fStack_1c (*(float *)(_frame + (0x50 - 0x1c)))
-  #define fStack_18 (*(float *)(_frame + (0x50 - 0x18)))
-  #define fStack_14 (*(float *)(_frame + (0x50 - 0x14)))
-  #define fStack_10 (*(float *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x50 - 0xc)))
-  #define fStack_8 (*(float *)(_frame + (0x50 - 0x8)))
-  #define fStack_4 (*(float *)(_frame + (0x50 - 0x4)))
+  #define local_30 (*(float (*)[3])(_frame + (0x50 - 0x30)))
+  #define fStack_24 (*(float (*)[3])(_frame + (0x50 - 0x24)))
+  #define fStack_18 (*(float (*)[3])(_frame + (0x50 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x50 - 0xc)))
   
   if (this->nNumVerts <= edge) {
     (*g_pStd_HS->pAssertFail)
@@ -2301,30 +2269,23 @@ float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point)
   }
   pWVar1 = this->aVerts[edge];
   pWVar2 = this->aVerts[(edge + 1) % this->nNumVerts];
-  local_30 = pWVar2->aPos[0] - pWVar1->aPos[0];
-  fStack_2c = pWVar2->aPos[1] - pWVar1->aPos[1];
-  fStack_28 = pWVar2->aPos[2] - pWVar1->aPos[2];
-  fStack_24 = *point - pWVar1->aPos[0];
-  fStack_20 = point[1] - pWVar1->aPos[1];
-  fStack_1c = point[2] - pWVar1->aPos[2];
-  rdVector_Normalize3(&local_c,&local_30);
-  fVar3 = rdVector_Normalize3(&fStack_18,&fStack_24);
-  fVar4 = stdMath_ArcSin3(fStack_10 * fStack_4 + fStack_14 * fStack_8 + fStack_18 * local_c);
+  local_30[0] = pWVar2->aPos[0] - pWVar1->aPos[0];
+  local_30[1] = pWVar2->aPos[1] - pWVar1->aPos[1];
+  local_30[2] = pWVar2->aPos[2] - pWVar1->aPos[2];
+  fStack_24[0] = *point - pWVar1->aPos[0];
+  fStack_24[1] = point[1] - pWVar1->aPos[1];
+  fStack_24[2] = point[2] - pWVar1->aPos[2];
+  rdVector_Normalize3(local_c,local_30);
+  fVar3 = rdVector_Normalize3(fStack_18,fStack_24);
+  fVar4 = stdMath_ArcSin3(fStack_18[2] * local_c[2] +
+                          fStack_18[1] * local_c[1] + fStack_18[0] * local_c[0]);
   stdMath_SinCos(90.0f - fVar4,&fStack_38,&fStack_34);
   return fStack_38 * (float)fVar3;
 }
-#undef fStack_10
-#undef fStack_14
 #undef fStack_18
-#undef fStack_1c
-#undef fStack_20
 #undef fStack_24
-#undef fStack_28
-#undef fStack_2c
 #undef fStack_34
 #undef fStack_38
-#undef fStack_4
-#undef fStack_8
 #undef local_30
 #undef local_c
 
@@ -2364,11 +2325,9 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
   uint local_4c;
   uint local_48;
   uint local_44;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(float *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(float *)(_frame + (0x50 - 0x30)))
+  #define local_40 (*(float (*)[3])(_frame + (0x50 - 0x40)))
+  float local_34;
+  float local_30;
   #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
   
@@ -2397,42 +2356,41 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
     pWVar2 = plane->aVerts[(int)(iVar16 + -1 + local_4c) % iVar16];
     iVar15 = local_4c + 2;
     pWVar3 = plane->aVerts[iVar15 % iVar16];
-    local_40 = PUN(uint,(float)pWVar3->aPos[0]);
+    local_40[0] = pWVar3->aPos[0];
     iVar4 = plane->nAxisU;
-    local_3c = PUN(uint,(float)pWVar3->aPos[1]);
+    local_40[1] = pWVar3->aPos[1];
     iVar13 = plane->nAxisV;
-    local_38 = PUN(uint,(float)pWVar3->aPos[2]);
-    local_34 = -(plane->aVerts[local_4c]->aPos[iVar4] - pWVar2->aPos[iVar4]);
-    local_30 = plane->aVerts[local_4c]->aPos[iVar13] - pWVar2->aPos[iVar13];
-    pfVar11 = (float *)(&local_40 + iVar4);
-    pfVar1 = (float *)(&local_40 + iVar13);
-    fVar5 = (*pfVar1 - pWVar2->aPos[iVar13]) * local_34 +
-            (*pfVar11 - pWVar2->aPos[iVar4]) * local_30;
-    fVar6 = fVar5;
-    if (fVar5 < 0.0f) {
-      fVar6 = -fVar5;
+    local_40[2] = pWVar3->aPos[2];
+    fVar5 = -(plane->aVerts[local_4c]->aPos[iVar4] - pWVar2->aPos[iVar4]);
+    fVar6 = plane->aVerts[local_4c]->aPos[iVar13] - pWVar2->aPos[iVar13];
+    pfVar11 = local_40 + iVar4;
+    pfVar1 = local_40 + iVar13;
+    fVar7 = (*pfVar1 - pWVar2->aPos[iVar13]) * fVar5 + (*pfVar11 - pWVar2->aPos[iVar4]) * fVar6;
+    fVar8 = fVar7;
+    if (fVar7 < 0.0f) {
+      fVar8 = -fVar7;
     }
-    fVar7 = fVar5;
-    if (fVar6 <= 1e-05f) {
-      fVar7 = 0.0f;
+    fVar9 = fVar7;
+    if (fVar8 <= 1e-05f) {
+      fVar9 = 0.0f;
     }
-    if (fVar7 != 0.0f) {
-      fVar6 = *pfVar1 - plane->aVerts[(int)(local_4c + 1) % iVar16]->aPos[iVar13];
-      fVar10 = *pfVar11 - plane->aVerts[(int)(local_4c + 1) % iVar16]->aPos[iVar4];
-      fVar7 = -(fVar6 * local_34) - fVar10 * local_30;
-      fVar9 = fVar7;
-      if (fVar7 < 0.0f) {
-        fVar9 = -fVar7;
+    if (fVar9 != 0.0f) {
+      fVar8 = *pfVar1 - plane->aVerts[(int)(local_4c + 1) % iVar16]->aPos[iVar13];
+      fVar9 = *pfVar11 - plane->aVerts[(int)(local_4c + 1) % iVar16]->aPos[iVar4];
+      fVar5 = -(fVar8 * fVar5) - fVar9 * fVar6;
+      fVar6 = fVar5;
+      if (fVar5 < 0.0f) {
+        fVar6 = -fVar5;
       }
-      fVar8 = fVar7;
-      if (fVar9 <= 1e-05f) {
-        fVar8 = 0.0f;
+      fVar10 = fVar5;
+      if (fVar6 <= 1e-05f) {
+        fVar10 = 0.0f;
       }
-      if (fVar8 != 0.0f) {
-        *pfVar1 = fVar6 * (fVar5 / fVar7) + *pfVar1;
-        *pfVar11 = fVar10 * (fVar5 / fVar7) + *pfVar11;
-        WalkPlane_Project(plane,(int)&local_40);
-        local_28 = (uint)WalkPlane_AddVertex(0,(float *)&local_40);
+      if (fVar10 != 0.0f) {
+        *pfVar1 = fVar8 * (fVar7 / fVar5) + *pfVar1;
+        *pfVar11 = fVar9 * (fVar7 / fVar5) + *pfVar11;
+        WalkPlane_Project(plane,(int)local_40);
+        local_28 = (uint)WalkPlane_AddVertex(0,local_40);
         iVar4 = plane->nNumVerts;
         iVar16 = iVar4 + -2;
         if (0 < iVar16) {
@@ -2469,10 +2427,6 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
 }
 #undef local_24
 #undef local_28
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
 #undef local_40
 
 

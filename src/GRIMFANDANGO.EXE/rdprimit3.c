@@ -195,19 +195,18 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
   int y;
   longlong lVar1;
   float radius_00;
-  #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(float (*)[2])(_frame + (0x40 - 0x2c)))
+  #define local_30 (*(float (*)[3])(_frame + (0x40 - 0x30)))
   #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
   #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
   #define fStack_14 (*(float *)(_frame + (0x40 - 0x14)))
   #define afStack_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
-  rdMatrix_TransformPoint34(&local_30,world,g_pRdCamera_CurCamera->aView);
-  local_24[0] = local_30 + radius;
-  local_24[1] = local_2c[0];
-  local_24[2] = local_2c[1];
-  if (0.0f < local_2c[0]) {
-    (*g_pRdCamera_CurCamera->pfnProject)(&local_18,&local_30);
+  rdMatrix_TransformPoint34(local_30,world,g_pRdCamera_CurCamera->aView);
+  local_24[0] = local_30[0] + radius;
+  local_24[1] = local_30[1];
+  local_24[2] = local_30[2];
+  if (0.0f < local_30[1]) {
+    (*g_pRdCamera_CurCamera->pfnProject)(&local_18,local_30);
     (*g_pRdCamera_CurCamera->pfnProject)(afStack_c,local_24);
     radius_00 = afStack_c[0] - local_18;
     lVar1 = FTOL((float10)fStack_14 - (float10)-0.5);
@@ -221,7 +220,6 @@ void __cdecl rdPrimit3_DrawPoint(float *world,float radius,uint a3,uint a4,uint 
 #undef fStack_14
 #undef local_18
 #undef local_24
-#undef local_2c
 #undef local_30
 
 

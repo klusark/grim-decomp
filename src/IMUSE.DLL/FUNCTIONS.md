@@ -230,8 +230,8 @@
 | 10007ca0 | ihost_read | imuse_api.c | 238 |
 | 10008140 | sounds_shutdown | imuse_api.c | 41 |
 | 100081f0 | Sounds_MlFreeAll | imuse_api.c | 26 |
-| 10008250 | sounds_save | imuse_api.c | 166 |
-| 10008580 | sounds_restore | imuse_api.c | 120 |
+| 10008250 | sounds_save | imuse_api.c | 160 |
+| 10008580 | sounds_restore | imuse_api.c | 117 |
 | 10008860 | sounds_pause | imuse_api.c | 13 |
 | 100088a0 | sounds_resume | imuse_api.c | 12 |
 | 10008ec0 | CacheGetSoundId | imuse_api.c | 227 |

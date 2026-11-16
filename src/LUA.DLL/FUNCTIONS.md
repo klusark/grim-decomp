@@ -76,9 +76,9 @@
 | 100025b0 | lua_setfallback | lapi.c | 1 |
 | 100025f0 | do_unprotectedrun | lapi.c | 19 |
 | 10002660 | luaA_ResetSaveCount | lapi.c | 9 |
-| 10002670 | lua_Save | lapi.c | 40 |
+| 10002670 | lua_Save | lapi.c | 37 |
 | 10002730 | LuaSaveWriter | lapi.c | 12 |
-| 10002760 | lua_Restore | lapi.c | 67 |
+| 10002760 | lua_Restore | lapi.c | 62 |
 | 10002900 | Lua_Terminate | lapi.c | 12 |
 | 10002920 | Lua_Startup | lapi.c | 12 |
 | 10002940 | Lua_Shutdown | lapi.c | 11 |
@@ -264,11 +264,11 @@
 | 100078b0 | LState_ResolveObject | lstate.c | 26 |
 | 10007910 | LState_LoadResolvedObject | lstate.c | 12 |
 | 10007930 | LState_GlobalEndRestore | lstate.c | 29 |
-| 100079d0 | LState_GlobalBeginRestore | lstate.c | 310 |
-| 100081c0 | LState_SaveGlobals | lstate.c | 174 |
+| 100079d0 | LState_GlobalBeginRestore | lstate.c | 307 |
+| 100081c0 | LState_SaveGlobals | lstate.c | 167 |
 | 100085e0 | LState_CodeLength | lstate.c | 24 |
-| 10008640 | LState_Save | lstate.c | 76 |
-| 100087f0 | LState_Restore | lstate.c | 95 |
+| 10008640 | LState_Save | lstate.c | 71 |
+| 100087f0 | LState_Restore | lstate.c | 89 |
 | 10008ad0 | lua_newstate | lstate.c | 21 |
 | 10008b70 | LState_attach | lstate.c | 20 |
 | 10008bb0 | LState_detach | lstate.c | 16 |
@@ -366,7 +366,7 @@
 | 1000c100 | init_func | lparser.c | 16 |
 | 1000c190 | luaH_free | ltable.c | 16 |
 | 1000c1d0 | freeHash | ltable.c | 10 |
-| 1000c200 | luaH_save | ltable.c | 53 |
+| 1000c200 | luaH_save | ltable.c | 49 |
 | 1000c2e0 | luaH_load | ltable.c | 31 |
 | 1000c390 | luaH_hashnodecreate | ltable.c | 22 |
 | 1000c3d0 | luaH_new | ltable.c | 24 |

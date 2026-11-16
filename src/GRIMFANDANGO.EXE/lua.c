@@ -2429,10 +2429,7 @@ void __cdecl sputLua_WalkActorVectorL(void)
   #define local_48 (*(float (*)[3])(_frame + (0x70 - 0x48)))
   #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
   #define local_38 (*(float (*)[2])(_frame + (0x70 - 0x38)))
-  #define local_30 (*(float (*)[9])(_frame + (0x70 - 0x30)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x70 - 0x4)))
+  #define local_30 (*(float (*)[12])(_frame + (0x70 - 0x30)))
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
@@ -2465,11 +2462,11 @@ void __cdecl sputLua_WalkActorVectorL(void)
           iVar2 = lua_isnumber(iVar7);
           if (iVar2 != 0) {
             local_38[0] = lua_getnumber(iVar7);
-            local_c = 0;
-            local_8 = 0;
+            local_30[9] = 0.0f;
+            local_30[10] = 0.0f;
             local_3c = 0;
             local_38[1] = 0.0f;
-            local_4 = 0;
+            local_30[0xb] = 0.0f;
             Matrix_BuildTransform(local_30,(uint)&local_3c);
           }
           rdMatrix_TransformVector34Acc(local_54,local_30);
@@ -2508,11 +2505,8 @@ void __cdecl sputLua_WalkActorVectorL(void)
 #undef local_30
 #undef local_38
 #undef local_3c
-#undef local_4
 #undef local_48
 #undef local_54
-#undef local_8
-#undef local_c
 
 
 /* ---- 0x00499800  sputLua_WalkActorForwardL ---- */
@@ -7527,10 +7521,8 @@ void __cdecl sputLua_GetActorNodeLocationL(void)
   float *frame;
   longlong lVar5;
   float fVar6;
-  #define local_3c (*(float *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(float (*)[2])(_frame + (0x50 - 0x38)))
-  #define local_30 (*(float (*)[9])(_frame + (0x50 - 0x30)))
-  #define local_c (*(float (*)[3])(_frame + (0x50 - 0xc)))
+  #define local_3c (*(float (*)[3])(_frame + (0x50 - 0x3c)))
+  #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -7557,16 +7549,16 @@ void __cdecl sputLua_GetActorNodeLocationL(void)
           fVar6 = lua_getnumber(iVar2);
           lVar5 = FTOL((float10)fVar6);
           pfVar4 = actor->pCostumes->pMainModel->pModel->pHierarchyNodes[(int)lVar5].aPivot;
-          local_3c = *pfVar4;
-          local_38[0] = pfVar4[1];
-          local_38[1] = pfVar4[2];
-          rdMatrix_TransformVector34Acc(&local_3c,local_30);
-          local_3c = local_3c + local_c[0];
-          local_38[0] = local_38[0] + local_c[1];
-          local_38[1] = local_38[1] + local_c[2];
-          lua_pushnumber(local_3c);
-          lua_pushnumber(local_38[0]);
-          lua_pushnumber(local_38[1]);
+          local_3c[0] = *pfVar4;
+          local_3c[1] = pfVar4[1];
+          local_3c[2] = pfVar4[2];
+          rdMatrix_TransformVector34Acc(local_3c,local_30);
+          local_3c[0] = local_3c[0] + local_30[9];
+          local_3c[1] = local_3c[1] + local_30[10];
+          local_3c[2] = local_3c[2] + local_30[0xb];
+          lua_pushnumber(local_3c[0]);
+          lua_pushnumber(local_3c[1]);
+          lua_pushnumber(local_3c[2]);
         }
       }
     }
@@ -7574,9 +7566,7 @@ void __cdecl sputLua_GetActorNodeLocationL(void)
   return;
 }
 #undef local_30
-#undef local_38
 #undef local_3c
-#undef local_c
 
 
 /* ---- 0x0049f810  sputLua_GetActorScaleL ---- */
@@ -7700,8 +7690,7 @@ void __cdecl sputLua_GetCameraLookVectorL(void)
   int iVar4;
   longlong lVar5;
   float fVar6;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar2 = lua_lua2C(1);
   pSVar3 = sputRoom_GetCurrentRoom();
@@ -7719,27 +7708,26 @@ void __cdecl sputLua_GetCameraLookVectorL(void)
     iVar2 = (int)lVar5;
   }
   pSVar1 = pSVar3->pSetups;
-  local_c = pSVar1[iVar2].aPos[0] - *(float *)&pSVar3->pSetups[iVar2].field_0x2c;
-  local_8[0] = pSVar1[iVar2].aPos[1] - *(float *)&pSVar3->pSetups[iVar2].field_0x30;
-  local_8[1] = pSVar1[iVar2].aPos[2] - *(float *)&pSVar3->pSetups[iVar2].field_0x34;
-  rdVector_Normalize3Acc(&local_c);
+  local_c[0] = pSVar1[iVar2].aPos[0] - *(float *)&pSVar3->pSetups[iVar2].field_0x2c;
+  local_c[1] = pSVar1[iVar2].aPos[1] - *(float *)&pSVar3->pSetups[iVar2].field_0x30;
+  local_c[2] = pSVar1[iVar2].aPos[2] - *(float *)&pSVar3->pSetups[iVar2].field_0x34;
+  rdVector_Normalize3Acc(local_c);
   iVar2 = lua_createtable();
   lua_pushobject(iVar2);
   lua_pushstring(&DAT_004e8454);
-  lua_pushnumber(local_c);
+  lua_pushnumber(local_c[0]);
   lua_settable();
   lua_pushobject(iVar2);
   lua_pushstring(&DAT_004e8450);
-  lua_pushnumber(local_8[0]);
+  lua_pushnumber(local_c[1]);
   lua_settable();
   lua_pushobject(iVar2);
   lua_pushstring(&DAT_004ec3b8);
-  lua_pushnumber(local_8[1]);
+  lua_pushnumber(local_c[2]);
   lua_settable();
   lua_pushobject(iVar2);
   return;
 }
-#undef local_8
 #undef local_c
 
 
@@ -8027,12 +8015,8 @@ void __cdecl sputLua_GetAngleBetweenActorsL(void)
   float fVar7;
   uint local_30;
   uint local_1c;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
@@ -8050,15 +8034,16 @@ void __cdecl sputLua_GetAngleBetweenActorsL(void)
           pAVar6 = sputActor_ActorDeref(iVar2);
           if (((pAVar5 != (Actor *)0x0) && (pAVar6 != (Actor *)0x0)) &&
              (pPVar1 = pAVar5->pExtra->pPuck, pPVar1 != (Puck *)0x0)) {
-            local_c = pPVar1->aFrame[3];
-            local_8 = pPVar1->aFrame[4];
-            local_4 = pPVar1->aFrame[5];
-            local_18 = pAVar6->aPos[0] - pAVar5->aPos[0];
-            local_14 = pAVar6->aPos[1] - pAVar5->aPos[1];
-            local_10 = local_4 - pAVar5->aPos[2];
-            rdVector_Normalize3Acc(&local_c);
-            rdVector_Normalize3Acc(&local_18);
-            fVar7 = stdMath_ArcSin3(local_10 * local_4 + local_14 * local_8 + local_18 * local_c);
+            local_c[0] = pPVar1->aFrame[3];
+            local_c[1] = pPVar1->aFrame[4];
+            local_c[2] = pPVar1->aFrame[5];
+            local_18[0] = pAVar6->aPos[0] - pAVar5->aPos[0];
+            local_18[1] = pAVar6->aPos[1] - pAVar5->aPos[1];
+            local_18[2] = local_c[2] - pAVar5->aPos[2];
+            rdVector_Normalize3Acc(local_c);
+            rdVector_Normalize3Acc(local_18);
+            fVar7 = stdMath_ArcSin3(local_18[2] * local_c[2] +
+                                    local_18[1] * local_c[1] + local_18[0] * local_c[0]);
             lua_pushnumber(90.0f - fVar7);
             return;
           }
@@ -8069,11 +8054,7 @@ void __cdecl sputLua_GetAngleBetweenActorsL(void)
   lua_pushnil();
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -8467,12 +8448,8 @@ void __cdecl sputLua_SetLightRotation(void)
   uint local_24;
   uint local_20;
   uint local_1c;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -8497,33 +8474,33 @@ void __cdecl sputLua_SetLightRotation(void)
   if (pSVar7 != (SetLight *)0x0) {
     iVar6 = lua_isnumber(iVar2);
     if (iVar6 == 0) {
-      local_c = 0.0f;
+      local_c[0] = 0.0f;
     }
     else {
-      local_c = lua_getnumber(iVar2);
+      local_c[0] = lua_getnumber(iVar2);
     }
     iVar2 = lua_isnumber(iVar3);
     if (iVar2 == 0) {
-      local_8 = 0.0f;
+      local_c[1] = 0.0f;
     }
     else {
-      local_8 = lua_getnumber(iVar3);
+      local_c[1] = lua_getnumber(iVar3);
     }
     iVar2 = lua_isnumber(iVar4);
     if (iVar2 == 0) {
-      local_4 = 0.0f;
+      local_c[2] = 0.0f;
     }
     else {
-      local_4 = lua_getnumber(iVar4);
+      local_c[2] = lua_getnumber(iVar4);
     }
-    local_18 = 0.0f;
-    local_14 = 0x3f800000;
-    local_10 = 0;
-    rdVector_Rotate3Acc(&local_18,&local_c);
-    (pSVar7->light).aDirection[0] = local_18;
-    (pSVar7->light).aDirection[1] = PUN(float,local_14);
+    local_18[0] = 0.0f;
+    local_18[1] = 1.0f;
+    local_18[2] = 0.0f;
+    rdVector_Rotate3Acc(local_18,local_c);
+    (pSVar7->light).aDirection[0] = local_18[0];
+    (pSVar7->light).aDirection[1] = local_18[1];
     uVar8 = 0;
-    (pSVar7->light).aDirection[2] = PUN(float,local_10);
+    (pSVar7->light).aDirection[2] = local_18[2];
     if (pSVar5->nSetups != 0) {
       iVar2 = 0;
       do {
@@ -8531,19 +8508,15 @@ void __cdecl sputLua_SetLightRotation(void)
         iVar2 = iVar2 + 300;
         iVar3 = *(int *)(*(int *)((int)pSVar5->pSetups->aPos + iVar3) + iVar1 * 4 + 0x5c);
         uVar8 = uVar8 + 1;
-        *(float *)(iVar3 + 0xc) = local_18;
-        *(uint *)(iVar3 + 0x10) = local_14;
-        *(uint *)(iVar3 + 0x14) = local_10;
+        *(float *)(iVar3 + 0xc) = local_18[0];
+        *(float *)(iVar3 + 0x10) = local_18[1];
+        *(float *)(iVar3 + 0x14) = local_18[2];
       } while (uVar8 < (uint)pSVar5->nSetups);
     }
   }
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -8561,9 +8534,7 @@ void __cdecl sputLua_GetLightRotation(void)
   SetLight *pSVar3;
   longlong lVar4;
   float fVar5;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isnumber(iVar1);
@@ -8580,18 +8551,16 @@ void __cdecl sputLua_GetLightRotation(void)
   }
   pSVar3 = sputRoom_GetLight((Set *)0x0,iVar1);
   if (pSVar3 != (SetLight *)0x0) {
-    rdVector_ExtractAngles((pSVar3->light).aDirection,&local_c);
-    lua_pushnumber(local_c);
-    lua_pushnumber(local_8);
-    lua_pushnumber(local_4);
+    rdVector_ExtractAngles((pSVar3->light).aDirection,local_c);
+    lua_pushnumber(local_c[0]);
+    lua_pushnumber(local_c[1]);
+    lua_pushnumber(local_c[2]);
     return;
   }
 LAB_004a0a3b:
   lua_pushnil();
   return;
 }
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -8712,9 +8681,7 @@ void __cdecl sputLua_PointLightAt(void)
   float local_18;
   float local_14;
   float local_10;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -8766,19 +8733,17 @@ void __cdecl sputLua_PointLightAt(void)
       local_14 = pAVar7->aPos[1];
       local_10 = pAVar7->aPos[2];
     }
-    local_c = local_18 - pSVar6->aPos[0];
-    local_8 = local_14 - pSVar6->aPos[1];
-    local_4 = local_10 - pSVar6->aPos[2];
-    rdVector_Normalize3Acc(&local_c);
-    (pSVar6->light).aDirection[0] = local_c;
-    (pSVar6->light).aDirection[1] = local_8;
-    (pSVar6->light).aDirection[2] = local_4;
+    local_c[0] = local_18 - pSVar6->aPos[0];
+    local_c[1] = local_14 - pSVar6->aPos[1];
+    local_c[2] = local_10 - pSVar6->aPos[2];
+    rdVector_Normalize3Acc(local_c);
+    (pSVar6->light).aDirection[0] = local_c[0];
+    (pSVar6->light).aDirection[1] = local_c[1];
+    (pSVar6->light).aDirection[2] = local_c[2];
     return;
   }
   return;
 }
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -10147,9 +10112,7 @@ void __cdecl sputLua_SetActorClipPlane(void)
   uint local_24;
   uint local_20;
   uint local_1c;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(float *)(_frame + (0x30 - 0xc)))
   #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
@@ -10176,14 +10139,14 @@ void __cdecl sputLua_SetActorClipPlane(void)
             if (iVar1 != 0) {
               iVar1 = lua_isnumber(iVar7);
               if (iVar1 != 0) {
-                local_18 = lua_getnumber(iVar2);
-                local_14 = lua_getnumber(iVar3);
-                local_10 = lua_getnumber(iVar4);
-                rdVector_Normalize3Acc(&local_18);
+                local_18[0] = lua_getnumber(iVar2);
+                local_18[1] = lua_getnumber(iVar3);
+                local_18[2] = lua_getnumber(iVar4);
+                rdVector_Normalize3Acc(local_18);
                 local_c = lua_getnumber(iVar5);
                 local_8 = lua_getnumber(iVar6);
                 local_4 = lua_getnumber(iVar7);
-                sputActor_SetClipPlane(actor,&local_18,&local_c);
+                sputActor_SetClipPlane(actor,local_18,&local_c);
               }
             }
           }
@@ -10193,8 +10156,6 @@ void __cdecl sputLua_SetActorClipPlane(void)
   }
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
 #undef local_4
 #undef local_8
@@ -10880,17 +10841,17 @@ void __cdecl sputLua_SaveGameCallback(void *writeFn)
 void __cdecl sputLua_GetSaveGameData(void)
 
 {
-  unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   char *name;
   int *file;
   char *mode;
   uint local_90;
-  #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
-  #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
-  #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
-  #define local_80 (*(char (*)[128])(_frame + (0xa0 - 0x80)))
+  uint local_8c;
+  uint local_88;
+  uint local_84;
+  #define local_80 (*(char (*)[128])(_frame + (0x90 - 0x80)))
   
   local_90 = 0;
   iVar1 = lua_lua2C(1);
@@ -10919,9 +10880,6 @@ void __cdecl sputLua_GetSaveGameData(void)
   return;
 }
 #undef local_80
-#undef local_84
-#undef local_88
-#undef local_8c
 
 
 /* ---- 0x004a3830  sputLua_GetTextSpeed ---- */

@@ -235,6 +235,8 @@ typedef struct Actor Actor;
 typedef struct ActorExtra ActorExtra;
 typedef struct ActorShadow ActorShadow;
 typedef struct AnimPlayer AnimPlayer;
+typedef struct BitmapFileHeader BitmapFileHeader;
+typedef struct BitmapInfoHeader BitmapInfoHeader;
 typedef struct BlockyMotionVector BlockyMotionVector;
 typedef struct CacheRect CacheRect;
 typedef struct ColorFormat ColorFormat;
@@ -246,15 +248,25 @@ typedef struct DDrawSurfaceRec DDrawSurfaceRec;
 typedef struct DisplayDevice DisplayDevice;
 typedef struct DxErrorName DxErrorName;
 typedef struct FontData FontData;
+typedef struct GifHeader GifHeader;
+typedef struct GifImageDesc GifImageDesc;
 typedef struct GrimServices GrimServices;
+typedef struct JoyCaps JoyCaps;
+typedef struct JoyInfo JoyInfo;
+typedef struct JoyInfoEx JoyInfoEx;
 typedef struct Lab Lab;
 typedef struct LabEntry LabEntry;
 typedef struct LabFile LabFile;
+typedef struct LbmBitmapHeader LbmBitmapHeader;
 typedef struct LecPixelFormat LecPixelFormat;
 typedef struct ModelComponent ModelComponent;
 typedef struct ObjectState ObjectState;
 typedef struct ObjectStateImage ObjectStateImage;
+typedef struct OpenFileName OpenFileName;
+typedef struct PcxHeader PcxHeader;
 typedef struct PhonemeEntry PhonemeEntry;
+typedef struct PicChannel PicChannel;
+typedef struct PicHeader PicHeader;
 typedef struct Primitive Primitive;
 typedef struct ProcEntry ProcEntry;
 typedef struct Puck Puck;
@@ -492,6 +504,46 @@ _Static_assert(__builtin_offsetof(AnimPlayer, nLagMode) == 0x64, "AnimPlayer.nLa
 _Static_assert(__builtin_offsetof(AnimPlayer, nState) == 0x68, "AnimPlayer.nState");
 _Static_assert(__builtin_offsetof(AnimPlayer, nStarted) == 0x6c, "AnimPlayer.nStarted");
 _Static_assert(sizeof(AnimPlayer) == 0x70, "sizeof AnimPlayer");
+/* BitmapFileHeader: BITMAPFILEHEADER (14 bytes, packed) */
+struct __attribute__((packed)) BitmapFileHeader {  /* 0xe */
+    ushort wType;  /* 0x00: 'BM' */
+    uint dwSize;  /* 0x02: file size */
+    ushort wReserved1;  /* 0x06 */
+    ushort wReserved2;  /* 0x08 */
+    uint dwOffBits;  /* 0x0a: offset of the pixels */
+};
+_Static_assert(__builtin_offsetof(BitmapFileHeader, wType) == 0x0, "BitmapFileHeader.wType");
+_Static_assert(__builtin_offsetof(BitmapFileHeader, dwSize) == 0x2, "BitmapFileHeader.dwSize");
+_Static_assert(__builtin_offsetof(BitmapFileHeader, wReserved1) == 0x6, "BitmapFileHeader.wReserved1");
+_Static_assert(__builtin_offsetof(BitmapFileHeader, wReserved2) == 0x8, "BitmapFileHeader.wReserved2");
+_Static_assert(__builtin_offsetof(BitmapFileHeader, dwOffBits) == 0xa, "BitmapFileHeader.dwOffBits");
+_Static_assert(sizeof(BitmapFileHeader) == 0xe, "sizeof BitmapFileHeader");
+/* BitmapInfoHeader: BITMAPINFOHEADER */
+struct BitmapInfoHeader {  /* 0x28 */
+    uint dwSize;  /* 0x00: 40 */
+    int nWidth;  /* 0x04 */
+    int nHeight;  /* 0x08: negative: top-down */
+    ushort wPlanes;  /* 0x0c: 1 */
+    ushort wBitCount;  /* 0x0e */
+    uint dwCompression;  /* 0x10: 0 BI_RGB, 3 BI_BITFIELDS */
+    uint dwSizeImage;  /* 0x14 */
+    int nXPelsPerMeter;  /* 0x18 */
+    int nYPelsPerMeter;  /* 0x1c */
+    uint dwClrUsed;  /* 0x20 */
+    uint dwClrImportant;  /* 0x24 */
+};
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, dwSize) == 0x0, "BitmapInfoHeader.dwSize");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, nWidth) == 0x4, "BitmapInfoHeader.nWidth");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, nHeight) == 0x8, "BitmapInfoHeader.nHeight");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, wPlanes) == 0xc, "BitmapInfoHeader.wPlanes");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, wBitCount) == 0xe, "BitmapInfoHeader.wBitCount");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, dwCompression) == 0x10, "BitmapInfoHeader.dwCompression");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, dwSizeImage) == 0x14, "BitmapInfoHeader.dwSizeImage");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, nXPelsPerMeter) == 0x18, "BitmapInfoHeader.nXPelsPerMeter");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, nYPelsPerMeter) == 0x1c, "BitmapInfoHeader.nYPelsPerMeter");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, dwClrUsed) == 0x20, "BitmapInfoHeader.dwClrUsed");
+_Static_assert(__builtin_offsetof(BitmapInfoHeader, dwClrImportant) == 0x24, "BitmapInfoHeader.dwClrImportant");
+_Static_assert(sizeof(BitmapInfoHeader) == 0x28, "sizeof BitmapInfoHeader");
 /* BlockyMotionVector: One motion vector of Blocky16 (SMUSH video codec): a block's source offset in pixels. */
 struct BlockyMotionVector {  /* 0x4 */
     short nX;  /* 0x00 */
@@ -764,6 +816,136 @@ _Static_assert(__builtin_offsetof(FontData, nCharMapOffset) == 0x24, "FontData.n
 _Static_assert(__builtin_offsetof(FontData, nGlyphOffset) == 0x28, "FontData.nGlyphOffset");
 _Static_assert(__builtin_offsetof(FontData, nBitmapOffset) == 0x2c, "FontData.nBitmapOffset");
 _Static_assert(sizeof(FontData) == 0x30, "sizeof FontData");
+/* GifHeader: GIF header and logical screen descriptor (13 bytes) */
+struct __attribute__((packed)) GifHeader {  /* 0xd */
+    char aSignature[3];  /* 0x00: GIF */
+    char aVersion[3];  /* 0x03: 87a / 89a */
+    ushort wWidth;  /* 0x06 */
+    ushort wHeight;  /* 0x08 */
+    byte bFlags;  /* 0x0a: 0x80: global colour table, low 3 bits: its size */
+    byte bBackground;  /* 0x0b */
+    byte bAspect;  /* 0x0c */
+};
+_Static_assert(__builtin_offsetof(GifHeader, aSignature) == 0x0, "GifHeader.aSignature");
+_Static_assert(__builtin_offsetof(GifHeader, aVersion) == 0x3, "GifHeader.aVersion");
+_Static_assert(__builtin_offsetof(GifHeader, wWidth) == 0x6, "GifHeader.wWidth");
+_Static_assert(__builtin_offsetof(GifHeader, wHeight) == 0x8, "GifHeader.wHeight");
+_Static_assert(__builtin_offsetof(GifHeader, bFlags) == 0xa, "GifHeader.bFlags");
+_Static_assert(__builtin_offsetof(GifHeader, bBackground) == 0xb, "GifHeader.bBackground");
+_Static_assert(__builtin_offsetof(GifHeader, bAspect) == 0xc, "GifHeader.bAspect");
+_Static_assert(sizeof(GifHeader) == 0xd, "sizeof GifHeader");
+/* GifImageDesc: GIF image descriptor as the code holds it (the separator, a gap, then the 9 bytes of the file) */
+struct GifImageDesc {  /* 0xc */
+    byte bSeparator;  /* 0x00: ',' */
+    uint8_t field_0x1;
+    ushort wLeft;  /* 0x02 */
+    ushort wTop;  /* 0x04 */
+    ushort wWidth;  /* 0x06 */
+    ushort wHeight;  /* 0x08 */
+    byte bFlags;  /* 0x0a: 0x80: local colour table, 0x40: interlaced */
+    uint8_t field_0xb;
+};
+_Static_assert(__builtin_offsetof(GifImageDesc, bSeparator) == 0x0, "GifImageDesc.bSeparator");
+_Static_assert(__builtin_offsetof(GifImageDesc, wLeft) == 0x2, "GifImageDesc.wLeft");
+_Static_assert(__builtin_offsetof(GifImageDesc, wTop) == 0x4, "GifImageDesc.wTop");
+_Static_assert(__builtin_offsetof(GifImageDesc, wWidth) == 0x6, "GifImageDesc.wWidth");
+_Static_assert(__builtin_offsetof(GifImageDesc, wHeight) == 0x8, "GifImageDesc.wHeight");
+_Static_assert(__builtin_offsetof(GifImageDesc, bFlags) == 0xa, "GifImageDesc.bFlags");
+_Static_assert(sizeof(GifImageDesc) == 0xc, "sizeof GifImageDesc");
+/* JoyCaps: JOYCAPSA (joyGetDevCapsA) */
+struct JoyCaps {  /* 0x194 */
+    ushort wMid;  /* 0x00 */
+    ushort wPid;  /* 0x02 */
+    char aName[32];  /* 0x04 */
+    uint dwXMin;  /* 0x24 */
+    uint dwXMax;  /* 0x28 */
+    uint dwYMin;  /* 0x2c */
+    uint dwYMax;  /* 0x30 */
+    uint dwZMin;  /* 0x34 */
+    uint dwZMax;  /* 0x38 */
+    uint dwNumButtons;  /* 0x3c */
+    uint dwPeriodMin;  /* 0x40 */
+    uint dwPeriodMax;  /* 0x44 */
+    uint dwRMin;  /* 0x48 */
+    uint dwRMax;  /* 0x4c */
+    uint dwUMin;  /* 0x50 */
+    uint dwUMax;  /* 0x54 */
+    uint dwVMin;  /* 0x58 */
+    uint dwVMax;  /* 0x5c */
+    uint dwCaps;  /* 0x60: JOYCAPS_HASZ 1, HASR 2, HASU 4, HASV 8, HASPOV 0x10 */
+    uint dwMaxAxes;  /* 0x64 */
+    uint dwNumAxes;  /* 0x68 */
+    uint dwMaxButtons;  /* 0x6c */
+    char aRegKey[32];  /* 0x70 */
+    char aOEMVxD[260];  /* 0x90 */
+};
+_Static_assert(__builtin_offsetof(JoyCaps, wMid) == 0x0, "JoyCaps.wMid");
+_Static_assert(__builtin_offsetof(JoyCaps, wPid) == 0x2, "JoyCaps.wPid");
+_Static_assert(__builtin_offsetof(JoyCaps, aName) == 0x4, "JoyCaps.aName");
+_Static_assert(__builtin_offsetof(JoyCaps, dwXMin) == 0x24, "JoyCaps.dwXMin");
+_Static_assert(__builtin_offsetof(JoyCaps, dwXMax) == 0x28, "JoyCaps.dwXMax");
+_Static_assert(__builtin_offsetof(JoyCaps, dwYMin) == 0x2c, "JoyCaps.dwYMin");
+_Static_assert(__builtin_offsetof(JoyCaps, dwYMax) == 0x30, "JoyCaps.dwYMax");
+_Static_assert(__builtin_offsetof(JoyCaps, dwZMin) == 0x34, "JoyCaps.dwZMin");
+_Static_assert(__builtin_offsetof(JoyCaps, dwZMax) == 0x38, "JoyCaps.dwZMax");
+_Static_assert(__builtin_offsetof(JoyCaps, dwNumButtons) == 0x3c, "JoyCaps.dwNumButtons");
+_Static_assert(__builtin_offsetof(JoyCaps, dwPeriodMin) == 0x40, "JoyCaps.dwPeriodMin");
+_Static_assert(__builtin_offsetof(JoyCaps, dwPeriodMax) == 0x44, "JoyCaps.dwPeriodMax");
+_Static_assert(__builtin_offsetof(JoyCaps, dwRMin) == 0x48, "JoyCaps.dwRMin");
+_Static_assert(__builtin_offsetof(JoyCaps, dwRMax) == 0x4c, "JoyCaps.dwRMax");
+_Static_assert(__builtin_offsetof(JoyCaps, dwUMin) == 0x50, "JoyCaps.dwUMin");
+_Static_assert(__builtin_offsetof(JoyCaps, dwUMax) == 0x54, "JoyCaps.dwUMax");
+_Static_assert(__builtin_offsetof(JoyCaps, dwVMin) == 0x58, "JoyCaps.dwVMin");
+_Static_assert(__builtin_offsetof(JoyCaps, dwVMax) == 0x5c, "JoyCaps.dwVMax");
+_Static_assert(__builtin_offsetof(JoyCaps, dwCaps) == 0x60, "JoyCaps.dwCaps");
+_Static_assert(__builtin_offsetof(JoyCaps, dwMaxAxes) == 0x64, "JoyCaps.dwMaxAxes");
+_Static_assert(__builtin_offsetof(JoyCaps, dwNumAxes) == 0x68, "JoyCaps.dwNumAxes");
+_Static_assert(__builtin_offsetof(JoyCaps, dwMaxButtons) == 0x6c, "JoyCaps.dwMaxButtons");
+_Static_assert(__builtin_offsetof(JoyCaps, aRegKey) == 0x70, "JoyCaps.aRegKey");
+_Static_assert(__builtin_offsetof(JoyCaps, aOEMVxD) == 0x90, "JoyCaps.aOEMVxD");
+_Static_assert(sizeof(JoyCaps) == 0x194, "sizeof JoyCaps");
+/* JoyInfo: JOYINFO (joyGetPos) */
+struct JoyInfo {  /* 0x10 */
+    uint dwXPos;  /* 0x00 */
+    uint dwYPos;  /* 0x04 */
+    uint dwZPos;  /* 0x08 */
+    uint dwButtons;  /* 0x0c */
+};
+_Static_assert(__builtin_offsetof(JoyInfo, dwXPos) == 0x0, "JoyInfo.dwXPos");
+_Static_assert(__builtin_offsetof(JoyInfo, dwYPos) == 0x4, "JoyInfo.dwYPos");
+_Static_assert(__builtin_offsetof(JoyInfo, dwZPos) == 0x8, "JoyInfo.dwZPos");
+_Static_assert(__builtin_offsetof(JoyInfo, dwButtons) == 0xc, "JoyInfo.dwButtons");
+_Static_assert(sizeof(JoyInfo) == 0x10, "sizeof JoyInfo");
+/* JoyInfoEx: JOYINFOEX (joyGetPosEx) */
+struct JoyInfoEx {  /* 0x34 */
+    uint dwSize;  /* 0x00: 0x34 */
+    uint dwFlags;  /* 0x04: JOY_RETURN* */
+    uint dwXPos;  /* 0x08 */
+    uint dwYPos;  /* 0x0c */
+    uint dwZPos;  /* 0x10 */
+    uint dwRPos;  /* 0x14 */
+    uint dwUPos;  /* 0x18 */
+    uint dwVPos;  /* 0x1c */
+    uint dwButtons;  /* 0x20 */
+    uint dwButtonNumber;  /* 0x24 */
+    uint dwPOV;  /* 0x28: hundredths of a degree, 0xffff centred */
+    uint dwReserved1;  /* 0x2c */
+    uint dwReserved2;  /* 0x30 */
+};
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwSize) == 0x0, "JoyInfoEx.dwSize");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwFlags) == 0x4, "JoyInfoEx.dwFlags");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwXPos) == 0x8, "JoyInfoEx.dwXPos");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwYPos) == 0xc, "JoyInfoEx.dwYPos");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwZPos) == 0x10, "JoyInfoEx.dwZPos");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwRPos) == 0x14, "JoyInfoEx.dwRPos");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwUPos) == 0x18, "JoyInfoEx.dwUPos");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwVPos) == 0x1c, "JoyInfoEx.dwVPos");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwButtons) == 0x20, "JoyInfoEx.dwButtons");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwButtonNumber) == 0x24, "JoyInfoEx.dwButtonNumber");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwPOV) == 0x28, "JoyInfoEx.dwPOV");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwReserved1) == 0x2c, "JoyInfoEx.dwReserved1");
+_Static_assert(__builtin_offsetof(JoyInfoEx, dwReserved2) == 0x30, "JoyInfoEx.dwReserved2");
+_Static_assert(sizeof(JoyInfoEx) == 0x34, "sizeof JoyInfoEx");
 /* Lab: An open .LAB archive (0x120 bytes, g_pLabPool / g_pLabList). */
 struct Lab {  /* 0x120 */
     uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
@@ -843,6 +1025,36 @@ _Static_assert(__builtin_offsetof(LabFile, nInLab) == 0x10, "LabFile.nInLab");
 _Static_assert(__builtin_offsetof(LabFile, aName) == 0x14, "LabFile.aName");
 _Static_assert(__builtin_offsetof(LabFile, aPath) == 0x115, "LabFile.aPath");
 _Static_assert(sizeof(LabFile) == 0x218, "sizeof LabFile");
+/* LbmBitmapHeader: IFF ILBM BMHD chunk (big-endian) */
+struct LbmBitmapHeader {  /* 0x14 */
+    ushort wWidth;  /* 0x00 */
+    ushort wHeight;  /* 0x02 */
+    short nX;  /* 0x04 */
+    short nY;  /* 0x06 */
+    byte bPlanes;  /* 0x08 */
+    byte bMasking;  /* 0x09 */
+    byte bCompression;  /* 0x0a: 1: ByteRun1 */
+    byte bPad;  /* 0x0b */
+    ushort wTransparentColor;  /* 0x0c */
+    byte bXAspect;  /* 0x0e */
+    byte bYAspect;  /* 0x0f */
+    short nPageWidth;  /* 0x10 */
+    short nPageHeight;  /* 0x12 */
+};
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, wWidth) == 0x0, "LbmBitmapHeader.wWidth");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, wHeight) == 0x2, "LbmBitmapHeader.wHeight");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, nX) == 0x4, "LbmBitmapHeader.nX");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, nY) == 0x6, "LbmBitmapHeader.nY");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, bPlanes) == 0x8, "LbmBitmapHeader.bPlanes");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, bMasking) == 0x9, "LbmBitmapHeader.bMasking");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, bCompression) == 0xa, "LbmBitmapHeader.bCompression");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, bPad) == 0xb, "LbmBitmapHeader.bPad");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, wTransparentColor) == 0xc, "LbmBitmapHeader.wTransparentColor");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, bXAspect) == 0xe, "LbmBitmapHeader.bXAspect");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, bYAspect) == 0xf, "LbmBitmapHeader.bYAspect");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, nPageWidth) == 0x10, "LbmBitmapHeader.nPageWidth");
+_Static_assert(__builtin_offsetof(LbmBitmapHeader, nPageHeight) == 0x12, "LbmBitmapHeader.nPageHeight");
+_Static_assert(sizeof(LbmBitmapHeader) == 0x14, "sizeof LbmBitmapHeader");
 /* LecPixelFormat: A pixel format of the LEC video library (Insane / Smush). */
 struct LecPixelFormat {  /* 0x54 */
     uint8_t field_0x0, field_0x1, field_0x2, field_0x3, field_0x4, field_0x5, field_0x6, field_0x7;
@@ -1000,6 +1212,90 @@ _Static_assert(__builtin_offsetof(ObjectState, zImage) == 0x80, "ObjectState.zIm
 _Static_assert(__builtin_offsetof(ObjectState, pPrev) == 0xf4, "ObjectState.pPrev");
 _Static_assert(__builtin_offsetof(ObjectState, pNext) == 0xf8, "ObjectState.pNext");
 _Static_assert(sizeof(ObjectState) == 0xfc, "sizeof ObjectState");
+/* OpenFileName: OPENFILENAMEA (GetOpenFileNameA / GetSaveFileNameA) */
+struct OpenFileName {  /* 0x4c */
+    uint dwStructSize;  /* 0x00: 0x4c */
+    void *pOwner;  /* 0x04: HWND */
+    void *pInstance;  /* 0x08 */
+    char *pFilter;  /* 0x0c: pairs of strings */
+    char *pCustomFilter;  /* 0x10 */
+    uint dwMaxCustFilter;  /* 0x14 */
+    uint dwFilterIndex;  /* 0x18 */
+    char *pFile;  /* 0x1c: in: the initial name, out: the chosen path */
+    uint dwMaxFile;  /* 0x20 */
+    char *pFileTitle;  /* 0x24 */
+    uint dwMaxFileTitle;  /* 0x28 */
+    char *pInitialDir;  /* 0x2c */
+    char *pTitle;  /* 0x30 */
+    uint dwFlags;  /* 0x34: OFN_* */
+    ushort wFileOffset;  /* 0x38: the file name's offset in pFile */
+    ushort wFileExtension;  /* 0x3a */
+    char *pDefExt;  /* 0x3c */
+    uint dwCustData;  /* 0x40 */
+    void *pHook;  /* 0x44 */
+    char *pTemplateName;  /* 0x48 */
+};
+_Static_assert(__builtin_offsetof(OpenFileName, dwStructSize) == 0x0, "OpenFileName.dwStructSize");
+_Static_assert(__builtin_offsetof(OpenFileName, pOwner) == 0x4, "OpenFileName.pOwner");
+_Static_assert(__builtin_offsetof(OpenFileName, pInstance) == 0x8, "OpenFileName.pInstance");
+_Static_assert(__builtin_offsetof(OpenFileName, pFilter) == 0xc, "OpenFileName.pFilter");
+_Static_assert(__builtin_offsetof(OpenFileName, pCustomFilter) == 0x10, "OpenFileName.pCustomFilter");
+_Static_assert(__builtin_offsetof(OpenFileName, dwMaxCustFilter) == 0x14, "OpenFileName.dwMaxCustFilter");
+_Static_assert(__builtin_offsetof(OpenFileName, dwFilterIndex) == 0x18, "OpenFileName.dwFilterIndex");
+_Static_assert(__builtin_offsetof(OpenFileName, pFile) == 0x1c, "OpenFileName.pFile");
+_Static_assert(__builtin_offsetof(OpenFileName, dwMaxFile) == 0x20, "OpenFileName.dwMaxFile");
+_Static_assert(__builtin_offsetof(OpenFileName, pFileTitle) == 0x24, "OpenFileName.pFileTitle");
+_Static_assert(__builtin_offsetof(OpenFileName, dwMaxFileTitle) == 0x28, "OpenFileName.dwMaxFileTitle");
+_Static_assert(__builtin_offsetof(OpenFileName, pInitialDir) == 0x2c, "OpenFileName.pInitialDir");
+_Static_assert(__builtin_offsetof(OpenFileName, pTitle) == 0x30, "OpenFileName.pTitle");
+_Static_assert(__builtin_offsetof(OpenFileName, dwFlags) == 0x34, "OpenFileName.dwFlags");
+_Static_assert(__builtin_offsetof(OpenFileName, wFileOffset) == 0x38, "OpenFileName.wFileOffset");
+_Static_assert(__builtin_offsetof(OpenFileName, wFileExtension) == 0x3a, "OpenFileName.wFileExtension");
+_Static_assert(__builtin_offsetof(OpenFileName, pDefExt) == 0x3c, "OpenFileName.pDefExt");
+_Static_assert(__builtin_offsetof(OpenFileName, dwCustData) == 0x40, "OpenFileName.dwCustData");
+_Static_assert(__builtin_offsetof(OpenFileName, pHook) == 0x44, "OpenFileName.pHook");
+_Static_assert(__builtin_offsetof(OpenFileName, pTemplateName) == 0x48, "OpenFileName.pTemplateName");
+_Static_assert(sizeof(OpenFileName) == 0x4c, "sizeof OpenFileName");
+/* PcxHeader: ZSoft .pcx file header */
+struct PcxHeader {  /* 0x80 */
+    byte bManufacturer;  /* 0x00: 10 */
+    byte bVersion;  /* 0x01: 5 */
+    byte bEncoding;  /* 0x02: 1: run-length */
+    byte bBitsPerPixel;  /* 0x03 */
+    ushort wXMin;  /* 0x04 */
+    ushort wYMin;  /* 0x06 */
+    ushort wXMax;  /* 0x08 */
+    ushort wYMax;  /* 0x0a */
+    ushort wHDpi;  /* 0x0c */
+    ushort wVDpi;  /* 0x0e */
+    byte aPalette[48];  /* 0x10: 16-colour palette */
+    byte bReserved;  /* 0x40 */
+    byte bPlanes;  /* 0x41 */
+    ushort wBytesPerLine;  /* 0x42 */
+    ushort wPaletteInfo;  /* 0x44 */
+    ushort wHScreen;  /* 0x46 */
+    ushort wVScreen;  /* 0x48 */
+    byte aFiller[54];  /* 0x4a */
+};
+_Static_assert(__builtin_offsetof(PcxHeader, bManufacturer) == 0x0, "PcxHeader.bManufacturer");
+_Static_assert(__builtin_offsetof(PcxHeader, bVersion) == 0x1, "PcxHeader.bVersion");
+_Static_assert(__builtin_offsetof(PcxHeader, bEncoding) == 0x2, "PcxHeader.bEncoding");
+_Static_assert(__builtin_offsetof(PcxHeader, bBitsPerPixel) == 0x3, "PcxHeader.bBitsPerPixel");
+_Static_assert(__builtin_offsetof(PcxHeader, wXMin) == 0x4, "PcxHeader.wXMin");
+_Static_assert(__builtin_offsetof(PcxHeader, wYMin) == 0x6, "PcxHeader.wYMin");
+_Static_assert(__builtin_offsetof(PcxHeader, wXMax) == 0x8, "PcxHeader.wXMax");
+_Static_assert(__builtin_offsetof(PcxHeader, wYMax) == 0xa, "PcxHeader.wYMax");
+_Static_assert(__builtin_offsetof(PcxHeader, wHDpi) == 0xc, "PcxHeader.wHDpi");
+_Static_assert(__builtin_offsetof(PcxHeader, wVDpi) == 0xe, "PcxHeader.wVDpi");
+_Static_assert(__builtin_offsetof(PcxHeader, aPalette) == 0x10, "PcxHeader.aPalette");
+_Static_assert(__builtin_offsetof(PcxHeader, bReserved) == 0x40, "PcxHeader.bReserved");
+_Static_assert(__builtin_offsetof(PcxHeader, bPlanes) == 0x41, "PcxHeader.bPlanes");
+_Static_assert(__builtin_offsetof(PcxHeader, wBytesPerLine) == 0x42, "PcxHeader.wBytesPerLine");
+_Static_assert(__builtin_offsetof(PcxHeader, wPaletteInfo) == 0x44, "PcxHeader.wPaletteInfo");
+_Static_assert(__builtin_offsetof(PcxHeader, wHScreen) == 0x46, "PcxHeader.wHScreen");
+_Static_assert(__builtin_offsetof(PcxHeader, wVScreen) == 0x48, "PcxHeader.wVScreen");
+_Static_assert(__builtin_offsetof(PcxHeader, aFiller) == 0x4a, "PcxHeader.aFiller");
+_Static_assert(sizeof(PcxHeader) == 0x80, "sizeof PcxHeader");
 /* PhonemeEntry: One entry of g_aPhonemeTable: a phoneme of the lip-sync data and the talk chore it shows (Phoneme_ToTalkChore). */
 struct PhonemeEntry {  /* 0x8 */
     uint dwPhoneme;  /* 0x00: the phoneme as its IPA code point (0x5f '_' silence, 0xe6, 0x28c, ...) */
@@ -1009,6 +1305,40 @@ struct PhonemeEntry {  /* 0x8 */
 _Static_assert(__builtin_offsetof(PhonemeEntry, dwPhoneme) == 0x0, "PhonemeEntry.dwPhoneme");
 _Static_assert(__builtin_offsetof(PhonemeEntry, wTalkChore) == 0x4, "PhonemeEntry.wTalkChore");
 _Static_assert(sizeof(PhonemeEntry) == 0x8, "sizeof PhonemeEntry");
+/* PicChannel: One channel packet of a Softimage .pic file */
+struct PicChannel {  /* 0x4 */
+    byte bChained;  /* 0x00: another packet follows */
+    byte bSize;  /* 0x01: bits per channel */
+    byte bType;  /* 0x02: 0 uncompressed, 1 pure run-length, 2 mixed run-length */
+    byte bChannels;  /* 0x03: 0x80 red, 0x40 green, 0x20 blue, 0x10 alpha */
+};
+_Static_assert(__builtin_offsetof(PicChannel, bChained) == 0x0, "PicChannel.bChained");
+_Static_assert(__builtin_offsetof(PicChannel, bSize) == 0x1, "PicChannel.bSize");
+_Static_assert(__builtin_offsetof(PicChannel, bType) == 0x2, "PicChannel.bType");
+_Static_assert(__builtin_offsetof(PicChannel, bChannels) == 0x3, "PicChannel.bChannels");
+_Static_assert(sizeof(PicChannel) == 0x4, "sizeof PicChannel");
+/* PicHeader: Softimage .pic file header (0x68 bytes, big-endian) */
+struct PicHeader {  /* 0x68 */
+    uint dwMagic;  /* 0x00: 0x5380f634 */
+    float flVersion;  /* 0x04 */
+    char aComment[80];  /* 0x08 */
+    uint dwId;  /* 0x58: 'PICT' */
+    ushort wWidth;  /* 0x5c */
+    ushort wHeight;  /* 0x5e */
+    float flRatio;  /* 0x60 */
+    ushort wFields;  /* 0x64 */
+    ushort wPad;  /* 0x66 */
+};
+_Static_assert(__builtin_offsetof(PicHeader, dwMagic) == 0x0, "PicHeader.dwMagic");
+_Static_assert(__builtin_offsetof(PicHeader, flVersion) == 0x4, "PicHeader.flVersion");
+_Static_assert(__builtin_offsetof(PicHeader, aComment) == 0x8, "PicHeader.aComment");
+_Static_assert(__builtin_offsetof(PicHeader, dwId) == 0x58, "PicHeader.dwId");
+_Static_assert(__builtin_offsetof(PicHeader, wWidth) == 0x5c, "PicHeader.wWidth");
+_Static_assert(__builtin_offsetof(PicHeader, wHeight) == 0x5e, "PicHeader.wHeight");
+_Static_assert(__builtin_offsetof(PicHeader, flRatio) == 0x60, "PicHeader.flRatio");
+_Static_assert(__builtin_offsetof(PicHeader, wFields) == 0x64, "PicHeader.wFields");
+_Static_assert(__builtin_offsetof(PicHeader, wPad) == 0x66, "PicHeader.wPad");
+_Static_assert(sizeof(PicHeader) == 0x68, "sizeof PicHeader");
 /* Primitive: A queued 2D primitive (0x30 bytes, a node of the primitive queue's list). */
 struct Primitive {  /* 0x30 */
     Primitive *pNext;  /* 0x00: list link */

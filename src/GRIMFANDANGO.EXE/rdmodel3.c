@@ -680,7 +680,6 @@ LAB_0040b8c4:
 uint __cdecl rdModel3_LoadEntryBinary(int f,int model)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   int *piVar2;
   int *piVar3;
@@ -701,8 +700,8 @@ uint __cdecl rdModel3_LoadEntryBinary(int f,int model)
   int iStack_18;
   int iStack_14;
   int iStack_c;
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
+  int local_8;
+  undefined4 uStack_4;
   
   iVar12 = model;
   iVar9 = f;
@@ -941,9 +940,6 @@ uint __cdecl rdModel3_LoadEntryBinary(int f,int model)
   }
   return 1;
 }
-#undef local_8
-#undef uStack_4
-
 
 /* ---- 0x0040c090  rdModel3_LoadPostProcess ---- */
 /* Computes everything derived after loading: bounding boxes, radii, face and vertex normals, node
@@ -1273,8 +1269,7 @@ void __cdecl rdModel3_CalcModelBoundingBox(int model,int node,float *matrix)
   float *a;
   uint uVar2;
   int iVar3;
-  #define local_a8 (*(float *)(_frame + (0xc0 - 0xa8)))
-  #define local_a4 (*(float (*)[2])(_frame + (0xc0 - 0xa4)))
+  #define local_a8 (*(float (*)[3])(_frame + (0xc0 - 0xa8)))
   #define local_9c (*(float (*)[3])(_frame + (0xc0 - 0x9c)))
   #define local_90 (*(float (*)[12])(_frame + (0xc0 - 0x90)))
   #define local_60 (*(float (*)[12])(_frame + (0xc0 - 0x60)))
@@ -1298,24 +1293,24 @@ void __cdecl rdModel3_CalcModelBoundingBox(int model,int node,float *matrix)
     a = *(float **)(iVar1 + 0x30 + iVar3 * 0x7c);
     if (*(int *)(iVar1 + 0x48 + iVar3 * 0x7c) != 0) {
       do {
-        rdMatrix_TransformPoint34(&local_a8,a,local_60);
-        if (*(float *)(model + 0x6c) < local_a8) {
-          *(float *)(model + 0x6c) = local_a8;
+        rdMatrix_TransformPoint34(local_a8,a,local_60);
+        if (*(float *)(model + 0x6c) < local_a8[0]) {
+          *(float *)(model + 0x6c) = local_a8[0];
         }
-        if (*(float *)(model + 0x70) < local_a4[0]) {
-          *(float *)(model + 0x70) = local_a4[0];
+        if (*(float *)(model + 0x70) < local_a8[1]) {
+          *(float *)(model + 0x70) = local_a8[1];
         }
-        if (*(float *)(model + 0x74) < local_a4[1]) {
-          *(float *)(model + 0x74) = local_a4[1];
+        if (*(float *)(model + 0x74) < local_a8[2]) {
+          *(float *)(model + 0x74) = local_a8[2];
         }
-        if (local_a8 < *(float *)(model + 0x60)) {
-          *(float *)(model + 0x60) = local_a8;
+        if (local_a8[0] < *(float *)(model + 0x60)) {
+          *(float *)(model + 0x60) = local_a8[0];
         }
-        if (local_a4[0] < *(float *)(model + 100)) {
-          *(float *)(model + 100) = local_a4[0];
+        if (local_a8[1] < *(float *)(model + 100)) {
+          *(float *)(model + 100) = local_a8[1];
         }
-        if (local_a4[1] < *(float *)(model + 0x68)) {
-          *(float *)(model + 0x68) = local_a4[1];
+        if (local_a8[2] < *(float *)(model + 0x68)) {
+          *(float *)(model + 0x68) = local_a8[2];
         }
         a = a + 3;
         uVar2 = uVar2 + 1;
@@ -1339,7 +1334,6 @@ void __cdecl rdModel3_CalcModelBoundingBox(int model,int node,float *matrix)
 #undef local_60
 #undef local_90
 #undef local_9c
-#undef local_a4
 #undef local_a8
 
 

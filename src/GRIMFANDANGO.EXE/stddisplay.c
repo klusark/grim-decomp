@@ -401,36 +401,25 @@ Display_PickDefault(int wantFullscreen,int want3D,int *deviceIdx,int *modeIdx,in
 void __cdecl stdDisplay_BuildBitmapInfo8(int info,uint width,int height,int bpp,undefined1 *palette)
 
 {
-  unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined1 *puVar1;
   undefined1 *puVar2;
   int iVar3;
-  #define local_428 (*(uint *)(_frame + (0x440 - 0x428)))
-  #define local_424 (*(uint *)(_frame + (0x440 - 0x424)))
-  #define local_420 (*(uint *)(_frame + (0x440 - 0x420)))
-  #define local_41c (*(undefined2 *)(_frame + (0x440 - 0x41c)))
-  #define local_41a (*(undefined2 *)(_frame + (0x440 - 0x41a)))
-  #define local_418 (*(uint *)(_frame + (0x440 - 0x418)))
-  #define local_414 (*(uint *)(_frame + (0x440 - 0x414)))
-  #define local_410 (*(uint *)(_frame + (0x440 - 0x410)))
-  #define local_40c (*(uint *)(_frame + (0x440 - 0x40c)))
-  #define local_408 (*(uint *)(_frame + (0x440 - 0x408)))
-  #define local_404 (*(uint *)(_frame + (0x440 - 0x404)))
-  #define local_400 (*(undefined1 (*)[1024])(_frame + (0x440 - 0x400)))
+  BitmapInfoHeader header;
+  uint aPalette [256];
   
-  local_420 = -height;
-  local_424 = width;
-  local_428 = 0x28;
-  local_41c = 1;
-  local_41a = 8;
-  local_418 = 0;
-  local_414 = 0;
-  local_410 = 0;
-  local_40c = 0;
-  local_408 = 0;
-  local_404 = 0;
+  header.nHeight = -height;
+  header.nWidth = width;
+  header.dwSize = 0x28;
+  header.wPlanes = 1;
+  header.wBitCount = 8;
+  header.dwCompression = 0;
+  header.dwSizeImage = 0;
+  header.nXPelsPerMeter = 0;
+  header.nYPelsPerMeter = 0;
+  header.dwClrUsed = 0;
+  header.dwClrImportant = 0;
   iVar3 = 0x100;
-  puVar2 = local_400 + 1;
+  puVar2 = (undefined1 *)((int)aPalette + 1);
   do {
     puVar2[1] = *palette;
     puVar1 = palette + 2;
@@ -441,66 +430,30 @@ void __cdecl stdDisplay_BuildBitmapInfo8(int info,uint width,int height,int bpp,
     iVar3 = iVar3 + -1;
     puVar2 = puVar2 + 4;
   } while (iVar3 != 0);
-  CreateDIBSection(info,(int)&local_428,0,bpp,0,0);
+  CreateDIBSection(info,(int)&header,0,bpp,0,0);
   return;
 }
-#undef local_400
-#undef local_404
-#undef local_408
-#undef local_40c
-#undef local_410
-#undef local_414
-#undef local_418
-#undef local_41a
-#undef local_41c
-#undef local_420
-#undef local_424
-#undef local_428
-
 
 /* ---- 0x00473180  stdDisplay_BuildBitmapInfo16 ---- */
 void __cdecl stdDisplay_BuildBitmapInfo16(int info,uint width,int height,int bpp)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(undefined2 *)(_frame + (0x40 - 0x20)))
-  #define local_1e (*(undefined2 *)(_frame + (0x40 - 0x1e)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  BitmapInfoHeader header;
   
-  local_28 = width;
-  local_2c = 0x28;
-  local_24 = -height;
-  local_1c = 0;
-  local_18 = 0;
-  local_14 = 0;
-  local_10 = 0;
-  local_c = 0;
-  local_8 = 0;
-  local_20 = 1;
-  local_1e = 0x10;
-  CreateDIBSection(info,(int)&local_2c,0,bpp,0,0);
+  header.nWidth = width;
+  header.dwSize = 0x28;
+  header.nHeight = -height;
+  header.dwCompression = 0;
+  header.dwSizeImage = 0;
+  header.nXPelsPerMeter = 0;
+  header.nYPelsPerMeter = 0;
+  header.dwClrUsed = 0;
+  header.dwClrImportant = 0;
+  header.wPlanes = 1;
+  header.wBitCount = 0x10;
+  CreateDIBSection(info,(int)&header,0,bpp,0,0);
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_1e
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004731f0  DIB_CreateSection565 ---- */
 /* CreateDIBSection of a top-down 16-bit surface with the RGB565 bit masks (0xf800, 0x7e0, 0x1f). */
@@ -508,55 +461,24 @@ void __cdecl stdDisplay_BuildBitmapInfo16(int info,uint width,int height,int bpp
 undefined * __cdecl DIB_CreateSection565(uint hdc,uint width,int height,uint outBits)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined *puVar1;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(undefined2 *)(_frame + (0x50 - 0x28)))
-  #define local_26 (*(undefined2 *)(_frame + (0x50 - 0x26)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
+  BitmapInfoHeader header;
+  uint aMasks [3];
   
-  local_30 = width;
-  local_34 = 0x28;
-  local_2c = -height;
-  local_20 = 0;
-  local_1c = 0;
-  local_18 = 0;
-  local_14 = 0;
-  local_10 = 0;
-  local_28 = 1;
-  local_26 = 0x10;
-  local_24 = 3;
-  local_c = 0xf800;
-  local_8 = 0x7e0;
-  local_4 = 0x1f;
-  puVar1 = (undefined *)CreateDIBSection(hdc,(int)&local_34,0,outBits,0,0);
+  header.nWidth = width;
+  header.dwSize = 0x28;
+  header.nHeight = -height;
+  header.dwSizeImage = 0;
+  header.nXPelsPerMeter = 0;
+  header.nYPelsPerMeter = 0;
+  header.dwClrUsed = 0;
+  header.dwClrImportant = 0;
+  header.wPlanes = 1;
+  header.wBitCount = 0x10;
+  header.dwCompression = 3;
+  puVar1 = (undefined *)CreateDIBSection(hdc,(int)&header,0,outBits,0,0);
   return puVar1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_26
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x00473270  Palette_SwapRedBlue ---- */
 /* Converts a 768-byte RGB palette to BGR order */

@@ -90,7 +90,7 @@ SoundChanger(int tag,int snd,undefined4 param_3,int slot,uint value1,uint value2
 uint __cdecl SoundAdjuster(int *comp,uint text)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   uint *puVar3;
@@ -98,15 +98,15 @@ uint __cdecl SoundAdjuster(int *comp,uint text)
   uint uVar5;
   uint uVar6;
   char cVar7;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint (*)[8])(_frame + (0x50 - 0x20)))
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint (*)[8])(_frame + (0x40 - 0x20)))
   
   iVar1 = *comp;
   local_30 = (uint)s_Maximum_Volume_004ea6a8;
@@ -172,10 +172,6 @@ uint __cdecl SoundAdjuster(int *comp,uint text)
 #undef local_28
 #undef local_2c
 #undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_40
 
 
 /* ---- 0x00497460  SoundRequester ---- */
@@ -195,22 +191,24 @@ int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
   int iVar4;
   undefined1 uVar5;
   undefined *puVar6;
-  undefined4 *puVar7;
+  char *pcVar7;
   undefined1 local_25;
   uint local_24;
-  #define local_20 (*(undefined1 *)(_frame + (0x30 - 0x20)))
-  #define local_1f (*(undefined4 *)(_frame + (0x30 - 0x1f)))
-  #define local_1 (*(undefined1 *)(_frame + (0x30 - 0x1)))
+  #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
-  local_20 = DAT_004f5a98;
+  local_20[0] = DAT_004f5a98;
   uVar5 = 0x7f;
-  puVar7 = &local_1f;
+  pcVar7 = local_20 + 1;
   for (iVar4 = 7; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar7 = 0;
-    puVar7 = puVar7 + 1;
+    pcVar7[0] = '\0';
+    pcVar7[1] = '\0';
+    pcVar7[2] = '\0';
+    pcVar7[3] = '\0';
+    pcVar7 = pcVar7 + 4;
   }
-  *(undefined2 *)puVar7 = 0;
-  *(undefined1 *)((int)puVar7 + 2) = 0;
+  pcVar7[0] = '\0';
+  pcVar7[1] = '\0';
+  pcVar7[2] = '\0';
   local_25 = 0x40;
   puVar6 = (undefined *)0x64;
   local_24 = 1;
@@ -234,9 +232,9 @@ int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
     name = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   else {
-    strncpy((uint *)&local_20,(uint *)name,0x1f);
-    local_1 = 0;
-    strtok(&local_20,&DAT_004ea52c);
+    strncpy((uint *)local_20,(uint *)name,0x1f);
+    local_20[0x1f] = '\0';
+    strtok((byte *)local_20,&DAT_004ea52c);
     uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
     if (uVar1 != 0) {
       puVar6 = atoi(uVar1);
@@ -254,8 +252,8 @@ int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
   if (puVar2 == (uint *)0x0) {
     return 0;
   }
-  puVar3 = (uint *)&local_20;
-  if (local_20 == 0) {
+  puVar3 = (uint *)local_20;
+  if (local_20[0] == '\0') {
     puVar3 = (uint *)name;
   }
   strncpy(puVar2,puVar3,0x1f);
@@ -267,8 +265,6 @@ int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
   iVar4 = Cos_RegisterComponent(cosInst,(int)name,(int)puVar2,tag,0,type,((unsigned)(uintptr_t)&DAT_004ea018));
   return (uint)(iVar4 != 0);
 }
-#undef local_1
-#undef local_1f
 #undef local_20
 
 

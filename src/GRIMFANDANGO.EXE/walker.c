@@ -785,21 +785,17 @@ void __thiscall Puck_InvXform(Puck *this,float *vec)
 
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   *vec = *vec - this->aPos[0];
   vec[1] = vec[1] - this->aPos[1];
   vec[2] = vec[2] - this->aPos[2];
-  rdMatrix_TransformVectorOrtho34(&local_c,vec,this->aFrame);
-  *vec = local_c;
-  vec[1] = local_8;
-  vec[2] = local_4;
+  rdMatrix_TransformVectorOrtho34(local_c,vec,this->aFrame);
+  *vec = local_c[0];
+  vec[1] = local_c[1];
+  vec[2] = local_c[2];
   return;
 }
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -844,31 +840,27 @@ float __thiscall Puck_PointAt(Puck *this,float *point,float maxTurn)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
-  local_c = *point;
-  local_8 = point[1];
-  local_4 = PUN(uint,(float)point[2]);
+  local_c[0] = *point;
+  local_c[1] = point[1];
+  local_c[2] = point[2];
   if (this->pSector != (WalkPlane *)0x0) {
-    WalkPlane_Project(this->pSector,(int)&local_c);
+    WalkPlane_Project(this->pSector,(int)local_c);
   }
-  Puck_InvXform(this,&local_c);
-  rdVector_Normalize3Acc(&local_c);
-  fVar1 = stdMath_ArcSin3(local_8);
+  Puck_InvXform(this,local_c);
+  rdVector_Normalize3Acc(local_c);
+  fVar1 = stdMath_ArcSin3(local_c[1]);
   point = PUN(float *,(float)(90.0f - fVar1));
   if (maxTurn < PUN(float,point)) {
     point = PUN(float *,(float)maxTurn);
   }
-  if (0.0f < local_c) {
+  if (0.0f < local_c[0]) {
     point = PUN(float *,(float)(PUN(float,point) * -1.0f));
   }
   Puck_Rotate(this,PUN(float,point));
   return PUN(float,point);
 }
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -920,18 +912,10 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
   float fVar5;
   float local_48;
   float local_34;
-  #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(float *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  #define local_30 (*(float (*)[3])(_frame + (0x40 - 0x30)))
+  #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
+  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   puVar4 = (undefined *)0x0;
   if (g_dwPuck_Forward_recursion_level == 0) {
@@ -955,13 +939,13 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
     }
     Puck_Rotate(this,local_48);
   }
-  local_30 = 0.0f;
-  local_2c = PUN(uint,(float)step);
-  local_28 = 0;
-  Puck_Xform(this,&local_30);
+  local_30[0] = 0.0f;
+  local_30[1] = step;
+  local_30[2] = 0.0f;
+  Puck_Xform(this,local_30);
   if ((this->pSector == (WalkPlane *)0x0) ||
-     (iVar2 = WalkPlane_Within(this->pSector,&local_30,1), iVar2 != 0)) {
-    local_48 = PUN(float,&local_30);
+     (iVar2 = WalkPlane_Within(this->pSector,local_30,1), iVar2 != 0)) {
+    local_48 = PUN(float,local_30);
     Puck_SetPos(this,PUN(float *,(float)local_48));
     g_dwPuck_Forward_recursion_level = 0;
     return (undefined *)0x1;
@@ -971,16 +955,16 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
     return (undefined *)0x0;
   }
   this_00 = this->pSector;
-  local_34 = WalkPlane_Intersection(this_00,(int)this,(int)&local_30,(int)&local_24);
+  local_34 = WalkPlane_Intersection(this_00,(int)this,(int)local_30,(int)local_24);
   this->pSector->nActive = 0;
-  local_18 = local_24;
-  local_14 = local_20;
-  local_10 = local_1c;
-  Puck_InvXform(this,&local_18);
-  step = step - local_14;
-  pWVar3 = WalkPlane_PlaneAt(&local_24,0x1000);
+  local_18[0] = local_24[0];
+  local_18[1] = local_24[1];
+  local_18[2] = local_24[2];
+  Puck_InvXform(this,local_18);
+  step = step - local_18[1];
+  pWVar3 = WalkPlane_PlaneAt(local_24,0x1000);
   if (pWVar3 == (WalkPlane *)0x0) {
-    Puck_SetPos(this,&local_24);
+    Puck_SetPos(this,local_24);
     pWVar3 = this->pSector;
     if ((pWVar3->dwType & 0x100) == 0) {
       fVar5 = local_34;
@@ -1008,11 +992,11 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
     }
     if ((pWVar3->nLongEdge + 1) % pWVar3->nNumVerts != pWVar3->nHitEdge) {
       pWVar1 = pWVar3->aVerts[pWVar3->nLongEdge];
-      local_c = pWVar1->aPos[0];
-      local_8 = PUN(uint,(float)pWVar1->aPos[1]);
-      local_4 = PUN(uint,(float)pWVar1->aPos[2]);
-      Puck_InvXform(this,&local_c);
-      if (local_c <= 0.0f) {
+      local_c[0] = pWVar1->aPos[0];
+      local_c[1] = pWVar1->aPos[1];
+      local_c[2] = pWVar1->aPos[2];
+      Puck_InvXform(this,local_c);
+      if (local_c[0] <= 0.0f) {
         if (local_34 < 3.0f) {
           local_34 = (local_34 - -90.0f) - -90.2f;
         }
@@ -1027,7 +1011,7 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
     }
     return (undefined *)0x0;
   }
-  Puck_SetPos(this,&local_24);
+  Puck_SetPos(this,local_24);
   this->pSector = pWVar3;
   Puck_OrientToPlane(this,(int)pWVar3);
   if (0.02f <= step) {
@@ -1037,17 +1021,9 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
   this_00->nActive = 1;
   return puVar4;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
 #undef local_24
-#undef local_28
-#undef local_2c
 #undef local_30
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -1114,60 +1090,48 @@ void __thiscall Puck_Draw(Puck *this,int color)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
-  local_c = 0.0f;
-  local_8 = 0;
-  local_4 = 0;
-  local_18 = 0.0f;
-  local_14 = 0x3dcccccd;
-  local_10 = 0;
-  Puck_Xform(this,&local_c);
-  Puck_Xform(this,&local_18);
-  rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
-                    );
-  local_c = 0.05f;
-  local_8 = 0x3d4ccccd;
-  local_4 = 0;
-  local_18 = 0.0f;
-  local_14 = 0x3dcccccd;
-  local_10 = 0;
-  Puck_Xform(this,&local_c);
-  Puck_Xform(this,&local_18);
-  rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
-                    );
-  local_c = -0.05f;
-  local_8 = 0x3d4ccccd;
-  local_4 = 0;
-  local_18 = 0.0f;
-  local_14 = 0x3dcccccd;
-  local_10 = 0;
-  Puck_Xform(this,&local_c);
-  Puck_Xform(this,&local_18);
-  rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
-                    );
-  local_c = 0.0f;
-  local_8 = 0;
-  local_4 = 0x3d4ccccd;
-  local_18 = 0.0f;
-  local_14 = 0;
-  local_10 = 0;
-  Puck_Xform(this,&local_c);
-  Puck_Xform(this,&local_18);
-  rdPrimit3_DrawLine(&local_c,&local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff
-                    );
+  local_c[0] = 0.0f;
+  local_c[1] = 0.0f;
+  local_c[2] = 0.0f;
+  local_18[0] = 0.0f;
+  local_18[1] = 0.1f;
+  local_18[2] = 0.0f;
+  Puck_Xform(this,local_c);
+  Puck_Xform(this,local_18);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff);
+  local_c[0] = 0.05f;
+  local_c[1] = 0.05f;
+  local_c[2] = 0.0f;
+  local_18[0] = 0.0f;
+  local_18[1] = 0.1f;
+  local_18[2] = 0.0f;
+  Puck_Xform(this,local_c);
+  Puck_Xform(this,local_18);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff);
+  local_c[0] = -0.05f;
+  local_c[1] = 0.05f;
+  local_c[2] = 0.0f;
+  local_18[0] = 0.0f;
+  local_18[1] = 0.1f;
+  local_18[2] = 0.0f;
+  Puck_Xform(this,local_c);
+  Puck_Xform(this,local_18);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff);
+  local_c[0] = 0.0f;
+  local_c[1] = 0.0f;
+  local_c[2] = 0.05f;
+  local_18[0] = 0.0f;
+  local_18[1] = 0.0f;
+  local_18[2] = 0.0f;
+  Puck_Xform(this,local_c);
+  Puck_Xform(this,local_18);
+  rdPrimit3_DrawLine(local_c,local_18,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,color,0xffffffff);
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
 #undef local_c
 
 
@@ -1236,15 +1200,14 @@ undefined4 __cdecl Planner_FindPath(float *from,float *to,WalkPlane *plane)
   unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
+  uint uVar3;
   WalkPlane *planeB;
   float *point;
   uint local_1fc;
   uint local_1f8;
-  #define local_1f4 (*(float *)(_frame + (0x210 - 0x1f4)))
-  #define local_1f0 (*(float *)(_frame + (0x210 - 0x1f0)))
-  #define local_1ec (*(float *)(_frame + (0x210 - 0x1ec)))
-  #define local_1e8 (*(uint *)(_frame + (0x210 - 0x1e8)))
-  #define local_1e4 (*(uint *)(_frame + (0x210 - 0x1e4)))
+  #define local_1f4 (*(float (*)[3])(_frame + (0x210 - 0x1f4)))
+  uint local_1e8;
+  uint local_1e4;
   #define local_1e0 (*(float (*)[120])(_frame + (0x210 - 0x1e0)))
   
   if (0x1d < (int)(g_dwTotWorkingPathPoints + 1)) {
@@ -1262,22 +1225,22 @@ undefined4 __cdecl Planner_FindPath(float *from,float *to,WalkPlane *plane)
     (&UINT_008cf0b4)[uVar1 * 3] = PUN(uint,(float)from[1]);
     (&UINT_008cf0b8)[uVar1 * 3] = PUN(uint,(float)from[2]);
     iVar2 = WalkPlane_Within(plane,to,1);
+    uVar1 = g_dwTotWorkingPathPoints;
     if (iVar2 != 0) {
       return 1;
     }
-    local_1e8 = g_dwTotWorkingPathPoints;
-    WalkPlane_Intersection(plane,(int)from,(int)to,(int)&local_1f4);
+    WalkPlane_Intersection(plane,(int)from,(int)to,(int)local_1f4);
     plane->nActive = 0;
-    if ((local_1f4 - *from) * (local_1f4 - *from) +
-        (local_1ec - from[2]) * (local_1ec - from[2]) +
-        (local_1f0 - from[1]) * (local_1f0 - from[1]) <= 0.0001f) {
+    if ((local_1f4[0] - *from) * (local_1f4[0] - *from) +
+        (local_1f4[2] - from[2]) * (local_1f4[2] - from[2]) +
+        (local_1f4[1] - from[1]) * (local_1f4[1] - from[1]) <= 0.0001f) {
       local_1f8 = 0;
     }
     else {
-      local_1f8 = (uint)WalkPlane_PlaneAt(&local_1f4,0x1000);
+      local_1f8 = (uint)WalkPlane_PlaneAt(local_1f4,0x1000);
     }
     if (local_1f8 != 0) {
-      iVar2 = Planner_FindPath(&local_1f4,to,(WalkPlane *)local_1f8);
+      iVar2 = Planner_FindPath(local_1f4,to,(WalkPlane *)local_1f8);
       if (iVar2 != 0) {
         return 1;
       }
@@ -1285,22 +1248,21 @@ undefined4 __cdecl Planner_FindPath(float *from,float *to,WalkPlane *plane)
         *(undefined4 *)(local_1f8 + 0x2c) = 0;
       }
     }
-    local_1e4 = FindExitPoints(plane,to,(uint *)local_1e0);
+    uVar3 = FindExitPoints(plane,to,(uint *)local_1e0);
     local_1fc = 0;
-    if (0 < (int)local_1e4) {
+    if (0 < (int)uVar3) {
       point = local_1e0;
       do {
         planeB = WalkPlane_PlaneAt(point,0x1000);
-        if (planeB != (WalkPlane *)0x0) {
-          g_dwTotWorkingPathPoints = local_1e8;
-          iVar2 = Planner_PortalPoint(plane,planeB,to,&local_1f4);
-          if ((iVar2 != 0) && (iVar2 = Planner_FindPath(&local_1f4,to,planeB), iVar2 != 0)) {
-            return 1;
-          }
+        if (((planeB != (WalkPlane *)0x0) &&
+            (g_dwTotWorkingPathPoints = uVar1,
+            iVar2 = Planner_PortalPoint(plane,planeB,to,local_1f4), iVar2 != 0)) &&
+           (iVar2 = Planner_FindPath(local_1f4,to,planeB), iVar2 != 0)) {
+          return 1;
         }
         local_1fc = local_1fc + 1;
         point = point + 4;
-      } while ((int)local_1fc < (int)local_1e4);
+      } while ((int)local_1fc < (int)uVar3);
     }
     plane->nActive = 1;
     if (local_1f8 != 0) {
@@ -1310,10 +1272,6 @@ undefined4 __cdecl Planner_FindPath(float *from,float *to,WalkPlane *plane)
   return 0;
 }
 #undef local_1e0
-#undef local_1e4
-#undef local_1e8
-#undef local_1ec
-#undef local_1f0
 #undef local_1f4
 
 

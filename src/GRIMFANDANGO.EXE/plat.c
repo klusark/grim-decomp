@@ -83,45 +83,36 @@ char * __cdecl grimPlat_GetDefaultOpenPath(void)
 int __cdecl grimPlat_OpenFileRequest(char *title,char *filter)
 
 {
-  unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  uint *puVar2;
-  #define local_150 (*(uint *)(_frame + (0x160 - 0x150)))
-  #define local_14c (*(uint *)(_frame + (0x160 - 0x14c)))
-  #define local_144 (*(uint *)(_frame + (0x160 - 0x144)))
-  #define local_138 (*(uint *)(_frame + (0x160 - 0x138)))
-  #define local_134 (*(uint *)(_frame + (0x160 - 0x134)))
-  #define local_130 (*(uint *)(_frame + (0x160 - 0x130)))
-  #define local_124 (*(uint *)(_frame + (0x160 - 0x124)))
-  #define local_120 (*(uint *)(_frame + (0x160 - 0x120)))
-  #define local_11c (*(uint *)(_frame + (0x160 - 0x11c)))
-  #define local_118 (*(uint *)(_frame + (0x160 - 0x118)))
-  #define local_104 (*(undefined1 (*)[260])(_frame + (0x160 - 0x104)))
+  OpenFileName *pOVar2;
+  OpenFileName ofn;
+  #define local_104 (*(char (*)[260])(_frame + (0x120 - 0x104)))
   
-  puVar2 = &local_150;
+  pOVar2 = &ofn;
   for (iVar1 = 0x13; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
+    pOVar2->dwStructSize = 0;
+    pOVar2 = (OpenFileName *)&pOVar2->pOwner;
   }
   UINT_004e814c = 0;
-  local_104[0] = 0;
-  local_150 = 0x4c;
-  local_14c = (uint)Win_GetMainHwnd();
-  local_144 = (uint)filter;
-  local_134 = (uint)local_104;
-  local_124 = -(uint)(g_szDialogOpenDir[0] != '\0') & 0x8c9858;
-  local_138 = 1;
-  local_130 = 0x104;
-  local_120 = (uint)title;
-  local_11c = 0x100c;
-  iVar1 = GetOpenFileNameA((int)&local_150);
+  local_104[0] = '\0';
+  ofn.dwStructSize = 0x4c;
+  ofn.pOwner = Win_GetMainHwnd();
+  ofn.pFilter = filter;
+  ofn.pFile = local_104;
+  ofn.pInitialDir = (char *)(-(uint)(g_szDialogOpenDir[0] != '\0') & 0x8c9858);
+  ofn.dwFilterIndex = 1;
+  ofn.dwMaxFile = 0x104;
+  ofn.pTitle = title;
+  ofn.dwFlags = 0x100c;
+  iVar1 = GetOpenFileNameA((int)&ofn);
   if (iVar1 != 0) {
-    strncpy((uint *)g_szDialogOpenDir,(uint *)local_134,0x103);
+    strncpy((uint *)g_szDialogOpenDir,(uint *)ofn.pFile,0x103);
     g_szDialogOpenDir[0x103] = '\0';
-    if (((ushort)local_118 != 0) && ((ushort)local_118 < 0x104)) {
-      *(undefined1 *)((int)&UINT_008c9854 + (local_118 & 0xffff) + 3) = 0;
+    if ((ofn.wFileOffset != 0) && (ofn.wFileOffset < 0x104)) {
+      *(undefined1 *)((int)&UINT_008c9854 + (PIECE(ofn,56,4) & 0xffff) + 3) = 0;
     }
-    strncpy((uint *)g_szGrimlib_aFilename,(uint *)local_134,0x7f);
+    strncpy((uint *)g_szGrimlib_aFilename,(uint *)ofn.pFile,0x7f);
     g_szGrimlib_aFilename[0x7f] = '\0';
     UINT_004e814c = 1;
     return 1;
@@ -130,16 +121,6 @@ int __cdecl grimPlat_OpenFileRequest(char *title,char *filter)
   return 0;
 }
 #undef local_104
-#undef local_118
-#undef local_11c
-#undef local_120
-#undef local_124
-#undef local_130
-#undef local_134
-#undef local_138
-#undef local_144
-#undef local_14c
-#undef local_150
 
 
 /* ---- 0x004877d0  grimPlat_SaveFileRequest ---- */
@@ -150,60 +131,41 @@ int __cdecl grimPlat_OpenFileRequest(char *title,char *filter)
 int __cdecl grimPlat_SaveFileRequest(char *title,char *filter)
 
 {
-  unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  uint *puVar2;
-  #define local_150 (*(uint *)(_frame + (0x160 - 0x150)))
-  #define local_14c (*(uint *)(_frame + (0x160 - 0x14c)))
-  #define local_144 (*(uint *)(_frame + (0x160 - 0x144)))
-  #define local_138 (*(uint *)(_frame + (0x160 - 0x138)))
-  #define local_134 (*(uint *)(_frame + (0x160 - 0x134)))
-  #define local_130 (*(uint *)(_frame + (0x160 - 0x130)))
-  #define local_124 (*(uint *)(_frame + (0x160 - 0x124)))
-  #define local_120 (*(uint *)(_frame + (0x160 - 0x120)))
-  #define local_11c (*(uint *)(_frame + (0x160 - 0x11c)))
-  #define local_118 (*(uint *)(_frame + (0x160 - 0x118)))
-  #define local_104 (*(undefined1 (*)[260])(_frame + (0x160 - 0x104)))
+  OpenFileName *pOVar2;
+  OpenFileName ofn;
+  #define local_104 (*(char (*)[260])(_frame + (0x120 - 0x104)))
   
-  puVar2 = &local_150;
+  pOVar2 = &ofn;
   for (iVar1 = 0x13; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar2 = 0;
-    puVar2 = puVar2 + 1;
+    pOVar2->dwStructSize = 0;
+    pOVar2 = (OpenFileName *)&pOVar2->pOwner;
   }
-  local_104[0] = 0;
-  local_150 = 0x4c;
-  local_14c = (uint)Win_GetMainHwnd();
-  local_144 = (uint)filter;
-  local_134 = (uint)local_104;
-  local_124 = -(uint)(g_szDialogSaveDir[0] != '\0') & 0x8c9960;
-  local_138 = 1;
-  local_130 = 0x104;
-  local_120 = (uint)title;
-  local_11c = 0x880e;
-  iVar1 = GetSaveFileNameA((int)&local_150);
+  local_104[0] = '\0';
+  ofn.dwStructSize = 0x4c;
+  ofn.pOwner = Win_GetMainHwnd();
+  ofn.pFilter = filter;
+  ofn.pFile = local_104;
+  ofn.pInitialDir = (char *)(-(uint)(g_szDialogSaveDir[0] != '\0') & 0x8c9960);
+  ofn.dwFilterIndex = 1;
+  ofn.dwMaxFile = 0x104;
+  ofn.pTitle = title;
+  ofn.dwFlags = 0x880e;
+  iVar1 = GetSaveFileNameA((int)&ofn);
   if (iVar1 != 0) {
-    strncpy((uint *)g_szDialogSaveDir,(uint *)local_134,0x103);
+    strncpy((uint *)g_szDialogSaveDir,(uint *)ofn.pFile,0x103);
     g_szDialogSaveDir[0x103] = '\0';
-    if (((ushort)local_118 != 0) && ((ushort)local_118 < 0x104)) {
-      (&DAT_008c995f)[local_118 & 0xffff] = 0;
+    if ((ofn.wFileOffset != 0) && (ofn.wFileOffset < 0x104)) {
+      (&DAT_008c995f)[PIECE(ofn,56,4) & 0xffff] = 0;
     }
-    strncpy((uint *)g_szGrimlib_aFilename,(uint *)local_134,0x7f);
+    strncpy((uint *)g_szGrimlib_aFilename,(uint *)ofn.pFile,0x7f);
     g_szGrimlib_aFilename[0x7f] = '\0';
     return 1;
   }
   return 0;
 }
 #undef local_104
-#undef local_118
-#undef local_11c
-#undef local_120
-#undef local_124
-#undef local_130
-#undef local_134
-#undef local_138
-#undef local_144
-#undef local_14c
-#undef local_150
 
 
 /* ---- 0x004878c0  grimPlat_SpinDialog ---- */

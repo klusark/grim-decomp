@@ -1606,6 +1606,11 @@ def infer_global_types(bodies, ctx, sym_re):
                             # a frame-local view (`#define puStack_24 (*(undefined4 **)(_frame + ...))`)
                             dm = re.search(r"#define " + re.escape(am2.group(1)) + r" \(\*\(([\w ]+\*+)\)", body)
                             lt = dm.group(1)[:-1].replace(" *", "*").replace("*", " *").strip() if dm else ""   # (the cast is a pointer to the local)
+                            if not dm and re.fullmatch(r"(?:local|[a-zA-Z]+Stack)_[0-9a-f]+", am2.group(1)):
+                                # the same stack slot as a plain C local (tools/frame_locals.py keeps only the
+                                # locals the layout reaches in the frame): the same evidence
+                                pm = re.search(r"\n\s+([\w ]+?)\s*(\*+)" + re.escape(am2.group(1)) + r";", body)
+                                lt = (pm.group(1) + " " + pm.group(2)).strip() if pm else ""
                         if "*" in lt:
                             uses[g]["P:" + lt] += 1
     return uses
@@ -1813,7 +1818,7 @@ def struct_defs(structs, skip, comments=None):
             out.append(f"_Static_assert(sizeof({n}) == 0x{s['size']:x}, \"sizeof {n}\");")
             continue
         body, asserts, pos, used = [], [], 0, Counter()
-        packed = False
+        packed, maxal = False, 1
         for off, sz, t, fn in sorted(s["fields"]):
             if t in ("undefined", "undefined1") and re.fullmatch(r"(field_0x[0-9a-f]+|)", fn):
                 continue   # an undefined byte of the layout: padding
@@ -1834,9 +1839,12 @@ def struct_defs(structs, skip, comments=None):
                  2 if prim in ("short", "ushort", "undefined2", "word") else 1)
             if off % al:
                 packed = True
+            maxal = max(maxal, al)
             pos = off + sz
         if s["size"] > pos:
             body += gap_bytes(pos, s["size"])
+        if s["size"] % maxal:
+            packed = True   # a size C would pad up (GifHeader: 13 bytes with ushort fields)
         attr = " __attribute__((packed))" if packed else ""
         head = (comments or {}).get(n, {}).get("")
         if head:

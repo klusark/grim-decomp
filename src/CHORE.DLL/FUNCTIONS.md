@@ -42,9 +42,9 @@
 | 10003690 | Cos_InstSetChoreAdv | costume.c | 22 |
 | 10003700 | Cos_InstChoreStatus | costume.c | 15 |
 | 10003750 | Cos_Initialize | costume.c | 20 |
-| 100037a0 | Cos_Save | costume.c | 57 |
+| 100037a0 | Cos_Save | costume.c | 54 |
 | 10003890 | Cos_SaveInstance | costume.c | 45 |
-| 10003970 | Cos_Restore | costume.c | 95 |
+| 10003970 | Cos_Restore | costume.c | 93 |
 | 10003b40 | Cos_RestoreInstance | costume.c | 44 |
 | 10003c20 | Cos_CollectUsedTags | costume.c | 42 |
 | 10003c90 | Cos_AddKey | costume.c | 110 |

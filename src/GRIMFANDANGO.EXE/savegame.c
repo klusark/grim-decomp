@@ -49,66 +49,48 @@ int __cdecl SaveGame_Read(void *buf,int n)
 void * __cdecl sputMain_GetSaveGameImage(char *filename)
 
 {
-  unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *file;
   VBuffer *pVVar1;
   int iVar2;
-  uint *puVar3;
-  uint *puVar4;
-  #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
-  #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
-  #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
-  #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
-  #define local_7c (*(uint *)(_frame + (0xa0 - 0x7c)))
-  #define local_78 (*(uint *)(_frame + (0xa0 - 0x78)))
-  #define local_74 (*(uint *)(_frame + (0xa0 - 0x74)))
-  #define local_70 (*(uint *)(_frame + (0xa0 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0xa0 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0xa0 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0xa0 - 0x64)))
-  #define local_60 (*(uint *)(_frame + (0xa0 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0xa0 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0xa0 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0xa0 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0xa0 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0xa0 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0xa0 - 0x48)))
-  #define local_40 (*(uint *)(_frame + (0xa0 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0xa0 - 0x3c)))
-  #define local_38 (*(uint (*)[14])(_frame + (0xa0 - 0x38)))
+  ColorFormat *pCVar3;
+  ColorFormat *pCVar4;
+  uint local_8c;
+  uint local_88;
+  ColorFormat format;
+  VBufferFormat bufferFormat;
   
-  local_7c = 5;
-  local_74 = 5;
-  local_6c = 5;
-  local_64 = 3;
-  local_5c = 3;
-  local_84 = 1;
-  local_80 = 0x10;
-  local_78 = 6;
-  local_70 = 0xb;
-  local_68 = 0;
-  local_60 = 2;
-  local_58 = 0;
-  local_54 = 0;
-  local_50 = 0;
+  format.dwRedBits = 5;
+  format.dwBlueBits = 5;
+  format.dwGreenShift = 5;
+  format.dwRedLoss = 3;
+  format.dwBlueLoss = 3;
+  format.nColorMode = 1;
+  format.nBpp = 0x10;
+  format.dwGreenBits = 6;
+  format.dwRedShift = 0xb;
+  format.dwBlueShift = 0;
+  format.dwGreenLoss = 2;
+  format.dwUnknown2c = 0;
+  format.dwUnknown30 = 0;
+  format.dwUnknown34 = 0;
   file = SaveFile_Open(filename,&DAT_004ddb18);
   if (file == (int *)0x0) {
     return (void *)0x0;
   }
   gzread(file,(int)&local_88,4);
   gzseek(file,local_88,1);
-  local_3c = 2;
-  local_4c = 0xfa;
-  local_48 = 0xbc;
-  local_40 = 500;
-  puVar3 = &local_84;
-  puVar4 = local_38;
+  bufferFormat.nStride = 2;
+  bufferFormat.nWidth = 0xfa;
+  bufferFormat.nHeight = 0xbc;
+  bufferFormat.nPitch = 500;
+  pCVar3 = &format;
+  pCVar4 = &bufferFormat.colorFormat;
   for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar4 = *puVar3;
-    puVar3 = puVar3 + 1;
-    puVar4 = puVar4 + 1;
+    pCVar4->nColorMode = pCVar3->nColorMode;
+    pCVar3 = (ColorFormat *)&pCVar3->nBpp;
+    pCVar4 = (ColorFormat *)&pCVar4->nBpp;
   }
-  pVVar1 = stdDisplay_VBufferNew((VBufferFormat *)&local_4c,0,0,0);
+  pVVar1 = stdDisplay_VBufferNew(&bufferFormat,0,0,0);
   if (pVVar1 == (VBuffer *)0x0) {
     gzclose((int)file);
     return (void *)0x0;
@@ -123,25 +105,3 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
   gzclose((int)file);
   return pVVar1;
 }
-#undef local_38
-#undef local_3c
-#undef local_40
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_5c
-#undef local_60
-#undef local_64
-#undef local_68
-#undef local_6c
-#undef local_70
-#undef local_74
-#undef local_78
-#undef local_7c
-#undef local_80
-#undef local_84
-#undef local_88
-#undef local_8c
-

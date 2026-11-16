@@ -231,30 +231,31 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint file
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char *name;
+  char *pcVar1;
   void *data;
-  uint uVar1;
-  uint *puVar2;
+  uint uVar2;
+  uint *puVar3;
   ResRef *ref;
-  int iVar3;
-  undefined4 *puVar4;
+  int iVar4;
   ResRef *pRVar5;
   uint local_2c;
   uint local_28;
   uint local_24;
-  #define local_20 (*(undefined1 *)(_frame + (0x30 - 0x20)))
-  #define local_1f (*(undefined4 *)(_frame + (0x30 - 0x1f)))
-  #define local_1 (*(undefined1 *)(_frame + (0x30 - 0x1)))
+  #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
-  local_20 = DAT_004f5a98;
+  local_20[0] = DAT_004f5a98;
   local_24 = 0;
-  puVar4 = &local_1f;
-  for (iVar3 = 7; iVar3 != 0; iVar3 = iVar3 + -1) {
-    *puVar4 = 0;
-    puVar4 = puVar4 + 1;
+  pcVar1 = local_20 + 1;
+  for (iVar4 = 7; iVar4 != 0; iVar4 = iVar4 + -1) {
+    pcVar1[0] = '\0';
+    pcVar1[1] = '\0';
+    pcVar1[2] = '\0';
+    pcVar1[3] = '\0';
+    pcVar1 = pcVar1 + 4;
   }
-  *(undefined2 *)puVar4 = 0;
-  *(undefined1 *)((int)puVar4 + 2) = 0;
+  pcVar1[0] = '\0';
+  pcVar1[1] = '\0';
+  pcVar1[2] = '\0';
   local_2c = 1;
   local_28 = 5;
   if ((type == 0x4c444f4d) || (type == 0x4c444d4d)) {
@@ -265,36 +266,36 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint file
       if (g_bKeyframePath != '\0') {
         grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bKeyframePath));
       }
-      iVar3 = grimPlat_OpenFileRequest
+      iVar4 = grimPlat_OpenFileRequest
                         (s_Select_keyframe_file_to_add____004ea76c,s_Keyframe_files____key__004ea78c
                         );
-      if (iVar3 == 0) {
+      if (iVar4 == 0) {
         return 0;
       }
-      uVar1 = 0x7f;
-      puVar2 = (uint *)grimPlat_GetDefaultOpenPath();
-      strncpy((uint *)&g_bKeyframePath,puVar2,uVar1);
+      uVar2 = 0x7f;
+      puVar3 = (uint *)grimPlat_GetDefaultOpenPath();
+      strncpy((uint *)&g_bKeyframePath,puVar3,uVar2);
       DAT_008ca837 = 0;
       local_24 = (uint)stdFnames_FindMedName(g_szGrimlib_aFilename);
       data = sputResource_Alloc(0x4659454b,g_szGrimlib_aFilename);
     }
     else {
-      strncpy((uint *)&local_20,(uint *)filename,0x1f);
-      local_1 = 0;
-      name = (char *)strtok(&local_20,&DAT_004ea52c);
-      data = sputResource_Alloc(0x4659454b,name);
-      uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
-      if (uVar1 != 0) {
-        local_2c = (uint)atoi(uVar1);
-        uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
-        local_28 = (uint)atoi(uVar1);
+      strncpy((uint *)local_20,(uint *)filename,0x1f);
+      local_20[0x1f] = '\0';
+      pcVar1 = (char *)strtok((byte *)local_20,&DAT_004ea52c);
+      data = sputResource_Alloc(0x4659454b,pcVar1);
+      uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+      if (uVar2 != 0) {
+        local_2c = (uint)atoi(uVar2);
+        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+        local_28 = (uint)atoi(uVar2);
       }
     }
     if (data != (void *)0x0) {
       ref = (ResRef *)
             (*g_pSputCosHS->pAlloc)(0x3c,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xf27);
       pRVar5 = ref;
-      for (iVar3 = 0xf; iVar3 != 0; iVar3 = iVar3 + -1) {
+      for (iVar4 = 0xf; iVar4 != 0; iVar4 = iVar4 + -1) {
         pRVar5->nValid = 0;
         pRVar5 = (ResRef *)&pRVar5->pData;
       }
@@ -304,14 +305,12 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint file
       if (filename == 0) {
         filename = local_24;
       }
-      iVar3 = Cos_RegisterComponent(cosInst,filename,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9fe0));
-      return (uint)(iVar3 != 0);
+      iVar4 = Cos_RegisterComponent(cosInst,filename,(int)ref,tag,parent,type,((unsigned)(uintptr_t)&DAT_004e9fe0));
+      return (uint)(iVar4 != 0);
     }
   }
   return 0;
 }
-#undef local_1
-#undef local_1f
 #undef local_20
 
 

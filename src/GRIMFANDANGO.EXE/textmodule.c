@@ -90,8 +90,7 @@ void __cdecl Text_SysShutdown(void)
 uint __cdecl Text_SysSave(code *write)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0x42747854;
   (*write)(&local_4,4);
@@ -101,8 +100,6 @@ uint __cdecl Text_SysSave(code *write)
   (*write)(&local_4,4);
   return 0;
 }
-#undef local_4
-
 
 /* ---- 0x004aa8d0  Text_SysRestore ---- */
 /* Expects 'TxtB', 1, 0 from the read function Original name Text_SysRestore (the remaster's

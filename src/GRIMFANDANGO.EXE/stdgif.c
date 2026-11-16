@@ -12,7 +12,7 @@
 stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
 
 {
-  unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint f;
   stdBitmap *bitmap;
@@ -26,30 +26,16 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
   byte bVar9;
   int iVar10;
   int iVar11;
-  #define cStack_81 (*(char *)(_frame + (0xa0 - 0x81)))
-  #define iStack_80 (*(int *)(_frame + (0xa0 - 0x80)))
-  #define iStack_7c (*(int *)(_frame + (0xa0 - 0x7c)))
-  #define piStack_78 (*(int **)(_frame + (0xa0 - 0x78)))
-  #define iStack_74 (*(int *)(_frame + (0xa0 - 0x74)))
-  #define iStack_70 (*(int *)(_frame + (0xa0 - 0x70)))
-  #define uStack_6c (*(uint *)(_frame + (0xa0 - 0x6c)))
-  #define sStack_66 (*(short *)(_frame + (0xa0 - 0x66)))
-  #define auStack_64 (*(undefined1 (*)[2])(_frame + (0xa0 - 0x64)))
-  #define sStack_62 (*(short *)(_frame + (0xa0 - 0x62)))
-  #define sStack_60 (*(short *)(_frame + (0xa0 - 0x60)))
-  #define abStack_5e (*(byte (*)[2])(_frame + (0xa0 - 0x5e)))
-  #define cStack_5c (*(char *)(_frame + (0xa0 - 0x5c)))
-  #define cStack_5b (*(char *)(_frame + (0xa0 - 0x5b)))
-  #define cStack_5a (*(char *)(_frame + (0xa0 - 0x5a)))
-  #define cStack_59 (*(char *)(_frame + (0xa0 - 0x59)))
-  #define cStack_58 (*(char *)(_frame + (0xa0 - 0x58)))
-  #define cStack_57 (*(char *)(_frame + (0xa0 - 0x57)))
-  #define auStack_56 (*(undefined1 (*)[2])(_frame + (0xa0 - 0x56)))
-  #define auStack_54 (*(undefined1 (*)[2])(_frame + (0xa0 - 0x54)))
-  #define bStack_52 (*(byte *)(_frame + (0xa0 - 0x52)))
-  #define uStack_51 (*(undefined1 *)(_frame + (0xa0 - 0x51)))
-  #define auStack_50 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x50)))
-  #define VStack_4c (*(VBufferFormat *)(_frame + (0xa0 - 0x4c)))
+  char cStack_81;
+  int iStack_80;
+  int iStack_7c;
+  int *piStack_78;
+  int iStack_74;
+  int iStack_70;
+  uint uStack_6c;
+  GifImageDesc desc;
+  GifHeader header;
+  #define VStack_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
   
   f = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
   if (f == 0) {
@@ -62,26 +48,26 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
   if (bitmap != (stdBitmap *)0x0) {
     bitmap->pPalette = (void *)0x0;
     bitmap->ppFrames = (VBuffer **)0x0;
-    (*g_pStd_HS->pFread)(f,&cStack_5c,3);
-    iVar2 = toupper((int)cStack_5c);
-    if (((iVar2 == 0x47) && (iVar2 = toupper((int)cStack_5b), iVar2 == 0x49)) &&
-       (iVar2 = toupper((int)cStack_5a), iVar2 == 0x46)) {
-      (*g_pStd_HS->pFread)(f,&cStack_59,3);
-      (*g_pStd_HS->pFread)(f,auStack_56,2);
-      (*g_pStd_HS->pFread)(f,auStack_54,2);
-      (*g_pStd_HS->pFread)(f,&bStack_52,1);
-      (*g_pStd_HS->pFread)(f,&uStack_51,1);
-      (*g_pStd_HS->pFread)(f,auStack_50,1);
-      if ((bStack_52 & 0x80) != 0) {
+    (*g_pStd_HS->pFread)(f,&header,3);
+    iVar2 = toupper((int)header.aSignature[0]);
+    if (((iVar2 == 0x47) && (iVar2 = toupper((int)header.aSignature[1]), iVar2 == 0x49)) &&
+       (iVar2 = toupper((int)header.aSignature[2]), iVar2 == 0x46)) {
+      (*g_pStd_HS->pFread)(f,header.aVersion,3);
+      (*g_pStd_HS->pFread)(f,&header.wWidth,2);
+      (*g_pStd_HS->pFread)(f,&header.wHeight,2);
+      (*g_pStd_HS->pFread)(f,&header.bFlags,1);
+      (*g_pStd_HS->pFread)(f,&header.bBackground,1);
+      (*g_pStd_HS->pFread)(f,&header.bAspect,1);
+      if ((header.bFlags & 0x80) != 0) {
         pvVar3 = (void *)(*g_pStd_HS->pAlloc)
                                    (0x300,s_C__grimjedi_Libs_Std_General_Std_004e7884,
                                     DAT_004e787c + 0x3b);
         bitmap->pPalette = pvVar3;
         if (pvVar3 == (void *)0x0) goto LAB_0047e02f;
-        (*g_pStd_HS->pFread)(f,pvVar3,(short)(1 << (bStack_52 & 7) + 1) * 3);
+        (*g_pStd_HS->pFread)(f,pvVar3,(short)(1 << (header.bFlags & 7) + 1) * 3);
       }
-      if (((cStack_59 == '8') && (cStack_58 == '9')) &&
-         (iVar2 = toupper((int)cStack_57), iVar2 == 0x41)) {
+      if (((header.aVersion[0] == '8') && (header.aVersion[1] == '9')) &&
+         (iVar2 = toupper((int)header.aVersion[2]), iVar2 == 0x41)) {
         uVar4 = stdFGetc(f);
         cVar1 = (char)uVar4;
         while (cVar1 == '!') {
@@ -100,11 +86,11 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
         cVar1 = (char)uVar4;
       }
       if (cVar1 == ',') {
-        (*g_pStd_HS->pFread)(f,&sStack_66,2);
-        (*g_pStd_HS->pFread)(f,auStack_64,2);
-        (*g_pStd_HS->pFread)(f,&sStack_62,2);
-        (*g_pStd_HS->pFread)(f,&sStack_60,2);
-        (*g_pStd_HS->pFread)(f,abStack_5e,1);
+        (*g_pStd_HS->pFread)(f,&desc.wLeft,2);
+        (*g_pStd_HS->pFread)(f,&desc.wTop,2);
+        (*g_pStd_HS->pFread)(f,&desc.wWidth,2);
+        (*g_pStd_HS->pFread)(f,&desc.wHeight,2);
+        (*g_pStd_HS->pFread)(f,&desc.bFlags,1);
         uVar4 = 0x1f;
         puVar5 = (uint *)stdFileFromPath(path);
         strncpy((uint *)bitmap,puVar5,uVar4);
@@ -120,15 +106,15 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
                             (4,s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x73);
         bitmap->ppFrames = ppVVar6;
         if (ppVVar6 != (VBuffer **)0x0) {
-          VStack_4c.nWidth = (int)sStack_62;
-          VStack_4c.nHeight = (int)sStack_60;
+          VStack_4c.nWidth = (int)(short)desc.wWidth;
+          VStack_4c.nHeight = (int)(short)desc.wHeight;
           VStack_4c.colorFormat.nColorMode = 0;
           VStack_4c.colorFormat.nBpp = 8;
           pVVar7 = stdDisplay_VBufferNew(&VStack_4c,videoMem,b,0);
           *bitmap->ppFrames = pVVar7;
           if (*bitmap->ppFrames != (VBuffer *)0x0) {
-            if ((abStack_5e[0] & 0x80) != 0) {
-              bVar9 = abStack_5e[0] & 7;
+            if ((desc.bFlags & 0x80) != 0) {
+              bVar9 = desc.bFlags & 7;
               if (bitmap->pPalette == (void *)0x0) {
                 pvVar3 = (void *)(*g_pStd_HS->pAlloc)
                                            (0x300,s_C__grimjedi_Libs_Std_General_Std_004e7884,
@@ -139,14 +125,14 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
               (*g_pStd_HS->pFread)(f,bitmap->pPalette,(short)(1 << bVar9 + 1) * 3);
             }
             iVar2 = (*g_pStd_HS->pAlloc)
-                              (((*bitmap->ppFrames)->format).nWidth + (int)sStack_66,
+                              (((*bitmap->ppFrames)->format).nWidth + (int)(short)desc.wLeft,
                                s_C__grimjedi_Libs_Std_General_Std_004e7884,DAT_004e787c + 0x95);
             iStack_7c = iVar2;
             if (iVar2 != 0) {
               (*g_pStd_HS->pFread)(f,&cStack_81,1);
               stdGif_LzwInitDecoder((short)cStack_81);
               iVar10 = 0;
-              iStack_74 = (-(uint)((abStack_5e[0] & 2) != 0) & 7) + 1;
+              iStack_74 = (-(uint)((desc.bFlags & 2) != 0) & 7) + 1;
               iStack_80 = 0;
               stdDisplay_VBufferLock(*bitmap->ppFrames);
               iStack_70 = 0;
@@ -155,7 +141,7 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
                 piStack_78 = (int *)&DAT_004e780c;
                 do {
                   iVar2 = 0;
-                  if (0 < (pVVar7->format).nWidth + (int)sStack_66) {
+                  if (0 < (pVVar7->format).nWidth + (int)(short)desc.wLeft) {
                     do {
                       uVar4 = stdGif_LzwDecodeNext(f);
                       *(char *)(iVar2 + iStack_7c) = (char)uVar4;
@@ -164,7 +150,7 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
                         goto LAB_0047e02f;
                       }
                       iVar2 = iVar2 + 1;
-                    } while (iVar2 < ((*bitmap->ppFrames)->format).nWidth + (int)sStack_66);
+                    } while (iVar2 < ((*bitmap->ppFrames)->format).nWidth + (int)(short)desc.wLeft);
                   }
                   pVVar7 = *bitmap->ppFrames;
                   if (iVar10 <= (pVVar7->format).nHeight) {
@@ -175,7 +161,7 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
                         iVar11 = iStack_7c + iVar8;
                         iVar8 = iVar8 + 1;
                         *(undefined1 *)((int)pVVar7->pPixels + iVar8 + iVar10 * iVar2 + -1) =
-                             *(undefined1 *)(iVar11 + sStack_66);
+                             *(undefined1 *)(iVar11 + (short)desc.wLeft);
                         pVVar7 = *bitmap->ppFrames;
                         iVar2 = (pVVar7->format).nWidth;
                         iVar10 = iStack_80;
@@ -215,29 +201,6 @@ LAB_0047e02f:
   return (stdBitmap *)0x0;
 }
 #undef VStack_4c
-#undef abStack_5e
-#undef auStack_50
-#undef auStack_54
-#undef auStack_56
-#undef auStack_64
-#undef bStack_52
-#undef cStack_57
-#undef cStack_58
-#undef cStack_59
-#undef cStack_5a
-#undef cStack_5b
-#undef cStack_5c
-#undef cStack_81
-#undef iStack_70
-#undef iStack_74
-#undef iStack_7c
-#undef iStack_80
-#undef piStack_78
-#undef sStack_60
-#undef sStack_62
-#undef sStack_66
-#undef uStack_51
-#undef uStack_6c
 
 
 /* ---- 0x0047e060  stdGif_Write ---- */
@@ -248,7 +211,6 @@ LAB_0047e02f:
 uint __cdecl stdGif_Write(uint filename,int bitmap)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint file;
   int iVar1;
   undefined4 *puVar2;
@@ -258,52 +220,42 @@ uint __cdecl stdGif_Write(uint filename,int bitmap)
   undefined4 *puVar6;
   uint uVar7;
   undefined4 *puVar8;
-  #define auStack_1c (*(undefined1 (*)[2])(_frame + (0x30 - 0x1c)))
-  #define uStack_1a (*(undefined2 *)(_frame + (0x30 - 0x1a)))
-  #define uStack_18 (*(undefined2 *)(_frame + (0x30 - 0x18)))
-  #define uStack_16 (*(undefined2 *)(_frame + (0x30 - 0x16)))
-  #define uStack_14 (*(undefined2 *)(_frame + (0x30 - 0x14)))
-  #define abStack_12 (*(byte (*)[2])(_frame + (0x30 - 0x12)))
-  #define auStack_10 (*(undefined1 (*)[6])(_frame + (0x30 - 0x10)))
-  #define uStack_a (*(undefined2 *)(_frame + (0x30 - 0xa)))
-  #define uStack_8 (*(undefined2 *)(_frame + (0x30 - 0x8)))
-  #define uStack_6 (*(undefined1 *)(_frame + (0x30 - 0x6)))
-  #define uStack_5 (*(undefined1 *)(_frame + (0x30 - 0x5)))
-  #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x30 - 0x4)))
+  GifImageDesc desc;
+  GifHeader header;
   
   iVar3 = bitmap;
   file = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
   if (file != 0) {
-    strncpy((uint *)auStack_10,(uint *)&DAT_004e78b0,3);
-    (*g_pStd_HS->pFwrite)(file,auStack_10,3);
-    strncpy((uint *)(auStack_10 + 3),(uint *)&DAT_004e78ac,3);
-    (*g_pStd_HS->pFwrite)(file,auStack_10 + 3,3);
-    uStack_a = *(undefined2 *)(**(int **)(bitmap + 0x78) + 0xc);
-    uStack_8 = *(undefined2 *)(**(int **)(bitmap + 0x78) + 0x10);
-    uStack_6 = 0xf7;
-    uStack_5 = 0;
-    auStack_4[0] = 0;
-    (*g_pStd_HS->pFwrite)(file,&uStack_a,2);
-    (*g_pStd_HS->pFwrite)(file,&uStack_8,2);
-    (*g_pStd_HS->pFwrite)(file,&uStack_6,1);
-    (*g_pStd_HS->pFwrite)(file,&uStack_5,1);
-    (*g_pStd_HS->pFwrite)(file,auStack_4,1);
+    strncpy((uint *)&header,(uint *)&DAT_004e78b0,3);
+    (*g_pStd_HS->pFwrite)(file,&header,3);
+    strncpy((uint *)header.aVersion,(uint *)&DAT_004e78ac,3);
+    (*g_pStd_HS->pFwrite)(file,header.aVersion,3);
+    header.wWidth = *(ushort *)(**(int **)(bitmap + 0x78) + 0xc);
+    header.wHeight = *(ushort *)(**(int **)(bitmap + 0x78) + 0x10);
+    header.bFlags = 0xf7;
+    header.bBackground = 0;
+    header.bAspect = 0;
+    (*g_pStd_HS->pFwrite)(file,&header.wWidth,2);
+    (*g_pStd_HS->pFwrite)(file,&header.wHeight,2);
+    (*g_pStd_HS->pFwrite)(file,&header.bFlags,1);
+    (*g_pStd_HS->pFwrite)(file,&header.bBackground,1);
+    (*g_pStd_HS->pFwrite)(file,&header.bAspect,1);
     (*g_pStd_HS->pFwrite)(file,*(undefined4 *)(bitmap + 0x60),0x300);
-    auStack_1c[0] = 0x2c;
-    uStack_1a = 0;
-    uStack_18 = 0;
-    uStack_16 = *(undefined2 *)(**(int **)(bitmap + 0x78) + 0xc);
-    uStack_14 = *(undefined2 *)(**(int **)(bitmap + 0x78) + 0x10);
-    abStack_12[0] = 0;
-    (*g_pStd_HS->pFwrite)(file,auStack_1c,1);
-    (*g_pStd_HS->pFwrite)(file,&uStack_1a,2);
-    (*g_pStd_HS->pFwrite)(file,&uStack_18,2);
-    (*g_pStd_HS->pFwrite)(file,&uStack_16,2);
-    (*g_pStd_HS->pFwrite)(file,&uStack_14,2);
-    (*g_pStd_HS->pFwrite)(file,abStack_12,1);
+    desc.bSeparator = 0x2c;
+    desc.wLeft = 0;
+    desc.wTop = 0;
+    desc.wWidth = *(ushort *)(**(int **)(bitmap + 0x78) + 0xc);
+    desc.wHeight = *(ushort *)(**(int **)(bitmap + 0x78) + 0x10);
+    desc.bFlags = 0;
+    (*g_pStd_HS->pFwrite)(file,&desc,1);
+    (*g_pStd_HS->pFwrite)(file,&desc.wLeft,2);
+    (*g_pStd_HS->pFwrite)(file,&desc.wTop,2);
+    (*g_pStd_HS->pFwrite)(file,&desc.wWidth,2);
+    (*g_pStd_HS->pFwrite)(file,&desc.wHeight,2);
+    (*g_pStd_HS->pFwrite)(file,&desc.bFlags,1);
     iVar5 = 1;
     uVar7 = 0;
-    iVar1 = 1 << (abStack_12[0] & 7) + 1;
+    iVar1 = 1 << (desc.bFlags & 7) + 1;
     if (1 < iVar1) {
       do {
         iVar5 = iVar5 * 2;
@@ -372,19 +324,6 @@ uint __cdecl stdGif_Write(uint filename,int bitmap)
   (*g_pStd_HS->pFclose)(file);
   return 0;
 }
-#undef abStack_12
-#undef auStack_10
-#undef auStack_1c
-#undef auStack_4
-#undef uStack_14
-#undef uStack_16
-#undef uStack_18
-#undef uStack_1a
-#undef uStack_5
-#undef uStack_6
-#undef uStack_8
-#undef uStack_a
-
 
 /* ---- 0x0047e3c0  stdGif_LzwInitDecoder ---- */
 /* WARNING: Globals starting with '_' overlap smaller symbols at the same address */

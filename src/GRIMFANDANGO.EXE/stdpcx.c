@@ -125,11 +125,7 @@ undefined4 * __cdecl stdPcx_Load(uint name,int videoMem,int b)
   VBufferFormat *pVVar11;
   byte *pbVar12;
   #define VStack_cc (*(VBufferFormat *)(_frame + (0xe0 - 0xcc)))
-  #define acStack_80 (*(char (*)[3])(_frame + (0xe0 - 0x80)))
-  #define uStack_7d (*(uint *)(_frame + (0xe0 - 0x7d)))
-  #define sStack_78 (*(short *)(_frame + (0xe0 - 0x78)))
-  #define sStack_76 (*(short *)(_frame + (0xe0 - 0x76)))
-  #define sStack_3e (*(short *)(_frame + (0xe0 - 0x3e)))
+  PcxHeader header;
   
   f = (*g_pStd_HS->pFopen)(name,&DAT_004ddb18);
   if (f == 0) {
@@ -147,14 +143,14 @@ undefined4 * __cdecl stdPcx_Load(uint name,int videoMem,int b)
       psVar10->aName[3] = '\0';
       psVar10 = (stdBitmap *)(psVar10->aName + 4);
     }
-    (*g_pStd_HS->pFread)(f,acStack_80,0x80);
-    if (acStack_80[0] == '\n') {
+    (*g_pStd_HS->pFread)(f,&header,0x80);
+    if (header.bManufacturer == 10) {
       bitmap->nType = 0;
       bitmap->dwPalFlags = 2;
       bitmap->nFrames = 1;
       bitmap->nCurFrame = 0;
       (bitmap->colorFormat).nColorMode = 0;
-      (bitmap->colorFormat).nBpp = uStack_7d & 0xff;
+      (bitmap->colorFormat).nBpp = PIECE(header,3,4) & 0xff;
       ppVVar2 = (VBuffer **)
                 (*g_pStd_HS->pAlloc)
                           (4,s_C__grimjedi_Libs_Std_General_Std_004e78b8,DAT_004e78b4 + 0x33);
@@ -166,13 +162,14 @@ undefined4 * __cdecl stdPcx_Load(uint name,int videoMem,int b)
           pVVar11 = (VBufferFormat *)&pVVar11->nHeight;
         }
         VStack_cc.colorFormat.nColorMode = 0;
-        VStack_cc.colorFormat.nBpp = uStack_7d & 0xff;
-        VStack_cc.nWidth = (int)sStack_3e / (int)((uint)VStack_cc.colorFormat.nBpp >> 3);
-        VStack_cc.nHeight = sStack_76 + 1;
+        VStack_cc.colorFormat.nBpp = PIECE(header,3,4) & 0xff;
+        VStack_cc.nWidth =
+             (int)(short)header.wBytesPerLine / (int)((uint)VStack_cc.colorFormat.nBpp >> 3);
+        VStack_cc.nHeight = (short)header.wYMax + 1;
         pVVar3 = stdDisplay_VBufferNew(&VStack_cc,videoMem,b,0);
         *bitmap->ppFrames = pVVar3;
         if (*bitmap->ppFrames != (VBuffer *)0x0) {
-          ((*bitmap->ppFrames)->format).nWidth = sStack_78 + 1;
+          ((*bitmap->ppFrames)->format).nWidth = (short)header.wXMax + 1;
           stdDisplay_VBufferLock(*bitmap->ppFrames);
           pbVar9 = (*bitmap->ppFrames)->pPixels;
           if (((*bitmap->ppFrames)->format).dwSize != 0) {
@@ -222,11 +219,6 @@ undefined4 * __cdecl stdPcx_Load(uint name,int videoMem,int b)
   return (undefined4 *)0x0;
 }
 #undef VStack_cc
-#undef acStack_80
-#undef sStack_3e
-#undef sStack_76
-#undef sStack_78
-#undef uStack_7d
 
 
 /* ---- 0x0047ef10  stdPcx_Write ---- */
@@ -236,7 +228,6 @@ undefined4 * __cdecl stdPcx_Load(uint name,int videoMem,int b)
 uint __cdecl stdPcx_Write(uint filename,int bitmap)
 
 {
-  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   int *piVar2;
   int iVar3;
@@ -247,58 +238,47 @@ uint __cdecl stdPcx_Write(uint filename,int bitmap)
   undefined3 uVar7;
   undefined3 extraout_var;
   uint uVar8;
-  undefined4 *puVar9;
-  uint uVar10;
+  byte *pbVar9;
+  ushort *puVar10;
+  uint uVar11;
   uint uStack_94;
   uint uStack_8c;
-  #define local_80 (*(undefined1 *)(_frame + (0x90 - 0x80)))
-  #define local_7f (*(undefined1 *)(_frame + (0x90 - 0x7f)))
-  #define local_7e (*(undefined1 *)(_frame + (0x90 - 0x7e)))
-  #define local_7d (*(undefined1 *)(_frame + (0x90 - 0x7d)))
-  #define local_7c (*(undefined2 *)(_frame + (0x90 - 0x7c)))
-  #define local_7a (*(undefined2 *)(_frame + (0x90 - 0x7a)))
-  #define local_78 (*(short *)(_frame + (0x90 - 0x78)))
-  #define local_76 (*(short *)(_frame + (0x90 - 0x76)))
-  #define local_74 (*(undefined2 *)(_frame + (0x90 - 0x74)))
-  #define local_72 (*(undefined2 *)(_frame + (0x90 - 0x72)))
-  #define local_70 (*(undefined4 (*)[12])(_frame + (0x90 - 0x70)))
-  #define local_40 (*(undefined1 *)(_frame + (0x90 - 0x40)))
-  #define local_3f (*(undefined1 *)(_frame + (0x90 - 0x3f)))
-  #define local_3e (*(undefined2 *)(_frame + (0x90 - 0x3e)))
-  #define local_3c (*(undefined2 *)(_frame + (0x90 - 0x3c)))
-  #define local_3a (*(undefined4 (*)[14])(_frame + (0x90 - 0x3a)))
+  PcxHeader header;
   
-  local_80 = 10;
+  header.bManufacturer = 10;
   piVar2 = *(int **)(bitmap + 0x78);
-  local_7f = 5;
-  local_7e = 1;
-  local_7d = 8;
-  local_7c = 0;
-  local_7a = 0;
-  local_78 = *(short *)(*piVar2 + 0xc) + -1;
-  local_76 = *(short *)(*piVar2 + 0x10) + -1;
-  local_74 = *(undefined2 *)(*piVar2 + 0xc);
-  local_72 = *(undefined2 *)(*piVar2 + 0x10);
-  local_40 = 0;
-  local_3f = 1;
-  local_3e = *(undefined2 *)(*piVar2 + 0xc);
-  local_3c = 0;
-  puVar9 = local_70;
+  header.bVersion = 5;
+  header.bEncoding = 1;
+  header.bBitsPerPixel = 8;
+  header.wXMin = 0;
+  header.wYMin = 0;
+  header.wXMax = *(short *)(*piVar2 + 0xc) - 1;
+  header.wYMax = *(short *)(*piVar2 + 0x10) - 1;
+  header.wHDpi = *(ushort *)(*piVar2 + 0xc);
+  header.wVDpi = *(ushort *)(*piVar2 + 0x10);
+  header.bReserved = 0;
+  header.bPlanes = 1;
+  header.wBytesPerLine = *(ushort *)(*piVar2 + 0xc);
+  header.wPaletteInfo = 0;
+  pbVar9 = header.aPalette;
   for (iVar6 = 0xc; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *puVar9 = 0;
-    puVar9 = puVar9 + 1;
+    pbVar9[0] = 0;
+    pbVar9[1] = 0;
+    pbVar9[2] = 0;
+    pbVar9[3] = 0;
+    pbVar9 = pbVar9 + 4;
   }
-  puVar9 = local_3a;
+  puVar10 = &header.wHScreen;
   for (iVar6 = 0xe; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *puVar9 = 0;
-    puVar9 = puVar9 + 1;
+    *(undefined4 *)puVar10 = 0;
+    puVar10 = puVar10 + 2;
   }
-  *(undefined2 *)puVar9 = 0;
+  *puVar10 = 0;
   f = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
   if (f == 0) {
     return 0;
   }
-  (*g_pStd_HS->pFwrite)(f,&local_80,0x80);
+  (*g_pStd_HS->pFwrite)(f,&header,0x80);
   iVar6 = **(int **)(bitmap + 0x78);
   iVar3 = *(int *)(iVar6 + 0x5c);
   uStack_8c = 0;
@@ -306,32 +286,32 @@ uint __cdecl stdPcx_Write(uint filename,int bitmap)
     do {
       uVar8 = *(uint *)(iVar6 + 0xc);
       iVar6 = uStack_8c * uVar8 + iVar3;
-      uVar10 = 0;
+      uVar11 = 0;
       uVar4 = uStack_8c;
       if (uVar8 != 0) {
         do {
-          bVar1 = *(byte *)(uVar10 + iVar6);
+          bVar1 = *(byte *)(uVar11 + iVar6);
           uVar7 = (undefined3)(uVar4 >> 8);
           bVar5 = 1;
           uStack_94 = 1;
-          if (bVar1 == *(byte *)(uVar10 + 1 + iVar6)) {
+          if (bVar1 == *(byte *)(uVar11 + 1 + iVar6)) {
             uVar4 = 1;
             do {
-              if ((uVar8 <= uVar4 + uVar10) || (0x3e < bVar5)) break;
+              if ((uVar8 <= uVar4 + uVar11) || (0x3e < bVar5)) break;
               bVar5 = bVar5 + 1;
               uStack_94 = (uint)bVar5;
               uVar4 = (uint)bVar5;
-            } while (bVar1 == ((undefined1 *)(uVar10 + iVar6))[uVar4]);
+            } while (bVar1 == ((undefined1 *)(uVar11 + iVar6))[uVar4]);
           }
           if ((1 < bVar5) || (0xbf < bVar1)) {
             stdFPutc(CONCAT31(uVar7,bVar5) | 0xc0,f);
             uVar7 = extraout_var;
           }
-          stdFPutc(CONCAT31(uVar7,*(undefined1 *)(uVar10 + iVar6)),f);
-          uVar10 = uVar10 + uStack_94;
+          stdFPutc(CONCAT31(uVar7,*(undefined1 *)(uVar11 + iVar6)),f);
+          uVar11 = uVar11 + uStack_94;
           uVar4 = **(uint **)(bitmap + 0x78);
           uVar8 = *(uint *)(uVar4 + 0xc);
-        } while (uVar10 < uVar8);
+        } while (uVar11 < uVar8);
       }
       uStack_8c = uStack_8c + 1;
       iVar6 = **(int **)(bitmap + 0x78);
@@ -342,20 +322,3 @@ uint __cdecl stdPcx_Write(uint filename,int bitmap)
   (*g_pStd_HS->pFclose)(f);
   return 1;
 }
-#undef local_3a
-#undef local_3c
-#undef local_3e
-#undef local_3f
-#undef local_40
-#undef local_70
-#undef local_72
-#undef local_74
-#undef local_76
-#undef local_78
-#undef local_7a
-#undef local_7c
-#undef local_7d
-#undef local_7e
-#undef local_7f
-#undef local_80
-

@@ -965,23 +965,19 @@ void __cdecl LightEd_SetLightAngle(int lightEdSelected,short axis,uint value)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
-  local_c = 0.0f;
+  local_c[0] = 0.0f;
   (&UINT_008d1738)[lightEdSelected * 5 + (int)axis] = value;
-  local_8 = 0x3f800000;
-  local_4 = 0;
-  rdVector_Rotate3Acc(&local_c,(float *)(&UINT_008d1738 + lightEdSelected * 5));
+  local_c[1] = 1.0f;
+  local_c[2] = 0.0f;
+  rdVector_Rotate3Acc(local_c,(float *)(&UINT_008d1738 + lightEdSelected * 5));
   uVar1 = (&UINT_008d1730)[lightEdSelected * 5];
-  *(float *)(uVar1 + 0x38) = local_c;
-  *(uint *)(uVar1 + 0x3c) = local_8;
-  *(uint *)(uVar1 + 0x40) = local_4;
+  *(float *)(uVar1 + 0x38) = local_c[0];
+  *(float *)(uVar1 + 0x3c) = local_c[1];
+  *(float *)(uVar1 + 0x40) = local_c[2];
   return;
 }
-#undef local_4
-#undef local_8
 #undef local_c
 
 

@@ -41,13 +41,12 @@ void __cdecl freeHash(Hash *t)
 void __cdecl luaH_save(undefined *writer,int h)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int a1;
   int *piVar1;
   int iVar2;
   uint uVar3;
-  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_8;
+  int local_4;
   
   uVar3 = 0;
   local_8 = 0;
@@ -86,9 +85,6 @@ void __cdecl luaH_save(undefined *writer,int h)
   }
   return;
 }
-#undef local_4
-#undef local_8
-
 
 /* ---- 0x1000c2e0  luaH_load ---- */
 /* Original name luaH_load (the remaster's libLua.so: luaH_load: callee LoadObject, caller

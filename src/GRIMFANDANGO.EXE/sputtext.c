@@ -156,11 +156,10 @@ void __cdecl sputText_Shutdown(void)
 uint __cdecl sputText_Save(code *write)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   TextObject *pTVar1;
   undefined uVar2;
   undefined3 extraout_var;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   local_4 = 0;
   for (pTVar1 = g_pTextQueue; pTVar1 != (TextObject *)0x0; pTVar1 = pTVar1->pNext) {
@@ -201,8 +200,6 @@ uint __cdecl sputText_Save(code *write)
   (*write)(((unsigned)(uintptr_t)((unsigned char *)&g_TextObjectCtx + 0x8)),4);
   return 0;
 }
-#undef local_4
-
 
 /* ---- 0x0048cd80  sputText_Restore ---- */
 /* Module interface slot 5 (sputText): save-game reader, calls the SaveGame_Read callback it is
@@ -213,7 +210,6 @@ uint __cdecl sputText_Save(code *write)
 uint __cdecl sputText_Restore(code *read)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   TextContext *pTVar1;
   void **ppvVar2;
   code *pcVar3;
@@ -221,7 +217,7 @@ uint __cdecl sputText_Restore(code *read)
   undefined3 extraout_var;
   TextObject *pTVar5;
   void *pvVar6;
-  #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int local_4;
   
   pcVar3 = read;
   while (g_pTextQueue != (TextObject *)0x0) {
@@ -295,5 +291,3 @@ uint __cdecl sputText_Restore(code *read)
   }
   return 1;
 }
-#undef local_4
-
