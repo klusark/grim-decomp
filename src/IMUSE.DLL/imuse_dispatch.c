@@ -653,3 +653,17 @@ void __cdecl iMUSE_Dispatch__3640(int buf)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_10024df0[1192] __asm__("_DAT_10024df0");
+extern unsigned char grim_def_DAT_10025abc[32036] __asm__("_DAT_10025abc");
+extern unsigned char grim_def_g_dwPredictStream_jumpHook[4] __asm__("_g_dwPredictStream_jumpHook");
+extern unsigned int grim_def_g_dwPrepareToJump_fadeSize __asm__("_g_dwPrepareToJump_fadeSize");
+/* 0x10024dd8, 4 bytes */ GRIM_DATA("10024dd8") unsigned char grim_def_g_dwPredictStream_jumpHook[4] __asm__("_g_dwPredictStream_jumpHook") = {0};
+/* 0x10024df0, 1192 bytes */ GRIM_DATA("10024df0") unsigned char grim_def_DAT_10024df0[1192] __asm__("_DAT_10024df0") = {0};
+/* 0x10025abc, 32036 bytes */ GRIM_DATA("10025abc") unsigned char grim_def_DAT_10025abc[32036] __asm__("_DAT_10025abc") = {0};
+/* 0x1002d80c, 4 bytes */ GRIM_DATA("1002d80c") unsigned int grim_def_g_dwPrepareToJump_fadeSize __asm__("_g_dwPrepareToJump_fadeSize") = 0x0;

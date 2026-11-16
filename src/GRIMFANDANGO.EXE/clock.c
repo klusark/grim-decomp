@@ -22,3 +22,13 @@ int __cdecl Clock_ElapsedMs(void)
 #undef local_8
 #undef local_c
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_UINT_008d0af8 __asm__("_UINT_008d0af8");
+extern unsigned char grim_def_UINT_008d0afc[12] __asm__("_UINT_008d0afc");
+/* 0x008d0af8, 4 bytes */ GRIM_DATA("008d0af8") unsigned int grim_def_UINT_008d0af8 __asm__("_UINT_008d0af8") = 0x0;
+/* 0x008d0afc, 12 bytes */ GRIM_DATA("008d0afc") unsigned char grim_def_UINT_008d0afc[12] __asm__("_UINT_008d0afc") = {0};

@@ -880,3 +880,53 @@ void __cdecl stdPalEffects_ResetEffect(undefined4 *effect)
   effect[9] = 0x3f800000;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004df550[8] __asm__("_DAT_004df550");
+extern unsigned char grim_def_DAT_004df558[4] __asm__("_DAT_004df558");
+extern unsigned char grim_def_DAT_004df55c[12] __asm__("_DAT_004df55c");
+extern unsigned char grim_def_DAT_004df568[8] __asm__("_DAT_004df568");
+extern unsigned char grim_def_DAT_004df570[4] __asm__("_DAT_004df570");
+extern char grim_def_s_BM_004df5a0[8] __asm__("_s_BM_004df5a0");
+extern char grim_def_s_C__grimjedi_Libs_Std_General_Std_004df574[44] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004df574");
+extern char grim_def_s_Unable_to_allocate_a_new_frame_w_004df5a8[88] __asm__("_s_Unable_to_allocate_a_new_frame_w_004df5a8");
+extern char grim_def_s__bm_004ddeb0[4] __asm__("_s__bm_004ddeb0");
+extern char grim_def_s__bmp_004dde98[8] __asm__("_s__bmp_004dde98");
+extern char grim_def_s__gif_004ddeb4[8] __asm__("_s__gif_004ddeb4");
+extern char grim_def_s__lbm_004ddec4[8] __asm__("_s__lbm_004ddec4");
+extern char grim_def_s__pcx_004ddebc[8] __asm__("_s__pcx_004ddebc");
+extern char grim_def_s__pic_004ddea0[8] __asm__("_s__pic_004ddea0");
+extern char grim_def_s__zbm_004ddea8[8] __asm__("_s__zbm_004ddea8");
+extern char grim_def_s_bm_004ddee0[8] __asm__("_s_bm_004ddee0");
+extern char grim_def_s_bmp_004ddecc[4] __asm__("_s_bmp_004ddecc");
+extern char grim_def_s_gif_004dded0[4] __asm__("_s_gif_004dded0");
+extern char grim_def_s_lbm_004dded8[4] __asm__("_s_lbm_004dded8");
+extern char grim_def_s_pcx_004dded4[4] __asm__("_s_pcx_004dded4");
+extern char grim_def_s_wb__004ddb1c[4] __asm__("_s_wb__004ddb1c");
+extern char grim_def_s_zbm_004ddedc[4] __asm__("_s_zbm_004ddedc");
+/* 0x004ddb1c, 4 bytes */ GRIM_DATA("004ddb1c") char grim_def_s_wb__004ddb1c[4] __asm__("_s_wb__004ddb1c") = "wb+";
+/* 0x004dde98, 8 bytes */ GRIM_DATA("004dde98") char grim_def_s__bmp_004dde98[8] __asm__("_s__bmp_004dde98") = ".bmp";
+/* 0x004ddea0, 8 bytes */ GRIM_DATA("004ddea0") char grim_def_s__pic_004ddea0[8] __asm__("_s__pic_004ddea0") = ".pic";
+/* 0x004ddea8, 8 bytes */ GRIM_DATA("004ddea8") char grim_def_s__zbm_004ddea8[8] __asm__("_s__zbm_004ddea8") = ".zbm";
+/* 0x004ddeb0, 4 bytes */ GRIM_DATA("004ddeb0") char grim_def_s__bm_004ddeb0[4] __asm__("_s__bm_004ddeb0") = ".bm";
+/* 0x004ddeb4, 8 bytes */ GRIM_DATA("004ddeb4") char grim_def_s__gif_004ddeb4[8] __asm__("_s__gif_004ddeb4") = ".gif";
+/* 0x004ddebc, 8 bytes */ GRIM_DATA("004ddebc") char grim_def_s__pcx_004ddebc[8] __asm__("_s__pcx_004ddebc") = ".pcx";
+/* 0x004ddec4, 8 bytes */ GRIM_DATA("004ddec4") char grim_def_s__lbm_004ddec4[8] __asm__("_s__lbm_004ddec4") = ".lbm";
+/* 0x004ddecc, 4 bytes */ GRIM_DATA("004ddecc") char grim_def_s_bmp_004ddecc[4] __asm__("_s_bmp_004ddecc") = "bmp";
+/* 0x004dded0, 4 bytes */ GRIM_DATA("004dded0") char grim_def_s_gif_004dded0[4] __asm__("_s_gif_004dded0") = "gif";
+/* 0x004dded4, 4 bytes */ GRIM_DATA("004dded4") char grim_def_s_pcx_004dded4[4] __asm__("_s_pcx_004dded4") = "pcx";
+/* 0x004dded8, 4 bytes */ GRIM_DATA("004dded8") char grim_def_s_lbm_004dded8[4] __asm__("_s_lbm_004dded8") = "lbm";
+/* 0x004ddedc, 4 bytes */ GRIM_DATA("004ddedc") char grim_def_s_zbm_004ddedc[4] __asm__("_s_zbm_004ddedc") = "zbm";
+/* 0x004ddee0, 8 bytes */ GRIM_DATA("004ddee0") char grim_def_s_bm_004ddee0[8] __asm__("_s_bm_004ddee0") = "bm";
+/* 0x004df550, 8 bytes */ GRIM_DATA("004df550") unsigned char grim_def_DAT_004df550[8] __asm__("_DAT_004df550") = { 0x3c, 0x00, 0x00, 0x00, 0x5f };
+/* 0x004df558, 4 bytes */ GRIM_DATA("004df558") unsigned char grim_def_DAT_004df558[4] __asm__("_DAT_004df558") = { 0xaf };
+/* 0x004df55c, 12 bytes */ GRIM_DATA("004df55c") unsigned char grim_def_DAT_004df55c[12] __asm__("_DAT_004df55c") = { 0x82, 0x02, 0x00, 0x00, 0x02, 0x03, 0x00, 0x00, 0x6d, 0x03 };
+/* 0x004df568, 8 bytes */ GRIM_DATA("004df568") unsigned char grim_def_DAT_004df568[8] __asm__("_DAT_004df568") = { 0x92, 0x03, 0x00, 0x00, 0xdc, 0x03 };
+/* 0x004df570, 4 bytes */ GRIM_DATA("004df570") unsigned char grim_def_DAT_004df570[4] __asm__("_DAT_004df570") = { 0x0a, 0x04 };
+/* 0x004df574, 44 bytes */ GRIM_DATA("004df574") char grim_def_s_C__grimjedi_Libs_Std_General_Std_004df574[44] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004df574") = "C:\\grimjedi\\Libs\\Std\\General\\Stdbitmap.c";
+/* 0x004df5a0, 8 bytes */ GRIM_DATA("004df5a0") char grim_def_s_BM_004df5a0[8] __asm__("_s_BM_004df5a0") = "BM  ";
+/* 0x004df5a8, 88 bytes */ GRIM_DATA("004df5a8") char grim_def_s_Unable_to_allocate_a_new_frame_w_004df5a8[88] __asm__("_s_Unable_to_allocate_a_new_frame_w_004df5a8") = "Unable to allocate a new frame when converting image from 24 to 16bpp.\000\000%\000\000\000\263\001\000\000\321\001";

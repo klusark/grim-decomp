@@ -254,3 +254,22 @@ void __cdecl rdRaster_Startup(void)
   } while (iVar1 < 0x40);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern float grim_def_FLOAT_004ddb30 __asm__("_FLOAT_004ddb30");
+extern unsigned char grim_def_UINT_008fbfc4[8188] __asm__("_UINT_008fbfc4");
+extern unsigned char grim_def_UINT_008fdfc0[64] __asm__("_UINT_008fdfc0");
+extern unsigned char grim_def_UINT_008fe004[8188] __asm__("_UINT_008fe004");
+extern unsigned int grim_def_g_dwRDroidOpen __asm__("_g_dwRDroidOpen");
+extern unsigned int grim_def_g_dwRDroidStartup __asm__("_g_dwRDroidStartup");
+/* 0x004ddb30, 12 bytes */ GRIM_DATA("004ddb30") float grim_def_FLOAT_004ddb30 __asm__("_FLOAT_004ddb30") = 65536.0f;
+/* 0x004ddb34, 8 bytes: the rest of grim_def_FLOAT_004ddb30's span */ GRIM_DATA("004ddb30") static unsigned char FLOAT_004ddb30__tail[8] __attribute__((used)) = { 0x00, 0x00, 0x80, 0x45, 0x00, 0x00, 0x80, 0x3f };
+/* 0x004f5eb8, 4 bytes */ GRIM_DATA("004f5eb8") unsigned int grim_def_g_dwRDroidStartup __asm__("_g_dwRDroidStartup") = 0x0;
+/* 0x004f5ebc, 4 bytes */ GRIM_DATA("004f5ebc") unsigned int grim_def_g_dwRDroidOpen __asm__("_g_dwRDroidOpen") = 0x0;
+/* 0x008fbfc4, 8188 bytes */ GRIM_DATA("008fbfc4") unsigned char grim_def_UINT_008fbfc4[8188] __asm__("_UINT_008fbfc4") = {0};
+/* 0x008fdfc0, 64 bytes */ GRIM_DATA("008fdfc0") unsigned char grim_def_UINT_008fdfc0[64] __asm__("_UINT_008fdfc0") = {0};
+/* 0x008fe004, 8188 bytes */ GRIM_DATA("008fe004") unsigned char grim_def_UINT_008fe004[8188] __asm__("_UINT_008fe004") = {0};

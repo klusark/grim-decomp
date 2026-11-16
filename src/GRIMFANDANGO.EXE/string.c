@@ -542,3 +542,12 @@ int __cdecl Str_CompareNoCaseN(char *a,char *b,int n)
   }
   return iVar3;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_g_bFindMatch_stringBuffer __asm__("_g_bFindMatch_stringBuffer");
+/* 0x008d36e8, 8192 bytes */ GRIM_DATA("008d36e8") unsigned char grim_def_g_bFindMatch_stringBuffer __asm__("_g_bFindMatch_stringBuffer") = 0x0;
+/* 0x008d36e9, 8191 bytes: the rest of grim_def_g_bFindMatch_stringBuffer's span */ GRIM_DATA("008d36e8") static unsigned char g_bFindMatch_stringBuffer__tail[8191] __attribute__((used)) = {0};

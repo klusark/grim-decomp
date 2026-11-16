@@ -5966,3 +5966,780 @@ void __cdecl Im_RunDeferredCommand(int entry)
 /* ---- 0x1000be80  Im_StrCmpNoCase ---- */
 /* not in the source: names/lib_replace.json (host): the system C runtime (msvcrt.dll) has it */
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_100152da[6] __asm__("_DAT_100152da");
+extern unsigned char grim_def_DAT_10017050[8] __asm__("_DAT_10017050");
+extern unsigned int grim_def_DAT_10017058 __asm__("_DAT_10017058");
+extern unsigned char grim_def_DAT_1001705c[8] __asm__("_DAT_1001705c");
+extern unsigned char grim_def_DAT_10017064[8] __asm__("_DAT_10017064");
+extern unsigned char grim_def_DAT_1001706c[8] __asm__("_DAT_1001706c");
+extern unsigned char grim_def_DAT_1001707c[8] __asm__("_DAT_1001707c");
+extern unsigned char grim_def_DAT_10017084[4] __asm__("_DAT_10017084");
+extern unsigned char grim_def_DAT_10017088[8] __asm__("_DAT_10017088");
+extern unsigned char grim_def_DAT_10017090[8] __asm__("_DAT_10017090");
+extern unsigned char grim_def_DAT_100170a0[8] __asm__("_DAT_100170a0");
+extern unsigned char grim_def_DAT_100170a8[8] __asm__("_DAT_100170a8");
+extern unsigned char grim_def_DAT_100170b0[8] __asm__("_DAT_100170b0");
+extern unsigned char grim_def_DAT_100170b8[8] __asm__("_DAT_100170b8");
+extern unsigned char grim_def_DAT_100170f0[20] __asm__("_DAT_100170f0");
+extern unsigned char grim_def_DAT_1001ae4c[4] __asm__("_DAT_1001ae4c");
+extern unsigned char grim_def_DAT_1001bbc4[4] __asm__("_DAT_1001bbc4");
+extern unsigned char grim_def_DAT_1001e99c[28] __asm__("_DAT_1001e99c");
+extern unsigned char grim_def_DAT_1001e9b8[8] __asm__("_DAT_1001e9b8");
+extern unsigned char grim_def_DAT_10022140[128] __asm__("_DAT_10022140");
+extern unsigned char grim_def_DAT_100221c0[11264] __asm__("_DAT_100221c0");
+extern unsigned char grim_def_DAT_10024dc0[8] __asm__("_DAT_10024dc0");
+extern unsigned char grim_def_DAT_1002d7f0[24] __asm__("_DAT_1002d7f0");
+extern unsigned int grim_def_DAT_1002d814 __asm__("_DAT_1002d814");
+extern unsigned char grim_def_DAT_1002d818[4] __asm__("_DAT_1002d818");
+extern unsigned int grim_def_DAT_1002d820 __asm__("_DAT_1002d820");
+extern unsigned int grim_def_DAT_1002d82c __asm__("_DAT_1002d82c");
+extern unsigned char grim_def_DAT_1002d840[4] __asm__("_DAT_1002d840");
+extern unsigned int grim_def_DAT_1002d844 __asm__("_DAT_1002d844");
+extern unsigned int grim_def_DAT_1002d848 __asm__("_DAT_1002d848");
+extern unsigned char grim_def_DAT_1002d850[4] __asm__("_DAT_1002d850");
+extern unsigned char grim_def_DAT_1002d854[4] __asm__("_DAT_1002d854");
+extern unsigned char grim_def_DAT_1002d880[608] __asm__("_DAT_1002d880");
+extern unsigned char grim_def_DAT_1002dd14[4] __asm__("_DAT_1002dd14");
+extern unsigned int grim_def_DAT_1002dd18 __asm__("_DAT_1002dd18");
+extern unsigned char grim_def_DAT_1002dd1c[4] __asm__("_DAT_1002dd1c");
+extern unsigned char grim_def_DAT_1002dd24[4] __asm__("_DAT_1002dd24");
+extern unsigned char grim_def_DAT_1002dd28[4] __asm__("_DAT_1002dd28");
+extern unsigned char grim_def_DAT_1002dd84[60] __asm__("_DAT_1002dd84");
+extern unsigned char grim_def_DAT_1002ddc4[60] __asm__("_DAT_1002ddc4");
+extern unsigned char grim_def_DAT_1002df28[8] __asm__("_DAT_1002df28");
+extern unsigned char grim_def_DAT_1002df68[4] __asm__("_DAT_1002df68");
+extern unsigned char grim_def_DAT_1002df6c[4] __asm__("_DAT_1002df6c");
+extern unsigned char grim_def_DAT_1002df78[12] __asm__("_DAT_1002df78");
+extern unsigned char grim_def_DAT_1002df84[728] __asm__("_DAT_1002df84");
+extern unsigned char grim_def_DAT_1002e25c[168] __asm__("_DAT_1002e25c");
+extern unsigned int grim_def_DAT_1002e304 __asm__("_DAT_1002e304");
+extern unsigned char grim_def_DAT_1002e311[31] __asm__("_DAT_1002e311");
+extern unsigned char grim_def_DAT_1002e330[8] __asm__("_DAT_1002e330");
+extern unsigned char grim_def_DAT_1002e338[8] __asm__("_DAT_1002e338");
+extern unsigned char grim_def_DAT_1002fbb8[24] __asm__("_DAT_1002fbb8");
+extern unsigned char grim_def_DAT_100303a4[4] __asm__("_DAT_100303a4");
+extern unsigned char grim_def_DAT_100303a8[4] __asm__("_DAT_100303a8");
+extern unsigned char grim_def_DAT_100303ac[4] __asm__("_DAT_100303ac");
+extern unsigned char grim_def_DAT_100303b0[4] __asm__("_DAT_100303b0");
+extern unsigned char grim_def_DAT_100303b4[4] __asm__("_DAT_100303b4");
+extern unsigned char grim_def_DAT_100303b8[4] __asm__("_DAT_100303b8");
+extern unsigned char grim_def_DAT_100303bc[4] __asm__("_DAT_100303bc");
+extern unsigned char grim_def_DAT_100303c0[4] __asm__("_DAT_100303c0");
+extern unsigned char grim_def_DAT_100303c4[4] __asm__("_DAT_100303c4");
+extern unsigned char grim_def_DAT_100303c8[4] __asm__("_DAT_100303c8");
+extern unsigned char grim_def_DAT_100303cc[4] __asm__("_DAT_100303cc");
+extern unsigned char grim_def_DAT_100303d0[4] __asm__("_DAT_100303d0");
+extern unsigned char grim_def_DAT_10031554[4] __asm__("_DAT_10031554");
+extern unsigned char grim_def_DAT_10031558[8] __asm__("_DAT_10031558");
+extern unsigned char grim_def_DAT_10031e80[4] __asm__("_DAT_10031e80");
+extern unsigned char grim_def_DAT_10031f28[8] __asm__("_DAT_10031f28");
+extern unsigned char grim_def_DAT_10031f30[952] __asm__("_DAT_10031f30");
+extern unsigned char grim_def_DAT_10032308[4] __asm__("_DAT_10032308");
+extern unsigned int grim_def_DAT_10032310 __asm__("_DAT_10032310");
+extern unsigned char grim_def_DAT_10032424[2204] __asm__("_DAT_10032424");
+extern unsigned int grim_def_DAT_10032cc0 __asm__("_DAT_10032cc0");
+extern unsigned char grim_def_DAT_10032cc4[380] __asm__("_DAT_10032cc4");
+extern unsigned char grim_def_DAT_10032f48[8] __asm__("_DAT_10032f48");
+extern unsigned char grim_def_DAT_10033568[312] __asm__("_DAT_10033568");
+extern unsigned char grim_def_DAT_100336a8[4] __asm__("_DAT_100336a8");
+extern unsigned char grim_def_PTR_100170ec[4] __asm__("_PTR_100170ec");
+extern unsigned char grim_def_PTR_1002d830[4] __asm__("_PTR_1002d830");
+extern unsigned char grim_def_PTR_1002d834[4] __asm__("_PTR_1002d834");
+extern unsigned char grim_def_PTR_1002d838[4] __asm__("_PTR_1002d838");
+extern unsigned int grim_def_UINT_1002dd20 __asm__("_UINT_1002dd20");
+extern ImNameAlias grim_def_g_aImNameAlias[171] __asm__("_g_aImNameAlias");
+extern ImMusicEntry grim_def_g_aImSeqTable[41] __asm__("_g_aImSeqTable");
+extern ImMusicEntry grim_def_g_aImStateTable[181] __asm__("_g_aImStateTable");
+extern unsigned char grim_def_g_aLipSfx1Data[2000] __asm__("_g_aLipSfx1Data");
+extern unsigned char grim_def_g_aLipSfx2Data[2000] __asm__("_g_aLipSfx2Data");
+extern unsigned char grim_def_g_aMxEndMix_wavHeader[44] __asm__("_g_aMxEndMix_wavHeader");
+extern unsigned char grim_def_g_aTrInitialize_waveDriverInfo[16] __asm__("_g_aTrInitialize_waveDriverInfo");
+extern char grim_def_g_abAdpcmIndexAdjust2[] __asm__("_g_abAdpcmIndexAdjust2");
+extern char grim_def_g_abAdpcmIndexAdjust3[] __asm__("_g_abAdpcmIndexAdjust3");
+extern char grim_def_g_abAdpcmIndexAdjust4[] __asm__("_g_abAdpcmIndexAdjust4");
+extern char grim_def_g_abAdpcmIndexAdjust5[] __asm__("_g_abAdpcmIndexAdjust5");
+extern char grim_def_g_abAdpcmIndexAdjust6[] __asm__("_g_abAdpcmIndexAdjust6");
+extern char grim_def_g_abAdpcmIndexAdjust7[] __asm__("_g_abAdpcmIndexAdjust7");
+extern unsigned char grim_def_g_abAdpcmStepBits[89] __asm__("_g_abAdpcmStepBits");
+extern void *grim_def_g_apAdpcmIndexAdjust[8] __asm__("_g_apAdpcmIndexAdjust");
+extern unsigned char grim_def_g_bLipStreamData[2000] __asm__("_g_bLipStreamData");
+extern unsigned char grim_def_g_bPanTable[8] __asm__("_g_bPanTable");
+extern char grim_def_g_bTrans_name __asm__("_g_bTrans_name");
+extern int grim_def_g_dwCurrentCuePoint __asm__("_g_dwCurrentCuePoint");
+extern int grim_def_g_dwCurrentSequence __asm__("_g_dwCurrentSequence");
+extern unsigned int grim_def_g_dwCurrentState __asm__("_g_dwCurrentState");
+extern unsigned int grim_def_g_dwCurrentWriteIndex __asm__("_g_dwCurrentWriteIndex");
+extern unsigned int grim_def_g_dwDefersOn __asm__("_g_dwDefersOn");
+extern unsigned char grim_def_g_dwDpProcessTrack_bufSize[4] __asm__("_g_dwDpProcessTrack_bufSize");
+extern unsigned char grim_def_g_dwDpProcessTrack_critSize[4] __asm__("_g_dwDpProcessTrack_critSize");
+extern unsigned char grim_def_g_dwDpProcessTrack_curLevel[4] __asm__("_g_dwDpProcessTrack_curLevel");
+extern unsigned char grim_def_g_dwDpProcessTrack_pauseFlag[4] __asm__("_g_dwDpProcessTrack_pauseFlag");
+extern unsigned char grim_def_g_dwFadeStartedFlag[8] __asm__("_g_dwFadeStartedFlag");
+extern unsigned char grim_def_g_dwFades[32] __asm__("_g_dwFades");
+extern unsigned int grim_def_g_dwFadesOn __asm__("_g_dwFadesOn");
+extern unsigned char grim_def_g_dwGoToNextRegion_fadeSize[8] __asm__("_g_dwGoToNextRegion_fadeSize");
+extern unsigned int grim_def_g_dwGroupEffVols __asm__("_g_dwGroupEffVols");
+extern unsigned int grim_def_g_dwGroupVols __asm__("_g_dwGroupVols");
+extern unsigned int grim_def_g_dwIRes_csInit __asm__("_g_dwIRes_csInit");
+extern unsigned int grim_def_g_dwImWaveMixCount __asm__("_g_dwImWaveMixCount");
+extern unsigned int grim_def_g_dwLargeFadeFlags __asm__("_g_dwLargeFadeFlags");
+extern unsigned char grim_def_g_dwLipSfx1ID[4] __asm__("_g_dwLipSfx1ID");
+extern unsigned char grim_def_g_dwLipSfx2ID[4] __asm__("_g_dwLipSfx2ID");
+extern unsigned char grim_def_g_dwLipSfx3ID[4] __asm__("_g_dwLipSfx3ID");
+extern unsigned char grim_def_g_dwLipStreamID[4] __asm__("_g_dwLipStreamID");
+extern unsigned int grim_def_g_dwLocalMusic __asm__("_g_dwLocalMusic");
+extern unsigned int grim_def_g_dwMidProcessing __asm__("_g_dwMidProcessing");
+extern unsigned int grim_def_g_dwMixBufSize __asm__("_g_dwMixBufSize");
+extern unsigned int grim_def_g_dwNextToAllocate __asm__("_g_dwNextToAllocate");
+extern unsigned int grim_def_g_dwOutChannelCount __asm__("_g_dwOutChannelCount");
+extern unsigned int grim_def_g_dwPauseTimer __asm__("_g_dwPauseTimer");
+extern unsigned char grim_def_g_dwSoftLTable[4] __asm__("_g_dwSoftLTable");
+extern unsigned char grim_def_g_dwTgProcessMarker_textCopy[256] __asm__("_g_dwTgProcessMarker_textCopy");
+extern unsigned char grim_def_g_dwTimerCounter[4] __asm__("_g_dwTimerCounter");
+extern unsigned int grim_def_g_dwTrIntHandler_outFramesNeeded __asm__("_g_dwTrIntHandler_outFramesNeeded");
+extern unsigned char grim_def_g_dwTrIntHandler_outPtr[12] __asm__("_g_dwTrIntHandler_outPtr");
+extern unsigned char grim_def_g_dwTrIntHandler_outSampleRate[8] __asm__("_g_dwTrIntHandler_outSampleRate");
+extern int grim_def_g_dwTrackList __asm__("_g_dwTrackList");
+extern unsigned char grim_def_g_dwTrigs[260] __asm__("_g_dwTrigs");
+extern unsigned char grim_def_g_pMixBuf[4] __asm__("_g_pMixBuf");
+extern short grim_def_g_wAdpcmStepTable[89] __asm__("_g_wAdpcmStepTable");
+extern char grim_def_s_CALLBACK__1001e898[12] __asm__("_s_CALLBACK__1001e898");
+extern char grim_def_s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0[44] __asm__("_s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0");
+extern char grim_def_s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8[32] __asm__("_s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8");
+extern char grim_def_s_C__grimsrc_libs_iMUSE_dsound_c_10017104[32] __asm__("_s_C__grimsrc_libs_iMUSE_dsound_c_10017104");
+extern char grim_def_s_ERROR_script_already_initialized_1001e6b4[36] __asm__("_s_ERROR_script_already_initialized_1001e6b4");
+extern char grim_def_s_ERROR_script_not_initialized____1001e6d8[32] __asm__("_s_ERROR_script_not_initialized____1001e6d8");
+extern char grim_def_s_ERROR_unrecognized_opcode_in_scr_1001e68c[40] __asm__("_s_ERROR_unrecognized_opcode_in_scr_1001e68c");
+extern char grim_def_s_ERR__bogus_attribute____1001e738[24] __asm__("_s_ERR__bogus_attribute____1001e738");
+extern char grim_def_s_ERR__bogus_sequence____1001e720[24] __asm__("_s_ERR__bogus_sequence____1001e720");
+extern char grim_def_s_ERR_callback_got_marker______end_1001e870[40] __asm__("_s_ERR_callback_got_marker______end_1001e870");
+extern char grim_def_s_FADE__lu____1001e818[12] __asm__("_s_FADE__lu____1001e818");
+extern char grim_def_s_HOOK__lu____1001e824[12] __asm__("_s_HOOK__lu____1001e824");
+extern char grim_def_s_LIP__1001e994[8] __asm__("_s_LIP__1001e994");
+extern char grim_def_s_MCMP_10017098[8] __asm__("_s_MCMP_10017098");
+extern char grim_def_s_No_stream_sound____1001e7ac[20] __asm__("_s_No_stream_sound____1001e7ac");
+extern char grim_def_s_SCRIPT_ERR__Unable_to_open_1001e830[28] __asm__("_s_SCRIPT_ERR__Unable_to_open_1001e830");
+extern char grim_def_s_SCRIPT_ERR__bogus_trans_type____1001e768[32] __asm__("_s_SCRIPT_ERR__bogus_trans_type____1001e768");
+extern char grim_def_s_SCRIPT_ERR__failed_start_stream__1001e788[36] __asm__("_s_SCRIPT_ERR__failed_start_stream__1001e788");
+extern char grim_def_s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[40] __asm__("_s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8");
+extern char grim_def_s_Set_attr__lu_to__lu____1001e750[24] __asm__("_s_Set_attr__lu_to__lu____1001e750");
+extern char grim_def_s_Trans_null____1001e860[16] __asm__("_s_Trans_null____1001e860");
+extern char grim_def_s_VIMA_1001e9c0[16] __asm__("_s_VIMA_1001e9c0");
+extern char grim_def_s__end_1001e858[8] __asm__("_s__end_1001e858");
+extern char grim_def_s_and_PAN__lu____1001e7c0[16] __asm__("_s_and_PAN__lu____1001e7c0");
+extern char grim_def_s_clear_1001e7f4[8] __asm__("_s_clear_1001e7f4");
+extern char grim_def_s_exit2_1001e7fc[8] __asm__("_s_exit2_1001e7fc");
+extern char grim_def_s_exit_1001e804[8] __asm__("_s_exit_1001e804");
+extern char grim_def_s_fading_VOL__lu____1001e7d0[20] __asm__("_s_fading_VOL__lu____1001e7d0");
+extern char grim_def_s_opening_1001e84c[12] __asm__("_s_opening_1001e84c");
+extern char grim_def_s_set_pan__lu____1001e7e4[16] __asm__("_s_set_pan__lu____1001e7e4");
+extern char grim_def_s_vol__lu____1001e80c[12] __asm__("_s_vol__lu____1001e80c");
+/* 0x10015228, 178 bytes */ GRIM_DATA("10015228") short grim_def_g_wAdpcmStepTable[89] __asm__("_g_wAdpcmStepTable") = {
+    7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 21, 23, 25, 28, 31,
+    34, 37, 41, 45, 50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 130, 143,
+    157, 173, 190, 209, 230, 253, 279, 307, 337, 371, 408, 449, 494, 544, 598, 658,
+    724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552, 1707, 1878, 2066, 2272, 2499, 2749, 3024,
+    3327, 3660, 4026, 4428, 4871, 5358, 5894, 6484, 7132, 7845, 8630, 9493, 10442, 11487, 12635, 13899,
+    15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767
+};
+/* 0x100152da, 6 bytes */ GRIM_DATA("10015228") unsigned char grim_def_DAT_100152da[6] __asm__("_DAT_100152da") = {0};
+/* 0x100152e0, 184 bytes */ GRIM_DATA("100152e0") unsigned char grim_def_g_abAdpcmStepBits[89] __asm__("_g_abAdpcmStepBits") = {
+    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4,
+    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4,
+    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x5, 0x5, 0x5,
+    0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x6, 0x6, 0x6, 0x6, 0x6,
+    0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
+    0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7
+};
+/* 0x10015339, 95 bytes: the rest of grim_def_g_abAdpcmStepBits's span */ GRIM_DATA("100152e0") static unsigned char g_abAdpcmStepBits__tail[95] __attribute__((used)) = {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x0c, 0xac, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x0d, 0xac, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x0e, 0xac, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x6f, 0x12, 0x83, 0xc0, 0xca, 0x21, 0x09, 0x40, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0xa0, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xbf, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x40, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xff, 0x1f, 0x41
+};
+/* 0x10017030, 32 bytes */ GRIM_DATA("10017030") void *grim_def_g_apAdpcmIndexAdjust[8] __asm__("_g_apAdpcmIndexAdjust") = {
+    0, 0, (void *)&grim_def_g_abAdpcmIndexAdjust2, (void *)&grim_def_g_abAdpcmIndexAdjust3,
+    (void *)&grim_def_g_abAdpcmIndexAdjust4, (void *)&grim_def_g_abAdpcmIndexAdjust5, (void *)&grim_def_g_abAdpcmIndexAdjust6, (void *)&grim_def_g_abAdpcmIndexAdjust7
+};
+/* 0x10017050, 8 bytes */ GRIM_DATA("10017050") unsigned char grim_def_DAT_10017050[8] __asm__("_DAT_10017050") = { 0x53, 0x53, 0x4e, 0x44 };
+/* 0x10017058, 4 bytes */ GRIM_DATA("10017058") unsigned int grim_def_DAT_10017058 __asm__("_DAT_10017058") = 0x46464941;
+/* 0x1001705c, 8 bytes */ GRIM_DATA("1001705c") unsigned char grim_def_DAT_1001705c[8] __asm__("_DAT_1001705c") = { 0x43, 0x4f, 0x4d, 0x4d };
+/* 0x10017064, 8 bytes */ GRIM_DATA("10017064") unsigned char grim_def_DAT_10017064[8] __asm__("_DAT_10017064") = { 0x46, 0x4f, 0x52, 0x4d };
+/* 0x1001706c, 8 bytes */ GRIM_DATA("1001706c") unsigned char grim_def_DAT_1001706c[8] __asm__("_DAT_1001706c") = { 0x46, 0x52, 0x4d, 0x54 };
+/* 0x1001707c, 8 bytes */ GRIM_DATA("1001707c") unsigned char grim_def_DAT_1001707c[8] __asm__("_DAT_1001707c") = { 0x64, 0x61, 0x74, 0x61 };
+/* 0x10017084, 4 bytes */ GRIM_DATA("10017084") unsigned char grim_def_DAT_10017084[4] __asm__("_DAT_10017084") = { 0x57, 0x41, 0x56, 0x45 };
+/* 0x10017088, 8 bytes */ GRIM_DATA("10017088") unsigned char grim_def_DAT_10017088[8] __asm__("_DAT_10017088") = { 0x66, 0x6d, 0x74, 0x20 };
+/* 0x10017090, 8 bytes */ GRIM_DATA("10017090") unsigned char grim_def_DAT_10017090[8] __asm__("_DAT_10017090") = { 0x52, 0x49, 0x46, 0x46 };
+/* 0x10017098, 8 bytes */ GRIM_DATA("10017098") char grim_def_s_MCMP_10017098[8] __asm__("_s_MCMP_10017098") = "MCMP";
+/* 0x100170a0, 8 bytes */ /* loose */ unsigned char grim_def_DAT_100170a0[8] __asm__("_DAT_100170a0") = { 0x44, 0x41, 0x54, 0x41 };
+/* 0x100170a8, 8 bytes */ /* loose */ unsigned char grim_def_DAT_100170a8[8] __asm__("_DAT_100170a8") = { 0x53, 0x54, 0x4f, 0x50 };
+static unsigned char grim_anchor_100170b0[0] __attribute__((section(".data$grim_100170b0"), aligned(16), used));
+static unsigned char grim_pad_100170b0[0] __attribute__((section(".data$grim_100170b0_"), aligned(4), used));
+/* 0x100170b0, 8 bytes */ GRIM_DATA("100170b0z") unsigned char grim_def_DAT_100170b0[8] __asm__("_DAT_100170b0") = { 0x52, 0x45, 0x47, 0x4e };
+/* 0x100170b8, 8 bytes */ GRIM_DATA("100170b8") unsigned char grim_def_DAT_100170b8[8] __asm__("_DAT_100170b8") = { 0x4d, 0x41, 0x50, 0x20 };
+/* 0x100170c0, 44 bytes */ GRIM_DATA("100170c0") char grim_def_s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0[44] __asm__("_s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0") = "C:\\grimsrc\\libs\\iMUSE\\Dispatch.c\000\000\000\000\000\000\000\000\377\377\377\377";
+/* 0x100170ec, 4 bytes */ GRIM_DATA("100170ec") unsigned char grim_def_PTR_100170ec[4] __asm__("_PTR_100170ec") = { 0xff, 0xff, 0xff, 0xff };
+/* 0x100170f0, 20 bytes */ GRIM_DATA("100170f0") unsigned char grim_def_DAT_100170f0[20] __asm__("_DAT_100170f0") = { 0x01, 0x00, 0x02, 0x00, 0x22, 0x56, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00, 0x04, 0x00, 0x10 };
+/* 0x10017104, 32 bytes */ GRIM_DATA("10017104") char grim_def_s_C__grimsrc_libs_iMUSE_dsound_c_10017104[32] __asm__("_s_C__grimsrc_libs_iMUSE_dsound_c_10017104") = "C:\\grimsrc\\libs\\iMUSE\\dsound.c";
+/* 0x100172c8, 32 bytes */ GRIM_DATA("100172c8") char grim_def_s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8[32] __asm__("_s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8") = "C:\\grimsrc\\libs\\iMUSE\\Mixer.c";
+/* 0x100172e8, 15204 bytes */ GRIM_DATA("100172e8") ImMusicEntry grim_def_g_aImStateTable[181] __asm__("_g_aImStateTable") = {
+    { .nId = 1000, .aName = "STATE_NULL", .nVolume = 127 },
+    { .nId = 1999, .aName = "stateNoChange", .nVolume = 127 },
+    { .aFilename = "1001 - Manny's Office", .nTransType = 3, .nId = 1001, .aName = "stateMO", .nVolume = 127 },
+    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1002, .aName = "stateHA_INTLS", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 20, .nPan = 50 },
+    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1003, .aName = "stateHA_REVLS", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 80, .nPan = 12 },
+    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1004, .aName = "stateHA_ELVOS", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 90, .nPan = 110 },
+    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1005, .aName = "stateHA_MNYCU", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 60, .nPan = 110 },
+    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1006, .aName = "stateHA_EVACU", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 80, .nPan = 64 },
+    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1007, .aName = "stateHA_EVAWS", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 60, .nPan = 60 },
+    { .aFilename = "1008 - Domino's Office", .nTransType = 3, .nId = 1008, .aName = "stateDO", .nVolume = 127 },
+    { .aFilename = "1009 - Copal's Office", .nTransType = 3, .nId = 1009, .aName = "stateCO", .nVolume = 127 },
+    { .aFilename = "1010 - Ledge", .nTransType = 3, .nId = 1010, .aName = "stateLE", .nVolume = 127 },
+    { .aFilename = "1011 - Roof", .nTransType = 3, .nId = 1011, .aName = "stateRF", .nVolume = 127 },
+    { .aFilename = "1020 - Tube Room", .nTransType = 3, .nId = 1020, .aName = "stateTU", .nVolume = 127 },
+    { .aFilename = "1021 - Brennis", .nTransType = 3, .nId = 1021, .aName = "stateTU_BRENNIS", .nVolume = 127 },
+    { .aFilename = "1022 - Lobby", .nTransType = 3, .nId = 1022, .aName = "stateLO", .nVolume = 127 },
+    { .aFilename = "1023 - Packing Room", .nTransType = 3, .nId = 1023, .aName = "statePK", .nVolume = 127 },
+    { .aFilename = "1030 - Garage", .nTransType = 3, .nId = 1030, .aName = "stateGA", .nVolume = 127 },
+    { .aFilename = "1031 - Glottis' Shop", .nTransType = 3, .nId = 1031, .aName = "stateGS", .nVolume = 127 },
+    { .aFilename = "1030 - Garage", .nTransType = 3, .nId = 1032, .aName = "stateGS_JAIL", .nVolume = 127 },
+    { .aFilename = "1040 - Festival Wet", .nTransType = 3, .nId = 1040, .aName = "stateAL", .nHookSlot = 21, .nHookLimit = 4, .nFade = 500, .nVolume = 60 },
+    { .aFilename = "1041 - Festival Dry", .nTransType = 3, .nId = 1041, .aName = "stateFE", .nHookSlot = 21, .nHookLimit = 4, .nFade = 200, .nVolume = 127 },
+    { .aFilename = "1041 - Festival Dry", .nTransType = 3, .nId = 1042, .aName = "stateST", .nHookSlot = 21, .nHookLimit = 4, .nFade = 200, .nVolume = 60 },
+    { .aFilename = "1041 - Festival Dry", .nTransType = 3, .nId = 1043, .aName = "stateOS", .nHookSlot = 21, .nHookLimit = 4, .nFade = 200, .nVolume = 46 },
+    { .aFilename = "1040 - Festival Wet", .nTransType = 3, .nId = 1044, .aName = "stateRP", .nHookSlot = 21, .nHookLimit = 4, .nFade = 200, .nVolume = 85 },
+    { .aFilename = "1050 - Headquarters", .nTransType = 3, .nId = 1050, .aName = "stateHQ", .nVolume = 127 },
+    { .aFilename = "1060 - Real World", .nTransType = 2, .nId = 1060, .aName = "stateLR", .nFade = 300, .nVolume = 80 },
+    { .aFilename = "1070 - Stump Room", .nTransType = 2, .nId = 1070, .aName = "stateSM", .nVolume = 127 },
+    { .aFilename = "1071 - Signpost Room", .nTransType = 2, .nId = 1071, .aName = "stateSG", .nHookLimit = 3, .nVolume = 127 },
+    { .aFilename = "1072 - Navigation", .nTransType = 2, .nId = 1072, .aName = "stateNA", .nVolume = 127 },
+    { .aFilename = "1071 - Signpost Room", .nTransType = 2, .nId = 1073, .aName = "stateNA_SOLVED", .nHookLimit = 3, .nVolume = 127 },
+    { .aFilename = "1074 - Bone Wagon", .nTransType = 2, .nId = 1074, .aName = "stateOO_BONE", .nVolume = 127 },
+    { .aFilename = "1075 - Spider's Eye", .nTransType = 2, .nId = 1075, .aName = "stateSP_ENTLA", .nVolume = 127 },
+    { .aFilename = "1076 - Spider Room", .nTransType = 2, .nId = 1076, .aName = "stateSP_WEBWS", .nVolume = 127 },
+    { .aFilename = "1077 - Tree Pump Amb", .nTransType = 2, .nId = 1077, .aName = "stateTR_PMPWS", .nVolume = 127 },
+    { .aFilename = "1078 - Tree Pump", .nTransType = 2, .nId = 1078, .aName = "stateTR_ESTHA", .nVolume = 127 },
+    { .aFilename = "1071 - Signpost Room", .nTransType = 2, .nId = 1079, .aName = "stateTR_SOLVED", .nHookLimit = 3, .nVolume = 127 },
+    { .aFilename = "1080 - Beaver Room Lbby", .nTransType = 2, .nId = 1080, .aName = "stateLB", .nVolume = 127 },
+    { .aFilename = "1081 - Beaver Dam", .nTransType = 2, .nId = 1081, .aName = "stateBD", .nVolume = 127 },
+    { .aFilename = "1083 - Beaver Room", .nTransType = 2, .nId = 1082, .aName = "stateBD_SOLVED", .nVolume = 127 },
+    { .aFilename = "1083 - Beaver Room", .nTransType = 2, .nId = 1083, .aName = "stateBV", .nVolume = 127 },
+    { .aFilename = "1084 - Foggy Cactus", .nTransType = 2, .nId = 1084, .aName = "stateFC", .nVolume = 80 },
+    { .aFilename = "1085 - Rubamat Exterior", .nTransType = 2, .nId = 1085, .aName = "stateRE", .nVolume = 105 },
+    { .aFilename = "1087 - Blue Hector", .nTransType = 2, .nId = 1086, .aName = "stateRI", .nHookLimit = 4, .nVolume = 80, .nPan = 30 },
+    { .aFilename = "1109 - Cafe Exterior", .nTransType = 2, .nId = 1100, .aName = "stateCB", .nVolume = 127 },
+    { .aFilename = "1101 - Cafe Office", .nTransType = 3, .nId = 1101, .aName = "stateCF", .nHookSlot = 45, .nHookLimit = 5, .nFade = 400, .nVolume = 60 },
+    { .aFilename = "1102 - Cafe Intercom", .nTransType = 3, .nId = 1102, .aName = "stateCF_INTRCM", .nHookSlot = 45, .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1103 - Coat Check", .nTransType = 3, .nId = 1103, .aName = "stateCC", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 60, .nPan = 100 },
+    { .aFilename = "1104 - Lupe", .nTransType = 2, .nId = 1104, .aName = "stateCC_LUPE", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "1106 - Glottis Noodle", .nTransType = 3, .nId = 1105, .aName = "stateCI", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 127, .nPan = 75 },
+    { .aFilename = "1106 - Glottis Noodle", .nTransType = 3, .nId = 1106, .aName = "stateCI_NOODLE", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 127, .nPan = 75 },
+    { .aFilename = "1106 - Glottis Noodle", .nTransType = 3, .nId = 1190, .aName = "stateCI_WIDHA", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 80, .nPan = 45 },
+    { .aFilename = "1106 - Glottis Noodle", .nTransType = 3, .nId = 1191, .aName = "stateCI_BARWS", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 127, .nPan = 127 },
+    { .aFilename = "1101 - Cafe Office", .nTransType = 3, .nId = 1107, .aName = "stateCI_EMPTY", .nHookSlot = 45, .nHookLimit = 5, .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1108 - Casino Interior", .nTransType = 3, .nId = 1108, .aName = "stateCN", .nHookSlot = 45, .nHookLimit = 6, .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1109 - Cafe Exterior", .nTransType = 2, .nId = 1109, .aName = "stateCE", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1110 - Cafe Ledge", .nTransType = 2, .nId = 1110, .aName = "stateCL", .nFade = 400, .nVolume = 105 },
+    { .aFilename = "1108 - Casino Interior", .nTransType = 3, .nId = 1111, .aName = "stateCN_QUIET", .nFade = 400, .nVolume = 60 },
+    { .aFilename = "1112 - Rusty Sans Vox", .nTransType = 2, .nId = 1112, .aName = "stateCI_SONG", .nFade = 400, .nVolume = 127, .nPan = 68 },
+    { .aFilename = "1120 - Elevator Station", .nTransType = 2, .nId = 1120, .aName = "stateEV", .nVolume = 127 },
+    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1121, .aName = "stateBW", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1122, .aName = "stateBE", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1123 - Blue Casket Ins", .nTransType = 2, .nId = 1123, .aName = "stateBI", .nHookLimit = 4, .nFade = 700, .nVolume = 127 },
+    { .aFilename = "1124 - Blue Casket Amb", .nTransType = 2, .nId = 1124, .aName = "stateBI_POE", .nVolume = 127 },
+    { .aFilename = "1125 - Smooth Hector", .nTransType = 2, .nId = 1125, .aName = "stateBK", .nHookLimit = 4, .nVolume = 80, .nPan = 75 },
+    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1126, .aName = "stateHB", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1127 - Limbo Dock", .nTransType = 3, .nId = 1127, .aName = "stateLM", .nHookSlot = 66, .nVolume = 127 },
+    { .aFilename = "1128 - Limbo Talk", .nTransType = 2, .nId = 1128, .aName = "stateLM_TALK", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1129 - Limbo Poem", .nTransType = 3, .nId = 1129, .aName = "stateLM_POEM", .nHookSlot = 66, .nVolume = 127 },
+    { .aFilename = "1130 - Dry Dock", .nTransType = 2, .nId = 1130, .aName = "stateDD", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1131 - Dry Dock Strike", .nTransType = 2, .nId = 1131, .aName = "stateDD_STRIKE", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1132 - Lighthouse Ext", .nTransType = 2, .nId = 1132, .aName = "stateLX", .nVolume = 127 },
+    { .aFilename = "1133 - Lola's Last", .nTransType = 2, .nId = 1133, .aName = "stateLX_LOLA", .nVolume = 127 },
+    { .aFilename = "1140 - Police Station", .nTransType = 3, .nId = 1140, .aName = "statePC", .nVolume = 127 },
+    { .aFilename = "1141 - Police Interior", .nTransType = 2, .nId = 1141, .aName = "statePI", .nVolume = 105 },
+    { .aFilename = "1141 - Police Interior", .nTransType = 2, .nId = 1142, .aName = "statePI_MALLOY", .nVolume = 105 },
+    { .aFilename = "1143 - Morgue", .nTransType = 2, .nId = 1143, .aName = "stateMG", .nVolume = 105 },
+    { .aFilename = "1140 - Police Station", .nTransType = 3, .nId = 1144, .aName = "stateBP", .nVolume = 105 },
+    { .aFilename = "1145 - Bridge Blimp", .nTransType = 2, .nId = 1145, .aName = "stateBB", .nVolume = 127 },
+    { .aFilename = "1146 - LOL Security Ext", .nTransType = 2, .nId = 1146, .aName = "stateGT", .nVolume = 80 },
+    { .aFilename = "1147 - LOL Security Int", .nTransType = 2, .nId = 1147, .aName = "stateSL", .nVolume = 127 },
+    { .aFilename = "1148 - Carla's Life", .nTransType = 2, .nId = 1148, .aName = "stateSL_TALK", .nVolume = 127 },
+    { .aFilename = "1149 - Bomb", .nTransType = 2, .nId = 1149, .aName = "stateSL_BOMB", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1152 - Track Stairs", .nTransType = 3, .nId = 1150, .aName = "stateTB", .nHookSlot = 83, .nVolume = 105 },
+    { .aFilename = "1152 - Track Stairs", .nTransType = 3, .nId = 1151, .aName = "stateTW", .nHookSlot = 83, .nVolume = 105 },
+    { .aFilename = "1152 - Track Stairs", .nTransType = 3, .nId = 1152, .aName = "stateTS", .nHookSlot = 83, .nVolume = 105 },
+    { .aFilename = "1153 - Track Base", .nTransType = 2, .nId = 1153, .aName = "stateTX", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1154 - Kitty Hall", .nTransType = 2, .nId = 1154, .aName = "stateKH", .nVolume = 127 },
+    { .aFilename = "1155 - Sanspoof", .nTransType = 2, .nId = 1155, .aName = "stateKH_SANS", .nVolume = 127 },
+    { .aFilename = "1156 - Kitty Stables", .nTransType = 2, .nId = 1156, .aName = "stateKS", .nVolume = 127 },
+    { .aFilename = "1160 - High Roller Hall", .nTransType = 2, .nId = 1160, .aName = "stateHH", .nVolume = 127 },
+    { .aFilename = "1161 - High Roller Lnge", .nTransType = 3, .nId = 1161, .aName = "stateHL", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1162 - Glottis Gambling", .nTransType = 2, .nId = 1162, .aName = "stateHL_GLOT", .nVolume = 127 },
+    { .aFilename = "1163 - Max's Office", .nTransType = 3, .nId = 1163, .aName = "stateMX", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1125 - Hector Steps Out", .nTransType = 3, .nId = 1164, .aName = "stateHK", .nHookSlot = 94, .nHookLimit = 4, .nFade = 200, .nVolume = 127, .nPan = 80 },
+    { .aFilename = "1125 - Hector Steps Out", .nTransType = 3, .nId = 1165, .aName = "stateHP", .nHookSlot = 94, .nHookLimit = 4, .nFade = 200, .nVolume = 20, .nPan = 64 },
+    { .aFilename = "1125 - Hector Steps Out", .nTransType = 3, .nId = 1166, .aName = "stateHE", .nHookSlot = 94, .nHookLimit = 4, .nFade = 200, .nVolume = 127, .nPan = 10 },
+    { .aFilename = "1167 - Dillopede Elev", .nTransType = 3, .nId = 1167, .aName = "stateDE", .nVolume = 127 },
+    { .aFilename = "1167 - Dillopede Elev", .nTransType = 3, .nId = 1168, .aName = "stateDH", .nVolume = 127 },
+    { .aFilename = "1167 - Dillopede Elev", .nTransType = 3, .nId = 1169, .aName = "stateWC", .nVolume = 127 },
+    { .aFilename = "1170 - Extendo Bridge", .nTransType = 3, .nId = 1170, .aName = "stateXB", .nFade = 400, .nVolume = 105 },
+    { .aFilename = "1170 - Extendo Bridge", .nTransType = 3, .nId = 1171, .aName = "stateSD", .nFade = 400, .nVolume = 105 },
+    { .aFilename = "1170 - Extendo Bridge", .nTransType = 3, .nId = 1172, .aName = "stateSE", .nFade = 400, .nVolume = 105 },
+    { .aFilename = "1173 - Scrimshaw Int", .nTransType = 2, .nId = 1173, .aName = "stateSI", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1174 - Scrim Sleep", .nTransType = 2, .nId = 1174, .aName = "stateSI_SLEEP", .nFade = 400, .nVolume = 127 },
+    { .aFilename = "1180 - Note to Manny", .nTransType = 2, .nId = 1180, .aName = "stateNT", .nVolume = 72 },
+    { .aFilename = "1155 - Sanspoof", .nTransType = 2, .nId = 1181, .aName = "statePF", .nVolume = 127 },
+    { .aFilename = "1201 - Lola Zapata", .nTransType = 2, .nId = 1201, .aName = "stateLZ", .nVolume = 127 },
+    { .aFilename = "1202 - Inside The Lola", .nTransType = 2, .nId = 1202, .aName = "stateIL", .nVolume = 127 },
+    { .aFilename = "1203 - Engine Room", .nTransType = 2, .nId = 1203, .aName = "stateEI", .nVolume = 127 },
+    { .aFilename = "1204 - Porthole", .nTransType = 2, .nId = 1204, .aName = "stateDP", .nVolume = 127 },
+    { .aFilename = "1204 - Porthole", .nTransType = 2, .nId = 1205, .aName = "stateOP", .nVolume = 127 },
+    { .aFilename = "1210 - Sunken Lola", .nTransType = 2, .nId = 1210, .aName = "stateSU", .nVolume = 127 },
+    { .aFilename = "1211 - Pearl Crater Sub", .nTransType = 2, .nId = 1211, .aName = "statePS", .nVolume = 127 },
+    { .aFilename = "1220 - Miner's Room", .nTransType = 3, .nId = 1220, .aName = "stateMN", .nVolume = 127 },
+    { .aFilename = "1220 - Miner's Room", .nTransType = 3, .nId = 1221, .aName = "stateMN_CHEPITO", .nVolume = 127 },
+    { .aFilename = "1222 - Exterior Airlock", .nTransType = 2, .nId = 1222, .aName = "stateEA", .nVolume = 127 },
+    { .aFilename = "1223 - Factory Hub", .nTransType = 2, .nId = 1223, .aName = "stateFH", .nHookLimit = 4, .nVolume = 127 },
+    { .aFilename = "1224 - Foreman's Office", .nTransType = 2, .nId = 1224, .aName = "stateFO", .nVolume = 127 },
+    { .aFilename = "1230 - Vault Door", .nTransType = 2, .nId = 1230, .aName = "stateVD", .nVolume = 127 },
+    { .aFilename = "1231 - Outer Vault", .nTransType = 2, .nId = 1231, .aName = "stateVO", .nVolume = 127 },
+    { .aFilename = "1232 - Inner Vault", .nTransType = 2, .nId = 1232, .aName = "stateVI", .nVolume = 127 },
+    { .aFilename = "1233 - Ashtray Room", .nTransType = 2, .nId = 1233, .aName = "stateAR", .nVolume = 127 },
+    { .aFilename = "1234 - Ashtray Scary", .nTransType = 2, .nId = 1234, .aName = "stateAR_SCARY", .nVolume = 127 },
+    { .aFilename = "1235 - Ashtray Pensive", .nTransType = 2, .nId = 1235, .aName = "stateAR_PENSV", .nVolume = 127 },
+    { .aFilename = "1236 - Domino's Room", .nTransType = 2, .nId = 1236, .aName = "stateDR", .nVolume = 127 },
+    { .aFilename = "1240 - Conveyor Under", .nTransType = 3, .nId = 1240, .aName = "stateCY", .nHookLimit = 4, .nVolume = 127 },
+    { .aFilename = "1240 - Conveyor Under", .nTransType = 3, .nId = 1241, .aName = "stateCW", .nVolume = 127 },
+    { .aFilename = "1241 - Crane Intro", .nTransType = 2, .nId = 1242, .aName = "stateCV", .nVolume = 127 },
+    { .aFilename = "1243 - Anchor Room", .nTransType = 3, .nId = 1243, .aName = "stateAC", .nVolume = 127 },
+    { .aFilename = "1244 - Glottis Hanging", .nTransType = 2, .nId = 1244, .aName = "stateGH", .nVolume = 127 },
+    { .aFilename = "1245 - End of the World", .nTransType = 2, .nId = 1245, .aName = "stateEW", .nVolume = 127 },
+    { .aFilename = "1246 - End World Later", .nTransType = 2, .nId = 1246, .aName = "stateEW_LATER", .nVolume = 127 },
+    { .aFilename = "1241 - Crane Intro", .nTransType = 2, .nId = 1247, .aName = "stateCU", .nVolume = 127 },
+    { .aFilename = "1250 - Upper Beach", .nTransType = 3, .nId = 1250, .aName = "stateBU", .nVolume = 127 },
+    { .aFilename = "1250 - Upper Beach", .nTransType = 3, .nId = 1251, .aName = "stateBL", .nVolume = 127 },
+    { .aFilename = "1252 - Lower Beach Boat", .nTransType = 3, .nId = 1252, .aName = "stateBL_BOAT", .nVolume = 127 },
+    { .aFilename = "1253 - Lamancha Sub", .nTransType = 2, .nId = 1253, .aName = "stateLU", .nVolume = 127 },
+    { .aFilename = "1254 - Crane Later", .nTransType = 2, .nId = 1254, .aName = "stateCUV_LATER", .nVolume = 127 },
+    { .aFilename = "1301 - Temple Gate", .nTransType = 3, .nId = 1301, .aName = "stateTG", .nVolume = 127 },
+    { .aFilename = "1301 - Temple Gate", .nTransType = 3, .nId = 1302, .aName = "stateBS", .nVolume = 127 },
+    { .aFilename = "1303 - Truck Depot", .nTransType = 2, .nId = 1303, .aName = "stateTD", .nVolume = 105 },
+    { .aFilename = "1306 - Mayan Train Pad", .nTransType = 3, .nId = 1306, .aName = "stateMT_CHEPITO", .nHookSlot = 143, .nVolume = 127 },
+    { .aFilename = "1304 - Mayan Train Sta", .nTransType = 3, .nId = 1304, .aName = "stateMT", .nHookSlot = 143, .nVolume = 127 },
+    { .aFilename = "1305 - Mayan Workshop", .nTransType = 2, .nId = 1305, .aName = "stateMY", .nVolume = 127 },
+    { .aFilename = "1307 - Mechanic's Kitch", .nTransType = 2, .nId = 1307, .aName = "stateMK", .nHookLimit = 4, .nVolume = 40, .nPan = 64 },
+    { .aFilename = "1310 - Jello Bomb", .nTransType = 3, .nId = 1310, .aName = "stateJB", .nVolume = 127 },
+    { .aFilename = "1310 - Jello Bomb", .nTransType = 3, .nId = 1311, .aName = "stateXB_YEAR4", .nVolume = 127 },
+    { .aFilename = "1125 - Smooth Hector", .nTransType = 3, .nId = 1312, .aName = "stateBI_CLBYR4", .nHookSlot = 150, .nHookLimit = 4, .nFade = 200, .nVolume = 20, .nPan = 64 },
+    { .aFilename = "1125 - Smooth Hector", .nTransType = 3, .nId = 1313, .aName = "stateBI_KITYR4", .nHookSlot = 150, .nHookLimit = 4, .nFade = 200, .nVolume = 50, .nPan = 32 },
+    { .aFilename = "1125 - Smooth Hector", .nTransType = 3, .nId = 1314, .aName = "stateBK_YR4", .nHookSlot = 150, .nHookLimit = 4, .nFade = 200, .nVolume = 105, .nPan = 75 },
+    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1315, .aName = "stateHB_YR4", .nVolume = 127 },
+    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1316, .aName = "stateBW_YR4", .nVolume = 127 },
+    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1317, .aName = "stateBE_YR4", .nVolume = 127 },
+    { .aFilename = "1332 - Hector's Foyer", .nTransType = 3, .nId = 1318, .aName = "stateHN", .nVolume = 127 },
+    { .aFilename = "1319 - Florist Video", .nTransType = 2, .nId = 1319, .aName = "stateFVID", .nVolume = 127 },
+    { .aFilename = "1320 - New LSA HQ", .nTransType = 2, .nId = 1320, .aName = "stateNQ", .nVolume = 127 },
+    { .aFilename = "1321 - LSA Sewer", .nTransType = 3, .nId = 1321, .aName = "stateLW", .nVolume = 127 },
+    { .aFilename = "1321 - LSA Sewer", .nTransType = 3, .nId = 1322, .aName = "stateSH", .nVolume = 127 },
+    { .aFilename = "1323 - Sewer Maze", .nTransType = 3, .nId = 1323, .aName = "stateZW", .nHookLimit = 2, .nVolume = 127 },
+    { .aFilename = "1324 - Albinozod", .nTransType = 3, .nId = 1324, .aName = "stateAT", .nVolume = 127 },
+    { .aFilename = "1334 - Albino Trap", .nTransType = 3, .nId = 1334, .aName = "stateAT_TRAP", .nVolume = 127 },
+    { .aFilename = "1325 - Florist Shop", .nTransType = 3, .nId = 1325, .aName = "stateFP", .nHookSlot = 162, .nVolume = 127 },
+    { .aFilename = "1326 - Florist Shop Int", .nTransType = 3, .nId = 1326, .aName = "stateFI", .nHookSlot = 162, .nVolume = 127 },
+    { .aFilename = "1327 - Florist OK", .nTransType = 2, .nId = 1327, .aName = "stateFI_OK", .nVolume = 127 },
+    { .aFilename = "1323 - Sewer Maze", .nTransType = 3, .nId = 1328, .aName = "stateTE", .nHookLimit = 2, .nVolume = 127 },
+    { .aFilename = "1329 - Theater Backstag", .nTransType = 2, .nId = 1329, .aName = "stateTH", .nHookLimit = 4, .nVolume = 127 },
+    { .aFilename = "1330 - Lemans Lobby", .nTransType = 2, .nId = 1330, .aName = "stateLY", .nVolume = 127 },
+    { .aFilename = "1330 - Lemans Lobby", .nTransType = 2, .nId = 1331, .aName = "stateLY_CHOW", .nVolume = 60 },
+    { .aFilename = "1333 - Brennis Talk", .nTransType = 2, .nId = 1333, .aName = "stateLY_BREN", .nVolume = 127 },
+    { .aFilename = "1332 - Hector's Foyer", .nTransType = 3, .nId = 1332, .aName = "stateHF", .nVolume = 127 },
+    { .aFilename = "1342 - Neon Ledge", .nTransType = 2, .nId = 1340, .aName = "stateNL", .nVolume = 127 },
+    { .aFilename = "1350 - Meadow Flowers", .nTransType = 2, .nId = 1350, .aName = "stateMF", .nVolume = 127 },
+    { .aFilename = "1351 - Meadow", .nTransType = 2, .nId = 1351, .aName = "stateME", .nVolume = 127 },
+    { .aFilename = "1352 - Car Head", .nTransType = 2, .nId = 1352, .aName = "stateHI", .nVolume = 127 },
+    { .aFilename = "1353 - Greenhouse Appr", .nTransType = 2, .nId = 1353, .aName = "stateGE", .nVolume = 127 },
+    { .aFilename = "1355 - Shootout", .nTransType = 2, .nId = 1355, .aName = "stateSHOOT", .nVolume = 127 },
+    { .aFilename = "1354 - Game Ending", .nTransType = 2, .nId = 1354, .aName = "stateEND", .nVolume = 127 },
+    { .aFilename = "1400 - Start Credits", .nTransType = 2, .nId = 1400, .aName = "stateOPEN_CRED", .nVolume = 127 },
+    { .aFilename = "1401 - Smooth Hector", .nTransType = 2, .nId = 1401, .aName = "stateEND_CRED", .nFade = 20, .nVolume = 105 },
+    { .nId = 1500, .aName = "stateMenu", .nVolume = 127 }
+};
+/* 0x1001ae4c, 4 bytes */ GRIM_DATA("1001ae4c") unsigned char grim_def_DAT_1001ae4c[4] __asm__("_DAT_1001ae4c") = {0};
+/* 0x1001ae50, 3444 bytes */ GRIM_DATA("1001ae50") ImMusicEntry grim_def_g_aImSeqTable[41] __asm__("_g_aImSeqTable") = {
+    { .nId = 2000, .aName = "SEQ_NULL", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2001 - Climb Rope", .nTransType = 2, .nId = 2001, .aName = "seqClimbRope", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2010 - Glottis OK", .nTransType = 2, .nId = 2010, .aName = "seqGlottisOK", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2020 - Reap Bruno", .nTransType = 2, .nId = 2020, .aName = "seqReapBruno", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2030 - Ledgepeckers", .nTransType = 2, .nId = 2030, .aName = "seqLedgepeckers", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2050 - Glottis Heart", .nTransType = 2, .nId = 2050, .aName = "seqGlottisHeart", .nFade = 300, .nVolume = 105 },
+    { .aFilename = "2055 - Slingshot Bone", .nTransType = 2, .nId = 2055, .aName = "seqSlingshotBone", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2060 - Glott Tree Fall", .nTransType = 2, .nId = 2060, .aName = "seqGlottTreeFall", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2070 - Beaver Fly", .nTransType = 2, .nId = 2070, .aName = "seqBeaverFly", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2071 - Beaver Sink", .nTransType = 2, .nId = 2071, .aName = "seqBeaverSink", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2080 - Meet Velasco", .nTransType = 2, .nId = 2080, .aName = "seqMeetVelasco", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2140 - Ooo Bonewagon", .nTransType = 2, .nId = 2140, .aName = "seqGlottSingBone", .nFade = 300, .nVolume = 127, .nPan = 75 },
+    { .aFilename = "2141 - Ooo Meche", .nTransType = 2, .nId = 2141, .aName = "seqMannySingMeche", .nFade = 300, .nVolume = 127, .nPan = 75 },
+    { .aFilename = "2155 - Find Detector", .nTransType = 2, .nId = 2155, .aName = "seqFindDetector", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2156 - Glott Drink Wine", .nTransType = 2, .nId = 2156, .aName = "seqGlottDrinkWine", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2157 - Glott No Wine", .nTransType = 2, .nId = 2157, .aName = "seqGlottNoWine", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2161 - Raoul Appears", .nTransType = 2, .nId = 2161, .aName = "seqRaoulAppears", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2162 - Raoul KO", .nTransType = 2, .nId = 2162, .aName = "seqRaoulKO", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2163 - Raoul Dissed", .nTransType = 2, .nId = 2163, .aName = "seqRaoulDissed", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2165 - Fake Tix", .nTransType = 2, .nId = 2165, .aName = "seqFakeTix", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2180 - Befriend Commies", .nTransType = 2, .nId = 2180, .aName = "seqBefriendCommies", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2186 - Nick Punchout", .nTransType = 2, .nId = 2186, .aName = "seqNickPunchout", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2200 - Yr 3 Iris", .nTransType = 2, .nId = 2200, .aName = "seqYr3Iris", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2210 - Hit Men", .nTransType = 2, .nId = 2210, .aName = "seqHitMen", .nFade = 700, .nVolume = 127 },
+    { .aFilename = "2230 - Open Vault", .nTransType = 2, .nId = 2230, .aName = "seqOpenVault", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2235 - Dead Tix", .nTransType = 2, .nId = 2235, .aName = "seqDeadTix", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2240 - Sprinkler", .nTransType = 2, .nId = 2240, .aName = "seqSprinkler", .nFade = 500, .nVolume = 127 },
+    { .aFilename = "2250 - Crane Track", .nTransType = 2, .nId = 2250, .aName = "seqCraneTrack", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2255 - Crane Fall", .nTransType = 2, .nId = 2255, .aName = "seqCraneFall", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2300 - Yr 4 Iris", .nTransType = 2, .nId = 2300, .aName = "seqYr4Iris", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2301 - Pop Bruno Casket", .nTransType = 2, .nId = 2301, .aName = "seqPopBrunoCasket", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2310 - Rocket Idea", .nTransType = 2, .nId = 2310, .aName = "seqRocketIdea", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2320 - Jello Suspense", .nTransType = 2, .nId = 2320, .aName = "seqJelloSuspense", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2325 - Lumbago Lemo", .nTransType = 2, .nId = 2325, .aName = "seqLumbagoLemo", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2327 - Breath Mint", .nTransType = 2, .nId = 2327, .aName = "seqBreathMint", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2330 - Pigeon Fly", .nTransType = 2, .nId = 2330, .aName = "seqPigeonFly", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2340 - Coffee On Boys", .nTransType = 2, .nId = 2340, .aName = "seqCoffeeOnBoys", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2350 - Sprout Aha", .nTransType = 2, .nId = 2350, .aName = "seqSproutAha", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2360 - Chowchilla Bye", .nTransType = 2, .nId = 2360, .aName = "seqChowchillaBye", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2370 - Salvador Death", .nTransType = 2, .nId = 2370, .aName = "seqSalvadorDeath", .nFade = 300, .nVolume = 127 },
+    { .aFilename = "2399 - End Credits", .nTransType = 2, .nId = 2399, .aName = "seqEndCredits", .nFade = 200, .nVolume = 127 }
+};
+/* 0x1001bbc4, 4 bytes */ GRIM_DATA("1001bbc4") unsigned char grim_def_DAT_1001bbc4[4] __asm__("_DAT_1001bbc4") = {0};
+/* 0x1001bbc8, 10944 bytes */ GRIM_DATA("1001bbc8") ImNameAlias grim_def_g_aImNameAlias[171] __asm__("_g_aImNameAlias") = {
+    { .aFrom = "1001 - Manny's Office", .aTo = "1001 - Manny's Office.IMC" },
+    { .aFrom = "1002 - Mr. Frustration", .aTo = "1002 - Mr. Frustration.IMC" },
+    { .aFrom = "1008 - Domino's Office", .aTo = "1008 - Domino's Office.IMC" },
+    { .aFrom = "1009 - Copal's Office", .aTo = "1009 - Copal's Office.IMC" },
+    { .aFrom = "1010 - Ledge", .aTo = "1010 - Ledge.IMC" },
+    { .aFrom = "1011 - Roof", .aTo = "1011 - Roof.IMC" },
+    { .aFrom = "1020 - Tube Room", .aTo = "1020 - Tube Room.IMC" },
+    { .aFrom = "1021 - Brennis", .aTo = "1021 - Brennis.IMC" },
+    { .aFrom = "1022 - Lobby", .aTo = "1022 - Lobby.IMC" },
+    { .aFrom = "1023 - Packing Room", .aTo = "1023 - Packing Room.IMC" },
+    { .aFrom = "1030 - Garage", .aTo = "1030 - Garage.IMC" },
+    { .aFrom = "1031 - Glottis' Shop", .aTo = "1031 - Glottis' Shop.IMC" },
+    { .aFrom = "1040 - Festival Wet", .aTo = "1040 - Festival Wet.IMC" },
+    { .aFrom = "1041 - Festival Dry", .aTo = "1041 - Festival Dry.IMC" },
+    { .aFrom = "1050 - Headquarters", .aTo = "1050 - Headquarters.IMC" },
+    { .aFrom = "1060 - Real World", .aTo = "1060 - Real World.IMC" },
+    { .aFrom = "1070 - Stump Room", .aTo = "1070 - Stump Room.IMC" },
+    { .aFrom = "1071 - Signpost Room", .aTo = "1071 - Signpost Room.IMC" },
+    { .aFrom = "1072 - Navigation", .aTo = "1072 - Navigation.IMC" },
+    { .aFrom = "1074 - Bone Wagon", .aTo = "1074 - Bone Wagon.IMC" },
+    { .aFrom = "1075 - Spider's Eye", .aTo = "1075 - Spider's Eye.IMC" },
+    { .aFrom = "1076 - Spider Room", .aTo = "1076 - Spider Room.IMC" },
+    { .aFrom = "1077 - Tree Pump Amb", .aTo = "1077 - Tree Pump Amb.IMC" },
+    { .aFrom = "1078 - Tree Pump", .aTo = "1078 - Tree Pump.IMC" },
+    { .aFrom = "1080 - Beaver Room Lbby", .aTo = "1080 - Beaver Room Lbby.IMC" },
+    { .aFrom = "1081 - Beaver Dam", .aTo = "1081 - Beaver Dam.IMC" },
+    { .aFrom = "1083 - Beaver Room", .aTo = "1083 - Beaver Room.IMC" },
+    { .aFrom = "1084 - Foggy Cactus", .aTo = "1084 - Foggy Cactus.IMC" },
+    { .aFrom = "1085 - Rubamat Exterior", .aTo = "1085 - Rubamat Exterior.IMC" },
+    { .aFrom = "1087 - Blue Hector", .aTo = "1087 - Blue Hector.IMC" },
+    { .aFrom = "1101 - Cafe Office", .aTo = "1101 - Cafe Office.IMC" },
+    { .aFrom = "1102 - Cafe Intercom", .aTo = "1102 - Cafe Intercom.IMC" },
+    { .aFrom = "1103 - Coat Check", .aTo = "1103 - Coat Check.IMC" },
+    { .aFrom = "1104 - Lupe", .aTo = "1104 - Lupe.IMC" },
+    { .aFrom = "1106 - Glottis Noodle", .aTo = "1106 - Glottis Noodle.IMC" },
+    { .aFrom = "1108 - Casino Interior", .aTo = "1108 - Casino Interior.IMC" },
+    { .aFrom = "1109 - Cafe Exterior", .aTo = "1109 - Cafe Exterior.IMC" },
+    { .aFrom = "1110 - Cafe Ledge", .aTo = "1110 - Cafe Ledge.IMC" },
+    { .aFrom = "1112 - Rusty Sans Vox", .aTo = "1112 - Rusty Sans Vox.IMC" },
+    { .aFrom = "1120 - Elevator Station", .aTo = "1120 - Elevator Station.IMC" },
+    { .aFrom = "1122 - Blue Exterior", .aTo = "1122 - Blue Exterior.IMC" },
+    { .aFrom = "1123 - Blue Casket Ins", .aTo = "1123 - Blue Casket Ins.IMC" },
+    { .aFrom = "1124 - Blue Casket Amb", .aTo = "1124 - Blue Casket Amb.IMC" },
+    { .aFrom = "1125 - Hector Steps Out", .aTo = "1125 - Hector Steps Out.IMC" },
+    { .aFrom = "1125 - Smooth Hector", .aTo = "1125 - Smooth Hector.IMC" },
+    { .aFrom = "1127 - Limbo Dock", .aTo = "1127 - Limbo Dock.IMC" },
+    { .aFrom = "1128 - Limbo Talk", .aTo = "1128 - Limbo Talk.IMC" },
+    { .aFrom = "1129 - Limbo Poem", .aTo = "1129 - Limbo Poem.IMC" },
+    { .aFrom = "1130 - Dry Dock", .aTo = "1130 - Dry Dock.IMC" },
+    { .aFrom = "1131 - Dry Dock Strike", .aTo = "1131 - Dry Dock Strike.IMC" },
+    { .aFrom = "1132 - Lighthouse Ext", .aTo = "1132 - Lighthouse Ext.IMC" },
+    { .aFrom = "1133 - Lola's Last", .aTo = "1133 - Lola's Last.IMC" },
+    { .aFrom = "1140 - Police Station", .aTo = "1140 - Police Station.IMC" },
+    { .aFrom = "1141 - Police Interior", .aTo = "1141 - Police Interior.IMC" },
+    { .aFrom = "1143 - Morgue", .aTo = "1143 - Morgue.IMC" },
+    { .aFrom = "1145 - Bridge Blimp", .aTo = "1145 - Bridge Blimp.IMC" },
+    { .aFrom = "1146 - LOL Security Ext", .aTo = "1146 - LOL Security Ext.IMC" },
+    { .aFrom = "1147 - LOL Security Int", .aTo = "1147 - LOL Security Int.IMC" },
+    { .aFrom = "1148 - Carla's Life", .aTo = "1148 - Carla's Life.IMC" },
+    { .aFrom = "1149 - Bomb", .aTo = "1149 - Bomb.IMC" },
+    { .aFrom = "1152 - Track Stairs", .aTo = "1152 - Track Stairs.IMC" },
+    { .aFrom = "1153 - Track Base", .aTo = "1153 - Track Base.IMC" },
+    { .aFrom = "1154 - Kitty Hall", .aTo = "1154 - Kitty Hall.IMC" },
+    { .aFrom = "1155 - Sanspoof", .aTo = "1155 - Sanspoof.IMC" },
+    { .aFrom = "1156 - Kitty Stables", .aTo = "1156 - Kitty Stables.IMC" },
+    { .aFrom = "1160 - High Roller Hall", .aTo = "1160 - High Roller Hall.IMC" },
+    { .aFrom = "1161 - High Roller Lnge", .aTo = "1161 - High Roller Lnge.IMC" },
+    { .aFrom = "1162 - Glottis Gambling", .aTo = "1162 - Glottis Gambling.IMC" },
+    { .aFrom = "1163 - Max's Office", .aTo = "1163 - Max's Office.IMC" },
+    { .aFrom = "1167 - Dillopede Elev", .aTo = "1167 - Dillopede Elev.IMC" },
+    { .aFrom = "1170 - Extendo Bridge", .aTo = "1170 - Extendo Bridge.IMC" },
+    { .aFrom = "1173 - Scrimshaw Int", .aTo = "1173 - Scrimshaw Int.IMC" },
+    { .aFrom = "1174 - Scrim Sleep", .aTo = "1174 - Scrim Sleep.IMC" },
+    { .aFrom = "1180 - Note to Manny", .aTo = "1180 - Note to Manny.IMC" },
+    { .aFrom = "1201 - Lola Zapata", .aTo = "1201 - Lola Zapata.IMC" },
+    { .aFrom = "1202 - Inside The Lola", .aTo = "1202 - Inside The Lola.IMC" },
+    { .aFrom = "1203 - Engine Room", .aTo = "1203 - Engine Room.IMC" },
+    { .aFrom = "1204 - Porthole", .aTo = "1204 - Porthole.IMC" },
+    { .aFrom = "1210 - Sunken Lola", .aTo = "1210 - Sunken Lola.IMC" },
+    { .aFrom = "1211 - Pearl Crater Sub", .aTo = "1211 - Pearl Crater Sub.IMC" },
+    { .aFrom = "1220 - Miner's Room", .aTo = "1220 - Miner's Room.IMC" },
+    { .aFrom = "1222 - Exterior Airlock", .aTo = "1222 - Exterior Airlock.IMC" },
+    { .aFrom = "1223 - Factory Hub", .aTo = "1223 - Factory Hub.IMC" },
+    { .aFrom = "1224 - Foreman's Office", .aTo = "1224 - Foreman's Office.IMC" },
+    { .aFrom = "1230 - Vault Door", .aTo = "1230 - Vault Door.IMC" },
+    { .aFrom = "1231 - Outer Vault", .aTo = "1231 - Outer Vault.IMC" },
+    { .aFrom = "1232 - Inner Vault", .aTo = "1232 - Inner Vault.IMC" },
+    { .aFrom = "1233 - Ashtray Room", .aTo = "1233 - Ashtray Room.IMC" },
+    { .aFrom = "1234 - Ashtray Scary", .aTo = "1234 - Ashtray Scary.IMC" },
+    { .aFrom = "1235 - Ashtray Pensive", .aTo = "1235 - Ashtray Pensive.IMC" },
+    { .aFrom = "1236 - Domino's Room", .aTo = "1236 - Domino's Room.IMC" },
+    { .aFrom = "1240 - Conveyor Under", .aTo = "1240 - Conveyor Under.IMC" },
+    { .aFrom = "1241 - Crane Intro", .aTo = "1241 - Crane Intro.IMC" },
+    { .aFrom = "1243 - Anchor Room", .aTo = "1243 - Anchor Room.IMC" },
+    { .aFrom = "1244 - Glottis Hanging", .aTo = "1244 - Glottis Hanging.IMC" },
+    { .aFrom = "1245 - End of the World", .aTo = "1245 - End of the World.IMC" },
+    { .aFrom = "1246 - End World Later", .aTo = "1246 - End World Later.IMC" },
+    { .aFrom = "1250 - Upper Beach", .aTo = "1250 - Upper Beach.IMC" },
+    { .aFrom = "1252 - Lower Beach Boat", .aTo = "1252 - Lower Beach Boat.IMC" },
+    { .aFrom = "1253 - Lamancha Sub", .aTo = "1253 - Lamancha Sub.IMC" },
+    { .aFrom = "1254 - Crane Later", .aTo = "1254 - Crane Later.IMC" },
+    { .aFrom = "1301 - Temple Gate", .aTo = "1301 - Temple Gate.IMC" },
+    { .aFrom = "1303 - Truck Depot", .aTo = "1303 - Truck Depot.IMC" },
+    { .aFrom = "1304 - Mayan Train Sta", .aTo = "1304 - Mayan Train Sta.IMC" },
+    { .aFrom = "1305 - Mayan Workshop", .aTo = "1305 - Mayan Workshop.IMC" },
+    { .aFrom = "1306 - Mayan Train Pad", .aTo = "1306 - Mayan Train Pad.IMC" },
+    { .aFrom = "1307 - Mechanic's Kitch", .aTo = "1307 - Mechanic's Kitch.IMC" },
+    { .aFrom = "1310 - Jello Bomb", .aTo = "1310 - Jello Bomb.IMC" },
+    { .aFrom = "1319 - Florist Video", .aTo = "1319 - Florist Video.IMC" },
+    { .aFrom = "1320 - New LSA HQ", .aTo = "1320 - New LSA HQ.IMC" },
+    { .aFrom = "1321 - LSA Sewer", .aTo = "1321 - LSA Sewer.IMC" },
+    { .aFrom = "1323 - Sewer Maze", .aTo = "1323 - Sewer Maze.IMC" },
+    { .aFrom = "1324 - Albinozod", .aTo = "1324 - Albinozod.IMC" },
+    { .aFrom = "1325 - Florist Shop", .aTo = "1325 - Florist Shop.IMC" },
+    { .aFrom = "1326 - Florist Shop Int", .aTo = "1326 - Florist Shop Int.IMC" },
+    { .aFrom = "1327 - Florist OK", .aTo = "1327 - Florist OK.IMC" },
+    { .aFrom = "1329 - Theater Backstag", .aTo = "1329 - Theater Backstag.IMC" },
+    { .aFrom = "1330 - Lemans Lobby", .aTo = "1330 - Lemans Lobby.IMC" },
+    { .aFrom = "1332 - Hector's Foyer", .aTo = "1332 - Hector's Foyer.IMC" },
+    { .aFrom = "1333 - Brennis Talk", .aTo = "1333 - Brennis Talk.IMC" },
+    { .aFrom = "1334 - Albino Trap", .aTo = "1334 - Albino Trap.IMC" },
+    { .aFrom = "1342 - Neon Ledge", .aTo = "1342 - Neon Ledge.IMC" },
+    { .aFrom = "1350 - Meadow Flowers", .aTo = "1350 - Meadow Flowers.IMC" },
+    { .aFrom = "1351 - Meadow", .aTo = "1351 - Meadow.IMC" },
+    { .aFrom = "1352 - Car Head", .aTo = "1352 - Car Head.IMC" },
+    { .aFrom = "1353 - Greenhouse Appr", .aTo = "1353 - Greenhouse Appr.IMC" },
+    { .aFrom = "1354 - Game Ending", .aTo = "1354 - Game Ending.IMC" },
+    { .aFrom = "1355 - Shootout", .aTo = "1355 - Shootout.IMC" },
+    { .aFrom = "1400 - Start Credits", .aTo = "1400 - Start Credits.IMC" },
+    { .aFrom = "1401 - Smooth Hector", .aTo = "1401 - Smooth Hector.IMC" },
+    { .aFrom = "2001 - Climb Rope", .aTo = "2001 - Climb Rope.IMC" },
+    { .aFrom = "2010 - Glottis OK", .aTo = "2010 - Glottis OK.IMC" },
+    { .aFrom = "2020 - Reap Bruno", .aTo = "2020 - Reap Bruno.IMC" },
+    { .aFrom = "2030 - Ledgepeckers", .aTo = "2030 - Ledgepeckers.IMC" },
+    { .aFrom = "2050 - Glottis Heart", .aTo = "2050 - Glottis Heart.IMC" },
+    { .aFrom = "2055 - Slingshot Bone", .aTo = "2055 - Slingshot Bone.IMC" },
+    { .aFrom = "2060 - Glott Tree Fall", .aTo = "2060 - Glott Tree Fall.IMC" },
+    { .aFrom = "2070 - Beaver Fly", .aTo = "2070 - Beaver Fly.IMC" },
+    { .aFrom = "2071 - Beaver Sink", .aTo = "2071 - Beaver Sink.IMC" },
+    { .aFrom = "2080 - Meet Velasco", .aTo = "2080 - Meet Velasco.IMC" },
+    { .aFrom = "2140 - Ooo Bonewagon", .aTo = "2140 - Ooo Bonewagon.IMC" },
+    { .aFrom = "2141 - Ooo Meche", .aTo = "2141 - Ooo Meche.IMC" },
+    { .aFrom = "2155 - Find Detector", .aTo = "2155 - Find Detector.IMC" },
+    { .aFrom = "2156 - Glott Drink Wine", .aTo = "2156 - Glott Drink Wine.IMC" },
+    { .aFrom = "2157 - Glott No Wine", .aTo = "2157 - Glott No Wine.IMC" },
+    { .aFrom = "2161 - Raoul Appears", .aTo = "2161 - Raoul Appears.IMC" },
+    { .aFrom = "2162 - Raoul KO", .aTo = "2162 - Raoul KO.IMC" },
+    { .aFrom = "2163 - Raoul Dissed", .aTo = "2163 - Raoul Dissed.IMC" },
+    { .aFrom = "2165 - Fake Tix", .aTo = "2165 - Fake Tix.IMC" },
+    { .aFrom = "2180 - Befriend Commies", .aTo = "2180 - Befriend Commies.IMC" },
+    { .aFrom = "2186 - Nick Punchout", .aTo = "2186 - Nick Punchout.IMC" },
+    { .aFrom = "2200 - Yr 3 Iris", .aTo = "2200 - Yr 3 Iris.IMC" },
+    { .aFrom = "2210 - Hit Men", .aTo = "2210 - Hit Men.IMC" },
+    { .aFrom = "2230 - Open Vault", .aTo = "2230 - Open Vault.IMC" },
+    { .aFrom = "2235 - Dead Tix", .aTo = "2235 - Dead Tix.IMC" },
+    { .aFrom = "2240 - Sprinkler", .aTo = "2240 - Sprinkler.IMC" },
+    { .aFrom = "2250 - Crane Track", .aTo = "2250 - Crane Track.IMC" },
+    { .aFrom = "2255 - Crane Fall", .aTo = "2255 - Crane Fall.IMC" },
+    { .aFrom = "2300 - Yr 4 Iris", .aTo = "2300 - Yr 4 Iris.IMC" },
+    { .aFrom = "2301 - Pop Bruno Casket", .aTo = "2301 - Pop Bruno Casket.IMC" },
+    { .aFrom = "2310 - Rocket Idea", .aTo = "2310 - Rocket Idea.IMC" },
+    { .aFrom = "2320 - Jello Suspense", .aTo = "2320 - Jello Suspense.IMC" },
+    { .aFrom = "2325 - Lumbago Lemo", .aTo = "2325 - Lumbago Lemo.IMC" },
+    { .aFrom = "2327 - Breath Mint", .aTo = "2327 - Breath Mint.IMC" },
+    { .aFrom = "2330 - Pigeon Fly", .aTo = "2330 - Pigeon Fly.IMC" },
+    { .aFrom = "2340 - Coffee On Boys", .aTo = "2340 - Coffee On Boys.IMC" },
+    { .aFrom = "2350 - Sprout Aha", .aTo = "2350 - Sprout Aha.IMC" },
+    { .aFrom = "2360 - Chowchilla Bye", .aTo = "2360 - Chowchilla Bye.IMC" },
+    { .aFrom = "2370 - Salvador Death", .aTo = "2370 - Salvador Death.IMC" },
+    { .aFrom = "2399 - End Credits", .aTo = "2399 - End Credits.IMC" },
+    {0}
+};
+/* 0x1001e688, 4 bytes */ GRIM_DATA("1001e688") unsigned int grim_def_g_dwLocalMusic __asm__("_g_dwLocalMusic") = 0x1;
+/* 0x1001e68c, 40 bytes */ GRIM_DATA("1001e68c") char grim_def_s_ERROR_unrecognized_opcode_in_scr_1001e68c[40] __asm__("_s_ERROR_unrecognized_opcode_in_scr_1001e68c") = "ERROR:unrecognized opcode in script...";
+/* 0x1001e6b4, 36 bytes */ GRIM_DATA("1001e6b4") char grim_def_s_ERROR_script_already_initialized_1001e6b4[36] __asm__("_s_ERROR_script_already_initialized_1001e6b4") = "ERROR:script already initialized...";
+/* 0x1001e6d8, 32 bytes */ GRIM_DATA("1001e6d8") char grim_def_s_ERROR_script_not_initialized____1001e6d8[32] __asm__("_s_ERROR_script_not_initialized____1001e6d8") = "ERROR:script not initialized...";
+/* 0x1001e6f8, 40 bytes */ /* loose */ char grim_def_s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[40] __asm__("_s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8") = "SCRIPT ERR: save buffer too small...";
+/* 0x1001e720, 24 bytes */ /* loose */ char grim_def_s_ERR__bogus_sequence____1001e720[24] __asm__("_s_ERR__bogus_sequence____1001e720") = "ERR: bogus sequence...";
+/* 0x1001e738, 24 bytes */ /* loose */ char grim_def_s_ERR__bogus_attribute____1001e738[24] __asm__("_s_ERR__bogus_attribute____1001e738") = "ERR: bogus attribute...";
+/* 0x1001e750, 24 bytes */ /* loose */ char grim_def_s_Set_attr__lu_to__lu____1001e750[24] __asm__("_s_Set_attr__lu_to__lu____1001e750") = "Set attr %lu to %lu...";
+/* 0x1001e768, 32 bytes */ /* loose */ char grim_def_s_SCRIPT_ERR__bogus_trans_type____1001e768[32] __asm__("_s_SCRIPT_ERR__bogus_trans_type____1001e768") = "SCRIPT ERR: bogus trans type...";
+/* 0x1001e788, 36 bytes */ /* loose */ char grim_def_s_SCRIPT_ERR__failed_start_stream__1001e788[36] __asm__("_s_SCRIPT_ERR__failed_start_stream__1001e788") = "SCRIPT ERR: failed start stream...";
+/* 0x1001e7ac, 20 bytes */ /* loose */ char grim_def_s_No_stream_sound____1001e7ac[20] __asm__("_s_No_stream_sound____1001e7ac") = "No stream sound...";
+/* 0x1001e7c0, 16 bytes */ /* loose */ char grim_def_s_and_PAN__lu____1001e7c0[16] __asm__("_s_and_PAN__lu____1001e7c0") = "and PAN=%lu...";
+/* 0x1001e7d0, 20 bytes */ /* loose */ char grim_def_s_fading_VOL__lu____1001e7d0[20] __asm__("_s_fading_VOL__lu____1001e7d0") = "fading VOL=%lu...";
+/* 0x1001e7e4, 16 bytes */ /* loose */ char grim_def_s_set_pan__lu____1001e7e4[16] __asm__("_s_set_pan__lu____1001e7e4") = "set pan=%lu...";
+/* 0x1001e7f4, 8 bytes */ /* loose */ char grim_def_s_clear_1001e7f4[8] __asm__("_s_clear_1001e7f4") = "clear";
+/* 0x1001e7fc, 8 bytes */ /* loose */ char grim_def_s_exit2_1001e7fc[8] __asm__("_s_exit2_1001e7fc") = "exit2";
+/* 0x1001e804, 8 bytes */ /* loose */ char grim_def_s_exit_1001e804[8] __asm__("_s_exit_1001e804") = "exit";
+/* 0x1001e80c, 12 bytes */ /* loose */ char grim_def_s_vol__lu____1001e80c[12] __asm__("_s_vol__lu____1001e80c") = "vol=%lu...";
+/* 0x1001e818, 12 bytes */ /* loose */ char grim_def_s_FADE__lu____1001e818[12] __asm__("_s_FADE__lu____1001e818") = "FADE=%lu...";
+/* 0x1001e824, 12 bytes */ /* loose */ char grim_def_s_HOOK__lu____1001e824[12] __asm__("_s_HOOK__lu____1001e824") = "HOOK=%lu...";
+/* 0x1001e830, 28 bytes */ /* loose */ char grim_def_s_SCRIPT_ERR__Unable_to_open_1001e830[28] __asm__("_s_SCRIPT_ERR__Unable_to_open_1001e830") = "SCRIPT ERR: Unable to open ";
+/* 0x1001e84c, 12 bytes */ /* loose */ char grim_def_s_opening_1001e84c[12] __asm__("_s_opening_1001e84c") = "opening ";
+/* 0x1001e858, 8 bytes */ /* loose */ char grim_def_s__end_1001e858[8] __asm__("_s__end_1001e858") = "_end";
+/* 0x1001e860, 16 bytes */ /* loose */ char grim_def_s_Trans_null____1001e860[16] __asm__("_s_Trans_null____1001e860") = "Trans null...";
+/* 0x1001e870, 40 bytes */ /* loose */ char grim_def_s_ERR_callback_got_marker______end_1001e870[40] __asm__("_s_ERR_callback_got_marker______end_1001e870") = "ERR:callback got marker != '_end'...";
+/* 0x1001e898, 12 bytes */ /* loose */ char grim_def_s_CALLBACK__1001e898[12] __asm__("_s_CALLBACK__1001e898") = "CALLBACK:";
+/* 0x1001e8d4, 4 bytes */ /* loose */ unsigned int grim_def_g_dwImWaveMixCount __asm__("_g_dwImWaveMixCount") = 0x8;
+/* 0x1001e994, 8 bytes */ GRIM_DATA("1001e994") char grim_def_s_LIP__1001e994[8] __asm__("_s_LIP__1001e994") = "LIP!";
+/* 0x1001e99c, 28 bytes */ GRIM_DATA("1001e99c") unsigned char grim_def_DAT_1001e99c[28] __asm__("_DAT_1001e99c") = {
+    0x70, 0x46, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x21, 0x3d, 0x20, 0x28, 0x28, 0x76,
+    0x6f, 0x69, 0x64, 0x20, 0x2a, 0x29, 0x30, 0x29
+};
+/* 0x1001e9b8, 8 bytes */ GRIM_DATA("1001e9b8") unsigned char grim_def_DAT_1001e9b8[8] __asm__("_DAT_1001e9b8") = { 0x70, 0x45, 0x6e, 0x74, 0x72, 0x79 };
+/* 0x1001e9c0, 16 bytes */ GRIM_DATA("1001e9c0") char grim_def_s_VIMA_1001e9c0[16] __asm__("_s_VIMA_1001e9c0") = "VIMA\000\000\000\000u\230\000\000s\230";
+/* 0x10022140, 128 bytes */ GRIM_DATA("10022140") unsigned char grim_def_DAT_10022140[128] __asm__("_DAT_10022140") = {0};
+/* 0x100221c0, 11264 bytes */ GRIM_DATA("100221c0") unsigned char grim_def_DAT_100221c0[11264] __asm__("_DAT_100221c0") = {0};
+/* 0x10024dc0, 8 bytes */ GRIM_DATA("10024dc0") unsigned char grim_def_DAT_10024dc0[8] __asm__("_DAT_10024dc0") = {0};
+/* 0x10024dd0, 4 bytes */ GRIM_DATA("10024dd0") unsigned int grim_def_g_dwLargeFadeFlags __asm__("_g_dwLargeFadeFlags") = 0x0;
+/* 0x10024ddc, 4 bytes */ GRIM_DATA("10024ddc") unsigned char grim_def_g_dwDpProcessTrack_critSize[4] __asm__("_g_dwDpProcessTrack_critSize") = {0};
+/* 0x10024de0, 8 bytes */ GRIM_DATA("10024de0") unsigned char grim_def_g_dwFadeStartedFlag[8] __asm__("_g_dwFadeStartedFlag") = {0};
+/* 0x1002d7e0, 4 bytes */ GRIM_DATA("1002d7e0") unsigned char grim_def_g_dwDpProcessTrack_curLevel[4] __asm__("_g_dwDpProcessTrack_curLevel") = {0};
+/* 0x1002d7e4, 4 bytes */ GRIM_DATA("1002d7e4") unsigned char grim_def_g_dwDpProcessTrack_pauseFlag[4] __asm__("_g_dwDpProcessTrack_pauseFlag") = {0};
+/* 0x1002d7e8, 8 bytes */ GRIM_DATA("1002d7e8") unsigned char grim_def_g_dwGoToNextRegion_fadeSize[8] __asm__("_g_dwGoToNextRegion_fadeSize") = {0};
+/* 0x1002d7f0, 24 bytes */ GRIM_DATA("1002d7f0") unsigned char grim_def_DAT_1002d7f0[24] __asm__("_DAT_1002d7f0") = {0};
+/* 0x1002d810, 4 bytes */ GRIM_DATA("1002d810") unsigned char grim_def_g_dwDpProcessTrack_bufSize[4] __asm__("_g_dwDpProcessTrack_bufSize") = {0};
+/* 0x1002d814, 4 bytes */ GRIM_DATA("1002d814") unsigned int grim_def_DAT_1002d814 __asm__("_DAT_1002d814") = 0x0;
+/* 0x1002d818, 4 bytes */ GRIM_DATA("1002d818") unsigned char grim_def_DAT_1002d818[4] __asm__("_DAT_1002d818") = {0};
+/* 0x1002d820, 4 bytes */ GRIM_DATA("1002d820") unsigned int grim_def_DAT_1002d820 __asm__("_DAT_1002d820") = 0x0;
+/* 0x1002d82c, 4 bytes */ GRIM_DATA("1002d82c") unsigned int grim_def_DAT_1002d82c __asm__("_DAT_1002d82c") = 0x0;
+/* 0x1002d830, 4 bytes */ GRIM_DATA("1002d830") unsigned char grim_def_PTR_1002d830[4] __asm__("_PTR_1002d830") = {0};
+/* 0x1002d834, 4 bytes */ GRIM_DATA("1002d834") unsigned char grim_def_PTR_1002d834[4] __asm__("_PTR_1002d834") = {0};
+/* 0x1002d838, 4 bytes */ GRIM_DATA("1002d838") unsigned char grim_def_PTR_1002d838[4] __asm__("_PTR_1002d838") = {0};
+/* 0x1002d840, 4 bytes */ GRIM_DATA("1002d840") unsigned char grim_def_DAT_1002d840[4] __asm__("_DAT_1002d840") = {0};
+/* 0x1002d844, 4 bytes */ GRIM_DATA("1002d844") unsigned int grim_def_DAT_1002d844 __asm__("_DAT_1002d844") = 0x0;
+/* 0x1002d848, 4 bytes */ GRIM_DATA("1002d848") unsigned int grim_def_DAT_1002d848 __asm__("_DAT_1002d848") = 0x0;
+/* 0x1002d84c, 4 bytes */ GRIM_DATA("1002d84c") unsigned int grim_def_g_dwCurrentWriteIndex __asm__("_g_dwCurrentWriteIndex") = 0x0;
+/* 0x1002d850, 4 bytes */ GRIM_DATA("1002d850") unsigned char grim_def_DAT_1002d850[4] __asm__("_DAT_1002d850") = {0};
+/* 0x1002d854, 4 bytes */ GRIM_DATA("1002d854") unsigned char grim_def_DAT_1002d854[4] __asm__("_DAT_1002d854") = {0};
+/* 0x1002d858, 8 bytes */ GRIM_DATA("1002d858") unsigned int grim_def_g_dwFadesOn __asm__("_g_dwFadesOn") = 0x0;
+/* 0x1002d85c, 4 bytes: the rest of grim_def_g_dwFadesOn's span */ GRIM_DATA("1002d858") static unsigned char g_dwFadesOn__tail[4] __attribute__((used)) = {0};
+/* 0x1002d860, 32 bytes */ GRIM_DATA("1002d860") unsigned char grim_def_g_dwFades[32] __asm__("_g_dwFades") = {0};
+/* 0x1002d880, 608 bytes */ GRIM_DATA("1002d880") unsigned char grim_def_DAT_1002d880[608] __asm__("_DAT_1002d880") = {0};
+/* 0x1002dd14, 4 bytes */ GRIM_DATA("1002dd14") unsigned char grim_def_DAT_1002dd14[4] __asm__("_DAT_1002dd14") = {0};
+/* 0x1002dd18, 4 bytes */ GRIM_DATA("1002dd18") unsigned int grim_def_DAT_1002dd18 __asm__("_DAT_1002dd18") = 0x0;
+/* 0x1002dd1c, 4 bytes */ GRIM_DATA("1002dd1c") unsigned char grim_def_DAT_1002dd1c[4] __asm__("_DAT_1002dd1c") = {0};
+/* 0x1002dd20, 4 bytes */ GRIM_DATA("1002dd20") unsigned int grim_def_UINT_1002dd20 __asm__("_UINT_1002dd20") = 0x0;
+/* 0x1002dd24, 4 bytes */ GRIM_DATA("1002dd24") unsigned char grim_def_DAT_1002dd24[4] __asm__("_DAT_1002dd24") = {0};
+/* 0x1002dd28, 4 bytes */ GRIM_DATA("1002dd28") unsigned char grim_def_DAT_1002dd28[4] __asm__("_DAT_1002dd28") = {0};
+/* 0x1002dd80, 4 bytes */ GRIM_DATA("1002dd80") unsigned int grim_def_g_dwGroupVols __asm__("_g_dwGroupVols") = 0x0;
+/* 0x1002dd84, 60 bytes */ GRIM_DATA("1002dd84") unsigned char grim_def_DAT_1002dd84[60] __asm__("_DAT_1002dd84") = {0};
+/* 0x1002ddc0, 4 bytes */ GRIM_DATA("1002ddc0") unsigned int grim_def_g_dwGroupEffVols __asm__("_g_dwGroupEffVols") = 0x0;
+/* 0x1002ddc4, 60 bytes */ GRIM_DATA("1002ddc4") unsigned char grim_def_DAT_1002ddc4[60] __asm__("_DAT_1002ddc4") = {0};
+/* 0x1002df18, 4 bytes */ GRIM_DATA("1002df18") unsigned int grim_def_g_dwOutChannelCount __asm__("_g_dwOutChannelCount") = 0x0;
+/* 0x1002df20, 4 bytes */ GRIM_DATA("1002df20") unsigned char grim_def_g_dwSoftLTable[4] __asm__("_g_dwSoftLTable") = {0};
+/* 0x1002df24, 4 bytes */ GRIM_DATA("1002df24") unsigned int grim_def_g_dwMixBufSize __asm__("_g_dwMixBufSize") = 0x0;
+/* 0x1002df28, 8 bytes */ GRIM_DATA("1002df28") unsigned char grim_def_DAT_1002df28[8] __asm__("_DAT_1002df28") = {0};
+/* 0x1002df30, 44 bytes */ GRIM_DATA("1002df30") unsigned char grim_def_g_aMxEndMix_wavHeader[44] __asm__("_g_aMxEndMix_wavHeader") = {0};
+/* 0x1002df5c, 4 bytes */ GRIM_DATA("1002df5c") unsigned char grim_def_g_pMixBuf[4] __asm__("_g_pMixBuf") = {0};
+/* 0x1002df68, 4 bytes */ GRIM_DATA("1002df68") unsigned char grim_def_DAT_1002df68[4] __asm__("_DAT_1002df68") = {0};
+/* 0x1002df6c, 4 bytes */ GRIM_DATA("1002df6c") unsigned char grim_def_DAT_1002df6c[4] __asm__("_DAT_1002df6c") = {0};
+/* 0x1002df70, 8 bytes */ GRIM_DATA("1002df70") unsigned int grim_def_g_dwCurrentState __asm__("_g_dwCurrentState") = 0x0;
+/* 0x1002df74, 4 bytes: the rest of grim_def_g_dwCurrentState's span */ GRIM_DATA("1002df70") static unsigned char g_dwCurrentState__tail[4] __attribute__((used)) = {0};
+/* 0x1002df78, 12 bytes */ GRIM_DATA("1002df78") unsigned char grim_def_DAT_1002df78[12] __asm__("_DAT_1002df78") = {0};
+/* 0x1002df84, 728 bytes */ GRIM_DATA("1002df84") unsigned char grim_def_DAT_1002df84[728] __asm__("_DAT_1002df84") = {0};
+/* 0x1002e25c, 168 bytes */ GRIM_DATA("1002e25c") unsigned char grim_def_DAT_1002e25c[168] __asm__("_DAT_1002e25c") = {0};
+/* 0x1002e304, 4 bytes */ GRIM_DATA("1002e304") unsigned int grim_def_DAT_1002e304 __asm__("_DAT_1002e304") = 0x0;
+/* 0x1002e308, 4 bytes */ GRIM_DATA("1002e308") int grim_def_g_dwCurrentSequence __asm__("_g_dwCurrentSequence") = 0;
+/* 0x1002e30c, 4 bytes */ GRIM_DATA("1002e30c") int grim_def_g_dwCurrentCuePoint __asm__("_g_dwCurrentCuePoint") = 0;
+/* 0x1002e310, 1 bytes */ GRIM_DATA("1002e310") char grim_def_g_bTrans_name __asm__("_g_bTrans_name") = 0;
+/* 0x1002e311, 31 bytes */ GRIM_DATA("1002e310") unsigned char grim_def_DAT_1002e311[31] __asm__("_DAT_1002e311") = {0};
+/* 0x1002e330, 8 bytes */ GRIM_DATA("1002e330") unsigned char grim_def_DAT_1002e330[8] __asm__("_DAT_1002e330") = {0};
+/* 0x1002e338, 8 bytes */ GRIM_DATA("1002e338") unsigned char grim_def_DAT_1002e338[8] __asm__("_DAT_1002e338") = {0};
+/* 0x1002e340, 2000 bytes */ GRIM_DATA("1002e340") unsigned char grim_def_g_aLipSfx1Data[2000] __asm__("_g_aLipSfx1Data") = {0};
+/* 0x1002ec18, 2000 bytes */ GRIM_DATA("1002ec18") unsigned char grim_def_g_aLipSfx2Data[2000] __asm__("_g_aLipSfx2Data") = {0};
+/* 0x1002f3e8, 2000 bytes */ GRIM_DATA("1002f3e8") unsigned char grim_def_g_bLipStreamData[2000] __asm__("_g_bLipStreamData") = {0};
+/* 0x1002fbb8, 24 bytes */ GRIM_DATA("1002fbb8") unsigned char grim_def_DAT_1002fbb8[24] __asm__("_DAT_1002fbb8") = {0};
+/* 0x100303a4, 4 bytes */ GRIM_DATA("100303a4") unsigned char grim_def_DAT_100303a4[4] __asm__("_DAT_100303a4") = {0};
+/* 0x100303a8, 4 bytes */ GRIM_DATA("100303a8") unsigned char grim_def_DAT_100303a8[4] __asm__("_DAT_100303a8") = {0};
+/* 0x100303ac, 4 bytes */ GRIM_DATA("100303ac") unsigned char grim_def_DAT_100303ac[4] __asm__("_DAT_100303ac") = {0};
+/* 0x100303b0, 4 bytes */ GRIM_DATA("100303b0") unsigned char grim_def_DAT_100303b0[4] __asm__("_DAT_100303b0") = {0};
+/* 0x100303b4, 4 bytes */ GRIM_DATA("100303b4") unsigned char grim_def_DAT_100303b4[4] __asm__("_DAT_100303b4") = {0};
+/* 0x100303b8, 4 bytes */ GRIM_DATA("100303b8") unsigned char grim_def_DAT_100303b8[4] __asm__("_DAT_100303b8") = {0};
+/* 0x100303bc, 4 bytes */ GRIM_DATA("100303bc") unsigned char grim_def_DAT_100303bc[4] __asm__("_DAT_100303bc") = {0};
+/* 0x100303c0, 4 bytes */ GRIM_DATA("100303c0") unsigned char grim_def_DAT_100303c0[4] __asm__("_DAT_100303c0") = {0};
+/* 0x100303c4, 4 bytes */ GRIM_DATA("100303c4") unsigned char grim_def_DAT_100303c4[4] __asm__("_DAT_100303c4") = {0};
+/* 0x100303c8, 4 bytes */ GRIM_DATA("100303c8") unsigned char grim_def_DAT_100303c8[4] __asm__("_DAT_100303c8") = {0};
+/* 0x100303cc, 4 bytes */ GRIM_DATA("100303cc") unsigned char grim_def_DAT_100303cc[4] __asm__("_DAT_100303cc") = {0};
+/* 0x100303d0, 4 bytes */ GRIM_DATA("100303d0") unsigned char grim_def_DAT_100303d0[4] __asm__("_DAT_100303d0") = {0};
+/* 0x10031554, 4 bytes */ GRIM_DATA("10031554") unsigned char grim_def_DAT_10031554[4] __asm__("_DAT_10031554") = {0};
+/* 0x10031558, 8 bytes */ GRIM_DATA("10031558") unsigned char grim_def_DAT_10031558[8] __asm__("_DAT_10031558") = {0};
+/* 0x10031e70, 4 bytes */ GRIM_DATA("10031e70") unsigned char grim_def_g_dwLipStreamID[4] __asm__("_g_dwLipStreamID") = {0};
+/* 0x10031e74, 4 bytes */ GRIM_DATA("10031e74") unsigned char grim_def_g_dwLipSfx1ID[4] __asm__("_g_dwLipSfx1ID") = {0};
+/* 0x10031e78, 4 bytes */ GRIM_DATA("10031e78") unsigned char grim_def_g_dwLipSfx2ID[4] __asm__("_g_dwLipSfx2ID") = {0};
+/* 0x10031e7c, 4 bytes */ GRIM_DATA("10031e7c") unsigned char grim_def_g_dwLipSfx3ID[4] __asm__("_g_dwLipSfx3ID") = {0};
+/* 0x10031e80, 4 bytes */ GRIM_DATA("10031e80") unsigned char grim_def_DAT_10031e80[4] __asm__("_DAT_10031e80") = {0};
+/* 0x10031e84, 4 bytes */ GRIM_DATA("10031e84") unsigned char grim_def_g_dwTimerCounter[4] __asm__("_g_dwTimerCounter") = {0};
+/* 0x10031e88, 4 bytes */ GRIM_DATA("10031e88") unsigned int grim_def_g_dwNextToAllocate __asm__("_g_dwNextToAllocate") = 0x0;
+/* 0x10031e8c, 4 bytes */ GRIM_DATA("10031e8c") unsigned int grim_def_g_dwIRes_csInit __asm__("_g_dwIRes_csInit") = 0x0;
+/* 0x10031f28, 8 bytes */ GRIM_DATA("10031f28") unsigned char grim_def_DAT_10031f28[8] __asm__("_DAT_10031f28") = {0};
+/* 0x10031f30, 952 bytes */ GRIM_DATA("10031f30") unsigned char grim_def_DAT_10031f30[952] __asm__("_DAT_10031f30") = {0};
+/* 0x100322e8, 8 bytes */ GRIM_DATA("100322e8") unsigned char grim_def_g_dwTrIntHandler_outSampleRate[8] __asm__("_g_dwTrIntHandler_outSampleRate") = {0};
+/* 0x100322f0, 16 bytes */ GRIM_DATA("100322f0") unsigned char grim_def_g_aTrInitialize_waveDriverInfo[16] __asm__("_g_aTrInitialize_waveDriverInfo") = {0};
+/* 0x10032300, 4 bytes */ GRIM_DATA("10032300") int grim_def_g_dwTrackList __asm__("_g_dwTrackList") = 0;
+/* 0x10032304, 4 bytes */ GRIM_DATA("10032304") unsigned int grim_def_g_dwTrIntHandler_outFramesNeeded __asm__("_g_dwTrIntHandler_outFramesNeeded") = 0x0;
+/* 0x10032308, 4 bytes */ GRIM_DATA("10032308") unsigned char grim_def_DAT_10032308[4] __asm__("_DAT_10032308") = {0};
+/* 0x1003230c, 4 bytes */ GRIM_DATA("1003230c") unsigned int grim_def_g_dwPauseTimer __asm__("_g_dwPauseTimer") = 0x0;
+/* 0x10032310, 4 bytes */ GRIM_DATA("10032310") unsigned int grim_def_DAT_10032310 __asm__("_DAT_10032310") = 0x0;
+/* 0x10032314, 12 bytes */ GRIM_DATA("10032314") unsigned char grim_def_g_dwTrIntHandler_outPtr[12] __asm__("_g_dwTrIntHandler_outPtr") = {0};
+/* 0x10032320, 260 bytes */ GRIM_DATA("10032320") unsigned char grim_def_g_dwTrigs[260] __asm__("_g_dwTrigs") = {0};
+/* 0x10032424, 2204 bytes */ GRIM_DATA("10032424") unsigned char grim_def_DAT_10032424[2204] __asm__("_DAT_10032424") = {0};
+/* 0x10032cc0, 4 bytes */ GRIM_DATA("10032cc0") unsigned int grim_def_DAT_10032cc0 __asm__("_DAT_10032cc0") = 0x0;
+/* 0x10032cc4, 380 bytes */ GRIM_DATA("10032cc4") unsigned char grim_def_DAT_10032cc4[380] __asm__("_DAT_10032cc4") = {0};
+/* 0x10032e40, 256 bytes */ GRIM_DATA("10032e40") unsigned char grim_def_g_dwTgProcessMarker_textCopy[256] __asm__("_g_dwTgProcessMarker_textCopy") = {0};
+/* 0x10032f40, 4 bytes */ GRIM_DATA("10032f40") unsigned int grim_def_g_dwDefersOn __asm__("_g_dwDefersOn") = 0x0;
+/* 0x10032f44, 4 bytes */ GRIM_DATA("10032f44") unsigned int grim_def_g_dwMidProcessing __asm__("_g_dwMidProcessing") = 0x0;
+/* 0x10032f48, 8 bytes */ GRIM_DATA("10032f48") unsigned char grim_def_DAT_10032f48[8] __asm__("_DAT_10032f48") = {0};
+/* 0x10033560, 8 bytes */ GRIM_DATA("10033560") unsigned char grim_def_g_bPanTable[8] __asm__("_g_bPanTable") = {0};
+/* 0x10033568, 312 bytes */ GRIM_DATA("10033568") unsigned char grim_def_DAT_10033568[312] __asm__("_DAT_10033568") = {0};
+/* 0x100336a8, 4 bytes */ GRIM_DATA("100336a8") unsigned char grim_def_DAT_100336a8[4] __asm__("_DAT_100336a8") = {0};
+__asm__(".globl _grim_img_imuse_0x100172e8\n\t.set _grim_img_imuse_0x100172e8, _g_aImStateTable + 0\n");
+__asm__(".globl _grim_img_imuse_0x1001ae50\n\t.set _grim_img_imuse_0x1001ae50, _g_aImSeqTable + 0\n");
+__asm__(".globl _grim_img_imuse_0x1001bbc8\n\t.set _grim_img_imuse_0x1001bbc8, _g_aImNameAlias + 0\n");
+__asm__(".globl _grim_img_imuse_0x1001e688\n\t.set _grim_img_imuse_0x1001e688, _g_dwLocalMusic + 0\n");
+__asm__(".globl _grim_img_imuse_0x1001e804\n\t.set _grim_img_imuse_0x1001e804, _s_exit_1001e804 + 0\n");
+__asm__(".globl _grim_img_imuse_0x1001e858\n\t.set _grim_img_imuse_0x1001e858, _s__end_1001e858 + 0\n");
+__asm__(".globl _grim_img_imuse_0x1002df70\n\t.set _grim_img_imuse_0x1002df70, _g_dwCurrentState + 0\n");
+__asm__(".globl _grim_img_imuse_0x1002df84\n\t.set _grim_img_imuse_0x1002df84, _DAT_1002df84 + 0\n");
+__asm__(".globl _grim_img_imuse_0x1002e25c\n\t.set _grim_img_imuse_0x1002e25c, _DAT_1002e25c + 0\n");
+__asm__(".globl _grim_img_imuse_0x1002e304\n\t.set _grim_img_imuse_0x1002e304, _DAT_1002e304 + 0\n");
+__asm__(".globl _grim_img_imuse_0x1002e308\n\t.set _grim_img_imuse_0x1002e308, _g_dwCurrentSequence + 0\n");
+__asm__(".globl _grim_img_imuse_0x1002e30c\n\t.set _grim_img_imuse_0x1002e30c, _g_dwCurrentCuePoint + 0\n");
+__asm__(".globl _grim_img_imuse_0x1002e310\n\t.set _grim_img_imuse_0x1002e310, _g_bTrans_name + 0\n");

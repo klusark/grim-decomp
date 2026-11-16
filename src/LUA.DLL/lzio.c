@@ -172,3 +172,30 @@ void _cfltcvt_init(void)
   PTR_FUN_10028b8c = FUN_10013420;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { void *p0; void *p4; unsigned char b8[12]; } grim_span_10028b8c;
+extern char f_FUN_1001ddc0[] __asm__("_FUN_1001ddc0");
+extern char f_FUN_1001ddd0[] __asm__("_FUN_1001ddd0");
+extern unsigned char grim_def_DAT_1002bf8c[4] __asm__("_DAT_1002bf8c");
+extern void *grim_def_PTR_FUN_10028b78 __asm__("_PTR_FUN_10028b78");
+extern void *grim_def_PTR_FUN_10028b7c __asm__("_PTR_FUN_10028b7c");
+extern void *grim_def_PTR_FUN_10028b80 __asm__("_PTR_FUN_10028b80");
+extern void *grim_def_PTR_FUN_10028b84 __asm__("_PTR_FUN_10028b84");
+extern void *grim_def_PTR_FUN_10028b88 __asm__("_PTR_FUN_10028b88");
+extern grim_span_10028b8c grim_def_PTR_FUN_10028b8c __asm__("_PTR_FUN_10028b8c");
+/* 0x10028b78, 4 bytes */ GRIM_DATA("10028b78") void *grim_def_PTR_FUN_10028b78 __asm__("_PTR_FUN_10028b78") = (void *)f_FUN_1001ddc0;
+/* 0x10028b7c, 4 bytes */ GRIM_DATA("10028b7c") void *grim_def_PTR_FUN_10028b7c __asm__("_PTR_FUN_10028b7c") = (void *)f_FUN_1001ddc0;
+/* 0x10028b80, 4 bytes */ GRIM_DATA("10028b80") void *grim_def_PTR_FUN_10028b80 __asm__("_PTR_FUN_10028b80") = (void *)f_FUN_1001ddc0;
+/* 0x10028b84, 4 bytes */ GRIM_DATA("10028b84") void *grim_def_PTR_FUN_10028b84 __asm__("_PTR_FUN_10028b84") = (void *)f_FUN_1001ddc0;
+/* 0x10028b88, 4 bytes */ GRIM_DATA("10028b88") void *grim_def_PTR_FUN_10028b88 __asm__("_PTR_FUN_10028b88") = (void *)f_FUN_1001ddc0;
+/* 0x10028b8c, 20 bytes */ GRIM_DATA("10028b8c") grim_span_10028b8c grim_def_PTR_FUN_10028b8c __asm__("_PTR_FUN_10028b8c") = {
+    (void *)f_FUN_1001ddc0,
+    (void *)f_FUN_1001ddd0,
+    {0}
+};
+/* 0x1002bf8c, 4 bytes */ GRIM_DATA("1002bf8c") unsigned char grim_def_DAT_1002bf8c[4] __asm__("_DAT_1002bf8c") = {0};

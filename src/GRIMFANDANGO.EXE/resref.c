@@ -92,3 +92,11 @@ void __cdecl Res_ResolveToSerialNumber(ResRef *ref)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_ref_____ref__valid_004e7b00[20] __asm__("_s_ref_____ref__valid_004e7b00");
+/* 0x004e7b00, 20 bytes */ /* loose */ char grim_def_s_ref_____ref__valid_004e7b00[20] __asm__("_s_ref_____ref__valid_004e7b00") = "ref && !ref->valid";

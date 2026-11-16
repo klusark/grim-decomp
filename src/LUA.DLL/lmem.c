@@ -54,3 +54,11 @@ uint __cdecl luaM_growaux(undefined4 *block,uint nelems,int size,byte *errormsg,
   *block = uVar1;
   return uVar2;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_C__grimsrc_libs_lua_src_lmem_cpp_10027080[40] __asm__("_s_C__grimsrc_libs_lua_src_lmem_cpp_10027080");
+/* 0x10027080, 40 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_lmem_cpp_10027080[40] __asm__("_s_C__grimsrc_libs_lua_src_lmem_cpp_10027080") = "C:\\grimsrc\\libs\\lua\\src\\lmem.cpp";

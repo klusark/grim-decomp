@@ -448,3 +448,104 @@ void __cdecl InsaneTimer_RunDeferred(void)
     }
   } while( true );
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_InsaneTimer_module_shutdown[] __asm__("_InsaneTimer_module_shutdown");
+extern char f_InsaneTimer_module_startup[] __asm__("_InsaneTimer_module_startup");
+extern char f_InsaneTimer_module_terminate[] __asm__("_InsaneTimer_module_terminate");
+extern char f_sys_Alloc[] __asm__("_sys_Alloc");
+extern char f_sys_Delay[] __asm__("_sys_Delay");
+extern char f_sys_Disable[] __asm__("_sys_Disable");
+extern char f_sys_Enable[] __asm__("_sys_Enable");
+extern char f_sys_ExtSync[] __asm__("_sys_ExtSync");
+extern char f_sys_Free[] __asm__("_sys_Free");
+extern char f_sys_GetCount[] __asm__("_sys_GetCount");
+extern char f_sys_GetTime[] __asm__("_sys_GetTime");
+extern char f_sys_Reset[] __asm__("_sys_Reset");
+extern char f_sys_timer_module[] __asm__("_sys_timer_module");
+extern unsigned char grim_def_DAT_004f3c2c[4] __asm__("_DAT_004f3c2c");
+extern unsigned char grim_def_DAT_008da548[64] __asm__("_DAT_008da548");
+extern unsigned char grim_def_DAT_008da588[64] __asm__("_DAT_008da588");
+extern unsigned char grim_def_DAT_008da5d0[4] __asm__("_DAT_008da5d0");
+extern unsigned char grim_def_DAT_008da5d8[4] __asm__("_DAT_008da5d8");
+extern unsigned char grim_def_DAT_008da5dc[4] __asm__("_DAT_008da5dc");
+extern unsigned char grim_def_DAT_008da5e0[4] __asm__("_DAT_008da5e0");
+extern unsigned char grim_def_DAT_008da5e4[4] __asm__("_DAT_008da5e4");
+extern unsigned char grim_def_DAT_008da5e8[4] __asm__("_DAT_008da5e8");
+extern unsigned char grim_def_DAT_008da5ec[4] __asm__("_DAT_008da5ec");
+extern unsigned char grim_def_DAT_008da5f0[4] __asm__("_DAT_008da5f0");
+extern unsigned char grim_def_DAT_008da5f4[4] __asm__("_DAT_008da5f4");
+extern unsigned char grim_def_DAT_008da86b[1] __asm__("_DAT_008da86b");
+extern unsigned char grim_def_DAT_008da888[4] __asm__("_DAT_008da888");
+extern unsigned int grim_def_UINT_008da5d4 __asm__("_UINT_008da5d4");
+extern unsigned char grim_def_UINT_008da5f8[20] __asm__("_UINT_008da5f8");
+extern unsigned int grim_def_UINT_008da858 __asm__("_UINT_008da858");
+extern unsigned char grim_def_UINT_008da868[3] __asm__("_UINT_008da868");
+extern unsigned int grim_def_UINT_008da870 __asm__("_UINT_008da870");
+extern unsigned int grim_def_UINT_008da874 __asm__("_UINT_008da874");
+extern unsigned int grim_def_UINT_008da87c __asm__("_UINT_008da87c");
+extern unsigned int grim_def_UINT_008da880 __asm__("_UINT_008da880");
+extern unsigned int grim_def_UINT_008da884 __asm__("_UINT_008da884");
+extern unsigned int grim_def_UINT_008da88c __asm__("_UINT_008da88c");
+extern void *grim_def_g_apfnInsaneTimerModule[4] __asm__("_g_apfnInsaneTimerModule");
+extern unsigned int grim_def_g_dwInsaneTimer_memory_services __asm__("_g_dwInsaneTimer_memory_services");
+extern unsigned int grim_def_g_dwInsaneTimer_share_config __asm__("_g_dwInsaneTimer_share_config");
+extern unsigned int grim_def_g_dwSys_disable_flag __asm__("_g_dwSys_disable_flag");
+extern unsigned int grim_def_g_dwTimer_rate __asm__("_g_dwTimer_rate");
+extern unsigned int grim_def_g_dwTimer_thread_lastTime __asm__("_g_dwTimer_thread_lastTime");
+extern int grim_def_g_nSys_global_timer __asm__("_g_nSys_global_timer");
+extern unsigned char grim_def_g_pInsaneTimer_share_services[4] __asm__("_g_pInsaneTimer_share_services");
+extern void *grim_def_g_pInsaneTimer_timer_services[9] __asm__("_g_pInsaneTimer_timer_services");
+extern char grim_def_s_LECMODULE_insane_timer_004f3c40[24] __asm__("_s_LECMODULE_insane_timer_004f3c40");
+extern char grim_def_s_TIMER_insane_004f3c30[16] __asm__("_s_TIMER_insane_004f3c30");
+extern char grim_def_s_Timer_Module__Cannot_allocate_me_004f3c58[48] __asm__("_s_Timer_Module__Cannot_allocate_me_004f3c58");
+extern char grim_def_s_Waiting_for_timer_thread_to_exit_004f3c88[40] __asm__("_s_Waiting_for_timer_thread_to_exit_004f3c88");
+static unsigned char grim_anchor_004f3bf8[0] __attribute__((section(".data$grim_004f3bf8"), aligned(16), used));
+static unsigned char grim_pad_004f3bf8[8] __attribute__((section(".data$grim_004f3bf8_"), aligned(4), used));
+/* 0x004f3bf8, 16 bytes */ GRIM_DATA("004f3bf8z") void *grim_def_g_apfnInsaneTimerModule[4] __asm__("_g_apfnInsaneTimerModule") = {
+    (void *)f_sys_timer_module, (void *)f_InsaneTimer_module_terminate, (void *)f_InsaneTimer_module_startup, (void *)f_InsaneTimer_module_shutdown
+};
+/* 0x004f3c08, 36 bytes */ GRIM_DATA("004f3c08") void *grim_def_g_pInsaneTimer_timer_services[9] __asm__("_g_pInsaneTimer_timer_services") = {
+    (void *)f_sys_Alloc, (void *)f_sys_Free, (void *)f_sys_Disable, (void *)f_sys_Enable,
+    (void *)f_sys_Reset, (void *)f_sys_Delay, (void *)f_sys_GetTime, (void *)f_sys_GetCount,
+    (void *)f_sys_ExtSync
+};
+/* 0x004f3c2c, 4 bytes */ GRIM_DATA("004f3c2c") unsigned char grim_def_DAT_004f3c2c[4] __asm__("_DAT_004f3c2c") = { 0xff, 0xff, 0xff, 0xff };
+/* 0x004f3c30, 16 bytes */ GRIM_DATA("004f3c30") char grim_def_s_TIMER_insane_004f3c30[16] __asm__("_s_TIMER_insane_004f3c30") = "TIMER=insane";
+/* 0x004f3c40, 24 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_timer_004f3c40[24] __asm__("_s_LECMODULE_insane_timer_004f3c40") = "LECMODULE=insane_timer";
+/* 0x004f3c58, 48 bytes */ /* loose */ char grim_def_s_Timer_Module__Cannot_allocate_me_004f3c58[48] __asm__("_s_Timer_Module__Cannot_allocate_me_004f3c58") = "Timer Module: Cannot allocate memory services.";
+/* 0x004f3c88, 40 bytes */ /* loose */ char grim_def_s_Waiting_for_timer_thread_to_exit_004f3c88[40] __asm__("_s_Waiting_for_timer_thread_to_exit_004f3c88") = "Waiting for timer thread to exit!\n";
+/* 0x008da540, 4 bytes */ GRIM_DATA("008da540") unsigned int grim_def_g_dwInsaneTimer_memory_services __asm__("_g_dwInsaneTimer_memory_services") = 0x0;
+/* 0x008da544, 4 bytes */ GRIM_DATA("008da544") unsigned int grim_def_g_dwTimer_rate __asm__("_g_dwTimer_rate") = 0x0;
+/* 0x008da548, 64 bytes */ GRIM_DATA("008da548") unsigned char grim_def_DAT_008da548[64] __asm__("_DAT_008da548") = {0};
+/* 0x008da588, 64 bytes */ GRIM_DATA("008da588") unsigned char grim_def_DAT_008da588[64] __asm__("_DAT_008da588") = {0};
+/* 0x008da5c8, 4 bytes */ GRIM_DATA("008da5c8") int grim_def_g_nSys_global_timer __asm__("_g_nSys_global_timer") = 0;
+/* 0x008da5cc, 4 bytes */ GRIM_DATA("008da5cc") unsigned char grim_def_g_pInsaneTimer_share_services[4] __asm__("_g_pInsaneTimer_share_services") = {0};
+/* 0x008da5d0, 4 bytes */ GRIM_DATA("008da5d0") unsigned char grim_def_DAT_008da5d0[4] __asm__("_DAT_008da5d0") = {0};
+/* 0x008da5d4, 4 bytes */ GRIM_DATA("008da5d4") unsigned int grim_def_UINT_008da5d4 __asm__("_UINT_008da5d4") = 0x0;
+/* 0x008da5d8, 4 bytes */ GRIM_DATA("008da5d8") unsigned char grim_def_DAT_008da5d8[4] __asm__("_DAT_008da5d8") = {0};
+/* 0x008da5dc, 4 bytes */ GRIM_DATA("008da5dc") unsigned char grim_def_DAT_008da5dc[4] __asm__("_DAT_008da5dc") = {0};
+/* 0x008da5e0, 4 bytes */ GRIM_DATA("008da5e0") unsigned char grim_def_DAT_008da5e0[4] __asm__("_DAT_008da5e0") = {0};
+/* 0x008da5e4, 4 bytes */ GRIM_DATA("008da5e4") unsigned char grim_def_DAT_008da5e4[4] __asm__("_DAT_008da5e4") = {0};
+/* 0x008da5e8, 4 bytes */ GRIM_DATA("008da5e8") unsigned char grim_def_DAT_008da5e8[4] __asm__("_DAT_008da5e8") = {0};
+/* 0x008da5ec, 4 bytes */ GRIM_DATA("008da5ec") unsigned char grim_def_DAT_008da5ec[4] __asm__("_DAT_008da5ec") = {0};
+/* 0x008da5f0, 4 bytes */ GRIM_DATA("008da5f0") unsigned char grim_def_DAT_008da5f0[4] __asm__("_DAT_008da5f0") = {0};
+/* 0x008da5f4, 4 bytes */ GRIM_DATA("008da5f4") unsigned char grim_def_DAT_008da5f4[4] __asm__("_DAT_008da5f4") = {0};
+/* 0x008da5f8, 20 bytes */ GRIM_DATA("008da5f8") unsigned char grim_def_UINT_008da5f8[20] __asm__("_UINT_008da5f8") = {0};
+/* 0x008da858, 4 bytes */ GRIM_DATA("008da858") unsigned int grim_def_UINT_008da858 __asm__("_UINT_008da858") = 0x0;
+/* 0x008da85c, 4 bytes */ GRIM_DATA("008da85c") unsigned int grim_def_g_dwInsaneTimer_share_config __asm__("_g_dwInsaneTimer_share_config") = 0x0;
+/* 0x008da864, 4 bytes */ GRIM_DATA("008da864") unsigned int grim_def_g_dwTimer_thread_lastTime __asm__("_g_dwTimer_thread_lastTime") = 0x0;
+/* 0x008da868, 3 bytes */ GRIM_DATA("008da868") unsigned char grim_def_UINT_008da868[3] __asm__("_UINT_008da868") = {0};
+/* 0x008da86b, 1 bytes */ GRIM_DATA("008da868") unsigned char grim_def_DAT_008da86b[1] __asm__("_DAT_008da86b") = {0};
+/* 0x008da870, 4 bytes */ GRIM_DATA("008da870") unsigned int grim_def_UINT_008da870 __asm__("_UINT_008da870") = 0x0;
+/* 0x008da874, 4 bytes */ GRIM_DATA("008da874") unsigned int grim_def_UINT_008da874 __asm__("_UINT_008da874") = 0x0;
+/* 0x008da878, 4 bytes */ GRIM_DATA("008da878") unsigned int grim_def_g_dwSys_disable_flag __asm__("_g_dwSys_disable_flag") = 0x0;
+/* 0x008da87c, 4 bytes */ GRIM_DATA("008da87c") unsigned int grim_def_UINT_008da87c __asm__("_UINT_008da87c") = 0x0;
+/* 0x008da880, 4 bytes */ GRIM_DATA("008da880") unsigned int grim_def_UINT_008da880 __asm__("_UINT_008da880") = 0x0;
+/* 0x008da884, 4 bytes */ GRIM_DATA("008da884") unsigned int grim_def_UINT_008da884 __asm__("_UINT_008da884") = 0x0;
+/* 0x008da888, 4 bytes */ GRIM_DATA("008da888") unsigned char grim_def_DAT_008da888[4] __asm__("_DAT_008da888") = {0};
+/* 0x008da88c, 4 bytes */ GRIM_DATA("008da88c") unsigned int grim_def_UINT_008da88c __asm__("_UINT_008da88c") = 0x0;

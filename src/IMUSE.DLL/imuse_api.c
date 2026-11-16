@@ -2844,3 +2844,176 @@ int CachePurgeOldestStoppedSound(void)
 /* ---- 0x1000d1f0  FUN_1000d1f0 ---- */
 /* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_10017124[32] __asm__("_DAT_10017124");
+extern unsigned char grim_def_DAT_10017144[48] __asm__("_DAT_10017144");
+extern unsigned char grim_def_DAT_10017174[60] __asm__("_DAT_10017174");
+extern unsigned char grim_def_DAT_100171b4[48] __asm__("_DAT_100171b4");
+extern unsigned char grim_def_DAT_100171e4[16] __asm__("_DAT_100171e4");
+extern unsigned char grim_def_DAT_100171f4[28] __asm__("_DAT_100171f4");
+extern unsigned char grim_def_DAT_10017210[20] __asm__("_DAT_10017210");
+extern unsigned char grim_def_DAT_10017224[28] __asm__("_DAT_10017224");
+extern unsigned char grim_def_DAT_10017240[40] __asm__("_DAT_10017240");
+extern unsigned char grim_def_DAT_10017268[40] __asm__("_DAT_10017268");
+extern unsigned char grim_def_DAT_10017290[32] __asm__("_DAT_10017290");
+extern unsigned int grim_def_DAT_100172bc __asm__("_DAT_100172bc");
+extern unsigned char grim_def_DAT_100172c4[4] __asm__("_DAT_100172c4");
+extern unsigned int grim_def_DAT_1001e904 __asm__("_DAT_1001e904");
+extern unsigned char grim_def_DAT_1001e908[4] __asm__("_DAT_1001e908");
+extern unsigned char grim_def_DAT_1001e90c[4] __asm__("_DAT_1001e90c");
+extern unsigned char grim_def_DAT_1001e910[32] __asm__("_DAT_1001e910");
+extern unsigned char grim_def_DAT_1001e930[20] __asm__("_DAT_1001e930");
+extern unsigned char grim_def_DAT_1001e944[20] __asm__("_DAT_1001e944");
+extern unsigned char grim_def_DAT_1001e958[24] __asm__("_DAT_1001e958");
+extern unsigned char grim_def_DAT_1001e970[12] __asm__("_DAT_1001e970");
+extern unsigned char grim_def_DAT_1001e97c[16] __asm__("_DAT_1001e97c");
+extern unsigned char grim_def_DAT_1001e98c[8] __asm__("_DAT_1001e98c");
+extern unsigned char grim_def_DAT_1002dae8[4] __asm__("_DAT_1002dae8");
+extern unsigned char grim_def_DAT_1002daec[515] __asm__("_DAT_1002daec");
+extern unsigned char grim_def_DAT_1002dcef[1] __asm__("_DAT_1002dcef");
+extern unsigned char grim_def_DAT_1002de00[256] __asm__("_DAT_1002de00");
+extern unsigned char grim_def_DAT_1002eb14[31] __asm__("_DAT_1002eb14");
+extern unsigned char grim_def_DAT_1002eb33[1] __asm__("_DAT_1002eb33");
+extern unsigned char grim_def_DAT_1002eb34[8] __asm__("_DAT_1002eb34");
+extern unsigned char grim_def_DAT_1002eb3c[156] __asm__("_DAT_1002eb3c");
+extern unsigned char grim_def_DAT_10031550[4] __asm__("_DAT_10031550");
+extern unsigned char grim_def_DAT_10031560[4] __asm__("_DAT_10031560");
+extern unsigned char grim_def_DAT_10031564[1924] __asm__("_DAT_10031564");
+extern unsigned char grim_def_DAT_10031d34[4] __asm__("_DAT_10031d34");
+extern unsigned char grim_def_DAT_10031e58[4] __asm__("_DAT_10031e58");
+extern unsigned char grim_def_DAT_10031e5c[4] __asm__("_DAT_10031e5c");
+extern unsigned char grim_def_DAT_10031e68[4] __asm__("_DAT_10031e68");
+extern unsigned char grim_def_DAT_10031e6c[4] __asm__("_DAT_10031e6c");
+extern unsigned int grim_def_UINT_10031e64 __asm__("_UINT_10031e64");
+extern ImBufferInfo grim_def_g_aImBufferInfo[3] __asm__("_g_aImBufferInfo");
+extern unsigned char grim_def_g_aLastVoiceFilename[260] __asm__("_g_aLastVoiceFilename");
+extern unsigned char grim_def_g_aStreamID[4] __asm__("_g_aStreamID");
+extern unsigned char grim_def_g_bImuseInitialized[4] __asm__("_g_bImuseInitialized");
+extern unsigned char grim_def_g_bMuscriptLocal[4] __asm__("_g_bMuscriptLocal");
+extern unsigned char grim_def_g_bMuscriptRemote[4] __asm__("_g_bMuscriptRemote");
+extern unsigned char grim_def_g_dwCloseSoundFunc[4] __asm__("_g_dwCloseSoundFunc");
+extern unsigned char grim_def_g_dwInitFlag[8] __asm__("_g_dwInitFlag");
+extern unsigned char grim_def_g_dwIntFlag[8] __asm__("_g_dwIntFlag");
+extern unsigned char grim_def_g_dwLoadSoundFunc[4] __asm__("_g_dwLoadSoundFunc");
+extern unsigned char grim_def_g_dwOpenSoundFunc[4] __asm__("_g_dwOpenSoundFunc");
+extern int grim_def_g_dwPauseCount __asm__("_g_dwPauseCount");
+extern unsigned int grim_def_g_dwRunning10HzCount __asm__("_g_dwRunning10HzCount");
+extern unsigned int grim_def_g_dwRunning50HzCount __asm__("_g_dwRunning50HzCount");
+extern unsigned char grim_def_g_dwTAIL_BYTES[4] __asm__("_g_dwTAIL_BYTES");
+extern unsigned char grim_def_g_dwUnloadSoundFunc[4] __asm__("_g_dwUnloadSoundFunc");
+extern unsigned char grim_def_g_dwVoxFxBuf[4] __asm__("_g_dwVoxFxBuf");
+extern unsigned char grim_def_g_iMuseMasterVolHold[4] __asm__("_g_iMuseMasterVolHold");
+extern unsigned char grim_def_g_pLoadedList[4] __asm__("_g_pLoadedList");
+extern unsigned char grim_def_g_pOpenedList[4] __asm__("_g_pOpenedList");
+/* 0x10017124, 32 bytes */ GRIM_DATA("10017124") unsigned char grim_def_DAT_10017124[32] __asm__("_DAT_10017124") = {
+    0x45, 0x52, 0x52, 0x3a, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x20, 0x73, 0x61,
+    0x76, 0x65, 0x20, 0x74, 0x6f, 0x6f, 0x20, 0x62, 0x69, 0x67, 0x2e, 0x2e, 0x2e
+};
+/* 0x10017144, 48 bytes */ GRIM_DATA("10017144") unsigned char grim_def_DAT_10017144[48] __asm__("_DAT_10017144") = {
+    0x45, 0x52, 0x52, 0x3a, 0x20, 0x49, 0x6d, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x46, 0x69,
+    0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x28, 0x29, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27,
+    0x74, 0x20, 0x6c, 0x6f, 0x61, 0x64, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x20
+};
+/* 0x10017174, 60 bytes */ GRIM_DATA("10017174") unsigned char grim_def_DAT_10017174[60] __asm__("_DAT_10017174") = {
+    0x45, 0x52, 0x52, 0x3a, 0x20, 0x49, 0x6d, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x46, 0x69,
+    0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x28, 0x29, 0x20, 0x64, 0x65, 0x74, 0x65, 0x63, 0x74, 0x65,
+    0x64, 0x20, 0x6d, 0x6f, 0x64, 0x69, 0x66, 0x69, 0x65, 0x64, 0x20, 0x73, 0x6f, 0x75, 0x6e, 0x64,
+    0x20, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x2e, 0x2e, 0x2e
+};
+/* 0x100171b4, 48 bytes */ GRIM_DATA("100171b4") unsigned char grim_def_DAT_100171b4[48] __asm__("_DAT_100171b4") = {
+    0x45, 0x52, 0x52, 0x3a, 0x20, 0x49, 0x6d, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x46, 0x69,
+    0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x28, 0x29, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27,
+    0x74, 0x20, 0x6f, 0x70, 0x65, 0x6e, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x20
+};
+/* 0x100171e4, 16 bytes */ GRIM_DATA("100171e4") unsigned char grim_def_DAT_100171e4[16] __asm__("_DAT_100171e4") = { 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x6f, 0x6f, 0x20, 0x6c, 0x6f, 0x6e, 0x67, 0x3a, 0x20 };
+/* 0x100171f4, 28 bytes */ GRIM_DATA("100171f4") unsigned char grim_def_DAT_100171f4[28] __asm__("_DAT_100171f4") = {
+    0x48, 0x6f, 0x73, 0x74, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27, 0x74, 0x20, 0x6c, 0x6f,
+    0x61, 0x64, 0x20, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x20
+};
+/* 0x10017210, 20 bytes */ GRIM_DATA("10017210") unsigned char grim_def_DAT_10017210[20] __asm__("_DAT_10017210") = {
+    0x53, 0x6f, 0x75, 0x6e, 0x64, 0x20, 0x4c, 0x69, 0x73, 0x74, 0x20, 0x46, 0x55, 0x4c, 0x4c, 0x21,
+    0x2e, 0x2e, 0x2e
+};
+/* 0x10017224, 28 bytes */ GRIM_DATA("10017224") unsigned char grim_def_DAT_10017224[28] __asm__("_DAT_10017224") = {
+    0x48, 0x6f, 0x73, 0x74, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27, 0x74, 0x20, 0x6f, 0x70,
+    0x65, 0x6e, 0x20, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x20
+};
+/* 0x10017240, 40 bytes */ GRIM_DATA("10017240") unsigned char grim_def_DAT_10017240[40] __asm__("_DAT_10017240") = {
+    0x69, 0x4d, 0x55, 0x53, 0x45, 0x2e, 0x43, 0x3a, 0x20, 0x6c, 0x69, 0x73, 0x74, 0x20, 0x61, 0x72,
+    0x67, 0x20, 0x65, 0x72, 0x72, 0x20, 0x77, 0x68, 0x65, 0x6e, 0x20, 0x61, 0x64, 0x64, 0x69, 0x6e,
+    0x67, 0x2e, 0x2e, 0x2e
+};
+/* 0x10017268, 40 bytes */ GRIM_DATA("10017268") unsigned char grim_def_DAT_10017268[40] __asm__("_DAT_10017268") = {
+    0x69, 0x4d, 0x55, 0x53, 0x45, 0x2e, 0x43, 0x3a, 0x20, 0x6c, 0x69, 0x73, 0x74, 0x20, 0x61, 0x72,
+    0x67, 0x20, 0x65, 0x72, 0x72, 0x20, 0x77, 0x68, 0x65, 0x6e, 0x20, 0x72, 0x65, 0x6d, 0x6f, 0x76,
+    0x69, 0x6e, 0x67, 0x2e, 0x2e, 0x2e
+};
+/* 0x10017290, 32 bytes */ GRIM_DATA("10017290") unsigned char grim_def_DAT_10017290[32] __asm__("_DAT_10017290") = {
+    0x69, 0x4d, 0x55, 0x53, 0x45, 0x2e, 0x43, 0x3a, 0x20, 0x69, 0x74, 0x65, 0x6d, 0x20, 0x6e, 0x6f,
+    0x74, 0x20, 0x6f, 0x6e, 0x20, 0x6c, 0x69, 0x73, 0x74, 0x2e, 0x2e, 0x2e
+};
+/* 0x100172bc, 4 bytes */ /* loose */ unsigned int grim_def_DAT_100172bc __asm__("_DAT_100172bc") = 0xffffffff;
+/* 0x100172c4, 4 bytes */ GRIM_DATA("100172c4") unsigned char grim_def_DAT_100172c4[4] __asm__("_DAT_100172c4") = { 0x77, 0x62 };
+/* 0x1001e8a4, 4 bytes */ /* loose */ unsigned char grim_def_g_dwTAIL_BYTES[4] __asm__("_g_dwTAIL_BYTES") = { 0x50, 0x46 };
+/* 0x1001e8dc, 4 bytes */ /* loose */ unsigned char grim_def_g_bMuscriptLocal[4] __asm__("_g_bMuscriptLocal") = { 0x01 };
+/* 0x1001e904, 4 bytes */ /* loose */ unsigned int grim_def_DAT_1001e904 __asm__("_DAT_1001e904") = 0x70696c2e;
+/* 0x1001e908, 4 bytes */ /* loose */ unsigned char grim_def_DAT_1001e908[4] __asm__("_DAT_1001e908") = {0};
+static unsigned char grim_anchor_1001e90c[0] __attribute__((section(".data$grim_1001e90c"), aligned(16), used));
+static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_1001e90c_"), aligned(4), used));
+/* 0x1001e90c, 4 bytes */ GRIM_DATA("1001e90cz") unsigned char grim_def_DAT_1001e90c[4] __asm__("_DAT_1001e90c") = { 0x4f, 0x46, 0x46 };
+/* 0x1001e910, 32 bytes */ GRIM_DATA("1001e910") unsigned char grim_def_DAT_1001e910[32] __asm__("_DAT_1001e910") = {
+    0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x69, 0x6d, 0x75, 0x73, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70,
+    0x74, 0x20, 0x72, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x3b, 0x20, 0x65, 0x6e, 0x64
+};
+/* 0x1001e930, 20 bytes */ GRIM_DATA("1001e930") unsigned char grim_def_DAT_1001e930[20] __asm__("_DAT_1001e930") = {
+    0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x69, 0x6d, 0x75, 0x73, 0x65, 0x20, 0x72, 0x65, 0x73, 0x74,
+    0x6f, 0x72, 0x65
+};
+/* 0x1001e944, 20 bytes */ GRIM_DATA("1001e944") unsigned char grim_def_DAT_1001e944[20] __asm__("_DAT_1001e944") = { 0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x63, 0x61, 0x63, 0x68, 0x65, 0x72, 0x65, 0x73, 0x65, 0x74 };
+/* 0x1001e958, 24 bytes */ GRIM_DATA("1001e958") unsigned char grim_def_DAT_1001e958[24] __asm__("_DAT_1001e958") = {
+    0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x56, 0x6f, 0x69, 0x63, 0x65,
+    0x46, 0x69, 0x6c, 0x65
+};
+/* 0x1001e970, 12 bytes */ GRIM_DATA("1001e970") unsigned char grim_def_DAT_1001e970[12] __asm__("_DAT_1001e970") = { 0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x46, 0x6c, 0x75, 0x73, 0x68 };
+/* 0x1001e97c, 16 bytes */ GRIM_DATA("1001e97c") unsigned char grim_def_DAT_1001e97c[16] __asm__("_DAT_1001e97c") = { 0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x53, 0x74, 0x6f, 0x70, 0x61, 0x6c, 0x6c };
+/* 0x1001e98c, 8 bytes */ GRIM_DATA("1001e98c") unsigned char grim_def_DAT_1001e98c[8] __asm__("_DAT_1001e98c") = { 0x42, 0x65, 0x66, 0x6f, 0x72, 0x65 };
+/* 0x1002dae0, 4 bytes */ GRIM_DATA("1002dae0") unsigned char grim_def_g_dwOpenSoundFunc[4] __asm__("_g_dwOpenSoundFunc") = {0};
+/* 0x1002dae4, 4 bytes */ GRIM_DATA("1002dae4") unsigned char grim_def_g_dwCloseSoundFunc[4] __asm__("_g_dwCloseSoundFunc") = {0};
+/* 0x1002dae8, 4 bytes */ GRIM_DATA("1002dae8") unsigned char grim_def_DAT_1002dae8[4] __asm__("_DAT_1002dae8") = {0};
+/* 0x1002daec, 515 bytes */ GRIM_DATA("1002daec") unsigned char grim_def_DAT_1002daec[515] __asm__("_DAT_1002daec") = {0};
+/* 0x1002dcef, 1 bytes */ GRIM_DATA("1002daec") unsigned char grim_def_DAT_1002dcef[1] __asm__("_DAT_1002dcef") = {0};
+/* 0x1002dcf0, 4 bytes */ GRIM_DATA("1002dcf0") unsigned char grim_def_g_dwLoadSoundFunc[4] __asm__("_g_dwLoadSoundFunc") = {0};
+/* 0x1002dcf4, 4 bytes */ GRIM_DATA("1002dcf4") unsigned char grim_def_g_dwUnloadSoundFunc[4] __asm__("_g_dwUnloadSoundFunc") = {0};
+/* 0x1002dcf8, 4 bytes */ GRIM_DATA("1002dcf8") unsigned char grim_def_g_pLoadedList[4] __asm__("_g_pLoadedList") = {0};
+/* 0x1002dcfc, 4 bytes */ GRIM_DATA("1002dcfc") unsigned char grim_def_g_pOpenedList[4] __asm__("_g_pOpenedList") = {0};
+/* 0x1002dd00, 8 bytes */ GRIM_DATA("1002dd00") unsigned char grim_def_g_dwInitFlag[8] __asm__("_g_dwInitFlag") = {0};
+/* 0x1002de00, 256 bytes */ GRIM_DATA("1002de00") unsigned char grim_def_DAT_1002de00[256] __asm__("_DAT_1002de00") = {0};
+/* 0x1002df00, 4 bytes */ GRIM_DATA("1002df00") int grim_def_g_dwPauseCount __asm__("_g_dwPauseCount") = 0;
+/* 0x1002df04, 4 bytes */ GRIM_DATA("1002df04") unsigned int grim_def_g_dwRunning50HzCount __asm__("_g_dwRunning50HzCount") = 0x0;
+/* 0x1002df08, 4 bytes */ GRIM_DATA("1002df08") unsigned int grim_def_g_dwRunning10HzCount __asm__("_g_dwRunning10HzCount") = 0x0;
+/* 0x1002df10, 8 bytes */ GRIM_DATA("1002df10") unsigned char grim_def_g_dwIntFlag[8] __asm__("_g_dwIntFlag") = {0};
+/* 0x1002eb10, 4 bytes */ GRIM_DATA("1002eb10") unsigned char grim_def_g_aStreamID[4] __asm__("_g_aStreamID") = {0};
+/* 0x1002eb14, 31 bytes */ GRIM_DATA("1002eb14") unsigned char grim_def_DAT_1002eb14[31] __asm__("_DAT_1002eb14") = {0};
+/* 0x1002eb33, 1 bytes */ GRIM_DATA("1002eb14") unsigned char grim_def_DAT_1002eb33[1] __asm__("_DAT_1002eb33") = {0};
+/* 0x1002eb34, 8 bytes */ GRIM_DATA("1002eb34") unsigned char grim_def_DAT_1002eb34[8] __asm__("_DAT_1002eb34") = {0};
+/* 0x1002eb3c, 156 bytes */ GRIM_DATA("1002eb3c") unsigned char grim_def_DAT_1002eb3c[156] __asm__("_DAT_1002eb3c") = {0};
+/* 0x1002ebe0, 48 bytes */ GRIM_DATA("1002ebe0") ImBufferInfo grim_def_g_aImBufferInfo[3] __asm__("_g_aImBufferInfo") = {0};
+/* 0x10031550, 4 bytes */ GRIM_DATA("10031550") unsigned char grim_def_DAT_10031550[4] __asm__("_DAT_10031550") = {0};
+/* 0x10031560, 4 bytes */ GRIM_DATA("10031560") unsigned char grim_def_DAT_10031560[4] __asm__("_DAT_10031560") = {0};
+/* 0x10031564, 1924 bytes */ GRIM_DATA("10031564") unsigned char grim_def_DAT_10031564[1924] __asm__("_DAT_10031564") = {0};
+/* 0x10031d2c, 4 bytes */ GRIM_DATA("10031d2c") unsigned char grim_def_g_iMuseMasterVolHold[4] __asm__("_g_iMuseMasterVolHold") = {0};
+/* 0x10031d34, 4 bytes */ GRIM_DATA("10031d34") unsigned char grim_def_DAT_10031d34[4] __asm__("_DAT_10031d34") = {0};
+/* 0x10031d44, 4 bytes */ GRIM_DATA("10031d44") unsigned char grim_def_g_bImuseInitialized[4] __asm__("_g_bImuseInitialized") = {0};
+/* 0x10031d50, 260 bytes */ GRIM_DATA("10031d50") unsigned char grim_def_g_aLastVoiceFilename[260] __asm__("_g_aLastVoiceFilename") = {0};
+/* 0x10031e54, 4 bytes */ GRIM_DATA("10031e54") unsigned char grim_def_g_bMuscriptRemote[4] __asm__("_g_bMuscriptRemote") = {0};
+/* 0x10031e58, 4 bytes */ GRIM_DATA("10031e58") unsigned char grim_def_DAT_10031e58[4] __asm__("_DAT_10031e58") = {0};
+/* 0x10031e5c, 4 bytes */ GRIM_DATA("10031e5c") unsigned char grim_def_DAT_10031e5c[4] __asm__("_DAT_10031e5c") = {0};
+/* 0x10031e60, 4 bytes */ GRIM_DATA("10031e60") unsigned char grim_def_g_dwVoxFxBuf[4] __asm__("_g_dwVoxFxBuf") = {0};
+/* 0x10031e64, 4 bytes */ GRIM_DATA("10031e64") unsigned int grim_def_UINT_10031e64 __asm__("_UINT_10031e64") = 0x0;
+/* 0x10031e68, 4 bytes */ GRIM_DATA("10031e68") unsigned char grim_def_DAT_10031e68[4] __asm__("_DAT_10031e68") = {0};
+/* 0x10031e6c, 4 bytes */ GRIM_DATA("10031e6c") unsigned char grim_def_DAT_10031e6c[4] __asm__("_DAT_10031e6c") = {0};

@@ -121,3 +121,58 @@ undefined * grimlib_GameShutdown(void)
   g_dwSputmStartup = 0;
   return puVar1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_FileUtil_SysInitialize[] __asm__("_FileUtil_SysInitialize");
+extern char f_Memory_SysInitialize[] __asm__("_Memory_SysInitialize");
+extern char f_SoundsInitialize[] __asm__("_SoundsInitialize");
+extern char f_sputActor_Initialize[] __asm__("_sputActor_Initialize");
+extern char f_sputControl_Initialize[] __asm__("_sputControl_Initialize");
+extern char f_sputCostume_Initialize[] __asm__("_sputCostume_Initialize");
+extern char f_sputLua_Initialize[] __asm__("_sputLua_Initialize");
+extern char f_sputPrimitive_Initialize[] __asm__("_sputPrimitive_Initialize");
+extern char f_sputRender_Initialize[] __asm__("_sputRender_Initialize");
+extern char f_sputResource_Initialize[] __asm__("_sputResource_Initialize");
+extern char f_sputRoom_Initialize[] __asm__("_sputRoom_Initialize");
+extern char f_sputSmush_Initialize[] __asm__("_sputSmush_Initialize");
+extern char f_sputText_Initialize[] __asm__("_sputText_Initialize");
+extern char f_sputTime_Initialize[] __asm__("_sputTime_Initialize");
+extern unsigned char grim_def_DAT_008a85f0[80] __asm__("_DAT_008a85f0");
+extern unsigned char grim_def_DAT_008a8778[48] __asm__("_DAT_008a8778");
+extern void *grim_def_PTR_FileUtil_SysInitialize_004e7dc0[16] __asm__("_PTR_FileUtil_SysInitialize_004e7dc0");
+extern void *grim_def_PTR_sputControl_Initialize_004e7e00[12] __asm__("_PTR_sputControl_Initialize_004e7e00");
+extern unsigned int grim_def_g_dwSputmInitialize __asm__("_g_dwSputmInitialize");
+extern unsigned int grim_def_g_dwSputmStartup __asm__("_g_dwSputmStartup");
+extern char grim_def_s_FileUtil_SysInitialize_004e7f5c[] __asm__("_s_FileUtil_SysInitialize_004e7f5c");
+extern char grim_def_s_Memory_SysInitialize_004e7f44[] __asm__("_s_Memory_SysInitialize_004e7f44");
+extern char grim_def_s_SoundsInitialize_004e7e94[] __asm__("_s_SoundsInitialize_004e7e94");
+extern char grim_def_s_sputActor_Initialize_004e7ed8[] __asm__("_s_sputActor_Initialize_004e7ed8");
+extern char grim_def_s_sputControl_Initialize_004e7ea8[] __asm__("_s_sputControl_Initialize_004e7ea8");
+extern char grim_def_s_sputCostume_Initialize_004e7ef0[] __asm__("_s_sputCostume_Initialize_004e7ef0");
+extern char grim_def_s_sputLua_Initialize_004e7f08[] __asm__("_s_sputLua_Initialize_004e7f08");
+extern char grim_def_s_sputPrimitive_Initialize_004e7e4c[] __asm__("_s_sputPrimitive_Initialize_004e7e4c");
+extern char grim_def_s_sputRender_Initialize_004e7e7c[] __asm__("_s_sputRender_Initialize_004e7e7c");
+extern char grim_def_s_sputResource_Initialize_004e7ec0[] __asm__("_s_sputResource_Initialize_004e7ec0");
+extern char grim_def_s_sputRoom_Initialize_004e7f30[] __asm__("_s_sputRoom_Initialize_004e7f30");
+extern char grim_def_s_sputSmush_Initialize_004e7e34[] __asm__("_s_sputSmush_Initialize_004e7e34");
+extern char grim_def_s_sputText_Initialize_004e7e68[] __asm__("_s_sputText_Initialize_004e7e68");
+extern char grim_def_s_sputTime_Initialize_004e7f1c[] __asm__("_s_sputTime_Initialize_004e7f1c");
+/* 0x004e7dc0, 64 bytes */ GRIM_DATA("004e7dc0") void *grim_def_PTR_FileUtil_SysInitialize_004e7dc0[16] __asm__("_PTR_FileUtil_SysInitialize_004e7dc0") = {
+    (void *)f_FileUtil_SysInitialize, (void *)&grim_def_s_FileUtil_SysInitialize_004e7f5c, (void *)f_Memory_SysInitialize, (void *)&grim_def_s_Memory_SysInitialize_004e7f44,
+    (void *)f_sputRoom_Initialize, (void *)&grim_def_s_sputRoom_Initialize_004e7f30, (void *)f_sputTime_Initialize, (void *)&grim_def_s_sputTime_Initialize_004e7f1c,
+    (void *)f_sputLua_Initialize, (void *)&grim_def_s_sputLua_Initialize_004e7f08, (void *)f_sputCostume_Initialize, (void *)&grim_def_s_sputCostume_Initialize_004e7ef0,
+    (void *)f_sputActor_Initialize, (void *)&grim_def_s_sputActor_Initialize_004e7ed8, (void *)f_sputResource_Initialize, (void *)&grim_def_s_sputResource_Initialize_004e7ec0
+};
+/* 0x004e7e00, 48 bytes */ GRIM_DATA("004e7e00") void *grim_def_PTR_sputControl_Initialize_004e7e00[12] __asm__("_PTR_sputControl_Initialize_004e7e00") = {
+    (void *)f_sputControl_Initialize, (void *)&grim_def_s_sputControl_Initialize_004e7ea8, (void *)f_SoundsInitialize, (void *)&grim_def_s_SoundsInitialize_004e7e94,
+    (void *)f_sputRender_Initialize, (void *)&grim_def_s_sputRender_Initialize_004e7e7c, (void *)f_sputText_Initialize, (void *)&grim_def_s_sputText_Initialize_004e7e68,
+    (void *)f_sputPrimitive_Initialize, (void *)&grim_def_s_sputPrimitive_Initialize_004e7e4c, (void *)f_sputSmush_Initialize, (void *)&grim_def_s_sputSmush_Initialize_004e7e34
+};
+/* 0x008a85f0, 80 bytes */ GRIM_DATA("008a85f0") unsigned char grim_def_DAT_008a85f0[80] __asm__("_DAT_008a85f0") = {0};
+/* 0x008a8778, 48 bytes */ GRIM_DATA("008a8778") unsigned char grim_def_DAT_008a8778[48] __asm__("_DAT_008a8778") = {0};
+/* 0x008a8c58, 4 bytes */ GRIM_DATA("008a8c58") unsigned int grim_def_g_dwSputmInitialize __asm__("_g_dwSputmInitialize") = 0x0;
+/* 0x008a8c5c, 4 bytes */ GRIM_DATA("008a8c5c") unsigned int grim_def_g_dwSputmStartup __asm__("_g_dwSputmStartup") = 0x0;

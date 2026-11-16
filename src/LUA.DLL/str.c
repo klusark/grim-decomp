@@ -1039,3 +1039,37 @@ void __cdecl luaI_addquoted(char *s)
   luaL_addchar(0x22);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s____10027ac0[4] __asm__("_s____10027ac0");
+extern char grim_def_s___________100279c4[12] __asm__("_s___________100279c4");
+extern char grim_def_s__d_____________d_______d___10027aa4[28] __asm__("_s__d_____________d_______d___10027aa4");
+extern char grim_def_s_incorrect_pattern__ends_with___c_100279a0[36] __asm__("_s_incorrect_pattern__ends_with___c_100279a0");
+extern char grim_def_s_incorrect_pattern__missing______10027980[32] __asm__("_s_incorrect_pattern__missing______10027980");
+extern char grim_def_s_invalid_capture_index_10027a24[24] __asm__("_s_invalid_capture_index_10027a24");
+extern char grim_def_s_invalid_format__width_or_precisi_10027a74[48] __asm__("_s_invalid_format__width_or_precisi_10027a74");
+extern char grim_def_s_invalid_option_in__format__10027a58[28] __asm__("_s_invalid_option_in__format__10027a58");
+extern char grim_def_s_invalid_pattern_capture_100279f8[24] __asm__("_s_invalid_pattern_capture_100279f8");
+extern char grim_def_s_out_of_range_10027970[16] __asm__("_s_out_of_range_10027970");
+extern char grim_def_s_string_or_function_expected_10027a3c[28] __asm__("_s_string_or_function_expected_10027a3c");
+extern char grim_def_s_too_many_captures_100279e4[20] __asm__("_s_too_many_captures_100279e4");
+extern char grim_def_s_unbalanced_pattern_10027a10[20] __asm__("_s_unbalanced_pattern_10027a10");
+extern char grim_def_s_unfinished_capture_100279d0[20] __asm__("_s_unfinished_capture_100279d0");
+/* 0x10027970, 16 bytes */ /* loose */ char grim_def_s_out_of_range_10027970[16] __asm__("_s_out_of_range_10027970") = "out of range";
+/* 0x10027980, 32 bytes */ /* loose */ char grim_def_s_incorrect_pattern__missing______10027980[32] __asm__("_s_incorrect_pattern__missing______10027980") = "incorrect pattern (missing `]')";
+/* 0x100279a0, 36 bytes */ /* loose */ char grim_def_s_incorrect_pattern__ends_with___c_100279a0[36] __asm__("_s_incorrect_pattern__ends_with___c_100279a0") = "incorrect pattern (ends with `%c')";
+/* 0x100279c4, 12 bytes */ /* loose */ char grim_def_s___________100279c4[12] __asm__("_s___________100279c4") = "^$*\?.([%-";
+/* 0x100279d0, 20 bytes */ /* loose */ char grim_def_s_unfinished_capture_100279d0[20] __asm__("_s_unfinished_capture_100279d0") = "unfinished capture";
+/* 0x100279e4, 20 bytes */ /* loose */ char grim_def_s_too_many_captures_100279e4[20] __asm__("_s_too_many_captures_100279e4") = "too many captures";
+/* 0x100279f8, 24 bytes */ /* loose */ char grim_def_s_invalid_pattern_capture_100279f8[24] __asm__("_s_invalid_pattern_capture_100279f8") = "invalid pattern capture";
+/* 0x10027a10, 20 bytes */ /* loose */ char grim_def_s_unbalanced_pattern_10027a10[20] __asm__("_s_unbalanced_pattern_10027a10") = "unbalanced pattern";
+/* 0x10027a24, 24 bytes */ /* loose */ char grim_def_s_invalid_capture_index_10027a24[24] __asm__("_s_invalid_capture_index_10027a24") = "invalid capture index";
+/* 0x10027a3c, 28 bytes */ /* loose */ char grim_def_s_string_or_function_expected_10027a3c[28] __asm__("_s_string_or_function_expected_10027a3c") = "string or function expected";
+/* 0x10027a58, 28 bytes */ /* loose */ char grim_def_s_invalid_option_in__format__10027a58[28] __asm__("_s_invalid_option_in__format__10027a58") = "invalid option in `format'";
+/* 0x10027a74, 48 bytes */ /* loose */ char grim_def_s_invalid_format__width_or_precisi_10027a74[48] __asm__("_s_invalid_format__width_or_precisi_10027a74") = "invalid format (width or precision too long)";
+/* 0x10027aa4, 28 bytes */ /* loose */ char grim_def_s__d_____________d_______d___10027aa4[28] __asm__("_s__d_____________d_______d___10027aa4") = "%d\?%$\?[-+ #]*(%d*)%.\?(%d*)";
+/* 0x10027ac0, 4 bytes */ /* loose */ char grim_def_s____10027ac0[4] __asm__("_s____10027ac0") = "\"\\\n";

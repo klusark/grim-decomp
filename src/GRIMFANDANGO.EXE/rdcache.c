@@ -2257,3 +2257,94 @@ LAB_00408b6e:
 switchD_00408bad_default:
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_00606fa4[4] __asm__("_DAT_00606fa4");
+extern unsigned char grim_def_DAT_00606fa8[4] __asm__("_DAT_00606fa8");
+extern unsigned char grim_def_DAT_00606fac[4] __asm__("_DAT_00606fac");
+extern unsigned char grim_def_DAT_00606fb0[20464] __asm__("_DAT_00606fb0");
+extern unsigned char grim_def_DAT_0068bfb0[262144] __asm__("_DAT_0068bfb0");
+extern unsigned char grim_def_DAT_006cbfb4[4] __asm__("_DAT_006cbfb4");
+extern unsigned char grim_def_DAT_006cbfb8[4] __asm__("_DAT_006cbfb8");
+extern unsigned char grim_def_DAT_006cbfbc[4] __asm__("_DAT_006cbfbc");
+extern unsigned char grim_def_DAT_006cbfc0[20464] __asm__("_DAT_006cbfc0");
+extern unsigned char grim_def_DAT_006f0fbc[4] __asm__("_DAT_006f0fbc");
+extern unsigned char grim_def_DAT_006f0fc0[4] __asm__("_DAT_006f0fc0");
+extern unsigned char grim_def_DAT_006f0fc4[4] __asm__("_DAT_006f0fc4");
+extern unsigned char grim_def_DAT_006f0fc8[4] __asm__("_DAT_006f0fc8");
+extern unsigned char grim_def_DAT_006f0fcc[4] __asm__("_DAT_006f0fcc");
+extern unsigned char grim_def_DAT_006f0fd0[4] __asm__("_DAT_006f0fd0");
+extern unsigned char grim_def_DAT_006f0fd4[1048548] __asm__("_DAT_006f0fd4");
+extern float grim_def_FLOAT_0090002c __asm__("_FLOAT_0090002c");
+extern float grim_def_FLOAT_00900030 __asm__("_FLOAT_00900030");
+extern float grim_def_FLOAT_00900034 __asm__("_FLOAT_00900034");
+extern float grim_def_FLOAT_00900044 __asm__("_FLOAT_00900044");
+extern unsigned int grim_def_UINT_00900024 __asm__("_UINT_00900024");
+extern unsigned int grim_def_UINT_00900028 __asm__("_UINT_00900028");
+extern unsigned char grim_def_g_aBlueIntensities[131072] __asm__("_g_aBlueIntensities");
+extern unsigned char grim_def_g_aGreenIntensities[131072] __asm__("_g_aGreenIntensities");
+extern unsigned char grim_def_g_aHWNormalTris[4] __asm__("_g_aHWNormalTris");
+extern unsigned char grim_def_g_aHWSolidTris[4] __asm__("_g_aHWSolidTris");
+extern unsigned char grim_def_g_aHWVertices[4] __asm__("_g_aHWVertices");
+extern unsigned char grim_def_g_aRdCache_Intensities[131072] __asm__("_g_aRdCache_Intensities");
+extern unsigned char grim_def_g_aRdCache_Vertices[393216] __asm__("_g_aRdCache_Vertices");
+extern unsigned int grim_def_g_dwNumUsedIntensities __asm__("_g_dwNumUsedIntensities");
+extern unsigned int grim_def_g_dwNumUsedTexVertices __asm__("_g_dwNumUsedTexVertices");
+extern unsigned int grim_def_g_dwNumUsedVertices __asm__("_g_dwNumUsedVertices");
+extern unsigned char grim_def_g_dwRdCache_drawnFaces[4] __asm__("_g_dwRdCache_drawnFaces");
+extern unsigned char grim_def_g_dwTotalNormalTris[8] __asm__("_g_dwTotalNormalTris");
+extern unsigned char grim_def_g_dwTotalSolidTris[8] __asm__("_g_dwTotalSolidTris");
+extern unsigned char grim_def_g_dwTotalVerts[8] __asm__("_g_dwTotalVerts");
+/* 0x005e6fa0, 131072 bytes */ GRIM_DATA("005e6fa0") unsigned char grim_def_g_aGreenIntensities[131072] __asm__("_g_aGreenIntensities") = {0};
+/* 0x00606fa0, 4 bytes */ GRIM_DATA("00606fa0") unsigned char grim_def_g_aHWSolidTris[4] __asm__("_g_aHWSolidTris") = {0};
+/* 0x00606fa4, 4 bytes */ GRIM_DATA("00606fa4") unsigned char grim_def_DAT_00606fa4[4] __asm__("_DAT_00606fa4") = {0};
+/* 0x00606fa8, 4 bytes */ GRIM_DATA("00606fa8") unsigned char grim_def_DAT_00606fa8[4] __asm__("_DAT_00606fa8") = {0};
+/* 0x00606fac, 4 bytes */ GRIM_DATA("00606fac") unsigned char grim_def_DAT_00606fac[4] __asm__("_DAT_00606fac") = {0};
+/* 0x00606fb0, 20464 bytes */ GRIM_DATA("00606fb0") unsigned char grim_def_DAT_00606fb0[20464] __asm__("_DAT_00606fb0") = {0};
+/* 0x0060bfa0, 8 bytes */ GRIM_DATA("0060bfa0") unsigned char grim_def_g_dwTotalNormalTris[8] __asm__("_g_dwTotalNormalTris") = {0};
+/* 0x0060bfa8, 131072 bytes */ GRIM_DATA("0060bfa8") unsigned char grim_def_g_aRdCache_Intensities[131072] __asm__("_g_aRdCache_Intensities") = {0};
+/* 0x0062bfa8, 393216 bytes */ GRIM_DATA("0062bfa8") unsigned char grim_def_g_aRdCache_Vertices[393216] __asm__("_g_aRdCache_Vertices") = {0};
+/* 0x0068bfa8, 8 bytes */ GRIM_DATA("0068bfa8") unsigned char grim_def_g_dwTotalVerts[8] __asm__("_g_dwTotalVerts") = {0};
+/* 0x0068bfb0, 262144 bytes */ GRIM_DATA("0068bfb0") unsigned char grim_def_DAT_0068bfb0[262144] __asm__("_DAT_0068bfb0") = {0};
+/* 0x006cbfb0, 4 bytes */ GRIM_DATA("006cbfb0") unsigned char grim_def_g_aHWNormalTris[4] __asm__("_g_aHWNormalTris") = {0};
+/* 0x006cbfb4, 4 bytes */ GRIM_DATA("006cbfb4") unsigned char grim_def_DAT_006cbfb4[4] __asm__("_DAT_006cbfb4") = {0};
+/* 0x006cbfb8, 4 bytes */ GRIM_DATA("006cbfb8") unsigned char grim_def_DAT_006cbfb8[4] __asm__("_DAT_006cbfb8") = {0};
+/* 0x006cbfbc, 4 bytes */ GRIM_DATA("006cbfbc") unsigned char grim_def_DAT_006cbfbc[4] __asm__("_DAT_006cbfbc") = {0};
+/* 0x006cbfc0, 20464 bytes */ GRIM_DATA("006cbfc0") unsigned char grim_def_DAT_006cbfc0[20464] __asm__("_DAT_006cbfc0") = {0};
+/* 0x006d0fb0, 131072 bytes */ GRIM_DATA("006d0fb0") unsigned char grim_def_g_aBlueIntensities[131072] __asm__("_g_aBlueIntensities") = {0};
+/* 0x006f0fb0, 8 bytes */ GRIM_DATA("006f0fb0") unsigned char grim_def_g_dwTotalSolidTris[8] __asm__("_g_dwTotalSolidTris") = {0};
+/* 0x006f0fb8, 4 bytes */ GRIM_DATA("006f0fb8") unsigned char grim_def_g_aHWVertices[4] __asm__("_g_aHWVertices") = {0};
+/* 0x006f0fbc, 4 bytes */ GRIM_DATA("006f0fbc") unsigned char grim_def_DAT_006f0fbc[4] __asm__("_DAT_006f0fbc") = {0};
+/* 0x006f0fc0, 4 bytes */ GRIM_DATA("006f0fc0") unsigned char grim_def_DAT_006f0fc0[4] __asm__("_DAT_006f0fc0") = {0};
+/* 0x006f0fc4, 4 bytes */ GRIM_DATA("006f0fc4") unsigned char grim_def_DAT_006f0fc4[4] __asm__("_DAT_006f0fc4") = {0};
+/* 0x006f0fc8, 4 bytes */ GRIM_DATA("006f0fc8") unsigned char grim_def_DAT_006f0fc8[4] __asm__("_DAT_006f0fc8") = {0};
+/* 0x006f0fcc, 4 bytes */ GRIM_DATA("006f0fcc") unsigned char grim_def_DAT_006f0fcc[4] __asm__("_DAT_006f0fcc") = {0};
+/* 0x006f0fd0, 4 bytes */ GRIM_DATA("006f0fd0") unsigned char grim_def_DAT_006f0fd0[4] __asm__("_DAT_006f0fd0") = {0};
+/* 0x006f0fd4, 1048548 bytes */ GRIM_DATA("006f0fd4") unsigned char grim_def_DAT_006f0fd4[1048548] __asm__("_DAT_006f0fd4") = {0};
+/* 0x007f0fb8, 4 bytes */ GRIM_DATA("007f0fb8") unsigned char grim_def_g_dwRdCache_drawnFaces[4] __asm__("_g_dwRdCache_drawnFaces") = {0};
+/* 0x007f0fbc, 4 bytes */ GRIM_DATA("007f0fbc") unsigned int grim_def_g_dwNumUsedVertices __asm__("_g_dwNumUsedVertices") = 0x0;
+/* 0x007f0fc0, 4 bytes */ GRIM_DATA("007f0fc0") unsigned int grim_def_g_dwNumUsedTexVertices __asm__("_g_dwNumUsedTexVertices") = 0x0;
+/* 0x007f0fc4, 4 bytes */ GRIM_DATA("007f0fc4") unsigned int grim_def_g_dwNumUsedIntensities __asm__("_g_dwNumUsedIntensities") = 0x0;
+/* 0x00900024, 4 bytes */ GRIM_DATA("00900024") unsigned int grim_def_UINT_00900024 __asm__("_UINT_00900024") = 0x0;
+/* 0x00900028, 4 bytes */ GRIM_DATA("00900028") unsigned int grim_def_UINT_00900028 __asm__("_UINT_00900028") = 0x0;
+/* 0x0090002c, 4 bytes */ GRIM_DATA("0090002c") float grim_def_FLOAT_0090002c __asm__("_FLOAT_0090002c") = 0.0f;
+/* 0x00900030, 4 bytes */ GRIM_DATA("00900030") float grim_def_FLOAT_00900030 __asm__("_FLOAT_00900030") = 0.0f;
+/* 0x00900034, 16 bytes */ GRIM_DATA("00900034") float grim_def_FLOAT_00900034 __asm__("_FLOAT_00900034") = 0.0f;
+/* 0x00900038, 12 bytes: the rest of grim_def_FLOAT_00900034's span */ GRIM_DATA("00900034") static unsigned char FLOAT_00900034__tail[12] __attribute__((used)) = {0};
+/* 0x00900044, 4 bytes */ GRIM_DATA("00900044") float grim_def_FLOAT_00900044 __asm__("_FLOAT_00900044") = 0.0f;
+__asm__(".globl _grim_img_exe_0x00606fa0\n\t.set _grim_img_exe_0x00606fa0, _g_aHWSolidTris + 0\n");
+__asm__(".globl _grim_img_exe_0x0060bfa0\n\t.set _grim_img_exe_0x0060bfa0, _g_dwTotalNormalTris + 0\n");
+__asm__(".globl _grim_img_exe_0x0068bfa8\n\t.set _grim_img_exe_0x0068bfa8, _g_dwTotalVerts + 0\n");
+__asm__(".globl _grim_img_exe_0x006cbfb0\n\t.set _grim_img_exe_0x006cbfb0, _g_aHWNormalTris + 0\n");
+__asm__(".globl _grim_img_exe_0x006f0fb0\n\t.set _grim_img_exe_0x006f0fb0, _g_dwTotalSolidTris + 0\n");
+__asm__(".globl _grim_img_exe_0x006f0fb8\n\t.set _grim_img_exe_0x006f0fb8, _g_aHWVertices + 0\n");
+__asm__(".globl _grim_img_exe_0x00900024\n\t.set _grim_img_exe_0x00900024, _UINT_00900024 + 0\n");
+__asm__(".globl _grim_img_exe_0x00900028\n\t.set _grim_img_exe_0x00900028, _UINT_00900028 + 0\n");
+__asm__(".globl _grim_img_exe_0x0090002c\n\t.set _grim_img_exe_0x0090002c, _FLOAT_0090002c + 0\n");
+__asm__(".globl _grim_img_exe_0x00900030\n\t.set _grim_img_exe_0x00900030, _FLOAT_00900030 + 0\n");
+__asm__(".globl _grim_img_exe_0x00900034\n\t.set _grim_img_exe_0x00900034, _FLOAT_00900034 + 0\n");
+__asm__(".globl _grim_img_exe_0x00900044\n\t.set _grim_img_exe_0x00900044, _FLOAT_00900044 + 0\n");

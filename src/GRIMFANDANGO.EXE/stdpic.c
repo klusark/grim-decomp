@@ -409,3 +409,15 @@ uint __cdecl stdPic_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int sysM
 #undef uStack_128
 #undef uStack_141
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e77cc[4] __asm__("_DAT_004e77cc");
+extern unsigned char grim_def_DAT_004e77d0[8] __asm__("_DAT_004e77d0");
+extern char grim_def_s_C__grimjedi_Libs_Std_General_std_004e77d8[40] __asm__("_s_C__grimjedi_Libs_Std_General_std_004e77d8");
+/* 0x004e77cc, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004e77cc[4] __asm__("_DAT_004e77cc") = { 0xd4 };
+/* 0x004e77d0, 8 bytes */ /* loose */ unsigned char grim_def_DAT_004e77d0[8] __asm__("_DAT_004e77d0") = { 0xf7, 0x00, 0x00, 0x00, 0xeb, 0x01 };
+/* 0x004e77d8, 40 bytes */ /* loose */ char grim_def_s_C__grimjedi_Libs_Std_General_std_004e77d8[40] __asm__("_s_C__grimjedi_Libs_Std_General_std_004e77d8") = "C:\\grimjedi\\Libs\\Std\\General\\stdPic.c";

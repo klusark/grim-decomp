@@ -31,9 +31,6 @@ extern signed char g_abAdpcmIndexAdjust4[16];
 extern signed char g_abAdpcmIndexAdjust5[32];
 extern signed char g_abAdpcmIndexAdjust6[64];
 extern signed char g_abAdpcmIndexAdjust7[128];
-extern short g_wAdpcmStepTable[89];
-extern unsigned char DAT_100152da[6];
-extern unsigned char g_abAdpcmStepBits[89];
 extern unsigned char DAT_10015398[32];
 extern unsigned char UNK_100153b8[92];
 extern unsigned char DAT_10015414[16];
@@ -243,75 +240,9 @@ extern void *DAT_10017014[2];
 extern unsigned char DAT_1001701c[4];
 extern unsigned char DAT_10017020[4];
 extern unsigned char DAT_10017024[12];
-extern void *g_apAdpcmIndexAdjust[8];
-extern unsigned char DAT_10017050[8];
-extern unsigned int DAT_10017058;
-extern unsigned char DAT_1001705c[8];
-extern unsigned char DAT_10017064[8];
-extern unsigned char DAT_1001706c[8];
 extern unsigned char DAT_10017074[8];
-extern unsigned char DAT_1001707c[8];
-extern unsigned char DAT_10017084[4];
-extern unsigned char DAT_10017088[8];
-extern unsigned char DAT_10017090[8];
-extern char s_MCMP_10017098[8];
-extern unsigned char DAT_100170a0[8];
-extern unsigned char DAT_100170a8[8];
-extern unsigned char DAT_100170b0[8];
-extern unsigned char DAT_100170b8[8];
-extern char s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0[44];
-extern unsigned char PTR_100170ec[4];
-extern unsigned char DAT_100170f0[20];
-extern char s_C__grimsrc_libs_iMUSE_dsound_c_10017104[32];
-extern unsigned char DAT_10017124[32];
-extern unsigned char DAT_10017144[48];
-extern unsigned char DAT_10017174[60];
 extern char s_____100171b0[4];
-extern unsigned char DAT_100171b4[48];
-extern unsigned char DAT_100171e4[16];
-extern unsigned char DAT_100171f4[28];
-extern unsigned char DAT_10017210[20];
-extern unsigned char DAT_10017224[28];
-extern unsigned char DAT_10017240[40];
-extern unsigned char DAT_10017268[40];
-extern unsigned char DAT_10017290[32];
-extern char s_imuse_psl_100172b0[12];
-extern unsigned int DAT_100172bc;
 extern unsigned int g_dwWvSlicingHalted;
-extern unsigned char DAT_100172c4[4];
-extern char s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8[32];
-extern ImMusicEntry g_aImStateTable[181];
-extern unsigned char DAT_1001ae4c[4];
-extern ImMusicEntry g_aImSeqTable[41];
-extern unsigned char DAT_1001bbc4[4];
-extern ImNameAlias g_aImNameAlias[171];
-extern unsigned int g_dwLocalMusic;
-extern char s_ERROR_unrecognized_opcode_in_scr_1001e68c[40];
-extern char s_ERROR_script_already_initialized_1001e6b4[36];
-extern char s_ERROR_script_not_initialized____1001e6d8[32];
-extern char s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[40];
-extern char s_ERR__bogus_sequence____1001e720[24];
-extern char s_ERR__bogus_attribute____1001e738[24];
-extern char s_Set_attr__lu_to__lu____1001e750[24];
-extern char s_SCRIPT_ERR__bogus_trans_type____1001e768[32];
-extern char s_SCRIPT_ERR__failed_start_stream__1001e788[36];
-extern char s_No_stream_sound____1001e7ac[20];
-extern char s_and_PAN__lu____1001e7c0[16];
-extern char s_fading_VOL__lu____1001e7d0[20];
-extern char s_set_pan__lu____1001e7e4[16];
-extern char s_clear_1001e7f4[8];
-extern char s_exit2_1001e7fc[8];
-extern char s_exit_1001e804[8];
-extern char s_vol__lu____1001e80c[12];
-extern char s_FADE__lu____1001e818[12];
-extern char s_HOOK__lu____1001e824[12];
-extern char s_SCRIPT_ERR__Unable_to_open_1001e830[28];
-extern char s_opening_1001e84c[12];
-extern char s__end_1001e858[8];
-extern char s_Trans_null____1001e860[16];
-extern char s_ERR_callback_got_marker______end_1001e870[40];
-extern char s_CALLBACK__1001e898[12];
-extern unsigned char g_dwTAIL_BYTES[4];
 extern unsigned char g_dwImVoiceBufferSize[4];
 extern unsigned char g_dwImVoiceGulpSize[4];
 extern unsigned char g_dwImVoiceCriticalSize[4];
@@ -323,25 +254,9 @@ extern unsigned int g_dwImLargeFadeCount;
 extern unsigned int g_dwImSmallFadeSize;
 extern unsigned int g_dwImSmallFadeCount;
 extern unsigned char g_dwImNonPurgeCacheSize[4];
-extern unsigned int g_dwImWaveMixCount;
 extern unsigned char g_dwEffectsHeapSize[4];
-extern unsigned char g_bMuscriptLocal[4];
 extern char s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0[32];
 extern char s_rb_1001e900[4];
-extern unsigned int DAT_1001e904;
-extern unsigned char DAT_1001e908[4];
-extern unsigned char DAT_1001e90c[4];
-extern unsigned char DAT_1001e910[32];
-extern unsigned char DAT_1001e930[20];
-extern unsigned char DAT_1001e944[20];
-extern unsigned char DAT_1001e958[24];
-extern unsigned char DAT_1001e970[12];
-extern unsigned char DAT_1001e97c[16];
-extern unsigned char DAT_1001e98c[8];
-extern char s_LIP__1001e994[8];
-extern unsigned char DAT_1001e99c[28];
-extern unsigned char DAT_1001e9b8[8];
-extern char s_VIMA_1001e9c0[16];
 extern void *DAT_1001e9d0[4];
 extern void *PTR_exit_1001e9e0[2];
 extern unsigned char DAT_1001e9e8[4];
@@ -407,149 +322,36 @@ extern unsigned char DAT_10021d60[64];
 extern unsigned char DAT_10021da0[8];
 extern unsigned char DAT_10021da8[352];
 extern unsigned char DAT_10021f08[568];
-extern unsigned char DAT_10022140[128];
-extern unsigned char DAT_100221c0[11264];
-extern unsigned char DAT_10024dc0[8];
 extern unsigned char PTR_10024dc8[4];
 extern int g_dwLargeFadeBufs;
-extern unsigned int g_dwLargeFadeFlags;
 extern int g_dwSmallFadeBufs;
-extern unsigned char g_dwPredictStream_jumpHook[4];
-extern unsigned char g_dwDpProcessTrack_critSize[4];
-extern unsigned char g_dwFadeStartedFlag[8];
 extern unsigned char g_dwStreamZones[8];
-extern unsigned char DAT_10024df0[1192];
 extern unsigned char g_pSmallFadeFlags[8];
 extern unsigned char g_dwDispatches[2076];
-extern unsigned char DAT_10025abc[32036];
-extern unsigned char g_dwDpProcessTrack_curLevel[4];
-extern unsigned char g_dwDpProcessTrack_pauseFlag[4];
-extern unsigned char g_dwGoToNextRegion_fadeSize[8];
-extern unsigned char DAT_1002d7f0[24];
 extern unsigned int g_dwMemAddr;
-extern unsigned int g_dwPrepareToJump_fadeSize;
-extern unsigned char g_dwDpProcessTrack_bufSize[4];
-extern unsigned int DAT_1002d814;
-extern unsigned char DAT_1002d818[4];
-extern unsigned char DAT_1002d81c[4];
-extern unsigned int DAT_1002d820;
 extern int DAT_1002d824;
-extern unsigned int DAT_1002d828;
-extern unsigned int DAT_1002d82c;
-extern unsigned char PTR_1002d830[4];
-extern unsigned char PTR_1002d834[4];
-extern unsigned char PTR_1002d838[4];
 extern unsigned char PTR_1002d83c[4];
-extern unsigned char DAT_1002d840[4];
-extern unsigned int DAT_1002d844;
-extern unsigned int DAT_1002d848;
-extern unsigned int g_dwCurrentWriteIndex;
-extern unsigned char DAT_1002d850[4];
-extern unsigned char DAT_1002d854[4];
-extern unsigned int g_dwFadesOn;
-extern unsigned char g_dwFades[32];
-extern unsigned char DAT_1002d880[608];
-extern unsigned char g_dwOpenSoundFunc[4];
-extern unsigned char g_dwCloseSoundFunc[4];
-extern unsigned char DAT_1002dae8[4];
-extern unsigned char DAT_1002daec[515];
-extern unsigned char DAT_1002dcef[1];
-extern unsigned char g_dwLoadSoundFunc[4];
-extern unsigned char g_dwUnloadSoundFunc[4];
-extern unsigned char g_pLoadedList[4];
-extern unsigned char g_pOpenedList[4];
-extern unsigned char g_dwInitFlag[8];
 extern unsigned char DAT_1002dd08[4];
 extern unsigned char DAT_1002dd0c[4];
-extern unsigned int UINT_1002dd10;
-extern unsigned char DAT_1002dd14[4];
-extern unsigned int DAT_1002dd18;
-extern unsigned char DAT_1002dd1c[4];
-extern unsigned int UINT_1002dd20;
-extern unsigned char DAT_1002dd24[4];
-extern unsigned char DAT_1002dd28[4];
 extern unsigned int DAT_1002dd2c;
 extern unsigned char DAT_1002dd30[2];
 extern unsigned char DAT_1002dd32[2];
-extern unsigned char DAT_1002dd34[4];
-extern unsigned char DAT_1002dd38[4];
-extern unsigned char DAT_1002dd3c[2];
-extern unsigned char DAT_1002dd3e[2];
-extern unsigned char DAT_1002dd40[8];
 extern unsigned char DAT_1002dd48[8];
-extern unsigned int UINT_1002dd50;
-extern unsigned char DAT_1002dd58[4];
-extern unsigned char DAT_1002dd5c[4];
 extern unsigned char DAT_1002dd60[2];
 extern unsigned short DAT_1002dd62;
-extern unsigned char DAT_1002dd64[4];
-extern unsigned char DAT_1002dd68[4];
-extern unsigned char DAT_1002dd6c[2];
-extern unsigned char DAT_1002dd6e[2];
-extern unsigned char DAT_1002dd70[4];
 extern unsigned int DAT_1002dd74;
 extern unsigned char DAT_1002dd78[4];
 extern unsigned int DAT_1002dd7c;
-extern unsigned int g_dwGroupVols;
-extern unsigned char DAT_1002dd84[60];
-extern unsigned int g_dwGroupEffVols;
-extern unsigned char DAT_1002ddc4[60];
-extern unsigned char DAT_1002de00[256];
-extern int g_dwPauseCount;
-extern unsigned int g_dwRunning50HzCount;
-extern unsigned int g_dwRunning10HzCount;
 extern unsigned int g_dwIm_initialized;
-extern unsigned char g_dwIntFlag[8];
-extern unsigned int g_dwOutChannelCount;
 extern unsigned int g_dwDataSizeInBytes;
-extern unsigned char g_dwSoftLTable[4];
-extern unsigned int g_dwMixBufSize;
-extern unsigned char DAT_1002df28[8];
-extern unsigned char g_aMxEndMix_wavHeader[44];
-extern unsigned char g_pMixBuf[4];
 extern unsigned int g_dwRecordState;
 extern unsigned int g_dwRecordFile;
-extern unsigned char DAT_1002df68[4];
-extern unsigned char DAT_1002df6c[4];
-extern unsigned int g_dwCurrentState;
-extern unsigned char DAT_1002df78[12];
-extern unsigned char DAT_1002df84[728];
-extern unsigned char DAT_1002e25c[168];
-extern unsigned int DAT_1002e304;
-extern int g_dwCurrentSequence;
-extern int g_dwCurrentCuePoint;
-extern char g_bTrans_name;
-extern unsigned char DAT_1002e311[31];
-extern unsigned char DAT_1002e330[8];
-extern unsigned char DAT_1002e338[8];
-extern unsigned char g_aLipSfx1Data[2000];
-extern unsigned char g_aStreamID[4];
-extern unsigned char DAT_1002eb14[31];
-extern unsigned char DAT_1002eb33[1];
-extern unsigned char DAT_1002eb34[8];
-extern unsigned char DAT_1002eb3c[156];
 extern unsigned char g_dwMlListSize[3];
 extern unsigned char DAT_1002ebdb[5];
-extern ImBufferInfo g_aImBufferInfo[3];
 extern unsigned char g_dwMlEntryCount[8];
-extern unsigned char g_aLipSfx2Data[2000];
-extern unsigned char g_bLipStreamData[2000];
-extern unsigned char DAT_1002fbb8[24];
 extern unsigned char g_aLipSfx3Data[1999];
 extern unsigned char DAT_1003039f;
 extern unsigned char g_aMcmpFileHandles[4];
-extern unsigned char DAT_100303a4[4];
-extern unsigned char DAT_100303a8[4];
-extern unsigned char DAT_100303ac[4];
-extern unsigned char DAT_100303b0[4];
-extern unsigned char DAT_100303b4[4];
-extern unsigned char DAT_100303b8[4];
-extern unsigned char DAT_100303bc[4];
-extern unsigned char DAT_100303c0[4];
-extern unsigned char DAT_100303c4[4];
-extern unsigned char DAT_100303c8[4];
-extern unsigned char DAT_100303cc[4];
-extern unsigned char DAT_100303d0[4];
 extern unsigned char DAT_100303d4[6];
 extern unsigned char DAT_100303da[79];
 extern unsigned char DAT_10030429[4342];
@@ -558,59 +360,17 @@ extern unsigned char DAT_10031520[8];
 extern unsigned char g_bSoundCache[31];
 extern unsigned char DAT_10031547[1];
 extern unsigned char DAT_10031548[8];
-extern unsigned char DAT_10031550[4];
-extern unsigned char DAT_10031554[4];
-extern unsigned char DAT_10031558[8];
-extern unsigned char DAT_10031560[4];
-extern unsigned char DAT_10031564[1924];
 extern unsigned char DAT_10031ce8[64];
 extern unsigned char DAT_10031d28[4];
-extern unsigned char g_iMuseMasterVolHold[4];
 extern unsigned int g_dwUseVoxFx;
-extern unsigned char DAT_10031d34[4];
 extern unsigned char g_dwMlEntries[4];
 extern unsigned char g_dwNextHandle[8];
-extern unsigned char g_bImuseInitialized[4];
 extern unsigned char DAT_10031d48[4];
 extern unsigned char DAT_10031d4c[3];
 extern unsigned char DAT_10031d4f[1];
-extern unsigned char g_aLastVoiceFilename[260];
-extern unsigned char g_bMuscriptRemote[4];
-extern unsigned char DAT_10031e58[4];
-extern unsigned char DAT_10031e5c[4];
-extern unsigned char g_dwVoxFxBuf[4];
-extern unsigned int UINT_10031e64;
-extern unsigned char DAT_10031e68[4];
-extern unsigned char DAT_10031e6c[4];
-extern unsigned char g_dwLipStreamID[4];
-extern unsigned char g_dwLipSfx1ID[4];
-extern unsigned char g_dwLipSfx2ID[4];
-extern unsigned char g_dwLipSfx3ID[4];
-extern unsigned char DAT_10031e80[4];
-extern unsigned char g_dwTimerCounter[4];
-extern unsigned int g_dwNextToAllocate;
-extern unsigned int g_dwIRes_csInit;
 extern unsigned char g_dwLastStreamLoaded[4];
 extern unsigned int g_dwBailFlag;
 extern unsigned char g_dwStreams[144];
-extern unsigned char DAT_10031f28[8];
-extern unsigned char DAT_10031f30[952];
-extern unsigned char g_dwTrIntHandler_outSampleRate[8];
-extern unsigned char g_aTrInitialize_waveDriverInfo[16];
-extern int g_dwTrackList;
-extern unsigned int g_dwTrIntHandler_outFramesNeeded;
-extern unsigned char DAT_10032308[4];
-extern unsigned int g_dwPauseTimer;
-extern unsigned int DAT_10032310;
-extern unsigned char g_dwTrIntHandler_outPtr[12];
-extern unsigned char g_dwTrigs[260];
-extern unsigned char DAT_10032424[2204];
-extern unsigned int DAT_10032cc0;
-extern unsigned char DAT_10032cc4[380];
-extern unsigned char g_dwTgProcessMarker_textCopy[256];
-extern unsigned int g_dwDefersOn;
-extern unsigned int g_dwMidProcessing;
-extern unsigned char DAT_10032f48[8];
 extern unsigned char DAT_10032f50[4];
 extern unsigned char DAT_10032f54[4];
 extern unsigned char DAT_10032f58[8];
@@ -681,11 +441,8 @@ extern int g_dwTrackCount;
 extern unsigned int g_dwSounds_pHS;
 extern unsigned char g_aVoxFxName[39];
 extern unsigned char DAT_10033547[25];
-extern unsigned char g_bPanTable[8];
-extern unsigned char DAT_10033568[312];
 extern unsigned char g_dwImuseInitData[4];
 extern unsigned char DAT_100336a4[4];
-extern unsigned char DAT_100336a8[4];
 extern unsigned char DAT_100336ac[4];
 extern unsigned char DAT_100336b0[4];
 extern unsigned char DAT_100336b4[8];
@@ -707,7 +464,7 @@ extern unsigned char DAT_10034808[4];
 
 static unsigned char grim_anchor_10015000[0] __attribute__((section(".data$grim_10015000"), aligned(16), used));
 static unsigned char grim_pad_10015000[0] __attribute__((section(".data$grim_10015000_"), aligned(4), used));
-/* 0x10015000, 296 bytes */ GRIM_DATA("10015000z") unsigned char PTR_hmiFXPresetRelease_10015000[296] = {
+/* 0x10015000, 296 bytes */ GRIM_DATA("10015000z") unsigned char PTR_hmiFXPresetRelease_10015000[296] __asm__("_PTR_hmiFXPresetRelease_10015000") = {
     0x76, 0x62, 0x01, 0x00, 0xc8, 0x62, 0x01, 0x00, 0xae, 0x62, 0x01, 0x00, 0x9a, 0x62, 0x01, 0x00,
     0x8c, 0x62, 0x01, 0x00, 0x4e, 0x62, 0x01, 0x00, 0x60, 0x62, 0x01, 0x00, 0x22, 0x62, 0x01, 0x00,
     0x3c, 0x62, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf8, 0x61, 0x01, 0x00, 0xe0, 0x61, 0x01, 0x00,
@@ -727,21 +484,21 @@ static unsigned char grim_pad_10015000[0] __attribute__((section(".data$grim_100
     0x40, 0x66, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x5c, 0x61, 0x01, 0x00, 0x8a, 0x61, 0x01, 0x00,
     0x6a, 0x61, 0x01, 0x00, 0x7a, 0x61, 0x01, 0x00, 0x9a, 0x61, 0x01, 0x00, 0xac, 0x61, 0x01
 };
-/* 0x10015128, 8 bytes */ GRIM_DATA("10015128") signed char g_abAdpcmIndexAdjust2[4] = { -1, 4, -1, 4 };
+/* 0x10015128, 8 bytes */ GRIM_DATA("10015128") signed char g_abAdpcmIndexAdjust2[4] __asm__("_g_abAdpcmIndexAdjust2") = { -1, 4, -1, 4 };
 /* 0x1001512c, 4 bytes: the rest of g_abAdpcmIndexAdjust2's span */ GRIM_DATA("10015128") static unsigned char g_abAdpcmIndexAdjust2__tail[4] __attribute__((used)) = {0};
-/* 0x10015130, 8 bytes */ GRIM_DATA("10015130") signed char g_abAdpcmIndexAdjust3[8] = { -1, -1, 2, 6, -1, -1, 2, 6 };
-/* 0x10015138, 16 bytes */ GRIM_DATA("10015138") signed char g_abAdpcmIndexAdjust4[16] = { -1, -1, -1, -1, 1, 2, 4, 6, -1, -1, -1, -1, 1, 2, 4, 6 };
-/* 0x10015148, 32 bytes */ GRIM_DATA("10015148") signed char g_abAdpcmIndexAdjust5[32] = {
+/* 0x10015130, 8 bytes */ GRIM_DATA("10015130") signed char g_abAdpcmIndexAdjust3[8] __asm__("_g_abAdpcmIndexAdjust3") = { -1, -1, 2, 6, -1, -1, 2, 6 };
+/* 0x10015138, 16 bytes */ GRIM_DATA("10015138") signed char g_abAdpcmIndexAdjust4[16] __asm__("_g_abAdpcmIndexAdjust4") = { -1, -1, -1, -1, 1, 2, 4, 6, -1, -1, -1, -1, 1, 2, 4, 6 };
+/* 0x10015148, 32 bytes */ GRIM_DATA("10015148") signed char g_abAdpcmIndexAdjust5[32] __asm__("_g_abAdpcmIndexAdjust5") = {
     -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 2, 2, 4, 5, 6,
     -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 2, 2, 4, 5, 6
 };
-/* 0x10015168, 64 bytes */ GRIM_DATA("10015168") signed char g_abAdpcmIndexAdjust6[64] = {
+/* 0x10015168, 64 bytes */ GRIM_DATA("10015168") signed char g_abAdpcmIndexAdjust6[64] __asm__("_g_abAdpcmIndexAdjust6") = {
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 5, 5, 6, 6,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 5, 5, 6, 6
 };
-/* 0x100151a8, 128 bytes */ GRIM_DATA("100151a8") signed char g_abAdpcmIndexAdjust7[128] = {
+/* 0x100151a8, 128 bytes */ GRIM_DATA("100151a8") signed char g_abAdpcmIndexAdjust7[128] __asm__("_g_abAdpcmIndexAdjust7") = {
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
@@ -751,115 +508,90 @@ static unsigned char grim_pad_10015000[0] __attribute__((section(".data$grim_100
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
     2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6
 };
-/* 0x10015228, 178 bytes */ GRIM_DATA("10015228") short g_wAdpcmStepTable[89] = {
-    7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 21, 23, 25, 28, 31,
-    34, 37, 41, 45, 50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 130, 143,
-    157, 173, 190, 209, 230, 253, 279, 307, 337, 371, 408, 449, 494, 544, 598, 658,
-    724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552, 1707, 1878, 2066, 2272, 2499, 2749, 3024,
-    3327, 3660, 4026, 4428, 4871, 5358, 5894, 6484, 7132, 7845, 8630, 9493, 10442, 11487, 12635, 13899,
-    15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767
-};
-/* 0x100152da, 6 bytes */ GRIM_DATA("10015228") unsigned char DAT_100152da[6] = {0};
-/* 0x100152e0, 184 bytes */ GRIM_DATA("100152e0") unsigned char g_abAdpcmStepBits[89] = {
-    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4,
-    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4,
-    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x5, 0x5, 0x5,
-    0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x6, 0x6, 0x6, 0x6, 0x6,
-    0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
-    0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7
-};
-/* 0x10015339, 95 bytes: the rest of g_abAdpcmStepBits's span */ GRIM_DATA("100152e0") static unsigned char g_abAdpcmStepBits__tail[95] __attribute__((used)) = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x0c, 0xac, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x0d, 0xac, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x0e, 0xac, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x6f, 0x12, 0x83, 0xc0, 0xca, 0x21, 0x09, 0x40, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0xa0, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xbf, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x40, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xff, 0x1f, 0x41
-};
-/* 0x10015398, 32 bytes */ GRIM_DATA("10015398") unsigned char DAT_10015398[32] = {
+/* 0x10015398, 32 bytes */ GRIM_DATA("10015398") unsigned char DAT_10015398[32] __asm__("_DAT_10015398") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1c, 0xc0, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xff, 0x0f, 0x41,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x3f
 };
-/* 0x100153b8, 92 bytes, unused (dead) */ GRIM_DATA("100153b8") unsigned char UNK_100153b8[92];
-/* 0x10015414, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("10015414") unsigned char DAT_10015414[16];
-/* 0x10015424, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("10015424") unsigned char DAT_10015424[20];
-/* 0x10015438, 28 bytes, unused (dead) */ GRIM_DATA("10015438") unsigned char DAT_10015438[28];
-/* 0x10015454, 28 bytes, unused (dead) */ GRIM_DATA("10015454") unsigned char UNK_10015454[28];
-/* 0x10015470, 8 bytes */ GRIM_DATA("10015470") unsigned char DAT_10015470[8] = { 0x4c, 0x43, 0x5f, 0x54, 0x49, 0x4d, 0x45 };
-/* 0x10015478, 12 bytes */ GRIM_DATA("10015478") unsigned char DAT_10015478[12] = { 0x4c, 0x43, 0x5f, 0x4e, 0x55, 0x4d, 0x45, 0x52, 0x49, 0x43 };
-/* 0x10015484, 12 bytes */ GRIM_DATA("10015484") unsigned char DAT_10015484[12] = { 0x4c, 0x43, 0x5f, 0x4d, 0x4f, 0x4e, 0x45, 0x54, 0x41, 0x52, 0x59 };
-/* 0x10015490, 12 bytes */ GRIM_DATA("10015490") unsigned char DAT_10015490[12] = { 0x4c, 0x43, 0x5f, 0x43, 0x54, 0x59, 0x50, 0x45 };
-/* 0x1001549c, 12 bytes */ GRIM_DATA("1001549c") unsigned char DAT_1001549c[12] = { 0x4c, 0x43, 0x5f, 0x43, 0x4f, 0x4c, 0x4c, 0x41, 0x54, 0x45 };
-/* 0x100154a8, 12 bytes */ GRIM_DATA("100154a8") unsigned char DAT_100154a8[12] = { 0x4c, 0x43, 0x5f, 0x41, 0x4c, 0x4c, 0x00, 0x00, 0x2e };
-/* 0x100154b4, 4 bytes */ GRIM_DATA("100154b4") unsigned char DAT_100154b4[4] = {0};
-/* 0x100154b8, 4 bytes */ GRIM_DATA("100154b8") unsigned char DAT_100154b8[4] = {0};
-/* 0x100154bc, 16 bytes */ GRIM_DATA("100154bc") unsigned char DAT_100154bc[16] = { 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x20 };
-/* 0x100154cc, 4 bytes */ GRIM_DATA("100154cc") unsigned char DAT_100154cc[4] = { 0x0d, 0x0a };
-/* 0x100154d0, 16 bytes */ GRIM_DATA("100154d0") unsigned char DAT_100154d0[16] = { 0x54, 0x4c, 0x4f, 0x53, 0x53, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
-/* 0x100154e0, 16 bytes */ GRIM_DATA("100154e0") unsigned char DAT_100154e0[16] = { 0x53, 0x49, 0x4e, 0x47, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
-/* 0x100154f0, 16 bytes */ GRIM_DATA("100154f0") unsigned char DAT_100154f0[16] = { 0x44, 0x4f, 0x4d, 0x41, 0x49, 0x4e, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
-/* 0x10015500, 40 bytes */ GRIM_DATA("10015500") unsigned char DAT_10015500[40] = {
+/* 0x100153b8, 92 bytes, unused (dead) */ GRIM_DATA("100153b8") unsigned char UNK_100153b8[92] __asm__("_UNK_100153b8");
+/* 0x10015414, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("10015414") unsigned char DAT_10015414[16] __asm__("_DAT_10015414");
+/* 0x10015424, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("10015424") unsigned char DAT_10015424[20] __asm__("_DAT_10015424");
+/* 0x10015438, 28 bytes, unused (dead) */ GRIM_DATA("10015438") unsigned char DAT_10015438[28] __asm__("_DAT_10015438");
+/* 0x10015454, 28 bytes, unused (dead) */ GRIM_DATA("10015454") unsigned char UNK_10015454[28] __asm__("_UNK_10015454");
+/* 0x10015470, 8 bytes */ GRIM_DATA("10015470") unsigned char DAT_10015470[8] __asm__("_DAT_10015470") = { 0x4c, 0x43, 0x5f, 0x54, 0x49, 0x4d, 0x45 };
+/* 0x10015478, 12 bytes */ GRIM_DATA("10015478") unsigned char DAT_10015478[12] __asm__("_DAT_10015478") = { 0x4c, 0x43, 0x5f, 0x4e, 0x55, 0x4d, 0x45, 0x52, 0x49, 0x43 };
+/* 0x10015484, 12 bytes */ GRIM_DATA("10015484") unsigned char DAT_10015484[12] __asm__("_DAT_10015484") = { 0x4c, 0x43, 0x5f, 0x4d, 0x4f, 0x4e, 0x45, 0x54, 0x41, 0x52, 0x59 };
+/* 0x10015490, 12 bytes */ GRIM_DATA("10015490") unsigned char DAT_10015490[12] __asm__("_DAT_10015490") = { 0x4c, 0x43, 0x5f, 0x43, 0x54, 0x59, 0x50, 0x45 };
+/* 0x1001549c, 12 bytes */ GRIM_DATA("1001549c") unsigned char DAT_1001549c[12] __asm__("_DAT_1001549c") = { 0x4c, 0x43, 0x5f, 0x43, 0x4f, 0x4c, 0x4c, 0x41, 0x54, 0x45 };
+/* 0x100154a8, 12 bytes */ GRIM_DATA("100154a8") unsigned char DAT_100154a8[12] __asm__("_DAT_100154a8") = { 0x4c, 0x43, 0x5f, 0x41, 0x4c, 0x4c, 0x00, 0x00, 0x2e };
+/* 0x100154b4, 4 bytes */ GRIM_DATA("100154b4") unsigned char DAT_100154b4[4] __asm__("_DAT_100154b4") = {0};
+/* 0x100154b8, 4 bytes */ GRIM_DATA("100154b8") unsigned char DAT_100154b8[4] __asm__("_DAT_100154b8") = {0};
+/* 0x100154bc, 16 bytes */ GRIM_DATA("100154bc") unsigned char DAT_100154bc[16] __asm__("_DAT_100154bc") = { 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x20 };
+/* 0x100154cc, 4 bytes */ GRIM_DATA("100154cc") unsigned char DAT_100154cc[4] __asm__("_DAT_100154cc") = { 0x0d, 0x0a };
+/* 0x100154d0, 16 bytes */ GRIM_DATA("100154d0") unsigned char DAT_100154d0[16] __asm__("_DAT_100154d0") = { 0x54, 0x4c, 0x4f, 0x53, 0x53, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
+/* 0x100154e0, 16 bytes */ GRIM_DATA("100154e0") unsigned char DAT_100154e0[16] __asm__("_DAT_100154e0") = { 0x53, 0x49, 0x4e, 0x47, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
+/* 0x100154f0, 16 bytes */ GRIM_DATA("100154f0") unsigned char DAT_100154f0[16] __asm__("_DAT_100154f0") = { 0x44, 0x4f, 0x4d, 0x41, 0x49, 0x4e, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
+/* 0x10015500, 40 bytes */ GRIM_DATA("10015500") unsigned char DAT_10015500[40] __asm__("_DAT_10015500") = {
     0x52, 0x36, 0x30, 0x32, 0x38, 0x0d, 0x0a, 0x2d, 0x20, 0x75, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x20,
     0x74, 0x6f, 0x20, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x20, 0x68, 0x65,
     0x61, 0x70, 0x0d, 0x0a
 };
-/* 0x10015528, 56 bytes */ GRIM_DATA("10015528") unsigned char DAT_10015528[56] = {
+/* 0x10015528, 56 bytes */ GRIM_DATA("10015528") unsigned char DAT_10015528[56] __asm__("_DAT_10015528") = {
     0x52, 0x36, 0x30, 0x32, 0x37, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x6c, 0x6f,
     0x77, 0x69, 0x6f, 0x20, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x61, 0x74, 0x69,
     0x6f, 0x6e, 0x0d, 0x0a
 };
-/* 0x10015560, 56 bytes */ GRIM_DATA("10015560") unsigned char DAT_10015560[56] = {
+/* 0x10015560, 56 bytes */ GRIM_DATA("10015560") unsigned char DAT_10015560[56] __asm__("_DAT_10015560") = {
     0x52, 0x36, 0x30, 0x32, 0x36, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x73, 0x74,
     0x64, 0x69, 0x6f, 0x20, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x61, 0x74, 0x69,
     0x6f, 0x6e, 0x0d, 0x0a
 };
-/* 0x10015598, 40 bytes */ GRIM_DATA("10015598") unsigned char DAT_10015598[40] = {
+/* 0x10015598, 40 bytes */ GRIM_DATA("10015598") unsigned char DAT_10015598[40] __asm__("_DAT_10015598") = {
     0x52, 0x36, 0x30, 0x32, 0x35, 0x0d, 0x0a, 0x2d, 0x20, 0x70, 0x75, 0x72, 0x65, 0x20, 0x76, 0x69,
     0x72, 0x74, 0x75, 0x61, 0x6c, 0x20, 0x66, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x63,
     0x61, 0x6c, 0x6c, 0x0d, 0x0a
 };
-/* 0x100155c0, 56 bytes */ GRIM_DATA("100155c0") unsigned char DAT_100155c0[56] = {
+/* 0x100155c0, 56 bytes */ GRIM_DATA("100155c0") unsigned char DAT_100155c0[56] __asm__("_DAT_100155c0") = {
     0x52, 0x36, 0x30, 0x32, 0x34, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x5f, 0x6f,
     0x6e, 0x65, 0x78, 0x69, 0x74, 0x2f, 0x61, 0x74, 0x65, 0x78, 0x69, 0x74, 0x20, 0x74, 0x61, 0x62,
     0x6c, 0x65, 0x0d, 0x0a
 };
-/* 0x100155f8, 44 bytes */ GRIM_DATA("100155f8") unsigned char DAT_100155f8[44] = {
+/* 0x100155f8, 44 bytes */ GRIM_DATA("100155f8") unsigned char DAT_100155f8[44] __asm__("_DAT_100155f8") = {
     0x52, 0x36, 0x30, 0x31, 0x39, 0x0d, 0x0a, 0x2d, 0x20, 0x75, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x20,
     0x74, 0x6f, 0x20, 0x6f, 0x70, 0x65, 0x6e, 0x20, 0x63, 0x6f, 0x6e, 0x73, 0x6f, 0x6c, 0x65, 0x20,
     0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x0d, 0x0a
 };
-/* 0x10015624, 36 bytes */ GRIM_DATA("10015624") unsigned char DAT_10015624[36] = {
+/* 0x10015624, 36 bytes */ GRIM_DATA("10015624") unsigned char DAT_10015624[36] __asm__("_DAT_10015624") = {
     0x52, 0x36, 0x30, 0x31, 0x38, 0x0d, 0x0a, 0x2d, 0x20, 0x75, 0x6e, 0x65, 0x78, 0x70, 0x65, 0x63,
     0x74, 0x65, 0x64, 0x20, 0x68, 0x65, 0x61, 0x70, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a
 };
-/* 0x10015648, 48 bytes */ GRIM_DATA("10015648") unsigned char DAT_10015648[48] = {
+/* 0x10015648, 48 bytes */ GRIM_DATA("10015648") unsigned char DAT_10015648[48] __asm__("_DAT_10015648") = {
     0x52, 0x36, 0x30, 0x31, 0x37, 0x0d, 0x0a, 0x2d, 0x20, 0x75, 0x6e, 0x65, 0x78, 0x70, 0x65, 0x63,
     0x74, 0x65, 0x64, 0x20, 0x6d, 0x75, 0x6c, 0x74, 0x69, 0x74, 0x68, 0x72, 0x65, 0x61, 0x64, 0x20,
     0x6c, 0x6f, 0x63, 0x6b, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a
 };
-/* 0x10015678, 44 bytes */ GRIM_DATA("10015678") unsigned char DAT_10015678[44] = {
+/* 0x10015678, 44 bytes */ GRIM_DATA("10015678") unsigned char DAT_10015678[44] __asm__("_DAT_10015678") = {
     0x52, 0x36, 0x30, 0x31, 0x36, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x74, 0x68,
     0x72, 0x65, 0x61, 0x64, 0x20, 0x64, 0x61, 0x74, 0x61, 0x0d, 0x0a
 };
-/* 0x100156a4, 36 bytes */ GRIM_DATA("100156a4") unsigned char DAT_100156a4[36] = {
+/* 0x100156a4, 36 bytes */ GRIM_DATA("100156a4") unsigned char DAT_100156a4[36] __asm__("_DAT_100156a4") = {
     0x0d, 0x0a, 0x61, 0x62, 0x6e, 0x6f, 0x72, 0x6d, 0x61, 0x6c, 0x20, 0x70, 0x72, 0x6f, 0x67, 0x72,
     0x61, 0x6d, 0x20, 0x74, 0x65, 0x72, 0x6d, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x0d, 0x0a
 };
-/* 0x100156c8, 44 bytes */ GRIM_DATA("100156c8") unsigned char DAT_100156c8[44] = {
+/* 0x100156c8, 44 bytes */ GRIM_DATA("100156c8") unsigned char DAT_100156c8[44] __asm__("_DAT_100156c8") = {
     0x52, 0x36, 0x30, 0x30, 0x39, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x65, 0x6e,
     0x76, 0x69, 0x72, 0x6f, 0x6e, 0x6d, 0x65, 0x6e, 0x74, 0x0d, 0x0a
 };
-/* 0x100156f4, 44 bytes */ GRIM_DATA("100156f4") unsigned char DAT_100156f4[44] = {
+/* 0x100156f4, 44 bytes */ GRIM_DATA("100156f4") unsigned char DAT_100156f4[44] __asm__("_DAT_100156f4") = {
     0x52, 0x36, 0x30, 0x30, 0x38, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x61, 0x72,
     0x67, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x0d, 0x0a
 };
-/* 0x10015720, 84 bytes */ GRIM_DATA("10015720") unsigned char DAT_10015720[84] = {
+/* 0x10015720, 84 bytes */ GRIM_DATA("10015720") unsigned char DAT_10015720[84] __asm__("_DAT_10015720") = {
     0x52, 0x36, 0x30, 0x30, 0x32, 0x0d, 0x0a, 0x2d, 0x20, 0x66, 0x6c, 0x6f, 0x61, 0x74, 0x69, 0x6e,
     0x67, 0x20, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x6c, 0x6f, 0x61, 0x64,
     0x65, 0x64, 0x0d, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x4d, 0x69, 0x63, 0x72, 0x6f, 0x73, 0x6f, 0x66,
@@ -867,259 +599,259 @@ static unsigned char grim_pad_10015000[0] __attribute__((section(".data$grim_100
     0x74, 0x69, 0x6d, 0x65, 0x20, 0x4c, 0x69, 0x62, 0x72, 0x61, 0x72, 0x79, 0x00, 0x00, 0x00, 0x00,
     0x0a, 0x0a
 };
-/* 0x10015774, 28 bytes */ GRIM_DATA("10015774") unsigned char DAT_10015774[28] = {
+/* 0x10015774, 28 bytes */ GRIM_DATA("10015774") unsigned char DAT_10015774[28] __asm__("_DAT_10015774") = {
     0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x21, 0x0a, 0x0a,
     0x50, 0x72, 0x6f, 0x67, 0x72, 0x61, 0x6d, 0x3a, 0x20
 };
-/* 0x10015790, 24 bytes */ GRIM_DATA("10015790") unsigned char DAT_10015790[24] = {
+/* 0x10015790, 24 bytes */ GRIM_DATA("10015790") unsigned char DAT_10015790[24] __asm__("_DAT_10015790") = {
     0x3c, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x61, 0x6d, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x75, 0x6e,
     0x6b, 0x6e, 0x6f, 0x77, 0x6e, 0x3e
 };
-/* 0x100157a8, 12 bytes */ GRIM_DATA("100157a8") unsigned char DAT_100157a8[12] = { 0x50, 0x61, 0x72, 0x61, 0x67, 0x75, 0x61, 0x79 };
-/* 0x100157b4, 8 bytes */ GRIM_DATA("100157b4") unsigned char DAT_100157b4[8] = { 0x55, 0x72, 0x75, 0x67, 0x75, 0x61, 0x79 };
-/* 0x100157bc, 8 bytes */ GRIM_DATA("100157bc") unsigned char DAT_100157bc[8] = { 0x43, 0x68, 0x69, 0x6c, 0x65 };
-/* 0x100157c4, 8 bytes */ GRIM_DATA("100157c4") unsigned char DAT_100157c4[8] = { 0x45, 0x63, 0x75, 0x61, 0x64, 0x6f, 0x72 };
-/* 0x100157cc, 12 bytes */ GRIM_DATA("100157cc") unsigned char DAT_100157cc[12] = { 0x41, 0x72, 0x67, 0x65, 0x6e, 0x74, 0x69, 0x6e, 0x61 };
-/* 0x100157d8, 8 bytes */ GRIM_DATA("100157d8") unsigned char DAT_100157d8[8] = { 0x50, 0x65, 0x72, 0x75 };
-/* 0x100157e0, 12 bytes */ GRIM_DATA("100157e0") unsigned char DAT_100157e0[12] = { 0x43, 0x6f, 0x6c, 0x6f, 0x6d, 0x62, 0x69, 0x61 };
-/* 0x100157ec, 12 bytes */ GRIM_DATA("100157ec") unsigned char DAT_100157ec[12] = { 0x56, 0x65, 0x6e, 0x65, 0x7a, 0x75, 0x65, 0x6c, 0x61 };
-/* 0x100157f8, 20 bytes */ GRIM_DATA("100157f8") unsigned char DAT_100157f8[20] = {
+/* 0x100157a8, 12 bytes */ GRIM_DATA("100157a8") unsigned char DAT_100157a8[12] __asm__("_DAT_100157a8") = { 0x50, 0x61, 0x72, 0x61, 0x67, 0x75, 0x61, 0x79 };
+/* 0x100157b4, 8 bytes */ GRIM_DATA("100157b4") unsigned char DAT_100157b4[8] __asm__("_DAT_100157b4") = { 0x55, 0x72, 0x75, 0x67, 0x75, 0x61, 0x79 };
+/* 0x100157bc, 8 bytes */ GRIM_DATA("100157bc") unsigned char DAT_100157bc[8] __asm__("_DAT_100157bc") = { 0x43, 0x68, 0x69, 0x6c, 0x65 };
+/* 0x100157c4, 8 bytes */ GRIM_DATA("100157c4") unsigned char DAT_100157c4[8] __asm__("_DAT_100157c4") = { 0x45, 0x63, 0x75, 0x61, 0x64, 0x6f, 0x72 };
+/* 0x100157cc, 12 bytes */ GRIM_DATA("100157cc") unsigned char DAT_100157cc[12] __asm__("_DAT_100157cc") = { 0x41, 0x72, 0x67, 0x65, 0x6e, 0x74, 0x69, 0x6e, 0x61 };
+/* 0x100157d8, 8 bytes */ GRIM_DATA("100157d8") unsigned char DAT_100157d8[8] __asm__("_DAT_100157d8") = { 0x50, 0x65, 0x72, 0x75 };
+/* 0x100157e0, 12 bytes */ GRIM_DATA("100157e0") unsigned char DAT_100157e0[12] __asm__("_DAT_100157e0") = { 0x43, 0x6f, 0x6c, 0x6f, 0x6d, 0x62, 0x69, 0x61 };
+/* 0x100157ec, 12 bytes */ GRIM_DATA("100157ec") unsigned char DAT_100157ec[12] __asm__("_DAT_100157ec") = { 0x56, 0x65, 0x6e, 0x65, 0x7a, 0x75, 0x65, 0x6c, 0x61 };
+/* 0x100157f8, 20 bytes */ GRIM_DATA("100157f8") unsigned char DAT_100157f8[20] __asm__("_DAT_100157f8") = {
     0x44, 0x6f, 0x6d, 0x69, 0x6e, 0x69, 0x63, 0x61, 0x6e, 0x20, 0x52, 0x65, 0x70, 0x75, 0x62, 0x6c,
     0x69, 0x63
 };
-/* 0x1001580c, 16 bytes */ GRIM_DATA("1001580c") unsigned char DAT_1001580c[16] = { 0x53, 0x6f, 0x75, 0x74, 0x68, 0x20, 0x41, 0x66, 0x72, 0x69, 0x63, 0x61 };
-/* 0x1001581c, 8 bytes */ GRIM_DATA("1001581c") unsigned char DAT_1001581c[8] = { 0x50, 0x61, 0x6e, 0x61, 0x6d, 0x61 };
-/* 0x10015824, 12 bytes */ GRIM_DATA("10015824") unsigned char DAT_10015824[12] = { 0x4c, 0x75, 0x78, 0x65, 0x6d, 0x62, 0x6f, 0x75, 0x72, 0x67 };
-/* 0x10015830, 12 bytes */ GRIM_DATA("10015830") unsigned char DAT_10015830[12] = { 0x43, 0x6f, 0x73, 0x74, 0x61, 0x20, 0x52, 0x69, 0x63, 0x61 };
-/* 0x1001583c, 12 bytes */ GRIM_DATA("1001583c") unsigned char DAT_1001583c[12] = { 0x53, 0x77, 0x69, 0x74, 0x7a, 0x65, 0x72, 0x6c, 0x61, 0x6e, 0x64 };
-/* 0x10015848, 12 bytes */ GRIM_DATA("10015848") unsigned char DAT_10015848[12] = { 0x47, 0x75, 0x61, 0x74, 0x65, 0x6d, 0x61, 0x6c, 0x61 };
-/* 0x10015854, 8 bytes */ GRIM_DATA("10015854") unsigned char DAT_10015854[8] = { 0x43, 0x61, 0x6e, 0x61, 0x64, 0x61 };
-/* 0x1001585c, 24 bytes */ GRIM_DATA("1001585c") unsigned char DAT_1001585c[24] = {
+/* 0x1001580c, 16 bytes */ GRIM_DATA("1001580c") unsigned char DAT_1001580c[16] __asm__("_DAT_1001580c") = { 0x53, 0x6f, 0x75, 0x74, 0x68, 0x20, 0x41, 0x66, 0x72, 0x69, 0x63, 0x61 };
+/* 0x1001581c, 8 bytes */ GRIM_DATA("1001581c") unsigned char DAT_1001581c[8] __asm__("_DAT_1001581c") = { 0x50, 0x61, 0x6e, 0x61, 0x6d, 0x61 };
+/* 0x10015824, 12 bytes */ GRIM_DATA("10015824") unsigned char DAT_10015824[12] __asm__("_DAT_10015824") = { 0x4c, 0x75, 0x78, 0x65, 0x6d, 0x62, 0x6f, 0x75, 0x72, 0x67 };
+/* 0x10015830, 12 bytes */ GRIM_DATA("10015830") unsigned char DAT_10015830[12] __asm__("_DAT_10015830") = { 0x43, 0x6f, 0x73, 0x74, 0x61, 0x20, 0x52, 0x69, 0x63, 0x61 };
+/* 0x1001583c, 12 bytes */ GRIM_DATA("1001583c") unsigned char DAT_1001583c[12] __asm__("_DAT_1001583c") = { 0x53, 0x77, 0x69, 0x74, 0x7a, 0x65, 0x72, 0x6c, 0x61, 0x6e, 0x64 };
+/* 0x10015848, 12 bytes */ GRIM_DATA("10015848") unsigned char DAT_10015848[12] __asm__("_DAT_10015848") = { 0x47, 0x75, 0x61, 0x74, 0x65, 0x6d, 0x61, 0x6c, 0x61 };
+/* 0x10015854, 8 bytes */ GRIM_DATA("10015854") unsigned char DAT_10015854[8] __asm__("_DAT_10015854") = { 0x43, 0x61, 0x6e, 0x61, 0x64, 0x61 };
+/* 0x1001585c, 24 bytes */ GRIM_DATA("1001585c") unsigned char DAT_1001585c[24] __asm__("_DAT_1001585c") = {
     0x53, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x20, 0x2d, 0x20, 0x4d, 0x6f, 0x64, 0x65, 0x72, 0x6e,
     0x20, 0x53, 0x6f, 0x72, 0x74
 };
-/* 0x10015874, 12 bytes */ GRIM_DATA("10015874") unsigned char DAT_10015874[12] = { 0x41, 0x75, 0x73, 0x74, 0x72, 0x61, 0x6c, 0x69, 0x61 };
-/* 0x10015880, 8 bytes */ GRIM_DATA("10015880") unsigned char DAT_10015880[8] = { 0x45, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68 };
-/* 0x10015888, 8 bytes */ GRIM_DATA("10015888") unsigned char DAT_10015888[8] = { 0x41, 0x75, 0x73, 0x74, 0x72, 0x69, 0x61 };
-/* 0x10015890, 8 bytes */ GRIM_DATA("10015890") unsigned char DAT_10015890[8] = { 0x47, 0x65, 0x72, 0x6d, 0x61, 0x6e };
-/* 0x10015898, 8 bytes */ GRIM_DATA("10015898") unsigned char DAT_10015898[8] = { 0x42, 0x65, 0x6c, 0x67, 0x69, 0x75, 0x6d };
-/* 0x100158a0, 8 bytes */ GRIM_DATA("100158a0") unsigned char DAT_100158a0[8] = { 0x4d, 0x65, 0x78, 0x69, 0x63, 0x6f };
-/* 0x100158a8, 8 bytes */ GRIM_DATA("100158a8") unsigned char DAT_100158a8[8] = { 0x53, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68 };
-/* 0x100158b0, 8 bytes */ GRIM_DATA("100158b0") unsigned char DAT_100158b0[8] = { 0x42, 0x61, 0x73, 0x71, 0x75, 0x65 };
-/* 0x100158b8, 8 bytes */ GRIM_DATA("100158b8") unsigned char DAT_100158b8[8] = { 0x53, 0x77, 0x65, 0x64, 0x65, 0x6e };
-/* 0x100158c0, 8 bytes */ GRIM_DATA("100158c0") unsigned char DAT_100158c0[8] = { 0x53, 0x77, 0x65, 0x64, 0x69, 0x73, 0x68 };
-/* 0x100158c8, 8 bytes */ GRIM_DATA("100158c8") unsigned char DAT_100158c8[8] = { 0x49, 0x63, 0x65, 0x6c, 0x61, 0x6e, 0x64 };
-/* 0x100158d0, 12 bytes */ GRIM_DATA("100158d0") unsigned char DAT_100158d0[12] = { 0x49, 0x63, 0x65, 0x6c, 0x61, 0x6e, 0x64, 0x69, 0x63 };
-/* 0x100158dc, 8 bytes */ GRIM_DATA("100158dc") unsigned char DAT_100158dc[8] = { 0x46, 0x72, 0x61, 0x6e, 0x63, 0x65 };
-/* 0x100158e4, 8 bytes */ GRIM_DATA("100158e4") unsigned char DAT_100158e4[8] = { 0x46, 0x72, 0x65, 0x6e, 0x63, 0x68 };
-/* 0x100158ec, 8 bytes */ GRIM_DATA("100158ec") unsigned char DAT_100158ec[8] = { 0x46, 0x69, 0x6e, 0x6c, 0x61, 0x6e, 0x64 };
-/* 0x100158f4, 8 bytes */ GRIM_DATA("100158f4") unsigned char DAT_100158f4[8] = { 0x46, 0x69, 0x6e, 0x6e, 0x69, 0x73, 0x68 };
-/* 0x100158fc, 8 bytes */ GRIM_DATA("100158fc") unsigned char DAT_100158fc[8] = { 0x53, 0x70, 0x61, 0x69, 0x6e };
-/* 0x10015904, 28 bytes */ GRIM_DATA("10015904") unsigned char DAT_10015904[28] = {
+/* 0x10015874, 12 bytes */ GRIM_DATA("10015874") unsigned char DAT_10015874[12] __asm__("_DAT_10015874") = { 0x41, 0x75, 0x73, 0x74, 0x72, 0x61, 0x6c, 0x69, 0x61 };
+/* 0x10015880, 8 bytes */ GRIM_DATA("10015880") unsigned char DAT_10015880[8] __asm__("_DAT_10015880") = { 0x45, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68 };
+/* 0x10015888, 8 bytes */ GRIM_DATA("10015888") unsigned char DAT_10015888[8] __asm__("_DAT_10015888") = { 0x41, 0x75, 0x73, 0x74, 0x72, 0x69, 0x61 };
+/* 0x10015890, 8 bytes */ GRIM_DATA("10015890") unsigned char DAT_10015890[8] __asm__("_DAT_10015890") = { 0x47, 0x65, 0x72, 0x6d, 0x61, 0x6e };
+/* 0x10015898, 8 bytes */ GRIM_DATA("10015898") unsigned char DAT_10015898[8] __asm__("_DAT_10015898") = { 0x42, 0x65, 0x6c, 0x67, 0x69, 0x75, 0x6d };
+/* 0x100158a0, 8 bytes */ GRIM_DATA("100158a0") unsigned char DAT_100158a0[8] __asm__("_DAT_100158a0") = { 0x4d, 0x65, 0x78, 0x69, 0x63, 0x6f };
+/* 0x100158a8, 8 bytes */ GRIM_DATA("100158a8") unsigned char DAT_100158a8[8] __asm__("_DAT_100158a8") = { 0x53, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68 };
+/* 0x100158b0, 8 bytes */ GRIM_DATA("100158b0") unsigned char DAT_100158b0[8] __asm__("_DAT_100158b0") = { 0x42, 0x61, 0x73, 0x71, 0x75, 0x65 };
+/* 0x100158b8, 8 bytes */ GRIM_DATA("100158b8") unsigned char DAT_100158b8[8] __asm__("_DAT_100158b8") = { 0x53, 0x77, 0x65, 0x64, 0x65, 0x6e };
+/* 0x100158c0, 8 bytes */ GRIM_DATA("100158c0") unsigned char DAT_100158c0[8] __asm__("_DAT_100158c0") = { 0x53, 0x77, 0x65, 0x64, 0x69, 0x73, 0x68 };
+/* 0x100158c8, 8 bytes */ GRIM_DATA("100158c8") unsigned char DAT_100158c8[8] __asm__("_DAT_100158c8") = { 0x49, 0x63, 0x65, 0x6c, 0x61, 0x6e, 0x64 };
+/* 0x100158d0, 12 bytes */ GRIM_DATA("100158d0") unsigned char DAT_100158d0[12] __asm__("_DAT_100158d0") = { 0x49, 0x63, 0x65, 0x6c, 0x61, 0x6e, 0x64, 0x69, 0x63 };
+/* 0x100158dc, 8 bytes */ GRIM_DATA("100158dc") unsigned char DAT_100158dc[8] __asm__("_DAT_100158dc") = { 0x46, 0x72, 0x61, 0x6e, 0x63, 0x65 };
+/* 0x100158e4, 8 bytes */ GRIM_DATA("100158e4") unsigned char DAT_100158e4[8] __asm__("_DAT_100158e4") = { 0x46, 0x72, 0x65, 0x6e, 0x63, 0x68 };
+/* 0x100158ec, 8 bytes */ GRIM_DATA("100158ec") unsigned char DAT_100158ec[8] __asm__("_DAT_100158ec") = { 0x46, 0x69, 0x6e, 0x6c, 0x61, 0x6e, 0x64 };
+/* 0x100158f4, 8 bytes */ GRIM_DATA("100158f4") unsigned char DAT_100158f4[8] __asm__("_DAT_100158f4") = { 0x46, 0x69, 0x6e, 0x6e, 0x69, 0x73, 0x68 };
+/* 0x100158fc, 8 bytes */ GRIM_DATA("100158fc") unsigned char DAT_100158fc[8] __asm__("_DAT_100158fc") = { 0x53, 0x70, 0x61, 0x69, 0x6e };
+/* 0x10015904, 28 bytes */ GRIM_DATA("10015904") unsigned char DAT_10015904[28] __asm__("_DAT_10015904") = {
     0x53, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x20, 0x2d, 0x20, 0x54, 0x72, 0x61, 0x64, 0x69, 0x74,
     0x69, 0x6f, 0x6e, 0x61, 0x6c, 0x20, 0x53, 0x6f, 0x72, 0x74
 };
-/* 0x10015920, 16 bytes */ GRIM_DATA("10015920") unsigned char DAT_10015920[16] = { 0x75, 0x6e, 0x69, 0x74, 0x65, 0x64, 0x2d, 0x73, 0x74, 0x61, 0x74, 0x65, 0x73 };
-/* 0x10015930, 16 bytes */ GRIM_DATA("10015930") unsigned char DAT_10015930[16] = { 0x75, 0x6e, 0x69, 0x74, 0x65, 0x64, 0x2d, 0x6b, 0x69, 0x6e, 0x67, 0x64, 0x6f, 0x6d };
-/* 0x10015940, 20 bytes */ GRIM_DATA("10015940") unsigned char DAT_10015940[20] = {
+/* 0x10015920, 16 bytes */ GRIM_DATA("10015920") unsigned char DAT_10015920[16] __asm__("_DAT_10015920") = { 0x75, 0x6e, 0x69, 0x74, 0x65, 0x64, 0x2d, 0x73, 0x74, 0x61, 0x74, 0x65, 0x73 };
+/* 0x10015930, 16 bytes */ GRIM_DATA("10015930") unsigned char DAT_10015930[16] __asm__("_DAT_10015930") = { 0x75, 0x6e, 0x69, 0x74, 0x65, 0x64, 0x2d, 0x6b, 0x69, 0x6e, 0x67, 0x64, 0x6f, 0x6d };
+/* 0x10015940, 20 bytes */ GRIM_DATA("10015940") unsigned char DAT_10015940[20] __asm__("_DAT_10015940") = {
     0x74, 0x72, 0x69, 0x6e, 0x69, 0x64, 0x61, 0x64, 0x20, 0x26, 0x20, 0x74, 0x6f, 0x62, 0x61, 0x67,
     0x6f
 };
-/* 0x10015954, 12 bytes */ GRIM_DATA("10015954") unsigned char DAT_10015954[12] = { 0x73, 0x6f, 0x75, 0x74, 0x68, 0x2d, 0x6b, 0x6f, 0x72, 0x65, 0x61 };
-/* 0x10015960, 16 bytes */ GRIM_DATA("10015960") unsigned char DAT_10015960[16] = { 0x73, 0x6f, 0x75, 0x74, 0x68, 0x2d, 0x61, 0x66, 0x72, 0x69, 0x63, 0x61 };
-/* 0x10015970, 12 bytes */ GRIM_DATA("10015970") unsigned char DAT_10015970[12] = { 0x73, 0x6f, 0x75, 0x74, 0x68, 0x20, 0x6b, 0x6f, 0x72, 0x65, 0x61 };
-/* 0x1001597c, 16 bytes */ GRIM_DATA("1001597c") unsigned char DAT_1001597c[16] = { 0x73, 0x6f, 0x75, 0x74, 0x68, 0x20, 0x61, 0x66, 0x72, 0x69, 0x63, 0x61 };
-/* 0x1001598c, 8 bytes */ GRIM_DATA("1001598c") unsigned char DAT_1001598c[8] = { 0x73, 0x6c, 0x6f, 0x76, 0x61, 0x6b };
-/* 0x10015994, 12 bytes */ GRIM_DATA("10015994") unsigned char DAT_10015994[12] = { 0x70, 0x75, 0x65, 0x72, 0x74, 0x6f, 0x2d, 0x72, 0x69, 0x63, 0x6f };
-/* 0x100159a0, 12 bytes */ GRIM_DATA("100159a0") unsigned char DAT_100159a0[12] = { 0x70, 0x72, 0x2d, 0x63, 0x68, 0x69, 0x6e, 0x61 };
-/* 0x100159ac, 12 bytes */ GRIM_DATA("100159ac") unsigned char DAT_100159ac[12] = { 0x70, 0x72, 0x20, 0x63, 0x68, 0x69, 0x6e, 0x61 };
-/* 0x100159b8, 4 bytes */ GRIM_DATA("100159b8") unsigned char DAT_100159b8[4] = { 0x6e, 0x7a };
-/* 0x100159bc, 12 bytes */ GRIM_DATA("100159bc") unsigned char DAT_100159bc[12] = { 0x6e, 0x65, 0x77, 0x2d, 0x7a, 0x65, 0x61, 0x6c, 0x61, 0x6e, 0x64 };
-/* 0x100159c8, 12 bytes */ GRIM_DATA("100159c8") unsigned char DAT_100159c8[12] = { 0x68, 0x6f, 0x6e, 0x67, 0x2d, 0x6b, 0x6f, 0x6e, 0x67 };
-/* 0x100159d4, 8 bytes */ GRIM_DATA("100159d4") unsigned char DAT_100159d4[8] = { 0x68, 0x6f, 0x6c, 0x6c, 0x61, 0x6e, 0x64 };
-/* 0x100159dc, 16 bytes */ GRIM_DATA("100159dc") unsigned char DAT_100159dc[16] = { 0x67, 0x72, 0x65, 0x61, 0x74, 0x20, 0x62, 0x72, 0x69, 0x74, 0x61, 0x69, 0x6e };
-/* 0x100159ec, 8 bytes */ GRIM_DATA("100159ec") unsigned char DAT_100159ec[8] = { 0x65, 0x6e, 0x67, 0x6c, 0x61, 0x6e, 0x64 };
-/* 0x100159f4, 8 bytes */ GRIM_DATA("100159f4") unsigned char DAT_100159f4[8] = { 0x63, 0x7a, 0x65, 0x63, 0x68 };
-/* 0x100159fc, 8 bytes */ GRIM_DATA("100159fc") unsigned char DAT_100159fc[8] = { 0x63, 0x68, 0x69, 0x6e, 0x61 };
-/* 0x10015a04, 8 bytes */ GRIM_DATA("10015a04") unsigned char DAT_10015a04[8] = { 0x62, 0x72, 0x69, 0x74, 0x61, 0x69, 0x6e };
-/* 0x10015a0c, 8 bytes */ GRIM_DATA("10015a0c") unsigned char DAT_10015a0c[8] = { 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61 };
-/* 0x10015a14, 4 bytes */ GRIM_DATA("10015a14") unsigned char DAT_10015a14[4] = { 0x75, 0x73, 0x61 };
-/* 0x10015a18, 4 bytes */ GRIM_DATA("10015a18") unsigned char DAT_10015a18[4] = { 0x75, 0x73 };
-/* 0x10015a1c, 4 bytes */ GRIM_DATA("10015a1c") unsigned char DAT_10015a1c[4] = { 0x75, 0x6b };
-/* 0x10015a20, 8 bytes */ GRIM_DATA("10015a20") unsigned char DAT_10015a20[8] = { 0x73, 0x77, 0x69, 0x73, 0x73 };
-/* 0x10015a28, 16 bytes */ GRIM_DATA("10015a28") unsigned char DAT_10015a28[16] = { 0x73, 0x77, 0x65, 0x64, 0x69, 0x73, 0x68, 0x2d, 0x66, 0x69, 0x6e, 0x6c, 0x61, 0x6e, 0x64 };
-/* 0x10015a38, 20 bytes */ GRIM_DATA("10015a38") unsigned char DAT_10015a38[20] = {
+/* 0x10015954, 12 bytes */ GRIM_DATA("10015954") unsigned char DAT_10015954[12] __asm__("_DAT_10015954") = { 0x73, 0x6f, 0x75, 0x74, 0x68, 0x2d, 0x6b, 0x6f, 0x72, 0x65, 0x61 };
+/* 0x10015960, 16 bytes */ GRIM_DATA("10015960") unsigned char DAT_10015960[16] __asm__("_DAT_10015960") = { 0x73, 0x6f, 0x75, 0x74, 0x68, 0x2d, 0x61, 0x66, 0x72, 0x69, 0x63, 0x61 };
+/* 0x10015970, 12 bytes */ GRIM_DATA("10015970") unsigned char DAT_10015970[12] __asm__("_DAT_10015970") = { 0x73, 0x6f, 0x75, 0x74, 0x68, 0x20, 0x6b, 0x6f, 0x72, 0x65, 0x61 };
+/* 0x1001597c, 16 bytes */ GRIM_DATA("1001597c") unsigned char DAT_1001597c[16] __asm__("_DAT_1001597c") = { 0x73, 0x6f, 0x75, 0x74, 0x68, 0x20, 0x61, 0x66, 0x72, 0x69, 0x63, 0x61 };
+/* 0x1001598c, 8 bytes */ GRIM_DATA("1001598c") unsigned char DAT_1001598c[8] __asm__("_DAT_1001598c") = { 0x73, 0x6c, 0x6f, 0x76, 0x61, 0x6b };
+/* 0x10015994, 12 bytes */ GRIM_DATA("10015994") unsigned char DAT_10015994[12] __asm__("_DAT_10015994") = { 0x70, 0x75, 0x65, 0x72, 0x74, 0x6f, 0x2d, 0x72, 0x69, 0x63, 0x6f };
+/* 0x100159a0, 12 bytes */ GRIM_DATA("100159a0") unsigned char DAT_100159a0[12] __asm__("_DAT_100159a0") = { 0x70, 0x72, 0x2d, 0x63, 0x68, 0x69, 0x6e, 0x61 };
+/* 0x100159ac, 12 bytes */ GRIM_DATA("100159ac") unsigned char DAT_100159ac[12] __asm__("_DAT_100159ac") = { 0x70, 0x72, 0x20, 0x63, 0x68, 0x69, 0x6e, 0x61 };
+/* 0x100159b8, 4 bytes */ GRIM_DATA("100159b8") unsigned char DAT_100159b8[4] __asm__("_DAT_100159b8") = { 0x6e, 0x7a };
+/* 0x100159bc, 12 bytes */ GRIM_DATA("100159bc") unsigned char DAT_100159bc[12] __asm__("_DAT_100159bc") = { 0x6e, 0x65, 0x77, 0x2d, 0x7a, 0x65, 0x61, 0x6c, 0x61, 0x6e, 0x64 };
+/* 0x100159c8, 12 bytes */ GRIM_DATA("100159c8") unsigned char DAT_100159c8[12] __asm__("_DAT_100159c8") = { 0x68, 0x6f, 0x6e, 0x67, 0x2d, 0x6b, 0x6f, 0x6e, 0x67 };
+/* 0x100159d4, 8 bytes */ GRIM_DATA("100159d4") unsigned char DAT_100159d4[8] __asm__("_DAT_100159d4") = { 0x68, 0x6f, 0x6c, 0x6c, 0x61, 0x6e, 0x64 };
+/* 0x100159dc, 16 bytes */ GRIM_DATA("100159dc") unsigned char DAT_100159dc[16] __asm__("_DAT_100159dc") = { 0x67, 0x72, 0x65, 0x61, 0x74, 0x20, 0x62, 0x72, 0x69, 0x74, 0x61, 0x69, 0x6e };
+/* 0x100159ec, 8 bytes */ GRIM_DATA("100159ec") unsigned char DAT_100159ec[8] __asm__("_DAT_100159ec") = { 0x65, 0x6e, 0x67, 0x6c, 0x61, 0x6e, 0x64 };
+/* 0x100159f4, 8 bytes */ GRIM_DATA("100159f4") unsigned char DAT_100159f4[8] __asm__("_DAT_100159f4") = { 0x63, 0x7a, 0x65, 0x63, 0x68 };
+/* 0x100159fc, 8 bytes */ GRIM_DATA("100159fc") unsigned char DAT_100159fc[8] __asm__("_DAT_100159fc") = { 0x63, 0x68, 0x69, 0x6e, 0x61 };
+/* 0x10015a04, 8 bytes */ GRIM_DATA("10015a04") unsigned char DAT_10015a04[8] __asm__("_DAT_10015a04") = { 0x62, 0x72, 0x69, 0x74, 0x61, 0x69, 0x6e };
+/* 0x10015a0c, 8 bytes */ GRIM_DATA("10015a0c") unsigned char DAT_10015a0c[8] __asm__("_DAT_10015a0c") = { 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61 };
+/* 0x10015a14, 4 bytes */ GRIM_DATA("10015a14") unsigned char DAT_10015a14[4] __asm__("_DAT_10015a14") = { 0x75, 0x73, 0x61 };
+/* 0x10015a18, 4 bytes */ GRIM_DATA("10015a18") unsigned char DAT_10015a18[4] __asm__("_DAT_10015a18") = { 0x75, 0x73 };
+/* 0x10015a1c, 4 bytes */ GRIM_DATA("10015a1c") unsigned char DAT_10015a1c[4] __asm__("_DAT_10015a1c") = { 0x75, 0x6b };
+/* 0x10015a20, 8 bytes */ GRIM_DATA("10015a20") unsigned char DAT_10015a20[8] __asm__("_DAT_10015a20") = { 0x73, 0x77, 0x69, 0x73, 0x73 };
+/* 0x10015a28, 16 bytes */ GRIM_DATA("10015a28") unsigned char DAT_10015a28[16] __asm__("_DAT_10015a28") = { 0x73, 0x77, 0x65, 0x64, 0x69, 0x73, 0x68, 0x2d, 0x66, 0x69, 0x6e, 0x6c, 0x61, 0x6e, 0x64 };
+/* 0x10015a38, 20 bytes */ GRIM_DATA("10015a38") unsigned char DAT_10015a38[20] __asm__("_DAT_10015a38") = {
     0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x76, 0x65, 0x6e, 0x65, 0x7a, 0x75, 0x65, 0x6c,
     0x61
 };
-/* 0x10015a4c, 16 bytes */ GRIM_DATA("10015a4c") unsigned char DAT_10015a4c[16] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x75, 0x72, 0x75, 0x67, 0x75, 0x61, 0x79 };
-/* 0x10015a5c, 20 bytes */ GRIM_DATA("10015a5c") unsigned char DAT_10015a5c[20] = {
+/* 0x10015a4c, 16 bytes */ GRIM_DATA("10015a4c") unsigned char DAT_10015a4c[16] __asm__("_DAT_10015a4c") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x75, 0x72, 0x75, 0x67, 0x75, 0x61, 0x79 };
+/* 0x10015a5c, 20 bytes */ GRIM_DATA("10015a5c") unsigned char DAT_10015a5c[20] __asm__("_DAT_10015a5c") = {
     0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x70, 0x75, 0x65, 0x72, 0x74, 0x6f, 0x20, 0x72,
     0x69, 0x63, 0x6f
 };
-/* 0x10015a70, 16 bytes */ GRIM_DATA("10015a70") unsigned char DAT_10015a70[16] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x70, 0x65, 0x72, 0x75 };
-/* 0x10015a80, 20 bytes */ GRIM_DATA("10015a80") unsigned char DAT_10015a80[20] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x70, 0x61, 0x72, 0x61, 0x67, 0x75, 0x61, 0x79 };
-/* 0x10015a94, 16 bytes */ GRIM_DATA("10015a94") unsigned char DAT_10015a94[16] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x70, 0x61, 0x6e, 0x61, 0x6d, 0x61 };
-/* 0x10015aa4, 20 bytes */ GRIM_DATA("10015aa4") unsigned char DAT_10015aa4[20] = {
+/* 0x10015a70, 16 bytes */ GRIM_DATA("10015a70") unsigned char DAT_10015a70[16] __asm__("_DAT_10015a70") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x70, 0x65, 0x72, 0x75 };
+/* 0x10015a80, 20 bytes */ GRIM_DATA("10015a80") unsigned char DAT_10015a80[20] __asm__("_DAT_10015a80") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x70, 0x61, 0x72, 0x61, 0x67, 0x75, 0x61, 0x79 };
+/* 0x10015a94, 16 bytes */ GRIM_DATA("10015a94") unsigned char DAT_10015a94[16] __asm__("_DAT_10015a94") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x70, 0x61, 0x6e, 0x61, 0x6d, 0x61 };
+/* 0x10015aa4, 20 bytes */ GRIM_DATA("10015aa4") unsigned char DAT_10015aa4[20] __asm__("_DAT_10015aa4") = {
     0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x6e, 0x69, 0x63, 0x61, 0x72, 0x61, 0x67, 0x75,
     0x61
 };
-/* 0x10015ab8, 16 bytes */ GRIM_DATA("10015ab8") unsigned char DAT_10015ab8[16] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x6d, 0x6f, 0x64, 0x65, 0x72, 0x6e };
-/* 0x10015ac8, 16 bytes */ GRIM_DATA("10015ac8") unsigned char DAT_10015ac8[16] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x6d, 0x65, 0x78, 0x69, 0x63, 0x61, 0x6e };
-/* 0x10015ad8, 20 bytes */ GRIM_DATA("10015ad8") unsigned char DAT_10015ad8[20] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x68, 0x6f, 0x6e, 0x64, 0x75, 0x72, 0x61, 0x73 };
-/* 0x10015aec, 20 bytes */ GRIM_DATA("10015aec") unsigned char DAT_10015aec[20] = {
+/* 0x10015ab8, 16 bytes */ GRIM_DATA("10015ab8") unsigned char DAT_10015ab8[16] __asm__("_DAT_10015ab8") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x6d, 0x6f, 0x64, 0x65, 0x72, 0x6e };
+/* 0x10015ac8, 16 bytes */ GRIM_DATA("10015ac8") unsigned char DAT_10015ac8[16] __asm__("_DAT_10015ac8") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x6d, 0x65, 0x78, 0x69, 0x63, 0x61, 0x6e };
+/* 0x10015ad8, 20 bytes */ GRIM_DATA("10015ad8") unsigned char DAT_10015ad8[20] __asm__("_DAT_10015ad8") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x68, 0x6f, 0x6e, 0x64, 0x75, 0x72, 0x61, 0x73 };
+/* 0x10015aec, 20 bytes */ GRIM_DATA("10015aec") unsigned char DAT_10015aec[20] __asm__("_DAT_10015aec") = {
     0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x67, 0x75, 0x61, 0x74, 0x65, 0x6d, 0x61, 0x6c,
     0x61
 };
-/* 0x10015b00, 20 bytes */ GRIM_DATA("10015b00") unsigned char DAT_10015b00[20] = {
+/* 0x10015b00, 20 bytes */ GRIM_DATA("10015b00") unsigned char DAT_10015b00[20] __asm__("_DAT_10015b00") = {
     0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x65, 0x6c, 0x20, 0x73, 0x61, 0x6c, 0x76, 0x61,
     0x64, 0x6f, 0x72
 };
-/* 0x10015b14, 16 bytes */ GRIM_DATA("10015b14") unsigned char DAT_10015b14[16] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x65, 0x63, 0x75, 0x61, 0x64, 0x6f, 0x72 };
-/* 0x10015b24, 28 bytes */ GRIM_DATA("10015b24") unsigned char DAT_10015b24[28] = {
+/* 0x10015b14, 16 bytes */ GRIM_DATA("10015b14") unsigned char DAT_10015b14[16] __asm__("_DAT_10015b14") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x65, 0x63, 0x75, 0x61, 0x64, 0x6f, 0x72 };
+/* 0x10015b24, 28 bytes */ GRIM_DATA("10015b24") unsigned char DAT_10015b24[28] __asm__("_DAT_10015b24") = {
     0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x64, 0x6f, 0x6d, 0x69, 0x6e, 0x69, 0x63, 0x61,
     0x6e, 0x20, 0x72, 0x65, 0x70, 0x75, 0x62, 0x6c, 0x69, 0x63
 };
-/* 0x10015b40, 20 bytes */ GRIM_DATA("10015b40") unsigned char DAT_10015b40[20] = {
+/* 0x10015b40, 20 bytes */ GRIM_DATA("10015b40") unsigned char DAT_10015b40[20] __asm__("_DAT_10015b40") = {
     0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x63, 0x6f, 0x73, 0x74, 0x61, 0x20, 0x72, 0x69,
     0x63, 0x61
 };
-/* 0x10015b54, 20 bytes */ GRIM_DATA("10015b54") unsigned char DAT_10015b54[20] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x63, 0x6f, 0x6c, 0x6f, 0x6d, 0x62, 0x69, 0x61 };
-/* 0x10015b68, 16 bytes */ GRIM_DATA("10015b68") unsigned char DAT_10015b68[16] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x63, 0x68, 0x69, 0x6c, 0x65 };
-/* 0x10015b78, 16 bytes */ GRIM_DATA("10015b78") unsigned char DAT_10015b78[16] = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x62, 0x6f, 0x6c, 0x69, 0x76, 0x69, 0x61 };
-/* 0x10015b88, 20 bytes */ GRIM_DATA("10015b88") unsigned char DAT_10015b88[20] = {
+/* 0x10015b54, 20 bytes */ GRIM_DATA("10015b54") unsigned char DAT_10015b54[20] __asm__("_DAT_10015b54") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x63, 0x6f, 0x6c, 0x6f, 0x6d, 0x62, 0x69, 0x61 };
+/* 0x10015b68, 16 bytes */ GRIM_DATA("10015b68") unsigned char DAT_10015b68[16] __asm__("_DAT_10015b68") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x63, 0x68, 0x69, 0x6c, 0x65 };
+/* 0x10015b78, 16 bytes */ GRIM_DATA("10015b78") unsigned char DAT_10015b78[16] __asm__("_DAT_10015b78") = { 0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x62, 0x6f, 0x6c, 0x69, 0x76, 0x69, 0x61 };
+/* 0x10015b88, 20 bytes */ GRIM_DATA("10015b88") unsigned char DAT_10015b88[20] __asm__("_DAT_10015b88") = {
     0x73, 0x70, 0x61, 0x6e, 0x69, 0x73, 0x68, 0x2d, 0x61, 0x72, 0x67, 0x65, 0x6e, 0x74, 0x69, 0x6e,
     0x61
 };
-/* 0x10015b9c, 24 bytes */ GRIM_DATA("10015b9c") unsigned char DAT_10015b9c[24] = {
+/* 0x10015b9c, 24 bytes */ GRIM_DATA("10015b9c") unsigned char DAT_10015b9c[24] __asm__("_DAT_10015b9c") = {
     0x70, 0x6f, 0x72, 0x74, 0x75, 0x67, 0x75, 0x65, 0x73, 0x65, 0x2d, 0x62, 0x72, 0x61, 0x7a, 0x69,
     0x6c, 0x69, 0x61, 0x6e
 };
-/* 0x10015bb4, 20 bytes */ GRIM_DATA("10015bb4") unsigned char DAT_10015bb4[20] = {
+/* 0x10015bb4, 20 bytes */ GRIM_DATA("10015bb4") unsigned char DAT_10015bb4[20] __asm__("_DAT_10015bb4") = {
     0x6e, 0x6f, 0x72, 0x77, 0x65, 0x67, 0x69, 0x61, 0x6e, 0x2d, 0x6e, 0x79, 0x6e, 0x6f, 0x72, 0x73,
     0x6b
 };
-/* 0x10015bc8, 20 bytes */ GRIM_DATA("10015bc8") unsigned char DAT_10015bc8[20] = { 0x6e, 0x6f, 0x72, 0x77, 0x65, 0x67, 0x69, 0x61, 0x6e, 0x2d, 0x62, 0x6f, 0x6b, 0x6d, 0x61, 0x6c };
-/* 0x10015bdc, 12 bytes */ GRIM_DATA("10015bdc") unsigned char DAT_10015bdc[12] = { 0x6e, 0x6f, 0x72, 0x77, 0x65, 0x67, 0x69, 0x61, 0x6e };
-/* 0x10015be8, 16 bytes */ GRIM_DATA("10015be8") unsigned char DAT_10015be8[16] = { 0x69, 0x74, 0x61, 0x6c, 0x69, 0x61, 0x6e, 0x2d, 0x73, 0x77, 0x69, 0x73, 0x73 };
-/* 0x10015bf8, 16 bytes */ GRIM_DATA("10015bf8") unsigned char DAT_10015bf8[16] = { 0x69, 0x72, 0x69, 0x73, 0x68, 0x2d, 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68 };
-/* 0x10015c08, 16 bytes */ GRIM_DATA("10015c08") unsigned char DAT_10015c08[16] = { 0x67, 0x65, 0x72, 0x6d, 0x61, 0x6e, 0x2d, 0x73, 0x77, 0x69, 0x73, 0x73 };
-/* 0x10015c18, 20 bytes */ GRIM_DATA("10015c18") unsigned char DAT_10015c18[20] = {
+/* 0x10015bc8, 20 bytes */ GRIM_DATA("10015bc8") unsigned char DAT_10015bc8[20] __asm__("_DAT_10015bc8") = { 0x6e, 0x6f, 0x72, 0x77, 0x65, 0x67, 0x69, 0x61, 0x6e, 0x2d, 0x62, 0x6f, 0x6b, 0x6d, 0x61, 0x6c };
+/* 0x10015bdc, 12 bytes */ GRIM_DATA("10015bdc") unsigned char DAT_10015bdc[12] __asm__("_DAT_10015bdc") = { 0x6e, 0x6f, 0x72, 0x77, 0x65, 0x67, 0x69, 0x61, 0x6e };
+/* 0x10015be8, 16 bytes */ GRIM_DATA("10015be8") unsigned char DAT_10015be8[16] __asm__("_DAT_10015be8") = { 0x69, 0x74, 0x61, 0x6c, 0x69, 0x61, 0x6e, 0x2d, 0x73, 0x77, 0x69, 0x73, 0x73 };
+/* 0x10015bf8, 16 bytes */ GRIM_DATA("10015bf8") unsigned char DAT_10015bf8[16] __asm__("_DAT_10015bf8") = { 0x69, 0x72, 0x69, 0x73, 0x68, 0x2d, 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68 };
+/* 0x10015c08, 16 bytes */ GRIM_DATA("10015c08") unsigned char DAT_10015c08[16] __asm__("_DAT_10015c08") = { 0x67, 0x65, 0x72, 0x6d, 0x61, 0x6e, 0x2d, 0x73, 0x77, 0x69, 0x73, 0x73 };
+/* 0x10015c18, 20 bytes */ GRIM_DATA("10015c18") unsigned char DAT_10015c18[20] __asm__("_DAT_10015c18") = {
     0x67, 0x65, 0x72, 0x6d, 0x61, 0x6e, 0x2d, 0x6c, 0x75, 0x78, 0x65, 0x6d, 0x62, 0x6f, 0x75, 0x72,
     0x67
 };
-/* 0x10015c2c, 20 bytes */ GRIM_DATA("10015c2c") unsigned char DAT_10015c2c[20] = {
+/* 0x10015c2c, 20 bytes */ GRIM_DATA("10015c2c") unsigned char DAT_10015c2c[20] __asm__("_DAT_10015c2c") = {
     0x67, 0x65, 0x72, 0x6d, 0x61, 0x6e, 0x2d, 0x6c, 0x69, 0x63, 0x68, 0x74, 0x65, 0x6e, 0x73, 0x74,
     0x65, 0x69, 0x6e
 };
-/* 0x10015c40, 16 bytes */ GRIM_DATA("10015c40") unsigned char DAT_10015c40[16] = { 0x67, 0x65, 0x72, 0x6d, 0x61, 0x6e, 0x2d, 0x61, 0x75, 0x73, 0x74, 0x72, 0x69, 0x61, 0x6e };
-/* 0x10015c50, 16 bytes */ GRIM_DATA("10015c50") unsigned char DAT_10015c50[16] = { 0x66, 0x72, 0x65, 0x6e, 0x63, 0x68, 0x2d, 0x73, 0x77, 0x69, 0x73, 0x73 };
-/* 0x10015c60, 20 bytes */ GRIM_DATA("10015c60") unsigned char DAT_10015c60[20] = {
+/* 0x10015c40, 16 bytes */ GRIM_DATA("10015c40") unsigned char DAT_10015c40[16] __asm__("_DAT_10015c40") = { 0x67, 0x65, 0x72, 0x6d, 0x61, 0x6e, 0x2d, 0x61, 0x75, 0x73, 0x74, 0x72, 0x69, 0x61, 0x6e };
+/* 0x10015c50, 16 bytes */ GRIM_DATA("10015c50") unsigned char DAT_10015c50[16] __asm__("_DAT_10015c50") = { 0x66, 0x72, 0x65, 0x6e, 0x63, 0x68, 0x2d, 0x73, 0x77, 0x69, 0x73, 0x73 };
+/* 0x10015c60, 20 bytes */ GRIM_DATA("10015c60") unsigned char DAT_10015c60[20] __asm__("_DAT_10015c60") = {
     0x66, 0x72, 0x65, 0x6e, 0x63, 0x68, 0x2d, 0x6c, 0x75, 0x78, 0x65, 0x6d, 0x62, 0x6f, 0x75, 0x72,
     0x67
 };
-/* 0x10015c74, 16 bytes */ GRIM_DATA("10015c74") unsigned char DAT_10015c74[16] = { 0x66, 0x72, 0x65, 0x6e, 0x63, 0x68, 0x2d, 0x63, 0x61, 0x6e, 0x61, 0x64, 0x69, 0x61, 0x6e };
-/* 0x10015c84, 16 bytes */ GRIM_DATA("10015c84") unsigned char DAT_10015c84[16] = { 0x66, 0x72, 0x65, 0x6e, 0x63, 0x68, 0x2d, 0x62, 0x65, 0x6c, 0x67, 0x69, 0x61, 0x6e };
-/* 0x10015c94, 12 bytes */ GRIM_DATA("10015c94") unsigned char DAT_10015c94[12] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x75, 0x73, 0x61 };
-/* 0x10015ca0, 12 bytes */ GRIM_DATA("10015ca0") unsigned char DAT_10015ca0[12] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x75, 0x73 };
-/* 0x10015cac, 12 bytes */ GRIM_DATA("10015cac") unsigned char DAT_10015cac[12] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x75, 0x6b };
-/* 0x10015cb8, 28 bytes */ GRIM_DATA("10015cb8") unsigned char DAT_10015cb8[28] = {
+/* 0x10015c74, 16 bytes */ GRIM_DATA("10015c74") unsigned char DAT_10015c74[16] __asm__("_DAT_10015c74") = { 0x66, 0x72, 0x65, 0x6e, 0x63, 0x68, 0x2d, 0x63, 0x61, 0x6e, 0x61, 0x64, 0x69, 0x61, 0x6e };
+/* 0x10015c84, 16 bytes */ GRIM_DATA("10015c84") unsigned char DAT_10015c84[16] __asm__("_DAT_10015c84") = { 0x66, 0x72, 0x65, 0x6e, 0x63, 0x68, 0x2d, 0x62, 0x65, 0x6c, 0x67, 0x69, 0x61, 0x6e };
+/* 0x10015c94, 12 bytes */ GRIM_DATA("10015c94") unsigned char DAT_10015c94[12] __asm__("_DAT_10015c94") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x75, 0x73, 0x61 };
+/* 0x10015ca0, 12 bytes */ GRIM_DATA("10015ca0") unsigned char DAT_10015ca0[12] __asm__("_DAT_10015ca0") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x75, 0x73 };
+/* 0x10015cac, 12 bytes */ GRIM_DATA("10015cac") unsigned char DAT_10015cac[12] __asm__("_DAT_10015cac") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x75, 0x6b };
+/* 0x10015cb8, 28 bytes */ GRIM_DATA("10015cb8") unsigned char DAT_10015cb8[28] __asm__("_DAT_10015cb8") = {
     0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x74, 0x72, 0x69, 0x6e, 0x69, 0x64, 0x61, 0x64,
     0x20, 0x79, 0x20, 0x74, 0x6f, 0x62, 0x61, 0x67, 0x6f
 };
-/* 0x10015cd4, 24 bytes */ GRIM_DATA("10015cd4") unsigned char DAT_10015cd4[24] = {
+/* 0x10015cd4, 24 bytes */ GRIM_DATA("10015cd4") unsigned char DAT_10015cd4[24] __asm__("_DAT_10015cd4") = {
     0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x73, 0x6f, 0x75, 0x74, 0x68, 0x20, 0x61, 0x66,
     0x72, 0x69, 0x63, 0x61
 };
-/* 0x10015cec, 12 bytes */ GRIM_DATA("10015cec") unsigned char DAT_10015cec[12] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x6e, 0x7a };
-/* 0x10015cf8, 16 bytes */ GRIM_DATA("10015cf8") unsigned char DAT_10015cf8[16] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x6a, 0x61, 0x6d, 0x61, 0x69, 0x63, 0x61 };
-/* 0x10015d08, 12 bytes */ GRIM_DATA("10015d08") unsigned char DAT_10015d08[12] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x69, 0x72, 0x65 };
-/* 0x10015d14, 20 bytes */ GRIM_DATA("10015d14") unsigned char DAT_10015d14[20] = {
+/* 0x10015cec, 12 bytes */ GRIM_DATA("10015cec") unsigned char DAT_10015cec[12] __asm__("_DAT_10015cec") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x6e, 0x7a };
+/* 0x10015cf8, 16 bytes */ GRIM_DATA("10015cf8") unsigned char DAT_10015cf8[16] __asm__("_DAT_10015cf8") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x6a, 0x61, 0x6d, 0x61, 0x69, 0x63, 0x61 };
+/* 0x10015d08, 12 bytes */ GRIM_DATA("10015d08") unsigned char DAT_10015d08[12] __asm__("_DAT_10015d08") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x69, 0x72, 0x65 };
+/* 0x10015d14, 20 bytes */ GRIM_DATA("10015d14") unsigned char DAT_10015d14[20] __asm__("_DAT_10015d14") = {
     0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x63, 0x61, 0x72, 0x69, 0x62, 0x62, 0x65, 0x61,
     0x6e
 };
-/* 0x10015d28, 12 bytes */ GRIM_DATA("10015d28") unsigned char DAT_10015d28[12] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x63, 0x61, 0x6e };
-/* 0x10015d34, 16 bytes */ GRIM_DATA("10015d34") unsigned char DAT_10015d34[16] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x62, 0x65, 0x6c, 0x69, 0x7a, 0x65 };
-/* 0x10015d44, 12 bytes */ GRIM_DATA("10015d44") unsigned char DAT_10015d44[12] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x61, 0x75, 0x73 };
-/* 0x10015d50, 20 bytes */ GRIM_DATA("10015d50") unsigned char DAT_10015d50[20] = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6e };
-/* 0x10015d64, 16 bytes */ GRIM_DATA("10015d64") unsigned char DAT_10015d64[16] = { 0x64, 0x75, 0x74, 0x63, 0x68, 0x2d, 0x62, 0x65, 0x6c, 0x67, 0x69, 0x61, 0x6e };
-/* 0x10015d74, 20 bytes */ GRIM_DATA("10015d74") unsigned char DAT_10015d74[20] = {
+/* 0x10015d28, 12 bytes */ GRIM_DATA("10015d28") unsigned char DAT_10015d28[12] __asm__("_DAT_10015d28") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x63, 0x61, 0x6e };
+/* 0x10015d34, 16 bytes */ GRIM_DATA("10015d34") unsigned char DAT_10015d34[16] __asm__("_DAT_10015d34") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x62, 0x65, 0x6c, 0x69, 0x7a, 0x65 };
+/* 0x10015d44, 12 bytes */ GRIM_DATA("10015d44") unsigned char DAT_10015d44[12] __asm__("_DAT_10015d44") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x61, 0x75, 0x73 };
+/* 0x10015d50, 20 bytes */ GRIM_DATA("10015d50") unsigned char DAT_10015d50[20] __asm__("_DAT_10015d50") = { 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68, 0x2d, 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6e };
+/* 0x10015d64, 16 bytes */ GRIM_DATA("10015d64") unsigned char DAT_10015d64[16] __asm__("_DAT_10015d64") = { 0x64, 0x75, 0x74, 0x63, 0x68, 0x2d, 0x62, 0x65, 0x6c, 0x67, 0x69, 0x61, 0x6e };
+/* 0x10015d74, 20 bytes */ GRIM_DATA("10015d74") unsigned char DAT_10015d74[20] __asm__("_DAT_10015d74") = {
     0x63, 0x68, 0x69, 0x6e, 0x65, 0x73, 0x65, 0x2d, 0x74, 0x72, 0x61, 0x64, 0x69, 0x74, 0x69, 0x6f,
     0x6e, 0x61, 0x6c
 };
-/* 0x10015d88, 20 bytes */ GRIM_DATA("10015d88") unsigned char DAT_10015d88[20] = {
+/* 0x10015d88, 20 bytes */ GRIM_DATA("10015d88") unsigned char DAT_10015d88[20] __asm__("_DAT_10015d88") = {
     0x63, 0x68, 0x69, 0x6e, 0x65, 0x73, 0x65, 0x2d, 0x73, 0x69, 0x6e, 0x67, 0x61, 0x70, 0x6f, 0x72,
     0x65
 };
-/* 0x10015d9c, 20 bytes */ GRIM_DATA("10015d9c") unsigned char DAT_10015d9c[20] = {
+/* 0x10015d9c, 20 bytes */ GRIM_DATA("10015d9c") unsigned char DAT_10015d9c[20] __asm__("_DAT_10015d9c") = {
     0x63, 0x68, 0x69, 0x6e, 0x65, 0x73, 0x65, 0x2d, 0x73, 0x69, 0x6d, 0x70, 0x6c, 0x69, 0x66, 0x69,
     0x65, 0x64
 };
-/* 0x10015db0, 20 bytes */ GRIM_DATA("10015db0") unsigned char DAT_10015db0[20] = { 0x63, 0x68, 0x69, 0x6e, 0x65, 0x73, 0x65, 0x2d, 0x68, 0x6f, 0x6e, 0x67, 0x6b, 0x6f, 0x6e, 0x67 };
-/* 0x10015dc4, 8 bytes */ GRIM_DATA("10015dc4") unsigned char DAT_10015dc4[8] = { 0x63, 0x68, 0x69, 0x6e, 0x65, 0x73, 0x65 };
-/* 0x10015dcc, 4 bytes */ GRIM_DATA("10015dcc") unsigned char DAT_10015dcc[4] = { 0x63, 0x68, 0x69 };
-/* 0x10015dd0, 4 bytes */ GRIM_DATA("10015dd0") unsigned char DAT_10015dd0[4] = { 0x63, 0x68, 0x68 };
-/* 0x10015dd4, 12 bytes */ GRIM_DATA("10015dd4") unsigned char DAT_10015dd4[12] = { 0x63, 0x61, 0x6e, 0x61, 0x64, 0x69, 0x61, 0x6e };
-/* 0x10015de0, 8 bytes */ GRIM_DATA("10015de0") unsigned char DAT_10015de0[8] = { 0x62, 0x65, 0x6c, 0x67, 0x69, 0x61, 0x6e };
-/* 0x10015de8, 12 bytes */ GRIM_DATA("10015de8") unsigned char DAT_10015de8[12] = { 0x61, 0x75, 0x73, 0x74, 0x72, 0x61, 0x6c, 0x69, 0x61, 0x6e };
-/* 0x10015df4, 20 bytes */ GRIM_DATA("10015df4") unsigned char DAT_10015df4[20] = { 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6e, 0x2d, 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68 };
-/* 0x10015e08, 20 bytes */ GRIM_DATA("10015e08") unsigned char DAT_10015e08[20] = { 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6e, 0x20, 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68 };
-/* 0x10015e1c, 12 bytes */ GRIM_DATA("10015e1c") unsigned char DAT_10015e1c[12] = { 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6e };
-/* 0x10015e28, 20 bytes */ GRIM_DATA("10015e28") char s_GetLastActivePopup_10015e28[20] = "GetLastActivePopup";
-/* 0x10015e3c, 16 bytes */ /* loose */ char s_GetActiveWindow_10015e3c[16] = "GetActiveWindow";
-/* 0x10015e4c, 12 bytes */ /* loose */ char s_MessageBoxA_10015e4c[12] = "MessageBoxA";
+/* 0x10015db0, 20 bytes */ GRIM_DATA("10015db0") unsigned char DAT_10015db0[20] __asm__("_DAT_10015db0") = { 0x63, 0x68, 0x69, 0x6e, 0x65, 0x73, 0x65, 0x2d, 0x68, 0x6f, 0x6e, 0x67, 0x6b, 0x6f, 0x6e, 0x67 };
+/* 0x10015dc4, 8 bytes */ GRIM_DATA("10015dc4") unsigned char DAT_10015dc4[8] __asm__("_DAT_10015dc4") = { 0x63, 0x68, 0x69, 0x6e, 0x65, 0x73, 0x65 };
+/* 0x10015dcc, 4 bytes */ GRIM_DATA("10015dcc") unsigned char DAT_10015dcc[4] __asm__("_DAT_10015dcc") = { 0x63, 0x68, 0x69 };
+/* 0x10015dd0, 4 bytes */ GRIM_DATA("10015dd0") unsigned char DAT_10015dd0[4] __asm__("_DAT_10015dd0") = { 0x63, 0x68, 0x68 };
+/* 0x10015dd4, 12 bytes */ GRIM_DATA("10015dd4") unsigned char DAT_10015dd4[12] __asm__("_DAT_10015dd4") = { 0x63, 0x61, 0x6e, 0x61, 0x64, 0x69, 0x61, 0x6e };
+/* 0x10015de0, 8 bytes */ GRIM_DATA("10015de0") unsigned char DAT_10015de0[8] __asm__("_DAT_10015de0") = { 0x62, 0x65, 0x6c, 0x67, 0x69, 0x61, 0x6e };
+/* 0x10015de8, 12 bytes */ GRIM_DATA("10015de8") unsigned char DAT_10015de8[12] __asm__("_DAT_10015de8") = { 0x61, 0x75, 0x73, 0x74, 0x72, 0x61, 0x6c, 0x69, 0x61, 0x6e };
+/* 0x10015df4, 20 bytes */ GRIM_DATA("10015df4") unsigned char DAT_10015df4[20] __asm__("_DAT_10015df4") = { 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6e, 0x2d, 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68 };
+/* 0x10015e08, 20 bytes */ GRIM_DATA("10015e08") unsigned char DAT_10015e08[20] __asm__("_DAT_10015e08") = { 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6e, 0x20, 0x65, 0x6e, 0x67, 0x6c, 0x69, 0x73, 0x68 };
+/* 0x10015e1c, 12 bytes */ GRIM_DATA("10015e1c") unsigned char DAT_10015e1c[12] __asm__("_DAT_10015e1c") = { 0x61, 0x6d, 0x65, 0x72, 0x69, 0x63, 0x61, 0x6e };
+/* 0x10015e28, 20 bytes */ GRIM_DATA("10015e28") char s_GetLastActivePopup_10015e28[20] __asm__("_s_GetLastActivePopup_10015e28") = "GetLastActivePopup";
+/* 0x10015e3c, 16 bytes */ /* loose */ char s_GetActiveWindow_10015e3c[16] __asm__("_s_GetActiveWindow_10015e3c") = "GetActiveWindow";
+/* 0x10015e4c, 12 bytes */ /* loose */ char s_MessageBoxA_10015e4c[12] __asm__("_s_MessageBoxA_10015e4c") = "MessageBoxA";
 static unsigned char grim_anchor_10015e58[0] __attribute__((section(".data$grim_10015e58"), aligned(16), used));
 static unsigned char grim_pad_10015e58[8] __attribute__((section(".data$grim_10015e58_"), aligned(4), used));
-/* 0x10015e58, 44 bytes */ GRIM_DATA("10015e58z") unsigned char DAT_10015e58[44] = {
+/* 0x10015e58, 44 bytes */ GRIM_DATA("10015e58z") unsigned char DAT_10015e58[44] __asm__("_DAT_10015e58") = {
     0x75, 0x73, 0x65, 0x72, 0x33, 0x32, 0x2e, 0x64, 0x6c, 0x6c, 0x00, 0x00, 0x31, 0x23, 0x51, 0x4e,
     0x41, 0x4e, 0x00, 0x00, 0x31, 0x23, 0x49, 0x4e, 0x46, 0x00, 0x00, 0x00, 0x31, 0x23, 0x49, 0x4e,
     0x44, 0x00, 0x00, 0x00, 0x31, 0x23, 0x53, 0x4e, 0x41, 0x4e
 };
-/* 0x10015e84, 8 bytes */ GRIM_DATA("10015e84") unsigned char DAT_10015e84[8] = { 0x48, 0x3a, 0x6d, 0x6d, 0x3a, 0x73, 0x73 };
-/* 0x10015e8c, 20 bytes */ GRIM_DATA("10015e8c") unsigned char DAT_10015e8c[20] = {
+/* 0x10015e84, 8 bytes */ GRIM_DATA("10015e84") unsigned char DAT_10015e84[8] __asm__("_DAT_10015e84") = { 0x48, 0x3a, 0x6d, 0x6d, 0x3a, 0x73, 0x73 };
+/* 0x10015e8c, 20 bytes */ GRIM_DATA("10015e8c") unsigned char DAT_10015e8c[20] __asm__("_DAT_10015e8c") = {
     0x64, 0x64, 0x64, 0x64, 0x2c, 0x20, 0x4d, 0x4d, 0x4d, 0x4d, 0x20, 0x64, 0x64, 0x2c, 0x20, 0x79,
     0x79, 0x79, 0x79
 };
-/* 0x10015ea0, 8 bytes */ GRIM_DATA("10015ea0") unsigned char DAT_10015ea0[8] = { 0x4d, 0x2f, 0x64, 0x2f, 0x79, 0x79 };
-/* 0x10015ea8, 4 bytes */ GRIM_DATA("10015ea8") unsigned char DAT_10015ea8[4] = { 0x50, 0x4d };
-/* 0x10015eac, 4 bytes */ GRIM_DATA("10015eac") unsigned char DAT_10015eac[4] = { 0x41, 0x4d };
-/* 0x10015eb0, 12 bytes */ GRIM_DATA("10015eb0") unsigned char DAT_10015eb0[12] = { 0x44, 0x65, 0x63, 0x65, 0x6d, 0x62, 0x65, 0x72 };
-/* 0x10015ebc, 12 bytes */ GRIM_DATA("10015ebc") unsigned char DAT_10015ebc[12] = { 0x4e, 0x6f, 0x76, 0x65, 0x6d, 0x62, 0x65, 0x72 };
-/* 0x10015ec8, 8 bytes */ GRIM_DATA("10015ec8") unsigned char DAT_10015ec8[8] = { 0x4f, 0x63, 0x74, 0x6f, 0x62, 0x65, 0x72 };
-/* 0x10015ed0, 12 bytes */ GRIM_DATA("10015ed0") unsigned char DAT_10015ed0[12] = { 0x53, 0x65, 0x70, 0x74, 0x65, 0x6d, 0x62, 0x65, 0x72 };
-/* 0x10015edc, 8 bytes */ GRIM_DATA("10015edc") unsigned char DAT_10015edc[8] = { 0x41, 0x75, 0x67, 0x75, 0x73, 0x74 };
-/* 0x10015ee4, 8 bytes */ GRIM_DATA("10015ee4") unsigned char DAT_10015ee4[8] = { 0x4a, 0x75, 0x6c, 0x79 };
-/* 0x10015eec, 8 bytes */ GRIM_DATA("10015eec") unsigned char DAT_10015eec[8] = { 0x4a, 0x75, 0x6e, 0x65 };
-/* 0x10015ef4, 8 bytes */ GRIM_DATA("10015ef4") unsigned char DAT_10015ef4[8] = { 0x41, 0x70, 0x72, 0x69, 0x6c };
-/* 0x10015efc, 8 bytes */ GRIM_DATA("10015efc") unsigned char DAT_10015efc[8] = { 0x4d, 0x61, 0x72, 0x63, 0x68 };
-/* 0x10015f04, 12 bytes */ GRIM_DATA("10015f04") unsigned char DAT_10015f04[12] = { 0x46, 0x65, 0x62, 0x72, 0x75, 0x61, 0x72, 0x79 };
-/* 0x10015f10, 8 bytes */ GRIM_DATA("10015f10") unsigned char DAT_10015f10[8] = { 0x4a, 0x61, 0x6e, 0x75, 0x61, 0x72, 0x79 };
-/* 0x10015f18, 4 bytes */ GRIM_DATA("10015f18") unsigned char DAT_10015f18[4] = { 0x44, 0x65, 0x63 };
-/* 0x10015f1c, 4 bytes */ GRIM_DATA("10015f1c") unsigned char DAT_10015f1c[4] = { 0x4e, 0x6f, 0x76 };
-/* 0x10015f20, 4 bytes */ GRIM_DATA("10015f20") unsigned char DAT_10015f20[4] = { 0x4f, 0x63, 0x74 };
-/* 0x10015f24, 4 bytes */ GRIM_DATA("10015f24") unsigned char DAT_10015f24[4] = { 0x53, 0x65, 0x70 };
-/* 0x10015f28, 4 bytes */ GRIM_DATA("10015f28") unsigned char DAT_10015f28[4] = { 0x41, 0x75, 0x67 };
-/* 0x10015f2c, 4 bytes */ GRIM_DATA("10015f2c") unsigned char DAT_10015f2c[4] = { 0x4a, 0x75, 0x6c };
-/* 0x10015f30, 4 bytes */ GRIM_DATA("10015f30") unsigned char DAT_10015f30[4] = { 0x4a, 0x75, 0x6e };
-/* 0x10015f34, 4 bytes */ GRIM_DATA("10015f34") unsigned char DAT_10015f34[4] = { 0x4d, 0x61, 0x79 };
-/* 0x10015f38, 4 bytes */ GRIM_DATA("10015f38") unsigned char DAT_10015f38[4] = { 0x41, 0x70, 0x72 };
-/* 0x10015f3c, 4 bytes */ GRIM_DATA("10015f3c") unsigned char DAT_10015f3c[4] = { 0x4d, 0x61, 0x72 };
-/* 0x10015f40, 4 bytes */ GRIM_DATA("10015f40") unsigned char DAT_10015f40[4] = { 0x46, 0x65, 0x62 };
-/* 0x10015f44, 4 bytes */ GRIM_DATA("10015f44") unsigned char DAT_10015f44[4] = { 0x4a, 0x61, 0x6e };
-/* 0x10015f48, 12 bytes */ GRIM_DATA("10015f48") unsigned char DAT_10015f48[12] = { 0x53, 0x61, 0x74, 0x75, 0x72, 0x64, 0x61, 0x79 };
-/* 0x10015f54, 8 bytes */ GRIM_DATA("10015f54") unsigned char DAT_10015f54[8] = { 0x46, 0x72, 0x69, 0x64, 0x61, 0x79 };
-/* 0x10015f5c, 12 bytes */ GRIM_DATA("10015f5c") unsigned char DAT_10015f5c[12] = { 0x54, 0x68, 0x75, 0x72, 0x73, 0x64, 0x61, 0x79 };
-/* 0x10015f68, 12 bytes */ GRIM_DATA("10015f68") unsigned char DAT_10015f68[12] = { 0x57, 0x65, 0x64, 0x6e, 0x65, 0x73, 0x64, 0x61, 0x79 };
-/* 0x10015f74, 8 bytes */ GRIM_DATA("10015f74") unsigned char DAT_10015f74[8] = { 0x54, 0x75, 0x65, 0x73, 0x64, 0x61, 0x79 };
-/* 0x10015f7c, 8 bytes */ GRIM_DATA("10015f7c") unsigned char DAT_10015f7c[8] = { 0x4d, 0x6f, 0x6e, 0x64, 0x61, 0x79 };
-/* 0x10015f84, 8 bytes */ GRIM_DATA("10015f84") unsigned char DAT_10015f84[8] = { 0x53, 0x75, 0x6e, 0x64, 0x61, 0x79 };
-/* 0x10015f8c, 4 bytes */ GRIM_DATA("10015f8c") unsigned char DAT_10015f8c[4] = { 0x53, 0x61, 0x74 };
-/* 0x10015f90, 4 bytes */ GRIM_DATA("10015f90") unsigned char DAT_10015f90[4] = { 0x46, 0x72, 0x69 };
-/* 0x10015f94, 4 bytes */ GRIM_DATA("10015f94") unsigned char DAT_10015f94[4] = { 0x54, 0x68, 0x75 };
-/* 0x10015f98, 4 bytes */ GRIM_DATA("10015f98") unsigned char DAT_10015f98[4] = { 0x57, 0x65, 0x64 };
-/* 0x10015f9c, 4 bytes */ GRIM_DATA("10015f9c") unsigned char DAT_10015f9c[4] = { 0x54, 0x75, 0x65 };
-/* 0x10015fa0, 4 bytes */ GRIM_DATA("10015fa0") unsigned char DAT_10015fa0[4] = { 0x4d, 0x6f, 0x6e };
-/* 0x10015fa4, 4188 bytes */ GRIM_DATA("10015fa4") unsigned char DAT_10015fa4[4188] = {
+/* 0x10015ea0, 8 bytes */ GRIM_DATA("10015ea0") unsigned char DAT_10015ea0[8] __asm__("_DAT_10015ea0") = { 0x4d, 0x2f, 0x64, 0x2f, 0x79, 0x79 };
+/* 0x10015ea8, 4 bytes */ GRIM_DATA("10015ea8") unsigned char DAT_10015ea8[4] __asm__("_DAT_10015ea8") = { 0x50, 0x4d };
+/* 0x10015eac, 4 bytes */ GRIM_DATA("10015eac") unsigned char DAT_10015eac[4] __asm__("_DAT_10015eac") = { 0x41, 0x4d };
+/* 0x10015eb0, 12 bytes */ GRIM_DATA("10015eb0") unsigned char DAT_10015eb0[12] __asm__("_DAT_10015eb0") = { 0x44, 0x65, 0x63, 0x65, 0x6d, 0x62, 0x65, 0x72 };
+/* 0x10015ebc, 12 bytes */ GRIM_DATA("10015ebc") unsigned char DAT_10015ebc[12] __asm__("_DAT_10015ebc") = { 0x4e, 0x6f, 0x76, 0x65, 0x6d, 0x62, 0x65, 0x72 };
+/* 0x10015ec8, 8 bytes */ GRIM_DATA("10015ec8") unsigned char DAT_10015ec8[8] __asm__("_DAT_10015ec8") = { 0x4f, 0x63, 0x74, 0x6f, 0x62, 0x65, 0x72 };
+/* 0x10015ed0, 12 bytes */ GRIM_DATA("10015ed0") unsigned char DAT_10015ed0[12] __asm__("_DAT_10015ed0") = { 0x53, 0x65, 0x70, 0x74, 0x65, 0x6d, 0x62, 0x65, 0x72 };
+/* 0x10015edc, 8 bytes */ GRIM_DATA("10015edc") unsigned char DAT_10015edc[8] __asm__("_DAT_10015edc") = { 0x41, 0x75, 0x67, 0x75, 0x73, 0x74 };
+/* 0x10015ee4, 8 bytes */ GRIM_DATA("10015ee4") unsigned char DAT_10015ee4[8] __asm__("_DAT_10015ee4") = { 0x4a, 0x75, 0x6c, 0x79 };
+/* 0x10015eec, 8 bytes */ GRIM_DATA("10015eec") unsigned char DAT_10015eec[8] __asm__("_DAT_10015eec") = { 0x4a, 0x75, 0x6e, 0x65 };
+/* 0x10015ef4, 8 bytes */ GRIM_DATA("10015ef4") unsigned char DAT_10015ef4[8] __asm__("_DAT_10015ef4") = { 0x41, 0x70, 0x72, 0x69, 0x6c };
+/* 0x10015efc, 8 bytes */ GRIM_DATA("10015efc") unsigned char DAT_10015efc[8] __asm__("_DAT_10015efc") = { 0x4d, 0x61, 0x72, 0x63, 0x68 };
+/* 0x10015f04, 12 bytes */ GRIM_DATA("10015f04") unsigned char DAT_10015f04[12] __asm__("_DAT_10015f04") = { 0x46, 0x65, 0x62, 0x72, 0x75, 0x61, 0x72, 0x79 };
+/* 0x10015f10, 8 bytes */ GRIM_DATA("10015f10") unsigned char DAT_10015f10[8] __asm__("_DAT_10015f10") = { 0x4a, 0x61, 0x6e, 0x75, 0x61, 0x72, 0x79 };
+/* 0x10015f18, 4 bytes */ GRIM_DATA("10015f18") unsigned char DAT_10015f18[4] __asm__("_DAT_10015f18") = { 0x44, 0x65, 0x63 };
+/* 0x10015f1c, 4 bytes */ GRIM_DATA("10015f1c") unsigned char DAT_10015f1c[4] __asm__("_DAT_10015f1c") = { 0x4e, 0x6f, 0x76 };
+/* 0x10015f20, 4 bytes */ GRIM_DATA("10015f20") unsigned char DAT_10015f20[4] __asm__("_DAT_10015f20") = { 0x4f, 0x63, 0x74 };
+/* 0x10015f24, 4 bytes */ GRIM_DATA("10015f24") unsigned char DAT_10015f24[4] __asm__("_DAT_10015f24") = { 0x53, 0x65, 0x70 };
+/* 0x10015f28, 4 bytes */ GRIM_DATA("10015f28") unsigned char DAT_10015f28[4] __asm__("_DAT_10015f28") = { 0x41, 0x75, 0x67 };
+/* 0x10015f2c, 4 bytes */ GRIM_DATA("10015f2c") unsigned char DAT_10015f2c[4] __asm__("_DAT_10015f2c") = { 0x4a, 0x75, 0x6c };
+/* 0x10015f30, 4 bytes */ GRIM_DATA("10015f30") unsigned char DAT_10015f30[4] __asm__("_DAT_10015f30") = { 0x4a, 0x75, 0x6e };
+/* 0x10015f34, 4 bytes */ GRIM_DATA("10015f34") unsigned char DAT_10015f34[4] __asm__("_DAT_10015f34") = { 0x4d, 0x61, 0x79 };
+/* 0x10015f38, 4 bytes */ GRIM_DATA("10015f38") unsigned char DAT_10015f38[4] __asm__("_DAT_10015f38") = { 0x41, 0x70, 0x72 };
+/* 0x10015f3c, 4 bytes */ GRIM_DATA("10015f3c") unsigned char DAT_10015f3c[4] __asm__("_DAT_10015f3c") = { 0x4d, 0x61, 0x72 };
+/* 0x10015f40, 4 bytes */ GRIM_DATA("10015f40") unsigned char DAT_10015f40[4] __asm__("_DAT_10015f40") = { 0x46, 0x65, 0x62 };
+/* 0x10015f44, 4 bytes */ GRIM_DATA("10015f44") unsigned char DAT_10015f44[4] __asm__("_DAT_10015f44") = { 0x4a, 0x61, 0x6e };
+/* 0x10015f48, 12 bytes */ GRIM_DATA("10015f48") unsigned char DAT_10015f48[12] __asm__("_DAT_10015f48") = { 0x53, 0x61, 0x74, 0x75, 0x72, 0x64, 0x61, 0x79 };
+/* 0x10015f54, 8 bytes */ GRIM_DATA("10015f54") unsigned char DAT_10015f54[8] __asm__("_DAT_10015f54") = { 0x46, 0x72, 0x69, 0x64, 0x61, 0x79 };
+/* 0x10015f5c, 12 bytes */ GRIM_DATA("10015f5c") unsigned char DAT_10015f5c[12] __asm__("_DAT_10015f5c") = { 0x54, 0x68, 0x75, 0x72, 0x73, 0x64, 0x61, 0x79 };
+/* 0x10015f68, 12 bytes */ GRIM_DATA("10015f68") unsigned char DAT_10015f68[12] __asm__("_DAT_10015f68") = { 0x57, 0x65, 0x64, 0x6e, 0x65, 0x73, 0x64, 0x61, 0x79 };
+/* 0x10015f74, 8 bytes */ GRIM_DATA("10015f74") unsigned char DAT_10015f74[8] __asm__("_DAT_10015f74") = { 0x54, 0x75, 0x65, 0x73, 0x64, 0x61, 0x79 };
+/* 0x10015f7c, 8 bytes */ GRIM_DATA("10015f7c") unsigned char DAT_10015f7c[8] __asm__("_DAT_10015f7c") = { 0x4d, 0x6f, 0x6e, 0x64, 0x61, 0x79 };
+/* 0x10015f84, 8 bytes */ GRIM_DATA("10015f84") unsigned char DAT_10015f84[8] __asm__("_DAT_10015f84") = { 0x53, 0x75, 0x6e, 0x64, 0x61, 0x79 };
+/* 0x10015f8c, 4 bytes */ GRIM_DATA("10015f8c") unsigned char DAT_10015f8c[4] __asm__("_DAT_10015f8c") = { 0x53, 0x61, 0x74 };
+/* 0x10015f90, 4 bytes */ GRIM_DATA("10015f90") unsigned char DAT_10015f90[4] __asm__("_DAT_10015f90") = { 0x46, 0x72, 0x69 };
+/* 0x10015f94, 4 bytes */ GRIM_DATA("10015f94") unsigned char DAT_10015f94[4] __asm__("_DAT_10015f94") = { 0x54, 0x68, 0x75 };
+/* 0x10015f98, 4 bytes */ GRIM_DATA("10015f98") unsigned char DAT_10015f98[4] __asm__("_DAT_10015f98") = { 0x57, 0x65, 0x64 };
+/* 0x10015f9c, 4 bytes */ GRIM_DATA("10015f9c") unsigned char DAT_10015f9c[4] __asm__("_DAT_10015f9c") = { 0x54, 0x75, 0x65 };
+/* 0x10015fa0, 4 bytes */ GRIM_DATA("10015fa0") unsigned char DAT_10015fa0[4] __asm__("_DAT_10015fa0") = { 0x4d, 0x6f, 0x6e };
+/* 0x10015fa4, 4188 bytes */ GRIM_DATA("10015fa4") unsigned char DAT_10015fa4[4188] __asm__("_DAT_10015fa4") = {
     0x53, 0x75, 0x6e, 0x00, 0x53, 0x75, 0x6e, 0x4d, 0x6f, 0x6e, 0x54, 0x75, 0x65, 0x57, 0x65, 0x64,
     0x54, 0x68, 0x75, 0x46, 0x72, 0x69, 0x53, 0x61, 0x74, 0x00, 0x00, 0x00, 0x4a, 0x61, 0x6e, 0x46,
     0x65, 0x62, 0x4d, 0x61, 0x72, 0x41, 0x70, 0x72, 0x4d, 0x61, 0x79, 0x4a, 0x75, 0x6e, 0x4a, 0x75,
@@ -1365,595 +1097,62 @@ static unsigned char grim_pad_10015e58[8] __attribute__((section(".data$grim_100
     0x74, 0x48, 0x6f, 0x6f, 0x6b, 0x00, 0x69, 0x4d, 0x55, 0x53, 0x45, 0x5f, 0x53, 0x65, 0x74, 0x56,
     0x6f, 0x69, 0x63, 0x65, 0x45, 0x66, 0x66, 0x65, 0x63, 0x74
 };
-/* 0x10017000, 4 bytes */ GRIM_DATA("10017000") unsigned char DAT_10017000[4] = {0};
-/* 0x10017004, 4 bytes */ GRIM_DATA("10017004") unsigned char DAT_10017004[4] = {0};
-/* 0x10017008, 8 bytes, unused (dead) */ GRIM_DATA("10017008") unsigned char DAT_10017008[8];
-/* 0x10017010, 4 bytes, unused (dead) */ GRIM_DATA("10017010") unsigned char DAT_10017010[4];
-/* 0x10017014, 8 bytes */ GRIM_DATA("10017014") void *DAT_10017014[2] = {
+/* 0x10017000, 4 bytes */ GRIM_DATA("10017000") unsigned char DAT_10017000[4] __asm__("_DAT_10017000") = {0};
+/* 0x10017004, 4 bytes */ GRIM_DATA("10017004") unsigned char DAT_10017004[4] __asm__("_DAT_10017004") = {0};
+/* 0x10017008, 8 bytes, unused (dead) */ GRIM_DATA("10017008") unsigned char DAT_10017008[8] __asm__("_DAT_10017008");
+/* 0x10017010, 4 bytes, unused (dead) */ GRIM_DATA("10017010") unsigned char DAT_10017010[4] __asm__("_DAT_10017010");
+/* 0x10017014, 8 bytes */ GRIM_DATA("10017014") void *DAT_10017014[2] __asm__("_DAT_10017014") = {
     0, (void *)f_FUN_1000d1f0
 };
-/* 0x1001701c, 4 bytes */ GRIM_DATA("1001701c") unsigned char DAT_1001701c[4] = {0};
-/* 0x10017020, 4 bytes */ GRIM_DATA("10017020") unsigned char DAT_10017020[4] = {0};
-/* 0x10017024, 12 bytes */ GRIM_DATA("10017024") unsigned char DAT_10017024[12] = {0};
-/* 0x10017030, 32 bytes */ GRIM_DATA("10017030") void *g_apAdpcmIndexAdjust[8] = {
-    0, 0, (void *)&g_abAdpcmIndexAdjust2, (void *)&g_abAdpcmIndexAdjust3,
-    (void *)&g_abAdpcmIndexAdjust4, (void *)&g_abAdpcmIndexAdjust5, (void *)&g_abAdpcmIndexAdjust6, (void *)&g_abAdpcmIndexAdjust7
-};
-/* 0x10017050, 8 bytes */ GRIM_DATA("10017050") unsigned char DAT_10017050[8] = { 0x53, 0x53, 0x4e, 0x44 };
-/* 0x10017058, 4 bytes */ GRIM_DATA("10017058") unsigned int DAT_10017058 = 0x46464941;
-/* 0x1001705c, 8 bytes */ GRIM_DATA("1001705c") unsigned char DAT_1001705c[8] = { 0x43, 0x4f, 0x4d, 0x4d };
-/* 0x10017064, 8 bytes */ GRIM_DATA("10017064") unsigned char DAT_10017064[8] = { 0x46, 0x4f, 0x52, 0x4d };
-/* 0x1001706c, 8 bytes */ GRIM_DATA("1001706c") unsigned char DAT_1001706c[8] = { 0x46, 0x52, 0x4d, 0x54 };
-/* 0x10017074, 8 bytes */ GRIM_DATA("10017074") unsigned char DAT_10017074[8] = { 0x69, 0x4d, 0x55, 0x53 };
-/* 0x1001707c, 8 bytes */ GRIM_DATA("1001707c") unsigned char DAT_1001707c[8] = { 0x64, 0x61, 0x74, 0x61 };
-/* 0x10017084, 4 bytes */ GRIM_DATA("10017084") unsigned char DAT_10017084[4] = { 0x57, 0x41, 0x56, 0x45 };
-/* 0x10017088, 8 bytes */ GRIM_DATA("10017088") unsigned char DAT_10017088[8] = { 0x66, 0x6d, 0x74, 0x20 };
-/* 0x10017090, 8 bytes */ GRIM_DATA("10017090") unsigned char DAT_10017090[8] = { 0x52, 0x49, 0x46, 0x46 };
-/* 0x10017098, 8 bytes */ GRIM_DATA("10017098") char s_MCMP_10017098[8] = "MCMP";
-/* 0x100170a0, 8 bytes */ /* loose */ unsigned char DAT_100170a0[8] = { 0x44, 0x41, 0x54, 0x41 };
-/* 0x100170a8, 8 bytes */ /* loose */ unsigned char DAT_100170a8[8] = { 0x53, 0x54, 0x4f, 0x50 };
-static unsigned char grim_anchor_100170b0[0] __attribute__((section(".data$grim_100170b0"), aligned(16), used));
-static unsigned char grim_pad_100170b0[0] __attribute__((section(".data$grim_100170b0_"), aligned(4), used));
-/* 0x100170b0, 8 bytes */ GRIM_DATA("100170b0z") unsigned char DAT_100170b0[8] = { 0x52, 0x45, 0x47, 0x4e };
-/* 0x100170b8, 8 bytes */ GRIM_DATA("100170b8") unsigned char DAT_100170b8[8] = { 0x4d, 0x41, 0x50, 0x20 };
-/* 0x100170c0, 44 bytes */ GRIM_DATA("100170c0") char s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0[44] = "C:\\grimsrc\\libs\\iMUSE\\Dispatch.c\000\000\000\000\000\000\000\000\377\377\377\377";
-/* 0x100170ec, 4 bytes */ GRIM_DATA("100170ec") unsigned char PTR_100170ec[4] = { 0xff, 0xff, 0xff, 0xff };
-/* 0x100170f0, 20 bytes */ GRIM_DATA("100170f0") unsigned char DAT_100170f0[20] = { 0x01, 0x00, 0x02, 0x00, 0x22, 0x56, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00, 0x04, 0x00, 0x10 };
-/* 0x10017104, 32 bytes */ GRIM_DATA("10017104") char s_C__grimsrc_libs_iMUSE_dsound_c_10017104[32] = "C:\\grimsrc\\libs\\iMUSE\\dsound.c";
-/* 0x10017124, 32 bytes */ GRIM_DATA("10017124") unsigned char DAT_10017124[32] = {
-    0x45, 0x52, 0x52, 0x3a, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x20, 0x73, 0x61,
-    0x76, 0x65, 0x20, 0x74, 0x6f, 0x6f, 0x20, 0x62, 0x69, 0x67, 0x2e, 0x2e, 0x2e
-};
-/* 0x10017144, 48 bytes */ GRIM_DATA("10017144") unsigned char DAT_10017144[48] = {
-    0x45, 0x52, 0x52, 0x3a, 0x20, 0x49, 0x6d, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x46, 0x69,
-    0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x28, 0x29, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27,
-    0x74, 0x20, 0x6c, 0x6f, 0x61, 0x64, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x20
-};
-/* 0x10017174, 60 bytes */ GRIM_DATA("10017174") unsigned char DAT_10017174[60] = {
-    0x45, 0x52, 0x52, 0x3a, 0x20, 0x49, 0x6d, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x46, 0x69,
-    0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x28, 0x29, 0x20, 0x64, 0x65, 0x74, 0x65, 0x63, 0x74, 0x65,
-    0x64, 0x20, 0x6d, 0x6f, 0x64, 0x69, 0x66, 0x69, 0x65, 0x64, 0x20, 0x73, 0x6f, 0x75, 0x6e, 0x64,
-    0x20, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x2e, 0x2e, 0x2e
-};
-/* 0x100171b0, 4 bytes */ GRIM_DATA("100171b0") char s_____100171b0[4] = "...";
-/* 0x100171b4, 48 bytes */ GRIM_DATA("100171b4") unsigned char DAT_100171b4[48] = {
-    0x45, 0x52, 0x52, 0x3a, 0x20, 0x49, 0x6d, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x46, 0x69,
-    0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x28, 0x29, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27,
-    0x74, 0x20, 0x6f, 0x70, 0x65, 0x6e, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x20
-};
-/* 0x100171e4, 16 bytes */ GRIM_DATA("100171e4") unsigned char DAT_100171e4[16] = { 0x4e, 0x61, 0x6d, 0x65, 0x20, 0x74, 0x6f, 0x6f, 0x20, 0x6c, 0x6f, 0x6e, 0x67, 0x3a, 0x20 };
-/* 0x100171f4, 28 bytes */ GRIM_DATA("100171f4") unsigned char DAT_100171f4[28] = {
-    0x48, 0x6f, 0x73, 0x74, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27, 0x74, 0x20, 0x6c, 0x6f,
-    0x61, 0x64, 0x20, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x20
-};
-/* 0x10017210, 20 bytes */ GRIM_DATA("10017210") unsigned char DAT_10017210[20] = {
-    0x53, 0x6f, 0x75, 0x6e, 0x64, 0x20, 0x4c, 0x69, 0x73, 0x74, 0x20, 0x46, 0x55, 0x4c, 0x4c, 0x21,
-    0x2e, 0x2e, 0x2e
-};
-/* 0x10017224, 28 bytes */ GRIM_DATA("10017224") unsigned char DAT_10017224[28] = {
-    0x48, 0x6f, 0x73, 0x74, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27, 0x74, 0x20, 0x6f, 0x70,
-    0x65, 0x6e, 0x20, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x20
-};
-/* 0x10017240, 40 bytes */ GRIM_DATA("10017240") unsigned char DAT_10017240[40] = {
-    0x69, 0x4d, 0x55, 0x53, 0x45, 0x2e, 0x43, 0x3a, 0x20, 0x6c, 0x69, 0x73, 0x74, 0x20, 0x61, 0x72,
-    0x67, 0x20, 0x65, 0x72, 0x72, 0x20, 0x77, 0x68, 0x65, 0x6e, 0x20, 0x61, 0x64, 0x64, 0x69, 0x6e,
-    0x67, 0x2e, 0x2e, 0x2e
-};
-/* 0x10017268, 40 bytes */ GRIM_DATA("10017268") unsigned char DAT_10017268[40] = {
-    0x69, 0x4d, 0x55, 0x53, 0x45, 0x2e, 0x43, 0x3a, 0x20, 0x6c, 0x69, 0x73, 0x74, 0x20, 0x61, 0x72,
-    0x67, 0x20, 0x65, 0x72, 0x72, 0x20, 0x77, 0x68, 0x65, 0x6e, 0x20, 0x72, 0x65, 0x6d, 0x6f, 0x76,
-    0x69, 0x6e, 0x67, 0x2e, 0x2e, 0x2e
-};
-/* 0x10017290, 32 bytes */ GRIM_DATA("10017290") unsigned char DAT_10017290[32] = {
-    0x69, 0x4d, 0x55, 0x53, 0x45, 0x2e, 0x43, 0x3a, 0x20, 0x69, 0x74, 0x65, 0x6d, 0x20, 0x6e, 0x6f,
-    0x74, 0x20, 0x6f, 0x6e, 0x20, 0x6c, 0x69, 0x73, 0x74, 0x2e, 0x2e, 0x2e
-};
-/* 0x100172b0, 12 bytes */ GRIM_DATA("100172b0") char s_imuse_psl_100172b0[12] = "imuse.psl";
-/* 0x100172bc, 4 bytes */ /* loose */ unsigned int DAT_100172bc = 0xffffffff;
+/* 0x1001701c, 4 bytes */ GRIM_DATA("1001701c") unsigned char DAT_1001701c[4] __asm__("_DAT_1001701c") = {0};
+/* 0x10017020, 4 bytes */ GRIM_DATA("10017020") unsigned char DAT_10017020[4] __asm__("_DAT_10017020") = {0};
+/* 0x10017024, 12 bytes */ GRIM_DATA("10017024") unsigned char DAT_10017024[12] __asm__("_DAT_10017024") = {0};
+/* 0x10017074, 8 bytes */ GRIM_DATA("10017074") unsigned char DAT_10017074[8] __asm__("_DAT_10017074") = { 0x69, 0x4d, 0x55, 0x53 };
+/* 0x100171b0, 4 bytes */ GRIM_DATA("100171b0") char s_____100171b0[4] __asm__("_s_____100171b0") = "...";
 static unsigned char grim_anchor_100172c0[0] __attribute__((section(".data$grim_100172c0"), aligned(16), used));
 static unsigned char grim_pad_100172c0[0] __attribute__((section(".data$grim_100172c0_"), aligned(4), used));
-/* 0x100172c0, 4 bytes */ GRIM_DATA("100172c0z") unsigned int g_dwWvSlicingHalted = 0x1;
-/* 0x100172c4, 4 bytes */ GRIM_DATA("100172c4") unsigned char DAT_100172c4[4] = { 0x77, 0x62 };
-/* 0x100172c8, 32 bytes */ GRIM_DATA("100172c8") char s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8[32] = "C:\\grimsrc\\libs\\iMUSE\\Mixer.c";
-/* 0x100172e8, 15204 bytes */ GRIM_DATA("100172e8") ImMusicEntry g_aImStateTable[181] = {
-    { .nId = 1000, .aName = "STATE_NULL", .nVolume = 127 },
-    { .nId = 1999, .aName = "stateNoChange", .nVolume = 127 },
-    { .aFilename = "1001 - Manny's Office", .nTransType = 3, .nId = 1001, .aName = "stateMO", .nVolume = 127 },
-    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1002, .aName = "stateHA_INTLS", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 20, .nPan = 50 },
-    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1003, .aName = "stateHA_REVLS", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 80, .nPan = 12 },
-    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1004, .aName = "stateHA_ELVOS", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 90, .nPan = 110 },
-    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1005, .aName = "stateHA_MNYCU", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 60, .nPan = 110 },
-    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1006, .aName = "stateHA_EVACU", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 80, .nPan = 64 },
-    { .aFilename = "1002 - Mr. Frustration", .nTransType = 3, .nId = 1007, .aName = "stateHA_EVAWS", .nHookSlot = 3, .nHookLimit = 8, .nVolume = 60, .nPan = 60 },
-    { .aFilename = "1008 - Domino's Office", .nTransType = 3, .nId = 1008, .aName = "stateDO", .nVolume = 127 },
-    { .aFilename = "1009 - Copal's Office", .nTransType = 3, .nId = 1009, .aName = "stateCO", .nVolume = 127 },
-    { .aFilename = "1010 - Ledge", .nTransType = 3, .nId = 1010, .aName = "stateLE", .nVolume = 127 },
-    { .aFilename = "1011 - Roof", .nTransType = 3, .nId = 1011, .aName = "stateRF", .nVolume = 127 },
-    { .aFilename = "1020 - Tube Room", .nTransType = 3, .nId = 1020, .aName = "stateTU", .nVolume = 127 },
-    { .aFilename = "1021 - Brennis", .nTransType = 3, .nId = 1021, .aName = "stateTU_BRENNIS", .nVolume = 127 },
-    { .aFilename = "1022 - Lobby", .nTransType = 3, .nId = 1022, .aName = "stateLO", .nVolume = 127 },
-    { .aFilename = "1023 - Packing Room", .nTransType = 3, .nId = 1023, .aName = "statePK", .nVolume = 127 },
-    { .aFilename = "1030 - Garage", .nTransType = 3, .nId = 1030, .aName = "stateGA", .nVolume = 127 },
-    { .aFilename = "1031 - Glottis' Shop", .nTransType = 3, .nId = 1031, .aName = "stateGS", .nVolume = 127 },
-    { .aFilename = "1030 - Garage", .nTransType = 3, .nId = 1032, .aName = "stateGS_JAIL", .nVolume = 127 },
-    { .aFilename = "1040 - Festival Wet", .nTransType = 3, .nId = 1040, .aName = "stateAL", .nHookSlot = 21, .nHookLimit = 4, .nFade = 500, .nVolume = 60 },
-    { .aFilename = "1041 - Festival Dry", .nTransType = 3, .nId = 1041, .aName = "stateFE", .nHookSlot = 21, .nHookLimit = 4, .nFade = 200, .nVolume = 127 },
-    { .aFilename = "1041 - Festival Dry", .nTransType = 3, .nId = 1042, .aName = "stateST", .nHookSlot = 21, .nHookLimit = 4, .nFade = 200, .nVolume = 60 },
-    { .aFilename = "1041 - Festival Dry", .nTransType = 3, .nId = 1043, .aName = "stateOS", .nHookSlot = 21, .nHookLimit = 4, .nFade = 200, .nVolume = 46 },
-    { .aFilename = "1040 - Festival Wet", .nTransType = 3, .nId = 1044, .aName = "stateRP", .nHookSlot = 21, .nHookLimit = 4, .nFade = 200, .nVolume = 85 },
-    { .aFilename = "1050 - Headquarters", .nTransType = 3, .nId = 1050, .aName = "stateHQ", .nVolume = 127 },
-    { .aFilename = "1060 - Real World", .nTransType = 2, .nId = 1060, .aName = "stateLR", .nFade = 300, .nVolume = 80 },
-    { .aFilename = "1070 - Stump Room", .nTransType = 2, .nId = 1070, .aName = "stateSM", .nVolume = 127 },
-    { .aFilename = "1071 - Signpost Room", .nTransType = 2, .nId = 1071, .aName = "stateSG", .nHookLimit = 3, .nVolume = 127 },
-    { .aFilename = "1072 - Navigation", .nTransType = 2, .nId = 1072, .aName = "stateNA", .nVolume = 127 },
-    { .aFilename = "1071 - Signpost Room", .nTransType = 2, .nId = 1073, .aName = "stateNA_SOLVED", .nHookLimit = 3, .nVolume = 127 },
-    { .aFilename = "1074 - Bone Wagon", .nTransType = 2, .nId = 1074, .aName = "stateOO_BONE", .nVolume = 127 },
-    { .aFilename = "1075 - Spider's Eye", .nTransType = 2, .nId = 1075, .aName = "stateSP_ENTLA", .nVolume = 127 },
-    { .aFilename = "1076 - Spider Room", .nTransType = 2, .nId = 1076, .aName = "stateSP_WEBWS", .nVolume = 127 },
-    { .aFilename = "1077 - Tree Pump Amb", .nTransType = 2, .nId = 1077, .aName = "stateTR_PMPWS", .nVolume = 127 },
-    { .aFilename = "1078 - Tree Pump", .nTransType = 2, .nId = 1078, .aName = "stateTR_ESTHA", .nVolume = 127 },
-    { .aFilename = "1071 - Signpost Room", .nTransType = 2, .nId = 1079, .aName = "stateTR_SOLVED", .nHookLimit = 3, .nVolume = 127 },
-    { .aFilename = "1080 - Beaver Room Lbby", .nTransType = 2, .nId = 1080, .aName = "stateLB", .nVolume = 127 },
-    { .aFilename = "1081 - Beaver Dam", .nTransType = 2, .nId = 1081, .aName = "stateBD", .nVolume = 127 },
-    { .aFilename = "1083 - Beaver Room", .nTransType = 2, .nId = 1082, .aName = "stateBD_SOLVED", .nVolume = 127 },
-    { .aFilename = "1083 - Beaver Room", .nTransType = 2, .nId = 1083, .aName = "stateBV", .nVolume = 127 },
-    { .aFilename = "1084 - Foggy Cactus", .nTransType = 2, .nId = 1084, .aName = "stateFC", .nVolume = 80 },
-    { .aFilename = "1085 - Rubamat Exterior", .nTransType = 2, .nId = 1085, .aName = "stateRE", .nVolume = 105 },
-    { .aFilename = "1087 - Blue Hector", .nTransType = 2, .nId = 1086, .aName = "stateRI", .nHookLimit = 4, .nVolume = 80, .nPan = 30 },
-    { .aFilename = "1109 - Cafe Exterior", .nTransType = 2, .nId = 1100, .aName = "stateCB", .nVolume = 127 },
-    { .aFilename = "1101 - Cafe Office", .nTransType = 3, .nId = 1101, .aName = "stateCF", .nHookSlot = 45, .nHookLimit = 5, .nFade = 400, .nVolume = 60 },
-    { .aFilename = "1102 - Cafe Intercom", .nTransType = 3, .nId = 1102, .aName = "stateCF_INTRCM", .nHookSlot = 45, .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1103 - Coat Check", .nTransType = 3, .nId = 1103, .aName = "stateCC", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 60, .nPan = 100 },
-    { .aFilename = "1104 - Lupe", .nTransType = 2, .nId = 1104, .aName = "stateCC_LUPE", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "1106 - Glottis Noodle", .nTransType = 3, .nId = 1105, .aName = "stateCI", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 127, .nPan = 75 },
-    { .aFilename = "1106 - Glottis Noodle", .nTransType = 3, .nId = 1106, .aName = "stateCI_NOODLE", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 127, .nPan = 75 },
-    { .aFilename = "1106 - Glottis Noodle", .nTransType = 3, .nId = 1190, .aName = "stateCI_WIDHA", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 80, .nPan = 45 },
-    { .aFilename = "1106 - Glottis Noodle", .nTransType = 3, .nId = 1191, .aName = "stateCI_BARWS", .nHookSlot = 49, .nHookLimit = 4, .nFade = 400, .nVolume = 127, .nPan = 127 },
-    { .aFilename = "1101 - Cafe Office", .nTransType = 3, .nId = 1107, .aName = "stateCI_EMPTY", .nHookSlot = 45, .nHookLimit = 5, .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1108 - Casino Interior", .nTransType = 3, .nId = 1108, .aName = "stateCN", .nHookSlot = 45, .nHookLimit = 6, .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1109 - Cafe Exterior", .nTransType = 2, .nId = 1109, .aName = "stateCE", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1110 - Cafe Ledge", .nTransType = 2, .nId = 1110, .aName = "stateCL", .nFade = 400, .nVolume = 105 },
-    { .aFilename = "1108 - Casino Interior", .nTransType = 3, .nId = 1111, .aName = "stateCN_QUIET", .nFade = 400, .nVolume = 60 },
-    { .aFilename = "1112 - Rusty Sans Vox", .nTransType = 2, .nId = 1112, .aName = "stateCI_SONG", .nFade = 400, .nVolume = 127, .nPan = 68 },
-    { .aFilename = "1120 - Elevator Station", .nTransType = 2, .nId = 1120, .aName = "stateEV", .nVolume = 127 },
-    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1121, .aName = "stateBW", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1122, .aName = "stateBE", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1123 - Blue Casket Ins", .nTransType = 2, .nId = 1123, .aName = "stateBI", .nHookLimit = 4, .nFade = 700, .nVolume = 127 },
-    { .aFilename = "1124 - Blue Casket Amb", .nTransType = 2, .nId = 1124, .aName = "stateBI_POE", .nVolume = 127 },
-    { .aFilename = "1125 - Smooth Hector", .nTransType = 2, .nId = 1125, .aName = "stateBK", .nHookLimit = 4, .nVolume = 80, .nPan = 75 },
-    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1126, .aName = "stateHB", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1127 - Limbo Dock", .nTransType = 3, .nId = 1127, .aName = "stateLM", .nHookSlot = 66, .nVolume = 127 },
-    { .aFilename = "1128 - Limbo Talk", .nTransType = 2, .nId = 1128, .aName = "stateLM_TALK", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1129 - Limbo Poem", .nTransType = 3, .nId = 1129, .aName = "stateLM_POEM", .nHookSlot = 66, .nVolume = 127 },
-    { .aFilename = "1130 - Dry Dock", .nTransType = 2, .nId = 1130, .aName = "stateDD", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1131 - Dry Dock Strike", .nTransType = 2, .nId = 1131, .aName = "stateDD_STRIKE", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1132 - Lighthouse Ext", .nTransType = 2, .nId = 1132, .aName = "stateLX", .nVolume = 127 },
-    { .aFilename = "1133 - Lola's Last", .nTransType = 2, .nId = 1133, .aName = "stateLX_LOLA", .nVolume = 127 },
-    { .aFilename = "1140 - Police Station", .nTransType = 3, .nId = 1140, .aName = "statePC", .nVolume = 127 },
-    { .aFilename = "1141 - Police Interior", .nTransType = 2, .nId = 1141, .aName = "statePI", .nVolume = 105 },
-    { .aFilename = "1141 - Police Interior", .nTransType = 2, .nId = 1142, .aName = "statePI_MALLOY", .nVolume = 105 },
-    { .aFilename = "1143 - Morgue", .nTransType = 2, .nId = 1143, .aName = "stateMG", .nVolume = 105 },
-    { .aFilename = "1140 - Police Station", .nTransType = 3, .nId = 1144, .aName = "stateBP", .nVolume = 105 },
-    { .aFilename = "1145 - Bridge Blimp", .nTransType = 2, .nId = 1145, .aName = "stateBB", .nVolume = 127 },
-    { .aFilename = "1146 - LOL Security Ext", .nTransType = 2, .nId = 1146, .aName = "stateGT", .nVolume = 80 },
-    { .aFilename = "1147 - LOL Security Int", .nTransType = 2, .nId = 1147, .aName = "stateSL", .nVolume = 127 },
-    { .aFilename = "1148 - Carla's Life", .nTransType = 2, .nId = 1148, .aName = "stateSL_TALK", .nVolume = 127 },
-    { .aFilename = "1149 - Bomb", .nTransType = 2, .nId = 1149, .aName = "stateSL_BOMB", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1152 - Track Stairs", .nTransType = 3, .nId = 1150, .aName = "stateTB", .nHookSlot = 83, .nVolume = 105 },
-    { .aFilename = "1152 - Track Stairs", .nTransType = 3, .nId = 1151, .aName = "stateTW", .nHookSlot = 83, .nVolume = 105 },
-    { .aFilename = "1152 - Track Stairs", .nTransType = 3, .nId = 1152, .aName = "stateTS", .nHookSlot = 83, .nVolume = 105 },
-    { .aFilename = "1153 - Track Base", .nTransType = 2, .nId = 1153, .aName = "stateTX", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1154 - Kitty Hall", .nTransType = 2, .nId = 1154, .aName = "stateKH", .nVolume = 127 },
-    { .aFilename = "1155 - Sanspoof", .nTransType = 2, .nId = 1155, .aName = "stateKH_SANS", .nVolume = 127 },
-    { .aFilename = "1156 - Kitty Stables", .nTransType = 2, .nId = 1156, .aName = "stateKS", .nVolume = 127 },
-    { .aFilename = "1160 - High Roller Hall", .nTransType = 2, .nId = 1160, .aName = "stateHH", .nVolume = 127 },
-    { .aFilename = "1161 - High Roller Lnge", .nTransType = 3, .nId = 1161, .aName = "stateHL", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1162 - Glottis Gambling", .nTransType = 2, .nId = 1162, .aName = "stateHL_GLOT", .nVolume = 127 },
-    { .aFilename = "1163 - Max's Office", .nTransType = 3, .nId = 1163, .aName = "stateMX", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1125 - Hector Steps Out", .nTransType = 3, .nId = 1164, .aName = "stateHK", .nHookSlot = 94, .nHookLimit = 4, .nFade = 200, .nVolume = 127, .nPan = 80 },
-    { .aFilename = "1125 - Hector Steps Out", .nTransType = 3, .nId = 1165, .aName = "stateHP", .nHookSlot = 94, .nHookLimit = 4, .nFade = 200, .nVolume = 20, .nPan = 64 },
-    { .aFilename = "1125 - Hector Steps Out", .nTransType = 3, .nId = 1166, .aName = "stateHE", .nHookSlot = 94, .nHookLimit = 4, .nFade = 200, .nVolume = 127, .nPan = 10 },
-    { .aFilename = "1167 - Dillopede Elev", .nTransType = 3, .nId = 1167, .aName = "stateDE", .nVolume = 127 },
-    { .aFilename = "1167 - Dillopede Elev", .nTransType = 3, .nId = 1168, .aName = "stateDH", .nVolume = 127 },
-    { .aFilename = "1167 - Dillopede Elev", .nTransType = 3, .nId = 1169, .aName = "stateWC", .nVolume = 127 },
-    { .aFilename = "1170 - Extendo Bridge", .nTransType = 3, .nId = 1170, .aName = "stateXB", .nFade = 400, .nVolume = 105 },
-    { .aFilename = "1170 - Extendo Bridge", .nTransType = 3, .nId = 1171, .aName = "stateSD", .nFade = 400, .nVolume = 105 },
-    { .aFilename = "1170 - Extendo Bridge", .nTransType = 3, .nId = 1172, .aName = "stateSE", .nFade = 400, .nVolume = 105 },
-    { .aFilename = "1173 - Scrimshaw Int", .nTransType = 2, .nId = 1173, .aName = "stateSI", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1174 - Scrim Sleep", .nTransType = 2, .nId = 1174, .aName = "stateSI_SLEEP", .nFade = 400, .nVolume = 127 },
-    { .aFilename = "1180 - Note to Manny", .nTransType = 2, .nId = 1180, .aName = "stateNT", .nVolume = 72 },
-    { .aFilename = "1155 - Sanspoof", .nTransType = 2, .nId = 1181, .aName = "statePF", .nVolume = 127 },
-    { .aFilename = "1201 - Lola Zapata", .nTransType = 2, .nId = 1201, .aName = "stateLZ", .nVolume = 127 },
-    { .aFilename = "1202 - Inside The Lola", .nTransType = 2, .nId = 1202, .aName = "stateIL", .nVolume = 127 },
-    { .aFilename = "1203 - Engine Room", .nTransType = 2, .nId = 1203, .aName = "stateEI", .nVolume = 127 },
-    { .aFilename = "1204 - Porthole", .nTransType = 2, .nId = 1204, .aName = "stateDP", .nVolume = 127 },
-    { .aFilename = "1204 - Porthole", .nTransType = 2, .nId = 1205, .aName = "stateOP", .nVolume = 127 },
-    { .aFilename = "1210 - Sunken Lola", .nTransType = 2, .nId = 1210, .aName = "stateSU", .nVolume = 127 },
-    { .aFilename = "1211 - Pearl Crater Sub", .nTransType = 2, .nId = 1211, .aName = "statePS", .nVolume = 127 },
-    { .aFilename = "1220 - Miner's Room", .nTransType = 3, .nId = 1220, .aName = "stateMN", .nVolume = 127 },
-    { .aFilename = "1220 - Miner's Room", .nTransType = 3, .nId = 1221, .aName = "stateMN_CHEPITO", .nVolume = 127 },
-    { .aFilename = "1222 - Exterior Airlock", .nTransType = 2, .nId = 1222, .aName = "stateEA", .nVolume = 127 },
-    { .aFilename = "1223 - Factory Hub", .nTransType = 2, .nId = 1223, .aName = "stateFH", .nHookLimit = 4, .nVolume = 127 },
-    { .aFilename = "1224 - Foreman's Office", .nTransType = 2, .nId = 1224, .aName = "stateFO", .nVolume = 127 },
-    { .aFilename = "1230 - Vault Door", .nTransType = 2, .nId = 1230, .aName = "stateVD", .nVolume = 127 },
-    { .aFilename = "1231 - Outer Vault", .nTransType = 2, .nId = 1231, .aName = "stateVO", .nVolume = 127 },
-    { .aFilename = "1232 - Inner Vault", .nTransType = 2, .nId = 1232, .aName = "stateVI", .nVolume = 127 },
-    { .aFilename = "1233 - Ashtray Room", .nTransType = 2, .nId = 1233, .aName = "stateAR", .nVolume = 127 },
-    { .aFilename = "1234 - Ashtray Scary", .nTransType = 2, .nId = 1234, .aName = "stateAR_SCARY", .nVolume = 127 },
-    { .aFilename = "1235 - Ashtray Pensive", .nTransType = 2, .nId = 1235, .aName = "stateAR_PENSV", .nVolume = 127 },
-    { .aFilename = "1236 - Domino's Room", .nTransType = 2, .nId = 1236, .aName = "stateDR", .nVolume = 127 },
-    { .aFilename = "1240 - Conveyor Under", .nTransType = 3, .nId = 1240, .aName = "stateCY", .nHookLimit = 4, .nVolume = 127 },
-    { .aFilename = "1240 - Conveyor Under", .nTransType = 3, .nId = 1241, .aName = "stateCW", .nVolume = 127 },
-    { .aFilename = "1241 - Crane Intro", .nTransType = 2, .nId = 1242, .aName = "stateCV", .nVolume = 127 },
-    { .aFilename = "1243 - Anchor Room", .nTransType = 3, .nId = 1243, .aName = "stateAC", .nVolume = 127 },
-    { .aFilename = "1244 - Glottis Hanging", .nTransType = 2, .nId = 1244, .aName = "stateGH", .nVolume = 127 },
-    { .aFilename = "1245 - End of the World", .nTransType = 2, .nId = 1245, .aName = "stateEW", .nVolume = 127 },
-    { .aFilename = "1246 - End World Later", .nTransType = 2, .nId = 1246, .aName = "stateEW_LATER", .nVolume = 127 },
-    { .aFilename = "1241 - Crane Intro", .nTransType = 2, .nId = 1247, .aName = "stateCU", .nVolume = 127 },
-    { .aFilename = "1250 - Upper Beach", .nTransType = 3, .nId = 1250, .aName = "stateBU", .nVolume = 127 },
-    { .aFilename = "1250 - Upper Beach", .nTransType = 3, .nId = 1251, .aName = "stateBL", .nVolume = 127 },
-    { .aFilename = "1252 - Lower Beach Boat", .nTransType = 3, .nId = 1252, .aName = "stateBL_BOAT", .nVolume = 127 },
-    { .aFilename = "1253 - Lamancha Sub", .nTransType = 2, .nId = 1253, .aName = "stateLU", .nVolume = 127 },
-    { .aFilename = "1254 - Crane Later", .nTransType = 2, .nId = 1254, .aName = "stateCUV_LATER", .nVolume = 127 },
-    { .aFilename = "1301 - Temple Gate", .nTransType = 3, .nId = 1301, .aName = "stateTG", .nVolume = 127 },
-    { .aFilename = "1301 - Temple Gate", .nTransType = 3, .nId = 1302, .aName = "stateBS", .nVolume = 127 },
-    { .aFilename = "1303 - Truck Depot", .nTransType = 2, .nId = 1303, .aName = "stateTD", .nVolume = 105 },
-    { .aFilename = "1306 - Mayan Train Pad", .nTransType = 3, .nId = 1306, .aName = "stateMT_CHEPITO", .nHookSlot = 143, .nVolume = 127 },
-    { .aFilename = "1304 - Mayan Train Sta", .nTransType = 3, .nId = 1304, .aName = "stateMT", .nHookSlot = 143, .nVolume = 127 },
-    { .aFilename = "1305 - Mayan Workshop", .nTransType = 2, .nId = 1305, .aName = "stateMY", .nVolume = 127 },
-    { .aFilename = "1307 - Mechanic's Kitch", .nTransType = 2, .nId = 1307, .aName = "stateMK", .nHookLimit = 4, .nVolume = 40, .nPan = 64 },
-    { .aFilename = "1310 - Jello Bomb", .nTransType = 3, .nId = 1310, .aName = "stateJB", .nVolume = 127 },
-    { .aFilename = "1310 - Jello Bomb", .nTransType = 3, .nId = 1311, .aName = "stateXB_YEAR4", .nVolume = 127 },
-    { .aFilename = "1125 - Smooth Hector", .nTransType = 3, .nId = 1312, .aName = "stateBI_CLBYR4", .nHookSlot = 150, .nHookLimit = 4, .nFade = 200, .nVolume = 20, .nPan = 64 },
-    { .aFilename = "1125 - Smooth Hector", .nTransType = 3, .nId = 1313, .aName = "stateBI_KITYR4", .nHookSlot = 150, .nHookLimit = 4, .nFade = 200, .nVolume = 50, .nPan = 32 },
-    { .aFilename = "1125 - Smooth Hector", .nTransType = 3, .nId = 1314, .aName = "stateBK_YR4", .nHookSlot = 150, .nHookLimit = 4, .nFade = 200, .nVolume = 105, .nPan = 75 },
-    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1315, .aName = "stateHB_YR4", .nVolume = 127 },
-    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1316, .aName = "stateBW_YR4", .nVolume = 127 },
-    { .aFilename = "1122 - Blue Exterior", .nTransType = 3, .nId = 1317, .aName = "stateBE_YR4", .nVolume = 127 },
-    { .aFilename = "1332 - Hector's Foyer", .nTransType = 3, .nId = 1318, .aName = "stateHN", .nVolume = 127 },
-    { .aFilename = "1319 - Florist Video", .nTransType = 2, .nId = 1319, .aName = "stateFVID", .nVolume = 127 },
-    { .aFilename = "1320 - New LSA HQ", .nTransType = 2, .nId = 1320, .aName = "stateNQ", .nVolume = 127 },
-    { .aFilename = "1321 - LSA Sewer", .nTransType = 3, .nId = 1321, .aName = "stateLW", .nVolume = 127 },
-    { .aFilename = "1321 - LSA Sewer", .nTransType = 3, .nId = 1322, .aName = "stateSH", .nVolume = 127 },
-    { .aFilename = "1323 - Sewer Maze", .nTransType = 3, .nId = 1323, .aName = "stateZW", .nHookLimit = 2, .nVolume = 127 },
-    { .aFilename = "1324 - Albinozod", .nTransType = 3, .nId = 1324, .aName = "stateAT", .nVolume = 127 },
-    { .aFilename = "1334 - Albino Trap", .nTransType = 3, .nId = 1334, .aName = "stateAT_TRAP", .nVolume = 127 },
-    { .aFilename = "1325 - Florist Shop", .nTransType = 3, .nId = 1325, .aName = "stateFP", .nHookSlot = 162, .nVolume = 127 },
-    { .aFilename = "1326 - Florist Shop Int", .nTransType = 3, .nId = 1326, .aName = "stateFI", .nHookSlot = 162, .nVolume = 127 },
-    { .aFilename = "1327 - Florist OK", .nTransType = 2, .nId = 1327, .aName = "stateFI_OK", .nVolume = 127 },
-    { .aFilename = "1323 - Sewer Maze", .nTransType = 3, .nId = 1328, .aName = "stateTE", .nHookLimit = 2, .nVolume = 127 },
-    { .aFilename = "1329 - Theater Backstag", .nTransType = 2, .nId = 1329, .aName = "stateTH", .nHookLimit = 4, .nVolume = 127 },
-    { .aFilename = "1330 - Lemans Lobby", .nTransType = 2, .nId = 1330, .aName = "stateLY", .nVolume = 127 },
-    { .aFilename = "1330 - Lemans Lobby", .nTransType = 2, .nId = 1331, .aName = "stateLY_CHOW", .nVolume = 60 },
-    { .aFilename = "1333 - Brennis Talk", .nTransType = 2, .nId = 1333, .aName = "stateLY_BREN", .nVolume = 127 },
-    { .aFilename = "1332 - Hector's Foyer", .nTransType = 3, .nId = 1332, .aName = "stateHF", .nVolume = 127 },
-    { .aFilename = "1342 - Neon Ledge", .nTransType = 2, .nId = 1340, .aName = "stateNL", .nVolume = 127 },
-    { .aFilename = "1350 - Meadow Flowers", .nTransType = 2, .nId = 1350, .aName = "stateMF", .nVolume = 127 },
-    { .aFilename = "1351 - Meadow", .nTransType = 2, .nId = 1351, .aName = "stateME", .nVolume = 127 },
-    { .aFilename = "1352 - Car Head", .nTransType = 2, .nId = 1352, .aName = "stateHI", .nVolume = 127 },
-    { .aFilename = "1353 - Greenhouse Appr", .nTransType = 2, .nId = 1353, .aName = "stateGE", .nVolume = 127 },
-    { .aFilename = "1355 - Shootout", .nTransType = 2, .nId = 1355, .aName = "stateSHOOT", .nVolume = 127 },
-    { .aFilename = "1354 - Game Ending", .nTransType = 2, .nId = 1354, .aName = "stateEND", .nVolume = 127 },
-    { .aFilename = "1400 - Start Credits", .nTransType = 2, .nId = 1400, .aName = "stateOPEN_CRED", .nVolume = 127 },
-    { .aFilename = "1401 - Smooth Hector", .nTransType = 2, .nId = 1401, .aName = "stateEND_CRED", .nFade = 20, .nVolume = 105 },
-    { .nId = 1500, .aName = "stateMenu", .nVolume = 127 }
-};
-/* 0x1001ae4c, 4 bytes */ GRIM_DATA("1001ae4c") unsigned char DAT_1001ae4c[4] = {0};
-/* 0x1001ae50, 3444 bytes */ GRIM_DATA("1001ae50") ImMusicEntry g_aImSeqTable[41] = {
-    { .nId = 2000, .aName = "SEQ_NULL", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2001 - Climb Rope", .nTransType = 2, .nId = 2001, .aName = "seqClimbRope", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2010 - Glottis OK", .nTransType = 2, .nId = 2010, .aName = "seqGlottisOK", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2020 - Reap Bruno", .nTransType = 2, .nId = 2020, .aName = "seqReapBruno", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2030 - Ledgepeckers", .nTransType = 2, .nId = 2030, .aName = "seqLedgepeckers", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2050 - Glottis Heart", .nTransType = 2, .nId = 2050, .aName = "seqGlottisHeart", .nFade = 300, .nVolume = 105 },
-    { .aFilename = "2055 - Slingshot Bone", .nTransType = 2, .nId = 2055, .aName = "seqSlingshotBone", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2060 - Glott Tree Fall", .nTransType = 2, .nId = 2060, .aName = "seqGlottTreeFall", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2070 - Beaver Fly", .nTransType = 2, .nId = 2070, .aName = "seqBeaverFly", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2071 - Beaver Sink", .nTransType = 2, .nId = 2071, .aName = "seqBeaverSink", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2080 - Meet Velasco", .nTransType = 2, .nId = 2080, .aName = "seqMeetVelasco", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2140 - Ooo Bonewagon", .nTransType = 2, .nId = 2140, .aName = "seqGlottSingBone", .nFade = 300, .nVolume = 127, .nPan = 75 },
-    { .aFilename = "2141 - Ooo Meche", .nTransType = 2, .nId = 2141, .aName = "seqMannySingMeche", .nFade = 300, .nVolume = 127, .nPan = 75 },
-    { .aFilename = "2155 - Find Detector", .nTransType = 2, .nId = 2155, .aName = "seqFindDetector", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2156 - Glott Drink Wine", .nTransType = 2, .nId = 2156, .aName = "seqGlottDrinkWine", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2157 - Glott No Wine", .nTransType = 2, .nId = 2157, .aName = "seqGlottNoWine", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2161 - Raoul Appears", .nTransType = 2, .nId = 2161, .aName = "seqRaoulAppears", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2162 - Raoul KO", .nTransType = 2, .nId = 2162, .aName = "seqRaoulKO", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2163 - Raoul Dissed", .nTransType = 2, .nId = 2163, .aName = "seqRaoulDissed", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2165 - Fake Tix", .nTransType = 2, .nId = 2165, .aName = "seqFakeTix", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2180 - Befriend Commies", .nTransType = 2, .nId = 2180, .aName = "seqBefriendCommies", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2186 - Nick Punchout", .nTransType = 2, .nId = 2186, .aName = "seqNickPunchout", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2200 - Yr 3 Iris", .nTransType = 2, .nId = 2200, .aName = "seqYr3Iris", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2210 - Hit Men", .nTransType = 2, .nId = 2210, .aName = "seqHitMen", .nFade = 700, .nVolume = 127 },
-    { .aFilename = "2230 - Open Vault", .nTransType = 2, .nId = 2230, .aName = "seqOpenVault", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2235 - Dead Tix", .nTransType = 2, .nId = 2235, .aName = "seqDeadTix", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2240 - Sprinkler", .nTransType = 2, .nId = 2240, .aName = "seqSprinkler", .nFade = 500, .nVolume = 127 },
-    { .aFilename = "2250 - Crane Track", .nTransType = 2, .nId = 2250, .aName = "seqCraneTrack", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2255 - Crane Fall", .nTransType = 2, .nId = 2255, .aName = "seqCraneFall", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2300 - Yr 4 Iris", .nTransType = 2, .nId = 2300, .aName = "seqYr4Iris", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2301 - Pop Bruno Casket", .nTransType = 2, .nId = 2301, .aName = "seqPopBrunoCasket", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2310 - Rocket Idea", .nTransType = 2, .nId = 2310, .aName = "seqRocketIdea", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2320 - Jello Suspense", .nTransType = 2, .nId = 2320, .aName = "seqJelloSuspense", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2325 - Lumbago Lemo", .nTransType = 2, .nId = 2325, .aName = "seqLumbagoLemo", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2327 - Breath Mint", .nTransType = 2, .nId = 2327, .aName = "seqBreathMint", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2330 - Pigeon Fly", .nTransType = 2, .nId = 2330, .aName = "seqPigeonFly", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2340 - Coffee On Boys", .nTransType = 2, .nId = 2340, .aName = "seqCoffeeOnBoys", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2350 - Sprout Aha", .nTransType = 2, .nId = 2350, .aName = "seqSproutAha", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2360 - Chowchilla Bye", .nTransType = 2, .nId = 2360, .aName = "seqChowchillaBye", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2370 - Salvador Death", .nTransType = 2, .nId = 2370, .aName = "seqSalvadorDeath", .nFade = 300, .nVolume = 127 },
-    { .aFilename = "2399 - End Credits", .nTransType = 2, .nId = 2399, .aName = "seqEndCredits", .nFade = 200, .nVolume = 127 }
-};
-/* 0x1001bbc4, 4 bytes */ GRIM_DATA("1001bbc4") unsigned char DAT_1001bbc4[4] = {0};
-/* 0x1001bbc8, 10944 bytes */ GRIM_DATA("1001bbc8") ImNameAlias g_aImNameAlias[171] = {
-    { .aFrom = "1001 - Manny's Office", .aTo = "1001 - Manny's Office.IMC" },
-    { .aFrom = "1002 - Mr. Frustration", .aTo = "1002 - Mr. Frustration.IMC" },
-    { .aFrom = "1008 - Domino's Office", .aTo = "1008 - Domino's Office.IMC" },
-    { .aFrom = "1009 - Copal's Office", .aTo = "1009 - Copal's Office.IMC" },
-    { .aFrom = "1010 - Ledge", .aTo = "1010 - Ledge.IMC" },
-    { .aFrom = "1011 - Roof", .aTo = "1011 - Roof.IMC" },
-    { .aFrom = "1020 - Tube Room", .aTo = "1020 - Tube Room.IMC" },
-    { .aFrom = "1021 - Brennis", .aTo = "1021 - Brennis.IMC" },
-    { .aFrom = "1022 - Lobby", .aTo = "1022 - Lobby.IMC" },
-    { .aFrom = "1023 - Packing Room", .aTo = "1023 - Packing Room.IMC" },
-    { .aFrom = "1030 - Garage", .aTo = "1030 - Garage.IMC" },
-    { .aFrom = "1031 - Glottis' Shop", .aTo = "1031 - Glottis' Shop.IMC" },
-    { .aFrom = "1040 - Festival Wet", .aTo = "1040 - Festival Wet.IMC" },
-    { .aFrom = "1041 - Festival Dry", .aTo = "1041 - Festival Dry.IMC" },
-    { .aFrom = "1050 - Headquarters", .aTo = "1050 - Headquarters.IMC" },
-    { .aFrom = "1060 - Real World", .aTo = "1060 - Real World.IMC" },
-    { .aFrom = "1070 - Stump Room", .aTo = "1070 - Stump Room.IMC" },
-    { .aFrom = "1071 - Signpost Room", .aTo = "1071 - Signpost Room.IMC" },
-    { .aFrom = "1072 - Navigation", .aTo = "1072 - Navigation.IMC" },
-    { .aFrom = "1074 - Bone Wagon", .aTo = "1074 - Bone Wagon.IMC" },
-    { .aFrom = "1075 - Spider's Eye", .aTo = "1075 - Spider's Eye.IMC" },
-    { .aFrom = "1076 - Spider Room", .aTo = "1076 - Spider Room.IMC" },
-    { .aFrom = "1077 - Tree Pump Amb", .aTo = "1077 - Tree Pump Amb.IMC" },
-    { .aFrom = "1078 - Tree Pump", .aTo = "1078 - Tree Pump.IMC" },
-    { .aFrom = "1080 - Beaver Room Lbby", .aTo = "1080 - Beaver Room Lbby.IMC" },
-    { .aFrom = "1081 - Beaver Dam", .aTo = "1081 - Beaver Dam.IMC" },
-    { .aFrom = "1083 - Beaver Room", .aTo = "1083 - Beaver Room.IMC" },
-    { .aFrom = "1084 - Foggy Cactus", .aTo = "1084 - Foggy Cactus.IMC" },
-    { .aFrom = "1085 - Rubamat Exterior", .aTo = "1085 - Rubamat Exterior.IMC" },
-    { .aFrom = "1087 - Blue Hector", .aTo = "1087 - Blue Hector.IMC" },
-    { .aFrom = "1101 - Cafe Office", .aTo = "1101 - Cafe Office.IMC" },
-    { .aFrom = "1102 - Cafe Intercom", .aTo = "1102 - Cafe Intercom.IMC" },
-    { .aFrom = "1103 - Coat Check", .aTo = "1103 - Coat Check.IMC" },
-    { .aFrom = "1104 - Lupe", .aTo = "1104 - Lupe.IMC" },
-    { .aFrom = "1106 - Glottis Noodle", .aTo = "1106 - Glottis Noodle.IMC" },
-    { .aFrom = "1108 - Casino Interior", .aTo = "1108 - Casino Interior.IMC" },
-    { .aFrom = "1109 - Cafe Exterior", .aTo = "1109 - Cafe Exterior.IMC" },
-    { .aFrom = "1110 - Cafe Ledge", .aTo = "1110 - Cafe Ledge.IMC" },
-    { .aFrom = "1112 - Rusty Sans Vox", .aTo = "1112 - Rusty Sans Vox.IMC" },
-    { .aFrom = "1120 - Elevator Station", .aTo = "1120 - Elevator Station.IMC" },
-    { .aFrom = "1122 - Blue Exterior", .aTo = "1122 - Blue Exterior.IMC" },
-    { .aFrom = "1123 - Blue Casket Ins", .aTo = "1123 - Blue Casket Ins.IMC" },
-    { .aFrom = "1124 - Blue Casket Amb", .aTo = "1124 - Blue Casket Amb.IMC" },
-    { .aFrom = "1125 - Hector Steps Out", .aTo = "1125 - Hector Steps Out.IMC" },
-    { .aFrom = "1125 - Smooth Hector", .aTo = "1125 - Smooth Hector.IMC" },
-    { .aFrom = "1127 - Limbo Dock", .aTo = "1127 - Limbo Dock.IMC" },
-    { .aFrom = "1128 - Limbo Talk", .aTo = "1128 - Limbo Talk.IMC" },
-    { .aFrom = "1129 - Limbo Poem", .aTo = "1129 - Limbo Poem.IMC" },
-    { .aFrom = "1130 - Dry Dock", .aTo = "1130 - Dry Dock.IMC" },
-    { .aFrom = "1131 - Dry Dock Strike", .aTo = "1131 - Dry Dock Strike.IMC" },
-    { .aFrom = "1132 - Lighthouse Ext", .aTo = "1132 - Lighthouse Ext.IMC" },
-    { .aFrom = "1133 - Lola's Last", .aTo = "1133 - Lola's Last.IMC" },
-    { .aFrom = "1140 - Police Station", .aTo = "1140 - Police Station.IMC" },
-    { .aFrom = "1141 - Police Interior", .aTo = "1141 - Police Interior.IMC" },
-    { .aFrom = "1143 - Morgue", .aTo = "1143 - Morgue.IMC" },
-    { .aFrom = "1145 - Bridge Blimp", .aTo = "1145 - Bridge Blimp.IMC" },
-    { .aFrom = "1146 - LOL Security Ext", .aTo = "1146 - LOL Security Ext.IMC" },
-    { .aFrom = "1147 - LOL Security Int", .aTo = "1147 - LOL Security Int.IMC" },
-    { .aFrom = "1148 - Carla's Life", .aTo = "1148 - Carla's Life.IMC" },
-    { .aFrom = "1149 - Bomb", .aTo = "1149 - Bomb.IMC" },
-    { .aFrom = "1152 - Track Stairs", .aTo = "1152 - Track Stairs.IMC" },
-    { .aFrom = "1153 - Track Base", .aTo = "1153 - Track Base.IMC" },
-    { .aFrom = "1154 - Kitty Hall", .aTo = "1154 - Kitty Hall.IMC" },
-    { .aFrom = "1155 - Sanspoof", .aTo = "1155 - Sanspoof.IMC" },
-    { .aFrom = "1156 - Kitty Stables", .aTo = "1156 - Kitty Stables.IMC" },
-    { .aFrom = "1160 - High Roller Hall", .aTo = "1160 - High Roller Hall.IMC" },
-    { .aFrom = "1161 - High Roller Lnge", .aTo = "1161 - High Roller Lnge.IMC" },
-    { .aFrom = "1162 - Glottis Gambling", .aTo = "1162 - Glottis Gambling.IMC" },
-    { .aFrom = "1163 - Max's Office", .aTo = "1163 - Max's Office.IMC" },
-    { .aFrom = "1167 - Dillopede Elev", .aTo = "1167 - Dillopede Elev.IMC" },
-    { .aFrom = "1170 - Extendo Bridge", .aTo = "1170 - Extendo Bridge.IMC" },
-    { .aFrom = "1173 - Scrimshaw Int", .aTo = "1173 - Scrimshaw Int.IMC" },
-    { .aFrom = "1174 - Scrim Sleep", .aTo = "1174 - Scrim Sleep.IMC" },
-    { .aFrom = "1180 - Note to Manny", .aTo = "1180 - Note to Manny.IMC" },
-    { .aFrom = "1201 - Lola Zapata", .aTo = "1201 - Lola Zapata.IMC" },
-    { .aFrom = "1202 - Inside The Lola", .aTo = "1202 - Inside The Lola.IMC" },
-    { .aFrom = "1203 - Engine Room", .aTo = "1203 - Engine Room.IMC" },
-    { .aFrom = "1204 - Porthole", .aTo = "1204 - Porthole.IMC" },
-    { .aFrom = "1210 - Sunken Lola", .aTo = "1210 - Sunken Lola.IMC" },
-    { .aFrom = "1211 - Pearl Crater Sub", .aTo = "1211 - Pearl Crater Sub.IMC" },
-    { .aFrom = "1220 - Miner's Room", .aTo = "1220 - Miner's Room.IMC" },
-    { .aFrom = "1222 - Exterior Airlock", .aTo = "1222 - Exterior Airlock.IMC" },
-    { .aFrom = "1223 - Factory Hub", .aTo = "1223 - Factory Hub.IMC" },
-    { .aFrom = "1224 - Foreman's Office", .aTo = "1224 - Foreman's Office.IMC" },
-    { .aFrom = "1230 - Vault Door", .aTo = "1230 - Vault Door.IMC" },
-    { .aFrom = "1231 - Outer Vault", .aTo = "1231 - Outer Vault.IMC" },
-    { .aFrom = "1232 - Inner Vault", .aTo = "1232 - Inner Vault.IMC" },
-    { .aFrom = "1233 - Ashtray Room", .aTo = "1233 - Ashtray Room.IMC" },
-    { .aFrom = "1234 - Ashtray Scary", .aTo = "1234 - Ashtray Scary.IMC" },
-    { .aFrom = "1235 - Ashtray Pensive", .aTo = "1235 - Ashtray Pensive.IMC" },
-    { .aFrom = "1236 - Domino's Room", .aTo = "1236 - Domino's Room.IMC" },
-    { .aFrom = "1240 - Conveyor Under", .aTo = "1240 - Conveyor Under.IMC" },
-    { .aFrom = "1241 - Crane Intro", .aTo = "1241 - Crane Intro.IMC" },
-    { .aFrom = "1243 - Anchor Room", .aTo = "1243 - Anchor Room.IMC" },
-    { .aFrom = "1244 - Glottis Hanging", .aTo = "1244 - Glottis Hanging.IMC" },
-    { .aFrom = "1245 - End of the World", .aTo = "1245 - End of the World.IMC" },
-    { .aFrom = "1246 - End World Later", .aTo = "1246 - End World Later.IMC" },
-    { .aFrom = "1250 - Upper Beach", .aTo = "1250 - Upper Beach.IMC" },
-    { .aFrom = "1252 - Lower Beach Boat", .aTo = "1252 - Lower Beach Boat.IMC" },
-    { .aFrom = "1253 - Lamancha Sub", .aTo = "1253 - Lamancha Sub.IMC" },
-    { .aFrom = "1254 - Crane Later", .aTo = "1254 - Crane Later.IMC" },
-    { .aFrom = "1301 - Temple Gate", .aTo = "1301 - Temple Gate.IMC" },
-    { .aFrom = "1303 - Truck Depot", .aTo = "1303 - Truck Depot.IMC" },
-    { .aFrom = "1304 - Mayan Train Sta", .aTo = "1304 - Mayan Train Sta.IMC" },
-    { .aFrom = "1305 - Mayan Workshop", .aTo = "1305 - Mayan Workshop.IMC" },
-    { .aFrom = "1306 - Mayan Train Pad", .aTo = "1306 - Mayan Train Pad.IMC" },
-    { .aFrom = "1307 - Mechanic's Kitch", .aTo = "1307 - Mechanic's Kitch.IMC" },
-    { .aFrom = "1310 - Jello Bomb", .aTo = "1310 - Jello Bomb.IMC" },
-    { .aFrom = "1319 - Florist Video", .aTo = "1319 - Florist Video.IMC" },
-    { .aFrom = "1320 - New LSA HQ", .aTo = "1320 - New LSA HQ.IMC" },
-    { .aFrom = "1321 - LSA Sewer", .aTo = "1321 - LSA Sewer.IMC" },
-    { .aFrom = "1323 - Sewer Maze", .aTo = "1323 - Sewer Maze.IMC" },
-    { .aFrom = "1324 - Albinozod", .aTo = "1324 - Albinozod.IMC" },
-    { .aFrom = "1325 - Florist Shop", .aTo = "1325 - Florist Shop.IMC" },
-    { .aFrom = "1326 - Florist Shop Int", .aTo = "1326 - Florist Shop Int.IMC" },
-    { .aFrom = "1327 - Florist OK", .aTo = "1327 - Florist OK.IMC" },
-    { .aFrom = "1329 - Theater Backstag", .aTo = "1329 - Theater Backstag.IMC" },
-    { .aFrom = "1330 - Lemans Lobby", .aTo = "1330 - Lemans Lobby.IMC" },
-    { .aFrom = "1332 - Hector's Foyer", .aTo = "1332 - Hector's Foyer.IMC" },
-    { .aFrom = "1333 - Brennis Talk", .aTo = "1333 - Brennis Talk.IMC" },
-    { .aFrom = "1334 - Albino Trap", .aTo = "1334 - Albino Trap.IMC" },
-    { .aFrom = "1342 - Neon Ledge", .aTo = "1342 - Neon Ledge.IMC" },
-    { .aFrom = "1350 - Meadow Flowers", .aTo = "1350 - Meadow Flowers.IMC" },
-    { .aFrom = "1351 - Meadow", .aTo = "1351 - Meadow.IMC" },
-    { .aFrom = "1352 - Car Head", .aTo = "1352 - Car Head.IMC" },
-    { .aFrom = "1353 - Greenhouse Appr", .aTo = "1353 - Greenhouse Appr.IMC" },
-    { .aFrom = "1354 - Game Ending", .aTo = "1354 - Game Ending.IMC" },
-    { .aFrom = "1355 - Shootout", .aTo = "1355 - Shootout.IMC" },
-    { .aFrom = "1400 - Start Credits", .aTo = "1400 - Start Credits.IMC" },
-    { .aFrom = "1401 - Smooth Hector", .aTo = "1401 - Smooth Hector.IMC" },
-    { .aFrom = "2001 - Climb Rope", .aTo = "2001 - Climb Rope.IMC" },
-    { .aFrom = "2010 - Glottis OK", .aTo = "2010 - Glottis OK.IMC" },
-    { .aFrom = "2020 - Reap Bruno", .aTo = "2020 - Reap Bruno.IMC" },
-    { .aFrom = "2030 - Ledgepeckers", .aTo = "2030 - Ledgepeckers.IMC" },
-    { .aFrom = "2050 - Glottis Heart", .aTo = "2050 - Glottis Heart.IMC" },
-    { .aFrom = "2055 - Slingshot Bone", .aTo = "2055 - Slingshot Bone.IMC" },
-    { .aFrom = "2060 - Glott Tree Fall", .aTo = "2060 - Glott Tree Fall.IMC" },
-    { .aFrom = "2070 - Beaver Fly", .aTo = "2070 - Beaver Fly.IMC" },
-    { .aFrom = "2071 - Beaver Sink", .aTo = "2071 - Beaver Sink.IMC" },
-    { .aFrom = "2080 - Meet Velasco", .aTo = "2080 - Meet Velasco.IMC" },
-    { .aFrom = "2140 - Ooo Bonewagon", .aTo = "2140 - Ooo Bonewagon.IMC" },
-    { .aFrom = "2141 - Ooo Meche", .aTo = "2141 - Ooo Meche.IMC" },
-    { .aFrom = "2155 - Find Detector", .aTo = "2155 - Find Detector.IMC" },
-    { .aFrom = "2156 - Glott Drink Wine", .aTo = "2156 - Glott Drink Wine.IMC" },
-    { .aFrom = "2157 - Glott No Wine", .aTo = "2157 - Glott No Wine.IMC" },
-    { .aFrom = "2161 - Raoul Appears", .aTo = "2161 - Raoul Appears.IMC" },
-    { .aFrom = "2162 - Raoul KO", .aTo = "2162 - Raoul KO.IMC" },
-    { .aFrom = "2163 - Raoul Dissed", .aTo = "2163 - Raoul Dissed.IMC" },
-    { .aFrom = "2165 - Fake Tix", .aTo = "2165 - Fake Tix.IMC" },
-    { .aFrom = "2180 - Befriend Commies", .aTo = "2180 - Befriend Commies.IMC" },
-    { .aFrom = "2186 - Nick Punchout", .aTo = "2186 - Nick Punchout.IMC" },
-    { .aFrom = "2200 - Yr 3 Iris", .aTo = "2200 - Yr 3 Iris.IMC" },
-    { .aFrom = "2210 - Hit Men", .aTo = "2210 - Hit Men.IMC" },
-    { .aFrom = "2230 - Open Vault", .aTo = "2230 - Open Vault.IMC" },
-    { .aFrom = "2235 - Dead Tix", .aTo = "2235 - Dead Tix.IMC" },
-    { .aFrom = "2240 - Sprinkler", .aTo = "2240 - Sprinkler.IMC" },
-    { .aFrom = "2250 - Crane Track", .aTo = "2250 - Crane Track.IMC" },
-    { .aFrom = "2255 - Crane Fall", .aTo = "2255 - Crane Fall.IMC" },
-    { .aFrom = "2300 - Yr 4 Iris", .aTo = "2300 - Yr 4 Iris.IMC" },
-    { .aFrom = "2301 - Pop Bruno Casket", .aTo = "2301 - Pop Bruno Casket.IMC" },
-    { .aFrom = "2310 - Rocket Idea", .aTo = "2310 - Rocket Idea.IMC" },
-    { .aFrom = "2320 - Jello Suspense", .aTo = "2320 - Jello Suspense.IMC" },
-    { .aFrom = "2325 - Lumbago Lemo", .aTo = "2325 - Lumbago Lemo.IMC" },
-    { .aFrom = "2327 - Breath Mint", .aTo = "2327 - Breath Mint.IMC" },
-    { .aFrom = "2330 - Pigeon Fly", .aTo = "2330 - Pigeon Fly.IMC" },
-    { .aFrom = "2340 - Coffee On Boys", .aTo = "2340 - Coffee On Boys.IMC" },
-    { .aFrom = "2350 - Sprout Aha", .aTo = "2350 - Sprout Aha.IMC" },
-    { .aFrom = "2360 - Chowchilla Bye", .aTo = "2360 - Chowchilla Bye.IMC" },
-    { .aFrom = "2370 - Salvador Death", .aTo = "2370 - Salvador Death.IMC" },
-    { .aFrom = "2399 - End Credits", .aTo = "2399 - End Credits.IMC" },
-    {0}
-};
-/* 0x1001e688, 4 bytes */ GRIM_DATA("1001e688") unsigned int g_dwLocalMusic = 0x1;
-/* 0x1001e68c, 40 bytes */ GRIM_DATA("1001e68c") char s_ERROR_unrecognized_opcode_in_scr_1001e68c[40] = "ERROR:unrecognized opcode in script...";
-/* 0x1001e6b4, 36 bytes */ GRIM_DATA("1001e6b4") char s_ERROR_script_already_initialized_1001e6b4[36] = "ERROR:script already initialized...";
-/* 0x1001e6d8, 32 bytes */ GRIM_DATA("1001e6d8") char s_ERROR_script_not_initialized____1001e6d8[32] = "ERROR:script not initialized...";
-/* 0x1001e6f8, 40 bytes */ /* loose */ char s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[40] = "SCRIPT ERR: save buffer too small...";
-/* 0x1001e720, 24 bytes */ /* loose */ char s_ERR__bogus_sequence____1001e720[24] = "ERR: bogus sequence...";
-/* 0x1001e738, 24 bytes */ /* loose */ char s_ERR__bogus_attribute____1001e738[24] = "ERR: bogus attribute...";
-/* 0x1001e750, 24 bytes */ /* loose */ char s_Set_attr__lu_to__lu____1001e750[24] = "Set attr %lu to %lu...";
-/* 0x1001e768, 32 bytes */ /* loose */ char s_SCRIPT_ERR__bogus_trans_type____1001e768[32] = "SCRIPT ERR: bogus trans type...";
-/* 0x1001e788, 36 bytes */ /* loose */ char s_SCRIPT_ERR__failed_start_stream__1001e788[36] = "SCRIPT ERR: failed start stream...";
-/* 0x1001e7ac, 20 bytes */ /* loose */ char s_No_stream_sound____1001e7ac[20] = "No stream sound...";
-/* 0x1001e7c0, 16 bytes */ /* loose */ char s_and_PAN__lu____1001e7c0[16] = "and PAN=%lu...";
-/* 0x1001e7d0, 20 bytes */ /* loose */ char s_fading_VOL__lu____1001e7d0[20] = "fading VOL=%lu...";
-/* 0x1001e7e4, 16 bytes */ /* loose */ char s_set_pan__lu____1001e7e4[16] = "set pan=%lu...";
-/* 0x1001e7f4, 8 bytes */ /* loose */ char s_clear_1001e7f4[8] = "clear";
-/* 0x1001e7fc, 8 bytes */ /* loose */ char s_exit2_1001e7fc[8] = "exit2";
-/* 0x1001e804, 8 bytes */ /* loose */ char s_exit_1001e804[8] = "exit";
-/* 0x1001e80c, 12 bytes */ /* loose */ char s_vol__lu____1001e80c[12] = "vol=%lu...";
-/* 0x1001e818, 12 bytes */ /* loose */ char s_FADE__lu____1001e818[12] = "FADE=%lu...";
-/* 0x1001e824, 12 bytes */ /* loose */ char s_HOOK__lu____1001e824[12] = "HOOK=%lu...";
-/* 0x1001e830, 28 bytes */ /* loose */ char s_SCRIPT_ERR__Unable_to_open_1001e830[28] = "SCRIPT ERR: Unable to open ";
-/* 0x1001e84c, 12 bytes */ /* loose */ char s_opening_1001e84c[12] = "opening ";
-/* 0x1001e858, 8 bytes */ /* loose */ char s__end_1001e858[8] = "_end";
-/* 0x1001e860, 16 bytes */ /* loose */ char s_Trans_null____1001e860[16] = "Trans null...";
-/* 0x1001e870, 40 bytes */ /* loose */ char s_ERR_callback_got_marker______end_1001e870[40] = "ERR:callback got marker != '_end'...";
-/* 0x1001e898, 12 bytes */ /* loose */ char s_CALLBACK__1001e898[12] = "CALLBACK:";
-/* 0x1001e8a4, 4 bytes */ /* loose */ unsigned char g_dwTAIL_BYTES[4] = { 0x50, 0x46 };
-/* 0x1001e8a8, 4 bytes */ /* loose */ unsigned char g_dwImVoiceBufferSize[4] = { 0x80, 0xaf, 0x02 };
-/* 0x1001e8ac, 4 bytes */ /* loose */ unsigned char g_dwImVoiceGulpSize[4] = { 0xe0, 0xab };
-/* 0x1001e8b0, 4 bytes */ /* loose */ unsigned char g_dwImVoiceCriticalSize[4] = { 0xc0, 0x57, 0x01 };
-/* 0x1001e8b4, 4 bytes */ /* loose */ unsigned char g_dwImMusicBufferSize[4] = { 0x80, 0x0e, 0x08 };
-/* 0x1001e8b8, 4 bytes */ /* loose */ unsigned char g_dwImMusicGulpSize[4] = { 0xe0, 0xab };
-/* 0x1001e8bc, 4 bytes */ /* loose */ unsigned char g_dwImMusicCriticalSize[4] = { 0x00, 0x5f, 0x05 };
-/* 0x1001e8c0, 4 bytes */ /* loose */ unsigned int g_dwImLargeFadeSize = 0x55730;
-/* 0x1001e8c4, 4 bytes */ /* loose */ unsigned int g_dwImLargeFadeCount = 0x1;
-/* 0x1001e8c8, 4 bytes */ /* loose */ unsigned int g_dwImSmallFadeSize = 0xac44;
-/* 0x1001e8cc, 4 bytes */ /* loose */ unsigned int g_dwImSmallFadeCount = 0x4;
-/* 0x1001e8d0, 4 bytes */ /* loose */ unsigned char g_dwImNonPurgeCacheSize[4] = { 0xe0, 0x93, 0x04 };
-/* 0x1001e8d4, 4 bytes */ /* loose */ unsigned int g_dwImWaveMixCount = 0x8;
-/* 0x1001e8d8, 4 bytes */ /* loose */ unsigned char g_dwEffectsHeapSize[4] = { 0x00, 0x00, 0x10 };
-/* 0x1001e8dc, 4 bytes */ /* loose */ unsigned char g_bMuscriptLocal[4] = { 0x01 };
-/* 0x1001e8e0, 32 bytes */ /* loose */ char s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0[32] = "C:\\grimsrc\\libs\\iMUSE\\sounds.c";
-/* 0x1001e900, 4 bytes */ /* loose */ char s_rb_1001e900[4] = "rb";
-/* 0x1001e904, 4 bytes */ /* loose */ unsigned int DAT_1001e904 = 0x70696c2e;
-/* 0x1001e908, 4 bytes */ /* loose */ unsigned char DAT_1001e908[4] = {0};
-static unsigned char grim_anchor_1001e90c[0] __attribute__((section(".data$grim_1001e90c"), aligned(16), used));
-static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_1001e90c_"), aligned(4), used));
-/* 0x1001e90c, 4 bytes */ GRIM_DATA("1001e90cz") unsigned char DAT_1001e90c[4] = { 0x4f, 0x46, 0x46 };
-/* 0x1001e910, 32 bytes */ GRIM_DATA("1001e910") unsigned char DAT_1001e910[32] = {
-    0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x69, 0x6d, 0x75, 0x73, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70,
-    0x74, 0x20, 0x72, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x3b, 0x20, 0x65, 0x6e, 0x64
-};
-/* 0x1001e930, 20 bytes */ GRIM_DATA("1001e930") unsigned char DAT_1001e930[20] = {
-    0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x69, 0x6d, 0x75, 0x73, 0x65, 0x20, 0x72, 0x65, 0x73, 0x74,
-    0x6f, 0x72, 0x65
-};
-/* 0x1001e944, 20 bytes */ GRIM_DATA("1001e944") unsigned char DAT_1001e944[20] = { 0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x63, 0x61, 0x63, 0x68, 0x65, 0x72, 0x65, 0x73, 0x65, 0x74 };
-/* 0x1001e958, 24 bytes */ GRIM_DATA("1001e958") unsigned char DAT_1001e958[24] = {
-    0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x43, 0x6c, 0x6f, 0x73, 0x65, 0x56, 0x6f, 0x69, 0x63, 0x65,
-    0x46, 0x69, 0x6c, 0x65
-};
-/* 0x1001e970, 12 bytes */ GRIM_DATA("1001e970") unsigned char DAT_1001e970[12] = { 0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x46, 0x6c, 0x75, 0x73, 0x68 };
-/* 0x1001e97c, 16 bytes */ GRIM_DATA("1001e97c") unsigned char DAT_1001e97c[16] = { 0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x53, 0x74, 0x6f, 0x70, 0x61, 0x6c, 0x6c };
-/* 0x1001e98c, 8 bytes */ GRIM_DATA("1001e98c") unsigned char DAT_1001e98c[8] = { 0x42, 0x65, 0x66, 0x6f, 0x72, 0x65 };
-/* 0x1001e994, 8 bytes */ GRIM_DATA("1001e994") char s_LIP__1001e994[8] = "LIP!";
-/* 0x1001e99c, 28 bytes */ GRIM_DATA("1001e99c") unsigned char DAT_1001e99c[28] = {
-    0x70, 0x46, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x21, 0x3d, 0x20, 0x28, 0x28, 0x76,
-    0x6f, 0x69, 0x64, 0x20, 0x2a, 0x29, 0x30, 0x29
-};
-/* 0x1001e9b8, 8 bytes */ GRIM_DATA("1001e9b8") unsigned char DAT_1001e9b8[8] = { 0x70, 0x45, 0x6e, 0x74, 0x72, 0x79 };
-/* 0x1001e9c0, 16 bytes */ GRIM_DATA("1001e9c0") char s_VIMA_1001e9c0[16] = "VIMA\000\000\000\000u\230\000\000s\230";
-/* 0x1001e9d0, 16 bytes */ GRIM_DATA("1001e9d0") void *DAT_1001e9d0[4] = {
+/* 0x100172c0, 4 bytes */ GRIM_DATA("100172c0z") unsigned int g_dwWvSlicingHalted __asm__("_g_dwWvSlicingHalted") = 0x1;
+/* 0x1001e8a8, 4 bytes */ /* loose */ unsigned char g_dwImVoiceBufferSize[4] __asm__("_g_dwImVoiceBufferSize") = { 0x80, 0xaf, 0x02 };
+/* 0x1001e8ac, 4 bytes */ /* loose */ unsigned char g_dwImVoiceGulpSize[4] __asm__("_g_dwImVoiceGulpSize") = { 0xe0, 0xab };
+/* 0x1001e8b0, 4 bytes */ /* loose */ unsigned char g_dwImVoiceCriticalSize[4] __asm__("_g_dwImVoiceCriticalSize") = { 0xc0, 0x57, 0x01 };
+/* 0x1001e8b4, 4 bytes */ /* loose */ unsigned char g_dwImMusicBufferSize[4] __asm__("_g_dwImMusicBufferSize") = { 0x80, 0x0e, 0x08 };
+/* 0x1001e8b8, 4 bytes */ /* loose */ unsigned char g_dwImMusicGulpSize[4] __asm__("_g_dwImMusicGulpSize") = { 0xe0, 0xab };
+/* 0x1001e8bc, 4 bytes */ /* loose */ unsigned char g_dwImMusicCriticalSize[4] __asm__("_g_dwImMusicCriticalSize") = { 0x00, 0x5f, 0x05 };
+/* 0x1001e8c0, 4 bytes */ /* loose */ unsigned int g_dwImLargeFadeSize __asm__("_g_dwImLargeFadeSize") = 0x55730;
+/* 0x1001e8c4, 4 bytes */ /* loose */ unsigned int g_dwImLargeFadeCount __asm__("_g_dwImLargeFadeCount") = 0x1;
+/* 0x1001e8c8, 4 bytes */ /* loose */ unsigned int g_dwImSmallFadeSize __asm__("_g_dwImSmallFadeSize") = 0xac44;
+/* 0x1001e8cc, 4 bytes */ /* loose */ unsigned int g_dwImSmallFadeCount __asm__("_g_dwImSmallFadeCount") = 0x4;
+/* 0x1001e8d0, 4 bytes */ /* loose */ unsigned char g_dwImNonPurgeCacheSize[4] __asm__("_g_dwImNonPurgeCacheSize") = { 0xe0, 0x93, 0x04 };
+/* 0x1001e8d8, 4 bytes */ /* loose */ unsigned char g_dwEffectsHeapSize[4] __asm__("_g_dwEffectsHeapSize") = { 0x00, 0x00, 0x10 };
+/* 0x1001e8e0, 32 bytes */ /* loose */ char s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0[32] __asm__("_s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0") = "C:\\grimsrc\\libs\\iMUSE\\sounds.c";
+/* 0x1001e900, 4 bytes */ /* loose */ char s_rb_1001e900[4] __asm__("_s_rb_1001e900") = "rb";
+/* 0x1001e9d0, 16 bytes */ GRIM_DATA("1001e9d0") void *DAT_1001e9d0[4] __asm__("_DAT_1001e9d0") = {
     (void *)f_FUN_1000ba80, (void *)f_Im_DiscardMessage, (void *)f_Im_DiscardMessage, 0
 };
-/* 0x1001e9e0, 8 bytes */ GRIM_DATA("1001e9e0") void *PTR_exit_1001e9e0[2] = {
+/* 0x1001e9e0, 8 bytes */ GRIM_DATA("1001e9e0") void *PTR_exit_1001e9e0[2] __asm__("_PTR_exit_1001e9e0") = {
     (void *)f_exit, 0
 };
-/* 0x1001e9e8, 4 bytes, unused (dead) */ GRIM_DATA("1001e9e8") unsigned char DAT_1001e9e8[4];
-/* 0x1001e9ec, 32 bytes, unused (dead) */ GRIM_DATA("1001e9ec") unsigned char DAT_1001e9ec[32];
-/* 0x1001ea0c, 16 bytes, unused (dead) */ GRIM_DATA("1001ea0c") unsigned char DAT_1001ea0c[16];
-/* 0x1001ea1c, 16 bytes, unused (dead) */ GRIM_DATA("1001ea1c") unsigned char DAT_1001ea1c[16];
-/* 0x1001ea2c, 124 bytes, unused (dead) */ GRIM_DATA("1001ea2c") unsigned char DAT_1001ea2c[124];
-/* 0x1001eaa8, 4 bytes, unused (dead) */ GRIM_DATA("1001eaa8") unsigned char DAT_1001eaa8[4];
-/* 0x1001eaac, 4 bytes, unused (dead) */ GRIM_DATA("1001eaac") unsigned char DAT_1001eaac[4];
-/* 0x1001eab0, 16 bytes, unused (dead) */ GRIM_DATA("1001eab0") unsigned char PTR_DAT_1001eab0[16];
-/* 0x1001eac0, 16 bytes, unused (dead) */ GRIM_DATA("1001eac0") unsigned char DAT_1001eac0[16];
-/* 0x1001ead0, 32 bytes */ GRIM_DATA("1001ead0") unsigned char DAT_1001ead0[32] = {
+/* 0x1001e9e8, 4 bytes, unused (dead) */ GRIM_DATA("1001e9e8") unsigned char DAT_1001e9e8[4] __asm__("_DAT_1001e9e8");
+/* 0x1001e9ec, 32 bytes, unused (dead) */ GRIM_DATA("1001e9ec") unsigned char DAT_1001e9ec[32] __asm__("_DAT_1001e9ec");
+/* 0x1001ea0c, 16 bytes, unused (dead) */ GRIM_DATA("1001ea0c") unsigned char DAT_1001ea0c[16] __asm__("_DAT_1001ea0c");
+/* 0x1001ea1c, 16 bytes, unused (dead) */ GRIM_DATA("1001ea1c") unsigned char DAT_1001ea1c[16] __asm__("_DAT_1001ea1c");
+/* 0x1001ea2c, 124 bytes, unused (dead) */ GRIM_DATA("1001ea2c") unsigned char DAT_1001ea2c[124] __asm__("_DAT_1001ea2c");
+/* 0x1001eaa8, 4 bytes, unused (dead) */ GRIM_DATA("1001eaa8") unsigned char DAT_1001eaa8[4] __asm__("_DAT_1001eaa8");
+/* 0x1001eaac, 4 bytes, unused (dead) */ GRIM_DATA("1001eaac") unsigned char DAT_1001eaac[4] __asm__("_DAT_1001eaac");
+/* 0x1001eab0, 16 bytes, unused (dead) */ GRIM_DATA("1001eab0") unsigned char PTR_DAT_1001eab0[16] __asm__("_PTR_DAT_1001eab0");
+/* 0x1001eac0, 16 bytes, unused (dead) */ GRIM_DATA("1001eac0") unsigned char DAT_1001eac0[16] __asm__("_DAT_1001eac0");
+/* 0x1001ead0, 32 bytes */ GRIM_DATA("1001ead0") unsigned char DAT_1001ead0[32] __asm__("_DAT_1001ead0") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
     0x01
 };
-/* 0x1001eaf0, 48 bytes */ GRIM_DATA("1001eaf0") unsigned char DAT_1001eaf0[48] = {
+/* 0x1001eaf0, 48 bytes */ GRIM_DATA("1001eaf0") unsigned char DAT_1001eaf0[48] __asm__("_DAT_1001eaf0") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
     0x02
 };
-/* 0x1001eb20, 497 bytes, unused (dead) */ GRIM_DATA("1001eb20") unsigned char DAT_1001eb20[497];
-/* 0x1001ed11, 31 bytes, unused (dead) */ GRIM_DATA("1001eb20") unsigned char DAT_1001ed11[31];
-/* 0x1001ed30, 4 bytes */ GRIM_DATA("1001ed30") unsigned int DAT_1001ed30 = 0x1;
-/* 0x1001ed34, 356 bytes */ GRIM_DATA("1001ed34") unsigned char DAT_1001ed34[356] = {
+/* 0x1001eb20, 497 bytes, unused (dead) */ GRIM_DATA("1001eb20") unsigned char DAT_1001eb20[497] __asm__("_DAT_1001eb20");
+/* 0x1001ed11, 31 bytes, unused (dead) */ GRIM_DATA("1001eb20") unsigned char DAT_1001ed11[31] __asm__("_DAT_1001ed11");
+/* 0x1001ed30, 4 bytes */ GRIM_DATA("1001ed30") unsigned int DAT_1001ed30 __asm__("_DAT_1001ed30") = 0x1;
+/* 0x1001ed34, 356 bytes */ GRIM_DATA("1001ed34") unsigned char DAT_1001ed34[356] __asm__("_DAT_1001ed34") = {
     0x16, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,
     0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00,
     0x0d, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00,
@@ -1978,13 +1177,13 @@ static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_10
     0x02, 0x00, 0x00, 0x00, 0xd7, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x00, 0x18, 0x07, 0x00, 0x00,
     0x0c
 };
-/* 0x1001ee98, 4 bytes */ GRIM_DATA("1001ee98") void *PTR_FUN_1001ee98 = (void *)f_FUN_100114b0;
-/* 0x1001ee9c, 4 bytes, unused (dead) */ GRIM_DATA("1001ee9c") unsigned char PTR_FUN_1001ee9c[4];
-/* 0x1001eea0, 4 bytes, unused (dead) */ GRIM_DATA("1001eea0") unsigned char PTR_FUN_1001eea0[4];
-/* 0x1001eea4, 4 bytes, unused (dead) */ GRIM_DATA("1001eea4") unsigned char PTR_FUN_1001eea4[4];
-/* 0x1001eea8, 4 bytes, unused (dead) */ GRIM_DATA("1001eea8") unsigned char PTR_FUN_1001eea8[4];
-/* 0x1001eeac, 4 bytes, unused (dead) */ GRIM_DATA("1001eeac") unsigned char PTR_FUN_1001eeac[4];
-/* 0x1001eeb0, 352 bytes */ GRIM_DATA("1001eeb0") grim_span_1001eeb0 DAT_1001eeb0 = {
+/* 0x1001ee98, 4 bytes */ GRIM_DATA("1001ee98") void *PTR_FUN_1001ee98 __asm__("_PTR_FUN_1001ee98") = (void *)f_FUN_100114b0;
+/* 0x1001ee9c, 4 bytes, unused (dead) */ GRIM_DATA("1001ee9c") unsigned char PTR_FUN_1001ee9c[4] __asm__("_PTR_FUN_1001ee9c");
+/* 0x1001eea0, 4 bytes, unused (dead) */ GRIM_DATA("1001eea0") unsigned char PTR_FUN_1001eea0[4] __asm__("_PTR_FUN_1001eea0");
+/* 0x1001eea4, 4 bytes, unused (dead) */ GRIM_DATA("1001eea4") unsigned char PTR_FUN_1001eea4[4] __asm__("_PTR_FUN_1001eea4");
+/* 0x1001eea8, 4 bytes, unused (dead) */ GRIM_DATA("1001eea8") unsigned char PTR_FUN_1001eea8[4] __asm__("_PTR_FUN_1001eea8");
+/* 0x1001eeac, 4 bytes, unused (dead) */ GRIM_DATA("1001eeac") unsigned char PTR_FUN_1001eeac[4] __asm__("_PTR_FUN_1001eeac");
+/* 0x1001eeb0, 352 bytes */ GRIM_DATA("1001eeb0") grim_span_1001eeb0 DAT_1001eeb0 __asm__("_DAT_1001eeb0") = {
     { 0x43 },
     (void *)&DAT_100154a8,
     {0},
@@ -2016,12 +1215,12 @@ static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_10
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x43
     }
 };
-/* 0x1001f010, 4 bytes */ GRIM_DATA("1001f010") void *PTR_DAT_1001f010 = (void *)&DAT_1001f01a;
-/* 0x1001f014, 6 bytes */ GRIM_DATA("1001f014") grim_span_1001f014 DAT_1001f014 = {
+/* 0x1001f010, 4 bytes */ GRIM_DATA("1001f010") void *PTR_DAT_1001f010 __asm__("_PTR_DAT_1001f010") = (void *)&DAT_1001f01a;
+/* 0x1001f014, 6 bytes */ GRIM_DATA("1001f014") grim_span_1001f014 DAT_1001f014 __asm__("_DAT_1001f014") = {
     (void *)&DAT_1001f01a,
     {0}
 };
-/* 0x1001f01a, 514 bytes */ GRIM_DATA("1001f014") unsigned char DAT_1001f01a[514] = {
+/* 0x1001f01a, 514 bytes */ GRIM_DATA("1001f014") unsigned char DAT_1001f01a[514] __asm__("_DAT_1001f01a") = {
     0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00,
     0x20, 0x00, 0x28, 0x00, 0x28, 0x00, 0x28, 0x00, 0x28, 0x00, 0x28, 0x00, 0x20, 0x00, 0x20, 0x00,
     0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00, 0x20, 0x00,
@@ -2039,20 +1238,20 @@ static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_10
     0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x02, 0x00,
     0x02, 0x00, 0x02, 0x00, 0x02, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x10, 0x00, 0x20
 };
-/* 0x1001f21c, 4 bytes */ GRIM_DATA("1001f21c") unsigned int DAT_1001f21c = 0x1;
-/* 0x1001f220, 4 bytes */ GRIM_DATA("1001f220") unsigned char DAT_1001f220[4] = { 0x2e };
-/* 0x1001f224, 12 bytes */ GRIM_DATA("1001f224") unsigned char DAT_1001f224[12] = { 0x01 };
-/* 0x1001f230, 8 bytes */ GRIM_DATA("1001f230") unsigned char DAT_1001f230[8] = { 0xff, 0xff, 0xff, 0xff };
-/* 0x1001f238, 40 bytes */ GRIM_DATA("1001f238") unsigned char DAT_1001f238[40] = { 0xff, 0xff, 0xff, 0xff, 0x00, 0x0a };
-/* 0x1001f260, 8 bytes, unused (dead) */ GRIM_DATA("1001f260") unsigned char DAT_1001f260[8];
-/* 0x1001f268, 4 bytes, unused (dead) */ GRIM_DATA("1001f268") unsigned char DAT_1001f268[4];
-/* 0x1001f26c, 4 bytes, unused (dead) */ GRIM_DATA("1001f26c") unsigned char DAT_1001f26c[4];
-/* 0x1001f270, 4 bytes, unused (dead) */ GRIM_DATA("1001f270") unsigned char DAT_1001f270[4];
-/* 0x1001f274, 4 bytes, unused (dead) */ GRIM_DATA("1001f274") unsigned char DAT_1001f274[4];
-/* 0x1001f278, 224 bytes, unused (dead) */ GRIM_DATA("1001f278") unsigned char DAT_1001f278[224];
-/* 0x1001f358, 8 bytes, unused (dead) */ GRIM_DATA("1001f358") unsigned char DAT_1001f358[8];
-/* 0x1001f360, 4 bytes */ GRIM_DATA("1001f360") unsigned int DAT_1001f360 = 0x2;
-/* 0x1001f364, 140 bytes */ GRIM_DATA("1001f364") void *DAT_1001f364[35] = {
+/* 0x1001f21c, 4 bytes */ GRIM_DATA("1001f21c") unsigned int DAT_1001f21c __asm__("_DAT_1001f21c") = 0x1;
+/* 0x1001f220, 4 bytes */ GRIM_DATA("1001f220") unsigned char DAT_1001f220[4] __asm__("_DAT_1001f220") = { 0x2e };
+/* 0x1001f224, 12 bytes */ GRIM_DATA("1001f224") unsigned char DAT_1001f224[12] __asm__("_DAT_1001f224") = { 0x01 };
+/* 0x1001f230, 8 bytes */ GRIM_DATA("1001f230") unsigned char DAT_1001f230[8] __asm__("_DAT_1001f230") = { 0xff, 0xff, 0xff, 0xff };
+/* 0x1001f238, 40 bytes */ GRIM_DATA("1001f238") unsigned char DAT_1001f238[40] __asm__("_DAT_1001f238") = { 0xff, 0xff, 0xff, 0xff, 0x00, 0x0a };
+/* 0x1001f260, 8 bytes, unused (dead) */ GRIM_DATA("1001f260") unsigned char DAT_1001f260[8] __asm__("_DAT_1001f260");
+/* 0x1001f268, 4 bytes, unused (dead) */ GRIM_DATA("1001f268") unsigned char DAT_1001f268[4] __asm__("_DAT_1001f268");
+/* 0x1001f26c, 4 bytes, unused (dead) */ GRIM_DATA("1001f26c") unsigned char DAT_1001f26c[4] __asm__("_DAT_1001f26c");
+/* 0x1001f270, 4 bytes, unused (dead) */ GRIM_DATA("1001f270") unsigned char DAT_1001f270[4] __asm__("_DAT_1001f270");
+/* 0x1001f274, 4 bytes, unused (dead) */ GRIM_DATA("1001f274") unsigned char DAT_1001f274[4] __asm__("_DAT_1001f274");
+/* 0x1001f278, 224 bytes, unused (dead) */ GRIM_DATA("1001f278") unsigned char DAT_1001f278[224] __asm__("_DAT_1001f278");
+/* 0x1001f358, 8 bytes, unused (dead) */ GRIM_DATA("1001f358") unsigned char DAT_1001f358[8] __asm__("_DAT_1001f358");
+/* 0x1001f360, 4 bytes */ GRIM_DATA("1001f360") unsigned int DAT_1001f360 __asm__("_DAT_1001f360") = 0x2;
+/* 0x1001f364, 140 bytes */ GRIM_DATA("1001f364") void *DAT_1001f364[35] __asm__("_DAT_1001f364") = {
     (void *)&DAT_10015720, (void *)0x8, (void *)&DAT_100156f4, (void *)0x9,
     (void *)&DAT_100156c8, (void *)0xa, (void *)&DAT_100156a4, (void *)0x10,
     (void *)&DAT_10015678, (void *)0x11, (void *)&DAT_10015648, (void *)0x12,
@@ -2063,19 +1262,19 @@ static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_10
     (void *)&DAT_100154e0, (void *)0x7a, (void *)&DAT_100154d0, (void *)0xfc,
     (void *)&DAT_100154cc, (void *)0xff, (void *)&DAT_100154bc
 };
-/* 0x1001f3f0, 24 bytes */ GRIM_DATA("1001f3f0") unsigned char DAT_1001f3f0[24] = {
+/* 0x1001f3f0, 24 bytes */ GRIM_DATA("1001f3f0") unsigned char DAT_1001f3f0[24] __asm__("_DAT_1001f3f0") = {
     0x00, 0x04, 0x00, 0x00, 0x01, 0xfc, 0xff, 0xff, 0x35, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x00,
     0x40, 0x00, 0x00, 0x00, 0xff, 0x03
 };
-/* 0x1001f408, 24 bytes, unused (dead) */ GRIM_DATA("1001f408") unsigned char DAT_1001f408[24];
-/* 0x1001f420, 4 bytes */ GRIM_DATA("1001f420") void *PTR_LOOP_1001f420 = (void *)&PTR_LOOP_1001f420;
-/* 0x1001f424, 12 bytes */ GRIM_DATA("1001f424") void *PTR_LOOP_1001f424[3] = {
+/* 0x1001f408, 24 bytes, unused (dead) */ GRIM_DATA("1001f408") unsigned char DAT_1001f408[24] __asm__("_DAT_1001f408");
+/* 0x1001f420, 4 bytes */ GRIM_DATA("1001f420") void *PTR_LOOP_1001f420 __asm__("_PTR_LOOP_1001f420") = (void *)&PTR_LOOP_1001f420;
+/* 0x1001f424, 12 bytes */ GRIM_DATA("1001f424") void *PTR_LOOP_1001f424[3] __asm__("_PTR_LOOP_1001f424") = {
     (void *)&PTR_LOOP_1001f420, (void *)&DAT_1001f438, (void *)&DAT_1001f438
 };
-/* 0x1001f430, 8 bytes */ GRIM_DATA("1001f430") unsigned char DAT_1001f430[8] = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
-/* 0x1001f438, 8200 bytes */ GRIM_DATA("1001f438") unsigned char DAT_1001f438[8200] = { 0xf0, 0x00, 0x00, 0x00, 0xf1 };
-/* 0x10021440, 4 bytes */ GRIM_DATA("10021440") void *PTR_LOOP_10021440 = (void *)&PTR_LOOP_1001f420;
-/* 0x10021444, 1932 bytes */ GRIM_DATA("10021444") grim_span_10021444 DAT_10021444 = {
+/* 0x1001f430, 8 bytes */ GRIM_DATA("1001f430") unsigned char DAT_1001f430[8] __asm__("_DAT_1001f430") = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
+/* 0x1001f438, 8200 bytes */ GRIM_DATA("1001f438") unsigned char DAT_1001f438[8200] __asm__("_DAT_1001f438") = { 0xf0, 0x00, 0x00, 0x00, 0xf1 };
+/* 0x10021440, 4 bytes */ GRIM_DATA("10021440") void *PTR_LOOP_10021440 __asm__("_PTR_LOOP_10021440") = (void *)&PTR_LOOP_1001f420;
+/* 0x10021444, 1932 bytes */ GRIM_DATA("10021444") grim_span_10021444 DAT_10021444 __asm__("_DAT_10021444") = {
     { 0xe0, 0x01 },
     (void *)&DAT_10015e1c,
     { 0x45, 0x4e, 0x55 },
@@ -2444,7 +1643,7 @@ static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_10
     (void *)&DAT_100157a8,
     { 0x50, 0x52, 0x59, 0x00, 0x38, 0x35, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x31, 0x32, 0x35, 0x32 }
 };
-/* 0x10021bd0, 136 bytes */ GRIM_DATA("10021bd0") unsigned char DAT_10021bd0[136] = {
+/* 0x10021bd0, 136 bytes */ GRIM_DATA("10021bd0") unsigned char DAT_10021bd0[136] __asm__("_DAT_10021bd0") = {
     0x05, 0x00, 0x00, 0xc0, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1d, 0x00, 0x00, 0xc0,
     0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x96, 0x00, 0x00, 0xc0, 0x04, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x8d, 0x00, 0x00, 0xc0, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -2455,7 +1654,7 @@ static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_10
     0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00,
     0x78, 0x00, 0x00, 0x00, 0x0a
 };
-/* 0x10021c58, 172 bytes */ GRIM_DATA("10021c58") void *DAT_10021c58[43] = {
+/* 0x10021c58, 172 bytes */ GRIM_DATA("10021c58") void *DAT_10021c58[43] __asm__("_DAT_10021c58") = {
     (void *)&DAT_10015fa4, (void *)&DAT_10015fa0, (void *)&DAT_10015f9c, (void *)&DAT_10015f98,
     (void *)&DAT_10015f94, (void *)&DAT_10015f90, (void *)&DAT_10015f8c, (void *)&DAT_10015f84,
     (void *)&DAT_10015f7c, (void *)&DAT_10015f74, (void *)&DAT_10015f68, (void *)&DAT_10015f5c,
@@ -2468,345 +1667,171 @@ static unsigned char grim_pad_1001e90c[12] __attribute__((section(".data$grim_10
     (void *)&DAT_10015ebc, (void *)&DAT_10015eb0, (void *)&DAT_10015eac, (void *)&DAT_10015ea8,
     (void *)&DAT_10015ea0, (void *)&DAT_10015e8c, (void *)&DAT_10015e84
 };
-/* 0x10021d04, 4 bytes */ GRIM_DATA("10021d04") void *DAT_10021d04 = (void *)&DAT_10021c58;
-/* 0x10021d08, 8 bytes */ GRIM_DATA("10021d08") unsigned char DAT_10021d08[8] = { 0x2e };
-/* 0x10021d10, 4 bytes */ GRIM_DATA("10021d10") void *DAT_10021d10 = (void *)&DAT_10021d08;
-/* 0x10021d14, 4 bytes */ GRIM_DATA("10021d14") void *DAT_10021d14 = (void *)&DAT_10033438;
-/* 0x10021d18, 40 bytes */ GRIM_DATA("10021d18") void *DAT_10021d18[10] = {
+/* 0x10021d04, 4 bytes */ GRIM_DATA("10021d04") void *DAT_10021d04 __asm__("_DAT_10021d04") = (void *)&DAT_10021c58;
+/* 0x10021d08, 8 bytes */ GRIM_DATA("10021d08") unsigned char DAT_10021d08[8] __asm__("_DAT_10021d08") = { 0x2e };
+/* 0x10021d10, 4 bytes */ GRIM_DATA("10021d10") void *DAT_10021d10 __asm__("_DAT_10021d10") = (void *)&DAT_10021d08;
+/* 0x10021d14, 4 bytes */ GRIM_DATA("10021d14") void *DAT_10021d14 __asm__("_DAT_10021d14") = (void *)&DAT_10033438;
+/* 0x10021d18, 40 bytes */ GRIM_DATA("10021d18") void *DAT_10021d18[10] __asm__("_DAT_10021d18") = {
     (void *)&DAT_10033438, (void *)&DAT_10033438, (void *)&DAT_10033438, (void *)&DAT_10033438,
     (void *)&DAT_10033438, (void *)&DAT_10033438, (void *)&DAT_10033438, (void *)&DAT_10033438,
     (void *)0x7f7f7f7f, (void *)0x7f7f7f7f
 };
-/* 0x10021d40, 32 bytes */ GRIM_DATA("10021d40") grim_span_10021d40 DAT_10021d40 = {
+/* 0x10021d40, 32 bytes */ GRIM_DATA("10021d40") grim_span_10021d40 DAT_10021d40 __asm__("_DAT_10021d40") = {
     (void *)&DAT_10021d10,
     {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x70, 0x00, 0x00,
             0x01, 0x00, 0x00, 0x00, 0xf0, 0xf1, 0xff, 0xff
     }
 };
-/* 0x10021d60, 64 bytes, unused (pointed at by unused data) */ GRIM_DATA("10021d60") unsigned char DAT_10021d60[64];
-/* 0x10021da0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("10021da0") unsigned char DAT_10021da0[8];
-/* 0x10021da8, 352 bytes, unused (dead) */ GRIM_DATA("10021da8") unsigned char DAT_10021da8[352];
-/* 0x10021f08, 568 bytes, unused (dead) */ GRIM_DATA("10021f08") unsigned char DAT_10021f08[568];
-/* 0x10022140, 128 bytes */ GRIM_DATA("10022140") unsigned char DAT_10022140[128] = {0};
-/* 0x100221c0, 11264 bytes */ GRIM_DATA("100221c0") unsigned char DAT_100221c0[11264] = {0};
-/* 0x10024dc0, 8 bytes */ GRIM_DATA("10024dc0") unsigned char DAT_10024dc0[8] = {0};
-/* 0x10024dc8, 4 bytes */ GRIM_DATA("10024dc8") unsigned char PTR_10024dc8[4] = {0};
-/* 0x10024dcc, 4 bytes */ GRIM_DATA("10024dcc") int g_dwLargeFadeBufs = 0;
-/* 0x10024dd0, 4 bytes */ GRIM_DATA("10024dd0") unsigned int g_dwLargeFadeFlags = 0x0;
-/* 0x10024dd4, 4 bytes */ GRIM_DATA("10024dd4") int g_dwSmallFadeBufs = 0;
-/* 0x10024dd8, 4 bytes */ GRIM_DATA("10024dd8") unsigned char g_dwPredictStream_jumpHook[4] = {0};
-/* 0x10024ddc, 4 bytes */ GRIM_DATA("10024ddc") unsigned char g_dwDpProcessTrack_critSize[4] = {0};
-/* 0x10024de0, 8 bytes */ GRIM_DATA("10024de0") unsigned char g_dwFadeStartedFlag[8] = {0};
-/* 0x10024de8, 8 bytes */ GRIM_DATA("10024de8") unsigned char g_dwStreamZones[8] = {0};
-/* 0x10024df0, 1192 bytes */ GRIM_DATA("10024df0") unsigned char DAT_10024df0[1192] = {0};
-/* 0x10025298, 8 bytes */ GRIM_DATA("10025298") unsigned char g_pSmallFadeFlags[8] = {0};
-/* 0x100252a0, 2076 bytes */ GRIM_DATA("100252a0") unsigned char g_dwDispatches[2076] = {0};
-/* 0x10025abc, 32036 bytes */ GRIM_DATA("10025abc") unsigned char DAT_10025abc[32036] = {0};
-/* 0x1002d7e0, 4 bytes */ GRIM_DATA("1002d7e0") unsigned char g_dwDpProcessTrack_curLevel[4] = {0};
-/* 0x1002d7e4, 4 bytes */ GRIM_DATA("1002d7e4") unsigned char g_dwDpProcessTrack_pauseFlag[4] = {0};
-/* 0x1002d7e8, 8 bytes */ GRIM_DATA("1002d7e8") unsigned char g_dwGoToNextRegion_fadeSize[8] = {0};
-/* 0x1002d7f0, 24 bytes */ GRIM_DATA("1002d7f0") unsigned char DAT_1002d7f0[24] = {0};
-/* 0x1002d808, 4 bytes */ GRIM_DATA("1002d808") unsigned int g_dwMemAddr = 0x0;
-/* 0x1002d80c, 4 bytes */ GRIM_DATA("1002d80c") unsigned int g_dwPrepareToJump_fadeSize = 0x0;
-/* 0x1002d810, 4 bytes */ GRIM_DATA("1002d810") unsigned char g_dwDpProcessTrack_bufSize[4] = {0};
-/* 0x1002d814, 4 bytes */ GRIM_DATA("1002d814") unsigned int DAT_1002d814 = 0x0;
-/* 0x1002d818, 4 bytes */ GRIM_DATA("1002d818") unsigned char DAT_1002d818[4] = {0};
-/* 0x1002d81c, 4 bytes */ GRIM_DATA("1002d81c") unsigned char DAT_1002d81c[4] = {0};
-/* 0x1002d820, 4 bytes */ GRIM_DATA("1002d820") unsigned int DAT_1002d820 = 0x0;
-/* 0x1002d824, 4 bytes */ GRIM_DATA("1002d824") int DAT_1002d824 = 0;
-/* 0x1002d828, 4 bytes */ GRIM_DATA("1002d828") unsigned int DAT_1002d828 = 0x0;
-/* 0x1002d82c, 4 bytes */ GRIM_DATA("1002d82c") unsigned int DAT_1002d82c = 0x0;
-/* 0x1002d830, 4 bytes */ GRIM_DATA("1002d830") unsigned char PTR_1002d830[4] = {0};
-/* 0x1002d834, 4 bytes */ GRIM_DATA("1002d834") unsigned char PTR_1002d834[4] = {0};
-/* 0x1002d838, 4 bytes */ GRIM_DATA("1002d838") unsigned char PTR_1002d838[4] = {0};
-/* 0x1002d83c, 4 bytes */ GRIM_DATA("1002d83c") unsigned char PTR_1002d83c[4] = {0};
-/* 0x1002d840, 4 bytes */ GRIM_DATA("1002d840") unsigned char DAT_1002d840[4] = {0};
-/* 0x1002d844, 4 bytes */ GRIM_DATA("1002d844") unsigned int DAT_1002d844 = 0x0;
-/* 0x1002d848, 4 bytes */ GRIM_DATA("1002d848") unsigned int DAT_1002d848 = 0x0;
-/* 0x1002d84c, 4 bytes */ GRIM_DATA("1002d84c") unsigned int g_dwCurrentWriteIndex = 0x0;
-/* 0x1002d850, 4 bytes */ GRIM_DATA("1002d850") unsigned char DAT_1002d850[4] = {0};
-/* 0x1002d854, 4 bytes */ GRIM_DATA("1002d854") unsigned char DAT_1002d854[4] = {0};
-/* 0x1002d858, 8 bytes */ GRIM_DATA("1002d858") unsigned int g_dwFadesOn = 0x0;
-/* 0x1002d85c, 4 bytes: the rest of g_dwFadesOn's span */ GRIM_DATA("1002d858") static unsigned char g_dwFadesOn__tail[4] __attribute__((used)) = {0};
-/* 0x1002d860, 32 bytes */ GRIM_DATA("1002d860") unsigned char g_dwFades[32] = {0};
-/* 0x1002d880, 608 bytes */ GRIM_DATA("1002d880") unsigned char DAT_1002d880[608] = {0};
-/* 0x1002dae0, 4 bytes */ GRIM_DATA("1002dae0") unsigned char g_dwOpenSoundFunc[4] = {0};
-/* 0x1002dae4, 4 bytes */ GRIM_DATA("1002dae4") unsigned char g_dwCloseSoundFunc[4] = {0};
-/* 0x1002dae8, 4 bytes */ GRIM_DATA("1002dae8") unsigned char DAT_1002dae8[4] = {0};
-/* 0x1002daec, 515 bytes */ GRIM_DATA("1002daec") unsigned char DAT_1002daec[515] = {0};
-/* 0x1002dcef, 1 bytes */ GRIM_DATA("1002daec") unsigned char DAT_1002dcef[1] = {0};
-/* 0x1002dcf0, 4 bytes */ GRIM_DATA("1002dcf0") unsigned char g_dwLoadSoundFunc[4] = {0};
-/* 0x1002dcf4, 4 bytes */ GRIM_DATA("1002dcf4") unsigned char g_dwUnloadSoundFunc[4] = {0};
-/* 0x1002dcf8, 4 bytes */ GRIM_DATA("1002dcf8") unsigned char g_pLoadedList[4] = {0};
-/* 0x1002dcfc, 4 bytes */ GRIM_DATA("1002dcfc") unsigned char g_pOpenedList[4] = {0};
-/* 0x1002dd00, 8 bytes */ GRIM_DATA("1002dd00") unsigned char g_dwInitFlag[8] = {0};
-/* 0x1002dd08, 4 bytes */ GRIM_DATA("1002dd08") unsigned char DAT_1002dd08[4] = {0};
-/* 0x1002dd0c, 4 bytes */ GRIM_DATA("1002dd0c") unsigned char DAT_1002dd0c[4] = {0};
-/* 0x1002dd10, 4 bytes */ GRIM_DATA("1002dd10") unsigned int UINT_1002dd10 = 0x0;
-/* 0x1002dd14, 4 bytes */ GRIM_DATA("1002dd14") unsigned char DAT_1002dd14[4] = {0};
-/* 0x1002dd18, 4 bytes */ GRIM_DATA("1002dd18") unsigned int DAT_1002dd18 = 0x0;
-/* 0x1002dd1c, 4 bytes */ GRIM_DATA("1002dd1c") unsigned char DAT_1002dd1c[4] = {0};
-/* 0x1002dd20, 4 bytes */ GRIM_DATA("1002dd20") unsigned int UINT_1002dd20 = 0x0;
-/* 0x1002dd24, 4 bytes */ GRIM_DATA("1002dd24") unsigned char DAT_1002dd24[4] = {0};
-/* 0x1002dd28, 4 bytes */ GRIM_DATA("1002dd28") unsigned char DAT_1002dd28[4] = {0};
-/* 0x1002dd2c, 4 bytes */ GRIM_DATA("1002dd2c") unsigned int DAT_1002dd2c = 0x0;
-/* 0x1002dd30, 2 bytes */ GRIM_DATA("1002dd30") unsigned char DAT_1002dd30[2] = {0};
-/* 0x1002dd32, 2 bytes */ GRIM_DATA("1002dd30") unsigned char DAT_1002dd32[2] = {0};
-/* 0x1002dd34, 4 bytes */ GRIM_DATA("1002dd34") unsigned char DAT_1002dd34[4] = {0};
-/* 0x1002dd38, 4 bytes */ GRIM_DATA("1002dd38") unsigned char DAT_1002dd38[4] = {0};
-/* 0x1002dd3c, 2 bytes */ GRIM_DATA("1002dd3c") unsigned char DAT_1002dd3c[2] = {0};
-/* 0x1002dd3e, 2 bytes */ GRIM_DATA("1002dd3c") unsigned char DAT_1002dd3e[2] = {0};
-/* 0x1002dd40, 8 bytes */ GRIM_DATA("1002dd40") unsigned char DAT_1002dd40[8] = {0};
-/* 0x1002dd48, 8 bytes */ GRIM_DATA("1002dd48") unsigned char DAT_1002dd48[8] = {0};
-/* 0x1002dd50, 8 bytes */ GRIM_DATA("1002dd50") unsigned int UINT_1002dd50 = 0x0;
-/* 0x1002dd54, 4 bytes: the rest of UINT_1002dd50's span */ GRIM_DATA("1002dd50") static unsigned char UINT_1002dd50__tail[4] __attribute__((used)) = {0};
-/* 0x1002dd58, 4 bytes */ GRIM_DATA("1002dd58") unsigned char DAT_1002dd58[4] = {0};
-/* 0x1002dd5c, 4 bytes */ GRIM_DATA("1002dd5c") unsigned char DAT_1002dd5c[4] = {0};
-/* 0x1002dd60, 2 bytes */ GRIM_DATA("1002dd60") unsigned char DAT_1002dd60[2] = {0};
-/* 0x1002dd62, 2 bytes */ GRIM_DATA("1002dd60") unsigned short DAT_1002dd62 = 0x0;
-/* 0x1002dd64, 4 bytes */ GRIM_DATA("1002dd64") unsigned char DAT_1002dd64[4] = {0};
-/* 0x1002dd68, 4 bytes */ GRIM_DATA("1002dd68") unsigned char DAT_1002dd68[4] = {0};
-/* 0x1002dd6c, 2 bytes */ GRIM_DATA("1002dd6c") unsigned char DAT_1002dd6c[2] = {0};
-/* 0x1002dd6e, 2 bytes */ GRIM_DATA("1002dd6c") unsigned char DAT_1002dd6e[2] = {0};
-/* 0x1002dd70, 4 bytes */ GRIM_DATA("1002dd70") unsigned char DAT_1002dd70[4] = {0};
-/* 0x1002dd74, 4 bytes */ GRIM_DATA("1002dd74") unsigned int DAT_1002dd74 = 0x0;
-/* 0x1002dd78, 4 bytes */ GRIM_DATA("1002dd78") unsigned char DAT_1002dd78[4] = {0};
-/* 0x1002dd7c, 4 bytes */ GRIM_DATA("1002dd7c") unsigned int DAT_1002dd7c = 0x0;
-/* 0x1002dd80, 4 bytes */ GRIM_DATA("1002dd80") unsigned int g_dwGroupVols = 0x0;
-/* 0x1002dd84, 60 bytes */ GRIM_DATA("1002dd84") unsigned char DAT_1002dd84[60] = {0};
-/* 0x1002ddc0, 4 bytes */ GRIM_DATA("1002ddc0") unsigned int g_dwGroupEffVols = 0x0;
-/* 0x1002ddc4, 60 bytes */ GRIM_DATA("1002ddc4") unsigned char DAT_1002ddc4[60] = {0};
-/* 0x1002de00, 256 bytes */ GRIM_DATA("1002de00") unsigned char DAT_1002de00[256] = {0};
-/* 0x1002df00, 4 bytes */ GRIM_DATA("1002df00") int g_dwPauseCount = 0;
-/* 0x1002df04, 4 bytes */ GRIM_DATA("1002df04") unsigned int g_dwRunning50HzCount = 0x0;
-/* 0x1002df08, 4 bytes */ GRIM_DATA("1002df08") unsigned int g_dwRunning10HzCount = 0x0;
-/* 0x1002df0c, 4 bytes */ GRIM_DATA("1002df0c") unsigned int g_dwIm_initialized = 0x0;
-/* 0x1002df10, 8 bytes */ GRIM_DATA("1002df10") unsigned char g_dwIntFlag[8] = {0};
-/* 0x1002df18, 4 bytes */ GRIM_DATA("1002df18") unsigned int g_dwOutChannelCount = 0x0;
-/* 0x1002df1c, 4 bytes */ GRIM_DATA("1002df1c") unsigned int g_dwDataSizeInBytes = 0x0;
-/* 0x1002df20, 4 bytes */ GRIM_DATA("1002df20") unsigned char g_dwSoftLTable[4] = {0};
-/* 0x1002df24, 4 bytes */ GRIM_DATA("1002df24") unsigned int g_dwMixBufSize = 0x0;
-/* 0x1002df28, 8 bytes */ GRIM_DATA("1002df28") unsigned char DAT_1002df28[8] = {0};
-/* 0x1002df30, 44 bytes */ GRIM_DATA("1002df30") unsigned char g_aMxEndMix_wavHeader[44] = {0};
-/* 0x1002df5c, 4 bytes */ GRIM_DATA("1002df5c") unsigned char g_pMixBuf[4] = {0};
-/* 0x1002df60, 4 bytes */ GRIM_DATA("1002df60") unsigned int g_dwRecordState = 0x0;
-/* 0x1002df64, 4 bytes */ GRIM_DATA("1002df64") unsigned int g_dwRecordFile = 0x0;
-/* 0x1002df68, 4 bytes */ GRIM_DATA("1002df68") unsigned char DAT_1002df68[4] = {0};
-/* 0x1002df6c, 4 bytes */ GRIM_DATA("1002df6c") unsigned char DAT_1002df6c[4] = {0};
-/* 0x1002df70, 8 bytes */ GRIM_DATA("1002df70") unsigned int g_dwCurrentState = 0x0;
-/* 0x1002df74, 4 bytes: the rest of g_dwCurrentState's span */ GRIM_DATA("1002df70") static unsigned char g_dwCurrentState__tail[4] __attribute__((used)) = {0};
-/* 0x1002df78, 12 bytes */ GRIM_DATA("1002df78") unsigned char DAT_1002df78[12] = {0};
-/* 0x1002df84, 728 bytes */ GRIM_DATA("1002df84") unsigned char DAT_1002df84[728] = {0};
-/* 0x1002e25c, 168 bytes */ GRIM_DATA("1002e25c") unsigned char DAT_1002e25c[168] = {0};
-/* 0x1002e304, 4 bytes */ GRIM_DATA("1002e304") unsigned int DAT_1002e304 = 0x0;
-/* 0x1002e308, 4 bytes */ GRIM_DATA("1002e308") int g_dwCurrentSequence = 0;
-/* 0x1002e30c, 4 bytes */ GRIM_DATA("1002e30c") int g_dwCurrentCuePoint = 0;
-/* 0x1002e310, 1 bytes */ GRIM_DATA("1002e310") char g_bTrans_name = 0;
-/* 0x1002e311, 31 bytes */ GRIM_DATA("1002e310") unsigned char DAT_1002e311[31] = {0};
-/* 0x1002e330, 8 bytes */ GRIM_DATA("1002e330") unsigned char DAT_1002e330[8] = {0};
-/* 0x1002e338, 8 bytes */ GRIM_DATA("1002e338") unsigned char DAT_1002e338[8] = {0};
-/* 0x1002e340, 2000 bytes */ GRIM_DATA("1002e340") unsigned char g_aLipSfx1Data[2000] = {0};
-/* 0x1002eb10, 4 bytes */ GRIM_DATA("1002eb10") unsigned char g_aStreamID[4] = {0};
-/* 0x1002eb14, 31 bytes */ GRIM_DATA("1002eb14") unsigned char DAT_1002eb14[31] = {0};
-/* 0x1002eb33, 1 bytes */ GRIM_DATA("1002eb14") unsigned char DAT_1002eb33[1] = {0};
-/* 0x1002eb34, 8 bytes */ GRIM_DATA("1002eb34") unsigned char DAT_1002eb34[8] = {0};
-/* 0x1002eb3c, 156 bytes */ GRIM_DATA("1002eb3c") unsigned char DAT_1002eb3c[156] = {0};
-/* 0x1002ebd8, 3 bytes */ GRIM_DATA("1002ebd8") unsigned char g_dwMlListSize[3] = {0};
-/* 0x1002ebdb, 5 bytes */ GRIM_DATA("1002ebd8") unsigned char DAT_1002ebdb[5] = {0};
-/* 0x1002ebe0, 48 bytes */ GRIM_DATA("1002ebe0") ImBufferInfo g_aImBufferInfo[3] = {0};
-/* 0x1002ec10, 8 bytes */ GRIM_DATA("1002ec10") unsigned char g_dwMlEntryCount[8] = {0};
-/* 0x1002ec18, 2000 bytes */ GRIM_DATA("1002ec18") unsigned char g_aLipSfx2Data[2000] = {0};
-/* 0x1002f3e8, 2000 bytes */ GRIM_DATA("1002f3e8") unsigned char g_bLipStreamData[2000] = {0};
-/* 0x1002fbb8, 24 bytes */ GRIM_DATA("1002fbb8") unsigned char DAT_1002fbb8[24] = {0};
-/* 0x1002fbd0, 1999 bytes */ GRIM_DATA("1002fbd0") unsigned char g_aLipSfx3Data[1999] = {0};
-/* 0x1003039f, 1 bytes */ GRIM_DATA("1002fbd0") unsigned char DAT_1003039f = 0x0;
-/* 0x100303a0, 4 bytes */ GRIM_DATA("100303a0") unsigned char g_aMcmpFileHandles[4] = {0};
-/* 0x100303a4, 4 bytes */ GRIM_DATA("100303a4") unsigned char DAT_100303a4[4] = {0};
-/* 0x100303a8, 4 bytes */ GRIM_DATA("100303a8") unsigned char DAT_100303a8[4] = {0};
-/* 0x100303ac, 4 bytes */ GRIM_DATA("100303ac") unsigned char DAT_100303ac[4] = {0};
-/* 0x100303b0, 4 bytes */ GRIM_DATA("100303b0") unsigned char DAT_100303b0[4] = {0};
-/* 0x100303b4, 4 bytes */ GRIM_DATA("100303b4") unsigned char DAT_100303b4[4] = {0};
-/* 0x100303b8, 4 bytes */ GRIM_DATA("100303b8") unsigned char DAT_100303b8[4] = {0};
-/* 0x100303bc, 4 bytes */ GRIM_DATA("100303bc") unsigned char DAT_100303bc[4] = {0};
-/* 0x100303c0, 4 bytes */ GRIM_DATA("100303c0") unsigned char DAT_100303c0[4] = {0};
-/* 0x100303c4, 4 bytes */ GRIM_DATA("100303c4") unsigned char DAT_100303c4[4] = {0};
-/* 0x100303c8, 4 bytes */ GRIM_DATA("100303c8") unsigned char DAT_100303c8[4] = {0};
-/* 0x100303cc, 4 bytes */ GRIM_DATA("100303cc") unsigned char DAT_100303cc[4] = {0};
-/* 0x100303d0, 4 bytes */ GRIM_DATA("100303d0") unsigned char DAT_100303d0[4] = {0};
-/* 0x100303d4, 6 bytes */ GRIM_DATA("100303d4") unsigned char DAT_100303d4[6] = {0};
-/* 0x100303da, 79 bytes */ GRIM_DATA("100303d4") unsigned char DAT_100303da[79] = {0};
-/* 0x10030429, 4342 bytes */ GRIM_DATA("100303d4") unsigned char DAT_10030429[4342] = {0};
-/* 0x1003151f, 1 bytes */ GRIM_DATA("100303d4") unsigned char DAT_1003151f = 0x0;
-/* 0x10031520, 8 bytes */ GRIM_DATA("10031520") unsigned char DAT_10031520[8] = {0};
-/* 0x10031528, 31 bytes */ GRIM_DATA("10031528") unsigned char g_bSoundCache[31] = {0};
-/* 0x10031547, 1 bytes */ GRIM_DATA("10031528") unsigned char DAT_10031547[1] = {0};
-/* 0x10031548, 8 bytes */ GRIM_DATA("10031548") unsigned char DAT_10031548[8] = {0};
-/* 0x10031550, 4 bytes */ GRIM_DATA("10031550") unsigned char DAT_10031550[4] = {0};
-/* 0x10031554, 4 bytes */ GRIM_DATA("10031554") unsigned char DAT_10031554[4] = {0};
-/* 0x10031558, 8 bytes */ GRIM_DATA("10031558") unsigned char DAT_10031558[8] = {0};
-/* 0x10031560, 4 bytes */ GRIM_DATA("10031560") unsigned char DAT_10031560[4] = {0};
-/* 0x10031564, 1924 bytes */ GRIM_DATA("10031564") unsigned char DAT_10031564[1924] = {0};
-/* 0x10031ce8, 64 bytes */ GRIM_DATA("10031ce8") unsigned char DAT_10031ce8[64] = {0};
-/* 0x10031d28, 4 bytes */ GRIM_DATA("10031d28") unsigned char DAT_10031d28[4] = {0};
-/* 0x10031d2c, 4 bytes */ GRIM_DATA("10031d2c") unsigned char g_iMuseMasterVolHold[4] = {0};
-/* 0x10031d30, 4 bytes */ GRIM_DATA("10031d30") unsigned int g_dwUseVoxFx = 0x0;
-/* 0x10031d34, 4 bytes */ GRIM_DATA("10031d34") unsigned char DAT_10031d34[4] = {0};
-/* 0x10031d38, 4 bytes */ GRIM_DATA("10031d38") unsigned char g_dwMlEntries[4] = {0};
-/* 0x10031d3c, 8 bytes */ GRIM_DATA("10031d3c") unsigned char g_dwNextHandle[8] = {0};
-/* 0x10031d44, 4 bytes */ GRIM_DATA("10031d44") unsigned char g_bImuseInitialized[4] = {0};
-/* 0x10031d48, 4 bytes */ GRIM_DATA("10031d48") unsigned char DAT_10031d48[4] = {0};
-/* 0x10031d4c, 3 bytes */ GRIM_DATA("10031d4c") unsigned char DAT_10031d4c[3] = {0};
-/* 0x10031d4f, 1 bytes */ GRIM_DATA("10031d4c") unsigned char DAT_10031d4f[1] = {0};
-/* 0x10031d50, 260 bytes */ GRIM_DATA("10031d50") unsigned char g_aLastVoiceFilename[260] = {0};
-/* 0x10031e54, 4 bytes */ GRIM_DATA("10031e54") unsigned char g_bMuscriptRemote[4] = {0};
-/* 0x10031e58, 4 bytes */ GRIM_DATA("10031e58") unsigned char DAT_10031e58[4] = {0};
-/* 0x10031e5c, 4 bytes */ GRIM_DATA("10031e5c") unsigned char DAT_10031e5c[4] = {0};
-/* 0x10031e60, 4 bytes */ GRIM_DATA("10031e60") unsigned char g_dwVoxFxBuf[4] = {0};
-/* 0x10031e64, 4 bytes */ GRIM_DATA("10031e64") unsigned int UINT_10031e64 = 0x0;
-/* 0x10031e68, 4 bytes */ GRIM_DATA("10031e68") unsigned char DAT_10031e68[4] = {0};
-/* 0x10031e6c, 4 bytes */ GRIM_DATA("10031e6c") unsigned char DAT_10031e6c[4] = {0};
-/* 0x10031e70, 4 bytes */ GRIM_DATA("10031e70") unsigned char g_dwLipStreamID[4] = {0};
-/* 0x10031e74, 4 bytes */ GRIM_DATA("10031e74") unsigned char g_dwLipSfx1ID[4] = {0};
-/* 0x10031e78, 4 bytes */ GRIM_DATA("10031e78") unsigned char g_dwLipSfx2ID[4] = {0};
-/* 0x10031e7c, 4 bytes */ GRIM_DATA("10031e7c") unsigned char g_dwLipSfx3ID[4] = {0};
-/* 0x10031e80, 4 bytes */ GRIM_DATA("10031e80") unsigned char DAT_10031e80[4] = {0};
-/* 0x10031e84, 4 bytes */ GRIM_DATA("10031e84") unsigned char g_dwTimerCounter[4] = {0};
-/* 0x10031e88, 4 bytes */ GRIM_DATA("10031e88") unsigned int g_dwNextToAllocate = 0x0;
-/* 0x10031e8c, 4 bytes */ GRIM_DATA("10031e8c") unsigned int g_dwIRes_csInit = 0x0;
-/* 0x10031e90, 4 bytes */ GRIM_DATA("10031e90") unsigned char g_dwLastStreamLoaded[4] = {0};
-/* 0x10031e94, 4 bytes */ GRIM_DATA("10031e94") unsigned int g_dwBailFlag = 0x0;
-/* 0x10031e98, 144 bytes */ GRIM_DATA("10031e98") unsigned char g_dwStreams[144] = {0};
-/* 0x10031f28, 8 bytes */ GRIM_DATA("10031f28") unsigned char DAT_10031f28[8] = {0};
-/* 0x10031f30, 952 bytes */ GRIM_DATA("10031f30") unsigned char DAT_10031f30[952] = {0};
-/* 0x100322e8, 8 bytes */ GRIM_DATA("100322e8") unsigned char g_dwTrIntHandler_outSampleRate[8] = {0};
-/* 0x100322f0, 16 bytes */ GRIM_DATA("100322f0") unsigned char g_aTrInitialize_waveDriverInfo[16] = {0};
-/* 0x10032300, 4 bytes */ GRIM_DATA("10032300") int g_dwTrackList = 0;
-/* 0x10032304, 4 bytes */ GRIM_DATA("10032304") unsigned int g_dwTrIntHandler_outFramesNeeded = 0x0;
-/* 0x10032308, 4 bytes */ GRIM_DATA("10032308") unsigned char DAT_10032308[4] = {0};
-/* 0x1003230c, 4 bytes */ GRIM_DATA("1003230c") unsigned int g_dwPauseTimer = 0x0;
-/* 0x10032310, 4 bytes */ GRIM_DATA("10032310") unsigned int DAT_10032310 = 0x0;
-/* 0x10032314, 12 bytes */ GRIM_DATA("10032314") unsigned char g_dwTrIntHandler_outPtr[12] = {0};
-/* 0x10032320, 260 bytes */ GRIM_DATA("10032320") unsigned char g_dwTrigs[260] = {0};
-/* 0x10032424, 2204 bytes */ GRIM_DATA("10032424") unsigned char DAT_10032424[2204] = {0};
-/* 0x10032cc0, 4 bytes */ GRIM_DATA("10032cc0") unsigned int DAT_10032cc0 = 0x0;
-/* 0x10032cc4, 380 bytes */ GRIM_DATA("10032cc4") unsigned char DAT_10032cc4[380] = {0};
-/* 0x10032e40, 256 bytes */ GRIM_DATA("10032e40") unsigned char g_dwTgProcessMarker_textCopy[256] = {0};
-/* 0x10032f40, 4 bytes */ GRIM_DATA("10032f40") unsigned int g_dwDefersOn = 0x0;
-/* 0x10032f44, 4 bytes */ GRIM_DATA("10032f44") unsigned int g_dwMidProcessing = 0x0;
-/* 0x10032f48, 8 bytes */ GRIM_DATA("10032f48") unsigned char DAT_10032f48[8] = {0};
-/* 0x10032f50, 4 bytes */ GRIM_DATA("10032f50") unsigned char DAT_10032f50[4] = {0};
-/* 0x10032f54, 4 bytes */ GRIM_DATA("10032f54") unsigned char DAT_10032f54[4] = {0};
-/* 0x10032f58, 8 bytes */ GRIM_DATA("10032f58") unsigned char DAT_10032f58[8] = {0};
-/* 0x10032f60, 4 bytes */ GRIM_DATA("10032f60") unsigned int DAT_10032f60 = 0x0;
-/* 0x10032f64, 4 bytes */ GRIM_DATA("10032f64") unsigned int DAT_10032f64 = 0x0;
-/* 0x10032f68, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f68") unsigned char DAT_10032f68[24];
-/* 0x10032f80, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f80") unsigned char DAT_10032f80[24];
-/* 0x10032f98, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f98") unsigned char DAT_10032f98[24];
-/* 0x10032fb0, 32 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032fb0") unsigned char DAT_10032fb0[32];
-/* 0x10032fd0, 16 bytes */ GRIM_DATA("10032fd0") unsigned char DAT_10032fd0[16] = {0};
-/* 0x10032fe0, 4 bytes */ GRIM_DATA("10032fe0") int DAT_10032fe0 = 0;
-/* 0x10032fe4, 4 bytes */ GRIM_DATA("10032fe4") unsigned char DAT_10032fe4[4] = {0};
-/* 0x10032fe8, 4 bytes */ GRIM_DATA("10032fe8") unsigned char DAT_10032fe8[4] = {0};
-/* 0x10032fec, 4 bytes */ GRIM_DATA("10032fec") unsigned char DAT_10032fec[4] = {0};
-/* 0x10032ff0, 20 bytes */ GRIM_DATA("10032ff0") int DAT_10032ff0 = 0;
+/* 0x10021d60, 64 bytes, unused (pointed at by unused data) */ GRIM_DATA("10021d60") unsigned char DAT_10021d60[64] __asm__("_DAT_10021d60");
+/* 0x10021da0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("10021da0") unsigned char DAT_10021da0[8] __asm__("_DAT_10021da0");
+/* 0x10021da8, 352 bytes, unused (dead) */ GRIM_DATA("10021da8") unsigned char DAT_10021da8[352] __asm__("_DAT_10021da8");
+/* 0x10021f08, 568 bytes, unused (dead) */ GRIM_DATA("10021f08") unsigned char DAT_10021f08[568] __asm__("_DAT_10021f08");
+/* 0x10024dc8, 4 bytes */ GRIM_DATA("10024dc8") unsigned char PTR_10024dc8[4] __asm__("_PTR_10024dc8") = {0};
+/* 0x10024dcc, 4 bytes */ GRIM_DATA("10024dcc") int g_dwLargeFadeBufs __asm__("_g_dwLargeFadeBufs") = 0;
+/* 0x10024dd4, 4 bytes */ GRIM_DATA("10024dd4") int g_dwSmallFadeBufs __asm__("_g_dwSmallFadeBufs") = 0;
+/* 0x10024de8, 8 bytes */ GRIM_DATA("10024de8") unsigned char g_dwStreamZones[8] __asm__("_g_dwStreamZones") = {0};
+/* 0x10025298, 8 bytes */ GRIM_DATA("10025298") unsigned char g_pSmallFadeFlags[8] __asm__("_g_pSmallFadeFlags") = {0};
+/* 0x100252a0, 2076 bytes */ GRIM_DATA("100252a0") unsigned char g_dwDispatches[2076] __asm__("_g_dwDispatches") = {0};
+/* 0x1002d808, 4 bytes */ GRIM_DATA("1002d808") unsigned int g_dwMemAddr __asm__("_g_dwMemAddr") = 0x0;
+/* 0x1002d824, 4 bytes */ GRIM_DATA("1002d824") int DAT_1002d824 __asm__("_DAT_1002d824") = 0;
+/* 0x1002d83c, 4 bytes */ GRIM_DATA("1002d83c") unsigned char PTR_1002d83c[4] __asm__("_PTR_1002d83c") = {0};
+/* 0x1002dd08, 4 bytes */ GRIM_DATA("1002dd08") unsigned char DAT_1002dd08[4] __asm__("_DAT_1002dd08") = {0};
+/* 0x1002dd0c, 4 bytes */ GRIM_DATA("1002dd0c") unsigned char DAT_1002dd0c[4] __asm__("_DAT_1002dd0c") = {0};
+/* 0x1002dd2c, 4 bytes */ GRIM_DATA("1002dd2c") unsigned int DAT_1002dd2c __asm__("_DAT_1002dd2c") = 0x0;
+/* 0x1002dd30, 2 bytes */ GRIM_DATA("1002dd30") unsigned char DAT_1002dd30[2] __asm__("_DAT_1002dd30") = {0};
+/* 0x1002dd32, 2 bytes */ GRIM_DATA("1002dd30") unsigned char DAT_1002dd32[2] __asm__("_DAT_1002dd32") = {0};
+/* 0x1002dd48, 8 bytes */ GRIM_DATA("1002dd48") unsigned char DAT_1002dd48[8] __asm__("_DAT_1002dd48") = {0};
+/* 0x1002dd60, 2 bytes */ GRIM_DATA("1002dd60") unsigned char DAT_1002dd60[2] __asm__("_DAT_1002dd60") = {0};
+/* 0x1002dd62, 2 bytes */ GRIM_DATA("1002dd60") unsigned short DAT_1002dd62 __asm__("_DAT_1002dd62") = 0x0;
+/* 0x1002dd74, 4 bytes */ GRIM_DATA("1002dd74") unsigned int DAT_1002dd74 __asm__("_DAT_1002dd74") = 0x0;
+/* 0x1002dd78, 4 bytes */ GRIM_DATA("1002dd78") unsigned char DAT_1002dd78[4] __asm__("_DAT_1002dd78") = {0};
+/* 0x1002dd7c, 4 bytes */ GRIM_DATA("1002dd7c") unsigned int DAT_1002dd7c __asm__("_DAT_1002dd7c") = 0x0;
+/* 0x1002df0c, 4 bytes */ GRIM_DATA("1002df0c") unsigned int g_dwIm_initialized __asm__("_g_dwIm_initialized") = 0x0;
+/* 0x1002df1c, 4 bytes */ GRIM_DATA("1002df1c") unsigned int g_dwDataSizeInBytes __asm__("_g_dwDataSizeInBytes") = 0x0;
+/* 0x1002df60, 4 bytes */ GRIM_DATA("1002df60") unsigned int g_dwRecordState __asm__("_g_dwRecordState") = 0x0;
+/* 0x1002df64, 4 bytes */ GRIM_DATA("1002df64") unsigned int g_dwRecordFile __asm__("_g_dwRecordFile") = 0x0;
+/* 0x1002ebd8, 3 bytes */ GRIM_DATA("1002ebd8") unsigned char g_dwMlListSize[3] __asm__("_g_dwMlListSize") = {0};
+/* 0x1002ebdb, 5 bytes */ GRIM_DATA("1002ebd8") unsigned char DAT_1002ebdb[5] __asm__("_DAT_1002ebdb") = {0};
+/* 0x1002ec10, 8 bytes */ GRIM_DATA("1002ec10") unsigned char g_dwMlEntryCount[8] __asm__("_g_dwMlEntryCount") = {0};
+/* 0x1002fbd0, 1999 bytes */ GRIM_DATA("1002fbd0") unsigned char g_aLipSfx3Data[1999] __asm__("_g_aLipSfx3Data") = {0};
+/* 0x1003039f, 1 bytes */ GRIM_DATA("1002fbd0") unsigned char DAT_1003039f __asm__("_DAT_1003039f") = 0x0;
+/* 0x100303a0, 4 bytes */ GRIM_DATA("100303a0") unsigned char g_aMcmpFileHandles[4] __asm__("_g_aMcmpFileHandles") = {0};
+/* 0x100303d4, 6 bytes */ GRIM_DATA("100303d4") unsigned char DAT_100303d4[6] __asm__("_DAT_100303d4") = {0};
+/* 0x100303da, 79 bytes */ GRIM_DATA("100303d4") unsigned char DAT_100303da[79] __asm__("_DAT_100303da") = {0};
+/* 0x10030429, 4342 bytes */ GRIM_DATA("100303d4") unsigned char DAT_10030429[4342] __asm__("_DAT_10030429") = {0};
+/* 0x1003151f, 1 bytes */ GRIM_DATA("100303d4") unsigned char DAT_1003151f __asm__("_DAT_1003151f") = 0x0;
+/* 0x10031520, 8 bytes */ GRIM_DATA("10031520") unsigned char DAT_10031520[8] __asm__("_DAT_10031520") = {0};
+/* 0x10031528, 31 bytes */ GRIM_DATA("10031528") unsigned char g_bSoundCache[31] __asm__("_g_bSoundCache") = {0};
+/* 0x10031547, 1 bytes */ GRIM_DATA("10031528") unsigned char DAT_10031547[1] __asm__("_DAT_10031547") = {0};
+/* 0x10031548, 8 bytes */ GRIM_DATA("10031548") unsigned char DAT_10031548[8] __asm__("_DAT_10031548") = {0};
+/* 0x10031ce8, 64 bytes */ GRIM_DATA("10031ce8") unsigned char DAT_10031ce8[64] __asm__("_DAT_10031ce8") = {0};
+/* 0x10031d28, 4 bytes */ GRIM_DATA("10031d28") unsigned char DAT_10031d28[4] __asm__("_DAT_10031d28") = {0};
+/* 0x10031d30, 4 bytes */ GRIM_DATA("10031d30") unsigned int g_dwUseVoxFx __asm__("_g_dwUseVoxFx") = 0x0;
+/* 0x10031d38, 4 bytes */ GRIM_DATA("10031d38") unsigned char g_dwMlEntries[4] __asm__("_g_dwMlEntries") = {0};
+/* 0x10031d3c, 8 bytes */ GRIM_DATA("10031d3c") unsigned char g_dwNextHandle[8] __asm__("_g_dwNextHandle") = {0};
+/* 0x10031d48, 4 bytes */ GRIM_DATA("10031d48") unsigned char DAT_10031d48[4] __asm__("_DAT_10031d48") = {0};
+/* 0x10031d4c, 3 bytes */ GRIM_DATA("10031d4c") unsigned char DAT_10031d4c[3] __asm__("_DAT_10031d4c") = {0};
+/* 0x10031d4f, 1 bytes */ GRIM_DATA("10031d4c") unsigned char DAT_10031d4f[1] __asm__("_DAT_10031d4f") = {0};
+/* 0x10031e90, 4 bytes */ GRIM_DATA("10031e90") unsigned char g_dwLastStreamLoaded[4] __asm__("_g_dwLastStreamLoaded") = {0};
+/* 0x10031e94, 4 bytes */ GRIM_DATA("10031e94") unsigned int g_dwBailFlag __asm__("_g_dwBailFlag") = 0x0;
+/* 0x10031e98, 144 bytes */ GRIM_DATA("10031e98") unsigned char g_dwStreams[144] __asm__("_g_dwStreams") = {0};
+/* 0x10032f50, 4 bytes */ GRIM_DATA("10032f50") unsigned char DAT_10032f50[4] __asm__("_DAT_10032f50") = {0};
+/* 0x10032f54, 4 bytes */ GRIM_DATA("10032f54") unsigned char DAT_10032f54[4] __asm__("_DAT_10032f54") = {0};
+/* 0x10032f58, 8 bytes */ GRIM_DATA("10032f58") unsigned char DAT_10032f58[8] __asm__("_DAT_10032f58") = {0};
+/* 0x10032f60, 4 bytes */ GRIM_DATA("10032f60") unsigned int DAT_10032f60 __asm__("_DAT_10032f60") = 0x0;
+/* 0x10032f64, 4 bytes */ GRIM_DATA("10032f64") unsigned int DAT_10032f64 __asm__("_DAT_10032f64") = 0x0;
+/* 0x10032f68, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f68") unsigned char DAT_10032f68[24] __asm__("_DAT_10032f68");
+/* 0x10032f80, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f80") unsigned char DAT_10032f80[24] __asm__("_DAT_10032f80");
+/* 0x10032f98, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032f98") unsigned char DAT_10032f98[24] __asm__("_DAT_10032f98");
+/* 0x10032fb0, 32 bytes, unused (pointed at by unused data) */ GRIM_DATA("10032fb0") unsigned char DAT_10032fb0[32] __asm__("_DAT_10032fb0");
+/* 0x10032fd0, 16 bytes */ GRIM_DATA("10032fd0") unsigned char DAT_10032fd0[16] __asm__("_DAT_10032fd0") = {0};
+/* 0x10032fe0, 4 bytes */ GRIM_DATA("10032fe0") int DAT_10032fe0 __asm__("_DAT_10032fe0") = 0;
+/* 0x10032fe4, 4 bytes */ GRIM_DATA("10032fe4") unsigned char DAT_10032fe4[4] __asm__("_DAT_10032fe4") = {0};
+/* 0x10032fe8, 4 bytes */ GRIM_DATA("10032fe8") unsigned char DAT_10032fe8[4] __asm__("_DAT_10032fe8") = {0};
+/* 0x10032fec, 4 bytes */ GRIM_DATA("10032fec") unsigned char DAT_10032fec[4] __asm__("_DAT_10032fec") = {0};
+/* 0x10032ff0, 20 bytes */ GRIM_DATA("10032ff0") int DAT_10032ff0 __asm__("_DAT_10032ff0") = 0;
 /* 0x10032ff4, 16 bytes: the rest of DAT_10032ff0's span */ GRIM_DATA("10032ff0") static unsigned char DAT_10032ff0__tail[16] __attribute__((used)) = {0};
-/* 0x10033004, 4 bytes */ GRIM_DATA("10033004") unsigned int DAT_10033004 = 0x0;
-/* 0x10033008, 4 bytes, unused (dead) */ GRIM_DATA("10033008") unsigned char DAT_10033008[4];
-/* 0x1003300c, 4 bytes, unused (rest of DAT_10033008) */ GRIM_DATA("1003300c") unsigned char DAT_1003300c[4];
-/* 0x10033010, 4 bytes, unused (rest of DAT_1003300c) */ GRIM_DATA("10033010") unsigned char DAT_10033010[4];
-/* 0x10033014, 4 bytes, unused (rest of DAT_10033010) */ GRIM_DATA("10033014") unsigned char DAT_10033014[4];
-/* 0x10033018, 4 bytes, unused (rest of DAT_10033014) */ GRIM_DATA("10033018") unsigned char DAT_10033018[4];
-/* 0x1003301c, 4 bytes, unused (rest of DAT_10033018) */ GRIM_DATA("1003301c") unsigned char DAT_1003301c[4];
-/* 0x10033020, 8 bytes, unused (rest of DAT_1003301c) */ GRIM_DATA("10033020") unsigned char DAT_10033020[8];
-/* 0x10033028, 16 bytes, unused (rest of DAT_10033020) */ GRIM_DATA("10033028") unsigned char DAT_10033028[16];
-/* 0x10033038, 8 bytes, unused (rest of DAT_10033028) */ GRIM_DATA("10033038") unsigned char DAT_10033038[8];
-/* 0x10033040, 4 bytes */ GRIM_DATA("10033040") unsigned char DAT_10033040[4] = {0};
-/* 0x10033044, 4 bytes */ GRIM_DATA("10033044") unsigned char DAT_10033044[4] = {0};
-/* 0x10033048, 8 bytes */ GRIM_DATA("10033048") unsigned char DAT_10033048[8] = {0};
-/* 0x10033050, 264 bytes, unused (dead) */ GRIM_DATA("10033050") unsigned char DAT_10033050[264];
-/* 0x10033158, 1 bytes, unused (dead) */ GRIM_DATA("10033158") unsigned char DAT_10033158[1];
-/* 0x10033159, 263 bytes, unused (dead) */ GRIM_DATA("10033158") unsigned char DAT_10033159[263];
-/* 0x10033260, 256 bytes, unused (dead) */ GRIM_DATA("10033260") unsigned char DAT_10033260[256];
-/* 0x10033360, 4 bytes, unused (rest of DAT_10033260) */ GRIM_DATA("10033360") unsigned char DAT_10033360[4];
-/* 0x10033364, 4 bytes, unused (rest of DAT_10033360) */ GRIM_DATA("10033364") unsigned char DAT_10033364[4];
-/* 0x10033368, 4 bytes, unused (rest of DAT_10033364) */ GRIM_DATA("10033368") unsigned char DAT_10033368[4];
-/* 0x1003336c, 4 bytes, unused (rest of DAT_10033368) */ GRIM_DATA("1003336c") unsigned char DAT_1003336c[4];
-/* 0x10033370, 4 bytes, unused (rest of DAT_1003336c) */ GRIM_DATA("10033370") unsigned char DAT_10033370[4];
-/* 0x10033374, 8 bytes, unused (rest of DAT_10033370) */ GRIM_DATA("10033374") unsigned char DAT_10033374[8];
-/* 0x1003337c, 4 bytes, unused (rest of DAT_10033374) */ GRIM_DATA("1003337c") unsigned char DAT_1003337c[4];
-/* 0x10033380, 4 bytes */ GRIM_DATA("10033380") unsigned char DAT_10033380[4] = {0};
-/* 0x10033384, 4 bytes */ GRIM_DATA("10033384") unsigned char DAT_10033384[4] = {0};
-/* 0x10033388, 4 bytes */ GRIM_DATA("10033388") unsigned int DAT_10033388 = 0x0;
-/* 0x1003338c, 4 bytes */ GRIM_DATA("1003338c") unsigned char DAT_1003338c[4] = {0};
-/* 0x10033390, 4 bytes, unused (dead) */ GRIM_DATA("10033390") unsigned char DAT_10033390[4];
-/* 0x10033394, 4 bytes, unused (dead) */ GRIM_DATA("10033394") unsigned char DAT_10033394[4];
-/* 0x10033398, 4 bytes, unused (dead) */ GRIM_DATA("10033398") unsigned char DAT_10033398[4];
-/* 0x1003339c, 4 bytes, unused (rest of DAT_10033398) */ GRIM_DATA("1003339c") unsigned char DAT_1003339c[4];
-/* 0x100333a0, 4 bytes, unused (rest of DAT_1003339c) */ GRIM_DATA("100333a0") unsigned char DAT_100333a0[4];
-/* 0x100333a4, 16 bytes, unused (rest of DAT_100333a0) */ GRIM_DATA("100333a4") unsigned char DAT_100333a4[16];
-/* 0x100333b4, 8 bytes, unused (rest of DAT_100333a4) */ GRIM_DATA("100333b4") unsigned char DAT_100333b4[8];
-/* 0x100333bc, 6 bytes, unused (rest of DAT_100333b4) */ GRIM_DATA("100333bc") unsigned char DAT_100333bc[6];
-/* 0x100333c2, 4 bytes, unused (rest of DAT_100333bc) */ GRIM_DATA("100333bc") unsigned char DAT_100333c2[4];
-/* 0x100333c6, 2 bytes, unused (rest of DAT_100333c2) */ GRIM_DATA("100333bc") unsigned char DAT_100333c6[2];
-/* 0x100333c8, 40 bytes, unused (rest of DAT_100333c6) */ GRIM_DATA("100333c8") unsigned char DAT_100333c8[40];
-/* 0x100333f0, 4 bytes, unused (rest of DAT_100333c8) */ GRIM_DATA("100333f0") unsigned char DAT_100333f0[4];
-/* 0x100333f4, 4 bytes */ GRIM_DATA("100333f4") int DAT_100333f4 = 0;
-/* 0x100333f8, 4 bytes */ GRIM_DATA("100333f8") unsigned char DAT_100333f8[4] = {0};
-/* 0x100333fc, 4 bytes */ GRIM_DATA("100333fc") unsigned char DAT_100333fc[4] = {0};
-/* 0x10033400, 4 bytes */ GRIM_DATA("10033400") unsigned char DAT_10033400[4] = {0};
-/* 0x10033404, 4 bytes */ GRIM_DATA("10033404") unsigned int DAT_10033404 = 0x0;
-/* 0x10033408, 40 bytes */ GRIM_DATA("10033408") unsigned char DAT_10033408[40] = {0};
-/* 0x10033430, 7 bytes, unused (dead) */ GRIM_DATA("10033430") unsigned char DAT_10033430[7];
-/* 0x10033437, 1 bytes, unused (dead) */ GRIM_DATA("10033430") unsigned char DAT_10033437[1];
-/* 0x10033438, 196 bytes */ GRIM_DATA("10033438") unsigned char DAT_10033438[196] = {0};
-/* 0x100334fc, 4 bytes */ GRIM_DATA("100334fc") unsigned char DAT_100334fc[4] = {0};
-/* 0x10033500, 12 bytes */ GRIM_DATA("10033500") unsigned char DAT_10033500[12] = {0};
-/* 0x1003350c, 4 bytes */ GRIM_DATA("1003350c") int g_dwTrackCount = 0;
-/* 0x10033510, 16 bytes */ GRIM_DATA("10033510") unsigned int g_dwSounds_pHS = 0x0;
+/* 0x10033004, 4 bytes */ GRIM_DATA("10033004") unsigned int DAT_10033004 __asm__("_DAT_10033004") = 0x0;
+/* 0x10033008, 4 bytes, unused (dead) */ GRIM_DATA("10033008") unsigned char DAT_10033008[4] __asm__("_DAT_10033008");
+/* 0x1003300c, 4 bytes, unused (rest of DAT_10033008) */ GRIM_DATA("1003300c") unsigned char DAT_1003300c[4] __asm__("_DAT_1003300c");
+/* 0x10033010, 4 bytes, unused (rest of DAT_1003300c) */ GRIM_DATA("10033010") unsigned char DAT_10033010[4] __asm__("_DAT_10033010");
+/* 0x10033014, 4 bytes, unused (rest of DAT_10033010) */ GRIM_DATA("10033014") unsigned char DAT_10033014[4] __asm__("_DAT_10033014");
+/* 0x10033018, 4 bytes, unused (rest of DAT_10033014) */ GRIM_DATA("10033018") unsigned char DAT_10033018[4] __asm__("_DAT_10033018");
+/* 0x1003301c, 4 bytes, unused (rest of DAT_10033018) */ GRIM_DATA("1003301c") unsigned char DAT_1003301c[4] __asm__("_DAT_1003301c");
+/* 0x10033020, 8 bytes, unused (rest of DAT_1003301c) */ GRIM_DATA("10033020") unsigned char DAT_10033020[8] __asm__("_DAT_10033020");
+/* 0x10033028, 16 bytes, unused (rest of DAT_10033020) */ GRIM_DATA("10033028") unsigned char DAT_10033028[16] __asm__("_DAT_10033028");
+/* 0x10033038, 8 bytes, unused (rest of DAT_10033028) */ GRIM_DATA("10033038") unsigned char DAT_10033038[8] __asm__("_DAT_10033038");
+/* 0x10033040, 4 bytes */ GRIM_DATA("10033040") unsigned char DAT_10033040[4] __asm__("_DAT_10033040") = {0};
+/* 0x10033044, 4 bytes */ GRIM_DATA("10033044") unsigned char DAT_10033044[4] __asm__("_DAT_10033044") = {0};
+/* 0x10033048, 8 bytes */ GRIM_DATA("10033048") unsigned char DAT_10033048[8] __asm__("_DAT_10033048") = {0};
+/* 0x10033050, 264 bytes, unused (dead) */ GRIM_DATA("10033050") unsigned char DAT_10033050[264] __asm__("_DAT_10033050");
+/* 0x10033158, 1 bytes, unused (dead) */ GRIM_DATA("10033158") unsigned char DAT_10033158[1] __asm__("_DAT_10033158");
+/* 0x10033159, 263 bytes, unused (dead) */ GRIM_DATA("10033158") unsigned char DAT_10033159[263] __asm__("_DAT_10033159");
+/* 0x10033260, 256 bytes, unused (dead) */ GRIM_DATA("10033260") unsigned char DAT_10033260[256] __asm__("_DAT_10033260");
+/* 0x10033360, 4 bytes, unused (rest of DAT_10033260) */ GRIM_DATA("10033360") unsigned char DAT_10033360[4] __asm__("_DAT_10033360");
+/* 0x10033364, 4 bytes, unused (rest of DAT_10033360) */ GRIM_DATA("10033364") unsigned char DAT_10033364[4] __asm__("_DAT_10033364");
+/* 0x10033368, 4 bytes, unused (rest of DAT_10033364) */ GRIM_DATA("10033368") unsigned char DAT_10033368[4] __asm__("_DAT_10033368");
+/* 0x1003336c, 4 bytes, unused (rest of DAT_10033368) */ GRIM_DATA("1003336c") unsigned char DAT_1003336c[4] __asm__("_DAT_1003336c");
+/* 0x10033370, 4 bytes, unused (rest of DAT_1003336c) */ GRIM_DATA("10033370") unsigned char DAT_10033370[4] __asm__("_DAT_10033370");
+/* 0x10033374, 8 bytes, unused (rest of DAT_10033370) */ GRIM_DATA("10033374") unsigned char DAT_10033374[8] __asm__("_DAT_10033374");
+/* 0x1003337c, 4 bytes, unused (rest of DAT_10033374) */ GRIM_DATA("1003337c") unsigned char DAT_1003337c[4] __asm__("_DAT_1003337c");
+/* 0x10033380, 4 bytes */ GRIM_DATA("10033380") unsigned char DAT_10033380[4] __asm__("_DAT_10033380") = {0};
+/* 0x10033384, 4 bytes */ GRIM_DATA("10033384") unsigned char DAT_10033384[4] __asm__("_DAT_10033384") = {0};
+/* 0x10033388, 4 bytes */ GRIM_DATA("10033388") unsigned int DAT_10033388 __asm__("_DAT_10033388") = 0x0;
+/* 0x1003338c, 4 bytes */ GRIM_DATA("1003338c") unsigned char DAT_1003338c[4] __asm__("_DAT_1003338c") = {0};
+/* 0x10033390, 4 bytes, unused (dead) */ GRIM_DATA("10033390") unsigned char DAT_10033390[4] __asm__("_DAT_10033390");
+/* 0x10033394, 4 bytes, unused (dead) */ GRIM_DATA("10033394") unsigned char DAT_10033394[4] __asm__("_DAT_10033394");
+/* 0x10033398, 4 bytes, unused (dead) */ GRIM_DATA("10033398") unsigned char DAT_10033398[4] __asm__("_DAT_10033398");
+/* 0x1003339c, 4 bytes, unused (rest of DAT_10033398) */ GRIM_DATA("1003339c") unsigned char DAT_1003339c[4] __asm__("_DAT_1003339c");
+/* 0x100333a0, 4 bytes, unused (rest of DAT_1003339c) */ GRIM_DATA("100333a0") unsigned char DAT_100333a0[4] __asm__("_DAT_100333a0");
+/* 0x100333a4, 16 bytes, unused (rest of DAT_100333a0) */ GRIM_DATA("100333a4") unsigned char DAT_100333a4[16] __asm__("_DAT_100333a4");
+/* 0x100333b4, 8 bytes, unused (rest of DAT_100333a4) */ GRIM_DATA("100333b4") unsigned char DAT_100333b4[8] __asm__("_DAT_100333b4");
+/* 0x100333bc, 6 bytes, unused (rest of DAT_100333b4) */ GRIM_DATA("100333bc") unsigned char DAT_100333bc[6] __asm__("_DAT_100333bc");
+/* 0x100333c2, 4 bytes, unused (rest of DAT_100333bc) */ GRIM_DATA("100333bc") unsigned char DAT_100333c2[4] __asm__("_DAT_100333c2");
+/* 0x100333c6, 2 bytes, unused (rest of DAT_100333c2) */ GRIM_DATA("100333bc") unsigned char DAT_100333c6[2] __asm__("_DAT_100333c6");
+/* 0x100333c8, 40 bytes, unused (rest of DAT_100333c6) */ GRIM_DATA("100333c8") unsigned char DAT_100333c8[40] __asm__("_DAT_100333c8");
+/* 0x100333f0, 4 bytes, unused (rest of DAT_100333c8) */ GRIM_DATA("100333f0") unsigned char DAT_100333f0[4] __asm__("_DAT_100333f0");
+/* 0x100333f4, 4 bytes */ GRIM_DATA("100333f4") int DAT_100333f4 __asm__("_DAT_100333f4") = 0;
+/* 0x100333f8, 4 bytes */ GRIM_DATA("100333f8") unsigned char DAT_100333f8[4] __asm__("_DAT_100333f8") = {0};
+/* 0x100333fc, 4 bytes */ GRIM_DATA("100333fc") unsigned char DAT_100333fc[4] __asm__("_DAT_100333fc") = {0};
+/* 0x10033400, 4 bytes */ GRIM_DATA("10033400") unsigned char DAT_10033400[4] __asm__("_DAT_10033400") = {0};
+/* 0x10033404, 4 bytes */ GRIM_DATA("10033404") unsigned int DAT_10033404 __asm__("_DAT_10033404") = 0x0;
+/* 0x10033408, 40 bytes */ GRIM_DATA("10033408") unsigned char DAT_10033408[40] __asm__("_DAT_10033408") = {0};
+/* 0x10033430, 7 bytes, unused (dead) */ GRIM_DATA("10033430") unsigned char DAT_10033430[7] __asm__("_DAT_10033430");
+/* 0x10033437, 1 bytes, unused (dead) */ GRIM_DATA("10033430") unsigned char DAT_10033437[1] __asm__("_DAT_10033437");
+/* 0x10033438, 196 bytes */ GRIM_DATA("10033438") unsigned char DAT_10033438[196] __asm__("_DAT_10033438") = {0};
+/* 0x100334fc, 4 bytes */ GRIM_DATA("100334fc") unsigned char DAT_100334fc[4] __asm__("_DAT_100334fc") = {0};
+/* 0x10033500, 12 bytes */ GRIM_DATA("10033500") unsigned char DAT_10033500[12] __asm__("_DAT_10033500") = {0};
+/* 0x1003350c, 4 bytes */ GRIM_DATA("1003350c") int g_dwTrackCount __asm__("_g_dwTrackCount") = 0;
+/* 0x10033510, 16 bytes */ GRIM_DATA("10033510") unsigned int g_dwSounds_pHS __asm__("_g_dwSounds_pHS") = 0x0;
 /* 0x10033514, 12 bytes: the rest of g_dwSounds_pHS's span */ GRIM_DATA("10033510") static unsigned char g_dwSounds_pHS__tail[12] __attribute__((used)) = {0};
-/* 0x10033520, 39 bytes */ GRIM_DATA("10033520") unsigned char g_aVoxFxName[39] = {0};
-/* 0x10033547, 25 bytes */ GRIM_DATA("10033520") unsigned char DAT_10033547[25] = {0};
-/* 0x10033560, 8 bytes */ GRIM_DATA("10033560") unsigned char g_bPanTable[8] = {0};
-/* 0x10033568, 312 bytes */ GRIM_DATA("10033568") unsigned char DAT_10033568[312] = {0};
-/* 0x100336a0, 4 bytes */ GRIM_DATA("100336a0") unsigned char g_dwImuseInitData[4] = {0};
-/* 0x100336a4, 4 bytes */ GRIM_DATA("100336a4") unsigned char DAT_100336a4[4] = {0};
-/* 0x100336a8, 4 bytes */ GRIM_DATA("100336a8") unsigned char DAT_100336a8[4] = {0};
-/* 0x100336ac, 4 bytes */ GRIM_DATA("100336ac") unsigned char DAT_100336ac[4] = {0};
-/* 0x100336b0, 4 bytes */ GRIM_DATA("100336b0") unsigned char DAT_100336b0[4] = {0};
-/* 0x100336b4, 8 bytes */ GRIM_DATA("100336b4") unsigned char DAT_100336b4[8] = {0};
-/* 0x100336bc, 4 bytes */ GRIM_DATA("100336bc") unsigned int DAT_100336bc = 0x0;
-/* 0x100336c0, 4 bytes */ GRIM_DATA("100336c0") unsigned int DAT_100336c0 = 0x0;
-/* 0x100336c4, 28 bytes */ GRIM_DATA("100336c4") unsigned char DAT_100336c4[28] = {0};
-/* 0x100336e0, 4 bytes */ GRIM_DATA("100336e0") unsigned char PTR_100336e0[4] = {0};
-/* 0x100336e4, 252 bytes, unused (dead) */ GRIM_DATA("100336e4") unsigned char DAT_100336e4[252];
-/* 0x100337e0, 4 bytes */ GRIM_DATA("100337e0") unsigned int DAT_100337e0 = 0x0;
-/* 0x100337e4, 4 bytes */ GRIM_DATA("100337e4") unsigned int DAT_100337e4 = 0x0;
-/* 0x100337e8, 4 bytes */ GRIM_DATA("100337e8") unsigned char DAT_100337e8[4] = {0};
-/* 0x100337ec, 4 bytes, unused (dead+host) */ GRIM_DATA("100337ec") unsigned char DAT_100337ec[4];
-/* 0x100337f0, 4 bytes, unused (dead+host) */ GRIM_DATA("100337f0") unsigned char DAT_100337f0[4];
-/* 0x100337f4, 12 bytes, unused (rest of DAT_100337f0) */ GRIM_DATA("100337f4") unsigned char DAT_100337f4[12];
-/* 0x10033800, 4096 bytes, unused (pointed at by unused data) */ GRIM_DATA("10033800") unsigned char DAT_10033800[4096];
-/* 0x10034800, 4 bytes, unused (rest of DAT_10033800) */ GRIM_DATA("10034800") unsigned char DAT_10034800[4];
-/* 0x10034804, 4 bytes, unused (rest of DAT_10034800) */ GRIM_DATA("10034804") unsigned char DAT_10034804[4];
-/* 0x10034808, 4 bytes, unused (rest of DAT_10034804) */ GRIM_DATA("10034808") unsigned char DAT_10034808[4];
+/* 0x10033520, 39 bytes */ GRIM_DATA("10033520") unsigned char g_aVoxFxName[39] __asm__("_g_aVoxFxName") = {0};
+/* 0x10033547, 25 bytes */ GRIM_DATA("10033520") unsigned char DAT_10033547[25] __asm__("_DAT_10033547") = {0};
+/* 0x100336a0, 4 bytes */ GRIM_DATA("100336a0") unsigned char g_dwImuseInitData[4] __asm__("_g_dwImuseInitData") = {0};
+/* 0x100336a4, 4 bytes */ GRIM_DATA("100336a4") unsigned char DAT_100336a4[4] __asm__("_DAT_100336a4") = {0};
+/* 0x100336ac, 4 bytes */ GRIM_DATA("100336ac") unsigned char DAT_100336ac[4] __asm__("_DAT_100336ac") = {0};
+/* 0x100336b0, 4 bytes */ GRIM_DATA("100336b0") unsigned char DAT_100336b0[4] __asm__("_DAT_100336b0") = {0};
+/* 0x100336b4, 8 bytes */ GRIM_DATA("100336b4") unsigned char DAT_100336b4[8] __asm__("_DAT_100336b4") = {0};
+/* 0x100336bc, 4 bytes */ GRIM_DATA("100336bc") unsigned int DAT_100336bc __asm__("_DAT_100336bc") = 0x0;
+/* 0x100336c0, 4 bytes */ GRIM_DATA("100336c0") unsigned int DAT_100336c0 __asm__("_DAT_100336c0") = 0x0;
+/* 0x100336c4, 28 bytes */ GRIM_DATA("100336c4") unsigned char DAT_100336c4[28] __asm__("_DAT_100336c4") = {0};
+/* 0x100336e0, 4 bytes */ GRIM_DATA("100336e0") unsigned char PTR_100336e0[4] __asm__("_PTR_100336e0") = {0};
+/* 0x100336e4, 252 bytes, unused (dead) */ GRIM_DATA("100336e4") unsigned char DAT_100336e4[252] __asm__("_DAT_100336e4");
+/* 0x100337e0, 4 bytes */ GRIM_DATA("100337e0") unsigned int DAT_100337e0 __asm__("_DAT_100337e0") = 0x0;
+/* 0x100337e4, 4 bytes */ GRIM_DATA("100337e4") unsigned int DAT_100337e4 __asm__("_DAT_100337e4") = 0x0;
+/* 0x100337e8, 4 bytes */ GRIM_DATA("100337e8") unsigned char DAT_100337e8[4] __asm__("_DAT_100337e8") = {0};
+/* 0x100337ec, 4 bytes, unused (dead+host) */ GRIM_DATA("100337ec") unsigned char DAT_100337ec[4] __asm__("_DAT_100337ec");
+/* 0x100337f0, 4 bytes, unused (dead+host) */ GRIM_DATA("100337f0") unsigned char DAT_100337f0[4] __asm__("_DAT_100337f0");
+/* 0x100337f4, 12 bytes, unused (rest of DAT_100337f0) */ GRIM_DATA("100337f4") unsigned char DAT_100337f4[12] __asm__("_DAT_100337f4");
+/* 0x10033800, 4096 bytes, unused (pointed at by unused data) */ GRIM_DATA("10033800") unsigned char DAT_10033800[4096] __asm__("_DAT_10033800");
+/* 0x10034800, 4 bytes, unused (rest of DAT_10033800) */ GRIM_DATA("10034800") unsigned char DAT_10034800[4] __asm__("_DAT_10034800");
+/* 0x10034804, 4 bytes, unused (rest of DAT_10034800) */ GRIM_DATA("10034804") unsigned char DAT_10034804[4] __asm__("_DAT_10034804");
+/* 0x10034808, 4 bytes, unused (rest of DAT_10034804) */ GRIM_DATA("10034808") unsigned char DAT_10034808[4] __asm__("_DAT_10034808");
 
 __asm__(".globl _DAT_100171b0\n\t.set _DAT_100171b0, _s_____100171b0\n");
 __asm__(".globl _DAT_1001e900\n\t.set _DAT_1001e900, _s_rb_1001e900\n");
 __asm__(".globl _grim_img_imuse_0x10017000\n\t.set _grim_img_imuse_0x10017000, _DAT_10017000 + 0\n");
 __asm__(".globl _grim_img_imuse_0x100171b0\n\t.set _grim_img_imuse_0x100171b0, _s_____100171b0 + 0\n");
-__asm__(".globl _grim_img_imuse_0x100172e8\n\t.set _grim_img_imuse_0x100172e8, _g_aImStateTable + 0\n");
-__asm__(".globl _grim_img_imuse_0x1001ae50\n\t.set _grim_img_imuse_0x1001ae50, _g_aImSeqTable + 0\n");
-__asm__(".globl _grim_img_imuse_0x1001bbc8\n\t.set _grim_img_imuse_0x1001bbc8, _g_aImNameAlias + 0\n");
-__asm__(".globl _grim_img_imuse_0x1001e688\n\t.set _grim_img_imuse_0x1001e688, _g_dwLocalMusic + 0\n");
-__asm__(".globl _grim_img_imuse_0x1001e804\n\t.set _grim_img_imuse_0x1001e804, _s_exit_1001e804 + 0\n");
-__asm__(".globl _grim_img_imuse_0x1001e858\n\t.set _grim_img_imuse_0x1001e858, _s__end_1001e858 + 0\n");
-__asm__(".globl _grim_img_imuse_0x1002df70\n\t.set _grim_img_imuse_0x1002df70, _g_dwCurrentState + 0\n");
-__asm__(".globl _grim_img_imuse_0x1002df84\n\t.set _grim_img_imuse_0x1002df84, _DAT_1002df84 + 0\n");
-__asm__(".globl _grim_img_imuse_0x1002e25c\n\t.set _grim_img_imuse_0x1002e25c, _DAT_1002e25c + 0\n");
-__asm__(".globl _grim_img_imuse_0x1002e304\n\t.set _grim_img_imuse_0x1002e304, _DAT_1002e304 + 0\n");
-__asm__(".globl _grim_img_imuse_0x1002e308\n\t.set _grim_img_imuse_0x1002e308, _g_dwCurrentSequence + 0\n");
-__asm__(".globl _grim_img_imuse_0x1002e30c\n\t.set _grim_img_imuse_0x1002e30c, _g_dwCurrentCuePoint + 0\n");
-__asm__(".globl _grim_img_imuse_0x1002e310\n\t.set _grim_img_imuse_0x1002e310, _g_bTrans_name + 0\n");
 __asm__(".globl _sect_rdata\n\t.set _sect_rdata, _PTR_hmiFXPresetRelease_10015000\n");
 __asm__(".globl _sect_data\n\t.set _sect_data, _DAT_10017000\n");

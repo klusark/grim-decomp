@@ -373,3 +373,53 @@ uint __cdecl sputRoom_ParseSetups(void)
 }
 #undef local_100
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_g_dwSputRoomInitialize __asm__("_g_dwSputRoomInitialize");
+extern unsigned int grim_def_g_dwSputRoomStartup __asm__("_g_dwSputRoomStartup");
+extern char grim_def_s_background__s_004ec83c[16] __asm__("_s_background__s_004ec83c");
+extern char grim_def_s_color__d__d__d_004ec74c[16] __asm__("_s_color__d__d__d_004ec74c");
+extern char grim_def_s_colormaps_004ec734[12] __asm__("_s_colormaps_004ec734");
+extern char grim_def_s_direction__f__f__f_004ec7a4[20] __asm__("_s_direction__f__f__f_004ec7a4");
+extern char grim_def_s_fclip__f_004ec7f0[12] __asm__("_s_fclip__f_004ec7f0");
+extern char grim_def_s_fov__f_004ec808[8] __asm__("_s_fov__f_004ec808");
+extern char grim_def_s_intensity__f_004ec780[16] __asm__("_s_intensity__f_004ec780");
+extern char grim_def_s_interest__f__f__f_004ec81c[20] __asm__("_s_interest__f__f__f_004ec81c");
+extern char grim_def_s_light__s_004ec7c4[12] __asm__("_s_light__s_004ec7c4");
+extern char grim_def_s_nclip__f_004ec7fc[12] __asm__("_s_nclip__f_004ec7fc");
+extern char grim_def_s_numlights__d_004ec7d0[16] __asm__("_s_numlights__d_004ec7d0");
+extern char grim_def_s_numsetups__d_004ec858[16] __asm__("_s_numsetups__d_004ec858");
+extern char grim_def_s_penumbraangle__f_004ec75c[20] __asm__("_s_penumbraangle__f_004ec75c");
+extern char grim_def_s_position__f__f__f_004ec790[20] __asm__("_s_position__f__f__f_004ec790");
+extern char grim_def_s_roll__f_004ec810[12] __asm__("_s_roll__f_004ec810");
+extern char grim_def_s_sectors_004ec71c[8] __asm__("_s_sectors_004ec71c");
+extern char grim_def_s_setup__s_004ec84c[12] __asm__("_s_setup__s_004ec84c");
+extern char grim_def_s_setups_004ec72c[8] __asm__("_s_setups_004ec72c");
+extern char grim_def_s_umbraangle__f_004ec770[16] __asm__("_s_umbraangle__f_004ec770");
+extern char grim_def_s_zbuffer__s_004ec830[12] __asm__("_s_zbuffer__s_004ec830");
+/* 0x004ec71c, 8 bytes */ /* loose */ char grim_def_s_sectors_004ec71c[8] __asm__("_s_sectors_004ec71c") = "sectors";
+/* 0x004ec72c, 8 bytes */ /* loose */ char grim_def_s_setups_004ec72c[8] __asm__("_s_setups_004ec72c") = "setups";
+/* 0x004ec734, 12 bytes */ /* loose */ char grim_def_s_colormaps_004ec734[12] __asm__("_s_colormaps_004ec734") = "colormaps";
+/* 0x004ec74c, 16 bytes */ /* loose */ char grim_def_s_color__d__d__d_004ec74c[16] __asm__("_s_color__d__d__d_004ec74c") = " color %d %d %d";
+/* 0x004ec75c, 20 bytes */ /* loose */ char grim_def_s_penumbraangle__f_004ec75c[20] __asm__("_s_penumbraangle__f_004ec75c") = " penumbraangle %f";
+/* 0x004ec770, 16 bytes */ /* loose */ char grim_def_s_umbraangle__f_004ec770[16] __asm__("_s_umbraangle__f_004ec770") = " umbraangle %f";
+/* 0x004ec780, 16 bytes */ /* loose */ char grim_def_s_intensity__f_004ec780[16] __asm__("_s_intensity__f_004ec780") = " intensity %f";
+/* 0x004ec790, 20 bytes */ /* loose */ char grim_def_s_position__f__f__f_004ec790[20] __asm__("_s_position__f__f__f_004ec790") = " position %f %f %f";
+/* 0x004ec7a4, 20 bytes */ /* loose */ char grim_def_s_direction__f__f__f_004ec7a4[20] __asm__("_s_direction__f__f__f_004ec7a4") = " direction %f %f %f";
+/* 0x004ec7c4, 12 bytes */ /* loose */ char grim_def_s_light__s_004ec7c4[12] __asm__("_s_light__s_004ec7c4") = " light %s";
+/* 0x004ec7d0, 16 bytes */ /* loose */ char grim_def_s_numlights__d_004ec7d0[16] __asm__("_s_numlights__d_004ec7d0") = " numlights %d\n";
+/* 0x004ec7f0, 12 bytes */ /* loose */ char grim_def_s_fclip__f_004ec7f0[12] __asm__("_s_fclip__f_004ec7f0") = " fclip %f";
+/* 0x004ec7fc, 12 bytes */ /* loose */ char grim_def_s_nclip__f_004ec7fc[12] __asm__("_s_nclip__f_004ec7fc") = " nclip %f";
+/* 0x004ec808, 8 bytes */ /* loose */ char grim_def_s_fov__f_004ec808[8] __asm__("_s_fov__f_004ec808") = " fov %f";
+/* 0x004ec810, 12 bytes */ /* loose */ char grim_def_s_roll__f_004ec810[12] __asm__("_s_roll__f_004ec810") = " roll %f";
+/* 0x004ec81c, 20 bytes */ /* loose */ char grim_def_s_interest__f__f__f_004ec81c[20] __asm__("_s_interest__f__f__f_004ec81c") = " interest %f %f %f";
+/* 0x004ec830, 12 bytes */ /* loose */ char grim_def_s_zbuffer__s_004ec830[12] __asm__("_s_zbuffer__s_004ec830") = " zbuffer %s";
+/* 0x004ec83c, 16 bytes */ /* loose */ char grim_def_s_background__s_004ec83c[16] __asm__("_s_background__s_004ec83c") = " background %s";
+/* 0x004ec84c, 12 bytes */ /* loose */ char grim_def_s_setup__s_004ec84c[12] __asm__("_s_setup__s_004ec84c") = " setup %s";
+/* 0x004ec858, 16 bytes */ /* loose */ char grim_def_s_numsetups__d_004ec858[16] __asm__("_s_numsetups__d_004ec858") = " numsetups %d\n";
+/* 0x008cb098, 4 bytes */ GRIM_DATA("008cb098") unsigned int grim_def_g_dwSputRoomInitialize __asm__("_g_dwSputRoomInitialize") = 0x0;
+/* 0x008cb09c, 4 bytes */ GRIM_DATA("008cb09c") unsigned int grim_def_g_dwSputRoomStartup __asm__("_g_dwSputRoomStartup") = 0x0;

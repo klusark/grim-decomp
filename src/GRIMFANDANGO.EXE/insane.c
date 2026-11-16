@@ -419,3 +419,63 @@ void __cdecl Insane_MemCopy(void *dst,void *src,uint n)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_anm_animframe_module[] __asm__("_anm_animframe_module");
+extern char f_anm_animplay_module[] __asm__("_anm_animplay_module");
+extern char f_bmp_bitmap_module[] __asm__("_bmp_bitmap_module");
+extern char f_fle_directory_module[] __asm__("_fle_directory_module");
+extern char f_fle_stdfile_module[] __asm__("_fle_stdfile_module");
+extern char f_fle_streamer_module[] __asm__("_fle_streamer_module");
+extern char f_fle_zfilio_module[] __asm__("_fle_zfilio_module");
+extern char f_fob_flobdec_blocky16_module[] __asm__("_fob_flobdec_blocky16_module");
+extern char f_fob_flobdec_wave_module[] __asm__("_fob_flobdec_wave_module");
+extern char f_grimio_stdio_module[] __asm__("_grimio_stdio_module");
+extern char f_grimmem_memory_module[] __asm__("_grimmem_memory_module");
+extern char f_sou_dsnd_module[] __asm__("_sou_dsnd_module");
+extern char f_sou_sound_module[] __asm__("_sou_sound_module");
+extern char f_sys_timer_module[] __asm__("_sys_timer_module");
+extern char grim_def_DAT_004f0c78[] __asm__("_DAT_004f0c78");
+extern char grim_def_DAT_004f0c88[] __asm__("_DAT_004f0c88");
+extern char grim_def_DAT_004f0c94[] __asm__("_DAT_004f0c94");
+extern unsigned char grim_def_DAT_008d16ac[4] __asm__("_DAT_008d16ac");
+extern unsigned char grim_def_DAT_008d16c0[8] __asm__("_DAT_008d16c0");
+extern char grim_def_g_dwAnimplay_services[] __asm__("_g_dwAnimplay_services");
+extern unsigned int grim_def_g_dwSmushPlaySysInitialized __asm__("_g_dwSmushPlaySysInitialized");
+extern unsigned int grim_def_g_dwSmushPlaySysStarted __asm__("_g_dwSmushPlaySysStarted");
+extern char grim_def_g_dwSmushPlay_sound_services[] __asm__("_g_dwSmushPlay_sound_services");
+extern void *grim_def_g_pShl_modules[30] __asm__("_g_pShl_modules");
+extern char grim_def_g_pSmushPlay_file_services[] __asm__("_g_pSmushPlay_file_services");
+extern void *grim_def_g_pSubscription_info[12] __asm__("_g_pSubscription_info");
+extern char grim_def_s_FILIO_insane_stdio_004f0c64[] __asm__("_s_FILIO_insane_stdio_004f0c64");
+extern char grim_def_s__GZ_004f0cb8[4] __asm__("_s__GZ_004f0cb8");
+extern char grim_def_s__SNM_004f0cbc[8] __asm__("_s__SNM_004f0cbc");
+extern char grim_def_s__gz_004f0cb4[4] __asm__("_s__gz_004f0cb4");
+extern char grim_def_s__snm_004f0cc4[8] __asm__("_s__snm_004f0cc4");
+/* 0x004f0b70, 48 bytes */ GRIM_DATA("004f0b70") void *grim_def_g_pSubscription_info[12] __asm__("_g_pSubscription_info") = {
+    (void *)&grim_def_g_pSmushPlay_file_services, (void *)&grim_def_DAT_004f0c94, 0, (void *)&grim_def_g_dwSmushPlay_sound_services,
+    (void *)&grim_def_DAT_004f0c88, 0, (void *)&grim_def_g_dwAnimplay_services, (void *)&grim_def_DAT_004f0c78,
+    0, 0, 0, 0
+};
+/* 0x004f0ba0, 120 bytes */ GRIM_DATA("004f0ba0") void *grim_def_g_pShl_modules[30] __asm__("_g_pShl_modules") = {
+    (void *)f_grimmem_memory_module, 0, (void *)f_sys_timer_module, 0,
+    (void *)f_bmp_bitmap_module, 0, (void *)f_grimio_stdio_module, 0,
+    (void *)f_fle_stdfile_module, 0, (void *)f_fle_zfilio_module, (void *)&grim_def_s_FILIO_insane_stdio_004f0c64,
+    (void *)f_fle_directory_module, 0, (void *)f_fob_flobdec_blocky16_module, 0,
+    (void *)f_fob_flobdec_wave_module, 0, (void *)f_sou_dsnd_module, 0,
+    (void *)f_sou_sound_module, 0, (void *)f_fle_streamer_module, 0,
+    (void *)f_anm_animframe_module, 0, (void *)f_anm_animplay_module, 0,
+    0, 0
+};
+/* 0x004f0cb4, 4 bytes */ /* loose */ char grim_def_s__gz_004f0cb4[4] __asm__("_s__gz_004f0cb4") = ".gz";
+/* 0x004f0cb8, 4 bytes */ /* loose */ char grim_def_s__GZ_004f0cb8[4] __asm__("_s__GZ_004f0cb8") = ".GZ";
+/* 0x004f0cbc, 8 bytes */ /* loose */ char grim_def_s__SNM_004f0cbc[8] __asm__("_s__SNM_004f0cbc") = ".SNM";
+/* 0x004f0cc4, 8 bytes */ /* loose */ char grim_def_s__snm_004f0cc4[8] __asm__("_s__snm_004f0cc4") = ".snm";
+/* 0x008d16a0, 4 bytes */ GRIM_DATA("008d16a0") unsigned int grim_def_g_dwSmushPlaySysInitialized __asm__("_g_dwSmushPlaySysInitialized") = 0x0;
+/* 0x008d16a4, 4 bytes */ GRIM_DATA("008d16a4") unsigned int grim_def_g_dwSmushPlaySysStarted __asm__("_g_dwSmushPlaySysStarted") = 0x0;
+/* 0x008d16ac, 4 bytes */ GRIM_DATA("008d16ac") unsigned char grim_def_DAT_008d16ac[4] __asm__("_DAT_008d16ac") = {0};
+/* 0x008d16c0, 8 bytes */ GRIM_DATA("008d16c0") unsigned char grim_def_DAT_008d16c0[8] __asm__("_DAT_008d16c0") = {0};

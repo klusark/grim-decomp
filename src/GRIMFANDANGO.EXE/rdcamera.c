@@ -582,3 +582,19 @@ int __cdecl rdPrimit3_GetScreenCoord(float *world,ScreenCoord *outScreen)
 #undef local_18
 #undef local_c
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004ddb3c[4] __asm__("_DAT_004ddb3c");
+extern unsigned char grim_def_DAT_004ddb40[4] __asm__("_DAT_004ddb40");
+extern unsigned char grim_def_UINT_008ddf60[36] __asm__("_UINT_008ddf60");
+extern unsigned char grim_def_g_aRdCamera_camPYR[16] __asm__("_g_aRdCamera_camPYR");
+extern char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44");
+/* 0x004ddb3c, 4 bytes */ GRIM_DATA("004ddb3c") unsigned char grim_def_DAT_004ddb3c[4] __asm__("_DAT_004ddb3c") = { 0x45 };
+/* 0x004ddb40, 4 bytes */ GRIM_DATA("004ddb40") unsigned char grim_def_DAT_004ddb40[4] __asm__("_DAT_004ddb40") = { 0x6f };
+/* 0x004ddb44, 44 bytes */ GRIM_DATA("004ddb44") char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44") = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdcamera.c";
+/* 0x008ddf50, 16 bytes */ GRIM_DATA("008ddf50") unsigned char grim_def_g_aRdCamera_camPYR[16] __asm__("_g_aRdCamera_camPYR") = {0};
+/* 0x008ddf60, 36 bytes */ GRIM_DATA("008ddf60") unsigned char grim_def_UINT_008ddf60[36] __asm__("_UINT_008ddf60") = {0};

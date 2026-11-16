@@ -11251,3 +11251,839 @@ void __cdecl Lua_LightMgrShutdown(void)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_Lua_LightMgrSetChange[] __asm__("_Lua_LightMgrSetChange");
+extern char f_Lua_LightMgrShutdown[] __asm__("_Lua_LightMgrShutdown");
+extern char f_Lua_LightMgrStartup[] __asm__("_Lua_LightMgrStartup");
+extern char f_Lua_Print_NoOp[] __asm__("_Lua_Print_NoOp");
+extern char f_Lua_Stub[] __asm__("_Lua_Stub");
+extern char f_Lua_TextFileGetLine[] __asm__("_Lua_TextFileGetLine");
+extern char f_Lua_TextFileGetLineCount[] __asm__("_Lua_TextFileGetLineCount");
+extern char f_grimlib_NextSetup[] __asm__("_grimlib_NextSetup");
+extern char f_grimlib_PreviousSetup[] __asm__("_grimlib_PreviousSetup");
+extern char f_sputLua_ActivateActorShadow[] __asm__("_sputLua_ActivateActorShadow");
+extern char f_sputLua_ActorDistToShadowPlane[] __asm__("_sputLua_ActorDistToShadowPlane");
+extern char f_sputLua_ActorLookAtL[] __asm__("_sputLua_ActorLookAtL");
+extern char f_sputLua_ActorPuckOrient[] __asm__("_sputLua_ActorPuckOrient");
+extern char f_sputLua_ActorShadow[] __asm__("_sputLua_ActorShadow");
+extern char f_sputLua_ActorToClean[] __asm__("_sputLua_ActorToClean");
+extern char f_sputLua_ActorVoiceIs3DL[] __asm__("_sputLua_ActorVoiceIs3DL");
+extern char f_sputLua_AddShadowClipPlane[] __asm__("_sputLua_AddShadowClipPlane");
+extern char f_sputLua_AllocateActorL[] __asm__("_sputLua_AllocateActorL");
+extern char f_sputLua_AttachToResourcesL[] __asm__("_sputLua_AttachToResourcesL");
+extern char f_sputLua_BlastImage[] __asm__("_sputLua_BlastImage");
+extern char f_sputLua_BlastRect[] __asm__("_sputLua_BlastRect");
+extern char f_sputLua_BuildCache[] __asm__("_sputLua_BuildCache");
+extern char f_sputLua_CacheRect[] __asm__("_sputLua_CacheRect");
+extern char f_sputLua_CanActorSeeL[] __asm__("_sputLua_CanActorSeeL");
+extern char f_sputLua_CheckForFileL[] __asm__("_sputLua_CheckForFileL");
+extern char f_sputLua_CleanBuffer[] __asm__("_sputLua_CleanBuffer");
+extern char f_sputLua_CompleteActorChoreL[] __asm__("_sputLua_CompleteActorChoreL");
+extern char f_sputLua_ConcatFallback[] __asm__("_sputLua_ConcatFallback");
+extern char f_sputLua_DetachFromResourcesL[] __asm__("_sputLua_DetachFromResourcesL");
+extern char f_sputLua_DimRegion[] __asm__("_sputLua_DimRegion");
+extern char f_sputLua_DimScreen[] __asm__("_sputLua_DimScreen");
+extern char f_sputLua_DisableControlL[] __asm__("_sputLua_DisableControlL");
+extern char f_sputLua_Display[] __asm__("_sputLua_Display");
+extern char f_sputLua_DumpMemoryLogL[] __asm__("_sputLua_DumpMemoryLogL");
+extern char f_sputLua_EnableControlL[] __asm__("_sputLua_EnableControlL");
+extern char f_sputLua_EnableDebugKeysL[] __asm__("_sputLua_EnableDebugKeysL");
+extern char f_sputLua_EngineDisplay[] __asm__("_sputLua_EngineDisplay");
+extern char f_sputLua_EnginePause[] __asm__("_sputLua_EnginePause");
+extern char f_sputLua_EngineResume[] __asm__("_sputLua_EngineResume");
+extern char f_sputLua_ExitL[] __asm__("_sputLua_ExitL");
+extern char f_sputLua_FadeInChore[] __asm__("_sputLua_FadeInChore");
+extern char f_sputLua_FadeOutChore[] __asm__("_sputLua_FadeOutChore");
+extern char f_sputLua_FileFindDispose[] __asm__("_sputLua_FileFindDispose");
+extern char f_sputLua_FileFindFirst[] __asm__("_sputLua_FileFindFirst");
+extern char f_sputLua_FileFindNext[] __asm__("_sputLua_FileFindNext");
+extern char f_sputLua_FindFileOnAnyCD[] __asm__("_sputLua_FindFileOnAnyCD");
+extern char f_sputLua_FindLight[] __asm__("_sputLua_FindLight");
+extern char f_sputLua_FreeImage[] __asm__("_sputLua_FreeImage");
+extern char f_sputLua_FreeObjectState[] __asm__("_sputLua_FreeObjectState");
+extern char f_sputLua_FunctionNameL[] __asm__("_sputLua_FunctionNameL");
+extern char f_sputLua_GetActorChoresL[] __asm__("_sputLua_GetActorChoresL");
+extern char f_sputLua_GetActorCostumeDepthL[] __asm__("_sputLua_GetActorCostumeDepthL");
+extern char f_sputLua_GetActorCostumeL[] __asm__("_sputLua_GetActorCostumeL");
+extern char f_sputLua_GetActorLookRate[] __asm__("_sputLua_GetActorLookRate");
+extern char f_sputLua_GetActorLoopingChoresL[] __asm__("_sputLua_GetActorLoopingChoresL");
+extern char f_sputLua_GetActorNodeLocationL[] __asm__("_sputLua_GetActorNodeLocationL");
+extern char f_sputLua_GetActorPosL[] __asm__("_sputLua_GetActorPosL");
+extern char f_sputLua_GetActorPuckVectorL[] __asm__("_sputLua_GetActorPuckVectorL");
+extern char f_sputLua_GetActorRectL[] __asm__("_sputLua_GetActorRectL");
+extern char f_sputLua_GetActorRotL[] __asm__("_sputLua_GetActorRotL");
+extern char f_sputLua_GetActorScaleL[] __asm__("_sputLua_GetActorScaleL");
+extern char f_sputLua_GetActorSectorL[] __asm__("_sputLua_GetActorSectorL");
+extern char f_sputLua_GetActorTimeScaleL[] __asm__("_sputLua_GetActorTimeScaleL");
+extern char f_sputLua_GetActorTurnRateL[] __asm__("_sputLua_GetActorTurnRateL");
+extern char f_sputLua_GetActorWalkRateL[] __asm__("_sputLua_GetActorWalkRateL");
+extern char f_sputLua_GetActorYawToPoint[] __asm__("_sputLua_GetActorYawToPoint");
+extern char f_sputLua_GetAngleBetweenActorsL[] __asm__("_sputLua_GetAngleBetweenActorsL");
+extern char f_sputLua_GetAngleBetweenVectorsL[] __asm__("_sputLua_GetAngleBetweenVectorsL");
+extern char f_sputLua_GetCameraActorL[] __asm__("_sputLua_GetCameraActorL");
+extern char f_sputLua_GetCameraFOVL[] __asm__("_sputLua_GetCameraFOVL");
+extern char f_sputLua_GetCameraInterestL[] __asm__("_sputLua_GetCameraInterestL");
+extern char f_sputLua_GetCameraLookVectorL[] __asm__("_sputLua_GetCameraLookVectorL");
+extern char f_sputLua_GetCameraPositionL[] __asm__("_sputLua_GetCameraPositionL");
+extern char f_sputLua_GetCameraRollL[] __asm__("_sputLua_GetCameraRollL");
+extern char f_sputLua_GetControlStateL[] __asm__("_sputLua_GetControlStateL");
+extern char f_sputLua_GetCurrentScript[] __asm__("_sputLua_GetCurrentScript");
+extern char f_sputLua_GetCurrentSetupL[] __asm__("_sputLua_GetCurrentSetupL");
+extern char f_sputLua_GetDiskFreeSpaceL[] __asm__("_sputLua_GetDiskFreeSpaceL");
+extern char f_sputLua_GetImage[] __asm__("_sputLua_GetImage");
+extern char f_sputLua_GetLightAngles[] __asm__("_sputLua_GetLightAngles");
+extern char f_sputLua_GetLightIntensity[] __asm__("_sputLua_GetLightIntensity");
+extern char f_sputLua_GetLightPosition[] __asm__("_sputLua_GetLightPosition");
+extern char f_sputLua_GetLightRotation[] __asm__("_sputLua_GetLightRotation");
+extern char f_sputLua_GetLightType[] __asm__("_sputLua_GetLightType");
+extern char f_sputLua_GetMemoryUsageL[] __asm__("_sputLua_GetMemoryUsageL");
+extern char f_sputLua_GetPhysicalBytes[] __asm__("_sputLua_GetPhysicalBytes");
+extern char f_sputLua_GetPointSectorL[] __asm__("_sputLua_GetPointSectorL");
+extern char f_sputLua_GetSaveGameData[] __asm__("_sputLua_GetSaveGameData");
+extern char f_sputLua_GetSaveGameImage[] __asm__("_sputLua_GetSaveGameImage");
+extern char f_sputLua_GetSectorOppositeEdge[] __asm__("_sputLua_GetSectorOppositeEdge");
+extern char f_sputLua_GetShrinkPosition[] __asm__("_sputLua_GetShrinkPosition");
+extern char f_sputLua_GetSoundParametersL[] __asm__("_sputLua_GetSoundParametersL");
+extern char f_sputLua_GetSpeechMode[] __asm__("_sputLua_GetSpeechMode");
+extern char f_sputLua_GetTextSpeed[] __asm__("_sputLua_GetTextSpeed");
+extern char f_sputLua_GetTickCount[] __asm__("_sputLua_GetTickCount");
+extern char f_sputLua_GetVisibleThingsL[] __asm__("_sputLua_GetVisibleThingsL");
+extern char f_sputLua_HardwareAccelerated[] __asm__("_sputLua_HardwareAccelerated");
+extern char f_sputLua_ImFadeParam[] __asm__("_sputLua_ImFadeParam");
+extern char f_sputLua_ImGetMasterVol[] __asm__("_sputLua_ImGetMasterVol");
+extern char f_sputLua_ImGetMemoryFootprint[] __asm__("_sputLua_ImGetMemoryFootprint");
+extern char f_sputLua_ImGetMusicVol[] __asm__("_sputLua_ImGetMusicVol");
+extern char f_sputLua_ImGetParam[] __asm__("_sputLua_ImGetParam");
+extern char f_sputLua_ImGetSfxVol[] __asm__("_sputLua_ImGetSfxVol");
+extern char f_sputLua_ImGetSoundCacheSize[] __asm__("_sputLua_ImGetSoundCacheSize");
+extern char f_sputLua_ImGetVoiceVol[] __asm__("_sputLua_ImGetVoiceVol");
+extern char f_sputLua_ImPause[] __asm__("_sputLua_ImPause");
+extern char f_sputLua_ImResume[] __asm__("_sputLua_ImResume");
+extern char f_sputLua_ImSetAttribute[] __asm__("_sputLua_ImSetAttribute");
+extern char f_sputLua_ImSetCuePoint[] __asm__("_sputLua_ImSetCuePoint");
+extern char f_sputLua_ImSetMasterVol[] __asm__("_sputLua_ImSetMasterVol");
+extern char f_sputLua_ImSetMusicVol[] __asm__("_sputLua_ImSetMusicVol");
+extern char f_sputLua_ImSetParam[] __asm__("_sputLua_ImSetParam");
+extern char f_sputLua_ImSetSequence[] __asm__("_sputLua_ImSetSequence");
+extern char f_sputLua_ImSetSfxVol[] __asm__("_sputLua_ImSetSfxVol");
+extern char f_sputLua_ImSetState[] __asm__("_sputLua_ImSetState");
+extern char f_sputLua_ImSetVoiceEffect[] __asm__("_sputLua_ImSetVoiceEffect");
+extern char f_sputLua_ImSetVoiceVol[] __asm__("_sputLua_ImSetVoiceVol");
+extern char f_sputLua_ImStartRecording[] __asm__("_sputLua_ImStartRecording");
+extern char f_sputLua_ImStartSound[] __asm__("_sputLua_ImStartSound");
+extern char f_sputLua_ImStartVoice[] __asm__("_sputLua_ImStartVoice");
+extern char f_sputLua_ImStopAllSounds[] __asm__("_sputLua_ImStopAllSounds");
+extern char f_sputLua_ImStopRecording[] __asm__("_sputLua_ImStopRecording");
+extern char f_sputLua_ImStopSound[] __asm__("_sputLua_ImStopSound");
+extern char f_sputLua_ImStopVoice[] __asm__("_sputLua_ImStopVoice");
+extern char f_sputLua_InputDialog[] __asm__("_sputLua_InputDialog");
+extern char f_sputLua_IrisComplete[] __asm__("_sputLua_IrisComplete");
+extern char f_sputLua_IrisDown[] __asm__("_sputLua_IrisDown");
+extern char f_sputLua_IrisUp[] __asm__("_sputLua_IrisUp");
+extern char f_sputLua_IsActorChoringL[] __asm__("_sputLua_IsActorChoringL");
+extern char f_sputLua_IsActorInSector[] __asm__("_sputLua_IsActorInSector");
+extern char f_sputLua_IsActorLookingL[] __asm__("_sputLua_IsActorLookingL");
+extern char f_sputLua_IsActorMovingL[] __asm__("_sputLua_IsActorMovingL");
+extern char f_sputLua_IsActorRestingL[] __asm__("_sputLua_IsActorRestingL");
+extern char f_sputLua_IsActorTurningL[] __asm__("_sputLua_IsActorTurningL");
+extern char f_sputLua_IsLightOn[] __asm__("_sputLua_IsLightOn");
+extern char f_sputLua_IsMoviePlayingL[] __asm__("_sputLua_IsMoviePlayingL");
+extern char f_sputLua_IsPointInSector[] __asm__("_sputLua_IsPointInSector");
+extern char f_sputLua_IsSectorActiveL[] __asm__("_sputLua_IsSectorActiveL");
+extern char f_sputLua_JustLoadedL[] __asm__("_sputLua_JustLoadedL");
+extern char f_sputLua_KillActorShadows[] __asm__("_sputLua_KillActorShadows");
+extern char f_sputLua_LoadCostumeL[] __asm__("_sputLua_LoadCostumeL");
+extern char f_sputLua_LoadL[] __asm__("_sputLua_LoadL");
+extern char f_sputLua_LockFontL[] __asm__("_sputLua_LockFontL");
+extern char f_sputLua_LockSet[] __asm__("_sputLua_LockSet");
+extern char f_sputLua_MakeCurrentSetL[] __asm__("_sputLua_MakeCurrentSetL");
+extern char f_sputLua_MakeCurrentSetupL[] __asm__("_sputLua_MakeCurrentSetupL");
+extern char f_sputLua_MakeSectorActiveL[] __asm__("_sputLua_MakeSectorActiveL");
+extern char f_sputLua_MarkDirtyRect[] __asm__("_sputLua_MarkDirtyRect");
+extern char f_sputLua_MessagePrintL[] __asm__("_sputLua_MessagePrintL");
+extern char f_sputLua_NewObjectState[] __asm__("_sputLua_NewObjectState");
+extern char f_sputLua_NukeResourcesL[] __asm__("_sputLua_NukeResourcesL");
+extern char f_sputLua_PauseMovieL[] __asm__("_sputLua_PauseMovieL");
+extern char f_sputLua_PerSecondL[] __asm__("_sputLua_PerSecondL");
+extern char f_sputLua_PlayActorChoreL[] __asm__("_sputLua_PlayActorChoreL");
+extern char f_sputLua_PlayActorChoreLoopingL[] __asm__("_sputLua_PlayActorChoreLoopingL");
+extern char f_sputLua_PointActorAtL[] __asm__("_sputLua_PointActorAtL");
+extern char f_sputLua_PointLightAt[] __asm__("_sputLua_PointLightAt");
+extern char f_sputLua_PopActorCostumeL[] __asm__("_sputLua_PopActorCostumeL");
+extern char f_sputLua_PreRender[] __asm__("_sputLua_PreRender");
+extern char f_sputLua_PrintActorCostumesL[] __asm__("_sputLua_PrintActorCostumesL");
+extern char f_sputLua_PushActorCostumeL[] __asm__("_sputLua_PushActorCostumeL");
+extern char f_sputLua_PutActorAtInterestL[] __asm__("_sputLua_PutActorAtInterestL");
+extern char f_sputLua_PutActorAtL[] __asm__("_sputLua_PutActorAtL");
+extern char f_sputLua_PutActorInSetL[] __asm__("_sputLua_PutActorInSetL");
+extern char f_sputLua_QueryDialog[] __asm__("_sputLua_QueryDialog");
+extern char f_sputLua_ReadRegistryValue[] __asm__("_sputLua_ReadRegistryValue");
+extern char f_sputLua_RenderModeUser[] __asm__("_sputLua_RenderModeUser");
+extern char f_sputLua_ResReport[] __asm__("_sputLua_ResReport");
+extern char f_sputLua_ResetTexturesL[] __asm__("_sputLua_ResetTexturesL");
+extern char f_sputLua_RestoreCacheRect[] __asm__("_sputLua_RestoreCacheRect");
+extern char f_sputLua_RestoreIMuse[] __asm__("_sputLua_RestoreIMuse");
+extern char f_sputLua_RevertCache[] __asm__("_sputLua_RevertCache");
+extern char f_sputLua_RotateVectorL[] __asm__("_sputLua_RotateVectorL");
+extern char f_sputLua_SaveIMuse[] __asm__("_sputLua_SaveIMuse");
+extern char f_sputLua_SaveL[] __asm__("_sputLua_SaveL");
+extern char f_sputLua_SaveScreen[] __asm__("_sputLua_SaveScreen");
+extern char f_sputLua_ScreenShot[] __asm__("_sputLua_ScreenShot");
+extern char f_sputLua_ScreenToWorldL[] __asm__("_sputLua_ScreenToWorldL");
+extern char f_sputLua_SearchForFileOrSwapCDsL[] __asm__("_sputLua_SearchForFileOrSwapCDsL");
+extern char f_sputLua_SendObjectToBack[] __asm__("_sputLua_SendObjectToBack");
+extern char f_sputLua_SendObjectToFront[] __asm__("_sputLua_SendObjectToFront");
+extern char f_sputLua_SetActiveShadow[] __asm__("_sputLua_SetActiveShadow");
+extern char f_sputLua_SetActorChoreLoopingL[] __asm__("_sputLua_SetActorChoreLoopingL");
+extern char f_sputLua_SetActorClipActive[] __asm__("_sputLua_SetActorClipActive");
+extern char f_sputLua_SetActorClipPlane[] __asm__("_sputLua_SetActorClipPlane");
+extern char f_sputLua_SetActorCollisionMode[] __asm__("_sputLua_SetActorCollisionMode");
+extern char f_sputLua_SetActorCollisionScale[] __asm__("_sputLua_SetActorCollisionScale");
+extern char f_sputLua_SetActorColormapL[] __asm__("_sputLua_SetActorColormapL");
+extern char f_sputLua_SetActorConstrain[] __asm__("_sputLua_SetActorConstrain");
+extern char f_sputLua_SetActorCostumeL[] __asm__("_sputLua_SetActorCostumeL");
+extern char f_sputLua_SetActorFollowBoxesL[] __asm__("_sputLua_SetActorFollowBoxesL");
+extern char f_sputLua_SetActorFrustrumCull[] __asm__("_sputLua_SetActorFrustrumCull");
+extern char f_sputLua_SetActorHeadL[] __asm__("_sputLua_SetActorHeadL");
+extern char f_sputLua_SetActorInvClipNode[] __asm__("_sputLua_SetActorInvClipNode");
+extern char f_sputLua_SetActorLookRate[] __asm__("_sputLua_SetActorLookRate");
+extern char f_sputLua_SetActorMumbleChoreL[] __asm__("_sputLua_SetActorMumbleChoreL");
+extern char f_sputLua_SetActorOffsetYaw[] __asm__("_sputLua_SetActorOffsetYaw");
+extern char f_sputLua_SetActorPitch[] __asm__("_sputLua_SetActorPitch");
+extern char f_sputLua_SetActorReflection[] __asm__("_sputLua_SetActorReflection");
+extern char f_sputLua_SetActorRestChoreL[] __asm__("_sputLua_SetActorRestChoreL");
+extern char f_sputLua_SetActorRoll[] __asm__("_sputLua_SetActorRoll");
+extern char f_sputLua_SetActorRotL[] __asm__("_sputLua_SetActorRotL");
+extern char f_sputLua_SetActorScaleL[] __asm__("_sputLua_SetActorScaleL");
+extern char f_sputLua_SetActorShadowPlane[] __asm__("_sputLua_SetActorShadowPlane");
+extern char f_sputLua_SetActorShadowPoint[] __asm__("_sputLua_SetActorShadowPoint");
+extern char f_sputLua_SetActorShadowValid[] __asm__("_sputLua_SetActorShadowValid");
+extern char f_sputLua_SetActorTalkChoreL[] __asm__("_sputLua_SetActorTalkChoreL");
+extern char f_sputLua_SetActorTimeScaleL[] __asm__("_sputLua_SetActorTimeScaleL");
+extern char f_sputLua_SetActorTurnChoresL[] __asm__("_sputLua_SetActorTurnChoresL");
+extern char f_sputLua_SetActorTurnRateL[] __asm__("_sputLua_SetActorTurnRateL");
+extern char f_sputLua_SetActorVisibilityL[] __asm__("_sputLua_SetActorVisibilityL");
+extern char f_sputLua_SetActorWalkChoresL[] __asm__("_sputLua_SetActorWalkChoresL");
+extern char f_sputLua_SetActorWalkDominate[] __asm__("_sputLua_SetActorWalkDominate");
+extern char f_sputLua_SetActorWalkRateL[] __asm__("_sputLua_SetActorWalkRateL");
+extern char f_sputLua_SetAmbientLight[] __asm__("_sputLua_SetAmbientLight");
+extern char f_sputLua_SetCameraFOVL[] __asm__("_sputLua_SetCameraFOVL");
+extern char f_sputLua_SetCameraInterestL[] __asm__("_sputLua_SetCameraInterestL");
+extern char f_sputLua_SetCameraPositionL[] __asm__("_sputLua_SetCameraPositionL");
+extern char f_sputLua_SetCameraRollL[] __asm__("_sputLua_SetCameraRollL");
+extern char f_sputLua_SetGamma[] __asm__("_sputLua_SetGamma");
+extern char f_sputLua_SetLightAngles[] __asm__("_sputLua_SetLightAngles");
+extern char f_sputLua_SetLightIntensity[] __asm__("_sputLua_SetLightIntensity");
+extern char f_sputLua_SetLightPosition[] __asm__("_sputLua_SetLightPosition");
+extern char f_sputLua_SetLightRotation[] __asm__("_sputLua_SetLightRotation");
+extern char f_sputLua_SetLightType[] __asm__("_sputLua_SetLightType");
+extern char f_sputLua_SetMemoryUsage[] __asm__("_sputLua_SetMemoryUsage");
+extern char f_sputLua_SetObjectType[] __asm__("_sputLua_SetObjectType");
+extern char f_sputLua_SetSelectedActorL[] __asm__("_sputLua_SetSelectedActorL");
+extern char f_sputLua_SetShadowColor[] __asm__("_sputLua_SetShadowColor");
+extern char f_sputLua_SetSoundParametersL[] __asm__("_sputLua_SetSoundParametersL");
+extern char f_sputLua_SetSoundPosition[] __asm__("_sputLua_SetSoundPosition");
+extern char f_sputLua_SetSpeechMode[] __asm__("_sputLua_SetSpeechMode");
+extern char f_sputLua_SetTextSpeed[] __asm__("_sputLua_SetTextSpeed");
+extern char f_sputLua_SetWalkSystemFadeTime[] __asm__("_sputLua_SetWalkSystemFadeTime");
+extern char f_sputLua_ShrinkBoxes[] __asm__("_sputLua_ShrinkBoxes");
+extern char f_sputLua_ShutUpActorL[] __asm__("_sputLua_ShutUpActorL");
+extern char f_sputLua_SnapToPlane[] __asm__("_sputLua_SnapToPlane");
+extern char f_sputLua_SpewShutdown[] __asm__("_sputLua_SpewShutdown");
+extern char f_sputLua_SpewStartup[] __asm__("_sputLua_SpewStartup");
+extern char f_sputLua_StartFullScreenMovieL[] __asm__("_sputLua_StartFullScreenMovieL");
+extern char f_sputLua_StartMovieL[] __asm__("_sputLua_StartMovieL");
+extern char f_sputLua_StopActorChoreL[] __asm__("_sputLua_StopActorChoreL");
+extern char f_sputLua_StopMovieL[] __asm__("_sputLua_StopMovieL");
+extern char f_sputLua_SubmitSaveGameData[] __asm__("_sputLua_SubmitSaveGameData");
+extern char f_sputLua_Test[] __asm__("_sputLua_Test");
+extern char f_sputLua_TurnActorL[] __asm__("_sputLua_TurnActorL");
+extern char f_sputLua_TurnActorTo[] __asm__("_sputLua_TurnActorTo");
+extern char f_sputLua_TurnLightOn[] __asm__("_sputLua_TurnLightOn");
+extern char f_sputLua_TypeOverride[] __asm__("_sputLua_TypeOverride");
+extern char f_sputLua_UnLockSet[] __asm__("_sputLua_UnLockSet");
+extern char f_sputLua_UnShrinkBoxes[] __asm__("_sputLua_UnShrinkBoxes");
+extern char f_sputLua_WalkActorForwardL[] __asm__("_sputLua_WalkActorForwardL");
+extern char f_sputLua_WalkActorToAvoidingL[] __asm__("_sputLua_WalkActorToAvoidingL");
+extern char f_sputLua_WalkActorToL[] __asm__("_sputLua_WalkActorToL");
+extern char f_sputLua_WalkActorVectorL[] __asm__("_sputLua_WalkActorVectorL");
+extern char f_sputLua_WorldToScreenL[] __asm__("_sputLua_WorldToScreenL");
+extern char f_sputLua_WriteRegistryValue[] __asm__("_sputLua_WriteRegistryValue");
+extern char f_sputRender_ClearIris[] __asm__("_sputRender_ClearIris");
+extern char f_sputRender_ForceRefresh[] __asm__("_sputRender_ForceRefresh");
+extern char f_stdControl_Flush[] __asm__("_stdControl_Flush");
+extern char grim_def_DAT_004e8448[] __asm__("_DAT_004e8448");
+extern char grim_def_DAT_004e844c[] __asm__("_DAT_004e844c");
+extern char grim_def_DAT_004eb16c[] __asm__("_DAT_004eb16c");
+extern char grim_def_DAT_004eb17c[] __asm__("_DAT_004eb17c");
+extern char grim_def_DAT_004eb18c[] __asm__("_DAT_004eb18c");
+extern char grim_def_DAT_004eb198[] __asm__("_DAT_004eb198");
+extern char grim_def_DAT_004eb1b0[] __asm__("_DAT_004eb1b0");
+extern char grim_def_DAT_004eb1c4[] __asm__("_DAT_004eb1c4");
+extern char grim_def_DAT_004eb1d8[] __asm__("_DAT_004eb1d8");
+extern char grim_def_DAT_004eb1e8[] __asm__("_DAT_004eb1e8");
+extern char grim_def_DAT_004eb1f8[] __asm__("_DAT_004eb1f8");
+extern char grim_def_DAT_004eb208[] __asm__("_DAT_004eb208");
+extern char grim_def_DAT_004eb214[] __asm__("_DAT_004eb214");
+extern char grim_def_DAT_004eb224[] __asm__("_DAT_004eb224");
+extern char grim_def_DAT_004eb230[] __asm__("_DAT_004eb230");
+extern char grim_def_DAT_004eb240[] __asm__("_DAT_004eb240");
+extern char grim_def_DAT_004eb250[] __asm__("_DAT_004eb250");
+extern char grim_def_DAT_004eb25c[] __asm__("_DAT_004eb25c");
+extern char grim_def_DAT_004eb26c[] __asm__("_DAT_004eb26c");
+extern char grim_def_DAT_004eb27c[] __asm__("_DAT_004eb27c");
+extern char grim_def_DAT_004eb28c[] __asm__("_DAT_004eb28c");
+extern char grim_def_DAT_004eb294[] __asm__("_DAT_004eb294");
+extern char grim_def_DAT_004eb2a8[] __asm__("_DAT_004eb2a8");
+extern char grim_def_DAT_004eb2bc[] __asm__("_DAT_004eb2bc");
+extern char grim_def_DAT_004eb2d0[] __asm__("_DAT_004eb2d0");
+extern char grim_def_DAT_004eb2e4[] __asm__("_DAT_004eb2e4");
+extern char grim_def_DAT_004eb2f4[] __asm__("_DAT_004eb2f4");
+extern char grim_def_DAT_004eb304[] __asm__("_DAT_004eb304");
+extern char grim_def_DAT_004eb314[] __asm__("_DAT_004eb314");
+extern char grim_def_DAT_004eb324[] __asm__("_DAT_004eb324");
+extern char grim_def_DAT_004eb338[] __asm__("_DAT_004eb338");
+extern char grim_def_DAT_004eb344[] __asm__("_DAT_004eb344");
+extern char grim_def_DAT_004eb350[] __asm__("_DAT_004eb350");
+extern char grim_def_DAT_004eb35c[] __asm__("_DAT_004eb35c");
+extern char grim_def_DAT_004eb368[] __asm__("_DAT_004eb368");
+extern char grim_def_DAT_004eb37c[] __asm__("_DAT_004eb37c");
+extern char grim_def_DAT_004eb388[] __asm__("_DAT_004eb388");
+extern char grim_def_DAT_004eb394[] __asm__("_DAT_004eb394");
+extern char grim_def_DAT_004eb3a4[] __asm__("_DAT_004eb3a4");
+extern char grim_def_DAT_004eb3bc[] __asm__("_DAT_004eb3bc");
+extern char grim_def_DAT_004eb6e0[] __asm__("_DAT_004eb6e0");
+extern char grim_def_DAT_004eb810[] __asm__("_DAT_004eb810");
+extern char grim_def_DAT_004ebdec[] __asm__("_DAT_004ebdec");
+extern char grim_def_DAT_004ec2dc[] __asm__("_DAT_004ec2dc");
+extern char grim_def_DAT_004ec2e4[] __asm__("_DAT_004ec2e4");
+extern void *grim_def_PTR_DAT_004e837c __asm__("_PTR_DAT_004e837c");
+extern void *grim_def_PTR_DAT_004e8380 __asm__("_PTR_DAT_004e8380");
+extern void *grim_def_PTR_s_EnginePause_004ea8b0[558] __asm__("_PTR_s_EnginePause_004ea8b0");
+extern void *grim_def_PTR_s_color_004e8368 __asm__("_PTR_s_color_004e8368");
+extern void *grim_def_PTR_s_concatfallback_004ea890[8] __asm__("_PTR_s_concatfallback_004ea890");
+extern void *grim_def_PTR_s_filled_004e838c __asm__("_PTR_s_filled_004e838c");
+extern void *grim_def_PTR_s_height_004e8388 __asm__("_PTR_s_height_004e8388");
+extern void *grim_def_PTR_s_layer_004e8390 __asm__("_PTR_s_layer_004e8390");
+extern void *grim_def_PTR_s_width_004e8384 __asm__("_PTR_s_width_004e8384");
+extern void *grim_def_PTR_s_x_004e8374 __asm__("_PTR_s_x_004e8374");
+extern void *grim_def_PTR_s_xoffset_004e836c __asm__("_PTR_s_xoffset_004e836c");
+extern void *grim_def_PTR_s_y_004e8378 __asm__("_PTR_s_y_004e8378");
+extern void *grim_def_PTR_s_yoffset_004e8370 __asm__("_PTR_s_yoffset_004e8370");
+extern unsigned int grim_def_UINT_004ddab4 __asm__("_UINT_004ddab4");
+extern unsigned int grim_def_UINT_004ddab8 __asm__("_UINT_004ddab8");
+extern unsigned int grim_def_UINT_004ddabc __asm__("_UINT_004ddabc");
+extern unsigned int grim_def_UINT_004ddac0 __asm__("_UINT_004ddac0");
+extern unsigned int grim_def_UINT_004ddac4 __asm__("_UINT_004ddac4");
+extern unsigned char grim_def_UINT_004ddac8[16] __asm__("_UINT_004ddac8");
+extern unsigned int grim_def_UINT_004e8470 __asm__("_UINT_004e8470");
+extern unsigned int grim_def_UINT_004e8474 __asm__("_UINT_004e8474");
+extern unsigned int grim_def_UINT_004e8480 __asm__("_UINT_004e8480");
+extern unsigned int grim_def_UINT_004e8484 __asm__("_UINT_004e8484");
+extern unsigned int grim_def_UINT_004eb168 __asm__("_UINT_004eb168");
+extern unsigned int grim_def_UINT_004f0d0c __asm__("_UINT_004f0d0c");
+extern unsigned int grim_def_UINT_008cab58 __asm__("_UINT_008cab58");
+extern unsigned int grim_def_g_dwDebugToggleFunc __asm__("_g_dwDebugToggleFunc");
+extern unsigned int grim_def_g_dwLrOldConcatFallback __asm__("_g_dwLrOldConcatFallback");
+extern char grim_def_s_ActivateActorShadow_004eb5bc[] __asm__("_s_ActivateActorShadow_004eb5bc");
+extern char grim_def_s_ActorDistToShadowPlane_004eb560[] __asm__("_s_ActorDistToShadowPlane_004eb560");
+extern char grim_def_s_ActorLookAt_004ec040[] __asm__("_s_ActorLookAt_004ec040");
+extern char grim_def_s_ActorShadow_004eb5b0[] __asm__("_s_ActorShadow_004eb5b0");
+extern char grim_def_s_ActorToClean_004eb4c0[] __asm__("_s_ActorToClean_004eb4c0");
+extern char grim_def_s_AddShadowPlane_004eb53c[] __asm__("_s_AddShadowPlane_004eb53c");
+extern char grim_def_s_BOOT_004ec3c8[8] __asm__("_s_BOOT_004ec3c8");
+extern char grim_def_s_CAMERA_004ec534[8] __asm__("_s_CAMERA_004ec534");
+extern char grim_def_s_C__grimsrc_libs_grimlib_Scripts__004ec38c[44] __asm__("_s_C__grimsrc_libs_grimlib_Scripts__004ec38c");
+extern char grim_def_s_CacheRect_004eb464[] __asm__("_s_CacheRect_004eb464");
+extern char grim_def_s_CanActorSee_004ebffc[] __asm__("_s_CanActorSee_004ebffc");
+extern char grim_def_s_CheckForFile_004ec2ec[] __asm__("_s_CheckForFile_004ec2ec");
+extern char grim_def_s_CleanBuffer_004eb608[] __asm__("_s_CleanBuffer_004eb608");
+extern char grim_def_s_CompleteActorChore_004ebe9c[] __asm__("_s_CompleteActorChore_004ebe9c");
+extern char grim_def_s_DimRegion_004eb614[] __asm__("_s_DimRegion_004eb614");
+extern char grim_def_s_DimScreen_004eb620[] __asm__("_s_DimScreen_004eb620");
+extern char grim_def_s_DisableControl_004ebd60[] __asm__("_s_DisableControl_004ebd60");
+extern char grim_def_s_Display_004eb600[] __asm__("_s_Display_004eb600");
+extern char grim_def_s_DriveActorTo_004ec080[] __asm__("_s_DriveActorTo_004ec080");
+extern char grim_def_s_EnableControl_004ebd70[] __asm__("_s_EnableControl_004ebd70");
+extern char grim_def_s_EnableDebugKeys_004ebdcc[] __asm__("_s_EnableDebugKeys_004ebdcc");
+extern char grim_def_s_EngineDisplay_004ec314[] __asm__("_s_EngineDisplay_004ec314");
+extern char grim_def_s_EnginePause_004ec334[] __asm__("_s_EnginePause_004ec334");
+extern char grim_def_s_EngineResume_004ec324[] __asm__("_s_EngineResume_004ec324");
+extern char grim_def_s_FadeInChore_004eb3ec[] __asm__("_s_FadeInChore_004eb3ec");
+extern char grim_def_s_FadeOutChore_004eb3f8[] __asm__("_s_FadeOutChore_004eb3f8");
+extern char grim_def_s_FileFindDispose_004ebbcc[] __asm__("_s_FileFindDispose_004ebbcc");
+extern char grim_def_s_FileFindFirst_004ebbec[] __asm__("_s_FileFindFirst_004ebbec");
+extern char grim_def_s_FileFindNext_004ebbdc[] __asm__("_s_FileFindNext_004ebbdc");
+extern char grim_def_s_FindLight_004eb964[] __asm__("_s_FindLight_004eb964");
+extern char grim_def_s_FlushControls_004eb4b0[] __asm__("_s_FlushControls_004eb4b0");
+extern char grim_def_s_ForceRefresh_004eb62c[] __asm__("_s_ForceRefresh_004eb62c");
+extern char grim_def_s_FreeObjectState_004eb508[] __asm__("_s_FreeObjectState_004eb508");
+extern char grim_def_s_FunctionName_004ebddc[] __asm__("_s_FunctionName_004ebddc");
+extern char grim_def_s_GetActorChores_004ebe44[] __asm__("_s_GetActorChores_004ebe44");
+extern char grim_def_s_GetActorCostumeDepth_004ebe14[] __asm__("_s_GetActorCostumeDepth_004ebe14");
+extern char grim_def_s_GetActorCostume_004ec2b8[] __asm__("_s_GetActorCostume_004ec2b8");
+extern char grim_def_s_GetActorLookRate_004ec008[] __asm__("_s_GetActorLookRate_004ec008");
+extern char grim_def_s_GetActorLoopingChores_004ebe2c[] __asm__("_s_GetActorLoopingChores_004ebe2c");
+extern char grim_def_s_GetActorNodeLocation_004ec248[] __asm__("_s_GetActorNodeLocation_004ec248");
+extern char grim_def_s_GetActorPos_004ec168[] __asm__("_s_GetActorPos_004ec168");
+extern char grim_def_s_GetActorPuckVector_004ec144[] __asm__("_s_GetActorPuckVector_004ec144");
+extern char grim_def_s_GetActorRect_004ec158[] __asm__("_s_GetActorRect_004ec158");
+extern char grim_def_s_GetActorRot_004ebf24[] __asm__("_s_GetActorRot_004ebf24");
+extern char grim_def_s_GetActorScale_004ec298[] __asm__("_s_GetActorScale_004ec298");
+extern char grim_def_s_GetActorSector_004ebf5c[] __asm__("_s_GetActorSector_004ebf5c");
+extern char grim_def_s_GetActorTimeScale_004ec274[] __asm__("_s_GetActorTimeScale_004ec274");
+extern char grim_def_s_GetActorTurnRate_004ec194[] __asm__("_s_GetActorTurnRate_004ec194");
+extern char grim_def_s_GetActorWalkRate_004ec1bc[] __asm__("_s_GetActorWalkRate_004ec1bc");
+extern char grim_def_s_GetActorYawToPoint_004ec130[] __asm__("_s_GetActorYawToPoint_004ec130");
+extern char grim_def_s_GetAngleBetweenActors_004eb980[] __asm__("_s_GetAngleBetweenActors_004eb980");
+extern char grim_def_s_GetAngleBetweenVectors_004eb998[] __asm__("_s_GetAngleBetweenVectors_004eb998");
+extern char grim_def_s_GetCameraActor_004ebfd8[] __asm__("_s_GetCameraActor_004ebfd8");
+extern char grim_def_s_GetCameraFOV_004eba28[] __asm__("_s_GetCameraFOV_004eba28");
+extern char grim_def_s_GetCameraInterest_004eba4c[] __asm__("_s_GetCameraInterest_004eba4c");
+extern char grim_def_s_GetCameraLookVector_004eb9e4[] __asm__("_s_GetCameraLookVector_004eb9e4");
+extern char grim_def_s_GetCameraPosition_004eba74[] __asm__("_s_GetCameraPosition_004eba74");
+extern char grim_def_s_GetCameraRoll_004eba08[] __asm__("_s_GetCameraRoll_004eba08");
+extern char grim_def_s_GetClippedPos_004ec0b4[] __asm__("_s_GetClippedPos_004ec0b4");
+extern char grim_def_s_GetControlState_004ebd50[] __asm__("_s_GetControlState_004ebd50");
+extern char grim_def_s_GetCurrentScript_004ebb00[] __asm__("_s_GetCurrentScript_004ebb00");
+extern char grim_def_s_GetCurrentSetup_004ebcd0[] __asm__("_s_GetCurrentSetup_004ebcd0");
+extern char grim_def_s_GetLightAngles_004eb8bc[] __asm__("_s_GetLightAngles_004eb8bc");
+extern char grim_def_s_GetLightIntensity_004eb894[] __asm__("_s_GetLightIntensity_004eb894");
+extern char grim_def_s_GetLightPosition_004eb904[] __asm__("_s_GetLightPosition_004eb904");
+extern char grim_def_s_GetLightRotation_004eb8dc[] __asm__("_s_GetLightRotation_004eb8dc");
+extern char grim_def_s_GetLightType_004eb92c[] __asm__("_s_GetLightType_004eb92c");
+extern char grim_def_s_GetPhysicalBytes_004ebaa8[] __asm__("_s_GetPhysicalBytes_004ebaa8");
+extern char grim_def_s_GetPointSector_004ebf3c[] __asm__("_s_GetPointSector_004ebf3c");
+extern char grim_def_s_GetSectorOppositeEdge_004ebb60[] __asm__("_s_GetSectorOppositeEdge_004ebb60");
+extern char grim_def_s_GetSectorVertices_004ebb78[] __asm__("_s_GetSectorVertices_004ebb78");
+extern char grim_def_s_GetSpeechMode_004eb5e0[] __asm__("_s_GetSpeechMode_004eb5e0");
+extern char grim_def_s_GetVisibleThings_004ebfe8[] __asm__("_s_GetVisibleThings_004ebfe8");
+extern char grim_def_s_HOT_004ec528[4] __asm__("_s_HOT_004ec528");
+extern char grim_def_s_HardwareAccelerated_004eb430[] __asm__("_s_HardwareAccelerated_004eb430");
+extern char grim_def_s_ImFadeParam_004eb7c8[] __asm__("_s_ImFadeParam_004eb7c8");
+extern char grim_def_s_ImGetMasterVol_004eb7b8[] __asm__("_s_ImGetMasterVol_004eb7b8");
+extern char grim_def_s_ImGetMemoryFootprint_004eb6b4[] __asm__("_s_ImGetMemoryFootprint_004eb6b4");
+extern char grim_def_s_ImGetMusicVol_004eb760[] __asm__("_s_ImGetMusicVol_004eb760");
+extern char grim_def_s_ImGetParam_004eb7e0[] __asm__("_s_ImGetParam_004eb7e0");
+extern char grim_def_s_ImGetSfxVol_004eb79c[] __asm__("_s_ImGetSfxVol_004eb79c");
+extern char grim_def_s_ImGetSoundCacheSize_004eb6a0[] __asm__("_s_ImGetSoundCacheSize_004eb6a0");
+extern char grim_def_s_ImGetVoiceVol_004eb780[] __asm__("_s_ImGetVoiceVol_004eb780");
+extern char grim_def_s_ImPause_004eb6f0[] __asm__("_s_ImPause_004eb6f0");
+extern char grim_def_s_ImResume_004eb6e4[] __asm__("_s_ImResume_004eb6e4");
+extern char grim_def_s_ImSetAttribute_004eb708[] __asm__("_s_ImSetAttribute_004eb708");
+extern char grim_def_s_ImSetCuePoint_004eb6f8[] __asm__("_s_ImSetCuePoint_004eb6f8");
+extern char grim_def_s_ImSetMasterVol_004eb7a8[] __asm__("_s_ImSetMasterVol_004eb7a8");
+extern char grim_def_s_ImSetMusicVol_004eb750[] __asm__("_s_ImSetMusicVol_004eb750");
+extern char grim_def_s_ImSetParam_004eb7d4[] __asm__("_s_ImSetParam_004eb7d4");
+extern char grim_def_s_ImSetSequence_004eb718[] __asm__("_s_ImSetSequence_004eb718");
+extern char grim_def_s_ImSetSfxVol_004eb790[] __asm__("_s_ImSetSfxVol_004eb790");
+extern char grim_def_s_ImSetState_004eb728[] __asm__("_s_ImSetState_004eb728");
+extern char grim_def_s_ImSetVoiceEffect_004eb6cc[] __asm__("_s_ImSetVoiceEffect_004eb6cc");
+extern char grim_def_s_ImSetVoiceVol_004eb770[] __asm__("_s_ImSetVoiceVol_004eb770");
+extern char grim_def_s_ImStartRecording_004eb838[] __asm__("_s_ImStartRecording_004eb838");
+extern char grim_def_s_ImStartSound_004eb818[] __asm__("_s_ImStartSound_004eb818");
+extern char grim_def_s_ImStartVoice_004eb740[] __asm__("_s_ImStartVoice_004eb740");
+extern char grim_def_s_ImStopAllSounds_004eb7f4[] __asm__("_s_ImStopAllSounds_004eb7f4");
+extern char grim_def_s_ImStopRecording_004eb828[] __asm__("_s_ImStopRecording_004eb828");
+extern char grim_def_s_ImStopSound_004eb804[] __asm__("_s_ImStopSound_004eb804");
+extern char grim_def_s_ImStopVoice_004eb734[] __asm__("_s_ImStopVoice_004eb734");
+extern char grim_def_s_InputDialog_004ebbc0[] __asm__("_s_InputDialog_004ebbc0");
+extern char grim_def_s_IrisComplete_004eb3c8[] __asm__("_s_IrisComplete_004eb3c8");
+extern char grim_def_s_IrisDown_004eb3e0[] __asm__("_s_IrisDown_004eb3e0");
+extern char grim_def_s_IrisUp_004eb3d8[] __asm__("_s_IrisUp_004eb3d8");
+extern char grim_def_s_IsActorChoring_004ebe7c[] __asm__("_s_IsActorChoring_004ebe7c");
+extern char grim_def_s_IsActorInSector_004ebf6c[] __asm__("_s_IsActorInSector_004ebf6c");
+extern char grim_def_s_IsActorLooking_004ec030[] __asm__("_s_IsActorLooking_004ec030");
+extern char grim_def_s_IsActorMoving_004ebe8c[] __asm__("_s_IsActorMoving_004ebe8c");
+extern char grim_def_s_IsActorResting_004ebe6c[] __asm__("_s_IsActorResting_004ebe6c");
+extern char grim_def_s_IsActorTurning_004ebee8[] __asm__("_s_IsActorTurning_004ebee8");
+extern char grim_def_s_IsFullscreenMoviePlaying_004ebc80[] __asm__("_s_IsFullscreenMoviePlaying_004ebc80");
+extern char grim_def_s_IsLightOn_004eb94c[] __asm__("_s_IsLightOn_004eb94c");
+extern char grim_def_s_IsMoviePlaying_004ebc4c[] __asm__("_s_IsMoviePlaying_004ebc4c");
+extern char grim_def_s_IsPointInSector_004ebf4c[] __asm__("_s_IsPointInSector_004ebf4c");
+extern char grim_def_s_IsSectorActive_004ebb50[] __asm__("_s_IsSectorActive_004ebb50");
+extern char grim_def_s_IsSoundPlaying_004ebc10[] __asm__("_s_IsSoundPlaying_004ebc10");
+extern char grim_def_s_KillActorShadows_004eb54c[] __asm__("_s_KillActorShadows_004eb54c");
+extern char grim_def_s_LightManager_Startup__Could_not_c_004f0d34[56] __asm__("_s_LightManager_Startup__Could_not_c_004f0d34");
+extern char grim_def_s_LightMgrSetChange_004eb84c[] __asm__("_s_LightMgrSetChange_004eb84c");
+extern char grim_def_s_LightMgrShutdown_004eb860[] __asm__("_s_LightMgrShutdown_004eb860");
+extern char grim_def_s_LightMgrStartup_004eb874[] __asm__("_s_LightMgrStartup_004eb874");
+extern char grim_def_s_LoadActor_004ec174[] __asm__("_s_LoadActor_004ec174");
+extern char grim_def_s_LoadBundle_004eb694[] __asm__("_s_LoadBundle_004eb694");
+extern char grim_def_s_LoadCostume_004ebabc[] __asm__("_s_LoadCostume_004ebabc");
+extern char grim_def_s_LockCostume_004ebd90[] __asm__("_s_LockCostume_004ebd90");
+extern char grim_def_s_LockFont_004ebdc0[] __asm__("_s_LockFont_004ebdc0");
+extern char grim_def_s_LockSet_004ebd00[] __asm__("_s_LockSet_004ebd00");
+extern char grim_def_s_LockSound_004ebda8[] __asm__("_s_LockSound_004ebda8");
+extern char grim_def_s_MakeCurrentSet_004ebd08[] __asm__("_s_MakeCurrentSet_004ebd08");
+extern char grim_def_s_MakeCurrentSetup_004ebce0[] __asm__("_s_MakeCurrentSetup_004ebce0");
+extern char grim_def_s_MakeSectorActive_004ebb3c[] __asm__("_s_MakeSectorActive_004ebb3c");
+extern char grim_def_s_MarkDirtyRect_004eb470[] __asm__("_s_MarkDirtyRect_004eb470");
+extern char grim_def_s_NONE_004ec544[8] __asm__("_s_NONE_004ec544");
+extern char grim_def_s_NewObjectState_004eb518[] __asm__("_s_NewObjectState_004eb518");
+extern char grim_def_s_NextSetup_004ebcc4[] __asm__("_s_NextSetup_004ebcc4");
+extern char grim_def_s_PauseMovie_004ebc5c[] __asm__("_s_PauseMovie_004ebc5c");
+extern char grim_def_s_PerSecond_004eb9bc[] __asm__("_s_PerSecond_004eb9bc");
+extern char grim_def_s_PlayActorChoreLooping_004ebec0[] __asm__("_s_PlayActorChoreLooping_004ebec0");
+extern char grim_def_s_PlayActorChore_004ebed8[] __asm__("_s_PlayActorChore_004ebed8");
+extern char grim_def_s_PlaySoundAt_004ebc34[] __asm__("_s_PlaySoundAt_004ebc34");
+extern char grim_def_s_PlaySoundAttached_004ebc20[] __asm__("_s_PlaySoundAttached_004ebc20");
+extern char grim_def_s_PlaySound_004ebc40[] __asm__("_s_PlaySound_004ebc40");
+extern char grim_def_s_PointActorAt_004eb9d4[] __asm__("_s_PointActorAt_004eb9d4");
+extern char grim_def_s_PointLightAt_004eb884[] __asm__("_s_PointLightAt_004eb884");
+extern char grim_def_s_PopActorCostume_004ebac8[] __asm__("_s_PopActorCostume_004ebac8");
+extern char grim_def_s_PreRender_004ebb30[] __asm__("_s_PreRender_004ebb30");
+extern char grim_def_s_PreviousSetup_004ebcb4[] __asm__("_s_PreviousSetup_004ebcb4");
+extern char grim_def_s_PrintActorCostumes_004ebaec[] __asm__("_s_PrintActorCostumes_004ebaec");
+extern char grim_def_s_PrintDebug_004ebd18[] __asm__("_s_PrintDebug_004ebd18");
+extern char grim_def_s_PrintError_004ebd34[] __asm__("_s_PrintError_004ebd34");
+extern char grim_def_s_PrintMessage_004ebd40[] __asm__("_s_PrintMessage_004ebd40");
+extern char grim_def_s_PrintWarning_004ebd24[] __asm__("_s_PrintWarning_004ebd24");
+extern char grim_def_s_PushActorCostume_004ebad8[] __asm__("_s_PushActorCostume_004ebad8");
+extern char grim_def_s_PutActorAtInterest_004ec0f4[] __asm__("_s_PutActorAtInterest_004ec0f4");
+extern char grim_def_s_PutActorAtOrigin_004ec0e0[] __asm__("_s_PutActorAtOrigin_004ec0e0");
+extern char grim_def_s_PutActorAt_004ec0d4[] __asm__("_s_PutActorAt_004ec0d4");
+extern char grim_def_s_PutActorInSet_004ec0c4[] __asm__("_s_PutActorInSet_004ec0c4");
+extern char grim_def_s_QueryDialog_004ebbb4[] __asm__("_s_QueryDialog_004ebbb4");
+extern char grim_def_s_ReadRegistryValue_004ebb8c[] __asm__("_s_ReadRegistryValue_004ebb8c");
+extern char grim_def_s_RenderModeUser_004eb63c[] __asm__("_s_RenderModeUser_004eb63c");
+extern char grim_def_s_ResReport_004eb444[] __asm__("_s_ResReport_004eb444");
+extern char grim_def_s_RestoreCacheRect_004eb450[] __asm__("_s_RestoreCacheRect_004eb450");
+extern char grim_def_s_RotateVector_004eba88[] __asm__("_s_RotateVector_004eba88");
+extern char grim_def_s_SPECIAL_004ec52c[8] __asm__("_s_SPECIAL_004ec52c");
+extern char grim_def_s_ScreenToWorld_004ebdf4[] __asm__("_s_ScreenToWorld_004ebdf4");
+extern char grim_def_s_SearchForFileOrSwapCDs_004ec2fc[] __asm__("_s_SearchForFileOrSwapCDs_004ec2fc");
+extern char grim_def_s_SendObjectToBack_004eb4e4[] __asm__("_s_SendObjectToBack_004eb4e4");
+extern char grim_def_s_SendObjectToFront_004eb4d0[] __asm__("_s_SendObjectToFront_004eb4d0");
+extern char grim_def_s_SetActiveShadow_004eb578[] __asm__("_s_SetActiveShadow_004eb578");
+extern char grim_def_s_SetActorChoreLooping_004ebe54[] __asm__("_s_SetActorChoreLooping_004ebe54");
+extern char grim_def_s_SetActorClipActive_004eb41c[] __asm__("_s_SetActorClipActive_004eb41c");
+extern char grim_def_s_SetActorClipPlane_004eb408[] __asm__("_s_SetActorClipPlane_004eb408");
+extern char grim_def_s_SetActorCollisionMode_004eb498[] __asm__("_s_SetActorCollisionMode_004eb498");
+extern char grim_def_s_SetActorCollisionScale_004eb480[] __asm__("_s_SetActorCollisionScale_004eb480");
+extern char grim_def_s_SetActorColormap_004ec2c8[] __asm__("_s_SetActorColormap_004ec2c8");
+extern char grim_def_s_SetActorConstrain_004eb64c[] __asm__("_s_SetActorConstrain_004eb64c");
+extern char grim_def_s_SetActorCostume_004ec2a8[] __asm__("_s_SetActorCostume_004ec2a8");
+extern char grim_def_s_SetActorFollowBoxes_004ebfa0[] __asm__("_s_SetActorFollowBoxes_004ebfa0");
+extern char grim_def_s_SetActorFrustrumCull_004ebf7c[] __asm__("_s_SetActorFrustrumCull_004ebf7c");
+extern char grim_def_s_SetActorHead_004ebfc8[] __asm__("_s_SetActorHead_004ebfc8");
+extern char grim_def_s_SetActorLookRate_004ec01c[] __asm__("_s_SetActorLookRate_004ec01c");
+extern char grim_def_s_SetActorMumblechore_004ec1f8[] __asm__("_s_SetActorMumblechore_004ec1f8");
+extern char grim_def_s_SetActorOffsetYaw_004ec108[] __asm__("_s_SetActorOffsetYaw_004ec108");
+extern char grim_def_s_SetActorPitch_004ebf08[] __asm__("_s_SetActorPitch_004ebf08");
+extern char grim_def_s_SetActorReflection_004ec11c[] __asm__("_s_SetActorReflection_004ec11c");
+extern char grim_def_s_SetActorRestChore_004ec20c[] __asm__("_s_SetActorRestChore_004ec20c");
+extern char grim_def_s_SetActorRoll_004ebef8[] __asm__("_s_SetActorRoll_004ebef8");
+extern char grim_def_s_SetActorRot_004ebf18[] __asm__("_s_SetActorRot_004ebf18");
+extern char grim_def_s_SetActorScale_004ec288[] __asm__("_s_SetActorScale_004ec288");
+extern char grim_def_s_SetActorShadowPlane_004eb59c[] __asm__("_s_SetActorShadowPlane_004eb59c");
+extern char grim_def_s_SetActorShadowPoint_004eb588[] __asm__("_s_SetActorShadowPoint_004eb588");
+extern char grim_def_s_SetActorShadowValid_004eb528[] __asm__("_s_SetActorShadowValid_004eb528");
+extern char grim_def_s_SetActorTalkChore_004ec1e4[] __asm__("_s_SetActorTalkChore_004ec1e4");
+extern char grim_def_s_SetActorTimeScale_004ec260[] __asm__("_s_SetActorTimeScale_004ec260");
+extern char grim_def_s_SetActorTurnChores_004ec220[] __asm__("_s_SetActorTurnChores_004ec220");
+extern char grim_def_s_SetActorTurnRate_004ec1a8[] __asm__("_s_SetActorTurnRate_004ec1a8");
+extern char grim_def_s_SetActorVisibility_004ebfb4[] __asm__("_s_SetActorVisibility_004ebfb4");
+extern char grim_def_s_SetActorWalkChore_004ec234[] __asm__("_s_SetActorWalkChore_004ec234");
+extern char grim_def_s_SetActorWalkDominate_004eb660[] __asm__("_s_SetActorWalkDominate_004eb660");
+extern char grim_def_s_SetActorWalkRate_004ec1d0[] __asm__("_s_SetActorWalkRate_004ec1d0");
+extern char grim_def_s_SetAmbientLight_004eb970[] __asm__("_s_SetAmbientLight_004eb970");
+extern char grim_def_s_SetCameraFOV_004eba18[] __asm__("_s_SetCameraFOV_004eba18");
+extern char grim_def_s_SetCameraInterest_004eba38[] __asm__("_s_SetCameraInterest_004eba38");
+extern char grim_def_s_SetCameraPosition_004eba60[] __asm__("_s_SetCameraPosition_004eba60");
+extern char grim_def_s_SetCameraRoll_004eb9f8[] __asm__("_s_SetCameraRoll_004eb9f8");
+extern char grim_def_s_SetGamma_004eb678[] __asm__("_s_SetGamma_004eb678");
+extern char grim_def_s_SetLightAngles_004eb8cc[] __asm__("_s_SetLightAngles_004eb8cc");
+extern char grim_def_s_SetLightIntensity_004eb8a8[] __asm__("_s_SetLightIntensity_004eb8a8");
+extern char grim_def_s_SetLightPosition_004eb918[] __asm__("_s_SetLightPosition_004eb918");
+extern char grim_def_s_SetLightRotation_004eb8f0[] __asm__("_s_SetLightRotation_004eb8f0");
+extern char grim_def_s_SetLightType_004eb93c[] __asm__("_s_SetLightType_004eb93c");
+extern char grim_def_s_SetMemoryUsage_004eba98[] __asm__("_s_SetMemoryUsage_004eba98");
+extern char grim_def_s_SetObjectType_004eb4f8[] __asm__("_s_SetObjectType_004eb4f8");
+extern char grim_def_s_SetSelectedActor_004ec180[] __asm__("_s_SetSelectedActor_004ec180");
+extern char grim_def_s_SetShadowColor_004eb5d0[] __asm__("_s_SetShadowColor_004eb5d0");
+extern char grim_def_s_SetSoundPosition_004ebbfc[] __asm__("_s_SetSoundPosition_004ebbfc");
+extern char grim_def_s_SetSpeechMode_004eb5f0[] __asm__("_s_SetSpeechMode_004eb5f0");
+extern char grim_def_s_ShutUpActor_004ebf94[] __asm__("_s_ShutUpActor_004ebf94");
+extern char grim_def_s_SnapToPlane_004eb9b0[] __asm__("_s_SnapToPlane_004eb9b0");
+extern char grim_def_s_SpewShutdown_004ebb14[] __asm__("_s_SpewShutdown_004ebb14");
+extern char grim_def_s_SpewStartup_004ebb24[] __asm__("_s_SpewStartup_004ebb24");
+extern char grim_def_s_StartFullscreenMovie_004ebc9c[] __asm__("_s_StartFullscreenMovie_004ebc9c");
+extern char grim_def_s_StartMovie_004ebc74[] __asm__("_s_StartMovie_004ebc74");
+extern char grim_def_s_StopActorChore_004ebeb0[] __asm__("_s_StopActorChore_004ebeb0");
+extern char grim_def_s_StopMovie_004ebc68[] __asm__("_s_StopMovie_004ebc68");
+extern char grim_def_s_TextAllowed_004ec55c[12] __asm__("_s_TextAllowed_004ec55c");
+extern char grim_def_s_TurnActorTo_004eb9c8[] __asm__("_s_TurnActorTo_004eb9c8");
+extern char grim_def_s_TurnActor_004ebf30[] __asm__("_s_TurnActor_004ebf30");
+extern char grim_def_s_TurnLightOn_004eb958[] __asm__("_s_TurnLightOn_004eb958");
+extern char grim_def_s_UnLockFont_004ebdb4[] __asm__("_s_UnLockFont_004ebdb4");
+extern char grim_def_s_UnLockSet_004ebcf4[] __asm__("_s_UnLockSet_004ebcf4");
+extern char grim_def_s_UnloadBundle_004eb684[] __asm__("_s_UnloadBundle_004eb684");
+extern char grim_def_s_UnlockCostume_004ebd80[] __asm__("_s_UnlockCostume_004ebd80");
+extern char grim_def_s_UnlockSound_004ebd9c[] __asm__("_s_UnlockSound_004ebd9c");
+extern char grim_def_s_WALK_004ec53c[8] __asm__("_s_WALK_004ec53c");
+extern char grim_def_s_WalkActorForward_004ec090[] __asm__("_s_WalkActorForward_004ec090");
+extern char grim_def_s_WalkActorToAvoiding_004ec060[] __asm__("_s_WalkActorToAvoiding_004ec060");
+extern char grim_def_s_WalkActorToInterest_004ec04c[] __asm__("_s_WalkActorToInterest_004ec04c");
+extern char grim_def_s_WalkActorTo_004ec074[] __asm__("_s_WalkActorTo_004ec074");
+extern char grim_def_s_WalkActorVector_004ec0a4[] __asm__("_s_WalkActorVector_004ec0a4");
+extern char grim_def_s_WorldToScreen_004ebe04[] __asm__("_s_WorldToScreen_004ebe04");
+extern char grim_def_s_WriteRegistryValue_004ebba0[] __asm__("_s_WriteRegistryValue_004ebba0");
+extern char grim_def_s___s__s_004e8754[8] __asm__("_s___s__s_004e8754");
+extern char grim_def_s__actor_d__s__004ec494[16] __asm__("_s__actor_d__s__004ec494");
+extern char grim_def_s__engn003_Software_004dd688[20] __asm__("_s__engn003_Software_004dd688");
+extern char grim_def_s__nil__004ec4a4[8] __asm__("_s__nil__004ec4a4");
+extern char grim_def_s__system_lua_004ec3bc[12] __asm__("_s__system_lua_004ec3bc");
+extern char grim_def_s_axisHandler_004ec568[12] __asm__("_s_axisHandler_004ec568");
+extern char grim_def_s_buttonHandler_004ec574[16] __asm__("_s_buttonHandler_004ec574");
+extern char grim_def_s_camChangeHandler_004ec3d0[20] __asm__("_s_camChangeHandler_004ec3d0");
+extern char grim_def_s_characterHandler_004ec50c[20] __asm__("_s_characterHandler_004ec50c");
+extern char grim_def_s_color_004e8468[8] __asm__("_s_color_004e8468");
+extern char grim_def_s_concat_004ec520[8] __asm__("_s_concat_004ec520");
+extern char grim_def_s_concatfallback_004ec370[] __asm__("_s_concatfallback_004ec370");
+extern char grim_def_s_controls_004ec58c[12] __asm__("_s_controls_004ec58c");
+extern char grim_def_s_costumeMarkerHandler_004ec4c4[24] __asm__("_s_costumeMarkerHandler_004ec4c4");
+extern char grim_def_s_costumeOverrideHandler_004ec4ac[24] __asm__("_s_costumeOverrideHandler_004ec4ac");
+extern char grim_def_s_count_004ec384[8] __asm__("_s_count_004ec384");
+extern char grim_def_s_dfltcamera_004ec350[] __asm__("_s_dfltcamera_004ec350");
+extern char grim_def_s_dfltcontrol_004ec340[] __asm__("_s_dfltcontrol_004ec340");
+extern char grim_def_s_exitHandler_004ec4f0[12] __asm__("_s_exitHandler_004ec4f0");
+extern char grim_def_s_filled_004e8430[8] __asm__("_s_filled_004e8430");
+extern char grim_def_s_global_004ec5a0[8] __asm__("_s_global_004ec5a0");
+extern char grim_def_s_height_004e8438[] __asm__("_s_height_004e8438");
+extern char grim_def_s_layer_004e8428[] __asm__("_s_layer_004e8428");
+extern char grim_def_s_parallel_004ec5a8[12] __asm__("_s_parallel_004ec5a8");
+extern char grim_def_s_pauseHandler_004ec4fc[16] __asm__("_s_pauseHandler_004ec4fc");
+extern char grim_def_s_postCamChangeHandler_004ec3e4[24] __asm__("_s_postCamChangeHandler_004ec3e4");
+extern char grim_def_s_quiet_004eb7ec[] __asm__("_s_quiet_004eb7ec");
+extern char grim_def_s_saveGameCallback_004ec5c0[20] __asm__("_s_saveGameCallback_004ec5c0");
+extern char grim_def_s_system_004ec584[8] __asm__("_s_system_004ec584");
+extern char grim_def_s_true_004ec554[8] __asm__("_s_true_004ec554");
+extern char grim_def_s_type_004ec54c[8] __asm__("_s_type_004ec54c");
+extern char grim_def_s_typeoverride_004ec360[] __asm__("_s_typeoverride_004ec360");
+extern char grim_def_s_userPaintHandler_004ec4dc[20] __asm__("_s_userPaintHandler_004ec4dc");
+extern char grim_def_s_width_004e8440[] __asm__("_s_width_004e8440");
+extern char grim_def_s_x_004e8454[] __asm__("_s_x_004e8454");
+extern char grim_def_s_x_spot_cos_004f0d28[12] __asm__("_s_x_spot_cos_004f0d28");
+extern char grim_def_s_xoffset_004e8460[] __asm__("_s_xoffset_004e8460");
+extern char grim_def_s_y_004e8450[] __asm__("_s_y_004e8450");
+extern char grim_def_s_yoffset_004e8458[] __asm__("_s_yoffset_004e8458");
+/* 0x004dd688, 20 bytes */ GRIM_DATA("004dd688") char grim_def_s__engn003_Software_004dd688[20] __asm__("_s__engn003_Software_004dd688") = "/engn003/Software";
+/* 0x004ddab4, 4 bytes */ GRIM_DATA("004ddab4") unsigned int grim_def_UINT_004ddab4 __asm__("_UINT_004ddab4") = 0xb;
+/* 0x004ddab8, 4 bytes */ GRIM_DATA("004ddab8") unsigned int grim_def_UINT_004ddab8 __asm__("_UINT_004ddab8") = 0x5;
+/* 0x004ddabc, 4 bytes */ GRIM_DATA("004ddabc") unsigned int grim_def_UINT_004ddabc __asm__("_UINT_004ddabc") = 0x0;
+/* 0x004ddac0, 4 bytes */ GRIM_DATA("004ddac0") unsigned int grim_def_UINT_004ddac0 __asm__("_UINT_004ddac0") = 0x3;
+/* 0x004ddac4, 4 bytes */ GRIM_DATA("004ddac4") unsigned int grim_def_UINT_004ddac4 __asm__("_UINT_004ddac4") = 0x2;
+/* 0x004ddac8, 16 bytes */ GRIM_DATA("004ddac8") unsigned char grim_def_UINT_004ddac8[16] __asm__("_UINT_004ddac8") = { 0x03 };
+/* 0x004e8368, 4 bytes */ /* loose */ void *grim_def_PTR_s_color_004e8368 __asm__("_PTR_s_color_004e8368") = (void *)&grim_def_s_color_004e8468;
+/* 0x004e836c, 4 bytes */ /* loose */ void *grim_def_PTR_s_xoffset_004e836c __asm__("_PTR_s_xoffset_004e836c") = (void *)&grim_def_s_xoffset_004e8460;
+/* 0x004e8370, 4 bytes */ /* loose */ void *grim_def_PTR_s_yoffset_004e8370 __asm__("_PTR_s_yoffset_004e8370") = (void *)&grim_def_s_yoffset_004e8458;
+/* 0x004e8374, 4 bytes */ /* loose */ void *grim_def_PTR_s_x_004e8374 __asm__("_PTR_s_x_004e8374") = (void *)&grim_def_s_x_004e8454;
+/* 0x004e8378, 4 bytes */ /* loose */ void *grim_def_PTR_s_y_004e8378 __asm__("_PTR_s_y_004e8378") = (void *)&grim_def_s_y_004e8450;
+/* 0x004e837c, 4 bytes */ /* loose */ void *grim_def_PTR_DAT_004e837c __asm__("_PTR_DAT_004e837c") = (void *)&grim_def_DAT_004e844c;
+/* 0x004e8380, 4 bytes */ /* loose */ void *grim_def_PTR_DAT_004e8380 __asm__("_PTR_DAT_004e8380") = (void *)&grim_def_DAT_004e8448;
+/* 0x004e8384, 4 bytes */ /* loose */ void *grim_def_PTR_s_width_004e8384 __asm__("_PTR_s_width_004e8384") = (void *)&grim_def_s_width_004e8440;
+/* 0x004e8388, 4 bytes */ /* loose */ void *grim_def_PTR_s_height_004e8388 __asm__("_PTR_s_height_004e8388") = (void *)&grim_def_s_height_004e8438;
+/* 0x004e838c, 4 bytes */ /* loose */ void *grim_def_PTR_s_filled_004e838c __asm__("_PTR_s_filled_004e838c") = (void *)&grim_def_s_filled_004e8430;
+/* 0x004e8390, 4 bytes */ /* loose */ void *grim_def_PTR_s_layer_004e8390 __asm__("_PTR_s_layer_004e8390") = (void *)&grim_def_s_layer_004e8428;
+/* 0x004e8430, 8 bytes */ /* loose */ char grim_def_s_filled_004e8430[8] __asm__("_s_filled_004e8430") = "filled";
+/* 0x004e8468, 8 bytes */ /* loose */ char grim_def_s_color_004e8468[8] __asm__("_s_color_004e8468") = "color";
+/* 0x004e8470, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004e8470 __asm__("_UINT_004e8470") = 0x28;
+static unsigned char grim_anchor_004e8474[0] __attribute__((section(".data$grim_004e8474"), aligned(16), used));
+static unsigned char grim_pad_004e8474[4] __attribute__((section(".data$grim_004e8474_"), aligned(4), used));
+/* 0x004e8474, 4 bytes */ GRIM_DATA("004e8474z") unsigned int grim_def_UINT_004e8474 __asm__("_UINT_004e8474") = 0x3;
+/* 0x004e8480, 4 bytes */ GRIM_DATA("004e8480") unsigned int grim_def_UINT_004e8480 __asm__("_UINT_004e8480") = 0x280;
+/* 0x004e8484, 4 bytes */ GRIM_DATA("004e8484") unsigned int grim_def_UINT_004e8484 __asm__("_UINT_004e8484") = 0x1e0;
+/* 0x004e8754, 8 bytes */ /* loose */ char grim_def_s___s__s_004e8754[8] __asm__("_s___s__s_004e8754") = "/%s/%s";
+static unsigned char grim_anchor_004ea890[0] __attribute__((section(".data$grim_004ea890"), aligned(16), used));
+static unsigned char grim_pad_004ea890[0] __attribute__((section(".data$grim_004ea890_"), aligned(4), used));
+/* 0x004ea890, 32 bytes */ GRIM_DATA("004ea890z") void *grim_def_PTR_s_concatfallback_004ea890[8] __asm__("_PTR_s_concatfallback_004ea890") = {
+    (void *)&grim_def_s_concatfallback_004ec370, (void *)f_sputLua_ConcatFallback, (void *)&grim_def_s_typeoverride_004ec360, (void *)f_sputLua_TypeOverride,
+    (void *)&grim_def_s_dfltcamera_004ec350, (void *)f_Lua_Stub, (void *)&grim_def_s_dfltcontrol_004ec340, (void *)f_Lua_Stub
+};
+/* 0x004ea8b0, 2232 bytes */ GRIM_DATA("004ea8b0") void *grim_def_PTR_s_EnginePause_004ea8b0[558] __asm__("_PTR_s_EnginePause_004ea8b0") = {
+    (void *)&grim_def_s_EnginePause_004ec334, (void *)f_sputLua_EnginePause, (void *)&grim_def_s_EngineResume_004ec324, (void *)f_sputLua_EngineResume,
+    (void *)&grim_def_s_EngineDisplay_004ec314, (void *)f_sputLua_EngineDisplay, (void *)&grim_def_s_SearchForFileOrSwapCDs_004ec2fc, (void *)f_sputLua_SearchForFileOrSwapCDsL,
+    (void *)&grim_def_s_CheckForFile_004ec2ec, (void *)f_sputLua_CheckForFileL, (void *)&grim_def_DAT_004ec2e4, (void *)f_sputLua_LoadL,
+    (void *)&grim_def_DAT_004ec2dc, (void *)f_sputLua_SaveL, (void *)&grim_def_s_SetActorColormap_004ec2c8, (void *)f_sputLua_SetActorColormapL,
+    (void *)&grim_def_s_GetActorCostume_004ec2b8, (void *)f_sputLua_GetActorCostumeL, (void *)&grim_def_s_SetActorCostume_004ec2a8, (void *)f_sputLua_SetActorCostumeL,
+    (void *)&grim_def_s_GetActorScale_004ec298, (void *)f_sputLua_GetActorScaleL, (void *)&grim_def_s_SetActorScale_004ec288, (void *)f_sputLua_SetActorScaleL,
+    (void *)&grim_def_s_GetActorTimeScale_004ec274, (void *)f_sputLua_GetActorTimeScaleL, (void *)&grim_def_s_SetActorTimeScale_004ec260, (void *)f_sputLua_SetActorTimeScaleL,
+    (void *)&grim_def_s_GetActorNodeLocation_004ec248, (void *)f_sputLua_GetActorNodeLocationL, (void *)&grim_def_s_SetActorWalkChore_004ec234, (void *)f_sputLua_SetActorWalkChoresL,
+    (void *)&grim_def_s_SetActorTurnChores_004ec220, (void *)f_sputLua_SetActorTurnChoresL, (void *)&grim_def_s_SetActorRestChore_004ec20c, (void *)f_sputLua_SetActorRestChoreL,
+    (void *)&grim_def_s_SetActorMumblechore_004ec1f8, (void *)f_sputLua_SetActorMumbleChoreL, (void *)&grim_def_s_SetActorTalkChore_004ec1e4, (void *)f_sputLua_SetActorTalkChoreL,
+    (void *)&grim_def_s_SetActorWalkRate_004ec1d0, (void *)f_sputLua_SetActorWalkRateL, (void *)&grim_def_s_GetActorWalkRate_004ec1bc, (void *)f_sputLua_GetActorWalkRateL,
+    (void *)&grim_def_s_SetActorTurnRate_004ec1a8, (void *)f_sputLua_SetActorTurnRateL, (void *)&grim_def_s_GetActorTurnRate_004ec194, (void *)f_sputLua_GetActorTurnRateL,
+    (void *)&grim_def_s_SetSelectedActor_004ec180, (void *)f_sputLua_SetSelectedActorL, (void *)&grim_def_s_LoadActor_004ec174, (void *)f_sputLua_AllocateActorL,
+    (void *)&grim_def_s_GetActorPos_004ec168, (void *)f_sputLua_GetActorPosL, (void *)&grim_def_s_GetActorRect_004ec158, (void *)f_sputLua_GetActorRectL,
+    (void *)&grim_def_s_GetActorPuckVector_004ec144, (void *)f_sputLua_GetActorPuckVectorL, (void *)&grim_def_s_GetActorYawToPoint_004ec130, (void *)f_sputLua_GetActorYawToPoint,
+    (void *)&grim_def_s_SetActorReflection_004ec11c, (void *)f_sputLua_SetActorReflection, (void *)&grim_def_s_SetActorOffsetYaw_004ec108, (void *)f_sputLua_SetActorOffsetYaw,
+    (void *)&grim_def_s_PutActorAtInterest_004ec0f4, (void *)f_sputLua_PutActorAtInterestL, (void *)&grim_def_s_PutActorAtOrigin_004ec0e0, (void *)f_Lua_Stub,
+    (void *)&grim_def_s_PutActorAt_004ec0d4, (void *)f_sputLua_PutActorAtL, (void *)&grim_def_s_PutActorInSet_004ec0c4, (void *)f_sputLua_PutActorInSetL,
+    (void *)&grim_def_s_GetClippedPos_004ec0b4, (void *)f_Lua_Stub, (void *)&grim_def_s_WalkActorVector_004ec0a4, (void *)f_sputLua_WalkActorVectorL,
+    (void *)&grim_def_s_WalkActorForward_004ec090, (void *)f_sputLua_WalkActorForwardL, (void *)&grim_def_s_DriveActorTo_004ec080, (void *)f_Lua_Stub,
+    (void *)&grim_def_s_WalkActorTo_004ec074, (void *)f_sputLua_WalkActorToL, (void *)&grim_def_s_WalkActorToAvoiding_004ec060, (void *)f_sputLua_WalkActorToAvoidingL,
+    (void *)&grim_def_s_WalkActorToInterest_004ec04c, (void *)f_Lua_Stub, (void *)&grim_def_s_ActorLookAt_004ec040, (void *)f_sputLua_ActorLookAtL,
+    (void *)&grim_def_s_IsActorLooking_004ec030, (void *)f_sputLua_IsActorLookingL, (void *)&grim_def_s_SetActorLookRate_004ec01c, (void *)f_sputLua_SetActorLookRate,
+    (void *)&grim_def_s_GetActorLookRate_004ec008, (void *)f_sputLua_GetActorLookRate, (void *)&grim_def_s_CanActorSee_004ebffc, (void *)f_sputLua_CanActorSeeL,
+    (void *)&grim_def_s_GetVisibleThings_004ebfe8, (void *)f_sputLua_GetVisibleThingsL, (void *)&grim_def_s_GetCameraActor_004ebfd8, (void *)f_sputLua_GetCameraActorL,
+    (void *)&grim_def_s_SetActorHead_004ebfc8, (void *)f_sputLua_SetActorHeadL, (void *)&grim_def_s_SetActorVisibility_004ebfb4, (void *)f_sputLua_SetActorVisibilityL,
+    (void *)&grim_def_s_SetActorFollowBoxes_004ebfa0, (void *)f_sputLua_SetActorFollowBoxesL, (void *)&grim_def_s_ShutUpActor_004ebf94, (void *)f_sputLua_ShutUpActorL,
+    (void *)&grim_def_s_SetActorFrustrumCull_004ebf7c, (void *)f_sputLua_SetActorFrustrumCull, (void *)&grim_def_s_IsActorInSector_004ebf6c, (void *)f_sputLua_IsActorInSector,
+    (void *)&grim_def_s_GetActorSector_004ebf5c, (void *)f_sputLua_GetActorSectorL, (void *)&grim_def_s_IsPointInSector_004ebf4c, (void *)f_sputLua_IsPointInSector,
+    (void *)&grim_def_s_GetPointSector_004ebf3c, (void *)f_sputLua_GetPointSectorL, (void *)&grim_def_s_TurnActor_004ebf30, (void *)f_sputLua_TurnActorL,
+    (void *)&grim_def_s_GetActorRot_004ebf24, (void *)f_sputLua_GetActorRotL, (void *)&grim_def_s_SetActorRot_004ebf18, (void *)f_sputLua_SetActorRotL,
+    (void *)&grim_def_s_SetActorPitch_004ebf08, (void *)f_sputLua_SetActorPitch, (void *)&grim_def_s_SetActorRoll_004ebef8, (void *)f_sputLua_SetActorRoll,
+    (void *)&grim_def_s_IsActorTurning_004ebee8, (void *)f_sputLua_IsActorTurningL, (void *)&grim_def_s_PlayActorChore_004ebed8, (void *)f_sputLua_PlayActorChoreL,
+    (void *)&grim_def_s_PlayActorChoreLooping_004ebec0, (void *)f_sputLua_PlayActorChoreLoopingL, (void *)&grim_def_s_StopActorChore_004ebeb0, (void *)f_sputLua_StopActorChoreL,
+    (void *)&grim_def_s_CompleteActorChore_004ebe9c, (void *)f_sputLua_CompleteActorChoreL, (void *)&grim_def_s_IsActorMoving_004ebe8c, (void *)f_sputLua_IsActorMovingL,
+    (void *)&grim_def_s_IsActorChoring_004ebe7c, (void *)f_sputLua_IsActorChoringL, (void *)&grim_def_s_IsActorResting_004ebe6c, (void *)f_sputLua_IsActorRestingL,
+    (void *)&grim_def_s_SetActorChoreLooping_004ebe54, (void *)f_sputLua_SetActorChoreLoopingL, (void *)&grim_def_s_GetActorChores_004ebe44, (void *)f_sputLua_GetActorChoresL,
+    (void *)&grim_def_s_GetActorLoopingChores_004ebe2c, (void *)f_sputLua_GetActorLoopingChoresL, (void *)&grim_def_s_GetActorCostumeDepth_004ebe14, (void *)f_sputLua_GetActorCostumeDepthL,
+    (void *)&grim_def_s_WorldToScreen_004ebe04, (void *)f_sputLua_WorldToScreenL, (void *)&grim_def_s_ScreenToWorld_004ebdf4, (void *)f_sputLua_ScreenToWorldL,
+    (void *)&grim_def_DAT_004ebdec, (void *)f_sputLua_ExitL, (void *)&grim_def_s_FunctionName_004ebddc, (void *)f_sputLua_FunctionNameL,
+    (void *)&grim_def_s_EnableDebugKeys_004ebdcc, (void *)f_sputLua_EnableDebugKeysL, (void *)&grim_def_s_LockFont_004ebdc0, (void *)f_sputLua_LockFontL,
+    (void *)&grim_def_s_UnLockFont_004ebdb4, (void *)f_Lua_Stub, (void *)&grim_def_s_LockSound_004ebda8, (void *)f_Lua_Stub,
+    (void *)&grim_def_s_UnlockSound_004ebd9c, (void *)f_Lua_Stub, (void *)&grim_def_s_LockCostume_004ebd90, (void *)f_Lua_Stub,
+    (void *)&grim_def_s_UnlockCostume_004ebd80, (void *)f_Lua_Stub, (void *)&grim_def_s_EnableControl_004ebd70, (void *)f_sputLua_EnableControlL,
+    (void *)&grim_def_s_DisableControl_004ebd60, (void *)f_sputLua_DisableControlL, (void *)&grim_def_s_GetControlState_004ebd50, (void *)f_sputLua_GetControlStateL,
+    (void *)&grim_def_s_PrintMessage_004ebd40, (void *)f_sputLua_MessagePrintL, (void *)&grim_def_s_PrintError_004ebd34, (void *)f_Lua_Print_NoOp,
+    (void *)&grim_def_s_PrintWarning_004ebd24, (void *)f_Lua_Print_NoOp, (void *)&grim_def_s_PrintDebug_004ebd18, (void *)f_Lua_Print_NoOp,
+    (void *)&grim_def_s_MakeCurrentSet_004ebd08, (void *)f_sputLua_MakeCurrentSetL, (void *)&grim_def_s_LockSet_004ebd00, (void *)f_sputLua_LockSet,
+    (void *)&grim_def_s_UnLockSet_004ebcf4, (void *)f_sputLua_UnLockSet, (void *)&grim_def_s_MakeCurrentSetup_004ebce0, (void *)f_sputLua_MakeCurrentSetupL,
+    (void *)&grim_def_s_GetCurrentSetup_004ebcd0, (void *)f_sputLua_GetCurrentSetupL, (void *)&grim_def_s_NextSetup_004ebcc4, (void *)f_grimlib_NextSetup,
+    (void *)&grim_def_s_PreviousSetup_004ebcb4, (void *)f_grimlib_PreviousSetup, (void *)&grim_def_s_StartFullscreenMovie_004ebc9c, (void *)f_sputLua_StartFullScreenMovieL,
+    (void *)&grim_def_s_IsFullscreenMoviePlaying_004ebc80, (void *)f_sputLua_IsMoviePlayingL, (void *)&grim_def_s_StartMovie_004ebc74, (void *)f_sputLua_StartMovieL,
+    (void *)&grim_def_s_StopMovie_004ebc68, (void *)f_sputLua_StopMovieL, (void *)&grim_def_s_PauseMovie_004ebc5c, (void *)f_sputLua_PauseMovieL,
+    (void *)&grim_def_s_IsMoviePlaying_004ebc4c, (void *)f_sputLua_IsMoviePlayingL, (void *)&grim_def_s_PlaySound_004ebc40, (void *)f_Lua_Stub,
+    (void *)&grim_def_s_PlaySoundAt_004ebc34, (void *)f_Lua_Stub, (void *)&grim_def_s_PlaySoundAttached_004ebc20, (void *)f_Lua_Stub,
+    (void *)&grim_def_s_IsSoundPlaying_004ebc10, (void *)f_Lua_Stub, (void *)&grim_def_s_SetSoundPosition_004ebbfc, (void *)f_sputLua_SetSoundPosition,
+    (void *)&grim_def_s_FileFindFirst_004ebbec, (void *)f_sputLua_FileFindFirst, (void *)&grim_def_s_FileFindNext_004ebbdc, (void *)f_sputLua_FileFindNext,
+    (void *)&grim_def_s_FileFindDispose_004ebbcc, (void *)f_sputLua_FileFindDispose, (void *)&grim_def_s_InputDialog_004ebbc0, (void *)f_sputLua_InputDialog,
+    (void *)&grim_def_s_QueryDialog_004ebbb4, (void *)f_sputLua_QueryDialog, (void *)&grim_def_s_WriteRegistryValue_004ebba0, (void *)f_sputLua_WriteRegistryValue,
+    (void *)&grim_def_s_ReadRegistryValue_004ebb8c, (void *)f_sputLua_ReadRegistryValue, (void *)&grim_def_s_GetSectorVertices_004ebb78, (void *)f_Lua_Stub,
+    (void *)&grim_def_s_GetSectorOppositeEdge_004ebb60, (void *)f_sputLua_GetSectorOppositeEdge, (void *)&grim_def_s_IsSectorActive_004ebb50, (void *)f_sputLua_IsSectorActiveL,
+    (void *)&grim_def_s_MakeSectorActive_004ebb3c, (void *)f_sputLua_MakeSectorActiveL, (void *)&grim_def_s_PreRender_004ebb30, (void *)f_sputLua_PreRender,
+    (void *)&grim_def_s_SpewStartup_004ebb24, (void *)f_sputLua_SpewStartup, (void *)&grim_def_s_SpewShutdown_004ebb14, (void *)f_sputLua_SpewShutdown,
+    (void *)&grim_def_s_GetCurrentScript_004ebb00, (void *)f_sputLua_GetCurrentScript, (void *)&grim_def_s_PrintActorCostumes_004ebaec, (void *)f_sputLua_PrintActorCostumesL,
+    (void *)&grim_def_s_PushActorCostume_004ebad8, (void *)f_sputLua_PushActorCostumeL, (void *)&grim_def_s_PopActorCostume_004ebac8, (void *)f_sputLua_PopActorCostumeL,
+    (void *)&grim_def_s_LoadCostume_004ebabc, (void *)f_sputLua_LoadCostumeL, (void *)&grim_def_s_GetPhysicalBytes_004ebaa8, (void *)f_sputLua_GetPhysicalBytes,
+    (void *)&grim_def_s_SetMemoryUsage_004eba98, (void *)f_sputLua_SetMemoryUsage, (void *)&grim_def_s_RotateVector_004eba88, (void *)f_sputLua_RotateVectorL,
+    (void *)&grim_def_s_GetCameraPosition_004eba74, (void *)f_sputLua_GetCameraPositionL, (void *)&grim_def_s_SetCameraPosition_004eba60, (void *)f_sputLua_SetCameraPositionL,
+    (void *)&grim_def_s_GetCameraInterest_004eba4c, (void *)f_sputLua_GetCameraInterestL, (void *)&grim_def_s_SetCameraInterest_004eba38, (void *)f_sputLua_SetCameraInterestL,
+    (void *)&grim_def_s_GetCameraFOV_004eba28, (void *)f_sputLua_GetCameraFOVL, (void *)&grim_def_s_SetCameraFOV_004eba18, (void *)f_sputLua_SetCameraFOVL,
+    (void *)&grim_def_s_GetCameraRoll_004eba08, (void *)f_sputLua_GetCameraRollL, (void *)&grim_def_s_SetCameraRoll_004eb9f8, (void *)f_sputLua_SetCameraRollL,
+    (void *)&grim_def_s_GetCameraLookVector_004eb9e4, (void *)f_sputLua_GetCameraLookVectorL, (void *)&grim_def_s_PointActorAt_004eb9d4, (void *)f_sputLua_PointActorAtL,
+    (void *)&grim_def_s_TurnActorTo_004eb9c8, (void *)f_sputLua_TurnActorTo, (void *)&grim_def_s_PerSecond_004eb9bc, (void *)f_sputLua_PerSecondL,
+    (void *)&grim_def_s_SnapToPlane_004eb9b0, (void *)f_sputLua_SnapToPlane, (void *)&grim_def_s_GetAngleBetweenVectors_004eb998, (void *)f_sputLua_GetAngleBetweenVectorsL,
+    (void *)&grim_def_s_GetAngleBetweenActors_004eb980, (void *)f_sputLua_GetAngleBetweenActorsL, (void *)&grim_def_s_SetAmbientLight_004eb970, (void *)f_sputLua_SetAmbientLight,
+    (void *)&grim_def_s_FindLight_004eb964, (void *)f_sputLua_FindLight, (void *)&grim_def_s_TurnLightOn_004eb958, (void *)f_sputLua_TurnLightOn,
+    (void *)&grim_def_s_IsLightOn_004eb94c, (void *)f_sputLua_IsLightOn, (void *)&grim_def_s_SetLightType_004eb93c, (void *)f_sputLua_SetLightType,
+    (void *)&grim_def_s_GetLightType_004eb92c, (void *)f_sputLua_GetLightType, (void *)&grim_def_s_SetLightPosition_004eb918, (void *)f_sputLua_SetLightPosition,
+    (void *)&grim_def_s_GetLightPosition_004eb904, (void *)f_sputLua_GetLightPosition, (void *)&grim_def_s_SetLightRotation_004eb8f0, (void *)f_sputLua_SetLightRotation,
+    (void *)&grim_def_s_GetLightRotation_004eb8dc, (void *)f_sputLua_GetLightRotation, (void *)&grim_def_s_SetLightAngles_004eb8cc, (void *)f_sputLua_SetLightAngles,
+    (void *)&grim_def_s_GetLightAngles_004eb8bc, (void *)f_sputLua_GetLightAngles, (void *)&grim_def_s_SetLightIntensity_004eb8a8, (void *)f_sputLua_SetLightIntensity,
+    (void *)&grim_def_s_GetLightIntensity_004eb894, (void *)f_sputLua_GetLightIntensity, (void *)&grim_def_s_PointLightAt_004eb884, (void *)f_sputLua_PointLightAt,
+    (void *)&grim_def_s_LightMgrStartup_004eb874, (void *)f_Lua_LightMgrStartup, (void *)&grim_def_s_LightMgrShutdown_004eb860, (void *)f_Lua_LightMgrShutdown,
+    (void *)&grim_def_s_LightMgrSetChange_004eb84c, (void *)f_Lua_LightMgrSetChange, (void *)&grim_def_s_ImStartRecording_004eb838, (void *)f_sputLua_ImStartRecording,
+    (void *)&grim_def_s_ImStopRecording_004eb828, (void *)f_sputLua_ImStopRecording, (void *)&grim_def_s_ImStartSound_004eb818, (void *)f_sputLua_ImStartSound,
+    (void *)&grim_def_DAT_004eb810, (void *)f_sputLua_ImStartSound, (void *)&grim_def_s_ImStopSound_004eb804, (void *)f_sputLua_ImStopSound,
+    (void *)&grim_def_s_ImStopAllSounds_004eb7f4, (void *)f_sputLua_ImStopAllSounds, (void *)&grim_def_s_quiet_004eb7ec, (void *)f_sputLua_ImStopAllSounds,
+    (void *)&grim_def_s_ImGetParam_004eb7e0, (void *)f_sputLua_ImGetParam, (void *)&grim_def_s_ImSetParam_004eb7d4, (void *)f_sputLua_ImSetParam,
+    (void *)&grim_def_s_ImFadeParam_004eb7c8, (void *)f_sputLua_ImFadeParam, (void *)&grim_def_s_ImGetMasterVol_004eb7b8, (void *)f_sputLua_ImGetMasterVol,
+    (void *)&grim_def_s_ImSetMasterVol_004eb7a8, (void *)f_sputLua_ImSetMasterVol, (void *)&grim_def_s_ImGetSfxVol_004eb79c, (void *)f_sputLua_ImGetSfxVol,
+    (void *)&grim_def_s_ImSetSfxVol_004eb790, (void *)f_sputLua_ImSetSfxVol, (void *)&grim_def_s_ImGetVoiceVol_004eb780, (void *)f_sputLua_ImGetVoiceVol,
+    (void *)&grim_def_s_ImSetVoiceVol_004eb770, (void *)f_sputLua_ImSetVoiceVol, (void *)&grim_def_s_ImGetMusicVol_004eb760, (void *)f_sputLua_ImGetMusicVol,
+    (void *)&grim_def_s_ImSetMusicVol_004eb750, (void *)f_sputLua_ImSetMusicVol, (void *)&grim_def_s_ImStartVoice_004eb740, (void *)f_sputLua_ImStartVoice,
+    (void *)&grim_def_s_ImStopVoice_004eb734, (void *)f_sputLua_ImStopVoice, (void *)&grim_def_s_ImSetState_004eb728, (void *)f_sputLua_ImSetState,
+    (void *)&grim_def_s_ImSetSequence_004eb718, (void *)f_sputLua_ImSetSequence, (void *)&grim_def_s_ImSetAttribute_004eb708, (void *)f_sputLua_ImSetAttribute,
+    (void *)&grim_def_s_ImSetCuePoint_004eb6f8, (void *)f_sputLua_ImSetCuePoint, (void *)&grim_def_s_ImPause_004eb6f0, (void *)f_sputLua_ImPause,
+    (void *)&grim_def_s_ImResume_004eb6e4, (void *)f_sputLua_ImResume, (void *)&grim_def_DAT_004eb6e0, (void *)f_sputLua_ImSetVoiceEffect,
+    (void *)&grim_def_s_ImSetVoiceEffect_004eb6cc, (void *)f_sputLua_ImSetVoiceEffect, (void *)&grim_def_s_ImGetMemoryFootprint_004eb6b4, (void *)f_sputLua_ImGetMemoryFootprint,
+    (void *)&grim_def_s_ImGetSoundCacheSize_004eb6a0, (void *)f_sputLua_ImGetSoundCacheSize, (void *)&grim_def_s_LoadBundle_004eb694, (void *)f_Lua_Stub,
+    (void *)&grim_def_s_UnloadBundle_004eb684, (void *)f_Lua_Stub, (void *)&grim_def_s_SetGamma_004eb678, (void *)f_sputLua_SetGamma,
+    (void *)&grim_def_s_SetActorWalkDominate_004eb660, (void *)f_sputLua_SetActorWalkDominate, (void *)&grim_def_s_SetActorConstrain_004eb64c, (void *)f_sputLua_SetActorConstrain,
+    (void *)&grim_def_s_RenderModeUser_004eb63c, (void *)f_sputLua_RenderModeUser, (void *)&grim_def_s_ForceRefresh_004eb62c, (void *)f_sputRender_ForceRefresh,
+    (void *)&grim_def_s_DimScreen_004eb620, (void *)f_sputLua_DimScreen, (void *)&grim_def_s_DimRegion_004eb614, (void *)f_sputLua_DimRegion,
+    (void *)&grim_def_s_CleanBuffer_004eb608, (void *)f_sputLua_CleanBuffer, (void *)&grim_def_s_Display_004eb600, (void *)f_sputLua_Display,
+    (void *)&grim_def_s_SetSpeechMode_004eb5f0, (void *)f_sputLua_SetSpeechMode, (void *)&grim_def_s_GetSpeechMode_004eb5e0, (void *)f_sputLua_GetSpeechMode,
+    (void *)&grim_def_s_SetShadowColor_004eb5d0, (void *)f_sputLua_SetShadowColor, (void *)&grim_def_s_ActivateActorShadow_004eb5bc, (void *)f_sputLua_ActivateActorShadow,
+    (void *)&grim_def_s_ActorShadow_004eb5b0, (void *)f_sputLua_ActorShadow, (void *)&grim_def_s_SetActorShadowPlane_004eb59c, (void *)f_sputLua_SetActorShadowPlane,
+    (void *)&grim_def_s_SetActorShadowPoint_004eb588, (void *)f_sputLua_SetActorShadowPoint, (void *)&grim_def_s_SetActiveShadow_004eb578, (void *)f_sputLua_SetActiveShadow,
+    (void *)&grim_def_s_ActorDistToShadowPlane_004eb560, (void *)f_sputLua_ActorDistToShadowPlane, (void *)&grim_def_s_KillActorShadows_004eb54c, (void *)f_sputLua_KillActorShadows,
+    (void *)&grim_def_s_AddShadowPlane_004eb53c, (void *)f_sputLua_AddShadowClipPlane, (void *)&grim_def_s_SetActorShadowValid_004eb528, (void *)f_sputLua_SetActorShadowValid,
+    (void *)&grim_def_s_NewObjectState_004eb518, (void *)f_sputLua_NewObjectState, (void *)&grim_def_s_FreeObjectState_004eb508, (void *)f_sputLua_FreeObjectState,
+    (void *)&grim_def_s_SetObjectType_004eb4f8, (void *)f_sputLua_SetObjectType, (void *)&grim_def_s_SendObjectToBack_004eb4e4, (void *)f_sputLua_SendObjectToBack,
+    (void *)&grim_def_s_SendObjectToFront_004eb4d0, (void *)f_sputLua_SendObjectToFront, (void *)&grim_def_s_ActorToClean_004eb4c0, (void *)f_sputLua_ActorToClean,
+    (void *)&grim_def_s_FlushControls_004eb4b0, (void *)f_stdControl_Flush, (void *)&grim_def_s_SetActorCollisionMode_004eb498, (void *)f_sputLua_SetActorCollisionMode,
+    (void *)&grim_def_s_SetActorCollisionScale_004eb480, (void *)f_sputLua_SetActorCollisionScale, (void *)&grim_def_s_MarkDirtyRect_004eb470, (void *)f_sputLua_MarkDirtyRect,
+    (void *)&grim_def_s_CacheRect_004eb464, (void *)f_sputLua_CacheRect, (void *)&grim_def_s_RestoreCacheRect_004eb450, (void *)f_sputLua_RestoreCacheRect,
+    (void *)&grim_def_s_ResReport_004eb444, (void *)f_sputLua_ResReport, (void *)&grim_def_s_HardwareAccelerated_004eb430, (void *)f_sputLua_HardwareAccelerated,
+    (void *)&grim_def_s_SetActorClipActive_004eb41c, (void *)f_sputLua_SetActorClipActive, (void *)&grim_def_s_SetActorClipPlane_004eb408, (void *)f_sputLua_SetActorClipPlane,
+    (void *)&grim_def_s_FadeOutChore_004eb3f8, (void *)f_sputLua_FadeOutChore, (void *)&grim_def_s_FadeInChore_004eb3ec, (void *)f_sputLua_FadeInChore,
+    (void *)&grim_def_s_IrisDown_004eb3e0, (void *)f_sputLua_IrisDown, (void *)&grim_def_s_IrisUp_004eb3d8, (void *)f_sputLua_IrisUp,
+    (void *)&grim_def_s_IrisComplete_004eb3c8, (void *)f_sputLua_IrisComplete, (void *)&grim_def_DAT_004eb3bc, (void *)f_sputRender_ClearIris,
+    (void *)&grim_def_DAT_004eb3a4, (void *)f_Lua_TextFileGetLineCount, (void *)&grim_def_DAT_004eb394, (void *)f_Lua_TextFileGetLine,
+    (void *)&grim_def_DAT_004eb388, (void *)f_sputLua_ScreenShot, (void *)&grim_def_DAT_004eb37c, (void *)f_sputLua_SaveScreen,
+    (void *)&grim_def_DAT_004eb368, (void *)f_sputLua_GetSaveGameImage, (void *)&grim_def_DAT_004eb35c, (void *)f_sputLua_GetImage,
+    (void *)&grim_def_DAT_004eb350, (void *)f_sputLua_FreeImage, (void *)&grim_def_DAT_004eb344, (void *)f_sputLua_BlastImage,
+    (void *)&grim_def_DAT_004eb338, (void *)f_sputLua_BlastRect, (void *)&grim_def_DAT_004eb324, (void *)f_sputLua_SubmitSaveGameData,
+    (void *)&grim_def_DAT_004eb314, (void *)f_sputLua_GetSaveGameData, (void *)&grim_def_DAT_004eb304, (void *)f_sputLua_SetTextSpeed,
+    (void *)&grim_def_DAT_004eb2f4, (void *)f_sputLua_GetTextSpeed, (void *)&grim_def_DAT_004eb2e4, (void *)f_sputLua_FindFileOnAnyCD,
+    (void *)&grim_def_DAT_004eb2d0, (void *)f_sputLua_DetachFromResourcesL, (void *)&grim_def_DAT_004eb2bc, (void *)f_sputLua_AttachToResourcesL,
+    (void *)&grim_def_DAT_004eb2a8, (void *)f_sputLua_SetSoundParametersL, (void *)&grim_def_DAT_004eb294, (void *)f_sputLua_GetSoundParametersL,
+    (void *)&grim_def_DAT_004eb28c, (void *)f_sputLua_Test, (void *)&grim_def_DAT_004eb27c, (void *)f_sputLua_ActorPuckOrient,
+    (void *)&grim_def_DAT_004eb26c, (void *)f_sputLua_GetTickCount, (void *)&grim_def_DAT_004eb25c, (void *)f_sputLua_ActorVoiceIs3DL,
+    (void *)&grim_def_DAT_004eb250, (void *)f_sputLua_JustLoadedL, (void *)&grim_def_DAT_004eb240, (void *)f_sputLua_DumpMemoryLogL,
+    (void *)&grim_def_DAT_004eb230, (void *)f_sputLua_ResetTexturesL, (void *)&grim_def_DAT_004eb224, (void *)f_sputLua_BuildCache,
+    (void *)&grim_def_DAT_004eb214, (void *)f_sputLua_RevertCache, (void *)&grim_def_DAT_004eb208, (void *)f_sputLua_ShrinkBoxes,
+    (void *)&grim_def_DAT_004eb1f8, (void *)f_sputLua_UnShrinkBoxes, (void *)&grim_def_DAT_004eb1e8, (void *)f_sputLua_GetShrinkPosition,
+    (void *)&grim_def_DAT_004eb1d8, (void *)f_sputLua_NukeResourcesL, (void *)&grim_def_DAT_004eb1c4, (void *)f_sputLua_SetActorInvClipNode,
+    (void *)&grim_def_DAT_004eb1b0, (void *)f_sputLua_GetDiskFreeSpaceL, (void *)&grim_def_DAT_004eb198, (void *)f_sputLua_SetWalkSystemFadeTime,
+    (void *)&grim_def_DAT_004eb18c, (void *)f_sputLua_SaveIMuse, (void *)&grim_def_DAT_004eb17c, (void *)f_sputLua_RestoreIMuse,
+    (void *)&grim_def_DAT_004eb16c, (void *)f_sputLua_GetMemoryUsageL
+};
+/* 0x004eb168, 4 bytes */ GRIM_DATA("004eb168") unsigned int grim_def_UINT_004eb168 __asm__("_UINT_004eb168") = 0x117;
+/* 0x004ec384, 8 bytes */ /* loose */ char grim_def_s_count_004ec384[8] __asm__("_s_count_004ec384") = "count";
+/* 0x004ec38c, 44 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_grimlib_Scripts__004ec38c[44] __asm__("_s_C__grimsrc_libs_grimlib_Scripts__004ec38c") = "C:\\grimsrc\\libs\\grimlib\\Scripts\\sputLua.cpp";
+/* 0x004ec3bc, 12 bytes */ /* loose */ char grim_def_s__system_lua_004ec3bc[12] __asm__("_s__system_lua_004ec3bc") = "_system.lua";
+/* 0x004ec3c8, 8 bytes */ /* loose */ char grim_def_s_BOOT_004ec3c8[8] __asm__("_s_BOOT_004ec3c8") = "BOOT";
+/* 0x004ec3d0, 20 bytes */ /* loose */ char grim_def_s_camChangeHandler_004ec3d0[20] __asm__("_s_camChangeHandler_004ec3d0") = "camChangeHandler";
+/* 0x004ec3e4, 24 bytes */ /* loose */ char grim_def_s_postCamChangeHandler_004ec3e4[24] __asm__("_s_postCamChangeHandler_004ec3e4") = "postCamChangeHandler";
+/* 0x004ec494, 16 bytes */ /* loose */ char grim_def_s__actor_d__s__004ec494[16] __asm__("_s__actor_d__s__004ec494") = "(actor%d:%s)";
+/* 0x004ec4a4, 8 bytes */ /* loose */ char grim_def_s__nil__004ec4a4[8] __asm__("_s__nil__004ec4a4") = "(nil)";
+/* 0x004ec4ac, 24 bytes */ /* loose */ char grim_def_s_costumeOverrideHandler_004ec4ac[24] __asm__("_s_costumeOverrideHandler_004ec4ac") = "costumeOverrideHandler";
+/* 0x004ec4c4, 24 bytes */ /* loose */ char grim_def_s_costumeMarkerHandler_004ec4c4[24] __asm__("_s_costumeMarkerHandler_004ec4c4") = "costumeMarkerHandler";
+/* 0x004ec4dc, 20 bytes */ /* loose */ char grim_def_s_userPaintHandler_004ec4dc[20] __asm__("_s_userPaintHandler_004ec4dc") = "userPaintHandler";
+/* 0x004ec4f0, 12 bytes */ /* loose */ char grim_def_s_exitHandler_004ec4f0[12] __asm__("_s_exitHandler_004ec4f0") = "exitHandler";
+/* 0x004ec4fc, 16 bytes */ /* loose */ char grim_def_s_pauseHandler_004ec4fc[16] __asm__("_s_pauseHandler_004ec4fc") = "pauseHandler";
+/* 0x004ec50c, 20 bytes */ /* loose */ char grim_def_s_characterHandler_004ec50c[20] __asm__("_s_characterHandler_004ec50c") = "characterHandler";
+/* 0x004ec520, 8 bytes */ /* loose */ char grim_def_s_concat_004ec520[8] __asm__("_s_concat_004ec520") = "concat";
+/* 0x004ec528, 4 bytes */ /* loose */ char grim_def_s_HOT_004ec528[4] __asm__("_s_HOT_004ec528") = "HOT";
+/* 0x004ec52c, 8 bytes */ /* loose */ char grim_def_s_SPECIAL_004ec52c[8] __asm__("_s_SPECIAL_004ec52c") = "SPECIAL";
+/* 0x004ec534, 8 bytes */ /* loose */ char grim_def_s_CAMERA_004ec534[8] __asm__("_s_CAMERA_004ec534") = "CAMERA";
+/* 0x004ec53c, 8 bytes */ /* loose */ char grim_def_s_WALK_004ec53c[8] __asm__("_s_WALK_004ec53c") = "WALK";
+/* 0x004ec544, 8 bytes */ /* loose */ char grim_def_s_NONE_004ec544[8] __asm__("_s_NONE_004ec544") = "NONE";
+/* 0x004ec54c, 8 bytes */ /* loose */ char grim_def_s_type_004ec54c[8] __asm__("_s_type_004ec54c") = "type";
+/* 0x004ec554, 8 bytes */ /* loose */ char grim_def_s_true_004ec554[8] __asm__("_s_true_004ec554") = "true";
+/* 0x004ec55c, 12 bytes */ /* loose */ char grim_def_s_TextAllowed_004ec55c[12] __asm__("_s_TextAllowed_004ec55c") = "TextAllowed";
+/* 0x004ec568, 12 bytes */ /* loose */ char grim_def_s_axisHandler_004ec568[12] __asm__("_s_axisHandler_004ec568") = "axisHandler";
+/* 0x004ec574, 16 bytes */ /* loose */ char grim_def_s_buttonHandler_004ec574[16] __asm__("_s_buttonHandler_004ec574") = "buttonHandler";
+/* 0x004ec584, 8 bytes */ /* loose */ char grim_def_s_system_004ec584[8] __asm__("_s_system_004ec584") = "system";
+/* 0x004ec58c, 12 bytes */ /* loose */ char grim_def_s_controls_004ec58c[12] __asm__("_s_controls_004ec58c") = "controls";
+/* 0x004ec5a0, 8 bytes */ /* loose */ char grim_def_s_global_004ec5a0[8] __asm__("_s_global_004ec5a0") = "global";
+/* 0x004ec5a8, 12 bytes */ /* loose */ char grim_def_s_parallel_004ec5a8[12] __asm__("_s_parallel_004ec5a8") = "parallel";
+/* 0x004ec5c0, 20 bytes */ /* loose */ char grim_def_s_saveGameCallback_004ec5c0[20] __asm__("_s_saveGameCallback_004ec5c0") = "saveGameCallback";
+/* 0x004f0d0c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f0d0c __asm__("_UINT_004f0d0c") = 0xffffffff;
+/* 0x004f0d28, 12 bytes */ /* loose */ char grim_def_s_x_spot_cos_004f0d28[12] __asm__("_s_x_spot_cos_004f0d28") = "x_spot.cos";
+/* 0x004f0d34, 56 bytes */ /* loose */ char grim_def_s_LightManager_Startup__Could_not_c_004f0d34[56] __asm__("_s_LightManager_Startup__Could_not_c_004f0d34") = "LightManager_Startup: Could not create main dialog.\n";
+/* 0x008cab44, 4 bytes */ GRIM_DATA("008cab44") unsigned int grim_def_g_dwLrOldConcatFallback __asm__("_g_dwLrOldConcatFallback") = 0x0;
+/* 0x008cab58, 4 bytes */ GRIM_DATA("008cab58") unsigned int grim_def_UINT_008cab58 __asm__("_UINT_008cab58") = 0x0;
+/* 0x008cab8c, 4 bytes */ GRIM_DATA("008cab8c") unsigned int grim_def_g_dwDebugToggleFunc __asm__("_g_dwDebugToggleFunc") = 0x0;
+__asm__(".globl _grim_img_exe_0x004ea890\n\t.set _grim_img_exe_0x004ea890, _PTR_s_concatfallback_004ea890 + 0\n");
+__asm__(".globl _grim_img_exe_0x004ea8b0\n\t.set _grim_img_exe_0x004ea8b0, _PTR_s_EnginePause_004ea8b0 + 0\n");

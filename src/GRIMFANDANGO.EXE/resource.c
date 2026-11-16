@@ -810,3 +810,70 @@ void __cdecl sputResource_MatUnloader(rdMaterial *material)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_DAT_004e9aa8[] __asm__("_DAT_004e9aa8");
+extern char grim_def_DAT_004e9ab4[] __asm__("_DAT_004e9ab4");
+extern char grim_def_DAT_004e9ac8[] __asm__("_DAT_004e9ac8");
+extern char grim_def_DAT_004e9ad8[] __asm__("_DAT_004e9ad8");
+extern char grim_def_DAT_004e9ae4[] __asm__("_DAT_004e9ae4");
+extern char grim_def_DAT_004e9af4[] __asm__("_DAT_004e9af4");
+extern char grim_def_DAT_004e9b04[] __asm__("_DAT_004e9b04");
+extern char grim_def_DAT_004e9b14[] __asm__("_DAT_004e9b14");
+extern char grim_def_DAT_004e9b24[] __asm__("_DAT_004e9b24");
+extern char grim_def_DAT_004e9b38[] __asm__("_DAT_004e9b38");
+extern char grim_def_DAT_004e9b48[] __asm__("_DAT_004e9b48");
+extern char grim_def_DAT_004e9b5c[] __asm__("_DAT_004e9b5c");
+extern char grim_def_DAT_004e9b6c[] __asm__("_DAT_004e9b6c");
+extern char grim_def_DAT_004e9b80[] __asm__("_DAT_004e9b80");
+extern char grim_def_DAT_004e9b94[] __asm__("_DAT_004e9b94");
+extern char grim_def_DAT_004e9b9c[] __asm__("_DAT_004e9b9c");
+extern char grim_def_DAT_004e9ba4[] __asm__("_DAT_004e9ba4");
+extern char grim_def_DAT_004e9bb0[] __asm__("_DAT_004e9bb0");
+extern char grim_def_DAT_004e9bb8[] __asm__("_DAT_004e9bb8");
+extern char grim_def_DAT_004e9bc0[] __asm__("_DAT_004e9bc0");
+extern char grim_def_DAT_004e9bcc[] __asm__("_DAT_004e9bcc");
+extern char grim_def_DAT_004e9bd8[] __asm__("_DAT_004e9bd8");
+extern char grim_def_DAT_004e9be0[] __asm__("_DAT_004e9be0");
+extern char grim_def_DAT_004e9be8[] __asm__("_DAT_004e9be8");
+extern char grim_def_DAT_004e9bf4[] __asm__("_DAT_004e9bf4");
+extern char grim_def_DAT_004e9bfc[] __asm__("_DAT_004e9bfc");
+extern char grim_def_DAT_004e9c08[] __asm__("_DAT_004e9c08");
+extern char grim_def_DAT_004e9c14[] __asm__("_DAT_004e9c14");
+extern char grim_def_DAT_004e9c24[] __asm__("_DAT_004e9c24");
+extern int grim_def_g_dwPurgeAmount __asm__("_g_dwPurgeAmount");
+extern unsigned int grim_def_g_dwResSysInitialized __asm__("_g_dwResSysInitialized");
+extern unsigned int grim_def_g_dwResSysStarted __asm__("_g_dwResSysStarted");
+extern int grim_def_g_nMaxRealMemoryUsage __asm__("_g_nMaxRealMemoryUsage");
+extern int grim_def_g_nRequiredLabCount __asm__("_g_nRequiredLabCount");
+extern int grim_def_g_nStopPurge __asm__("_g_nStopPurge");
+extern void *grim_def_g_ppRequiredLabs[30] __asm__("_g_ppRequiredLabs");
+extern char grim_def_g_szExtraDataDir[260] __asm__("_g_szExtraDataDir");
+extern char grim_def_s_DEBUG_Loops__004e9a98[16] __asm__("_s_DEBUG_Loops__004e9a98");
+extern char grim_def_s_TEMP_004e7b14[12] __asm__("_s_TEMP_004e7b14");
+extern char grim_def_s_lab_004e9c64[4] __asm__("_s_lab_004e9c64");
+/* 0x004e7b14, 12 bytes */ /* loose */ char grim_def_s_TEMP_004e7b14[12] __asm__("_s_TEMP_004e7b14") = "TEMP";
+/* 0x004e99b0, 120 bytes */ GRIM_DATA("004e99b0") void *grim_def_g_ppRequiredLabs[30] __asm__("_g_ppRequiredLabs") = {
+    (void *)&grim_def_DAT_004e9c24, (void *)&grim_def_DAT_004e9c14, (void *)&grim_def_DAT_004e9c08, (void *)&grim_def_DAT_004e9bfc,
+    (void *)&grim_def_DAT_004e9bf4, (void *)&grim_def_DAT_004e9be8, (void *)&grim_def_DAT_004e9be0, (void *)&grim_def_DAT_004e9bd8,
+    (void *)&grim_def_DAT_004e9bcc, (void *)&grim_def_DAT_004e9bc0, (void *)&grim_def_DAT_004e9bb8, (void *)&grim_def_DAT_004e9bb0,
+    (void *)&grim_def_DAT_004e9ba4, (void *)&grim_def_DAT_004e9b9c, (void *)&grim_def_DAT_004e9b94, (void *)&grim_def_DAT_004e9b80,
+    (void *)&grim_def_DAT_004e9b6c, (void *)&grim_def_DAT_004e9b5c, (void *)&grim_def_DAT_004e9b48, (void *)&grim_def_DAT_004e9b38,
+    (void *)&grim_def_DAT_004e9b24, (void *)&grim_def_DAT_004e9b14, (void *)&grim_def_DAT_004e9b04, (void *)&grim_def_DAT_004e9af4,
+    (void *)&grim_def_DAT_004e9ae4, (void *)&grim_def_DAT_004e9ad8, (void *)&grim_def_DAT_004e9ac8, (void *)&grim_def_DAT_004e9ab4,
+    (void *)&grim_def_DAT_004e9aa8, (void *)&grim_def_s_DEBUG_Loops__004e9a98
+};
+/* 0x004e9a28, 4 bytes */ GRIM_DATA("004e9a28") int grim_def_g_nRequiredLabCount __asm__("_g_nRequiredLabCount") = 30;
+/* 0x004e9a2c, 4 bytes */ GRIM_DATA("004e9a2c") int grim_def_g_nMaxRealMemoryUsage __asm__("_g_nMaxRealMemoryUsage") = 12288000;
+/* 0x004e9a30, 8 bytes */ GRIM_DATA("004e9a30") int grim_def_g_dwPurgeAmount __asm__("_g_dwPurgeAmount") = 2560000;
+/* 0x004e9a34, 4 bytes: the rest of grim_def_g_dwPurgeAmount's span */ GRIM_DATA("004e9a30") static unsigned char g_dwPurgeAmount__tail[4] __attribute__((used)) = {0};
+/* 0x004e9a98, 16 bytes */ GRIM_DATA("004e9a98") char grim_def_s_DEBUG_Loops__004e9a98[16] __asm__("_s_DEBUG_Loops__004e9a98") = "DEBUG_Loops\\";
+/* 0x004e9c64, 4 bytes */ /* loose */ char grim_def_s_lab_004e9c64[4] __asm__("_s_lab_004e9c64") = "lab";
+/* 0x008a85b8, 4 bytes */ GRIM_DATA("008a85b8") unsigned int grim_def_g_dwResSysInitialized __asm__("_g_dwResSysInitialized") = 0x0;
+/* 0x008a85bc, 4 bytes */ GRIM_DATA("008a85bc") unsigned int grim_def_g_dwResSysStarted __asm__("_g_dwResSysStarted") = 0x0;
+/* 0x008ca208, 260 bytes */ GRIM_DATA("008ca208") char grim_def_g_szExtraDataDir[260] __asm__("_g_szExtraDataDir") = "";
+/* 0x008ca30c, 4 bytes */ GRIM_DATA("008ca30c") int grim_def_g_nStopPurge __asm__("_g_nStopPurge") = 0;

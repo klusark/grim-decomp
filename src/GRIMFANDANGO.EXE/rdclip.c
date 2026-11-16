@@ -4790,3 +4790,26 @@ uint __cdecl rdClip_Face3GTOrtho(int *frustum,float *verts,uint *tverts,uint *iv
 }
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_g_dwDestIVert __asm__("_g_dwDestIVert");
+extern unsigned int grim_def_g_dwDestTVert __asm__("_g_dwDestTVert");
+extern unsigned int grim_def_g_dwDestVert __asm__("_g_dwDestVert");
+extern unsigned int grim_def_g_dwRdClip_faceStatus __asm__("_g_dwRdClip_faceStatus");
+extern unsigned int grim_def_g_dwSourceIVert __asm__("_g_dwSourceIVert");
+extern unsigned int grim_def_g_dwSourceTVert __asm__("_g_dwSourceTVert");
+extern unsigned int grim_def_g_dwSourceVert __asm__("_g_dwSourceVert");
+/* 0x007f4618, 4 bytes */ GRIM_DATA("007f4618") unsigned int grim_def_g_dwSourceIVert __asm__("_g_dwSourceIVert") = 0x0;
+/* 0x007f461c, 140 bytes */ GRIM_DATA("007f461c") unsigned int grim_def_g_dwSourceTVert __asm__("_g_dwSourceTVert") = 0x0;
+/* 0x007f4620, 136 bytes: the rest of grim_def_g_dwSourceTVert's span */ GRIM_DATA("007f461c") static unsigned char g_dwSourceTVert__tail[136] __attribute__((used)) = {0};
+/* 0x007f46a8, 4 bytes */ GRIM_DATA("007f46a8") unsigned int grim_def_g_dwDestTVert __asm__("_g_dwDestTVert") = 0x0;
+/* 0x007f46ac, 4 bytes */ GRIM_DATA("007f46ac") unsigned int grim_def_g_dwDestVert __asm__("_g_dwDestVert") = 0x0;
+/* 0x007f46b0, 8 bytes */ GRIM_DATA("007f46b0") unsigned int grim_def_g_dwDestIVert __asm__("_g_dwDestIVert") = 0x0;
+/* 0x007f46b4, 4 bytes: the rest of grim_def_g_dwDestIVert's span */ GRIM_DATA("007f46b0") static unsigned char g_dwDestIVert__tail[4] __attribute__((used)) = {0};
+/* 0x007f47b8, 8 bytes */ GRIM_DATA("007f47b8") unsigned int grim_def_g_dwSourceVert __asm__("_g_dwSourceVert") = 0x0;
+/* 0x007f47bc, 4 bytes: the rest of grim_def_g_dwSourceVert's span */ GRIM_DATA("007f47b8") static unsigned char g_dwSourceVert__tail[4] __attribute__((used)) = {0};
+/* 0x007f4ac4, 4 bytes */ GRIM_DATA("007f4ac4") unsigned int grim_def_g_dwRdClip_faceStatus __asm__("_g_dwRdClip_faceStatus") = 0x0;

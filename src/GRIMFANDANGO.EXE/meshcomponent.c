@@ -241,3 +241,24 @@ int __cdecl MeshAdjuster(uint comp,uint text)
   puVar1 = strchr((uint *)text,')');
   return (uint)(puVar1 == (uint *)0x0);
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004e9f48;
+extern unsigned char grim_def_DAT_004e9f38[8] __asm__("_DAT_004e9f38");
+extern char grim_def_DAT_004e9f40[] __asm__("_DAT_004e9f40");
+extern grim_span_004e9f48 grim_def_DAT_004e9f48 __asm__("_DAT_004e9f48");
+extern char grim_def_s_Mesh__d___s__004ea64c[16] __asm__("_s_Mesh__d___s__004ea64c");
+extern char grim_def_s_Select_mesh_node_to_add____004ea65c[28] __asm__("_s_Select_mesh_node_to_add____004ea65c");
+/* 0x004e9f38, 8 bytes */ GRIM_DATA("004e9f38") unsigned char grim_def_DAT_004e9f38[8] __asm__("_DAT_004e9f38") = { 0x00, 0x00, 0x00, 0x00, 0x04 };
+/* 0x004e9f48, 24 bytes */ GRIM_DATA("004e9f48") grim_span_004e9f48 grim_def_DAT_004e9f48 __asm__("_DAT_004e9f48") = {
+    { 0x02 },
+    (void *)&grim_def_DAT_004e9f38,
+    (void *)&grim_def_DAT_004e9f40,
+    {0}
+};
+/* 0x004ea64c, 16 bytes */ GRIM_DATA("004ea64c") char grim_def_s_Mesh__d___s__004ea64c[16] __asm__("_s_Mesh__d___s__004ea64c") = "Mesh %d (%s)";
+/* 0x004ea65c, 28 bytes */ /* loose */ char grim_def_s_Select_mesh_node_to_add____004ea65c[28] __asm__("_s_Select_mesh_node_to_add____004ea65c") = "Select mesh node to add...";

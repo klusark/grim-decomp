@@ -131,3 +131,17 @@ void __cdecl luaO_insertlist(undefined4 *root,undefined4 *node)
   node[1] = 0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern int grim_def_g_dwDimensions[23] __asm__("_g_dwDimensions");
+extern char grim_def_s_internal_error_in__lua_equalObj__10027180[44] __asm__("_s_internal_error_in__lua_equalObj__10027180");
+/* 0x100270e8, 92 bytes */ GRIM_DATA("100270e8") int grim_def_g_dwDimensions[23] __asm__("_g_dwDimensions") = {
+    5, 11, 23, 47, 97, 197, 397, 797,
+    1597, 3203, 6421, 12853, 25717, 51437, 102811, 205619,
+    411233, 822433, 1644817, 3289613, 6579211, 13158023, 2147483645
+};
+/* 0x10027180, 44 bytes */ /* loose */ char grim_def_s_internal_error_in__lua_equalObj__10027180[44] __asm__("_s_internal_error_in__lua_equalObj__10027180") = "internal error in `lua_equalObj'";

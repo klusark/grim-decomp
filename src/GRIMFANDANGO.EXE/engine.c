@@ -1200,3 +1200,90 @@ void __cdecl sputControl_Update(undefined4 dt,undefined4 reserved)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e7b48[8] __asm__("_DAT_004e7b48");
+extern unsigned char grim_def_DAT_004e7da0[32] __asm__("_DAT_004e7da0");
+extern unsigned int grim_def_UINT_008a8640 __asm__("_UINT_008a8640");
+extern unsigned char grim_def_UINT_008a8644[124] __asm__("_UINT_008a8644");
+extern unsigned int grim_def_UINT_008a86c0 __asm__("_UINT_008a86c0");
+extern unsigned char grim_def_UINT_008a86c4[28] __asm__("_UINT_008a86c4");
+extern unsigned int grim_def_UINT_008a86e0 __asm__("_UINT_008a86e0");
+extern unsigned char grim_def_UINT_008a86e4[12] __asm__("_UINT_008a86e4");
+extern unsigned int grim_def_UINT_008a87c8 __asm__("_UINT_008a87c8");
+extern unsigned char grim_def_UINT_008a87cc[28] __asm__("_UINT_008a87cc");
+extern unsigned int grim_def_UINT_008a87e8 __asm__("_UINT_008a87e8");
+extern unsigned char grim_def_UINT_008a87ec[28] __asm__("_UINT_008a87ec");
+extern unsigned int grim_def_UINT_008a8808 __asm__("_UINT_008a8808");
+extern unsigned char grim_def_UINT_008a880c[28] __asm__("_UINT_008a880c");
+extern unsigned int grim_def_UINT_008a8828 __asm__("_UINT_008a8828");
+extern unsigned char grim_def_UINT_008a882c[1040] __asm__("_UINT_008a882c");
+extern unsigned int grim_def_UINT_008a8c44 __asm__("_UINT_008a8c44");
+extern unsigned char grim_def_UINT_008a8c60[16] __asm__("_UINT_008a8c60");
+extern unsigned int grim_def_UINT_008a8c7c __asm__("_UINT_008a8c7c");
+extern unsigned int grim_def_UINT_008a8c90 __asm__("_UINT_008a8c90");
+extern unsigned int grim_def_UINT_008c9804 __asm__("_UINT_008c9804");
+extern unsigned char grim_def_g_apControlCallbacks[32] __asm__("_g_apControlCallbacks");
+extern unsigned int grim_def_g_dwDoLoad __asm__("_g_dwDoLoad");
+extern int grim_def_g_dwGrimlib_NewImuseState __asm__("_g_dwGrimlib_NewImuseState");
+extern unsigned int grim_def_g_dwGrimlib_SetPause_oldmode __asm__("_g_dwGrimlib_SetPause_oldmode");
+extern unsigned int grim_def_g_dwGrimlib_frameNumber __asm__("_g_dwGrimlib_frameNumber");
+extern unsigned int grim_def_g_dwGrimlib_prevmode __asm__("_g_dwGrimlib_prevmode");
+extern unsigned int grim_def_g_dwGrimlib_shutdownCallback __asm__("_g_dwGrimlib_shutdownCallback");
+extern unsigned int grim_def_g_dwJustLoaded __asm__("_g_dwJustLoaded");
+extern unsigned int grim_def_g_dwSputmOpen __asm__("_g_dwSputmOpen");
+extern unsigned char grim_def_g_dwUpdateLua[8] __asm__("_g_dwUpdateLua");
+extern int grim_def_g_nNumControlCallbacks __asm__("_g_nNumControlCallbacks");
+extern int grim_def_g_nSputRender_Update_RenderSetup __asm__("_g_nSputRender_Update_RenderSetup");
+extern unsigned char grim_def_g_pRenderedSet[4] __asm__("_g_pRenderedSet");
+extern unsigned char grim_def_g_pSaveFileName[8] __asm__("_g_pSaveFileName");
+extern char grim_def_s_grim_sav_004e7fc8[12] __asm__("_s_grim_sav_004e7fc8");
+extern char grim_def_s_patch05_bin_004e7fe8[12] __asm__("_s_patch05_bin_004e7fe8");
+extern char grim_def_s_slot____1____slot___PerfTotalEnt_004e7f74[40] __asm__("_s_slot____1____slot___PerfTotalEnt_004e7f74");
+/* 0x004e7b48, 8 bytes */ GRIM_DATA("004e7b48") unsigned char grim_def_DAT_004e7b48[8] __asm__("_DAT_004e7b48") = {0};
+/* 0x004e7d98, 8 bytes */ GRIM_DATA("004e7d98") unsigned char grim_def_g_dwUpdateLua[8] __asm__("_g_dwUpdateLua") = { 0x01 };
+/* 0x004e7da0, 32 bytes */ GRIM_DATA("004e7da0") unsigned char grim_def_DAT_004e7da0[32] __asm__("_DAT_004e7da0") = {
+    0x04, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02
+};
+/* 0x004e7e30, 4 bytes */ GRIM_DATA("004e7e30") int grim_def_g_dwGrimlib_NewImuseState __asm__("_g_dwGrimlib_NewImuseState") = -1;
+/* 0x004e7f74, 40 bytes */ /* loose */ char grim_def_s_slot____1____slot___PerfTotalEnt_004e7f74[40] __asm__("_s_slot____1____slot___PerfTotalEnt_004e7f74") = "slot > -1 && slot < PerfTotalEntries";
+/* 0x004e7fc8, 12 bytes */ /* loose */ char grim_def_s_grim_sav_004e7fc8[12] __asm__("_s_grim_sav_004e7fc8") = "grim.sav";
+/* 0x004e7fe8, 12 bytes */ /* loose */ char grim_def_s_patch05_bin_004e7fe8[12] __asm__("_s_patch05_bin_004e7fe8") = "patch05.bin";
+/* 0x004e8084, 4 bytes */ GRIM_DATA("004e8084") int grim_def_g_nSputRender_Update_RenderSetup __asm__("_g_nSputRender_Update_RenderSetup") = -1;
+/* 0x008a8640, 4 bytes */ GRIM_DATA("008a8640") unsigned int grim_def_UINT_008a8640 __asm__("_UINT_008a8640") = 0x0;
+/* 0x008a8644, 124 bytes */ GRIM_DATA("008a8644") unsigned char grim_def_UINT_008a8644[124] __asm__("_UINT_008a8644") = {0};
+/* 0x008a86c0, 4 bytes */ GRIM_DATA("008a86c0") unsigned int grim_def_UINT_008a86c0 __asm__("_UINT_008a86c0") = 0x0;
+/* 0x008a86c4, 28 bytes */ GRIM_DATA("008a86c4") unsigned char grim_def_UINT_008a86c4[28] __asm__("_UINT_008a86c4") = {0};
+/* 0x008a86e0, 4 bytes */ GRIM_DATA("008a86e0") unsigned int grim_def_UINT_008a86e0 __asm__("_UINT_008a86e0") = 0x0;
+/* 0x008a86e4, 12 bytes */ GRIM_DATA("008a86e4") unsigned char grim_def_UINT_008a86e4[12] __asm__("_UINT_008a86e4") = {0};
+/* 0x008a87c8, 4 bytes */ GRIM_DATA("008a87c8") unsigned int grim_def_UINT_008a87c8 __asm__("_UINT_008a87c8") = 0x0;
+/* 0x008a87cc, 28 bytes */ GRIM_DATA("008a87cc") unsigned char grim_def_UINT_008a87cc[28] __asm__("_UINT_008a87cc") = {0};
+/* 0x008a87e8, 4 bytes */ GRIM_DATA("008a87e8") unsigned int grim_def_UINT_008a87e8 __asm__("_UINT_008a87e8") = 0x0;
+/* 0x008a87ec, 28 bytes */ GRIM_DATA("008a87ec") unsigned char grim_def_UINT_008a87ec[28] __asm__("_UINT_008a87ec") = {0};
+/* 0x008a8808, 4 bytes */ GRIM_DATA("008a8808") unsigned int grim_def_UINT_008a8808 __asm__("_UINT_008a8808") = 0x0;
+/* 0x008a880c, 28 bytes */ GRIM_DATA("008a880c") unsigned char grim_def_UINT_008a880c[28] __asm__("_UINT_008a880c") = {0};
+/* 0x008a8828, 4 bytes */ GRIM_DATA("008a8828") unsigned int grim_def_UINT_008a8828 __asm__("_UINT_008a8828") = 0x0;
+/* 0x008a882c, 1040 bytes */ GRIM_DATA("008a882c") unsigned char grim_def_UINT_008a882c[1040] __asm__("_UINT_008a882c") = {0};
+/* 0x008a8c3c, 4 bytes */ GRIM_DATA("008a8c3c") unsigned int grim_def_g_dwGrimlib_frameNumber __asm__("_g_dwGrimlib_frameNumber") = 0x0;
+/* 0x008a8c44, 4 bytes */ GRIM_DATA("008a8c44") unsigned int grim_def_UINT_008a8c44 __asm__("_UINT_008a8c44") = 0x0;
+/* 0x008a8c48, 12 bytes */ GRIM_DATA("008a8c48") unsigned int grim_def_g_dwGrimlib_prevmode __asm__("_g_dwGrimlib_prevmode") = 0x0;
+/* 0x008a8c4c, 8 bytes: the rest of grim_def_g_dwGrimlib_prevmode's span */ GRIM_DATA("008a8c48") static unsigned char g_dwGrimlib_prevmode__tail[8] __attribute__((used)) = {0};
+/* 0x008a8c60, 16 bytes */ GRIM_DATA("008a8c60") unsigned char grim_def_UINT_008a8c60[16] __asm__("_UINT_008a8c60") = {0};
+/* 0x008a8c70, 4 bytes */ GRIM_DATA("008a8c70") unsigned int grim_def_g_dwGrimlib_shutdownCallback __asm__("_g_dwGrimlib_shutdownCallback") = 0x0;
+/* 0x008a8c78, 4 bytes */ GRIM_DATA("008a8c78") unsigned int grim_def_g_dwSputmOpen __asm__("_g_dwSputmOpen") = 0x0;
+/* 0x008a8c7c, 4 bytes */ GRIM_DATA("008a8c7c") unsigned int grim_def_UINT_008a8c7c __asm__("_UINT_008a8c7c") = 0x0;
+/* 0x008a8c80, 4 bytes */ GRIM_DATA("008a8c80") unsigned int grim_def_g_dwDoLoad __asm__("_g_dwDoLoad") = 0x0;
+/* 0x008a8c84, 4 bytes */ GRIM_DATA("008a8c84") unsigned int grim_def_g_dwJustLoaded __asm__("_g_dwJustLoaded") = 0x0;
+/* 0x008a8c88, 8 bytes */ GRIM_DATA("008a8c88") unsigned char grim_def_g_pSaveFileName[8] __asm__("_g_pSaveFileName") = {0};
+/* 0x008a8c90, 4 bytes */ GRIM_DATA("008a8c90") unsigned int grim_def_UINT_008a8c90 __asm__("_UINT_008a8c90") = 0x0;
+/* 0x008a8c94, 4 bytes */ GRIM_DATA("008a8c94") unsigned int grim_def_g_dwGrimlib_SetPause_oldmode __asm__("_g_dwGrimlib_SetPause_oldmode") = 0x0;
+/* 0x008c9800, 4 bytes */ GRIM_DATA("008c9800") unsigned char grim_def_g_pRenderedSet[4] __asm__("_g_pRenderedSet") = {0};
+/* 0x008c9804, 4 bytes */ GRIM_DATA("008c9804") unsigned int grim_def_UINT_008c9804 __asm__("_UINT_008c9804") = 0x0;
+/* 0x008ca160, 56 bytes */ GRIM_DATA("008ca160") int grim_def_g_nNumControlCallbacks __asm__("_g_nNumControlCallbacks") = 0;
+/* 0x008ca164, 52 bytes: the rest of grim_def_g_nNumControlCallbacks's span */ GRIM_DATA("008ca160") static unsigned char g_nNumControlCallbacks__tail[52] __attribute__((used)) = {0};
+/* 0x008ca198, 32 bytes */ GRIM_DATA("008ca198") unsigned char grim_def_g_apControlCallbacks[32] __asm__("_g_apControlCallbacks") = {0};

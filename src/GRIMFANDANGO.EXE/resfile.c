@@ -493,3 +493,43 @@ void __cdecl ResFile_FillBuffer(ResFile *file)
   file->nBufCount = file->nBufCount + iVar2;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_00824f14[4] __asm__("_DAT_00824f14");
+extern unsigned char grim_def_DAT_00824f18[4] __asm__("_DAT_00824f18");
+extern unsigned char grim_def_DAT_00824f1c[4] __asm__("_DAT_00824f1c");
+extern unsigned char grim_def_DAT_00824f20[4] __asm__("_DAT_00824f20");
+extern unsigned char grim_def_DAT_00824f24[8] __asm__("_DAT_00824f24");
+extern unsigned char grim_def_DAT_00824f2c[4] __asm__("_DAT_00824f2c");
+extern unsigned char grim_def_DAT_00824f30[4] __asm__("_DAT_00824f30");
+extern unsigned char grim_def_DAT_00824f34[12] __asm__("_DAT_00824f34");
+extern unsigned char grim_def_DAT_00824f40[3896] __asm__("_DAT_00824f40");
+extern unsigned char grim_def_DAT_00825f50[4] __asm__("_DAT_00825f50");
+extern unsigned char grim_def_DAT_00825f54[8] __asm__("_DAT_00825f54");
+extern unsigned char grim_def_DAT_00825f5c[4] __asm__("_DAT_00825f5c");
+extern unsigned char grim_def_DAT_00825f60[4] __asm__("_DAT_00825f60");
+extern unsigned char grim_def_DAT_00825f64[529884] __asm__("_DAT_00825f64");
+extern unsigned char grim_def_DAT_008a7540[4140] __asm__("_DAT_008a7540");
+extern unsigned char grim_def_UINT_00825f40[16] __asm__("_UINT_00825f40");
+extern char grim_def_s__int_fh___0_____int_fh____MAX_OP_004e7a8c[44] __asm__("_s__int_fh___0_____int_fh____MAX_OP_004e7a8c");
+/* 0x004e7a8c, 44 bytes */ /* loose */ char grim_def_s__int_fh___0_____int_fh____MAX_OP_004e7a8c[44] __asm__("_s__int_fh___0_____int_fh____MAX_OP_004e7a8c") = "(int)fh > 0 && (int)fh <= MAX_OPEN_FILES";
+/* 0x00824f14, 4 bytes */ GRIM_DATA("00824f14") unsigned char grim_def_DAT_00824f14[4] __asm__("_DAT_00824f14") = {0};
+/* 0x00824f18, 4 bytes */ GRIM_DATA("00824f18") unsigned char grim_def_DAT_00824f18[4] __asm__("_DAT_00824f18") = {0};
+/* 0x00824f1c, 4 bytes */ GRIM_DATA("00824f1c") unsigned char grim_def_DAT_00824f1c[4] __asm__("_DAT_00824f1c") = {0};
+/* 0x00824f20, 4 bytes */ GRIM_DATA("00824f20") unsigned char grim_def_DAT_00824f20[4] __asm__("_DAT_00824f20") = {0};
+/* 0x00824f24, 8 bytes */ GRIM_DATA("00824f24") unsigned char grim_def_DAT_00824f24[8] __asm__("_DAT_00824f24") = {0};
+/* 0x00824f2c, 4 bytes */ GRIM_DATA("00824f2c") unsigned char grim_def_DAT_00824f2c[4] __asm__("_DAT_00824f2c") = {0};
+/* 0x00824f30, 4 bytes */ GRIM_DATA("00824f30") unsigned char grim_def_DAT_00824f30[4] __asm__("_DAT_00824f30") = {0};
+/* 0x00824f34, 12 bytes */ GRIM_DATA("00824f34") unsigned char grim_def_DAT_00824f34[12] __asm__("_DAT_00824f34") = {0};
+/* 0x00824f40, 3896 bytes */ GRIM_DATA("00824f40") unsigned char grim_def_DAT_00824f40[3896] __asm__("_DAT_00824f40") = {0};
+/* 0x00825f40, 16 bytes */ GRIM_DATA("00825f40") unsigned char grim_def_UINT_00825f40[16] __asm__("_UINT_00825f40") = {0};
+/* 0x00825f50, 4 bytes */ GRIM_DATA("00825f50") unsigned char grim_def_DAT_00825f50[4] __asm__("_DAT_00825f50") = {0};
+/* 0x00825f54, 8 bytes */ GRIM_DATA("00825f54") unsigned char grim_def_DAT_00825f54[8] __asm__("_DAT_00825f54") = {0};
+/* 0x00825f5c, 4 bytes */ GRIM_DATA("00825f5c") unsigned char grim_def_DAT_00825f5c[4] __asm__("_DAT_00825f5c") = {0};
+/* 0x00825f60, 4 bytes */ GRIM_DATA("00825f60") unsigned char grim_def_DAT_00825f60[4] __asm__("_DAT_00825f60") = {0};
+/* 0x00825f64, 529884 bytes */ GRIM_DATA("00825f64") unsigned char grim_def_DAT_00825f64[529884] __asm__("_DAT_00825f64") = {0};
+/* 0x008a7540, 4140 bytes */ GRIM_DATA("008a7540") unsigned char grim_def_DAT_008a7540[4140] __asm__("_DAT_008a7540") = {0};

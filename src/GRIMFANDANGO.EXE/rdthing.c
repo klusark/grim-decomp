@@ -383,3 +383,17 @@ void __cdecl rdThing_AccumulateMatrices(int thing,int node,float *a)
 #undef local_30
 #undef local_3c
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004dde0c[4] __asm__("_DAT_004dde0c");
+extern unsigned char grim_def_DAT_004dde10[4] __asm__("_DAT_004dde10");
+extern unsigned char grim_def_g_pCurModel3[4] __asm__("_g_pCurModel3");
+extern char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004dde14[72] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004dde14");
+/* 0x004dde0c, 4 bytes */ GRIM_DATA("004dde0c") unsigned char grim_def_DAT_004dde0c[4] __asm__("_DAT_004dde0c") = { 0x41 };
+/* 0x004dde10, 4 bytes */ GRIM_DATA("004dde10") unsigned char grim_def_DAT_004dde10[4] __asm__("_DAT_004dde10") = { 0xff };
+/* 0x004dde14, 72 bytes */ GRIM_DATA("004dde14") char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004dde14[72] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004dde14") = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdthing.c\000\000\000\000S\000\000\000\177\000\000\000b\000\000\000\214\000\000\000\314\000\000\0005\001\000\000i\001";
+/* 0x007f30d4, 4 bytes */ GRIM_DATA("007f30d4") unsigned char grim_def_g_pCurModel3[4] __asm__("_g_pCurModel3") = {0};

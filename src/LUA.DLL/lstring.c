@@ -690,3 +690,20 @@ void __cdecl str_len(void)
   lua_pushnumber((float)(~uVar3 - 1));
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_g_EMPTY[28] __asm__("_g_EMPTY");
+extern unsigned char grim_def_lua_savehook[4] __asm__("_lua_savehook");
+extern char grim_def_s_C__grimsrc_libs_lua_src_lstring__100278b4[36] __asm__("_s_C__grimsrc_libs_lua_src_lstring__100278b4");
+static unsigned char grim_anchor_10027898[0] __attribute__((section(".data$grim_10027898"), aligned(16), used));
+static unsigned char grim_pad_10027898[8] __attribute__((section(".data$grim_10027898_"), aligned(4), used));
+/* 0x10027898, 28 bytes */ GRIM_DATA("10027898z") unsigned char grim_def_g_EMPTY[28] __asm__("_g_EMPTY") = {
+    0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+    0xf9, 0xff, 0xff, 0xff
+};
+/* 0x100278b4, 36 bytes */ GRIM_DATA("100278b4") char grim_def_s_C__grimsrc_libs_lua_src_lstring__100278b4[36] __asm__("_s_C__grimsrc_libs_lua_src_lstring__100278b4") = "C:\\grimsrc\\libs\\lua\\src\\lstring.cpp";
+/* 0x1002bed4, 4 bytes */ GRIM_DATA("1002bed4") unsigned char grim_def_lua_savehook[4] __asm__("_lua_savehook") = {0};

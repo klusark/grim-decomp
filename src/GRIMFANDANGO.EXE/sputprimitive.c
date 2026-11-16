@@ -165,3 +165,35 @@ void __cdecl sputPrimitive_Shutdown(void)
   g_dwSputPrimitiveStartup = 0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_sputPrimitive_ChangePrimitive[] __asm__("_sputPrimitive_ChangePrimitive");
+extern char f_sputPrimitive_DrawLine[] __asm__("_sputPrimitive_DrawLine");
+extern char f_sputPrimitive_DrawPolygon[] __asm__("_sputPrimitive_DrawPolygon");
+extern char f_sputPrimitive_DrawRectangle[] __asm__("_sputPrimitive_DrawRectangle");
+extern char f_sputPrimitive_KillPrimitive[] __asm__("_sputPrimitive_KillPrimitive");
+extern char f_sputPrimitive_PurgeQueue[] __asm__("_sputPrimitive_PurgeQueue");
+extern unsigned int grim_def_UINT_004e83c8 __asm__("_UINT_004e83c8");
+extern unsigned int grim_def_g_dwSputPrimitiveInitialize __asm__("_g_dwSputPrimitiveInitialize");
+extern unsigned int grim_def_g_dwSputPrimitiveStartup __asm__("_g_dwSputPrimitiveStartup");
+extern void *grim_def_g_pPrimitiveFunctionsToRegister[12] __asm__("_g_pPrimitiveFunctionsToRegister");
+extern unsigned char grim_def_g_pSputPrimitiveHS[4] __asm__("_g_pSputPrimitiveHS");
+extern char grim_def_s_ChangePrimitive_004e83f0[] __asm__("_s_ChangePrimitive_004e83f0");
+extern char grim_def_s_DrawLine_004e841c[] __asm__("_s_DrawLine_004e841c");
+extern char grim_def_s_DrawPolygon_004e8410[] __asm__("_s_DrawPolygon_004e8410");
+extern char grim_def_s_DrawRectangle_004e8400[] __asm__("_s_DrawRectangle_004e8400");
+extern char grim_def_s_KillPrimitive_004e83e0[] __asm__("_s_KillPrimitive_004e83e0");
+extern char grim_def_s_PurgePrimitiveQueue_004e83cc[] __asm__("_s_PurgePrimitiveQueue_004e83cc");
+/* 0x004e8398, 48 bytes */ GRIM_DATA("004e8398") void *grim_def_g_pPrimitiveFunctionsToRegister[12] __asm__("_g_pPrimitiveFunctionsToRegister") = {
+    (void *)&grim_def_s_DrawLine_004e841c, (void *)f_sputPrimitive_DrawLine, (void *)&grim_def_s_DrawPolygon_004e8410, (void *)f_sputPrimitive_DrawPolygon,
+    (void *)&grim_def_s_DrawRectangle_004e8400, (void *)f_sputPrimitive_DrawRectangle, (void *)&grim_def_s_ChangePrimitive_004e83f0, (void *)f_sputPrimitive_ChangePrimitive,
+    (void *)&grim_def_s_KillPrimitive_004e83e0, (void *)f_sputPrimitive_KillPrimitive, (void *)&grim_def_s_PurgePrimitiveQueue_004e83cc, (void *)f_sputPrimitive_PurgeQueue
+};
+/* 0x004e83c8, 4 bytes */ GRIM_DATA("004e83c8") unsigned int grim_def_UINT_004e83c8 __asm__("_UINT_004e83c8") = 0x6;
+/* 0x008ca0a8, 4 bytes */ GRIM_DATA("008ca0a8") unsigned int grim_def_g_dwSputPrimitiveInitialize __asm__("_g_dwSputPrimitiveInitialize") = 0x0;
+/* 0x008ca0ac, 4 bytes */ GRIM_DATA("008ca0ac") unsigned int grim_def_g_dwSputPrimitiveStartup __asm__("_g_dwSputPrimitiveStartup") = 0x0;
+/* 0x008ca0b0, 4 bytes */ GRIM_DATA("008ca0b0") unsigned char grim_def_g_pSputPrimitiveHS[4] __asm__("_g_pSputPrimitiveHS") = {0};

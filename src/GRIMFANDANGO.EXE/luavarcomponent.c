@@ -132,3 +132,15 @@ uint __cdecl LuaVarStopper(char *name)
   lua_setglobal(name);
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_Change_variable_properties_004ea72c[28] __asm__("_s_Change_variable_properties_004ea72c");
+extern char grim_def_s_Name_of_variable_004ea758[20] __asm__("_s_Name_of_variable_004ea758");
+extern char grim_def_s_Variable_name_004ea748[16] __asm__("_s_Variable_name_004ea748");
+/* 0x004ea72c, 28 bytes */ GRIM_DATA("004ea72c") char grim_def_s_Change_variable_properties_004ea72c[28] __asm__("_s_Change_variable_properties_004ea72c") = "Change variable properties";
+/* 0x004ea748, 16 bytes */ /* loose */ char grim_def_s_Variable_name_004ea748[16] __asm__("_s_Variable_name_004ea748") = "Variable name";
+/* 0x004ea758, 20 bytes */ /* loose */ char grim_def_s_Name_of_variable_004ea758[20] __asm__("_s_Name_of_variable_004ea758") = "Name of variable";

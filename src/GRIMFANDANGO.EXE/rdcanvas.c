@@ -1548,3 +1548,86 @@ void __cdecl rdCanvas_Free(int canvas)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004f0ed8[4] __asm__("_DAT_004f0ed8");
+extern unsigned char grim_def_DAT_004f6ef8[36] __asm__("_DAT_004f6ef8");
+extern unsigned char grim_def_DAT_004f6f1c[4] __asm__("_DAT_004f6f1c");
+extern unsigned char grim_def_DAT_004f6f30[4] __asm__("_DAT_004f6f30");
+extern unsigned char grim_def_DAT_004f6f34[4] __asm__("_DAT_004f6f34");
+extern unsigned char grim_def_DAT_004f6f38[4] __asm__("_DAT_004f6f38");
+extern unsigned char grim_def_DAT_004f6f3c[4] __asm__("_DAT_004f6f3c");
+extern unsigned char grim_def_DAT_004f6f40[4] __asm__("_DAT_004f6f40");
+extern unsigned char grim_def_DAT_004f6f44[4] __asm__("_DAT_004f6f44");
+extern unsigned char grim_def_DAT_004f6f48[4] __asm__("_DAT_004f6f48");
+extern unsigned char grim_def_DAT_004f6f4c[4] __asm__("_DAT_004f6f4c");
+extern unsigned char grim_def_DAT_004f6f50[4] __asm__("_DAT_004f6f50");
+extern unsigned char grim_def_DAT_004f6f54[4] __asm__("_DAT_004f6f54");
+extern unsigned char grim_def_DAT_004f6f58[90072] __asm__("_DAT_004f6f58");
+extern unsigned char grim_def_DAT_0050df38[360448] __asm__("_DAT_0050df38");
+extern unsigned char grim_def_DAT_00566124[4] __asm__("_DAT_00566124");
+extern unsigned char grim_def_DAT_00566128[8] __asm__("_DAT_00566128");
+extern unsigned char grim_def_DAT_00566130[527880] __asm__("_DAT_00566130");
+extern unsigned char grim_def_DAT_005e6f68[36] __asm__("_DAT_005e6f68");
+extern unsigned char grim_def_DAT_005e6f8c[4] __asm__("_DAT_005e6f8c");
+extern unsigned char grim_def_DAT_005e6f90[8] __asm__("_DAT_005e6f90");
+extern unsigned int grim_def_UINT_004f6f20 __asm__("_UINT_004f6f20");
+extern unsigned char grim_def_UINT_00565f38[440] __asm__("_UINT_00565f38");
+extern unsigned int grim_def_UINT_005660f0 __asm__("_UINT_005660f0");
+extern unsigned char grim_def_UINT_005660f4[48] __asm__("_UINT_005660f4");
+extern unsigned char grim_def_g_aActiveEdgeHead[40] __asm__("_g_aActiveEdgeHead");
+extern unsigned char grim_def_g_aActiveEdgeTail[40] __asm__("_g_aActiveEdgeTail");
+extern unsigned char grim_def_g_apNewActiveEdges[4096] __asm__("_g_apNewActiveEdges");
+extern unsigned char grim_def_g_apRemoveActiveEdges[4096] __asm__("_g_apRemoveActiveEdges");
+extern unsigned int grim_def_g_dwNumActiveEdges __asm__("_g_dwNumActiveEdges");
+extern unsigned int grim_def_g_dwNumActiveFaces __asm__("_g_dwNumActiveFaces");
+extern unsigned int grim_def_g_dwNumActiveSpans __asm__("_g_dwNumActiveSpans");
+extern unsigned char grim_def_g_dwRdActive_drawnFaces[8] __asm__("_g_dwRdActive_drawnFaces");
+extern unsigned int grim_def_g_dwYCurScanLine __asm__("_g_dwYCurScanLine");
+extern unsigned int grim_def_g_dwYMaxEdge __asm__("_g_dwYMaxEdge");
+extern unsigned int grim_def_g_dwYMinEdge __asm__("_g_dwYMinEdge");
+extern char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc");
+/* 0x004f0ed8, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004f0ed8[4] __asm__("_DAT_004f0ed8") = { 0x40 };
+/* 0x004f0edc, 44 bytes */ /* loose */ char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc") = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdcanvas.c";
+/* 0x004f5ec8, 4096 bytes */ GRIM_DATA("004f5ec8") unsigned char grim_def_g_apNewActiveEdges[4096] __asm__("_g_apNewActiveEdges") = {0};
+/* 0x004f6ec8, 8 bytes */ GRIM_DATA("004f6ec8") unsigned int grim_def_g_dwYMinEdge __asm__("_g_dwYMinEdge") = 0x0;
+/* 0x004f6ecc, 4 bytes: the rest of grim_def_g_dwYMinEdge's span */ GRIM_DATA("004f6ec8") static unsigned char g_dwYMinEdge__tail[4] __attribute__((used)) = {0};
+/* 0x004f6ed0, 40 bytes */ GRIM_DATA("004f6ed0") unsigned char grim_def_g_aActiveEdgeHead[40] __asm__("_g_aActiveEdgeHead") = {0};
+/* 0x004f6ef8, 36 bytes */ GRIM_DATA("004f6ef8") unsigned char grim_def_DAT_004f6ef8[36] __asm__("_DAT_004f6ef8") = {0};
+/* 0x004f6f1c, 4 bytes */ GRIM_DATA("004f6f1c") unsigned char grim_def_DAT_004f6f1c[4] __asm__("_DAT_004f6f1c") = {0};
+/* 0x004f6f20, 8 bytes */ GRIM_DATA("004f6f20") unsigned int grim_def_UINT_004f6f20 __asm__("_UINT_004f6f20") = 0x0;
+/* 0x004f6f24, 4 bytes: the rest of grim_def_UINT_004f6f20's span */ GRIM_DATA("004f6f20") static unsigned char UINT_004f6f20__tail[4] __attribute__((used)) = {0};
+/* 0x004f6f28, 4 bytes */ GRIM_DATA("004f6f28") unsigned int grim_def_g_dwYMaxEdge __asm__("_g_dwYMaxEdge") = 0x0;
+/* 0x004f6f2c, 4 bytes */ GRIM_DATA("004f6f2c") unsigned int grim_def_g_dwNumActiveSpans __asm__("_g_dwNumActiveSpans") = 0x0;
+/* 0x004f6f30, 4 bytes */ GRIM_DATA("004f6f30") unsigned char grim_def_DAT_004f6f30[4] __asm__("_DAT_004f6f30") = {0};
+/* 0x004f6f34, 4 bytes */ GRIM_DATA("004f6f34") unsigned char grim_def_DAT_004f6f34[4] __asm__("_DAT_004f6f34") = {0};
+/* 0x004f6f38, 4 bytes */ GRIM_DATA("004f6f38") unsigned char grim_def_DAT_004f6f38[4] __asm__("_DAT_004f6f38") = {0};
+/* 0x004f6f3c, 4 bytes */ GRIM_DATA("004f6f3c") unsigned char grim_def_DAT_004f6f3c[4] __asm__("_DAT_004f6f3c") = {0};
+/* 0x004f6f40, 4 bytes */ GRIM_DATA("004f6f40") unsigned char grim_def_DAT_004f6f40[4] __asm__("_DAT_004f6f40") = {0};
+/* 0x004f6f44, 4 bytes */ GRIM_DATA("004f6f44") unsigned char grim_def_DAT_004f6f44[4] __asm__("_DAT_004f6f44") = {0};
+/* 0x004f6f48, 4 bytes */ GRIM_DATA("004f6f48") unsigned char grim_def_DAT_004f6f48[4] __asm__("_DAT_004f6f48") = {0};
+/* 0x004f6f4c, 4 bytes */ GRIM_DATA("004f6f4c") unsigned char grim_def_DAT_004f6f4c[4] __asm__("_DAT_004f6f4c") = {0};
+/* 0x004f6f50, 4 bytes */ GRIM_DATA("004f6f50") unsigned char grim_def_DAT_004f6f50[4] __asm__("_DAT_004f6f50") = {0};
+/* 0x004f6f54, 4 bytes */ GRIM_DATA("004f6f54") unsigned char grim_def_DAT_004f6f54[4] __asm__("_DAT_004f6f54") = {0};
+/* 0x004f6f58, 90072 bytes */ GRIM_DATA("004f6f58") unsigned char grim_def_DAT_004f6f58[90072] __asm__("_DAT_004f6f58") = {0};
+/* 0x0050cf30, 8 bytes */ GRIM_DATA("0050cf30") unsigned int grim_def_g_dwYCurScanLine __asm__("_g_dwYCurScanLine") = 0x0;
+/* 0x0050cf34, 4 bytes: the rest of grim_def_g_dwYCurScanLine's span */ GRIM_DATA("0050cf30") static unsigned char g_dwYCurScanLine__tail[4] __attribute__((used)) = {0};
+/* 0x0050cf38, 4096 bytes */ GRIM_DATA("0050cf38") unsigned char grim_def_g_apRemoveActiveEdges[4096] __asm__("_g_apRemoveActiveEdges") = {0};
+/* 0x0050df38, 360448 bytes */ GRIM_DATA("0050df38") unsigned char grim_def_DAT_0050df38[360448] __asm__("_DAT_0050df38") = {0};
+/* 0x00565f38, 440 bytes */ GRIM_DATA("00565f38") unsigned char grim_def_UINT_00565f38[440] __asm__("_UINT_00565f38") = {0};
+/* 0x005660f0, 4 bytes */ GRIM_DATA("005660f0") unsigned int grim_def_UINT_005660f0 __asm__("_UINT_005660f0") = 0x0;
+/* 0x005660f4, 48 bytes */ GRIM_DATA("005660f4") unsigned char grim_def_UINT_005660f4[48] __asm__("_UINT_005660f4") = {0};
+/* 0x00566124, 4 bytes */ GRIM_DATA("00566124") unsigned char grim_def_DAT_00566124[4] __asm__("_DAT_00566124") = {0};
+/* 0x00566128, 8 bytes */ GRIM_DATA("00566128") unsigned char grim_def_DAT_00566128[8] __asm__("_DAT_00566128") = {0};
+/* 0x00566130, 527880 bytes */ GRIM_DATA("00566130") unsigned char grim_def_DAT_00566130[527880] __asm__("_DAT_00566130") = {0};
+/* 0x005e6f38, 4 bytes */ GRIM_DATA("005e6f38") unsigned int grim_def_g_dwNumActiveEdges __asm__("_g_dwNumActiveEdges") = 0x0;
+/* 0x005e6f3c, 4 bytes */ GRIM_DATA("005e6f3c") unsigned int grim_def_g_dwNumActiveFaces __asm__("_g_dwNumActiveFaces") = 0x0;
+/* 0x005e6f40, 40 bytes */ GRIM_DATA("005e6f40") unsigned char grim_def_g_aActiveEdgeTail[40] __asm__("_g_aActiveEdgeTail") = {0};
+/* 0x005e6f68, 36 bytes */ GRIM_DATA("005e6f68") unsigned char grim_def_DAT_005e6f68[36] __asm__("_DAT_005e6f68") = {0};
+/* 0x005e6f8c, 4 bytes */ GRIM_DATA("005e6f8c") unsigned char grim_def_DAT_005e6f8c[4] __asm__("_DAT_005e6f8c") = {0};
+/* 0x005e6f90, 8 bytes */ GRIM_DATA("005e6f90") unsigned char grim_def_DAT_005e6f90[8] __asm__("_DAT_005e6f90") = {0};
+/* 0x005e6f98, 8 bytes */ GRIM_DATA("005e6f98") unsigned char grim_def_g_dwRdActive_drawnFaces[8] __asm__("_g_dwRdActive_drawnFaces") = {0};

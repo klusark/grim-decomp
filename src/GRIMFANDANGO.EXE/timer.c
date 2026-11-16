@@ -92,3 +92,17 @@ void __cdecl Timer_Reset(void)
   g_dwLastClockTime = timeGetTime();
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_g_dwLastClockTime __asm__("_g_dwLastClockTime");
+extern unsigned int grim_def_g_dwSputTime_frameTime_ms __asm__("_g_dwSputTime_frameTime_ms");
+extern unsigned int grim_def_g_dwSputTime_gameTime_ms __asm__("_g_dwSputTime_gameTime_ms");
+extern float grim_def_g_flSputTime_frameTimeSeconds __asm__("_g_flSputTime_frameTimeSeconds");
+/* 0x008caba0, 4 bytes */ GRIM_DATA("008caba0") unsigned int grim_def_g_dwLastClockTime __asm__("_g_dwLastClockTime") = 0x0;
+/* 0x008caba4, 4 bytes */ GRIM_DATA("008caba4") unsigned int grim_def_g_dwSputTime_gameTime_ms __asm__("_g_dwSputTime_gameTime_ms") = 0x0;
+/* 0x008caba8, 4 bytes */ GRIM_DATA("008caba8") unsigned int grim_def_g_dwSputTime_frameTime_ms __asm__("_g_dwSputTime_frameTime_ms") = 0x0;
+/* 0x008cabac, 4 bytes */ GRIM_DATA("008cabac") float grim_def_g_flSputTime_frameTimeSeconds __asm__("_g_flSputTime_frameTimeSeconds") = 0.0f;

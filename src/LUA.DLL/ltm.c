@@ -366,3 +366,57 @@ void __cdecl fillvalids(int n,undefined4 *func)
   } while (t < 1);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_errorFB[] __asm__("_errorFB");
+extern char f_nilFB[] __asm__("_nilFB");
+extern char f_typeFB[] __asm__("_typeFB");
+extern unsigned int grim_def_DAT_1002bf80 __asm__("_DAT_1002bf80");
+extern void *grim_def_PTR_s_typeFB_10027d98[6] __asm__("_PTR_s_typeFB_10027d98");
+extern signed char grim_def_g_aValidevents[8][18] __asm__("_g_aValidevents");
+extern void *grim_def_g_pLuaT_setfallback_oldnames[5] __asm__("_g_pLuaT_setfallback_oldnames");
+extern char grim_def_s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4[32] __asm__("_s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4");
+extern char grim_def_s____50s__is_not_a_valid_event_nam_10027f30[36] __asm__("_s____50s__is_not_a_valid_event_nam_10027f30");
+extern char grim_def_s____50s__is_not_a_valid_fallback_n_10027fa4[40] __asm__("_s____50s__is_not_a_valid_fallback_n_10027fa4");
+extern char grim_def_s__d_is_not_a_valid_tag_10027f18[24] __asm__("_s__d_is_not_a_valid_tag_10027f18");
+extern char grim_def_s_arith_10027e5c[] __asm__("_s_arith_10027e5c");
+extern char grim_def_s_errorFB_10027e6c[] __asm__("_s_errorFB_10027e6c");
+extern char grim_def_s_error_10026648[8] __asm__("_s_error_10026648");
+extern char grim_def_s_getglobal_10026628[] __asm__("_s_getglobal_10026628");
+extern char grim_def_s_nilFB_10027e64[] __asm__("_s_nilFB_10027e64");
+extern char grim_def_s_order_10027e54[] __asm__("_s_order_10027e54");
+extern char grim_def_s_settagmethod__cannot_change_inte_10027f54[64] __asm__("_s_settagmethod__cannot_change_inte_10027f54");
+extern char grim_def_s_tag__d_is_not_result_of__newtag__10027ef4[36] __asm__("_s_tag__d_is_not_result_of__newtag__10027ef4");
+extern char grim_def_s_typeFB_10027e78[] __asm__("_s_typeFB_10027e78");
+extern char grim_def_s_unexpected_type_10027f94[16] __asm__("_s_unexpected_type_10027f94");
+/* 0x10026648, 8 bytes */ /* loose */ char grim_def_s_error_10026648[8] __asm__("_s_error_10026648") = "error";
+/* 0x10027d98, 24 bytes */ GRIM_DATA("10027d98") void *grim_def_PTR_s_typeFB_10027d98[6] __asm__("_PTR_s_typeFB_10027d98") = {
+    (void *)&grim_def_s_typeFB_10027e78, (void *)f_typeFB, (void *)&grim_def_s_errorFB_10027e6c, (void *)f_errorFB,
+    (void *)&grim_def_s_nilFB_10027e64, (void *)f_nilFB
+};
+/* 0x10027db0, 144 bytes */ GRIM_DATA("10027db0") signed char grim_def_g_aValidevents[8][18] __asm__("_g_aValidevents") = {
+    { 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1 },
+    { 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1 },
+    { 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+    { 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+    { 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+    { 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+};
+/* 0x10027e40, 20 bytes */ GRIM_DATA("10027e40") void *grim_def_g_pLuaT_setfallback_oldnames[5] __asm__("_g_pLuaT_setfallback_oldnames") = {
+    (void *)&grim_def_s_error_10026648, (void *)&grim_def_s_getglobal_10026628, (void *)&grim_def_s_arith_10027e5c, (void *)&grim_def_s_order_10027e54,
+    0
+};
+/* 0x10027ed4, 32 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4[32] __asm__("_s_C__grimsrc_libs_lua_src_ltm_cpp_10027ed4") = "C:\\grimsrc\\libs\\lua\\src\\ltm.cpp";
+/* 0x10027ef4, 36 bytes */ /* loose */ char grim_def_s_tag__d_is_not_result_of__newtag__10027ef4[36] __asm__("_s_tag__d_is_not_result_of__newtag__10027ef4") = "tag %d is not result of `newtag'";
+/* 0x10027f18, 24 bytes */ /* loose */ char grim_def_s__d_is_not_a_valid_tag_10027f18[24] __asm__("_s__d_is_not_a_valid_tag_10027f18") = "%d is not a valid tag";
+/* 0x10027f30, 36 bytes */ /* loose */ char grim_def_s____50s__is_not_a_valid_event_nam_10027f30[36] __asm__("_s____50s__is_not_a_valid_event_nam_10027f30") = "`%.50s' is not a valid event name";
+/* 0x10027f54, 64 bytes */ /* loose */ char grim_def_s_settagmethod__cannot_change_inte_10027f54[64] __asm__("_s_settagmethod__cannot_change_inte_10027f54") = "settagmethod: cannot change internal method `%.20s' for tag %d";
+/* 0x10027f94, 16 bytes */ /* loose */ char grim_def_s_unexpected_type_10027f94[16] __asm__("_s_unexpected_type_10027f94") = "unexpected type";
+/* 0x10027fa4, 40 bytes */ /* loose */ char grim_def_s____50s__is_not_a_valid_fallback_n_10027fa4[40] __asm__("_s____50s__is_not_a_valid_fallback_n_10027fa4") = "`%.50s' is not a valid fallback name";
+/* 0x1002bf80, 4 bytes */ GRIM_DATA("1002bf80") unsigned int grim_def_DAT_1002bf80 __asm__("_DAT_1002bf80") = 0x0;

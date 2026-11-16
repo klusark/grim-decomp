@@ -867,3 +867,21 @@ uint __cdecl fle_zfilio_config(int cmd,...)
 /* ---- 0x004cb690  inflate_fast ---- */
 /* not in the source: names/lib_replace.json (zlib): the system zlib (libz.a) has it */
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_UINT_004f1a00 __asm__("_UINT_004f1a00");
+extern unsigned int grim_def_UINT_004f1a04 __asm__("_UINT_004f1a04");
+extern char grim_def_s_1_1_3_004f1a20[8] __asm__("_s_1_1_3_004f1a20");
+extern char grim_def_s_Too_many_zfilio_extension_set_004f1d3c[32] __asm__("_s_Too_many_zfilio_extension_set_004f1d3c");
+extern char grim_def_s__c_c_c_c_c_c_c_c_c_c_004f1a08[24] __asm__("_s__c_c_c_c_c_c_c_c_c_c_004f1a08");
+static unsigned char grim_anchor_004f1a00[0] __attribute__((section(".data$grim_004f1a00"), aligned(16), used));
+static unsigned char grim_pad_004f1a00[0] __attribute__((section(".data$grim_004f1a00_"), aligned(4), used));
+/* 0x004f1a00, 4 bytes */ GRIM_DATA("004f1a00z") unsigned int grim_def_UINT_004f1a00 __asm__("_UINT_004f1a00") = 0x1f;
+/* 0x004f1a04, 4 bytes */ GRIM_DATA("004f1a04") unsigned int grim_def_UINT_004f1a04 __asm__("_UINT_004f1a04") = 0x8b;
+/* 0x004f1a08, 24 bytes */ GRIM_DATA("004f1a08") char grim_def_s__c_c_c_c_c_c_c_c_c_c_004f1a08[24] __asm__("_s__c_c_c_c_c_c_c_c_c_c_004f1a08") = "%c%c%c%c%c%c%c%c%c%c";
+/* 0x004f1a20, 8 bytes */ /* loose */ char grim_def_s_1_1_3_004f1a20[8] __asm__("_s_1_1_3_004f1a20") = "1.1.3";
+/* 0x004f1d3c, 32 bytes */ /* loose */ char grim_def_s_Too_many_zfilio_extension_set_004f1d3c[32] __asm__("_s_Too_many_zfilio_extension_set_004f1d3c") = "Too many zfilio extension set";

@@ -588,3 +588,38 @@ LAB_1000d6ae:
 
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_DAT_1002816c __asm__("_DAT_1002816c");
+extern char grim_def_s_C__grimsrc_libs_lua_src_lundump__1002800c[36] __asm__("_s_C__grimsrc_libs_lua_src_lundump__1002800c");
+extern char grim_def_s__d_1002817c[4] __asm__("_s__d_1002817c");
+extern char grim_def_s__g_10028178[4] __asm__("_s__g_10028178");
+extern char grim_def_s__lf__c_10028170[8] __asm__("_s__lf__c_10028170");
+extern char grim_def_s__s_is_not_a_lua_binary_file_10027fcc[28] __asm__("_s__s_is_not_a_lua_binary_file_10027fcc");
+extern char grim_def_s_bad_signature_in_binary_file__s_1002814c[32] __asm__("_s_bad_signature_in_binary_file__s_1002814c");
+extern char grim_def_s_binary_file__s_too_new__version__1002810c[64] __asm__("_s_binary_file__s_too_new__version__1002810c");
+extern char grim_def_s_binary_file__s_too_old__version__100280c8[68] __asm__("_s_binary_file__s_too_old__version__100280c8");
+extern char grim_def_s_code_too_long___ld_bytes__10028030[28] __asm__("_s_code_too_long___ld_bytes__10028030");
+extern char grim_def_s_floats_in_binary_file__s_have__d_1002804c[76] __asm__("_s_floats_in_binary_file__s_have__d_1002804c");
+extern char grim_def_s_unexpected_end_of_binary_file__s_10027fe8[36] __asm__("_s_unexpected_end_of_binary_file__s_10027fe8");
+extern char grim_def_s_unknown_float_representation_in_b_10028098[48] __asm__("_s_unknown_float_representation_in_b_10028098");
+/* 0x10027fcc, 28 bytes */ /* loose */ char grim_def_s__s_is_not_a_lua_binary_file_10027fcc[28] __asm__("_s__s_is_not_a_lua_binary_file_10027fcc") = "%s is not a lua binary file";
+/* 0x10027fe8, 36 bytes */ /* loose */ char grim_def_s_unexpected_end_of_binary_file__s_10027fe8[36] __asm__("_s_unexpected_end_of_binary_file__s_10027fe8") = "unexpected end of binary file %s";
+/* 0x1002800c, 36 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_lundump__1002800c[36] __asm__("_s_C__grimsrc_libs_lua_src_lundump__1002800c") = "C:\\grimsrc\\libs\\lua\\src\\lundump.cpp";
+/* 0x10028030, 28 bytes */ /* loose */ char grim_def_s_code_too_long___ld_bytes__10028030[28] __asm__("_s_code_too_long___ld_bytes__10028030") = "code too long (%ld bytes)";
+/* 0x1002804c, 76 bytes */ /* loose */ char grim_def_s_floats_in_binary_file__s_have__d_1002804c[76] __asm__("_s_floats_in_binary_file__s_have__d_1002804c") = "floats in binary file %s have %d bytes; expected %d (float) or %d (double)";
+/* 0x10028098, 48 bytes */ /* loose */ char grim_def_s_unknown_float_representation_in_b_10028098[48] __asm__("_s_unknown_float_representation_in_b_10028098") = "unknown float representation in binary file %s";
+/* 0x100280c8, 68 bytes */ /* loose */ char grim_def_s_binary_file__s_too_old__version__100280c8[68] __asm__("_s_binary_file__s_too_old__version__100280c8") = "binary file %s too old: version=0x%02x; expected at least 0x%02x";
+/* 0x1002810c, 64 bytes */ /* loose */ char grim_def_s_binary_file__s_too_new__version__1002810c[64] __asm__("_s_binary_file__s_too_new__version__1002810c") = "binary file %s too new: version=0x%02x; expected at most 0x%02x";
+/* 0x1002814c, 32 bytes */ /* loose */ char grim_def_s_bad_signature_in_binary_file__s_1002814c[32] __asm__("_s_bad_signature_in_binary_file__s_1002814c") = "bad signature in binary file %s";
+static unsigned char grim_anchor_1002816c[0] __attribute__((section(".data$grim_1002816c"), aligned(16), used));
+static unsigned char grim_pad_1002816c[12] __attribute__((section(".data$grim_1002816c_"), aligned(4), used));
+/* 0x1002816c, 4 bytes */ GRIM_DATA("1002816cz") char grim_def_DAT_1002816c __asm__("_DAT_1002816c") = 76;
+/* 0x1002816d, 3 bytes: the rest of grim_def_DAT_1002816c's span */ GRIM_DATA("1002816cz") static unsigned char DAT_1002816c__tail[3] __attribute__((used)) = { 0x75, 0x61 };
+/* 0x10028170, 8 bytes */ GRIM_DATA("10028170") char grim_def_s__lf__c_10028170[8] __asm__("_s__lf__c_10028170") = "%lf %c";
+/* 0x10028178, 4 bytes */ /* loose */ char grim_def_s__g_10028178[4] __asm__("_s__g_10028178") = "%g";
+/* 0x1002817c, 4 bytes */ /* loose */ char grim_def_s__d_1002817c[4] __asm__("_s__d_1002817c") = "%d";

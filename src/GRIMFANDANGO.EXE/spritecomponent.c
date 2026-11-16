@@ -318,3 +318,23 @@ uint __cdecl SpriteAdjuster(uint *comp,uint text)
 #undef local_44
 #undef local_48
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_Height_004ea874[8] __asm__("_s_Height_004ea874");
+extern char grim_def_s_Select_mat_file_for_sprite____004ea834[32] __asm__("_s_Select_mat_file_for_sprite____004ea834");
+extern char grim_def_s_Width_004ea87c[8] __asm__("_s_Width_004ea87c");
+extern char grim_def_s_X_004ea870[4] __asm__("_s_X_004ea870");
+extern char grim_def_s_Y_004ea86c[4] __asm__("_s_Y_004ea86c");
+extern char grim_def_s_Z_004ea868[4] __asm__("_s_Z_004ea868");
+extern char grim_def_s__s__d__d__d__d__d_004ea854[20] __asm__("_s__s__d__d__d__d__d_004ea854");
+/* 0x004ea834, 32 bytes */ GRIM_DATA("004ea834") char grim_def_s_Select_mat_file_for_sprite____004ea834[32] __asm__("_s_Select_mat_file_for_sprite____004ea834") = "Select mat file for sprite...";
+/* 0x004ea854, 20 bytes */ /* loose */ char grim_def_s__s__d__d__d__d__d_004ea854[20] __asm__("_s__s__d__d__d__d__d_004ea854") = "%s,%d,%d,%d,%d,%d";
+/* 0x004ea868, 4 bytes */ /* loose */ char grim_def_s_Z_004ea868[4] __asm__("_s_Z_004ea868") = "Z";
+/* 0x004ea86c, 4 bytes */ /* loose */ char grim_def_s_Y_004ea86c[4] __asm__("_s_Y_004ea86c") = "Y";
+/* 0x004ea870, 4 bytes */ /* loose */ char grim_def_s_X_004ea870[4] __asm__("_s_X_004ea870") = "X";
+/* 0x004ea874, 8 bytes */ /* loose */ char grim_def_s_Height_004ea874[8] __asm__("_s_Height_004ea874") = "Height";
+/* 0x004ea87c, 8 bytes */ /* loose */ char grim_def_s_Width_004ea87c[8] __asm__("_s_Width_004ea87c") = "Width";

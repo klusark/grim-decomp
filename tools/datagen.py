@@ -26,6 +26,11 @@ by address, strings indexed, and each one's neighbours as far as it may reach. T
 The other spans are *loose*: a plain definition (marked `/* loose */`) that the linker places where it likes. A loose
 span with a tail stays pinned, as only the pinned layout keeps the tail behind it.
 
+A span that only one module names is defined at the end of that module, not in data.c (place_in_modules), together
+with every span of its pinned run: a run is one input section, whose order holds only within one file. It keeps its
+section key, so the layout is the same as from data.c. data.c keeps the spans several modules name, those only the
+data points at, and those no code names.
+
 Pointers in the data use the same rules as the old build/gendata.py (data.s): a dword that holds a function start is
 the function, an address inside a section is that span plus an offset, and text (raw/<prog>/strings.txt) and
 names/data_relocs.json decide the doubtful cases. A data item that lives in the code section (DirectInput's data
@@ -708,10 +713,25 @@ def tail_spans(model, unused, target):
     return out
 
 
-def emit(model, srcdir):
+class Tagged(list):
+    """A list of output lines that remembers, for each line, the span it belongs to (cur["o"] when it was added)."""
+    def __init__(self, cur):
+        super().__init__()
+        self.cur, self.owners = cur, []
+
+    def append(self, x):
+        super().append(x)
+        self.owners.append(self.cur["o"])
+
+
+def emit(model, srcdir, modules=None):
+    """Writes src/<prog>/data.c. modules: {file name: text} of the program's other .c files: a span that only one of
+    them names (with every span of its pinned run) is defined at the end of that file instead (see place_in_modules)."""
     prog = model.prog
     std = model.std
-    lines_head, decls, defs, tail = [], [], [], []
+    cur = {"o": None}
+    lines_head, decls, defs, tail = [], [], Tagged(cur), Tagged(cur)
+    run_of = {}   # span start -> its pinned run's key, or None for a loose span
     uses_structs = False
     fn_ids = {}
 
@@ -745,6 +765,7 @@ def emit(model, srcdir):
         n = len(b)
         if n == 0:
             continue
+        cur["o"] = sp.start
         stats["spans"] += 1
         sec_key = "t" if sp.island else ""
         if sp.start % 4 == 0 or run_key is None or run_key[0] != sec_key:
@@ -766,6 +787,7 @@ def emit(model, srcdir):
             defs.append("static unsigned char grim_pad_%08x[%d] __attribute__((section(\".data$grim_%08x_\"), "
                         "aligned(4), used));" % (sp.start, sp.start % 16, sp.start))
         prev_loose = sp.start in model.loose
+        run_of[sp.start] = None if sp.start in model.loose else run_key[1]
         if sp.sec is not None and sp.sec["name"] not in first_of_sec:
             first_of_sec[sp.sec["name"]] = sp
         relocs = sp.relocs
@@ -777,7 +799,8 @@ def emit(model, srcdir):
             # nothing in the rebuilt program reads it (tools/data_unused.py): zero bytes, the same size, so the layout
             # stays the original's
             decls.append("extern unsigned char %s[%d];" % (sp.name, n))
-            defs.append("/* 0x%08x, %d bytes, unused (%s) */ %s unsigned char %s[%d];" % (sp.start, n, reader, attr, sp.name, n))
+            defs.append("/* 0x%08x, %d bytes, unused (%s) */ %s unsigned char %s[%d] __asm__(\"_%s\");"
+                        % (sp.start, n, reader, attr, sp.name, n, sp.name))
             stats["unused"] += 1
             stats["unused_bytes"] += n
             for al in sp.aliases:
@@ -801,7 +824,7 @@ def emit(model, srcdir):
                 rest = b[head:]
                 tname = "%s__tail" % sp.name
                 decls.append("extern %s;" % decl)
-                defs.append("%s %s %s = %s;" % (where, attr, decl, init))
+                defs.append("%s %s %s __asm__(\"_%s\") = %s;" % (where, attr, decl, sp.name, init))
                 where = "/* 0x%08x, %d bytes: the rest of %s's span */" % (sp.start + head, n - head, sp.name)
                 # (static: no code names it, and the DLLs export every global symbol)
                 decl, init = "static unsigned char %s[%d] __attribute__((used))" % (tname, n - head), byte_list(rest)
@@ -857,11 +880,13 @@ def emit(model, srcdir):
             stats["untyped_spans"].append((n - 4 * len(relocs), sp.name + " (with pointers)", sp.start))
         if not decl.startswith("static "):
             decls.append("extern %s;" % decl)
-        defs.append("%s %s %s = %s;" % (where, attr, decl, init))
+        label = "" if decl.startswith("static ") else ' __asm__("_%s")' % sp.name   # (see place_in_modules)
+        defs.append("%s %s %s%s = %s;" % (where, attr, decl, label, init))
         for al in sp.aliases:
             tail.append('__asm__(".globl _%s\\n\\t.set _%s, _%s\\n");' % (al, al, sp.name))
         for al, off in sp.inner:
             tail.append('__asm__(".globl _%s\\n\\t.set _%s, _%s + %d\\n");' % (al, al, sp.name, off))
+    cur["o"] = None
     for a, n, mem in model.code_stubs:
         sp, off = resolve(model, mem)
         tail.append('__asm__(".text\\n\\t.def _%s; .scl 2; .type 32; .endef\\n\\t.globl _%s\\n_%s:\\tjmp *_%s + 0x%x\\n");'
@@ -871,11 +896,13 @@ def emit(model, srcdir):
         sp, off = resolve(model, a)
         if sp is None:
             continue
+        cur["o"] = sp.start
         tail.append('__asm__(".globl _grim_img_%s_0x%08x\\n\\t.set _grim_img_%s_0x%08x, _%s + %d\\n");'
                     % (tag, a, tag, a, sp.name, off))
     for s in model.secs:
         sp = first_of_sec.get(s["name"])
         if sp is not None:
+            cur["o"] = sp.start
             tail.append('__asm__(".globl _sect_%s\\n\\t.set _sect_%s, _%s\\n");' % (s["key"], s["key"], sp.name))
     head = [
         "/* %s: the original's initialised data, one definition per span." % prog,
@@ -894,11 +921,95 @@ def emit(model, srcdir):
     ]
     for asm, ident in sorted(fn_ids.items(), key=lambda t: t[1]):
         head.append('extern char %s[] __asm__("%s");' % (ident, asm))
+    moved = place_in_modules(model, srcdir, modules, defs, tail, decls, head, run_of, stats) if modules else set()
+    defs = [d for d, o in zip(defs, defs.owners) if o not in moved]
+    tail = [d for d, o in zip(tail, tail.owners) if o not in moved]
+    if moved:
+        # declarations only the moved definitions needed go with them
+        left = set(re.findall(r"\w+", "\n".join(defs)))
+        gone = {sp.name for sp in model.spans if sp.start in moved} - left
+        decls = [d for d in decls if not (
+            (d.startswith("extern ") and set(re.findall(r"\w+", d)) & gone) or
+            (d.startswith("typedef ") and re.search(r"(grim_span_[0-9a-f]{8});$", d) and
+             re.search(r"(grim_span_[0-9a-f]{8});$", d).group(1) not in left))]
     text = "\n".join(head + ["", "/* every span, declared first: the pointers refer forward and back */"] + decls
                      + [""] + defs + [""] + tail) + "\n"
     with open(os.path.join(srcdir, prog, "data.c"), "w", newline="\n") as w:
         w.write(text)
     return stats
+
+
+def place_in_modules(model, srcdir, modules, defs, tail, decls, head, run_of, stats):
+    """Moves each span that only one module names to the end of that module, with the rest of its pinned run (a run
+    shares one input section, whose order only one file keeps). The span keeps its section key, so a pinned span stays
+    in the original layout. The module's globals.h declares the name with the type the code uses, often another one
+    (undefined4 for a structure), so the definition takes a C name of its own, grim_def_<name>, bound to the symbol by
+    its asm label; the spans it points at are declared the same way. Returns the starts of the moved spans."""
+    by_start = {sp.start: sp for sp in model.spans}
+    names_of = {sp.start: [sp.name] + list(sp.aliases) + [al for al, _ in sp.inner] for sp in model.spans}
+    users = {}
+    for f, text in modules.items():
+        toks = set(re.findall(r"\b\w+\b", text))
+        toks |= {x.lstrip("_") for x in toks} | {re.sub(r"_\d+$", "", x.lstrip("_")) for x in toks}
+        for st, names in names_of.items():
+            if any(n in toks for n in names):
+                users.setdefault(st, set()).add(f)
+    groups = {}
+    for st, key in run_of.items():
+        groups.setdefault(key if key is not None else ("loose", st), []).append(st)
+    home = {}
+    for key, starts in groups.items():
+        fs = set().union(*(users.get(st, set()) for st in starts))
+        if len(fs) == 1:
+            f = fs.pop()
+            for st in starts:
+                home[st] = f
+    if not home:
+        return set()
+    span_names = {sp.name for sp in model.spans}
+    extern_of = {}
+    for d in decls:
+        if d.startswith("extern "):
+            for x in re.findall(r"\b\w+\b", d):
+                if x in span_names:
+                    extern_of.setdefault(x, d)
+    typedefs = {}
+    for d in decls:
+        m = re.match(r"typedef struct .* (grim_span_[0-9a-f]{8});$", d)
+        if m:
+            typedefs[m.group(1)] = d
+    fn_lines = {re.search(r"char (\w+)\[\]", h).group(1): h for h in head if h.startswith("extern char f_")}
+    per_file = {}
+    for lines in (defs, tail):
+        for d, o in zip(lines, lines.owners):
+            if o in home:
+                per_file.setdefault(home[o], ([], []))[lines is tail].append(d)
+    for f, (fdefs, ftail) in sorted(per_file.items()):
+        body = "\n".join(fdefs)
+        toks = set(re.findall(r"\b\w+\b", body))
+        own = {by_start[st].name for st in home if home[st] == f}
+        refs = sorted(toks & span_names)
+        if refs:
+            body = re.sub(r"\b(%s)\b" % "|".join(map(re.escape, refs)), r"grim_def_\1", body)
+        out = ["", "", "/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */",
+               "#ifndef GRIM_DATA",
+               '#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))',
+               "#endif"]
+        out += [typedefs[x] for x in sorted(toks) if x in typedefs]
+        out += [fn_lines[x] for x in sorted(toks) if x in fn_lines]
+        # declared first, as in data.c: the spans point forward and back (their own ones with their type)
+        for x in refs:
+            d = extern_of.get(x) if x in own else None
+            if d:
+                out.append(re.sub(r"\b%s\b" % re.escape(x), "grim_def_" + x, d)[:-1] + ' __asm__("_%s");' % x)
+            else:
+                out.append('extern char grim_def_%s[] __asm__("_%s");' % (x, x))
+        out += [body] + ftail
+        with open(os.path.join(srcdir, model.prog, f), "a", encoding="utf-8", newline="\n") as w:
+            w.write("\n".join(out) + "\n")
+    stats["moved"] = len(home)
+    stats["modules"] = len(per_file)
+    return set(home)
 
 
 # ---------------------------------------------------------------------------------------------- build_src's entry point
@@ -969,7 +1080,7 @@ def generate(prog, srcdir, extra_img=()):
             add.append("extern unsigned char %s[]; /* 0x%08x */" % (name, new_names[name].start))
         open(gp, "w", encoding="utf-8", newline="").write(g.rstrip("\n") + "\n" + "\n".join(add) + "\n")
         model.decls.update({n: ("unsigned char", True, None) for n in new_names})
-    stats = emit(model, srcdir)
+    stats = emit(model, srcdir, {f: open(os.path.join(out, f), encoding="utf-8", newline="").read() for f in files})
     stats["img_addr"] = n_img
     write_exports(prog, srcdir)
     return stats

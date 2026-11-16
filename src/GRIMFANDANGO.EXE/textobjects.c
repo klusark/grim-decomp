@@ -59,3 +59,12 @@ void __cdecl sputText_Resume(void)
   g_nSputText_Paused = 0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern int grim_def_g_nSputText_Paused __asm__("_g_nSputText_Paused");
+/* 0x008ca158, 8 bytes */ GRIM_DATA("008ca158") int grim_def_g_nSputText_Paused __asm__("_g_nSputText_Paused") = 0;
+/* 0x008ca15c, 4 bytes: the rest of grim_def_g_nSputText_Paused's span */ GRIM_DATA("008ca158") static unsigned char g_nSputText_Paused__tail[4] __attribute__((used)) = {0};

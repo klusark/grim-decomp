@@ -108,3 +108,25 @@ int __cdecl SmushRequester(uint cosInst,int tag,int parent,int type,char *name)
   iVar2 = Cos_RegisterComponent(cosInst,(int)pcVar4,(int)pcVar5,tag,parent,type,((unsigned)(uintptr_t)&DAT_004ea040));
   return (uint)(iVar2 != 0);
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004ea040;
+extern char grim_def_DAT_004ea030[] __asm__("_DAT_004ea030");
+extern char grim_def_DAT_004ea038[] __asm__("_DAT_004ea038");
+extern grim_span_004ea040 grim_def_DAT_004ea040 __asm__("_DAT_004ea040");
+extern char grim_def_s_Select_smush_file____004ea7ec[24] __asm__("_s_Select_smush_file____004ea7ec");
+extern char grim_def_s_Smush_files____snm__004ea804[48] __asm__("_s_Smush_files____snm__004ea804");
+/* 0x004ea040, 24 bytes */ GRIM_DATA("004ea040") grim_span_004ea040 grim_def_DAT_004ea040 __asm__("_DAT_004ea040") = {
+    { 0x02 },
+    (void *)&grim_def_DAT_004ea030,
+    (void *)&grim_def_DAT_004ea038,
+    {0}
+};
+/* 0x004ea7ec, 24 bytes */ /* loose */ char grim_def_s_Select_smush_file____004ea7ec[24] __asm__("_s_Select_smush_file____004ea7ec") = "Select smush file...";
+static unsigned char grim_anchor_004ea804[0] __attribute__((section(".data$grim_004ea804"), aligned(16), used));
+static unsigned char grim_pad_004ea804[4] __attribute__((section(".data$grim_004ea804_"), aligned(4), used));
+/* 0x004ea804, 48 bytes */ GRIM_DATA("004ea804z") char grim_def_s_Smush_files____snm__004ea804[48] __asm__("_s_Smush_files____snm__004ea804") = "Smush files (*.snm)\000*.snm\000All Files (*.*)\000*.*";

@@ -61,3 +61,11 @@ void __cdecl LightMgr_UpdateDialog(uint hDlg)
   (*g_pStd_HS->pDebug)(0,s_LightManager_UpdateDialog__No_cu_004f0e3c);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_LightManager_UpdateDialog__No_cu_004f0e3c[44] __asm__("_s_LightManager_UpdateDialog__No_cu_004f0e3c");
+/* 0x004f0e3c, 44 bytes */ GRIM_DATA("004f0e3c") char grim_def_s_LightManager_UpdateDialog__No_cu_004f0e3c[44] __asm__("_s_LightManager_UpdateDialog__No_cu_004f0e3c") = "LightManager_UpdateDialog: No current set.\n";

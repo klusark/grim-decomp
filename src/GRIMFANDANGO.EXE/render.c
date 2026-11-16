@@ -1697,3 +1697,91 @@ int __cdecl sputActor_GetNumActorsTalking(void)
 {
   return g_nNumActorsTalking;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_008a92ac[4] __asm__("_DAT_008a92ac");
+extern unsigned char grim_def_DAT_008a92b0[4] __asm__("_DAT_008a92b0");
+extern unsigned char grim_def_DAT_008a92b4[4] __asm__("_DAT_008a92b4");
+extern unsigned char grim_def_DAT_008a92bc[4] __asm__("_DAT_008a92bc");
+extern unsigned char grim_def_DAT_008a92c0[4] __asm__("_DAT_008a92c0");
+extern unsigned char grim_def_DAT_008a92c4[4] __asm__("_DAT_008a92c4");
+extern unsigned char grim_def_DAT_008a94c4[8] __asm__("_DAT_008a94c4");
+extern unsigned char grim_def_DAT_008a94cc[68] __asm__("_DAT_008a94cc");
+extern unsigned char grim_def_DAT_008c9790[8] __asm__("_DAT_008c9790");
+extern unsigned char grim_def_DAT_008c97d8[2] __asm__("_DAT_008c97d8");
+extern unsigned char grim_def_DAT_008c97da[2] __asm__("_DAT_008c97da");
+extern unsigned char grim_def_DAT_008c97dc[2] __asm__("_DAT_008c97dc");
+extern unsigned char grim_def_DAT_008c97de[2] __asm__("_DAT_008c97de");
+extern unsigned char grim_def_DAT_00905600[4] __asm__("_DAT_00905600");
+extern unsigned char grim_def_DAT_00905614[4] __asm__("_DAT_00905614");
+extern unsigned int grim_def_UINT_004e808c __asm__("_UINT_004e808c");
+extern unsigned int grim_def_UINT_008a92d0 __asm__("_UINT_008a92d0");
+extern unsigned char grim_def_UINT_008a92d4[484] __asm__("_UINT_008a92d4");
+extern unsigned int grim_def_UINT_008c9770 __asm__("_UINT_008c9770");
+extern unsigned int grim_def_UINT_008c9780 __asm__("_UINT_008c9780");
+extern unsigned int grim_def_UINT_008c9824 __asm__("_UINT_008c9824");
+extern unsigned char grim_def_UINT_009055f0[8] __asm__("_UINT_009055f0");
+extern unsigned int grim_def_UINT_00905604 __asm__("_UINT_00905604");
+extern unsigned int grim_def_UINT_00905608 __asm__("_UINT_00905608");
+extern unsigned int grim_def_UINT_0090560c __asm__("_UINT_0090560c");
+extern unsigned int grim_def_UINT_00905610 __asm__("_UINT_00905610");
+extern unsigned int grim_def_UINT_00905618 __asm__("_UINT_00905618");
+extern unsigned char grim_def_UINT_0090561c[28] __asm__("_UINT_0090561c");
+extern unsigned char grim_def_g_aSputRender_MarkDirtyRect_trect[4] __asm__("_g_aSputRender_MarkDirtyRect_trect");
+extern unsigned int grim_def_g_dwLoadImageAllowed __asm__("_g_dwLoadImageAllowed");
+extern unsigned int grim_def_g_dwSputRender_ControlHandler_bLastB __asm__("_g_dwSputRender_ControlHandler_bLastB");
+extern unsigned int grim_def_g_dwSputRender_ControlHandler_bLastC __asm__("_g_dwSputRender_ControlHandler_bLastC");
+extern unsigned int grim_def_g_dwSputRender_ControlHandler_bLastL __asm__("_g_dwSputRender_ControlHandler_bLastL");
+extern unsigned int grim_def_g_dwSputRender_ControlHandler_bLastR __asm__("_g_dwSputRender_ControlHandler_bLastR");
+extern unsigned int grim_def_g_dwSputRender_ControlHandler_bLastSpace __asm__("_g_dwSputRender_ControlHandler_bLastSpace");
+extern unsigned char grim_def_g_dwSputRender_DrawLoadingImage_FrameAccum[8] __asm__("_g_dwSputRender_DrawLoadingImage_FrameAccum");
+extern float grim_def_g_flAmbientLight __asm__("_g_flAmbientLight");
+extern float grim_def_g_flSputRender_GammaCorrection __asm__("_g_flSputRender_GammaCorrection");
+extern unsigned char grim_def_g_pSputRender_PageFlipFunc[4] __asm__("_g_pSputRender_PageFlipFunc");
+extern char grim_def_s__percent____0_0f______percent____004e80ec[40] __asm__("_s__percent____0_0f______percent____004e80ec");
+extern char grim_def_s_wait_bm_004e812c[12] __asm__("_s_wait_bm_004e812c");
+/* 0x004e8070, 4 bytes */ GRIM_DATA("004e8070") float grim_def_g_flSputRender_GammaCorrection __asm__("_g_flSputRender_GammaCorrection") = 1.0f;
+/* 0x004e807c, 4 bytes */ GRIM_DATA("004e807c") float grim_def_g_flAmbientLight __asm__("_g_flAmbientLight") = 0.2f;
+/* 0x004e8088, 4 bytes */ GRIM_DATA("004e8088") unsigned int grim_def_g_dwLoadImageAllowed __asm__("_g_dwLoadImageAllowed") = 0x1;
+/* 0x004e808c, 4 bytes */ GRIM_DATA("004e808c") unsigned int grim_def_UINT_004e808c __asm__("_UINT_004e808c") = 0x1;
+/* 0x004e80ec, 40 bytes */ /* loose */ char grim_def_s__percent____0_0f______percent____004e80ec[40] __asm__("_s__percent____0_0f______percent____004e80ec") = "(percent >= 0.0f) && (percent <= 1.0f)";
+/* 0x004e812c, 12 bytes */ /* loose */ char grim_def_s_wait_bm_004e812c[12] __asm__("_s_wait_bm_004e812c") = "wait.bm";
+/* 0x008a92ac, 4 bytes */ GRIM_DATA("008a92ac") unsigned char grim_def_DAT_008a92ac[4] __asm__("_DAT_008a92ac") = {0};
+/* 0x008a92b0, 4 bytes */ GRIM_DATA("008a92b0") unsigned char grim_def_DAT_008a92b0[4] __asm__("_DAT_008a92b0") = {0};
+/* 0x008a92b4, 4 bytes */ GRIM_DATA("008a92b4") unsigned char grim_def_DAT_008a92b4[4] __asm__("_DAT_008a92b4") = {0};
+/* 0x008a92b8, 4 bytes */ GRIM_DATA("008a92b8") unsigned char grim_def_g_aSputRender_MarkDirtyRect_trect[4] __asm__("_g_aSputRender_MarkDirtyRect_trect") = {0};
+/* 0x008a92bc, 4 bytes */ GRIM_DATA("008a92bc") unsigned char grim_def_DAT_008a92bc[4] __asm__("_DAT_008a92bc") = {0};
+/* 0x008a92c0, 4 bytes */ GRIM_DATA("008a92c0") unsigned char grim_def_DAT_008a92c0[4] __asm__("_DAT_008a92c0") = {0};
+/* 0x008a92c4, 4 bytes */ GRIM_DATA("008a92c4") unsigned char grim_def_DAT_008a92c4[4] __asm__("_DAT_008a92c4") = {0};
+/* 0x008a92c8, 8 bytes */ GRIM_DATA("008a92c8") unsigned char grim_def_g_dwSputRender_DrawLoadingImage_FrameAccum[8] __asm__("_g_dwSputRender_DrawLoadingImage_FrameAccum") = {0};
+/* 0x008a92d0, 4 bytes */ GRIM_DATA("008a92d0") unsigned int grim_def_UINT_008a92d0 __asm__("_UINT_008a92d0") = 0x0;
+/* 0x008a92d4, 484 bytes */ GRIM_DATA("008a92d4") unsigned char grim_def_UINT_008a92d4[484] __asm__("_UINT_008a92d4") = {0};
+/* 0x008a94c4, 8 bytes */ GRIM_DATA("008a94c4") unsigned char grim_def_DAT_008a94c4[8] __asm__("_DAT_008a94c4") = {0};
+/* 0x008a94cc, 68 bytes */ GRIM_DATA("008a94cc") unsigned char grim_def_DAT_008a94cc[68] __asm__("_DAT_008a94cc") = {0};
+/* 0x008c9770, 4 bytes */ GRIM_DATA("008c9770") unsigned int grim_def_UINT_008c9770 __asm__("_UINT_008c9770") = 0x0;
+/* 0x008c9780, 4 bytes */ GRIM_DATA("008c9780") unsigned int grim_def_UINT_008c9780 __asm__("_UINT_008c9780") = 0x0;
+/* 0x008c9790, 8 bytes */ GRIM_DATA("008c9790") unsigned char grim_def_DAT_008c9790[8] __asm__("_DAT_008c9790") = {0};
+/* 0x008c97bc, 4 bytes */ GRIM_DATA("008c97bc") unsigned char grim_def_g_pSputRender_PageFlipFunc[4] __asm__("_g_pSputRender_PageFlipFunc") = {0};
+/* 0x008c97d8, 2 bytes */ GRIM_DATA("008c97d8") unsigned char grim_def_DAT_008c97d8[2] __asm__("_DAT_008c97d8") = {0};
+/* 0x008c97da, 2 bytes */ GRIM_DATA("008c97d8") unsigned char grim_def_DAT_008c97da[2] __asm__("_DAT_008c97da") = {0};
+/* 0x008c97dc, 2 bytes */ GRIM_DATA("008c97dc") unsigned char grim_def_DAT_008c97dc[2] __asm__("_DAT_008c97dc") = {0};
+/* 0x008c97de, 2 bytes */ GRIM_DATA("008c97dc") unsigned char grim_def_DAT_008c97de[2] __asm__("_DAT_008c97de") = {0};
+/* 0x008c9808, 4 bytes */ GRIM_DATA("008c9808") unsigned int grim_def_g_dwSputRender_ControlHandler_bLastL __asm__("_g_dwSputRender_ControlHandler_bLastL") = 0x0;
+/* 0x008c980c, 4 bytes */ GRIM_DATA("008c980c") unsigned int grim_def_g_dwSputRender_ControlHandler_bLastC __asm__("_g_dwSputRender_ControlHandler_bLastC") = 0x0;
+/* 0x008c9810, 4 bytes */ GRIM_DATA("008c9810") unsigned int grim_def_g_dwSputRender_ControlHandler_bLastB __asm__("_g_dwSputRender_ControlHandler_bLastB") = 0x0;
+/* 0x008c9814, 4 bytes */ GRIM_DATA("008c9814") unsigned int grim_def_g_dwSputRender_ControlHandler_bLastR __asm__("_g_dwSputRender_ControlHandler_bLastR") = 0x0;
+/* 0x008c9818, 4 bytes */ GRIM_DATA("008c9818") unsigned int grim_def_g_dwSputRender_ControlHandler_bLastSpace __asm__("_g_dwSputRender_ControlHandler_bLastSpace") = 0x0;
+/* 0x008c9824, 4 bytes */ GRIM_DATA("008c9824") unsigned int grim_def_UINT_008c9824 __asm__("_UINT_008c9824") = 0x0;
+/* 0x009055f0, 8 bytes */ GRIM_DATA("009055f0") unsigned char grim_def_UINT_009055f0[8] __asm__("_UINT_009055f0") = {0};
+/* 0x00905600, 4 bytes */ GRIM_DATA("00905600") unsigned char grim_def_DAT_00905600[4] __asm__("_DAT_00905600") = {0};
+/* 0x00905604, 4 bytes */ GRIM_DATA("00905604") unsigned int grim_def_UINT_00905604 __asm__("_UINT_00905604") = 0x0;
+/* 0x00905608, 4 bytes */ GRIM_DATA("00905608") unsigned int grim_def_UINT_00905608 __asm__("_UINT_00905608") = 0x0;
+/* 0x0090560c, 4 bytes */ GRIM_DATA("0090560c") unsigned int grim_def_UINT_0090560c __asm__("_UINT_0090560c") = 0x0;
+/* 0x00905610, 4 bytes */ GRIM_DATA("00905610") unsigned int grim_def_UINT_00905610 __asm__("_UINT_00905610") = 0x0;
+/* 0x00905614, 4 bytes */ GRIM_DATA("00905614") unsigned char grim_def_DAT_00905614[4] __asm__("_DAT_00905614") = {0};
+/* 0x00905618, 4 bytes */ GRIM_DATA("00905618") unsigned int grim_def_UINT_00905618 __asm__("_UINT_00905618") = 0x0;
+/* 0x0090561c, 28 bytes */ GRIM_DATA("0090561c") unsigned char grim_def_UINT_0090561c[28] __asm__("_UINT_0090561c") = {0};

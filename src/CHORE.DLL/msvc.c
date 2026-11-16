@@ -299,3 +299,32 @@ void __cdecl msvc_qsort_swap(undefined1 *param_1,undefined1 *param_2,int param_3
 /* ---- 0x10008520  msvc_CPtoLCID ---- */
 /* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_FUN_10009500[] __asm__("_FUN_10009500");
+extern void *grim_def_DAT_100106c8 __asm__("_DAT_100106c8");
+extern void *grim_def_DAT_100106cc __asm__("_DAT_100106cc");
+extern void *grim_def_DAT_100106d0 __asm__("_DAT_100106d0");
+extern void *grim_def_DAT_100106d4 __asm__("_DAT_100106d4");
+extern void *grim_def_DAT_100106d8 __asm__("_DAT_100106d8");
+extern void *grim_def_DAT_100106dc __asm__("_DAT_100106dc");
+extern unsigned char grim_def_DAT_100143f8[4] __asm__("_DAT_100143f8");
+extern char grim_def_DAT_10014458[] __asm__("_DAT_10014458");
+extern unsigned char grim_def_DAT_10014478[4] __asm__("_DAT_10014478");
+extern char grim_def_DAT_10015ae8[] __asm__("_DAT_10015ae8");
+extern unsigned char grim_def_DAT_10015aec[4] __asm__("_DAT_10015aec");
+extern unsigned char grim_def_DAT_10015af0[4] __asm__("_DAT_10015af0");
+/* 0x100106c8, 4 bytes */ GRIM_DATA("100106c8") void *grim_def_DAT_100106c8 __asm__("_DAT_100106c8") = (void *)f_FUN_10009500;
+/* 0x100106cc, 4 bytes */ GRIM_DATA("100106cc") void *grim_def_DAT_100106cc __asm__("_DAT_100106cc") = (void *)f_FUN_10009500;
+/* 0x100106d0, 4 bytes */ GRIM_DATA("100106d0") void *grim_def_DAT_100106d0 __asm__("_DAT_100106d0") = (void *)f_FUN_10009500;
+/* 0x100106d4, 4 bytes */ GRIM_DATA("100106d4") void *grim_def_DAT_100106d4 __asm__("_DAT_100106d4") = (void *)f_FUN_10009500;
+/* 0x100106d8, 4 bytes */ GRIM_DATA("100106d8") void *grim_def_DAT_100106d8 __asm__("_DAT_100106d8") = (void *)f_FUN_10009500;
+/* 0x100106dc, 4 bytes */ GRIM_DATA("100106dc") void *grim_def_DAT_100106dc __asm__("_DAT_100106dc") = (void *)f_FUN_10009500;
+/* 0x100143f8, 4 bytes */ GRIM_DATA("100143f8") unsigned char grim_def_DAT_100143f8[4] __asm__("_DAT_100143f8") = {0};
+/* 0x10014478, 4 bytes, unused (rest of grim_def_DAT_10014458) */ GRIM_DATA("10014478") unsigned char grim_def_DAT_10014478[4] __asm__("_DAT_10014478");
+/* 0x10015aec, 4 bytes, unused (rest of grim_def_DAT_10015ae8) */ GRIM_DATA("10015aec") unsigned char grim_def_DAT_10015aec[4] __asm__("_DAT_10015aec");
+/* 0x10015af0, 4 bytes, unused (dead) */ GRIM_DATA("10015af0") unsigned char grim_def_DAT_10015af0[4] __asm__("_DAT_10015af0");

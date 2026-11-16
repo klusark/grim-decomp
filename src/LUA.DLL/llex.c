@@ -978,3 +978,101 @@ switchD_10006cce_caseD_5b:
   uVar3 = 0x5b;
   goto LAB_10006d66;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; unsigned char b8[4]; void *pc; unsigned char b10[4]; void *p14; unsigned char b18[4]; void *p1c; unsigned char b20[4]; void *p24; unsigned char b28[4]; void *p2c; unsigned char b30[4]; void *p34; unsigned char b38[4]; void *p3c; unsigned char b40[4]; void *p44; unsigned char b48[4]; void *p4c; unsigned char b50[4]; void *p54; unsigned char b58[4]; void *p5c; unsigned char b60[4]; void *p64; unsigned char b68[4]; void *p6c; unsigned char b70[4]; void *p74; unsigned char b78[4]; } grim_span_10026d14;
+typedef struct __attribute__((packed)) { void *p0; unsigned char b4[8]; } grim_span_10026d94;
+extern grim_span_10026d14 grim_def_DAT_10026d14 __asm__("_DAT_10026d14");
+extern char grim_def_DAT_10026ddc[] __asm__("_DAT_10026ddc");
+extern char grim_def_DAT_10026de0[] __asm__("_DAT_10026de0");
+extern char grim_def_DAT_10026de8[] __asm__("_DAT_10026de8");
+extern char grim_def_DAT_10026df0[] __asm__("_DAT_10026df0");
+extern char grim_def_DAT_10026df8[] __asm__("_DAT_10026df8");
+extern char grim_def_DAT_10026e00[] __asm__("_DAT_10026e00");
+extern char grim_def_DAT_10026e08[] __asm__("_DAT_10026e08");
+extern char grim_def_DAT_10026e0c[] __asm__("_DAT_10026e0c");
+extern char grim_def_DAT_10026e10[] __asm__("_DAT_10026e10");
+extern char grim_def_DAT_10026e18[] __asm__("_DAT_10026e18");
+extern char grim_def_DAT_10026e28[] __asm__("_DAT_10026e28");
+extern char grim_def_DAT_10026e2c[] __asm__("_DAT_10026e2c");
+extern char grim_def_DAT_10026e34[] __asm__("_DAT_10026e34");
+extern char grim_def_DAT_10026e3c[] __asm__("_DAT_10026e3c");
+extern grim_span_10026d94 grim_def_PTR_DAT_10026d94 __asm__("_PTR_DAT_10026d94");
+extern void *grim_def_g_pCheckcond_opts __asm__("_g_pCheckcond_opts");
+extern void *grim_def_g_pInclinenumber_pragmas[8] __asm__("_g_pInclinenumber_pragmas");
+extern char grim_def_s__else_10026ecc[8] __asm__("_s__else_10026ecc");
+extern char grim_def_s__end_10026f00[8] __asm__("_s__end_10026f00");
+extern char grim_def_s__if_10026eec[4] __asm__("_s__if_10026eec");
+extern char grim_def_s_ambiguous_syntax__decimal_point_x_10026e5c[56] __asm__("_s_ambiguous_syntax__decimal_point_x_10026e5c");
+extern char grim_def_s_debug_10026bb4[] __asm__("_s_debug_10026bb4");
+extern char grim_def_s_endinput_10026dc8[] __asm__("_s_endinput_10026dc8");
+extern char grim_def_s_function_10026e1c[] __asm__("_s_function_10026e1c");
+extern char grim_def_s_ifnot_10026dc0[] __asm__("_s_ifnot_10026dc0");
+extern char grim_def_s_input_ends_inside_a__if_10026e44[24] __asm__("_s_input_ends_inside_a__if_10026e44");
+extern char grim_def_s_invalid__if_condition_10026f08[24] __asm__("_s_invalid__if_condition_10026f08");
+extern char grim_def_s_invalid_pragma_format_10026e94[24] __asm__("_s_invalid_pragma_format_10026e94");
+extern char grim_def_s_nil_100266f8[] __asm__("_s_nil_100266f8");
+extern char grim_def_s_nodebug_10026dd4[] __asm__("_s_nodebug_10026dd4");
+extern char grim_def_s_pragma_too_long_10026f20[16] __asm__("_s_pragma_too_long_10026f20");
+extern char grim_def_s_too_many_nested__ifs_10026ed4[24] __asm__("_s_too_many_nested__ifs_10026ed4");
+extern char grim_def_s_unknown_pragma_10026eac[16] __asm__("_s_unknown_pragma_10026eac");
+extern char grim_def_s_unmatched__else_10026ebc[16] __asm__("_s_unmatched__else_10026ebc");
+extern char grim_def_s_unmatched__end_10026ef0[16] __asm__("_s_unmatched__end_10026ef0");
+/* 0x10026d14, 124 bytes */ GRIM_DATA("10026d14") grim_span_10026d14 grim_def_DAT_10026d14 __asm__("_DAT_10026d14") = {
+    { 0x14, 0x01 },
+    (void *)&grim_def_DAT_10026e3c,
+    { 0x09, 0x01 },
+    (void *)&grim_def_DAT_10026e34,
+    { 0x06, 0x01 },
+    (void *)&grim_def_DAT_10026e2c,
+    { 0x07, 0x01 },
+    (void *)&grim_def_DAT_10026e28,
+    { 0x0c, 0x01 },
+    (void *)&grim_def_s_function_10026e1c,
+    { 0x0f, 0x01 },
+    (void *)&grim_def_DAT_10026e18,
+    { 0x04, 0x01 },
+    (void *)&grim_def_DAT_10026e10,
+    { 0x0e, 0x01 },
+    (void *)&grim_def_s_nil_100266f8,
+    { 0x03, 0x01 },
+    (void *)&grim_def_DAT_10026e0c,
+    { 0x1c, 0x01 },
+    (void *)&grim_def_DAT_10026e08,
+    { 0x15, 0x01 },
+    (void *)&grim_def_DAT_10026e00,
+    { 0x0a, 0x01 },
+    (void *)&grim_def_DAT_10026df8,
+    { 0x0d, 0x01 },
+    (void *)&grim_def_DAT_10026df0,
+    { 0x05, 0x01 },
+    (void *)&grim_def_DAT_10026de8,
+    { 0x0b, 0x01 },
+    (void *)&grim_def_DAT_10026de0,
+    { 0x08, 0x01 }
+};
+/* 0x10026d90, 4 bytes */ GRIM_DATA("10026d90") void *grim_def_g_pCheckcond_opts __asm__("_g_pCheckcond_opts") = (void *)&grim_def_s_nil_100266f8;
+/* 0x10026d94, 12 bytes */ GRIM_DATA("10026d94") grim_span_10026d94 grim_def_PTR_DAT_10026d94 __asm__("_PTR_DAT_10026d94") = {
+    (void *)&grim_def_DAT_10026ddc,
+    {0}
+};
+/* 0x10026da0, 32 bytes */ GRIM_DATA("10026da0") void *grim_def_g_pInclinenumber_pragmas[8] __asm__("_g_pInclinenumber_pragmas") = {
+    (void *)&grim_def_s_debug_10026bb4, (void *)&grim_def_s_nodebug_10026dd4, (void *)&grim_def_s_endinput_10026dc8, (void *)&grim_def_DAT_10026e28,
+    (void *)&grim_def_s_ifnot_10026dc0, (void *)&grim_def_DAT_10026e18, (void *)&grim_def_DAT_10026e34, 0
+};
+/* 0x10026e44, 24 bytes */ GRIM_DATA("10026e44") char grim_def_s_input_ends_inside_a__if_10026e44[24] __asm__("_s_input_ends_inside_a__if_10026e44") = "input ends inside a $if";
+/* 0x10026e5c, 56 bytes */ /* loose */ char grim_def_s_ambiguous_syntax__decimal_point_x_10026e5c[56] __asm__("_s_ambiguous_syntax__decimal_point_x_10026e5c") = "ambiguous syntax (decimal point x string concatenation)";
+/* 0x10026e94, 24 bytes */ /* loose */ char grim_def_s_invalid_pragma_format_10026e94[24] __asm__("_s_invalid_pragma_format_10026e94") = "invalid pragma format";
+/* 0x10026eac, 16 bytes */ /* loose */ char grim_def_s_unknown_pragma_10026eac[16] __asm__("_s_unknown_pragma_10026eac") = "unknown pragma";
+/* 0x10026ebc, 16 bytes */ /* loose */ char grim_def_s_unmatched__else_10026ebc[16] __asm__("_s_unmatched__else_10026ebc") = "unmatched $else";
+/* 0x10026ecc, 8 bytes */ /* loose */ char grim_def_s__else_10026ecc[8] __asm__("_s__else_10026ecc") = "$else";
+/* 0x10026ed4, 24 bytes */ /* loose */ char grim_def_s_too_many_nested__ifs_10026ed4[24] __asm__("_s_too_many_nested__ifs_10026ed4") = "too many nested $ifs";
+/* 0x10026eec, 4 bytes */ /* loose */ char grim_def_s__if_10026eec[4] __asm__("_s__if_10026eec") = "$if";
+/* 0x10026ef0, 16 bytes */ /* loose */ char grim_def_s_unmatched__end_10026ef0[16] __asm__("_s_unmatched__end_10026ef0") = "unmatched $end";
+/* 0x10026f00, 8 bytes */ /* loose */ char grim_def_s__end_10026f00[8] __asm__("_s__end_10026f00") = "$end";
+/* 0x10026f08, 24 bytes */ /* loose */ char grim_def_s_invalid__if_condition_10026f08[24] __asm__("_s_invalid__if_condition_10026f08") = "invalid $if condition";
+/* 0x10026f20, 16 bytes */ /* loose */ char grim_def_s_pragma_too_long_10026f20[16] __asm__("_s_pragma_too_long_10026f20") = "pragma too long";

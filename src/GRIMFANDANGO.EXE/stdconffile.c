@@ -277,3 +277,40 @@ void __cdecl stdConffile_Pop(void)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e7600[4] __asm__("_DAT_004e7600");
+extern unsigned char grim_def_DAT_00806c88[2560] __asm__("_DAT_00806c88");
+extern unsigned char grim_def_DAT_00807688[80] __asm__("_DAT_00807688");
+extern unsigned char grim_def_DAT_008076d8[80] __asm__("_DAT_008076d8");
+extern unsigned char grim_def_DAT_00807728[20560] __asm__("_DAT_00807728");
+extern unsigned char grim_def_DAT_0080c778[1104] __asm__("_DAT_0080c778");
+extern unsigned char grim_def_DAT_0090051f __asm__("_DAT_0090051f");
+extern unsigned char grim_def_UINT_0080cbd0[8] __asm__("_UINT_0080cbd0");
+extern unsigned char grim_def_UINT_00900080[1056] __asm__("_UINT_00900080");
+extern unsigned char grim_def_g_bStdConffile_pFilename[127] __asm__("_g_bStdConffile_pFilename");
+extern unsigned int grim_def_g_dwStackLevel __asm__("_g_dwStackLevel");
+extern unsigned int grim_def_g_dwStdConffile_bOpen __asm__("_g_dwStdConffile_bOpen");
+extern unsigned int grim_def_g_dwStdConffile_linenum __asm__("_g_dwStdConffile_linenum");
+extern char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e7604[44] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e7604");
+extern char grim_def_s_none_004e7630[8] __asm__("_s_none_004e7630");
+/* 0x004e7600, 4 bytes */ GRIM_DATA("004e7600") unsigned char grim_def_DAT_004e7600[4] __asm__("_DAT_004e7600") = { 0x8a };
+/* 0x004e7604, 44 bytes */ GRIM_DATA("004e7604") char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e7604[44] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e7604") = "C:\\grimjedi\\Libs\\Std\\General\\Stdconffile.c";
+/* 0x004e7630, 8 bytes */ /* loose */ char grim_def_s_none_004e7630[8] __asm__("_s_none_004e7630") = "none";
+/* 0x00806c88, 2560 bytes */ GRIM_DATA("00806c88") unsigned char grim_def_DAT_00806c88[2560] __asm__("_DAT_00806c88") = {0};
+/* 0x00807688, 80 bytes */ GRIM_DATA("00807688") unsigned char grim_def_DAT_00807688[80] __asm__("_DAT_00807688") = {0};
+/* 0x008076d8, 80 bytes */ GRIM_DATA("008076d8") unsigned char grim_def_DAT_008076d8[80] __asm__("_DAT_008076d8") = {0};
+/* 0x00807728, 20560 bytes */ GRIM_DATA("00807728") unsigned char grim_def_DAT_00807728[20560] __asm__("_DAT_00807728") = {0};
+/* 0x0080c778, 1104 bytes */ GRIM_DATA("0080c778") unsigned char grim_def_DAT_0080c778[1104] __asm__("_DAT_0080c778") = {0};
+/* 0x0080cbc8, 4 bytes */ GRIM_DATA("0080cbc8") unsigned int grim_def_g_dwStdConffile_linenum __asm__("_g_dwStdConffile_linenum") = 0x0;
+/* 0x0080cbcc, 4 bytes */ GRIM_DATA("0080cbcc") unsigned int grim_def_g_dwStdConffile_bOpen __asm__("_g_dwStdConffile_bOpen") = 0x0;
+/* 0x0080cbd0, 8 bytes */ GRIM_DATA("0080cbd0") unsigned char grim_def_UINT_0080cbd0[8] __asm__("_UINT_0080cbd0") = {0};
+/* 0x0080cbd8, 8 bytes */ GRIM_DATA("0080cbd8") unsigned int grim_def_g_dwStackLevel __asm__("_g_dwStackLevel") = 0x0;
+/* 0x0080cbdc, 4 bytes: the rest of grim_def_g_dwStackLevel's span */ GRIM_DATA("0080cbd8") static unsigned char g_dwStackLevel__tail[4] __attribute__((used)) = {0};
+/* 0x00900080, 1056 bytes */ GRIM_DATA("00900080") unsigned char grim_def_UINT_00900080[1056] __asm__("_UINT_00900080") = {0};
+/* 0x009004a0, 127 bytes */ GRIM_DATA("009004a0") unsigned char grim_def_g_bStdConffile_pFilename[127] __asm__("_g_bStdConffile_pFilename") = {0};
+/* 0x0090051f, 1 bytes */ GRIM_DATA("009004a0") unsigned char grim_def_DAT_0090051f __asm__("_DAT_0090051f") = 0x0;

@@ -269,3 +269,32 @@ undefined4 ThingFreer(undefined4 param_1,undefined4 param_2,ResRef *ref)
   (*g_pSputCosHS->pFree)(ref);
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[8]; } grim_span_004e9f08;
+extern char grim_def_DAT_004e9f00[] __asm__("_DAT_004e9f00");
+extern grim_span_004e9f08 grim_def_DAT_004e9f08 __asm__("_DAT_004e9f08");
+extern unsigned char grim_def_g_aThingCommands[8] __asm__("_g_aThingCommands");
+extern char grim_def_s_Model_files____3do__004ea61c[48] __asm__("_s_Model_files____3do__004ea61c");
+extern char grim_def_s_Resolve_parent_offset__0___off__004ea5e0[32] __asm__("_s_Resolve_parent_offset__0___off__004ea5e0");
+extern char grim_def_s_Select_model_file_to_add____004ea600[28] __asm__("_s_Select_model_file_to_add____004ea600");
+extern char grim_def_s__s__d_004ea5d8[8] __asm__("_s__s__d_004ea5d8");
+static unsigned char grim_anchor_004e9ef8[0] __attribute__((section(".data$grim_004e9ef8"), aligned(16), used));
+static unsigned char grim_pad_004e9ef8[8] __attribute__((section(".data$grim_004e9ef8_"), aligned(4), used));
+/* 0x004e9ef8, 8 bytes */ GRIM_DATA("004e9ef8z") unsigned char grim_def_g_aThingCommands[8] __asm__("_g_aThingCommands") = { 0x00, 0x00, 0x00, 0x00, 0x04 };
+/* 0x004e9f08, 20 bytes */ GRIM_DATA("004e9f08") grim_span_004e9f08 grim_def_DAT_004e9f08 __asm__("_DAT_004e9f08") = {
+    { 0x02 },
+    (void *)&grim_def_g_aThingCommands,
+    (void *)&grim_def_DAT_004e9f00,
+    {0}
+};
+/* 0x004ea5d8, 8 bytes */ GRIM_DATA("004ea5d8") char grim_def_s__s__d_004ea5d8[8] __asm__("_s__s__d_004ea5d8") = "%s,%d";
+/* 0x004ea5e0, 32 bytes */ /* loose */ char grim_def_s_Resolve_parent_offset__0___off__004ea5e0[32] __asm__("_s_Resolve_parent_offset__0___off__004ea5e0") = "Resolve parent offset (0 = off)";
+/* 0x004ea600, 28 bytes */ /* loose */ char grim_def_s_Select_model_file_to_add____004ea600[28] __asm__("_s_Select_model_file_to_add____004ea600") = "Select model file to add...";
+static unsigned char grim_anchor_004ea61c[0] __attribute__((section(".data$grim_004ea61c"), aligned(16), used));
+static unsigned char grim_pad_004ea61c[12] __attribute__((section(".data$grim_004ea61c_"), aligned(4), used));
+/* 0x004ea61c, 48 bytes */ GRIM_DATA("004ea61cz") char grim_def_s_Model_files____3do__004ea61c[48] __asm__("_s_Model_files____3do__004ea61c") = "Model files (*.3do)\000*.3do\000All Files (*.*)\000*.*";

@@ -791,3 +791,25 @@ Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float 
 
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_008ca338[4] __asm__("_DAT_008ca338");
+extern unsigned char grim_def_DAT_008ca33c[4] __asm__("_DAT_008ca33c");
+extern unsigned char grim_def_DAT_008ca340[8] __asm__("_DAT_008ca340");
+extern unsigned char grim_def_DAT_008ca348[4] __asm__("_DAT_008ca348");
+extern unsigned char grim_def_DAT_008ca34c[4] __asm__("_DAT_008ca34c");
+extern unsigned char grim_def_DAT_008ca350[8] __asm__("_DAT_008ca350");
+extern float grim_def_FLOAT_008ca324 __asm__("_FLOAT_008ca324");
+extern float grim_def_FLOAT_008ca328 __asm__("_FLOAT_008ca328");
+/* 0x008ca324, 4 bytes */ GRIM_DATA("008ca324") float grim_def_FLOAT_008ca324 __asm__("_FLOAT_008ca324") = 0.0f;
+/* 0x008ca328, 4 bytes */ GRIM_DATA("008ca328") float grim_def_FLOAT_008ca328 __asm__("_FLOAT_008ca328") = 0.0f;
+/* 0x008ca338, 4 bytes */ GRIM_DATA("008ca338") unsigned char grim_def_DAT_008ca338[4] __asm__("_DAT_008ca338") = {0};
+/* 0x008ca33c, 4 bytes */ GRIM_DATA("008ca33c") unsigned char grim_def_DAT_008ca33c[4] __asm__("_DAT_008ca33c") = {0};
+/* 0x008ca340, 8 bytes */ GRIM_DATA("008ca340") unsigned char grim_def_DAT_008ca340[8] __asm__("_DAT_008ca340") = {0};
+/* 0x008ca348, 4 bytes */ GRIM_DATA("008ca348") unsigned char grim_def_DAT_008ca348[4] __asm__("_DAT_008ca348") = {0};
+/* 0x008ca34c, 4 bytes */ GRIM_DATA("008ca34c") unsigned char grim_def_DAT_008ca34c[4] __asm__("_DAT_008ca34c") = {0};
+/* 0x008ca350, 8 bytes */ GRIM_DATA("008ca350") unsigned char grim_def_DAT_008ca350[8] __asm__("_DAT_008ca350") = {0};

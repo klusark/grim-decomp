@@ -650,3 +650,19 @@ undefined4 __cdecl protectedparser(int *z,int bin)
 }
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_Lua2C___C2Lua_overflow_100269ec[24] __asm__("_s_Lua2C___C2Lua_overflow_100269ec");
+extern char grim_def_s__return__10026a24[12] __asm__("_s__return__10026a24");
+extern char grim_def_s_call_expression_not_a_function_10026a30[32] __asm__("_s_call_expression_not_a_function_10026a30");
+extern char grim_def_s_stack_size_overflow_100269d8[20] __asm__("_s_stack_size_overflow_100269d8");
+extern char grim_def_s_unexpected_cmark_at__d_10026a50[24] __asm__("_s_unexpected_cmark_at__d_10026a50");
+/* 0x100269d8, 20 bytes */ /* loose */ char grim_def_s_stack_size_overflow_100269d8[20] __asm__("_s_stack_size_overflow_100269d8") = "stack size overflow";
+/* 0x100269ec, 24 bytes */ /* loose */ char grim_def_s_Lua2C___C2Lua_overflow_100269ec[24] __asm__("_s_Lua2C___C2Lua_overflow_100269ec") = "Lua2C - C2Lua overflow";
+/* 0x10026a24, 12 bytes */ /* loose */ char grim_def_s__return__10026a24[12] __asm__("_s__return__10026a24") = "(return)";
+/* 0x10026a30, 32 bytes */ /* loose */ char grim_def_s_call_expression_not_a_function_10026a30[32] __asm__("_s_call_expression_not_a_function_10026a30") = "call expression not a function";
+/* 0x10026a50, 24 bytes */ /* loose */ char grim_def_s_unexpected_cmark_at__d_10026a50[24] __asm__("_s_unexpected_cmark_at__d_10026a50") = "unexpected cmark at %d\n";

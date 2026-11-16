@@ -712,3 +712,98 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
 #undef local_70
 #undef local_78
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004dde5c[4] __asm__("_DAT_004dde5c");
+extern unsigned char grim_def_DAT_004dde60[4] __asm__("_DAT_004dde60");
+extern unsigned char grim_def_DAT_007f4d00[384] __asm__("_DAT_007f4d00");
+extern unsigned char grim_def_DAT_007f4e80[4] __asm__("_DAT_007f4e80");
+extern unsigned char grim_def_DAT_007f5000[4] __asm__("_DAT_007f5000");
+extern unsigned char grim_def_DAT_007f5004[4] __asm__("_DAT_007f5004");
+extern unsigned char grim_def_DAT_007f5f08[4] __asm__("_DAT_007f5f08");
+extern float grim_def_FLOAT_007f4e84 __asm__("_FLOAT_007f4e84");
+extern float grim_def_FLOAT_007f4e88 __asm__("_FLOAT_007f4e88");
+extern float grim_def_FLOAT_007f4e8c __asm__("_FLOAT_007f4e8c");
+extern float grim_def_FLOAT_007f4e90 __asm__("_FLOAT_007f4e90");
+extern float grim_def_FLOAT_007f4e94 __asm__("_FLOAT_007f4e94");
+extern float grim_def_FLOAT_007f4e98 __asm__("_FLOAT_007f4e98");
+extern float grim_def_FLOAT_007f4e9c __asm__("_FLOAT_007f4e9c");
+extern float grim_def_FLOAT_007f4ea0 __asm__("_FLOAT_007f4ea0");
+extern float grim_def_FLOAT_007f4ea4 __asm__("_FLOAT_007f4ea4");
+extern float grim_def_FLOAT_007f4ea8 __asm__("_FLOAT_007f4ea8");
+extern float grim_def_FLOAT_007f4eac __asm__("_FLOAT_007f4eac");
+extern float grim_def_FLOAT_007f5008 __asm__("_FLOAT_007f5008");
+extern float grim_def_FLOAT_007f500c __asm__("_FLOAT_007f500c");
+extern float grim_def_FLOAT_007f5010 __asm__("_FLOAT_007f5010");
+extern float grim_def_FLOAT_007f5014 __asm__("_FLOAT_007f5014");
+extern float grim_def_FLOAT_007f5018 __asm__("_FLOAT_007f5018");
+extern float grim_def_FLOAT_007f501c __asm__("_FLOAT_007f501c");
+extern float grim_def_FLOAT_007f5020 __asm__("_FLOAT_007f5020");
+extern float grim_def_FLOAT_007f5024 __asm__("_FLOAT_007f5024");
+extern float grim_def_FLOAT_007f5028 __asm__("_FLOAT_007f5028");
+extern float grim_def_FLOAT_007f502c __asm__("_FLOAT_007f502c");
+extern float grim_def_FLOAT_007f5f0c __asm__("_FLOAT_007f5f0c");
+extern float grim_def_FLOAT_007f5f10 __asm__("_FLOAT_007f5f10");
+extern float grim_def_FLOAT_007f5f14 __asm__("_FLOAT_007f5f14");
+extern float grim_def_FLOAT_007f5f18 __asm__("_FLOAT_007f5f18");
+extern float grim_def_FLOAT_007f5f1c __asm__("_FLOAT_007f5f1c");
+extern float grim_def_FLOAT_007f5f20 __asm__("_FLOAT_007f5f20");
+extern float grim_def_FLOAT_007f5f24 __asm__("_FLOAT_007f5f24");
+extern float grim_def_FLOAT_007f5f28 __asm__("_FLOAT_007f5f28");
+extern float grim_def_FLOAT_007f5f2c __asm__("_FLOAT_007f5f2c");
+extern float grim_def_FLOAT_007f5f30 __asm__("_FLOAT_007f5f30");
+extern float grim_def_FLOAT_007f5f34 __asm__("_FLOAT_007f5f34");
+extern unsigned int grim_def_UINT_007f5180 __asm__("_UINT_007f5180");
+extern unsigned char grim_def_UINT_007f5184[3076] __asm__("_UINT_007f5184");
+extern unsigned char grim_def_g_aRdSprite_FaceVerts[384] __asm__("_g_aRdSprite_FaceVerts");
+extern char grim_def_s_C__grimjedi_Libs_RDroid_Primitiv_004dde64[52] __asm__("_s_C__grimjedi_Libs_RDroid_Primitiv_004dde64");
+/* 0x004dde5c, 4 bytes */ GRIM_DATA("004dde5c") unsigned char grim_def_DAT_004dde5c[4] __asm__("_DAT_004dde5c") = { 0x55 };
+/* 0x004dde60, 4 bytes */ GRIM_DATA("004dde60") unsigned char grim_def_DAT_004dde60[4] __asm__("_DAT_004dde60") = { 0x81 };
+/* 0x004dde64, 52 bytes */ GRIM_DATA("004dde64") char grim_def_s_C__grimjedi_Libs_RDroid_Primitiv_004dde64[52] __asm__("_s_C__grimjedi_Libs_RDroid_Primitiv_004dde64") = "C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdsprite.c\000\000\000I\004";
+/* 0x007f4d00, 384 bytes */ GRIM_DATA("007f4d00") unsigned char grim_def_DAT_007f4d00[384] __asm__("_DAT_007f4d00") = {0};
+/* 0x007f4e80, 4 bytes */ GRIM_DATA("007f4e80") unsigned char grim_def_DAT_007f4e80[4] __asm__("_DAT_007f4e80") = {0};
+/* 0x007f4e84, 4 bytes */ GRIM_DATA("007f4e84") float grim_def_FLOAT_007f4e84 __asm__("_FLOAT_007f4e84") = 0.0f;
+/* 0x007f4e88, 4 bytes */ GRIM_DATA("007f4e88") float grim_def_FLOAT_007f4e88 __asm__("_FLOAT_007f4e88") = 0.0f;
+/* 0x007f4e8c, 4 bytes */ GRIM_DATA("007f4e8c") float grim_def_FLOAT_007f4e8c __asm__("_FLOAT_007f4e8c") = 0.0f;
+/* 0x007f4e90, 4 bytes */ GRIM_DATA("007f4e90") float grim_def_FLOAT_007f4e90 __asm__("_FLOAT_007f4e90") = 0.0f;
+/* 0x007f4e94, 4 bytes */ GRIM_DATA("007f4e94") float grim_def_FLOAT_007f4e94 __asm__("_FLOAT_007f4e94") = 0.0f;
+/* 0x007f4e98, 4 bytes */ GRIM_DATA("007f4e98") float grim_def_FLOAT_007f4e98 __asm__("_FLOAT_007f4e98") = 0.0f;
+/* 0x007f4e9c, 4 bytes */ GRIM_DATA("007f4e9c") float grim_def_FLOAT_007f4e9c __asm__("_FLOAT_007f4e9c") = 0.0f;
+/* 0x007f4ea0, 4 bytes */ GRIM_DATA("007f4ea0") float grim_def_FLOAT_007f4ea0 __asm__("_FLOAT_007f4ea0") = 0.0f;
+/* 0x007f4ea4, 4 bytes */ GRIM_DATA("007f4ea4") float grim_def_FLOAT_007f4ea4 __asm__("_FLOAT_007f4ea4") = 0.0f;
+/* 0x007f4ea8, 4 bytes */ GRIM_DATA("007f4ea8") float grim_def_FLOAT_007f4ea8 __asm__("_FLOAT_007f4ea8") = 0.0f;
+/* 0x007f4eac, 340 bytes */ GRIM_DATA("007f4eac") float grim_def_FLOAT_007f4eac __asm__("_FLOAT_007f4eac") = 0.0f;
+/* 0x007f4eb0, 336 bytes: the rest of grim_def_FLOAT_007f4eac's span */ GRIM_DATA("007f4eac") static unsigned char FLOAT_007f4eac__tail[336] __attribute__((used)) = {0};
+/* 0x007f5000, 4 bytes */ GRIM_DATA("007f5000") unsigned char grim_def_DAT_007f5000[4] __asm__("_DAT_007f5000") = {0};
+/* 0x007f5004, 4 bytes */ GRIM_DATA("007f5004") unsigned char grim_def_DAT_007f5004[4] __asm__("_DAT_007f5004") = {0};
+/* 0x007f5008, 4 bytes */ GRIM_DATA("007f5008") float grim_def_FLOAT_007f5008 __asm__("_FLOAT_007f5008") = 0.0f;
+/* 0x007f500c, 4 bytes */ GRIM_DATA("007f500c") float grim_def_FLOAT_007f500c __asm__("_FLOAT_007f500c") = 0.0f;
+/* 0x007f5010, 4 bytes */ GRIM_DATA("007f5010") float grim_def_FLOAT_007f5010 __asm__("_FLOAT_007f5010") = 0.0f;
+/* 0x007f5014, 4 bytes */ GRIM_DATA("007f5014") float grim_def_FLOAT_007f5014 __asm__("_FLOAT_007f5014") = 0.0f;
+/* 0x007f5018, 4 bytes */ GRIM_DATA("007f5018") float grim_def_FLOAT_007f5018 __asm__("_FLOAT_007f5018") = 0.0f;
+/* 0x007f501c, 4 bytes */ GRIM_DATA("007f501c") float grim_def_FLOAT_007f501c __asm__("_FLOAT_007f501c") = 0.0f;
+/* 0x007f5020, 4 bytes */ GRIM_DATA("007f5020") float grim_def_FLOAT_007f5020 __asm__("_FLOAT_007f5020") = 0.0f;
+/* 0x007f5024, 4 bytes */ GRIM_DATA("007f5024") float grim_def_FLOAT_007f5024 __asm__("_FLOAT_007f5024") = 0.0f;
+/* 0x007f5028, 4 bytes */ GRIM_DATA("007f5028") float grim_def_FLOAT_007f5028 __asm__("_FLOAT_007f5028") = 0.0f;
+/* 0x007f502c, 340 bytes */ GRIM_DATA("007f502c") float grim_def_FLOAT_007f502c __asm__("_FLOAT_007f502c") = 0.0f;
+/* 0x007f5030, 336 bytes: the rest of grim_def_FLOAT_007f502c's span */ GRIM_DATA("007f502c") static unsigned char FLOAT_007f502c__tail[336] __attribute__((used)) = {0};
+/* 0x007f5180, 4 bytes */ GRIM_DATA("007f5180") unsigned int grim_def_UINT_007f5180 __asm__("_UINT_007f5180") = 0x0;
+/* 0x007f5184, 3076 bytes */ GRIM_DATA("007f5184") unsigned char grim_def_UINT_007f5184[3076] __asm__("_UINT_007f5184") = {0};
+/* 0x007f5d88, 384 bytes */ GRIM_DATA("007f5d88") unsigned char grim_def_g_aRdSprite_FaceVerts[384] __asm__("_g_aRdSprite_FaceVerts") = {0};
+/* 0x007f5f08, 4 bytes */ GRIM_DATA("007f5f08") unsigned char grim_def_DAT_007f5f08[4] __asm__("_DAT_007f5f08") = {0};
+/* 0x007f5f0c, 4 bytes */ GRIM_DATA("007f5f0c") float grim_def_FLOAT_007f5f0c __asm__("_FLOAT_007f5f0c") = 0.0f;
+/* 0x007f5f10, 4 bytes */ GRIM_DATA("007f5f10") float grim_def_FLOAT_007f5f10 __asm__("_FLOAT_007f5f10") = 0.0f;
+/* 0x007f5f14, 4 bytes */ GRIM_DATA("007f5f14") float grim_def_FLOAT_007f5f14 __asm__("_FLOAT_007f5f14") = 0.0f;
+/* 0x007f5f18, 4 bytes */ GRIM_DATA("007f5f18") float grim_def_FLOAT_007f5f18 __asm__("_FLOAT_007f5f18") = 0.0f;
+/* 0x007f5f1c, 4 bytes */ GRIM_DATA("007f5f1c") float grim_def_FLOAT_007f5f1c __asm__("_FLOAT_007f5f1c") = 0.0f;
+/* 0x007f5f20, 4 bytes */ GRIM_DATA("007f5f20") float grim_def_FLOAT_007f5f20 __asm__("_FLOAT_007f5f20") = 0.0f;
+/* 0x007f5f24, 4 bytes */ GRIM_DATA("007f5f24") float grim_def_FLOAT_007f5f24 __asm__("_FLOAT_007f5f24") = 0.0f;
+/* 0x007f5f28, 4 bytes */ GRIM_DATA("007f5f28") float grim_def_FLOAT_007f5f28 __asm__("_FLOAT_007f5f28") = 0.0f;
+/* 0x007f5f2c, 4 bytes */ GRIM_DATA("007f5f2c") float grim_def_FLOAT_007f5f2c __asm__("_FLOAT_007f5f2c") = 0.0f;
+/* 0x007f5f30, 4 bytes */ GRIM_DATA("007f5f30") float grim_def_FLOAT_007f5f30 __asm__("_FLOAT_007f5f30") = 0.0f;
+/* 0x007f5f34, 340 bytes */ GRIM_DATA("007f5f34") float grim_def_FLOAT_007f5f34 __asm__("_FLOAT_007f5f34") = 0.0f;
+/* 0x007f5f38, 336 bytes: the rest of grim_def_FLOAT_007f5f34's span */ GRIM_DATA("007f5f34") static unsigned char FLOAT_007f5f34__tail[336] __attribute__((used)) = {0};

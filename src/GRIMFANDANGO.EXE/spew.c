@@ -50,3 +50,23 @@ void __cdecl Spew_LoadDll(void)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e8238[16] __asm__("_DAT_004e8238");
+extern unsigned char grim_def_g_hSpewDll[4] __asm__("_g_hSpewDll");
+extern unsigned char grim_def_g_pfnSpewShutdown[4] __asm__("_g_pfnSpewShutdown");
+extern unsigned char grim_def_g_pfnSpewStartup[4] __asm__("_g_pfnSpewStartup");
+extern char grim_def_s_Spew_Shutdown_004e8218[16] __asm__("_s_Spew_Shutdown_004e8218");
+extern char grim_def_s_Spew_Startup_004e8228[16] __asm__("_s_Spew_Startup_004e8228");
+/* 0x004e8218, 16 bytes */ /* loose */ char grim_def_s_Spew_Shutdown_004e8218[16] __asm__("_s_Spew_Shutdown_004e8218") = "Spew_Shutdown";
+/* 0x004e8228, 16 bytes */ /* loose */ char grim_def_s_Spew_Startup_004e8228[16] __asm__("_s_Spew_Startup_004e8228") = "Spew_Startup";
+static unsigned char grim_anchor_004e8238[0] __attribute__((section(".data$grim_004e8238"), aligned(16), used));
+static unsigned char grim_pad_004e8238[8] __attribute__((section(".data$grim_004e8238_"), aligned(4), used));
+/* 0x004e8238, 16 bytes */ GRIM_DATA("004e8238z") unsigned char grim_def_DAT_004e8238[16] __asm__("_DAT_004e8238") = { 0x73, 0x70, 0x65, 0x77, 0x2e, 0x64, 0x6c, 0x6c };
+/* 0x008c9a64, 4 bytes */ /* loose */ unsigned char grim_def_g_pfnSpewStartup[4] __asm__("_g_pfnSpewStartup") = {0};
+/* 0x008c9a68, 4 bytes */ /* loose */ unsigned char grim_def_g_pfnSpewShutdown[4] __asm__("_g_pfnSpewShutdown") = {0};
+/* 0x008c9a6c, 4 bytes */ /* loose */ unsigned char grim_def_g_hSpewDll[4] __asm__("_g_hSpewDll") = {0};

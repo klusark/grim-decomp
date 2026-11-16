@@ -1691,3 +1691,77 @@ void __cdecl rdModel3_CountNodeChildren(int node)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004ddb7c[4] __asm__("_DAT_004ddb7c");
+extern unsigned char grim_def_DAT_004ddb80[4] __asm__("_DAT_004ddb80");
+extern unsigned char grim_def_DAT_004ddb84[4] __asm__("_DAT_004ddb84");
+extern unsigned char grim_def_DAT_004ddb88[4] __asm__("_DAT_004ddb88");
+extern unsigned char grim_def_g_dwMaxGeoRadius[4] __asm__("_g_dwMaxGeoRadius");
+extern unsigned int grim_def_g_dwModel3Loader __asm__("_g_dwModel3Loader");
+extern unsigned int grim_def_g_dwModel3Unloader __asm__("_g_dwModel3Unloader");
+extern char grim_def_s_3do__d__d_004ddd58[12] __asm__("_s_3do__d__d_004ddd58");
+extern char grim_def_s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[48] __asm__("_s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94");
+extern char grim_def_s___004ddc10[4] __asm__("_s___004ddc10");
+extern char grim_def_s__d___f__f_004ddc3c[12] __asm__("_s__d___f__f_004ddc3c");
+extern char grim_def_s__d___f__f__f_004ddc2c[16] __asm__("_s__d___f__f__f_004ddc2c");
+extern char grim_def_s__d___f__f__f__f_004ddc60[20] __asm__("_s__d___f__f__f__f_004ddc60");
+extern char grim_def_s__d___s_004ddd28[8] __asm__("_s__d___s_004ddd28");
+extern char grim_def_s__d___x__x__d__d__d__d__d__f__f___004ddbc4[56] __asm__("_s__d___x__x__d__d__d__d__d__f__f___004ddbc4");
+extern char grim_def_s__x_004ddc1c[4] __asm__("_s__x_004ddc1c");
+extern char grim_def_s_faces__d_004ddc20[12] __asm__("_s_faces__d_004ddc20");
+extern char grim_def_s_geometrymode__d_004ddca8[20] __asm__("_s_geometrymode__d_004ddca8");
+extern char grim_def_s_geoset__d_004ddcec[12] __asm__("_s_geoset__d_004ddcec");
+extern char grim_def_s_geosets__d_004ddcf8[12] __asm__("_s_geosets__d_004ddcf8");
+extern char grim_def_s_hierarchy_nodes__d_004ddbfc[20] __asm__("_s_hierarchy_nodes__d_004ddbfc");
+extern char grim_def_s_insert_offset__f__f__f_004ddd04[24] __asm__("_s_insert_offset__f__f__f_004ddd04");
+extern char grim_def_s_lightingmode__d_004ddc94[20] __asm__("_s_lightingmode__d_004ddc94");
+extern char grim_def_s_materials__d_004ddd48[16] __asm__("_s_materials__d_004ddd48");
+extern char grim_def_s_mesh__d_004ddcd4[12] __asm__("_s_mesh__d_004ddcd4");
+extern char grim_def_s_meshes__d_004ddce0[12] __asm__("_s_meshes__d_004ddce0");
+extern char grim_def_s_name__s_004ddcc8[12] __asm__("_s_name__s_004ddcc8");
+extern char grim_def_s_numMaterials___MAX_MATS_004ddd30[24] __asm__("_s_numMaterials___MAX_MATS_004ddd30");
+extern char grim_def_s_radius__f_004ddd1c[12] __asm__("_s_radius__f_004ddd1c");
+extern char grim_def_s_shadow__d_004ddcbc[12] __asm__("_s_shadow__d_004ddcbc");
+extern char grim_def_s_texture_vertices__d_004ddc48[24] __asm__("_s_texture_vertices__d_004ddc48");
+extern char grim_def_s_texturemode__d_004ddc84[16] __asm__("_s_texturemode__d_004ddc84");
+extern char grim_def_s_vertices__d_004ddc74[16] __asm__("_s_vertices__d_004ddc74");
+/* 0x004ddb7c, 4 bytes */ GRIM_DATA("004ddb7c") unsigned char grim_def_DAT_004ddb7c[4] __asm__("_DAT_004ddb7c") = { 0xf8 };
+/* 0x004ddb80, 4 bytes */ GRIM_DATA("004ddb80") unsigned char grim_def_DAT_004ddb80[4] __asm__("_DAT_004ddb80") = { 0x4a, 0x01 };
+/* 0x004ddb84, 4 bytes */ GRIM_DATA("004ddb84") unsigned char grim_def_DAT_004ddb84[4] __asm__("_DAT_004ddb84") = { 0x92, 0x03 };
+/* 0x004ddb88, 4 bytes */ GRIM_DATA("004ddb88") unsigned char grim_def_DAT_004ddb88[4] __asm__("_DAT_004ddb88") = { 0xf8, 0x06 };
+/* 0x004ddb94, 48 bytes */ GRIM_DATA("004ddb94") char grim_def_s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[48] __asm__("_s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94") = "C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c";
+/* 0x004ddbc4, 56 bytes */ GRIM_DATA("004ddbc4") char grim_def_s__d___x__x__d__d__d__d__d__f__f___004ddbc4[56] __asm__("_s__d___x__x__d__d__d__d__d__f__f___004ddbc4") = " %d: %x %x %d %d %d %d %d %f %f %f %f %f %f %f %f %f %s";
+/* 0x004ddbfc, 20 bytes */ GRIM_DATA("004ddbfc") char grim_def_s_hierarchy_nodes__d_004ddbfc[20] __asm__("_s_hierarchy_nodes__d_004ddbfc") = " hierarchy nodes %d";
+/* 0x004ddc10, 4 bytes */ GRIM_DATA("004ddc10") char grim_def_s___004ddc10[4] __asm__("_s___004ddc10") = " \t,";
+/* 0x004ddc1c, 4 bytes */ GRIM_DATA("004ddc1c") char grim_def_s__x_004ddc1c[4] __asm__("_s__x_004ddc1c") = "%x";
+/* 0x004ddc20, 12 bytes */ GRIM_DATA("004ddc20") char grim_def_s_faces__d_004ddc20[12] __asm__("_s_faces__d_004ddc20") = " faces %d";
+/* 0x004ddc2c, 16 bytes */ GRIM_DATA("004ddc2c") char grim_def_s__d___f__f__f_004ddc2c[16] __asm__("_s__d___f__f__f_004ddc2c") = " %d: %f %f %f";
+/* 0x004ddc3c, 12 bytes */ GRIM_DATA("004ddc3c") char grim_def_s__d___f__f_004ddc3c[12] __asm__("_s__d___f__f_004ddc3c") = " %d: %f %f";
+/* 0x004ddc48, 24 bytes */ GRIM_DATA("004ddc48") char grim_def_s_texture_vertices__d_004ddc48[24] __asm__("_s_texture_vertices__d_004ddc48") = " texture vertices %d";
+/* 0x004ddc60, 20 bytes */ GRIM_DATA("004ddc60") char grim_def_s__d___f__f__f__f_004ddc60[20] __asm__("_s__d___f__f__f__f_004ddc60") = " %d: %f %f %f %f";
+/* 0x004ddc74, 16 bytes */ GRIM_DATA("004ddc74") char grim_def_s_vertices__d_004ddc74[16] __asm__("_s_vertices__d_004ddc74") = " vertices %d";
+/* 0x004ddc84, 16 bytes */ GRIM_DATA("004ddc84") char grim_def_s_texturemode__d_004ddc84[16] __asm__("_s_texturemode__d_004ddc84") = " texturemode %d";
+/* 0x004ddc94, 20 bytes */ GRIM_DATA("004ddc94") char grim_def_s_lightingmode__d_004ddc94[20] __asm__("_s_lightingmode__d_004ddc94") = " lightingmode %d";
+/* 0x004ddca8, 20 bytes */ GRIM_DATA("004ddca8") char grim_def_s_geometrymode__d_004ddca8[20] __asm__("_s_geometrymode__d_004ddca8") = " geometrymode %d";
+/* 0x004ddcbc, 12 bytes */ GRIM_DATA("004ddcbc") char grim_def_s_shadow__d_004ddcbc[12] __asm__("_s_shadow__d_004ddcbc") = " shadow %d";
+/* 0x004ddcc8, 12 bytes */ GRIM_DATA("004ddcc8") char grim_def_s_name__s_004ddcc8[12] __asm__("_s_name__s_004ddcc8") = " name %s";
+/* 0x004ddcd4, 12 bytes */ GRIM_DATA("004ddcd4") char grim_def_s_mesh__d_004ddcd4[12] __asm__("_s_mesh__d_004ddcd4") = " mesh %d";
+/* 0x004ddce0, 12 bytes */ GRIM_DATA("004ddce0") char grim_def_s_meshes__d_004ddce0[12] __asm__("_s_meshes__d_004ddce0") = " meshes %d";
+/* 0x004ddcec, 12 bytes */ GRIM_DATA("004ddcec") char grim_def_s_geoset__d_004ddcec[12] __asm__("_s_geoset__d_004ddcec") = " geoset %d";
+/* 0x004ddcf8, 12 bytes */ GRIM_DATA("004ddcf8") char grim_def_s_geosets__d_004ddcf8[12] __asm__("_s_geosets__d_004ddcf8") = " geosets %d";
+/* 0x004ddd04, 24 bytes */ GRIM_DATA("004ddd04") char grim_def_s_insert_offset__f__f__f_004ddd04[24] __asm__("_s_insert_offset__f__f__f_004ddd04") = " insert offset %f %f %f";
+/* 0x004ddd1c, 12 bytes */ GRIM_DATA("004ddd1c") char grim_def_s_radius__f_004ddd1c[12] __asm__("_s_radius__f_004ddd1c") = " radius %f";
+/* 0x004ddd28, 8 bytes */ GRIM_DATA("004ddd28") char grim_def_s__d___s_004ddd28[8] __asm__("_s__d___s_004ddd28") = " %d: %s";
+/* 0x004ddd30, 24 bytes */ GRIM_DATA("004ddd30") char grim_def_s_numMaterials___MAX_MATS_004ddd30[24] __asm__("_s_numMaterials___MAX_MATS_004ddd30") = "numMaterials < MAX_MATS";
+/* 0x004ddd48, 16 bytes */ GRIM_DATA("004ddd48") char grim_def_s_materials__d_004ddd48[16] __asm__("_s_materials__d_004ddd48") = " materials %d";
+/* 0x004ddd58, 12 bytes */ GRIM_DATA("004ddd58") char grim_def_s_3do__d__d_004ddd58[12] __asm__("_s_3do__d__d_004ddd58") = " 3do %d.%d";
+/* 0x007f31f0, 4 bytes */ GRIM_DATA("007f31f0") unsigned int grim_def_g_dwModel3Loader __asm__("_g_dwModel3Loader") = 0x0;
+/* 0x007f31f4, 4 bytes */ GRIM_DATA("007f31f4") unsigned int grim_def_g_dwModel3Unloader __asm__("_g_dwModel3Unloader") = 0x0;
+/* 0x007f3200, 4 bytes */ GRIM_DATA("007f3200") unsigned char grim_def_g_dwMaxGeoRadius[4] __asm__("_g_dwMaxGeoRadius") = {0};
+__asm__(".globl _grim_img_exe_0x004ddb80\n\t.set _grim_img_exe_0x004ddb80, _DAT_004ddb80 + 0\n");
+__asm__(".globl _grim_img_exe_0x004ddc10\n\t.set _grim_img_exe_0x004ddc10, _s___004ddc10 + 0\n");

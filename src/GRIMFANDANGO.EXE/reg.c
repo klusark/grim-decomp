@@ -479,3 +479,27 @@ int __cdecl wuRegistry_QueryType(char *name)
 #undef local_4
 #undef local_8
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004dda58[4] __asm__("_DAT_004dda58");
+extern unsigned char grim_def_DAT_004dda5c[4] __asm__("_DAT_004dda5c");
+extern unsigned char grim_def_DAT_004f5ea8[4] __asm__("_DAT_004f5ea8");
+extern unsigned int grim_def_UINT_004f5eac __asm__("_UINT_004f5eac");
+extern unsigned int grim_def_g_dwRegValueCount __asm__("_g_dwRegValueCount");
+extern unsigned char grim_def_g_pRegRootKey[4] __asm__("_g_pRegRootKey");
+extern unsigned char grim_def_g_ppRegValueNames[4] __asm__("_g_ppRegValueNames");
+extern char grim_def_s_C__grimjedi_Libs_W32Util_Wuregis_004dda68[40] __asm__("_s_C__grimjedi_Libs_W32Util_Wuregis_004dda68");
+extern char grim_def_s_Version_004dda60[8] __asm__("_s_Version_004dda60");
+/* 0x004dda58, 4 bytes */ GRIM_DATA("004dda58") unsigned char grim_def_DAT_004dda58[4] __asm__("_DAT_004dda58") = { 0x36 };
+/* 0x004dda5c, 4 bytes */ GRIM_DATA("004dda5c") unsigned char grim_def_DAT_004dda5c[4] __asm__("_DAT_004dda5c") = { 0x8c };
+/* 0x004dda60, 8 bytes */ GRIM_DATA("004dda60") char grim_def_s_Version_004dda60[8] __asm__("_s_Version_004dda60") = "Version";
+/* 0x004dda68, 40 bytes */ GRIM_DATA("004dda68") char grim_def_s_C__grimjedi_Libs_W32Util_Wuregis_004dda68[40] __asm__("_s_C__grimjedi_Libs_W32Util_Wuregis_004dda68") = "C:\\grimjedi\\Libs\\W32Util\\Wuregistry.c";
+/* 0x004f5ea0, 4 bytes */ GRIM_DATA("004f5ea0") unsigned char grim_def_g_ppRegValueNames[4] __asm__("_g_ppRegValueNames") = {0};
+/* 0x004f5ea4, 4 bytes */ GRIM_DATA("004f5ea4") unsigned int grim_def_g_dwRegValueCount __asm__("_g_dwRegValueCount") = 0x0;
+/* 0x004f5ea8, 4 bytes */ GRIM_DATA("004f5ea8") unsigned char grim_def_DAT_004f5ea8[4] __asm__("_DAT_004f5ea8") = {0};
+/* 0x004f5eac, 4 bytes */ GRIM_DATA("004f5eac") unsigned int grim_def_UINT_004f5eac __asm__("_UINT_004f5eac") = 0x0;
+/* 0x004f5eb0, 4 bytes */ GRIM_DATA("004f5eb0") unsigned char grim_def_g_pRegRootKey[4] __asm__("_g_pRegRootKey") = {0};

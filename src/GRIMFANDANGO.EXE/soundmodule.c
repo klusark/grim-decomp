@@ -1600,3 +1600,202 @@ void __cdecl SoundModule_AdvanceClock(double ticks)
 }
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_SoundModule_module_shutdown[] __asm__("_SoundModule_module_shutdown");
+extern char f_SoundModule_module_startup[] __asm__("_SoundModule_module_startup");
+extern char f_SoundModule_module_terminate[] __asm__("_SoundModule_module_terminate");
+extern char f_sou_engine_GetHVol[] __asm__("_sou_engine_GetHVol");
+extern char f_sou_engine_GetPan[] __asm__("_sou_engine_GetPan");
+extern char f_sou_engine_GetParam[] __asm__("_sou_engine_GetParam");
+extern char f_sou_engine_GetRate[] __asm__("_sou_engine_GetRate");
+extern char f_sou_engine_GetVol[] __asm__("_sou_engine_GetVol");
+extern char f_sou_engine_Pause[] __asm__("_sou_engine_Pause");
+extern char f_sou_engine_Query[] __asm__("_sou_engine_Query");
+extern char f_sou_engine_Resume[] __asm__("_sou_engine_Resume");
+extern char f_sou_engine_SetHVol[] __asm__("_sou_engine_SetHVol");
+extern char f_sou_engine_SetPan[] __asm__("_sou_engine_SetPan");
+extern char f_sou_engine_SetParam[] __asm__("_sou_engine_SetParam");
+extern char f_sou_engine_SetRate[] __asm__("_sou_engine_SetRate");
+extern char f_sou_engine_SetVol[] __asm__("_sou_engine_SetVol");
+extern char f_sou_engine_Start[] __asm__("_sou_engine_Start");
+extern char f_sou_engine_Stop[] __asm__("_sou_engine_Stop");
+extern char f_sou_engine_StopAll[] __asm__("_sou_engine_StopAll");
+extern char f_sou_sound_module[] __asm__("_sou_sound_module");
+extern unsigned char grim_def_DAT_008da908[4] __asm__("_DAT_008da908");
+extern unsigned char grim_def_DAT_008da91c[4] __asm__("_DAT_008da91c");
+extern unsigned char grim_def_DAT_008dad68[4] __asm__("_DAT_008dad68");
+extern unsigned char grim_def_DAT_008dad78[4] __asm__("_DAT_008dad78");
+extern unsigned char grim_def_DAT_008db0e8[256] __asm__("_DAT_008db0e8");
+extern unsigned int grim_def_UINT_004f3e3c __asm__("_UINT_004f3e3c");
+extern unsigned int grim_def_UINT_008da8f0 __asm__("_UINT_008da8f0");
+extern unsigned int grim_def_UINT_008da8f4 __asm__("_UINT_008da8f4");
+extern unsigned int grim_def_UINT_008da8f8 __asm__("_UINT_008da8f8");
+extern unsigned int grim_def_UINT_008da8fc __asm__("_UINT_008da8fc");
+extern unsigned int grim_def_UINT_008da900 __asm__("_UINT_008da900");
+extern unsigned int grim_def_UINT_008da904 __asm__("_UINT_008da904");
+extern unsigned int grim_def_UINT_008da90c __asm__("_UINT_008da90c");
+extern unsigned int grim_def_UINT_008da910 __asm__("_UINT_008da910");
+extern unsigned int grim_def_UINT_008da914 __asm__("_UINT_008da914");
+extern unsigned int grim_def_UINT_008da918 __asm__("_UINT_008da918");
+extern unsigned int grim_def_UINT_008da920 __asm__("_UINT_008da920");
+extern unsigned int grim_def_UINT_008da924 __asm__("_UINT_008da924");
+extern unsigned char grim_def_UINT_008da928[904] __asm__("_UINT_008da928");
+extern unsigned int grim_def_UINT_008dacb4 __asm__("_UINT_008dacb4");
+extern unsigned int grim_def_UINT_008dacb8 __asm__("_UINT_008dacb8");
+extern unsigned int grim_def_UINT_008dacbc __asm__("_UINT_008dacbc");
+extern unsigned int grim_def_UINT_008dacc0 __asm__("_UINT_008dacc0");
+extern unsigned int grim_def_UINT_008dacc4 __asm__("_UINT_008dacc4");
+extern unsigned int grim_def_UINT_008dacc8 __asm__("_UINT_008dacc8");
+extern unsigned int grim_def_UINT_008daccc __asm__("_UINT_008daccc");
+extern unsigned int grim_def_UINT_008dacd0 __asm__("_UINT_008dacd0");
+extern unsigned int grim_def_UINT_008dacd4 __asm__("_UINT_008dacd4");
+extern unsigned int grim_def_UINT_008dacd8 __asm__("_UINT_008dacd8");
+extern unsigned int grim_def_UINT_008dacdc __asm__("_UINT_008dacdc");
+extern unsigned int grim_def_UINT_008dace0 __asm__("_UINT_008dace0");
+extern unsigned int grim_def_UINT_008dace4 __asm__("_UINT_008dace4");
+extern unsigned int grim_def_UINT_008dace8 __asm__("_UINT_008dace8");
+extern unsigned int grim_def_UINT_008dacec __asm__("_UINT_008dacec");
+extern unsigned int grim_def_UINT_008dad58 __asm__("_UINT_008dad58");
+extern unsigned int grim_def_UINT_008dad5c __asm__("_UINT_008dad5c");
+extern unsigned int grim_def_UINT_008dad60 __asm__("_UINT_008dad60");
+extern unsigned int grim_def_UINT_008dad64 __asm__("_UINT_008dad64");
+extern unsigned int grim_def_UINT_008dad70 __asm__("_UINT_008dad70");
+extern unsigned int grim_def_UINT_008dad74 __asm__("_UINT_008dad74");
+extern unsigned int grim_def_UINT_008dad7c __asm__("_UINT_008dad7c");
+extern unsigned int grim_def_UINT_008dad80 __asm__("_UINT_008dad80");
+extern unsigned char grim_def_UINT_008dad88[784] __asm__("_UINT_008dad88");
+extern unsigned char grim_def_UINT_008db1f8[8] __asm__("_UINT_008db1f8");
+extern unsigned char grim_def_g_aSou_samplesize[24] __asm__("_g_aSou_samplesize");
+extern int grim_def_g_anSndChunkCount[16] __asm__("_g_anSndChunkCount");
+extern int grim_def_g_anSndStreamKey[16] __asm__("_g_anSndStreamKey");
+extern int grim_def_g_anSndStreamKind[16] __asm__("_g_anSndStreamKind");
+extern void *grim_def_g_apfnSoundInterface[16] __asm__("_g_apfnSoundInterface");
+extern void *grim_def_g_apfnSoundModule[4] __asm__("_g_apfnSoundModule");
+extern double grim_def_g_dSndClock __asm__("_g_dSndClock");
+extern unsigned char grim_def_g_dwSou_active_flag[8] __asm__("_g_dwSou_active_flag");
+extern unsigned int grim_def_g_dwSou_chans __asm__("_g_dwSou_chans");
+extern unsigned int grim_def_g_dwSou_damp_rate __asm__("_g_dwSou_damp_rate");
+extern unsigned int grim_def_g_dwSou_engine_fill_damp_vol __asm__("_g_dwSou_engine_fill_damp_vol");
+extern unsigned int grim_def_g_dwSou_engine_fill_first __asm__("_g_dwSou_engine_fill_first");
+extern unsigned int grim_def_g_dwSou_global_volume __asm__("_g_dwSou_global_volume");
+extern unsigned int grim_def_g_dwSou_paused_flag __asm__("_g_dwSou_paused_flag");
+extern unsigned int grim_def_g_dwSou_sample_rate __asm__("_g_dwSou_sample_rate");
+extern unsigned int grim_def_g_dwSoundModule_share_config __asm__("_g_dwSoundModule_share_config");
+extern unsigned int grim_def_g_dwSoundModule_timer_services __asm__("_g_dwSoundModule_timer_services");
+extern unsigned int grim_def_g_dwSound_bufsize __asm__("_g_dwSound_bufsize");
+extern unsigned char grim_def_g_dwSound_channel[4] __asm__("_g_dwSound_channel");
+extern unsigned char grim_def_g_dwSound_flipped[8] __asm__("_g_dwSound_flipped");
+extern unsigned int grim_def_g_dwSound_music_on __asm__("_g_dwSound_music_on");
+extern unsigned int grim_def_g_dwSound_name __asm__("_g_dwSound_name");
+extern unsigned int grim_def_g_dwSound_reserveram __asm__("_g_dwSound_reserveram");
+extern unsigned int grim_def_g_dwSound_samplerate __asm__("_g_dwSound_samplerate");
+extern unsigned int grim_def_g_dwSound_sound_on __asm__("_g_dwSound_sound_on");
+extern unsigned int grim_def_g_dwSound_ticks __asm__("_g_dwSound_ticks");
+extern unsigned int grim_def_g_dwSound_voice_on __asm__("_g_dwSound_voice_on");
+extern unsigned char grim_def_g_pSoundModule_memory_services[8] __asm__("_g_pSoundModule_memory_services");
+extern unsigned char grim_def_g_pSoundModule_share_services[4] __asm__("_g_pSoundModule_share_services");
+extern char grim_def_s_C__grimsrc_libs_lecsmush_insane__004f3f30[56] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f3f30");
+extern char grim_def_s_LECMODULE_insane_sound_004f3e5c[24] __asm__("_s_LECMODULE_insane_sound_004f3e5c");
+extern char grim_def_s_SNDDRIVER_driver_004f3f08[20] __asm__("_s_SNDDRIVER_driver_004f3f08");
+extern char grim_def_s_SOUND_insane_004f3e4c[16] __asm__("_s_SOUND_insane_004f3e4c");
+extern char grim_def_s_Sound_Module__Cannot_allocate_me_004f3ed8[48] __asm__("_s_Sound_Module__Cannot_allocate_me_004f3ed8");
+extern char grim_def_s_Sound_Module__Cannot_allocate_sn_004f3e74[52] __asm__("_s_Sound_Module__Cannot_allocate_sn_004f3e74");
+extern char grim_def_s_Sound_Module__Cannot_allocate_ti_004f3ea8[48] __asm__("_s_Sound_Module__Cannot_allocate_ti_004f3ea8");
+extern char grim_def_s_TIMER_external_sync_004f3f1c[20] __asm__("_s_TIMER_external_sync_004f3f1c");
+/* 0x004f3dc8, 16 bytes */ GRIM_DATA("004f3dc8") void *grim_def_g_apfnSoundModule[4] __asm__("_g_apfnSoundModule") = {
+    (void *)f_sou_sound_module, (void *)f_SoundModule_module_terminate, (void *)f_SoundModule_module_startup, (void *)f_SoundModule_module_shutdown
+};
+/* 0x004f3dd8, 64 bytes */ GRIM_DATA("004f3dd8") void *grim_def_g_apfnSoundInterface[16] __asm__("_g_apfnSoundInterface") = {
+    (void *)f_sou_engine_Start, (void *)f_sou_engine_Stop, (void *)f_sou_engine_Pause, (void *)f_sou_engine_Resume,
+    (void *)f_sou_engine_StopAll, (void *)f_sou_engine_GetVol, (void *)f_sou_engine_SetVol, (void *)f_sou_engine_GetPan,
+    (void *)f_sou_engine_SetPan, (void *)f_sou_engine_GetHVol, (void *)f_sou_engine_SetHVol, (void *)f_sou_engine_GetRate,
+    (void *)f_sou_engine_SetRate, (void *)f_sou_engine_Query, (void *)f_sou_engine_GetParam, (void *)f_sou_engine_SetParam
+};
+/* 0x004f3e18, 24 bytes */ GRIM_DATA("004f3e18") unsigned char grim_def_g_aSou_samplesize[24] __asm__("_g_aSou_samplesize") = {
+    0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00,
+    0x02, 0x00, 0x00, 0x00, 0x04
+};
+/* 0x004f3e30, 4 bytes */ GRIM_DATA("004f3e30") unsigned int grim_def_g_dwSou_chans __asm__("_g_dwSou_chans") = 0x4;
+/* 0x004f3e34, 4 bytes */ GRIM_DATA("004f3e34") unsigned int grim_def_g_dwSou_global_volume __asm__("_g_dwSou_global_volume") = 0x7f;
+/* 0x004f3e38, 4 bytes */ GRIM_DATA("004f3e38") unsigned int grim_def_g_dwSou_sample_rate __asm__("_g_dwSou_sample_rate") = 0x5622;
+/* 0x004f3e3c, 4 bytes */ GRIM_DATA("004f3e3c") unsigned int grim_def_UINT_004f3e3c __asm__("_UINT_004f3e3c") = 0x40;
+/* 0x004f3e40, 4 bytes */ GRIM_DATA("004f3e40") unsigned int grim_def_g_dwSou_damp_rate __asm__("_g_dwSou_damp_rate") = 0x100;
+/* 0x004f3e44, 4 bytes */ GRIM_DATA("004f3e44") unsigned int grim_def_g_dwSou_engine_fill_damp_vol __asm__("_g_dwSou_engine_fill_damp_vol") = 0x100;
+/* 0x004f3e48, 4 bytes */ GRIM_DATA("004f3e48") unsigned int grim_def_g_dwSou_engine_fill_first __asm__("_g_dwSou_engine_fill_first") = 0x1;
+/* 0x004f3e4c, 16 bytes */ GRIM_DATA("004f3e4c") char grim_def_s_SOUND_insane_004f3e4c[16] __asm__("_s_SOUND_insane_004f3e4c") = "SOUND=insane";
+/* 0x004f3e5c, 24 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_sound_004f3e5c[24] __asm__("_s_LECMODULE_insane_sound_004f3e5c") = "LECMODULE=insane_sound";
+/* 0x004f3e74, 52 bytes */ /* loose */ char grim_def_s_Sound_Module__Cannot_allocate_sn_004f3e74[52] __asm__("_s_Sound_Module__Cannot_allocate_sn_004f3e74") = "Sound Module: Cannot allocate snddriver services.";
+/* 0x004f3ea8, 48 bytes */ /* loose */ char grim_def_s_Sound_Module__Cannot_allocate_ti_004f3ea8[48] __asm__("_s_Sound_Module__Cannot_allocate_ti_004f3ea8") = "Sound Module: Cannot allocate timer services.";
+/* 0x004f3ed8, 48 bytes */ /* loose */ char grim_def_s_Sound_Module__Cannot_allocate_me_004f3ed8[48] __asm__("_s_Sound_Module__Cannot_allocate_me_004f3ed8") = "Sound Module: Cannot allocate memory services.";
+/* 0x004f3f08, 20 bytes */ /* loose */ char grim_def_s_SNDDRIVER_driver_004f3f08[20] __asm__("_s_SNDDRIVER_driver_004f3f08") = "SNDDRIVER.driver";
+/* 0x004f3f1c, 20 bytes */ /* loose */ char grim_def_s_TIMER_external_sync_004f3f1c[20] __asm__("_s_TIMER_external_sync_004f3f1c") = "TIMER.external_sync";
+/* 0x004f3f30, 56 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lecsmush_insane__004f3f30[56] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f3f30") = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\sound\\Engine.c";
+/* 0x008da8a8, 8 bytes */ GRIM_DATA("008da8a8") unsigned char grim_def_g_pSoundModule_memory_services[8] __asm__("_g_pSoundModule_memory_services") = {0};
+/* 0x008da8b0, 64 bytes */ GRIM_DATA("008da8b0") int grim_def_g_anSndStreamKind[16] __asm__("_g_anSndStreamKind") = {0};
+/* 0x008da8f0, 4 bytes */ GRIM_DATA("008da8f0") unsigned int grim_def_UINT_008da8f0 __asm__("_UINT_008da8f0") = 0x0;
+/* 0x008da8f4, 4 bytes */ GRIM_DATA("008da8f4") unsigned int grim_def_UINT_008da8f4 __asm__("_UINT_008da8f4") = 0x0;
+/* 0x008da8f8, 4 bytes */ GRIM_DATA("008da8f8") unsigned int grim_def_UINT_008da8f8 __asm__("_UINT_008da8f8") = 0x0;
+/* 0x008da8fc, 4 bytes */ GRIM_DATA("008da8fc") unsigned int grim_def_UINT_008da8fc __asm__("_UINT_008da8fc") = 0x0;
+/* 0x008da900, 4 bytes */ GRIM_DATA("008da900") unsigned int grim_def_UINT_008da900 __asm__("_UINT_008da900") = 0x0;
+/* 0x008da904, 4 bytes */ GRIM_DATA("008da904") unsigned int grim_def_UINT_008da904 __asm__("_UINT_008da904") = 0x0;
+/* 0x008da908, 4 bytes */ GRIM_DATA("008da908") unsigned char grim_def_DAT_008da908[4] __asm__("_DAT_008da908") = {0};
+/* 0x008da90c, 4 bytes */ GRIM_DATA("008da90c") unsigned int grim_def_UINT_008da90c __asm__("_UINT_008da90c") = 0x0;
+/* 0x008da910, 4 bytes */ GRIM_DATA("008da910") unsigned int grim_def_UINT_008da910 __asm__("_UINT_008da910") = 0x0;
+/* 0x008da914, 4 bytes */ GRIM_DATA("008da914") unsigned int grim_def_UINT_008da914 __asm__("_UINT_008da914") = 0x0;
+/* 0x008da918, 4 bytes */ GRIM_DATA("008da918") unsigned int grim_def_UINT_008da918 __asm__("_UINT_008da918") = 0x0;
+/* 0x008da91c, 4 bytes */ GRIM_DATA("008da91c") unsigned char grim_def_DAT_008da91c[4] __asm__("_DAT_008da91c") = {0};
+/* 0x008da920, 4 bytes */ GRIM_DATA("008da920") unsigned int grim_def_UINT_008da920 __asm__("_UINT_008da920") = 0x0;
+/* 0x008da924, 4 bytes */ GRIM_DATA("008da924") unsigned int grim_def_UINT_008da924 __asm__("_UINT_008da924") = 0x0;
+/* 0x008da928, 904 bytes */ GRIM_DATA("008da928") unsigned char grim_def_UINT_008da928[904] __asm__("_UINT_008da928") = {0};
+/* 0x008dacb0, 4 bytes */ GRIM_DATA("008dacb0") unsigned int grim_def_g_dwSound_bufsize __asm__("_g_dwSound_bufsize") = 0x0;
+/* 0x008dacb4, 4 bytes */ GRIM_DATA("008dacb4") unsigned int grim_def_UINT_008dacb4 __asm__("_UINT_008dacb4") = 0x0;
+/* 0x008dacb8, 4 bytes */ GRIM_DATA("008dacb8") unsigned int grim_def_UINT_008dacb8 __asm__("_UINT_008dacb8") = 0x0;
+/* 0x008dacbc, 4 bytes */ GRIM_DATA("008dacbc") unsigned int grim_def_UINT_008dacbc __asm__("_UINT_008dacbc") = 0x0;
+/* 0x008dacc0, 4 bytes */ GRIM_DATA("008dacc0") unsigned int grim_def_UINT_008dacc0 __asm__("_UINT_008dacc0") = 0x0;
+/* 0x008dacc4, 4 bytes */ GRIM_DATA("008dacc4") unsigned int grim_def_UINT_008dacc4 __asm__("_UINT_008dacc4") = 0x0;
+/* 0x008dacc8, 4 bytes */ GRIM_DATA("008dacc8") unsigned int grim_def_UINT_008dacc8 __asm__("_UINT_008dacc8") = 0x0;
+/* 0x008daccc, 4 bytes */ GRIM_DATA("008daccc") unsigned int grim_def_UINT_008daccc __asm__("_UINT_008daccc") = 0x0;
+/* 0x008dacd0, 4 bytes */ GRIM_DATA("008dacd0") unsigned int grim_def_UINT_008dacd0 __asm__("_UINT_008dacd0") = 0x0;
+/* 0x008dacd4, 4 bytes */ GRIM_DATA("008dacd4") unsigned int grim_def_UINT_008dacd4 __asm__("_UINT_008dacd4") = 0x0;
+/* 0x008dacd8, 4 bytes */ GRIM_DATA("008dacd8") unsigned int grim_def_UINT_008dacd8 __asm__("_UINT_008dacd8") = 0x0;
+/* 0x008dacdc, 4 bytes */ GRIM_DATA("008dacdc") unsigned int grim_def_UINT_008dacdc __asm__("_UINT_008dacdc") = 0x0;
+/* 0x008dace0, 4 bytes */ GRIM_DATA("008dace0") unsigned int grim_def_UINT_008dace0 __asm__("_UINT_008dace0") = 0x0;
+/* 0x008dace4, 4 bytes */ GRIM_DATA("008dace4") unsigned int grim_def_UINT_008dace4 __asm__("_UINT_008dace4") = 0x0;
+/* 0x008dace8, 4 bytes */ GRIM_DATA("008dace8") unsigned int grim_def_UINT_008dace8 __asm__("_UINT_008dace8") = 0x0;
+/* 0x008dacec, 4 bytes */ GRIM_DATA("008dacec") unsigned int grim_def_UINT_008dacec __asm__("_UINT_008dacec") = 0x0;
+/* 0x008dacf4, 4 bytes */ GRIM_DATA("008dacf4") unsigned int grim_def_g_dwSound_ticks __asm__("_g_dwSound_ticks") = 0x0;
+/* 0x008dacf8, 4 bytes */ GRIM_DATA("008dacf8") unsigned char grim_def_g_pSoundModule_share_services[4] __asm__("_g_pSoundModule_share_services") = {0};
+/* 0x008dacfc, 4 bytes */ GRIM_DATA("008dacfc") unsigned int grim_def_g_dwSound_reserveram __asm__("_g_dwSound_reserveram") = 0x0;
+/* 0x008dad00, 64 bytes */ GRIM_DATA("008dad00") int grim_def_g_anSndStreamKey[16] __asm__("_g_anSndStreamKey") = {0};
+/* 0x008dad40, 4 bytes */ GRIM_DATA("008dad40") unsigned int grim_def_g_dwSound_music_on __asm__("_g_dwSound_music_on") = 0x0;
+/* 0x008dad44, 4 bytes */ GRIM_DATA("008dad44") unsigned int grim_def_g_dwSound_sound_on __asm__("_g_dwSound_sound_on") = 0x0;
+/* 0x008dad48, 4 bytes */ GRIM_DATA("008dad48") unsigned int grim_def_g_dwSoundModule_timer_services __asm__("_g_dwSoundModule_timer_services") = 0x0;
+/* 0x008dad4c, 4 bytes */ GRIM_DATA("008dad4c") unsigned int grim_def_g_dwSound_voice_on __asm__("_g_dwSound_voice_on") = 0x0;
+/* 0x008dad50, 8 bytes */ GRIM_DATA("008dad50") unsigned char grim_def_g_dwSound_flipped[8] __asm__("_g_dwSound_flipped") = {0};
+/* 0x008dad58, 4 bytes */ GRIM_DATA("008dad58") unsigned int grim_def_UINT_008dad58 __asm__("_UINT_008dad58") = 0x0;
+/* 0x008dad5c, 4 bytes */ GRIM_DATA("008dad5c") unsigned int grim_def_UINT_008dad5c __asm__("_UINT_008dad5c") = 0x0;
+/* 0x008dad60, 4 bytes */ GRIM_DATA("008dad60") unsigned int grim_def_UINT_008dad60 __asm__("_UINT_008dad60") = 0x0;
+/* 0x008dad64, 4 bytes */ GRIM_DATA("008dad64") unsigned int grim_def_UINT_008dad64 __asm__("_UINT_008dad64") = 0x0;
+/* 0x008dad68, 4 bytes */ GRIM_DATA("008dad68") unsigned char grim_def_DAT_008dad68[4] __asm__("_DAT_008dad68") = {0};
+/* 0x008dad70, 4 bytes */ GRIM_DATA("008dad70") unsigned int grim_def_UINT_008dad70 __asm__("_UINT_008dad70") = 0x0;
+/* 0x008dad74, 4 bytes */ GRIM_DATA("008dad74") unsigned int grim_def_UINT_008dad74 __asm__("_UINT_008dad74") = 0x0;
+/* 0x008dad78, 4 bytes */ GRIM_DATA("008dad78") unsigned char grim_def_DAT_008dad78[4] __asm__("_DAT_008dad78") = {0};
+/* 0x008dad7c, 4 bytes */ GRIM_DATA("008dad7c") unsigned int grim_def_UINT_008dad7c __asm__("_UINT_008dad7c") = 0x0;
+/* 0x008dad80, 4 bytes */ GRIM_DATA("008dad80") unsigned int grim_def_UINT_008dad80 __asm__("_UINT_008dad80") = 0x0;
+/* 0x008dad88, 784 bytes */ GRIM_DATA("008dad88") unsigned char grim_def_UINT_008dad88[784] __asm__("_UINT_008dad88") = {0};
+/* 0x008db098, 4 bytes */ GRIM_DATA("008db098") unsigned int grim_def_g_dwSoundModule_share_config __asm__("_g_dwSoundModule_share_config") = 0x0;
+/* 0x008db09c, 4 bytes */ GRIM_DATA("008db09c") unsigned int grim_def_g_dwSound_samplerate __asm__("_g_dwSound_samplerate") = 0x0;
+/* 0x008db0a0, 8 bytes */ GRIM_DATA("008db0a0") unsigned int grim_def_g_dwSound_name __asm__("_g_dwSound_name") = 0x0;
+/* 0x008db0a4, 4 bytes: the rest of grim_def_g_dwSound_name's span */ GRIM_DATA("008db0a0") static unsigned char g_dwSound_name__tail[4] __attribute__((used)) = {0};
+/* 0x008db0a8, 64 bytes */ GRIM_DATA("008db0a8") int grim_def_g_anSndChunkCount[16] __asm__("_g_anSndChunkCount") = {0};
+/* 0x008db0e8, 256 bytes */ GRIM_DATA("008db0e8") unsigned char grim_def_DAT_008db0e8[256] __asm__("_DAT_008db0e8") = {0};
+/* 0x008db1e8, 4 bytes */ GRIM_DATA("008db1e8") unsigned char grim_def_g_dwSound_channel[4] __asm__("_g_dwSound_channel") = {0};
+/* 0x008db1ec, 4 bytes */ GRIM_DATA("008db1ec") unsigned int grim_def_g_dwSou_paused_flag __asm__("_g_dwSou_paused_flag") = 0x0;
+/* 0x008db1f0, 8 bytes */ GRIM_DATA("008db1f0") unsigned char grim_def_g_dwSou_active_flag[8] __asm__("_g_dwSou_active_flag") = {0};
+/* 0x008db1f8, 8 bytes */ GRIM_DATA("008db1f8") unsigned char grim_def_UINT_008db1f8[8] __asm__("_UINT_008db1f8") = {0};
+/* 0x008db200, 8 bytes */ GRIM_DATA("008db200") double grim_def_g_dSndClock __asm__("_g_dSndClock") = 0.0;

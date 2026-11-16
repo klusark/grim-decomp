@@ -118,3 +118,27 @@ void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line)
   stdMemory_Free(p);
   return puVar2;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e7940[4] __asm__("_DAT_004e7940");
+extern unsigned char grim_def_DAT_004e7944[4] __asm__("_DAT_004e7944");
+extern unsigned int grim_def_UINT_00825e78 __asm__("_UINT_00825e78");
+extern unsigned int grim_def_UINT_00825e80 __asm__("_UINT_00825e80");
+extern unsigned char grim_def_UINT_00825e84[12] __asm__("_UINT_00825e84");
+extern char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e7968[44] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e7968");
+extern char grim_def_s_allocation_004e7994[24] __asm__("_s_allocation_004e7994");
+extern char grim_def_s_allocation__magic____0x12345678_004e7948[32] __asm__("_s_allocation__magic____0x12345678_004e7948");
+/* 0x004e7940, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004e7940[4] __asm__("_DAT_004e7940") = { 0x63, 0x03 };
+/* 0x004e7944, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004e7944[4] __asm__("_DAT_004e7944") = { 0x6a, 0x03 };
+/* 0x004e7948, 32 bytes */ /* loose */ char grim_def_s_allocation__magic____0x12345678_004e7948[32] __asm__("_s_allocation__magic____0x12345678_004e7948") = "allocation->magic == 0x12345678";
+/* 0x004e7968, 44 bytes */ /* loose */ char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e7968[44] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e7968") = "C:\\grimjedi\\Libs\\Std\\General\\Stdmemory.c";
+static unsigned char grim_anchor_004e7994[0] __attribute__((section(".data$grim_004e7994"), aligned(16), used));
+static unsigned char grim_pad_004e7994[4] __attribute__((section(".data$grim_004e7994_"), aligned(4), used));
+/* 0x004e7994, 24 bytes */ GRIM_DATA("004e7994z") char grim_def_s_allocation_004e7994[24] __asm__("_s_allocation_004e7994") = "allocation\000\000\000\000\000\000\000\000\000\000HFED";
+/* 0x00825e78, 4 bytes */ GRIM_DATA("00825e78") unsigned int grim_def_UINT_00825e78 __asm__("_UINT_00825e78") = 0x0;
+/* 0x00825e80, 4 bytes */ GRIM_DATA("00825e80") unsigned int grim_def_UINT_00825e80 __asm__("_UINT_00825e80") = 0x0;
+/* 0x00825e84, 12 bytes */ GRIM_DATA("00825e84") unsigned char grim_def_UINT_00825e84[12] __asm__("_UINT_00825e84") = {0};

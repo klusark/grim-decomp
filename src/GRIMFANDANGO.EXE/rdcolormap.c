@@ -426,3 +426,23 @@ int __cdecl rdColormap_Size(int colormap)
   }
   return iVar1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004ddad8[4] __asm__("_DAT_004ddad8");
+extern unsigned char grim_def_DAT_004ddadc[4] __asm__("_DAT_004ddadc");
+extern unsigned char grim_def_DAT_004ddae0[4] __asm__("_DAT_004ddae0");
+extern unsigned char grim_def_UINT_004ddaac[8] __asm__("_UINT_004ddaac");
+extern char grim_def_s_CMP_004ddb10[8] __asm__("_s_CMP_004ddb10");
+extern char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4");
+extern char grim_def_s_GREYRAMP_CMP_004ddb20[16] __asm__("_s_GREYRAMP_CMP_004ddb20");
+/* 0x004ddaac, 8 bytes */ GRIM_DATA("004ddaac") unsigned char grim_def_UINT_004ddaac[8] __asm__("_UINT_004ddaac") = { 0x06, 0x00, 0x00, 0x00, 0x05 };
+/* 0x004ddad8, 4 bytes */ GRIM_DATA("004ddad8") unsigned char grim_def_DAT_004ddad8[4] __asm__("_DAT_004ddad8") = { 0x99 };
+/* 0x004ddadc, 4 bytes */ GRIM_DATA("004ddadc") unsigned char grim_def_DAT_004ddadc[4] __asm__("_DAT_004ddadc") = { 0xc6 };
+/* 0x004ddae0, 4 bytes */ GRIM_DATA("004ddae0") unsigned char grim_def_DAT_004ddae0[4] __asm__("_DAT_004ddae0") = { 0x14, 0x03 };
+/* 0x004ddae4, 44 bytes */ GRIM_DATA("004ddae4") char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4") = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdcolormap.c";
+/* 0x004ddb10, 8 bytes */ GRIM_DATA("004ddb10") char grim_def_s_CMP_004ddb10[8] __asm__("_s_CMP_004ddb10") = "CMP ";
+/* 0x004ddb20, 16 bytes */ GRIM_DATA("004ddb20") char grim_def_s_GREYRAMP_CMP_004ddb20[16] __asm__("_s_GREYRAMP_CMP_004ddb20") = "GREYRAMP.CMP";

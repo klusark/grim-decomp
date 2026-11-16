@@ -1132,3 +1132,149 @@ void __cdecl Mixer_MixStereo_B(ushort *data,int count,uint outFrames,uint accumO
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[12]; void *pc; unsigned char b10[4]; void *p14; unsigned char b18[4]; void *p1c; unsigned char b20[4]; void *p24; unsigned char b28[4]; void *p2c; unsigned char b30[4]; void *p34; unsigned char b38[4]; void *p3c; unsigned char b40[4]; void *p44; unsigned char b48[4]; void *p4c; unsigned char b50[4]; void *p54; unsigned char b58[4]; void *p5c; unsigned char b60[4]; void *p64; unsigned char b68[4]; void *p6c; unsigned char b70[4]; void *p74; unsigned char b78[4]; void *p7c; unsigned char b80[4]; void *p84; } grim_span_004f1000;
+typedef struct __attribute__((packed)) { unsigned char b0[72]; void *p48; unsigned char b4c[4]; void *p50; unsigned char b54[4]; void *p58; unsigned char b5c[4]; void *p60; unsigned char b64[4]; void *p68; void *p6c; unsigned char b70[4]; void *p74; unsigned char b78[8]; void *p80; unsigned char b84[4]; } grim_span_004f4158;
+extern char f_FUN_004b4ad4[] __asm__("_FUN_004b4ad4");
+extern char f_FUN_004b4b0d[] __asm__("_FUN_004b4b0d");
+extern char f_FUN_004b4b0f[] __asm__("_FUN_004b4b0f");
+extern char f_FUN_004d54b4[] __asm__("_FUN_004d54b4");
+extern unsigned char grim_def_DAT_004d8510[96] __asm__("_DAT_004d8510");
+extern char grim_def_DAT_004f1088[] __asm__("_DAT_004f1088");
+extern char grim_def_DAT_004f109c[] __asm__("_DAT_004f109c");
+extern char grim_def_DAT_004f10b4[] __asm__("_DAT_004f10b4");
+extern char grim_def_DAT_004f10c8[] __asm__("_DAT_004f10c8");
+extern char grim_def_DAT_004f10e0[] __asm__("_DAT_004f10e0");
+extern char grim_def_DAT_004f10f4[] __asm__("_DAT_004f10f4");
+extern char grim_def_DAT_004f1104[] __asm__("_DAT_004f1104");
+extern char grim_def_DAT_004f1118[] __asm__("_DAT_004f1118");
+extern char grim_def_DAT_004f112c[] __asm__("_DAT_004f112c");
+extern char grim_def_DAT_004f1140[] __asm__("_DAT_004f1140");
+extern char grim_def_DAT_004f1150[] __asm__("_DAT_004f1150");
+extern char grim_def_DAT_004f1168[] __asm__("_DAT_004f1168");
+extern char grim_def_DAT_004f117c[] __asm__("_DAT_004f117c");
+extern char grim_def_DAT_004f118c[] __asm__("_DAT_004f118c");
+extern char grim_def_DAT_004f11a8[] __asm__("_DAT_004f11a8");
+extern char grim_def_DAT_004f11b8[] __asm__("_DAT_004f11b8");
+extern unsigned char grim_def_DAT_008db418[4] __asm__("_DAT_008db418");
+extern unsigned char grim_def_DAT_008dcc70[8] __asm__("_DAT_008dcc70");
+extern unsigned char grim_def_DAT_008dcc78[292] __asm__("_DAT_008dcc78");
+extern int grim_def_INT_008dcda0 __asm__("_INT_008dcda0");
+extern unsigned char grim_def_PTR_008d3674[12] __asm__("_PTR_008d3674");
+extern grim_span_004f1000 grim_def_UINT_004f1000 __asm__("_UINT_004f1000");
+extern unsigned int grim_def_UINT_008d3654 __asm__("_UINT_008d3654");
+extern unsigned int grim_def_UINT_008d3658 __asm__("_UINT_008d3658");
+extern unsigned int grim_def_UINT_008d3660 __asm__("_UINT_008d3660");
+extern unsigned char grim_def_UINT_008d3664[12] __asm__("_UINT_008d3664");
+extern unsigned int grim_def_UINT_008db428 __asm__("_UINT_008db428");
+extern unsigned char grim_def_UINT_008db438[6144] __asm__("_UINT_008db438");
+extern unsigned int grim_def_g_dwMixer_mixBufSize __asm__("_g_dwMixer_mixBufSize");
+extern unsigned int grim_def_g_dwMixer_outChannelCount __asm__("_g_dwMixer_outChannelCount");
+extern unsigned int grim_def_g_dwWaveMixCount __asm__("_g_dwWaveMixCount");
+extern int grim_def_g_nStreamLastBlock __asm__("_g_nStreamLastBlock");
+extern unsigned char grim_def_g_pDSoundPrimary[4] __asm__("_g_pDSoundPrimary");
+extern unsigned char grim_def_g_pMixer_mixBuf[8] __asm__("_g_pMixer_mixBuf");
+extern unsigned char grim_def_g_pMixer_softLTable[12] __asm__("_g_pMixer_softLTable");
+extern grim_span_004f4158 grim_def_s_C__grimsrc_libs_lecsmush_insane__004f4158 __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f4158");
+/* 0x004d8510, 96 bytes */ GRIM_DATA("004d8510") unsigned char grim_def_DAT_004d8510[96] __asm__("_DAT_004d8510") = {
+    0x84, 0xfa, 0x9a, 0x27, 0x81, 0x49, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60,
+    0x86, 0xfa, 0x9a, 0x27, 0x81, 0x49, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60,
+    0x81, 0x07, 0x21, 0xb0, 0xcd, 0x89, 0xd0, 0x11, 0xaf, 0x08, 0x00, 0xa0, 0xc9, 0x25, 0xcd, 0x16,
+    0x82, 0x07, 0x21, 0xb0, 0xcd, 0x89, 0xd0, 0x11, 0xaf, 0x08, 0x00, 0xa0, 0xc9, 0x25, 0xcd, 0x16,
+    0x83, 0x07, 0x21, 0xb0, 0xcd, 0x89, 0xd0, 0x11, 0xaf, 0x08, 0x00, 0xa0, 0xc9, 0x25, 0xcd, 0x16,
+    0x30, 0xac, 0xef, 0x31, 0x5c, 0x51, 0xd0, 0x11, 0xa9, 0xaa, 0x00, 0xaa, 0x00, 0x61, 0xbe, 0x93
+};
+static unsigned char grim_anchor_004f1000[0] __attribute__((section(".data$grim_004f1000"), aligned(16), used));
+static unsigned char grim_pad_004f1000[0] __attribute__((section(".data$grim_004f1000_"), aligned(4), used));
+/* 0x004f1000, 136 bytes */ GRIM_DATA("004f1000z") grim_span_004f1000 grim_def_UINT_004f1000 __asm__("_UINT_004f1000") = {
+    { 0xcd, 0xcc, 0x4c, 0x3f },
+    (void *)&grim_def_DAT_004f11b8,
+    { 0x0a, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f11a8,
+    { 0x82, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f118c,
+    { 0x64, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f117c,
+    { 0x96, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f1168,
+    { 0x1e, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f1150,
+    { 0x05, 0x40, 0x00, 0x80 },
+    (void *)&grim_def_DAT_004f1140,
+    { 0x57, 0x00, 0x07, 0x80 },
+    (void *)&grim_def_DAT_004f112c,
+    { 0x32, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f1118,
+    { 0x10, 0x01, 0x04, 0x80 },
+    (void *)&grim_def_DAT_004f1104,
+    { 0x78, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f10f4,
+    { 0x01, 0x40, 0x00, 0x80 },
+    (void *)&grim_def_DAT_004f10e0,
+    { 0x46, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f10c8,
+    { 0x0e, 0x00, 0x07, 0x80 },
+    (void *)&grim_def_DAT_004f10b4,
+    { 0xa0, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f109c,
+    { 0xaa, 0x00, 0x78, 0x88 },
+    (void *)&grim_def_DAT_004f1088
+};
+/* 0x004f3f94, 4 bytes */ GRIM_DATA("004f3f94") int grim_def_g_nStreamLastBlock __asm__("_g_nStreamLastBlock") = -1;
+static unsigned char grim_anchor_004f40f8[0] __attribute__((section(".data$grim_004f40f8"), aligned(16), used));
+static unsigned char grim_pad_004f40f8[8] __attribute__((section(".data$grim_004f40f8_"), aligned(4), used));
+/* 0x004f40f8, 96 bytes */ GRIM_DATA("004f40f8z") unsigned int grim_def_g_dwWaveMixCount __asm__("_g_dwWaveMixCount") = 0x4;
+/* 0x004f40fc, 92 bytes: the rest of grim_def_g_dwWaveMixCount's span */ GRIM_DATA("004f40f8z") static unsigned char g_dwWaveMixCount__tail[92] __attribute__((used)) = {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0a, 0x0c, 0x0e, 0x10, 0x12, 0x13, 0x14,
+    0x15, 0x16, 0x17, 0x18, 0x18, 0x19, 0x1a, 0x1a, 0x1b, 0x1c, 0x1c, 0x1d, 0x1e, 0x1e, 0x1f, 0x1f,
+    0x20, 0x20, 0x20, 0x20, 0x00, 0x01, 0x02, 0x05, 0x07, 0x14, 0x23, 0x32, 0x41, 0x50, 0x55, 0x5a,
+    0x5f, 0x64, 0x69, 0x6e, 0x70, 0x72, 0x74, 0x76, 0x78, 0x79, 0x7a, 0x7b, 0x7c, 0x7d, 0x7e, 0x7f,
+    0x80, 0x80, 0x80, 0x80, 0x04, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
+    0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x01
+};
+/* 0x004f4158, 136 bytes */ GRIM_DATA("004f4158") grim_span_004f4158 grim_def_s_C__grimsrc_libs_lecsmush_insane__004f4158 __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f4158") = {
+    {
+            0x43, 0x3a, 0x5c, 0x67, 0x72, 0x69, 0x6d, 0x73, 0x72, 0x63, 0x5c, 0x6c, 0x69, 0x62, 0x73, 0x5c,
+            0x6c, 0x65, 0x63, 0x73, 0x6d, 0x75, 0x73, 0x68, 0x5c, 0x69, 0x6e, 0x73, 0x61, 0x6e, 0x65, 0x5c,
+            0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x5c, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x5c, 0x4d, 0x69, 0x78,
+            0x65, 0x72, 0x2e, 0x63, 0x00, 0x00, 0x00, 0x00, 0x04, 0x66, 0x6d, 0x6f, 0x64, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x16
+    },
+    (void *)f_FUN_004d54b4,
+    { 0x76, 0x4b, 0x4b },
+    (void *)f_FUN_004b4b0f,
+    { 0x76, 0x4b, 0x4b },
+    (void *)f_FUN_004b4ad4,
+    { 0x76, 0x4b, 0x4b },
+    (void *)f_FUN_004b4b0f,
+    { 0x76, 0x4b, 0x4b },
+    (void *)f_FUN_004b4b0d,
+    (void *)f_FUN_004b4b0d,
+    { 0x37, 0x4b, 0x4b },
+    (void *)f_FUN_004b4b0d,
+    { 0x76, 0x4b, 0x4b, 0x00, 0x76, 0x4b, 0x4b },
+    (void *)f_FUN_004b4b0f,
+    { 0x76, 0x4b, 0x4b }
+};
+/* 0x008d3654, 4 bytes */ GRIM_DATA("008d3654") unsigned int grim_def_UINT_008d3654 __asm__("_UINT_008d3654") = 0x0;
+/* 0x008d3658, 4 bytes */ GRIM_DATA("008d3658") unsigned int grim_def_UINT_008d3658 __asm__("_UINT_008d3658") = 0x0;
+/* 0x008d3660, 4 bytes */ GRIM_DATA("008d3660") unsigned int grim_def_UINT_008d3660 __asm__("_UINT_008d3660") = 0x0;
+/* 0x008d3664, 12 bytes */ GRIM_DATA("008d3664") unsigned char grim_def_UINT_008d3664[12] __asm__("_UINT_008d3664") = {0};
+/* 0x008d3670, 4 bytes */ GRIM_DATA("008d3670") unsigned char grim_def_g_pDSoundPrimary[4] __asm__("_g_pDSoundPrimary") = {0};
+/* 0x008d3674, 12 bytes */ GRIM_DATA("008d3674") unsigned char grim_def_PTR_008d3674[12] __asm__("_PTR_008d3674") = {0};
+/* 0x008db418, 4 bytes */ GRIM_DATA("008db418") unsigned char grim_def_DAT_008db418[4] __asm__("_DAT_008db418") = {0};
+/* 0x008db428, 4 bytes */ GRIM_DATA("008db428") unsigned int grim_def_UINT_008db428 __asm__("_UINT_008db428") = 0x0;
+/* 0x008db438, 6144 bytes */ GRIM_DATA("008db438") unsigned char grim_def_UINT_008db438[6144] __asm__("_UINT_008db438") = {0};
+/* 0x008dcc60, 4 bytes */ GRIM_DATA("008dcc60") unsigned int grim_def_g_dwMixer_outChannelCount __asm__("_g_dwMixer_outChannelCount") = 0x0;
+/* 0x008dcc64, 12 bytes */ GRIM_DATA("008dcc64") unsigned char grim_def_g_pMixer_softLTable[12] __asm__("_g_pMixer_softLTable") = {0};
+/* 0x008dcc70, 8 bytes */ GRIM_DATA("008dcc70") unsigned char grim_def_DAT_008dcc70[8] __asm__("_DAT_008dcc70") = {0};
+/* 0x008dcc78, 292 bytes */ GRIM_DATA("008dcc78") unsigned char grim_def_DAT_008dcc78[292] __asm__("_DAT_008dcc78") = {0};
+/* 0x008dcd9c, 4 bytes */ GRIM_DATA("008dcd9c") unsigned int grim_def_g_dwMixer_mixBufSize __asm__("_g_dwMixer_mixBufSize") = 0x0;
+/* 0x008dcda0, 16 bytes */ GRIM_DATA("008dcda0") int grim_def_INT_008dcda0 __asm__("_INT_008dcda0") = 0;
+/* 0x008dcda4, 12 bytes: the rest of grim_def_INT_008dcda0's span */ GRIM_DATA("008dcda0") static unsigned char INT_008dcda0__tail[12] __attribute__((used)) = {0};
+/* 0x008dcdb0, 8 bytes */ GRIM_DATA("008dcdb0") unsigned char grim_def_g_pMixer_mixBuf[8] __asm__("_g_pMixer_mixBuf") = {0};

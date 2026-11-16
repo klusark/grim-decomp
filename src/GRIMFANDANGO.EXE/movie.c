@@ -276,3 +276,29 @@ void sputSmush_Pause(int paused)
   SmushPlay_Resume();
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_008ca098[8] __asm__("_DAT_008ca098");
+extern unsigned char grim_def_UINT_009016ac[44] __asm__("_UINT_009016ac");
+extern unsigned char grim_def_g_dwSmushStartTime[8] __asm__("_g_dwSmushStartTime");
+extern unsigned int grim_def_g_dwSmushX __asm__("_g_dwSmushX");
+extern unsigned int grim_def_g_dwSmushY __asm__("_g_dwSmushY");
+extern int grim_def_g_nSmushAbort __asm__("_g_nSmushAbort");
+extern int grim_def_g_nSmushLooping __asm__("_g_nSmushLooping");
+extern int grim_def_g_nSmushPaused __asm__("_g_nSmushPaused");
+extern int grim_def_g_nSmushPlaying __asm__("_g_nSmushPlaying");
+extern char grim_def_g_szCurMovieFile[128] __asm__("_g_szCurMovieFile");
+/* 0x008c9fb0, 4 bytes */ GRIM_DATA("008c9fb0") unsigned int grim_def_g_dwSmushX __asm__("_g_dwSmushX") = 0x0;
+/* 0x008c9fb4, 4 bytes */ GRIM_DATA("008c9fb4") unsigned int grim_def_g_dwSmushY __asm__("_g_dwSmushY") = 0x0;
+/* 0x008c9ff8, 8 bytes */ GRIM_DATA("008c9ff8") unsigned char grim_def_g_dwSmushStartTime[8] __asm__("_g_dwSmushStartTime") = {0};
+/* 0x008ca000, 128 bytes */ GRIM_DATA("008ca000") char grim_def_g_szCurMovieFile[128] __asm__("_g_szCurMovieFile") = "";
+/* 0x008ca088, 4 bytes */ GRIM_DATA("008ca088") int grim_def_g_nSmushPlaying __asm__("_g_nSmushPlaying") = 0;
+/* 0x008ca08c, 4 bytes */ GRIM_DATA("008ca08c") int grim_def_g_nSmushPaused __asm__("_g_nSmushPaused") = 0;
+/* 0x008ca090, 4 bytes */ GRIM_DATA("008ca090") int grim_def_g_nSmushAbort __asm__("_g_nSmushAbort") = 0;
+/* 0x008ca094, 4 bytes */ GRIM_DATA("008ca094") int grim_def_g_nSmushLooping __asm__("_g_nSmushLooping") = 0;
+/* 0x008ca098, 8 bytes */ GRIM_DATA("008ca098") unsigned char grim_def_DAT_008ca098[8] __asm__("_DAT_008ca098") = {0};
+/* 0x009016ac, 44 bytes */ GRIM_DATA("009016ac") unsigned char grim_def_UINT_009016ac[44] __asm__("_UINT_009016ac") = {0};

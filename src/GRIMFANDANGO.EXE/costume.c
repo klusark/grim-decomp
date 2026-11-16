@@ -595,3 +595,29 @@ uint __cdecl Costume_InstanceHook(int cosInst,int create)
   Cos_InstSetUserData(cosInst,0);
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_File_Error__004ea3f0[12] __asm__("_s_File_Error__004ea3f0");
+extern char grim_def_s_Name_chore_list_file____004ea460[24] __asm__("_s_Name_chore_list_file____004ea460");
+extern char grim_def_s_Script_files____lua____def__004ea478[64] __asm__("_s_Script_files____lua____def__004ea478");
+extern char grim_def_s_Unable_to_open_chore_list_file__C_004ea3fc[96] __asm__("_s_Unable_to_open_chore_list_file__C_004ea3fc");
+extern char grim_def_s____Chore_numbering_for__s__004ea3d4[28] __asm__("_s____Chore_numbering_for__s__004ea3d4");
+extern char grim_def_s_____s_004ea3cc[8] __asm__("_s_____s_004ea3cc");
+extern char grim_def_s__s__s____d_004ea3bc[16] __asm__("_s__s__s____d_004ea3bc");
+extern char grim_def_s_lua_004ea45c[4] __asm__("_s_lua_004ea45c");
+extern char grim_def_s_skirt_004ea1a8[8] __asm__("_s_skirt_004ea1a8");
+/* 0x004ea1a8, 8 bytes */ /* loose */ char grim_def_s_skirt_004ea1a8[8] __asm__("_s_skirt_004ea1a8") = "skirt";
+/* 0x004ea3bc, 16 bytes */ GRIM_DATA("004ea3bc") char grim_def_s__s__s____d_004ea3bc[16] __asm__("_s__s__s____d_004ea3bc") = "%s_%s\t\t=\t%d\n";
+/* 0x004ea3cc, 8 bytes */ /* loose */ char grim_def_s_____s_004ea3cc[8] __asm__("_s_____s_004ea3cc") = "-- %s\n\n";
+/* 0x004ea3d4, 28 bytes */ /* loose */ char grim_def_s____Chore_numbering_for__s__004ea3d4[28] __asm__("_s____Chore_numbering_for__s__004ea3d4") = "-- Chore numbering for %s.\n";
+/* 0x004ea3f0, 12 bytes */ /* loose */ char grim_def_s_File_Error__004ea3f0[12] __asm__("_s_File_Error__004ea3f0") = "File Error!";
+/* 0x004ea3fc, 96 bytes */ /* loose */ char grim_def_s_Unable_to_open_chore_list_file__C_004ea3fc[96] __asm__("_s_Unable_to_open_chore_list_file__C_004ea3fc") = "Unable to open chore list file. Check to make sure that the destination file is not read-only.";
+/* 0x004ea45c, 4 bytes */ /* loose */ char grim_def_s_lua_004ea45c[4] __asm__("_s_lua_004ea45c") = "lua";
+/* 0x004ea460, 24 bytes */ /* loose */ char grim_def_s_Name_chore_list_file____004ea460[24] __asm__("_s_Name_chore_list_file____004ea460") = "Name chore list file...";
+static unsigned char grim_anchor_004ea478[0] __attribute__((section(".data$grim_004ea478"), aligned(16), used));
+static unsigned char grim_pad_004ea478[8] __attribute__((section(".data$grim_004ea478_"), aligned(4), used));
+/* 0x004ea478, 64 bytes */ GRIM_DATA("004ea478z") char grim_def_s_Script_files____lua____def__004ea478[64] __asm__("_s_Script_files____lua____def__004ea478") = "Script files (*.lua, *.def)\000*.lua;*.def\000All Files (*.*)\000*.*";
