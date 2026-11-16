@@ -78,21 +78,21 @@ uint __cdecl SpriteRequester(uint cosInst,int tag,int parent,float type,char *fi
       strncpy((uint *)local_20,(uint *)filename,0x1f);
       local_20[0x1f] = '\0';
       pcVar5 = local_20;
-      strtok((byte *)local_20,&DAT_004ea52c);
-      uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+      strtok((byte *)local_20,(byte *)s___004ea52c);
+      uVar2 = strtok((byte *)0x0,(byte *)s___004ea52c);
       if (uVar2 != 0) {
         puVar3 = atoi(uVar2);
         local_44 = (float)(int)puVar3 * 0.01f;
-        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,(byte *)s___004ea52c);
         puVar3 = atoi(uVar2);
         local_50[2] = (float)(int)puVar3 * 0.01f;
-        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,(byte *)s___004ea52c);
         puVar3 = atoi(uVar2);
         local_50[0] = (float)(int)puVar3 * 0.01f;
-        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,(byte *)s___004ea52c);
         puVar3 = atoi(uVar2);
         local_50[1] = (float)(int)puVar3 * 0.01f;
-        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,(byte *)s___004ea52c);
         puVar3 = atoi(uVar2);
         type = (float)(int)puVar3 * 0.01f;
       }
@@ -275,9 +275,9 @@ uint __cdecl SpriteAdjuster(uint *comp,uint text)
   local_34 = (uint)s_Width_004ea87c;
   local_30 = (uint)s_Height_004ea874;
   piVar1 = (int *)*comp;
-  local_2c = (uint)&DAT_004ea870;
-  local_28 = (uint)&DAT_004ea86c;
-  local_24 = (uint)&DAT_004ea868;
+  local_2c = (uint)s_X_004ea870;
+  local_28 = (uint)s_Y_004ea86c;
+  local_24 = (uint)s_Z_004ea868;
   lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x4c) * (float10)100.0f - (float10)-0.2f);
   local_48 = (uint)lVar4;
   lVar4 = FTOL((float10)*(float *)(*piVar1 + 0x50) * (float10)100.0f - (float10)-0.2f);
@@ -297,7 +297,7 @@ uint __cdecl SpriteAdjuster(uint *comp,uint text)
     *(float *)(*piVar1 + 0xac) = (float)(int)local_40 * 0.01f;
     *(float *)(*piVar1 + 0xb0) = (float)(int)local_3c * 0.01f;
     *(float *)(*piVar1 + 0xb4) = (float)(int)local_38 * 0.01f;
-    puVar3 = (uint *)strtok((byte *)text,&DAT_004ea52c);
+    puVar3 = (uint *)strtok((byte *)text,(byte *)s___004ea52c);
     sprintf((char *)local_20,s__s__d__d__d__d__d_004ea854,puVar3,local_48,local_44,local_40,local_3c
             ,local_38);
     strncpy(puVar3,local_20,0x1f);

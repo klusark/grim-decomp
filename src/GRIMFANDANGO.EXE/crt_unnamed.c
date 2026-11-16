@@ -522,7 +522,6 @@
 
 
 /* ---- 0x004bdad0  SmushPlay_FakeBlit ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Original name SmushPlay_FakeBlit (the remaster's GrimFandango (Linux): SmushPlay_UpdateMovie's
    callee; same body (InternalBitmap / TranslationTable stores)); was FUN_004bdad0. */
 
@@ -532,7 +531,7 @@ SmushPlay_FakeBlit(uint param_1,uint param_2,uint param_3,uint param_4,uint para
 
 {
   g_dwSmush_pInternalBitmap = param_5;
-  _DAT_008d16b0 = param_7;
+  UINT_008d16b0 = param_7;
   if (g_dwSmushPlay_TranslationTable == 0) {
     g_dwSmushPlay_TranslationTable = param_7;
   }
@@ -2321,7 +2320,7 @@ undefined * __cdecl FUN_004c4a00(int param_1,int *param_2)
     pcVar2 = pcVar2 + 1;
   }
   uVar3 = 0xffffffff;
-  pcVar2 = &DAT_004f1a28;
+  pcVar2 = s___004f1a28;
   do {
     pcVar7 = pcVar2;
     if (uVar3 == 0) break;
@@ -2643,7 +2642,7 @@ uint __cdecl fle_StreamerStart(int param_1,char *param_2,uint param_3)
     *(undefined1 *)(param_1 + 0x3c) = 0;
   }
   else {
-    iVar2 = (*(code *)*g_pStreamer_filio_services)(param_2,&DAT_004ddb18);
+    iVar2 = (*(code *)*g_pStreamer_filio_services)(param_2,s_rb_004ddb18);
     if (iVar2 == 0) {
       return 0xffffffff;
     }
@@ -2689,14 +2688,14 @@ uint __cdecl FUN_004c4f60(int param_1)
   if (*(int *)(param_1 + 0x108) != 0) {
     iVar1 = param_1 + 0x3c;
     if (*(char *)(param_1 + 0x3c) != '\0') {
-      iVar3 = (*(code *)*g_pStreamer_filio_services)(iVar1,&DAT_004ddb18);
+      iVar3 = (*(code *)*g_pStreamer_filio_services)(iVar1,s_rb_004ddb18);
       while (iVar3 == 0) {
         if ((*(code **)(param_1 + 0x10c) == (code *)0x0) ||
            (iVar3 = (**(code **)(param_1 + 0x10c))(1,iVar1), iVar3 != 0)) {
           *(undefined4 *)(param_1 + 0x108) = 0;
           return 0xfffffffe;
         }
-        iVar3 = (*(code *)*g_pStreamer_filio_services)(iVar1,&DAT_004ddb18);
+        iVar3 = (*(code *)*g_pStreamer_filio_services)(iVar1,s_rb_004ddb18);
       }
       if (*(int *)(param_1 + 0x30) != 0) {
         (*(code *)g_pStreamer_filio_services[1])(*(int *)(param_1 + 0x30));
@@ -2986,7 +2985,7 @@ int __cdecl fle_DirectoryLoad(uint param_1,int param_2,int param_3,uint param_4,
   #define local_10c (*(char (*)[268])(_frame + (0x260 - 0x10c)))
   
   iVar3 = 0;
-  sprintf(local_10c,&DAT_004e7af8,param_1,param_4);
+  sprintf(local_10c,s__s_s_004e7af8,param_1,param_4);
   if (((param_5 & 1) == 0) &&
      (iVar1 = FindFirstFileA((int)local_10c,(int)local_24c), puVar4 = (uint *)param_2, iVar1 != -1))
   {
@@ -3049,7 +3048,7 @@ int __cdecl fle_DirectoryGetCWD(char *param_1,int param_2)
     if ((((uVar3 != 1) && ((int)(uVar3 - 1) < param_2)) &&
         (cVar1 = param_1[uVar3 - 2], cVar1 != ':')) && ((cVar1 != '\\' && (cVar1 != '/')))) {
       uVar3 = 0xffffffff;
-      pcVar7 = &DAT_004e9c60;
+      pcVar7 = s___004e9c60;
       do {
         pcVar6 = pcVar7;
         if (uVar3 == 0) break;
@@ -3214,7 +3213,7 @@ uint __cdecl fle_DirectoryGetPath(char *param_1,char *param_2,char *param_3,uint
     else {
       FUN_004ae410((uint *)param_1,puVar7,(int)puVar3 - (int)puVar7);
       uVar5 = 0xffffffff;
-      pcVar8 = &DAT_004e9c60;
+      pcVar8 = s___004e9c60;
       do {
         pcVar10 = pcVar8;
         if (uVar5 == 0) break;
@@ -3271,7 +3270,7 @@ int __cdecl fle_VolumeLoadList(int param_1,int param_2)
   iVar2 = 0x41;
   puVar3 = (undefined1 *)(param_1 + 2);
   do {
-    sprintf((char *)&param_1,&DAT_004f1c18,iVar2);
+    sprintf((char *)&param_1,s__c___004f1c18,iVar2);
     iVar1 = GetDriveTypeA((int)&param_1);
     if (((((iVar1 == 3) || (iVar1 == 4)) || (iVar1 == 5)) || (iVar1 == 2)) && (iVar4 < param_2)) {
       puVar3[-2] = (char)iVar2;
@@ -3387,7 +3386,7 @@ int * Zfile_fle_Open(char *param_1,char *mode)
     piVar1[1] = 0;
     if (((((*mode == 'r') || (*mode == 'R')) && (mode[1] != '+')) &&
         ((mode[1] == '\0' || (mode[2] != '+')))) && (0 < (int)UINT_004f1c20)) {
-      ppuVar5 = &PTR_DAT_004f1c28;
+      ppuVar5 = &PTR_s__gz_004f1c28;
       do {
         puVar2 = String_ContainsSubstring((uint *)param_1,*ppuVar5);
         if (puVar2 != (uint *)0x0) {

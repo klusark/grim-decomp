@@ -77,7 +77,7 @@ SmushPlay_StartMovie
     *puVar7 = 0;
     puVar7 = puVar7 + 1;
   }
-  iVar3 = (*(code *)*g_pSmushPlay_file_services)(name,&DAT_004ddb18);
+  iVar3 = (*(code *)*g_pSmushPlay_file_services)(name,s_rb_004ddb18);
   if (iVar3 != 0) {
     uVar4 = 0xffffffff;
     pcVar8 = name;
@@ -288,7 +288,7 @@ int __cdecl SmushPlay_GetMovieLength(char *path)
   #define auStack_428 (*(undefined1 (*)[2])(_frame + (0x440 - 0x428)))
   #define sStack_426 (*(short *)(_frame + (0x440 - 0x426)))
   
-  file = (*(code *)*g_pSmushPlay_file_services)(path,&DAT_004dda54);
+  file = (*(code *)*g_pSmushPlay_file_services)(path,s_r_004dda54);
   if (file == 0) {
     return 0;
   }

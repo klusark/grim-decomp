@@ -16,7 +16,7 @@ uint __cdecl defaultStatusPrint(char *fmt,...)
   uint uVar1;
   
   uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),(uint)fmt,(uint)&STACK0X(0x00000008));
-  printf(&DAT_004dda18,&g_aBuffer);
+  printf(s__s_004dda18,&g_aBuffer);
   return uVar1;
 }
 
@@ -30,7 +30,7 @@ uint __cdecl defaultMessagePrint(char *fmt,...)
   uint uVar1;
   
   uVar1 = vsprintf(((unsigned)(uintptr_t)&g_aBuffer),(uint)fmt,(uint)&STACK0X(0x00000008));
-  printf(&DAT_004dda18,&g_aBuffer);
+  printf(s__s_004dda18,&g_aBuffer);
   return uVar1;
 }
 
@@ -217,7 +217,7 @@ int __cdecl defaultFileSize(char *name)
   undefined *puVar1;
   uint uVar2;
   
-  puVar1 = fopen((uint)name,((unsigned)(uintptr_t)&DAT_004dda54));
+  puVar1 = fopen((uint)name,((unsigned)(uintptr_t)&s_r_004dda54));
   if (puVar1 != (undefined *)0x0) {
     fseek((uint)puVar1,0,2);
     uVar2 = ftell((uint)puVar1);

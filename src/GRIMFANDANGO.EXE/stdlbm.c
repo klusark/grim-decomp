@@ -44,7 +44,7 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
   #define uStack_54 (*(uint *)(_frame + (0xa0 - 0x54)))
   #define VStack_4c (*(VBufferFormat *)(_frame + (0xa0 - 0x4c)))
   
-  f = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
+  f = (*g_pStd_HS->pFopen)(path,s_rb_004ddb18);
   if (f == 0) {
     return (stdBitmap *)0x0;
   }
@@ -53,7 +53,7 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
                      (0x7c,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x11);
   if (bitmap != (stdBitmap *)0x0) {
     (*g_pStd_HS->pFread)(f,acStack_58,0xc);
-    uVar6 = strncmp(acStack_58,&DAT_004e78e4,4);
+    uVar6 = strncmp(acStack_58,s_FORM_004e78e4,4);
     if (uVar6 == 0) {
       uStack_54 = Std_Swap32(uStack_54);
       (*g_pStd_HS->pFseek)(f,0,0);
@@ -270,7 +270,7 @@ uint __cdecl stdLbm_Write(uint filename,int bitmap)
   LbmBitmapHeader header;
   #define acStack_7d0 (*(char (*)[2000])(_frame + (0x7e0 - 0x7d0)))
   
-  f = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
+  f = (*g_pStd_HS->pFopen)(filename,s_wb_004ddd78);
   if (f == 0) {
     return 0;
   }
@@ -279,7 +279,7 @@ uint __cdecl stdLbm_Write(uint filename,int bitmap)
   (*g_pStd_HS->pFwrite)(f,&uStack_7ec,4);
   stdLbm_SwapHeader(&header);
   (*g_pStd_HS->pFwrite)(f,&header,0x14);
-  (*g_pStd_HS->pFwrite)(f,&DAT_004e7920,4);
+  (*g_pStd_HS->pFwrite)(f,s_CMAP_004e7920,4);
   uStack_7ec = Std_Swap32(0x300);
   (*g_pStd_HS->pFwrite)(f,&uStack_7ec,4);
   (*g_pStd_HS->pFwrite)(f,*(undefined4 *)(bitmap + 0x60),0x300);

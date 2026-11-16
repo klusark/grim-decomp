@@ -77,7 +77,7 @@ void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
   pSVar2 = set->pSetups;
   ref = &pSVar2[setupIdx].background;
   if (pSVar2[setupIdx].background.nValid == 0) {
-    iVar3 = _stricmp(&pSVar2[setupIdx].field_0x80,&DAT_004ec60c);
+    iVar3 = _stricmp(&pSVar2[setupIdx].field_0x80,(byte *)s__none__004ec60c);
     if (iVar3 != 0) {
       pvVar4 = sputResource_Alloc(0x444e4b42,&pSVar2[setupIdx].field_0x80);
       if (pvVar4 != (stdBitmap *)0x0) {
@@ -91,7 +91,7 @@ void * __cdecl sputRoom_GetSetupBackground(Set *set,int setupIdx)
       return (void *)0x0;
     }
     uVar6 = 0xffffffff;
-    pcVar8 = &DAT_004ec60c;
+    pcVar8 = s__none__004ec60c;
     do {
       pcVar9 = pcVar8;
       if (uVar6 == 0) break;
@@ -144,29 +144,29 @@ void * __cdecl sputRoom_GetSetupZBackground(Set *set,int setupIdx)
   byte *pbVar3;
   int iVar4;
   void *data;
-  byte *pbVar5;
+  char *pcVar5;
   bool bVar6;
   
   pSVar2 = set->pSetups;
   ref = &pSVar2[setupIdx].zBackground;
   if (pSVar2[setupIdx].zBackground.nValid == 0) {
     if (pSVar2[setupIdx].field_0xa0 != '\0') {
-      pbVar5 = &DAT_004ec60c;
+      pcVar5 = s__none__004ec60c;
       pbVar3 = &pSVar2[setupIdx].field_0xa0;
       do {
         bVar1 = *pbVar3;
-        bVar6 = bVar1 < *pbVar5;
-        if (bVar1 != *pbVar5) {
+        bVar6 = bVar1 < (byte)*pcVar5;
+        if (bVar1 != *pcVar5) {
 LAB_004a3f61:
           iVar4 = (1 - (uint)bVar6) - (uint)(bVar6 != 0);
           goto LAB_004a3f66;
         }
         if (bVar1 == 0) break;
         bVar1 = pbVar3[1];
-        bVar6 = bVar1 < pbVar5[1];
-        if (bVar1 != pbVar5[1]) goto LAB_004a3f61;
+        bVar6 = bVar1 < (byte)pcVar5[1];
+        if (bVar1 != pcVar5[1]) goto LAB_004a3f61;
         pbVar3 = pbVar3 + 2;
-        pbVar5 = pbVar5 + 2;
+        pcVar5 = pcVar5 + 2;
       } while (bVar1 != 0);
       iVar4 = 0;
 LAB_004a3f66:

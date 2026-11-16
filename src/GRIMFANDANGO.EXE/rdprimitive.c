@@ -41,33 +41,33 @@ uint __cdecl rdPolyline_Draw(int thing,float *b)
   local_38[1] = *(float *)(iVar1 + 0x20);
   local_38[2] = 0.0f;
   rdMatrix_TransformPoint34(local_88 + 1,local_38,local_78);
-  *(float *)&DAT_007f4e84 = local_88[2] - -0.001f;
+  FLOAT_007f4e84 = local_88[2] - -0.001f;
   *(float *)&DAT_007f4e80 = local_88[1] - *(float *)(iVar1 + 0x28);
-  *(float *)&DAT_007f4e88 = local_7c - *(float *)(iVar1 + 0x28);
-  *(float *)&DAT_007f4e8c = local_88[1] + *(float *)(iVar1 + 0x28);
-  *(float *)&DAT_007f4e94 = local_7c - *(float *)(iVar1 + 0x28);
-  *(float *)&DAT_007f4e98 = local_88[1] + *(float *)(iVar1 + 0x28);
-  *(float *)&DAT_007f4ea0 = local_7c + *(float *)(iVar1 + 0x28);
-  *(float *)&DAT_007f4ea4 = local_88[1] - *(float *)(iVar1 + 0x28);
-  *(float *)&DAT_007f4eac = local_7c + *(float *)(iVar1 + 0x28);
+  FLOAT_007f4e88 = local_7c - *(float *)(iVar1 + 0x28);
+  FLOAT_007f4e8c = local_88[1] + *(float *)(iVar1 + 0x28);
+  FLOAT_007f4e94 = local_7c - *(float *)(iVar1 + 0x28);
+  FLOAT_007f4e98 = local_88[1] + *(float *)(iVar1 + 0x28);
+  FLOAT_007f4ea0 = local_7c + *(float *)(iVar1 + 0x28);
+  FLOAT_007f4ea4 = local_88[1] - *(float *)(iVar1 + 0x28);
+  FLOAT_007f4eac = local_7c + *(float *)(iVar1 + 0x28);
   local_1c = *(uint *)(iVar1 + 0xd4);
-  *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
-  *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
-  *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
+  FLOAT_007f4e90 = FLOAT_007f4e84;
+  FLOAT_007f4e9c = FLOAT_007f4e84;
+  FLOAT_007f4ea8 = FLOAT_007f4e84;
   rdPolyline_DrawFace(thing,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
-  *(float *)&DAT_007f4e84 = local_78[10] - -0.001f;
+  FLOAT_007f4e84 = local_78[10] - -0.001f;
   *(float *)&DAT_007f4e80 = local_78[9] - *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4e88 = local_78[0xb] - *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4e8c = local_78[9] + *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4e94 = local_78[0xb] - *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4e98 = local_78[9] + *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4ea0 = local_78[0xb] + *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4ea4 = local_78[9] - *(float *)(iVar1 + 0x24);
-  *(float *)&DAT_007f4eac = local_78[0xb] + *(float *)(iVar1 + 0x24);
+  FLOAT_007f4e88 = local_78[0xb] - *(float *)(iVar1 + 0x24);
+  FLOAT_007f4e8c = local_78[9] + *(float *)(iVar1 + 0x24);
+  FLOAT_007f4e94 = local_78[0xb] - *(float *)(iVar1 + 0x24);
+  FLOAT_007f4e98 = local_78[9] + *(float *)(iVar1 + 0x24);
+  FLOAT_007f4ea0 = local_78[0xb] + *(float *)(iVar1 + 0x24);
+  FLOAT_007f4ea4 = local_78[9] - *(float *)(iVar1 + 0x24);
+  FLOAT_007f4eac = local_78[0xb] + *(float *)(iVar1 + 0x24);
   local_1c = *(uint *)(iVar1 + 0xd4);
-  *(float *)&DAT_007f4e90 = *(float *)&DAT_007f4e84;
-  *(float *)&DAT_007f4e9c = *(float *)&DAT_007f4e84;
-  *(float *)&DAT_007f4ea8 = *(float *)&DAT_007f4e84;
+  FLOAT_007f4e90 = FLOAT_007f4e84;
+  FLOAT_007f4e9c = FLOAT_007f4e84;
+  FLOAT_007f4ea8 = FLOAT_007f4e84;
   rdPolyline_DrawFace(thing,iVar1 + 0x84,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   local_94[1] = local_88[1] - local_78[9];
   fVar2 = local_7c - local_78[0xb];
@@ -82,19 +82,19 @@ uint __cdecl rdPolyline_Draw(int thing,float *b)
     }
   }
   stdMath_SinCos(local_9c,local_88,local_94);
-  *(float *)&DAT_007f4e84 = local_88[2];
+  FLOAT_007f4e84 = local_88[2];
   *(float *)&DAT_007f4e80 = (*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_78[9];
-  *(float *)&DAT_007f4e88 = *(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_78[0xb];
-  *(float *)&DAT_007f4e8c = (-*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_78[9];
+  FLOAT_007f4e88 = *(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_78[0xb];
+  FLOAT_007f4e8c = (-*(float *)(iVar1 + 0x28) * local_94[0] - local_88[0] * fVar3) + local_78[9];
   local_94[1] = 0.0f;
-  *(float *)&DAT_007f4e94 = -*(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_78[0xb];
-  *(float *)&DAT_007f4e98 = (-*(float *)(iVar1 + 0x24) * local_94[0] - 0.0f) + local_78[9];
-  *(float *)&DAT_007f4ea0 = -*(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_78[0xb];
-  *(float *)&DAT_007f4e90 = local_88[2];
-  *(float *)&DAT_007f4e9c = local_78[10];
-  *(float *)&DAT_007f4ea4 = (*(float *)(iVar1 + 0x24) * local_94[0] - 0.0f) + local_78[9];
-  *(float *)&DAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_78[0xb];
-  *(float *)&DAT_007f4ea8 = local_78[10];
+  FLOAT_007f4e94 = -*(float *)(iVar1 + 0x28) * local_88[0] + local_94[0] * fVar3 + local_78[0xb];
+  FLOAT_007f4e98 = (-*(float *)(iVar1 + 0x24) * local_94[0] - 0.0f) + local_78[9];
+  FLOAT_007f4ea0 = -*(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_78[0xb];
+  FLOAT_007f4e90 = local_88[2];
+  FLOAT_007f4e9c = local_78[10];
+  FLOAT_007f4ea4 = (*(float *)(iVar1 + 0x24) * local_94[0] - 0.0f) + local_78[9];
+  FLOAT_007f4eac = *(float *)(iVar1 + 0x24) * local_88[0] + 0.0f + local_78[0xb];
+  FLOAT_007f4ea8 = local_78[10];
   local_1c = *(uint *)(iVar1 + 0xd0);
   rdPolyline_DrawFace(thing,iVar1 + 0x38,((unsigned)(uintptr_t)&DAT_007f4e80),local_2c);
   return 1;
@@ -334,16 +334,16 @@ int __cdecl rdSprite_DrawThing(rdThing *thing,void *sprite)
       }
       *(float *)&DAT_007f5000 = PUN(float,puVar4[-1]) - (float)prVar1->aGeosets[2].dwMeshes;
       _DAT_007f5004 = PUN(float,*puVar4);
-      *(float *)&DAT_007f5008 = PUN(float,puVar4[1]) - (float)prVar1->aGeosets[2].dwMeshes;
+      FLOAT_007f5008 = PUN(float,puVar4[1]) - (float)prVar1->aGeosets[2].dwMeshes;
       FLOAT_007f5010 = PUN(float,*puVar4);
-      *(float *)&DAT_007f500c = PUN(float,puVar4[-1]) + (float)prVar1->aGeosets[2].dwMeshes;
+      FLOAT_007f500c = PUN(float,puVar4[-1]) + (float)prVar1->aGeosets[2].dwMeshes;
       FLOAT_007f501c = PUN(float,*puVar4);
-      *(float *)&DAT_007f5014 = PUN(float,puVar4[1]) - (float)prVar1->aGeosets[2].dwMeshes;
+      FLOAT_007f5014 = PUN(float,puVar4[1]) - (float)prVar1->aGeosets[2].dwMeshes;
       FLOAT_007f5028 = PUN(float,*puVar4);
-      *(float *)&DAT_007f5018 = PUN(float,puVar4[-1]) + (float)prVar1->aGeosets[2].dwMeshes;
-      *(float *)&DAT_007f5020 = PUN(float,puVar4[1]) + (float)prVar1->aGeosets[2].dwMeshes;
-      *(float *)&DAT_007f5024 = PUN(float,puVar4[-1]) - (float)prVar1->aGeosets[2].dwMeshes;
-      *(float *)&DAT_007f502c = PUN(float,puVar4[1]) + (float)prVar1->aGeosets[2].dwMeshes;
+      FLOAT_007f5018 = PUN(float,puVar4[-1]) + (float)prVar1->aGeosets[2].dwMeshes;
+      FLOAT_007f5020 = PUN(float,puVar4[1]) + (float)prVar1->aGeosets[2].dwMeshes;
+      FLOAT_007f5024 = PUN(float,puVar4[-1]) - (float)prVar1->aGeosets[2].dwMeshes;
+      FLOAT_007f502c = PUN(float,puVar4[1]) + (float)prVar1->aGeosets[2].dwMeshes;
       uVar2 = rdClip_Face3S(&g_pRdCamera_CurCamera->pFrustum->nClipFar,(float *)&DAT_007f5000,4);
       if (2 < uVar2) {
         (*g_pRdCamera_CurCamera->pfnProjectLst)(pPVar3->pVertices,&DAT_007f5000,uVar2);
@@ -567,14 +567,16 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
     ;
   }
   if ((uVar4 != 2) && (pPVar5 = rdCache_GetProcEntry(), pPVar5 != (ProcEntry *)0x0)) {
-    *(float *)&DAT_007f5f0c = local_70[1] + local_64[1];
-    *(float *)&DAT_007f5f10 = local_70[2] + local_64[2];
+    FLOAT_007f5f0c = local_70[1] + local_64[1];
+    FLOAT_007f5f10 = local_70[2] + local_64[2];
     *(float *)&DAT_007f5f08 = local_64[0] + (local_70[0] - local_78[0]);
-    *(float *)&DAT_007f5f14 = local_64[0] + local_78[0] + local_70[0];
-    *(float *)&DAT_007f5f20 = local_64[0] + local_78[0] + local_70[0];
-    *(float *)&DAT_007f5f28 = local_64[2] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_70[2];
-    *(float *)&DAT_007f5f2c = local_64[0] + (local_70[0] - local_78[0]);
-    *(float *)&DAT_007f5f34 = local_64[2] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_70[2];
+    FLOAT_007f5f14 = local_64[0] + local_78[0] + local_70[0];
+    FLOAT_007f5f20 = local_64[0] + local_78[0] + local_70[0];
+    FLOAT_007f5f28 = local_64[2] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_70[2]
+    ;
+    FLOAT_007f5f2c = local_64[0] + (local_70[0] - local_78[0]);
+    FLOAT_007f5f34 = local_64[2] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_70[2]
+    ;
     verts.dwVertices = *(uint *)(iVar1 + 0x70);
     verts.pPosIdx = *(int **)(iVar1 + 0x74);
     verts.pUvIdx = *(int **)(iVar1 + 0x78);
@@ -596,10 +598,10 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
        (geoMode = uVar4, g_nRdroid_curGeometryMode < (int)uVar4)) {
       geoMode = g_nRdroid_curGeometryMode;
     }
-    *(float *)&DAT_007f5f18 = *(float *)&DAT_007f5f0c;
-    *(float *)&DAT_007f5f1c = *(float *)&DAT_007f5f10;
-    *(float *)&DAT_007f5f24 = *(float *)&DAT_007f5f0c;
-    *(float *)&DAT_007f5f30 = *(float *)&DAT_007f5f0c;
+    FLOAT_007f5f18 = FLOAT_007f5f0c;
+    FLOAT_007f5f1c = FLOAT_007f5f10;
+    FLOAT_007f5f24 = FLOAT_007f5f0c;
+    FLOAT_007f5f30 = FLOAT_007f5f0c;
     pPVar5->nGeometryMode = geoMode;
     if ((((byte)g_dwRdroid_curRenderOptions & 2) == 0) ||
        (g_pRdCamera_CurCamera->flAmbientLight < 1.0f)) {

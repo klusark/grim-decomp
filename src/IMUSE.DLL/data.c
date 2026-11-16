@@ -253,7 +253,7 @@ extern unsigned char DAT_1001707c[8];
 extern unsigned char DAT_10017084[4];
 extern unsigned char DAT_10017088[8];
 extern unsigned char DAT_10017090[8];
-extern unsigned char DAT_10017098[8];
+extern char s_MCMP_10017098[8];
 extern unsigned char DAT_100170a0[8];
 extern unsigned char DAT_100170a8[8];
 extern unsigned char DAT_100170b0[8];
@@ -265,7 +265,7 @@ extern char s_C__grimsrc_libs_iMUSE_dsound_c_10017104[32];
 extern unsigned char DAT_10017124[32];
 extern unsigned char DAT_10017144[48];
 extern unsigned char DAT_10017174[60];
-extern unsigned char DAT_100171b0[4];
+extern char s_____100171b0[4];
 extern unsigned char DAT_100171b4[48];
 extern unsigned char DAT_100171e4[16];
 extern unsigned char DAT_100171f4[28];
@@ -274,7 +274,7 @@ extern unsigned char DAT_10017224[28];
 extern unsigned char DAT_10017240[40];
 extern unsigned char DAT_10017268[40];
 extern unsigned char DAT_10017290[32];
-extern unsigned char DAT_100172b0[12];
+extern char s_imuse_psl_100172b0[12];
 extern unsigned int DAT_100172bc;
 extern unsigned int g_dwWvSlicingHalted;
 extern unsigned char DAT_100172c4[4];
@@ -285,9 +285,9 @@ extern ImMusicEntry g_aImSeqTable[41];
 extern unsigned char DAT_1001bbc4[4];
 extern ImNameAlias g_aImNameAlias[171];
 extern unsigned int g_dwLocalMusic;
-extern unsigned char DAT_1001e68c[40];
-extern unsigned char DAT_1001e6b4[36];
-extern unsigned char DAT_1001e6d8[32];
+extern char s_ERROR_unrecognized_opcode_in_scr_1001e68c[40];
+extern char s_ERROR_script_already_initialized_1001e6b4[36];
+extern char s_ERROR_script_not_initialized____1001e6d8[32];
 extern char s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[40];
 extern char s_ERR__bogus_sequence____1001e720[24];
 extern char s_ERR__bogus_attribute____1001e738[24];
@@ -300,13 +300,13 @@ extern char s_fading_VOL__lu____1001e7d0[20];
 extern char s_set_pan__lu____1001e7e4[16];
 extern char s_clear_1001e7f4[8];
 extern char s_exit2_1001e7fc[8];
-extern unsigned char DAT_1001e804[8];
+extern char s_exit_1001e804[8];
 extern char s_vol__lu____1001e80c[12];
 extern char s_FADE__lu____1001e818[12];
 extern char s_HOOK__lu____1001e824[12];
 extern char s_SCRIPT_ERR__Unable_to_open_1001e830[28];
 extern char s_opening_1001e84c[12];
-extern unsigned char DAT_1001e858[8];
+extern char s__end_1001e858[8];
 extern char s_Trans_null____1001e860[16];
 extern char s_ERR_callback_got_marker______end_1001e870[40];
 extern char s_CALLBACK__1001e898[12];
@@ -326,7 +326,7 @@ extern unsigned int g_dwImWaveMixCount;
 extern unsigned char g_dwEffectsHeapSize[4];
 extern unsigned char g_bMuscriptLocal[4];
 extern char s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0[32];
-extern unsigned char DAT_1001e900[4];
+extern char s_rb_1001e900[4];
 extern unsigned int DAT_1001e904;
 extern unsigned char DAT_1001e908[4];
 extern unsigned char DAT_1001e90c[4];
@@ -337,10 +337,10 @@ extern unsigned char DAT_1001e958[24];
 extern unsigned char DAT_1001e970[12];
 extern unsigned char DAT_1001e97c[16];
 extern unsigned char DAT_1001e98c[8];
-extern unsigned char DAT_1001e994[8];
+extern char s_LIP__1001e994[8];
 extern unsigned char DAT_1001e99c[28];
 extern unsigned char DAT_1001e9b8[8];
-extern unsigned char DAT_1001e9c0[16];
+extern char s_VIMA_1001e9c0[16];
 extern void *DAT_1001e9d0[4];
 extern void *PTR_exit_1001e9e0[2];
 extern unsigned char DAT_1001e9e8[4];
@@ -460,11 +460,11 @@ extern unsigned char g_pOpenedList[4];
 extern unsigned char g_dwInitFlag[8];
 extern unsigned char DAT_1002dd08[4];
 extern unsigned char DAT_1002dd0c[4];
-extern unsigned char DAT_1002dd10[4];
+extern unsigned int UINT_1002dd10;
 extern unsigned char DAT_1002dd14[4];
 extern unsigned int DAT_1002dd18;
 extern unsigned char DAT_1002dd1c[4];
-extern unsigned char DAT_1002dd20[4];
+extern unsigned int UINT_1002dd20;
 extern unsigned char DAT_1002dd24[4];
 extern unsigned char DAT_1002dd28[4];
 extern unsigned int DAT_1002dd2c;
@@ -476,7 +476,7 @@ extern unsigned char DAT_1002dd3c[2];
 extern unsigned char DAT_1002dd3e[2];
 extern unsigned char DAT_1002dd40[8];
 extern unsigned char DAT_1002dd48[8];
-extern unsigned char DAT_1002dd50[8];
+extern unsigned int UINT_1002dd50;
 extern unsigned char DAT_1002dd58[4];
 extern unsigned char DAT_1002dd5c[4];
 extern unsigned char DAT_1002dd60[2];
@@ -578,7 +578,7 @@ extern unsigned char g_bMuscriptRemote[4];
 extern unsigned char DAT_10031e58[4];
 extern unsigned char DAT_10031e5c[4];
 extern unsigned char g_dwVoxFxBuf[4];
-extern unsigned char DAT_10031e64[4];
+extern unsigned int UINT_10031e64;
 extern unsigned char DAT_10031e68[4];
 extern unsigned char DAT_10031e6c[4];
 extern unsigned char g_dwLipStreamID[4];
@@ -1384,7 +1384,7 @@ extern unsigned char DAT_10034808[4];
 /* 0x10017084, 4 bytes */ GRIM_DATA("10017084") unsigned char DAT_10017084[4] = { 0x57, 0x41, 0x56, 0x45 };
 /* 0x10017088, 8 bytes */ GRIM_DATA("10017088") unsigned char DAT_10017088[8] = { 0x66, 0x6d, 0x74, 0x20 };
 /* 0x10017090, 8 bytes */ GRIM_DATA("10017090") unsigned char DAT_10017090[8] = { 0x52, 0x49, 0x46, 0x46 };
-/* 0x10017098, 8 bytes */ GRIM_DATA("10017098") unsigned char DAT_10017098[8] = { 0x4d, 0x43, 0x4d, 0x50 };
+/* 0x10017098, 8 bytes */ GRIM_DATA("10017098") char s_MCMP_10017098[8] = "MCMP";
 /* 0x100170a0, 8 bytes */ GRIM_DATA("100170a0") unsigned char DAT_100170a0[8] = { 0x44, 0x41, 0x54, 0x41 };
 /* 0x100170a8, 8 bytes */ GRIM_DATA("100170a8") unsigned char DAT_100170a8[8] = { 0x53, 0x54, 0x4f, 0x50 };
 /* 0x100170b0, 8 bytes */ GRIM_DATA("100170b0") unsigned char DAT_100170b0[8] = { 0x52, 0x45, 0x47, 0x4e };
@@ -1408,7 +1408,7 @@ extern unsigned char DAT_10034808[4];
     0x64, 0x20, 0x6d, 0x6f, 0x64, 0x69, 0x66, 0x69, 0x65, 0x64, 0x20, 0x73, 0x6f, 0x75, 0x6e, 0x64,
     0x20, 0x6e, 0x75, 0x6d, 0x62, 0x65, 0x72, 0x2e, 0x2e, 0x2e
 };
-/* 0x100171b0, 4 bytes */ GRIM_DATA("100171b0") unsigned char DAT_100171b0[4] = { 0x2e, 0x2e, 0x2e };
+/* 0x100171b0, 4 bytes */ GRIM_DATA("100171b0") char s_____100171b0[4] = "...";
 /* 0x100171b4, 48 bytes */ GRIM_DATA("100171b4") unsigned char DAT_100171b4[48] = {
     0x45, 0x52, 0x52, 0x3a, 0x20, 0x49, 0x6d, 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x46, 0x69,
     0x6c, 0x65, 0x6c, 0x69, 0x73, 0x74, 0x28, 0x29, 0x20, 0x63, 0x6f, 0x75, 0x6c, 0x64, 0x6e, 0x27,
@@ -1441,7 +1441,7 @@ extern unsigned char DAT_10034808[4];
     0x69, 0x4d, 0x55, 0x53, 0x45, 0x2e, 0x43, 0x3a, 0x20, 0x69, 0x74, 0x65, 0x6d, 0x20, 0x6e, 0x6f,
     0x74, 0x20, 0x6f, 0x6e, 0x20, 0x6c, 0x69, 0x73, 0x74, 0x2e, 0x2e, 0x2e
 };
-/* 0x100172b0, 12 bytes */ GRIM_DATA("100172b0") unsigned char DAT_100172b0[12] = { 0x69, 0x6d, 0x75, 0x73, 0x65, 0x2e, 0x70, 0x73, 0x6c };
+/* 0x100172b0, 12 bytes */ GRIM_DATA("100172b0") char s_imuse_psl_100172b0[12] = "imuse.psl";
 /* 0x100172bc, 4 bytes */ GRIM_DATA("100172bc") unsigned int DAT_100172bc = 0xffffffff;
 /* 0x100172c0, 4 bytes */ GRIM_DATA("100172c0") unsigned int g_dwWvSlicingHalted = 0x1;
 /* 0x100172c4, 4 bytes */ GRIM_DATA("100172c4") unsigned char DAT_100172c4[4] = { 0x77, 0x62 };
@@ -1848,20 +1848,9 @@ extern unsigned char DAT_10034808[4];
     {0}
 };
 /* 0x1001e688, 4 bytes */ GRIM_DATA("1001e688") unsigned int g_dwLocalMusic = 0x1;
-/* 0x1001e68c, 40 bytes */ GRIM_DATA("1001e68c") unsigned char DAT_1001e68c[40] = {
-    0x45, 0x52, 0x52, 0x4f, 0x52, 0x3a, 0x75, 0x6e, 0x72, 0x65, 0x63, 0x6f, 0x67, 0x6e, 0x69, 0x7a,
-    0x65, 0x64, 0x20, 0x6f, 0x70, 0x63, 0x6f, 0x64, 0x65, 0x20, 0x69, 0x6e, 0x20, 0x73, 0x63, 0x72,
-    0x69, 0x70, 0x74, 0x2e, 0x2e, 0x2e
-};
-/* 0x1001e6b4, 36 bytes */ GRIM_DATA("1001e6b4") unsigned char DAT_1001e6b4[36] = {
-    0x45, 0x52, 0x52, 0x4f, 0x52, 0x3a, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x20, 0x61, 0x6c, 0x72,
-    0x65, 0x61, 0x64, 0x79, 0x20, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64,
-    0x2e, 0x2e, 0x2e
-};
-/* 0x1001e6d8, 32 bytes */ GRIM_DATA("1001e6d8") unsigned char DAT_1001e6d8[32] = {
-    0x45, 0x52, 0x52, 0x4f, 0x52, 0x3a, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x20, 0x6e, 0x6f, 0x74,
-    0x20, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x64, 0x2e, 0x2e, 0x2e
-};
+/* 0x1001e68c, 40 bytes */ GRIM_DATA("1001e68c") char s_ERROR_unrecognized_opcode_in_scr_1001e68c[40] = "ERROR:unrecognized opcode in script...";
+/* 0x1001e6b4, 36 bytes */ GRIM_DATA("1001e6b4") char s_ERROR_script_already_initialized_1001e6b4[36] = "ERROR:script already initialized...";
+/* 0x1001e6d8, 32 bytes */ GRIM_DATA("1001e6d8") char s_ERROR_script_not_initialized____1001e6d8[32] = "ERROR:script not initialized...";
 /* 0x1001e6f8, 40 bytes */ GRIM_DATA("1001e6f8") char s_SCRIPT_ERR__save_buffer_too_smal_1001e6f8[40] = "SCRIPT ERR: save buffer too small...";
 /* 0x1001e720, 24 bytes */ GRIM_DATA("1001e720") char s_ERR__bogus_sequence____1001e720[24] = "ERR: bogus sequence...";
 /* 0x1001e738, 24 bytes */ GRIM_DATA("1001e738") char s_ERR__bogus_attribute____1001e738[24] = "ERR: bogus attribute...";
@@ -1874,13 +1863,13 @@ extern unsigned char DAT_10034808[4];
 /* 0x1001e7e4, 16 bytes */ GRIM_DATA("1001e7e4") char s_set_pan__lu____1001e7e4[16] = "set pan=%lu...";
 /* 0x1001e7f4, 8 bytes */ GRIM_DATA("1001e7f4") char s_clear_1001e7f4[8] = "clear";
 /* 0x1001e7fc, 8 bytes */ GRIM_DATA("1001e7fc") char s_exit2_1001e7fc[8] = "exit2";
-/* 0x1001e804, 8 bytes */ GRIM_DATA("1001e804") unsigned char DAT_1001e804[8] = { 0x65, 0x78, 0x69, 0x74 };
+/* 0x1001e804, 8 bytes */ GRIM_DATA("1001e804") char s_exit_1001e804[8] = "exit";
 /* 0x1001e80c, 12 bytes */ GRIM_DATA("1001e80c") char s_vol__lu____1001e80c[12] = "vol=%lu...";
 /* 0x1001e818, 12 bytes */ GRIM_DATA("1001e818") char s_FADE__lu____1001e818[12] = "FADE=%lu...";
 /* 0x1001e824, 12 bytes */ GRIM_DATA("1001e824") char s_HOOK__lu____1001e824[12] = "HOOK=%lu...";
 /* 0x1001e830, 28 bytes */ GRIM_DATA("1001e830") char s_SCRIPT_ERR__Unable_to_open_1001e830[28] = "SCRIPT ERR: Unable to open ";
 /* 0x1001e84c, 12 bytes */ GRIM_DATA("1001e84c") char s_opening_1001e84c[12] = "opening ";
-/* 0x1001e858, 8 bytes */ GRIM_DATA("1001e858") unsigned char DAT_1001e858[8] = { 0x5f, 0x65, 0x6e, 0x64 };
+/* 0x1001e858, 8 bytes */ GRIM_DATA("1001e858") char s__end_1001e858[8] = "_end";
 /* 0x1001e860, 16 bytes */ GRIM_DATA("1001e860") char s_Trans_null____1001e860[16] = "Trans null...";
 /* 0x1001e870, 40 bytes */ GRIM_DATA("1001e870") char s_ERR_callback_got_marker______end_1001e870[40] = "ERR:callback got marker != '_end'...";
 /* 0x1001e898, 12 bytes */ GRIM_DATA("1001e898") char s_CALLBACK__1001e898[12] = "CALLBACK:";
@@ -1900,7 +1889,7 @@ extern unsigned char DAT_10034808[4];
 /* 0x1001e8d8, 4 bytes */ GRIM_DATA("1001e8d8") unsigned char g_dwEffectsHeapSize[4] = { 0x00, 0x00, 0x10 };
 /* 0x1001e8dc, 4 bytes */ GRIM_DATA("1001e8dc") unsigned char g_bMuscriptLocal[4] = { 0x01 };
 /* 0x1001e8e0, 32 bytes */ GRIM_DATA("1001e8e0") char s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0[32] = "C:\\grimsrc\\libs\\iMUSE\\sounds.c";
-/* 0x1001e900, 4 bytes */ GRIM_DATA("1001e900") unsigned char DAT_1001e900[4] = { 0x72, 0x62 };
+/* 0x1001e900, 4 bytes */ GRIM_DATA("1001e900") char s_rb_1001e900[4] = "rb";
 /* 0x1001e904, 4 bytes */ GRIM_DATA("1001e904") unsigned int DAT_1001e904 = 0x70696c2e;
 /* 0x1001e908, 4 bytes */ GRIM_DATA("1001e908") unsigned char DAT_1001e908[4] = {0};
 /* 0x1001e90c, 4 bytes */ GRIM_DATA("1001e90c") unsigned char DAT_1001e90c[4] = { 0x4f, 0x46, 0x46 };
@@ -1920,13 +1909,13 @@ extern unsigned char DAT_10034808[4];
 /* 0x1001e970, 12 bytes */ GRIM_DATA("1001e970") unsigned char DAT_1001e970[12] = { 0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x46, 0x6c, 0x75, 0x73, 0x68 };
 /* 0x1001e97c, 16 bytes */ GRIM_DATA("1001e97c") unsigned char DAT_1001e97c[16] = { 0x41, 0x66, 0x74, 0x65, 0x72, 0x20, 0x53, 0x74, 0x6f, 0x70, 0x61, 0x6c, 0x6c };
 /* 0x1001e98c, 8 bytes */ GRIM_DATA("1001e98c") unsigned char DAT_1001e98c[8] = { 0x42, 0x65, 0x66, 0x6f, 0x72, 0x65 };
-/* 0x1001e994, 8 bytes */ GRIM_DATA("1001e994") unsigned char DAT_1001e994[8] = { 0x4c, 0x49, 0x50, 0x21 };
+/* 0x1001e994, 8 bytes */ GRIM_DATA("1001e994") char s_LIP__1001e994[8] = "LIP!";
 /* 0x1001e99c, 28 bytes */ GRIM_DATA("1001e99c") unsigned char DAT_1001e99c[28] = {
     0x70, 0x46, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x21, 0x3d, 0x20, 0x28, 0x28, 0x76,
     0x6f, 0x69, 0x64, 0x20, 0x2a, 0x29, 0x30, 0x29
 };
 /* 0x1001e9b8, 8 bytes */ GRIM_DATA("1001e9b8") unsigned char DAT_1001e9b8[8] = { 0x70, 0x45, 0x6e, 0x74, 0x72, 0x79 };
-/* 0x1001e9c0, 16 bytes */ GRIM_DATA("1001e9c0") unsigned char DAT_1001e9c0[16] = { 0x56, 0x49, 0x4d, 0x41, 0x00, 0x00, 0x00, 0x00, 0x75, 0x98, 0x00, 0x00, 0x73, 0x98 };
+/* 0x1001e9c0, 16 bytes */ GRIM_DATA("1001e9c0") char s_VIMA_1001e9c0[16] = "VIMA\000\000\000\000u\230\000\000s\230";
 /* 0x1001e9d0, 16 bytes */ GRIM_DATA("1001e9d0") void *DAT_1001e9d0[4] = {
     (void *)f_FUN_1000ba80, (void *)f_Im_DiscardMessage, (void *)f_Im_DiscardMessage, 0
 };
@@ -2543,11 +2532,11 @@ extern unsigned char DAT_10034808[4];
 /* 0x1002dd00, 8 bytes */ GRIM_DATA("1002dd00") unsigned char g_dwInitFlag[8] = {0};
 /* 0x1002dd08, 4 bytes */ GRIM_DATA("1002dd08") unsigned char DAT_1002dd08[4] = {0};
 /* 0x1002dd0c, 4 bytes */ GRIM_DATA("1002dd0c") unsigned char DAT_1002dd0c[4] = {0};
-/* 0x1002dd10, 4 bytes */ GRIM_DATA("1002dd10") unsigned char DAT_1002dd10[4] = {0};
+/* 0x1002dd10, 4 bytes */ GRIM_DATA("1002dd10") unsigned int UINT_1002dd10 = 0x0;
 /* 0x1002dd14, 4 bytes */ GRIM_DATA("1002dd14") unsigned char DAT_1002dd14[4] = {0};
 /* 0x1002dd18, 4 bytes */ GRIM_DATA("1002dd18") unsigned int DAT_1002dd18 = 0x0;
 /* 0x1002dd1c, 4 bytes */ GRIM_DATA("1002dd1c") unsigned char DAT_1002dd1c[4] = {0};
-/* 0x1002dd20, 4 bytes */ GRIM_DATA("1002dd20") unsigned char DAT_1002dd20[4] = {0};
+/* 0x1002dd20, 4 bytes */ GRIM_DATA("1002dd20") unsigned int UINT_1002dd20 = 0x0;
 /* 0x1002dd24, 4 bytes */ GRIM_DATA("1002dd24") unsigned char DAT_1002dd24[4] = {0};
 /* 0x1002dd28, 4 bytes */ GRIM_DATA("1002dd28") unsigned char DAT_1002dd28[4] = {0};
 /* 0x1002dd2c, 4 bytes */ GRIM_DATA("1002dd2c") unsigned int DAT_1002dd2c = 0x0;
@@ -2559,7 +2548,8 @@ extern unsigned char DAT_10034808[4];
 /* 0x1002dd3e, 2 bytes */ GRIM_DATA("1002dd3c") unsigned char DAT_1002dd3e[2] = {0};
 /* 0x1002dd40, 8 bytes */ GRIM_DATA("1002dd40") unsigned char DAT_1002dd40[8] = {0};
 /* 0x1002dd48, 8 bytes */ GRIM_DATA("1002dd48") unsigned char DAT_1002dd48[8] = {0};
-/* 0x1002dd50, 8 bytes */ GRIM_DATA("1002dd50") unsigned char DAT_1002dd50[8] = {0};
+/* 0x1002dd50, 8 bytes */ GRIM_DATA("1002dd50") unsigned int UINT_1002dd50 = 0x0;
+/* 0x1002dd54, 4 bytes: the rest of UINT_1002dd50's span */ GRIM_DATA("1002dd50") static unsigned char UINT_1002dd50__tail[4] __attribute__((used)) = {0};
 /* 0x1002dd58, 4 bytes */ GRIM_DATA("1002dd58") unsigned char DAT_1002dd58[4] = {0};
 /* 0x1002dd5c, 4 bytes */ GRIM_DATA("1002dd5c") unsigned char DAT_1002dd5c[4] = {0};
 /* 0x1002dd60, 2 bytes */ GRIM_DATA("1002dd60") unsigned char DAT_1002dd60[2] = {0};
@@ -2662,7 +2652,7 @@ extern unsigned char DAT_10034808[4];
 /* 0x10031e58, 4 bytes */ GRIM_DATA("10031e58") unsigned char DAT_10031e58[4] = {0};
 /* 0x10031e5c, 4 bytes */ GRIM_DATA("10031e5c") unsigned char DAT_10031e5c[4] = {0};
 /* 0x10031e60, 4 bytes */ GRIM_DATA("10031e60") unsigned char g_dwVoxFxBuf[4] = {0};
-/* 0x10031e64, 4 bytes */ GRIM_DATA("10031e64") unsigned char DAT_10031e64[4] = {0};
+/* 0x10031e64, 4 bytes */ GRIM_DATA("10031e64") unsigned int UINT_10031e64 = 0x0;
 /* 0x10031e68, 4 bytes */ GRIM_DATA("10031e68") unsigned char DAT_10031e68[4] = {0};
 /* 0x10031e6c, 4 bytes */ GRIM_DATA("10031e6c") unsigned char DAT_10031e6c[4] = {0};
 /* 0x10031e70, 4 bytes */ GRIM_DATA("10031e70") unsigned char g_dwLipStreamID[4] = {0};
@@ -2790,5 +2780,7 @@ extern unsigned char DAT_10034808[4];
 /* 0x10034804, 4 bytes, unused (rest of DAT_10034800) */ GRIM_DATA("10034804") unsigned char DAT_10034804[4];
 /* 0x10034808, 4 bytes, unused (rest of DAT_10034804) */ GRIM_DATA("10034808") unsigned char DAT_10034808[4];
 
+__asm__(".globl _DAT_100171b0\n\t.set _DAT_100171b0, _s_____100171b0\n");
+__asm__(".globl _DAT_1001e900\n\t.set _DAT_1001e900, _s_rb_1001e900\n");
 __asm__(".globl _sect_rdata\n\t.set _sect_rdata, _PTR_hmiFXPresetRelease_10015000\n");
 __asm__(".globl _sect_data\n\t.set _sect_data, _DAT_10017000\n");

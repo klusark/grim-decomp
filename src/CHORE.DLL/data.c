@@ -1300,5 +1300,6 @@ extern unsigned char DAT_10015af8[4];
 /* 0x10015af4, 4 bytes, unused (rest of DAT_10015af0) */ GRIM_DATA("10015af4") unsigned char DAT_10015af4[4];
 /* 0x10015af8, 4 bytes, unused (rest of DAT_10015af4) */ GRIM_DATA("10015af8") unsigned char DAT_10015af8[4];
 
+__asm__(".globl _s_0_10010284\n\t.set _s_0_10010284, _DAT_10010284\n");
 __asm__(".globl _sect_rdata\n\t.set _sect_rdata, _PTR_GetEnvironmentStrings_1000e000\n");
 __asm__(".globl _sect_data\n\t.set _sect_data, _DAT_10010000\n");

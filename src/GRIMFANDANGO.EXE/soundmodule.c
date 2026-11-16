@@ -1575,29 +1575,27 @@ LAB_004d2124:
 /* ---- 0x004d2340  SoundModule_AdvanceClock ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
 void __cdecl SoundModule_AdvanceClock(double ticks)
 
 {
   int iVar1;
   longlong lVar2;
   
-  *(float *)&DAT_008db200 = *(float *)&DAT_008db200 + ticks;
+  g_dSndClock = g_dSndClock + ticks;
   if (UINT_008db1f8 != 0) {
     iVar1 = (**(code **)(g_dwSoundModule_timer_services + 0x18))();
     if ((int)UINT_008db1f8 < iVar1) {
       iVar1 = iVar1 - UINT_008db1f8;
       if (iVar1 / 5 < 0x1234dc) {
         UINT_008db1f8 = 0;
-        *(float *)&DAT_008db200 = *(float *)&DAT_008db200 - (double)iVar1;
+        g_dSndClock = g_dSndClock - (double)iVar1;
       }
     }
   }
-  lVar2 = FTOL((float10)*(float *)&DAT_008db200);
+  lVar2 = FTOL((float10)g_dSndClock);
   (**(code **)(g_dwSoundModule_timer_services + 0x20))((int)lVar2);
-  lVar2 = FTOL((float10)*(float *)&DAT_008db200);
-  *(float *)&DAT_008db200 = *(float *)&DAT_008db200 - (double)(int)lVar2;
+  lVar2 = FTOL((float10)g_dSndClock);
+  g_dSndClock = g_dSndClock - (double)(int)lVar2;
   return;
 }
 #endif

@@ -204,7 +204,7 @@ LAB_00481d43:
     pcVar9 = pcVar9 + 1;
   }
   entry->dwFourcc = type;
-  sprintf(entry->aPath,&DAT_004e7af8,archive + 8,name);
+  sprintf(entry->aPath,s__s_s_004e7af8,archive + 8,name);
   entry->nFile = 0;
   iVar4 = (**(code **)(g_dwLowLevelHS + 0x50))(entry->aPath);
   entry->nSize = iVar4;

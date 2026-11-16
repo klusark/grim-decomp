@@ -74,7 +74,7 @@ int Mixer_InitTables(int *services, uint channels, int frames4, int unused)
                                                                         s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x356);
     if (g_pMixer_mixBuf == 0)
         return 0xffffffff;
-    _DAT_008dcda0 = unused;
+    INT_008dcda0 = unused;
     comp = (short *)((int (*)(int, const char *, int))services[0])(g_dwWaveMixCount << 16,
                                                                   s_C__grimsrc_libs_lecsmush_insane__004f4158, 0x35c);
     g_pMixer_softLTable = comp;

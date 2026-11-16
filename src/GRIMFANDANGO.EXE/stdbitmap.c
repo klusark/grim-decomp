@@ -32,78 +32,77 @@ stdBitmap * __cdecl stdLoadImageData(char *name,int a,int b)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  uint *puVar2;
+  char *pcVar2;
   stdBitmap *psVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
   char *pcVar7;
   char *pcVar8;
-  char *pcVar9;
   #define local_8 (*(char (*)[8])(_frame + (0x20 - 0x8)))
   
-  puVar2 = (uint *)strrchr(name,'.');
-  if (puVar2 == (uint *)0x0) {
+  pcVar2 = strrchr(name,'.');
+  if ((uint *)pcVar2 == (uint *)0x0) {
     uVar4 = 0xffffffff;
-    pcVar7 = &DAT_004ddec4;
+    pcVar2 = s__lbm_004ddec4;
     do {
-      pcVar9 = pcVar7;
+      pcVar7 = pcVar2;
       if (uVar4 == 0) break;
       uVar4 = uVar4 - 1;
-      pcVar9 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar9;
+      pcVar7 = pcVar2 + 1;
+      cVar1 = *pcVar2;
+      pcVar2 = pcVar7;
     } while (cVar1 != '\0');
     uVar4 = ~uVar4;
     iVar5 = -1;
-    pcVar7 = name;
+    pcVar2 = name;
     do {
-      pcVar8 = pcVar7;
+      pcVar8 = pcVar2;
       if (iVar5 == 0) break;
       iVar5 = iVar5 + -1;
-      pcVar8 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar8;
+      pcVar8 = pcVar2 + 1;
+      cVar1 = *pcVar2;
+      pcVar2 = pcVar8;
     } while (cVar1 != '\0');
-    pcVar7 = pcVar9 + -uVar4;
-    pcVar9 = pcVar8 + -1;
+    pcVar7 = pcVar7 + -uVar4;
+    pcVar8 = pcVar8 + -1;
     for (uVar6 = uVar4 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
+      *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
       pcVar7 = pcVar7 + 4;
-      pcVar9 = pcVar9 + 4;
+      pcVar8 = pcVar8 + 4;
     }
-    puVar2 = (uint *)&DAT_004ddec4;
+    pcVar2 = s__lbm_004ddec4;
     for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar9 = *pcVar7;
+      *pcVar8 = *pcVar7;
       pcVar7 = pcVar7 + 1;
-      pcVar9 = pcVar9 + 1;
+      pcVar8 = pcVar8 + 1;
     }
   }
-  strncpy((uint *)local_8,puVar2,4);
+  strncpy((uint *)local_8,(uint *)pcVar2,4);
   local_8[4] = '\0';
-  iVar5 = _stricmp((byte *)local_8,&DAT_004ddec4);
+  iVar5 = _stricmp((byte *)local_8,(byte *)s__lbm_004ddec4);
   if (iVar5 == 0) {
     psVar3 = stdLbm_Load(name,a,b);
     return psVar3;
   }
-  iVar5 = _stricmp((byte *)local_8,&DAT_004ddebc);
+  iVar5 = _stricmp((byte *)local_8,(byte *)s__pcx_004ddebc);
   if (iVar5 == 0) {
     psVar3 = (stdBitmap *)stdPcx_Load((uint)name,a,b);
     return psVar3;
   }
-  iVar5 = _stricmp((byte *)local_8,&DAT_004ddeb4);
+  iVar5 = _stricmp((byte *)local_8,(byte *)s__gif_004ddeb4);
   if (iVar5 == 0) {
     psVar3 = stdGif_Load(name,a,b);
     return psVar3;
   }
-  iVar5 = _stricmp((byte *)local_8,&DAT_004ddeb0);
-  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)local_8,&DAT_004ddea8), iVar5 != 0)) {
-    iVar5 = _stricmp((byte *)local_8,&DAT_004ddea0);
+  iVar5 = _stricmp((byte *)local_8,(byte *)s__bm_004ddeb0);
+  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)local_8,(byte *)s__zbm_004ddea8), iVar5 != 0)) {
+    iVar5 = _stricmp((byte *)local_8,(byte *)s__pic_004ddea0);
     if (iVar5 == 0) {
       psVar3 = (stdBitmap *)stdPic_Load((uint)name,a,b);
       return psVar3;
     }
-    iVar5 = _stricmp((byte *)local_8,&DAT_004dde98);
+    iVar5 = _stricmp((byte *)local_8,(byte *)s__bmp_004dde98);
     if (iVar5 != 0) {
       return (stdBitmap *)0x0;
     }
@@ -126,79 +125,78 @@ int __cdecl stdWriteImage(char *filename,stdBitmap *bitmap)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  uint *puVar2;
+  char *pcVar2;
   int iVar3;
   uint uVar4;
   int iVar5;
   uint uVar6;
   char *pcVar7;
   char *pcVar8;
-  char *pcVar9;
   #define local_8 (*(char (*)[8])(_frame + (0x20 - 0x8)))
   
-  puVar2 = (uint *)stdFnames_FindExt(filename);
-  if (puVar2 == (uint *)0x0) {
+  pcVar2 = stdFnames_FindExt(filename);
+  if ((uint *)pcVar2 == (uint *)0x0) {
     uVar4 = 0xffffffff;
-    pcVar7 = &DAT_004ddec4;
+    pcVar2 = s__lbm_004ddec4;
     do {
-      pcVar9 = pcVar7;
+      pcVar7 = pcVar2;
       if (uVar4 == 0) break;
       uVar4 = uVar4 - 1;
-      pcVar9 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar9;
+      pcVar7 = pcVar2 + 1;
+      cVar1 = *pcVar2;
+      pcVar2 = pcVar7;
     } while (cVar1 != '\0');
     uVar4 = ~uVar4;
     iVar5 = -1;
-    pcVar7 = filename;
+    pcVar2 = filename;
     do {
-      pcVar8 = pcVar7;
+      pcVar8 = pcVar2;
       if (iVar5 == 0) break;
       iVar5 = iVar5 + -1;
-      pcVar8 = pcVar7 + 1;
-      cVar1 = *pcVar7;
-      pcVar7 = pcVar8;
+      pcVar8 = pcVar2 + 1;
+      cVar1 = *pcVar2;
+      pcVar2 = pcVar8;
     } while (cVar1 != '\0');
-    pcVar7 = pcVar9 + -uVar4;
-    pcVar9 = pcVar8 + -1;
+    pcVar7 = pcVar7 + -uVar4;
+    pcVar8 = pcVar8 + -1;
     for (uVar6 = uVar4 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-      *(undefined4 *)pcVar9 = *(undefined4 *)pcVar7;
+      *(undefined4 *)pcVar8 = *(undefined4 *)pcVar7;
       pcVar7 = pcVar7 + 4;
-      pcVar9 = pcVar9 + 4;
+      pcVar8 = pcVar8 + 4;
     }
-    puVar2 = (uint *)&DAT_004ddec4;
+    pcVar2 = s__lbm_004ddec4;
     for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
-      *pcVar9 = *pcVar7;
+      *pcVar8 = *pcVar7;
       pcVar7 = pcVar7 + 1;
-      pcVar9 = pcVar9 + 1;
+      pcVar8 = pcVar8 + 1;
     }
   }
-  strncpy((uint *)local_8,puVar2,4);
+  strncpy((uint *)local_8,(uint *)pcVar2,4);
   local_8[4] = '\0';
-  iVar5 = _stricmp((byte *)local_8,&DAT_004ddee0);
-  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)local_8,&DAT_004ddedc), iVar5 != 0)) {
+  iVar5 = _stricmp((byte *)local_8,(byte *)s_bm_004ddee0);
+  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)local_8,(byte *)s_zbm_004ddedc), iVar5 != 0)) {
     stdBitmap_DeCompress((int)bitmap);
   }
-  iVar5 = _stricmp((byte *)local_8,&DAT_004dded8);
+  iVar5 = _stricmp((byte *)local_8,(byte *)s_lbm_004dded8);
   if (iVar5 == 0) {
     uVar4 = stdLbm_Write((uint)filename,(int)bitmap);
     return (uint)(uVar4 != 0);
   }
-  iVar5 = _stricmp((byte *)local_8,&DAT_004dded4);
+  iVar5 = _stricmp((byte *)local_8,(byte *)s_pcx_004dded4);
   if (iVar5 == 0) {
     uVar4 = stdPcx_Write((uint)filename,(int)bitmap);
     return (uint)(uVar4 != 0);
   }
-  iVar5 = _stricmp((byte *)local_8,&DAT_004dded0);
+  iVar5 = _stricmp((byte *)local_8,(byte *)s_gif_004dded0);
   if (iVar5 != 0) {
-    iVar5 = _stricmp((byte *)local_8,&DAT_004ddee0);
+    iVar5 = _stricmp((byte *)local_8,(byte *)s_bm_004ddee0);
     if (iVar5 == 0) {
       iVar5 = stdBitmap_Write(filename,bitmap);
       return (uint)(iVar5 != 0);
     }
-    iVar5 = _stricmp((byte *)local_8,&DAT_004ddedc);
+    iVar5 = _stricmp((byte *)local_8,(byte *)s_zbm_004ddedc);
     if (iVar5 != 0) {
-      iVar5 = _stricmp((byte *)local_8,&DAT_004ddecc);
+      iVar5 = _stricmp((byte *)local_8,(byte *)s_bmp_004ddecc);
       if (iVar5 != 0) {
         return 0;
       }
@@ -258,7 +256,7 @@ void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
   uint *puVar2;
   uint uVar3;
   
-  f = (*g_pStd_HS->pFopen)(filename,&DAT_004ddb18);
+  f = (*g_pStd_HS->pFopen)(filename,s_rb_004ddb18);
   if (f == 0) {
     return (void *)0x0;
   }
@@ -302,7 +300,7 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
   #define VStack_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
   
   (*g_pStd_HS->pFread)(f,&header,0x80);
-  uVar2 = strncmp(header.aMagic,&DAT_004df5a0,4);
+  uVar2 = strncmp(header.aMagic,s_BM_004df5a0,4);
   if (uVar2 != 0) {
     return 0;
   }
@@ -494,7 +492,7 @@ uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap)
     pBVar11->aMagic[3] = '\0';
     pBVar11 = (BmHeader *)&pBVar11->nVersion;
   }
-  strncpy((uint *)&header,(uint *)&DAT_004df5a0,4);
+  strncpy((uint *)&header,(uint *)s_BM_004df5a0,4);
   header.nVersion = 0x46;
   header.nType = *(int *)(bitmap + 0x20);
   header.dwPalFlags = *(uint *)(bitmap + 0x24);
@@ -613,7 +611,7 @@ int __cdecl stdBitmap_Write(char *filename,void *bitmap)
   uint f;
   uint uVar1;
   
-  f = (*g_pStd_HS->pFopen)(filename,&DAT_004ddb1c);
+  f = (*g_pStd_HS->pFopen)(filename,s_wb__004ddb1c);
   if (f == 0) {
     return 0;
   }

@@ -431,10 +431,10 @@ void * __cdecl ThingInstancer(void *cosInst, int componentIdx, int create)
 
 /* ==== sputLua_Startup (0x0049de00) ====
  * Once (UINT_008cab80 set means done: returns 1): calls the hook in UINT_008cab58, reads the registry value
- * "TextAllowed" (default DAT_004f5a98) and sets lua_assume_binary unless it equals DAT_004ec554 (_stricmp), opens the
+ * "TextAllowed" (default DAT_004f5a98) and sets lua_assume_binary unless it equals s_true_004ec554 (_stricmp), opens the
  * io / string / math libraries and the engine's function table (PTR_s_EnginePause_004ea8b0, UINT_004eb168 entries),
  * registers the userdata tag table at 0x004ea890 (4 entries) for save / restore, creates the system table, keeps a
- * reference to the old global DAT_004ec54c ("type") and replaces it by sputLua_TypeOverride, sets five number globals
+ * reference to the old global s_type_004ec54c ("type") and replaces it by sputLua_TypeOverride, sets five number globals
  * (0, 4096, 8192 CAMERA, 16384 SPECIAL, 32768), installs the "concat" fallback (keeping a reference to the old one),
  * the save / restore userdata hooks and the shutdown hook.  Returns 0.
  * The two calls of the build's mod API (names/asm_patches.json, after 0x0049de35 and 0x0049de7c) are kept. */
@@ -450,7 +450,7 @@ undefined4 sputLua_Startup(void)
     (*(code *)UINT_008cab58)();
     wuRegistry_GetStr(s_TextAllowed_004ec55c, text, 0x20, (char *)&DAT_004f5a98);
     GRIM_RegisterModApiLib();    /* build patch */
-    if (_stricmp((byte *)text, (byte *)&DAT_004ec554) != 0)
+    if (_stricmp((byte *)text, (byte *)s_true_004ec554) != 0)
         *(undefined4 *)lua_assume_binary_exref = 1;
     lua_iolibopen();
     lua_strlibopen();
@@ -459,20 +459,20 @@ undefined4 sputLua_Startup(void)
     GRIM_RegisterModApi();       /* build patch */
     lua_recognizelib(IMG_ADDR(0x004ea890), 4);
     g_nLrSystemTable = Lua_CreateSystemTable();
-    lua_pushobject(lua_getglobal(&DAT_004ec54c));
+    lua_pushobject(lua_getglobal(s_type_004ec54c));
     g_dwLrTypeFunction = lua_ref(1);
     lua_pushCclosure(sputLua_TypeOverride, 0);
-    lua_setglobal(&DAT_004ec54c);
+    lua_setglobal(s_type_004ec54c);
     lua_pushnumber(0.0f);
-    lua_setglobal(&DAT_004ec544);
+    lua_setglobal(s_NONE_004ec544);
     lua_pushnumber(4096.0f);
-    lua_setglobal(&DAT_004ec53c);
+    lua_setglobal(s_WALK_004ec53c);
     lua_pushnumber(8192.0f);
     lua_setglobal(s_CAMERA_004ec534);
     lua_pushnumber(16384.0f);
     lua_setglobal(s_SPECIAL_004ec52c);
     lua_pushnumber(32768.0f);
-    lua_setglobal(&DAT_004ec528);
+    lua_setglobal(s_HOT_004ec528);
     lua_pushobject(lua_setfallback(s_concat_004ec520, sputLua_ConcatFallback));
     g_dwLrOldConcatFallback = lua_ref(1);
     *(void **)lua_savehook_exref = (void *)sputLua_SaveIndirector;

@@ -334,7 +334,6 @@ void __cdecl sou_mixer_end(short *dst,int frames)
 /* ---- 0x004d2e80  Mixer_InitTables ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Builds the 17x17 volume/pan table and the compander table and allocates the accumulator */
 
 int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
@@ -373,7 +372,7 @@ int __cdecl Mixer_InitTables(int *services,uint channels,int frames4,int unused)
   if (g_pMixer_mixBuf == (int *)0x0) {
     return -1;
   }
-  _DAT_008dcda0 = unused;
+  INT_008dcda0 = unused;
   puVar2 = (undefined2 *)
            (*(code_std *)*services)
                      (g_dwWaveMixCount << 0x10,s_C__grimsrc_libs_lecsmush_insane__004f4158,0x35c);

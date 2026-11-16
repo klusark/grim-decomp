@@ -91,10 +91,10 @@ uint __cdecl SmushPlay_SysStartup(void)
   
   uVar2 = 1;
   if ((g_dwSmushPlaySysInitialized != 0) && (g_dwSmushPlaySysStarted == 0)) {
-    fle_zfilio_config(1,&DAT_004f0cc4,0);
-    fle_zfilio_config(1,&DAT_004f0cbc,0);
-    fle_zfilio_config(1,&DAT_004f0cb8,0);
-    fle_zfilio_config(1,&DAT_004f0cb4,0);
+    fle_zfilio_config(1,s__snm_004f0cc4,0);
+    fle_zfilio_config(1,s__SNM_004f0cbc,0);
+    fle_zfilio_config(1,s__GZ_004f0cb8,0);
+    fle_zfilio_config(1,s__gz_004f0cb4,0);
     iVar1 = LecShare_Startup();
     if (iVar1 == 0) {
       iVar1 = (*(code *)g_pSmushPlay_share_services[4])(&g_pSubscription_info,0);

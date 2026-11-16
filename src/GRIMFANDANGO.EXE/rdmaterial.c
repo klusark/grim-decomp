@@ -94,12 +94,12 @@ int __cdecl rdMaterial_LoadEntry(char *filename,rdMaterial *material,int a,int b
     prVar10->dwType = 0;
     prVar10 = (rdMaterial *)prVar10->aName;
   }
-  iVar3 = (*g_pRdroid_HS->pFopen)(filename,&DAT_004ddb18);
+  iVar3 = (*g_pRdroid_HS->pFopen)(filename,s_rb_004ddb18);
   if (iVar3 == 0) {
     return 0;
   }
   (*g_pRdroid_HS->pFread)(iVar3,&header,0x4c);
-  uVar1 = strncmp(header.aMagic,&DAT_004dddb0,4);
+  uVar1 = strncmp(header.aMagic,s_MAT_004dddb0,4);
   if ((uVar1 == 0) && (header.nVersion == 0x32)) {
     material->nNumTextures = header.nTextures;
     material->dwType = header.dwType;

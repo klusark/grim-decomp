@@ -1027,7 +1027,7 @@ void __cdecl luaI_addquoted(char *s)
   luaL_addchar(0x22);
   cVar2 = *s;
   while (cVar2 != '\0') {
-    puVar3 = strchr((uint *)&DAT_10027ac0,cVar2);
+    puVar3 = strchr((uint *)s____10027ac0,cVar2);
     if (puVar3 != (uint *)0x0) {
       luaL_addchar(0x5c);
     }

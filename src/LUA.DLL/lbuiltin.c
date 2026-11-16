@@ -312,7 +312,7 @@ undefined1 * __cdecl to_string(int obj)
     uVar4 = puVar1[1];
     break;
   case 0xfffffff9:
-    return &DAT_100266f8;
+    return s_nil_100266f8;
   case 0xfffffffa:
     lVar3 = FTOL((float10)PUN(float,puVar1[1]));
     sprintf(buf,s_task___d_100266fc,(int)lVar3);
@@ -647,11 +647,11 @@ void __cdecl luaI_print(void)
   number = 2;
   while (obj != 0) {
     puVar1 = to_string(obj);
-    printf(&DAT_10026960,puVar1);
+    printf(s__s_10026960,puVar1);
     obj = lua_lua2C(number);
     number = number + 1;
   }
-  printf(&DAT_100261f0);
+  printf(s__100261f0);
   return;
 }
 
@@ -915,7 +915,7 @@ int __cdecl getnarg(int table)
   float fVar3;
   
   lua_pushobject(table);
-  lua_pushstring(&DAT_10026994);
+  lua_pushstring((byte *)s_n_10026994);
   o = lua_rawgettable();
   iVar1 = lua_isnumber(o);
   if (iVar1 != 0) {

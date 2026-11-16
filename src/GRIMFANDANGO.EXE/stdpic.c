@@ -100,7 +100,7 @@ uint __cdecl stdPic_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int sysM
   format.dwUnknown2c = 0;
   format.dwUnknown30 = 0;
   format.dwUnknown34 = 0;
-  iVar6 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
+  iVar6 = (*g_pStd_HS->pFopen)(path,s_rb_004ddb18);
   if (iVar6 == 0) {
     return 0;
   }

@@ -1,0 +1,102 @@
+{
+ "_comment": "Data globals typed from how the code uses them (2026-11-16): every use reads or writes the global as one scalar type the decompiler had evidence for (*(T *)&DAT_x, or the _DAT_x alias of that width; an alias of an undefinedN type alone is no evidence), and data used only by its address whose bytes are one NUL-terminated printable string, typed as that char array (Ghidra names it s_...). 008db200 is the mixer's double clock (build/overrides_mixer_snd.c).",
+ "program": "/LUA.DLL",
+ "globals": [
+  {
+   "addr": "100261f0",
+   "type": "char[2]"
+  },
+  {
+   "addr": "10026240",
+   "type": "char[3]"
+  },
+  {
+   "addr": "10026250",
+   "type": "char[2]"
+  },
+  {
+   "addr": "10026264",
+   "type": "char[4]"
+  },
+  {
+   "addr": "1002635c",
+   "type": "char[4]"
+  },
+  {
+   "addr": "100266f8",
+   "type": "char[4]"
+  },
+  {
+   "addr": "10026960",
+   "type": "char[4]"
+  },
+  {
+   "addr": "10026994",
+   "type": "char[2]"
+  },
+  {
+   "addr": "10026a80",
+   "type": "char[2]"
+  },
+  {
+   "addr": "10026a8c",
+   "type": "char[3]"
+  },
+  {
+   "addr": "10026c54",
+   "type": "char[2]"
+  },
+  {
+   "addr": "10026c60",
+   "type": "char[2]"
+  },
+  {
+   "addr": "10026cac",
+   "type": "char[3]"
+  },
+  {
+   "addr": "10026cec",
+   "type": "char[6]"
+  },
+  {
+   "addr": "10026eec",
+   "type": "char[4]"
+  },
+  {
+   "addr": "10026f00",
+   "type": "char[5]"
+  },
+  {
+   "addr": "10027004",
+   "type": "char[4]"
+  },
+  {
+   "addr": "1002706c",
+   "type": "char[3]"
+  },
+  {
+   "addr": "10027070",
+   "type": "char[4]"
+  },
+  {
+   "addr": "10027ac0",
+   "type": "char[4]"
+  },
+  {
+   "addr": "10027ba0",
+   "type": "char[5]"
+  },
+  {
+   "addr": "10027cb0",
+   "type": "char[4]"
+  },
+  {
+   "addr": "10028178",
+   "type": "char[3]"
+  },
+  {
+   "addr": "1002817c",
+   "type": "char[3]"
+  }
+ ]
+}

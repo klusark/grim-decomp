@@ -46,7 +46,7 @@ void __cdecl stdPlatform_Assert(uint msg,char *file,uint line)
     iVar5 = iVar5 + 1;
   }
   _snprintf(acStack_200,0x200,s__s__d____s_004dee38,file + iVar5,line,msg);
-  fp = fopen(((unsigned)(uintptr_t)&DAT_004dee28),((unsigned)(uintptr_t)&DAT_004dee34));
+  fp = fopen(((unsigned)(uintptr_t)&DAT_004dee28),((unsigned)(uintptr_t)&s_wt_004dee34));
   if (fp != (undefined *)0x0) {
     fprintf(fp,acStack_200);
     fclose((int)fp);

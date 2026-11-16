@@ -142,7 +142,7 @@ undefined * __cdecl stdFileSize(uint path)
   undefined *f;
   undefined *puVar1;
   
-  f = stdFileOpen(path,((unsigned)(uintptr_t)&DAT_004ddb18));
+  f = stdFileOpen(path,((unsigned)(uintptr_t)&s_rb_004ddb18));
   if (f == (undefined *)0x0) {
     return (undefined *)0x0;
   }
@@ -204,7 +204,7 @@ int __cdecl LzssDecompress(void *dst,void *src,int srcSize)
   PTR_007fead8 = src;
   _DAT_007feb58 = 0;
   UINT_007fa7ac = 0;
-  _DAT_007feb54 = srcSize;
+  INT_007feb54 = srcSize;
   UINT_007feae4 = (uint)dst;
   stdCompress_DecompressLoop();
   return UINT_007fa7ac;
@@ -354,13 +354,13 @@ StdFileSearch * __cdecl stdFileUtil_NewFind(char *dir,int mode,char *ext)
   case 0:
   case 1:
   case 2:
-    ext = &DAT_004f11c8;
+    ext = s______004f11c8;
     break;
   case 3:
     puVar3 = strchr((uint *)ext,'.');
-    pcVar8 = &DAT_004f11c4;
+    pcVar8 = s_____004f11c4;
     if (puVar3 != (uint *)0x0) {
-      pcVar8 = &DAT_004e9c60;
+      pcVar8 = s___004e9c60;
     }
     uVar5 = 0xffffffff;
     do {

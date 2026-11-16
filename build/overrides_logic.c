@@ -682,7 +682,7 @@ undefined4 SetSoundPosition(int entry)
 undefined * __cdecl Smush_SetFile(uint id)
 {
     byte hdr[0x428];
-    int h = (*(code *)*g_pSmushPlay_file_services)(id, &DAT_004dda54);
+    int h = (*(code *)*g_pSmushPlay_file_services)(id, s_r_004dda54);
 
     if (h == 0)
         return (undefined *)0;

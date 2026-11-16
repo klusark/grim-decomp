@@ -121,7 +121,8 @@ uint __cdecl sputRoom_ParseLights(void)
   undefined4 *puVar7;
   byte *pbVar8;
   byte *pbVar9;
-  bool bVar10;
+  char *pcVar10;
+  bool bVar11;
   uint local_110;
   uint local_10c;
   uint local_108;
@@ -183,27 +184,27 @@ uint __cdecl sputRoom_ParseLights(void)
           }
           iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_type__s_004ec7b8,local_100);
           if (iVar4 == 1) {
-            iVar4 = _stricmp(local_100,&DAT_004ec5b4);
+            iVar4 = _stricmp(local_100,(byte *)s_omni_004ec5b4);
             if (iVar4 == 0) {
               iVar4 = 2;
             }
             else {
-              pbVar9 = &DAT_004ec598;
+              pcVar10 = s_spot_004ec598;
               pbVar8 = local_100;
               do {
                 bVar1 = *pbVar8;
-                bVar10 = bVar1 < *pbVar9;
-                if (bVar1 != *pbVar9) {
+                bVar11 = bVar1 < (byte)*pcVar10;
+                if (bVar1 != *pcVar10) {
 LAB_004a5762:
-                  iVar4 = (1 - (uint)bVar10) - (uint)(bVar10 != 0);
+                  iVar4 = (1 - (uint)bVar11) - (uint)(bVar11 != 0);
                   goto LAB_004a5767;
                 }
                 if (bVar1 == 0) break;
                 bVar1 = pbVar8[1];
-                bVar10 = bVar1 < pbVar9[1];
-                if (bVar1 != pbVar9[1]) goto LAB_004a5762;
+                bVar11 = bVar1 < (byte)pcVar10[1];
+                if (bVar1 != pcVar10[1]) goto LAB_004a5762;
                 pbVar8 = pbVar8 + 2;
-                pbVar9 = pbVar9 + 2;
+                pcVar10 = pcVar10 + 2;
               } while (bVar1 != 0);
               iVar4 = 0;
 LAB_004a5767:

@@ -131,7 +131,7 @@ void __cdecl luaD_callHook(int base,int tf,int isreturn)
   if (isreturn == 0) {
     if (tf == 0) {
       uVar8 = 0xffffffff;
-      pcVar7 = &DAT_10026264;
+      pcVar7 = s__C__10026264;
     }
     else {
       uVar8 = *(undefined4 *)(tf + 0x14);

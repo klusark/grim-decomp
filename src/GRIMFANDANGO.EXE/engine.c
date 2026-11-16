@@ -725,7 +725,7 @@ void __cdecl Engine_SaveGame(void)
   if (g_pSaveFileName == (char *)0x0) {
     name = s_grim_sav_004e7fc8;
   }
-  UINT_008a8770 = (uint)SaveFile_Open(name,&DAT_004ddd78);
+  UINT_008a8770 = (uint)SaveFile_Open(name,s_wb_004ddd78);
   if ((void *)UINT_008a8770 != (void *)0x0) {
     sputLua_SaveGameCallback(SaveGame_Write);
     pVVar1 = sputRender_ScreenShot(0xfa,0xbc);
@@ -780,7 +780,7 @@ void __cdecl Engine_LoadGame(void)
   if (g_pSaveFileName == (char *)0x0) {
     name = s_grim_sav_004e7fc8;
   }
-  UINT_008a8770 = (uint)SaveFile_Open(name,&DAT_004ddb18);
+  UINT_008a8770 = (uint)SaveFile_Open(name,s_rb_004ddb18);
   if ((void *)UINT_008a8770 != (void *)0x0) {
     sputRender_AllowLoadImage(0);
     Render_DrawProgressBar(0.1f);

@@ -543,7 +543,7 @@ uint __cdecl sputCostume_SaveHook(char *path,uint *costume,uint f)
       pcVar11 = pcVar11 + 1;
     }
     pcVar3 = stdFnames_FindExt(g_szGrimlib_aFilename);
-    sprintf(pcVar3,&DAT_004ea45c);
+    sprintf(pcVar3,s_lua_004ea45c);
   }
   else {
     iVar5 = grimPlat_SaveFileRequest
@@ -552,7 +552,7 @@ uint __cdecl sputCostume_SaveHook(char *path,uint *costume,uint f)
       return 0;
     }
   }
-  iVar5 = (*g_pSputCosHS->pFopen)(g_szGrimlib_aFilename,&DAT_004dd478);
+  iVar5 = (*g_pSputCosHS->pFopen)(g_szGrimlib_aFilename,s_w_004dd478);
   if (iVar5 != 0) {
     ppvVar1 = &g_pSputCosHS->pFprintf;
     pcVar3 = stdFnames_FindMedName(path);

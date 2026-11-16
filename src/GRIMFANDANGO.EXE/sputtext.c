@@ -72,11 +72,11 @@ uint __cdecl sputText_Startup(void)
         g_TextObjectCtx.pFont = g_PrintLineTextCtx.pFont;
         g_hFont = (uint)g_PrintLineTextCtx.pFont;
         sputLua_RegisterFunctions((int *)&g_pTextFunctionsToRegister,UINT_004e85d8);
-        lua_pushstring(&DAT_004e8454);
+        lua_pushstring(s_x_004e8454);
         g_dwLrX = lua_ref(1);
-        lua_pushstring(&DAT_004e8450);
+        lua_pushstring(s_y_004e8450);
         g_dwLrY = lua_ref(1);
-        lua_pushstring(&DAT_004e87c0);
+        lua_pushstring(s_font_004e87c0);
         g_dwLrFont = lua_ref(1);
         lua_pushstring(s_width_004e8440);
         g_dwLrWidth = lua_ref(1);
@@ -100,7 +100,7 @@ uint __cdecl sputText_Startup(void)
         g_dwLrRJustify = lua_ref(1);
         lua_pushstring(s_volume_004e876c);
         g_dwLrVolume = lua_ref(1);
-        lua_pushstring(&DAT_004e8768);
+        lua_pushstring(s_pan_004e8768);
         g_dwLrPan = lua_ref(1);
         lua_pushstring(s_background_004e875c);
         g_dwLrBackground = lua_ref(1);

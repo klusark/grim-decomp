@@ -27,7 +27,7 @@ uint __cdecl ThingAdjuster(int *comp,uint text)
   comp = (int *)(uint)(*(int *)(iVar1 + 0x34) != 0);
   iVar3 = grimPlat_SpinDialog(text,(int)&local_24,&comp,1);
   if (iVar3 != 0) {
-    puVar4 = (uint *)strtok((byte *)uVar2,&DAT_004ea52c);
+    puVar4 = (uint *)strtok((byte *)uVar2,(byte *)s___004ea52c);
     *(int **)(iVar1 + 0x34) = comp;
     sprintf((char *)local_20,s__s__d_004ea5d8,puVar4,comp);
     strncpy(puVar4,local_20,0x1f);
@@ -230,8 +230,8 @@ int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *filena
   else {
     strncpy((uint *)local_20,(uint *)filename,0x1f);
     local_20[0x1f] = '\0';
-    pcVar1 = (char *)strtok((byte *)local_20,&DAT_004ea52c);
-    uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+    pcVar1 = (char *)strtok((byte *)local_20,(byte *)s___004ea52c);
+    uVar2 = strtok((byte *)0x0,(byte *)s___004ea52c);
     data = sputResource_Alloc(0x4c444f4d,pcVar1);
     if (uVar2 != 0) {
       local_24 = (uint)atoi(uVar2);

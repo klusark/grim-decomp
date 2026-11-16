@@ -217,15 +217,13 @@ void __cdecl D3D_ReleaseDriver(void)
 }
 
 /* ---- 0x00478700  D3D_SetTextureLimits ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
-
 void __cdecl D3D_SetTextureLimits(int minW,int minH,int maxSize,int d)
 
 {
   UINT_004dee48 = minW;
   UINT_004dee4c = minH;
   UINT_004dee50 = maxSize;
-  _DAT_004dee54 = d;
+  INT_004dee54 = d;
   return;
 }
 
@@ -1307,12 +1305,12 @@ void __cdecl D3D_SetViewportRect(uint *srcRect)
   FLOAT_00900584 = (float)(int)UINT_00900604;
   _DAT_00900540 = 0;
   _DAT_00900544 = 1;
-  *(float *)&DAT_009005a0 = (float)iVar3;
-  *(float *)&DAT_009005a4 = (float)(int)UINT_00900604;
-  *(float *)&DAT_009005c4 = (float)(int)(uVar1 + UINT_0090060c);
-  *(float *)&DAT_009005c0 = (float)iVar3;
+  FLOAT_009005a0 = (float)iVar3;
+  FLOAT_009005a4 = (float)(int)UINT_00900604;
+  FLOAT_009005c4 = (float)(int)(uVar1 + UINT_0090060c);
+  FLOAT_009005c0 = (float)iVar3;
   _DAT_00900550 = 0;
-  *(float *)&DAT_009005e4 = *(float *)&DAT_009005c4;
+  FLOAT_009005e4 = FLOAT_009005c4;
   _DAT_009005e0 = FLOAT_00900580;
   _DAT_00900548 = 2;
   _DAT_0090054c = 0x8200;

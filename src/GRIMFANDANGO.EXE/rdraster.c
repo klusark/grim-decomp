@@ -34373,42 +34373,42 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar7;
   if (uVar7 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
     uVar7 = g_dwRdAFRaster_aRGBMap;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar7;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar7;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar4 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4b6c =
-         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
          UINT_007f4b54 * (uVar7 - 1);
     UINT_007f4b70 =
-         ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) +
+         ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) +
          g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar7 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_008dde40 = uVar7;
@@ -34431,9 +34431,9 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * (UINT_008dde40 + 1);
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
     uVar7 = g_dwRdAFRaster_aRGBMap;
   }
   while( true ) {
@@ -34448,16 +34448,16 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+         ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f));
+         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f));
     iVar8 = 0x10;
     do {
       iVar8 = iVar8 + -1;
@@ -34478,36 +34478,38 @@ void __cdecl rdRaster_SpanP16_Tex(uint *span)
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * (UINT_008dde40 + 1);
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
     uVar7 = g_dwRdAFRaster_aRGBMap;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar4 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -34583,39 +34585,39 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -34640,9 +34642,9 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -34655,14 +34657,14 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -34685,35 +34687,37 @@ void __cdecl rdRaster_SpanP16_Tex_2(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -34791,39 +34795,39 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -34848,9 +34852,9 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -34863,14 +34867,14 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -34893,35 +34897,37 @@ void __cdecl rdRaster_SpanP16_Tex_3(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -34999,39 +35005,39 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -35056,9 +35062,9 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -35071,14 +35077,14 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -35101,35 +35107,37 @@ void __cdecl rdRaster_SpanP16_Tex_4(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35207,39 +35215,39 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -35264,9 +35272,9 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -35279,14 +35287,14 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -35309,35 +35317,37 @@ void __cdecl rdRaster_SpanP16_TexLit(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35415,39 +35425,39 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -35472,9 +35482,9 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -35487,14 +35497,14 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -35517,35 +35527,37 @@ void __cdecl rdRaster_SpanP16_Tex_5(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35623,39 +35635,39 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -35680,9 +35692,9 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -35695,14 +35707,14 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -35725,35 +35737,37 @@ void __cdecl rdRaster_SpanP16_Tex_6(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -35831,42 +35845,42 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar7;
   if (uVar7 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
     uVar7 = g_dwRdAFRaster_aRGBMap;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar7;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar7;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar7];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar4 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4b6c =
-         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
          UINT_007f4b54 * (uVar7 - 1);
     UINT_007f4b70 =
-         ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) +
+         ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) +
          g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar7 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_008dde40 = uVar7;
@@ -35889,9 +35903,9 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * (UINT_008dde40 + 1);
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
     uVar7 = g_dwRdAFRaster_aRGBMap;
   }
   while( true ) {
@@ -35906,16 +35920,16 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar4 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+         ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f));
+         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f));
     iVar8 = 0x10;
     do {
       iVar8 = iVar8 + -1;
@@ -35936,36 +35950,38 @@ void __cdecl rdRaster_SpanP16_Tex_7(uint *span)
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * (UINT_008dde40 + 1);
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
     uVar7 = g_dwRdAFRaster_aRGBMap;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar4 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar4 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar4 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar4 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36041,39 +36057,39 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36098,9 +36114,9 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -36113,14 +36129,14 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36143,35 +36159,37 @@ void __cdecl rdRaster_SpanP16_Tex_8(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36249,39 +36267,39 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36306,9 +36324,9 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -36321,14 +36339,14 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36351,35 +36369,37 @@ void __cdecl rdRaster_SpanP16_Tex_9(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36457,39 +36477,39 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36514,9 +36534,9 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -36529,14 +36549,14 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36559,35 +36579,37 @@ void __cdecl rdRaster_SpanP16_Tex_10(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36665,39 +36687,39 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36722,9 +36744,9 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -36737,14 +36759,14 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36767,35 +36789,37 @@ void __cdecl rdRaster_SpanP16_TexLit_2(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -36873,39 +36897,39 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -36930,9 +36954,9 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -36945,14 +36969,14 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -36975,35 +36999,37 @@ void __cdecl rdRaster_SpanP16_Tex_11(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -37081,39 +37107,39 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar9;
   if (uVar9 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar9;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar9;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar9];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
-    uVar8 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+    uVar8 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * (uVar9 - 1);
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
             g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * (uVar9 - 1);
     UINT_007f4b3c = (uint)pvVar1;
     UINT_007f4b6c = uVar8;
@@ -37138,9 +37164,9 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -37153,14 +37179,14 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar9 = UINT_007f4adc * 0xf +
-            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+            g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     iVar10 = 0x10;
     UINT_007f4b6c = uVar7;
     UINT_007f4b70 = uVar9;
@@ -37183,35 +37209,37 @@ void __cdecl rdRaster_SpanP16_Tex_12(uint *span)
     FLOAT_007f4b64 = FLOAT_007f4b64 + _g_dwRdAFRaster_uOverZStep;
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar7 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
     uVar8 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
@@ -37289,45 +37317,45 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
   UINT_007f4b30 = span[9];
   UINT_007f4b68 = span[8];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar8;
   if (uVar8 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar9 = UINT_007f4acc;
     uVar8 = g_dwRdAFRaster_aRGBMap;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar8;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar8;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar8];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar5 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar5 & 0x1f);
     iVar4 = uVar8 - 1;
     UINT_007f4b6c =
-         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+         ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
          UINT_007f4b54 * iVar4;
     UINT_007f4b70 =
-         ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
+         ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) +
          g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     UINT_007f4b68 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -37355,9 +37383,9 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
     UINT_007f4b68 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
     uVar8 = g_dwRdAFRaster_aRGBMap;
   }
   while( true ) {
@@ -37372,16 +37400,16 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar5 & 0x1f);
     UINT_008dde40 = 0x10;
     UINT_007f4b6c =
          UINT_007f4b54 * 0xf +
-         ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+         ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     UINT_007f4b70 =
          UINT_007f4adc * 0xf +
-         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
+         g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f));
     UINT_007f4b68 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     do {
@@ -37407,36 +37435,38 @@ void __cdecl rdRaster_SpanP16_TexLit_3(uint *span)
     UINT_007f4b68 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar9 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
     uVar8 = g_dwRdAFRaster_aRGBMap;
   }
   if (uVar9 != 0) {
     UINT_007f4acc = uVar9 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar5 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar5 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar5 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     UINT_007f4b70 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     UINT_007f4b6c = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -37519,42 +37549,42 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
   UINT_007f4b30 = span[9];
   UINT_007f4b68 = span[8];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar11;
   if (uVar11 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar11;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar11;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -37584,9 +37614,9 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -37599,14 +37629,14 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -37634,35 +37664,37 @@ void __cdecl rdRaster_SpanP16_TexLit_4(uint *span)
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar11 != 0) {
     UINT_007f4acc = uVar11 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -37747,42 +37779,42 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
   UINT_007f4b30 = span[9];
   UINT_007f4b68 = span[8];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar11;
   if (uVar11 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar11;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar11;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -37812,9 +37844,9 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -37827,14 +37859,14 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -37862,35 +37894,37 @@ void __cdecl rdRaster_SpanP16_TexLit_5(uint *span)
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar11 != 0) {
     UINT_007f4acc = uVar11 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -37975,42 +38009,42 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
   UINT_007f4b30 = span[9];
   UINT_007f4b68 = span[8];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar11;
   if (uVar11 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar11;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar11;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -38040,9 +38074,9 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -38055,14 +38089,14 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -38090,35 +38124,37 @@ void __cdecl rdRaster_SpanP16_TexLit_6(uint *span)
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar11 != 0) {
     UINT_007f4acc = uVar11 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38203,42 +38239,42 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
   UINT_007f4b30 = span[9];
   UINT_007f4b68 = span[8];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar11;
   if (uVar11 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar11;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar11;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -38268,9 +38304,9 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -38283,14 +38319,14 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -38318,35 +38354,37 @@ void __cdecl rdRaster_SpanP16_TexLit_7(uint *span)
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar11 != 0) {
     UINT_007f4acc = uVar11 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38431,42 +38469,42 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
   UINT_007f4b30 = span[9];
   UINT_007f4b68 = span[8];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar11;
   if (uVar11 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar11;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar11;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -38496,9 +38534,9 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -38511,14 +38549,14 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -38546,35 +38584,37 @@ void __cdecl rdRaster_SpanP16_TexLit_8(uint *span)
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar11 != 0) {
     UINT_007f4acc = uVar11 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;
@@ -38659,42 +38699,42 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
       UINT_007f4acc = 0x10;
     }
   }
-  *(float *)&DAT_007f4af8 = (float)span[7];
-  *(float *)&DAT_007f4ae4 = (float)span[3];
-  *(float *)&DAT_007f4b60 = 1.0f / *(float *)&DAT_007f4af8;
-  *(float *)&DAT_007f4af0 = (float)span[4];
+  FLOAT_007f4af8 = (float)span[7];
+  FLOAT_007f4ae4 = (float)span[3];
+  FLOAT_007f4b60 = 1.0f / FLOAT_007f4af8;
+  FLOAT_007f4af0 = (float)span[4];
   UINT_007f4b30 = span[9];
   UINT_007f4b68 = span[8];
-  _DAT_007f4b58 = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4ae4;
-  _DAT_007f4b5c = *(float *)&DAT_007f4b60 * *(float *)&DAT_007f4af0;
+  FLOAT_007f4b58 = FLOAT_007f4b60 * FLOAT_007f4ae4;
+  FLOAT_007f4b5c = FLOAT_007f4b60 * FLOAT_007f4af0;
   pVVar2 = g_pRdCamera_CurCamera->pCanvas->pVBuffer;
   pvVar1 = (void *)((int)pVVar2->pPixels +
                    (span[2] * ((uint)(pVVar2->format).nPitch >> 1) + *span) * 2);
   UINT_007f4b44 = uVar11;
   if (uVar11 == 0) {
-    _DAT_007f4b38 = *(float *)&DAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
+    _DAT_007f4b38 = FLOAT_007f4af8 + _g_dwRdAFRaster_oneOverZStep;
+    FLOAT_007f4b64 = FLOAT_007f4ae4 + _g_dwRdAFRaster_uOverZStep;
+    FLOAT_007f4ad4 = FLOAT_007f4af0 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
   }
   else {
-    *(float *)&DAT_007f4af4 = (float)(int)uVar11;
-    *(float *)&DAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
-    _DAT_007f4b38 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + *(float *)&DAT_007f4af8;
-    FLOAT_007f4b64 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + *(float *)&DAT_007f4ae4;
-    FLOAT_007f4ad4 = *(float *)&DAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + *(float *)&DAT_007f4af0;
+    FLOAT_007f4af4 = (float)(int)uVar11;
+    FLOAT_007f4b34 = (float)(&g_dwRdRaster_aOneOverNFlex)[uVar11];
+    _DAT_007f4b38 = FLOAT_007f4af4 * _g_dwRdAFRaster_dOneOverZdX + FLOAT_007f4af8;
+    FLOAT_007f4b64 = FLOAT_007f4af4 * _g_dwRdAFRaster_dUOverZdX + FLOAT_007f4ae4;
+    FLOAT_007f4ad4 = FLOAT_007f4af4 * _g_dwRdAFRaster_dVOverZdX + FLOAT_007f4af0;
     FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     bVar6 = (byte)g_dwRdAFRaster_mipMapNum;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4b34 * 65536.0f) >> (bVar6 & 0x1f);
     iVar4 = uVar11 - 1;
-    uVar7 = ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
+    uVar7 = ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier +
             UINT_007f4b54 * iVar4;
-    uVar12 = ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
+    uVar12 = ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) +
              g_dwRdAFRaster_dVdXModifier + UINT_007f4adc * iVar4;
     uVar10 = UINT_007f4b68 + UINT_007f4b30 * iVar4;
     UINT_007f4b3c = (uint)pvVar1;
@@ -38724,9 +38764,9 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   while( true ) {
     bVar3 = (int)UINT_007f4b2c < 1;
@@ -38739,14 +38779,14 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
     FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
     FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
     UINT_007f4b54 =
-         (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_007f4adc =
-         (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
+         (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * 0.0625f * 65536.0f) >> (bVar6 & 0x1f);
     UINT_008dde40 = 0x10;
     uVar7 = UINT_007f4b54 * 0xf +
-            ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+            ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
     uVar11 = UINT_007f4adc * 0xf +
-             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
+             g_dwRdAFRaster_dVdXModifier + ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f));
     uVar10 = UINT_007f4b30 * 0xf + UINT_007f4b68;
     iVar4 = 0x10;
     UINT_007f4b68 = uVar10;
@@ -38774,35 +38814,37 @@ void __cdecl rdRaster_SpanP16_TexLit_9(uint *span)
     pvVar1 = (void *)(UINT_007f4b3c + UINT_008dde40 * 2);
     FLOAT_007f4ad4 = FLOAT_007f4ad4 + _g_dwRdAFRaster_vOverZStep;
     uVar11 = UINT_007f4acc;
-    _DAT_007f4b58 = FLOAT_007f4b48;
-    _DAT_007f4b5c = FLOAT_007f4b4c;
-    *(float *)&DAT_007f4b60 = FLOAT_007f4b50;
+    FLOAT_007f4b58 = FLOAT_007f4b48;
+    FLOAT_007f4b5c = FLOAT_007f4b4c;
+    FLOAT_007f4b60 = FLOAT_007f4b50;
   }
   if (uVar11 != 0) {
     UINT_007f4acc = uVar11 - 1;
     if (UINT_007f4acc != 0) {
-      *(float *)&DAT_007f4ac8 = (float)(int)UINT_007f4acc;
-      *(float *)&DAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
+      FLOAT_007f4ac8 = (float)(int)UINT_007f4acc;
+      FLOAT_007f4aec = (float)(&g_dwRdRaster_aOneOverNFlex)[UINT_007f4acc];
       _DAT_007f4b38 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dOneOverZdX - _g_dwRdAFRaster_oneOverZStep) +
            _DAT_007f4b38;
       FLOAT_007f4b64 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) + FLOAT_007f4b64
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dUOverZdX - _g_dwRdAFRaster_uOverZStep) +
+           FLOAT_007f4b64;
       FLOAT_007f4ad4 =
-           (*(float *)&DAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) + FLOAT_007f4ad4
-      ;
+           (FLOAT_007f4ac8 * _g_dwRdAFRaster_dVOverZdX - _g_dwRdAFRaster_vOverZStep) +
+           FLOAT_007f4ad4;
       FLOAT_007f4b50 = 1.0f / _DAT_007f4b38;
       FLOAT_007f4b48 = FLOAT_007f4b50 * FLOAT_007f4b64;
       FLOAT_007f4b4c = FLOAT_007f4b50 * FLOAT_007f4ad4;
       UINT_007f4b54 =
-           (int)ROUND_DOWN((FLOAT_007f4b48 - _DAT_007f4b58) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b48 - FLOAT_007f4b58) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4adc =
-           (int)ROUND_DOWN((FLOAT_007f4b4c - _DAT_007f4b5c) * *(float *)&DAT_007f4aec * 65536.0f) >> (bVar6 & 0x1f);
+           (int)ROUND_DOWN((FLOAT_007f4b4c - FLOAT_007f4b5c) * FLOAT_007f4aec * 65536.0f) >>
+           (bVar6 & 0x1f);
       UINT_007f4b6c =
-           ((int)ROUND_DOWN(_DAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b58 * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dUdXModifier;
       UINT_007f4b70 =
-           ((int)ROUND_DOWN(_DAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
+           ((int)ROUND_DOWN(FLOAT_007f4b5c * 65536.0f) >> (bVar6 & 0x1f)) + g_dwRdAFRaster_dVdXModifier;
     }
     uVar12 = UINT_007f4b70 + UINT_007f4adc * UINT_007f4acc;
     uVar10 = UINT_007f4b6c + UINT_007f4b54 * UINT_007f4acc;

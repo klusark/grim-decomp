@@ -11,7 +11,7 @@
 void __cdecl IMuse_SaveToTemp(void)
 
 {
-  UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,&DAT_004ddd78);
+  UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,s_wb_004ddd78);
   if ((void *)UINT_008a8770 != (void *)0x0) {
     if (g_pfnIMuseSaveHook != (void *)0x0) {
       (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
@@ -28,7 +28,7 @@ void __cdecl IMuse_SaveToTemp(void)
 void __cdecl IMuse_RestoreFromTemp(void)
 
 {
-  UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,&DAT_004ddb18);
+  UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,s_rb_004ddb18);
   if ((void *)UINT_008a8770 != (void *)0x0) {
     if (g_pfnIMuseRestoreHook != (void *)0x0) {
       ImStopAllSounds();

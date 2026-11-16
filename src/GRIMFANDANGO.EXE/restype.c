@@ -82,7 +82,7 @@ int __cdecl res_DefaultHandler(ResMsg *msg)
   local_4 = 0;
   if (msg->nOp == 1) {
     if (msg->dwType != 0x52455346) {
-      fh = Res_FOpen(msg->pName,&DAT_004ddb18);
+      fh = Res_FOpen(msg->pName,s_rb_004ddb18);
       if (fh != 0) {
         n = Res_FSize(msg->pName);
         data = (void *)(**(code **)(g_dwResHS + 0x5c))(n);

@@ -85,7 +85,7 @@ uint __cdecl rdModel3_LoadEntry(int name,uint model)
   uint uVar1;
   
   path = name;
-  f = (*g_pRdroid_HS->pFopen)(name,&DAT_004ddb18);
+  f = (*g_pRdroid_HS->pFopen)(name,s_rb_004ddb18);
   if (f == 0) {
     return 0;
   }
@@ -466,8 +466,8 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
                         uVar20 = stdConffile_ReadLine();
                         if (uVar20 == 0) goto LAB_0040b8c4;
                         rdFace_NewEntry(puVar2);
-                        strtok((byte *)g_dwStdConffile_aLine,&DAT_004dd918);
-                        uVar20 = strtok((byte *)0x0,&DAT_004dd918);
+                        strtok((byte *)g_dwStdConffile_aLine,(byte *)s__004dd918);
+                        uVar20 = strtok((byte *)0x0,(byte *)s__004dd918);
                         puVar11 = atoi(uVar20);
                         *puVar2 = uStack_20460;
                         if (puVar11 == (undefined *)0xffffffff) {
@@ -477,32 +477,32 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
                           puVar17[6] = *(uint *)(*(int *)&model->field_0x48 + (int)puVar11 * 4);
                         }
                         puVar2 = puVar17 + -1;
-                        pcVar19 = &DAT_004ddc1c;
-                        pcVar12 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        pcVar19 = s__x_004ddc1c;
+                        pcVar12 = (char *)strtok((byte *)0x0,(byte *)s__004dd918);
                         iVar3 = sscanf(pcVar12,pcVar19,puVar2);
                         if (iVar3 != 1) goto LAB_0040b8c4;
-                        pcVar19 = &DAT_004ddc18;
+                        pcVar19 = s__d_004ddc18;
                         puVar2 = puVar17;
-                        pcVar12 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        pcVar12 = (char *)strtok((byte *)0x0,(byte *)s__004dd918);
                         iVar3 = sscanf(pcVar12,pcVar19,puVar2);
                         if (iVar3 != 1) goto LAB_0040b8c4;
                         puVar2 = puVar17 + 1;
-                        pcVar19 = &DAT_004ddc18;
-                        pcVar12 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        pcVar19 = s__d_004ddc18;
+                        pcVar12 = (char *)strtok((byte *)0x0,(byte *)s__004dd918);
                         iVar3 = sscanf(pcVar12,pcVar19,puVar2);
                         if (iVar3 != 1) goto LAB_0040b8c4;
                         puVar2 = puVar17 + 2;
-                        pcVar19 = &DAT_004ddc18;
-                        pcVar12 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        pcVar19 = s__d_004ddc18;
+                        pcVar12 = (char *)strtok((byte *)0x0,(byte *)s__004dd918);
                         iVar3 = sscanf(pcVar12,pcVar19,puVar2);
                         if (iVar3 != 1) goto LAB_0040b8c4;
                         puVar2 = &uStack_2040c;
-                        pcVar19 = &DAT_004ddc14;
-                        pcVar12 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+                        pcVar19 = s__f_004ddc14;
+                        pcVar12 = (char *)strtok((byte *)0x0,(byte *)s__004dd918);
                         iVar3 = sscanf(pcVar12,pcVar19,puVar2);
                         if (iVar3 != 1) goto LAB_0040b8c4;
                         puVar17[10] = uStack_2040c;
-                        uVar20 = strtok((byte *)0x0,&DAT_004dd918);
+                        uVar20 = strtok((byte *)0x0,(byte *)s__004dd918);
                         puVar11 = atoi(uVar20);
                         if ((puVar11 == (undefined *)0x0) || ((undefined *)0x18 < puVar11))
                         goto LAB_0040b8c4;
@@ -518,10 +518,10 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
                           puVar16 = (undefined *)0x0;
                           if (puVar11 != (undefined *)0x0) {
                             do {
-                              uVar20 = strtok((byte *)0x0,&DAT_004ddc10);
+                              uVar20 = strtok((byte *)0x0,(byte *)s___004ddc10);
                               puVar13 = atoi(uVar20);
                               *(undefined **)(puVar17[4] + (int)puVar16 * 4) = puVar13;
-                              strtok((byte *)0x0,&DAT_004ddc10);
+                              strtok((byte *)0x0,(byte *)s___004ddc10);
                               puVar16 = puVar16 + 1;
                             } while (puVar16 < puVar11);
                           }
@@ -536,10 +536,10 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
                           puVar16 = (undefined *)0x0;
                           if (puVar11 != (undefined *)0x0) {
                             do {
-                              uVar20 = strtok((byte *)0x0,&DAT_004ddc10);
+                              uVar20 = strtok((byte *)0x0,(byte *)s___004ddc10);
                               puVar13 = atoi(uVar20);
                               *(undefined **)(puVar17[4] + (int)puVar16 * 4) = puVar13;
-                              uVar20 = strtok((byte *)0x0,&DAT_004ddc10);
+                              uVar20 = strtok((byte *)0x0,(byte *)s___004ddc10);
                               puVar13 = atoi(uVar20);
                               *(undefined **)(puVar17[5] + (int)puVar16 * 4) = puVar13;
                               puVar16 = puVar16 + 1;

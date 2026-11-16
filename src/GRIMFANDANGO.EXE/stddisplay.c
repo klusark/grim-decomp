@@ -816,7 +816,7 @@ int __cdecl Display_OpenMode(uint modeIdx,void *palette,int use3D)
     stdDisplay_ClearMode();
   }
   UINT_00803f9c = use3D;
-  _DAT_0090175c = modeIdx;
+  UINT_0090175c = modeIdx;
   g_dwStdDisplay_numDrawBuffers = 1;
   g_pVideoMode = (VideoMode *)(&UINT_00901760 + modeIdx * 0x15);
   if (g_pDisplayDevice->nType == 0) {

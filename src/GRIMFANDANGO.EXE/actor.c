@@ -1448,16 +1448,16 @@ sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int 
   local_24[0] = '\0';
   if (local_44[0] != '\0') {
     sprintf(local_24,s__s_wvc_004e9eec,local_44);
-    iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
+    iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,s_rb_004ddb18);
     if (iVar8 == 0) {
       sprintf(local_24,s__s_wav_004e9ee4,local_44);
-      iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
+      iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,s_rb_004ddb18);
       if (iVar8 == 0) {
         sprintf(local_24,s__s_imc_004e9edc,local_44);
-        iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
+        iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,s_rb_004ddb18);
         if (iVar8 == 0) {
           sprintf(local_24,s__s_imu_004e9ed4,local_44);
-          iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
+          iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,s_rb_004ddb18);
           if (iVar8 == 0) {
             local_24[0] = '\0';
             goto LAB_00492c61;

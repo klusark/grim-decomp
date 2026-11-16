@@ -57,7 +57,7 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
   BitmapFileHeader fileHeader;
   
   local_98 = 0;
-  iVar2 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
+  iVar2 = (*g_pStd_HS->pFopen)(path,s_rb_004ddb18);
   if (iVar2 == 0) {
     return 0;
   }
@@ -292,7 +292,7 @@ uint __cdecl stdBmp_Write(char *filename,stdBitmap *bitmap)
   infoHeader.nXPelsPerMeter = 0xb12;
   infoHeader.nYPelsPerMeter = 0xb12;
   infoHeader.dwSizeImage = uVar6;
-  iVar5 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
+  iVar5 = (*g_pStd_HS->pFopen)(filename,s_wb_004ddd78);
   if (iVar5 == 0) {
     return 0;
   }

@@ -40,7 +40,8 @@ extern undefined UNK_1000ead0; /* used by 3 fn(s), first 0x1000a710 */
 extern undefined UNK_1000eb04; /* used by 1 fn(s), first 0x1000b7a0 */
 extern undefined DAT_10010000; /* used by 1 fn(s), first 0x10007950 */
 extern char s_C__grimsrc_libs_chore_Costume_c_1001020c[]; /* used by 33 fn(s), first 0x10001110 */
-extern undefined DAT_10010284; /* used by 5 fn(s), first 0x10001a80 */
+extern undefined DAT_10010284; /* used by 4 fn(s), first 0x10001a80 */
+extern char s_0_10010284[]; /* used by 1 fn(s), first 0x10005530 */
 extern undefined DAT_100106a8; /* used by 1 fn(s), first 0x10007950 */
 extern undefined DAT_100106c0; /* used by 1 fn(s), first 0x10006120 */
 extern undefined DAT_100106c8; /* used by 1 fn(s), first 0x10005700 */

@@ -272,7 +272,7 @@ Lab * __cdecl Lab_Open(char *name)
   char *pcVar6;
   char *pcVar7;
   
-  iVar2 = Res_FOpen(name,&DAT_004ddb18);
+  iVar2 = Res_FOpen(name,s_rb_004ddb18);
   lab = (Lab *)Lab_AllocRecord();
   if (iVar2 != 0) {
     uVar4 = 0xffffffff;
@@ -364,7 +364,7 @@ int __cdecl Lab_ReadDirectory(Lab *lab)
   
   pLVar1 = lab;
   uVar2 = Res_FRead(lab->nFile,local_8,4);
-  if ((((uVar2 == 4) && (uVar2 = strncmp(local_8,&DAT_004e7af0,4), uVar2 == 0)) &&
+  if ((((uVar2 == 4) && (uVar2 = strncmp(local_8,s_LABN_004e7af0,4), uVar2 == 0)) &&
       (uVar2 = Res_FRead(pLVar1->nFile,&lab,4), uVar2 == 4)) &&
      (((lab < (Lab *)0x10001 && (uVar2 = Res_FRead(pLVar1->nFile,&lab,4), pLVar8 = lab, uVar2 == 4))
       && (uVar2 = Res_FRead(pLVar1->nFile,&lab,4), n = lab, uVar2 == 4)))) {

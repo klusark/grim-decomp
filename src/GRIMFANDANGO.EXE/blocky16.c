@@ -1046,7 +1046,7 @@ Blocky16_DecodeBlocks
   pitch = (_stkneg + 28);
   _DAT_00906c58 = prevOffset * 2;
   UINT_00906c68 = prev2Offset * 2;
-  _DAT_00906c60 = width;
+  INT_00906c60 = width;
   UINT_00906c4c = (uint)motion;
   UINT_00906c54 = (uint)(colors + -0xf9);
   _DAT_00906c70 = split4;

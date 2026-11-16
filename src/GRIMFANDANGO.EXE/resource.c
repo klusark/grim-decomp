@@ -168,7 +168,7 @@ uint __cdecl Res_SysSave(code *write)
   for (pRVar6 = g_pNewestResNode; write = pcVar2, pRVar6 != (Resource *)0x0; pRVar6 = pRVar6->pNext)
   {
     if (((pRVar6->pRefs != (ResRef *)0x0) &&
-        (puVar4 = String_ContainsSubstring((uint *)pRVar6->pName,&DAT_004e7b14),
+        (puVar4 = String_ContainsSubstring((uint *)pRVar6->pName,s_TEMP_004e7b14),
         puVar4 == (uint *)0x0)) || ((pRVar6->bFlags & 8) != 0)) {
       local_4 = local_4 + 1;
     }
@@ -185,7 +185,7 @@ uint __cdecl Res_SysSave(code *write)
   }
   do {
     if (((pRVar6->pRefs != (ResRef *)0x0) &&
-        (puVar4 = String_ContainsSubstring((uint *)pRVar6->pName,&DAT_004e7b14),
+        (puVar4 = String_ContainsSubstring((uint *)pRVar6->pName,s_TEMP_004e7b14),
         puVar4 == (uint *)0x0)) || ((pRVar6->bFlags & 8) != 0)) {
       uVar5 = 0xffffffff;
       pcVar7 = pRVar6->pName;
@@ -470,9 +470,9 @@ int __cdecl AddResourcePath(char *dir)
   if ((pcVar2 != (char *)0x0) && (pcVar2[1] == '\0')) {
     *pcVar2 = '\0';
   }
-  find = stdFileUtil_NewFind(local_18c,3,&DAT_004e9c64);
+  find = stdFileUtil_NewFind(local_18c,3,s_lab_004e9c64);
   uVar3 = 0xffffffff;
-  pcVar2 = &DAT_004e9c60;
+  pcVar2 = s___004e9c60;
   do {
     pcVar13 = pcVar2;
     if (uVar3 == 0) break;

@@ -744,7 +744,7 @@ void __cdecl Set_InitRecord(Set *set)
   set->nColormaps = 1;
   set->pColormaps = (ResRef *)0x0;
   set->aColormapName[0] = '\0';
-  strncpy((uint *)set->aColormapName,(uint *)&DAT_004ec60c,0x1f);
+  strncpy((uint *)set->aColormapName,(uint *)s__none__004ec60c,0x1f);
   set->aColormapName[0x1f] = '\0';
   strncpy((uint *)set,(uint *)&DAT_004f5a98,0x1f);
   set->aName[0x1f] = '\0';
@@ -932,7 +932,7 @@ int __cdecl sputRoom_LoadResources(Set *set)
     iVar10 = 0;
     do {
       if (*(int *)(set->pColormaps->aTag + iVar10 + -8) == 0) {
-        iVar5 = _stricmp((byte *)set->aColormapName,&DAT_004ec60c);
+        iVar5 = _stricmp((byte *)set->aColormapName,(byte *)s__none__004ec60c);
         if (iVar5 != 0) {
           pvVar6 = sputResource_Alloc(0x50414d43,set->aColormapName);
           Res_SetReference((ResRef *)(set->pColormaps->aTag + iVar10 + -8),pvVar6,
@@ -962,7 +962,7 @@ int __cdecl sputRoom_LoadResources(Set *set)
   do {
     if (g_nSkipSetupBitmaps == 0) {
       if (ref_00->nValid == 0) {
-        iVar10 = _stricmp((byte *)&ref_00[-2].nLine,&DAT_004ec60c);
+        iVar10 = _stricmp((byte *)&ref_00[-2].nLine,(byte *)s__none__004ec60c);
         if (iVar10 != 0) {
           pvVar6 = sputResource_Alloc(0x444e4b42,(char *)&ref_00[-2].nLine);
           Res_SetReference(ref_00,pvVar6,s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0,0x702);
@@ -974,7 +974,7 @@ int __cdecl sputRoom_LoadResources(Set *set)
             return 0;
           }
           uVar9 = 0xffffffff;
-          pcVar13 = &DAT_004ec60c;
+          pcVar13 = s__none__004ec60c;
           do {
             pcVar14 = pcVar13;
             if (uVar9 == 0) break;

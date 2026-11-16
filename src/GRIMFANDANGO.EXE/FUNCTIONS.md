@@ -165,7 +165,7 @@
 | 0049cd10 | sputLua_NukeResourcesL | lua.c | 12 |
 | 0049cd40 | sputLua_DetachFromResourcesL | lua.c | 12 |
 | 0049cd50 | sputLua_AttachToResourcesL | lua.c | 11 |
-| 0049cd60 | sputLua_SearchForFileOrSwapCDsL | lua.c | 65 |
+| 0049cd60 | sputLua_SearchForFileOrSwapCDsL | lua.c | 64 |
 | 0049cea0 | sputLua_LoadL | lua.c | 23 |
 | 0049cef0 | sputLua_SaveL | lua.c | 23 |
 | 0049cf40 | sputLua_EnableDebugKeysL | lua.c | 12 |
@@ -1026,7 +1026,7 @@
 | 00472910 | rdSprite_NewEntry | rdprimitive.c | 96 |
 | 00472b50 | rdSprite_Free | rdprimitive.c | 9 |
 | 00472b70 | rdSprite_FreeEntry | rdprimitive.c | 20 |
-| 00472bd0 | rdSprite_Draw | rdprimitive.c | 190 |
+| 00472bd0 | rdSprite_Draw | rdprimitive.c | 192 |
 | 00473430 | stdFileOpen | stdfileutil.c | 1 |
 | 00473450 | stdFileClose | stdfileutil.c | 1 |
 | 00473460 | stdFileRead | stdfileutil.c | 1 |
@@ -1057,8 +1057,8 @@
 | 0047c4a0 | stdMath_ArcSin3 | math.c | 1 |
 | 0047c5f0 | stdMath_ArcTan4 | math.c | 1 |
 | 00473630 | stdLoadImage | stdbitmap.c | 16 |
-| 00473660 | stdLoadImageData | stdbitmap.c | 91 |
-| 00473810 | stdWriteImage | stdbitmap.c | 106 |
+| 00473660 | stdLoadImageData | stdbitmap.c | 90 |
+| 00473810 | stdWriteImage | stdbitmap.c | 105 |
 | 0047aa50 | stdBitmap_Load | stdbitmap.c | 21 |
 | 0047aab0 | stdBitmap_LoadFromFile | stdbitmap.c | 22 |
 | 0047ab20 | stdBitmap_LoadEntryFromFile | stdbitmap.c | 143 |
@@ -1080,7 +1080,7 @@
 | 00477010 | stdControl_Flush | stdinput.c | 16 |
 | 00477040 | stdControl_Reset | stdinput.c | 25 |
 | 00477090 | stdControl_EnableAxis | stdinput.c | 18 |
-| 004770d0 | stdControl_ReadControls | stdinput.c | 35 |
+| 004770d0 | stdControl_ReadControls | stdinput.c | 34 |
 | 00477160 | stdControl_ReadAxis | stdinput.c | 45 |
 | 00477230 | stdControl_ReadKey | stdinput.c | 27 |
 | 00477300 | Input_SetAcquired | stdinput.c | 26 |
@@ -1102,7 +1102,7 @@
 | 004876b0 | grimPlat_GetDefaultOpenPath | plat.c | 8 |
 | 004876c0 | grimPlat_OpenFileRequest | plat.c | 45 |
 | 004877d0 | grimPlat_SaveFileRequest | plat.c | 43 |
-| 004878c0 | grimPlat_SpinDialog | plat.c | 126 |
+| 004878c0 | grimPlat_SpinDialog | plat.c | 125 |
 | 00487c10 | grimPlat_TreeDialog | plat.c | 100 |
 | 00487e30 | grimPlat_InputDialog | plat.c | 91 |
 | 00488370 | Plat_PromptDialogProc | plat.c | 43 |
@@ -1120,7 +1120,7 @@
 | 004782d0 | D3D_IsAvailable | std3d.c | 5 |
 | 004782e0 | D3D_SelectDriver | std3d.c | 1 |
 | 00478660 | D3D_ReleaseDriver | std3d.c | 31 |
-| 00478700 | D3D_SetTextureLimits | std3d.c | 11 |
+| 00478700 | D3D_SetTextureLimits | std3d.c | 9 |
 | 00478730 | std3D_StartScene | std3d.c | 12 |
 | 00478750 | std3D_EndScene | std3d.c | 13 |
 | 00478770 | D3D_BeginExecuteBuffer | std3d.c | 17 |
@@ -1800,7 +1800,7 @@
 | 004a5390 | sputRoom_Terminate | sputroom.c | 12 |
 | 004a53b0 | sputRoom_Startup | sputroom.c | 20 |
 | 004a5430 | sputRoom_Shutdown | sputroom.c | 31 |
-| 004a5600 | sputRoom_ParseLights | sputroom.c | 140 |
+| 004a5600 | sputRoom_ParseLights | sputroom.c | 141 |
 | 004a5890 | sputRoom_ParseSetups | sputroom.c | 126 |
 | 004a4920 | sputRoom_LoadZBuffer | zbuffer.c | 12 |
 | 004a4930 | ZBuffer_LoadFile | zbuffer.c | 20 |
@@ -2186,7 +2186,7 @@
 | 004bc4c0 | FUN_004bc4c0 | crt_unnamed.c | 1 |
 | 004bc5f0 | FUN_004bc5f0 | crt_unnamed.c | 1 |
 | 004bcb40 | FUN_004bcb40 | crt_unnamed.c | 1 |
-| 004bdad0 | SmushPlay_FakeBlit | crt_unnamed.c | 16 |
+| 004bdad0 | SmushPlay_FakeBlit | crt_unnamed.c | 15 |
 | 004bdf70 | grimmem_memory_module | crt_unnamed.c | 13 |
 | 004bdfb0 | grimmem_module_terminate | crt_unnamed.c | 10 |
 | 004bdfe0 | mem_Alloc | crt_unnamed.c | 11 |

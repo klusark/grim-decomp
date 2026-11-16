@@ -1,0 +1,150 @@
+{
+ "_comment": "Data globals typed from how the code uses them (2026-11-16): every use reads or writes the global as one scalar type the decompiler had evidence for (*(T *)&DAT_x, or the _DAT_x alias of that width; an alias of an undefinedN type alone is no evidence), and data used only by its address whose bytes are one NUL-terminated printable string, typed as that char array (Ghidra names it s_...). 008db200 is the mixer's double clock (build/overrides_mixer_snd.c).",
+ "program": "/v101/IMUSE.DLL",
+ "globals": [
+  {
+   "addr": "1002dd10",
+   "type": "uint"
+  },
+  {
+   "addr": "1002dd20",
+   "type": "uint"
+  },
+  {
+   "addr": "1002dd50",
+   "type": "uint"
+  },
+  {
+   "addr": "10031e64",
+   "type": "uint"
+  },
+  {
+   "addr": "10017098",
+   "type": "char[5]"
+  },
+  {
+   "addr": "10017124",
+   "type": "char[30]"
+  },
+  {
+   "addr": "10017144",
+   "type": "char[45]"
+  },
+  {
+   "addr": "10017174",
+   "type": "char[59]"
+  },
+  {
+   "addr": "100171b0",
+   "type": "char[4]"
+  },
+  {
+   "addr": "100171b4",
+   "type": "char[45]"
+  },
+  {
+   "addr": "100171e4",
+   "type": "char[16]"
+  },
+  {
+   "addr": "100171f4",
+   "type": "char[26]"
+  },
+  {
+   "addr": "10017210",
+   "type": "char[20]"
+  },
+  {
+   "addr": "10017224",
+   "type": "char[26]"
+  },
+  {
+   "addr": "10017240",
+   "type": "char[37]"
+  },
+  {
+   "addr": "10017268",
+   "type": "char[39]"
+  },
+  {
+   "addr": "10017290",
+   "type": "char[29]"
+  },
+  {
+   "addr": "100172b0",
+   "type": "char[10]"
+  },
+  {
+   "addr": "100172c4",
+   "type": "char[3]"
+  },
+  {
+   "addr": "1001e68c",
+   "type": "char[39]"
+  },
+  {
+   "addr": "1001e6b4",
+   "type": "char[36]"
+  },
+  {
+   "addr": "1001e6d8",
+   "type": "char[32]"
+  },
+  {
+   "addr": "1001e804",
+   "type": "char[5]"
+  },
+  {
+   "addr": "1001e858",
+   "type": "char[5]"
+  },
+  {
+   "addr": "1001e900",
+   "type": "char[3]"
+  },
+  {
+   "addr": "1001e910",
+   "type": "char[31]"
+  },
+  {
+   "addr": "1001e930",
+   "type": "char[20]"
+  },
+  {
+   "addr": "1001e944",
+   "type": "char[17]"
+  },
+  {
+   "addr": "1001e958",
+   "type": "char[21]"
+  },
+  {
+   "addr": "1001e970",
+   "type": "char[12]"
+  },
+  {
+   "addr": "1001e97c",
+   "type": "char[14]"
+  },
+  {
+   "addr": "1001e98c",
+   "type": "char[7]"
+  },
+  {
+   "addr": "1001e994",
+   "type": "char[5]"
+  },
+  {
+   "addr": "1001e99c",
+   "type": "char[25]"
+  },
+  {
+   "addr": "1001e9b8",
+   "type": "char[7]"
+  },
+  {
+   "addr": "1001e9c0",
+   "type": "char[5]"
+  }
+ ]
+}

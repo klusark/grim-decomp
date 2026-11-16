@@ -23,7 +23,7 @@ void __cdecl grimdemo_EnableDebugging(int enable)
   if (enable != 0) {
     if (UINT_004f5a54 == 0) {
       if (((UINT_004f5a18 != 0) && (g_nDeveloper != 0)) &&
-         (UINT_004f44e0 = Res_FOpen(s_debug_log_004dd46c,&DAT_004dd478), UINT_004f44e0 == 0)) {
+         (UINT_004f44e0 = Res_FOpen(s_debug_log_004dd46c,s_w_004dd478), UINT_004f44e0 == 0)) {
         caption = s_Uh_oh__004dd464;
         text = s_Unable_to_open_debug_log_in_the_c_004dd424;
         type = UINT_004f44e0;
