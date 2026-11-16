@@ -156,3 +156,11 @@ int __cdecl MaterialRequester(uint cosInst,int tag,int *parent,int type,char *na
 #undef local_8
 #undef local_c
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_Select_mat_file_to_animate____004ea584[32] __asm__("_s_Select_mat_file_to_animate____004ea584");
+/* 0x004ea584, 32 bytes */ GRIM_DATA("004ea584") char grim_def_s_Select_mat_file_to_animate____004ea584[32] __asm__("_s_Select_mat_file_to_animate____004ea584") = "Select mat file to animate...";

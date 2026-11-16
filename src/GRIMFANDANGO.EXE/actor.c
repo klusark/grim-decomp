@@ -2743,3 +2743,25 @@ float __thiscall Puck_GetYawToPoint(Puck *this,float *point)
 }
 #undef local_18
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_UINT_004e8490[8] __asm__("_UINT_004e8490");
+extern char grim_def_s__s_imc_004e9edc[8] __asm__("_s__s_imc_004e9edc");
+extern char grim_def_s__s_imu_004e9ed4[8] __asm__("_s__s_imu_004e9ed4");
+extern char grim_def_s__s_wav_004e9ee4[8] __asm__("_s__s_wav_004e9ee4");
+extern char grim_def_s__s_wvc_004e9eec[12] __asm__("_s__s_wvc_004e9eec");
+extern char grim_def_s_pActor_____pActor__pExtra_004e9eb8[28] __asm__("_s_pActor_____pActor__pExtra_004e9eb8");
+extern char grim_def_s_pActor__pExtra_004e9ea8[16] __asm__("_s_pActor__pExtra_004e9ea8");
+extern char grim_def_s_shadow_mat_004ea19c[12] __asm__("_s_shadow_mat_004ea19c");
+/* 0x004e8490, 8 bytes */ GRIM_DATA("004e8490") unsigned char grim_def_UINT_004e8490[8] __asm__("_UINT_004e8490") = {0};
+/* 0x004e9ea8, 16 bytes */ /* loose */ char grim_def_s_pActor__pExtra_004e9ea8[16] __asm__("_s_pActor__pExtra_004e9ea8") = "pActor->pExtra";
+/* 0x004e9eb8, 28 bytes */ /* loose */ char grim_def_s_pActor_____pActor__pExtra_004e9eb8[28] __asm__("_s_pActor_____pActor__pExtra_004e9eb8") = "pActor && !pActor->pExtra";
+/* 0x004e9ed4, 8 bytes */ /* loose */ char grim_def_s__s_imu_004e9ed4[8] __asm__("_s__s_imu_004e9ed4") = "%s.imu";
+/* 0x004e9edc, 8 bytes */ /* loose */ char grim_def_s__s_imc_004e9edc[8] __asm__("_s__s_imc_004e9edc") = "%s.imc";
+/* 0x004e9ee4, 8 bytes */ /* loose */ char grim_def_s__s_wav_004e9ee4[8] __asm__("_s__s_wav_004e9ee4") = "%s.wav";
+/* 0x004e9eec, 12 bytes */ /* loose */ char grim_def_s__s_wvc_004e9eec[12] __asm__("_s__s_wvc_004e9eec") = "%s.wvc";
+/* 0x004ea19c, 12 bytes */ /* loose */ char grim_def_s_shadow_mat_004ea19c[12] __asm__("_s_shadow_mat_004ea19c") = "shadow.mat";

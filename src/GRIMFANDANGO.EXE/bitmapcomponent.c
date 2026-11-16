@@ -172,3 +172,15 @@ undefined4 BitmapFreer(undefined4 param_1,undefined4 param_2,ResRef *ref)
   (*g_pSputCosHS->pFree)(ref);
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_g_dwRecentBM[4] __asm__("_g_dwRecentBM");
+extern char grim_def_s_Graphics_files____pcx____gif___l_004ea4d4[88] __asm__("_s_Graphics_files____pcx____gif___l_004ea4d4");
+extern char grim_def_s_Select_image_file_to_add____004ea4b8[28] __asm__("_s_Select_image_file_to_add____004ea4b8");
+/* 0x004ea4b8, 28 bytes */ GRIM_DATA("004ea4b8") char grim_def_s_Select_image_file_to_add____004ea4b8[28] __asm__("_s_Select_image_file_to_add____004ea4b8") = "Select image file to add...";
+/* 0x004ea4d4, 88 bytes */ GRIM_DATA("004ea4d4") char grim_def_s_Graphics_files____pcx____gif___l_004ea4d4[88] __asm__("_s_Graphics_files____pcx____gif___l_004ea4d4") = "Graphics files (*.pcx, *.gif,*.lbm, *.bm)\000*.pcx;*.gif;*.lbm;*.bm\000All Files (*.*)\000*.*";
+/* 0x008ca7b4, 4 bytes */ GRIM_DATA("008ca7b4") unsigned char grim_def_g_dwRecentBM[4] __asm__("_g_dwRecentBM") = {0};

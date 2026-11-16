@@ -450,3 +450,11 @@ void __cdecl PrimitiveQueue_resetId(void)
   g_nPrimitiveQueue_nextId = 1;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern int grim_def_g_nSputPrimitive_Paused __asm__("_g_nSputPrimitive_Paused");
+/* 0x008ca0b4, 4 bytes */ GRIM_DATA("008ca0b4") int grim_def_g_nSputPrimitive_Paused __asm__("_g_nSputPrimitive_Paused") = 0;

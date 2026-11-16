@@ -151,3 +151,18 @@ char * __cdecl PolyglotGetString(char *textId)
 #undef local_100
 #undef local_104
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_DAT_004e8028[] __asm__("_DAT_004e8028");
+extern unsigned int grim_def_g_dwLineCount __asm__("_g_dwLineCount");
+extern void *grim_def_g_pTabFilename __asm__("_g_pTabFilename");
+extern char grim_def_s_C__grimsrc_libs_grimlib_Engine_p_004e8038[44] __asm__("_s_C__grimsrc_libs_grimlib_Engine_p_004e8038");
+static unsigned char grim_anchor_004e8024[0] __attribute__((section(".data$grim_004e8024"), aligned(16), used));
+static unsigned char grim_pad_004e8024[4] __attribute__((section(".data$grim_004e8024_"), aligned(4), used));
+/* 0x004e8024, 4 bytes */ GRIM_DATA("004e8024z") void *grim_def_g_pTabFilename __asm__("_g_pTabFilename") = (void *)&grim_def_DAT_004e8028;
+/* 0x004e8038, 44 bytes */ GRIM_DATA("004e8038") char grim_def_s_C__grimsrc_libs_grimlib_Engine_p_004e8038[44] __asm__("_s_C__grimsrc_libs_grimlib_Engine_p_004e8038") = "C:\\grimsrc\\libs\\grimlib\\Engine\\polyglot.c";
+/* 0x008a8ca4, 4 bytes */ GRIM_DATA("008a8ca4") unsigned int grim_def_g_dwLineCount __asm__("_g_dwLineCount") = 0x0;

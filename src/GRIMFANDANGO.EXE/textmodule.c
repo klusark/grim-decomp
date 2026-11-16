@@ -125,3 +125,13 @@ uint __cdecl Text_SysRestore(code *read)
   }
   return uVar2;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_g_dwTextSysInitialized __asm__("_g_dwTextSysInitialized");
+extern unsigned int grim_def_g_dwTextSysStarted __asm__("_g_dwTextSysStarted");
+/* 0x008d0980, 4 bytes */ GRIM_DATA("008d0980") unsigned int grim_def_g_dwTextSysInitialized __asm__("_g_dwTextSysInitialized") = 0x0;
+/* 0x008d0984, 4 bytes */ GRIM_DATA("008d0984") unsigned int grim_def_g_dwTextSysStarted __asm__("_g_dwTextSysStarted") = 0x0;

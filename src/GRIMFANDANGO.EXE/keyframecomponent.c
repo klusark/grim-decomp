@@ -402,3 +402,37 @@ uint __cdecl KeyframeStopper(int *inst)
   } while (track < 6);
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004e9fe0;
+extern char grim_def_DAT_004e9fa0[] __asm__("_DAT_004e9fa0");
+extern grim_span_004e9fe0 grim_def_DAT_004e9fe0 __asm__("_DAT_004e9fe0");
+extern unsigned char grim_def_g_aKeyCommands[64] __asm__("_g_aKeyCommands");
+extern char grim_def_s_Keyframe_files____key__004ea78c[52] __asm__("_s_Keyframe_files____key__004ea78c");
+extern char grim_def_s_Normal_Priority_004ea7cc[16] __asm__("_s_Normal_Priority_004ea7cc");
+extern char grim_def_s_Select_keyframe_file_to_add____004ea76c[32] __asm__("_s_Select_keyframe_file_to_add____004ea76c");
+extern char grim_def_s_Tagged_Priority_004ea7dc[16] __asm__("_s_Tagged_Priority_004ea7dc");
+extern char grim_def_s__s__d__d_004ea7c0[12] __asm__("_s__s__d__d_004ea7c0");
+/* 0x004e9f60, 64 bytes */ GRIM_DATA("004e9f60") unsigned char grim_def_g_aKeyCommands[64] __asm__("_g_aKeyCommands") = {
+    0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,
+    0x08, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00,
+    0x05, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x00,
+    0x0c, 0x00, 0x00, 0x00, 0x0d, 0x00, 0x00, 0x00, 0x0e
+};
+/* 0x004e9fe0, 24 bytes */ GRIM_DATA("004e9fe0") grim_span_004e9fe0 grim_def_DAT_004e9fe0 __asm__("_DAT_004e9fe0") = {
+    { 0x0f },
+    (void *)&grim_def_g_aKeyCommands,
+    (void *)&grim_def_DAT_004e9fa0,
+    {0}
+};
+/* 0x004ea76c, 32 bytes */ /* loose */ char grim_def_s_Select_keyframe_file_to_add____004ea76c[32] __asm__("_s_Select_keyframe_file_to_add____004ea76c") = "Select keyframe file to add...";
+static unsigned char grim_anchor_004ea78c[0] __attribute__((section(".data$grim_004ea78c"), aligned(16), used));
+static unsigned char grim_pad_004ea78c[12] __attribute__((section(".data$grim_004ea78c_"), aligned(4), used));
+/* 0x004ea78c, 52 bytes */ GRIM_DATA("004ea78cz") char grim_def_s_Keyframe_files____key__004ea78c[52] __asm__("_s_Keyframe_files____key__004ea78c") = "Keyframe files (*.key)\000*.key\000All Files (*.*)\000*.*";
+/* 0x004ea7c0, 12 bytes */ GRIM_DATA("004ea7c0") char grim_def_s__s__d__d_004ea7c0[12] __asm__("_s__s__d__d_004ea7c0") = "%s,%d,%d";
+/* 0x004ea7cc, 16 bytes */ /* loose */ char grim_def_s_Normal_Priority_004ea7cc[16] __asm__("_s_Normal_Priority_004ea7cc") = "Normal Priority";
+/* 0x004ea7dc, 16 bytes */ /* loose */ char grim_def_s_Tagged_Priority_004ea7dc[16] __asm__("_s_Tagged_Priority_004ea7dc") = "Tagged Priority";

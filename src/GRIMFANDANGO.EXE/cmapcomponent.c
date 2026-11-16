@@ -139,3 +139,25 @@ uint __cdecl MaterialInstanceSaveLoad(void)
 }
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004e9f20;
+extern char grim_def_DAT_004e9f1c[] __asm__("_DAT_004e9f1c");
+extern grim_span_004e9f20 grim_def_DAT_004e9f20 __asm__("_DAT_004e9f20");
+extern char grim_def_DAT_008ca7a8[] __asm__("_DAT_008ca7a8");
+extern char grim_def_s_Colormap_files____cmp__004ea550[52] __asm__("_s_Colormap_files____cmp__004ea550");
+extern char grim_def_s_Select_colormap_file_to_add____004ea530[32] __asm__("_s_Select_colormap_file_to_add____004ea530");
+/* 0x004e9f20, 24 bytes */ GRIM_DATA("004e9f20") grim_span_004e9f20 grim_def_DAT_004e9f20 __asm__("_DAT_004e9f20") = {
+    { 0x01 },
+    (void *)&grim_def_DAT_008ca7a8,
+    (void *)&grim_def_DAT_004e9f1c,
+    {0}
+};
+/* 0x004ea530, 32 bytes */ /* loose */ char grim_def_s_Select_colormap_file_to_add____004ea530[32] __asm__("_s_Select_colormap_file_to_add____004ea530") = "Select colormap file to add...";
+static unsigned char grim_anchor_004ea550[0] __attribute__((section(".data$grim_004ea550"), aligned(16), used));
+static unsigned char grim_pad_004ea550[0] __attribute__((section(".data$grim_004ea550_"), aligned(4), used));
+/* 0x004ea550, 52 bytes */ GRIM_DATA("004ea550z") char grim_def_s_Colormap_files____cmp__004ea550[52] __asm__("_s_Colormap_files____cmp__004ea550") = "Colormap files (*.cmp)\000*.cmp\000All Files (*.*)\000*.*";

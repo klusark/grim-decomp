@@ -196,3 +196,53 @@ void __cdecl DebugLog_Write(char *fmt,uint arg)
   Res_FPrintf(UINT_004f44e0,fmt,arg);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004dd414[16] __asm__("_DAT_004dd414");
+extern unsigned char grim_def_DAT_004dd6c4[16] __asm__("_DAT_004dd6c4");
+extern unsigned char grim_def_DAT_008ddda4[4] __asm__("_DAT_008ddda4");
+extern unsigned char grim_def_DAT_008ddda8[4] __asm__("_DAT_008ddda8");
+extern unsigned char grim_def_DAT_008dddb0[4] __asm__("_DAT_008dddb0");
+extern unsigned int grim_def_UINT_004f5a04 __asm__("_UINT_004f5a04");
+extern unsigned int grim_def_UINT_004f5a08 __asm__("_UINT_004f5a08");
+extern unsigned int grim_def_UINT_004f5a3c __asm__("_UINT_004f5a3c");
+extern unsigned int grim_def_UINT_004f5a40 __asm__("_UINT_004f5a40");
+extern unsigned int grim_def_UINT_004f5a54 __asm__("_UINT_004f5a54");
+extern unsigned int grim_def_UINT_004f5a68 __asm__("_UINT_004f5a68");
+extern unsigned char grim_def_g_aGrimdemo_DebugPrint_grimDebugBuffer[1024] __asm__("_g_aGrimdemo_DebugPrint_grimDebugBuffer");
+extern unsigned char grim_def_g_aGrimdemo_ErrorPrint_grimErrorBuffer[1024] __asm__("_g_aGrimdemo_ErrorPrint_grimErrorBuffer");
+extern unsigned char grim_def_g_aGrimdemo_MessagePrint_grimMessageBuffer[1024] __asm__("_g_aGrimdemo_MessagePrint_grimMessageBuffer");
+extern unsigned char grim_def_g_aGrimdemo_StatusPrint_grimStatusBuffer[1024] __asm__("_g_aGrimdemo_StatusPrint_grimStatusBuffer");
+extern unsigned char grim_def_g_aGrimdemo_WarningPrint_grimWarningBuffer[1024] __asm__("_g_aGrimdemo_WarningPrint_grimWarningBuffer");
+extern char grim_def_s_Grim_Debug_004dd69c[12] __asm__("_s_Grim_Debug_004dd69c");
+extern char grim_def_s_Uh_oh__004dd464[8] __asm__("_s_Uh_oh__004dd464");
+extern char grim_def_s_Unable_to_open_debug_log_in_the_c_004dd424[64] __asm__("_s_Unable_to_open_debug_log_in_the_c_004dd424");
+extern char grim_def_s__ShowDebugLog_004dd6a8[16] __asm__("_s__ShowDebugLog_004dd6a8");
+extern char grim_def_s__logPrintf_004dd6b8[12] __asm__("_s__logPrintf_004dd6b8");
+extern char grim_def_s_debug_log_004dd46c[12] __asm__("_s_debug_log_004dd46c");
+/* 0x004dd414, 16 bytes */ GRIM_DATA("004dd414") unsigned char grim_def_DAT_004dd414[16] __asm__("_DAT_004dd414") = { 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x2e, 0x6c, 0x6f, 0x67 };
+/* 0x004dd424, 64 bytes */ GRIM_DATA("004dd424") char grim_def_s_Unable_to_open_debug_log_in_the_c_004dd424[64] __asm__("_s_Unable_to_open_debug_log_in_the_c_004dd424") = "Unable to open debug.log in the current directory for writing!";
+/* 0x004dd464, 8 bytes */ GRIM_DATA("004dd464") char grim_def_s_Uh_oh__004dd464[8] __asm__("_s_Uh_oh__004dd464") = "Uh oh!";
+/* 0x004dd46c, 12 bytes */ GRIM_DATA("004dd46c") char grim_def_s_debug_log_004dd46c[12] __asm__("_s_debug_log_004dd46c") = "debug.log";
+/* 0x004dd69c, 12 bytes */ GRIM_DATA("004dd69c") char grim_def_s_Grim_Debug_004dd69c[12] __asm__("_s_Grim_Debug_004dd69c") = "Grim Debug";
+/* 0x004dd6a8, 16 bytes */ GRIM_DATA("004dd6a8") char grim_def_s__ShowDebugLog_004dd6a8[16] __asm__("_s__ShowDebugLog_004dd6a8") = "_ShowDebugLog";
+/* 0x004dd6b8, 12 bytes */ GRIM_DATA("004dd6b8") char grim_def_s__logPrintf_004dd6b8[12] __asm__("_s__logPrintf_004dd6b8") = "_logPrintf";
+/* 0x004dd6c4, 16 bytes */ GRIM_DATA("004dd6c4") unsigned char grim_def_DAT_004dd6c4[16] __asm__("_DAT_004dd6c4") = { 0x44, 0x65, 0x62, 0x75, 0x67, 0x4c, 0x6f, 0x67, 0x2e, 0x64, 0x6c, 0x6c };
+/* 0x004f4538, 1024 bytes */ GRIM_DATA("004f4538") unsigned char grim_def_g_aGrimdemo_StatusPrint_grimStatusBuffer[1024] __asm__("_g_aGrimdemo_StatusPrint_grimStatusBuffer") = {0};
+/* 0x004f4938, 1024 bytes */ GRIM_DATA("004f4938") unsigned char grim_def_g_aGrimdemo_DebugPrint_grimDebugBuffer[1024] __asm__("_g_aGrimdemo_DebugPrint_grimDebugBuffer") = {0};
+/* 0x004f4db0, 1024 bytes */ GRIM_DATA("004f4db0") unsigned char grim_def_g_aGrimdemo_ErrorPrint_grimErrorBuffer[1024] __asm__("_g_aGrimdemo_ErrorPrint_grimErrorBuffer") = {0};
+/* 0x004f51b0, 1024 bytes */ GRIM_DATA("004f51b0") unsigned char grim_def_g_aGrimdemo_WarningPrint_grimWarningBuffer[1024] __asm__("_g_aGrimdemo_WarningPrint_grimWarningBuffer") = {0};
+/* 0x004f55b0, 1024 bytes */ GRIM_DATA("004f55b0") unsigned char grim_def_g_aGrimdemo_MessagePrint_grimMessageBuffer[1024] __asm__("_g_aGrimdemo_MessagePrint_grimMessageBuffer") = {0};
+/* 0x004f5a04, 4 bytes */ GRIM_DATA("004f5a04") unsigned int grim_def_UINT_004f5a04 __asm__("_UINT_004f5a04") = 0x0;
+/* 0x004f5a08, 4 bytes */ GRIM_DATA("004f5a08") unsigned int grim_def_UINT_004f5a08 __asm__("_UINT_004f5a08") = 0x0;
+/* 0x004f5a3c, 4 bytes */ GRIM_DATA("004f5a3c") unsigned int grim_def_UINT_004f5a3c __asm__("_UINT_004f5a3c") = 0x0;
+/* 0x004f5a40, 4 bytes */ GRIM_DATA("004f5a40") unsigned int grim_def_UINT_004f5a40 __asm__("_UINT_004f5a40") = 0x0;
+/* 0x004f5a54, 4 bytes */ GRIM_DATA("004f5a54") unsigned int grim_def_UINT_004f5a54 __asm__("_UINT_004f5a54") = 0x0;
+/* 0x004f5a68, 4 bytes */ GRIM_DATA("004f5a68") unsigned int grim_def_UINT_004f5a68 __asm__("_UINT_004f5a68") = 0x0;
+/* 0x008ddda4, 4 bytes */ GRIM_DATA("008ddda4") unsigned char grim_def_DAT_008ddda4[4] __asm__("_DAT_008ddda4") = {0};
+/* 0x008ddda8, 4 bytes */ GRIM_DATA("008ddda8") unsigned char grim_def_DAT_008ddda8[4] __asm__("_DAT_008ddda8") = {0};
+/* 0x008dddb0, 4 bytes */ GRIM_DATA("008dddb0") unsigned char grim_def_DAT_008dddb0[4] __asm__("_DAT_008dddb0") = {0};

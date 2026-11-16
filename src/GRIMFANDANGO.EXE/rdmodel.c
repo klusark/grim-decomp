@@ -858,3 +858,68 @@ LAB_0040dbd3:
 #undef local_24
 #undef local_c
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_007f0fe8[384] __asm__("_DAT_007f0fe8");
+extern unsigned char grim_def_DAT_007f30ac[4] __asm__("_DAT_007f30ac");
+extern unsigned char grim_def_DAT_007f30b0[4] __asm__("_DAT_007f30b0");
+extern unsigned char grim_def_DAT_007f30b4[4] __asm__("_DAT_007f30b4");
+extern unsigned char grim_def_DAT_007f30b8[4] __asm__("_DAT_007f30b8");
+extern unsigned char grim_def_DAT_007f30bc[4] __asm__("_DAT_007f30bc");
+extern unsigned char grim_def_DAT_007f30c0[20] __asm__("_DAT_007f30c0");
+extern float grim_def_FLOAT_007f0fd8 __asm__("_FLOAT_007f0fd8");
+extern float grim_def_FLOAT_007f0fdc __asm__("_FLOAT_007f0fdc");
+extern float grim_def_FLOAT_007f0fe0 __asm__("_FLOAT_007f0fe0");
+extern unsigned int grim_def_UINT_007f1474 __asm__("_UINT_007f1474");
+extern unsigned int grim_def_UINT_007f1478 __asm__("_UINT_007f1478");
+extern unsigned char grim_def_UINT_007f147c[20] __asm__("_UINT_007f147c");
+extern unsigned int grim_def_UINT_007f1490 __asm__("_UINT_007f1490");
+extern unsigned char grim_def_UINT_007f30e0[256] __asm__("_UINT_007f30e0");
+extern unsigned int grim_def_UINT_008ddf84 __asm__("_UINT_008ddf84");
+extern unsigned int grim_def_UINT_008ddf88 __asm__("_UINT_008ddf88");
+extern unsigned int grim_def_UINT_008ddf8c __asm__("_UINT_008ddf8c");
+extern unsigned char grim_def_g_aLocalLightDir[768] __asm__("_g_aLocalLightDir");
+extern unsigned char grim_def_g_aLocalLightPos[768] __asm__("_g_aLocalLightPos");
+extern unsigned char grim_def_g_aRdModel3_View[6144] __asm__("_g_aRdModel3_View");
+extern unsigned char grim_def_g_aVertexSrc[4] __asm__("_g_aVertexSrc");
+extern unsigned int grim_def_g_dwGeometryMode __asm__("_g_dwGeometryMode");
+extern unsigned int grim_def_g_dwLightingMode __asm__("_g_dwLightingMode");
+extern unsigned int grim_def_g_dwMeshFrustrumCull __asm__("_g_dwMeshFrustrumCull");
+extern unsigned int grim_def_g_dwNumMeshLights __asm__("_g_dwNumMeshLights");
+extern unsigned int grim_def_g_dwTextureMode __asm__("_g_dwTextureMode");
+extern unsigned char grim_def_g_dwVertexDst[12] __asm__("_g_dwVertexDst");
+extern unsigned char grim_def_g_pCurMesh[4] __asm__("_g_pCurMesh");
+/* 0x007f0fd8, 4 bytes */ GRIM_DATA("007f0fd8") float grim_def_FLOAT_007f0fd8 __asm__("_FLOAT_007f0fd8") = 0.0f;
+/* 0x007f0fdc, 4 bytes */ GRIM_DATA("007f0fdc") float grim_def_FLOAT_007f0fdc __asm__("_FLOAT_007f0fdc") = 0.0f;
+/* 0x007f0fe0, 8 bytes */ GRIM_DATA("007f0fe0") float grim_def_FLOAT_007f0fe0 __asm__("_FLOAT_007f0fe0") = 0.0f;
+/* 0x007f0fe4, 4 bytes: the rest of grim_def_FLOAT_007f0fe0's span */ GRIM_DATA("007f0fe0") static unsigned char FLOAT_007f0fe0__tail[4] __attribute__((used)) = {0};
+/* 0x007f0fe8, 384 bytes */ GRIM_DATA("007f0fe8") unsigned char grim_def_DAT_007f0fe8[384] __asm__("_DAT_007f0fe8") = {0};
+/* 0x007f1168, 768 bytes */ GRIM_DATA("007f1168") unsigned char grim_def_g_aLocalLightDir[768] __asm__("_g_aLocalLightDir") = {0};
+/* 0x007f1468, 12 bytes */ GRIM_DATA("007f1468") unsigned char grim_def_g_dwVertexDst[12] __asm__("_g_dwVertexDst") = {0};
+/* 0x007f1474, 4 bytes */ GRIM_DATA("007f1474") unsigned int grim_def_UINT_007f1474 __asm__("_UINT_007f1474") = 0x0;
+/* 0x007f1478, 4 bytes */ GRIM_DATA("007f1478") unsigned int grim_def_UINT_007f1478 __asm__("_UINT_007f1478") = 0x0;
+/* 0x007f147c, 20 bytes */ GRIM_DATA("007f147c") unsigned char grim_def_UINT_007f147c[20] __asm__("_UINT_007f147c") = {0};
+/* 0x007f1490, 4 bytes */ GRIM_DATA("007f1490") unsigned int grim_def_UINT_007f1490 __asm__("_UINT_007f1490") = 0x0;
+/* 0x007f1598, 768 bytes */ GRIM_DATA("007f1598") unsigned char grim_def_g_aLocalLightPos[768] __asm__("_g_aLocalLightPos") = {0};
+/* 0x007f1898, 4 bytes */ GRIM_DATA("007f1898") unsigned int grim_def_g_dwMeshFrustrumCull __asm__("_g_dwMeshFrustrumCull") = 0x0;
+/* 0x007f18a0, 6144 bytes */ GRIM_DATA("007f18a0") unsigned char grim_def_g_aRdModel3_View[6144] __asm__("_g_aRdModel3_View") = {0};
+/* 0x007f30a0, 4 bytes */ GRIM_DATA("007f30a0") unsigned char grim_def_g_pCurMesh[4] __asm__("_g_pCurMesh") = {0};
+/* 0x007f30a8, 4 bytes */ GRIM_DATA("007f30a8") unsigned char grim_def_g_aVertexSrc[4] __asm__("_g_aVertexSrc") = {0};
+/* 0x007f30ac, 4 bytes */ GRIM_DATA("007f30ac") unsigned char grim_def_DAT_007f30ac[4] __asm__("_DAT_007f30ac") = {0};
+/* 0x007f30b0, 4 bytes */ GRIM_DATA("007f30b0") unsigned char grim_def_DAT_007f30b0[4] __asm__("_DAT_007f30b0") = {0};
+/* 0x007f30b4, 4 bytes */ GRIM_DATA("007f30b4") unsigned char grim_def_DAT_007f30b4[4] __asm__("_DAT_007f30b4") = {0};
+/* 0x007f30b8, 4 bytes */ GRIM_DATA("007f30b8") unsigned char grim_def_DAT_007f30b8[4] __asm__("_DAT_007f30b8") = {0};
+/* 0x007f30bc, 4 bytes */ GRIM_DATA("007f30bc") unsigned char grim_def_DAT_007f30bc[4] __asm__("_DAT_007f30bc") = {0};
+/* 0x007f30c0, 20 bytes */ GRIM_DATA("007f30c0") unsigned char grim_def_DAT_007f30c0[20] __asm__("_DAT_007f30c0") = {0};
+/* 0x007f30d8, 4 bytes */ GRIM_DATA("007f30d8") unsigned int grim_def_g_dwTextureMode __asm__("_g_dwTextureMode") = 0x0;
+/* 0x007f30e0, 256 bytes */ GRIM_DATA("007f30e0") unsigned char grim_def_UINT_007f30e0[256] __asm__("_UINT_007f30e0") = {0};
+/* 0x007f31e4, 4 bytes */ GRIM_DATA("007f31e4") unsigned int grim_def_g_dwLightingMode __asm__("_g_dwLightingMode") = 0x0;
+/* 0x007f31e8, 4 bytes */ GRIM_DATA("007f31e8") unsigned int grim_def_g_dwGeometryMode __asm__("_g_dwGeometryMode") = 0x0;
+/* 0x007f31fc, 4 bytes */ GRIM_DATA("007f31fc") unsigned int grim_def_g_dwNumMeshLights __asm__("_g_dwNumMeshLights") = 0x0;
+/* 0x008ddf84, 4 bytes */ GRIM_DATA("008ddf84") unsigned int grim_def_UINT_008ddf84 __asm__("_UINT_008ddf84") = 0x0;
+/* 0x008ddf88, 4 bytes */ GRIM_DATA("008ddf88") unsigned int grim_def_UINT_008ddf88 __asm__("_UINT_008ddf88") = 0x0;
+/* 0x008ddf8c, 4 bytes */ GRIM_DATA("008ddf8c") unsigned int grim_def_UINT_008ddf8c __asm__("_UINT_008ddf8c") = 0x0;

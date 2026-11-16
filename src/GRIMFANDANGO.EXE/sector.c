@@ -2637,3 +2637,75 @@ LAB_004a9ffa:
 
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_008cf218[48] __asm__("_DAT_008cf218");
+extern float grim_def_FLOAT_008cf264 __asm__("_FLOAT_008cf264");
+extern float grim_def_FLOAT_008cf268 __asm__("_FLOAT_008cf268");
+extern WalkVertex grim_def_g_aWalkPlane_vert_db[1024] __asm__("_g_aWalkPlane_vert_db");
+extern unsigned int grim_def_g_dwWalkPlane_tot_verts __asm__("_g_dwWalkPlane_tot_verts");
+extern int grim_def_g_nVertexCacheSize __asm__("_g_nVertexCacheSize");
+extern int grim_def_g_nWalkPlaneCacheSize __asm__("_g_nWalkPlaneCacheSize");
+extern unsigned char grim_def_g_pVertexCache[4] __asm__("_g_pVertexCache");
+extern unsigned char grim_def_g_pWalkPlaneCache[4] __asm__("_g_pWalkPlaneCache");
+extern float grim_def_g_vEdgeFollowDir __asm__("_g_vEdgeFollowDir");
+extern char grim_def_s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8[48] __asm__("_s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8");
+extern char grim_def_s__f__f__f_004ec8f8[12] __asm__("_s__f__f__f_004ec8f8");
+extern char grim_def_s_camera_004ec97c[8] __asm__("_s_camera_004ec97c");
+extern char grim_def_s_chernobyl_004ec968[12] __asm__("_s_chernobyl_004ec968");
+extern char grim_def_s_collisionHandler_004ec3fc[20] __asm__("_s_collisionHandler_004ec3fc");
+extern char grim_def_s_colormap__s_004ec868[16] __asm__("_s_colormap__s_004ec868");
+extern char grim_def_s_default_visibility__s_004ec950[24] __asm__("_s_default_visibility__s_004ec950");
+extern char grim_def_s_edge_index___num_verts_004ec9b8[24] __asm__("_s_edge_index___num_verts_004ec9b8");
+extern char grim_def_s_funnel_004ec984[8] __asm__("_s_funnel_004ec984");
+extern char grim_def_s_height__f_004ec938[12] __asm__("_s_height__f_004ec938");
+extern char grim_def_s_id__i_004ec994[8] __asm__("_s_id__i_004ec994");
+extern char grim_def_s_invisible_004ec944[12] __asm__("_s_invisible_004ec944");
+extern char grim_def_s_numcolormaps__d_004ec878[20] __asm__("_s_numcolormaps__d_004ec878");
+extern char grim_def_s_numgates__s_004ec918[16] __asm__("_s_numgates__s_004ec918");
+extern char grim_def_s_numsectors_004ec9a8[16] __asm__("_s_numsectors_004ec9a8");
+extern char grim_def_s_numvertices__d_004ec928[16] __asm__("_s_numvertices__d_004ec928");
+extern char grim_def_s_pRoom__apColormaps____NULL_004ec88c[28] __asm__("_s_pRoom__apColormaps____NULL_004ec88c");
+extern char grim_def_s_section___s_004ec740[12] __asm__("_s_section___s_004ec740");
+extern char grim_def_s_sector__s_004ec99c[12] __asm__("_s_sector__s_004ec99c");
+extern char grim_def_s_special_004ec974[8] __asm__("_s_special_004ec974");
+extern char grim_def_s_tot_verts___MAX_DB_VERTS___2_004ec8a8[32] __asm__("_s_tot_verts___MAX_DB_VERTS___2_004ec8a8");
+extern char grim_def_s_vertices___f__f__f_004ec904[20] __asm__("_s_vertices___f__f__f_004ec904");
+extern char grim_def_s_walk_004ec98c[8] __asm__("_s_walk_004ec98c");
+/* 0x004ec3fc, 20 bytes */ /* loose */ char grim_def_s_collisionHandler_004ec3fc[20] __asm__("_s_collisionHandler_004ec3fc") = "collisionHandler";
+/* 0x004ec740, 12 bytes */ /* loose */ char grim_def_s_section___s_004ec740[12] __asm__("_s_section___s_004ec740") = "section: %s";
+/* 0x004ec868, 16 bytes */ /* loose */ char grim_def_s_colormap__s_004ec868[16] __asm__("_s_colormap__s_004ec868") = " colormap %s";
+/* 0x004ec878, 20 bytes */ /* loose */ char grim_def_s_numcolormaps__d_004ec878[20] __asm__("_s_numcolormaps__d_004ec878") = " numcolormaps %d\n";
+/* 0x004ec88c, 28 bytes */ /* loose */ char grim_def_s_pRoom__apColormaps____NULL_004ec88c[28] __asm__("_s_pRoom__apColormaps____NULL_004ec88c") = "pRoom->apColormaps == NULL";
+/* 0x004ec8a8, 32 bytes */ /* loose */ char grim_def_s_tot_verts___MAX_DB_VERTS___2_004ec8a8[32] __asm__("_s_tot_verts___MAX_DB_VERTS___2_004ec8a8") = "tot_verts < MAX_DB_VERTS - 2";
+/* 0x004ec8c8, 48 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8[48] __asm__("_s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8") = "C:\\grimsrc\\libs\\grimlib\\Engine\\WalkPlane.cpp";
+/* 0x004ec8f8, 12 bytes */ /* loose */ char grim_def_s__f__f__f_004ec8f8[12] __asm__("_s__f__f__f_004ec8f8") = " %f %f %f";
+/* 0x004ec904, 20 bytes */ /* loose */ char grim_def_s_vertices___f__f__f_004ec904[20] __asm__("_s_vertices___f__f__f_004ec904") = " vertices: %f %f %f";
+/* 0x004ec918, 16 bytes */ /* loose */ char grim_def_s_numgates__s_004ec918[16] __asm__("_s_numgates__s_004ec918") = " numgates %s";
+/* 0x004ec928, 16 bytes */ /* loose */ char grim_def_s_numvertices__d_004ec928[16] __asm__("_s_numvertices__d_004ec928") = " numvertices %d";
+/* 0x004ec938, 12 bytes */ /* loose */ char grim_def_s_height__f_004ec938[12] __asm__("_s_height__f_004ec938") = " height %f";
+/* 0x004ec944, 12 bytes */ /* loose */ char grim_def_s_invisible_004ec944[12] __asm__("_s_invisible_004ec944") = "invisible";
+/* 0x004ec950, 24 bytes */ /* loose */ char grim_def_s_default_visibility__s_004ec950[24] __asm__("_s_default_visibility__s_004ec950") = " default visibility %s";
+/* 0x004ec968, 12 bytes */ /* loose */ char grim_def_s_chernobyl_004ec968[12] __asm__("_s_chernobyl_004ec968") = "chernobyl";
+/* 0x004ec974, 8 bytes */ /* loose */ char grim_def_s_special_004ec974[8] __asm__("_s_special_004ec974") = "special";
+/* 0x004ec97c, 8 bytes */ /* loose */ char grim_def_s_camera_004ec97c[8] __asm__("_s_camera_004ec97c") = "camera";
+/* 0x004ec984, 8 bytes */ /* loose */ char grim_def_s_funnel_004ec984[8] __asm__("_s_funnel_004ec984") = "funnel";
+/* 0x004ec98c, 8 bytes */ /* loose */ char grim_def_s_walk_004ec98c[8] __asm__("_s_walk_004ec98c") = "walk";
+/* 0x004ec994, 8 bytes */ /* loose */ char grim_def_s_id__i_004ec994[8] __asm__("_s_id__i_004ec994") = " id %i";
+/* 0x004ec99c, 12 bytes */ /* loose */ char grim_def_s_sector__s_004ec99c[12] __asm__("_s_sector__s_004ec99c") = " sector %s";
+/* 0x004ec9a8, 16 bytes */ /* loose */ char grim_def_s_numsectors_004ec9a8[16] __asm__("_s_numsectors_004ec9a8") = " numsectors ";
+/* 0x004ec9b8, 24 bytes */ /* loose */ char grim_def_s_edge_index___num_verts_004ec9b8[24] __asm__("_s_edge_index___num_verts_004ec9b8") = "edge_index < num_verts";
+/* 0x008cb0b0, 16384 bytes */ GRIM_DATA("008cb0b0") WalkVertex grim_def_g_aWalkPlane_vert_db[1024] __asm__("_g_aWalkPlane_vert_db") = {0};
+/* 0x008cf218, 48 bytes */ GRIM_DATA("008cf218") unsigned char grim_def_DAT_008cf218[48] __asm__("_DAT_008cf218") = {0};
+/* 0x008cf260, 4 bytes */ GRIM_DATA("008cf260") float grim_def_g_vEdgeFollowDir __asm__("_g_vEdgeFollowDir") = 0.0f;
+/* 0x008cf264, 4 bytes */ GRIM_DATA("008cf264") float grim_def_FLOAT_008cf264 __asm__("_FLOAT_008cf264") = 0.0f;
+/* 0x008cf268, 4 bytes */ GRIM_DATA("008cf268") float grim_def_FLOAT_008cf268 __asm__("_FLOAT_008cf268") = 0.0f;
+/* 0x008cf26c, 4 bytes */ GRIM_DATA("008cf26c") unsigned int grim_def_g_dwWalkPlane_tot_verts __asm__("_g_dwWalkPlane_tot_verts") = 0x0;
+/* 0x008cf270, 4 bytes */ GRIM_DATA("008cf270") int grim_def_g_nVertexCacheSize __asm__("_g_nVertexCacheSize") = 0;
+/* 0x008cf274, 4 bytes */ GRIM_DATA("008cf274") unsigned char grim_def_g_pVertexCache[4] __asm__("_g_pVertexCache") = {0};
+/* 0x008cf278, 4 bytes */ GRIM_DATA("008cf278") int grim_def_g_nWalkPlaneCacheSize __asm__("_g_nWalkPlaneCacheSize") = 0;
+/* 0x008cf27c, 4 bytes */ GRIM_DATA("008cf27c") unsigned char grim_def_g_pWalkPlaneCache[4] __asm__("_g_pWalkPlaneCache") = {0};

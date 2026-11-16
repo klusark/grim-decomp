@@ -472,3 +472,34 @@ void __cdecl stdLbm_SwapHeader(LbmBitmapHeader *header)
   header->nPageHeight = (short)uVar1;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e78e0[4] __asm__("_DAT_004e78e0");
+extern char grim_def_DAT_00815610 __asm__("_DAT_00815610");
+extern unsigned char grim_def_DAT_00815620[4] __asm__("_DAT_00815620");
+extern unsigned char grim_def_DAT_00815624[63728] __asm__("_DAT_00815624");
+extern unsigned char grim_def_PTR_0081561c[4] __asm__("_PTR_0081561c");
+extern unsigned int grim_def_UINT_00815614 __asm__("_UINT_00815614");
+extern unsigned int grim_def_UINT_00815618 __asm__("_UINT_00815618");
+extern char grim_def_s_BODYxxxx_004e7914[12] __asm__("_s_BODYxxxx_004e7914");
+extern char grim_def_s_CMAP_004e7920[8] __asm__("_s_CMAP_004e7920");
+extern char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e78ec[40] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e78ec");
+extern char grim_def_s_FORM_004e78e4[8] __asm__("_s_FORM_004e78e4");
+extern char grim_def_s_FORMxxxxPBM_BMHD_004e7928[20] __asm__("_s_FORMxxxxPBM_BMHD_004e7928");
+/* 0x004e78e0, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004e78e0[4] __asm__("_DAT_004e78e0") = { 0x54 };
+/* 0x004e78e4, 8 bytes */ /* loose */ char grim_def_s_FORM_004e78e4[8] __asm__("_s_FORM_004e78e4") = "FORM";
+/* 0x004e78ec, 40 bytes */ /* loose */ char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e78ec[40] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e78ec") = "C:\\grimjedi\\Libs\\Std\\General\\Stdlbm.c";
+/* 0x004e7914, 12 bytes */ /* loose */ char grim_def_s_BODYxxxx_004e7914[12] __asm__("_s_BODYxxxx_004e7914") = "BODYxxxx";
+/* 0x004e7920, 8 bytes */ /* loose */ char grim_def_s_CMAP_004e7920[8] __asm__("_s_CMAP_004e7920") = "CMAP";
+/* 0x004e7928, 20 bytes */ /* loose */ char grim_def_s_FORMxxxxPBM_BMHD_004e7928[20] __asm__("_s_FORMxxxxPBM_BMHD_004e7928") = "FORMxxxxPBM BMHD";
+/* 0x00815610, 4 bytes */ GRIM_DATA("00815610") char grim_def_DAT_00815610 __asm__("_DAT_00815610") = 0;
+/* 0x00815611, 3 bytes: the rest of grim_def_DAT_00815610's span */ GRIM_DATA("00815610") static unsigned char DAT_00815610__tail[3] __attribute__((used)) = {0};
+/* 0x00815614, 4 bytes */ GRIM_DATA("00815614") unsigned int grim_def_UINT_00815614 __asm__("_UINT_00815614") = 0x0;
+/* 0x00815618, 4 bytes */ GRIM_DATA("00815618") unsigned int grim_def_UINT_00815618 __asm__("_UINT_00815618") = 0x0;
+/* 0x0081561c, 4 bytes */ GRIM_DATA("0081561c") unsigned char grim_def_PTR_0081561c[4] __asm__("_PTR_0081561c") = {0};
+/* 0x00815620, 4 bytes */ GRIM_DATA("00815620") unsigned char grim_def_DAT_00815620[4] __asm__("_DAT_00815620") = {0};
+/* 0x00815624, 63728 bytes */ GRIM_DATA("00815624") unsigned char grim_def_DAT_00815624[63728] __asm__("_DAT_00815624") = {0};

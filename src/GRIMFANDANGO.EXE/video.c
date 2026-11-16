@@ -1025,3 +1025,17 @@ Video_CopyRect(byte *src,byte *dst,int srcX,uint srcY,int dstX,uint dstY,uint wi
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_g_aConvert_bitmask[40] __asm__("_g_aConvert_bitmask");
+static unsigned char grim_anchor_004f3da0[0] __attribute__((section(".data$grim_004f3da0"), aligned(16), used));
+static unsigned char grim_pad_004f3da0[0] __attribute__((section(".data$grim_004f3da0_"), aligned(4), used));
+/* 0x004f3da0, 40 bytes */ GRIM_DATA("004f3da0z") unsigned char grim_def_g_aConvert_bitmask[40] __asm__("_g_aConvert_bitmask") = {
+    0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00, 0x00, 0xe0, 0x00, 0x00, 0x00,
+    0xf0, 0x00, 0x00, 0x00, 0xf8, 0x00, 0x00, 0x00, 0xfc, 0x00, 0x00, 0x00, 0xfe, 0x00, 0x00, 0x00,
+    0xff
+};

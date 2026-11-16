@@ -1293,3 +1293,25 @@ void __cdecl comparison(int op_lt,int op_eq,int op_gt,int event)
   (*ppTVar1)[-1].nTtype = op_eq;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_g_pExecutionState_pFreeStates[4] __asm__("_g_pExecutionState_pFreeStates");
+extern char grim_def_s_WARNING__Killing_Lua_script_that_100281c4[88] __asm__("_s_WARNING__Killing_Lua_script_that_100281c4");
+extern char grim_def_s_WARNING__Lua_nesting_level_now___1002821c[64] __asm__("_s_WARNING__Lua_nesting_level_now___1002821c");
+extern char grim_def_s_indexed_expression_not_a_table_10028180[32] __asm__("_s_indexed_expression_not_a_table_10028180");
+extern char grim_def_s_unexpected_type_for_concatenatio_100281a0[36] __asm__("_s_unexpected_type_for_concatenatio_100281a0");
+extern char grim_def_s_unexpected_type_in_arithmetic_op_1002825c[40] __asm__("_s_unexpected_type_in_arithmetic_op_1002825c");
+extern char grim_def_s_unexpected_type_in_comparison_10028284[40] __asm__("_s_unexpected_type_in_comparison_10028284");
+/* 0x10028180, 32 bytes */ /* loose */ char grim_def_s_indexed_expression_not_a_table_10028180[32] __asm__("_s_indexed_expression_not_a_table_10028180") = "indexed expression not a table";
+/* 0x100281a0, 36 bytes */ /* loose */ char grim_def_s_unexpected_type_for_concatenatio_100281a0[36] __asm__("_s_unexpected_type_for_concatenatio_100281a0") = "unexpected type for concatenation";
+/* 0x100281c4, 88 bytes */ /* loose */ char grim_def_s_WARNING__Killing_Lua_script_that_100281c4[88] __asm__("_s_WARNING__Killing_Lua_script_that_100281c4") = "WARNING: Killing Lua script that ran without a break_here() for a really long time!\n";
+/* 0x1002821c, 64 bytes */ /* loose */ char grim_def_s_WARNING__Lua_nesting_level_now___1002821c[64] __asm__("_s_WARNING__Lua_nesting_level_now___1002821c") = "WARNING: Lua nesting level now %d inside breakable section!\n";
+/* 0x1002825c, 40 bytes */ /* loose */ char grim_def_s_unexpected_type_in_arithmetic_op_1002825c[40] __asm__("_s_unexpected_type_in_arithmetic_op_1002825c") = "unexpected type in arithmetic operation";
+static unsigned char grim_anchor_10028284[0] __attribute__((section(".data$grim_10028284"), aligned(16), used));
+static unsigned char grim_pad_10028284[4] __attribute__((section(".data$grim_10028284_"), aligned(4), used));
+/* 0x10028284, 40 bytes */ GRIM_DATA("10028284z") char grim_def_s_unexpected_type_in_comparison_10028284[40] __asm__("_s_unexpected_type_in_comparison_10028284") = "unexpected type in comparison\000\000\000u\230\000\000s\230";
+/* 0x1002bf84, 4 bytes */ GRIM_DATA("1002bf84") unsigned char grim_def_g_pExecutionState_pFreeStates[4] __asm__("_g_pExecutionState_pFreeStates") = {0};

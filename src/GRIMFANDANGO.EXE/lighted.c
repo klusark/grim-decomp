@@ -1129,3 +1129,71 @@ switchD_004c008d_caseD_13:
 }
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004f0db8[16] __asm__("_DAT_004f0db8");
+extern unsigned char grim_def_DAT_004f0de4[28] __asm__("_DAT_004f0de4");
+extern void *grim_def_PTR_s_Error_004f0d14 __asm__("_PTR_s_Error_004f0d14");
+extern unsigned int grim_def_UINT_004ddd74 __asm__("_UINT_004ddd74");
+extern unsigned char grim_def_UINT_008d16c8[104] __asm__("_UINT_008d16c8");
+extern unsigned int grim_def_UINT_008d1738 __asm__("_UINT_008d1738");
+extern unsigned int grim_def_UINT_008d173c __asm__("_UINT_008d173c");
+extern unsigned char grim_def_UINT_008d1740[1264] __asm__("_UINT_008d1740");
+extern unsigned int grim_def_UINT_008d1c50 __asm__("_UINT_008d1c50");
+extern unsigned int grim_def_UINT_008d1c54 __asm__("_UINT_008d1c54");
+extern unsigned char grim_def_UINT_008d1c58[6616] __asm__("_UINT_008d1c58");
+extern unsigned int grim_def_g_dwLightEdLastKey __asm__("_g_dwLightEdLastKey");
+extern float grim_def_g_flLightEdAngleStep __asm__("_g_flLightEdAngleStep");
+extern float grim_def_g_flLightEdMoveStep __asm__("_g_flLightEdMoveStep");
+extern int grim_def_g_nLightEdBusy __asm__("_g_nLightEdBusy");
+extern char grim_def_s_Could_not_open_file___s___004f0dc8[28] __asm__("_s_Could_not_open_file___s___004f0dc8");
+extern char grim_def_s_Error_004f0d20[] __asm__("_s_Error_004f0d20");
+extern char grim_def_s_Maximum_number_of_lights_already_004f0d78[64] __asm__("_s_Maximum_number_of_lights_already_004f0d78");
+extern char grim_def_s_Set_Files____set__004f0e0c[48] __asm__("_s_Set_Files____set__004f0e0c");
+extern char grim_def_s__Light__d__004f0e68[12] __asm__("_s__Light__d__004f0e68");
+extern char grim_def_s_direction__f__f__f_004ec68c[24] __asm__("_s_direction__f__f__f_004ec68c");
+extern char grim_def_s_intensity__f_004ec67c[16] __asm__("_s_intensity__f_004ec67c");
+extern char grim_def_s_newlight_d_004f0d6c[12] __asm__("_s_newlight_d_004f0d6c");
+extern char grim_def_s_penumbraangle__f_004ec654[20] __asm__("_s_penumbraangle__f_004ec654");
+extern char grim_def_s_position__f__f__f_004ec6a4[88] __asm__("_s_position__f__f__f_004ec6a4");
+extern char grim_def_s_section__004f0e00[12] __asm__("_s_section__004f0e00");
+extern char grim_def_s_section__lights_004ec6fc[20] __asm__("_s_section__lights_004ec6fc");
+extern char grim_def_s_umbraangle__f_004ec668[20] __asm__("_s_umbraangle__f_004ec668");
+/* 0x004ddd74, 4 bytes */ GRIM_DATA("004ddd74") unsigned int grim_def_UINT_004ddd74 __asm__("_UINT_004ddd74") = 0xa0a;
+/* 0x004ec654, 20 bytes */ GRIM_DATA("004ec654") char grim_def_s_penumbraangle__f_004ec654[20] __asm__("_s_penumbraangle__f_004ec654") = "\tpenumbraangle\t%f\n";
+/* 0x004ec668, 20 bytes */ /* loose */ char grim_def_s_umbraangle__f_004ec668[20] __asm__("_s_umbraangle__f_004ec668") = "\tumbraangle\t\t%f\n";
+/* 0x004ec67c, 16 bytes */ /* loose */ char grim_def_s_intensity__f_004ec67c[16] __asm__("_s_intensity__f_004ec67c") = "\tintensity\t%f\n";
+/* 0x004ec68c, 24 bytes */ /* loose */ char grim_def_s_direction__f__f__f_004ec68c[24] __asm__("_s_direction__f__f__f_004ec68c") = "\tdirection\t%f\t%f\t%f\n";
+static unsigned char grim_anchor_004ec6a4[0] __attribute__((section(".data$grim_004ec6a4"), aligned(16), used));
+static unsigned char grim_pad_004ec6a4[4] __attribute__((section(".data$grim_004ec6a4_"), aligned(4), used));
+/* 0x004ec6a4, 88 bytes */ GRIM_DATA("004ec6a4z") char grim_def_s_position__f__f__f_004ec6a4[88] __asm__("_s_position__f__f__f_004ec6a4") = "\tposition\t\t%f\t%f\t%f\n\000\000\000\000\ttype\t\t%s\n\000\000direct\000\000spot\t\000\000\000omni\t\000\000\000\tlight\t\t%s\n\000\tnumlights\t%d\n\n";
+/* 0x004ec6fc, 20 bytes */ GRIM_DATA("004ec6fc") char grim_def_s_section__lights_004ec6fc[20] __asm__("_s_section__lights_004ec6fc") = "section: lights\n";
+/* 0x004f0d14, 4 bytes */ /* loose */ void *grim_def_PTR_s_Error_004f0d14 __asm__("_PTR_s_Error_004f0d14") = (void *)&grim_def_s_Error_004f0d20;
+/* 0x004f0d18, 4 bytes */ /* loose */ float grim_def_g_flLightEdMoveStep __asm__("_g_flLightEdMoveStep") = 0.01f;
+/* 0x004f0d1c, 4 bytes */ /* loose */ float grim_def_g_flLightEdAngleStep __asm__("_g_flLightEdAngleStep") = 1.0f;
+/* 0x004f0d6c, 12 bytes */ /* loose */ char grim_def_s_newlight_d_004f0d6c[12] __asm__("_s_newlight_d_004f0d6c") = "newlight%d";
+/* 0x004f0d78, 64 bytes */ /* loose */ char grim_def_s_Maximum_number_of_lights_already_004f0d78[64] __asm__("_s_Maximum_number_of_lights_already_004f0d78") = "Maximum number of lights already in room.  Try deleting a few.";
+static unsigned char grim_anchor_004f0db8[0] __attribute__((section(".data$grim_004f0db8"), aligned(16), used));
+static unsigned char grim_pad_004f0db8[8] __attribute__((section(".data$grim_004f0db8_"), aligned(4), used));
+/* 0x004f0db8, 16 bytes */ GRIM_DATA("004f0db8z") unsigned char grim_def_DAT_004f0db8[16] __asm__("_DAT_004f0db8") = { 0x43, 0x61, 0x6e, 0x27, 0x74, 0x20, 0x41, 0x64, 0x64, 0x20, 0x4c, 0x69, 0x67, 0x68, 0x74 };
+/* 0x004f0dc8, 28 bytes */ GRIM_DATA("004f0dc8") char grim_def_s_Could_not_open_file___s___004f0dc8[28] __asm__("_s_Could_not_open_file___s___004f0dc8") = "Could not open file \"%s\".";
+/* 0x004f0de4, 28 bytes */ GRIM_DATA("004f0de4") unsigned char grim_def_DAT_004f0de4[28] __asm__("_DAT_004f0de4") = {
+    0x43, 0x6f, 0x75, 0x6c, 0x64, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
+    0x20, 0x74, 0x65, 0x6d, 0x70, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x2e
+};
+/* 0x004f0e00, 12 bytes */ GRIM_DATA("004f0e00") char grim_def_s_section__004f0e00[12] __asm__("_s_section__004f0e00") = "section:";
+/* 0x004f0e0c, 48 bytes */ GRIM_DATA("004f0e0c") char grim_def_s_Set_Files____set__004f0e0c[48] __asm__("_s_Set_Files____set__004f0e0c") = "Set Files (*.set)\000*.set\000All Files (*.*)\000*.*";
+/* 0x004f0e68, 12 bytes */ /* loose */ char grim_def_s__Light__d__004f0e68[12] __asm__("_s__Light__d__004f0e68") = "<Light %d>";
+/* 0x008d16c8, 104 bytes */ GRIM_DATA("008d16c8") unsigned char grim_def_UINT_008d16c8[104] __asm__("_UINT_008d16c8") = {0};
+/* 0x008d1738, 4 bytes */ GRIM_DATA("008d1738") unsigned int grim_def_UINT_008d1738 __asm__("_UINT_008d1738") = 0x0;
+/* 0x008d173c, 4 bytes */ GRIM_DATA("008d173c") unsigned int grim_def_UINT_008d173c __asm__("_UINT_008d173c") = 0x0;
+/* 0x008d1740, 1264 bytes */ GRIM_DATA("008d1740") unsigned char grim_def_UINT_008d1740[1264] __asm__("_UINT_008d1740") = {0};
+/* 0x008d1c50, 4 bytes */ GRIM_DATA("008d1c50") unsigned int grim_def_UINT_008d1c50 __asm__("_UINT_008d1c50") = 0x0;
+/* 0x008d1c54, 4 bytes */ GRIM_DATA("008d1c54") unsigned int grim_def_UINT_008d1c54 __asm__("_UINT_008d1c54") = 0x0;
+/* 0x008d1c58, 6616 bytes */ GRIM_DATA("008d1c58") unsigned char grim_def_UINT_008d1c58[6616] __asm__("_UINT_008d1c58") = {0};
+/* 0x008d3640, 4 bytes */ GRIM_DATA("008d3640") int grim_def_g_nLightEdBusy __asm__("_g_nLightEdBusy") = 0;
+/* 0x008d3648, 4 bytes */ GRIM_DATA("008d3648") unsigned int grim_def_g_dwLightEdLastKey __asm__("_g_dwLightEdLastKey") = 0x0;

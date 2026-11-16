@@ -536,3 +536,11 @@ int __cdecl Lab_ReadRaw(ResFile *file,void *buf,int offset,int n)
   uVar2 = Res_FRead(file->dwHandle,buf,n);
   return uVar2;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_LABN_004e7af0[8] __asm__("_s_LABN_004e7af0");
+/* 0x004e7af0, 8 bytes */ /* loose */ char grim_def_s_LABN_004e7af0[8] __asm__("_s_LABN_004e7af0") = "LABN";

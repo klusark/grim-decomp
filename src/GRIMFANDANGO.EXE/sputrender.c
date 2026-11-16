@@ -82,3 +82,13 @@ void __cdecl sputRender_Shutdown(void)
   g_dwSputRendStartup = 0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_g_dwSputRendInitialize __asm__("_g_dwSputRendInitialize");
+extern unsigned int grim_def_g_dwSputRendStartup __asm__("_g_dwSputRendStartup");
+/* 0x008c9788, 4 bytes */ GRIM_DATA("008c9788") unsigned int grim_def_g_dwSputRendInitialize __asm__("_g_dwSputRendInitialize") = 0x0;
+/* 0x008c978c, 4 bytes */ GRIM_DATA("008c978c") unsigned int grim_def_g_dwSputRendStartup __asm__("_g_dwSputRendStartup") = 0x0;

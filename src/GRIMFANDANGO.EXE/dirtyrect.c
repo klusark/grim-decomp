@@ -272,3 +272,17 @@ void __cdecl DirtyRect_Clear(void)
   g_nDirtyRectCount = 0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_UINT_008c981c __asm__("_UINT_008c981c");
+extern unsigned int grim_def_UINT_008c9820 __asm__("_UINT_008c9820");
+extern int grim_def_g_nDirtyRectCount __asm__("_g_nDirtyRectCount");
+extern unsigned char grim_def_g_pDirtyRectList[4] __asm__("_g_pDirtyRectList");
+/* 0x008c979c, 4 bytes */ GRIM_DATA("008c979c") unsigned char grim_def_g_pDirtyRectList[4] __asm__("_g_pDirtyRectList") = {0};
+/* 0x008c97fc, 4 bytes */ GRIM_DATA("008c97fc") int grim_def_g_nDirtyRectCount __asm__("_g_nDirtyRectCount") = 0;
+/* 0x008c981c, 4 bytes */ GRIM_DATA("008c981c") unsigned int grim_def_UINT_008c981c __asm__("_UINT_008c981c") = 0x0;
+/* 0x008c9820, 4 bytes */ GRIM_DATA("008c9820") unsigned int grim_def_UINT_008c9820 __asm__("_UINT_008c9820") = 0x0;

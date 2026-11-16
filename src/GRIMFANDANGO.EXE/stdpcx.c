@@ -322,3 +322,13 @@ uint __cdecl stdPcx_Write(uint filename,int bitmap)
   (*g_pStd_HS->pFclose)(f);
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e78b4[4] __asm__("_DAT_004e78b4");
+extern char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e78b8[40] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e78b8");
+/* 0x004e78b4, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004e78b4[4] __asm__("_DAT_004e78b4") = { 0x3c };
+/* 0x004e78b8, 40 bytes */ /* loose */ char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e78b8[40] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e78b8") = "C:\\grimjedi\\Libs\\Std\\General\\Stdpcx.c";

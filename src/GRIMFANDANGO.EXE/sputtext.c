@@ -291,3 +291,123 @@ uint __cdecl sputText_Restore(code *read)
   }
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_sputText_BlastText[] __asm__("_sputText_BlastText");
+extern char f_sputText_ChangeTextObjectL[] __asm__("_sputText_ChangeTextObjectL");
+extern char f_sputText_ExpireTextQueueL[] __asm__("_sputText_ExpireTextQueueL");
+extern char f_sputText_GetActorTalkColorL[] __asm__("_sputText_GetActorTalkColorL");
+extern char f_sputText_GetColorComponentsL[] __asm__("_sputText_GetColorComponentsL");
+extern char f_sputText_GetFontDimensionsL[] __asm__("_sputText_GetFontDimensionsL");
+extern char f_sputText_GetTextCharPositionL[] __asm__("_sputText_GetTextCharPositionL");
+extern char f_sputText_GetTextObjectDimensionsL[] __asm__("_sputText_GetTextObjectDimensionsL");
+extern char f_sputText_GetTranslationModeL[] __asm__("_sputText_GetTranslationModeL");
+extern char f_sputText_IsMessageGoingL[] __asm__("_sputText_IsMessageGoingL");
+extern char f_sputText_KillTextObjectL[] __asm__("_sputText_KillTextObjectL");
+extern char f_sputText_LocalizeStringL[] __asm__("_sputText_LocalizeStringL");
+extern char f_sputText_MakeColorL[] __asm__("_sputText_MakeColorL");
+extern char f_sputText_MakeTextObjectL[] __asm__("_sputText_MakeTextObjectL");
+extern char f_sputText_PrintLineL[] __asm__("_sputText_PrintLineL");
+extern char f_sputText_PurgeTextQueueL[] __asm__("_sputText_PurgeTextQueueL");
+extern char f_sputText_SayLineL[] __asm__("_sputText_SayLineL");
+extern char f_sputText_SetActorTalkColorL[] __asm__("_sputText_SetActorTalkColorL");
+extern char f_sputText_SetEmergencyFontL[] __asm__("_sputText_SetEmergencyFontL");
+extern char f_sputText_SetOffscreenTextPosL[] __asm__("_sputText_SetOffscreenTextPosL");
+extern char f_sputText_SetSayLineDefaultsL[] __asm__("_sputText_SetSayLineDefaultsL");
+extern char f_sputText_SetTranslationModeL[] __asm__("_sputText_SetTranslationModeL");
+extern unsigned int grim_def_UINT_004e85d8 __asm__("_UINT_004e85d8");
+extern unsigned int grim_def_UINT_008ca0bc __asm__("_UINT_008ca0bc");
+extern unsigned int grim_def_UINT_008ca0c0 __asm__("_UINT_008ca0c0");
+extern unsigned char grim_def_UINT_008ca0c4[20] __asm__("_UINT_008ca0c4");
+extern unsigned int grim_def_UINT_008ca11c __asm__("_UINT_008ca11c");
+extern unsigned int grim_def_UINT_008ca120 __asm__("_UINT_008ca120");
+extern unsigned char grim_def_UINT_008ca124[20] __asm__("_UINT_008ca124");
+extern unsigned char grim_def_g_aGraphMS[4] __asm__("_g_aGraphMS");
+extern unsigned char grim_def_g_aTextMS[4] __asm__("_g_aTextMS");
+extern unsigned int grim_def_g_dwLrHiColor __asm__("_g_dwLrHiColor");
+extern unsigned int grim_def_g_dwSputtextInitialize __asm__("_g_dwSputtextInitialize");
+extern unsigned int grim_def_g_dwSputtextStartup __asm__("_g_dwSputtextStartup");
+extern unsigned int grim_def_g_hFont __asm__("_g_hFont");
+extern unsigned char grim_def_g_pSputtextHS[4] __asm__("_g_pSputtextHS");
+extern void *grim_def_g_pTextFunctionsToRegister[44] __asm__("_g_pTextFunctionsToRegister");
+extern char grim_def_s_BlastText_004e8688[] __asm__("_s_BlastText_004e8688");
+extern char grim_def_s_ChangeTextObject_004e86a4[] __asm__("_s_ChangeTextObject_004e86a4");
+extern char grim_def_s_ExpireText_004e867c[] __asm__("_s_ExpireText_004e867c");
+extern char grim_def_s_GetActorTalkColor_004e8708[] __asm__("_s_GetActorTalkColor_004e8708");
+extern char grim_def_s_GetColorComponents_004e8650[] __asm__("_s_GetColorComponents_004e8650");
+extern char grim_def_s_GetFontDimensions_004e86b8[] __asm__("_s_GetFontDimensions_004e86b8");
+extern char grim_def_s_GetTextCharPosition_004e8614[] __asm__("_s_GetTextCharPosition_004e8614");
+extern char grim_def_s_GetTextObjectDimensions_004e86cc[] __asm__("_s_GetTextObjectDimensions_004e86cc");
+extern char grim_def_s_GetTranslationMode_004e8628[] __asm__("_s_GetTranslationMode_004e8628");
+extern char grim_def_s_IsMessageGoing_004e8744[] __asm__("_s_IsMessageGoing_004e8744");
+extern char grim_def_s_KillTextObject_004e8694[] __asm__("_s_KillTextObject_004e8694");
+extern char grim_def_s_LocalizeString_004e8604[] __asm__("_s_LocalizeString_004e8604");
+extern char grim_def_s_MakeColor_004e8664[] __asm__("_s_MakeColor_004e8664");
+extern char grim_def_s_MakeTextObject_004e86e4[] __asm__("_s_MakeTextObject_004e86e4");
+extern char grim_def_s_PrintLine_004e86f4[] __asm__("_s_PrintLine_004e86f4");
+extern char grim_def_s_PurgeText_004e8670[] __asm__("_s_PurgeText_004e8670");
+extern char grim_def_s_SayLine_004e8700[] __asm__("_s_SayLine_004e8700");
+extern char grim_def_s_SetActorTalkColor_004e871c[] __asm__("_s_SetActorTalkColor_004e871c");
+extern char grim_def_s_SetEmergencyFont_004e85f0[] __asm__("_s_SetEmergencyFont_004e85f0");
+extern char grim_def_s_SetOffscreenTextPos_004e85dc[] __asm__("_s_SetOffscreenTextPos_004e85dc");
+extern char grim_def_s_SetSayLineDefaults_004e8730[] __asm__("_s_SetSayLineDefaults_004e8730");
+extern char grim_def_s_SetTranslationMode_004e863c[] __asm__("_s_SetTranslationMode_004e863c");
+extern char grim_def_s_background_004e875c[12] __asm__("_s_background_004e875c");
+extern char grim_def_s_bgcolor_004e87b0[8] __asm__("_s_bgcolor_004e87b0");
+extern char grim_def_s_center_004e878c[8] __asm__("_s_center_004e878c");
+extern char grim_def_s_duration_004e8794[12] __asm__("_s_duration_004e8794");
+extern char grim_def_s_fgcolor_004e87b8[8] __asm__("_s_fgcolor_004e87b8");
+extern char grim_def_s_font_004e87c0[8] __asm__("_s_font_004e87c0");
+extern char grim_def_s_fxcolor_004e87a8[8] __asm__("_s_fxcolor_004e87a8");
+extern char grim_def_s_height_004e8438[8] __asm__("_s_height_004e8438");
+extern char grim_def_s_hicolor_004e87a0[8] __asm__("_s_hicolor_004e87a0");
+extern char grim_def_s_ljustify_004e8780[12] __asm__("_s_ljustify_004e8780");
+extern char grim_def_s_pan_004e8768[4] __asm__("_s_pan_004e8768");
+extern char grim_def_s_rjustify_004e8774[12] __asm__("_s_rjustify_004e8774");
+extern char grim_def_s_volume_004e876c[8] __asm__("_s_volume_004e876c");
+extern char grim_def_s_width_004e8440[8] __asm__("_s_width_004e8440");
+/* 0x004e8438, 8 bytes */ /* loose */ char grim_def_s_height_004e8438[8] __asm__("_s_height_004e8438") = "height";
+/* 0x004e8440, 8 bytes */ /* loose */ char grim_def_s_width_004e8440[8] __asm__("_s_width_004e8440") = "width";
+/* 0x004e8528, 176 bytes */ GRIM_DATA("004e8528") void *grim_def_g_pTextFunctionsToRegister[44] __asm__("_g_pTextFunctionsToRegister") = {
+    (void *)&grim_def_s_IsMessageGoing_004e8744, (void *)f_sputText_IsMessageGoingL, (void *)&grim_def_s_SetSayLineDefaults_004e8730, (void *)f_sputText_SetSayLineDefaultsL,
+    (void *)&grim_def_s_SetActorTalkColor_004e871c, (void *)f_sputText_SetActorTalkColorL, (void *)&grim_def_s_GetActorTalkColor_004e8708, (void *)f_sputText_GetActorTalkColorL,
+    (void *)&grim_def_s_SayLine_004e8700, (void *)f_sputText_SayLineL, (void *)&grim_def_s_PrintLine_004e86f4, (void *)f_sputText_PrintLineL,
+    (void *)&grim_def_s_MakeTextObject_004e86e4, (void *)f_sputText_MakeTextObjectL, (void *)&grim_def_s_GetTextObjectDimensions_004e86cc, (void *)f_sputText_GetTextObjectDimensionsL,
+    (void *)&grim_def_s_GetFontDimensions_004e86b8, (void *)f_sputText_GetFontDimensionsL, (void *)&grim_def_s_ChangeTextObject_004e86a4, (void *)f_sputText_ChangeTextObjectL,
+    (void *)&grim_def_s_KillTextObject_004e8694, (void *)f_sputText_KillTextObjectL, (void *)&grim_def_s_BlastText_004e8688, (void *)f_sputText_BlastText,
+    (void *)&grim_def_s_ExpireText_004e867c, (void *)f_sputText_ExpireTextQueueL, (void *)&grim_def_s_PurgeText_004e8670, (void *)f_sputText_PurgeTextQueueL,
+    (void *)&grim_def_s_MakeColor_004e8664, (void *)f_sputText_MakeColorL, (void *)&grim_def_s_GetColorComponents_004e8650, (void *)f_sputText_GetColorComponentsL,
+    (void *)&grim_def_s_SetTranslationMode_004e863c, (void *)f_sputText_SetTranslationModeL, (void *)&grim_def_s_GetTranslationMode_004e8628, (void *)f_sputText_GetTranslationModeL,
+    (void *)&grim_def_s_GetTextCharPosition_004e8614, (void *)f_sputText_GetTextCharPositionL, (void *)&grim_def_s_LocalizeString_004e8604, (void *)f_sputText_LocalizeStringL,
+    (void *)&grim_def_s_SetEmergencyFont_004e85f0, (void *)f_sputText_SetEmergencyFontL, (void *)&grim_def_s_SetOffscreenTextPos_004e85dc, (void *)f_sputText_SetOffscreenTextPosL
+};
+/* 0x004e85d8, 4 bytes */ GRIM_DATA("004e85d8") unsigned int grim_def_UINT_004e85d8 __asm__("_UINT_004e85d8") = 0x16;
+/* 0x004e875c, 12 bytes */ /* loose */ char grim_def_s_background_004e875c[12] __asm__("_s_background_004e875c") = "background";
+/* 0x004e8768, 4 bytes */ /* loose */ char grim_def_s_pan_004e8768[4] __asm__("_s_pan_004e8768") = "pan";
+/* 0x004e876c, 8 bytes */ /* loose */ char grim_def_s_volume_004e876c[8] __asm__("_s_volume_004e876c") = "volume";
+/* 0x004e8774, 12 bytes */ /* loose */ char grim_def_s_rjustify_004e8774[12] __asm__("_s_rjustify_004e8774") = "rjustify";
+/* 0x004e8780, 12 bytes */ /* loose */ char grim_def_s_ljustify_004e8780[12] __asm__("_s_ljustify_004e8780") = "ljustify";
+/* 0x004e878c, 8 bytes */ /* loose */ char grim_def_s_center_004e878c[8] __asm__("_s_center_004e878c") = "center";
+/* 0x004e8794, 12 bytes */ /* loose */ char grim_def_s_duration_004e8794[12] __asm__("_s_duration_004e8794") = "duration";
+/* 0x004e87a0, 8 bytes */ /* loose */ char grim_def_s_hicolor_004e87a0[8] __asm__("_s_hicolor_004e87a0") = "hicolor";
+/* 0x004e87a8, 8 bytes */ /* loose */ char grim_def_s_fxcolor_004e87a8[8] __asm__("_s_fxcolor_004e87a8") = "fxcolor";
+/* 0x004e87b0, 8 bytes */ /* loose */ char grim_def_s_bgcolor_004e87b0[8] __asm__("_s_bgcolor_004e87b0") = "bgcolor";
+/* 0x004e87b8, 8 bytes */ /* loose */ char grim_def_s_fgcolor_004e87b8[8] __asm__("_s_fgcolor_004e87b8") = "fgcolor";
+/* 0x004e87c0, 8 bytes */ /* loose */ char grim_def_s_font_004e87c0[8] __asm__("_s_font_004e87c0") = "font";
+/* 0x008ca0b8, 4 bytes */ GRIM_DATA("008ca0b8") unsigned char grim_def_g_aTextMS[4] __asm__("_g_aTextMS") = {0};
+/* 0x008ca0bc, 4 bytes */ GRIM_DATA("008ca0bc") unsigned int grim_def_UINT_008ca0bc __asm__("_UINT_008ca0bc") = 0x0;
+/* 0x008ca0c0, 4 bytes */ GRIM_DATA("008ca0c0") unsigned int grim_def_UINT_008ca0c0 __asm__("_UINT_008ca0c0") = 0x0;
+/* 0x008ca0c4, 20 bytes */ GRIM_DATA("008ca0c4") unsigned char grim_def_UINT_008ca0c4[20] __asm__("_UINT_008ca0c4") = {0};
+/* 0x008ca0e8, 4 bytes */ GRIM_DATA("008ca0e8") unsigned int grim_def_g_dwLrHiColor __asm__("_g_dwLrHiColor") = 0x0;
+/* 0x008ca118, 4 bytes */ GRIM_DATA("008ca118") unsigned char grim_def_g_aGraphMS[4] __asm__("_g_aGraphMS") = {0};
+/* 0x008ca11c, 4 bytes */ GRIM_DATA("008ca11c") unsigned int grim_def_UINT_008ca11c __asm__("_UINT_008ca11c") = 0x0;
+/* 0x008ca120, 4 bytes */ GRIM_DATA("008ca120") unsigned int grim_def_UINT_008ca120 __asm__("_UINT_008ca120") = 0x0;
+/* 0x008ca124, 20 bytes */ GRIM_DATA("008ca124") unsigned char grim_def_UINT_008ca124[20] __asm__("_UINT_008ca124") = {0};
+/* 0x008ca138, 4 bytes */ GRIM_DATA("008ca138") unsigned int grim_def_g_dwSputtextInitialize __asm__("_g_dwSputtextInitialize") = 0x0;
+/* 0x008ca13c, 4 bytes */ GRIM_DATA("008ca13c") unsigned int grim_def_g_dwSputtextStartup __asm__("_g_dwSputtextStartup") = 0x0;
+/* 0x008ca144, 4 bytes */ GRIM_DATA("008ca144") unsigned char grim_def_g_pSputtextHS[4] __asm__("_g_pSputtextHS") = {0};
+/* 0x008ca148, 4 bytes */ GRIM_DATA("008ca148") unsigned int grim_def_g_hFont __asm__("_g_hFont") = 0x0;

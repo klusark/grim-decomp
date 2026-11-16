@@ -39,3 +39,11 @@ void __cdecl IMuse_RestoreFromTemp(void)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_grim_tmp_004e8018[12] __asm__("_s_grim_tmp_004e8018");
+/* 0x004e8018, 12 bytes */ /* loose */ char grim_def_s_grim_tmp_004e8018[12] __asm__("_s_grim_tmp_004e8018") = "grim.tmp";

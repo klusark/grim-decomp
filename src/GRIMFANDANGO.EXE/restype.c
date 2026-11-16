@@ -567,3 +567,11 @@ uint __cdecl sputResource_MemoryHandler(int *msg)
   }
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_dflt_mat_004e9c68[12] __asm__("_s_dflt_mat_004e9c68");
+/* 0x004e9c68, 12 bytes */ /* loose */ char grim_def_s_dflt_mat_004e9c68[12] __asm__("_s_dflt_mat_004e9c68") = "dflt.mat";

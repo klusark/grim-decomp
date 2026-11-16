@@ -81,3 +81,15 @@ void __cdecl sputControl_Shutdown(void)
   g_dwSputConStartup = 0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_g_dwSputConInitialize __asm__("_g_dwSputConInitialize");
+extern unsigned int grim_def_g_dwSputConStartup __asm__("_g_dwSputConStartup");
+extern unsigned char grim_def_g_pSputConHS[4] __asm__("_g_pSputConHS");
+/* 0x008ca1b8, 4 bytes */ GRIM_DATA("008ca1b8") unsigned char grim_def_g_pSputConHS[4] __asm__("_g_pSputConHS") = {0};
+/* 0x008ca1bc, 4 bytes */ GRIM_DATA("008ca1bc") unsigned int grim_def_g_dwSputConInitialize __asm__("_g_dwSputConInitialize") = 0x0;
+/* 0x008ca1c0, 4 bytes */ GRIM_DATA("008ca1c0") unsigned int grim_def_g_dwSputConStartup __asm__("_g_dwSputConStartup") = 0x0;

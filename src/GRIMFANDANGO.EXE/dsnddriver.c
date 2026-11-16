@@ -392,3 +392,106 @@ void DsndDriver_ReleaseDirectSound(void)
   g_pStreamDS = (void *)0x0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_DsndDriver_module_shutdown[] __asm__("_DsndDriver_module_shutdown");
+extern char f_DsndDriver_module_startup[] __asm__("_DsndDriver_module_startup");
+extern char f_DsndDriver_module_terminate[] __asm__("_DsndDriver_module_terminate");
+extern char f_LecShare_Nop[] __asm__("_LecShare_Nop");
+extern char f_dsn_getrate[] __asm__("_dsn_getrate");
+extern char f_dsn_getvol[] __asm__("_dsn_getvol");
+extern char f_dsn_initialize[] __asm__("_dsn_initialize");
+extern char f_dsn_setvol[] __asm__("_dsn_setvol");
+extern char f_dsn_terminate[] __asm__("_dsn_terminate");
+extern char f_sou_dsnd_module[] __asm__("_sou_dsnd_module");
+extern unsigned char grim_def_DAT_004f3fa8[24] __asm__("_DAT_004f3fa8");
+extern unsigned char grim_def_DAT_004f3fc0[20] __asm__("_DAT_004f3fc0");
+extern unsigned char grim_def_DAT_008db20c[4] __asm__("_DAT_008db20c");
+extern unsigned char grim_def_DAT_008db214[4] __asm__("_DAT_008db214");
+extern unsigned char grim_def_DAT_008db218[4] __asm__("_DAT_008db218");
+extern unsigned char grim_def_DAT_008db21c[4] __asm__("_DAT_008db21c");
+extern unsigned char grim_def_DAT_008db220[4] __asm__("_DAT_008db220");
+extern unsigned char grim_def_DAT_008db224[4] __asm__("_DAT_008db224");
+extern unsigned char grim_def_DAT_008db228[4] __asm__("_DAT_008db228");
+extern unsigned char grim_def_DAT_008db22c[4] __asm__("_DAT_008db22c");
+extern unsigned char grim_def_DAT_008db414[4] __asm__("_DAT_008db414");
+extern unsigned char grim_def_DAT_008db42c[4] __asm__("_DAT_008db42c");
+extern unsigned char grim_def_DAT_008dcc38[4] __asm__("_DAT_008dcc38");
+extern unsigned char grim_def_DAT_008dcc3c[4] __asm__("_DAT_008dcc3c");
+extern unsigned char grim_def_DAT_008dcc4c[4] __asm__("_DAT_008dcc4c");
+extern unsigned int grim_def_UINT_008db210 __asm__("_UINT_008db210");
+extern unsigned char grim_def_UINT_008db230[96] __asm__("_UINT_008db230");
+extern unsigned char grim_def_UINT_008db290[128] __asm__("_UINT_008db290");
+extern unsigned char grim_def_UINT_008db310[252] __asm__("_UINT_008db310");
+extern unsigned int grim_def_UINT_008db40c __asm__("_UINT_008db40c");
+extern unsigned int grim_def_UINT_008dcc50 __asm__("_UINT_008dcc50");
+extern unsigned char grim_def_UINT_008dcc58[8] __asm__("_UINT_008dcc58");
+extern void *grim_def_g_apfnDsndDriverModule[4] __asm__("_g_apfnDsndDriverModule");
+extern unsigned int grim_def_g_dwCurrentVol __asm__("_g_dwCurrentVol");
+extern unsigned int grim_def_g_dwDsndDriver_memory_services __asm__("_g_dwDsndDriver_memory_services");
+extern unsigned int grim_def_g_dwDsndDriver_share_config __asm__("_g_dwDsndDriver_share_config");
+extern int grim_def_g_nStreamSavedVolume __asm__("_g_nStreamSavedVolume");
+extern unsigned char grim_def_g_pDsndDriver_share_services[4] __asm__("_g_pDsndDriver_share_services");
+extern void *grim_def_g_pDsndDriver_snddriver_services[7] __asm__("_g_pDsndDriver_snddriver_services");
+extern unsigned char grim_def_g_pStreamDS[4] __asm__("_g_pStreamDS");
+extern unsigned char grim_def_g_pStreamDSPrimary[4] __asm__("_g_pStreamDSPrimary");
+extern char grim_def_s_Cannot_create_DirectSound_object_004f40d0[40] __asm__("_s_Cannot_create_DirectSound_object_004f40d0");
+extern char grim_def_s_DirectSoundDriver_Module__Cannot_004f4018[60] __asm__("_s_DirectSoundDriver_Module__Cannot_004f4018");
+extern char grim_def_s_DirectSound__Error__08X_while_cr_004f4060[56] __asm__("_s_DirectSound__Error__08X_while_cr_004f4060");
+extern char grim_def_s_DirectSound__Error__08X_while_se_004f4098[56] __asm__("_s_DirectSound__Error__08X_while_se_004f4098");
+extern char grim_def_s_LECMODULE_insane_dsnd_004f3fec[24] __asm__("_s_LECMODULE_insane_dsnd_004f3fec");
+extern char grim_def_s_MEMORY_mixertable_004f4004[20] __asm__("_s_MEMORY_mixertable_004f4004");
+extern char grim_def_s_SNDDRIVER_insane_dsnd_004f3fd4[24] __asm__("_s_SNDDRIVER_insane_dsnd_004f3fd4");
+extern char grim_def_s_TIMER_clock_004f4054[12] __asm__("_s_TIMER_clock_004f4054");
+static unsigned char grim_anchor_004f3f68[0] __attribute__((section(".data$grim_004f3f68"), aligned(16), used));
+static unsigned char grim_pad_004f3f68[8] __attribute__((section(".data$grim_004f3f68_"), aligned(4), used));
+/* 0x004f3f68, 16 bytes */ GRIM_DATA("004f3f68z") void *grim_def_g_apfnDsndDriverModule[4] __asm__("_g_apfnDsndDriverModule") = {
+    (void *)f_sou_dsnd_module, (void *)f_DsndDriver_module_terminate, (void *)f_DsndDriver_module_startup, (void *)f_DsndDriver_module_shutdown
+};
+/* 0x004f3f78, 28 bytes */ GRIM_DATA("004f3f78") void *grim_def_g_pDsndDriver_snddriver_services[7] __asm__("_g_pDsndDriver_snddriver_services") = {
+    (void *)f_dsn_initialize, (void *)f_dsn_terminate, (void *)f_dsn_setvol, (void *)f_dsn_getvol,
+    (void *)f_LecShare_Nop, (void *)f_dsn_getrate, (void *)0xffffffff
+};
+/* 0x004f3f9c, 4 bytes */ GRIM_DATA("004f3f9c") unsigned int grim_def_g_dwCurrentVol __asm__("_g_dwCurrentVol") = 0x7f;
+/* 0x004f3fa0, 8 bytes */ GRIM_DATA("004f3fa0") int grim_def_g_nStreamSavedVolume __asm__("_g_nStreamSavedVolume") = -5000;
+/* 0x004f3fa4, 4 bytes: the rest of grim_def_g_nStreamSavedVolume's span */ GRIM_DATA("004f3fa0") static unsigned char g_nStreamSavedVolume__tail[4] __attribute__((used)) = {0};
+/* 0x004f3fa8, 24 bytes */ GRIM_DATA("004f3fa8") unsigned char grim_def_DAT_004f3fa8[24] __asm__("_DAT_004f3fa8") = { 0x01, 0x00, 0x02, 0x00, 0x22, 0x56, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00, 0x04, 0x00, 0x10 };
+/* 0x004f3fc0, 20 bytes */ GRIM_DATA("004f3fc0") unsigned char grim_def_DAT_004f3fc0[20] __asm__("_DAT_004f3fc0") = { 0x01, 0x00, 0x02, 0x00, 0x22, 0x56, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00, 0x04, 0x00, 0x10 };
+/* 0x004f3fd4, 24 bytes */ GRIM_DATA("004f3fd4") char grim_def_s_SNDDRIVER_insane_dsnd_004f3fd4[24] __asm__("_s_SNDDRIVER_insane_dsnd_004f3fd4") = "SNDDRIVER=insane_dsnd";
+/* 0x004f3fec, 24 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_dsnd_004f3fec[24] __asm__("_s_LECMODULE_insane_dsnd_004f3fec") = "LECMODULE=insane_dsnd";
+/* 0x004f4004, 20 bytes */ /* loose */ char grim_def_s_MEMORY_mixertable_004f4004[20] __asm__("_s_MEMORY_mixertable_004f4004") = "MEMORY.mixertable";
+/* 0x004f4018, 60 bytes */ /* loose */ char grim_def_s_DirectSoundDriver_Module__Cannot_004f4018[60] __asm__("_s_DirectSoundDriver_Module__Cannot_004f4018") = "DirectSoundDriver Module: Cannot allocate timer services.";
+/* 0x004f4054, 12 bytes */ /* loose */ char grim_def_s_TIMER_clock_004f4054[12] __asm__("_s_TIMER_clock_004f4054") = "TIMER=clock";
+/* 0x004f4060, 56 bytes */ /* loose */ char grim_def_s_DirectSound__Error__08X_while_cr_004f4060[56] __asm__("_s_DirectSound__Error__08X_while_cr_004f4060") = "DirectSound: Error %08X while creating primary buffer";
+/* 0x004f4098, 56 bytes */ /* loose */ char grim_def_s_DirectSound__Error__08X_while_se_004f4098[56] __asm__("_s_DirectSound__Error__08X_while_se_004f4098") = "DirectSound: Error %08X while setting cooperative level";
+/* 0x004f40d0, 40 bytes */ /* loose */ char grim_def_s_Cannot_create_DirectSound_object_004f40d0[40] __asm__("_s_Cannot_create_DirectSound_object_004f40d0") = "Cannot create DirectSound object (%d)";
+/* 0x008db208, 4 bytes */ GRIM_DATA("008db208") unsigned int grim_def_g_dwDsndDriver_memory_services __asm__("_g_dwDsndDriver_memory_services") = 0x0;
+/* 0x008db20c, 4 bytes */ GRIM_DATA("008db20c") unsigned char grim_def_DAT_008db20c[4] __asm__("_DAT_008db20c") = {0};
+/* 0x008db210, 4 bytes */ GRIM_DATA("008db210") unsigned int grim_def_UINT_008db210 __asm__("_UINT_008db210") = 0x0;
+/* 0x008db214, 4 bytes */ GRIM_DATA("008db214") unsigned char grim_def_DAT_008db214[4] __asm__("_DAT_008db214") = {0};
+/* 0x008db218, 4 bytes */ GRIM_DATA("008db218") unsigned char grim_def_DAT_008db218[4] __asm__("_DAT_008db218") = {0};
+/* 0x008db21c, 4 bytes */ GRIM_DATA("008db21c") unsigned char grim_def_DAT_008db21c[4] __asm__("_DAT_008db21c") = {0};
+/* 0x008db220, 4 bytes */ GRIM_DATA("008db220") unsigned char grim_def_DAT_008db220[4] __asm__("_DAT_008db220") = {0};
+/* 0x008db224, 4 bytes */ GRIM_DATA("008db224") unsigned char grim_def_DAT_008db224[4] __asm__("_DAT_008db224") = {0};
+/* 0x008db228, 4 bytes */ GRIM_DATA("008db228") unsigned char grim_def_DAT_008db228[4] __asm__("_DAT_008db228") = {0};
+/* 0x008db22c, 4 bytes */ GRIM_DATA("008db22c") unsigned char grim_def_DAT_008db22c[4] __asm__("_DAT_008db22c") = {0};
+/* 0x008db230, 96 bytes */ GRIM_DATA("008db230") unsigned char grim_def_UINT_008db230[96] __asm__("_UINT_008db230") = {0};
+/* 0x008db290, 128 bytes */ GRIM_DATA("008db290") unsigned char grim_def_UINT_008db290[128] __asm__("_UINT_008db290") = {0};
+/* 0x008db310, 252 bytes */ GRIM_DATA("008db310") unsigned char grim_def_UINT_008db310[252] __asm__("_UINT_008db310") = {0};
+/* 0x008db40c, 4 bytes */ GRIM_DATA("008db40c") unsigned int grim_def_UINT_008db40c __asm__("_UINT_008db40c") = 0x0;
+/* 0x008db414, 4 bytes */ GRIM_DATA("008db414") unsigned char grim_def_DAT_008db414[4] __asm__("_DAT_008db414") = {0};
+/* 0x008db41c, 4 bytes */ GRIM_DATA("008db41c") unsigned char grim_def_g_pDsndDriver_share_services[4] __asm__("_g_pDsndDriver_share_services") = {0};
+/* 0x008db42c, 4 bytes */ GRIM_DATA("008db42c") unsigned char grim_def_DAT_008db42c[4] __asm__("_DAT_008db42c") = {0};
+/* 0x008db430, 8 bytes */ GRIM_DATA("008db430") unsigned int grim_def_g_dwDsndDriver_share_config __asm__("_g_dwDsndDriver_share_config") = 0x0;
+/* 0x008db434, 4 bytes: the rest of grim_def_g_dwDsndDriver_share_config's span */ GRIM_DATA("008db430") static unsigned char g_dwDsndDriver_share_config__tail[4] __attribute__((used)) = {0};
+/* 0x008dcc38, 4 bytes */ GRIM_DATA("008dcc38") unsigned char grim_def_DAT_008dcc38[4] __asm__("_DAT_008dcc38") = {0};
+/* 0x008dcc3c, 4 bytes */ GRIM_DATA("008dcc3c") unsigned char grim_def_DAT_008dcc3c[4] __asm__("_DAT_008dcc3c") = {0};
+/* 0x008dcc40, 4 bytes */ GRIM_DATA("008dcc40") unsigned char grim_def_g_pStreamDS[4] __asm__("_g_pStreamDS") = {0};
+/* 0x008dcc44, 4 bytes */ GRIM_DATA("008dcc44") unsigned char grim_def_g_pStreamDSPrimary[4] __asm__("_g_pStreamDSPrimary") = {0};
+/* 0x008dcc4c, 4 bytes */ GRIM_DATA("008dcc4c") unsigned char grim_def_DAT_008dcc4c[4] __asm__("_DAT_008dcc4c") = {0};
+/* 0x008dcc50, 4 bytes */ GRIM_DATA("008dcc50") unsigned int grim_def_UINT_008dcc50 __asm__("_UINT_008dcc50") = 0x0;
+/* 0x008dcc58, 8 bytes */ GRIM_DATA("008dcc58") unsigned char grim_def_UINT_008dcc58[8] __asm__("_UINT_008dcc58") = {0};

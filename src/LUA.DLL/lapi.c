@@ -1990,3 +1990,249 @@ int __cdecl lua_copytagmethods(int tagto,int tagfrom)
   } while (e < 0x12);
   return tagto;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[12]; void *pc; } grim_span_10026d04;
+extern char f_errorfb[] __asm__("_errorfb");
+extern char f_io_appendto[] __asm__("_io_appendto");
+extern char f_io_date[] __asm__("_io_date");
+extern char f_io_debug[] __asm__("_io_debug");
+extern char f_io_execute[] __asm__("_io_execute");
+extern char f_io_exit[] __asm__("_io_exit");
+extern char f_io_getenv[] __asm__("_io_getenv");
+extern char f_io_read[] __asm__("_io_read");
+extern char f_io_readfrom[] __asm__("_io_readfrom");
+extern char f_io_remove[] __asm__("_io_remove");
+extern char f_io_rename[] __asm__("_io_rename");
+extern char f_io_tmpname[] __asm__("_io_tmpname");
+extern char f_io_write[] __asm__("_io_write");
+extern char f_io_writeto[] __asm__("_io_writeto");
+extern char f_math_abs[] __asm__("_math_abs");
+extern char f_math_acos[] __asm__("_math_acos");
+extern char f_math_asin[] __asm__("_math_asin");
+extern char f_math_atan[] __asm__("_math_atan");
+extern char f_math_atan2[] __asm__("_math_atan2");
+extern char f_math_ceil[] __asm__("_math_ceil");
+extern char f_math_cos[] __asm__("_math_cos");
+extern char f_math_deg[] __asm__("_math_deg");
+extern char f_math_exp[] __asm__("_math_exp");
+extern char f_math_floor[] __asm__("_math_floor");
+extern char f_math_log[] __asm__("_math_log");
+extern char f_math_log10[] __asm__("_math_log10");
+extern char f_math_max[] __asm__("_math_max");
+extern char f_math_min[] __asm__("_math_min");
+extern char f_math_mod[] __asm__("_math_mod");
+extern char f_math_pow[] __asm__("_math_pow");
+extern char f_math_rad[] __asm__("_math_rad");
+extern char f_math_random[] __asm__("_math_random");
+extern char f_math_randomseed[] __asm__("_math_randomseed");
+extern char f_math_sin[] __asm__("_math_sin");
+extern char f_math_sqrt[] __asm__("_math_sqrt");
+extern char f_math_tan[] __asm__("_math_tan");
+extern char f_nilFB[] __asm__("_nilFB");
+extern char f_setloc[] __asm__("_setloc");
+extern char f_str_ascii[] __asm__("_str_ascii");
+extern char f_str_find[] __asm__("_str_find");
+extern char f_str_format[] __asm__("_str_format");
+extern char f_str_gsub[] __asm__("_str_gsub");
+extern char f_str_len[] __asm__("_str_len");
+extern char f_str_lower[] __asm__("_str_lower");
+extern char f_str_rep[] __asm__("_str_rep");
+extern char f_str_sub[] __asm__("_str_sub");
+extern char f_str_upper[] __asm__("_str_upper");
+extern char grim_def_DAT_10026b80[] __asm__("_DAT_10026b80");
+extern char grim_def_DAT_10026bbc[] __asm__("_DAT_10026bbc");
+extern char grim_def_DAT_10026bc4[] __asm__("_DAT_10026bc4");
+extern char grim_def_DAT_10026e40[] __asm__("_DAT_10026e40");
+extern char grim_def_DAT_10027000[] __asm__("_DAT_10027000");
+extern char grim_def_DAT_10027008[] __asm__("_DAT_10027008");
+extern char grim_def_DAT_10027014[] __asm__("_DAT_10027014");
+extern char grim_def_DAT_10027018[] __asm__("_DAT_10027018");
+extern char grim_def_DAT_1002701c[] __asm__("_DAT_1002701c");
+extern char grim_def_DAT_10027020[] __asm__("_DAT_10027020");
+extern char grim_def_DAT_10027028[] __asm__("_DAT_10027028");
+extern char grim_def_DAT_10027034[] __asm__("_DAT_10027034");
+extern char grim_def_DAT_10027044[] __asm__("_DAT_10027044");
+extern char grim_def_DAT_1002704c[] __asm__("_DAT_1002704c");
+extern char grim_def_DAT_10027054[] __asm__("_DAT_10027054");
+extern char grim_def_DAT_1002705c[] __asm__("_DAT_1002705c");
+extern char grim_def_DAT_10027060[] __asm__("_DAT_10027060");
+extern char grim_def_DAT_10027064[] __asm__("_DAT_10027064");
+extern char grim_def_DAT_10027068[] __asm__("_DAT_10027068");
+extern char grim_def_DAT_10027920[] __asm__("_DAT_10027920");
+extern unsigned char grim_def_DAT_10028310[48] __asm__("_DAT_10028310");
+extern unsigned char grim_def_DAT_1002bf04[4] __asm__("_DAT_1002bf04");
+extern unsigned char grim_def_DAT_1002bf1c[4] __asm__("_DAT_1002bf1c");
+extern unsigned char grim_def_DAT_1002bf24[4] __asm__("_DAT_1002bf24");
+extern unsigned char grim_def_DAT_1002bf3c[4] __asm__("_DAT_1002bf3c");
+extern void *grim_def_PTR_s_math_pow_10026fd8[2] __asm__("_PTR_s_math_pow_10026fd8");
+extern void *grim_def_PTR_s_stderrorim_100277b8[2] __asm__("_PTR_s_stderrorim_100277b8");
+extern unsigned char grim_def_g_dwFirstFuncArray[4] __asm__("_g_dwFirstFuncArray");
+extern unsigned int grim_def_g_dwLua_totalBytesSaved __asm__("_g_dwLua_totalBytesSaved");
+extern unsigned char grim_def_g_dwSaveFunc[4] __asm__("_g_dwSaveFunc");
+extern unsigned int grim_def_g_nLuaInitialize __asm__("_g_nLuaInitialize");
+extern unsigned int grim_def_g_nLuaStartup __asm__("_g_nLuaStartup");
+extern void *grim_def_g_pIolib[20] __asm__("_g_pIolib");
+extern void *grim_def_g_pIolibtag[10] __asm__("_g_pIolibtag");
+extern void *grim_def_g_pMathlib[42] __asm__("_g_pMathlib");
+extern void *grim_def_g_pStrlib[18] __asm__("_g_pStrlib");
+extern unsigned int grim_def_lua_assume_binary __asm__("_lua_assume_binary");
+extern char grim_def_s_API____funcinfo__called_with_a_n_10026268[52] __asm__("_s_API____funcinfo__called_with_a_n_10026268");
+extern char grim_def_s_API_error___attempt_to_push_a_NO_10026190[40] __asm__("_s_API_error___attempt_to_push_a_NO_10026190");
+extern char grim_def_s_API_error___attempt_to_push_a_NU_10026160[48] __asm__("_s_API_error___attempt_to_push_a_NU_10026160");
+extern char grim_def_s_API_error___wrong_number_of_argu_100260f8[56] __asm__("_s_API_error___wrong_number_of_argu_100260f8");
+extern char grim_def_s_Active_Stack__10026254[16] __asm__("_s_Active_Stack__10026254");
+extern char grim_def_s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4[36] __asm__("_s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4");
+extern char grim_def_s_L__pExecutionState_100261dc[20] __asm__("_s_L__pExecutionState_100261dc");
+extern char grim_def_s_PI_1002706c[4] __asm__("_s_PI_1002706c");
+extern char grim_def_s__10026250[4] __asm__("_s__10026250");
+extern char grim_def_s__STDERR_10026cf4[8] __asm__("_s__STDERR_10026cf4");
+extern grim_span_10026d04 grim_def_s__STDIN_10026d04 __asm__("_s__STDIN_10026d04");
+extern char grim_def_s__STDOUT_10026cfc[8] __asm__("_s__STDOUT_10026cfc");
+extern char grim_def_s__TRIGMODE_10027074[12] __asm__("_s__TRIGMODE_10027074");
+extern char grim_def_s___s__tag_method_1002621c[16] __asm__("_s___s__tag_method_1002621c");
+extern char grim_def_s__dostring_______20s_10026a90[20] __asm__("_s__dostring_______20s_10026a90");
+extern char grim_def_s__in_file__s__100261f4[16] __asm__("_s__in_file__s__100261f4");
+extern char grim_def_s__s_10026240[4] __asm__("_s__s_10026240");
+extern char grim_def_s__stdin__10026a84[8] __asm__("_s__stdin__10026a84");
+extern char grim_def_s_aEntries____numEntries___0_100260b8[28] __asm__("_s_aEntries____numEntries___0_100260b8");
+extern char grim_def_s_appendto_10026b88[] __asm__("_s_appendto_10026b88");
+extern char grim_def_s_ascii_10027938[] __asm__("_s_ascii_10027938");
+extern char grim_def_s_at_line__d_10026204[12] __asm__("_s_at_line__d_10026204");
+extern char grim_def_s_atan2_1002703c[] __asm__("_s_atan2_1002703c");
+extern char grim_def_s_cannot_change_the_tag_of_a___20s_100261b8[36] __asm__("_s_cannot_change_the_tag_of_a___20s_100261b8");
+extern char grim_def_s_debug_10026bb4[] __asm__("_s_debug_10026bb4");
+extern char grim_def_s_deg_10027004[4] __asm__("_s_deg_10027004");
+extern char grim_def_s_execute_10026bec[] __asm__("_s_execute_10026bec");
+extern char grim_def_s_floor_1002702c[] __asm__("_s_floor_1002702c");
+extern char grim_def_s_format_10027930[] __asm__("_s_format_10027930");
+extern char grim_def_s_function___s__d__1002622c[20] __asm__("_s_function___s__d__1002622c");
+extern char grim_def_s_function__s_10026210[12] __asm__("_s_function__s_10026210");
+extern char grim_def_s_getenv_10026bcc[] __asm__("_s_getenv_10026bcc");
+extern char grim_def_s_global_1002629c[8] __asm__("_s_global_1002629c");
+extern char grim_def_s_indexed_expression_not_a_table_i_10026130[48] __asm__("_s_indexed_expression_not_a_table_i_10026130");
+extern char grim_def_s_log10_1002700c[] __asm__("_s_log10_1002700c");
+extern char grim_def_s_lua__Unable_to_recover__10026a68[24] __asm__("_s_lua__Unable_to_recover__10026a68");
+extern char grim_def_s_main_of__s_10026244[12] __asm__("_s_main_of__s_10026244");
+extern char grim_def_s_math_pow_10026fe0[] __asm__("_s_math_pow_10026fe0");
+extern char grim_def_s_numTasks___0_100262f4[16] __asm__("_s_numTasks___0_100262f4");
+extern char grim_def_s_pNewState__Restore_restoreFunc____100262c8[44] __asm__("_s_pNewState__Restore_restoreFunc____100262c8");
+extern char grim_def_s_pow_10027070[4] __asm__("_s_pow_10027070");
+extern char grim_def_s_print_stack_10026ba8[] __asm__("_s_print_stack_10026ba8");
+extern char grim_def_s_random_10026ff8[] __asm__("_s_random_10026ff8");
+extern char grim_def_s_randomseed_10026fec[] __asm__("_s_randomseed_10026fec");
+extern char grim_def_s_rb_10026a8c[4] __asm__("_s_rb_10026a8c");
+extern char grim_def_s_readfrom_10026b9c[] __asm__("_s_readfrom_10026b9c");
+extern char grim_def_s_remove_10026be4[] __asm__("_s_remove_10026be4");
+extern char grim_def_s_rename_10026bdc[] __asm__("_s_rename_10026bdc");
+extern char grim_def_s_setlocale_10026bf4[] __asm__("_s_setlocale_10026bf4");
+extern char grim_def_s_stderrorim_100277c0[] __asm__("_s_stderrorim_100277c0");
+extern char grim_def_s_strfind_10027928[] __asm__("_s_strfind_10027928");
+extern char grim_def_s_strlen_10027968[] __asm__("_s_strlen_10027968");
+extern char grim_def_s_strlower_10027954[] __asm__("_s_strlower_10027954");
+extern char grim_def_s_strrep_10027940[] __asm__("_s_strrep_10027940");
+extern char grim_def_s_strsub_10027960[] __asm__("_s_strsub_10027960");
+extern char grim_def_s_strupper_10027948[] __asm__("_s_strupper_10027948");
+extern char grim_def_s_tag_method_100262a4[12] __asm__("_s_tag_method_100262a4");
+extern char grim_def_s_tmpname_10026bd4[] __asm__("_s_tmpname_10026bd4");
+extern char grim_def_s_too_many_nested_blocks_100262b0[24] __asm__("_s_too_many_nested_blocks_100262b0");
+extern char grim_def_s_write_10026b78[8] __asm__("_s_write_10026b78");
+extern char grim_def_s_writeto_10026b94[] __asm__("_s_writeto_10026b94");
+/* 0x100260b8, 28 bytes */ GRIM_DATA("100260b8") char grim_def_s_aEntries____numEntries___0_100260b8[28] __asm__("_s_aEntries____numEntries___0_100260b8") = "aEntries && numEntries > 0";
+/* 0x100260d4, 36 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4[36] __asm__("_s_C__grimsrc_libs_lua_src_lapi_cpp_100260d4") = "C:\\grimsrc\\libs\\lua\\src\\lapi.cpp";
+/* 0x100260f8, 56 bytes */ /* loose */ char grim_def_s_API_error___wrong_number_of_argu_100260f8[56] __asm__("_s_API_error___wrong_number_of_argu_100260f8") = "API error - wrong number of arguments in C2lua stack";
+/* 0x10026130, 48 bytes */ /* loose */ char grim_def_s_indexed_expression_not_a_table_i_10026130[48] __asm__("_s_indexed_expression_not_a_table_i_10026130") = "indexed expression not a table in rawgettable";
+/* 0x10026160, 48 bytes */ /* loose */ char grim_def_s_API_error___attempt_to_push_a_NU_10026160[48] __asm__("_s_API_error___attempt_to_push_a_NU_10026160") = "API error - attempt to push a NULL Cfunction";
+/* 0x10026190, 40 bytes */ /* loose */ char grim_def_s_API_error___attempt_to_push_a_NO_10026190[40] __asm__("_s_API_error___attempt_to_push_a_NO_10026190") = "API error - attempt to push a NOOBJECT";
+/* 0x100261b8, 36 bytes */ /* loose */ char grim_def_s_cannot_change_the_tag_of_a___20s_100261b8[36] __asm__("_s_cannot_change_the_tag_of_a___20s_100261b8") = "cannot change the tag of a %.20s";
+/* 0x100261dc, 20 bytes */ /* loose */ char grim_def_s_L__pExecutionState_100261dc[20] __asm__("_s_L__pExecutionState_100261dc") = "L->pExecutionState";
+/* 0x100261f4, 16 bytes */ /* loose */ char grim_def_s__in_file__s__100261f4[16] __asm__("_s__in_file__s__100261f4") = " [in file %s]";
+/* 0x10026204, 12 bytes */ /* loose */ char grim_def_s_at_line__d_10026204[12] __asm__("_s_at_line__d_10026204") = " at line %d";
+/* 0x10026210, 12 bytes */ /* loose */ char grim_def_s_function__s_10026210[12] __asm__("_s_function__s_10026210") = "function %s";
+/* 0x1002621c, 16 bytes */ /* loose */ char grim_def_s___s__tag_method_1002621c[16] __asm__("_s___s__tag_method_1002621c") = "`%s' tag method";
+/* 0x1002622c, 20 bytes */ /* loose */ char grim_def_s_function___s__d__1002622c[20] __asm__("_s_function___s__d__1002622c") = "function (%s:%d)";
+/* 0x10026240, 4 bytes */ /* loose */ char grim_def_s__s_10026240[4] __asm__("_s__s_10026240") = "%s";
+/* 0x10026244, 12 bytes */ /* loose */ char grim_def_s_main_of__s_10026244[12] __asm__("_s_main_of__s_10026244") = "main of %s";
+/* 0x10026250, 4 bytes */ /* loose */ char grim_def_s__10026250[4] __asm__("_s__10026250") = "\t";
+/* 0x10026254, 16 bytes */ /* loose */ char grim_def_s_Active_Stack__10026254[16] __asm__("_s_Active_Stack__10026254") = "Active Stack:\n\t";
+/* 0x10026268, 52 bytes */ /* loose */ char grim_def_s_API____funcinfo__called_with_a_n_10026268[52] __asm__("_s_API____funcinfo__called_with_a_n_10026268") = "API - `funcinfo' called with a non-function value";
+/* 0x1002629c, 8 bytes */ /* loose */ char grim_def_s_global_1002629c[8] __asm__("_s_global_1002629c") = "global";
+/* 0x100262a4, 12 bytes */ /* loose */ char grim_def_s_tag_method_100262a4[12] __asm__("_s_tag_method_100262a4") = "tag-method";
+/* 0x100262b0, 24 bytes */ /* loose */ char grim_def_s_too_many_nested_blocks_100262b0[24] __asm__("_s_too_many_nested_blocks_100262b0") = "too many nested blocks";
+/* 0x100262c8, 44 bytes */ /* loose */ char grim_def_s_pNewState__Restore_restoreFunc____100262c8[44] __asm__("_s_pNewState__Restore_restoreFunc____100262c8") = "pNewState->Restore(restoreFunc) == SUCCESS";
+/* 0x100262f4, 16 bytes */ /* loose */ char grim_def_s_numTasks___0_100262f4[16] __asm__("_s_numTasks___0_100262f4") = "numTasks > 0";
+/* 0x10026a68, 24 bytes */ /* loose */ char grim_def_s_lua__Unable_to_recover__10026a68[24] __asm__("_s_lua__Unable_to_recover__10026a68") = "lua: Unable to recover.";
+/* 0x10026a84, 8 bytes */ /* loose */ char grim_def_s__stdin__10026a84[8] __asm__("_s__stdin__10026a84") = "(stdin)";
+/* 0x10026a8c, 4 bytes */ /* loose */ char grim_def_s_rb_10026a8c[4] __asm__("_s_rb_10026a8c") = "rb";
+/* 0x10026a90, 20 bytes */ /* loose */ char grim_def_s__dostring_______20s_10026a90[20] __asm__("_s__dostring_______20s_10026a90") = "(dostring) >> %.20s";
+/* 0x10026b00, 80 bytes */ GRIM_DATA("10026b00") void *grim_def_g_pIolib[20] __asm__("_g_pIolib") = {
+    (void *)&grim_def_s_setlocale_10026bf4, (void *)f_setloc, (void *)&grim_def_s_execute_10026bec, (void *)f_io_execute,
+    (void *)&grim_def_s_remove_10026be4, (void *)f_io_remove, (void *)&grim_def_s_rename_10026bdc, (void *)f_io_rename,
+    (void *)&grim_def_s_tmpname_10026bd4, (void *)f_io_tmpname, (void *)&grim_def_s_getenv_10026bcc, (void *)f_io_getenv,
+    (void *)&grim_def_DAT_10026bc4, (void *)f_io_date, (void *)&grim_def_DAT_10026bbc, (void *)f_io_exit,
+    (void *)&grim_def_s_debug_10026bb4, (void *)f_io_debug, (void *)&grim_def_s_print_stack_10026ba8, (void *)f_errorfb
+};
+/* 0x10026b50, 40 bytes */ GRIM_DATA("10026b50") void *grim_def_g_pIolibtag[10] __asm__("_g_pIolibtag") = {
+    (void *)&grim_def_s_readfrom_10026b9c, (void *)f_io_readfrom, (void *)&grim_def_s_writeto_10026b94, (void *)f_io_writeto,
+    (void *)&grim_def_s_appendto_10026b88, (void *)f_io_appendto, (void *)&grim_def_DAT_10026b80, (void *)f_io_read,
+    (void *)&grim_def_s_write_10026b78, (void *)f_io_write
+};
+/* 0x10026b78, 8 bytes */ GRIM_DATA("10026b78") char grim_def_s_write_10026b78[8] __asm__("_s_write_10026b78") = "write";
+/* 0x10026cf4, 8 bytes */ /* loose */ char grim_def_s__STDERR_10026cf4[8] __asm__("_s__STDERR_10026cf4") = "_STDERR";
+/* 0x10026cfc, 8 bytes */ /* loose */ char grim_def_s__STDOUT_10026cfc[8] __asm__("_s__STDOUT_10026cfc") = "_STDOUT";
+static unsigned char grim_anchor_10026d04[0] __attribute__((section(".data$grim_10026d04"), aligned(16), used));
+static unsigned char grim_pad_10026d04[4] __attribute__((section(".data$grim_10026d04_"), aligned(4), used));
+/* 0x10026d04, 16 bytes */ GRIM_DATA("10026d04z") grim_span_10026d04 grim_def_s__STDIN_10026d04 __asm__("_s__STDIN_10026d04") = {
+    { 0x5f, 0x53, 0x54, 0x44, 0x49, 0x4e },
+    (void *)&grim_def_DAT_10026e40
+};
+static unsigned char grim_anchor_10026f30[0] __attribute__((section(".data$grim_10026f30"), aligned(16), used));
+static unsigned char grim_pad_10026f30[0] __attribute__((section(".data$grim_10026f30_"), aligned(4), used));
+/* 0x10026f30, 168 bytes */ GRIM_DATA("10026f30z") void *grim_def_g_pMathlib[42] __asm__("_g_pMathlib") = {
+    (void *)&grim_def_DAT_10027068, (void *)f_math_abs, (void *)&grim_def_DAT_10027064, (void *)f_math_sin,
+    (void *)&grim_def_DAT_10027060, (void *)f_math_cos, (void *)&grim_def_DAT_1002705c, (void *)f_math_tan,
+    (void *)&grim_def_DAT_10027054, (void *)f_math_asin, (void *)&grim_def_DAT_1002704c, (void *)f_math_acos,
+    (void *)&grim_def_DAT_10027044, (void *)f_math_atan, (void *)&grim_def_s_atan2_1002703c, (void *)f_math_atan2,
+    (void *)&grim_def_DAT_10027034, (void *)f_math_ceil, (void *)&grim_def_s_floor_1002702c, (void *)f_math_floor,
+    (void *)&grim_def_DAT_10027028, (void *)f_math_mod, (void *)&grim_def_DAT_10027020, (void *)f_math_sqrt,
+    (void *)&grim_def_DAT_1002701c, (void *)f_math_min, (void *)&grim_def_DAT_10027018, (void *)f_math_max,
+    (void *)&grim_def_DAT_10027014, (void *)f_math_log, (void *)&grim_def_s_log10_1002700c, (void *)f_math_log10,
+    (void *)&grim_def_DAT_10027008, (void *)f_math_exp, (void *)&grim_def_s_deg_10027004, (void *)f_math_deg,
+    (void *)&grim_def_DAT_10027000, (void *)f_math_rad, (void *)&grim_def_s_random_10026ff8, (void *)f_math_random,
+    (void *)&grim_def_s_randomseed_10026fec, (void *)f_math_randomseed
+};
+/* 0x10026fd8, 8 bytes */ GRIM_DATA("10026fd8") void *grim_def_PTR_s_math_pow_10026fd8[2] __asm__("_PTR_s_math_pow_10026fd8") = {
+    (void *)&grim_def_s_math_pow_10026fe0, (void *)f_math_pow
+};
+/* 0x10027004, 4 bytes */ GRIM_DATA("10027004") char grim_def_s_deg_10027004[4] __asm__("_s_deg_10027004") = "deg";
+/* 0x1002706c, 4 bytes */ GRIM_DATA("1002706c") char grim_def_s_PI_1002706c[4] __asm__("_s_PI_1002706c") = "PI";
+/* 0x10027070, 4 bytes */ /* loose */ char grim_def_s_pow_10027070[4] __asm__("_s_pow_10027070") = "pow";
+/* 0x10027074, 12 bytes */ /* loose */ char grim_def_s__TRIGMODE_10027074[12] __asm__("_s__TRIGMODE_10027074") = "_TRIGMODE";
+/* 0x100277b8, 8 bytes */ GRIM_DATA("100277b8") void *grim_def_PTR_s_stderrorim_100277b8[2] __asm__("_PTR_s_stderrorim_100277b8") = {
+    (void *)&grim_def_s_stderrorim_100277c0, (void *)f_nilFB
+};
+/* 0x100278d8, 72 bytes */ GRIM_DATA("100278d8") void *grim_def_g_pStrlib[18] __asm__("_g_pStrlib") = {
+    (void *)&grim_def_s_strlen_10027968, (void *)f_str_len, (void *)&grim_def_s_strsub_10027960, (void *)f_str_sub,
+    (void *)&grim_def_s_strlower_10027954, (void *)f_str_lower, (void *)&grim_def_s_strupper_10027948, (void *)f_str_upper,
+    (void *)&grim_def_s_strrep_10027940, (void *)f_str_rep, (void *)&grim_def_s_ascii_10027938, (void *)f_str_ascii,
+    (void *)&grim_def_s_format_10027930, (void *)f_str_format, (void *)&grim_def_s_strfind_10027928, (void *)f_str_find,
+    (void *)&grim_def_DAT_10027920, (void *)f_str_gsub
+};
+/* 0x10028310, 48 bytes */ GRIM_DATA("10028310") unsigned char grim_def_DAT_10028310[48] __asm__("_DAT_10028310") = {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
+    0x02
+};
+/* 0x1002beb0, 4 bytes */ GRIM_DATA("1002beb0") unsigned char grim_def_g_dwSaveFunc[4] __asm__("_g_dwSaveFunc") = {0};
+/* 0x1002beb4, 4 bytes */ GRIM_DATA("1002beb4") unsigned int grim_def_g_dwLua_totalBytesSaved __asm__("_g_dwLua_totalBytesSaved") = 0x0;
+/* 0x1002bebc, 4 bytes */ GRIM_DATA("1002bebc") unsigned int grim_def_g_nLuaInitialize __asm__("_g_nLuaInitialize") = 0x0;
+/* 0x1002bec0, 4 bytes */ GRIM_DATA("1002bec0") unsigned int grim_def_g_nLuaStartup __asm__("_g_nLuaStartup") = 0x0;
+/* 0x1002bec4, 4 bytes */ GRIM_DATA("1002bec4") unsigned char grim_def_g_dwFirstFuncArray[4] __asm__("_g_dwFirstFuncArray") = {0};
+/* 0x1002bee0, 4 bytes */ GRIM_DATA("1002bee0") unsigned int grim_def_lua_assume_binary __asm__("_lua_assume_binary") = 0x0;
+/* 0x1002bf04, 4 bytes */ GRIM_DATA("1002bf04") unsigned char grim_def_DAT_1002bf04[4] __asm__("_DAT_1002bf04") = {0};
+/* 0x1002bf1c, 4 bytes */ GRIM_DATA("1002bf1c") unsigned char grim_def_DAT_1002bf1c[4] __asm__("_DAT_1002bf1c") = {0};
+/* 0x1002bf24, 4 bytes */ GRIM_DATA("1002bf24") unsigned char grim_def_DAT_1002bf24[4] __asm__("_DAT_1002bf24") = {0};
+/* 0x1002bf3c, 4 bytes */ GRIM_DATA("1002bf3c") unsigned char grim_def_DAT_1002bf3c[4] __asm__("_DAT_1002bf3c") = {0};

@@ -2519,3 +2519,26 @@ The data no longer has to sit in the original order as a whole: only the parts t
   Almost all of them are strings. The rest stays in chains: 70 / 41 / 10 / 3. Releasing more needs object extents,
   from typing the structures and tables the code passes by address.
 * datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490; whole-game autorun passes.
+
+## Data defined in the modules that use it (2026-11-16)
+
+* tools/datagen.py (place_in_modules) defines each span that only one module names at the end of that module, under
+  "data only this file names":
+  * The rest of the span's pinned run goes with it. A run is one input section, whose order holds only within one file.
+  * The span keeps its section key, so the layout is exactly as before.
+  * A use is any mention of the span's name, an alias, an inner label, the `_name` view or a `name_N` piece macro.
+* The module's globals.h declares the name with the type the code reads it as, often another one (`undefined4` for a
+  structure). The definition therefore takes its own C name, `grim_def_<name>`, bound to the symbol by an asm label;
+  the spans it points at are declared the same way. data.c's definitions carry the same asm labels.
+* **Moved:**
+  * EXE: 2186 spans into 112 modules;
+  * LUA: 218 into 19;
+  * IMUSE: 243 into 4;
+  * CHORE: 82 into 3.
+* **data.c keeps** the spans several modules name, those only the data points at, and those no code names. Lines:
+  * EXE: 13159 -> 6359;
+  * LUA: 2908 -> 2118;
+  * IMUSE: 2812 -> 1837;
+  * CHORE: 1309 -> 1028.
+* build/datacmp.py reads the `/* loose */` marks in every file.
+* datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490. The whole-game autorun passes; one earlier run stopped at the same morgue step as the data-typing run did (corpse 1 with dog tags not offered, the same numbers), and the same build then passed.

@@ -105,3 +105,13 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
   gzclose((int)file);
   return pVVar1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_size_____int_vbuf__rasterInfo_si_004e7ff4[36] __asm__("_s_size_____int_vbuf__rasterInfo_si_004e7ff4");
+extern char grim_def_s_tot_____int_bytes_004e7fd4[20] __asm__("_s_tot_____int_bytes_004e7fd4");
+/* 0x004e7fd4, 20 bytes */ /* loose */ char grim_def_s_tot_____int_bytes_004e7fd4[20] __asm__("_s_tot_____int_bytes_004e7fd4") = "tot == (int)bytes";
+/* 0x004e7ff4, 36 bytes */ /* loose */ char grim_def_s_size_____int_vbuf__rasterInfo_si_004e7ff4[36] __asm__("_s_size_____int_vbuf__rasterInfo_si_004e7ff4") = "size == (int)vbuf->rasterInfo.size";

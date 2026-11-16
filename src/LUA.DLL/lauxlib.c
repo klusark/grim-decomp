@@ -277,3 +277,25 @@ void luaL_resetbuffer(void)
   g_dwLState_Mbuffnext = g_dwLState_Mbuffbase - g_dwLState_Mbuffer;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_C__grimsrc_libs_lua_src_lbuffer__100263b4[36] __asm__("_s_C__grimsrc_libs_lua_src_lbuffer__100263b4");
+extern char grim_def_s_____1002635c[4] __asm__("_s_____1002635c");
+extern char grim_def_s_bad_argument___d_to_function_____10026304[48] __asm__("_s_bad_argument___d_to_function_____10026304");
+extern char grim_def_s_bad_argument___d_to_function_____10026334[40] __asm__("_s_bad_argument___d_to_function_____10026334");
+extern char grim_def_s_number_expected_10026370[16] __asm__("_s_number_expected_10026370");
+extern char grim_def_s_string_expected_10026360[16] __asm__("_s_string_expected_10026360");
+extern char grim_def_s_table_expected_10026380[16] __asm__("_s_table_expected_10026380");
+extern char grim_def_s_value_expected_100263a4[16] __asm__("_s_value_expected_100263a4");
+/* 0x10026304, 48 bytes */ /* loose */ char grim_def_s_bad_argument___d_to_function_____10026304[48] __asm__("_s_bad_argument___d_to_function_____10026304") = "bad argument #%d to function `%.50s' (%.100s)";
+/* 0x10026334, 40 bytes */ /* loose */ char grim_def_s_bad_argument___d_to_function_____10026334[40] __asm__("_s_bad_argument___d_to_function_____10026334") = "bad argument #%d to function `%.50s'";
+/* 0x1002635c, 4 bytes */ /* loose */ char grim_def_s_____1002635c[4] __asm__("_s_____1002635c") = "\?\?\?";
+/* 0x10026360, 16 bytes */ /* loose */ char grim_def_s_string_expected_10026360[16] __asm__("_s_string_expected_10026360") = "string expected";
+/* 0x10026370, 16 bytes */ /* loose */ char grim_def_s_number_expected_10026370[16] __asm__("_s_number_expected_10026370") = "number expected";
+/* 0x10026380, 16 bytes */ /* loose */ char grim_def_s_table_expected_10026380[16] __asm__("_s_table_expected_10026380") = "table expected";
+/* 0x100263a4, 16 bytes */ /* loose */ char grim_def_s_value_expected_100263a4[16] __asm__("_s_value_expected_100263a4") = "value expected";
+/* 0x100263b4, 36 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_lbuffer__100263b4[36] __asm__("_s_C__grimsrc_libs_lua_src_lbuffer__100263b4") = "C:\\grimsrc\\libs\\lua\\src\\lbuffer.cpp";

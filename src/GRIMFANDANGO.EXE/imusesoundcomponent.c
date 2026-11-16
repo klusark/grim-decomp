@@ -293,3 +293,36 @@ uint __cdecl SoundStopper(int name)
   SoundsStopSound(name);
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004ea018;
+extern char grim_def_DAT_004ea008[] __asm__("_DAT_004ea008");
+extern grim_span_004ea018 grim_def_DAT_004ea018 __asm__("_DAT_004ea018");
+extern unsigned char grim_def_g_aSoundCommands[16] __asm__("_g_aSoundCommands");
+extern char grim_def_s_Maximum_Volume_004ea6a8[16] __asm__("_s_Maximum_Volume_004ea6a8");
+extern char grim_def_s_Minimum_Volume_004ea688[16] __asm__("_s_Minimum_Volume_004ea688");
+extern char grim_def_s_Pan_004ea6a4[4] __asm__("_s_Pan_004ea6a4");
+extern char grim_def_s_Priority_004ea698[12] __asm__("_s_Priority_004ea698");
+extern char grim_def_s_Select_sound_file_to_add____004ea6b8[28] __asm__("_s_Select_sound_file_to_add____004ea6b8");
+extern char grim_def_s_Sound_files____imu____imc____wvc_004ea6d4[88] __asm__("_s_Sound_files____imu____imc____wvc_004ea6d4");
+extern char grim_def_s__s__d__d__d__d_004ea678[16] __asm__("_s__s__d__d__d__d_004ea678");
+/* 0x004e9ff8, 16 bytes */ GRIM_DATA("004e9ff8") unsigned char grim_def_g_aSoundCommands[16] __asm__("_g_aSoundCommands") = { 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02 };
+/* 0x004ea018, 24 bytes */ GRIM_DATA("004ea018") grim_span_004ea018 grim_def_DAT_004ea018 __asm__("_DAT_004ea018") = {
+    { 0x03 },
+    (void *)&grim_def_g_aSoundCommands,
+    (void *)&grim_def_DAT_004ea008,
+    {0}
+};
+/* 0x004ea678, 16 bytes */ /* loose */ char grim_def_s__s__d__d__d__d_004ea678[16] __asm__("_s__s__d__d__d__d_004ea678") = "%s,%d,%d,%d,%d";
+/* 0x004ea688, 16 bytes */ /* loose */ char grim_def_s_Minimum_Volume_004ea688[16] __asm__("_s_Minimum_Volume_004ea688") = "Minimum Volume";
+/* 0x004ea698, 12 bytes */ /* loose */ char grim_def_s_Priority_004ea698[12] __asm__("_s_Priority_004ea698") = "Priority";
+/* 0x004ea6a4, 4 bytes */ /* loose */ char grim_def_s_Pan_004ea6a4[4] __asm__("_s_Pan_004ea6a4") = "Pan";
+/* 0x004ea6a8, 16 bytes */ /* loose */ char grim_def_s_Maximum_Volume_004ea6a8[16] __asm__("_s_Maximum_Volume_004ea6a8") = "Maximum Volume";
+/* 0x004ea6b8, 28 bytes */ /* loose */ char grim_def_s_Select_sound_file_to_add____004ea6b8[28] __asm__("_s_Select_sound_file_to_add____004ea6b8") = "Select sound file to add...";
+static unsigned char grim_anchor_004ea6d4[0] __attribute__((section(".data$grim_004ea6d4"), aligned(16), used));
+static unsigned char grim_pad_004ea6d4[4] __attribute__((section(".data$grim_004ea6d4_"), aligned(4), used));
+/* 0x004ea6d4, 88 bytes */ GRIM_DATA("004ea6d4z") char grim_def_s_Sound_files____imu____imc____wvc_004ea6d4[88] __asm__("_s_Sound_files____imu____imc____wvc_004ea6d4") = "Sound files (*.imu, *.imc, *.wvc, *.wav)\000*.imu;*.imc;*.wvc;*.wav\000All Files (*.*)\000*.*";

@@ -624,3 +624,54 @@ uint __cdecl LecShare_Nop(void)
 {
   return 0;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_BatchSubscribe[] __asm__("_BatchSubscribe");
+extern char f_BatchUnsubscribe[] __asm__("_BatchUnsubscribe");
+extern char f_GetCatalogCount[] __asm__("_GetCatalogCount");
+extern char f_GetCatalogEntry[] __asm__("_GetCatalogEntry");
+extern char f_LecShare_Publish[] __asm__("_LecShare_Publish");
+extern char f_LecShare_Subscribe[] __asm__("_LecShare_Subscribe");
+extern char f_LecShare_Unpublish[] __asm__("_LecShare_Unpublish");
+extern char f_LecShare_Unsubscribe[] __asm__("_LecShare_Unsubscribe");
+extern unsigned char grim_def_DAT_008d36e3[5] __asm__("_DAT_008d36e3");
+extern unsigned char grim_def_DAT_008d5704[6136] __asm__("_DAT_008d5704");
+extern unsigned char grim_def_PTR_008d56f4[4] __asm__("_PTR_008d56f4");
+extern unsigned int grim_def_UINT_008d56ec __asm__("_UINT_008d56ec");
+extern unsigned int grim_def_UINT_008d56f0 __asm__("_UINT_008d56f0");
+extern unsigned int grim_def_UINT_008d56f8 __asm__("_UINT_008d56f8");
+extern unsigned int grim_def_UINT_008d56fc __asm__("_UINT_008d56fc");
+extern unsigned int grim_def_UINT_008d5700 __asm__("_UINT_008d5700");
+extern unsigned int grim_def_UINT_008d6efc __asm__("_UINT_008d6efc");
+extern unsigned int grim_def_UINT_008d6f00 __asm__("_UINT_008d6f00");
+extern unsigned char grim_def_g_bGetCatalogEntry_pLastType[99] __asm__("_g_bGetCatalogEntry_pLastType");
+extern unsigned int grim_def_g_dwPrivateData __asm__("_g_dwPrivateData");
+extern void *grim_def_g_pLecShareServices[8] __asm__("_g_pLecShareServices");
+extern char grim_def_s_LECMODULE_004f1224[12] __asm__("_s_LECMODULE_004f1224");
+extern char grim_def_s_LecShare_BatchSubscribe_Couldn_t_004f125c[60] __asm__("_s_LecShare_BatchSubscribe_Couldn_t_004f125c");
+extern char grim_def_s_LecShare_Startup__Failed_with_mo_004f1230[44] __asm__("_s_LecShare_Startup__Failed_with_mo_004f1230");
+static unsigned char grim_anchor_004f1200[0] __attribute__((section(".data$grim_004f1200"), aligned(16), used));
+static unsigned char grim_pad_004f1200[0] __attribute__((section(".data$grim_004f1200_"), aligned(4), used));
+/* 0x004f1200, 32 bytes */ GRIM_DATA("004f1200z") void *grim_def_g_pLecShareServices[8] __asm__("_g_pLecShareServices") = {
+    (void *)f_LecShare_Publish, (void *)f_LecShare_Unpublish, (void *)f_LecShare_Subscribe, (void *)f_LecShare_Unsubscribe,
+    (void *)f_BatchSubscribe, (void *)f_BatchUnsubscribe, (void *)f_GetCatalogEntry, (void *)f_GetCatalogCount
+};
+/* 0x004f1224, 12 bytes */ GRIM_DATA("004f1224") char grim_def_s_LECMODULE_004f1224[12] __asm__("_s_LECMODULE_004f1224") = "LECMODULE";
+/* 0x004f1230, 44 bytes */ /* loose */ char grim_def_s_LecShare_Startup__Failed_with_mo_004f1230[44] __asm__("_s_LecShare_Startup__Failed_with_mo_004f1230") = "LecShare_Startup: Failed with module %s.";
+/* 0x004f125c, 60 bytes */ /* loose */ char grim_def_s_LecShare_BatchSubscribe_Couldn_t_004f125c[60] __asm__("_s_LecShare_BatchSubscribe_Couldn_t_004f125c") = "LecShare:BatchSubscribe Couldn't subscribe to %s interface.";
+/* 0x008d3680, 99 bytes */ GRIM_DATA("008d3680") unsigned char grim_def_g_bGetCatalogEntry_pLastType[99] __asm__("_g_bGetCatalogEntry_pLastType") = {0};
+/* 0x008d36e3, 5 bytes */ GRIM_DATA("008d3680") unsigned char grim_def_DAT_008d36e3[5] __asm__("_DAT_008d36e3") = {0};
+/* 0x008d56e8, 4 bytes */ GRIM_DATA("008d56e8") unsigned int grim_def_g_dwPrivateData __asm__("_g_dwPrivateData") = 0x0;
+/* 0x008d56ec, 4 bytes */ GRIM_DATA("008d56ec") unsigned int grim_def_UINT_008d56ec __asm__("_UINT_008d56ec") = 0x0;
+/* 0x008d56f0, 4 bytes */ GRIM_DATA("008d56f0") unsigned int grim_def_UINT_008d56f0 __asm__("_UINT_008d56f0") = 0x0;
+/* 0x008d56f4, 4 bytes */ GRIM_DATA("008d56f4") unsigned char grim_def_PTR_008d56f4[4] __asm__("_PTR_008d56f4") = {0};
+/* 0x008d56f8, 4 bytes */ GRIM_DATA("008d56f8") unsigned int grim_def_UINT_008d56f8 __asm__("_UINT_008d56f8") = 0x0;
+/* 0x008d56fc, 4 bytes */ GRIM_DATA("008d56fc") unsigned int grim_def_UINT_008d56fc __asm__("_UINT_008d56fc") = 0x0;
+/* 0x008d5700, 4 bytes */ GRIM_DATA("008d5700") unsigned int grim_def_UINT_008d5700 __asm__("_UINT_008d5700") = 0x0;
+/* 0x008d5704, 6136 bytes */ GRIM_DATA("008d5704") unsigned char grim_def_DAT_008d5704[6136] __asm__("_DAT_008d5704") = {0};
+/* 0x008d6efc, 4 bytes */ GRIM_DATA("008d6efc") unsigned int grim_def_UINT_008d6efc __asm__("_UINT_008d6efc") = 0x0;
+/* 0x008d6f00, 4 bytes */ GRIM_DATA("008d6f00") unsigned int grim_def_UINT_008d6f00 __asm__("_UINT_008d6f00") = 0x0;

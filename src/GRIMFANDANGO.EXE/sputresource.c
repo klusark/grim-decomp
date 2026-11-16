@@ -86,3 +86,33 @@ void __cdecl sputResource_Shutdown(void)
   g_dwSputResStartup = 0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_008ca1f8[4] __asm__("_DAT_008ca1f8");
+extern unsigned int grim_def_UINT_008ca1dc __asm__("_UINT_008ca1dc");
+extern unsigned int grim_def_UINT_008ca1e0 __asm__("_UINT_008ca1e0");
+extern unsigned int grim_def_UINT_008ca1e4 __asm__("_UINT_008ca1e4");
+extern unsigned int grim_def_UINT_008ca1e8 __asm__("_UINT_008ca1e8");
+extern unsigned int grim_def_UINT_008ca1ec __asm__("_UINT_008ca1ec");
+extern unsigned int grim_def_UINT_008ca1f0 __asm__("_UINT_008ca1f0");
+extern unsigned int grim_def_UINT_008ca1f4 __asm__("_UINT_008ca1f4");
+extern unsigned char grim_def_g_aResModServices[4] __asm__("_g_aResModServices");
+extern unsigned int grim_def_g_dwPrdMatLoader __asm__("_g_dwPrdMatLoader");
+extern unsigned int grim_def_g_dwPrdMatUnloader __asm__("_g_dwPrdMatUnloader");
+extern unsigned int grim_def_g_dwSputResStartup __asm__("_g_dwSputResStartup");
+/* 0x008ca1d8, 4 bytes */ GRIM_DATA("008ca1d8") unsigned char grim_def_g_aResModServices[4] __asm__("_g_aResModServices") = {0};
+/* 0x008ca1dc, 4 bytes */ GRIM_DATA("008ca1dc") unsigned int grim_def_UINT_008ca1dc __asm__("_UINT_008ca1dc") = 0x0;
+/* 0x008ca1e0, 4 bytes */ GRIM_DATA("008ca1e0") unsigned int grim_def_UINT_008ca1e0 __asm__("_UINT_008ca1e0") = 0x0;
+/* 0x008ca1e4, 4 bytes */ GRIM_DATA("008ca1e4") unsigned int grim_def_UINT_008ca1e4 __asm__("_UINT_008ca1e4") = 0x0;
+/* 0x008ca1e8, 4 bytes */ GRIM_DATA("008ca1e8") unsigned int grim_def_UINT_008ca1e8 __asm__("_UINT_008ca1e8") = 0x0;
+/* 0x008ca1ec, 4 bytes */ GRIM_DATA("008ca1ec") unsigned int grim_def_UINT_008ca1ec __asm__("_UINT_008ca1ec") = 0x0;
+/* 0x008ca1f0, 4 bytes */ GRIM_DATA("008ca1f0") unsigned int grim_def_UINT_008ca1f0 __asm__("_UINT_008ca1f0") = 0x0;
+/* 0x008ca1f4, 4 bytes */ GRIM_DATA("008ca1f4") unsigned int grim_def_UINT_008ca1f4 __asm__("_UINT_008ca1f4") = 0x0;
+/* 0x008ca1f8, 4 bytes */ GRIM_DATA("008ca1f8") unsigned char grim_def_DAT_008ca1f8[4] __asm__("_DAT_008ca1f8") = {0};
+/* 0x008ca1fc, 4 bytes */ GRIM_DATA("008ca1fc") unsigned int grim_def_g_dwSputResStartup __asm__("_g_dwSputResStartup") = 0x0;
+/* 0x008ca200, 4 bytes */ GRIM_DATA("008ca200") unsigned int grim_def_g_dwPrdMatLoader __asm__("_g_dwPrdMatLoader") = 0x0;
+/* 0x008ca204, 4 bytes */ GRIM_DATA("008ca204") unsigned int grim_def_g_dwPrdMatUnloader __asm__("_g_dwPrdMatUnloader") = 0x0;

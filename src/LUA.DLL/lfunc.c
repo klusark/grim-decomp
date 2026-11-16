@@ -203,3 +203,13 @@ TObject * __cdecl luaC_getref(int ref)
   }
   return (TObject *)0x0;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4[36] __asm__("_s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4");
+extern char grim_def_s_reference_table_overflow_10026ac8[32] __asm__("_s_reference_table_overflow_10026ac8");
+/* 0x10026aa4, 36 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4[36] __asm__("_s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4") = "C:\\grimsrc\\libs\\lua\\src\\lfunc.cpp";
+/* 0x10026ac8, 32 bytes */ /* loose */ char grim_def_s_reference_table_overflow_10026ac8[32] __asm__("_s_reference_table_overflow_10026ac8") = "reference table overflow";

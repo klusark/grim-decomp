@@ -84,3 +84,12 @@ uint __cdecl sputControl_Close(void)
   g_nControlOpen = 0;
   return 1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern int grim_def_g_nControlOpen __asm__("_g_nControlOpen");
+/* 0x008ca1c4, 12 bytes */ GRIM_DATA("008ca1c4") int grim_def_g_nControlOpen __asm__("_g_nControlOpen") = 0;
+/* 0x008ca1c8, 8 bytes: the rest of grim_def_g_nControlOpen's span */ GRIM_DATA("008ca1c4") static unsigned char g_nControlOpen__tail[8] __attribute__((used)) = {0};

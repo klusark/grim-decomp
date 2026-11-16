@@ -578,21 +578,11 @@ extern char f_zlibVersion[] __asm__("_zlibVersion");
 
 /* every span, declared first: the pointers refer forward and back */
 extern unsigned char PTR_RegQueryInfoKeyA_004d7000[1328];
-extern unsigned char DAT_004d7530[16];
-extern unsigned char DAT_004d7540[96];
 extern float g_flRdroid_identMatrix34[12];
-extern unsigned char DAT_004d7600[3216];
 extern unsigned char DAT_004d8290[16];
 extern unsigned char DAT_004d82a0[16];
 extern unsigned char DAT_004d82b0[96];
 extern unsigned char DAT_004d8310[48];
-extern unsigned char DAT_004d8340[16];
-extern unsigned char DAT_004d8350[272];
-extern unsigned char DAT_004d8460[176];
-extern unsigned char DAT_004d8510[96];
-extern unsigned char DAT_004d8570[128];
-extern unsigned char DAT_004d85f0[176];
-extern int g_anColorDither[4][4];
 extern void *DAT_004d8998[3];
 extern unsigned char DAT_004d89a4[8];
 extern unsigned char DAT_004d89ac[12];
@@ -859,9 +849,6 @@ extern signed char g_abAdpcmIndexAdjust4[16];
 extern signed char g_abAdpcmIndexAdjust5[32];
 extern signed char g_abAdpcmIndexAdjust6[64];
 extern signed char g_abAdpcmIndexAdjust7[128];
-extern short g_wAdpcmStepTable[89];
-extern unsigned char DAT_004dab0a[6];
-extern unsigned char g_abAdpcmStepBits[89];
 typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; void *p18; unsigned char b1c[20]; } grim_span_004dac00;
 extern grim_span_004dac00 DAT_004dac00;
 typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; unsigned char b8[16]; void *p18; unsigned char b1c[20]; } grim_span_004dac30;
@@ -885,201 +872,35 @@ extern void *DAT_004dd024[2];
 extern unsigned char DAT_004dd02c[4];
 extern void *DAT_004dd030[2];
 extern unsigned char DAT_004dd038[8];
-extern void *PTR_g_aHs_004dd040[2];
-extern char s_GRIME__Grim_Fandango_Executable_U_004dd048[496];
-extern char s_grim_tab_004dd238[259];
-extern unsigned char DAT_004dd33b;
-extern unsigned int UINT_004dd33c;
 extern unsigned int UINT_004dd340;
 extern unsigned int UINT_004dd344;
 extern unsigned int UINT_004dd348;
-extern unsigned char DAT_004dd34c[4];
-extern void *PTR_s_Is3DHardwareEnabled_004dd350[12];
-extern unsigned int UINT_004dd380;
-extern unsigned char g_dwDeadmanCounter[4];
-extern unsigned int UINT_004dd388;
-extern unsigned int INT_004dd38c;
 extern char s_EnumerateVideoDevices_004dd390[24];
 extern char s_Enumerate3DDevices_004dd3a8[20];
 extern char s_SetHardwareState_004dd3bc[20];
 extern char s_SetVideoDevices_004dd3d0[16];
 extern char s_GetVideoDevices_004dd3e0[16];
 extern char s_Is3DHardwareEnabled_004dd3f0[20];
-extern char s_Grim_Fandango_004dd404[16];
-extern unsigned char DAT_004dd414[16];
-extern char s_Unable_to_open_debug_log_in_the_c_004dd424[64];
-extern char s_Uh_oh__004dd464[8];
-extern char s_debug_log_004dd46c[12];
 extern char s_w_004dd478[4];
-extern char s__engn006_Please_make_sure_that_t_004dd47c[96];
-extern char s__engn007_Grim_Fandango_could_not_004dd4dc[48];
 extern char s_C__grimsrc_tools_grimdemo_grimde_004dd50c[40];
-extern char s__engn004_Please_make_sure_you_ar_004dd534[116];
-extern char s__engn005_Grim_Fandango_could_not_004dd5a8[60];
 extern char s_ExperimentalDisplay_004dd5e4[20];
-extern char s__engn002_System_must_be_in_256_c_004dd5f8[64];
-extern char s__engn001_Grim_Fandango_004dd638[24];
-extern char s_GrimData_004dd650[12];
-extern char s_pl_004dd65c[4];
-extern char s_TRUE_004dd660[8];
-extern unsigned int UINT_004dd668;
-extern unsigned int UINT_004dd66c;
-extern unsigned short DAT_004dd670;
-extern unsigned char DAT_004dd672[2];
-extern char s__s__02_3f_004dd674[12];
-extern char s__02_3f_004dd680[8];
-extern char s__engn003_Software_004dd688[20];
-extern char s_Grim_Debug_004dd69c[12];
-extern char s__ShowDebugLog_004dd6a8[16];
-extern char s__logPrintf_004dd6b8[12];
-extern unsigned char DAT_004dd6c4[16];
-extern char s__choreface_Initialize_004dd6d4[24];
-extern char s__RegisterCommandCallback_004dd6ec[28];
-extern char s__HideChoreFace_004dd708[16];
-extern char s__ShowChoreFace_004dd718[16];
-extern unsigned char DAT_004dd728[16];
-extern char s_LastDisplayDevice_004dd738[20];
-extern char s_stdDisplay_numVideoModes____grim_004dd74c[72];
-extern char s_Last3DDevice_004dd794[16];
-extern char s_threeDNum____0____threeDNum____i_004dd7a4[92];
-extern unsigned char DAT_004dd800[56];
-extern unsigned char DAT_004dd838[60];
-extern unsigned char DAT_004dd874[60];
-extern char s_Usage_004dd8b0[8];
-extern char s____004dd8b8[4];
-extern char s____004dd8bc[4];
-extern char s__z_004dd8c0[4];
-extern char s__z_004dd8c4[4];
-extern char s__p_004dd8c8[4];
-extern char s__p_004dd8cc[4];
-extern char s__b_004dd8d0[4];
-extern char s__b_004dd8d4[4];
-extern char s__s_004dd8d8[4];
-extern char s__s_004dd8dc[4];
-extern char s__w_004dd8e0[4];
-extern char s__w_004dd8e4[4];
-extern char s__r_004dd8e8[4];
-extern char s__r_004dd8ec[4];
-extern char s__h_004dd8f0[4];
-extern char s__h_004dd8f4[4];
-extern char s__l_004dd8f8[4];
-extern char s__l_004dd8fc[4];
-extern char s__c_004dd900[4];
-extern char s__c_004dd904[4];
-extern char s__m_004dd908[4];
-extern char s__m_004dd90c[4];
-extern char s__t_004dd910[4];
-extern char s__t_004dd914[4];
 extern char s__004dd918[4];
-extern char s__s_d_zbm_004dd91c[12];
-extern char s__s_d_bmp_004dd928[12];
-extern char s_shot_004dd934[8];
-extern char s_grimpatch_bin_004dd93c[16];
 extern char s_GrimDataDir_004dd94c[12];
-extern unsigned char DAT_004dd958[64];
-extern char s_1_0_004dd998[4];
-extern char s_splash_bm_004dd99c[12];
-extern void *g_aDefaultHostServices[28];
-extern char s__s_004dda18[4];
-extern char s_WARNING___s_004dda1c[12];
-extern char s_ERROR___s_004dda28[12];
-extern char s_DEBUG___s_004dda34[12];
-extern char s_ASSERT____s__d___s_004dda40[20];
 extern char s_r_004dda54[4];
-extern unsigned char DAT_004dda58[4];
-extern unsigned char DAT_004dda5c[4];
-extern char s_Version_004dda60[8];
-extern char s_C__grimjedi_Libs_W32Util_Wuregis_004dda68[40];
 extern float FLOAT_004dda90;
 extern unsigned char g_aRdroid_MipDistances[4];
 extern float FLOAT_004dda98;
 extern unsigned char g_dwRdColormap_colorInfo[12];
-extern unsigned char UINT_004ddaac[8];
-extern unsigned int UINT_004ddab4;
-extern unsigned int UINT_004ddab8;
-extern unsigned int UINT_004ddabc;
-extern unsigned int UINT_004ddac0;
-extern unsigned int UINT_004ddac4;
-extern unsigned char UINT_004ddac8[16];
-extern unsigned char DAT_004ddad8[4];
-extern unsigned char DAT_004ddadc[4];
-extern unsigned char DAT_004ddae0[4];
-extern char s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4[44];
-extern char s_CMP_004ddb10[8];
 extern char s_rb_004ddb18[4];
-extern char s_wb__004ddb1c[4];
-extern char s_GREYRAMP_CMP_004ddb20[16];
-extern float FLOAT_004ddb30;
-extern unsigned char DAT_004ddb3c[4];
-extern unsigned char DAT_004ddb40[4];
-extern char s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44[44];
 extern float FLOAT_004ddb70;
 extern float FLOAT_004ddb74;
 extern float FLOAT_004ddb78;
-extern unsigned char DAT_004ddb7c[4];
-extern unsigned char DAT_004ddb80[4];
-extern unsigned char DAT_004ddb84[4];
-extern unsigned char DAT_004ddb88[4];
 extern char s_UNKNOWN_004ddb8c[8];
-extern char s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[48];
-extern char s__d___x__x__d__d__d__d__d__f__f___004ddbc4[56];
-extern char s_hierarchy_nodes__d_004ddbfc[20];
-extern char s___004ddc10[4];
 extern char s__f_004ddc14[4];
 extern char s__d_004ddc18[4];
-extern char s__x_004ddc1c[4];
-extern char s_faces__d_004ddc20[12];
-extern char s__d___f__f__f_004ddc2c[16];
-extern char s__d___f__f_004ddc3c[12];
-extern char s_texture_vertices__d_004ddc48[24];
-extern char s__d___f__f__f__f_004ddc60[20];
-extern char s_vertices__d_004ddc74[16];
-extern char s_texturemode__d_004ddc84[16];
-extern char s_lightingmode__d_004ddc94[20];
-extern char s_geometrymode__d_004ddca8[20];
-extern char s_shadow__d_004ddcbc[12];
-extern char s_name__s_004ddcc8[12];
-extern char s_mesh__d_004ddcd4[12];
-extern char s_meshes__d_004ddce0[12];
-extern char s_geoset__d_004ddcec[12];
-extern char s_geosets__d_004ddcf8[12];
-extern char s_insert_offset__f__f__f_004ddd04[24];
-extern char s_radius__f_004ddd1c[12];
-extern char s__d___s_004ddd28[8];
-extern char s_numMaterials___MAX_MATS_004ddd30[24];
-extern char s_materials__d_004ddd48[16];
-extern char s_3do__d__d_004ddd58[12];
 extern char s_section___s_004ddd64[16];
-extern unsigned int UINT_004ddd74;
 extern char s_wb_004ddd78[4];
-extern unsigned char DAT_004ddd7c[4];
-extern unsigned char DAT_004ddd80[4];
-extern char s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84[44];
-extern char s_MAT_004dddb0[40];
-extern unsigned char DAT_004dddd8[4];
-extern char s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc[48];
-extern unsigned char DAT_004dde0c[4];
-extern unsigned char DAT_004dde10[4];
-extern char s_C__grimjedi_Libs_RDroid_Engine_R_004dde14[72];
-extern unsigned char DAT_004dde5c[4];
-extern unsigned char DAT_004dde60[4];
-extern char s_C__grimjedi_Libs_RDroid_Primitiv_004dde64[52];
-extern char s__bmp_004dde98[8];
-extern char s__pic_004ddea0[8];
-extern char s__zbm_004ddea8[8];
-extern char s__bm_004ddeb0[4];
-extern char s__gif_004ddeb4[8];
-extern char s__pcx_004ddebc[8];
-extern char s__lbm_004ddec4[8];
-extern char s_bmp_004ddecc[4];
-extern char s_gif_004dded0[4];
-extern char s_pcx_004dded4[4];
-extern char s_lbm_004dded8[4];
-extern char s_zbm_004ddedc[4];
-extern char s_bm_004ddee0[8];
 extern DxErrorName g_aDDErrorNames[93];
-extern unsigned char DAT_004de1d0[8];
-extern unsigned char DAT_004de1d8[4];
 extern unsigned char DAT_004de1dc[24];
 extern unsigned char DAT_004de1f4[20];
 extern unsigned char DAT_004de208[24];
@@ -1173,14 +994,6 @@ extern unsigned char DAT_004de980[28];
 extern unsigned char DAT_004de99c[28];
 extern unsigned char DAT_004de9b8[28];
 extern unsigned char DAT_004de9d4[8];
-extern char s_DIBsection_windowed_display_004de9dc[28];
-extern char s_Window_Display_Device_004de9f8[24];
-extern char s_Arial_004dea10[8];
-extern char s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18[40];
-extern unsigned int UINT_004dea40;
-extern float FLOAT_004dea44;
-typedef struct __attribute__((packed)) { unsigned char b0[20]; void *p14; unsigned char b18[4]; void *p1c; unsigned char b20[4]; void *p24; unsigned char b28[4]; void *p2c; unsigned char b30[4]; void *p34; unsigned char b38[4]; void *p3c; unsigned char b40[4]; void *p44; unsigned char b48[4]; void *p4c; unsigned char b50[4]; void *p54; unsigned char b58[4]; void *p5c; unsigned char b60[4]; void *p64; unsigned char b68[4]; void *p6c; unsigned char b70[4]; void *p74; unsigned char b78[4]; void *p7c; unsigned char b80[4]; void *p84; unsigned char b88[4]; void *p8c; unsigned char b90[4]; void *p94; unsigned char b98[4]; void *p9c; unsigned char ba0[4]; void *pa4; unsigned char ba8[4]; void *pac; unsigned char bb0[4]; void *pb4; unsigned char bb8[4]; void *pbc; unsigned char bc0[4]; void *pc4; unsigned char bc8[4]; void *pcc; unsigned char bd0[4]; void *pd4; unsigned char bd8[4]; void *pdc; unsigned char be0[4]; void *pe4; unsigned char be8[4]; void *pec; unsigned char bf0[4]; void *pf4; unsigned char bf8[4]; void *pfc; unsigned char b100[4]; void *p104; unsigned char b108[4]; void *p10c; unsigned char b110[4]; void *p114; unsigned char b118[4]; void *p11c; } grim_span_004dea48;
-extern grim_span_004dea48 FLOAT_004dea48;
 extern unsigned char DAT_004deb68[20];
 extern unsigned char DAT_004deb7c[20];
 extern unsigned char DAT_004deb90[24];
@@ -1215,17 +1028,7 @@ extern unsigned char DAT_004deddc[16];
 extern unsigned char DAT_004dedec[20];
 extern unsigned char DAT_004dee00[16];
 extern unsigned char DAT_004dee10[8];
-extern char s_Assert_Handler_004dee18[16];
-extern unsigned char DAT_004dee28[12];
 extern char s_wt_004dee34[4];
-extern char s__s__d____s_004dee38[16];
-extern int UINT_004dee48;
-extern int UINT_004dee4c;
-extern unsigned int UINT_004dee50;
-extern int INT_004dee54;
-extern unsigned int UINT_004dee58;
-extern unsigned int UINT_004dee5c;
-extern unsigned char UINT_004dee60[8];
 extern DxErrorName g_aD3DErrorNames[121];
 extern unsigned char DAT_004df230[24];
 extern unsigned char DAT_004df248[28];
@@ -1255,81 +1058,15 @@ extern unsigned char DAT_004df4f8[32];
 extern unsigned char DAT_004df518[24];
 extern unsigned char DAT_004df530[24];
 extern unsigned char DAT_004df548[8];
-extern unsigned char DAT_004df550[8];
-extern unsigned char DAT_004df558[4];
-extern unsigned char DAT_004df55c[12];
-extern unsigned char DAT_004df568[8];
-extern unsigned char DAT_004df570[4];
-extern char s_C__grimjedi_Libs_Std_General_Std_004df574[44];
-extern char s_BM_004df5a0[8];
-extern char s_Unable_to_allocate_a_new_frame_w_004df5a8[88];
-extern float g_aSinTable[4096];
-extern float g_aTanTable[4096];
-extern unsigned char DAT_004e7600[4];
-extern char s_C__grimjedi_Libs_Std_General_Std_004e7604[44];
-extern char s_none_004e7630[8];
-extern unsigned char DAT_004e7638[4];
-extern unsigned char DAT_004e763c[4];
-extern unsigned char DAT_004e7640[4];
-extern char s_C__grimjedi_Libs_Std_General_Std_004e7644[40];
-extern char s_Unable_to_read_all_the_data_from_004e766c[72];
 extern char s_Unable_to_lock_VBuffer_memory__004e76b4[32];
 extern char s_Unable_to_allocate_memory__004e76d4[28];
-extern char s_This_BMP_file_uses_a_bit_depth_w_004e76f0[60];
-extern char s_32bit_per_pixel_BMP_not_yet_supp_004e772c[40];
-extern char s_16_bit_per_pixel_BMP_not_yet_sup_004e7754[40];
-extern char s_Unable_to_read_the_palette__Your_004e777c[56];
-extern char s_Only_24bpp_supported_004e77b4[24];
-extern unsigned char DAT_004e77cc[4];
-extern unsigned char DAT_004e77d0[8];
-extern char s_C__grimjedi_Libs_Std_General_std_004e77d8[40];
-extern unsigned char DAT_004e7800[12];
-extern unsigned char DAT_004e780c[76];
-extern unsigned char DAT_004e7858[16];
-extern unsigned char DAT_004e7868[12];
-extern void *PTR_UINT_004e7874;
-extern void *PTR_UINT_004e7878;
-extern unsigned char DAT_004e787c[4];
-extern unsigned char DAT_004e7880[4];
-extern char s_C__grimjedi_Libs_Std_General_Std_004e7884[40];
-extern char s_89a_004e78ac[4];
-extern char s_GIF_004e78b0[4];
-extern unsigned char DAT_004e78b4[4];
-extern char s_C__grimjedi_Libs_Std_General_Std_004e78b8[40];
-extern unsigned char DAT_004e78e0[4];
-extern char s_FORM_004e78e4[8];
-extern char s_C__grimjedi_Libs_Std_General_Std_004e78ec[40];
-extern char s_BODYxxxx_004e7914[12];
-extern char s_CMAP_004e7920[8];
-extern char s_FORMxxxxPBM_BMHD_004e7928[20];
 extern unsigned char DAT_004e793c[4];
-extern unsigned char DAT_004e7940[4];
-extern unsigned char DAT_004e7944[4];
-extern char s_allocation__magic____0x12345678_004e7948[32];
-extern char s_C__grimjedi_Libs_Std_General_Std_004e7968[44];
-extern char s_allocation_004e7994[24];
 extern void *PTR_res_DefaultHandler_004e79ac[2];
 extern unsigned char DAT_004e79b4[64];
-extern char s_Resource____12s__allocated___8ld_004e79f4[40];
 extern char s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c[36];
-extern char s_Total___d_items___d_bytes_004e7a40[28];
-extern char s_Resource___12s__size____7ld__s_004e7a5c[36];
-extern char s_REFERENCED_004e7a80[12];
-extern char s__int_fh___0_____int_fh____MAX_OP_004e7a8c[44];
-extern char s_Resource____12s__freed___d_refer_004e7ab8[40];
-extern char s_ref__valid____0_004e7ae0[16];
-extern char s_LABN_004e7af0[8];
 extern char s__s_s_004e7af8[8];
-extern char s_ref_____ref__valid_004e7b00[20];
-extern char s_TEMP_004e7b14[12];
 extern unsigned int g_dwMax_ram;
-extern unsigned char DAT_004e7b48[8];
 extern unsigned char g_dwGrimlib_PerfData[584];
-extern unsigned char g_dwUpdateLua[8];
-extern unsigned char DAT_004e7da0[32];
-extern void *PTR_FileUtil_SysInitialize_004e7dc0[16];
-extern void *PTR_sputControl_Initialize_004e7e00[12];
-extern int g_dwGrimlib_NewImuseState;
 extern char s_sputSmush_Initialize_004e7e34[24];
 extern char s_sputPrimitive_Initialize_004e7e4c[28];
 extern char s_sputText_Initialize_004e7e68[20];
@@ -1344,87 +1081,23 @@ extern char s_sputTime_Initialize_004e7f1c[20];
 extern char s_sputRoom_Initialize_004e7f30[20];
 extern char s_Memory_SysInitialize_004e7f44[24];
 extern char s_FileUtil_SysInitialize_004e7f5c[24];
-extern char s_slot____1____slot___PerfTotalEnt_004e7f74[40];
 extern char s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c[44];
-extern char s_grim_sav_004e7fc8[12];
-extern char s_tot_____int_bytes_004e7fd4[20];
-extern char s_patch05_bin_004e7fe8[12];
-extern char s_size_____int_vbuf__rasterInfo_si_004e7ff4[36];
-extern char s_grim_tmp_004e8018[12];
-extern void *g_pTabFilename;
 extern unsigned char DAT_004e8028[16];
-extern char s_C__grimsrc_libs_grimlib_Engine_p_004e8038[44];
 extern int g_nIrisX;
 extern int g_nIrisY;
 extern unsigned int UINT_004e806c;
-extern float g_flSputRender_GammaCorrection;
 extern int g_nNumPages;
 extern unsigned int g_dwDebugFlags;
-extern float g_flAmbientLight;
 extern int g_nDoTheFlip;
-extern int g_nSputRender_Update_RenderSetup;
-extern unsigned int g_dwLoadImageAllowed;
-extern unsigned int UINT_004e808c;
 extern char s_Bad_Colormap_Reference_004e8090[24];
 extern char s_main_sputResource_h_004e80a8[20];
 extern char s_C__grimsrc_libs_grimlib_Engine_s_004e80bc[48];
-extern char s__percent____0_0f______percent____004e80ec[40];
 extern char s_Bad_Bitmap_Reference_004e8114[24];
-extern char s_wait_bm_004e812c[12];
-extern unsigned int UINT_004e8138;
-extern unsigned int UINT_004e813c;
-extern int UINT_004e8140;
-extern unsigned int UINT_004e8144;
-extern unsigned int UINT_004e8148;
 extern unsigned int UINT_004e814c;
-extern char s_Cancel_004e8150[8];
-extern unsigned char DAT_004e8158[4];
-extern char s_BUTTON_004e815c[8];
-extern char s_msctls_updown32_004e8164[16];
-extern unsigned char DAT_004e8174[8];
-extern char s_STATIC_004e817c[8];
-extern char s_MS_Sans_Serif_004e8184[16];
-extern char s_Recursive_004e8194[12];
-extern char s_SysTreeView32_004e81a0[16];
-extern char s_Tree_Select_004e81b0[12];
-extern char s_Input_004e81bc[8];
-extern char s__004e81c4[4];
-extern char s_Not_so_fast__004e81c8[16];
-extern char s_No_item_was_picked__004e81d8[20];
-extern char s_C__grimsrc_libs_grimlib_Win95_gr_004e81ec[44];
-extern char s_Spew_Shutdown_004e8218[16];
-extern char s_Spew_Startup_004e8228[16];
-extern unsigned char DAT_004e8238[16];
 typedef struct __attribute__((packed)) { void *p0; unsigned char b4[20]; void *p18; } grim_span_004e8248;
 extern grim_span_004e8248 DAT_004e8248;
-extern char s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264[40];
-extern char s_pData_004e828c[8];
-extern char s_pPool__poolItems____itemCount_004e8294[32];
-extern char s_pPool_004e82b4[8];
-extern char s_itemGrowBy___0_004e82bc[16];
-extern char s_itemSize___0_004e82cc[16];
-extern char s_pPool__pPool____pPool_004e82dc[24];
-extern char s_pool_004e82f4[8];
-extern char s__s____004e82fc[8];
-extern char s__s___s_004e8304[8];
-extern char s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c[44];
 extern void *g_pSputVideoCallBacks[6];
-extern char s_FALSE_004e8350[8];
-extern char s_StartSmush_004e8358[16];
-extern void *PTR_s_color_004e8368;
-extern void *PTR_s_xoffset_004e836c;
-extern void *PTR_s_yoffset_004e8370;
-extern void *PTR_s_x_004e8374;
-extern void *PTR_s_y_004e8378;
-extern void *PTR_DAT_004e837c;
-extern void *PTR_DAT_004e8380;
-extern void *PTR_s_width_004e8384;
-extern void *PTR_s_height_004e8388;
-extern void *PTR_s_filled_004e838c;
-extern void *PTR_s_layer_004e8390;
 extern int g_nPrimitiveQueue_nextId;
-extern void *g_pPrimitiveFunctionsToRegister[12];
-extern unsigned int UINT_004e83c8;
 extern char s_PurgePrimitiveQueue_004e83cc[20];
 extern char s_KillPrimitive_004e83e0[16];
 extern char s_ChangePrimitive_004e83f0[16];
@@ -1432,29 +1105,18 @@ extern char s_DrawRectangle_004e8400[16];
 extern char s_DrawPolygon_004e8410[12];
 extern char s_DrawLine_004e841c[12];
 extern char s_layer_004e8428[8];
-extern char s_filled_004e8430[8];
-extern char s_height_004e8438[8];
-extern char s_width_004e8440[8];
 extern unsigned char DAT_004e8448[4];
 extern unsigned char DAT_004e844c[4];
 extern char s_y_004e8450[4];
 extern char s_x_004e8454[4];
 extern char s_yoffset_004e8458[8];
 extern char s_xoffset_004e8460[8];
-extern char s_color_004e8468[8];
-extern unsigned int UINT_004e8470;
-extern unsigned int UINT_004e8474;
 extern unsigned char DAT_004e8478[8];
-extern unsigned int UINT_004e8480;
-extern unsigned int UINT_004e8484;
 extern int g_nSubtitleDefaultX;
 extern int g_nSubtitleDefaultY;
-extern unsigned char UINT_004e8490[8];
 extern TextContext g_PrintLineTextCtx;
 extern TextContext g_SubtitleTextCtx;
 extern TextContext g_TextObjectCtx;
-extern void *g_pTextFunctionsToRegister[44];
-extern unsigned int UINT_004e85d8;
 extern char s_SetOffscreenTextPos_004e85dc[20];
 extern char s_SetEmergencyFont_004e85f0[20];
 extern char s_LocalizeString_004e8604[16];
@@ -1477,19 +1139,6 @@ extern char s_GetActorTalkColor_004e8708[20];
 extern char s_SetActorTalkColor_004e871c[20];
 extern char s_SetSayLineDefaults_004e8730[20];
 extern char s_IsMessageGoing_004e8744[16];
-extern char s___s__s_004e8754[8];
-extern char s_background_004e875c[12];
-extern char s_pan_004e8768[4];
-extern char s_volume_004e876c[8];
-extern char s_rjustify_004e8774[12];
-extern char s_ljustify_004e8780[12];
-extern char s_center_004e878c[8];
-extern char s_duration_004e8794[12];
-extern char s_hicolor_004e87a0[8];
-extern char s_fxcolor_004e87a8[8];
-extern char s_bgcolor_004e87b0[8];
-extern char s_fgcolor_004e87b8[8];
-extern char s_font_004e87c0[8];
 extern ControlSymbol g_aControlSymbols[167];
 extern int g_nSputControl_numControlSymbols;
 extern unsigned char DAT_004e923c[16];
@@ -1659,12 +1308,7 @@ extern unsigned char DAT_004e998c[8];
 extern unsigned char DAT_004e9994[8];
 extern unsigned char DAT_004e999c[8];
 extern char s_KEY_ESCAPE_004e99a4[12];
-extern void *g_ppRequiredLabs[30];
-extern int g_nRequiredLabCount;
-extern int g_nMaxRealMemoryUsage;
-extern int g_dwPurgeAmount;
 extern void *g_ResTypeTable[24];
-extern char s_DEBUG_Loops__004e9a98[16];
 extern unsigned char DAT_004e9aa8[12];
 extern unsigned char DAT_004e9ab4[20];
 extern unsigned char DAT_004e9ac8[16];
@@ -1696,9 +1340,6 @@ extern unsigned char DAT_004e9c14[16];
 extern unsigned char DAT_004e9c24[12];
 extern char s_C__grimsrc_libs_grimlib_Main_spu_004e9c30[48];
 extern char s___004e9c60[4];
-extern char s_lab_004e9c64[4];
-extern char s_dflt_mat_004e9c68[12];
-extern char s_Grim_res_004e9c74[12];
 extern int g_nMaxActors;
 extern PhonemeEntry g_aPhonemeTable[46];
 extern int g_nPhonemeCount;
@@ -1706,41 +1347,15 @@ extern unsigned int g_dwSmSpeechMode;
 extern int g_nTextRate;
 extern int g_nWALKSYSTEM_FADE_TIME;
 extern char s_Bad_model_Reference_004e9e08[20];
-extern char s_Valid_Ref___pCosNode__rCostume___004e9e1c[36];
 extern char s_C__grimsrc_libs_grimlib_Engine_s_004e9e40[48];
-extern char s_tot_clips___MAX_SHADOW_CLIPS_004e9e70[32];
 extern char s_Bad_costume_Reference_004e9e90[24];
-extern char s_pActor__pExtra_004e9ea8[16];
-extern char s_pActor_____pActor__pExtra_004e9eb8[28];
-extern char s__s_imu_004e9ed4[8];
-extern char s__s_imc_004e9edc[8];
-extern char s__s_wav_004e9ee4[8];
-extern char s__s_wvc_004e9eec[12];
-extern unsigned char g_aThingCommands[8];
 extern void *DAT_004e9f00[2];
-typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[8]; } grim_span_004e9f08;
-extern grim_span_004e9f08 DAT_004e9f08;
 extern void *DAT_004e9f1c;
-typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004e9f20;
-extern grim_span_004e9f20 DAT_004e9f20;
-extern unsigned char DAT_004e9f38[8];
 extern void *DAT_004e9f40[2];
-typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004e9f48;
-extern grim_span_004e9f48 DAT_004e9f48;
-extern unsigned char g_aKeyCommands[64];
 extern void *DAT_004e9fa0[16];
-typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004e9fe0;
-extern grim_span_004e9fe0 DAT_004e9fe0;
-extern unsigned char g_aSoundCommands[16];
 extern void *DAT_004ea008[4];
-typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004ea018;
-extern grim_span_004ea018 DAT_004ea018;
 extern unsigned char DAT_004ea030[8];
 extern void *DAT_004ea038[2];
-typedef struct __attribute__((packed)) { unsigned char b0[4]; void *p4; void *p8; unsigned char bc[12]; } grim_span_004ea040;
-extern grim_span_004ea040 DAT_004ea040;
-extern void *g_pLuaCostumeFuncs[4];
-extern unsigned int UINT_004ea068;
 extern char s_GetSmushLength_004ea06c[16];
 extern char s_GetKeyLength_004ea07c[16];
 extern unsigned char DAT_004ea08c[16];
@@ -1764,88 +1379,12 @@ extern unsigned char DAT_004ea178[8];
 extern unsigned char DAT_004ea180[8];
 extern unsigned char DAT_004ea188[8];
 extern char s_shadow_cmp_004ea190[12];
-extern char s_shadow_mat_004ea19c[12];
-extern char s_skirt_004ea1a8[8];
 extern char s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0[48];
 extern char s_Bad_keyframe_Reference_004ea1e0[24];
-extern char s_BitmapPath_004ea1f8[12];
-extern char s_Objects_004ea204[8];
-extern char s_SmushPath_004ea20c[12];
-extern char s_Movies_004ea218[8];
-extern char s_SoundPath_004ea220[12];
-extern char s_SFX_004ea22c[4];
-extern char s_ModelPath_004ea230[12];
-extern char s_Models_004ea23c[8];
-extern char s_MaterialPath_004ea244[16];
-extern char s_Materials_004ea254[12];
-extern char s_ColormapPath_004ea260[16];
-extern char s_Colormaps_004ea270[12];
-extern char s_KeyframePath_004ea27c[16];
-extern char s_Animation_004ea28c[12];
-extern char s_Lua_Variable_004ea298[16];
 extern char s_iMuse_State_004ea2a8[12];
 extern char s_iMuse_Sequence_004ea2b4[16];
-extern char s_Sprite_004ea2c4[8];
-extern char s_Smush_Movie_004ea2cc[12];
-extern char s_iMuse_Resident_Sound_FX_004ea2d8[24];
-extern char s_iMuse_Streamed_Sound_FX_004ea2f0[24];
-extern unsigned char DAT_004ea308[28];
-extern char s_General_Bitmap_004ea324[16];
-extern unsigned char DAT_004ea334[24];
-extern char s_RDroid_Animated_Material_004ea34c[28];
-extern char s_RDroid_Thing_Mesh_004ea368[20];
-extern char s_RDroid_Colormap_004ea37c[16];
-extern unsigned char DAT_004ea38c[20];
-extern unsigned char DAT_004ea3a0[28];
-extern char s__s__s____d_004ea3bc[16];
-extern char s_____s_004ea3cc[8];
-extern char s____Chore_numbering_for__s__004ea3d4[28];
-extern char s_File_Error__004ea3f0[12];
-extern char s_Unable_to_open_chore_list_file__C_004ea3fc[96];
-extern char s_lua_004ea45c[4];
-extern char s_Name_chore_list_file____004ea460[24];
-extern char s_Script_files____lua____def__004ea478[64];
-extern char s_Select_image_file_to_add____004ea4b8[28];
-extern char s_Graphics_files____pcx____gif___l_004ea4d4[88];
 extern char s___004ea52c[4];
-extern char s_Select_colormap_file_to_add____004ea530[32];
-extern char s_Colormap_files____cmp__004ea550[52];
-extern char s_Select_mat_file_to_animate____004ea584[32];
 extern char s_Material_files____mat__004ea5a4[52];
-extern char s__s__d_004ea5d8[8];
-extern char s_Resolve_parent_offset__0___off__004ea5e0[32];
-extern char s_Select_model_file_to_add____004ea600[28];
-extern char s_Model_files____3do__004ea61c[48];
-extern char s_Mesh__d___s__004ea64c[16];
-extern char s_Select_mesh_node_to_add____004ea65c[28];
-extern char s__s__d__d__d__d_004ea678[16];
-extern char s_Minimum_Volume_004ea688[16];
-extern char s_Priority_004ea698[12];
-extern char s_Pan_004ea6a4[4];
-extern char s_Maximum_Volume_004ea6a8[16];
-extern char s_Select_sound_file_to_add____004ea6b8[28];
-extern char s_Sound_files____imu____imc____wvc_004ea6d4[88];
-extern char s_Change_variable_properties_004ea72c[28];
-extern char s_Variable_name_004ea748[16];
-extern char s_Name_of_variable_004ea758[20];
-extern char s_Select_keyframe_file_to_add____004ea76c[32];
-extern char s_Keyframe_files____key__004ea78c[52];
-extern char s__s__d__d_004ea7c0[12];
-extern char s_Normal_Priority_004ea7cc[16];
-extern char s_Tagged_Priority_004ea7dc[16];
-extern char s_Select_smush_file____004ea7ec[24];
-extern char s_Smush_files____snm__004ea804[48];
-extern char s_Select_mat_file_for_sprite____004ea834[32];
-extern char s__s__d__d__d__d__d_004ea854[20];
-extern char s_Z_004ea868[4];
-extern char s_Y_004ea86c[4];
-extern char s_X_004ea870[4];
-extern char s_Height_004ea874[8];
-extern char s_Width_004ea87c[8];
-extern char g_szConfigKeyPrefix[12];
-extern void *PTR_s_concatfallback_004ea890[8];
-extern void *PTR_s_EnginePause_004ea8b0[558];
-extern unsigned int UINT_004eb168;
 extern unsigned char DAT_004eb16c[16];
 extern unsigned char DAT_004eb17c[16];
 extern unsigned char DAT_004eb18c[12];
@@ -2129,118 +1668,18 @@ extern char s_dfltcontrol_004ec340[16];
 extern char s_dfltcamera_004ec350[16];
 extern char s_typeoverride_004ec360[16];
 extern char s_concatfallback_004ec370[20];
-extern char s_count_004ec384[8];
-extern char s_C__grimsrc_libs_grimlib_Scripts__004ec38c[44];
 extern char s_z_004ec3b8[4];
-extern char s__system_lua_004ec3bc[12];
-extern char s_BOOT_004ec3c8[8];
-extern char s_camChangeHandler_004ec3d0[20];
-extern char s_postCamChangeHandler_004ec3e4[24];
-extern char s_collisionHandler_004ec3fc[20];
-extern char s_movieTime_004ec410[12];
-extern char s_frameTime_004ec41c[12];
-extern char s__s___s____s__d__004ec428[20];
-extern char s_unnamed_function_004ec43c[20];
-extern char s_tag_method_004ec450[12];
-extern char s_function_004ec45c[12];
-extern char s__unknown__004ec468[12];
-extern char s_actor_004ec474[8];
-extern char s_costume_004ec47c[8];
-extern char s_keyframe_004ec484[12];
 extern char s_set_004ec490[4];
-extern char s__actor_d__s__004ec494[16];
-extern char s__nil__004ec4a4[8];
-extern char s_costumeOverrideHandler_004ec4ac[24];
-extern char s_costumeMarkerHandler_004ec4c4[24];
-extern char s_userPaintHandler_004ec4dc[20];
-extern char s_exitHandler_004ec4f0[12];
-extern char s_pauseHandler_004ec4fc[16];
-extern char s_characterHandler_004ec50c[20];
-extern char s_concat_004ec520[8];
-extern char s_HOT_004ec528[4];
-extern char s_SPECIAL_004ec52c[8];
-extern char s_CAMERA_004ec534[8];
-extern char s_WALK_004ec53c[8];
-extern char s_NONE_004ec544[8];
-extern char s_type_004ec54c[8];
-extern char s_true_004ec554[8];
-extern char s_TextAllowed_004ec55c[12];
-extern char s_axisHandler_004ec568[12];
-extern char s_buttonHandler_004ec574[16];
-extern char s_system_004ec584[8];
-extern char s_controls_004ec58c[12];
 extern char s_spot_004ec598[8];
-extern char s_global_004ec5a0[8];
-extern char s_parallel_004ec5a8[12];
 extern char s_omni_004ec5b4[8];
 extern char s_rt_004ec5bc[4];
-extern char s_saveGameCallback_004ec5c0[20];
 extern char s_dfltroom_bm_004ec5d4[12];
 extern char s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0[44];
 extern char s__none__004ec60c[8];
 extern char s_Bad_ZBuffer_Reference_004ec614[24];
-extern char s_Bad_room_Reference_004ec62c[40];
-extern char s_penumbraangle__f_004ec654[20];
-extern char s_umbraangle__f_004ec668[20];
-extern char s_intensity__f_004ec67c[16];
-extern char s_direction__f__f__f_004ec68c[24];
-extern char s_position__f__f__f_004ec6a4[88];
-extern char s_section__lights_004ec6fc[20];
-extern char s_dfltcmp_cmp_004ec710[12];
-extern char s_sectors_004ec71c[8];
 extern char s_lights_004ec724[8];
-extern char s_setups_004ec72c[8];
-extern char s_colormaps_004ec734[12];
-extern char s_section___s_004ec740[12];
-extern char s_color__d__d__d_004ec74c[16];
-extern char s_penumbraangle__f_004ec75c[20];
-extern char s_umbraangle__f_004ec770[16];
-extern char s_intensity__f_004ec780[16];
-extern char s_position__f__f__f_004ec790[20];
-extern char s_direction__f__f__f_004ec7a4[20];
 extern char s_type__s_004ec7b8[12];
-extern char s_light__s_004ec7c4[12];
-extern char s_numlights__d_004ec7d0[16];
 extern char s_section___s_004ec7e0[16];
-extern char s_fclip__f_004ec7f0[12];
-extern char s_nclip__f_004ec7fc[12];
-extern char s_fov__f_004ec808[8];
-extern char s_roll__f_004ec810[12];
-extern char s_interest__f__f__f_004ec81c[20];
-extern char s_zbuffer__s_004ec830[12];
-extern char s_background__s_004ec83c[16];
-extern char s_setup__s_004ec84c[12];
-extern char s_numsetups__d_004ec858[16];
-extern char s_colormap__s_004ec868[16];
-extern char s_numcolormaps__d_004ec878[20];
-extern char s_pRoom__apColormaps____NULL_004ec88c[28];
-extern char s_tot_verts___MAX_DB_VERTS___2_004ec8a8[32];
-extern char s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8[48];
-extern char s__f__f__f_004ec8f8[12];
-extern char s_vertices___f__f__f_004ec904[20];
-extern char s_numgates__s_004ec918[16];
-extern char s_numvertices__d_004ec928[16];
-extern char s_height__f_004ec938[12];
-extern char s_invisible_004ec944[12];
-extern char s_default_visibility__s_004ec950[24];
-extern char s_chernobyl_004ec968[12];
-extern char s_special_004ec974[8];
-extern char s_camera_004ec97c[8];
-extern char s_funnel_004ec984[8];
-extern char s_walk_004ec98c[8];
-extern char s_id__i_004ec994[8];
-extern char s_sector__s_004ec99c[12];
-extern char s_numsectors_004ec9a8[16];
-extern char s_edge_index___num_verts_004ec9b8[24];
-extern char s_C__grimsrc_libs_grimlib_Engine_O_004ec9d0[48];
-extern unsigned int UINT_004eca00;
-extern unsigned int g_adwTextWrapTable[385];
-extern char s_c_____0______c______0______ppTex_004ed008[52];
-extern char s__ppText______void___0__004ed03c[24];
-extern char s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054[36];
-extern char s_hFont_004ed078[8];
-extern char s_wKernel_004ed080[8];
-extern char s_APPICON_004ed088[16];
 extern void *PTR_FUN_004ed098[6];
 extern void *PTR__exit_004ed0b0;
 extern unsigned char UINT_004ed0b4[20];
@@ -2342,66 +1781,13 @@ extern unsigned char PTR_PTR_004f07a0[176];
 extern void *DAT_004f0850[14];
 extern unsigned char UINT_004f0888[296];
 extern unsigned char DAT_004f09b0[448];
-extern void *g_pSubscription_info[12];
-extern void *g_pShl_modules[30];
-extern void *g_pGrimmem_module_services[4];
-extern void *g_pGrimmem_memory_services[4];
-extern void *g_pGrimio_services[4];
-extern void *g_pGrimio_filio_services[7];
-extern char s_FILIO_insane_stdio_004f0c64[20];
 extern unsigned char DAT_004f0c78[16];
 extern unsigned char DAT_004f0c88[12];
 extern unsigned char DAT_004f0c94[12];
 extern char s_FILIO_insane_zfilio_004f0ca0[20];
 extern char s__gz_004f0cb4[4];
-extern char s__GZ_004f0cb8[4];
-extern char s__SNM_004f0cbc[8];
-extern char s__snm_004f0cc4[8];
-extern char s_MEMORY_insane_004f0ccc[16];
-extern char s_LECMODULE_insane_memory_004f0cdc[24];
-extern char s_LECMODULE_insane_stdio_004f0cf4[24];
-extern unsigned int UINT_004f0d0c;
 extern int g_nLightEdSelected;
-extern void *PTR_s_Error_004f0d14;
-extern float g_flLightEdMoveStep;
-extern float g_flLightEdAngleStep;
 extern char s_Error_004f0d20[8];
-extern char s_x_spot_cos_004f0d28[12];
-extern char s_LightManager_Startup__Could_not_c_004f0d34[56];
-extern char s_newlight_d_004f0d6c[12];
-extern char s_Maximum_number_of_lights_already_004f0d78[64];
-extern unsigned char DAT_004f0db8[16];
-extern char s_Could_not_open_file___s___004f0dc8[28];
-extern unsigned char DAT_004f0de4[28];
-extern char s_section__004f0e00[12];
-extern char s_Set_Files____set__004f0e0c[48];
-extern char s_LightManager_UpdateDialog__No_cu_004f0e3c[44];
-extern char s__Light__d__004f0e68[12];
-extern unsigned char DAT_004f0e74[60];
-extern char s_Duplicate_light_name_004f0eb0[24];
-extern char s_New_light_name_004f0ec8[16];
-extern unsigned char DAT_004f0ed8[4];
-extern char s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc[44];
-extern unsigned char DAT_004f0f08[4];
-extern unsigned char DAT_004f0f0c[4];
-extern unsigned char DAT_004f0f10[4];
-extern char s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14[44];
-extern char s__f__f__f__f__f__f_004f0f40[20];
-extern char s__d___f__x__f__f__f__f__f__f_004f0f54[32];
-extern char s_entries__d_004f0f74[12];
-extern char s_mesh_name__s_004f0f80[16];
-extern char s_node__d_004f0f90[12];
-extern char s_nodes__d_004f0f9c[12];
-extern char s__f__d_004f0fa8[8];
-extern char s_markers__d_004f0fb0[12];
-extern char s_markers_004f0fbc[8];
-extern char s_joints__d_004f0fc4[12];
-extern char s_fps__f_004f0fd0[8];
-extern char s_frames__d_004f0fd8[12];
-extern char s_type__x_004f0fe4[12];
-extern char s_flags__x_004f0ff0[16];
-typedef struct __attribute__((packed)) { unsigned char b0[12]; void *pc; unsigned char b10[4]; void *p14; unsigned char b18[4]; void *p1c; unsigned char b20[4]; void *p24; unsigned char b28[4]; void *p2c; unsigned char b30[4]; void *p34; unsigned char b38[4]; void *p3c; unsigned char b40[4]; void *p44; unsigned char b48[4]; void *p4c; unsigned char b50[4]; void *p54; unsigned char b58[4]; void *p5c; unsigned char b60[4]; void *p64; unsigned char b68[4]; void *p6c; unsigned char b70[4]; void *p74; unsigned char b78[4]; void *p7c; unsigned char b80[4]; void *p84; } grim_span_004f1000;
-extern grim_span_004f1000 UINT_004f1000;
 extern unsigned char DAT_004f1088[20];
 extern unsigned char DAT_004f109c[24];
 extern unsigned char DAT_004f10b4[20];
@@ -2418,122 +1804,18 @@ extern unsigned char DAT_004f117c[16];
 extern unsigned char DAT_004f118c[28];
 extern unsigned char DAT_004f11a8[16];
 extern unsigned char DAT_004f11b8[8];
-extern unsigned char DAT_004f11c0[4];
-extern char s_____004f11c4[4];
-extern char s______004f11c8[8];
-extern char s_C__grimjedi_Libs_Std_General_Std_004f11d0[48];
-extern void *g_pLecShareServices[8];
 extern void *PTR_LecShare_Nop_004f1220;
-extern char s_LECMODULE_004f1224[12];
-extern char s_LecShare_Startup__Failed_with_mo_004f1230[44];
-extern char s_LecShare_BatchSubscribe_Couldn_t_004f125c[60];
-extern char s_LecShare_BatchUnsubscribe_Couldn_004f1298[72];
-extern void *PTR_anm_animplay_module_004f12e0[4];
-extern void *g_pAnm_animplay_services[10];
-extern void *PTR_anm_SetRate_004f1318;
-extern void *PTR_anm_SyncUp_004f131c[3];
-extern void *PTR_AnimPlay_anm_DebugInfo_004f1328[3];
-extern unsigned int g_dwAnm_Render_count;
-extern char s_DEBUG_insane_animplay_004f1338[24];
-extern char s_ANIMPLAY_insane_004f1350[16];
-extern char s_LECMODULE_insane_animplay_004f1360[28];
-extern char s_AnimPlay_Module__Cannot_allocate_004f137c[52];
-extern char s_AnimPlay_Module__Cannot_allocate_004f13b0[52];
-extern char s_AnimPlay_Module__Cannot_allocate_004f13e4[56];
-extern char s_AnimPlay_Module__Cannot_allocate_004f141c[52];
-extern char s_AnimPlay_Module__Cannot_allocate_004f1450[52];
-extern char s_SOUND_lipsync_004f1484[16];
-extern char s_TIMER_clocks_004f1494[16];
-extern char s_BITMAP_buffers_004f14a4[16];
-extern char s_ANIMFRAME_render_004f14b4[20];
-extern char s_STREAMER_spooler_004f14c8[20];
-extern char s_VIRTHERC_debug_004f14dc[16];
 extern char s_MEMORY_workspace_004f14ec[20];
-extern char s_Cannot_allocate_render_bitmap__004f1500[32];
-extern char s_AnimPlay_Module__Cannot_allocate_004f1520[52];
-extern char s_AnimPlay_Module__Cannot_init_Ani_004f1554[48];
-extern char s_AnimPlay_Module__Cannot_open_fil_004f1584[40];
-extern char s_AnimPlay_Module__Cannot_allocate_004f15ac[44];
-extern char s_AnimPlay_Module__Cannot_allocate_004f15d8[48];
-extern char s_C__grimsrc_libs_lecsmush_insane__004f1608[56];
-extern char s_State___d_004f1640[24];
-extern char s_Sync_Ticks___ld_004f1658[24];
-extern char s_Frame_Delay___ld___ld_target__004f1670[36];
-extern char s_Buffer___ld___004f1694[24];
-extern char s_Insane_AnimPlay_004f16ac[16];
-extern char s_Insane_AnimPlay_Debug_Interface_004f16bc[32];
-extern char s_This_is_the_debugging_interface_f_004f16dc[68];
-extern unsigned int g_dwAnm_overlay_flobdec;
-extern unsigned int g_dwAnm_preload_out;
-extern void *PTR_anm_animframe_module_004f1728[4];
-extern void *g_pAnimframe_services[6];
-extern void *PTR_AnimFrame_anm_DebugInfo_004f1750[3];
-extern char s_DEBUG_animframe_004f175c[16];
-extern char s_ANIMFRAME_insane_004f176c[20];
-extern char s_LECMODULE_insane_animframe_004f1780[28];
-extern char s_FLOBDEC_temp_004f179c[16];
-extern char s_FLOBDEC_004f17ac[8];
-extern char s_AnimFrame_Module__Can_t_allocate_004f17b4[60];
-extern char s_AnimFrame_Module__Can_t_allocate_004f17f0[60];
-extern char s_C__grimsrc_libs_lecsmush_insane__004f182c[56];
-extern char s_VIDEO_display_004f1864[16];
-extern char s_AnimFrame_Module__Cannot_allocat_004f1874[52];
-extern char s_AnimFrame_Module__Cannot_allocat_004f18a8[52];
-extern char s_Bad_Header_Found___c_c_c_c__004f18dc[32];
-extern char s_Found_Unknown_Block___c_c_c_c__004f18fc[32];
-extern char s_Parsing_Block___c_c_c_c____ld__004f191c[32];
-extern char s_Insane_AnimFrame_004f193c[20];
-extern char s_Insane_AnimFrame_Debug_Interface_004f1950[36];
-extern char s_This_is_the_debugging_interface_f_004f1974[72];
-extern char s_Read_invalid_frame_header__c_c_c_004f19bc[68];
-extern unsigned int UINT_004f1a00;
-extern unsigned int UINT_004f1a04;
-extern char s__c_c_c_c_c_c_c_c_c_c_004f1a08[24];
-extern char s_1_1_3_004f1a20[8];
-extern char s___004f1a28[8];
-extern void *PTR_fle_streamer_module_004f1a30[4];
-extern void *g_pStreamer_services[8];
-extern char s_STREAMER_insane_streamer_004f1a60[28];
-extern char s_LECMODULE_insane_streamer_004f1a7c[28];
-extern char s_Streamer_Module__Cannot_allocate_004f1a98[52];
-extern char s_Streamer_Module__Cannot_allocate_004f1acc[52];
-extern char s_FILIO_io_004f1b00[12];
-extern char s_C__grimsrc_libs_lecsmush_insane__004f1b0c[56];
-extern char s_File_Streamer__Invalid_frame_siz_004f1b44[44];
-extern void *PTR_fle_directory_module_004f1b70[4];
-extern void *g_pDirectory_services[9];
-extern char s_DIRECTORY_insane_directory_004f1ba4[28];
-extern char s_LECMODULE_insane_directory_004f1bc0[28];
-extern char s_Directory_Module__Cannot_allocat_004f1bdc[52];
-extern char s_FILE_io_004f1c10[8];
-extern char s__c___004f1c18[8];
 extern unsigned int UINT_004f1c20;
 typedef struct __attribute__((packed)) { void *p0; unsigned char b4[196]; } grim_span_004f1c28;
 extern grim_span_004f1c28 PTR_s__gz_004f1c28;
-extern unsigned char DAT_004f1cf0[8];
-extern void *PTR_fle_zfilio_module_004f1cf8[4];
-extern void *g_pZfilio_services[7];
-extern char s_LECMODULE_insane_zfilio_004f1d24[24];
-extern char s_Too_many_zfilio_extension_set_004f1d3c[32];
-extern char s_Zfile_Module__Cannot_allocate_me_004f1d5c[48];
-extern char s_Zfile_Module__Cannot_allocate_fi_004f1d8c[48];
-extern char s_MEMORY_buffers_004f1dbc[16];
-extern char s_FILIO_chainto_004f1dcc[16];
-extern char s_Zfile_Memory_Alloc_fail_004f1ddc[24];
 extern char s_C__grimsrc_libs_lecsmush_insane__004f1df4[60];
-extern void *PTR_fle_stdfile_module_004f1e30[4];
-extern void *PTR_StdFile_fle_Open_004f1e40[13];
-extern char s_FILE_insane_stdfile_004f1e74[20];
-extern char s_LECMODULE_insane_stdfile_004f1e88[28];
-extern char s_StdFile_Module__Cannot_allocate_f_004f1ea4[48];
 extern char s_need_dictionary_004f1ed4[16];
 extern unsigned char s_incorrect_data_check_004f1ee4[24];
 extern unsigned char s_incorrect_header_check_004f1efc[24];
 extern unsigned char s_invalid_window_size_004f1f14[20];
 extern unsigned char s_unknown_compression_method_004f1f28[28];
 extern unsigned char PTR_s_1_1_3_004f1f44[12];
-extern void *PTR_DAT_004f1f50[2];
-extern void *PTR_s_stream_error_004f1f58[2];
 extern void *PTR_s_insufficient_memory_004f1f60;
 extern unsigned char PTR_s_buffer_error_004f1f64[12];
 extern unsigned char DAT_004f1f70[24];
@@ -2564,125 +1846,14 @@ extern unsigned char s_empty_distance_tree_with_lengths_004f3268[36];
 extern unsigned char s_incomplete_distance_tree_004f328c[28];
 extern unsigned char s_oversubscribed_distance_tree_004f32a8[32];
 extern unsigned char DAT_004f32c8[72];
-extern void *PTR_fob_flobdec_wave_module_004f3310[4];
-extern void *g_pDWave_flobdec_services[8];
-extern unsigned int g_dwDWave_flobdec_DecodeBody_last_id;
-extern void *g_apAdpcmIndexAdjust[8];
-extern char s_FLOBDEC_insane_wave_004f3368[20];
-extern char s_LECMODULE_insane_wave_flobdec_004f337c[32];
-extern char s_C__grimsrc_libs_lecsmush_insane__004f339c[60];
-extern char s_D_WAVE__Cannot_allocate_memory_s_004f33d8[44];
-extern char s_MEMORY_004f3404[8];
-extern char s_D_WAVE__Cannot_allocate_sound_se_004f340c[40];
-extern char s_SOUND_004f3434[8];
-extern char s_Audio_004f343c[8];
-extern char s_Decompresses_VBR_ADPCM_16_bit_au_004f3444[40];
-extern char s_Decompresses_Variable_Bit_Rate_A_004f346c[52];
-extern unsigned int UINT_004f34a0;
-extern unsigned int UINT_004f34a8;
-extern unsigned char UINT_004f34b0[8];
-extern void *PTR_fob_flobdec_blocky16_module_004f34b8[4];
-extern void *g_pBlock16_flobdec_services[8];
-extern BlockyMotionVector g_aBlockyMotionVectors[255];
-extern unsigned int g_dwFob_blk16_configure_old_mod;
-extern int g_anBlockySplit4Y[16];
-extern int g_anBlockySplit4X[16];
-extern int g_anBlockySplit8Y[16];
-extern int g_anBlockySplit8X[16];
-extern int g_nBlkLastSeq;
-extern char s_FLOBDEC_insane_blocky16_004f39ec[24];
-extern char s_LECMODULE_insane_blocky16_flobde_004f3a04[36];
-extern char s_FlobDec_Blocky16_Module__Cannot_a_004f3a28[60];
-extern char s_FlobDec_Blocky16_Module__Cannot_a_004f3a64[60];
-extern char s_BITMAP_clear_004f3aa0[16];
-extern char s_Blocky16_Tile_004f3ab0[16];
-extern char s_Decompresses_a_block16_tile_vide_004f3ac0[44];
-extern char s_This_module_decompresses_the_blo_004f3aec[208];
-extern char s_C__grimsrc_libs_lecsmush_insane__004f3bbc[60];
-extern void *g_apfnInsaneTimerModule[4];
-extern void *g_pInsaneTimer_timer_services[9];
-extern unsigned char DAT_004f3c2c[4];
-extern char s_TIMER_insane_004f3c30[16];
-extern char s_LECMODULE_insane_timer_004f3c40[24];
-extern char s_Timer_Module__Cannot_allocate_me_004f3c58[48];
-extern char s_Waiting_for_timer_thread_to_exit_004f3c88[40];
 extern void *DAT_004f3cb0[2];
 extern void *DAT_004f3cb8[2];
-extern void *PTR_bmp_bitmap_module_004f3cc0[4];
-extern void *PTR_bmp_bitmap_Alloc_004f3cd0[3];
-extern char s_BITMAP_insane_004f3cdc[16];
-extern char s_LECMODULE_insane_bitmap_004f3cec[24];
-extern char s_Video_Module__Cannot_allocate_me_004f3d04[48];
-extern char s_VIDEO_getbm_004f3d34[12];
-extern char s__s__line__s__Type__d_not_support_004f3d40[36];
 extern char s_C__grimsrc_libs_lecsmush_insane__004f3d64[60];
-extern unsigned char g_aConvert_bitmask[40];
-extern void *g_apfnSoundModule[4];
-extern void *g_apfnSoundInterface[16];
-extern unsigned char g_aSou_samplesize[24];
-extern unsigned int g_dwSou_chans;
-extern unsigned int g_dwSou_global_volume;
-extern unsigned int g_dwSou_sample_rate;
-extern unsigned int UINT_004f3e3c;
-extern unsigned int g_dwSou_damp_rate;
-extern unsigned int g_dwSou_engine_fill_damp_vol;
-extern unsigned int g_dwSou_engine_fill_first;
-extern char s_SOUND_insane_004f3e4c[16];
-extern char s_LECMODULE_insane_sound_004f3e5c[24];
-extern char s_Sound_Module__Cannot_allocate_sn_004f3e74[52];
-extern char s_Sound_Module__Cannot_allocate_ti_004f3ea8[48];
-extern char s_Sound_Module__Cannot_allocate_me_004f3ed8[48];
-extern char s_SNDDRIVER_driver_004f3f08[20];
-extern char s_TIMER_external_sync_004f3f1c[20];
-extern char s_C__grimsrc_libs_lecsmush_insane__004f3f30[56];
-extern void *g_apfnDsndDriverModule[4];
-extern void *g_pDsndDriver_snddriver_services[7];
-extern int g_nStreamLastBlock;
 extern unsigned int g_dwStreamRate;
-extern unsigned int g_dwCurrentVol;
-extern int g_nStreamSavedVolume;
-extern unsigned char DAT_004f3fa8[24];
-extern unsigned char DAT_004f3fc0[20];
-extern char s_SNDDRIVER_insane_dsnd_004f3fd4[24];
-extern char s_LECMODULE_insane_dsnd_004f3fec[24];
-extern char s_MEMORY_mixertable_004f4004[20];
-extern char s_DirectSoundDriver_Module__Cannot_004f4018[60];
-extern char s_TIMER_clock_004f4054[12];
-extern char s_DirectSound__Error__08X_while_cr_004f4060[56];
-extern char s_DirectSound__Error__08X_while_se_004f4098[56];
-extern char s_Cannot_create_DirectSound_object_004f40d0[40];
-extern unsigned int g_dwWaveMixCount;
-typedef struct __attribute__((packed)) { unsigned char b0[72]; void *p48; unsigned char b4c[4]; void *p50; unsigned char b54[4]; void *p58; unsigned char b5c[4]; void *p60; unsigned char b64[4]; void *p68; void *p6c; unsigned char b70[4]; void *p74; unsigned char b78[8]; void *p80; unsigned char b84[4]; } grim_span_004f4158;
-extern grim_span_004f4158 s_C__grimsrc_libs_lecsmush_insane__004f4158;
-extern unsigned char DAT_004f41e0[768];
 extern unsigned int UINT_004f44e0;
-extern float g_flMain_Service_frameRate;
 extern unsigned int UINT_004f44e8;
-extern unsigned int UINT_004f44ec;
-extern unsigned char DAT_004f44f0[28];
-extern unsigned char DAT_004f450c[36];
-extern unsigned char UINT_004f4530[8];
-extern unsigned char g_aGrimdemo_StatusPrint_grimStatusBuffer[1024];
-extern unsigned char g_aGrimdemo_DebugPrint_grimDebugBuffer[1024];
 extern unsigned char UINT_004f4d38[8];
-extern unsigned char DAT_004f4d40[4];
-extern unsigned char DAT_004f4d44[16];
-extern unsigned char UINT_004f4d54[60];
-extern unsigned char DAT_004f4d90[4];
-extern unsigned int UINT_004f4d94;
-extern unsigned int UINT_004f4d98;
-extern unsigned char UINT_004f4d9c[20];
-extern unsigned char g_aGrimdemo_ErrorPrint_grimErrorBuffer[1024];
-extern unsigned char g_aGrimdemo_WarningPrint_grimWarningBuffer[1024];
-extern unsigned char g_aGrimdemo_MessagePrint_grimMessageBuffer[1024];
-extern unsigned char DAT_004f59b0[79];
-extern unsigned char DAT_004f59ff;
-extern unsigned char g_dwGrimlib_MinimizeWhenInactive[4];
-extern unsigned int UINT_004f5a04;
-extern unsigned int UINT_004f5a08;
 extern int g_nQuitApp;
-extern unsigned int UINT_004f5a10;
-extern unsigned int UINT_004f5a14;
 extern unsigned int UINT_004f5a18;
 extern unsigned int UINT_004f5a1c;
 extern int g_bWindowedMode;
@@ -2692,500 +1863,51 @@ extern unsigned char g_bDrawFrameRate;
 extern int g_nDrawPerfData;
 extern unsigned int UINT_004f5a34;
 extern unsigned char g_pDisplayModes[4];
-extern unsigned int UINT_004f5a3c;
-extern unsigned int UINT_004f5a40;
-extern unsigned int UINT_004f5a44;
 extern int g_fixedFrameMs;
 extern unsigned int UINT_004f5a50;
-extern unsigned int UINT_004f5a54;
-extern unsigned int g_dwMain_Service_frameCount;
-extern unsigned int UINT_004f5a5c;
-extern unsigned char g_dwMain_Service_frameTime[4];
-extern unsigned int g_dwMain_Service_frameTime0;
-extern unsigned int UINT_004f5a68;
-extern unsigned int UINT_004f5a6c;
-extern unsigned int UINT_004f5a70;
-extern unsigned int UINT_004f5a74;
-extern unsigned int UINT_004f5a78;
-extern unsigned char DAT_004f5a7c[4];
-extern unsigned char DAT_004f5a80[4];
-extern unsigned int UINT_004f5a84;
-extern int g_bDebugChordHeld;
-extern unsigned int UINT_004f5a90;
-extern unsigned int UINT_004f5a94;
 extern unsigned char DAT_004f5a98[8];
-extern unsigned char g_aBuffer[1024];
-extern unsigned char g_ppRegValueNames[4];
-extern unsigned int g_dwRegValueCount;
-extern unsigned char DAT_004f5ea8[4];
-extern unsigned int UINT_004f5eac;
-extern unsigned char g_pRegRootKey[4];
 extern unsigned int g_dwRdroid_frameTrue;
-extern unsigned int g_dwRDroidStartup;
-extern unsigned int g_dwRDroidOpen;
 extern unsigned int g_dwRdColormap_pIdentityMap;
 extern unsigned int g_dwRdColormap_pCurMap;
-extern unsigned char g_apNewActiveEdges[4096];
-extern unsigned int g_dwYMinEdge;
-extern unsigned char g_aActiveEdgeHead[40];
-extern unsigned char DAT_004f6ef8[36];
-extern unsigned char DAT_004f6f1c[4];
-extern unsigned int UINT_004f6f20;
-extern unsigned int g_dwYMaxEdge;
-extern unsigned int g_dwNumActiveSpans;
-extern unsigned char DAT_004f6f30[4];
-extern unsigned char DAT_004f6f34[4];
-extern unsigned char DAT_004f6f38[4];
-extern unsigned char DAT_004f6f3c[4];
-extern unsigned char DAT_004f6f40[4];
-extern unsigned char DAT_004f6f44[4];
-extern unsigned char DAT_004f6f48[4];
-extern unsigned char DAT_004f6f4c[4];
-extern unsigned char DAT_004f6f50[4];
-extern unsigned char DAT_004f6f54[4];
-extern unsigned char DAT_004f6f58[90072];
-extern unsigned int g_dwYCurScanLine;
-extern unsigned char g_apRemoveActiveEdges[4096];
-extern unsigned char DAT_0050df38[360448];
-extern unsigned char UINT_00565f38[440];
-extern unsigned int UINT_005660f0;
-extern unsigned char UINT_005660f4[48];
-extern unsigned char DAT_00566124[4];
-extern unsigned char DAT_00566128[8];
-extern unsigned char DAT_00566130[527880];
-extern unsigned int g_dwNumActiveEdges;
-extern unsigned int g_dwNumActiveFaces;
-extern unsigned char g_aActiveEdgeTail[40];
-extern unsigned char DAT_005e6f68[36];
-extern unsigned char DAT_005e6f8c[4];
-extern unsigned char DAT_005e6f90[8];
-extern unsigned char g_dwRdActive_drawnFaces[8];
-extern unsigned char g_aGreenIntensities[131072];
-extern unsigned char g_aHWSolidTris[4];
-extern unsigned char DAT_00606fa4[4];
-extern unsigned char DAT_00606fa8[4];
-extern unsigned char DAT_00606fac[4];
-extern unsigned char DAT_00606fb0[20464];
-extern unsigned char g_dwTotalNormalTris[8];
-extern unsigned char g_aRdCache_Intensities[131072];
-extern unsigned char g_aRdCache_Vertices[393216];
-extern unsigned char g_dwTotalVerts[8];
-extern unsigned char DAT_0068bfb0[262144];
-extern unsigned char g_aHWNormalTris[4];
-extern unsigned char DAT_006cbfb4[4];
-extern unsigned char DAT_006cbfb8[4];
-extern unsigned char DAT_006cbfbc[4];
-extern unsigned char DAT_006cbfc0[20464];
-extern unsigned char g_aBlueIntensities[131072];
-extern unsigned char g_dwTotalSolidTris[8];
-extern unsigned char g_aHWVertices[4];
-extern unsigned char DAT_006f0fbc[4];
-extern unsigned char DAT_006f0fc0[4];
-extern unsigned char DAT_006f0fc4[4];
-extern unsigned char DAT_006f0fc8[4];
-extern unsigned char DAT_006f0fcc[4];
-extern unsigned char DAT_006f0fd0[4];
-extern unsigned char DAT_006f0fd4[1048548];
-extern unsigned char g_dwRdCache_drawnFaces[4];
-extern unsigned int g_dwNumUsedVertices;
-extern unsigned int g_dwNumUsedTexVertices;
-extern unsigned int g_dwNumUsedIntensities;
 extern unsigned char g_pRdCamera_CurCamera[8];
 extern unsigned char g_dwCurGeo[8];
-extern float FLOAT_007f0fd8;
-extern float FLOAT_007f0fdc;
-extern float FLOAT_007f0fe0;
-extern unsigned char DAT_007f0fe8[384];
-extern unsigned char g_aLocalLightDir[768];
-extern unsigned char g_dwVertexDst[12];
-extern unsigned int UINT_007f1474;
-extern unsigned int UINT_007f1478;
-extern unsigned char UINT_007f147c[20];
-extern unsigned int UINT_007f1490;
 extern unsigned int g_dwCurTextureMode;
 extern unsigned char g_apGeoLights[256];
-extern unsigned char g_aLocalLightPos[768];
-extern unsigned int g_dwMeshFrustrumCull;
 extern unsigned int UINT_007f189c;
-extern unsigned char g_aRdModel3_View[6144];
-extern unsigned char g_pCurMesh[4];
 extern unsigned int g_dwThingFrustrumCull;
-extern unsigned char g_aVertexSrc[4];
-extern unsigned char DAT_007f30ac[4];
-extern unsigned char DAT_007f30b0[4];
-extern unsigned char DAT_007f30b4[4];
-extern unsigned char DAT_007f30b8[4];
-extern unsigned char DAT_007f30bc[4];
-extern unsigned char DAT_007f30c0[20];
-extern unsigned char g_pCurModel3[4];
-extern unsigned int g_dwTextureMode;
 extern unsigned int UINT_007f30dc;
-extern unsigned char UINT_007f30e0[256];
 extern unsigned char g_pCurThing[4];
-extern unsigned int g_dwLightingMode;
-extern unsigned int g_dwGeometryMode;
 extern unsigned int g_dwRdModel3_numDrawnModels;
-extern unsigned int g_dwModel3Loader;
-extern unsigned int g_dwModel3Unloader;
 extern unsigned int g_dwNumGeoLights;
-extern unsigned int g_dwNumMeshLights;
-extern unsigned char g_dwMaxGeoRadius[4];
 extern unsigned int g_dwClipPlaneActive;
 extern float FLOAT_007f3208;
 extern float FLOAT_007f320c;
 extern float FLOAT_007f3210;
-extern unsigned char UINT_007f3214[4132];
-extern unsigned int g_dwMaterialsLoader;
-extern unsigned int g_dwMaterialsUnloader;
-extern unsigned char g_dwFlexEndScrap[4];
-extern unsigned int g_dwEndScrap;
-extern unsigned char g_dwEndVOverZ[4];
-extern int g_nRdNRaster_numVertices;
-extern unsigned int g_dwRdNRaster_maxMipMap;
-extern unsigned int g_dwVStep;
-extern unsigned char g_dwUOverZ[8];
-extern unsigned char g_dwRdNRaster_aUOverZ[128];
-extern unsigned char g_dwOneOverEndScrap[4];
-extern unsigned char g_dwVOverZ[4];
-extern int g_nRdNRaster_yMinVert;
-extern int g_nRdNRaster_leftVertexStep;
-extern unsigned char g_dwFlexStartScrap[4];
-extern unsigned char g_dwOneOverZ[4];
-extern unsigned int UINT_007f42f8;
-extern int g_nRdNRaster_yMaxVert;
-extern unsigned char g_pDest[4];
-extern unsigned int g_dwRdNRaster_aIntensities;
-extern unsigned char g_pRdNRaster_aVertices[8];
-extern unsigned char g_dwRdNRaster_aVOverZ[128];
-extern unsigned int g_dwNumSubdivisions;
-extern int g_nRdNRaster_rightVertexStep;
-extern unsigned int g_dwRdNRaster_aTexVertices;
-extern unsigned int g_dwIStep;
-extern unsigned char g_dwOneOverStartScrap[4];
-extern unsigned char g_dwEndOneOverZ[4];
-extern unsigned char g_pWDest[4];
-extern unsigned int g_dwStartScrap;
-extern unsigned int g_dwEndU;
-extern unsigned int g_dwEndV;
-extern unsigned int g_dwEndZ;
-extern unsigned int g_dwUStep;
-extern unsigned char g_dwCurU[4];
-extern unsigned char g_dwCurV[4];
-extern unsigned char g_dwRdNRaster_aOneOverZ[128];
-extern unsigned char g_dwCurZ[4];
-extern unsigned char g_dwEndUOverZ[4];
-extern unsigned int g_dwFixI;
-extern unsigned int g_dwFixU;
-extern unsigned char g_dwFixV[8];
-extern unsigned int g_dwRdZRaster_numVertices;
-extern unsigned int g_dwRdZRaster_maxMipMap;
-extern unsigned char g_dwRdZRaster_aUOverZ[128];
-extern unsigned int g_dwRdZRaster_yMinVert;
-extern unsigned int g_dwRdZRaster_leftVertexStep;
-extern unsigned int UINT_007f44f0;
-extern unsigned int g_dwRdZRaster_yMaxVert;
-extern unsigned int g_dwRdZRaster_aIntensities;
-extern unsigned char g_pRdZRaster_aVertices[4];
-extern unsigned char g_dwRdZRaster_aVOverZ[128];
-extern unsigned int g_dwRdZRaster_rightVertexStep;
-extern unsigned int g_dwRdZRaster_aTexVertices;
-extern unsigned char g_dwRdZRaster_aOneOverZ[144];
-extern unsigned int g_dwSourceIVert;
-extern unsigned int g_dwSourceTVert;
-extern unsigned int g_dwDestTVert;
-extern unsigned int g_dwDestVert;
-extern unsigned int g_dwDestIVert;
 extern unsigned int g_dwWorkTVerts;
-extern unsigned char UINT_007f46bc[252];
-extern unsigned int g_dwSourceVert;
 extern unsigned char g_dwWorkIVerts[256];
 extern unsigned int g_dwWorkVerts;
-extern unsigned int UINT_007f48c4;
-extern unsigned char UINT_007f48c8[508];
-extern unsigned int g_dwRdClip_faceStatus;
-extern float FLOAT_007f4ac8;
-extern unsigned int UINT_007f4acc;
-extern unsigned int UINT_007f4ad0;
-extern float FLOAT_007f4ad4;
-extern unsigned char UINT_007f4adc[8];
-extern float FLOAT_007f4ae4;
-extern float FLOAT_007f4aec;
-extern float FLOAT_007f4af0;
-extern float FLOAT_007f4af4;
-extern float FLOAT_007f4af8;
-extern unsigned int UINT_007f4b28;
-extern unsigned int UINT_007f4b2c;
-extern unsigned int UINT_007f4b30;
-extern float FLOAT_007f4b34;
-extern unsigned char DAT_007f4b38[4];
-extern unsigned int UINT_007f4b3c;
-extern unsigned int UINT_007f4b40;
-extern unsigned int UINT_007f4b44;
-extern float FLOAT_007f4b48;
-extern float FLOAT_007f4b4c;
-extern float FLOAT_007f4b50;
-extern unsigned int UINT_007f4b54;
-extern float FLOAT_007f4b58;
-extern float FLOAT_007f4b5c;
-extern float FLOAT_007f4b60;
-extern float FLOAT_007f4b64;
-extern unsigned int UINT_007f4b68;
-extern unsigned int UINT_007f4b6c;
-extern unsigned int UINT_007f4b70;
-extern unsigned int UINT_007f4b74;
-extern unsigned char UINT_007f4c44[16];
-extern unsigned char UINT_007f4c54[80];
-extern unsigned char UINT_007f4ca4[8];
-extern unsigned int UINT_007f4cac;
-extern unsigned int UINT_007f4cb0;
-extern unsigned char UINT_007f4cb4[16];
-extern unsigned char UINT_007f4cc4[24];
-extern unsigned char UINT_007f4cdc[20];
-extern unsigned int UINT_007f4cf0;
-extern unsigned int UINT_007f4cf4;
-extern unsigned int UINT_007f4cf8;
-extern unsigned int UINT_007f4cfc;
-extern unsigned char DAT_007f4d00[384];
-extern unsigned char DAT_007f4e80[4];
-extern float FLOAT_007f4e84;
-extern float FLOAT_007f4e88;
-extern float FLOAT_007f4e8c;
-extern float FLOAT_007f4e90;
-extern float FLOAT_007f4e94;
-extern float FLOAT_007f4e98;
-extern float FLOAT_007f4e9c;
-extern float FLOAT_007f4ea0;
-extern float FLOAT_007f4ea4;
-extern float FLOAT_007f4ea8;
-extern float FLOAT_007f4eac;
-extern unsigned char DAT_007f5000[4];
-extern unsigned char DAT_007f5004[4];
-extern float FLOAT_007f5008;
-extern float FLOAT_007f500c;
-extern float FLOAT_007f5010;
-extern float FLOAT_007f5014;
-extern float FLOAT_007f5018;
-extern float FLOAT_007f501c;
-extern float FLOAT_007f5020;
-extern float FLOAT_007f5024;
-extern float FLOAT_007f5028;
-extern float FLOAT_007f502c;
-extern unsigned int UINT_007f5180;
-extern unsigned char UINT_007f5184[3076];
-extern unsigned char g_aRdSprite_FaceVerts[384];
-extern unsigned char DAT_007f5f08[4];
-extern float FLOAT_007f5f0c;
-extern float FLOAT_007f5f10;
-extern float FLOAT_007f5f14;
-extern float FLOAT_007f5f18;
-extern float FLOAT_007f5f1c;
-extern float FLOAT_007f5f20;
-extern float FLOAT_007f5f24;
-extern float FLOAT_007f5f28;
-extern float FLOAT_007f5f2c;
-extern float FLOAT_007f5f30;
-extern float FLOAT_007f5f34;
-extern unsigned char g_pMainHwnd[4];
-extern unsigned int UINT_007f608c;
-extern unsigned char DAT_007f6090[1024];
-extern unsigned char DAT_007f6490[8];
-extern unsigned char UINT_007f6498[8];
-extern unsigned char DAT_007f64a0[17160];
-extern unsigned char g_pDebugFont[4];
-extern unsigned char UINT_007fa7ac[12];
-extern unsigned char DAT_007fa7b8[17168];
-extern unsigned char DAT_007feac8[4];
-extern unsigned char DAT_007feacc[4];
-extern unsigned char DAT_007fead0[4];
-extern unsigned char DAT_007fead4[4];
-extern unsigned char PTR_007fead8[8];
-extern unsigned int UINT_007feae0;
-extern unsigned char UINT_007feae4[112];
-extern int INT_007feb54;
-extern unsigned char DAT_007feb58[21540];
-extern unsigned int UINT_00803f7c;
-extern unsigned char g_bStdDisplay_Startup[4];
 extern int g_nDisplayDeviceOpen;
-extern int g_nDisplayModeOpen;
 extern unsigned int g_dwStdDisplay_numDevices;
 extern unsigned char g_pDisplayDevice[4];
 extern unsigned int g_dwVideoModeCount;
 extern unsigned char g_pVideoMode[4];
-extern int UINT_00803f9c;
 extern unsigned int g_dwStdDisplay_numDrawBuffers;
-extern unsigned char g_pDirectDraw[4];
-extern unsigned char g_pDDrawPrimary[4];
-extern unsigned char g_pDDrawBack[4];
-extern unsigned int UINT_00803fb0;
-extern unsigned int UINT_00803fb4;
-extern unsigned char UINT_00803fb8[8];
-extern unsigned char PTR_00803fc0[8];
-extern unsigned int UINT_00803fc8;
-extern unsigned char DAT_00803fcc[4];
-extern unsigned int UINT_00803fd0;
-extern unsigned char UINT_00803fd4[44];
-extern unsigned char DAT_00804000[4];
-extern unsigned char DAT_00804004[4];
-extern unsigned char DAT_00804008[8];
-extern unsigned int UINT_00804010;
-extern unsigned char DAT_00804014[4];
-extern unsigned char g_dwKeyInfo[8];
-extern unsigned int UINT_00804020;
-extern unsigned int UINT_00804024;
-extern unsigned int UINT_00804028;
-extern unsigned int UINT_0080402c;
-extern unsigned char UINT_00804030[256];
-extern unsigned char DAT_00804130[8];
-extern unsigned char DAT_00804138[4];
-extern unsigned char DAT_0080413c[4];
-extern unsigned char DAT_00804140[4];
-extern unsigned char DAT_00804144[4];
-extern unsigned char DAT_00804148[4];
-extern unsigned char DAT_0080414c[8];
-extern unsigned char DAT_00804154[4];
-extern unsigned char DAT_00804158[4];
-extern unsigned char DAT_0080415c[4];
-extern unsigned char DAT_00804160[4];
-extern unsigned char DAT_00804164[4];
-extern unsigned char DAT_00804168[8];
-extern unsigned char DAT_00804170[4];
-extern unsigned char DAT_00804174[4];
-extern unsigned char DAT_00804178[4];
-extern unsigned char DAT_0080417c[4];
-extern unsigned char DAT_00804180[4];
-extern unsigned char DAT_00804184[8];
-extern unsigned char DAT_0080418c[4];
-extern unsigned char DAT_00804190[4];
-extern unsigned char DAT_00804194[4];
-extern unsigned char DAT_00804198[4];
-extern unsigned char DAT_0080419c[6788];
-extern unsigned char UINT_00805c20[784];
-extern unsigned char UINT_00805f30[104];
 extern unsigned int g_dwStdControl_bStartup;
 extern int g_nStdControl_bOpen;
-extern unsigned int UINT_00805fa0;
-extern unsigned int g_dwStdControl_bControlsIdle;
-extern int g_nInputAcquired;
-extern unsigned char g_pDirectInput[4];
-extern unsigned char g_pDInputMouse[4];
-extern unsigned char g_pDInputKeyboard[4];
-extern unsigned int UINT_00805fb8;
-extern unsigned int g_dwCurReadTime;
-extern unsigned char g_dwLastReadTime[8];
-extern unsigned int UINT_00805fc8;
-extern unsigned int UINT_00805fcc;
-extern unsigned int UINT_00805fd0;
-extern unsigned int g_dwStdPlatform_Assert_enteredOnce;
 extern unsigned char DAT_00805fd8[512];
-extern unsigned int UINT_008061d8;
-extern unsigned int UINT_008061dc;
-extern unsigned int UINT_008061e0;
-extern unsigned char g_pD3dDevice[4];
 extern unsigned char DAT_008061e8[512];
-extern unsigned int UINT_008063e8;
-extern unsigned int UINT_008063ec;
-extern unsigned char DAT_008063f0[4];
-extern unsigned char DAT_008063f4[4];
-extern unsigned char DAT_008063f8[4];
-extern unsigned char DAT_008063fc[4];
-extern unsigned char UINT_00806400[8];
 extern unsigned char UINT_00806408[512];
-extern unsigned char g_pDirect3D[4];
-extern unsigned char PTR_0080660c[4];
-extern unsigned int UINT_00806610;
-extern unsigned char PTR_00806614[4];
-extern unsigned char DAT_00806618[768];
-extern unsigned char PTR_00806918[4];
-extern unsigned int UINT_0080691c;
-extern unsigned int g_dwD3dRenderFlags;
-extern unsigned int UINT_00806924;
 extern unsigned int g_dwD3dDriverCount;
 extern unsigned char g_pStd3D_CurDevice[4];
-extern unsigned int UINT_00806930;
 extern unsigned int UINT_00806934;
 extern unsigned int UINT_00806938;
 extern unsigned int UINT_0080693c;
 extern unsigned int g_dwStd3D_maxVertices;
-extern unsigned int UINT_00806944;
-extern unsigned char g_pD3dTextureList[4];
-extern unsigned char PTR_0080694c[4];
-extern unsigned int UINT_00806950;
-extern unsigned char g_pD3dExecuteBuffer[4];
-extern unsigned char DAT_00806958[4];
-extern unsigned int UINT_0080695c;
-extern unsigned int UINT_00806960;
-extern unsigned char PTR_00806964[4];
-extern unsigned char PTR_00806968[4];
-extern unsigned int UINT_0080696c;
-extern unsigned int UINT_00806970;
-extern unsigned char UINT_00806974[780];
-extern unsigned char g_dwStdColor_ColorConvertOneRow_row[8];
-extern unsigned char DAT_00806c88[2560];
-extern unsigned char DAT_00807688[80];
-extern unsigned char DAT_008076d8[80];
-extern unsigned char DAT_00807728[20560];
-extern unsigned char DAT_0080c778[1104];
-extern unsigned int g_dwStdConffile_linenum;
-extern unsigned int g_dwStdConffile_bOpen;
-extern unsigned char UINT_0080cbd0[8];
-extern unsigned int g_dwStackLevel;
-extern unsigned char DAT_0080cbe0[4];
-extern unsigned int UINT_0080cbe4;
-extern unsigned char DAT_0080cbe8[4];
-extern unsigned char DAT_0080cbec[4];
-extern unsigned char DAT_0080cbf0[8];
-extern unsigned char DAT_0080cbf8[256];
-extern unsigned char UINT_0080ccf8[20012];
-extern unsigned char DAT_00811b24[4];
-extern unsigned char DAT_00811b28[4];
-extern unsigned char DAT_00811b2c[4];
-extern unsigned char DAT_00811b30[5004];
-extern unsigned char DAT_00812ebc[4];
-extern unsigned char PTR_00812ec0[4];
-extern unsigned char DAT_00812ec4[4];
-extern unsigned char DAT_00812ec8[4];
-extern unsigned int UINT_00812ecc;
-extern unsigned char DAT_00812ed0[8];
-extern unsigned char UINT_00812ed8[10008];
-extern unsigned char DAT_008155f0[4];
-extern unsigned char DAT_008155f4[4];
-extern unsigned char DAT_008155f8[8];
-extern unsigned char DAT_00815600[8];
-extern unsigned char DAT_00815608[4];
-extern unsigned int UINT_0081560c;
-extern char DAT_00815610;
-extern unsigned int UINT_00815614;
-extern unsigned int UINT_00815618;
-extern unsigned char PTR_0081561c[4];
-extern unsigned char DAT_00815620[4];
-extern unsigned char DAT_00815624[63728];
-extern unsigned char DAT_00824f14[4];
-extern unsigned char DAT_00824f18[4];
-extern unsigned char DAT_00824f1c[4];
-extern unsigned char DAT_00824f20[4];
-extern unsigned char DAT_00824f24[8];
-extern unsigned char DAT_00824f2c[4];
-extern unsigned char DAT_00824f30[4];
-extern unsigned char DAT_00824f34[12];
-extern unsigned char DAT_00824f40[3896];
-extern unsigned int UINT_00825e78;
 extern unsigned int g_dwStdMemory_curState;
-extern unsigned int UINT_00825e80;
-extern unsigned char UINT_00825e84[12];
-extern unsigned char g_aLowLevelHS[112];
 extern unsigned char g_aFoundFiles[64];
-extern unsigned char UINT_00825f40[16];
-extern unsigned char DAT_00825f50[4];
-extern unsigned char DAT_00825f54[8];
-extern unsigned char DAT_00825f5c[4];
-extern unsigned char DAT_00825f60[4];
-extern unsigned char DAT_00825f64[529884];
-extern unsigned char DAT_008a7540[4140];
 extern unsigned int g_dwResHS;
 extern unsigned int g_dwLowLevelHS;
 extern unsigned char g_aFoundFileNodes[64];
-extern unsigned int g_dwResSysInitialized;
-extern unsigned int g_dwResSysStarted;
 extern unsigned int g_dwResFilePool;
 extern unsigned char g_pResFileList[4];
 extern unsigned int g_dwResTypePool;
@@ -3194,66 +1916,21 @@ extern unsigned int g_dwResNodePool;
 extern unsigned char g_pNewestResNode[4];
 extern unsigned char g_dwOldestResNode[8];
 extern unsigned int g_dwLastFound;
-extern unsigned int g_dwLogFile;
 extern unsigned char g_dwRes_pPeriodicCallback[8];
-extern unsigned char DAT_008a85f0[80];
-extern unsigned int UINT_008a8640;
-extern unsigned char UINT_008a8644[124];
-extern unsigned int UINT_008a86c0;
-extern unsigned char UINT_008a86c4[28];
-extern unsigned int UINT_008a86e0;
-extern unsigned char UINT_008a86e4[12];
 extern char g_szGrimlib_aFilename[128];
 extern unsigned char UINT_008a8770[8];
-extern unsigned char DAT_008a8778[48];
 extern unsigned char g_pfnIMuseSaveHook[4];
 extern unsigned char g_pfnIMuseRestoreHook[28];
-extern unsigned int UINT_008a87c8;
-extern unsigned char UINT_008a87cc[28];
-extern unsigned int UINT_008a87e8;
-extern unsigned char UINT_008a87ec[28];
-extern unsigned int UINT_008a8808;
-extern unsigned char UINT_008a880c[28];
-extern unsigned int UINT_008a8828;
-extern unsigned char UINT_008a882c[1040];
-extern unsigned int g_dwGrimlib_frameNumber;
 extern unsigned int g_dwGrimlib_mode;
-extern unsigned int UINT_008a8c44;
-extern unsigned int g_dwGrimlib_prevmode;
 extern int g_nGrimlib_bDebugKeys;
-extern unsigned int g_dwSputmInitialize;
-extern unsigned int g_dwSputmStartup;
-extern unsigned char UINT_008a8c60[16];
-extern unsigned int g_dwGrimlib_shutdownCallback;
 extern unsigned char g_pSputmHS[4];
-extern unsigned int g_dwSputmOpen;
-extern unsigned int UINT_008a8c7c;
-extern unsigned int g_dwDoLoad;
-extern unsigned int g_dwJustLoaded;
-extern unsigned char g_pSaveFileName[8];
-extern unsigned int UINT_008a8c90;
-extern unsigned int g_dwGrimlib_SetPause_oldmode;
 extern unsigned char g_pPolyglot_HS[4];
 extern unsigned int g_dwLanguageLine;
 extern unsigned char g_pLanguageMalloc[4];
-extern unsigned int g_dwLineCount;
-extern unsigned char DAT_008a8ca8[1536];
 extern unsigned char DAT_008a92a8[4];
-extern unsigned char DAT_008a92ac[4];
-extern unsigned char DAT_008a92b0[4];
-extern unsigned char DAT_008a92b4[4];
-extern unsigned char g_aSputRender_MarkDirtyRect_trect[4];
-extern unsigned char DAT_008a92bc[4];
-extern unsigned char DAT_008a92c0[4];
-extern unsigned char DAT_008a92c4[4];
-extern unsigned char g_dwSputRender_DrawLoadingImage_FrameAccum[8];
-extern unsigned int UINT_008a92d0;
-extern unsigned char UINT_008a92d4[484];
 extern unsigned int UINT_008a94b8;
 extern unsigned int UINT_008a94bc;
 extern unsigned int UINT_008a94c0;
-extern unsigned char DAT_008a94c4[8];
-extern unsigned char DAT_008a94cc[68];
 extern unsigned int g_dwRenderVars;
 extern unsigned int UINT_008a9514;
 extern unsigned int UINT_008a9518;
@@ -3267,17 +1944,11 @@ extern unsigned char DAT_008c856e[4034];
 extern int g_nCamActorIndex;
 extern unsigned char g_dwDrawItems[512];
 extern unsigned char g_pSputRendHS[8];
-extern unsigned int UINT_008c9770;
 extern unsigned int g_dwIrisStart;
 extern float g_flIrisDuration;
 extern unsigned char g_pSputRender_Camera[4];
-extern unsigned int UINT_008c9780;
 extern int g_nSputRender_b3DAcceleration;
-extern unsigned int g_dwSputRendInitialize;
-extern unsigned int g_dwSputRendStartup;
-extern unsigned char DAT_008c9790[8];
 extern unsigned int g_dwRenderFlags;
-extern unsigned char g_pDirtyRectList[4];
 extern unsigned int UINT_008c97a0;
 extern unsigned int UINT_008c97a4;
 extern unsigned char g_pSputRender_Canvas[4];
@@ -3285,90 +1956,27 @@ extern unsigned char g_pSputRender_DecompressionBuffer[4];
 extern unsigned char g_pSputRender_CleanBuffer[4];
 extern unsigned char g_pSputRender_CleanZBuffer[4];
 extern unsigned int g_dwSputRender_pSetPaletteFunc;
-extern unsigned char g_pSputRender_PageFlipFunc[4];
 extern unsigned short g_abSputRender_colorMap[3];
 extern unsigned short DAT_008c97c6;
 extern unsigned int UINT_008c97c8;
 extern unsigned int UINT_008c97cc;
 extern unsigned int UINT_008c97d0;
 extern unsigned int UINT_008c97d4;
-extern unsigned char DAT_008c97d8[2];
-extern unsigned char DAT_008c97da[2];
-extern unsigned char DAT_008c97dc[2];
-extern unsigned char DAT_008c97de[2];
 extern unsigned int UINT_008c97e0;
 extern unsigned int UINT_008c97e4;
 extern unsigned int UINT_008c97e8;
 extern unsigned char g_pDirtyRectPool[4];
 extern int g_nSputRender_Reset;
-extern unsigned char g_pCacheRectList[4];
 extern unsigned int g_dwMovieJustFinished;
-extern int g_nDirtyRectCount;
-extern unsigned char g_pRenderedSet[4];
-extern unsigned int UINT_008c9804;
-extern unsigned int g_dwSputRender_ControlHandler_bLastL;
-extern unsigned int g_dwSputRender_ControlHandler_bLastC;
-extern unsigned int g_dwSputRender_ControlHandler_bLastB;
-extern unsigned int g_dwSputRender_ControlHandler_bLastR;
-extern unsigned int g_dwSputRender_ControlHandler_bLastSpace;
-extern unsigned int UINT_008c981c;
-extern unsigned int UINT_008c9820;
-extern unsigned int UINT_008c9824;
-extern unsigned int UINT_008c9828;
-extern unsigned int UINT_008c982c;
-extern unsigned int UINT_008c9830;
-extern unsigned int UINT_008c9834;
-extern unsigned int UINT_008c9838;
-extern int UINT_008c983c;
-extern unsigned char UINT_008c9840[8];
-extern int INT_008c9848;
-extern int INT_008c984c;
-extern unsigned int UINT_008c9850;
-extern unsigned int UINT_008c9854;
-extern char g_szDialogOpenDir[263];
-extern unsigned char DAT_008c995f;
-extern char g_szDialogSaveDir[260];
-extern unsigned char g_pfnSpewStartup[4];
-extern unsigned char g_pfnSpewShutdown[4];
-extern unsigned char g_hSpewDll[4];
-extern unsigned char g_pMemoryHS[4];
-extern unsigned int g_dwMemorySysInitialized;
-extern unsigned char g_dwMemorySysStarted[8];
-extern unsigned char g_pFirstPool[16];
 extern unsigned char g_pSvcFileutil[4];
-extern unsigned int g_dwFileUtilSysInitialized;
-extern unsigned char g_dwFileUtilSysStarted[8];
 extern unsigned char g_pPresentBuf[520];
-extern unsigned char g_dwSmushHS[776];
-extern unsigned int g_dwSmushX;
-extern unsigned int g_dwSmushY;
-extern unsigned char g_aSmushPlayMS[4];
 extern unsigned char DAT_008c9fbc[4];
-extern unsigned int UINT_008c9fc0;
-extern unsigned char DAT_008c9fc4[52];
-extern unsigned char g_dwSmushStartTime[8];
-extern char g_szCurMovieFile[128];
-extern unsigned char g_dwSmushBuf[4];
 extern int g_nSputSmushStarted;
-extern int g_nSmushPlaying;
-extern int g_nSmushPaused;
-extern int g_nSmushAbort;
-extern int g_nSmushLooping;
-extern unsigned char DAT_008ca098[8];
 extern unsigned char g_dwPrimitiveQ[8];
-extern unsigned int g_dwSputPrimitiveInitialize;
-extern unsigned int g_dwSputPrimitiveStartup;
-extern unsigned char g_pSputPrimitiveHS[4];
-extern int g_nSputPrimitive_Paused;
-extern unsigned char g_aTextMS[4];
-extern unsigned int UINT_008ca0bc;
-extern unsigned int UINT_008ca0c0;
-extern unsigned char UINT_008ca0c4[20];
 extern unsigned int g_dwLrHeight;
 extern unsigned int g_dwLrX;
 extern unsigned int g_dwLrY;
 extern unsigned int g_dwLrBackground;
-extern unsigned int g_dwLrHiColor;
 extern unsigned int g_dwLrDuration;
 extern unsigned int g_dwLrFXColor;
 extern unsigned int g_dwLrCenter;
@@ -3380,73 +1988,25 @@ extern unsigned int g_dwLrLJustify;
 extern unsigned int g_dwLrRJustify;
 extern unsigned int g_dwLrFGColor;
 extern unsigned int g_dwLrPan;
-extern unsigned char g_aGraphMS[4];
-extern unsigned int UINT_008ca11c;
-extern unsigned int UINT_008ca120;
-extern unsigned char UINT_008ca124[20];
-extern unsigned int g_dwSputtextInitialize;
-extern unsigned int g_dwSputtextStartup;
 extern int g_nTranslationType;
-extern unsigned char g_pSputtextHS[4];
-extern unsigned int g_hFont;
 extern unsigned char g_hEmergencyFont[4];
 extern unsigned char g_pTextQueue[4];
 extern unsigned char g_pTextEventPool[4];
-extern int g_nSputText_Paused;
-extern int g_nNumControlCallbacks;
-extern unsigned char g_apControlCallbacks[32];
-extern unsigned char g_pSputConHS[4];
-extern unsigned int g_dwSputConInitialize;
-extern unsigned int g_dwSputConStartup;
-extern int g_nControlOpen;
 extern unsigned int g_dwSputResHS;
-extern unsigned char g_aResModServices[4];
-extern unsigned int UINT_008ca1dc;
-extern unsigned int UINT_008ca1e0;
-extern unsigned int UINT_008ca1e4;
-extern unsigned int UINT_008ca1e8;
-extern unsigned int UINT_008ca1ec;
-extern unsigned int UINT_008ca1f0;
-extern unsigned int UINT_008ca1f4;
-extern unsigned char DAT_008ca1f8[4];
-extern unsigned int g_dwSputResStartup;
-extern unsigned int g_dwPrdMatLoader;
-extern unsigned int g_dwPrdMatUnloader;
-extern char g_szExtraDataDir[260];
-extern int g_nStopPurge;
 extern unsigned char g_pTalkingActors[16];
 extern float FLOAT_008ca320;
-extern float FLOAT_008ca324;
-extern float FLOAT_008ca328;
 extern unsigned int g_dwSputActHS;
 extern int g_nTotActors;
-extern unsigned char DAT_008ca338[4];
-extern unsigned char DAT_008ca33c[4];
-extern unsigned char DAT_008ca340[8];
-extern unsigned char DAT_008ca348[4];
-extern unsigned char DAT_008ca34c[4];
-extern unsigned char DAT_008ca350[8];
 extern unsigned char g_pDrawableActors[1024];
 extern unsigned char g_pActors[4];
 extern int g_nNumActors;
 extern unsigned char g_pSelectedActor[4];
 extern int g_nNumActorsTalking;
-extern unsigned int g_dwSputActInitialize;
-extern unsigned int g_dwSputActStartup;
-extern unsigned char g_aChoreMS[4];
-extern unsigned int UINT_008ca774;
-extern unsigned int UINT_008ca778;
-extern unsigned char UINT_008ca77c[20];
 extern unsigned char g_pShadowColormap[4];
 extern unsigned char g_pCosNodePool[4];
-extern unsigned int g_dwSputCosInitialize;
-extern unsigned int g_dwSputCosStartup;
 extern unsigned char g_pSputCosHS[4];
 extern unsigned int g_dwLECBitmaps;
 extern unsigned char DAT_008ca7a8[4];
-extern unsigned int g_dwOldInstanceHook;
-extern unsigned int g_dwOldSaveHook;
-extern unsigned char g_dwRecentBM[4];
 extern unsigned char g_bKeyframePath[127];
 extern unsigned char DAT_008ca837;
 extern unsigned char g_bBitmapPath[127];
@@ -3463,97 +2023,31 @@ extern unsigned char g_bSmushPath[127];
 extern unsigned char DAT_008cab37;
 extern unsigned char g_pShadowMaterial[8];
 extern int g_nLrSystemTable;
-extern unsigned int g_dwLrOldConcatFallback;
 extern unsigned char g_dwLrTypeFunction[8];
-extern unsigned char g_aLuaMS[4];
-extern unsigned int UINT_008cab54;
-extern unsigned int UINT_008cab58;
-extern unsigned char UINT_008cab5c[20];
 extern unsigned char g_pTheWriter[4];
-extern unsigned int g_dwSputLua_Update_movieTimeMsec;
 extern int g_nTotSaveBytes;
-extern unsigned int g_dwSputLuaInitialize;
 extern unsigned int UINT_008cab80;
 extern unsigned char g_pSputLuaHS[4];
 extern unsigned char g_pFrFileReq[4];
-extern unsigned int g_dwDebugToggleFunc;
-extern unsigned int g_dwSputLua_Update_collectionTime;
-extern unsigned char g_pSputTimeHS[4];
-extern unsigned int g_dwSputTimeInitialize;
-extern unsigned int g_dwSputTimeStartup;
-extern unsigned int g_dwLastClockTime;
-extern unsigned int g_dwSputTime_gameTime_ms;
-extern unsigned int g_dwSputTime_frameTime_ms;
-extern float g_flSputTime_frameTimeSeconds;
 extern unsigned int g_dwSputRoom_pCurrentRoom;
-extern unsigned char g_pCurrentSet[52];
-extern char g_szSputRoom_CurrentRoomName[32];
-extern unsigned char DAT_008cac08[31];
-extern unsigned char DAT_008cac27;
-extern unsigned char DAT_008cac28[1120];
 extern unsigned char g_pSoundPool[4];
-extern unsigned char g_pSoundEventList[4];
 extern unsigned char g_pSputRoomHS[8];
-extern unsigned int g_dwSputRoomInitialize;
-extern unsigned int g_dwSputRoomStartup;
-extern int g_nSkipSetupBitmaps;
-extern unsigned int UINT_008cb0a4;
 extern unsigned int g_dwLoadingRoom;
 extern unsigned char g_pRoomList[4];
-extern WalkVertex g_aWalkPlane_vert_db[1024];
 extern unsigned int g_dwWorkingPath;
 extern unsigned int UINT_008cf0b4;
 extern unsigned char UINT_008cf0b8[16];
-extern unsigned char UINT_008cf0c8[336];
-extern unsigned char DAT_008cf218[48];
-extern unsigned int g_dwTotWorkingPathPoints;
-extern unsigned char g_aPuck_Rot_ret[16];
-extern float g_vEdgeFollowDir;
-extern float FLOAT_008cf264;
-extern float FLOAT_008cf268;
-extern unsigned int g_dwWalkPlane_tot_verts;
-extern int g_nVertexCacheSize;
-extern unsigned char g_pVertexCache[4];
-extern int g_nWalkPlaneCacheSize;
-extern unsigned char g_pWalkPlaneCache[4];
 extern unsigned char g_pWalkPlane_wp_head[4];
-extern unsigned char DAT_008cf284[4];
 extern unsigned int g_dwWalkPlane_Collection;
 extern unsigned char DAT_008cf28c[5596];
 extern unsigned char g_dwWpCacheBuilt[3];
 extern unsigned char DAT_008d086b[1];
 extern unsigned char g_dwPuck_p_head[4];
-extern unsigned int g_dwPuck_Forward_recursion_level;
 extern unsigned char DAT_008d0874[4];
 extern unsigned char g_pTextHS[8];
 extern unsigned char g_bLookup[128];
-extern unsigned char DAT_008d0900[127];
-extern unsigned char DAT_008d097f;
-extern unsigned int g_dwTextSysInitialized;
-extern unsigned int g_dwTextSysStarted;
 extern unsigned char g_pDefaultFont[4];
-extern unsigned char g_pGraphHS[4];
-extern unsigned int g_dwGraphSysInitialized;
-extern unsigned int g_dwGraphSysStarted;
-extern unsigned char g_pWinDialogs[64];
-extern unsigned char g_pWinMainHwnd[4];
-extern int UINT_008d09dc;
-extern int INT_008d09e0;
-extern unsigned int UINT_008d09e4;
-extern unsigned char g_pWinMessageHooks[4];
-extern int g_nWinMessageHookOn;
-extern unsigned char DAT_008d0a68[4];
-extern unsigned int UINT_008d0a6c;
 extern unsigned int g_dwZg_App_bAppActive;
-extern int g_nWinQuit;
-extern unsigned int g_dwWinDialogCount;
-extern unsigned char UINT_008d0a7c[8];
-extern unsigned int UINT_008d0a84;
-extern unsigned int UINT_008d0a88;
-extern unsigned int UINT_008d0a8c;
-extern unsigned int UINT_008d0a90;
-extern unsigned int UINT_008d0a94;
-extern unsigned int UINT_008d0a98;
 extern unsigned int UINT_008d0a9c;
 extern unsigned char UINT_008d0aa0[4];
 extern unsigned char UINT_008d0aa4[8];
@@ -3572,8 +2066,6 @@ extern unsigned char DAT_008d0ae0[8];
 extern unsigned char DAT_008d0ae8[4];
 extern unsigned char DAT_008d0aec[4];
 extern unsigned char UINT_008d0af0[8];
-extern unsigned int UINT_008d0af8;
-extern unsigned char UINT_008d0afc[12];
 extern unsigned char DAT_008d0b08[24];
 extern unsigned char DAT_008d0b20[24];
 extern unsigned char DAT_008d0b38[24];
@@ -3652,413 +2144,51 @@ extern unsigned char UINT_008d1084[8];
 extern unsigned int UINT_008d108c;
 extern unsigned char g_bMovieFlags[8];
 extern unsigned int g_dwVideoCallbacks;
-extern unsigned int UINT_008d109c;
-extern unsigned int UINT_008d10a0;
-extern unsigned int UINT_008d10a4;
-extern unsigned char UINT_008d10a8[32];
 extern unsigned char g_pSmushPlay_file_services[8];
-extern unsigned char g_dwCurFileName[260];
 extern unsigned char g_pSmushPlay_share_services[4];
-extern unsigned char g_dwAh[8];
 extern unsigned int UINT_008d11e0;
 extern unsigned int UINT_008d11e4;
 extern unsigned int UINT_008d11e8;
 extern unsigned int UINT_008d11ec;
-extern unsigned char g_dwGrimmem_share_config[4];
 extern unsigned int g_dwSmushPlayHS;
-extern unsigned char g_pGrimmem_share_services[8];
-extern unsigned char g_dwAnimplay_services[8];
-extern unsigned char DAT_008d1208[4];
-extern unsigned short DAT_008d120c;
-extern unsigned short DAT_008d120e;
-extern unsigned short DAT_008d1210;
-extern unsigned char DAT_008d1212[4];
-extern unsigned char UINT_008d1216[4];
-extern unsigned char UINT_008d121a[1046];
-extern unsigned char g_dwSmushPlay_share_config[8];
-extern unsigned int UINT_008d1638;
-extern unsigned int UINT_008d163c;
-extern unsigned int UINT_008d1640;
-extern unsigned int UINT_008d1644;
-extern unsigned char g_aFakeBM[4];
-extern unsigned char DAT_008d164c[4];
-extern unsigned char DAT_008d1650[4];
-extern unsigned char DAT_008d1654[4];
-extern unsigned char DAT_008d1658[4];
-extern unsigned char DAT_008d165c[4];
-extern unsigned char DAT_008d1660[4];
-extern unsigned char DAT_008d1664[4];
-extern unsigned char DAT_008d1668[4];
-extern unsigned char DAT_008d166c[4];
-extern unsigned char DAT_008d1670[4];
-extern unsigned char DAT_008d1674[4];
-extern unsigned char DAT_008d1678[4];
-extern unsigned char DAT_008d167c[4];
-extern unsigned char DAT_008d1680[4];
-extern unsigned char DAT_008d1684[4];
-extern unsigned char DAT_008d1688[4];
-extern unsigned char DAT_008d168c[16];
-extern unsigned int g_dwSmushPlay_sound_services;
-extern unsigned int g_dwSmushPlaySysInitialized;
-extern unsigned int g_dwSmushPlaySysStarted;
 extern unsigned int g_dwMovieIsPlaying;
-extern unsigned char DAT_008d16ac[4];
-extern unsigned int UINT_008d16b0;
-extern unsigned char g_pSmushplay_UserLookup[4];
 extern unsigned int g_dwSmush_pInternalBitmap;
 extern unsigned int g_dwSmushPlay_TranslationTable;
-extern unsigned char DAT_008d16c0[8];
-extern unsigned char UINT_008d16c8[104];
 extern unsigned int UINT_008d1730;
 extern unsigned int UINT_008d1734;
-extern unsigned int UINT_008d1738;
-extern unsigned int UINT_008d173c;
-extern unsigned char UINT_008d1740[1264];
 extern unsigned char UINT_008d1c30[32];
-extern unsigned int UINT_008d1c50;
-extern unsigned int UINT_008d1c54;
-extern unsigned char UINT_008d1c58[6616];
 extern unsigned char g_hLightEdDialog[4];
 extern unsigned char g_pLightEdSet[4];
 extern unsigned char g_pLightEdMarkerActor[4];
 extern unsigned char g_hLightEdHook[4];
-extern int g_nLightEdBusy;
 extern unsigned int UINT_008d3644;
-extern unsigned int g_dwLightEdLastKey;
-extern unsigned int g_dwKeyframeLoader;
-extern unsigned int g_dwKeyframeUnloader;
-extern unsigned int UINT_008d3654;
-extern unsigned int UINT_008d3658;
 extern unsigned char g_pDirectSound[4];
-extern unsigned int UINT_008d3660;
-extern unsigned char UINT_008d3664[12];
-extern unsigned char g_pDSoundPrimary[4];
-extern unsigned char PTR_008d3674[12];
-extern unsigned char g_bGetCatalogEntry_pLastType[99];
-extern unsigned char DAT_008d36e3[5];
-extern unsigned char g_bFindMatch_stringBuffer;
-extern unsigned int g_dwPrivateData;
-extern unsigned int UINT_008d56ec;
-extern unsigned int UINT_008d56f0;
-extern unsigned char PTR_008d56f4[4];
-extern unsigned int UINT_008d56f8;
-extern unsigned int UINT_008d56fc;
-extern unsigned int UINT_008d5700;
-extern unsigned char DAT_008d5704[6136];
-extern unsigned int UINT_008d6efc;
-extern unsigned int UINT_008d6f00;
-extern unsigned int g_dwAnimPlay_bitmap_services;
-extern unsigned char DAT_008d6f08[4];
-extern unsigned char DAT_008d6f0c[4];
 extern unsigned char g_pAnimPlay_timer_services[4];
-extern unsigned int g_dwAnimPlay_share_config;
 extern unsigned char g_pAnimPlay_sound_services[4];
 extern int g_nBretsFrameCount;
 extern unsigned int UINT_008d6f20;
 extern unsigned int g_dwAnm_audio_halted;
-extern unsigned char g_dwRenderHandler_totalTime[8];
-extern unsigned char g_dwAnm_flobdec_types[400];
-extern unsigned char g_dwAnm_flobdec_services[400];
-extern unsigned char g_dwAnm_flobdec_ids[400];
-extern unsigned int g_dwAnimFrame_share_config;
-extern unsigned char g_aAnm_transform_palette[1024];
-extern unsigned int UINT_008d77e8;
-extern unsigned int g_dwAnm_flobdec_count;
-extern unsigned int g_dwAnm_overlay_buffer;
-extern unsigned int g_dwAnm_preload_buffer;
-extern unsigned int g_dwAnm_overlay_size;
-extern unsigned int UINT_008d77fc;
-extern unsigned int g_dwAnm_preload_in;
-extern unsigned int g_dwAnm_transform_count;
-extern unsigned int g_dwAnm_PreloadPut_lastblock;
-extern unsigned char DAT_008d780c[4];
-extern unsigned char DAT_008d7810[4];
-extern unsigned char g_pStreamer_memory_services[4];
-extern unsigned char g_pStreamer_share_services[4];
-extern unsigned char g_pStreamer_filio_services[4];
-extern unsigned int g_dwStreamer_share_config;
-extern unsigned int g_dwFle_StreamerDispense_incremented;
-extern unsigned int g_dwDirectory_file_services;
-extern unsigned char g_pDirectory_share_services[4];
-extern unsigned int g_dwDirectory_share_config;
 extern unsigned char g_pZfile_memory_services[4];
-extern unsigned char g_pZfile_share_services[4];
 extern unsigned int g_dwZfile_virtherc_services;
-extern unsigned int g_dwZfile_share_config;
-extern unsigned char g_pStdFile_share_services[4];
 extern unsigned char g_pStdFile_filio_services[4];
-extern unsigned int g_dwStdFile_share_config;
-extern unsigned char g_pMemoryServices[8];
-extern unsigned char DAT_008d7858;
-extern unsigned char DAT_008d7859;
-extern unsigned short DAT_008d785a;
-extern unsigned short DAT_008d785c;
-extern unsigned short DAT_008d785e;
-extern unsigned int UINT_008d7860;
-extern unsigned char g_pDWave_share_services[4];
-extern unsigned char g_wDWave_aDeltaTable[128];
-extern unsigned char DAT_008d78e8[11264];
-extern unsigned int g_dwDWave_share_config;
-extern unsigned int g_dwSoundServices;
-extern unsigned char g_pDWave_outputBuffer[4];
-extern unsigned int g_dwDWave_bDeltaTableInitialized;
-extern unsigned char g_pBlocky16_memory_services[4];
-extern unsigned char g_pBlocky16_bitmap_services[4];
-extern unsigned char g_pBlocky16_share_services[4];
-extern unsigned int g_dwBlocky16_share_config;
-extern unsigned char g_pFob_blit_routine[4];
-extern unsigned char g_pFob_blk16_render_buffer[4];
-extern unsigned char g_pbBlkExpand[4];
-extern int g_nFob_translation_shiftr;
-extern int g_nFob_translation_shiftg;
-extern int g_nFob_translation_shiftb;
-extern int g_nGlobal_bm_type;
-extern unsigned char g_pBlkBitmap0[4];
-extern unsigned char g_pBlkBitmap1[4];
-extern unsigned char g_pBlkBitmap2[4];
-extern int g_nFob_buffersize;
-extern unsigned char g_pbBlkOutput[8];
-extern unsigned int g_dwInsaneTimer_memory_services;
-extern unsigned int g_dwTimer_rate;
-extern unsigned char DAT_008da548[64];
-extern unsigned char DAT_008da588[64];
-extern int g_nSys_global_timer;
-extern unsigned char g_pInsaneTimer_share_services[4];
-extern unsigned char DAT_008da5d0[4];
-extern unsigned int UINT_008da5d4;
-extern unsigned char DAT_008da5d8[4];
-extern unsigned char DAT_008da5dc[4];
-extern unsigned char DAT_008da5e0[4];
-extern unsigned char DAT_008da5e4[4];
-extern unsigned char DAT_008da5e8[4];
-extern unsigned char DAT_008da5ec[4];
-extern unsigned char DAT_008da5f0[4];
-extern unsigned char DAT_008da5f4[4];
-extern unsigned char UINT_008da5f8[20];
 extern unsigned char UINT_008da60c[588];
-extern unsigned int UINT_008da858;
-extern unsigned int g_dwInsaneTimer_share_config;
 extern unsigned int g_dwSys_timer_count;
-extern unsigned int g_dwTimer_thread_lastTime;
-extern unsigned char UINT_008da868[3];
-extern unsigned char DAT_008da86b[1];
 extern unsigned char DAT_008da86c[4];
-extern unsigned int UINT_008da870;
-extern unsigned int UINT_008da874;
-extern unsigned int g_dwSys_disable_flag;
-extern unsigned int UINT_008da87c;
-extern unsigned int UINT_008da880;
-extern unsigned int UINT_008da884;
-extern unsigned char DAT_008da888[4];
-extern unsigned int UINT_008da88c;
 extern unsigned char g_pVideo_memory_services[4];
-extern unsigned char g_pVideo_share_services[4];
-extern unsigned int g_dwVideo_share_config;
 extern unsigned int g_dwVideo_video_services;
-extern unsigned char UINT_008da8a0[8];
-extern unsigned char g_pSoundModule_memory_services[8];
-extern int g_anSndStreamKind[16];
-extern unsigned int UINT_008da8f0;
-extern unsigned int UINT_008da8f4;
-extern unsigned int UINT_008da8f8;
-extern unsigned int UINT_008da8fc;
-extern unsigned int UINT_008da900;
-extern unsigned int UINT_008da904;
-extern unsigned char DAT_008da908[4];
-extern unsigned int UINT_008da90c;
-extern unsigned int UINT_008da910;
-extern unsigned int UINT_008da914;
-extern unsigned int UINT_008da918;
-extern unsigned char DAT_008da91c[4];
-extern unsigned int UINT_008da920;
-extern unsigned int UINT_008da924;
-extern unsigned char UINT_008da928[904];
-extern unsigned int g_dwSound_bufsize;
-extern unsigned int UINT_008dacb4;
-extern unsigned int UINT_008dacb8;
-extern unsigned int UINT_008dacbc;
-extern unsigned int UINT_008dacc0;
-extern unsigned int UINT_008dacc4;
-extern unsigned int UINT_008dacc8;
-extern unsigned int UINT_008daccc;
-extern unsigned int UINT_008dacd0;
-extern unsigned int UINT_008dacd4;
-extern unsigned int UINT_008dacd8;
-extern unsigned int UINT_008dacdc;
-extern unsigned int UINT_008dace0;
-extern unsigned int UINT_008dace4;
-extern unsigned int UINT_008dace8;
-extern unsigned int UINT_008dacec;
 extern unsigned char g_pSoundModule_snddriver_services[4];
-extern unsigned int g_dwSound_ticks;
-extern unsigned char g_pSoundModule_share_services[4];
-extern unsigned int g_dwSound_reserveram;
-extern int g_anSndStreamKey[16];
-extern unsigned int g_dwSound_music_on;
-extern unsigned int g_dwSound_sound_on;
-extern unsigned int g_dwSoundModule_timer_services;
-extern unsigned int g_dwSound_voice_on;
-extern unsigned char g_dwSound_flipped[8];
-extern unsigned int UINT_008dad58;
-extern unsigned int UINT_008dad5c;
-extern unsigned int UINT_008dad60;
-extern unsigned int UINT_008dad64;
-extern unsigned char DAT_008dad68[4];
 extern unsigned char g_bSou_hooks;
 extern unsigned char DAT_008dad6d;
 extern unsigned char DAT_008dad6e;
 extern unsigned char DAT_008dad6f;
-extern unsigned int UINT_008dad70;
-extern unsigned int UINT_008dad74;
-extern unsigned char DAT_008dad78[4];
-extern unsigned int UINT_008dad7c;
-extern unsigned int UINT_008dad80;
 extern unsigned int UINT_008dad84;
-extern unsigned char UINT_008dad88[784];
-extern unsigned int g_dwSoundModule_share_config;
-extern unsigned int g_dwSound_samplerate;
-extern unsigned int g_dwSound_name;
-extern int g_anSndChunkCount[16];
-extern unsigned char DAT_008db0e8[256];
-extern unsigned char g_dwSound_channel[4];
-extern unsigned int g_dwSou_paused_flag;
-extern unsigned char g_dwSou_active_flag[8];
-extern unsigned char UINT_008db1f8[8];
-extern double g_dSndClock;
-extern unsigned int g_dwDsndDriver_memory_services;
-extern unsigned char DAT_008db20c[4];
-extern unsigned int UINT_008db210;
-extern unsigned char DAT_008db214[4];
-extern unsigned char DAT_008db218[4];
-extern unsigned char DAT_008db21c[4];
-extern unsigned char DAT_008db220[4];
-extern unsigned char DAT_008db224[4];
-extern unsigned char DAT_008db228[4];
-extern unsigned char DAT_008db22c[4];
-extern unsigned char UINT_008db230[96];
-extern unsigned char UINT_008db290[128];
-extern unsigned char UINT_008db310[252];
-extern unsigned int UINT_008db40c;
 extern unsigned char g_pfnStreamMix[4];
-extern unsigned char DAT_008db414[4];
-extern unsigned char DAT_008db418[4];
-extern unsigned char g_pDsndDriver_share_services[4];
 extern int g_nStreamBlocks;
 extern unsigned char g_pDsndDriver_timer_services[4];
-extern unsigned int UINT_008db428;
-extern unsigned char DAT_008db42c[4];
-extern unsigned int g_dwDsndDriver_share_config;
-extern unsigned char UINT_008db438[6144];
-extern unsigned char DAT_008dcc38[4];
-extern unsigned char DAT_008dcc3c[4];
-extern unsigned char g_pStreamDS[4];
-extern unsigned char g_pStreamDSPrimary[4];
 extern unsigned char g_pStreamDSBuffer[4];
-extern unsigned char DAT_008dcc4c[4];
-extern unsigned int UINT_008dcc50;
 extern int g_nStreamTimerId;
-extern unsigned char UINT_008dcc58[8];
-extern unsigned int g_dwMixer_outChannelCount;
-extern unsigned char g_pMixer_softLTable[12];
-extern unsigned char DAT_008dcc70[8];
-extern unsigned char DAT_008dcc78[292];
-extern unsigned int g_dwMixer_mixBufSize;
-extern int INT_008dcda0;
-extern unsigned char g_pMixer_mixBuf[8];
-extern unsigned int g_dwMsc_uncompress_count;
-extern unsigned int g_dwMsc_uncompress_state;
-extern unsigned char g_bMsc_uncompress_val[4];
-extern unsigned char g_pMsc_uncompress_data[4];
-extern unsigned char g_aMsc_error_string[4000];
-extern unsigned int g_dwMsc_error_loc;
-extern unsigned int g_dwMsc_error_count;
-extern unsigned char g_aPolyglotServices[4];
-extern unsigned int UINT_008ddd84;
-extern unsigned int UINT_008ddd88;
-extern unsigned char UINT_008ddd8c[20];
-extern unsigned char g_aHs[4];
-extern unsigned char DAT_008ddda4[4];
-extern unsigned char DAT_008ddda8[4];
 extern unsigned int UINT_008dddac;
-extern unsigned char DAT_008dddb0[4];
 extern unsigned char DAT_008dddb4[108];
-extern unsigned char g_aMs[4];
-extern unsigned int UINT_008dde24;
-extern unsigned int UINT_008dde28;
-extern unsigned char UINT_008dde2c[20];
-extern unsigned int UINT_008dde40;
-extern unsigned int g_dwRdZRaster_aRGBToPalette;
-extern unsigned int g_dwRdZRaster_uWrap;
-extern unsigned char g_dwRdZRaster_oneOverZStep[4];
-extern unsigned int g_dwRdZRaster_dVdXModifier;
-extern unsigned int g_dwRdZRaster_mipMapNum;
-extern unsigned int g_dwRdZRaster_vWrap;
-extern unsigned int g_dwRdZRaster_aRGBMap;
-extern unsigned char g_dwRdZRaster_dUOverZdX[4];
-extern unsigned char g_dwRdZRaster_dUOverZdY[4];
-extern unsigned int g_dwRdZRaster_texPitch;
-extern unsigned int g_dwRdZRaster_aMonoMap;
-extern unsigned short g_wRdZRaster_RGBcolor;
-extern unsigned char g_dwRdZRaster_vOverZStep[4];
-extern unsigned int g_dwRdZRaster_dUdXModifier;
-extern unsigned int g_dwRdZRaster_pPixels;
-extern unsigned char g_dwRdZRaster_dVOverZdX[4];
-extern unsigned char g_dwRdZRaster_dVOverZdY[4];
-extern unsigned int g_dwRdZRaster_dOneOverZdXFixed;
-extern unsigned int g_dwRdZRaster_texRowShift;
-extern unsigned int g_dwRdZRaster_aAlphaMap;
-extern unsigned char g_dwRdZRaster_uOverZStep[4];
-extern unsigned char g_bRdZRaster_color[4];
-extern unsigned char g_dwRdZRaster_dOneOverZdY[4];
-extern unsigned char g_dwRdZRaster_dOneOverZdX[4];
-extern unsigned int g_dwRdZRaster_zScaleShift;
-extern unsigned int g_dwRdNRaster_aAlphaMap;
-extern unsigned int g_dwRdNRaster_dVdXModifier;
-extern unsigned int g_dwRdNRaster_aMonoMap;
-extern unsigned int g_dwRdNRaster_texPitch;
-extern unsigned short g_wRdNRaster_RGBcolor;
-extern unsigned int g_dwRdNRaster_aRGBMap;
-extern unsigned char g_bRdNRaster_color[4];
-extern unsigned char g_dwRdNRaster_dUOverZdY[4];
-extern unsigned char g_dwRdNRaster_dUOverZdX[4];
-extern unsigned int g_dwRdNRaster_uWrap;
-extern unsigned char g_dwRdNRaster_uOverZStep[4];
-extern unsigned int g_dwRdNRaster_aRGBToPalette;
-extern unsigned int g_dwRdNRaster_texRowShift;
-extern unsigned char g_dwRdNRaster_dVOverZdX[4];
-extern unsigned char g_dwRdNRaster_dVOverZdY[4];
-extern unsigned int g_dwRdNRaster_mipMapNum;
-extern int g_dwRdNRaster_pPixels;
-extern unsigned char g_dwRdNRaster_oneOverZStep[4];
-extern unsigned char g_dwRdNRaster_dOneOverZdY[4];
-extern unsigned char g_dwRdNRaster_dOneOverZdX[4];
-extern unsigned int g_dwRdNRaster_dUdXModifier;
-extern unsigned int g_dwRdNRaster_vWrap;
-extern unsigned char g_dwRdNRaster_vOverZStep[4];
-extern unsigned int g_dwRdAFRaster_mipMapNum;
-extern unsigned char g_wRdAFRaster_RGBcolor[4];
-extern unsigned int g_dwRdAFRaster_aMonoMap;
-extern unsigned int g_dwRdAFRaster_texRowShift;
-extern unsigned int g_dwRdAFRaster_vWrap;
-extern unsigned int g_dwRdAFRaster_dVdXModifier;
-extern unsigned char g_dwRdAFRaster_dOneOverZdX[4];
-extern unsigned char g_dwRdAFRaster_dUOverZdX[4];
-extern unsigned int g_dwRdAFRaster_dOneOverZdXFixed;
-extern unsigned char g_dwRdAFRaster_oneOverZStep[4];
-extern unsigned char g_dwRdAFRaster_uOverZStep[4];
-extern unsigned int g_dwRdAFRaster_aRGBMap;
-extern unsigned char g_dwRdAFRaster_texPitch[4];
-extern unsigned char g_dwRdAFRaster_dVOverZdX[4];
-extern unsigned int g_dwRdAFRaster_pPixels;
-extern unsigned char g_bRdAFRaster_color[4];
-extern unsigned int g_dwRdAFRaster_dUdXModifier;
-extern unsigned char g_dwRdAFRaster_vOverZStep[4];
-extern unsigned int g_dwRdAFRaster_uWrap;
-extern unsigned char g_aRdCamera_camPYR[16];
-extern unsigned char UINT_008ddf60[36];
-extern unsigned int UINT_008ddf84;
-extern unsigned int UINT_008ddf88;
-extern unsigned int UINT_008ddf8c;
 extern int g_nRdCache_ulcExtent;
 extern int g_nDrawBoxMinY;
 extern int g_nRdCache_lrcExtent;
@@ -4066,20 +2196,11 @@ extern int g_nDrawBoxMaxY;
 extern unsigned int g_dwRdCache_numProcFaces;
 extern ProcEntry g_bRdCache_aProcFaces[1024];
 extern unsigned char g_aRdRaster_OneOverNFixed[4];
-extern unsigned char UINT_008fbfc4[8188];
-extern unsigned char UINT_008fdfc0[64];
 extern unsigned int g_dwRdRaster_aOneOverNFlex;
-extern unsigned char UINT_008fe004[8188];
 extern int g_nRdroid_curLightingMode;
 extern unsigned char g_pRdroid_HS[4];
 extern int g_nRdroid_curGeometryMode;
 extern unsigned int g_dwRdroid_curColorEffects;
-extern unsigned int UINT_00900024;
-extern unsigned int UINT_00900028;
-extern float FLOAT_0090002c;
-extern float FLOAT_00900030;
-extern float FLOAT_00900034;
-extern float FLOAT_00900044;
 extern int g_nRdroid_curOcclusionMethod;
 extern unsigned int g_dwRdroid_curVertexColorMode;
 extern int g_nRdroid_curZBufferMethod;
@@ -4089,303 +2210,27 @@ extern int g_nRdroid_curAcceleration;
 extern int g_nRdroid_curTextureMode;
 extern unsigned int g_dwRdroid_curRenderOptions;
 extern unsigned char g_bRdroid_curCullFlags[24];
-extern unsigned char UINT_00900080[1056];
-extern unsigned char g_bStdConffile_pFilename[127];
-extern unsigned char DAT_0090051f;
 extern unsigned int g_dwStdConffile_aLine;
 extern unsigned short DAT_00900524;
 extern unsigned short DAT_00900526;
-extern unsigned short DAT_00900528;
-extern unsigned short DAT_0090052a;
-extern unsigned char DAT_0090052c[4];
 extern unsigned int UINT_00900530;
 extern unsigned char UINT_00900534[12];
-extern unsigned char DAT_00900540[4];
-extern unsigned char DAT_00900544[4];
-extern unsigned char DAT_00900548[4];
-extern unsigned char DAT_0090054c[4];
-extern unsigned char DAT_00900550[4];
-extern unsigned char DAT_00900554[4];
-extern unsigned char DAT_00900558[4];
-extern unsigned char DAT_0090055c[4];
-extern unsigned char DAT_00900560[4];
-extern unsigned char DAT_00900564[4];
-extern unsigned char DAT_00900568[24];
-extern float FLOAT_00900580;
-extern float FLOAT_00900584;
-extern float FLOAT_009005a0;
-extern float FLOAT_009005a4;
-extern float FLOAT_009005c0;
-extern float FLOAT_009005c4;
-extern unsigned char DAT_009005e0[4];
-extern float FLOAT_009005e4;
-extern unsigned int UINT_00900600;
-extern unsigned int UINT_00900604;
-extern unsigned int UINT_00900608;
-extern unsigned char UINT_0090060c[20];
-extern unsigned char DAT_00900620[4];
-extern unsigned char DAT_00900624[4];
-extern unsigned char DAT_00900628[4];
-extern unsigned char DAT_0090062c[4];
-extern unsigned char DAT_00900630[4];
-extern unsigned char DAT_00900634[4];
-extern unsigned char DAT_00900638[4];
-extern unsigned char DAT_0090063c[4];
-extern unsigned char DAT_00900640[4];
-extern unsigned char DAT_00900644[4];
-extern unsigned char DAT_00900648[4];
-extern unsigned char DAT_0090064c[4];
-extern unsigned char DAT_00900650[4];
-extern unsigned char DAT_00900654[4];
-extern unsigned char DAT_00900658[1256];
 extern unsigned int UINT_00900b40;
-extern unsigned char DAT_00900b44[4];
-extern unsigned char DAT_00900b48[4];
-extern unsigned char DAT_00900b4c[4];
-extern unsigned char DAT_00900b50[4];
-extern unsigned char DAT_00900b54[4];
-extern unsigned char DAT_00900b58[4];
-extern unsigned char DAT_00900b5c[8];
-extern unsigned char DAT_00900b64[4];
-extern unsigned char DAT_00900b68[4];
-extern unsigned char DAT_00900b6c[4];
-extern unsigned char DAT_00900b70[4];
-extern unsigned char DAT_00900b74[4];
-extern unsigned char DAT_00900b78[4];
-extern unsigned char DAT_00900b7c[4];
-extern unsigned char DAT_00900b80[4];
-extern unsigned char DAT_00900b84[4];
-extern unsigned char DAT_00900b88[127];
-extern unsigned char DAT_00900c07;
-extern unsigned char DAT_00900c08[127];
-extern unsigned char DAT_00900c87[9];
-extern unsigned char DAT_00900c90[8];
-extern unsigned char DAT_00900c98[104];
-extern unsigned char DAT_00900d00[16];
-extern unsigned char DAT_00900d10[4];
-extern unsigned char DAT_00900d14[8];
-extern unsigned char DAT_00900d1c[16];
-extern unsigned char DAT_00900d2c[4];
-extern unsigned char DAT_00900d30[4];
-extern unsigned char DAT_00900d34[4];
-extern unsigned char DAT_00900d38[4];
-extern unsigned char DAT_00900d3c[4];
-extern unsigned char DAT_00900d40[4];
-extern unsigned char DAT_00900d44[4];
-extern unsigned char DAT_00900d48[20];
-extern unsigned char DAT_00900d5c[1700];
 extern unsigned char DAT_00901400[8];
-extern unsigned char DAT_00901408[4];
-extern unsigned char DAT_0090140c[76];
-extern unsigned char DAT_00901458[4];
-extern unsigned char DAT_0090145c[8];
-extern unsigned char PTR_00901464[8];
-extern unsigned char UINT_0090146c[108];
-extern unsigned char DAT_009014d8[8];
-extern unsigned int UINT_009014e0;
-extern unsigned char DAT_009014e4[4];
-extern unsigned int UINT_009014e8;
-extern unsigned char DAT_009014ec[20];
-extern unsigned int g_dwStdControl_aAxes;
-extern unsigned int UINT_00901504;
-extern unsigned char DAT_00901508[4];
-extern unsigned char DAT_0090150c[4];
-extern unsigned char DAT_00901510[4];
-extern unsigned char DAT_00901514[340];
-extern unsigned int UINT_00901668;
-extern unsigned char DAT_0090166c[20];
 extern unsigned int g_dwStdDisplay_frontBuffer;
-extern unsigned char DAT_00901684[4];
-extern unsigned char DAT_00901688[4];
-extern unsigned char DAT_0090168c[12];
 extern unsigned int UINT_00901698;
-extern unsigned char DAT_0090169c[16];
-extern unsigned char UINT_009016ac[44];
-extern unsigned char DAT_009016d8[4];
 extern unsigned char UINT_009016dc[8];
-extern unsigned char UINT_009016e4[8];
-extern unsigned char UINT_009016ec[108];
 extern unsigned int UINT_00901758;
-extern unsigned int UINT_0090175c;
 extern unsigned int UINT_00901760;
-extern unsigned char DAT_00901764[4];
-extern unsigned char DAT_00901768[4];
-extern unsigned char DAT_0090176c[4];
-extern unsigned char DAT_00901770[4];
-extern unsigned char DAT_00901774[4];
-extern unsigned char DAT_00901778[4];
-extern unsigned char DAT_0090177c[4];
-extern unsigned char DAT_00901780[4];
-extern unsigned char DAT_00901784[4];
-extern unsigned char DAT_00901788[4];
-extern unsigned char DAT_0090178c[4];
-extern unsigned char DAT_00901790[4];
-extern unsigned char DAT_00901794[4];
-extern unsigned char DAT_00901798[4];
-extern unsigned char DAT_0090179c[4];
-extern unsigned char DAT_009017a0[4];
-extern unsigned char DAT_009017a4[16];
-extern unsigned char DAT_009017b4[4];
-extern unsigned char DAT_009017b8[4];
-extern unsigned char DAT_009017bc[4];
-extern unsigned char DAT_009017c0[4];
-extern unsigned char DAT_009017c4[4];
-extern unsigned char DAT_009017c8[4];
-extern unsigned char DAT_009017cc[4];
-extern unsigned char DAT_009017d0[4];
-extern unsigned char DAT_009017d4[4];
-extern unsigned char DAT_009017d8[4];
-extern unsigned char DAT_009017dc[4];
-extern unsigned char DAT_009017e0[40];
-extern unsigned char DAT_00901808[4];
-extern unsigned char DAT_0090180c[4];
-extern unsigned char DAT_00901810[4];
-extern unsigned char DAT_00901814[4];
-extern unsigned char DAT_00901818[4];
-extern unsigned char DAT_0090181c[4];
-extern unsigned char DAT_00901820[4];
-extern unsigned char DAT_00901824[4];
-extern unsigned char DAT_00901828[4];
-extern unsigned char DAT_0090182c[4];
-extern unsigned char DAT_00901830[4];
-extern unsigned char DAT_00901834[40];
-extern unsigned char DAT_0090185c[4];
-extern unsigned char DAT_00901860[4];
-extern unsigned char DAT_00901864[4];
-extern unsigned char DAT_00901868[4];
-extern unsigned char DAT_0090186c[4];
-extern unsigned char DAT_00901870[4];
-extern unsigned char DAT_00901874[4];
-extern unsigned char DAT_00901878[4];
-extern unsigned char DAT_0090187c[4];
-extern unsigned char DAT_00901880[4];
-extern unsigned char DAT_00901884[4];
-extern unsigned char DAT_00901888[40];
-extern unsigned char DAT_009018b0[4];
-extern unsigned char DAT_009018b4[4];
-extern unsigned char DAT_009018b8[4];
-extern unsigned char DAT_009018bc[4];
-extern unsigned char DAT_009018c0[4];
-extern unsigned char DAT_009018c4[4];
-extern unsigned char DAT_009018c8[4];
-extern unsigned char DAT_009018cc[4];
-extern unsigned char DAT_009018d0[4];
-extern unsigned char DAT_009018d4[4];
-extern unsigned char DAT_009018d8[4];
-extern unsigned char DAT_009018dc[40];
-extern unsigned char DAT_00901904[4];
-extern unsigned char DAT_00901908[4];
-extern unsigned char DAT_0090190c[4];
-extern unsigned char DAT_00901910[4];
-extern unsigned char DAT_00901914[4];
-extern unsigned char DAT_00901918[4];
-extern unsigned char DAT_0090191c[4];
-extern unsigned char DAT_00901920[4];
-extern unsigned char DAT_00901924[4];
-extern unsigned char DAT_00901928[4];
-extern unsigned char DAT_0090192c[4];
-extern unsigned char DAT_00901930[40];
-extern unsigned char DAT_00901958[4];
-extern unsigned char DAT_0090195c[4];
-extern unsigned char DAT_00901960[4];
-extern unsigned char DAT_00901964[4];
-extern unsigned char DAT_00901968[4];
-extern unsigned char DAT_0090196c[4];
-extern unsigned char DAT_00901970[4];
-extern unsigned char DAT_00901974[4];
-extern unsigned char DAT_00901978[4];
-extern unsigned char DAT_0090197c[4];
-extern unsigned char DAT_00901980[4];
-extern unsigned char DAT_00901984[40];
-extern unsigned char DAT_009019ac[4];
-extern unsigned char DAT_009019b0[4];
-extern unsigned char DAT_009019b4[4];
-extern unsigned char DAT_009019b8[4];
-extern unsigned char DAT_009019bc[4];
-extern unsigned char DAT_009019c0[4];
-extern unsigned char DAT_009019c4[4];
-extern unsigned char DAT_009019c8[4];
-extern unsigned char DAT_009019cc[4];
-extern unsigned char DAT_009019d0[4];
-extern unsigned char DAT_009019d4[4];
-extern unsigned char DAT_009019d8[4];
-extern unsigned char DAT_009019dc[4];
-extern unsigned char DAT_009019e0[4];
-extern unsigned char DAT_009019e4[4];
-extern unsigned char DAT_009019e8[4];
-extern unsigned char DAT_009019ec[4];
-extern unsigned char DAT_009019f0[16];
-extern unsigned char DAT_00901a00[4];
-extern unsigned char DAT_00901a04[4];
-extern unsigned char DAT_00901a08[4];
-extern unsigned char DAT_00901a0c[4];
-extern unsigned char DAT_00901a10[4];
-extern unsigned char DAT_00901a14[4];
-extern unsigned char DAT_00901a18[4];
-extern unsigned char DAT_00901a1c[4];
-extern unsigned char DAT_00901a20[4];
-extern unsigned char DAT_00901a24[4];
-extern unsigned char DAT_00901a28[4];
-extern unsigned char DAT_00901a2c[4];
-extern unsigned char DAT_00901a30[4];
-extern unsigned char DAT_00901a34[4];
-extern unsigned char DAT_00901a38[4];
-extern unsigned char DAT_00901a3c[4];
-extern unsigned char DAT_00901a40[4];
-extern unsigned char DAT_00901a44[16];
-extern unsigned char DAT_00901a54[4];
-extern unsigned char DAT_00901a58[4];
-extern unsigned char DAT_00901a5c[4];
-extern unsigned char DAT_00901a60[4];
-extern unsigned char DAT_00901a64[4];
-extern unsigned char DAT_00901a68[4];
-extern unsigned char DAT_00901a6c[4];
-extern unsigned char DAT_00901a70[4];
-extern unsigned char DAT_00901a74[4];
-extern unsigned char DAT_00901a78[4];
-extern unsigned char DAT_00901a7c[4];
-extern unsigned char DAT_00901a80[4];
-extern unsigned char DAT_00901a84[4];
-extern unsigned char DAT_00901a88[4];
-extern unsigned char DAT_00901a8c[4];
-extern unsigned char DAT_00901a90[4];
-extern unsigned char DAT_00901a94[4];
-extern unsigned char DAT_00901a98[4552];
-extern unsigned char DAT_00902c60[127];
-extern unsigned char DAT_00902cdf;
 extern unsigned char DAT_00902ce0[127];
 extern unsigned char DAT_00902d5f;
-extern unsigned int UINT_00902d60;
-extern unsigned int UINT_00902d64;
 extern unsigned int UINT_00902d68;
 extern unsigned int UINT_00902d6c;
-extern unsigned int UINT_00902d70;
-extern unsigned int UINT_00902d74;
-extern unsigned char UINT_00902d78[368];
-extern unsigned char DAT_00902ee8[4];
-extern unsigned char DAT_00902eec[4];
-extern unsigned char DAT_00902ef0[4];
-extern unsigned char DAT_00902ef4[9964];
 extern unsigned int g_dwStdDisplay_backBuffer;
-extern unsigned char DAT_009055e4[4];
-extern unsigned char DAT_009055e8[4];
 extern unsigned int UINT_009055ec;
-extern unsigned char UINT_009055f0[8];
 extern unsigned int UINT_009055f8;
-extern unsigned char DAT_009055fc[4];
-extern unsigned char DAT_00905600[4];
-extern unsigned int UINT_00905604;
-extern unsigned int UINT_00905608;
-extern unsigned int UINT_0090560c;
-extern unsigned int UINT_00905610;
-extern unsigned char DAT_00905614[4];
-extern unsigned int UINT_00905618;
-extern unsigned char UINT_0090561c[28];
-extern unsigned char DAT_00905638[4];
 extern unsigned int UINT_0090563c;
 extern unsigned char PTR_00905644[4];
-extern unsigned int UINT_00905648;
-extern unsigned char UINT_0090564c[116];
 extern unsigned char g_bStd_genBuffer[1024];
 extern unsigned char g_pStd_HS[4];
 extern unsigned char UINT_00905ac4[28];
@@ -4401,60 +2246,19 @@ extern unsigned char DAT_00906c0c[4];
 extern unsigned char g_pOnExitEnd[4];
 extern unsigned char g_pOnExitBegin[4];
 extern unsigned int UINT_00906c18;
-extern unsigned char g_pAnimFrame_memory_services[4];
-extern unsigned int g_dwAnimFrame_bitmap_services;
-extern unsigned char g_pAnimFrame_share_services[4];
-extern unsigned int g_dwAnimFrame_virtherc_services;
-extern unsigned int g_dwAnimFrame_video_services;
 extern unsigned char g_pAnm_virtherc_services[4];
 extern unsigned char g_pAnm_animframe_services[4];
 extern unsigned char g_pAnm_streamer_services[4];
 extern unsigned char g_pAnm_memory_services[4];
-extern unsigned char g_pAnm_share_services[4];
 extern unsigned char g_pZf_filio_services[4];
-extern unsigned int g_stBlockyDecState;
-extern unsigned int UINT_00906c4c;
-extern unsigned char DAT_00906c50[4];
-extern unsigned int UINT_00906c54;
-extern unsigned char DAT_00906c58[4];
-extern unsigned char DAT_00906c5c;
-extern unsigned char DAT_00906c5d[3];
-extern int INT_00906c60;
-extern unsigned char DAT_00906c64[4];
-extern unsigned int UINT_00906c68;
-extern unsigned int UINT_00906c6c;
-extern unsigned char DAT_00906c70[4];
-extern unsigned char g_pFob_blk16_key_buffer[12];
-extern unsigned char g_aBlockySplit8[256];
-extern unsigned char DAT_00906d80[64];
-extern unsigned char DAT_00906dc0[64];
-extern unsigned char DAT_00906e00;
-extern unsigned char DAT_00906e01[98943];
-extern unsigned char g_pFob_blk16_delta_buffer[32];
-extern unsigned char g_aBlockySplit4[64];
-extern unsigned char DAT_0091f0e0[16];
-extern unsigned char DAT_0091f0f0[16];
-extern unsigned char DAT_0091f100;
-extern unsigned char DAT_0091f101[255];
-extern unsigned char DAT_0091f200[1];
-extern unsigned char DAT_0091f201[32415];
-extern short g_asBlockyMotion;
-extern unsigned char DAT_00927100[1];
-extern unsigned char DAT_00927101[415];
-extern unsigned char DAT_009272a0[10240];
-extern unsigned char DAT_004ce808[56];
 typedef struct __attribute__((packed)) { void *p0; unsigned char b4[12]; void *p10; unsigned char b14[12]; void *p20; unsigned char b24[12]; void *p30; unsigned char b34[12]; void *p40; unsigned char b44[12]; void *p50; unsigned char b54[12]; void *p60; unsigned char b64[12]; void *p70; unsigned char b74[12]; void *p80; unsigned char b84[12]; void *p90; unsigned char b94[12]; void *pa0; unsigned char ba4[12]; void *pb0; unsigned char bb4[12]; void *pc0; unsigned char bc4[12]; void *pd0; unsigned char bd4[12]; void *pe0; unsigned char be4[12]; void *pf0; unsigned char bf4[12]; void *p100; unsigned char b104[12]; void *p110; unsigned char b114[12]; void *p120; unsigned char b124[12]; void *p130; unsigned char b134[12]; void *p140; unsigned char b144[12]; void *p150; unsigned char b154[12]; void *p160; unsigned char b164[12]; void *p170; unsigned char b174[12]; void *p180; unsigned char b184[12]; void *p190; unsigned char b194[12]; void *p1a0; unsigned char b1a4[12]; void *p1b0; unsigned char b1b4[12]; void *p1c0; unsigned char b1c4[12]; void *p1d0; unsigned char b1d4[12]; void *p1e0; unsigned char b1e4[12]; void *p1f0; unsigned char b1f4[12]; void *p200; unsigned char b204[12]; void *p210; unsigned char b214[12]; void *p220; unsigned char b224[12]; void *p230; unsigned char b234[12]; void *p240; unsigned char b244[12]; void *p250; unsigned char b254[12]; void *p260; unsigned char b264[12]; void *p270; unsigned char b274[12]; void *p280; unsigned char b284[12]; void *p290; unsigned char b294[12]; void *p2a0; unsigned char b2a4[12]; void *p2b0; unsigned char b2b4[12]; void *p2c0; unsigned char b2c4[12]; void *p2d0; unsigned char b2d4[12]; void *p2e0; unsigned char b2e4[12]; void *p2f0; unsigned char b2f4[12]; void *p300; unsigned char b304[12]; void *p310; unsigned char b314[12]; void *p320; unsigned char b324[12]; void *p330; unsigned char b334[12]; void *p340; unsigned char b344[12]; void *p350; unsigned char b354[12]; void *p360; unsigned char b364[12]; void *p370; unsigned char b374[12]; void *p380; unsigned char b384[12]; void *p390; unsigned char b394[12]; void *p3a0; unsigned char b3a4[12]; void *p3b0; unsigned char b3b4[12]; void *p3c0; unsigned char b3c4[12]; void *p3d0; unsigned char b3d4[12]; void *p3e0; unsigned char b3e4[12]; void *p3f0; unsigned char b3f4[12]; void *p400; unsigned char b404[12]; void *p410; unsigned char b414[12]; void *p420; unsigned char b424[12]; void *p430; unsigned char b434[12]; void *p440; unsigned char b444[12]; void *p450; unsigned char b454[12]; void *p460; unsigned char b464[12]; void *p470; unsigned char b474[12]; void *p480; unsigned char b484[12]; void *p490; unsigned char b494[12]; void *p4a0; unsigned char b4a4[12]; void *p4b0; unsigned char b4b4[12]; void *p4c0; unsigned char b4c4[12]; void *p4d0; unsigned char b4d4[12]; void *p4e0; unsigned char b4e4[12]; void *p4f0; unsigned char b4f4[12]; void *p500; unsigned char b504[12]; void *p510; unsigned char b514[12]; void *p520; unsigned char b524[12]; void *p530; unsigned char b534[12]; void *p540; unsigned char b544[12]; void *p550; unsigned char b554[12]; void *p560; unsigned char b564[12]; void *p570; unsigned char b574[12]; void *p580; unsigned char b584[12]; void *p590; unsigned char b594[12]; void *p5a0; unsigned char b5a4[12]; void *p5b0; unsigned char b5b4[12]; void *p5c0; unsigned char b5c4[12]; void *p5d0; unsigned char b5d4[12]; void *p5e0; unsigned char b5e4[12]; void *p5f0; unsigned char b5f4[12]; void *p600; unsigned char b604[12]; void *p610; unsigned char b614[12]; void *p620; unsigned char b624[12]; void *p630; unsigned char b634[12]; void *p640; unsigned char b644[12]; void *p650; unsigned char b654[12]; void *p660; unsigned char b664[12]; void *p670; unsigned char b674[12]; void *p680; unsigned char b684[12]; void *p690; unsigned char b694[12]; void *p6a0; unsigned char b6a4[12]; void *p6b0; unsigned char b6b4[12]; void *p6c0; unsigned char b6c4[12]; void *p6d0; unsigned char b6d4[12]; void *p6e0; unsigned char b6e4[12]; void *p6f0; unsigned char b6f4[12]; void *p700; unsigned char b704[12]; void *p710; unsigned char b714[12]; void *p720; unsigned char b724[12]; void *p730; unsigned char b734[12]; void *p740; unsigned char b744[12]; void *p750; unsigned char b754[12]; void *p760; unsigned char b764[12]; void *p770; unsigned char b774[12]; void *p780; unsigned char b784[12]; void *p790; unsigned char b794[12]; void *p7a0; unsigned char b7a4[12]; void *p7b0; unsigned char b7b4[12]; void *p7c0; unsigned char b7c4[12]; void *p7d0; unsigned char b7d4[12]; void *p7e0; unsigned char b7e4[12]; void *p7f0; unsigned char b7f4[12]; void *p800; unsigned char b804[12]; void *p810; unsigned char b814[12]; void *p820; unsigned char b824[12]; void *p830; unsigned char b834[12]; void *p840; unsigned char b844[12]; void *p850; unsigned char b854[12]; void *p860; unsigned char b864[12]; void *p870; unsigned char b874[12]; void *p880; unsigned char b884[12]; void *p890; unsigned char b894[12]; void *p8a0; unsigned char b8a4[12]; void *p8b0; unsigned char b8b4[12]; void *p8c0; unsigned char b8c4[12]; void *p8d0; unsigned char b8d4[12]; void *p8e0; unsigned char b8e4[12]; void *p8f0; unsigned char b8f4[12]; void *p900; unsigned char b904[12]; void *p910; unsigned char b914[12]; void *p920; unsigned char b924[12]; void *p930; unsigned char b934[12]; void *p940; unsigned char b944[12]; void *p950; unsigned char b954[12]; void *p960; unsigned char b964[12]; void *p970; unsigned char b974[12]; void *p980; unsigned char b984[12]; void *p990; unsigned char b994[12]; void *p9a0; unsigned char b9a4[12]; void *p9b0; unsigned char b9b4[12]; void *p9c0; unsigned char b9c4[12]; void *p9d0; unsigned char b9d4[12]; void *p9e0; unsigned char b9e4[12]; void *p9f0; unsigned char b9f4[12]; void *pa00; unsigned char ba04[12]; void *pa10; unsigned char ba14[12]; void *pa20; unsigned char ba24[12]; void *pa30; unsigned char ba34[12]; void *pa40; unsigned char ba44[12]; void *pa50; unsigned char ba54[12]; void *pa60; unsigned char ba64[12]; void *pa70; unsigned char ba74[12]; void *pa80; unsigned char ba84[12]; void *pa90; unsigned char ba94[12]; void *paa0; unsigned char baa4[12]; void *pab0; unsigned char bab4[12]; void *pac0; unsigned char bac4[12]; void *pad0; unsigned char bad4[12]; void *pae0; unsigned char bae4[12]; void *paf0; unsigned char baf4[12]; void *pb00; unsigned char bb04[12]; void *pb10; unsigned char bb14[12]; void *pb20; unsigned char bb24[12]; void *pb30; unsigned char bb34[12]; void *pb40; unsigned char bb44[12]; void *pb50; unsigned char bb54[12]; void *pb60; unsigned char bb64[12]; void *pb70; unsigned char bb74[12]; void *pb80; unsigned char bb84[12]; void *pb90; unsigned char bb94[12]; void *pba0; unsigned char bba4[12]; void *pbb0; unsigned char bbb4[12]; void *pbc0; unsigned char bbc4[12]; void *pbd0; unsigned char bbd4[12]; void *pbe0; unsigned char bbe4[12]; void *pbf0; unsigned char bbf4[12]; void *pc00; unsigned char bc04[12]; void *pc10; unsigned char bc14[12]; void *pc20; unsigned char bc24[12]; void *pc30; unsigned char bc34[12]; void *pc40; unsigned char bc44[12]; void *pc50; unsigned char bc54[12]; void *pc60; unsigned char bc64[12]; void *pc70; unsigned char bc74[12]; void *pc80; unsigned char bc84[12]; void *pc90; unsigned char bc94[12]; void *pca0; unsigned char bca4[12]; void *pcb0; unsigned char bcb4[12]; void *pcc0; unsigned char bcc4[12]; void *pcd0; unsigned char bcd4[12]; void *pce0; unsigned char bce4[12]; void *pcf0; unsigned char bcf4[12]; void *pd00; unsigned char bd04[12]; void *pd10; unsigned char bd14[12]; void *pd20; unsigned char bd24[12]; void *pd30; unsigned char bd34[12]; void *pd40; unsigned char bd44[12]; void *pd50; unsigned char bd54[12]; void *pd60; unsigned char bd64[12]; void *pd70; unsigned char bd74[12]; void *pd80; unsigned char bd84[12]; void *pd90; unsigned char bd94[12]; void *pda0; unsigned char bda4[12]; void *pdb0; unsigned char bdb4[12]; void *pdc0; unsigned char bdc4[12]; void *pdd0; unsigned char bdd4[12]; void *pde0; unsigned char bde4[12]; void *pdf0; unsigned char bdf4[12]; void *pe00; unsigned char be04[12]; void *pe10; unsigned char be14[12]; void *pe20; unsigned char be24[12]; void *pe30; unsigned char be34[12]; void *pe40; unsigned char be44[12]; void *pe50; unsigned char be54[12]; void *pe60; unsigned char be64[12]; void *pe70; unsigned char be74[12]; void *pe80; unsigned char be84[12]; void *pe90; unsigned char be94[12]; void *pea0; unsigned char bea4[12]; void *peb0; unsigned char beb4[12]; void *pec0; unsigned char bec4[12]; void *ped0; unsigned char bed4[12]; void *pee0; unsigned char bee4[12]; void *pef0; unsigned char bef4[12]; void *pf00; unsigned char bf04[12]; void *pf10; unsigned char bf14[12]; void *pf20; unsigned char bf24[12]; void *pf30; unsigned char bf34[12]; void *pf40; unsigned char bf44[12]; void *pf50; unsigned char bf54[12]; void *pf60; unsigned char bf64[12]; void *pf70; unsigned char bf74[12]; void *pf80; unsigned char bf84[12]; void *pf90; unsigned char bf94[12]; void *pfa0; unsigned char bfa4[12]; void *pfb0; unsigned char bfb4[12]; void *pfc0; unsigned char bfc4[12]; void *pfd0; unsigned char bfd4[12]; void *pfe0; unsigned char bfe4[12]; void *pff0; unsigned char bff4[12]; } grim_span_004d4370;
 extern grim_span_004d4370 DAT_004d4370;
-typedef struct __attribute__((packed)) { unsigned char b0[20]; void *p14; unsigned char b18[8]; } grim_span_004d5370;
-extern grim_span_004d5370 DAT_004d5370;
 typedef struct __attribute__((packed)) { void *p0; unsigned char b4[12]; void *p10; unsigned char b14[12]; void *p20; unsigned char b24[76]; } grim_span_004d5390;
 extern grim_span_004d5390 DAT_004d5390;
-typedef struct __attribute__((packed)) { unsigned char b0[20]; void *p14; } grim_span_004d5400;
-extern grim_span_004d5400 DAT_004d5400;
 
 static unsigned char grim_anchor_004d7000[0] __attribute__((section(".data$grim_004d7000"), aligned(16), used));
 static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004d7000_"), aligned(4), used));
-/* 0x004d7000, 1328 bytes */ GRIM_DATA("004d7000z") unsigned char PTR_RegQueryInfoKeyA_004d7000[1328] = {
+/* 0x004d7000, 1328 bytes */ GRIM_DATA("004d7000z") unsigned char PTR_RegQueryInfoKeyA_004d7000[1328] __asm__("_PTR_RegQueryInfoKeyA_004d7000") = {
     0x88, 0xb9, 0x0d, 0x00, 0x56, 0xb9, 0x0d, 0x00, 0x66, 0xb9, 0x0d, 0x00, 0x78, 0xb9, 0x0d, 0x00,
     0x9c, 0xb9, 0x0d, 0x00, 0xac, 0xb9, 0x0d, 0x00, 0x48, 0xb9, 0x0d, 0x00, 0xbe, 0xb9, 0x0d, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x11, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x64, 0xc2, 0x0d, 0x00,
@@ -4539,16 +2343,7 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x80, 0x3f
 };
-/* 0x004d7530, 16 bytes */ GRIM_DATA("004d7530") unsigned char DAT_004d7530[16] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f };
-/* 0x004d7540, 96 bytes */ GRIM_DATA("004d7540") unsigned char DAT_004d7540[96] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f
-};
-/* 0x004d75a0, 96 bytes */ GRIM_DATA("004d75a0") float g_flRdroid_identMatrix34[12] = {
+/* 0x004d75a0, 96 bytes */ GRIM_DATA("004d75a0") float g_flRdroid_identMatrix34[12] __asm__("_g_flRdroid_identMatrix34") = {
     1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
     1.0f
 };
@@ -4557,212 +2352,9 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f
 };
-/* 0x004d7600, 3216 bytes */ GRIM_DATA("004d7600") unsigned char DAT_004d7600[3216] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f,
-    0x80, 0x1a, 0x05, 0x87, 0xfc, 0x13, 0xd1, 0x11, 0x97, 0xc0, 0x00, 0xa0, 0x24, 0x29, 0x30, 0x05,
-    0x00, 0x00, 0x80, 0x3c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xbf,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x3f, 0x9e, 0xc9, 0x7f, 0x7f, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x7c, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x6f, 0x40,
-    0x00, 0x00, 0x7c, 0x42, 0x00, 0x00, 0x00, 0x3d, 0x00, 0x00, 0x80, 0x3c, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x7c, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x7c, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x7c, 0x42,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xa0, 0x40, 0x00, 0x00, 0x33, 0x43, 0x00, 0x00, 0xa0, 0x40,
-    0x00, 0x00, 0x33, 0x43, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x80, 0xbf,
-    0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00, 0x00, 0xcd, 0xcc, 0xcc, 0x3d, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3c,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xbf,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x41,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x3f,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x3f,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x41,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x41,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x41, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb0, 0x3e, 0x00, 0x00, 0x80, 0x3e,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0xac, 0xc5, 0x27, 0x37, 0x00, 0x00, 0x80, 0xbf,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2b, 0x87, 0x16, 0xd9, 0xce, 0xf7, 0xef, 0x3f,
-    0x6f, 0x12, 0x83, 0x3a, 0x00, 0x00, 0xb4, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x77, 0xbe, 0x7f, 0x3f,
-    0xc5, 0x20, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xbf,
-    0x00, 0x00, 0xb4, 0x43, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x37,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3d,
-    0x00, 0x00, 0x00, 0x00, 0x6f, 0x12, 0x83, 0xba, 0x00, 0x00, 0x34, 0x43, 0x00, 0x00, 0x34, 0xc3,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x9f, 0xa6, 0x92, 0xfa, 0x13, 0xd1, 0x11, 0x97, 0xc0, 0x00, 0xa0, 0x24, 0x29, 0x30, 0x05,
-    0x00, 0x00, 0x40, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x7a, 0x44,
-    0x00, 0x00, 0x00, 0x00, 0xac, 0xc5, 0x27, 0x37, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00,
-    0xe0, 0x09, 0xe6, 0x25, 0x59, 0xb2, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0xe1, 0x09, 0xe6, 0x25, 0x59, 0xb2, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x60, 0x13, 0x52, 0x89, 0x8a, 0xaa, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x61, 0x13, 0x52, 0x89, 0x8a, 0xaa, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x62, 0xe6, 0x44, 0x59, 0x8a, 0xaa, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x63, 0xe6, 0x44, 0x59, 0x8a, 0xaa, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x80, 0xe6, 0x44, 0x59, 0x2e, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x81, 0xe6, 0x44, 0x59, 0x2e, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x82, 0xe6, 0x44, 0x59, 0x2e, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x83, 0xe6, 0x44, 0x59, 0x2e, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0xc0, 0xf7, 0xe1, 0xe7, 0xd2, 0x88, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35
-};
-/* 0x004d8290, 16 bytes */ GRIM_DATA("004d8290") unsigned char DAT_004d8290[16] = { 0xe0, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54 };
-/* 0x004d82a0, 16 bytes */ GRIM_DATA("004d82a0") unsigned char DAT_004d82a0[16] = { 0xe1, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54 };
-/* 0x004d82b0, 96 bytes */ GRIM_DATA("004d82b0") unsigned char DAT_004d82b0[96] = {
+/* 0x004d8290, 16 bytes */ GRIM_DATA("004d8290") unsigned char DAT_004d8290[16] __asm__("_DAT_004d8290") = { 0xe0, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54 };
+/* 0x004d82a0, 16 bytes */ GRIM_DATA("004d82a0") unsigned char DAT_004d82a0[16] __asm__("_DAT_004d82a0") = { 0xe1, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54 };
+/* 0x004d82b0, 96 bytes */ GRIM_DATA("004d82b0") unsigned char DAT_004d82b0[96] __asm__("_DAT_004d82b0") = {
     0xe2, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
     0xf4, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
     0xf5, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
@@ -4770,228 +2362,112 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     0xe4, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
     0xf0, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54
 };
-/* 0x004d8310, 48 bytes */ GRIM_DATA("004d8310") unsigned char DAT_004d8310[48] = {
+/* 0x004d8310, 48 bytes */ GRIM_DATA("004d8310") unsigned char DAT_004d8310[48] __asm__("_DAT_004d8310") = {
     0x20, 0x82, 0x72, 0x55, 0x3c, 0xd3, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
     0xf2, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
     0xf3, 0x02, 0x6d, 0xa3, 0xf3, 0xc9, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54
 };
-/* 0x004d8340, 16 bytes */ GRIM_DATA("004d8340") unsigned char DAT_004d8340[16] = { 0x60, 0x2b, 0x1d, 0x6f, 0xa0, 0xd5, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54 };
-/* 0x004d8350, 272 bytes */ GRIM_DATA("004d8350") unsigned char DAT_004d8350[272] = {
-    0x61, 0x2b, 0x1d, 0x6f, 0xa0, 0xd5, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x70, 0x2b, 0x1d, 0x6f, 0xa0, 0xd5, 0xcf, 0x11, 0xbf, 0xc7, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x20, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x21, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x22, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x23, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x24, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x25, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x26, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x27, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x28, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x29, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x2a, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0x2b, 0x1c, 0x54, 0x13, 0x33, 0x8e, 0xd0, 0x11, 0x9a, 0xd0, 0x00, 0xa0, 0xc9, 0xa0, 0x6e, 0x35,
-    0xe0, 0x0e, 0xb7, 0xd7, 0x40, 0x43, 0xcf, 0x11, 0xb0, 0x63, 0x00, 0x20, 0xaf, 0xc2, 0xcd, 0x35,
-    0xa0, 0x17, 0x38, 0x59, 0xb3, 0x7d, 0xcf, 0x11, 0xa2, 0xde, 0x00, 0xaa, 0x00, 0xb9, 0x33, 0x56,
-    0x80, 0xdb, 0x14, 0x6c, 0x33, 0xa7, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60
-};
-/* 0x004d8460, 176 bytes */ GRIM_DATA("004d8460") unsigned char DAT_004d8460[176] = {
-    0xe0, 0xf3, 0xa6, 0xb3, 0x43, 0x2b, 0xcf, 0x11, 0xa2, 0xde, 0x00, 0xaa, 0x00, 0xb9, 0x33, 0x56,
-    0x81, 0xdb, 0x14, 0x6c, 0x33, 0xa7, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60,
-    0x85, 0x58, 0x80, 0x57, 0xec, 0x6e, 0xcf, 0x11, 0x94, 0x41, 0xa8, 0x23, 0x03, 0xc1, 0x0e, 0x27,
-    0x00, 0x4e, 0x04, 0xda, 0xb2, 0x69, 0xd0, 0x11, 0xa1, 0xd5, 0x00, 0xaa, 0x00, 0xb8, 0xdf, 0xbb,
-    0x84, 0xdb, 0x14, 0x6c, 0x33, 0xa7, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60,
-    0x85, 0xdb, 0x14, 0x6c, 0x33, 0xa7, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60,
-    0xe0, 0x0e, 0x9f, 0x4b, 0x7e, 0x0d, 0xd0, 0x11, 0x9b, 0x06, 0x00, 0xa0, 0xc9, 0x03, 0xa3, 0xb8,
-    0x46, 0xd9, 0xd4, 0x47, 0xe8, 0x62, 0xcf, 0x11, 0x93, 0xbc, 0x44, 0x45, 0x53, 0x54, 0x00, 0x00,
-    0x80, 0x07, 0x21, 0xb0, 0xcd, 0x89, 0xd0, 0x11, 0xaf, 0x08, 0x00, 0xa0, 0xc9, 0x25, 0xcd, 0x16,
-    0x83, 0xfa, 0x9a, 0x27, 0x81, 0x49, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60,
-    0x85, 0xfa, 0x9a, 0x27, 0x81, 0x49, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60
-};
-/* 0x004d8510, 96 bytes */ GRIM_DATA("004d8510") unsigned char DAT_004d8510[96] = {
-    0x84, 0xfa, 0x9a, 0x27, 0x81, 0x49, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60,
-    0x86, 0xfa, 0x9a, 0x27, 0x81, 0x49, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60,
-    0x81, 0x07, 0x21, 0xb0, 0xcd, 0x89, 0xd0, 0x11, 0xaf, 0x08, 0x00, 0xa0, 0xc9, 0x25, 0xcd, 0x16,
-    0x82, 0x07, 0x21, 0xb0, 0xcd, 0x89, 0xd0, 0x11, 0xaf, 0x08, 0x00, 0xa0, 0xc9, 0x25, 0xcd, 0x16,
-    0x83, 0x07, 0x21, 0xb0, 0xcd, 0x89, 0xd0, 0x11, 0xaf, 0x08, 0x00, 0xa0, 0xc9, 0x25, 0xcd, 0x16,
-    0x30, 0xac, 0xef, 0x31, 0x5c, 0x51, 0xd0, 0x11, 0xa9, 0xaa, 0x00, 0xaa, 0x00, 0x61, 0xbe, 0x93
-};
-/* 0x004d8570, 128 bytes */ GRIM_DATA("004d8570") unsigned char DAT_004d8570[128] = {
-    0x80, 0x00, 0xba, 0x3b, 0x21, 0x24, 0xcf, 0x11, 0xa3, 0x1a, 0x00, 0xaa, 0x00, 0xb9, 0x33, 0x56,
-    0xc1, 0x1e, 0xae, 0x6a, 0x2a, 0x66, 0xd0, 0x11, 0x88, 0x9d, 0x00, 0xaa, 0x00, 0xbb, 0xb7, 0x6a,
-    0x20, 0x6b, 0x08, 0xf2, 0x9f, 0x25, 0xcf, 0x11, 0xa3, 0x1a, 0x00, 0xaa, 0x00, 0xb9, 0x33, 0x56,
-    0x60, 0x5c, 0x66, 0xa4, 0x73, 0x26, 0xcf, 0x11, 0xa3, 0x1a, 0x00, 0xaa, 0x00, 0xb9, 0x33, 0x56,
-    0xe0, 0x3d, 0xe6, 0x84, 0xaa, 0x46, 0xcf, 0x11, 0x81, 0x6f, 0x00, 0x00, 0xc0, 0x20, 0x15, 0x6e,
-    0xa1, 0x49, 0x19, 0x88, 0xf3, 0xd6, 0xd0, 0x11, 0x89, 0xab, 0x00, 0xa0, 0xc9, 0x05, 0x41, 0x29,
-    0x00, 0x88, 0x10, 0x64, 0x7d, 0x95, 0xd0, 0x11, 0x89, 0xab, 0x00, 0xa0, 0xc9, 0x05, 0x41, 0x29,
-    0x01, 0x15, 0x28, 0x93, 0xf8, 0x8c, 0xd0, 0x11, 0x89, 0xab, 0x00, 0xa0, 0xc9, 0x05, 0x41, 0x29
-};
-/* 0x004d85f0, 176 bytes */ GRIM_DATA("004d85f0") unsigned char DAT_004d85f0[176] = {
-    0xe0, 0xd9, 0xdc, 0x2c, 0xa0, 0x25, 0xcf, 0x11, 0xa3, 0x1a, 0x00, 0xaa, 0x00, 0xb9, 0x33, 0x56,
-    0x02, 0x15, 0x28, 0x93, 0xf8, 0x8c, 0xd0, 0x11, 0x89, 0xab, 0x00, 0xa0, 0xc9, 0x05, 0x41, 0x29,
-    0x42, 0xc1, 0x17, 0x44, 0xad, 0x33, 0xcf, 0x11, 0x81, 0x6f, 0x00, 0x00, 0xc0, 0x20, 0x15, 0x6e,
-    0x44, 0xc1, 0x17, 0x44, 0xad, 0x33, 0xcf, 0x11, 0x81, 0x6f, 0x00, 0x00, 0xc0, 0x20, 0x15, 0x6e,
-    0x03, 0x15, 0x28, 0x93, 0xf8, 0x8c, 0xd0, 0x11, 0x89, 0xab, 0x00, 0xa0, 0xc9, 0x05, 0x41, 0x29,
-    0x45, 0xc1, 0x17, 0x44, 0xad, 0x33, 0xcf, 0x11, 0x81, 0x6f, 0x00, 0x00, 0xc0, 0x20, 0x15, 0x6e,
-    0x46, 0xc1, 0x17, 0x44, 0xad, 0x33, 0xcf, 0x11, 0x81, 0x6f, 0x00, 0x00, 0xc0, 0x20, 0x15, 0x6e,
-    0x00, 0x15, 0x28, 0x93, 0xf8, 0x8c, 0xd0, 0x11, 0x89, 0xab, 0x00, 0xa0, 0xc9, 0x05, 0x41, 0x29,
-    0xe0, 0xee, 0xf1, 0xd8, 0x34, 0xf6, 0xcf, 0x11, 0x87, 0x00, 0x00, 0xa0, 0x24, 0x5d, 0x91, 0x8b,
-    0xe1, 0xee, 0xf1, 0xd8, 0x34, 0xf6, 0xcf, 0x11, 0x87, 0x00, 0x00, 0xa0, 0x24, 0x5d, 0x91, 0x8b,
-    0x00, 0x00, 0x00, 0xbf, 0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00, 0x40
-};
-/* 0x004d86a0, 760 bytes */ GRIM_DATA("004d86a0") int g_anColorDither[4][4] = {
-    { 31, 49183, 12319, 61471 },
-    { 32799, 16415, 45087, 28703 },
-    { 8223, 57375, 4127, 53279 },
-    { 40991, 24607, 36895, 20511 }
-};
-/* 0x004d86e0, 696 bytes: the rest of g_anColorDither's span */ GRIM_DATA("004d86a0") static unsigned char g_anColorDither__tail[696] __attribute__((used)) = {
-    0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x70, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x6f, 0x40,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x47, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb4, 0x43,
-    0x00, 0x00, 0x34, 0x43, 0x00, 0x00, 0xb4, 0x43, 0x00, 0x00, 0xb4, 0x42, 0x00, 0x00, 0x34, 0x43,
-    0x00, 0x00, 0x87, 0x43, 0x61, 0x0b, 0x36, 0x42, 0x00, 0x00, 0xb4, 0x42, 0x00, 0x00, 0x34, 0x43,
-    0x00, 0x00, 0x87, 0x43, 0x00, 0x00, 0xb4, 0x43, 0x00, 0x00, 0x80, 0x46, 0x00, 0x00, 0x00, 0x00,
-    0xf3, 0x04, 0x35, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0xe0, 0xda, 0x59, 0x3e, 0xe2, 0x2e, 0x65, 0x42,
-    0x00, 0x00, 0xb4, 0x42, 0x00, 0x00, 0x00, 0x00, 0xf3, 0x04, 0x35, 0x3f, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0xc0, 0x40, 0x9a, 0x99, 0x99, 0x3d, 0xde, 0xcc, 0x88, 0x3d, 0xe2, 0x2e, 0x65, 0x42,
-    0x00, 0x00, 0xb4, 0x42, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0x00, 0x00, 0xa0, 0x40,
-    0x00, 0x00, 0xe0, 0x40, 0x5a, 0x81, 0x81, 0x3d, 0xe2, 0x2e, 0x65, 0x42, 0x00, 0x00, 0xb4, 0x42,
-    0x00, 0x00, 0x34, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x8f, 0x40,
-    0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0x00, 0xcd, 0xcc, 0xcc, 0x3d, 0x00, 0x00, 0x80, 0xbf,
-    0xcd, 0xcc, 0xcc, 0xbd, 0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x80, 0x37, 0x00, 0x00, 0xf8, 0x41,
-    0x00, 0x00, 0x7c, 0x42, 0x00, 0x00, 0x20, 0x41, 0x9a, 0x99, 0x99, 0x99, 0x99, 0x99, 0xb9, 0x3f,
-    0x00, 0x00, 0x20, 0x44, 0x00, 0x00, 0xf0, 0x43, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x3f,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x50, 0x40,
-    0x00, 0x00, 0x07, 0x44, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,
-    0x56, 0x55, 0x85, 0x41, 0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x00, 0xbf,
-    0x00, 0x00, 0x00, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f,
-    0x00, 0x00, 0x00, 0x40, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0xb4, 0x42, 0xab, 0xaa, 0xaa, 0x3e,
-    0x00, 0x00, 0x7a, 0xc4, 0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40,
-    0xff, 0xff, 0x7f, 0x7f, 0xcd, 0xcc, 0xcc, 0x3d, 0x0a, 0xd7, 0xa3, 0xbc, 0x0a, 0xd7, 0x23, 0xbc,
-    0x0a, 0xd7, 0x23, 0x3c, 0x00, 0x00, 0x00, 0x00, 0x2b, 0x87, 0x16, 0xd9, 0xce, 0xf7, 0xef, 0x3f,
-    0x00, 0x00, 0xa0, 0x3f, 0x00, 0x00, 0x20, 0xc1, 0xfc, 0xa9, 0xf1, 0xd2, 0x4d, 0x62, 0x60, 0x3f,
-    0xfc, 0xa9, 0xf1, 0xd2, 0x4d, 0x62, 0x60, 0xbf, 0x00, 0x00, 0x20, 0x44, 0x00, 0x00, 0xf0, 0x43,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0xac, 0xc5, 0x27, 0x37, 0x00, 0x00, 0x7a, 0x44,
-    0x00, 0x00, 0x7a, 0xc4, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x3f,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xbf, 0x6f, 0x12, 0x83, 0x3a, 0x6f, 0x12, 0x83, 0x3a,
-    0x0a, 0xd7, 0x23, 0x3c, 0x00, 0x00, 0xc8, 0x42, 0xcd, 0xcc, 0x4c, 0xbe, 0x00, 0x00, 0x00, 0x3f,
-    0x00, 0x00, 0x80, 0x3a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xb4, 0x42, 0x00, 0x00, 0x00, 0x40,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x40, 0x1c, 0x46, 0x00, 0x00, 0x00, 0x41, 0x00, 0x00, 0x80, 0x3f,
-    0x00, 0x00, 0xc0, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x6f, 0x12, 0x83, 0x3a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0a, 0xd7, 0xa3, 0x3b,
-    0x9a, 0x99, 0x99, 0x99, 0x99, 0x99, 0xb9, 0x3f, 0x0b, 0xd7, 0xa3, 0x3c, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x59, 0x40, 0x00, 0x00, 0x80, 0x3f, 0x17, 0xb7, 0xd1, 0x38,
-    0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x80, 0x42, 0x00, 0x00, 0x00, 0x00, 0xac, 0xc5, 0x27, 0x37,
-    0xac, 0xc5, 0x27, 0xb7, 0xff, 0xff, 0x7f, 0x7f, 0x00, 0x00, 0x80, 0x3f, 0x66, 0x66, 0xb4, 0x42,
-    0x66, 0x66, 0xb4, 0xc2, 0x00, 0x00, 0x20, 0xc1, 0x00, 0x00, 0xc8, 0xc2, 0x00, 0x00, 0xc8, 0x42,
-    0x7c, 0x14, 0xae, 0x47, 0xe1, 0x7a, 0x64, 0x3f, 0x00, 0x00, 0xb4, 0x42, 0x00, 0x00, 0x33, 0x43,
-    0x9a, 0x99, 0x19, 0x3e, 0x9a, 0x99, 0x59, 0x3f, 0x00, 0x00, 0x80, 0xbf, 0x00, 0x00, 0x00, 0x00,
-    0x3a, 0x8c, 0x30, 0xe2, 0x8e, 0x79, 0x45, 0x3e, 0x00, 0xe4, 0x40, 0x46, 0x0a, 0xd7, 0xa3, 0x3b,
-    0x0a, 0xd7, 0xa3, 0x3c, 0x00, 0x00, 0x40, 0x40, 0x00, 0x00, 0xb4, 0xc2, 0xcd, 0xcc, 0xcc, 0x3d,
-    0xcd, 0xcc, 0x4c, 0x3d, 0xcd, 0xcc, 0x4c, 0xbd, 0x17, 0xb7, 0xd1, 0x38, 0x0b, 0xd7, 0x23, 0x3b,
-    0xfc, 0xa9, 0xf1, 0xd2, 0x4d, 0x62, 0x50, 0x3f
-};
-/* 0x004d8998, 12 bytes */ GRIM_DATA("004d8998") void *DAT_004d8998[3] = {
+/* 0x004d8998, 12 bytes */ GRIM_DATA("004d8998") void *DAT_004d8998[3] __asm__("_DAT_004d8998") = {
     (void *)0xffffffff, (void *)f_FUN_004acb8d, (void *)f_FUN_004acba2
 };
-/* 0x004d89a4, 8 bytes */ GRIM_DATA("004d89a4") unsigned char DAT_004d89a4[8] = { 0x4c, 0x43, 0x5f, 0x54, 0x49, 0x4d, 0x45 };
-/* 0x004d89ac, 12 bytes */ GRIM_DATA("004d89ac") unsigned char DAT_004d89ac[12] = { 0x4c, 0x43, 0x5f, 0x4e, 0x55, 0x4d, 0x45, 0x52, 0x49, 0x43 };
-/* 0x004d89b8, 12 bytes */ GRIM_DATA("004d89b8") unsigned char DAT_004d89b8[12] = { 0x4c, 0x43, 0x5f, 0x4d, 0x4f, 0x4e, 0x45, 0x54, 0x41, 0x52, 0x59 };
-/* 0x004d89c4, 4 bytes */ GRIM_DATA("004d89c4") unsigned char DAT_004d89c4[4] = { 0x4c, 0x43, 0x5f, 0x43 };
-/* 0x004d89c8, 8 bytes, unused (host) */ GRIM_DATA("004d89c8") unsigned char DAT_004d89c8[8];
-/* 0x004d89d0, 12 bytes */ GRIM_DATA("004d89d0") unsigned char DAT_004d89d0[12] = { 0x4c, 0x43, 0x5f, 0x43, 0x4f, 0x4c, 0x4c, 0x41, 0x54, 0x45 };
-/* 0x004d89dc, 12 bytes */ GRIM_DATA("004d89dc") unsigned char DAT_004d89dc[12] = { 0x4c, 0x43, 0x5f, 0x41, 0x4c, 0x4c, 0x00, 0x00, 0x3d };
-/* 0x004d89e8, 92 bytes, unused (host) */ GRIM_DATA("004d89e8") unsigned char DAT_004d89e8[92];
-/* 0x004d8a44, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8a44") unsigned char DAT_004d8a44[16];
-/* 0x004d8a54, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8a54") unsigned char DAT_004d8a54[20];
-/* 0x004d8a68, 28 bytes, unused (dead) */ GRIM_DATA("004d8a68") unsigned char s_IsProcessorFeaturePresent_004d8a68[28];
-/* 0x004d8a84, 28 bytes, unused (dead) */ GRIM_DATA("004d8a84") unsigned char s_KERNEL32_004d8a84[28];
-/* 0x004d8aa0, 16 bytes */ GRIM_DATA("004d8aa0") unsigned char DAT_004d8aa0[16] = { 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x20 };
-/* 0x004d8ab0, 4 bytes */ GRIM_DATA("004d8ab0") unsigned char DAT_004d8ab0[4] = { 0x0d, 0x0a };
-/* 0x004d8ab4, 16 bytes */ GRIM_DATA("004d8ab4") unsigned char DAT_004d8ab4[16] = { 0x54, 0x4c, 0x4f, 0x53, 0x53, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
-/* 0x004d8ac4, 16 bytes */ GRIM_DATA("004d8ac4") unsigned char DAT_004d8ac4[16] = { 0x53, 0x49, 0x4e, 0x47, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
-/* 0x004d8ad4, 16 bytes */ GRIM_DATA("004d8ad4") unsigned char DAT_004d8ad4[16] = { 0x44, 0x4f, 0x4d, 0x41, 0x49, 0x4e, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
-/* 0x004d8ae4, 40 bytes */ GRIM_DATA("004d8ae4") unsigned char DAT_004d8ae4[40] = {
+/* 0x004d89a4, 8 bytes */ GRIM_DATA("004d89a4") unsigned char DAT_004d89a4[8] __asm__("_DAT_004d89a4") = { 0x4c, 0x43, 0x5f, 0x54, 0x49, 0x4d, 0x45 };
+/* 0x004d89ac, 12 bytes */ GRIM_DATA("004d89ac") unsigned char DAT_004d89ac[12] __asm__("_DAT_004d89ac") = { 0x4c, 0x43, 0x5f, 0x4e, 0x55, 0x4d, 0x45, 0x52, 0x49, 0x43 };
+/* 0x004d89b8, 12 bytes */ GRIM_DATA("004d89b8") unsigned char DAT_004d89b8[12] __asm__("_DAT_004d89b8") = { 0x4c, 0x43, 0x5f, 0x4d, 0x4f, 0x4e, 0x45, 0x54, 0x41, 0x52, 0x59 };
+/* 0x004d89c4, 4 bytes */ GRIM_DATA("004d89c4") unsigned char DAT_004d89c4[4] __asm__("_DAT_004d89c4") = { 0x4c, 0x43, 0x5f, 0x43 };
+/* 0x004d89c8, 8 bytes, unused (host) */ GRIM_DATA("004d89c8") unsigned char DAT_004d89c8[8] __asm__("_DAT_004d89c8");
+/* 0x004d89d0, 12 bytes */ GRIM_DATA("004d89d0") unsigned char DAT_004d89d0[12] __asm__("_DAT_004d89d0") = { 0x4c, 0x43, 0x5f, 0x43, 0x4f, 0x4c, 0x4c, 0x41, 0x54, 0x45 };
+/* 0x004d89dc, 12 bytes */ GRIM_DATA("004d89dc") unsigned char DAT_004d89dc[12] __asm__("_DAT_004d89dc") = { 0x4c, 0x43, 0x5f, 0x41, 0x4c, 0x4c, 0x00, 0x00, 0x3d };
+/* 0x004d89e8, 92 bytes, unused (host) */ GRIM_DATA("004d89e8") unsigned char DAT_004d89e8[92] __asm__("_DAT_004d89e8");
+/* 0x004d8a44, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8a44") unsigned char DAT_004d8a44[16] __asm__("_DAT_004d8a44");
+/* 0x004d8a54, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8a54") unsigned char DAT_004d8a54[20] __asm__("_DAT_004d8a54");
+/* 0x004d8a68, 28 bytes, unused (dead) */ GRIM_DATA("004d8a68") unsigned char s_IsProcessorFeaturePresent_004d8a68[28] __asm__("_s_IsProcessorFeaturePresent_004d8a68");
+/* 0x004d8a84, 28 bytes, unused (dead) */ GRIM_DATA("004d8a84") unsigned char s_KERNEL32_004d8a84[28] __asm__("_s_KERNEL32_004d8a84");
+/* 0x004d8aa0, 16 bytes */ GRIM_DATA("004d8aa0") unsigned char DAT_004d8aa0[16] __asm__("_DAT_004d8aa0") = { 0x72, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x20 };
+/* 0x004d8ab0, 4 bytes */ GRIM_DATA("004d8ab0") unsigned char DAT_004d8ab0[4] __asm__("_DAT_004d8ab0") = { 0x0d, 0x0a };
+/* 0x004d8ab4, 16 bytes */ GRIM_DATA("004d8ab4") unsigned char DAT_004d8ab4[16] __asm__("_DAT_004d8ab4") = { 0x54, 0x4c, 0x4f, 0x53, 0x53, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
+/* 0x004d8ac4, 16 bytes */ GRIM_DATA("004d8ac4") unsigned char DAT_004d8ac4[16] __asm__("_DAT_004d8ac4") = { 0x53, 0x49, 0x4e, 0x47, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
+/* 0x004d8ad4, 16 bytes */ GRIM_DATA("004d8ad4") unsigned char DAT_004d8ad4[16] __asm__("_DAT_004d8ad4") = { 0x44, 0x4f, 0x4d, 0x41, 0x49, 0x4e, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a };
+/* 0x004d8ae4, 40 bytes */ GRIM_DATA("004d8ae4") unsigned char DAT_004d8ae4[40] __asm__("_DAT_004d8ae4") = {
     0x52, 0x36, 0x30, 0x32, 0x38, 0x0d, 0x0a, 0x2d, 0x20, 0x75, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x20,
     0x74, 0x6f, 0x20, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x65, 0x20, 0x68, 0x65,
     0x61, 0x70, 0x0d, 0x0a
 };
-/* 0x004d8b0c, 56 bytes */ GRIM_DATA("004d8b0c") unsigned char DAT_004d8b0c[56] = {
+/* 0x004d8b0c, 56 bytes */ GRIM_DATA("004d8b0c") unsigned char DAT_004d8b0c[56] __asm__("_DAT_004d8b0c") = {
     0x52, 0x36, 0x30, 0x32, 0x37, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x6c, 0x6f,
     0x77, 0x69, 0x6f, 0x20, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x61, 0x74, 0x69,
     0x6f, 0x6e, 0x0d, 0x0a
 };
-/* 0x004d8b44, 56 bytes */ GRIM_DATA("004d8b44") unsigned char DAT_004d8b44[56] = {
+/* 0x004d8b44, 56 bytes */ GRIM_DATA("004d8b44") unsigned char DAT_004d8b44[56] __asm__("_DAT_004d8b44") = {
     0x52, 0x36, 0x30, 0x32, 0x36, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x73, 0x74,
     0x64, 0x69, 0x6f, 0x20, 0x69, 0x6e, 0x69, 0x74, 0x69, 0x61, 0x6c, 0x69, 0x7a, 0x61, 0x74, 0x69,
     0x6f, 0x6e, 0x0d, 0x0a
 };
-/* 0x004d8b7c, 40 bytes */ GRIM_DATA("004d8b7c") unsigned char DAT_004d8b7c[40] = {
+/* 0x004d8b7c, 40 bytes */ GRIM_DATA("004d8b7c") unsigned char DAT_004d8b7c[40] __asm__("_DAT_004d8b7c") = {
     0x52, 0x36, 0x30, 0x32, 0x35, 0x0d, 0x0a, 0x2d, 0x20, 0x70, 0x75, 0x72, 0x65, 0x20, 0x76, 0x69,
     0x72, 0x74, 0x75, 0x61, 0x6c, 0x20, 0x66, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x63,
     0x61, 0x6c, 0x6c, 0x0d, 0x0a
 };
-/* 0x004d8ba4, 56 bytes */ GRIM_DATA("004d8ba4") unsigned char DAT_004d8ba4[56] = {
+/* 0x004d8ba4, 56 bytes */ GRIM_DATA("004d8ba4") unsigned char DAT_004d8ba4[56] __asm__("_DAT_004d8ba4") = {
     0x52, 0x36, 0x30, 0x32, 0x34, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x5f, 0x6f,
     0x6e, 0x65, 0x78, 0x69, 0x74, 0x2f, 0x61, 0x74, 0x65, 0x78, 0x69, 0x74, 0x20, 0x74, 0x61, 0x62,
     0x6c, 0x65, 0x0d, 0x0a
 };
-/* 0x004d8bdc, 44 bytes */ GRIM_DATA("004d8bdc") unsigned char DAT_004d8bdc[44] = {
+/* 0x004d8bdc, 44 bytes */ GRIM_DATA("004d8bdc") unsigned char DAT_004d8bdc[44] __asm__("_DAT_004d8bdc") = {
     0x52, 0x36, 0x30, 0x31, 0x39, 0x0d, 0x0a, 0x2d, 0x20, 0x75, 0x6e, 0x61, 0x62, 0x6c, 0x65, 0x20,
     0x74, 0x6f, 0x20, 0x6f, 0x70, 0x65, 0x6e, 0x20, 0x63, 0x6f, 0x6e, 0x73, 0x6f, 0x6c, 0x65, 0x20,
     0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x0d, 0x0a
 };
-/* 0x004d8c08, 36 bytes */ GRIM_DATA("004d8c08") unsigned char DAT_004d8c08[36] = {
+/* 0x004d8c08, 36 bytes */ GRIM_DATA("004d8c08") unsigned char DAT_004d8c08[36] __asm__("_DAT_004d8c08") = {
     0x52, 0x36, 0x30, 0x31, 0x38, 0x0d, 0x0a, 0x2d, 0x20, 0x75, 0x6e, 0x65, 0x78, 0x70, 0x65, 0x63,
     0x74, 0x65, 0x64, 0x20, 0x68, 0x65, 0x61, 0x70, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a
 };
-/* 0x004d8c2c, 48 bytes */ GRIM_DATA("004d8c2c") unsigned char DAT_004d8c2c[48] = {
+/* 0x004d8c2c, 48 bytes */ GRIM_DATA("004d8c2c") unsigned char DAT_004d8c2c[48] __asm__("_DAT_004d8c2c") = {
     0x52, 0x36, 0x30, 0x31, 0x37, 0x0d, 0x0a, 0x2d, 0x20, 0x75, 0x6e, 0x65, 0x78, 0x70, 0x65, 0x63,
     0x74, 0x65, 0x64, 0x20, 0x6d, 0x75, 0x6c, 0x74, 0x69, 0x74, 0x68, 0x72, 0x65, 0x61, 0x64, 0x20,
     0x6c, 0x6f, 0x63, 0x6b, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x0d, 0x0a
 };
-/* 0x004d8c5c, 44 bytes */ GRIM_DATA("004d8c5c") unsigned char DAT_004d8c5c[44] = {
+/* 0x004d8c5c, 44 bytes */ GRIM_DATA("004d8c5c") unsigned char DAT_004d8c5c[44] __asm__("_DAT_004d8c5c") = {
     0x52, 0x36, 0x30, 0x31, 0x36, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x74, 0x68,
     0x72, 0x65, 0x61, 0x64, 0x20, 0x64, 0x61, 0x74, 0x61, 0x0d, 0x0a
 };
-/* 0x004d8c88, 36 bytes */ GRIM_DATA("004d8c88") unsigned char DAT_004d8c88[36] = {
+/* 0x004d8c88, 36 bytes */ GRIM_DATA("004d8c88") unsigned char DAT_004d8c88[36] __asm__("_DAT_004d8c88") = {
     0x0d, 0x0a, 0x61, 0x62, 0x6e, 0x6f, 0x72, 0x6d, 0x61, 0x6c, 0x20, 0x70, 0x72, 0x6f, 0x67, 0x72,
     0x61, 0x6d, 0x20, 0x74, 0x65, 0x72, 0x6d, 0x69, 0x6e, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x0d, 0x0a
 };
-/* 0x004d8cac, 44 bytes */ GRIM_DATA("004d8cac") unsigned char DAT_004d8cac[44] = {
+/* 0x004d8cac, 44 bytes */ GRIM_DATA("004d8cac") unsigned char DAT_004d8cac[44] __asm__("_DAT_004d8cac") = {
     0x52, 0x36, 0x30, 0x30, 0x39, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x65, 0x6e,
     0x76, 0x69, 0x72, 0x6f, 0x6e, 0x6d, 0x65, 0x6e, 0x74, 0x0d, 0x0a
 };
-/* 0x004d8cd8, 44 bytes */ GRIM_DATA("004d8cd8") unsigned char DAT_004d8cd8[44] = {
+/* 0x004d8cd8, 44 bytes */ GRIM_DATA("004d8cd8") unsigned char DAT_004d8cd8[44] __asm__("_DAT_004d8cd8") = {
     0x52, 0x36, 0x30, 0x30, 0x38, 0x0d, 0x0a, 0x2d, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x65, 0x6e, 0x6f,
     0x75, 0x67, 0x68, 0x20, 0x73, 0x70, 0x61, 0x63, 0x65, 0x20, 0x66, 0x6f, 0x72, 0x20, 0x61, 0x72,
     0x67, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x0d, 0x0a
 };
-/* 0x004d8d04, 40 bytes */ GRIM_DATA("004d8d04") unsigned char DAT_004d8d04[40] = {
+/* 0x004d8d04, 40 bytes */ GRIM_DATA("004d8d04") unsigned char DAT_004d8d04[40] __asm__("_DAT_004d8d04") = {
     0x52, 0x36, 0x30, 0x30, 0x32, 0x0d, 0x0a, 0x2d, 0x20, 0x66, 0x6c, 0x6f, 0x61, 0x74, 0x69, 0x6e,
     0x67, 0x20, 0x70, 0x6f, 0x69, 0x6e, 0x74, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x6c, 0x6f, 0x61, 0x64,
     0x65, 0x64, 0x0d, 0x0a
 };
-/* 0x004d8d2c, 40 bytes */ GRIM_DATA("004d8d2c") unsigned char DAT_004d8d2c[40] = {
+/* 0x004d8d2c, 40 bytes */ GRIM_DATA("004d8d2c") unsigned char DAT_004d8d2c[40] __asm__("_DAT_004d8d2c") = {
     0x4d, 0x69, 0x63, 0x72, 0x6f, 0x73, 0x6f, 0x66, 0x74, 0x20, 0x56, 0x69, 0x73, 0x75, 0x61, 0x6c,
     0x20, 0x43, 0x2b, 0x2b, 0x20, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x4c, 0x69, 0x62,
     0x72, 0x61, 0x72, 0x79
 };
-/* 0x004d8d54, 28 bytes */ GRIM_DATA("004d8d54") unsigned char UINT_004d8d54[28] = {
+/* 0x004d8d54, 28 bytes */ GRIM_DATA("004d8d54") unsigned char UINT_004d8d54[28] __asm__("_UINT_004d8d54") = {
     0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x20, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x21, 0x0a, 0x0a,
     0x50, 0x72, 0x6f, 0x67, 0x72, 0x61, 0x6d, 0x3a, 0x20
 };
-/* 0x004d8d70, 4 bytes */ GRIM_DATA("004d8d70") unsigned char DAT_004d8d70[4] = { 0x2e, 0x2e, 0x2e };
-/* 0x004d8d74, 24 bytes */ GRIM_DATA("004d8d74") unsigned char UINT_004d8d74[24] = {
+/* 0x004d8d70, 4 bytes */ GRIM_DATA("004d8d70") unsigned char DAT_004d8d70[4] __asm__("_DAT_004d8d70") = { 0x2e, 0x2e, 0x2e };
+/* 0x004d8d74, 24 bytes */ GRIM_DATA("004d8d74") unsigned char UINT_004d8d74[24] __asm__("_UINT_004d8d74") = {
     0x3c, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x61, 0x6d, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x75, 0x6e,
     0x6b, 0x6e, 0x6f, 0x77, 0x6e, 0x3e
 };
-/* 0x004d8d8c, 100 bytes */ GRIM_DATA("004d8d8c") unsigned char DAT_004d8d8c[100] = {
+/* 0x004d8d8c, 100 bytes */ GRIM_DATA("004d8d8c") unsigned char DAT_004d8d8c[100] __asm__("_DAT_004d8d8c") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x3f, 0x7f, 0x02, 0x35, 0xc2,
     0x68, 0x21, 0xa2, 0xda, 0x0f, 0xc9, 0x3e, 0x40, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xef, 0x7f,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x98, 0xc0,
@@ -5000,147 +2476,147 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x3f, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x40
 };
-/* 0x004d8df0, 16 bytes */ GRIM_DATA("004d8df0") void *DAT_004d8df0[4] = {
+/* 0x004d8df0, 16 bytes */ GRIM_DATA("004d8df0") void *DAT_004d8df0[4] __asm__("_DAT_004d8df0") = {
     (void *)0xffffffff, (void *)f_FUN_004b56c6, (void *)f_FUN_004b56d3, 0
 };
-/* 0x004d8e00, 24 bytes */ GRIM_DATA("004d8e00") grim_span_004d8e00 DAT_004d8e00 = {
+/* 0x004d8e00, 24 bytes */ GRIM_DATA("004d8e00") grim_span_004d8e00 DAT_004d8e00 __asm__("_DAT_004d8e00") = {
     { 0xff, 0xff, 0xff, 0xff },
     (void *)f_FUN_004b58af,
     { 0x00, 0x00, 0x00, 0x00, 0x77, 0x58, 0x4b },
     (void *)f_FUN_004b5884
 };
-/* 0x004d8e18, 16 bytes */ GRIM_DATA("004d8e18") unsigned char DAT_004d8e18[16] = { 0xff, 0xff, 0xff, 0xff, 0x2b, 0x5b, 0x4b, 0x00, 0x31, 0x5b, 0x4b };
-/* 0x004d8e28, 16 bytes, unused (dead) */ GRIM_DATA("004d8e28") unsigned char DAT_004d8e28[16];
-/* 0x004d8e38, 24 bytes */ GRIM_DATA("004d8e38") void *DAT_004d8e38[6] = {
+/* 0x004d8e18, 16 bytes */ GRIM_DATA("004d8e18") unsigned char DAT_004d8e18[16] __asm__("_DAT_004d8e18") = { 0xff, 0xff, 0xff, 0xff, 0x2b, 0x5b, 0x4b, 0x00, 0x31, 0x5b, 0x4b };
+/* 0x004d8e28, 16 bytes, unused (dead) */ GRIM_DATA("004d8e28") unsigned char DAT_004d8e28[16] __asm__("_DAT_004d8e28");
+/* 0x004d8e38, 24 bytes */ GRIM_DATA("004d8e38") void *DAT_004d8e38[6] __asm__("_DAT_004d8e38") = {
     (void *)0xffffffff, 0, (void *)f_FUN_004b5cd7, 0,
     (void *)f_FUN_004b5caa, (void *)f_FUN_004b5cb0
 };
-/* 0x004d8e50, 24 bytes, unused (dead) */ GRIM_DATA("004d8e50") unsigned char DAT_004d8e50[24];
-/* 0x004d8e68, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e68") unsigned char DAT_004d8e68[12];
-/* 0x004d8e74, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e74") unsigned char DAT_004d8e74[8];
-/* 0x004d8e7c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e7c") unsigned char DAT_004d8e7c[8];
-/* 0x004d8e84, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e84") unsigned char DAT_004d8e84[8];
-/* 0x004d8e8c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e8c") unsigned char DAT_004d8e8c[12];
-/* 0x004d8e98, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e98") unsigned char DAT_004d8e98[8];
-/* 0x004d8ea0, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ea0") unsigned char DAT_004d8ea0[12];
-/* 0x004d8eac, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8eac") unsigned char DAT_004d8eac[12];
-/* 0x004d8eb8, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8eb8") unsigned char DAT_004d8eb8[20];
-/* 0x004d8ecc, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ecc") unsigned char DAT_004d8ecc[16];
-/* 0x004d8edc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8edc") unsigned char DAT_004d8edc[8];
-/* 0x004d8ee4, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ee4") unsigned char DAT_004d8ee4[12];
-/* 0x004d8ef0, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ef0") unsigned char DAT_004d8ef0[12];
-/* 0x004d8efc, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8efc") unsigned char DAT_004d8efc[12];
-/* 0x004d8f08, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f08") unsigned char DAT_004d8f08[12];
-/* 0x004d8f14, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f14") unsigned char DAT_004d8f14[8];
-/* 0x004d8f1c, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f1c") unsigned char DAT_004d8f1c[24];
-/* 0x004d8f34, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f34") unsigned char DAT_004d8f34[12];
-/* 0x004d8f40, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f40") unsigned char DAT_004d8f40[8];
-/* 0x004d8f48, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f48") unsigned char DAT_004d8f48[8];
-/* 0x004d8f50, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f50") unsigned char DAT_004d8f50[8];
-/* 0x004d8f58, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f58") unsigned char DAT_004d8f58[8];
-/* 0x004d8f60, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f60") unsigned char DAT_004d8f60[8];
-/* 0x004d8f68, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f68") unsigned char DAT_004d8f68[8];
-/* 0x004d8f70, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f70") unsigned char DAT_004d8f70[8];
-/* 0x004d8f78, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f78") unsigned char DAT_004d8f78[8];
-/* 0x004d8f80, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f80") unsigned char DAT_004d8f80[8];
-/* 0x004d8f88, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f88") unsigned char DAT_004d8f88[8];
-/* 0x004d8f90, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f90") unsigned char DAT_004d8f90[12];
-/* 0x004d8f9c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f9c") unsigned char DAT_004d8f9c[8];
-/* 0x004d8fa4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fa4") unsigned char DAT_004d8fa4[8];
-/* 0x004d8fac, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fac") unsigned char DAT_004d8fac[8];
-/* 0x004d8fb4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fb4") unsigned char DAT_004d8fb4[8];
-/* 0x004d8fbc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fbc") unsigned char DAT_004d8fbc[8];
-/* 0x004d8fc4, 28 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fc4") unsigned char DAT_004d8fc4[28];
-/* 0x004d8fe0, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fe0") unsigned char DAT_004d8fe0[16];
-/* 0x004d8ff0, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ff0") unsigned char DAT_004d8ff0[16];
-/* 0x004d9000, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9000") unsigned char DAT_004d9000[20];
-/* 0x004d9014, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9014") unsigned char DAT_004d9014[12];
-/* 0x004d9020, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9020") unsigned char DAT_004d9020[16];
-/* 0x004d9030, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9030") unsigned char DAT_004d9030[12];
-/* 0x004d903c, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d903c") unsigned char DAT_004d903c[16];
-/* 0x004d904c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d904c") unsigned char DAT_004d904c[8];
-/* 0x004d9054, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9054") unsigned char DAT_004d9054[12];
-/* 0x004d9060, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9060") unsigned char DAT_004d9060[12];
-/* 0x004d906c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d906c") unsigned char DAT_004d906c[12];
-/* 0x004d9078, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9078") unsigned char DAT_004d9078[4];
-/* 0x004d907c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d907c") unsigned char DAT_004d907c[12];
-/* 0x004d9088, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9088") unsigned char DAT_004d9088[12];
-/* 0x004d9094, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9094") unsigned char DAT_004d9094[8];
-/* 0x004d909c, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d909c") unsigned char DAT_004d909c[16];
-/* 0x004d90ac, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90ac") unsigned char DAT_004d90ac[8];
-/* 0x004d90b4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90b4") unsigned char DAT_004d90b4[8];
-/* 0x004d90bc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90bc") unsigned char DAT_004d90bc[8];
-/* 0x004d90c4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90c4") unsigned char DAT_004d90c4[8];
-/* 0x004d90cc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90cc") unsigned char DAT_004d90cc[8];
-/* 0x004d90d4, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90d4") unsigned char DAT_004d90d4[4];
-/* 0x004d90d8, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90d8") unsigned char DAT_004d90d8[4];
-/* 0x004d90dc, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90dc") unsigned char DAT_004d90dc[4];
-/* 0x004d90e0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90e0") unsigned char DAT_004d90e0[8];
-/* 0x004d90e8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90e8") unsigned char DAT_004d90e8[16];
-/* 0x004d90f8, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90f8") unsigned char DAT_004d90f8[20];
-/* 0x004d910c, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d910c") unsigned char DAT_004d910c[16];
-/* 0x004d911c, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d911c") unsigned char DAT_004d911c[20];
-/* 0x004d9130, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9130") unsigned char DAT_004d9130[16];
-/* 0x004d9140, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9140") unsigned char DAT_004d9140[20];
-/* 0x004d9154, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9154") unsigned char DAT_004d9154[16];
-/* 0x004d9164, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9164") unsigned char DAT_004d9164[20];
-/* 0x004d9178, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9178") unsigned char DAT_004d9178[16];
-/* 0x004d9188, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9188") unsigned char DAT_004d9188[16];
-/* 0x004d9198, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9198") unsigned char DAT_004d9198[20];
-/* 0x004d91ac, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d91ac") unsigned char DAT_004d91ac[20];
-/* 0x004d91c0, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d91c0") unsigned char DAT_004d91c0[20];
-/* 0x004d91d4, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d91d4") unsigned char DAT_004d91d4[16];
-/* 0x004d91e4, 28 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d91e4") unsigned char DAT_004d91e4[28];
-/* 0x004d9200, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9200") unsigned char DAT_004d9200[20];
-/* 0x004d9214, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9214") unsigned char DAT_004d9214[20];
-/* 0x004d9228, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9228") unsigned char DAT_004d9228[16];
-/* 0x004d9238, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9238") unsigned char DAT_004d9238[16];
-/* 0x004d9248, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9248") unsigned char DAT_004d9248[20];
-/* 0x004d925c, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d925c") unsigned char DAT_004d925c[24];
-/* 0x004d9274, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9274") unsigned char DAT_004d9274[20];
-/* 0x004d9288, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9288") unsigned char DAT_004d9288[20];
-/* 0x004d929c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d929c") unsigned char DAT_004d929c[12];
-/* 0x004d92a8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92a8") unsigned char DAT_004d92a8[16];
-/* 0x004d92b8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92b8") unsigned char DAT_004d92b8[16];
-/* 0x004d92c8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92c8") unsigned char DAT_004d92c8[16];
-/* 0x004d92d8, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92d8") unsigned char DAT_004d92d8[20];
-/* 0x004d92ec, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92ec") unsigned char DAT_004d92ec[20];
-/* 0x004d9300, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9300") unsigned char DAT_004d9300[16];
-/* 0x004d9310, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9310") unsigned char DAT_004d9310[16];
-/* 0x004d9320, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9320") unsigned char DAT_004d9320[20];
-/* 0x004d9334, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9334") unsigned char DAT_004d9334[16];
-/* 0x004d9344, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9344") unsigned char DAT_004d9344[16];
-/* 0x004d9354, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9354") unsigned char DAT_004d9354[12];
-/* 0x004d9360, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9360") unsigned char DAT_004d9360[12];
-/* 0x004d936c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d936c") unsigned char DAT_004d936c[12];
-/* 0x004d9378, 28 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9378") unsigned char DAT_004d9378[28];
-/* 0x004d9394, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9394") unsigned char DAT_004d9394[24];
-/* 0x004d93ac, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93ac") unsigned char DAT_004d93ac[12];
-/* 0x004d93b8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93b8") unsigned char DAT_004d93b8[16];
-/* 0x004d93c8, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93c8") unsigned char DAT_004d93c8[12];
-/* 0x004d93d4, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93d4") unsigned char DAT_004d93d4[20];
-/* 0x004d93e8, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93e8") unsigned char DAT_004d93e8[12];
-/* 0x004d93f4, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93f4") unsigned char DAT_004d93f4[16];
-/* 0x004d9404, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9404") unsigned char DAT_004d9404[12];
-/* 0x004d9410, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9410") unsigned char DAT_004d9410[20];
-/* 0x004d9424, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9424") unsigned char DAT_004d9424[16];
-/* 0x004d9434, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9434") unsigned char DAT_004d9434[20];
-/* 0x004d9448, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9448") unsigned char DAT_004d9448[20];
-/* 0x004d945c, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d945c") unsigned char DAT_004d945c[20];
-/* 0x004d9470, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9470") unsigned char DAT_004d9470[20];
-/* 0x004d9484, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9484") unsigned char DAT_004d9484[8];
-/* 0x004d948c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d948c") unsigned char DAT_004d948c[4];
-/* 0x004d9490, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9490") unsigned char DAT_004d9490[4];
-/* 0x004d9494, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9494") unsigned char DAT_004d9494[12];
-/* 0x004d94a0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94a0") unsigned char DAT_004d94a0[8];
-/* 0x004d94a8, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94a8") unsigned char DAT_004d94a8[12];
-/* 0x004d94b4, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94b4") unsigned char DAT_004d94b4[20];
-/* 0x004d94c8, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94c8") unsigned char DAT_004d94c8[20];
-/* 0x004d94dc, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94dc") unsigned char DAT_004d94dc[12];
-/* 0x004d94e8, 20 bytes */ GRIM_DATA("004d94e8") char s_GetLastActivePopup_004d94e8[20] = "GetLastActivePopup";
-/* 0x004d94fc, 16 bytes */ GRIM_DATA("004d94fc") char s_GetActiveWindow_004d94fc[16] = "GetActiveWindow";
-/* 0x004d950c, 12 bytes */ GRIM_DATA("004d950c") char s_MessageBoxA_004d950c[12] = "MessageBoxA";
-/* 0x004d9518, 112 bytes */ GRIM_DATA("004d9518") unsigned char DAT_004d9518[112] = {
+/* 0x004d8e50, 24 bytes, unused (dead) */ GRIM_DATA("004d8e50") unsigned char DAT_004d8e50[24] __asm__("_DAT_004d8e50");
+/* 0x004d8e68, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e68") unsigned char DAT_004d8e68[12] __asm__("_DAT_004d8e68");
+/* 0x004d8e74, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e74") unsigned char DAT_004d8e74[8] __asm__("_DAT_004d8e74");
+/* 0x004d8e7c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e7c") unsigned char DAT_004d8e7c[8] __asm__("_DAT_004d8e7c");
+/* 0x004d8e84, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e84") unsigned char DAT_004d8e84[8] __asm__("_DAT_004d8e84");
+/* 0x004d8e8c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e8c") unsigned char DAT_004d8e8c[12] __asm__("_DAT_004d8e8c");
+/* 0x004d8e98, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8e98") unsigned char DAT_004d8e98[8] __asm__("_DAT_004d8e98");
+/* 0x004d8ea0, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ea0") unsigned char DAT_004d8ea0[12] __asm__("_DAT_004d8ea0");
+/* 0x004d8eac, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8eac") unsigned char DAT_004d8eac[12] __asm__("_DAT_004d8eac");
+/* 0x004d8eb8, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8eb8") unsigned char DAT_004d8eb8[20] __asm__("_DAT_004d8eb8");
+/* 0x004d8ecc, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ecc") unsigned char DAT_004d8ecc[16] __asm__("_DAT_004d8ecc");
+/* 0x004d8edc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8edc") unsigned char DAT_004d8edc[8] __asm__("_DAT_004d8edc");
+/* 0x004d8ee4, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ee4") unsigned char DAT_004d8ee4[12] __asm__("_DAT_004d8ee4");
+/* 0x004d8ef0, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ef0") unsigned char DAT_004d8ef0[12] __asm__("_DAT_004d8ef0");
+/* 0x004d8efc, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8efc") unsigned char DAT_004d8efc[12] __asm__("_DAT_004d8efc");
+/* 0x004d8f08, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f08") unsigned char DAT_004d8f08[12] __asm__("_DAT_004d8f08");
+/* 0x004d8f14, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f14") unsigned char DAT_004d8f14[8] __asm__("_DAT_004d8f14");
+/* 0x004d8f1c, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f1c") unsigned char DAT_004d8f1c[24] __asm__("_DAT_004d8f1c");
+/* 0x004d8f34, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f34") unsigned char DAT_004d8f34[12] __asm__("_DAT_004d8f34");
+/* 0x004d8f40, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f40") unsigned char DAT_004d8f40[8] __asm__("_DAT_004d8f40");
+/* 0x004d8f48, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f48") unsigned char DAT_004d8f48[8] __asm__("_DAT_004d8f48");
+/* 0x004d8f50, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f50") unsigned char DAT_004d8f50[8] __asm__("_DAT_004d8f50");
+/* 0x004d8f58, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f58") unsigned char DAT_004d8f58[8] __asm__("_DAT_004d8f58");
+/* 0x004d8f60, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f60") unsigned char DAT_004d8f60[8] __asm__("_DAT_004d8f60");
+/* 0x004d8f68, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f68") unsigned char DAT_004d8f68[8] __asm__("_DAT_004d8f68");
+/* 0x004d8f70, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f70") unsigned char DAT_004d8f70[8] __asm__("_DAT_004d8f70");
+/* 0x004d8f78, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f78") unsigned char DAT_004d8f78[8] __asm__("_DAT_004d8f78");
+/* 0x004d8f80, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f80") unsigned char DAT_004d8f80[8] __asm__("_DAT_004d8f80");
+/* 0x004d8f88, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f88") unsigned char DAT_004d8f88[8] __asm__("_DAT_004d8f88");
+/* 0x004d8f90, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f90") unsigned char DAT_004d8f90[12] __asm__("_DAT_004d8f90");
+/* 0x004d8f9c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8f9c") unsigned char DAT_004d8f9c[8] __asm__("_DAT_004d8f9c");
+/* 0x004d8fa4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fa4") unsigned char DAT_004d8fa4[8] __asm__("_DAT_004d8fa4");
+/* 0x004d8fac, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fac") unsigned char DAT_004d8fac[8] __asm__("_DAT_004d8fac");
+/* 0x004d8fb4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fb4") unsigned char DAT_004d8fb4[8] __asm__("_DAT_004d8fb4");
+/* 0x004d8fbc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fbc") unsigned char DAT_004d8fbc[8] __asm__("_DAT_004d8fbc");
+/* 0x004d8fc4, 28 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fc4") unsigned char DAT_004d8fc4[28] __asm__("_DAT_004d8fc4");
+/* 0x004d8fe0, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8fe0") unsigned char DAT_004d8fe0[16] __asm__("_DAT_004d8fe0");
+/* 0x004d8ff0, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d8ff0") unsigned char DAT_004d8ff0[16] __asm__("_DAT_004d8ff0");
+/* 0x004d9000, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9000") unsigned char DAT_004d9000[20] __asm__("_DAT_004d9000");
+/* 0x004d9014, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9014") unsigned char DAT_004d9014[12] __asm__("_DAT_004d9014");
+/* 0x004d9020, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9020") unsigned char DAT_004d9020[16] __asm__("_DAT_004d9020");
+/* 0x004d9030, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9030") unsigned char DAT_004d9030[12] __asm__("_DAT_004d9030");
+/* 0x004d903c, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d903c") unsigned char DAT_004d903c[16] __asm__("_DAT_004d903c");
+/* 0x004d904c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d904c") unsigned char DAT_004d904c[8] __asm__("_DAT_004d904c");
+/* 0x004d9054, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9054") unsigned char DAT_004d9054[12] __asm__("_DAT_004d9054");
+/* 0x004d9060, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9060") unsigned char DAT_004d9060[12] __asm__("_DAT_004d9060");
+/* 0x004d906c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d906c") unsigned char DAT_004d906c[12] __asm__("_DAT_004d906c");
+/* 0x004d9078, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9078") unsigned char DAT_004d9078[4] __asm__("_DAT_004d9078");
+/* 0x004d907c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d907c") unsigned char DAT_004d907c[12] __asm__("_DAT_004d907c");
+/* 0x004d9088, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9088") unsigned char DAT_004d9088[12] __asm__("_DAT_004d9088");
+/* 0x004d9094, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9094") unsigned char DAT_004d9094[8] __asm__("_DAT_004d9094");
+/* 0x004d909c, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d909c") unsigned char DAT_004d909c[16] __asm__("_DAT_004d909c");
+/* 0x004d90ac, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90ac") unsigned char DAT_004d90ac[8] __asm__("_DAT_004d90ac");
+/* 0x004d90b4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90b4") unsigned char DAT_004d90b4[8] __asm__("_DAT_004d90b4");
+/* 0x004d90bc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90bc") unsigned char DAT_004d90bc[8] __asm__("_DAT_004d90bc");
+/* 0x004d90c4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90c4") unsigned char DAT_004d90c4[8] __asm__("_DAT_004d90c4");
+/* 0x004d90cc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90cc") unsigned char DAT_004d90cc[8] __asm__("_DAT_004d90cc");
+/* 0x004d90d4, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90d4") unsigned char DAT_004d90d4[4] __asm__("_DAT_004d90d4");
+/* 0x004d90d8, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90d8") unsigned char DAT_004d90d8[4] __asm__("_DAT_004d90d8");
+/* 0x004d90dc, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90dc") unsigned char DAT_004d90dc[4] __asm__("_DAT_004d90dc");
+/* 0x004d90e0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90e0") unsigned char DAT_004d90e0[8] __asm__("_DAT_004d90e0");
+/* 0x004d90e8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90e8") unsigned char DAT_004d90e8[16] __asm__("_DAT_004d90e8");
+/* 0x004d90f8, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d90f8") unsigned char DAT_004d90f8[20] __asm__("_DAT_004d90f8");
+/* 0x004d910c, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d910c") unsigned char DAT_004d910c[16] __asm__("_DAT_004d910c");
+/* 0x004d911c, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d911c") unsigned char DAT_004d911c[20] __asm__("_DAT_004d911c");
+/* 0x004d9130, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9130") unsigned char DAT_004d9130[16] __asm__("_DAT_004d9130");
+/* 0x004d9140, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9140") unsigned char DAT_004d9140[20] __asm__("_DAT_004d9140");
+/* 0x004d9154, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9154") unsigned char DAT_004d9154[16] __asm__("_DAT_004d9154");
+/* 0x004d9164, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9164") unsigned char DAT_004d9164[20] __asm__("_DAT_004d9164");
+/* 0x004d9178, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9178") unsigned char DAT_004d9178[16] __asm__("_DAT_004d9178");
+/* 0x004d9188, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9188") unsigned char DAT_004d9188[16] __asm__("_DAT_004d9188");
+/* 0x004d9198, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9198") unsigned char DAT_004d9198[20] __asm__("_DAT_004d9198");
+/* 0x004d91ac, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d91ac") unsigned char DAT_004d91ac[20] __asm__("_DAT_004d91ac");
+/* 0x004d91c0, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d91c0") unsigned char DAT_004d91c0[20] __asm__("_DAT_004d91c0");
+/* 0x004d91d4, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d91d4") unsigned char DAT_004d91d4[16] __asm__("_DAT_004d91d4");
+/* 0x004d91e4, 28 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d91e4") unsigned char DAT_004d91e4[28] __asm__("_DAT_004d91e4");
+/* 0x004d9200, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9200") unsigned char DAT_004d9200[20] __asm__("_DAT_004d9200");
+/* 0x004d9214, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9214") unsigned char DAT_004d9214[20] __asm__("_DAT_004d9214");
+/* 0x004d9228, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9228") unsigned char DAT_004d9228[16] __asm__("_DAT_004d9228");
+/* 0x004d9238, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9238") unsigned char DAT_004d9238[16] __asm__("_DAT_004d9238");
+/* 0x004d9248, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9248") unsigned char DAT_004d9248[20] __asm__("_DAT_004d9248");
+/* 0x004d925c, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d925c") unsigned char DAT_004d925c[24] __asm__("_DAT_004d925c");
+/* 0x004d9274, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9274") unsigned char DAT_004d9274[20] __asm__("_DAT_004d9274");
+/* 0x004d9288, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9288") unsigned char DAT_004d9288[20] __asm__("_DAT_004d9288");
+/* 0x004d929c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d929c") unsigned char DAT_004d929c[12] __asm__("_DAT_004d929c");
+/* 0x004d92a8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92a8") unsigned char DAT_004d92a8[16] __asm__("_DAT_004d92a8");
+/* 0x004d92b8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92b8") unsigned char DAT_004d92b8[16] __asm__("_DAT_004d92b8");
+/* 0x004d92c8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92c8") unsigned char DAT_004d92c8[16] __asm__("_DAT_004d92c8");
+/* 0x004d92d8, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92d8") unsigned char DAT_004d92d8[20] __asm__("_DAT_004d92d8");
+/* 0x004d92ec, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d92ec") unsigned char DAT_004d92ec[20] __asm__("_DAT_004d92ec");
+/* 0x004d9300, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9300") unsigned char DAT_004d9300[16] __asm__("_DAT_004d9300");
+/* 0x004d9310, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9310") unsigned char DAT_004d9310[16] __asm__("_DAT_004d9310");
+/* 0x004d9320, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9320") unsigned char DAT_004d9320[20] __asm__("_DAT_004d9320");
+/* 0x004d9334, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9334") unsigned char DAT_004d9334[16] __asm__("_DAT_004d9334");
+/* 0x004d9344, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9344") unsigned char DAT_004d9344[16] __asm__("_DAT_004d9344");
+/* 0x004d9354, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9354") unsigned char DAT_004d9354[12] __asm__("_DAT_004d9354");
+/* 0x004d9360, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9360") unsigned char DAT_004d9360[12] __asm__("_DAT_004d9360");
+/* 0x004d936c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d936c") unsigned char DAT_004d936c[12] __asm__("_DAT_004d936c");
+/* 0x004d9378, 28 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9378") unsigned char DAT_004d9378[28] __asm__("_DAT_004d9378");
+/* 0x004d9394, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9394") unsigned char DAT_004d9394[24] __asm__("_DAT_004d9394");
+/* 0x004d93ac, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93ac") unsigned char DAT_004d93ac[12] __asm__("_DAT_004d93ac");
+/* 0x004d93b8, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93b8") unsigned char DAT_004d93b8[16] __asm__("_DAT_004d93b8");
+/* 0x004d93c8, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93c8") unsigned char DAT_004d93c8[12] __asm__("_DAT_004d93c8");
+/* 0x004d93d4, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93d4") unsigned char DAT_004d93d4[20] __asm__("_DAT_004d93d4");
+/* 0x004d93e8, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93e8") unsigned char DAT_004d93e8[12] __asm__("_DAT_004d93e8");
+/* 0x004d93f4, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d93f4") unsigned char DAT_004d93f4[16] __asm__("_DAT_004d93f4");
+/* 0x004d9404, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9404") unsigned char DAT_004d9404[12] __asm__("_DAT_004d9404");
+/* 0x004d9410, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9410") unsigned char DAT_004d9410[20] __asm__("_DAT_004d9410");
+/* 0x004d9424, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9424") unsigned char DAT_004d9424[16] __asm__("_DAT_004d9424");
+/* 0x004d9434, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9434") unsigned char DAT_004d9434[20] __asm__("_DAT_004d9434");
+/* 0x004d9448, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9448") unsigned char DAT_004d9448[20] __asm__("_DAT_004d9448");
+/* 0x004d945c, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d945c") unsigned char DAT_004d945c[20] __asm__("_DAT_004d945c");
+/* 0x004d9470, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9470") unsigned char DAT_004d9470[20] __asm__("_DAT_004d9470");
+/* 0x004d9484, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9484") unsigned char DAT_004d9484[8] __asm__("_DAT_004d9484");
+/* 0x004d948c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d948c") unsigned char DAT_004d948c[4] __asm__("_DAT_004d948c");
+/* 0x004d9490, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9490") unsigned char DAT_004d9490[4] __asm__("_DAT_004d9490");
+/* 0x004d9494, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9494") unsigned char DAT_004d9494[12] __asm__("_DAT_004d9494");
+/* 0x004d94a0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94a0") unsigned char DAT_004d94a0[8] __asm__("_DAT_004d94a0");
+/* 0x004d94a8, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94a8") unsigned char DAT_004d94a8[12] __asm__("_DAT_004d94a8");
+/* 0x004d94b4, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94b4") unsigned char DAT_004d94b4[20] __asm__("_DAT_004d94b4");
+/* 0x004d94c8, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94c8") unsigned char DAT_004d94c8[20] __asm__("_DAT_004d94c8");
+/* 0x004d94dc, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d94dc") unsigned char DAT_004d94dc[12] __asm__("_DAT_004d94dc");
+/* 0x004d94e8, 20 bytes */ GRIM_DATA("004d94e8") char s_GetLastActivePopup_004d94e8[20] __asm__("_s_GetLastActivePopup_004d94e8") = "GetLastActivePopup";
+/* 0x004d94fc, 16 bytes */ GRIM_DATA("004d94fc") char s_GetActiveWindow_004d94fc[16] __asm__("_s_GetActiveWindow_004d94fc") = "GetActiveWindow";
+/* 0x004d950c, 12 bytes */ GRIM_DATA("004d950c") char s_MessageBoxA_004d950c[12] __asm__("_s_MessageBoxA_004d950c") = "MessageBoxA";
+/* 0x004d9518, 112 bytes */ GRIM_DATA("004d9518") unsigned char DAT_004d9518[112] __asm__("_DAT_004d9518") = {
     0x75, 0x73, 0x65, 0x72, 0x33, 0x32, 0x2e, 0x64, 0x6c, 0x6c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x53, 0x75, 0x6e, 0x4d, 0x6f, 0x6e, 0x54, 0x75, 0x65, 0x57, 0x65, 0x64, 0x54, 0x68, 0x75, 0x46,
     0x72, 0x69, 0x53, 0x61, 0x74, 0x00, 0x00, 0x00, 0x4a, 0x61, 0x6e, 0x46, 0x65, 0x62, 0x4d, 0x61,
@@ -5149,113 +2625,113 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     0x54, 0x5a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xbf
 };
-/* 0x004d9588, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9588") unsigned char DAT_004d9588[8];
-/* 0x004d9590, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9590") unsigned char DAT_004d9590[20];
-/* 0x004d95a4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95a4") unsigned char DAT_004d95a4[8];
-/* 0x004d95ac, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95ac") unsigned char DAT_004d95ac[4];
-/* 0x004d95b0, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95b0") unsigned char DAT_004d95b0[4];
-/* 0x004d95b4, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95b4") unsigned char DAT_004d95b4[12];
-/* 0x004d95c0, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95c0") unsigned char DAT_004d95c0[12];
-/* 0x004d95cc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95cc") unsigned char DAT_004d95cc[8];
-/* 0x004d95d4, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95d4") unsigned char DAT_004d95d4[12];
-/* 0x004d95e0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95e0") unsigned char DAT_004d95e0[8];
-/* 0x004d95e8, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95e8") unsigned char DAT_004d95e8[8];
-/* 0x004d95f0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95f0") unsigned char DAT_004d95f0[8];
-/* 0x004d95f8, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95f8") unsigned char DAT_004d95f8[8];
-/* 0x004d9600, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9600") unsigned char DAT_004d9600[8];
-/* 0x004d9608, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9608") unsigned char DAT_004d9608[12];
-/* 0x004d9614, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9614") unsigned char DAT_004d9614[8];
-/* 0x004d961c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d961c") unsigned char DAT_004d961c[4];
-/* 0x004d9620, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9620") unsigned char DAT_004d9620[4];
-/* 0x004d9624, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9624") unsigned char DAT_004d9624[4];
-/* 0x004d9628, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9628") unsigned char DAT_004d9628[4];
-/* 0x004d962c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d962c") unsigned char DAT_004d962c[4];
-/* 0x004d9630, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9630") unsigned char DAT_004d9630[4];
-/* 0x004d9634, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9634") unsigned char DAT_004d9634[4];
-/* 0x004d9638, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9638") unsigned char DAT_004d9638[4];
-/* 0x004d963c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d963c") unsigned char DAT_004d963c[4];
-/* 0x004d9640, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9640") unsigned char DAT_004d9640[4];
-/* 0x004d9644, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9644") unsigned char DAT_004d9644[4];
-/* 0x004d9648, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9648") unsigned char DAT_004d9648[4];
-/* 0x004d964c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d964c") unsigned char DAT_004d964c[12];
-/* 0x004d9658, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9658") unsigned char DAT_004d9658[8];
-/* 0x004d9660, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9660") unsigned char DAT_004d9660[12];
-/* 0x004d966c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d966c") unsigned char DAT_004d966c[12];
-/* 0x004d9678, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9678") unsigned char DAT_004d9678[8];
-/* 0x004d9680, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9680") unsigned char DAT_004d9680[8];
-/* 0x004d9688, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9688") unsigned char DAT_004d9688[8];
-/* 0x004d9690, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9690") unsigned char DAT_004d9690[4];
-/* 0x004d9694, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9694") unsigned char DAT_004d9694[4];
-/* 0x004d9698, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9698") unsigned char DAT_004d9698[4];
-/* 0x004d969c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d969c") unsigned char DAT_004d969c[4];
-/* 0x004d96a0, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d96a0") unsigned char DAT_004d96a0[4];
-/* 0x004d96a4, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d96a4") unsigned char DAT_004d96a4[4];
-/* 0x004d96a8, 36 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d96a8") unsigned char DAT_004d96a8[36];
-/* 0x004d96cc, 4 bytes */ GRIM_DATA("004d96cc") unsigned char DAT_004d96cc[4] = { 0x5f, 0x79, 0x6e };
-/* 0x004d96d0, 4 bytes */ GRIM_DATA("004d96d0") unsigned char DAT_004d96d0[4] = { 0x5f, 0x79, 0x31 };
-/* 0x004d96d4, 4 bytes */ GRIM_DATA("004d96d4") unsigned char DAT_004d96d4[4] = { 0x5f, 0x79, 0x30 };
-/* 0x004d96d8, 8 bytes */ GRIM_DATA("004d96d8") unsigned char DAT_004d96d8[8] = { 0x66, 0x72, 0x65, 0x78, 0x70 };
-/* 0x004d96e0, 8 bytes */ GRIM_DATA("004d96e0") unsigned char DAT_004d96e0[8] = { 0x66, 0x6d, 0x6f, 0x64 };
-/* 0x004d96e8, 8 bytes */ GRIM_DATA("004d96e8") unsigned char DAT_004d96e8[8] = { 0x5f, 0x68, 0x79, 0x70, 0x6f, 0x74 };
-/* 0x004d96f0, 8 bytes */ GRIM_DATA("004d96f0") unsigned char DAT_004d96f0[8] = { 0x5f, 0x63, 0x61, 0x62, 0x73 };
-/* 0x004d96f8, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d96f8") unsigned char DAT_004d96f8[8];
-/* 0x004d9700, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9700") unsigned char DAT_004d9700[8];
-/* 0x004d9708, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9708") unsigned char DAT_004d9708[8];
-/* 0x004d9710, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9710") unsigned char DAT_004d9710[8];
-/* 0x004d9718, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9718") unsigned char DAT_004d9718[8];
-/* 0x004d9720, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9720") unsigned char DAT_004d9720[4];
-/* 0x004d9724, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9724") unsigned char DAT_004d9724[4];
-/* 0x004d9728, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9728") unsigned char DAT_004d9728[4];
-/* 0x004d972c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d972c") unsigned char DAT_004d972c[8];
-/* 0x004d9734, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9734") unsigned char DAT_004d9734[8];
-/* 0x004d973c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d973c") unsigned char DAT_004d973c[8];
-/* 0x004d9744, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9744") unsigned char DAT_004d9744[8];
-/* 0x004d974c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d974c") unsigned char DAT_004d974c[8];
-/* 0x004d9754, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9754") unsigned char DAT_004d9754[8];
-/* 0x004d975c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d975c") unsigned char DAT_004d975c[8];
-/* 0x004d9764, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9764") unsigned char DAT_004d9764[8];
-/* 0x004d976c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d976c") unsigned char DAT_004d976c[8];
-/* 0x004d9774, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9774") unsigned char DAT_004d9774[4];
-/* 0x004d9778, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9778") unsigned char DAT_004d9778[4];
-/* 0x004d977c, 180 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d977c") unsigned char DAT_004d977c[180];
-/* 0x004d9830, 2 bytes, unused (zlib) */ GRIM_DATA("004d9830") unsigned char DAT_004d9830[2];
-/* 0x004d9832, 2 bytes, unused (zlib) */ GRIM_DATA("004d9830") unsigned char DAT_004d9832[2];
-/* 0x004d9834, 2 bytes, unused (zlib) */ GRIM_DATA("004d9834") unsigned char DAT_004d9834[2];
-/* 0x004d9836, 2 bytes, unused (zlib) */ GRIM_DATA("004d9834") unsigned char DAT_004d9836[2];
-/* 0x004d9838, 112 bytes, unused (zlib) */ GRIM_DATA("004d9838") unsigned char g_aConfiguration_table[112];
-/* 0x004d98a8, 1024 bytes, unused (zlib) */ GRIM_DATA("004d98a8") unsigned char g_aCrc_table[1024];
-/* 0x004d9ca8, 80 bytes, unused (zlib) */ GRIM_DATA("004d9ca8") unsigned char DAT_004d9ca8[80];
-/* 0x004d9cf8, 120 bytes, unused (zlib) */ GRIM_DATA("004d9cf8") unsigned char DAT_004d9cf8[120];
-/* 0x004d9d70, 120 bytes, unused (zlib) */ GRIM_DATA("004d9d70") unsigned char DAT_004d9d70[120];
-/* 0x004d9de8, 80 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9de8") unsigned char DAT_004d9de8[80];
-/* 0x004d9e38, 24 bytes, unused (zlib) */ GRIM_DATA("004d9e38") unsigned char DAT_004d9e38[24];
-/* 0x004d9e50, 1152 bytes, unused (zlib) */ GRIM_DATA("004d9e50") unsigned char g_awZlibStaticLtree[1152];
-/* 0x004da2d0, 119 bytes, unused (zlib) */ GRIM_DATA("004da2d0") unsigned char DAT_004da2d0[119];
-/* 0x004da347, 1 bytes, unused (zlib) */ GRIM_DATA("004da2d0") unsigned char DAT_004da347[1];
-/* 0x004da348, 256 bytes, unused (zlib) */ GRIM_DATA("004da348") unsigned char DAT_004da348[256];
-/* 0x004da448, 256 bytes, unused (zlib) */ GRIM_DATA("004da448") unsigned char DAT_004da448[256];
-/* 0x004da548, 256 bytes, unused (zlib) */ GRIM_DATA("004da548") unsigned char DAT_004da548[256];
-/* 0x004da648, 120 bytes, unused (zlib) */ GRIM_DATA("004da648") unsigned char DAT_004da648[120];
-/* 0x004da6c0, 168 bytes, unused (zlib) */ GRIM_DATA("004da6c0") unsigned char DAT_004da6c0[168];
-/* 0x004da768, 128 bytes, unused (zlib) */ GRIM_DATA("004da768") unsigned char DAT_004da768[128];
-/* 0x004da7e8, 128 bytes, unused (zlib) */ GRIM_DATA("004da7e8") unsigned char DAT_004da7e8[128];
-/* 0x004da868, 120 bytes, unused (zlib) */ GRIM_DATA("004da868") unsigned char DAT_004da868[120];
-/* 0x004da8e0, 120 bytes, unused (zlib) */ GRIM_DATA("004da8e0") unsigned char DAT_004da8e0[120];
-/* 0x004da958, 8 bytes */ GRIM_DATA("004da958") signed char g_abAdpcmIndexAdjust2[4] = { -1, 4, -1, 4 };
+/* 0x004d9588, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9588") unsigned char DAT_004d9588[8] __asm__("_DAT_004d9588");
+/* 0x004d9590, 20 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9590") unsigned char DAT_004d9590[20] __asm__("_DAT_004d9590");
+/* 0x004d95a4, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95a4") unsigned char DAT_004d95a4[8] __asm__("_DAT_004d95a4");
+/* 0x004d95ac, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95ac") unsigned char DAT_004d95ac[4] __asm__("_DAT_004d95ac");
+/* 0x004d95b0, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95b0") unsigned char DAT_004d95b0[4] __asm__("_DAT_004d95b0");
+/* 0x004d95b4, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95b4") unsigned char DAT_004d95b4[12] __asm__("_DAT_004d95b4");
+/* 0x004d95c0, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95c0") unsigned char DAT_004d95c0[12] __asm__("_DAT_004d95c0");
+/* 0x004d95cc, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95cc") unsigned char DAT_004d95cc[8] __asm__("_DAT_004d95cc");
+/* 0x004d95d4, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95d4") unsigned char DAT_004d95d4[12] __asm__("_DAT_004d95d4");
+/* 0x004d95e0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95e0") unsigned char DAT_004d95e0[8] __asm__("_DAT_004d95e0");
+/* 0x004d95e8, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95e8") unsigned char DAT_004d95e8[8] __asm__("_DAT_004d95e8");
+/* 0x004d95f0, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95f0") unsigned char DAT_004d95f0[8] __asm__("_DAT_004d95f0");
+/* 0x004d95f8, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d95f8") unsigned char DAT_004d95f8[8] __asm__("_DAT_004d95f8");
+/* 0x004d9600, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9600") unsigned char DAT_004d9600[8] __asm__("_DAT_004d9600");
+/* 0x004d9608, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9608") unsigned char DAT_004d9608[12] __asm__("_DAT_004d9608");
+/* 0x004d9614, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9614") unsigned char DAT_004d9614[8] __asm__("_DAT_004d9614");
+/* 0x004d961c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d961c") unsigned char DAT_004d961c[4] __asm__("_DAT_004d961c");
+/* 0x004d9620, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9620") unsigned char DAT_004d9620[4] __asm__("_DAT_004d9620");
+/* 0x004d9624, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9624") unsigned char DAT_004d9624[4] __asm__("_DAT_004d9624");
+/* 0x004d9628, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9628") unsigned char DAT_004d9628[4] __asm__("_DAT_004d9628");
+/* 0x004d962c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d962c") unsigned char DAT_004d962c[4] __asm__("_DAT_004d962c");
+/* 0x004d9630, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9630") unsigned char DAT_004d9630[4] __asm__("_DAT_004d9630");
+/* 0x004d9634, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9634") unsigned char DAT_004d9634[4] __asm__("_DAT_004d9634");
+/* 0x004d9638, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9638") unsigned char DAT_004d9638[4] __asm__("_DAT_004d9638");
+/* 0x004d963c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d963c") unsigned char DAT_004d963c[4] __asm__("_DAT_004d963c");
+/* 0x004d9640, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9640") unsigned char DAT_004d9640[4] __asm__("_DAT_004d9640");
+/* 0x004d9644, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9644") unsigned char DAT_004d9644[4] __asm__("_DAT_004d9644");
+/* 0x004d9648, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9648") unsigned char DAT_004d9648[4] __asm__("_DAT_004d9648");
+/* 0x004d964c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d964c") unsigned char DAT_004d964c[12] __asm__("_DAT_004d964c");
+/* 0x004d9658, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9658") unsigned char DAT_004d9658[8] __asm__("_DAT_004d9658");
+/* 0x004d9660, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9660") unsigned char DAT_004d9660[12] __asm__("_DAT_004d9660");
+/* 0x004d966c, 12 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d966c") unsigned char DAT_004d966c[12] __asm__("_DAT_004d966c");
+/* 0x004d9678, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9678") unsigned char DAT_004d9678[8] __asm__("_DAT_004d9678");
+/* 0x004d9680, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9680") unsigned char DAT_004d9680[8] __asm__("_DAT_004d9680");
+/* 0x004d9688, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9688") unsigned char DAT_004d9688[8] __asm__("_DAT_004d9688");
+/* 0x004d9690, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9690") unsigned char DAT_004d9690[4] __asm__("_DAT_004d9690");
+/* 0x004d9694, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9694") unsigned char DAT_004d9694[4] __asm__("_DAT_004d9694");
+/* 0x004d9698, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9698") unsigned char DAT_004d9698[4] __asm__("_DAT_004d9698");
+/* 0x004d969c, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d969c") unsigned char DAT_004d969c[4] __asm__("_DAT_004d969c");
+/* 0x004d96a0, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d96a0") unsigned char DAT_004d96a0[4] __asm__("_DAT_004d96a0");
+/* 0x004d96a4, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d96a4") unsigned char DAT_004d96a4[4] __asm__("_DAT_004d96a4");
+/* 0x004d96a8, 36 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d96a8") unsigned char DAT_004d96a8[36] __asm__("_DAT_004d96a8");
+/* 0x004d96cc, 4 bytes */ GRIM_DATA("004d96cc") unsigned char DAT_004d96cc[4] __asm__("_DAT_004d96cc") = { 0x5f, 0x79, 0x6e };
+/* 0x004d96d0, 4 bytes */ GRIM_DATA("004d96d0") unsigned char DAT_004d96d0[4] __asm__("_DAT_004d96d0") = { 0x5f, 0x79, 0x31 };
+/* 0x004d96d4, 4 bytes */ GRIM_DATA("004d96d4") unsigned char DAT_004d96d4[4] __asm__("_DAT_004d96d4") = { 0x5f, 0x79, 0x30 };
+/* 0x004d96d8, 8 bytes */ GRIM_DATA("004d96d8") unsigned char DAT_004d96d8[8] __asm__("_DAT_004d96d8") = { 0x66, 0x72, 0x65, 0x78, 0x70 };
+/* 0x004d96e0, 8 bytes */ GRIM_DATA("004d96e0") unsigned char DAT_004d96e0[8] __asm__("_DAT_004d96e0") = { 0x66, 0x6d, 0x6f, 0x64 };
+/* 0x004d96e8, 8 bytes */ GRIM_DATA("004d96e8") unsigned char DAT_004d96e8[8] __asm__("_DAT_004d96e8") = { 0x5f, 0x68, 0x79, 0x70, 0x6f, 0x74 };
+/* 0x004d96f0, 8 bytes */ GRIM_DATA("004d96f0") unsigned char DAT_004d96f0[8] __asm__("_DAT_004d96f0") = { 0x5f, 0x63, 0x61, 0x62, 0x73 };
+/* 0x004d96f8, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d96f8") unsigned char DAT_004d96f8[8] __asm__("_DAT_004d96f8");
+/* 0x004d9700, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9700") unsigned char DAT_004d9700[8] __asm__("_DAT_004d9700");
+/* 0x004d9708, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9708") unsigned char DAT_004d9708[8] __asm__("_DAT_004d9708");
+/* 0x004d9710, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9710") unsigned char DAT_004d9710[8] __asm__("_DAT_004d9710");
+/* 0x004d9718, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9718") unsigned char DAT_004d9718[8] __asm__("_DAT_004d9718");
+/* 0x004d9720, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9720") unsigned char DAT_004d9720[4] __asm__("_DAT_004d9720");
+/* 0x004d9724, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9724") unsigned char DAT_004d9724[4] __asm__("_DAT_004d9724");
+/* 0x004d9728, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9728") unsigned char DAT_004d9728[4] __asm__("_DAT_004d9728");
+/* 0x004d972c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d972c") unsigned char DAT_004d972c[8] __asm__("_DAT_004d972c");
+/* 0x004d9734, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9734") unsigned char DAT_004d9734[8] __asm__("_DAT_004d9734");
+/* 0x004d973c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d973c") unsigned char DAT_004d973c[8] __asm__("_DAT_004d973c");
+/* 0x004d9744, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9744") unsigned char DAT_004d9744[8] __asm__("_DAT_004d9744");
+/* 0x004d974c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d974c") unsigned char DAT_004d974c[8] __asm__("_DAT_004d974c");
+/* 0x004d9754, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9754") unsigned char DAT_004d9754[8] __asm__("_DAT_004d9754");
+/* 0x004d975c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d975c") unsigned char DAT_004d975c[8] __asm__("_DAT_004d975c");
+/* 0x004d9764, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9764") unsigned char DAT_004d9764[8] __asm__("_DAT_004d9764");
+/* 0x004d976c, 8 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d976c") unsigned char DAT_004d976c[8] __asm__("_DAT_004d976c");
+/* 0x004d9774, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9774") unsigned char DAT_004d9774[4] __asm__("_DAT_004d9774");
+/* 0x004d9778, 4 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9778") unsigned char DAT_004d9778[4] __asm__("_DAT_004d9778");
+/* 0x004d977c, 180 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d977c") unsigned char DAT_004d977c[180] __asm__("_DAT_004d977c");
+/* 0x004d9830, 2 bytes, unused (zlib) */ GRIM_DATA("004d9830") unsigned char DAT_004d9830[2] __asm__("_DAT_004d9830");
+/* 0x004d9832, 2 bytes, unused (zlib) */ GRIM_DATA("004d9830") unsigned char DAT_004d9832[2] __asm__("_DAT_004d9832");
+/* 0x004d9834, 2 bytes, unused (zlib) */ GRIM_DATA("004d9834") unsigned char DAT_004d9834[2] __asm__("_DAT_004d9834");
+/* 0x004d9836, 2 bytes, unused (zlib) */ GRIM_DATA("004d9834") unsigned char DAT_004d9836[2] __asm__("_DAT_004d9836");
+/* 0x004d9838, 112 bytes, unused (zlib) */ GRIM_DATA("004d9838") unsigned char g_aConfiguration_table[112] __asm__("_g_aConfiguration_table");
+/* 0x004d98a8, 1024 bytes, unused (zlib) */ GRIM_DATA("004d98a8") unsigned char g_aCrc_table[1024] __asm__("_g_aCrc_table");
+/* 0x004d9ca8, 80 bytes, unused (zlib) */ GRIM_DATA("004d9ca8") unsigned char DAT_004d9ca8[80] __asm__("_DAT_004d9ca8");
+/* 0x004d9cf8, 120 bytes, unused (zlib) */ GRIM_DATA("004d9cf8") unsigned char DAT_004d9cf8[120] __asm__("_DAT_004d9cf8");
+/* 0x004d9d70, 120 bytes, unused (zlib) */ GRIM_DATA("004d9d70") unsigned char DAT_004d9d70[120] __asm__("_DAT_004d9d70");
+/* 0x004d9de8, 80 bytes, unused (pointed at by unused data) */ GRIM_DATA("004d9de8") unsigned char DAT_004d9de8[80] __asm__("_DAT_004d9de8");
+/* 0x004d9e38, 24 bytes, unused (zlib) */ GRIM_DATA("004d9e38") unsigned char DAT_004d9e38[24] __asm__("_DAT_004d9e38");
+/* 0x004d9e50, 1152 bytes, unused (zlib) */ GRIM_DATA("004d9e50") unsigned char g_awZlibStaticLtree[1152] __asm__("_g_awZlibStaticLtree");
+/* 0x004da2d0, 119 bytes, unused (zlib) */ GRIM_DATA("004da2d0") unsigned char DAT_004da2d0[119] __asm__("_DAT_004da2d0");
+/* 0x004da347, 1 bytes, unused (zlib) */ GRIM_DATA("004da2d0") unsigned char DAT_004da347[1] __asm__("_DAT_004da347");
+/* 0x004da348, 256 bytes, unused (zlib) */ GRIM_DATA("004da348") unsigned char DAT_004da348[256] __asm__("_DAT_004da348");
+/* 0x004da448, 256 bytes, unused (zlib) */ GRIM_DATA("004da448") unsigned char DAT_004da448[256] __asm__("_DAT_004da448");
+/* 0x004da548, 256 bytes, unused (zlib) */ GRIM_DATA("004da548") unsigned char DAT_004da548[256] __asm__("_DAT_004da548");
+/* 0x004da648, 120 bytes, unused (zlib) */ GRIM_DATA("004da648") unsigned char DAT_004da648[120] __asm__("_DAT_004da648");
+/* 0x004da6c0, 168 bytes, unused (zlib) */ GRIM_DATA("004da6c0") unsigned char DAT_004da6c0[168] __asm__("_DAT_004da6c0");
+/* 0x004da768, 128 bytes, unused (zlib) */ GRIM_DATA("004da768") unsigned char DAT_004da768[128] __asm__("_DAT_004da768");
+/* 0x004da7e8, 128 bytes, unused (zlib) */ GRIM_DATA("004da7e8") unsigned char DAT_004da7e8[128] __asm__("_DAT_004da7e8");
+/* 0x004da868, 120 bytes, unused (zlib) */ GRIM_DATA("004da868") unsigned char DAT_004da868[120] __asm__("_DAT_004da868");
+/* 0x004da8e0, 120 bytes, unused (zlib) */ GRIM_DATA("004da8e0") unsigned char DAT_004da8e0[120] __asm__("_DAT_004da8e0");
+/* 0x004da958, 8 bytes */ GRIM_DATA("004da958") signed char g_abAdpcmIndexAdjust2[4] __asm__("_g_abAdpcmIndexAdjust2") = { -1, 4, -1, 4 };
 /* 0x004da95c, 4 bytes: the rest of g_abAdpcmIndexAdjust2's span */ GRIM_DATA("004da958") static unsigned char g_abAdpcmIndexAdjust2__tail[4] __attribute__((used)) = {0};
-/* 0x004da960, 8 bytes */ GRIM_DATA("004da960") signed char g_abAdpcmIndexAdjust3[8] = { -1, -1, 2, 6, -1, -1, 2, 6 };
-/* 0x004da968, 16 bytes */ GRIM_DATA("004da968") signed char g_abAdpcmIndexAdjust4[16] = { -1, -1, -1, -1, 1, 2, 4, 6, -1, -1, -1, -1, 1, 2, 4, 6 };
-/* 0x004da978, 32 bytes */ GRIM_DATA("004da978") signed char g_abAdpcmIndexAdjust5[32] = {
+/* 0x004da960, 8 bytes */ GRIM_DATA("004da960") signed char g_abAdpcmIndexAdjust3[8] __asm__("_g_abAdpcmIndexAdjust3") = { -1, -1, 2, 6, -1, -1, 2, 6 };
+/* 0x004da968, 16 bytes */ GRIM_DATA("004da968") signed char g_abAdpcmIndexAdjust4[16] __asm__("_g_abAdpcmIndexAdjust4") = { -1, -1, -1, -1, 1, 2, 4, 6, -1, -1, -1, -1, 1, 2, 4, 6 };
+/* 0x004da978, 32 bytes */ GRIM_DATA("004da978") signed char g_abAdpcmIndexAdjust5[32] __asm__("_g_abAdpcmIndexAdjust5") = {
     -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 2, 2, 4, 5, 6,
     -1, -1, -1, -1, -1, -1, -1, -1, 1, 1, 1, 2, 2, 4, 5, 6
 };
-/* 0x004da998, 64 bytes */ GRIM_DATA("004da998") signed char g_abAdpcmIndexAdjust6[64] = {
+/* 0x004da998, 64 bytes */ GRIM_DATA("004da998") signed char g_abAdpcmIndexAdjust6[64] __asm__("_g_abAdpcmIndexAdjust6") = {
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 5, 5, 6, 6,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 5, 5, 6, 6
 };
-/* 0x004da9d8, 128 bytes */ GRIM_DATA("004da9d8") signed char g_abAdpcmIndexAdjust7[128] = {
+/* 0x004da9d8, 128 bytes */ GRIM_DATA("004da9d8") signed char g_abAdpcmIndexAdjust7[128] __asm__("_g_abAdpcmIndexAdjust7") = {
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
@@ -5265,35 +2741,7 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
     2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6
 };
-/* 0x004daa58, 178 bytes */ GRIM_DATA("004daa58") short g_wAdpcmStepTable[89] = {
-    7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 19, 21, 23, 25, 28, 31,
-    34, 37, 41, 45, 50, 55, 60, 66, 73, 80, 88, 97, 107, 118, 130, 143,
-    157, 173, 190, 209, 230, 253, 279, 307, 337, 371, 408, 449, 494, 544, 598, 658,
-    724, 796, 876, 963, 1060, 1166, 1282, 1411, 1552, 1707, 1878, 2066, 2272, 2499, 2749, 3024,
-    3327, 3660, 4026, 4428, 4871, 5358, 5894, 6484, 7132, 7845, 8630, 9493, 10442, 11487, 12635, 13899,
-    15289, 16818, 18500, 20350, 22385, 24623, 27086, 29794, 32767
-};
-/* 0x004dab0a, 6 bytes */ GRIM_DATA("004daa58") unsigned char DAT_004dab0a[6] = {0};
-/* 0x004dab10, 240 bytes */ GRIM_DATA("004dab10") unsigned char g_abAdpcmStepBits[89] = {
-    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4,
-    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4,
-    0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x4, 0x5, 0x5, 0x5,
-    0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x5, 0x6, 0x6, 0x6, 0x6, 0x6,
-    0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x6, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7,
-    0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7, 0x7
-};
-/* 0x004dab69, 151 bytes: the rest of g_abAdpcmStepBits's span */ GRIM_DATA("004dab10") static unsigned char g_abAdpcmStepBits__tail[151] __attribute__((used)) = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xfc, 0xa9, 0xf1, 0xd2, 0x4d, 0x62, 0x50, 0x3f, 0x00,
-    0x00, 0x00, 0x00, 0xdc, 0x34, 0x32, 0x41, 0x6f, 0x12, 0x83, 0xc0, 0xca, 0x21, 0x09, 0x40, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0xa0, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xbf, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x40, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xff, 0x1f, 0x41, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x1c, 0xc0, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xff, 0x0f, 0x41, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x3f, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xef, 0x7f, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x98, 0xc0, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x98, 0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x7f
-};
-/* 0x004dac00, 48 bytes */ GRIM_DATA("004dac00") grim_span_004dac00 DAT_004dac00 = {
+/* 0x004dac00, 48 bytes */ GRIM_DATA("004dac00") grim_span_004dac00 DAT_004dac00 __asm__("_DAT_004dac00") = {
     { 0xff, 0xff, 0xff, 0xff },
     (void *)f_FUN_004d5e1c,
     (void *)f_FUN_004d5e30,
@@ -5301,28 +2749,28 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     (void *)&DAT_004dac30,
     {0}
 };
-/* 0x004dac30, 48 bytes */ GRIM_DATA("004dac30") grim_span_004dac30 DAT_004dac30 = {
+/* 0x004dac30, 48 bytes */ GRIM_DATA("004dac30") grim_span_004dac30 DAT_004dac30 __asm__("_DAT_004dac30") = {
     { 0xff, 0xff, 0xff, 0xff },
     (void *)f_FUN_004d6030,
     { 0xff, 0xff, 0xff, 0xff, 0x3b, 0x60, 0x4d, 0x00, 0x20, 0x05, 0x93, 0x19, 0x01 },
     (void *)&DAT_004dac60,
     {0}
 };
-/* 0x004dac60, 40 bytes */ GRIM_DATA("004dac60") grim_span_004dac60 DAT_004dac60 = {
+/* 0x004dac60, 40 bytes */ GRIM_DATA("004dac60") grim_span_004dac60 DAT_004dac60 __asm__("_DAT_004dac60") = {
     { 0xff, 0xff, 0xff, 0xff },
     (void *)f_FUN_004d6050,
     { 0x20, 0x05, 0x93, 0x19, 0x01 },
     (void *)&DAT_004dac88,
     {0}
 };
-/* 0x004dac88, 40 bytes */ GRIM_DATA("004dac88") grim_span_004dac88 DAT_004dac88 = {
+/* 0x004dac88, 40 bytes */ GRIM_DATA("004dac88") grim_span_004dac88 DAT_004dac88 __asm__("_DAT_004dac88") = {
     { 0xff, 0xff, 0xff, 0xff },
     (void *)f_FUN_004d6070,
     { 0x20, 0x05, 0x93, 0x19, 0x03 },
     (void *)&DAT_004dacb0,
     {0}
 };
-/* 0x004dacb0, 56 bytes */ GRIM_DATA("004dacb0") grim_span_004dacb0 DAT_004dacb0 = {
+/* 0x004dacb0, 56 bytes */ GRIM_DATA("004dacb0") grim_span_004dacb0 DAT_004dacb0 __asm__("_DAT_004dacb0") = {
     { 0xff, 0xff, 0xff, 0xff },
     (void *)f_FUN_004d60ac,
     { 0xff, 0xff, 0xff, 0xff },
@@ -5333,7 +2781,7 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     (void *)&DAT_004dace8,
     {0}
 };
-/* 0x004dace8, 48 bytes */ GRIM_DATA("004dace8") grim_span_004dace8 DAT_004dace8 = {
+/* 0x004dace8, 48 bytes */ GRIM_DATA("004dace8") grim_span_004dace8 DAT_004dace8 __asm__("_DAT_004dace8") = {
     { 0xff, 0xff, 0xff, 0xff },
     (void *)f_FUN_004d60d0,
     {0},
@@ -5342,7 +2790,7 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     (void *)&DAT_004dad18,
     {0}
 };
-/* 0x004dad18, 7400 bytes */ GRIM_DATA("004dad18") grim_span_004dad18 DAT_004dad18 = {
+/* 0x004dad18, 7400 bytes */ GRIM_DATA("004dad18") grim_span_004dad18 DAT_004dad18 __asm__("_DAT_004dad18") = {
     { 0xff, 0xff, 0xff, 0xff },
     (void *)f_FUN_004d6100,
     {
@@ -5793,250 +3241,51 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
             0x65, 0x41
     }
 };
-/* 0x004dca00, 1536 bytes */ GRIM_DATA("004dca00") unsigned char grim_gap_rdata[1536] = {0};
-/* 0x004dd000, 8 bytes */ GRIM_DATA("004dd000") void *DAT_004dd000[2] = {
+/* 0x004dca00, 1536 bytes */ GRIM_DATA("004dca00") unsigned char grim_gap_rdata[1536] __asm__("_grim_gap_rdata") = {0};
+/* 0x004dd000, 8 bytes */ GRIM_DATA("004dd000") void *DAT_004dd000[2] __asm__("_DAT_004dd000") = {
     0, (void *)f_PrimitiveList_StaticConstruct
 };
-/* 0x004dd008, 4 bytes */ GRIM_DATA("004dd008") unsigned char DAT_004dd008[4] = {0};
-/* 0x004dd00c, 20 bytes, unused (dead) */ GRIM_DATA("004dd00c") unsigned char DAT_004dd00c[20];
-/* 0x004dd020, 4 bytes, unused (dead) */ GRIM_DATA("004dd020") unsigned char DAT_004dd020[4];
-/* 0x004dd024, 8 bytes */ GRIM_DATA("004dd024") void *DAT_004dd024[2] = {
+/* 0x004dd008, 4 bytes */ GRIM_DATA("004dd008") unsigned char DAT_004dd008[4] __asm__("_DAT_004dd008") = {0};
+/* 0x004dd00c, 20 bytes, unused (dead) */ GRIM_DATA("004dd00c") unsigned char DAT_004dd00c[20] __asm__("_DAT_004dd00c");
+/* 0x004dd020, 4 bytes, unused (dead) */ GRIM_DATA("004dd020") unsigned char DAT_004dd020[4] __asm__("_DAT_004dd020");
+/* 0x004dd024, 8 bytes */ GRIM_DATA("004dd024") void *DAT_004dd024[2] __asm__("_DAT_004dd024") = {
     0, (void *)f_FUN_004b2100
 };
-/* 0x004dd02c, 4 bytes */ GRIM_DATA("004dd02c") unsigned char DAT_004dd02c[4] = {0};
-/* 0x004dd030, 8 bytes */ GRIM_DATA("004dd030") void *DAT_004dd030[2] = {
+/* 0x004dd02c, 4 bytes */ GRIM_DATA("004dd02c") unsigned char DAT_004dd02c[4] __asm__("_DAT_004dd02c") = {0};
+/* 0x004dd030, 8 bytes */ GRIM_DATA("004dd030") void *DAT_004dd030[2] __asm__("_DAT_004dd030") = {
     0, (void *)f_FUN_004ba2b0
 };
-/* 0x004dd038, 8 bytes */ GRIM_DATA("004dd038") unsigned char DAT_004dd038[8] = {0};
-/* 0x004dd040, 8 bytes */ GRIM_DATA("004dd040") void *PTR_g_aHs_004dd040[2] = {
-    (void *)&g_aHs, 0
-};
-/* 0x004dd048, 496 bytes */ GRIM_DATA("004dd048") char s_GRIME__Grim_Fandango_Executable_U_004dd048[496] = "GRIME: Grim Fandango Executable\n\nUsage:\tgrime [-\?] [-w] [-l] [-r] [-h] [-c] [-m ####] [-s] [-b bootparam] [-p path] [-z]\n\n-\?\tDisplay usage and quit\n-w\tDisplay in a window\n-l\tLog messages to debug.log\n-r\tLog resource usage to resource.log\n-h\tAttempt to use hardware\n-c\tAfter starting, invoke the chore tool\n-m\tSet maximum memory usage to ####\n-s\tResume most recently loaded or saved game\n-b\tPass argument to the BOOT script\n-p\tUse path as an additional data directory.\n-z\tAccelerated zbuffers\n\n";
-/* 0x004dd238, 259 bytes */ GRIM_DATA("004dd238") char s_grim_tab_004dd238[259] = "grim.tab";
-/* 0x004dd33b, 1 bytes */ GRIM_DATA("004dd238") unsigned char DAT_004dd33b = 0x0;
-/* 0x004dd33c, 4 bytes */ GRIM_DATA("004dd33c") unsigned int UINT_004dd33c = 0x1;
-/* 0x004dd340, 4 bytes */ GRIM_DATA("004dd340") unsigned int UINT_004dd340 = 0xffffffff;
-/* 0x004dd344, 4 bytes */ GRIM_DATA("004dd344") unsigned int UINT_004dd344 = 0xffffffff;
-/* 0x004dd348, 4 bytes */ GRIM_DATA("004dd348") unsigned int UINT_004dd348 = 0xffffffff;
-/* 0x004dd34c, 4 bytes */ GRIM_DATA("004dd34c") unsigned char DAT_004dd34c[4] = { 0x00, 0x80, 0xbb };
-/* 0x004dd350, 48 bytes */ GRIM_DATA("004dd350") void *PTR_s_Is3DHardwareEnabled_004dd350[12] = {
-    (void *)&s_Is3DHardwareEnabled_004dd3f0, (void *)f_sputLua_Is3DHardwareEnabledL, (void *)&s_GetVideoDevices_004dd3e0, (void *)f_Lua_GetVideoDevices,
-    (void *)&s_SetVideoDevices_004dd3d0, (void *)f_Lua_SetVideoDevices, (void *)&s_SetHardwareState_004dd3bc, (void *)f_Lua_SetHardwareState,
-    (void *)&s_Enumerate3DDevices_004dd3a8, (void *)f_Lua_Enumerate3DDevices, (void *)&s_EnumerateVideoDevices_004dd390, (void *)f_Lua_EnumerateVideoDevices
-};
-/* 0x004dd380, 4 bytes */ GRIM_DATA("004dd380") unsigned int UINT_004dd380 = 0x6;
-/* 0x004dd384, 4 bytes */ GRIM_DATA("004dd384") unsigned char g_dwDeadmanCounter[4] = { 0x2c, 0x01 };
-/* 0x004dd388, 4 bytes */ GRIM_DATA("004dd388") unsigned int UINT_004dd388 = 0x1;
-/* 0x004dd38c, 4 bytes */ GRIM_DATA("004dd38c") unsigned int INT_004dd38c = 0x1;
-/* 0x004dd390, 24 bytes */ GRIM_DATA("004dd390") char s_EnumerateVideoDevices_004dd390[24] = "EnumerateVideoDevices";
-/* 0x004dd3a8, 20 bytes */ GRIM_DATA("004dd3a8") char s_Enumerate3DDevices_004dd3a8[20] = "Enumerate3DDevices";
-/* 0x004dd3bc, 20 bytes */ GRIM_DATA("004dd3bc") char s_SetHardwareState_004dd3bc[20] = "SetHardwareState";
-/* 0x004dd3d0, 16 bytes */ GRIM_DATA("004dd3d0") char s_SetVideoDevices_004dd3d0[16] = "SetVideoDevices";
-/* 0x004dd3e0, 16 bytes */ GRIM_DATA("004dd3e0") char s_GetVideoDevices_004dd3e0[16] = "GetVideoDevices";
-/* 0x004dd3f0, 20 bytes */ GRIM_DATA("004dd3f0") char s_Is3DHardwareEnabled_004dd3f0[20] = "Is3DHardwareEnabled";
-/* 0x004dd404, 16 bytes */ GRIM_DATA("004dd404") char s_Grim_Fandango_004dd404[16] = "Grim Fandango";
-/* 0x004dd414, 16 bytes */ GRIM_DATA("004dd414") unsigned char DAT_004dd414[16] = { 0x72, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x2e, 0x6c, 0x6f, 0x67 };
-/* 0x004dd424, 64 bytes */ GRIM_DATA("004dd424") char s_Unable_to_open_debug_log_in_the_c_004dd424[64] = "Unable to open debug.log in the current directory for writing!";
-/* 0x004dd464, 8 bytes */ GRIM_DATA("004dd464") char s_Uh_oh__004dd464[8] = "Uh oh!";
-/* 0x004dd46c, 12 bytes */ GRIM_DATA("004dd46c") char s_debug_log_004dd46c[12] = "debug.log";
-/* 0x004dd478, 4 bytes */ GRIM_DATA("004dd478") char s_w_004dd478[4] = "w";
-/* 0x004dd47c, 96 bytes */ GRIM_DATA("004dd47c") char s__engn006_Please_make_sure_that_t_004dd47c[96] = "/engn006/Please make sure that the game is properly installed and that the CD is in your drive.";
-/* 0x004dd4dc, 48 bytes */ GRIM_DATA("004dd4dc") char s__engn007_Grim_Fandango_could_not_004dd4dc[48] = "/engn007/Grim Fandango could not find files!";
-/* 0x004dd50c, 40 bytes */ GRIM_DATA("004dd50c") char s_C__grimsrc_tools_grimdemo_grimde_004dd50c[40] = "C:\\grimsrc\\tools\\grimdemo\\grimdemo.c";
-/* 0x004dd534, 116 bytes */ GRIM_DATA("004dd534") char s__engn004_Please_make_sure_you_ar_004dd534[116] = "/engn004/Please make sure you are not running any other DirectX apps that take exclusive control of your hardware.";
-/* 0x004dd5a8, 60 bytes */ GRIM_DATA("004dd5a8") char s__engn005_Grim_Fandango_could_not_004dd5a8[60] = "/engn005/Grim Fandango could not initialize your hardware!";
-/* 0x004dd5e4, 20 bytes */ GRIM_DATA("004dd5e4") char s_ExperimentalDisplay_004dd5e4[20] = "ExperimentalDisplay";
-/* 0x004dd5f8, 64 bytes */ GRIM_DATA("004dd5f8") char s__engn002_System_must_be_in_256_c_004dd5f8[64] = "/engn002/System must be in 256 color depth or better to run.";
-/* 0x004dd638, 24 bytes */ GRIM_DATA("004dd638") char s__engn001_Grim_Fandango_004dd638[24] = "/engn001/Grim Fandango";
-/* 0x004dd650, 12 bytes */ GRIM_DATA("004dd650") char s_GrimData_004dd650[12] = "GrimData";
-/* 0x004dd65c, 4 bytes */ GRIM_DATA("004dd65c") char s_pl_004dd65c[4] = "pl";
-/* 0x004dd660, 8 bytes */ GRIM_DATA("004dd660") char s_TRUE_004dd660[8] = "TRUE";
-/* 0x004dd668, 4 bytes */ GRIM_DATA("004dd668") unsigned int UINT_004dd668 = 0x6568726f;
-/* 0x004dd66c, 4 bytes */ GRIM_DATA("004dd66c") unsigned int UINT_004dd66c = 0x6e65775a;
-/* 0x004dd670, 2 bytes */ GRIM_DATA("004dd670") unsigned short DAT_004dd670 = 0x7560;
-/* 0x004dd672, 2 bytes */ GRIM_DATA("004dd670") unsigned char DAT_004dd672[2] = {0};
-/* 0x004dd674, 12 bytes */ GRIM_DATA("004dd674") char s__s__02_3f_004dd674[12] = "%s %02.3f";
-/* 0x004dd680, 8 bytes */ GRIM_DATA("004dd680") char s__02_3f_004dd680[8] = "%02.3f";
-/* 0x004dd688, 20 bytes */ GRIM_DATA("004dd688") char s__engn003_Software_004dd688[20] = "/engn003/Software";
-/* 0x004dd69c, 12 bytes */ GRIM_DATA("004dd69c") char s_Grim_Debug_004dd69c[12] = "Grim Debug";
-/* 0x004dd6a8, 16 bytes */ GRIM_DATA("004dd6a8") char s__ShowDebugLog_004dd6a8[16] = "_ShowDebugLog";
-/* 0x004dd6b8, 12 bytes */ GRIM_DATA("004dd6b8") char s__logPrintf_004dd6b8[12] = "_logPrintf";
-/* 0x004dd6c4, 16 bytes */ GRIM_DATA("004dd6c4") unsigned char DAT_004dd6c4[16] = { 0x44, 0x65, 0x62, 0x75, 0x67, 0x4c, 0x6f, 0x67, 0x2e, 0x64, 0x6c, 0x6c };
-/* 0x004dd6d4, 24 bytes */ GRIM_DATA("004dd6d4") char s__choreface_Initialize_004dd6d4[24] = "_choreface_Initialize";
-/* 0x004dd6ec, 28 bytes */ GRIM_DATA("004dd6ec") char s__RegisterCommandCallback_004dd6ec[28] = "_RegisterCommandCallback";
-/* 0x004dd708, 16 bytes */ GRIM_DATA("004dd708") char s__HideChoreFace_004dd708[16] = "_HideChoreFace";
-/* 0x004dd718, 16 bytes */ GRIM_DATA("004dd718") char s__ShowChoreFace_004dd718[16] = "_ShowChoreFace";
-/* 0x004dd728, 16 bytes */ GRIM_DATA("004dd728") unsigned char DAT_004dd728[16] = { 0x63, 0x68, 0x6f, 0x72, 0x65, 0x66, 0x61, 0x63, 0x65, 0x2e, 0x64, 0x6c, 0x6c };
-/* 0x004dd738, 20 bytes */ GRIM_DATA("004dd738") char s_LastDisplayDevice_004dd738[20] = "LastDisplayDevice";
-/* 0x004dd74c, 72 bytes */ GRIM_DATA("004dd74c") char s_stdDisplay_numVideoModes____grim_004dd74c[72] = "stdDisplay_numVideoModes == grimdemo_aDisplayInfo[deviceNum].numModes";
-/* 0x004dd794, 16 bytes */ GRIM_DATA("004dd794") char s_Last3DDevice_004dd794[16] = "Last3DDevice";
-/* 0x004dd7a4, 92 bytes */ GRIM_DATA("004dd7a4") char s_threeDNum____0____threeDNum____i_004dd7a4[92] = "threeDNum >= 0 && threeDNum < (int)grimdemo_aDisplayInfo[stdDisplay_curDevice].numDevices";
-/* 0x004dd800, 56 bytes */ GRIM_DATA("004dd800") unsigned char DAT_004dd800[56] = {
-    0x67, 0x72, 0x69, 0x6d, 0x64, 0x65, 0x6d, 0x6f, 0x5f, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74,
-    0x44, 0x69, 0x73, 0x70, 0x6c, 0x61, 0x79, 0x3a, 0x20, 0x33, 0x44, 0x20, 0x64, 0x65, 0x76, 0x69,
-    0x63, 0x65, 0x20, 0x6e, 0x6f, 0x20, 0x6c, 0x6f, 0x6e, 0x67, 0x65, 0x72, 0x20, 0x70, 0x72, 0x65,
-    0x73, 0x65, 0x6e, 0x74, 0x2e, 0x0a
-};
-/* 0x004dd838, 60 bytes */ GRIM_DATA("004dd838") unsigned char DAT_004dd838[60] = {
-    0x67, 0x72, 0x69, 0x6d, 0x64, 0x65, 0x6d, 0x6f, 0x5f, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74,
-    0x44, 0x69, 0x73, 0x70, 0x6c, 0x61, 0x79, 0x3a, 0x20, 0x43, 0x6f, 0x75, 0x6c, 0x64, 0x20, 0x6e,
-    0x6f, 0x74, 0x20, 0x66, 0x69, 0x6e, 0x64, 0x20, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x69, 0x6e, 0x67,
-    0x20, 0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x0a
-};
-/* 0x004dd874, 60 bytes */ GRIM_DATA("004dd874") unsigned char DAT_004dd874[60] = {
-    0x67, 0x72, 0x69, 0x6d, 0x64, 0x65, 0x6d, 0x6f, 0x5f, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74,
-    0x44, 0x69, 0x73, 0x70, 0x6c, 0x61, 0x79, 0x3a, 0x20, 0x4c, 0x61, 0x73, 0x74, 0x20, 0x73, 0x77,
-    0x69, 0x74, 0x63, 0x68, 0x20, 0x77, 0x61, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x73, 0x75, 0x63,
-    0x63, 0x65, 0x73, 0x73, 0x66, 0x75, 0x6c, 0x2e, 0x0a
-};
-/* 0x004dd8b0, 8 bytes */ GRIM_DATA("004dd8b0") char s_Usage_004dd8b0[8] = "Usage";
-/* 0x004dd8b8, 4 bytes */ GRIM_DATA("004dd8b8") char s____004dd8b8[4] = "/\?";
-/* 0x004dd8bc, 4 bytes */ GRIM_DATA("004dd8bc") char s____004dd8bc[4] = "-\?";
-/* 0x004dd8c0, 4 bytes */ GRIM_DATA("004dd8c0") char s__z_004dd8c0[4] = "/z";
-/* 0x004dd8c4, 4 bytes */ GRIM_DATA("004dd8c4") char s__z_004dd8c4[4] = "-z";
-/* 0x004dd8c8, 4 bytes */ GRIM_DATA("004dd8c8") char s__p_004dd8c8[4] = "/p";
-/* 0x004dd8cc, 4 bytes */ GRIM_DATA("004dd8cc") char s__p_004dd8cc[4] = "-p";
-/* 0x004dd8d0, 4 bytes */ GRIM_DATA("004dd8d0") char s__b_004dd8d0[4] = "/b";
-/* 0x004dd8d4, 4 bytes */ GRIM_DATA("004dd8d4") char s__b_004dd8d4[4] = "-b";
-/* 0x004dd8d8, 4 bytes */ GRIM_DATA("004dd8d8") char s__s_004dd8d8[4] = "/s";
-/* 0x004dd8dc, 4 bytes */ GRIM_DATA("004dd8dc") char s__s_004dd8dc[4] = "-s";
-/* 0x004dd8e0, 4 bytes */ GRIM_DATA("004dd8e0") char s__w_004dd8e0[4] = "/w";
-/* 0x004dd8e4, 4 bytes */ GRIM_DATA("004dd8e4") char s__w_004dd8e4[4] = "-w";
-/* 0x004dd8e8, 4 bytes */ GRIM_DATA("004dd8e8") char s__r_004dd8e8[4] = "/r";
-/* 0x004dd8ec, 4 bytes */ GRIM_DATA("004dd8ec") char s__r_004dd8ec[4] = "-r";
-/* 0x004dd8f0, 4 bytes */ GRIM_DATA("004dd8f0") char s__h_004dd8f0[4] = "/h";
-/* 0x004dd8f4, 4 bytes */ GRIM_DATA("004dd8f4") char s__h_004dd8f4[4] = "-h";
-/* 0x004dd8f8, 4 bytes */ GRIM_DATA("004dd8f8") char s__l_004dd8f8[4] = "/l";
-/* 0x004dd8fc, 4 bytes */ GRIM_DATA("004dd8fc") char s__l_004dd8fc[4] = "-l";
-/* 0x004dd900, 4 bytes */ GRIM_DATA("004dd900") char s__c_004dd900[4] = "/c";
-/* 0x004dd904, 4 bytes */ GRIM_DATA("004dd904") char s__c_004dd904[4] = "-c";
-/* 0x004dd908, 4 bytes */ GRIM_DATA("004dd908") char s__m_004dd908[4] = "/m";
-/* 0x004dd90c, 4 bytes */ GRIM_DATA("004dd90c") char s__m_004dd90c[4] = "-m";
-/* 0x004dd910, 4 bytes */ GRIM_DATA("004dd910") char s__t_004dd910[4] = "/t";
-/* 0x004dd914, 4 bytes */ GRIM_DATA("004dd914") char s__t_004dd914[4] = "-t";
-/* 0x004dd918, 4 bytes */ GRIM_DATA("004dd918") char s__004dd918[4] = " \t";
-/* 0x004dd91c, 12 bytes */ GRIM_DATA("004dd91c") char s__s_d_zbm_004dd91c[12] = "%s%d.zbm";
-/* 0x004dd928, 12 bytes */ GRIM_DATA("004dd928") char s__s_d_bmp_004dd928[12] = "%s%d.bmp";
-/* 0x004dd934, 8 bytes */ GRIM_DATA("004dd934") char s_shot_004dd934[8] = "shot";
-/* 0x004dd93c, 16 bytes */ GRIM_DATA("004dd93c") char s_grimpatch_bin_004dd93c[16] = "grimpatch.bin";
-/* 0x004dd94c, 12 bytes */ GRIM_DATA("004dd94c") char s_GrimDataDir_004dd94c[12] = "GrimDataDir";
-/* 0x004dd958, 64 bytes */ GRIM_DATA("004dd958") unsigned char DAT_004dd958[64] = {
-    0x53, 0x4f, 0x46, 0x54, 0x57, 0x41, 0x52, 0x45, 0x5c, 0x4c, 0x75, 0x63, 0x61, 0x73, 0x41, 0x72,
-    0x74, 0x73, 0x20, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x74, 0x61, 0x69, 0x6e, 0x6d, 0x65, 0x6e, 0x74,
-    0x20, 0x43, 0x6f, 0x6d, 0x70, 0x61, 0x6e, 0x79, 0x20, 0x4c, 0x4c, 0x43, 0x5c, 0x47, 0x72, 0x69,
-    0x6d, 0x20, 0x46, 0x61, 0x6e, 0x64, 0x61, 0x6e, 0x67, 0x6f, 0x5c, 0x76, 0x31, 0x2e, 0x30
-};
-/* 0x004dd998, 4 bytes */ GRIM_DATA("004dd998") char s_1_0_004dd998[4] = "1.0";
-/* 0x004dd99c, 12 bytes */ GRIM_DATA("004dd99c") char s_splash_bm_004dd99c[12] = "splash.bm";
-/* 0x004dd9a8, 112 bytes */ GRIM_DATA("004dd9a8") void *g_aDefaultHostServices[28] = {
-    (void *)0x447a0000, (void *)f_defaultStatusPrint, (void *)f_defaultMessagePrint, (void *)f_defaultWarningPrint,
-    (void *)f_defaultErrorPrint, (void *)f_defaultDebugPrint, (void *)f_defaultAssert, (void *)f_defaultAtExit,
-    (void *)f_Svc_Malloc, (void *)f_Svc_Free, (void *)f_Svc_Realloc, (void *)f_defaultGetTimerTick,
-    (void *)f_defaultFileOpen, (void *)f_defaultFileClose, (void *)f_defaultFileRead, (void *)f_defaultFileGets,
-    (void *)f_defaultFileWrite, (void *)f_defaultFileEOF, (void *)f_defaultFileTell, (void *)f_defaultFileSeek,
-    (void *)f_defaultFileSize, (void *)f_defaultFilePrintf, (void *)f_LecShare_Nop, (void *)f_Svc_Malloc,
-    (void *)f_Svc_Free, (void *)f_Svc_Realloc, (void *)f_defaultLockHandle, (void *)f_Lua_Stub
-};
-/* 0x004dda18, 4 bytes */ GRIM_DATA("004dda18") char s__s_004dda18[4] = "%s";
-/* 0x004dda1c, 12 bytes */ GRIM_DATA("004dda1c") char s_WARNING___s_004dda1c[12] = "WARNING: %s";
-/* 0x004dda28, 12 bytes */ GRIM_DATA("004dda28") char s_ERROR___s_004dda28[12] = "ERROR: %s";
-/* 0x004dda34, 12 bytes */ GRIM_DATA("004dda34") char s_DEBUG___s_004dda34[12] = "DEBUG: %s";
-/* 0x004dda40, 20 bytes */ GRIM_DATA("004dda40") char s_ASSERT____s__d___s_004dda40[20] = "ASSERT! (%s:%d) %s";
-/* 0x004dda54, 4 bytes */ GRIM_DATA("004dda54") char s_r_004dda54[4] = "r";
-/* 0x004dda58, 4 bytes */ GRIM_DATA("004dda58") unsigned char DAT_004dda58[4] = { 0x36 };
-/* 0x004dda5c, 4 bytes */ GRIM_DATA("004dda5c") unsigned char DAT_004dda5c[4] = { 0x8c };
-/* 0x004dda60, 8 bytes */ GRIM_DATA("004dda60") char s_Version_004dda60[8] = "Version";
-/* 0x004dda68, 40 bytes */ GRIM_DATA("004dda68") char s_C__grimjedi_Libs_W32Util_Wuregis_004dda68[40] = "C:\\grimjedi\\Libs\\W32Util\\Wuregistry.c";
-/* 0x004dda90, 4 bytes */ GRIM_DATA("004dda90") float FLOAT_004dda90 = 10.0f;
-/* 0x004dda94, 4 bytes */ GRIM_DATA("004dda94") unsigned char g_aRdroid_MipDistances[4] = { 0x00, 0x00, 0xa0, 0x41 };
-/* 0x004dda98, 8 bytes */ GRIM_DATA("004dda98") float FLOAT_004dda98 = 40.0f;
+/* 0x004dd038, 8 bytes */ GRIM_DATA("004dd038") unsigned char DAT_004dd038[8] __asm__("_DAT_004dd038") = {0};
+/* 0x004dd340, 4 bytes */ GRIM_DATA("004dd340") unsigned int UINT_004dd340 __asm__("_UINT_004dd340") = 0xffffffff;
+/* 0x004dd344, 4 bytes */ GRIM_DATA("004dd344") unsigned int UINT_004dd344 __asm__("_UINT_004dd344") = 0xffffffff;
+/* 0x004dd348, 4 bytes */ GRIM_DATA("004dd348") unsigned int UINT_004dd348 __asm__("_UINT_004dd348") = 0xffffffff;
+/* 0x004dd390, 24 bytes */ GRIM_DATA("004dd390") char s_EnumerateVideoDevices_004dd390[24] __asm__("_s_EnumerateVideoDevices_004dd390") = "EnumerateVideoDevices";
+/* 0x004dd3a8, 20 bytes */ GRIM_DATA("004dd3a8") char s_Enumerate3DDevices_004dd3a8[20] __asm__("_s_Enumerate3DDevices_004dd3a8") = "Enumerate3DDevices";
+/* 0x004dd3bc, 20 bytes */ GRIM_DATA("004dd3bc") char s_SetHardwareState_004dd3bc[20] __asm__("_s_SetHardwareState_004dd3bc") = "SetHardwareState";
+/* 0x004dd3d0, 16 bytes */ GRIM_DATA("004dd3d0") char s_SetVideoDevices_004dd3d0[16] __asm__("_s_SetVideoDevices_004dd3d0") = "SetVideoDevices";
+/* 0x004dd3e0, 16 bytes */ GRIM_DATA("004dd3e0") char s_GetVideoDevices_004dd3e0[16] __asm__("_s_GetVideoDevices_004dd3e0") = "GetVideoDevices";
+/* 0x004dd3f0, 20 bytes */ GRIM_DATA("004dd3f0") char s_Is3DHardwareEnabled_004dd3f0[20] __asm__("_s_Is3DHardwareEnabled_004dd3f0") = "Is3DHardwareEnabled";
+/* 0x004dd478, 4 bytes */ GRIM_DATA("004dd478") char s_w_004dd478[4] __asm__("_s_w_004dd478") = "w";
+/* 0x004dd50c, 40 bytes */ GRIM_DATA("004dd50c") char s_C__grimsrc_tools_grimdemo_grimde_004dd50c[40] __asm__("_s_C__grimsrc_tools_grimdemo_grimde_004dd50c") = "C:\\grimsrc\\tools\\grimdemo\\grimdemo.c";
+/* 0x004dd5e4, 20 bytes */ GRIM_DATA("004dd5e4") char s_ExperimentalDisplay_004dd5e4[20] __asm__("_s_ExperimentalDisplay_004dd5e4") = "ExperimentalDisplay";
+/* 0x004dd918, 4 bytes */ GRIM_DATA("004dd918") char s__004dd918[4] __asm__("_s__004dd918") = " \t";
+/* 0x004dd94c, 12 bytes */ GRIM_DATA("004dd94c") char s_GrimDataDir_004dd94c[12] __asm__("_s_GrimDataDir_004dd94c") = "GrimDataDir";
+/* 0x004dda54, 4 bytes */ GRIM_DATA("004dda54") char s_r_004dda54[4] __asm__("_s_r_004dda54") = "r";
+/* 0x004dda90, 4 bytes */ GRIM_DATA("004dda90") float FLOAT_004dda90 __asm__("_FLOAT_004dda90") = 10.0f;
+/* 0x004dda94, 4 bytes */ GRIM_DATA("004dda94") unsigned char g_aRdroid_MipDistances[4] __asm__("_g_aRdroid_MipDistances") = { 0x00, 0x00, 0xa0, 0x41 };
+/* 0x004dda98, 8 bytes */ GRIM_DATA("004dda98") float FLOAT_004dda98 __asm__("_FLOAT_004dda98") = 40.0f;
 /* 0x004dda9c, 4 bytes: the rest of FLOAT_004dda98's span */ GRIM_DATA("004dda98") static unsigned char FLOAT_004dda98__tail[4] __attribute__((used)) = { 0x00, 0x00, 0xa0, 0x42 };
-/* 0x004ddaa0, 12 bytes */ GRIM_DATA("004ddaa0") unsigned char g_dwRdColormap_colorInfo[12] = { 0x01, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x05 };
-/* 0x004ddaac, 8 bytes */ GRIM_DATA("004ddaac") unsigned char UINT_004ddaac[8] = { 0x06, 0x00, 0x00, 0x00, 0x05 };
-/* 0x004ddab4, 4 bytes */ GRIM_DATA("004ddab4") unsigned int UINT_004ddab4 = 0xb;
-/* 0x004ddab8, 4 bytes */ GRIM_DATA("004ddab8") unsigned int UINT_004ddab8 = 0x5;
-/* 0x004ddabc, 4 bytes */ GRIM_DATA("004ddabc") unsigned int UINT_004ddabc = 0x0;
-/* 0x004ddac0, 4 bytes */ GRIM_DATA("004ddac0") unsigned int UINT_004ddac0 = 0x3;
-/* 0x004ddac4, 4 bytes */ GRIM_DATA("004ddac4") unsigned int UINT_004ddac4 = 0x2;
-/* 0x004ddac8, 16 bytes */ GRIM_DATA("004ddac8") unsigned char UINT_004ddac8[16] = { 0x03 };
-/* 0x004ddad8, 4 bytes */ GRIM_DATA("004ddad8") unsigned char DAT_004ddad8[4] = { 0x99 };
-/* 0x004ddadc, 4 bytes */ GRIM_DATA("004ddadc") unsigned char DAT_004ddadc[4] = { 0xc6 };
-/* 0x004ddae0, 4 bytes */ GRIM_DATA("004ddae0") unsigned char DAT_004ddae0[4] = { 0x14, 0x03 };
-/* 0x004ddae4, 44 bytes */ GRIM_DATA("004ddae4") char s_C__grimjedi_Libs_RDroid_Engine_R_004ddae4[44] = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdcolormap.c";
-/* 0x004ddb10, 8 bytes */ GRIM_DATA("004ddb10") char s_CMP_004ddb10[8] = "CMP ";
-/* 0x004ddb18, 4 bytes */ GRIM_DATA("004ddb18") char s_rb_004ddb18[4] = "rb";
-/* 0x004ddb1c, 4 bytes */ GRIM_DATA("004ddb1c") char s_wb__004ddb1c[4] = "wb+";
-/* 0x004ddb20, 16 bytes */ GRIM_DATA("004ddb20") char s_GREYRAMP_CMP_004ddb20[16] = "GREYRAMP.CMP";
-/* 0x004ddb30, 12 bytes */ GRIM_DATA("004ddb30") float FLOAT_004ddb30 = 65536.0f;
-/* 0x004ddb34, 8 bytes: the rest of FLOAT_004ddb30's span */ GRIM_DATA("004ddb30") static unsigned char FLOAT_004ddb30__tail[8] __attribute__((used)) = { 0x00, 0x00, 0x80, 0x45, 0x00, 0x00, 0x80, 0x3f };
-/* 0x004ddb3c, 4 bytes */ GRIM_DATA("004ddb3c") unsigned char DAT_004ddb3c[4] = { 0x45 };
-/* 0x004ddb40, 4 bytes */ GRIM_DATA("004ddb40") unsigned char DAT_004ddb40[4] = { 0x6f };
-/* 0x004ddb44, 44 bytes */ GRIM_DATA("004ddb44") char s_C__grimjedi_Libs_RDroid_Engine_R_004ddb44[44] = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdcamera.c";
-/* 0x004ddb70, 4 bytes */ GRIM_DATA("004ddb70") float FLOAT_004ddb70 = 0.0f;
-/* 0x004ddb74, 4 bytes */ GRIM_DATA("004ddb74") float FLOAT_004ddb74 = 0.0f;
-/* 0x004ddb78, 4 bytes */ GRIM_DATA("004ddb78") float FLOAT_004ddb78 = 1.0f;
-/* 0x004ddb7c, 4 bytes */ GRIM_DATA("004ddb7c") unsigned char DAT_004ddb7c[4] = { 0xf8 };
-/* 0x004ddb80, 4 bytes */ GRIM_DATA("004ddb80") unsigned char DAT_004ddb80[4] = { 0x4a, 0x01 };
-/* 0x004ddb84, 4 bytes */ GRIM_DATA("004ddb84") unsigned char DAT_004ddb84[4] = { 0x92, 0x03 };
-/* 0x004ddb88, 4 bytes */ GRIM_DATA("004ddb88") unsigned char DAT_004ddb88[4] = { 0xf8, 0x06 };
-/* 0x004ddb8c, 8 bytes */ GRIM_DATA("004ddb8c") char s_UNKNOWN_004ddb8c[8] = "UNKNOWN";
-/* 0x004ddb94, 48 bytes */ GRIM_DATA("004ddb94") char s_C__grimjedi_Libs_RDroid_Primitiv_004ddb94[48] = "C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdmodel3.c";
-/* 0x004ddbc4, 56 bytes */ GRIM_DATA("004ddbc4") char s__d___x__x__d__d__d__d__d__f__f___004ddbc4[56] = " %d: %x %x %d %d %d %d %d %f %f %f %f %f %f %f %f %f %s";
-/* 0x004ddbfc, 20 bytes */ GRIM_DATA("004ddbfc") char s_hierarchy_nodes__d_004ddbfc[20] = " hierarchy nodes %d";
-/* 0x004ddc10, 4 bytes */ GRIM_DATA("004ddc10") char s___004ddc10[4] = " \t,";
-/* 0x004ddc14, 4 bytes */ GRIM_DATA("004ddc14") char s__f_004ddc14[4] = "%f";
-/* 0x004ddc18, 4 bytes */ GRIM_DATA("004ddc18") char s__d_004ddc18[4] = "%d";
-/* 0x004ddc1c, 4 bytes */ GRIM_DATA("004ddc1c") char s__x_004ddc1c[4] = "%x";
-/* 0x004ddc20, 12 bytes */ GRIM_DATA("004ddc20") char s_faces__d_004ddc20[12] = " faces %d";
-/* 0x004ddc2c, 16 bytes */ GRIM_DATA("004ddc2c") char s__d___f__f__f_004ddc2c[16] = " %d: %f %f %f";
-/* 0x004ddc3c, 12 bytes */ GRIM_DATA("004ddc3c") char s__d___f__f_004ddc3c[12] = " %d: %f %f";
-/* 0x004ddc48, 24 bytes */ GRIM_DATA("004ddc48") char s_texture_vertices__d_004ddc48[24] = " texture vertices %d";
-/* 0x004ddc60, 20 bytes */ GRIM_DATA("004ddc60") char s__d___f__f__f__f_004ddc60[20] = " %d: %f %f %f %f";
-/* 0x004ddc74, 16 bytes */ GRIM_DATA("004ddc74") char s_vertices__d_004ddc74[16] = " vertices %d";
-/* 0x004ddc84, 16 bytes */ GRIM_DATA("004ddc84") char s_texturemode__d_004ddc84[16] = " texturemode %d";
-/* 0x004ddc94, 20 bytes */ GRIM_DATA("004ddc94") char s_lightingmode__d_004ddc94[20] = " lightingmode %d";
-/* 0x004ddca8, 20 bytes */ GRIM_DATA("004ddca8") char s_geometrymode__d_004ddca8[20] = " geometrymode %d";
-/* 0x004ddcbc, 12 bytes */ GRIM_DATA("004ddcbc") char s_shadow__d_004ddcbc[12] = " shadow %d";
-/* 0x004ddcc8, 12 bytes */ GRIM_DATA("004ddcc8") char s_name__s_004ddcc8[12] = " name %s";
-/* 0x004ddcd4, 12 bytes */ GRIM_DATA("004ddcd4") char s_mesh__d_004ddcd4[12] = " mesh %d";
-/* 0x004ddce0, 12 bytes */ GRIM_DATA("004ddce0") char s_meshes__d_004ddce0[12] = " meshes %d";
-/* 0x004ddcec, 12 bytes */ GRIM_DATA("004ddcec") char s_geoset__d_004ddcec[12] = " geoset %d";
-/* 0x004ddcf8, 12 bytes */ GRIM_DATA("004ddcf8") char s_geosets__d_004ddcf8[12] = " geosets %d";
-/* 0x004ddd04, 24 bytes */ GRIM_DATA("004ddd04") char s_insert_offset__f__f__f_004ddd04[24] = " insert offset %f %f %f";
-/* 0x004ddd1c, 12 bytes */ GRIM_DATA("004ddd1c") char s_radius__f_004ddd1c[12] = " radius %f";
-/* 0x004ddd28, 8 bytes */ GRIM_DATA("004ddd28") char s__d___s_004ddd28[8] = " %d: %s";
-/* 0x004ddd30, 24 bytes */ GRIM_DATA("004ddd30") char s_numMaterials___MAX_MATS_004ddd30[24] = "numMaterials < MAX_MATS";
-/* 0x004ddd48, 16 bytes */ GRIM_DATA("004ddd48") char s_materials__d_004ddd48[16] = " materials %d";
-/* 0x004ddd58, 12 bytes */ GRIM_DATA("004ddd58") char s_3do__d__d_004ddd58[12] = " 3do %d.%d";
-/* 0x004ddd64, 16 bytes */ GRIM_DATA("004ddd64") char s_section___s_004ddd64[16] = " section: %s";
-/* 0x004ddd74, 4 bytes */ GRIM_DATA("004ddd74") unsigned int UINT_004ddd74 = 0xa0a;
-/* 0x004ddd78, 4 bytes */ GRIM_DATA("004ddd78") char s_wb_004ddd78[4] = "wb";
-/* 0x004ddd7c, 4 bytes */ GRIM_DATA("004ddd7c") unsigned char DAT_004ddd7c[4] = { 0x7b };
-/* 0x004ddd80, 4 bytes */ GRIM_DATA("004ddd80") unsigned char DAT_004ddd80[4] = { 0xad };
-/* 0x004ddd84, 44 bytes */ GRIM_DATA("004ddd84") char s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84[44] = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdmaterial.c";
-/* 0x004dddb0, 40 bytes */ GRIM_DATA("004dddb0") char s_MAT_004dddb0[40] = "MAT \000\000\000\0009\000\000\000\000\000\000\000\002\000\000\000\001\000\000\000\000\000\000\000\002\000\000\000\001";
-/* 0x004dddd8, 4 bytes */ GRIM_DATA("004dddd8") unsigned char DAT_004dddd8[4] = { 0x40 };
-/* 0x004ddddc, 48 bytes */ GRIM_DATA("004ddddc") char s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc[48] = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdpuppet.c\000\000\000=";
-/* 0x004dde0c, 4 bytes */ GRIM_DATA("004dde0c") unsigned char DAT_004dde0c[4] = { 0x41 };
-/* 0x004dde10, 4 bytes */ GRIM_DATA("004dde10") unsigned char DAT_004dde10[4] = { 0xff };
-/* 0x004dde14, 72 bytes */ GRIM_DATA("004dde14") char s_C__grimjedi_Libs_RDroid_Engine_R_004dde14[72] = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdthing.c\000\000\000\000S\000\000\000\177\000\000\000b\000\000\000\214\000\000\000\314\000\000\0005\001\000\000i\001";
-/* 0x004dde5c, 4 bytes */ GRIM_DATA("004dde5c") unsigned char DAT_004dde5c[4] = { 0x55 };
-/* 0x004dde60, 4 bytes */ GRIM_DATA("004dde60") unsigned char DAT_004dde60[4] = { 0x81 };
-/* 0x004dde64, 52 bytes */ GRIM_DATA("004dde64") char s_C__grimjedi_Libs_RDroid_Primitiv_004dde64[52] = "C:\\grimjedi\\Libs\\RDroid\\Primitives\\Rdsprite.c\000\000\000I\004";
-/* 0x004dde98, 8 bytes */ GRIM_DATA("004dde98") char s__bmp_004dde98[8] = ".bmp";
-/* 0x004ddea0, 8 bytes */ GRIM_DATA("004ddea0") char s__pic_004ddea0[8] = ".pic";
-/* 0x004ddea8, 8 bytes */ GRIM_DATA("004ddea8") char s__zbm_004ddea8[8] = ".zbm";
-/* 0x004ddeb0, 4 bytes */ GRIM_DATA("004ddeb0") char s__bm_004ddeb0[4] = ".bm";
-/* 0x004ddeb4, 8 bytes */ GRIM_DATA("004ddeb4") char s__gif_004ddeb4[8] = ".gif";
-/* 0x004ddebc, 8 bytes */ GRIM_DATA("004ddebc") char s__pcx_004ddebc[8] = ".pcx";
-/* 0x004ddec4, 8 bytes */ GRIM_DATA("004ddec4") char s__lbm_004ddec4[8] = ".lbm";
-/* 0x004ddecc, 4 bytes */ GRIM_DATA("004ddecc") char s_bmp_004ddecc[4] = "bmp";
-/* 0x004dded0, 4 bytes */ GRIM_DATA("004dded0") char s_gif_004dded0[4] = "gif";
-/* 0x004dded4, 4 bytes */ GRIM_DATA("004dded4") char s_pcx_004dded4[4] = "pcx";
-/* 0x004dded8, 4 bytes */ GRIM_DATA("004dded8") char s_lbm_004dded8[4] = "lbm";
-/* 0x004ddedc, 4 bytes */ GRIM_DATA("004ddedc") char s_zbm_004ddedc[4] = "zbm";
-/* 0x004ddee0, 8 bytes */ GRIM_DATA("004ddee0") char s_bm_004ddee0[8] = "bm";
-/* 0x004ddee8, 744 bytes */ GRIM_DATA("004ddee8") DxErrorName g_aDDErrorNames[93] = {
+/* 0x004ddaa0, 12 bytes */ GRIM_DATA("004ddaa0") unsigned char g_dwRdColormap_colorInfo[12] __asm__("_g_dwRdColormap_colorInfo") = { 0x01, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x05 };
+/* 0x004ddb18, 4 bytes */ GRIM_DATA("004ddb18") char s_rb_004ddb18[4] __asm__("_s_rb_004ddb18") = "rb";
+/* 0x004ddb70, 4 bytes */ GRIM_DATA("004ddb70") float FLOAT_004ddb70 __asm__("_FLOAT_004ddb70") = 0.0f;
+/* 0x004ddb74, 4 bytes */ GRIM_DATA("004ddb74") float FLOAT_004ddb74 __asm__("_FLOAT_004ddb74") = 0.0f;
+/* 0x004ddb78, 4 bytes */ GRIM_DATA("004ddb78") float FLOAT_004ddb78 __asm__("_FLOAT_004ddb78") = 1.0f;
+/* 0x004ddb8c, 8 bytes */ GRIM_DATA("004ddb8c") char s_UNKNOWN_004ddb8c[8] __asm__("_s_UNKNOWN_004ddb8c") = "UNKNOWN";
+/* 0x004ddc14, 4 bytes */ GRIM_DATA("004ddc14") char s__f_004ddc14[4] __asm__("_s__f_004ddc14") = "%f";
+/* 0x004ddc18, 4 bytes */ GRIM_DATA("004ddc18") char s__d_004ddc18[4] __asm__("_s__d_004ddc18") = "%d";
+/* 0x004ddd64, 16 bytes */ GRIM_DATA("004ddd64") char s_section___s_004ddd64[16] __asm__("_s_section___s_004ddd64") = " section: %s";
+/* 0x004ddd78, 4 bytes */ GRIM_DATA("004ddd78") char s_wb_004ddd78[4] __asm__("_s_wb_004ddd78") = "wb";
+/* 0x004ddee8, 744 bytes */ GRIM_DATA("004ddee8") DxErrorName g_aDDErrorNames[93] __asm__("_g_aDDErrorNames") = {
     { .pName = (void *)&DAT_004de9d4 },
     { .dwCode = 0x88760005, .pName = (void *)&DAT_004de9b8 },
     { .dwCode = 0x8876000a, .pName = (void *)&DAT_004de99c },
@@ -6131,507 +3380,419 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     { .dwCode = 0x8876024d, .pName = (void *)&DAT_004de1f4 },
     { .dwCode = 0x8876024e, .pName = (void *)&DAT_004de1dc }
 };
-/* 0x004de1d0, 8 bytes */ GRIM_DATA("004de1d0") unsigned char DAT_004de1d0[8] = { 0x6e, 0x04, 0x00, 0x00, 0xff, 0x06 };
-/* 0x004de1d8, 4 bytes */ GRIM_DATA("004de1d8") unsigned char DAT_004de1d8[4] = { 0x31, 0x07 };
-/* 0x004de1dc, 24 bytes */ GRIM_DATA("004de1dc") unsigned char DAT_004de1dc[24] = {
+/* 0x004de1dc, 24 bytes */ GRIM_DATA("004de1dc") unsigned char DAT_004de1dc[24] __asm__("_DAT_004de1dc") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x55, 0x4e, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54, 0x45,
     0x44, 0x4d, 0x4f, 0x44, 0x45
 };
-/* 0x004de1f4, 20 bytes */ GRIM_DATA("004de1f4") unsigned char DAT_004de1f4[20] = {
+/* 0x004de1f4, 20 bytes */ GRIM_DATA("004de1f4") unsigned char DAT_004de1f4[20] __asm__("_DAT_004de1f4") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x50, 0x41, 0x4c, 0x45, 0x54, 0x54, 0x49,
     0x5a, 0x45, 0x44
 };
-/* 0x004de208, 24 bytes */ GRIM_DATA("004de208") unsigned char DAT_004de208[24] = {
+/* 0x004de208, 24 bytes */ GRIM_DATA("004de208") unsigned char DAT_004de208[24] __asm__("_DAT_004de208") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4d, 0x50, 0x4c, 0x49, 0x43, 0x49, 0x54, 0x4c, 0x59,
     0x43, 0x52, 0x45, 0x41, 0x54, 0x45, 0x44
 };
-/* 0x004de220, 16 bytes */ GRIM_DATA("004de220") unsigned char DAT_004de220[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x57, 0x52, 0x4f, 0x4e, 0x47, 0x4d, 0x4f, 0x44, 0x45 };
-/* 0x004de230, 12 bytes */ GRIM_DATA("004de230") unsigned char DAT_004de230[12] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x44, 0x43 };
-/* 0x004de23c, 20 bytes */ GRIM_DATA("004de23c") unsigned char DAT_004de23c[20] = {
+/* 0x004de220, 16 bytes */ GRIM_DATA("004de220") unsigned char DAT_004de220[16] __asm__("_DAT_004de220") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x57, 0x52, 0x4f, 0x4e, 0x47, 0x4d, 0x4f, 0x44, 0x45 };
+/* 0x004de230, 12 bytes */ GRIM_DATA("004de230") unsigned char DAT_004de230[12] __asm__("_DAT_004de230") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x44, 0x43 };
+/* 0x004de23c, 20 bytes */ GRIM_DATA("004de23c") unsigned char DAT_004de23c[20] __asm__("_DAT_004de23c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x43, 0x41, 0x4e, 0x54, 0x43, 0x52, 0x45, 0x41, 0x54, 0x45,
     0x44, 0x43
 };
-/* 0x004de250, 16 bytes */ GRIM_DATA("004de250") unsigned char DAT_004de250[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x4c, 0x4f, 0x43, 0x4b, 0x45, 0x44 };
-/* 0x004de260, 20 bytes */ GRIM_DATA("004de260") unsigned char DAT_004de260[20] = {
+/* 0x004de250, 16 bytes */ GRIM_DATA("004de250") unsigned char DAT_004de250[16] __asm__("_DAT_004de250") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x4c, 0x4f, 0x43, 0x4b, 0x45, 0x44 };
+/* 0x004de260, 20 bytes */ GRIM_DATA("004de260") unsigned char DAT_004de260[20] __asm__("_DAT_004de260") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x43, 0x41, 0x4e, 0x54, 0x44, 0x55, 0x50, 0x4c, 0x49, 0x43,
     0x41, 0x54, 0x45
 };
-/* 0x004de274, 20 bytes */ GRIM_DATA("004de274") unsigned char DAT_004de274[20] = {
+/* 0x004de274, 20 bytes */ GRIM_DATA("004de274") unsigned char DAT_004de274[20] __asm__("_DAT_004de274") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x46, 0x4c, 0x49, 0x50, 0x50, 0x41, 0x42,
     0x4c, 0x45
 };
-/* 0x004de288, 32 bytes */ GRIM_DATA("004de288") unsigned char DAT_004de288[32] = {
+/* 0x004de288, 32 bytes */ GRIM_DATA("004de288") unsigned char DAT_004de288[32] __asm__("_DAT_004de288") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x43, 0x4c, 0x55, 0x53, 0x49, 0x56, 0x45, 0x4d,
     0x4f, 0x44, 0x45, 0x41, 0x4c, 0x52, 0x45, 0x41, 0x44, 0x59, 0x53, 0x45, 0x54
 };
-/* 0x004de2a8, 28 bytes */ GRIM_DATA("004de2a8") unsigned char DAT_004de2a8[28] = {
+/* 0x004de2a8, 28 bytes */ GRIM_DATA("004de2a8") unsigned char DAT_004de2a8[28] __asm__("_DAT_004de2a8") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x41, 0x4f, 0x56, 0x45, 0x52, 0x4c, 0x41,
     0x59, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45
 };
-/* 0x004de2c4, 24 bytes */ GRIM_DATA("004de2c4") unsigned char DAT_004de2c4[24] = {
+/* 0x004de2c4, 24 bytes */ GRIM_DATA("004de2c4") unsigned char DAT_004de2c4[24] __asm__("_DAT_004de2c4") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x50, 0x4f, 0x53,
     0x49, 0x54, 0x49, 0x4f, 0x4e
 };
-/* 0x004de2dc, 20 bytes */ GRIM_DATA("004de2dc") unsigned char DAT_004de2dc[20] = {
+/* 0x004de2dc, 20 bytes */ GRIM_DATA("004de2dc") unsigned char DAT_004de2dc[20] __asm__("_DAT_004de2dc") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x4f, 0x56, 0x45, 0x52, 0x4c, 0x41, 0x59, 0x44,
     0x45, 0x53, 0x54
 };
-/* 0x004de2f0, 24 bytes */ GRIM_DATA("004de2f0") unsigned char DAT_004de2f0[24] = {
+/* 0x004de2f0, 24 bytes */ GRIM_DATA("004de2f0") unsigned char DAT_004de2f0[24] __asm__("_DAT_004de2f0") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x56, 0x45, 0x52, 0x4c, 0x41, 0x59, 0x4e, 0x4f, 0x54,
     0x56, 0x49, 0x53, 0x49, 0x42, 0x4c, 0x45
 };
-/* 0x004de308, 20 bytes */ GRIM_DATA("004de308") unsigned char DAT_004de308[20] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x44, 0x44, 0x52, 0x4f, 0x50, 0x53, 0x48, 0x57 };
-/* 0x004de31c, 16 bytes */ GRIM_DATA("004de31c") unsigned char DAT_004de31c[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x42, 0x4c, 0x54, 0x48, 0x57 };
-/* 0x004de32c, 24 bytes */ GRIM_DATA("004de32c") unsigned char DAT_004de32c[24] = {
+/* 0x004de308, 20 bytes */ GRIM_DATA("004de308") unsigned char DAT_004de308[20] __asm__("_DAT_004de308") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x44, 0x44, 0x52, 0x4f, 0x50, 0x53, 0x48, 0x57 };
+/* 0x004de31c, 16 bytes */ GRIM_DATA("004de31c") unsigned char DAT_004de31c[16] __asm__("_DAT_004de31c") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x42, 0x4c, 0x54, 0x48, 0x57 };
+/* 0x004de32c, 24 bytes */ GRIM_DATA("004de32c") unsigned char DAT_004de32c[24] __asm__("_DAT_004de32c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x4c, 0x54, 0x46, 0x41, 0x53, 0x54, 0x43, 0x41, 0x4e,
     0x54, 0x43, 0x4c, 0x49, 0x50
 };
-/* 0x004de344, 20 bytes */ GRIM_DATA("004de344") unsigned char DAT_004de344[20] = {
+/* 0x004de344, 20 bytes */ GRIM_DATA("004de344") unsigned char DAT_004de344[20] __asm__("_DAT_004de344") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x50, 0x41, 0x4c, 0x45, 0x54, 0x54, 0x45, 0x48,
     0x57
 };
-/* 0x004de358, 24 bytes */ GRIM_DATA("004de358") unsigned char DAT_004de358[24] = {
+/* 0x004de358, 24 bytes */ GRIM_DATA("004de358") unsigned char DAT_004de358[24] __asm__("_DAT_004de358") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x50, 0x41, 0x4c, 0x45, 0x54, 0x54, 0x45, 0x41,
     0x54, 0x54, 0x41, 0x43, 0x48, 0x45, 0x44
 };
-/* 0x004de370, 24 bytes */ GRIM_DATA("004de370") unsigned char DAT_004de370[24] = {
+/* 0x004de370, 24 bytes */ GRIM_DATA("004de370") unsigned char DAT_004de370[24] __asm__("_DAT_004de370") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x48, 0x57, 0x4e, 0x44, 0x41, 0x4c, 0x52, 0x45, 0x41, 0x44,
     0x59, 0x53, 0x45, 0x54
 };
-/* 0x004de388, 24 bytes */ GRIM_DATA("004de388") unsigned char DAT_004de388[24] = {
+/* 0x004de388, 24 bytes */ GRIM_DATA("004de388") unsigned char DAT_004de388[24] __asm__("_DAT_004de388") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x48, 0x57, 0x4e, 0x44, 0x53, 0x55, 0x42, 0x43, 0x4c, 0x41,
     0x53, 0x53, 0x45, 0x44
 };
-/* 0x004de3a0, 16 bytes */ GRIM_DATA("004de3a0") unsigned char DAT_004de3a0[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x48, 0x57, 0x4e, 0x44 };
-/* 0x004de3b0, 24 bytes */ GRIM_DATA("004de3b0") unsigned char DAT_004de3b0[24] = {
+/* 0x004de3a0, 16 bytes */ GRIM_DATA("004de3a0") unsigned char DAT_004de3a0[16] __asm__("_DAT_004de3a0") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x48, 0x57, 0x4e, 0x44 };
+/* 0x004de3b0, 24 bytes */ GRIM_DATA("004de3b0") unsigned char DAT_004de3b0[24] __asm__("_DAT_004de3b0") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x43, 0x4c, 0x49, 0x50, 0x50, 0x45, 0x52, 0x41,
     0x54, 0x54, 0x41, 0x43, 0x48, 0x45, 0x44
 };
-/* 0x004de3c8, 28 bytes */ GRIM_DATA("004de3c8") unsigned char DAT_004de3c8[28] = {
+/* 0x004de3c8, 28 bytes */ GRIM_DATA("004de3c8") unsigned char DAT_004de3c8[28] __asm__("_DAT_004de3c8") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x43, 0x4c, 0x49, 0x50, 0x50, 0x45, 0x52, 0x49, 0x53, 0x55,
     0x53, 0x49, 0x4e, 0x47, 0x48, 0x57, 0x4e, 0x44
 };
-/* 0x004de3e4, 24 bytes */ GRIM_DATA("004de3e4") unsigned char DAT_004de3e4[24] = {
+/* 0x004de3e4, 24 bytes */ GRIM_DATA("004de3e4") unsigned char DAT_004de3e4[24] __asm__("_DAT_004de3e4") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x52, 0x45, 0x47, 0x49, 0x4f, 0x4e, 0x54, 0x4f, 0x4f, 0x53,
     0x4d, 0x41, 0x4c, 0x4c
 };
-/* 0x004de3fc, 20 bytes */ GRIM_DATA("004de3fc") unsigned char DAT_004de3fc[20] = {
+/* 0x004de3fc, 20 bytes */ GRIM_DATA("004de3fc") unsigned char DAT_004de3fc[20] __asm__("_DAT_004de3fc") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x45, 0x4d, 0x55, 0x4c, 0x41, 0x54, 0x49, 0x4f,
     0x4e
 };
-/* 0x004de410, 36 bytes */ GRIM_DATA("004de410") unsigned char DAT_004de410[36] = {
+/* 0x004de410, 36 bytes */ GRIM_DATA("004de410") unsigned char DAT_004de410[36] __asm__("_DAT_004de410") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x50, 0x52, 0x49, 0x4d, 0x41, 0x52, 0x59, 0x53, 0x55, 0x52,
     0x46, 0x41, 0x43, 0x45, 0x41, 0x4c, 0x52, 0x45, 0x41, 0x44, 0x59, 0x45, 0x58, 0x49, 0x53, 0x54,
     0x53
 };
-/* 0x004de434, 24 bytes */ GRIM_DATA("004de434") unsigned char DAT_004de434[24] = {
+/* 0x004de434, 24 bytes */ GRIM_DATA("004de434") unsigned char DAT_004de434[24] __asm__("_DAT_004de434") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x44, 0x49, 0x52, 0x45, 0x43, 0x54, 0x44, 0x52,
     0x41, 0x57, 0x48, 0x57
 };
-/* 0x004de44c, 32 bytes */ GRIM_DATA("004de44c") unsigned char DAT_004de44c[32] = {
+/* 0x004de44c, 32 bytes */ GRIM_DATA("004de44c") unsigned char DAT_004de44c[32] __asm__("_DAT_004de44c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x44, 0x49, 0x52, 0x45, 0x43, 0x54, 0x44, 0x52, 0x41, 0x57,
     0x41, 0x4c, 0x52, 0x45, 0x41, 0x44, 0x59, 0x43, 0x52, 0x45, 0x41, 0x54, 0x45, 0x44
 };
-/* 0x004de46c, 28 bytes */ GRIM_DATA("004de46c") unsigned char DAT_004de46c[28] = {
+/* 0x004de46c, 28 bytes */ GRIM_DATA("004de46c") unsigned char DAT_004de46c[28] __asm__("_DAT_004de46c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x44, 0x49, 0x52,
     0x45, 0x43, 0x54, 0x44, 0x52, 0x41, 0x57, 0x47, 0x55, 0x49, 0x44
 };
-/* 0x004de488, 16 bytes */ GRIM_DATA("004de488") unsigned char DAT_004de488[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x58, 0x41, 0x4c, 0x49, 0x47, 0x4e };
-/* 0x004de498, 24 bytes */ GRIM_DATA("004de498") unsigned char DAT_004de498[24] = {
+/* 0x004de488, 16 bytes */ GRIM_DATA("004de488") unsigned char DAT_004de488[16] __asm__("_DAT_004de488") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x58, 0x41, 0x4c, 0x49, 0x47, 0x4e };
+/* 0x004de498, 24 bytes */ GRIM_DATA("004de498") unsigned char DAT_004de498[24] __asm__("_DAT_004de498") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x57, 0x41, 0x53, 0x53, 0x54, 0x49, 0x4c, 0x4c, 0x44, 0x52,
     0x41, 0x57, 0x49, 0x4e, 0x47
 };
-/* 0x004de4b0, 32 bytes */ GRIM_DATA("004de4b0") unsigned char DAT_004de4b0[32] = {
+/* 0x004de4b0, 32 bytes */ GRIM_DATA("004de4b0") unsigned char DAT_004de4b0[32] __asm__("_DAT_004de4b0") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x56, 0x45, 0x52, 0x54, 0x49, 0x43, 0x41, 0x4c, 0x42, 0x4c,
     0x41, 0x4e, 0x4b, 0x49, 0x4e, 0x50, 0x52, 0x4f, 0x47, 0x52, 0x45, 0x53, 0x53
 };
-/* 0x004de4d0, 24 bytes */ GRIM_DATA("004de4d0") unsigned char DAT_004de4d0[24] = {
+/* 0x004de4d0, 24 bytes */ GRIM_DATA("004de4d0") unsigned char DAT_004de4d0[24] __asm__("_DAT_004de4d0") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x55, 0x4e, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54, 0x45,
     0x44, 0x4d, 0x41, 0x53, 0x4b
 };
-/* 0x004de4e8, 24 bytes */ GRIM_DATA("004de4e8") unsigned char DAT_004de4e8[24] = {
+/* 0x004de4e8, 24 bytes */ GRIM_DATA("004de4e8") unsigned char DAT_004de4e8[24] __asm__("_DAT_004de4e8") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x55, 0x4e, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54, 0x45,
     0x44, 0x46, 0x4f, 0x52, 0x4d, 0x41, 0x54
 };
-/* 0x004de500, 20 bytes */ GRIM_DATA("004de500") unsigned char DAT_004de500[20] = {
+/* 0x004de500, 20 bytes */ GRIM_DATA("004de500") unsigned char DAT_004de500[20] __asm__("_DAT_004de500") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x55, 0x4e, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54, 0x45,
     0x44
 };
-/* 0x004de514, 20 bytes */ GRIM_DATA("004de514") unsigned char DAT_004de514[20] = {
+/* 0x004de514, 20 bytes */ GRIM_DATA("004de514") unsigned char DAT_004de514[20] __asm__("_DAT_004de514") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x4f, 0x4f, 0x42, 0x49, 0x47, 0x57, 0x49, 0x44, 0x54,
     0x48
 };
-/* 0x004de528, 20 bytes */ GRIM_DATA("004de528") unsigned char DAT_004de528[20] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x4f, 0x4f, 0x42, 0x49, 0x47, 0x53, 0x49, 0x5a, 0x45 };
-/* 0x004de53c, 20 bytes */ GRIM_DATA("004de53c") unsigned char DAT_004de53c[20] = {
+/* 0x004de528, 20 bytes */ GRIM_DATA("004de528") unsigned char DAT_004de528[20] __asm__("_DAT_004de528") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x4f, 0x4f, 0x42, 0x49, 0x47, 0x53, 0x49, 0x5a, 0x45 };
+/* 0x004de53c, 20 bytes */ GRIM_DATA("004de53c") unsigned char DAT_004de53c[20] __asm__("_DAT_004de53c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x4f, 0x4f, 0x42, 0x49, 0x47, 0x48, 0x45, 0x49, 0x47,
     0x48, 0x54
 };
-/* 0x004de550, 28 bytes */ GRIM_DATA("004de550") unsigned char DAT_004de550[28] = {
+/* 0x004de550, 28 bytes */ GRIM_DATA("004de550") unsigned char DAT_004de550[28] __asm__("_DAT_004de550") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45, 0x4e, 0x4f, 0x54,
     0x41, 0x54, 0x54, 0x41, 0x43, 0x48, 0x45, 0x44
 };
-/* 0x004de56c, 20 bytes */ GRIM_DATA("004de56c") unsigned char DAT_004de56c[20] = {
+/* 0x004de56c, 20 bytes */ GRIM_DATA("004de56c") unsigned char DAT_004de56c[20] __asm__("_DAT_004de56c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45, 0x4c, 0x4f, 0x53,
     0x54
 };
-/* 0x004de580, 24 bytes */ GRIM_DATA("004de580") unsigned char DAT_004de580[24] = {
+/* 0x004de580, 24 bytes */ GRIM_DATA("004de580") unsigned char DAT_004de580[24] __asm__("_DAT_004de580") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45, 0x49, 0x53, 0x4f,
     0x42, 0x53, 0x43, 0x55, 0x52, 0x45, 0x44
 };
-/* 0x004de598, 20 bytes */ GRIM_DATA("004de598") unsigned char DAT_004de598[20] = {
+/* 0x004de598, 20 bytes */ GRIM_DATA("004de598") unsigned char DAT_004de598[20] __asm__("_DAT_004de598") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45, 0x42, 0x55, 0x53,
     0x59
 };
-/* 0x004de5ac, 32 bytes */ GRIM_DATA("004de5ac") unsigned char DAT_004de5ac[32] = {
+/* 0x004de5ac, 32 bytes */ GRIM_DATA("004de5ac") unsigned char DAT_004de5ac[32] __asm__("_DAT_004de5ac") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45, 0x41, 0x4c, 0x52,
     0x45, 0x41, 0x44, 0x59, 0x44, 0x45, 0x50, 0x45, 0x4e, 0x44, 0x45, 0x4e, 0x54
 };
-/* 0x004de5cc, 32 bytes */ GRIM_DATA("004de5cc") unsigned char DAT_004de5cc[32] = {
+/* 0x004de5cc, 32 bytes */ GRIM_DATA("004de5cc") unsigned char DAT_004de5cc[32] __asm__("_DAT_004de5cc") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45, 0x41, 0x4c, 0x52,
     0x45, 0x41, 0x44, 0x59, 0x41, 0x54, 0x54, 0x41, 0x43, 0x48, 0x45, 0x44
 };
-/* 0x004de5ec, 24 bytes */ GRIM_DATA("004de5ec") unsigned char DAT_004de5ec[24] = {
+/* 0x004de5ec, 24 bytes */ GRIM_DATA("004de5ec") unsigned char DAT_004de5ec[24] __asm__("_DAT_004de5ec") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x43, 0x4f, 0x4c, 0x4f, 0x52, 0x4b, 0x45, 0x59, 0x4e, 0x4f,
     0x54, 0x53, 0x45, 0x54
 };
-/* 0x004de604, 20 bytes */ GRIM_DATA("004de604") unsigned char DAT_004de604[20] = {
+/* 0x004de604, 20 bytes */ GRIM_DATA("004de604") unsigned char DAT_004de604[20] __asm__("_DAT_004de604") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x50, 0x41, 0x4c, 0x45, 0x54, 0x54, 0x45, 0x42, 0x55, 0x53,
     0x59
 };
-/* 0x004de618, 36 bytes */ GRIM_DATA("004de618") unsigned char DAT_004de618[36] = {
+/* 0x004de618, 36 bytes */ GRIM_DATA("004de618") unsigned char DAT_004de618[36] __asm__("_DAT_004de618") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x56, 0x45, 0x52, 0x4c, 0x41, 0x59, 0x43, 0x4f, 0x4c,
     0x4f, 0x52, 0x4b, 0x45, 0x59, 0x4f, 0x4e, 0x4c, 0x59, 0x4f, 0x4e, 0x45, 0x41, 0x43, 0x54, 0x49,
     0x56, 0x45
 };
-/* 0x004de63c, 24 bytes */ GRIM_DATA("004de63c") unsigned char DAT_004de63c[24] = {
+/* 0x004de63c, 24 bytes */ GRIM_DATA("004de63c") unsigned char DAT_004de63c[24] __asm__("_DAT_004de63c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x56, 0x45, 0x52, 0x4c, 0x41, 0x59, 0x43, 0x41, 0x4e,
     0x54, 0x43, 0x4c, 0x49, 0x50
 };
-/* 0x004de654, 24 bytes */ GRIM_DATA("004de654") unsigned char DAT_004de654[24] = {
+/* 0x004de654, 24 bytes */ GRIM_DATA("004de654") unsigned char DAT_004de654[24] __asm__("_DAT_004de654") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x55, 0x54, 0x4f, 0x46, 0x56, 0x49, 0x44, 0x45, 0x4f,
     0x4d, 0x45, 0x4d, 0x4f, 0x52, 0x59
 };
-/* 0x004de66c, 20 bytes */ GRIM_DATA("004de66c") unsigned char DAT_004de66c[20] = {
+/* 0x004de66c, 20 bytes */ GRIM_DATA("004de66c") unsigned char DAT_004de66c[20] __asm__("_DAT_004de66c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x55, 0x54, 0x4f, 0x46, 0x4d, 0x45, 0x4d, 0x4f, 0x52,
     0x59
 };
-/* 0x004de680, 16 bytes */ GRIM_DATA("004de680") unsigned char DAT_004de680[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x55, 0x54, 0x4f, 0x46, 0x43, 0x41, 0x50, 0x53 };
-/* 0x004de690, 20 bytes */ GRIM_DATA("004de690") unsigned char DAT_004de690[20] = {
+/* 0x004de680, 16 bytes */ GRIM_DATA("004de680") unsigned char DAT_004de680[16] __asm__("_DAT_004de680") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x55, 0x54, 0x4f, 0x46, 0x43, 0x41, 0x50, 0x53 };
+/* 0x004de690, 20 bytes */ GRIM_DATA("004de690") unsigned char DAT_004de690[20] __asm__("_DAT_004de690") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x5a, 0x4f, 0x56, 0x45, 0x52, 0x4c, 0x41, 0x59,
     0x48, 0x57
 };
-/* 0x004de6a4, 20 bytes */ GRIM_DATA("004de6a4") unsigned char DAT_004de6a4[20] = {
+/* 0x004de6a4, 20 bytes */ GRIM_DATA("004de6a4") unsigned char DAT_004de6a4[20] __asm__("_DAT_004de6a4") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x5a, 0x42, 0x55, 0x46, 0x46, 0x45, 0x52, 0x48,
     0x57
 };
-/* 0x004de6b8, 16 bytes */ GRIM_DATA("004de6b8") unsigned char DAT_004de6b8[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x56, 0x53, 0x59, 0x4e, 0x43, 0x48, 0x57 };
-/* 0x004de6c8, 20 bytes */ GRIM_DATA("004de6c8") unsigned char DAT_004de6c8[20] = {
+/* 0x004de6b8, 16 bytes */ GRIM_DATA("004de6b8") unsigned char DAT_004de6b8[16] __asm__("_DAT_004de6b8") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x56, 0x53, 0x59, 0x4e, 0x43, 0x48, 0x57 };
+/* 0x004de6c8, 20 bytes */ GRIM_DATA("004de6c8") unsigned char DAT_004de6c8[20] __asm__("_DAT_004de6c8") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x48,
     0x57
 };
-/* 0x004de6dc, 20 bytes */ GRIM_DATA("004de6dc") unsigned char DAT_004de6dc[20] = {
+/* 0x004de6dc, 20 bytes */ GRIM_DATA("004de6dc") unsigned char DAT_004de6dc[20] __asm__("_DAT_004de6dc") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x38, 0x42, 0x49, 0x54, 0x43, 0x4f, 0x4c,
     0x4f, 0x52
 };
-/* 0x004de6f0, 24 bytes */ GRIM_DATA("004de6f0") unsigned char DAT_004de6f0[24] = {
+/* 0x004de6f0, 24 bytes */ GRIM_DATA("004de6f0") unsigned char DAT_004de6f0[24] __asm__("_DAT_004de6f0") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x34, 0x42, 0x49, 0x54, 0x43, 0x4f, 0x4c,
     0x4f, 0x52, 0x49, 0x4e, 0x44, 0x45, 0x58
 };
-/* 0x004de708, 20 bytes */ GRIM_DATA("004de708") unsigned char DAT_004de708[20] = {
+/* 0x004de708, 20 bytes */ GRIM_DATA("004de708") unsigned char DAT_004de708[20] __asm__("_DAT_004de708") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x34, 0x42, 0x49, 0x54, 0x43, 0x4f, 0x4c,
     0x4f, 0x52
 };
-/* 0x004de71c, 20 bytes */ GRIM_DATA("004de71c") unsigned char DAT_004de71c[20] = {
+/* 0x004de71c, 20 bytes */ GRIM_DATA("004de71c") unsigned char DAT_004de71c[20] __asm__("_DAT_004de71c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x53, 0x54, 0x52, 0x45, 0x54, 0x43, 0x48, 0x48,
     0x57
 };
-/* 0x004de730, 20 bytes */ GRIM_DATA("004de730") unsigned char DAT_004de730[20] = {
+/* 0x004de730, 20 bytes */ GRIM_DATA("004de730") unsigned char DAT_004de730[20] __asm__("_DAT_004de730") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x52, 0x4f, 0x54, 0x41, 0x54, 0x49, 0x4f, 0x4e,
     0x48, 0x57
 };
-/* 0x004de744, 20 bytes */ GRIM_DATA("004de744") unsigned char DAT_004de744[20] = {
+/* 0x004de744, 20 bytes */ GRIM_DATA("004de744") unsigned char DAT_004de744[20] __asm__("_DAT_004de744") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x52, 0x41, 0x53, 0x54, 0x45, 0x52, 0x4f, 0x50,
     0x48, 0x57
 };
-/* 0x004de758, 20 bytes */ GRIM_DATA("004de758") unsigned char DAT_004de758[20] = {
+/* 0x004de758, 20 bytes */ GRIM_DATA("004de758") unsigned char DAT_004de758[20] __asm__("_DAT_004de758") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x4f, 0x56, 0x45, 0x52, 0x4c, 0x41, 0x59, 0x48,
     0x57
 };
-/* 0x004de76c, 16 bytes */ GRIM_DATA("004de76c") unsigned char DAT_004de76c[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x46, 0x4f, 0x55, 0x4e, 0x44 };
-/* 0x004de77c, 20 bytes */ GRIM_DATA("004de77c") unsigned char DAT_004de77c[20] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x4d, 0x49, 0x52, 0x52, 0x4f, 0x52, 0x48, 0x57 };
-/* 0x004de790, 12 bytes */ GRIM_DATA("004de790") unsigned char DAT_004de790[12] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x47, 0x44, 0x49 };
-/* 0x004de79c, 16 bytes */ GRIM_DATA("004de79c") unsigned char DAT_004de79c[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x46, 0x4c, 0x49, 0x50, 0x48, 0x57 };
-/* 0x004de7ac, 24 bytes */ GRIM_DATA("004de7ac") unsigned char DAT_004de7ac[24] = {
+/* 0x004de76c, 16 bytes */ GRIM_DATA("004de76c") unsigned char DAT_004de76c[16] __asm__("_DAT_004de76c") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x46, 0x4f, 0x55, 0x4e, 0x44 };
+/* 0x004de77c, 20 bytes */ GRIM_DATA("004de77c") unsigned char DAT_004de77c[20] __asm__("_DAT_004de77c") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x4d, 0x49, 0x52, 0x52, 0x4f, 0x52, 0x48, 0x57 };
+/* 0x004de790, 12 bytes */ GRIM_DATA("004de790") unsigned char DAT_004de790[12] __asm__("_DAT_004de790") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x47, 0x44, 0x49 };
+/* 0x004de79c, 16 bytes */ GRIM_DATA("004de79c") unsigned char DAT_004de79c[16] __asm__("_DAT_004de79c") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x46, 0x4c, 0x49, 0x50, 0x48, 0x57 };
+/* 0x004de7ac, 24 bytes */ GRIM_DATA("004de7ac") unsigned char DAT_004de7ac[24] __asm__("_DAT_004de7ac") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x45, 0x58, 0x43, 0x4c, 0x55, 0x53, 0x49, 0x56,
     0x45, 0x4d, 0x4f, 0x44, 0x45
 };
-/* 0x004de7c4, 28 bytes */ GRIM_DATA("004de7c4") unsigned char DAT_004de7c4[28] = {
+/* 0x004de7c4, 28 bytes */ GRIM_DATA("004de7c4") unsigned char DAT_004de7c4[28] __asm__("_DAT_004de7c4") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x44, 0x49, 0x52, 0x45, 0x43, 0x54, 0x44, 0x52,
     0x41, 0x57, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54
 };
-/* 0x004de7e0, 20 bytes */ GRIM_DATA("004de7e0") unsigned char DAT_004de7e0[20] = {
+/* 0x004de7e0, 20 bytes */ GRIM_DATA("004de7e0") unsigned char DAT_004de7e0[20] __asm__("_DAT_004de7e0") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x43, 0x4f, 0x4c, 0x4f, 0x52, 0x4b, 0x45, 0x59,
     0x48, 0x57
 };
-/* 0x004de7f4, 20 bytes */ GRIM_DATA("004de7f4") unsigned char DAT_004de7f4[20] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x43, 0x4f, 0x4c, 0x4f, 0x52, 0x4b, 0x45, 0x59 };
-/* 0x004de808, 28 bytes */ GRIM_DATA("004de808") unsigned char DAT_004de808[28] = {
+/* 0x004de7f4, 20 bytes */ GRIM_DATA("004de7f4") unsigned char DAT_004de7f4[20] __asm__("_DAT_004de7f4") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x43, 0x4f, 0x4c, 0x4f, 0x52, 0x4b, 0x45, 0x59 };
+/* 0x004de808, 28 bytes */ GRIM_DATA("004de808") unsigned char DAT_004de808[28] __asm__("_DAT_004de808") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x43, 0x4f, 0x4f, 0x50, 0x45, 0x52, 0x41, 0x54,
     0x49, 0x56, 0x45, 0x4c, 0x45, 0x56, 0x45, 0x4c, 0x53, 0x45, 0x54
 };
-/* 0x004de824, 20 bytes */ GRIM_DATA("004de824") unsigned char DAT_004de824[20] = {
+/* 0x004de824, 20 bytes */ GRIM_DATA("004de824") unsigned char DAT_004de824[20] __asm__("_DAT_004de824") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x43, 0x4f, 0x4c, 0x4f, 0x52, 0x43, 0x4f, 0x4e,
     0x56, 0x48, 0x57
 };
-/* 0x004de838, 20 bytes */ GRIM_DATA("004de838") unsigned char DAT_004de838[20] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x43, 0x4c, 0x49, 0x50, 0x4c, 0x49, 0x53, 0x54 };
-/* 0x004de84c, 16 bytes */ GRIM_DATA("004de84c") unsigned char DAT_004de84c[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x41, 0x4c, 0x50, 0x48, 0x41, 0x48, 0x57 };
-/* 0x004de85c, 12 bytes */ GRIM_DATA("004de85c") unsigned char DAT_004de85c[12] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x33, 0x44 };
-/* 0x004de868, 24 bytes */ GRIM_DATA("004de868") unsigned char DAT_004de868[24] = {
+/* 0x004de838, 20 bytes */ GRIM_DATA("004de838") unsigned char DAT_004de838[20] __asm__("_DAT_004de838") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x43, 0x4c, 0x49, 0x50, 0x4c, 0x49, 0x53, 0x54 };
+/* 0x004de84c, 16 bytes */ GRIM_DATA("004de84c") unsigned char DAT_004de84c[16] __asm__("_DAT_004de84c") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x41, 0x4c, 0x50, 0x48, 0x41, 0x48, 0x57 };
+/* 0x004de85c, 12 bytes */ GRIM_DATA("004de85c") unsigned char DAT_004de85c[12] __asm__("_DAT_004de85c") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x33, 0x44 };
+/* 0x004de868, 24 bytes */ GRIM_DATA("004de868") unsigned char DAT_004de868[24] __asm__("_DAT_004de868") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4c, 0x4f, 0x43, 0x4b, 0x45, 0x44, 0x53, 0x55, 0x52, 0x46,
     0x41, 0x43, 0x45, 0x53
 };
-/* 0x004de880, 20 bytes */ GRIM_DATA("004de880") unsigned char DAT_004de880[20] = {
+/* 0x004de880, 20 bytes */ GRIM_DATA("004de880") unsigned char DAT_004de880[20] __asm__("_DAT_004de880") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x52, 0x45, 0x43,
     0x54
 };
-/* 0x004de894, 28 bytes */ GRIM_DATA("004de894") unsigned char DAT_004de894[28] = {
+/* 0x004de894, 28 bytes */ GRIM_DATA("004de894") unsigned char DAT_004de894[28] __asm__("_DAT_004de894") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x50, 0x49, 0x58,
     0x45, 0x4c, 0x46, 0x4f, 0x52, 0x4d, 0x41, 0x54
 };
-/* 0x004de8b0, 20 bytes */ GRIM_DATA("004de8b0") unsigned char DAT_004de8b0[20] = {
+/* 0x004de8b0, 20 bytes */ GRIM_DATA("004de8b0") unsigned char DAT_004de8b0[20] __asm__("_DAT_004de8b0") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x50, 0x41, 0x52,
     0x41, 0x4d, 0x53
 };
-/* 0x004de8c4, 20 bytes */ GRIM_DATA("004de8c4") unsigned char DAT_004de8c4[20] = {
+/* 0x004de8c4, 20 bytes */ GRIM_DATA("004de8c4") unsigned char DAT_004de8c4[20] __asm__("_DAT_004de8c4") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x4f, 0x42, 0x4a,
     0x45, 0x43, 0x54
 };
-/* 0x004de8d8, 20 bytes */ GRIM_DATA("004de8d8") unsigned char DAT_004de8d8[20] = {
+/* 0x004de8d8, 20 bytes */ GRIM_DATA("004de8d8") unsigned char DAT_004de8d8[20] __asm__("_DAT_004de8d8") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x4d, 0x4f, 0x44,
     0x45
 };
-/* 0x004de8ec, 24 bytes */ GRIM_DATA("004de8ec") unsigned char DAT_004de8ec[24] = {
+/* 0x004de8ec, 24 bytes */ GRIM_DATA("004de8ec") unsigned char DAT_004de8ec[24] __asm__("_DAT_004de8ec") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x43, 0x4c, 0x49,
     0x50, 0x4c, 0x49, 0x53, 0x54
 };
-/* 0x004de904, 20 bytes */ GRIM_DATA("004de904") unsigned char DAT_004de904[20] = {
+/* 0x004de904, 20 bytes */ GRIM_DATA("004de904") unsigned char DAT_004de904[20] __asm__("_DAT_004de904") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x43, 0x41, 0x50,
     0x53
 };
-/* 0x004de918, 28 bytes */ GRIM_DATA("004de918") unsigned char DAT_004de918[28] = {
+/* 0x004de918, 28 bytes */ GRIM_DATA("004de918") unsigned char DAT_004de918[28] __asm__("_DAT_004de918") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x43, 0x4f, 0x4d, 0x50, 0x41, 0x54, 0x49, 0x42,
     0x4c, 0x45, 0x50, 0x52, 0x49, 0x4d, 0x41, 0x52, 0x59
 };
-/* 0x004de934, 20 bytes */ GRIM_DATA("004de934") unsigned char DAT_004de934[20] = {
+/* 0x004de934, 20 bytes */ GRIM_DATA("004de934") unsigned char DAT_004de934[20] __asm__("_DAT_004de934") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x48, 0x45, 0x49, 0x47, 0x48, 0x54, 0x41, 0x4c, 0x49, 0x47,
     0x4e
 };
-/* 0x004de948, 16 bytes */ GRIM_DATA("004de948") unsigned char DAT_004de948[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x47, 0x45, 0x4e, 0x45, 0x52, 0x49, 0x43 };
-/* 0x004de958, 16 bytes */ GRIM_DATA("004de958") unsigned char DAT_004de958[16] = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x43, 0x45, 0x50, 0x54, 0x49, 0x4f, 0x4e };
-/* 0x004de968, 24 bytes */ GRIM_DATA("004de968") unsigned char DAT_004de968[24] = {
+/* 0x004de948, 16 bytes */ GRIM_DATA("004de948") unsigned char DAT_004de948[16] __asm__("_DAT_004de948") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x47, 0x45, 0x4e, 0x45, 0x52, 0x49, 0x43 };
+/* 0x004de958, 16 bytes */ GRIM_DATA("004de958") unsigned char DAT_004de958[16] __asm__("_DAT_004de958") = { 0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x43, 0x45, 0x50, 0x54, 0x49, 0x4f, 0x4e };
+/* 0x004de968, 24 bytes */ GRIM_DATA("004de968") unsigned char DAT_004de968[24] __asm__("_DAT_004de968") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x43, 0x55, 0x52, 0x52, 0x45, 0x4e, 0x54, 0x4c, 0x59, 0x4e,
     0x4f, 0x54, 0x41, 0x56, 0x41, 0x49, 0x4c
 };
-/* 0x004de980, 28 bytes */ GRIM_DATA("004de980") unsigned char DAT_004de980[28] = {
+/* 0x004de980, 28 bytes */ GRIM_DATA("004de980") unsigned char DAT_004de980[28] __asm__("_DAT_004de980") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x43, 0x41, 0x4e, 0x4e, 0x4f, 0x54, 0x44, 0x45, 0x54, 0x41,
     0x43, 0x48, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45
 };
-/* 0x004de99c, 28 bytes */ GRIM_DATA("004de99c") unsigned char DAT_004de99c[28] = {
+/* 0x004de99c, 28 bytes */ GRIM_DATA("004de99c") unsigned char DAT_004de99c[28] __asm__("_DAT_004de99c") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x43, 0x41, 0x4e, 0x4e, 0x4f, 0x54, 0x41, 0x54, 0x54, 0x41,
     0x43, 0x48, 0x53, 0x55, 0x52, 0x46, 0x41, 0x43, 0x45
 };
-/* 0x004de9b8, 28 bytes */ GRIM_DATA("004de9b8") unsigned char DAT_004de9b8[28] = {
+/* 0x004de9b8, 28 bytes */ GRIM_DATA("004de9b8") unsigned char DAT_004de9b8[28] __asm__("_DAT_004de9b8") = {
     0x44, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x41, 0x4c, 0x52, 0x45, 0x41, 0x44, 0x59, 0x49, 0x4e, 0x49,
     0x54, 0x49, 0x41, 0x4c, 0x49, 0x5a, 0x45, 0x44
 };
-/* 0x004de9d4, 8 bytes */ GRIM_DATA("004de9d4") unsigned char DAT_004de9d4[8] = { 0x44, 0x44, 0x5f, 0x4f, 0x4b };
-/* 0x004de9dc, 28 bytes */ GRIM_DATA("004de9dc") char s_DIBsection_windowed_display_004de9dc[28] = "DIBsection windowed display";
-/* 0x004de9f8, 24 bytes */ GRIM_DATA("004de9f8") char s_Window_Display_Device_004de9f8[24] = "Window Display Device";
-/* 0x004dea10, 8 bytes */ GRIM_DATA("004dea10") char s_Arial_004dea10[8] = "Arial";
-/* 0x004dea18, 40 bytes */ GRIM_DATA("004dea18") char s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18[40] = "C:\\grimjedi\\Libs\\Std\\Win95\\Stddisplay.c";
-/* 0x004dea40, 4 bytes */ GRIM_DATA("004dea40") unsigned int UINT_004dea40 = 0x1;
-/* 0x004dea44, 4 bytes */ GRIM_DATA("004dea44") float FLOAT_004dea44 = 1.0f;
-/* 0x004dea48, 288 bytes */ GRIM_DATA("004dea48") grim_span_004dea48 FLOAT_004dea48 = {
-    { 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f },
-    (void *)&DAT_004dee10,
-    { 0x01 },
-    (void *)&DAT_004dee00,
-    { 0x01 },
-    (void *)&DAT_004dedec,
-    { 0x01 },
-    (void *)&DAT_004deddc,
-    { 0x02 },
-    (void *)&DAT_004dedcc,
-    { 0x7e, 0x04, 0x07, 0x80 },
-    (void *)&DAT_004dedb0,
-    { 0x81, 0x04, 0x07, 0x80 },
-    (void *)&DAT_004ded90,
-    { 0x77, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004ded7c,
-    { 0x54, 0x01, 0x04, 0x80 },
-    (void *)&DAT_004ded68,
-    { 0x02, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004ded58,
-    { 0x02, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004ded40,
-    { 0x57, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004ded2c,
-    { 0x02, 0x40, 0x00, 0x80 },
-    (void *)&DAT_004ded18,
-    { 0x05, 0x40, 0x00, 0x80 },
-    (void *)&DAT_004ded08,
-    { 0x0e, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004decf4,
-    { 0x01, 0x40, 0x00, 0x80 },
-    (void *)&DAT_004dece0,
-    { 0x15, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004decc8,
-    { 0xdf, 0x04, 0x07, 0x80 },
-    (void *)&DAT_004decac,
-    { 0x10, 0x01, 0x04, 0x80 },
-    (void *)&DAT_004dec98,
-    { 0x05, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004dec80,
-    { 0x1e, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004dec70,
-    { 0xaa, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004dec60,
-    { 0x0c, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004dec4c,
-    { 0x05, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004dec3c,
-    { 0x05, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004dec28,
-    { 0x00, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004dec10,
-    { 0x01, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004debfc,
-    { 0x02, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004debec,
-    { 0x03, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004debd8,
-    { 0x04, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004debc4,
-    { 0x05, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004deba8,
-    { 0x06, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004deb90,
-    { 0x07, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004deb7c,
-    { 0x08, 0x02, 0x04, 0x80 },
-    (void *)&DAT_004deb68
-};
-/* 0x004deb68, 20 bytes */ GRIM_DATA("004deb68") unsigned char DAT_004deb68[20] = {
+/* 0x004de9d4, 8 bytes */ GRIM_DATA("004de9d4") unsigned char DAT_004de9d4[8] __asm__("_DAT_004de9d4") = { 0x44, 0x44, 0x5f, 0x4f, 0x4b };
+/* 0x004deb68, 20 bytes */ GRIM_DATA("004deb68") unsigned char DAT_004deb68[20] __asm__("_DAT_004deb68") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x46, 0x46, 0x45, 0x43, 0x54, 0x50, 0x4c, 0x41, 0x59,
     0x49, 0x4e, 0x47
 };
-/* 0x004deb7c, 20 bytes */ GRIM_DATA("004deb7c") unsigned char DAT_004deb7c[20] = {
+/* 0x004deb7c, 20 bytes */ GRIM_DATA("004deb7c") unsigned char DAT_004deb7c[20] __asm__("_DAT_004deb7c") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x42, 0x55, 0x46, 0x46, 0x45, 0x52, 0x45,
     0x44
 };
-/* 0x004deb90, 24 bytes */ GRIM_DATA("004deb90") unsigned char DAT_004deb90[24] = {
+/* 0x004deb90, 24 bytes */ GRIM_DATA("004deb90") unsigned char DAT_004deb90[24] __asm__("_DAT_004deb90") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x43, 0x4f, 0x4d, 0x50, 0x4c, 0x45, 0x54, 0x45,
     0x45, 0x46, 0x46, 0x45, 0x43, 0x54
 };
-/* 0x004deba8, 28 bytes */ GRIM_DATA("004deba8") unsigned char DAT_004deba8[28] = {
+/* 0x004deba8, 28 bytes */ GRIM_DATA("004deba8") unsigned char DAT_004deba8[28] __asm__("_DAT_004deba8") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x45, 0x58, 0x43, 0x4c, 0x55, 0x53, 0x49,
     0x56, 0x45, 0x41, 0x43, 0x51, 0x55, 0x49, 0x52, 0x45, 0x44
 };
-/* 0x004debc4, 20 bytes */ GRIM_DATA("004debc4") unsigned char DAT_004debc4[20] = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x48, 0x41, 0x53, 0x45, 0x46, 0x46, 0x45, 0x43, 0x54, 0x53 };
-/* 0x004debd8, 20 bytes */ GRIM_DATA("004debd8") unsigned char DAT_004debd8[20] = {
+/* 0x004debc4, 20 bytes */ GRIM_DATA("004debc4") unsigned char DAT_004debc4[20] __asm__("_DAT_004debc4") = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x48, 0x41, 0x53, 0x45, 0x46, 0x46, 0x45, 0x43, 0x54, 0x53 };
+/* 0x004debd8, 20 bytes */ GRIM_DATA("004debd8") unsigned char DAT_004debd8[20] __asm__("_DAT_004debd8") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x44, 0x4f, 0x57, 0x4e, 0x4c, 0x4f, 0x41,
     0x44, 0x45, 0x44
 };
-/* 0x004debec, 16 bytes */ GRIM_DATA("004debec") unsigned char DAT_004debec[16] = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4d, 0x4f, 0x52, 0x45, 0x44, 0x41, 0x54, 0x41 };
-/* 0x004debfc, 20 bytes */ GRIM_DATA("004debfc") unsigned char DAT_004debfc[20] = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x44, 0x45, 0x56, 0x49, 0x43, 0x45, 0x46, 0x55, 0x4c, 0x4c };
-/* 0x004dec10, 24 bytes */ GRIM_DATA("004dec10") unsigned char DAT_004dec10[24] = {
+/* 0x004debec, 16 bytes */ GRIM_DATA("004debec") unsigned char DAT_004debec[16] __asm__("_DAT_004debec") = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4d, 0x4f, 0x52, 0x45, 0x44, 0x41, 0x54, 0x41 };
+/* 0x004debfc, 20 bytes */ GRIM_DATA("004debfc") unsigned char DAT_004debfc[20] __asm__("_DAT_004debfc") = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x44, 0x45, 0x56, 0x49, 0x43, 0x45, 0x46, 0x55, 0x4c, 0x4c };
+/* 0x004dec10, 24 bytes */ GRIM_DATA("004dec10") unsigned char DAT_004dec10[24] __asm__("_DAT_004dec10") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x53, 0x55, 0x46, 0x46, 0x49, 0x43, 0x49, 0x45,
     0x4e, 0x54, 0x50, 0x52, 0x49, 0x56, 0x53
 };
-/* 0x004dec28, 20 bytes */ GRIM_DATA("004dec28") unsigned char DAT_004dec28[20] = {
+/* 0x004dec28, 20 bytes */ GRIM_DATA("004dec28") unsigned char DAT_004dec28[20] __asm__("_DAT_004dec28") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x48, 0x41, 0x4e, 0x44, 0x4c, 0x45, 0x45, 0x58, 0x49, 0x53,
     0x54, 0x53
 };
-/* 0x004dec3c, 16 bytes */ GRIM_DATA("004dec3c") unsigned char DAT_004dec3c[16] = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x52, 0x45, 0x41, 0x44, 0x4f, 0x4e, 0x4c, 0x59 };
-/* 0x004dec4c, 20 bytes */ GRIM_DATA("004dec4c") unsigned char DAT_004dec4c[20] = {
+/* 0x004dec3c, 16 bytes */ GRIM_DATA("004dec3c") unsigned char DAT_004dec3c[16] __asm__("_DAT_004dec3c") = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x52, 0x45, 0x41, 0x44, 0x4f, 0x4e, 0x4c, 0x59 };
+/* 0x004dec4c, 20 bytes */ GRIM_DATA("004dec4c") unsigned char DAT_004dec4c[20] __asm__("_DAT_004dec4c") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x41, 0x43, 0x51, 0x55, 0x49, 0x52, 0x45,
     0x44
 };
-/* 0x004dec60, 16 bytes */ GRIM_DATA("004dec60") unsigned char DAT_004dec60[16] = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x41, 0x43, 0x51, 0x55, 0x49, 0x52, 0x45, 0x44 };
-/* 0x004dec70, 16 bytes */ GRIM_DATA("004dec70") unsigned char DAT_004dec70[16] = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x50, 0x55, 0x54, 0x4c, 0x4f, 0x53, 0x54 };
-/* 0x004dec80, 24 bytes */ GRIM_DATA("004dec80") unsigned char DAT_004dec80[24] = {
+/* 0x004dec60, 16 bytes */ GRIM_DATA("004dec60") unsigned char DAT_004dec60[16] __asm__("_DAT_004dec60") = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x41, 0x43, 0x51, 0x55, 0x49, 0x52, 0x45, 0x44 };
+/* 0x004dec70, 16 bytes */ GRIM_DATA("004dec70") unsigned char DAT_004dec70[16] __asm__("_DAT_004dec70") = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x50, 0x55, 0x54, 0x4c, 0x4f, 0x53, 0x54 };
+/* 0x004dec80, 24 bytes */ GRIM_DATA("004dec80") unsigned char DAT_004dec80[24] __asm__("_DAT_004dec80") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x54, 0x48, 0x45, 0x52, 0x41, 0x50, 0x50, 0x48, 0x41,
     0x53, 0x50, 0x52, 0x49, 0x4f
 };
-/* 0x004dec98, 20 bytes */ GRIM_DATA("004dec98") unsigned char DAT_004dec98[20] = {
+/* 0x004dec98, 20 bytes */ GRIM_DATA("004dec98") unsigned char DAT_004dec98[20] __asm__("_DAT_004dec98") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x41, 0x47, 0x47, 0x52, 0x45, 0x47, 0x41, 0x54,
     0x49, 0x4f, 0x4e
 };
-/* 0x004decac, 28 bytes */ GRIM_DATA("004decac") unsigned char DAT_004decac[28] = {
+/* 0x004decac, 28 bytes */ GRIM_DATA("004decac") unsigned char DAT_004decac[28] __asm__("_DAT_004decac") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x41, 0x4c, 0x52, 0x45, 0x41, 0x44, 0x59, 0x49, 0x4e, 0x49,
     0x54, 0x49, 0x41, 0x4c, 0x49, 0x5a, 0x45, 0x44
 };
-/* 0x004decc8, 24 bytes */ GRIM_DATA("004decc8") unsigned char DAT_004decc8[24] = {
+/* 0x004decc8, 24 bytes */ GRIM_DATA("004decc8") unsigned char DAT_004decc8[24] __asm__("_DAT_004decc8") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x49, 0x4e, 0x49, 0x54, 0x49, 0x41, 0x4c,
     0x49, 0x5a, 0x45, 0x44
 };
-/* 0x004dece0, 20 bytes */ GRIM_DATA("004dece0") unsigned char DAT_004dece0[20] = {
+/* 0x004dece0, 20 bytes */ GRIM_DATA("004dece0") unsigned char DAT_004dece0[20] __asm__("_DAT_004dece0") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x55, 0x4e, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54, 0x45,
     0x44
 };
-/* 0x004decf4, 20 bytes */ GRIM_DATA("004decf4") unsigned char DAT_004decf4[20] = {
+/* 0x004decf4, 20 bytes */ GRIM_DATA("004decf4") unsigned char DAT_004decf4[20] __asm__("_DAT_004decf4") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x55, 0x54, 0x4f, 0x46, 0x4d, 0x45, 0x4d, 0x4f, 0x52,
     0x59
 };
-/* 0x004ded08, 16 bytes */ GRIM_DATA("004ded08") unsigned char DAT_004ded08[16] = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x47, 0x45, 0x4e, 0x45, 0x52, 0x49, 0x43 };
-/* 0x004ded18, 20 bytes */ GRIM_DATA("004ded18") unsigned char DAT_004ded18[20] = {
+/* 0x004ded08, 16 bytes */ GRIM_DATA("004ded08") unsigned char DAT_004ded08[16] __asm__("_DAT_004ded08") = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x47, 0x45, 0x4e, 0x45, 0x52, 0x49, 0x43 };
+/* 0x004ded18, 20 bytes */ GRIM_DATA("004ded18") unsigned char DAT_004ded18[20] __asm__("_DAT_004ded18") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x49, 0x4e, 0x54, 0x45, 0x52, 0x46, 0x41, 0x43,
     0x45
 };
-/* 0x004ded2c, 20 bytes */ GRIM_DATA("004ded2c") unsigned char DAT_004ded2c[20] = {
+/* 0x004ded2c, 20 bytes */ GRIM_DATA("004ded2c") unsigned char DAT_004ded2c[20] __asm__("_DAT_004ded2c") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x50, 0x41, 0x52,
     0x41, 0x4d
 };
-/* 0x004ded40, 24 bytes */ GRIM_DATA("004ded40") unsigned char DAT_004ded40[24] = {
+/* 0x004ded40, 24 bytes */ GRIM_DATA("004ded40") unsigned char DAT_004ded40[24] __asm__("_DAT_004ded40") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x42, 0x4a, 0x45, 0x43, 0x54, 0x4e, 0x4f, 0x54, 0x46,
     0x4f, 0x55, 0x4e, 0x44
 };
-/* 0x004ded58, 16 bytes */ GRIM_DATA("004ded58") unsigned char DAT_004ded58[16] = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x46, 0x4f, 0x55, 0x4e, 0x44 };
-/* 0x004ded68, 20 bytes */ GRIM_DATA("004ded68") unsigned char DAT_004ded68[20] = {
+/* 0x004ded58, 16 bytes */ GRIM_DATA("004ded58") unsigned char DAT_004ded58[16] __asm__("_DAT_004ded58") = { 0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x54, 0x46, 0x4f, 0x55, 0x4e, 0x44 };
+/* 0x004ded68, 20 bytes */ GRIM_DATA("004ded68") unsigned char DAT_004ded68[20] __asm__("_DAT_004ded68") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x44, 0x45, 0x56, 0x49, 0x43, 0x45, 0x4e, 0x4f, 0x54, 0x52,
     0x45, 0x47
 };
-/* 0x004ded7c, 20 bytes */ GRIM_DATA("004ded7c") unsigned char DAT_004ded7c[20] = {
+/* 0x004ded7c, 20 bytes */ GRIM_DATA("004ded7c") unsigned char DAT_004ded7c[20] __asm__("_DAT_004ded7c") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x41, 0x44, 0x44, 0x52, 0x49, 0x56, 0x45, 0x52, 0x56,
     0x45, 0x52
 };
-/* 0x004ded90, 32 bytes */ GRIM_DATA("004ded90") unsigned char DAT_004ded90[32] = {
+/* 0x004ded90, 32 bytes */ GRIM_DATA("004ded90") unsigned char DAT_004ded90[32] __asm__("_DAT_004ded90") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x45, 0x54, 0x41, 0x44, 0x49, 0x52, 0x45, 0x43, 0x54,
     0x49, 0x4e, 0x50, 0x55, 0x54, 0x56, 0x45, 0x52, 0x53, 0x49, 0x4f, 0x4e
 };
-/* 0x004dedb0, 28 bytes */ GRIM_DATA("004dedb0") unsigned char DAT_004dedb0[28] = {
+/* 0x004dedb0, 28 bytes */ GRIM_DATA("004dedb0") unsigned char DAT_004dedb0[28] __asm__("_DAT_004dedb0") = {
     0x44, 0x49, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x4c, 0x44, 0x44, 0x49, 0x52, 0x45, 0x43, 0x54, 0x49,
     0x4e, 0x50, 0x55, 0x54, 0x56, 0x45, 0x52, 0x53, 0x49, 0x4f, 0x4e
 };
-/* 0x004dedcc, 16 bytes */ GRIM_DATA("004dedcc") unsigned char DAT_004dedcc[16] = { 0x44, 0x49, 0x5f, 0x50, 0x4f, 0x4c, 0x4c, 0x45, 0x44, 0x44, 0x45, 0x56, 0x49, 0x43, 0x45 };
-/* 0x004deddc, 16 bytes */ GRIM_DATA("004deddc") unsigned char DAT_004deddc[16] = { 0x44, 0x49, 0x5f, 0x50, 0x52, 0x4f, 0x50, 0x4e, 0x4f, 0x45, 0x46, 0x46, 0x45, 0x43, 0x54 };
-/* 0x004dedec, 20 bytes */ GRIM_DATA("004dedec") unsigned char DAT_004dedec[20] = {
+/* 0x004dedcc, 16 bytes */ GRIM_DATA("004dedcc") unsigned char DAT_004dedcc[16] __asm__("_DAT_004dedcc") = { 0x44, 0x49, 0x5f, 0x50, 0x4f, 0x4c, 0x4c, 0x45, 0x44, 0x44, 0x45, 0x56, 0x49, 0x43, 0x45 };
+/* 0x004deddc, 16 bytes */ GRIM_DATA("004deddc") unsigned char DAT_004deddc[16] __asm__("_DAT_004deddc") = { 0x44, 0x49, 0x5f, 0x50, 0x52, 0x4f, 0x50, 0x4e, 0x4f, 0x45, 0x46, 0x46, 0x45, 0x43, 0x54 };
+/* 0x004dedec, 20 bytes */ GRIM_DATA("004dedec") unsigned char DAT_004dedec[20] __asm__("_DAT_004dedec") = {
     0x44, 0x49, 0x5f, 0x42, 0x55, 0x46, 0x46, 0x45, 0x52, 0x4f, 0x56, 0x45, 0x52, 0x46, 0x4c, 0x4f,
     0x57
 };
-/* 0x004dee00, 16 bytes */ GRIM_DATA("004dee00") unsigned char DAT_004dee00[16] = { 0x44, 0x49, 0x5f, 0x4e, 0x4f, 0x54, 0x41, 0x54, 0x54, 0x41, 0x43, 0x48, 0x45, 0x44 };
-/* 0x004dee10, 8 bytes */ GRIM_DATA("004dee10") unsigned char DAT_004dee10[8] = { 0x44, 0x49, 0x5f, 0x4f, 0x4b };
-/* 0x004dee18, 16 bytes */ GRIM_DATA("004dee18") char s_Assert_Handler_004dee18[16] = "Assert Handler";
-/* 0x004dee28, 12 bytes */ GRIM_DATA("004dee28") unsigned char DAT_004dee28[12] = { 0x61, 0x73, 0x73, 0x65, 0x72, 0x74, 0x2e, 0x74, 0x78, 0x74 };
-/* 0x004dee34, 4 bytes */ GRIM_DATA("004dee34") char s_wt_004dee34[4] = "wt";
-/* 0x004dee38, 16 bytes */ GRIM_DATA("004dee38") char s__s__d____s_004dee38[16] = "%s(%d):  %s\n";
-/* 0x004dee48, 4 bytes */ GRIM_DATA("004dee48") int UINT_004dee48 = 4;
-/* 0x004dee4c, 4 bytes */ GRIM_DATA("004dee4c") int UINT_004dee4c = 4;
-/* 0x004dee50, 4 bytes */ GRIM_DATA("004dee50") unsigned int UINT_004dee50 = 0x100;
-/* 0x004dee54, 4 bytes */ GRIM_DATA("004dee54") int INT_004dee54 = 256;
-/* 0x004dee58, 4 bytes */ GRIM_DATA("004dee58") unsigned int UINT_004dee58 = 0x1;
-/* 0x004dee5c, 4 bytes */ GRIM_DATA("004dee5c") unsigned int UINT_004dee5c = 0x1;
-/* 0x004dee60, 8 bytes */ GRIM_DATA("004dee60") unsigned char UINT_004dee60[8] = { 0x01 };
-/* 0x004dee68, 968 bytes */ GRIM_DATA("004dee68") DxErrorName g_aD3DErrorNames[121] = {
+/* 0x004dee00, 16 bytes */ GRIM_DATA("004dee00") unsigned char DAT_004dee00[16] __asm__("_DAT_004dee00") = { 0x44, 0x49, 0x5f, 0x4e, 0x4f, 0x54, 0x41, 0x54, 0x54, 0x41, 0x43, 0x48, 0x45, 0x44 };
+/* 0x004dee10, 8 bytes */ GRIM_DATA("004dee10") unsigned char DAT_004dee10[8] __asm__("_DAT_004dee10") = { 0x44, 0x49, 0x5f, 0x4f, 0x4b };
+/* 0x004dee34, 4 bytes */ GRIM_DATA("004dee34") char s_wt_004dee34[4] __asm__("_s_wt_004dee34") = "wt";
+/* 0x004dee68, 968 bytes */ GRIM_DATA("004dee68") DxErrorName g_aD3DErrorNames[121] __asm__("_g_aD3DErrorNames") = {
     { .pName = (void *)&DAT_004df548 },
     { .dwCode = 0x887602bc, .pName = (void *)&DAT_004df530 },
     { .dwCode = 0x887602bd, .pName = (void *)&DAT_004df518 },
@@ -6754,1231 +3915,134 @@ static unsigned char grim_pad_004d7000[0] __attribute__((section(".data$grim_004
     { .dwCode = 0x8876024d, .pName = (void *)&DAT_004de1f4 },
     { .dwCode = 0x8876024e, .pName = (void *)&DAT_004de1dc }
 };
-/* 0x004df230, 24 bytes */ GRIM_DATA("004df230") unsigned char DAT_004df230[24] = {
+/* 0x004df230, 24 bytes */ GRIM_DATA("004df230") unsigned char DAT_004df230[24] __asm__("_DAT_004df230") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x43, 0x45, 0x4e, 0x45, 0x5f, 0x45, 0x4e, 0x44,
     0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df248, 28 bytes */ GRIM_DATA("004df248") unsigned char DAT_004df248[28] = {
+/* 0x004df248, 28 bytes */ GRIM_DATA("004df248") unsigned char DAT_004df248[28] __asm__("_DAT_004df248") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x43, 0x45, 0x4e, 0x45, 0x5f, 0x42, 0x45, 0x47,
     0x49, 0x4e, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df264, 28 bytes */ GRIM_DATA("004df264") unsigned char DAT_004df264[28] = {
+/* 0x004df264, 28 bytes */ GRIM_DATA("004df264") unsigned char DAT_004df264[28] __asm__("_DAT_004df264") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x43, 0x45, 0x4e, 0x45, 0x5f, 0x4e, 0x4f, 0x54,
     0x5f, 0x49, 0x4e, 0x5f, 0x53, 0x43, 0x45, 0x4e, 0x45
 };
-/* 0x004df280, 32 bytes */ GRIM_DATA("004df280") unsigned char DAT_004df280[32] = {
+/* 0x004df280, 32 bytes */ GRIM_DATA("004df280") unsigned char DAT_004df280[32] __asm__("_DAT_004df280") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4d, 0x41, 0x54, 0x45, 0x52, 0x49, 0x41, 0x4c, 0x5f,
     0x47, 0x45, 0x54, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df2a0, 32 bytes */ GRIM_DATA("004df2a0") unsigned char DAT_004df2a0[32] = {
+/* 0x004df2a0, 32 bytes */ GRIM_DATA("004df2a0") unsigned char DAT_004df2a0[32] __asm__("_DAT_004df2a0") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4d, 0x41, 0x54, 0x45, 0x52, 0x49, 0x41, 0x4c, 0x5f,
     0x53, 0x45, 0x54, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df2c0, 32 bytes */ GRIM_DATA("004df2c0") unsigned char DAT_004df2c0[32] = {
+/* 0x004df2c0, 32 bytes */ GRIM_DATA("004df2c0") unsigned char DAT_004df2c0[32] __asm__("_DAT_004df2c0") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4d, 0x41, 0x54, 0x45, 0x52, 0x49, 0x41, 0x4c, 0x5f,
     0x44, 0x45, 0x53, 0x54, 0x52, 0x4f, 0x59, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df2e0, 32 bytes */ GRIM_DATA("004df2e0") unsigned char DAT_004df2e0[32] = {
+/* 0x004df2e0, 32 bytes */ GRIM_DATA("004df2e0") unsigned char DAT_004df2e0[32] __asm__("_DAT_004df2e0") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x53, 0x45, 0x54, 0x56, 0x49, 0x45, 0x57, 0x50, 0x4f,
     0x52, 0x54, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df300, 32 bytes */ GRIM_DATA("004df300") unsigned char DAT_004df300[32] = {
+/* 0x004df300, 32 bytes */ GRIM_DATA("004df300") unsigned char DAT_004df300[32] __asm__("_DAT_004df300") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4d, 0x41, 0x54, 0x52, 0x49, 0x58, 0x5f, 0x47, 0x45,
     0x54, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df320, 32 bytes */ GRIM_DATA("004df320") unsigned char DAT_004df320[32] = {
+/* 0x004df320, 32 bytes */ GRIM_DATA("004df320") unsigned char DAT_004df320[32] __asm__("_DAT_004df320") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4d, 0x41, 0x54, 0x52, 0x49, 0x58, 0x5f, 0x53, 0x45,
     0x54, 0x44, 0x41, 0x54, 0x41, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df340, 32 bytes */ GRIM_DATA("004df340") unsigned char DAT_004df340[32] = {
+/* 0x004df340, 32 bytes */ GRIM_DATA("004df340") unsigned char DAT_004df340[32] __asm__("_DAT_004df340") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x4d, 0x41, 0x54, 0x52, 0x49, 0x58, 0x5f, 0x44, 0x45,
     0x53, 0x54, 0x52, 0x4f, 0x59, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df360, 32 bytes */ GRIM_DATA("004df360") unsigned char DAT_004df360[32] = {
+/* 0x004df360, 32 bytes */ GRIM_DATA("004df360") unsigned char DAT_004df360[32] __asm__("_DAT_004df360") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x47,
     0x45, 0x54, 0x53, 0x55, 0x52, 0x46, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df380, 28 bytes */ GRIM_DATA("004df380") unsigned char DAT_004df380[28] = {
+/* 0x004df380, 28 bytes */ GRIM_DATA("004df380") unsigned char DAT_004df380[28] __asm__("_DAT_004df380") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x4e,
     0x4f, 0x54, 0x5f, 0x4c, 0x4f, 0x43, 0x4b, 0x45, 0x44
 };
-/* 0x004df39c, 24 bytes */ GRIM_DATA("004df39c") unsigned char DAT_004df39c[24] = {
+/* 0x004df39c, 24 bytes */ GRIM_DATA("004df39c") unsigned char DAT_004df39c[24] __asm__("_DAT_004df39c") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x4c,
     0x4f, 0x43, 0x4b, 0x45, 0x44
 };
-/* 0x004df3b4, 28 bytes */ GRIM_DATA("004df3b4") unsigned char DAT_004df3b4[28] = {
+/* 0x004df3b4, 28 bytes */ GRIM_DATA("004df3b4") unsigned char DAT_004df3b4[28] __asm__("_DAT_004df3b4") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x53,
     0x57, 0x41, 0x50, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df3d0, 28 bytes */ GRIM_DATA("004df3d0") unsigned char DAT_004df3d0[28] = {
+/* 0x004df3d0, 28 bytes */ GRIM_DATA("004df3d0") unsigned char DAT_004df3d0[28] __asm__("_DAT_004df3d0") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x4c,
     0x4f, 0x41, 0x44, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df3ec, 32 bytes */ GRIM_DATA("004df3ec") unsigned char DAT_004df3ec[32] = {
+/* 0x004df3ec, 32 bytes */ GRIM_DATA("004df3ec") unsigned char DAT_004df3ec[32] __asm__("_DAT_004df3ec") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x55,
     0x4e, 0x4c, 0x4f, 0x43, 0x4b, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df40c, 28 bytes */ GRIM_DATA("004df40c") unsigned char DAT_004df40c[28] = {
+/* 0x004df40c, 28 bytes */ GRIM_DATA("004df40c") unsigned char DAT_004df40c[28] __asm__("_DAT_004df40c") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x4c,
     0x4f, 0x43, 0x4b, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df428, 32 bytes */ GRIM_DATA("004df428") unsigned char DAT_004df428[32] = {
+/* 0x004df428, 32 bytes */ GRIM_DATA("004df428") unsigned char DAT_004df428[32] __asm__("_DAT_004df428") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x44,
     0x45, 0x53, 0x54, 0x52, 0x4f, 0x59, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df448, 32 bytes */ GRIM_DATA("004df448") unsigned char DAT_004df448[32] = {
+/* 0x004df448, 32 bytes */ GRIM_DATA("004df448") unsigned char DAT_004df448[32] __asm__("_DAT_004df448") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x54, 0x45, 0x58, 0x54, 0x55, 0x52, 0x45, 0x5f, 0x43,
     0x52, 0x45, 0x41, 0x54, 0x45, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df468, 32 bytes */ GRIM_DATA("004df468") unsigned char DAT_004df468[32] = {
+/* 0x004df468, 32 bytes */ GRIM_DATA("004df468") unsigned char DAT_004df468[32] __asm__("_DAT_004df468") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x45, 0x43, 0x55, 0x54, 0x45, 0x5f, 0x43,
     0x4c, 0x49, 0x50, 0x50, 0x45, 0x44, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df488, 28 bytes */ GRIM_DATA("004df488") unsigned char DAT_004df488[28] = {
+/* 0x004df488, 28 bytes */ GRIM_DATA("004df488") unsigned char DAT_004df488[28] __asm__("_DAT_004df488") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x45, 0x43, 0x55, 0x54, 0x45, 0x5f, 0x4e,
     0x4f, 0x54, 0x5f, 0x4c, 0x4f, 0x43, 0x4b, 0x45, 0x44
 };
-/* 0x004df4a4, 24 bytes */ GRIM_DATA("004df4a4") unsigned char DAT_004df4a4[24] = {
+/* 0x004df4a4, 24 bytes */ GRIM_DATA("004df4a4") unsigned char DAT_004df4a4[24] __asm__("_DAT_004df4a4") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x45, 0x43, 0x55, 0x54, 0x45, 0x5f, 0x4c,
     0x4f, 0x43, 0x4b, 0x45, 0x44
 };
-/* 0x004df4bc, 32 bytes */ GRIM_DATA("004df4bc") unsigned char DAT_004df4bc[32] = {
+/* 0x004df4bc, 32 bytes */ GRIM_DATA("004df4bc") unsigned char DAT_004df4bc[32] __asm__("_DAT_004df4bc") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x45, 0x43, 0x55, 0x54, 0x45, 0x5f, 0x55,
     0x4e, 0x4c, 0x4f, 0x43, 0x4b, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df4dc, 28 bytes */ GRIM_DATA("004df4dc") unsigned char DAT_004df4dc[28] = {
+/* 0x004df4dc, 28 bytes */ GRIM_DATA("004df4dc") unsigned char DAT_004df4dc[28] __asm__("_DAT_004df4dc") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x45, 0x43, 0x55, 0x54, 0x45, 0x5f, 0x4c,
     0x4f, 0x43, 0x4b, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df4f8, 32 bytes */ GRIM_DATA("004df4f8") unsigned char DAT_004df4f8[32] = {
+/* 0x004df4f8, 32 bytes */ GRIM_DATA("004df4f8") unsigned char DAT_004df4f8[32] __asm__("_DAT_004df4f8") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x45, 0x58, 0x45, 0x43, 0x55, 0x54, 0x45, 0x5f, 0x44,
     0x45, 0x53, 0x54, 0x52, 0x4f, 0x59, 0x5f, 0x46, 0x41, 0x49, 0x4c, 0x45, 0x44
 };
-/* 0x004df518, 24 bytes */ GRIM_DATA("004df518") unsigned char DAT_004df518[24] = {
+/* 0x004df518, 24 bytes */ GRIM_DATA("004df518") unsigned char DAT_004df518[24] __asm__("_DAT_004df518") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x41, 0x44, 0x4d, 0x49, 0x4e, 0x4f, 0x52, 0x56,
     0x45, 0x52, 0x53, 0x49, 0x4f, 0x4e
 };
-/* 0x004df530, 24 bytes */ GRIM_DATA("004df530") unsigned char DAT_004df530[24] = {
+/* 0x004df530, 24 bytes */ GRIM_DATA("004df530") unsigned char DAT_004df530[24] __asm__("_DAT_004df530") = {
     0x44, 0x33, 0x44, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x41, 0x44, 0x4d, 0x41, 0x4a, 0x4f, 0x52, 0x56,
     0x45, 0x52, 0x53, 0x49, 0x4f, 0x4e
 };
-/* 0x004df548, 8 bytes */ GRIM_DATA("004df548") unsigned char DAT_004df548[8] = { 0x44, 0x33, 0x44, 0x5f, 0x4f, 0x4b };
-/* 0x004df550, 8 bytes */ GRIM_DATA("004df550") unsigned char DAT_004df550[8] = { 0x3c, 0x00, 0x00, 0x00, 0x5f };
-/* 0x004df558, 4 bytes */ GRIM_DATA("004df558") unsigned char DAT_004df558[4] = { 0xaf };
-/* 0x004df55c, 12 bytes */ GRIM_DATA("004df55c") unsigned char DAT_004df55c[12] = { 0x82, 0x02, 0x00, 0x00, 0x02, 0x03, 0x00, 0x00, 0x6d, 0x03 };
-/* 0x004df568, 8 bytes */ GRIM_DATA("004df568") unsigned char DAT_004df568[8] = { 0x92, 0x03, 0x00, 0x00, 0xdc, 0x03 };
-/* 0x004df570, 4 bytes */ GRIM_DATA("004df570") unsigned char DAT_004df570[4] = { 0x0a, 0x04 };
-/* 0x004df574, 44 bytes */ GRIM_DATA("004df574") char s_C__grimjedi_Libs_Std_General_Std_004df574[44] = "C:\\grimjedi\\Libs\\Std\\General\\Stdbitmap.c";
-/* 0x004df5a0, 8 bytes */ GRIM_DATA("004df5a0") char s_BM_004df5a0[8] = "BM  ";
-/* 0x004df5a8, 88 bytes */ GRIM_DATA("004df5a8") char s_Unable_to_allocate_a_new_frame_w_004df5a8[88] = "Unable to allocate a new frame when converting image from 24 to 16bpp.\000\000%\000\000\000\263\001\000\000\321\001";
-/* 0x004df600, 16384 bytes */ GRIM_DATA("004df600") float g_aSinTable[4096] = {
-    0.0f, 0.000383f, 0.000767f, 0.00115f, 0.001534f, 0.001917f, 0.002301f, 0.002684f,
-    0.003068f, 0.003451f, 0.003835f, 0.004218f, 0.004602f, 0.004985f, 0.005369f, 0.005752f,
-    0.006136f, 0.006519f, 0.006903f, 0.007286f, 0.00767f, 0.008053f, 0.008437f, 0.00882f,
-    0.009204f, 0.009587f, 0.009971f, 0.010354f, 0.010738f, 0.011121f, 0.011505f, 0.011888f,
-    0.012272f, 0.012655f, 0.013038f, 0.013422f, 0.013805f, 0.014189f, 0.014572f, 0.014956f,
-    0.015339f, 0.015723f, 0.016106f, 0.01649f, 0.016873f, 0.017256f, 0.01764f, 0.018023f,
-    0.018407f, 0.01879f, 0.019174f, 0.019557f, 0.01994f, 0.020324f, 0.020707f, 0.021091f,
-    0.021474f, 0.021857f, 0.022241f, 0.022624f, 0.023008f, 0.023391f, 0.023774f, 0.024158f,
-    0.024541f, 0.024925f, 0.025308f, 0.025691f, 0.026075f, 0.026458f, 0.026841f, 0.027225f,
-    0.027608f, 0.027991f, 0.028375f, 0.028758f, 0.029142f, 0.029525f, 0.029908f, 0.030291f,
-    0.030675f, 0.031058f, 0.031441f, 0.031825f, 0.032208f, 0.032591f, 0.032975f, 0.033358f,
-    0.033741f, 0.034124f, 0.034508f, 0.034891f, 0.035274f, 0.035657f, 0.036041f, 0.036424f,
-    0.036807f, 0.03719f, 0.037574f, 0.037957f, 0.03834f, 0.038723f, 0.039107f, 0.03949f,
-    0.039873f, 0.040256f, 0.040639f, 0.041022f, 0.041406f, 0.041789f, 0.042172f, 0.042555f,
-    0.042938f, 0.043321f, 0.043705f, 0.044088f, 0.044471f, 0.044854f, 0.045237f, 0.04562f,
-    0.046003f, 0.046386f, 0.046769f, 0.047152f, 0.047535f, 0.047919f, 0.048302f, 0.048685f,
-    0.049068f, 0.049451f, 0.049834f, 0.050217f, 0.0506f, 0.050983f, 0.051366f, 0.051749f,
-    0.052132f, 0.052515f, 0.052898f, 0.053281f, 0.053664f, 0.054046f, 0.054429f, 0.054812f,
-    0.055195f, 0.055578f, 0.055961f, 0.056344f, 0.056727f, 0.05711f, 0.057493f, 0.057875f,
-    0.058258f, 0.058641f, 0.059024f, 0.059407f, 0.05979f, 0.060172f, 0.060555f, 0.060938f,
-    0.061321f, 0.061704f, 0.062086f, 0.062469f, 0.062852f, 0.063234f, 0.063617f, 0.064f,
-    0.064383f, 0.064765f, 0.065148f, 0.065531f, 0.065913f, 0.066296f, 0.066679f, 0.067061f,
-    0.067444f, 0.067827f, 0.068209f, 0.068592f, 0.068974f, 0.069357f, 0.069739f, 0.070122f,
-    0.070505f, 0.070887f, 0.07127f, 0.071652f, 0.072035f, 0.072417f, 0.0728f, 0.073182f,
-    0.073565f, 0.073947f, 0.074329f, 0.074712f, 0.075094f, 0.075477f, 0.075859f, 0.076241f,
-    0.076624f, 0.077006f, 0.077389f, 0.077771f, 0.078153f, 0.078536f, 0.078918f, 0.0793f,
-    0.079682f, 0.080065f, 0.080447f, 0.080829f, 0.081211f, 0.081594f, 0.081976f, 0.082358f,
-    0.08274f, 0.083122f, 0.083505f, 0.083887f, 0.084269f, 0.084651f, 0.085033f, 0.085415f,
-    0.085797f, 0.086179f, 0.086561f, 0.086943f, 0.087326f, 0.087708f, 0.08809f, 0.088472f,
-    0.088854f, 0.089236f, 0.089617f, 0.089999f, 0.090381f, 0.090763f, 0.091145f, 0.091527f,
-    0.091909f, 0.092291f, 0.092673f, 0.093055f, 0.093436f, 0.093818f, 0.0942f, 0.094582f,
-    0.094963f, 0.095345f, 0.095727f, 0.096109f, 0.09649f, 0.096872f, 0.097254f, 0.097635f,
-    0.098017f, 0.098399f, 0.09878f, 0.099162f, 0.099544f, 0.099925f, 0.100307f, 0.100688f,
-    0.10107f, 0.101451f, 0.101833f, 0.102214f, 0.102596f, 0.102977f, 0.103359f, 0.10374f,
-    0.104122f, 0.104503f, 0.104884f, 0.105266f, 0.105647f, 0.106028f, 0.10641f, 0.106791f,
-    0.107172f, 0.107554f, 0.107935f, 0.108316f, 0.108697f, 0.109079f, 0.10946f, 0.109841f,
-    0.110222f, 0.110603f, 0.110984f, 0.111366f, 0.111747f, 0.112128f, 0.112509f, 0.11289f,
-    0.113271f, 0.113652f, 0.114033f, 0.114414f, 0.114795f, 0.115176f, 0.115557f, 0.115938f,
-    0.116319f, 0.1167f, 0.11708f, 0.117461f, 0.117842f, 0.118223f, 0.118604f, 0.118984f,
-    0.119365f, 0.119746f, 0.120127f, 0.120507f, 0.120888f, 0.121269f, 0.121649f, 0.12203f,
-    0.122411f, 0.122791f, 0.123172f, 0.123552f, 0.123933f, 0.124313f, 0.124694f, 0.125075f,
-    0.125455f, 0.125835f, 0.126216f, 0.126596f, 0.126977f, 0.127357f, 0.127737f, 0.128118f,
-    0.128498f, 0.128878f, 0.129259f, 0.129639f, 0.130019f, 0.130399f, 0.13078f, 0.13116f,
-    0.13154f, 0.13192f, 0.1323f, 0.13268f, 0.133061f, 0.133441f, 0.133821f, 0.134201f,
-    0.134581f, 0.134961f, 0.135341f, 0.135721f, 0.136101f, 0.13648f, 0.13686f, 0.13724f,
-    0.13762f, 0.138f, 0.13838f, 0.13876f, 0.139139f, 0.139519f, 0.139899f, 0.140279f,
-    0.140658f, 0.141038f, 0.141418f, 0.141797f, 0.142177f, 0.142556f, 0.142936f, 0.143316f,
-    0.143695f, 0.144075f, 0.144454f, 0.144833f, 0.145213f, 0.145592f, 0.145972f, 0.146351f,
-    0.14673f, 0.14711f, 0.147489f, 0.147868f, 0.148248f, 0.148627f, 0.149006f, 0.149385f,
-    0.149765f, 0.150144f, 0.150523f, 0.150902f, 0.151281f, 0.15166f, 0.152039f, 0.152418f,
-    0.152797f, 0.153176f, 0.153555f, 0.153934f, 0.154313f, 0.154692f, 0.155071f, 0.15545f,
-    0.155828f, 0.156207f, 0.156586f, 0.156965f, 0.157343f, 0.157722f, 0.158101f, 0.158479f,
-    0.158858f, 0.159237f, 0.159615f, 0.159994f, 0.160372f, 0.160751f, 0.161129f, 0.161508f,
-    0.161886f, 0.162265f, 0.162643f, 0.163022f, 0.1634f, 0.163778f, 0.164157f, 0.164535f,
-    0.164913f, 0.165291f, 0.16567f, 0.166048f, 0.166426f, 0.166804f, 0.167182f, 0.16756f,
-    0.167938f, 0.168316f, 0.168694f, 0.169072f, 0.16945f, 0.169828f, 0.170206f, 0.170584f,
-    0.170962f, 0.17134f, 0.171718f, 0.172095f, 0.172473f, 0.172851f, 0.173229f, 0.173606f,
-    0.173984f, 0.174361f, 0.174739f, 0.175117f, 0.175494f, 0.175872f, 0.176249f, 0.176627f,
-    0.177004f, 0.177382f, 0.177759f, 0.178136f, 0.178514f, 0.178891f, 0.179268f, 0.179646f,
-    0.180023f, 0.1804f, 0.180777f, 0.181154f, 0.181532f, 0.181909f, 0.182286f, 0.182663f,
-    0.18304f, 0.183417f, 0.183794f, 0.184171f, 0.184548f, 0.184925f, 0.185301f, 0.185678f,
-    0.186055f, 0.186432f, 0.186809f, 0.187185f, 0.187562f, 0.187939f, 0.188315f, 0.188692f,
-    0.189069f, 0.189445f, 0.189822f, 0.190198f, 0.190575f, 0.190951f, 0.191328f, 0.191704f,
-    0.19208f, 0.192457f, 0.192833f, 0.193209f, 0.193586f, 0.193962f, 0.194338f, 0.194714f,
-    0.19509f, 0.195466f, 0.195843f, 0.196219f, 0.196595f, 0.196971f, 0.197347f, 0.197722f,
-    0.198098f, 0.198474f, 0.19885f, 0.199226f, 0.199602f, 0.199978f, 0.200353f, 0.200729f,
-    0.201105f, 0.20148f, 0.201856f, 0.202231f, 0.202607f, 0.202983f, 0.203358f, 0.203734f,
-    0.204109f, 0.204484f, 0.20486f, 0.205235f, 0.20561f, 0.205986f, 0.206361f, 0.206736f,
-    0.207111f, 0.207487f, 0.207862f, 0.208237f, 0.208612f, 0.208987f, 0.209362f, 0.209737f,
-    0.210112f, 0.210487f, 0.210862f, 0.211236f, 0.211611f, 0.211986f, 0.212361f, 0.212736f,
-    0.21311f, 0.213485f, 0.21386f, 0.214234f, 0.214609f, 0.214983f, 0.215358f, 0.215732f,
-    0.216107f, 0.216481f, 0.216856f, 0.21723f, 0.217604f, 0.217979f, 0.218353f, 0.218727f,
-    0.219101f, 0.219475f, 0.21985f, 0.220224f, 0.220598f, 0.220972f, 0.221346f, 0.22172f,
-    0.222094f, 0.222468f, 0.222841f, 0.223215f, 0.223589f, 0.223963f, 0.224337f, 0.22471f,
-    0.225084f, 0.225458f, 0.225831f, 0.226205f, 0.226578f, 0.226952f, 0.227325f, 0.227699f,
-    0.228072f, 0.228445f, 0.228819f, 0.229192f, 0.229565f, 0.229939f, 0.230312f, 0.230685f,
-    0.231058f, 0.231431f, 0.231804f, 0.232177f, 0.23255f, 0.232923f, 0.233296f, 0.233669f,
-    0.234042f, 0.234415f, 0.234788f, 0.23516f, 0.235533f, 0.235906f, 0.236278f, 0.236651f,
-    0.237024f, 0.237396f, 0.237769f, 0.238141f, 0.238514f, 0.238886f, 0.239258f, 0.239631f,
-    0.240003f, 0.240375f, 0.240748f, 0.24112f, 0.241492f, 0.241864f, 0.242236f, 0.242608f,
-    0.24298f, 0.243352f, 0.243724f, 0.244096f, 0.244468f, 0.24484f, 0.245212f, 0.245583f,
-    0.245955f, 0.246327f, 0.246698f, 0.24707f, 0.247442f, 0.247813f, 0.248185f, 0.248556f,
-    0.248928f, 0.249299f, 0.24967f, 0.250042f, 0.250413f, 0.250784f, 0.251155f, 0.251527f,
-    0.251898f, 0.252269f, 0.25264f, 0.253011f, 0.253382f, 0.253753f, 0.254124f, 0.254495f,
-    0.254866f, 0.255236f, 0.255607f, 0.255978f, 0.256349f, 0.256719f, 0.25709f, 0.257461f,
-    0.257831f, 0.258202f, 0.258572f, 0.258943f, 0.259313f, 0.259683f, 0.260054f, 0.260424f,
-    0.260794f, 0.261164f, 0.261534f, 0.261905f, 0.262275f, 0.262645f, 0.263015f, 0.263385f,
-    0.263755f, 0.264125f, 0.264494f, 0.264864f, 0.265234f, 0.265604f, 0.265973f, 0.266343f,
-    0.266713f, 0.267082f, 0.267452f, 0.267821f, 0.268191f, 0.26856f, 0.26893f, 0.269299f,
-    0.269668f, 0.270038f, 0.270407f, 0.270776f, 0.271145f, 0.271514f, 0.271883f, 0.272252f,
-    0.272621f, 0.27299f, 0.273359f, 0.273728f, 0.274097f, 0.274466f, 0.274834f, 0.275203f,
-    0.275572f, 0.27594f, 0.276309f, 0.276678f, 0.277046f, 0.277415f, 0.277783f, 0.278151f,
-    0.27852f, 0.278888f, 0.279256f, 0.279624f, 0.279993f, 0.280361f, 0.280729f, 0.281097f,
-    0.281465f, 0.281833f, 0.282201f, 0.282569f, 0.282937f, 0.283304f, 0.283672f, 0.28404f,
-    0.284408f, 0.284775f, 0.285143f, 0.28551f, 0.285878f, 0.286245f, 0.286613f, 0.28698f,
-    0.287347f, 0.287715f, 0.288082f, 0.288449f, 0.288816f, 0.289184f, 0.289551f, 0.289918f,
-    0.290285f, 0.290652f, 0.291019f, 0.291385f, 0.291752f, 0.292119f, 0.292486f, 0.292852f,
-    0.293219f, 0.293586f, 0.293952f, 0.294319f, 0.294685f, 0.295052f, 0.295418f, 0.295785f,
-    0.296151f, 0.296517f, 0.296883f, 0.29725f, 0.297616f, 0.297982f, 0.298348f, 0.298714f,
-    0.29908f, 0.299446f, 0.299812f, 0.300177f, 0.300543f, 0.300909f, 0.301275f, 0.30164f,
-    0.302006f, 0.302372f, 0.302737f, 0.303102f, 0.303468f, 0.303833f, 0.304199f, 0.304564f,
-    0.304929f, 0.305294f, 0.30566f, 0.306025f, 0.30639f, 0.306755f, 0.30712f, 0.307485f,
-    0.30785f, 0.308214f, 0.308579f, 0.308944f, 0.309309f, 0.309673f, 0.310038f, 0.310403f,
-    0.310767f, 0.311132f, 0.311496f, 0.31186f, 0.312225f, 0.312589f, 0.312953f, 0.313318f,
-    0.313682f, 0.314046f, 0.31441f, 0.314774f, 0.315138f, 0.315502f, 0.315866f, 0.31623f,
-    0.316593f, 0.316957f, 0.317321f, 0.317684f, 0.318048f, 0.318412f, 0.318775f, 0.319139f,
-    0.319502f, 0.319865f, 0.320229f, 0.320592f, 0.320955f, 0.321318f, 0.321682f, 0.322045f,
-    0.322408f, 0.322771f, 0.323134f, 0.323497f, 0.323859f, 0.324222f, 0.324585f, 0.324948f,
-    0.32531f, 0.325673f, 0.326035f, 0.326398f, 0.32676f, 0.327123f, 0.327485f, 0.327848f,
-    0.32821f, 0.328572f, 0.328934f, 0.329296f, 0.329658f, 0.33002f, 0.330382f, 0.330744f,
-    0.331106f, 0.331468f, 0.33183f, 0.332192f, 0.332553f, 0.332915f, 0.333277f, 0.333638f,
-    0.334f, 0.334361f, 0.334722f, 0.335084f, 0.335445f, 0.335806f, 0.336168f, 0.336529f,
-    0.33689f, 0.337251f, 0.337612f, 0.337973f, 0.338334f, 0.338695f, 0.339055f, 0.339416f,
-    0.339777f, 0.340138f, 0.340498f, 0.340859f, 0.341219f, 0.34158f, 0.34194f, 0.3423f,
-    0.342661f, 0.343021f, 0.343381f, 0.343741f, 0.344101f, 0.344461f, 0.344821f, 0.345181f,
-    0.345541f, 0.345901f, 0.346261f, 0.346621f, 0.34698f, 0.34734f, 0.3477f, 0.348059f,
-    0.348419f, 0.348778f, 0.349137f, 0.349497f, 0.349856f, 0.350215f, 0.350575f, 0.350934f,
-    0.351293f, 0.351652f, 0.352011f, 0.35237f, 0.352729f, 0.353087f, 0.353446f, 0.353805f,
-    0.354164f, 0.354522f, 0.354881f, 0.355239f, 0.355598f, 0.355956f, 0.356314f, 0.356673f,
-    0.357031f, 0.357389f, 0.357747f, 0.358105f, 0.358463f, 0.358821f, 0.359179f, 0.359537f,
-    0.359895f, 0.360253f, 0.360611f, 0.360968f, 0.361326f, 0.361683f, 0.362041f, 0.362398f,
-    0.362756f, 0.363113f, 0.36347f, 0.363828f, 0.364185f, 0.364542f, 0.364899f, 0.365256f,
-    0.365613f, 0.36597f, 0.366327f, 0.366684f, 0.36704f, 0.367397f, 0.367754f, 0.36811f,
-    0.368467f, 0.368823f, 0.36918f, 0.369536f, 0.369892f, 0.370249f, 0.370605f, 0.370961f,
-    0.371317f, 0.371673f, 0.372029f, 0.372385f, 0.372741f, 0.373097f, 0.373453f, 0.373808f,
-    0.374164f, 0.37452f, 0.374875f, 0.375231f, 0.375586f, 0.375942f, 0.376297f, 0.376652f,
-    0.377007f, 0.377363f, 0.377718f, 0.378073f, 0.378428f, 0.378783f, 0.379138f, 0.379492f,
-    0.379847f, 0.380202f, 0.380557f, 0.380911f, 0.381266f, 0.38162f, 0.381975f, 0.382329f,
-    0.382683f, 0.383038f, 0.383392f, 0.383746f, 0.3841f, 0.384454f, 0.384808f, 0.385162f,
-    0.385516f, 0.38587f, 0.386224f, 0.386577f, 0.386931f, 0.387285f, 0.387638f, 0.387992f,
-    0.388345f, 0.388698f, 0.389052f, 0.389405f, 0.389758f, 0.390111f, 0.390464f, 0.390817f,
-    0.39117f, 0.391523f, 0.391876f, 0.392229f, 0.392582f, 0.392934f, 0.393287f, 0.39364f,
-    0.393992f, 0.394344f, 0.394697f, 0.395049f, 0.395401f, 0.395754f, 0.396106f, 0.396458f,
-    0.39681f, 0.397162f, 0.397514f, 0.397866f, 0.398218f, 0.398569f, 0.398921f, 0.399273f,
-    0.399624f, 0.399976f, 0.400327f, 0.400679f, 0.40103f, 0.401381f, 0.401732f, 0.402084f,
-    0.402435f, 0.402786f, 0.403137f, 0.403488f, 0.403838f, 0.404189f, 0.40454f, 0.404891f,
-    0.405241f, 0.405592f, 0.405942f, 0.406293f, 0.406643f, 0.406994f, 0.407344f, 0.407694f,
-    0.408044f, 0.408394f, 0.408744f, 0.409094f, 0.409444f, 0.409794f, 0.410144f, 0.410493f,
-    0.410843f, 0.411193f, 0.411542f, 0.411892f, 0.412241f, 0.412591f, 0.41294f, 0.413289f,
-    0.413638f, 0.413987f, 0.414336f, 0.414685f, 0.415034f, 0.415383f, 0.415732f, 0.416081f,
-    0.41643f, 0.416778f, 0.417127f, 0.417475f, 0.417824f, 0.418172f, 0.41852f, 0.418869f,
-    0.419217f, 0.419565f, 0.419913f, 0.420261f, 0.420609f, 0.420957f, 0.421305f, 0.421653f,
-    0.422f, 0.422348f, 0.422695f, 0.423043f, 0.42339f, 0.423738f, 0.424085f, 0.424432f,
-    0.42478f, 0.425127f, 0.425474f, 0.425821f, 0.426168f, 0.426515f, 0.426862f, 0.427208f,
-    0.427555f, 0.427902f, 0.428248f, 0.428595f, 0.428941f, 0.429288f, 0.429634f, 0.42998f,
-    0.430326f, 0.430673f, 0.431019f, 0.431365f, 0.431711f, 0.432057f, 0.432402f, 0.432748f,
-    0.433094f, 0.433439f, 0.433785f, 0.434131f, 0.434476f, 0.434821f, 0.435167f, 0.435512f,
-    0.435857f, 0.436202f, 0.436547f, 0.436892f, 0.437237f, 0.437582f, 0.437927f, 0.438272f,
-    0.438616f, 0.438961f, 0.439305f, 0.43965f, 0.439994f, 0.440339f, 0.440683f, 0.441027f,
-    0.441371f, 0.441715f, 0.442059f, 0.442403f, 0.442747f, 0.443091f, 0.443435f, 0.443778f,
-    0.444122f, 0.444466f, 0.444809f, 0.445153f, 0.445496f, 0.445839f, 0.446183f, 0.446526f,
-    0.446869f, 0.447212f, 0.447555f, 0.447898f, 0.448241f, 0.448583f, 0.448926f, 0.449269f,
-    0.449611f, 0.449954f, 0.450296f, 0.450639f, 0.450981f, 0.451323f, 0.451665f, 0.452008f,
-    0.45235f, 0.452692f, 0.453033f, 0.453375f, 0.453717f, 0.454059f, 0.4544f, 0.454742f,
-    0.455084f, 0.455425f, 0.455766f, 0.456108f, 0.456449f, 0.45679f, 0.457131f, 0.457472f,
-    0.457813f, 0.458154f, 0.458495f, 0.458836f, 0.459177f, 0.459517f, 0.459858f, 0.460198f,
-    0.460539f, 0.460879f, 0.461219f, 0.46156f, 0.4619f, 0.46224f, 0.46258f, 0.46292f,
-    0.46326f, 0.4636f, 0.463939f, 0.464279f, 0.464619f, 0.464958f, 0.465298f, 0.465637f,
-    0.465976f, 0.466316f, 0.466655f, 0.466994f, 0.467333f, 0.467672f, 0.468011f, 0.46835f,
-    0.468689f, 0.469028f, 0.469366f, 0.469705f, 0.470043f, 0.470382f, 0.47072f, 0.471058f,
-    0.471397f, 0.471735f, 0.472073f, 0.472411f, 0.472749f, 0.473087f, 0.473425f, 0.473763f,
-    0.4741f, 0.474438f, 0.474775f, 0.475113f, 0.47545f, 0.475788f, 0.476125f, 0.476462f,
-    0.476799f, 0.477136f, 0.477473f, 0.47781f, 0.478147f, 0.478484f, 0.478821f, 0.479157f,
-    0.479494f, 0.47983f, 0.480167f, 0.480503f, 0.480839f, 0.481176f, 0.481512f, 0.481848f,
-    0.482184f, 0.48252f, 0.482856f, 0.483191f, 0.483527f, 0.483863f, 0.484198f, 0.484534f,
-    0.484869f, 0.485205f, 0.48554f, 0.485875f, 0.48621f, 0.486545f, 0.48688f, 0.487215f,
-    0.48755f, 0.487885f, 0.48822f, 0.488554f, 0.488889f, 0.489223f, 0.489558f, 0.489892f,
-    0.490226f, 0.490561f, 0.490895f, 0.491229f, 0.491563f, 0.491897f, 0.492231f, 0.492564f,
-    0.492898f, 0.493232f, 0.493565f, 0.493899f, 0.494232f, 0.494566f, 0.494899f, 0.495232f,
-    0.495565f, 0.495898f, 0.496231f, 0.496564f, 0.496897f, 0.49723f, 0.497562f, 0.497895f,
-    0.498228f, 0.49856f, 0.498893f, 0.499225f, 0.499557f, 0.499889f, 0.500221f, 0.500553f,
-    0.500885f, 0.501217f, 0.501549f, 0.501881f, 0.502212f, 0.502544f, 0.502876f, 0.503207f,
-    0.503538f, 0.50387f, 0.504201f, 0.504532f, 0.504863f, 0.505194f, 0.505525f, 0.505856f,
-    0.506187f, 0.506517f, 0.506848f, 0.507178f, 0.507509f, 0.507839f, 0.50817f, 0.5085f,
-    0.50883f, 0.50916f, 0.50949f, 0.50982f, 0.51015f, 0.51048f, 0.51081f, 0.511139f,
-    0.511469f, 0.511798f, 0.512128f, 0.512457f, 0.512786f, 0.513116f, 0.513445f, 0.513774f,
-    0.514103f, 0.514432f, 0.51476f, 0.515089f, 0.515418f, 0.515746f, 0.516075f, 0.516403f,
-    0.516732f, 0.51706f, 0.517388f, 0.517716f, 0.518044f, 0.518372f, 0.5187f, 0.519028f,
-    0.519356f, 0.519684f, 0.520011f, 0.520339f, 0.520666f, 0.520994f, 0.521321f, 0.521648f,
-    0.521975f, 0.522302f, 0.522629f, 0.522956f, 0.523283f, 0.52361f, 0.523937f, 0.524263f,
-    0.52459f, 0.524916f, 0.525242f, 0.525569f, 0.525895f, 0.526221f, 0.526547f, 0.526873f,
-    0.527199f, 0.527525f, 0.527851f, 0.528176f, 0.528502f, 0.528828f, 0.529153f, 0.529478f,
-    0.529804f, 0.530129f, 0.530454f, 0.530779f, 0.531104f, 0.531429f, 0.531754f, 0.532078f,
-    0.532403f, 0.532728f, 0.533052f, 0.533377f, 0.533701f, 0.534025f, 0.534349f, 0.534674f,
-    0.534998f, 0.535322f, 0.535645f, 0.535969f, 0.536293f, 0.536617f, 0.53694f, 0.537264f,
-    0.537587f, 0.53791f, 0.538234f, 0.538557f, 0.53888f, 0.539203f, 0.539526f, 0.539849f,
-    0.540171f, 0.540494f, 0.540817f, 0.541139f, 0.541462f, 0.541784f, 0.542106f, 0.542429f,
-    0.542751f, 0.543073f, 0.543395f, 0.543717f, 0.544039f, 0.54436f, 0.544682f, 0.545003f,
-    0.545325f, 0.545646f, 0.545968f, 0.546289f, 0.54661f, 0.546931f, 0.547252f, 0.547573f,
-    0.547894f, 0.548215f, 0.548535f, 0.548856f, 0.549177f, 0.549497f, 0.549817f, 0.550138f,
-    0.550458f, 0.550778f, 0.551098f, 0.551418f, 0.551738f, 0.552058f, 0.552377f, 0.552697f,
-    0.553017f, 0.553336f, 0.553656f, 0.553975f, 0.554294f, 0.554613f, 0.554932f, 0.555251f,
-    0.55557f, 0.555889f, 0.556208f, 0.556526f, 0.556845f, 0.557164f, 0.557482f, 0.5578f,
-    0.558119f, 0.558437f, 0.558755f, 0.559073f, 0.559391f, 0.559709f, 0.560026f, 0.560344f,
-    0.560662f, 0.560979f, 0.561296f, 0.561614f, 0.561931f, 0.562248f, 0.562565f, 0.562882f,
-    0.563199f, 0.563516f, 0.563833f, 0.56415f, 0.564466f, 0.564783f, 0.565099f, 0.565416f,
-    0.565732f, 0.566048f, 0.566364f, 0.56668f, 0.566996f, 0.567312f, 0.567628f, 0.567943f,
-    0.568259f, 0.568574f, 0.56889f, 0.569205f, 0.56952f, 0.569836f, 0.570151f, 0.570466f,
-    0.570781f, 0.571096f, 0.57141f, 0.571725f, 0.57204f, 0.572354f, 0.572669f, 0.572983f,
-    0.573297f, 0.573611f, 0.573925f, 0.574239f, 0.574553f, 0.574867f, 0.575181f, 0.575495f,
-    0.575808f, 0.576122f, 0.576435f, 0.576748f, 0.577062f, 0.577375f, 0.577688f, 0.578001f,
-    0.578314f, 0.578627f, 0.578939f, 0.579252f, 0.579565f, 0.579877f, 0.580189f, 0.580502f,
-    0.580814f, 0.581126f, 0.581438f, 0.58175f, 0.582062f, 0.582374f, 0.582685f, 0.582997f,
-    0.583309f, 0.58362f, 0.583931f, 0.584243f, 0.584554f, 0.584865f, 0.585176f, 0.585487f,
-    0.585798f, 0.586109f, 0.586419f, 0.58673f, 0.58704f, 0.587351f, 0.587661f, 0.587971f,
-    0.588282f, 0.588592f, 0.588902f, 0.589211f, 0.589521f, 0.589831f, 0.590141f, 0.59045f,
-    0.59076f, 0.591069f, 0.591378f, 0.591688f, 0.591997f, 0.592306f, 0.592615f, 0.592924f,
-    0.593232f, 0.593541f, 0.59385f, 0.594158f, 0.594466f, 0.594775f, 0.595083f, 0.595391f,
-    0.595699f, 0.596007f, 0.596315f, 0.596623f, 0.596931f, 0.597238f, 0.597546f, 0.597853f,
-    0.598161f, 0.598468f, 0.598775f, 0.599082f, 0.599389f, 0.599696f, 0.600003f, 0.60031f,
-    0.600616f, 0.600923f, 0.60123f, 0.601536f, 0.601842f, 0.602148f, 0.602455f, 0.602761f,
-    0.603067f, 0.603372f, 0.603678f, 0.603984f, 0.60429f, 0.604595f, 0.6049f, 0.605206f,
-    0.605511f, 0.605816f, 0.606121f, 0.606426f, 0.606731f, 0.607036f, 0.607341f, 0.607645f,
-    0.60795f, 0.608254f, 0.608559f, 0.608863f, 0.609167f, 0.609471f, 0.609775f, 0.610079f,
-    0.610383f, 0.610687f, 0.61099f, 0.611294f, 0.611597f, 0.611901f, 0.612204f, 0.612507f,
-    0.61281f, 0.613113f, 0.613416f, 0.613719f, 0.614022f, 0.614324f, 0.614627f, 0.614929f,
-    0.615232f, 0.615534f, 0.615836f, 0.616138f, 0.61644f, 0.616742f, 0.617044f, 0.617346f,
-    0.617647f, 0.617949f, 0.61825f, 0.618552f, 0.618853f, 0.619154f, 0.619455f, 0.619756f,
-    0.620057f, 0.620358f, 0.620659f, 0.620959f, 0.62126f, 0.62156f, 0.621861f, 0.622161f,
-    0.622461f, 0.622761f, 0.623061f, 0.623361f, 0.623661f, 0.623961f, 0.62426f, 0.62456f,
-    0.624859f, 0.625159f, 0.625458f, 0.625757f, 0.626056f, 0.626355f, 0.626654f, 0.626953f,
-    0.627252f, 0.62755f, 0.627849f, 0.628147f, 0.628446f, 0.628744f, 0.629042f, 0.62934f,
-    0.629638f, 0.629936f, 0.630234f, 0.630532f, 0.630829f, 0.631127f, 0.631424f, 0.631721f,
-    0.632019f, 0.632316f, 0.632613f, 0.63291f, 0.633207f, 0.633504f, 0.6338f, 0.634097f,
-    0.634393f, 0.63469f, 0.634986f, 0.635282f, 0.635578f, 0.635874f, 0.63617f, 0.636466f,
-    0.636762f, 0.637057f, 0.637353f, 0.637649f, 0.637944f, 0.638239f, 0.638534f, 0.638829f,
-    0.639124f, 0.639419f, 0.639714f, 0.640009f, 0.640303f, 0.640598f, 0.640892f, 0.641187f,
-    0.641481f, 0.641775f, 0.642069f, 0.642363f, 0.642657f, 0.642951f, 0.643244f, 0.643538f,
-    0.643832f, 0.644125f, 0.644418f, 0.644711f, 0.645005f, 0.645298f, 0.64559f, 0.645883f,
-    0.646176f, 0.646469f, 0.646761f, 0.647054f, 0.647346f, 0.647638f, 0.64793f, 0.648222f,
-    0.648514f, 0.648806f, 0.649098f, 0.64939f, 0.649681f, 0.649973f, 0.650264f, 0.650555f,
-    0.650847f, 0.651138f, 0.651429f, 0.65172f, 0.652011f, 0.652301f, 0.652592f, 0.652882f,
-    0.653173f, 0.653463f, 0.653753f, 0.654044f, 0.654334f, 0.654624f, 0.654913f, 0.655203f,
-    0.655493f, 0.655782f, 0.656072f, 0.656361f, 0.656651f, 0.65694f, 0.657229f, 0.657518f,
-    0.657807f, 0.658095f, 0.658384f, 0.658673f, 0.658961f, 0.65925f, 0.659538f, 0.659826f,
-    0.660114f, 0.660402f, 0.66069f, 0.660978f, 0.661266f, 0.661553f, 0.661841f, 0.662128f,
-    0.662416f, 0.662703f, 0.66299f, 0.663277f, 0.663564f, 0.663851f, 0.664138f, 0.664424f,
-    0.664711f, 0.664997f, 0.665284f, 0.66557f, 0.665856f, 0.666142f, 0.666428f, 0.666714f,
-    0.667f, 0.667286f, 0.667571f, 0.667857f, 0.668142f, 0.668427f, 0.668712f, 0.668998f,
-    0.669283f, 0.669567f, 0.669852f, 0.670137f, 0.670422f, 0.670706f, 0.67099f, 0.671275f,
-    0.671559f, 0.671843f, 0.672127f, 0.672411f, 0.672695f, 0.672978f, 0.673262f, 0.673546f,
-    0.673829f, 0.674112f, 0.674395f, 0.674679f, 0.674962f, 0.675245f, 0.675527f, 0.67581f,
-    0.676093f, 0.676375f, 0.676658f, 0.67694f, 0.677222f, 0.677504f, 0.677786f, 0.678068f,
-    0.67835f, 0.678632f, 0.678913f, 0.679195f, 0.679476f, 0.679758f, 0.680039f, 0.68032f,
-    0.680601f, 0.680882f, 0.681163f, 0.681443f, 0.681724f, 0.682005f, 0.682285f, 0.682565f,
-    0.682846f, 0.683126f, 0.683406f, 0.683686f, 0.683965f, 0.684245f, 0.684525f, 0.684804f,
-    0.685084f, 0.685363f, 0.685642f, 0.685921f, 0.6862f, 0.686479f, 0.686758f, 0.687037f,
-    0.687315f, 0.687594f, 0.687872f, 0.688151f, 0.688429f, 0.688707f, 0.688985f, 0.689263f,
-    0.689541f, 0.689818f, 0.690096f, 0.690373f, 0.690651f, 0.690928f, 0.691205f, 0.691482f,
-    0.691759f, 0.692036f, 0.692313f, 0.69259f, 0.692866f, 0.693143f, 0.693419f, 0.693695f,
-    0.693971f, 0.694248f, 0.694523f, 0.694799f, 0.695075f, 0.695351f, 0.695626f, 0.695902f,
-    0.696177f, 0.696452f, 0.696727f, 0.697003f, 0.697277f, 0.697552f, 0.697827f, 0.698102f,
-    0.698376f, 0.698651f, 0.698925f, 0.699199f, 0.699473f, 0.699747f, 0.700021f, 0.700295f,
-    0.700569f, 0.700842f, 0.701116f, 0.701389f, 0.701663f, 0.701936f, 0.702209f, 0.702482f,
-    0.702755f, 0.703027f, 0.7033f, 0.703573f, 0.703845f, 0.704118f, 0.70439f, 0.704662f,
-    0.704934f, 0.705206f, 0.705478f, 0.70575f, 0.706021f, 0.706293f, 0.706564f, 0.706836f,
-    0.707107f, 0.707378f, 0.707649f, 0.70792f, 0.708191f, 0.708461f, 0.708732f, 0.709002f,
-    0.709273f, 0.709543f, 0.709813f, 0.710083f, 0.710353f, 0.710623f, 0.710893f, 0.711163f,
-    0.711432f, 0.711702f, 0.711971f, 0.71224f, 0.712509f, 0.712778f, 0.713047f, 0.713316f,
-    0.713585f, 0.713853f, 0.714122f, 0.71439f, 0.714659f, 0.714927f, 0.715195f, 0.715463f,
-    0.715731f, 0.715999f, 0.716266f, 0.716534f, 0.716801f, 0.717069f, 0.717336f, 0.717603f,
-    0.71787f, 0.718137f, 0.718404f, 0.71867f, 0.718937f, 0.719204f, 0.71947f, 0.719736f,
-    0.720002f, 0.720269f, 0.720535f, 0.7208f, 0.721066f, 0.721332f, 0.721597f, 0.721863f,
-    0.722128f, 0.722393f, 0.722659f, 0.722924f, 0.723188f, 0.723453f, 0.723718f, 0.723983f,
-    0.724247f, 0.724511f, 0.724776f, 0.72504f, 0.725304f, 0.725568f, 0.725832f, 0.726095f,
-    0.726359f, 0.726623f, 0.726886f, 0.727149f, 0.727413f, 0.727676f, 0.727939f, 0.728202f,
-    0.728464f, 0.728727f, 0.72899f, 0.729252f, 0.729514f, 0.729777f, 0.730039f, 0.730301f,
-    0.730563f, 0.730825f, 0.731086f, 0.731348f, 0.731609f, 0.731871f, 0.732132f, 0.732393f,
-    0.732654f, 0.732915f, 0.733176f, 0.733437f, 0.733697f, 0.733958f, 0.734218f, 0.734479f,
-    0.734739f, 0.734999f, 0.735259f, 0.735519f, 0.735779f, 0.736038f, 0.736298f, 0.736557f,
-    0.736817f, 0.737076f, 0.737335f, 0.737594f, 0.737853f, 0.738112f, 0.73837f, 0.738629f,
-    0.738887f, 0.739146f, 0.739404f, 0.739662f, 0.73992f, 0.740178f, 0.740436f, 0.740694f,
-    0.740951f, 0.741209f, 0.741466f, 0.741723f, 0.74198f, 0.742237f, 0.742494f, 0.742751f,
-    0.743008f, 0.743265f, 0.743521f, 0.743777f, 0.744034f, 0.74429f, 0.744546f, 0.744802f,
-    0.745058f, 0.745313f, 0.745569f, 0.745825f, 0.74608f, 0.746335f, 0.746591f, 0.746846f,
-    0.747101f, 0.747355f, 0.74761f, 0.747865f, 0.748119f, 0.748374f, 0.748628f, 0.748882f,
-    0.749136f, 0.74939f, 0.749644f, 0.749898f, 0.750152f, 0.750405f, 0.750659f, 0.750912f,
-    0.751165f, 0.751418f, 0.751671f, 0.751924f, 0.752177f, 0.752429f, 0.752682f, 0.752934f,
-    0.753187f, 0.753439f, 0.753691f, 0.753943f, 0.754195f, 0.754447f, 0.754698f, 0.75495f,
-    0.755201f, 0.755453f, 0.755704f, 0.755955f, 0.756206f, 0.756457f, 0.756708f, 0.756958f,
-    0.757209f, 0.757459f, 0.75771f, 0.75796f, 0.75821f, 0.75846f, 0.75871f, 0.75896f,
-    0.759209f, 0.759459f, 0.759708f, 0.759957f, 0.760207f, 0.760456f, 0.760705f, 0.760954f,
-    0.761202f, 0.761451f, 0.7617f, 0.761948f, 0.762196f, 0.762444f, 0.762693f, 0.762941f,
-    0.763188f, 0.763436f, 0.763684f, 0.763931f, 0.764179f, 0.764426f, 0.764673f, 0.76492f,
-    0.765167f, 0.765414f, 0.765661f, 0.765907f, 0.766154f, 0.7664f, 0.766647f, 0.766893f,
-    0.767139f, 0.767385f, 0.767631f, 0.767876f, 0.768122f, 0.768367f, 0.768613f, 0.768858f,
-    0.769103f, 0.769348f, 0.769593f, 0.769838f, 0.770083f, 0.770327f, 0.770572f, 0.770816f,
-    0.77106f, 0.771305f, 0.771549f, 0.771793f, 0.772036f, 0.77228f, 0.772524f, 0.772767f,
-    0.77301f, 0.773254f, 0.773497f, 0.77374f, 0.773983f, 0.774225f, 0.774468f, 0.774711f,
-    0.774953f, 0.775195f, 0.775438f, 0.77568f, 0.775922f, 0.776164f, 0.776405f, 0.776647f,
-    0.776888f, 0.77713f, 0.777371f, 0.777612f, 0.777853f, 0.778094f, 0.778335f, 0.778576f,
-    0.778816f, 0.779057f, 0.779297f, 0.779538f, 0.779778f, 0.780018f, 0.780258f, 0.780498f,
-    0.780737f, 0.780977f, 0.781216f, 0.781456f, 0.781695f, 0.781934f, 0.782173f, 0.782412f,
-    0.782651f, 0.782889f, 0.783128f, 0.783366f, 0.783604f, 0.783843f, 0.784081f, 0.784319f,
-    0.784557f, 0.784794f, 0.785032f, 0.785269f, 0.785507f, 0.785744f, 0.785981f, 0.786218f,
-    0.786455f, 0.786692f, 0.786929f, 0.787165f, 0.787402f, 0.787638f, 0.787874f, 0.78811f,
-    0.788346f, 0.788582f, 0.788818f, 0.789054f, 0.789289f, 0.789525f, 0.78976f, 0.789995f,
-    0.79023f, 0.790465f, 0.7907f, 0.790935f, 0.791169f, 0.791404f, 0.791638f, 0.791872f,
-    0.792107f, 0.792341f, 0.792574f, 0.792808f, 0.793042f, 0.793275f, 0.793509f, 0.793742f,
-    0.793975f, 0.794209f, 0.794442f, 0.794674f, 0.794907f, 0.79514f, 0.795372f, 0.795605f,
-    0.795837f, 0.796069f, 0.796301f, 0.796533f, 0.796765f, 0.796996f, 0.797228f, 0.797459f,
-    0.797691f, 0.797922f, 0.798153f, 0.798384f, 0.798615f, 0.798846f, 0.799076f, 0.799307f,
-    0.799537f, 0.799768f, 0.799998f, 0.800228f, 0.800458f, 0.800687f, 0.800917f, 0.801147f,
-    0.801376f, 0.801605f, 0.801835f, 0.802064f, 0.802293f, 0.802522f, 0.80275f, 0.802979f,
-    0.803208f, 0.803436f, 0.803664f, 0.803892f, 0.80412f, 0.804348f, 0.804576f, 0.804804f,
-    0.805031f, 0.805259f, 0.805486f, 0.805713f, 0.80594f, 0.806167f, 0.806394f, 0.806621f,
-    0.806848f, 0.807074f, 0.8073f, 0.807527f, 0.807753f, 0.807979f, 0.808205f, 0.80843f,
-    0.808656f, 0.808882f, 0.809107f, 0.809332f, 0.809558f, 0.809783f, 0.810008f, 0.810232f,
-    0.810457f, 0.810682f, 0.810906f, 0.811131f, 0.811355f, 0.811579f, 0.811803f, 0.812027f,
-    0.812251f, 0.812474f, 0.812698f, 0.812921f, 0.813144f, 0.813368f, 0.813591f, 0.813814f,
-    0.814036f, 0.814259f, 0.814482f, 0.814704f, 0.814926f, 0.815149f, 0.815371f, 0.815593f,
-    0.815814f, 0.816036f, 0.816258f, 0.816479f, 0.816701f, 0.816922f, 0.817143f, 0.817364f,
-    0.817585f, 0.817806f, 0.818026f, 0.818247f, 0.818467f, 0.818687f, 0.818908f, 0.819128f,
-    0.819347f, 0.819567f, 0.819787f, 0.820007f, 0.820226f, 0.820445f, 0.820664f, 0.820884f,
-    0.821102f, 0.821321f, 0.82154f, 0.821759f, 0.821977f, 0.822195f, 0.822414f, 0.822632f,
-    0.82285f, 0.823068f, 0.823285f, 0.823503f, 0.82372f, 0.823938f, 0.824155f, 0.824372f,
-    0.824589f, 0.824806f, 0.825023f, 0.82524f, 0.825456f, 0.825673f, 0.825889f, 0.826105f,
-    0.826321f, 0.826537f, 0.826753f, 0.826968f, 0.827184f, 0.827399f, 0.827615f, 0.82783f,
-    0.828045f, 0.82826f, 0.828475f, 0.82869f, 0.828904f, 0.829119f, 0.829333f, 0.829547f,
-    0.829761f, 0.829975f, 0.830189f, 0.830403f, 0.830616f, 0.83083f, 0.831043f, 0.831256f,
-    0.83147f, 0.831683f, 0.831895f, 0.832108f, 0.832321f, 0.832533f, 0.832746f, 0.832958f,
-    0.83317f, 0.833382f, 0.833594f, 0.833806f, 0.834017f, 0.834229f, 0.83444f, 0.834652f,
-    0.834863f, 0.835074f, 0.835285f, 0.835496f, 0.835706f, 0.835917f, 0.836127f, 0.836338f,
-    0.836548f, 0.836758f, 0.836968f, 0.837177f, 0.837387f, 0.837597f, 0.837806f, 0.838015f,
-    0.838225f, 0.838434f, 0.838643f, 0.838852f, 0.83906f, 0.839269f, 0.839477f, 0.839686f,
-    0.839894f, 0.840102f, 0.84031f, 0.840518f, 0.840725f, 0.840933f, 0.84114f, 0.841348f,
-    0.841555f, 0.841762f, 0.841969f, 0.842176f, 0.842383f, 0.842589f, 0.842796f, 0.843002f,
-    0.843208f, 0.843414f, 0.84362f, 0.843826f, 0.844032f, 0.844237f, 0.844443f, 0.844648f,
-    0.844854f, 0.845059f, 0.845264f, 0.845468f, 0.845673f, 0.845878f, 0.846082f, 0.846287f,
-    0.846491f, 0.846695f, 0.846899f, 0.847103f, 0.847307f, 0.84751f, 0.847714f, 0.847917f,
-    0.84812f, 0.848323f, 0.848526f, 0.848729f, 0.848932f, 0.849135f, 0.849337f, 0.84954f,
-    0.849742f, 0.849944f, 0.850146f, 0.850348f, 0.850549f, 0.850751f, 0.850953f, 0.851154f,
-    0.851355f, 0.851556f, 0.851757f, 0.851958f, 0.852159f, 0.852359f, 0.85256f, 0.85276f,
-    0.852961f, 0.853161f, 0.853361f, 0.853561f, 0.85376f, 0.85396f, 0.854159f, 0.854359f,
-    0.854558f, 0.854757f, 0.854956f, 0.855155f, 0.855354f, 0.855552f, 0.855751f, 0.855949f,
-    0.856147f, 0.856345f, 0.856543f, 0.856741f, 0.856939f, 0.857137f, 0.857334f, 0.857531f,
-    0.857729f, 0.857926f, 0.858123f, 0.858319f, 0.858516f, 0.858713f, 0.858909f, 0.859106f,
-    0.859302f, 0.859498f, 0.859694f, 0.85989f, 0.860085f, 0.860281f, 0.860476f, 0.860672f,
-    0.860867f, 0.861062f, 0.861257f, 0.861452f, 0.861646f, 0.861841f, 0.862035f, 0.86223f,
-    0.862424f, 0.862618f, 0.862812f, 0.863006f, 0.863199f, 0.863393f, 0.863586f, 0.86378f,
-    0.863973f, 0.864166f, 0.864359f, 0.864552f, 0.864744f, 0.864937f, 0.865129f, 0.865321f,
-    0.865514f, 0.865706f, 0.865898f, 0.866089f, 0.866281f, 0.866472f, 0.866664f, 0.866855f,
-    0.867046f, 0.867237f, 0.867428f, 0.867619f, 0.867809f, 0.868f, 0.86819f, 0.868381f,
-    0.868571f, 0.868761f, 0.868951f, 0.86914f, 0.86933f, 0.869519f, 0.869709f, 0.869898f,
-    0.870087f, 0.870276f, 0.870465f, 0.870653f, 0.870842f, 0.87103f, 0.871219f, 0.871407f,
-    0.871595f, 0.871783f, 0.871971f, 0.872158f, 0.872346f, 0.872533f, 0.872721f, 0.872908f,
-    0.873095f, 0.873282f, 0.873469f, 0.873655f, 0.873842f, 0.874028f, 0.874214f, 0.874401f,
-    0.874587f, 0.874773f, 0.874958f, 0.875144f, 0.875329f, 0.875515f, 0.8757f, 0.875885f,
-    0.87607f, 0.876255f, 0.87644f, 0.876624f, 0.876809f, 0.876993f, 0.877177f, 0.877361f,
-    0.877545f, 0.877729f, 0.877913f, 0.878096f, 0.87828f, 0.878463f, 0.878646f, 0.878829f,
-    0.879012f, 0.879195f, 0.879378f, 0.87956f, 0.879743f, 0.879925f, 0.880107f, 0.880289f,
-    0.880471f, 0.880653f, 0.880834f, 0.881016f, 0.881197f, 0.881378f, 0.881559f, 0.88174f,
-    0.881921f, 0.882102f, 0.882283f, 0.882463f, 0.882643f, 0.882824f, 0.883004f, 0.883184f,
-    0.883363f, 0.883543f, 0.883723f, 0.883902f, 0.884081f, 0.88426f, 0.884439f, 0.884618f,
-    0.884797f, 0.884976f, 0.885154f, 0.885333f, 0.885511f, 0.885689f, 0.885867f, 0.886045f,
-    0.886223f, 0.8864f, 0.886578f, 0.886755f, 0.886932f, 0.887109f, 0.887286f, 0.887463f,
-    0.88764f, 0.887816f, 0.887993f, 0.888169f, 0.888345f, 0.888521f, 0.888697f, 0.888873f,
-    0.889048f, 0.889224f, 0.889399f, 0.889574f, 0.88975f, 0.889925f, 0.890099f, 0.890274f,
-    0.890449f, 0.890623f, 0.890797f, 0.890972f, 0.891146f, 0.89132f, 0.891493f, 0.891667f,
-    0.891841f, 0.892014f, 0.892187f, 0.892361f, 0.892534f, 0.892706f, 0.892879f, 0.893052f,
-    0.893224f, 0.893397f, 0.893569f, 0.893741f, 0.893913f, 0.894085f, 0.894256f, 0.894428f,
-    0.894599f, 0.894771f, 0.894942f, 0.895113f, 0.895284f, 0.895455f, 0.895625f, 0.895796f,
-    0.895966f, 0.896136f, 0.896307f, 0.896477f, 0.896646f, 0.896816f, 0.896986f, 0.897155f,
-    0.897325f, 0.897494f, 0.897663f, 0.897832f, 0.898001f, 0.898169f, 0.898338f, 0.898506f,
-    0.898674f, 0.898843f, 0.899011f, 0.899178f, 0.899346f, 0.899514f, 0.899681f, 0.899849f,
-    0.900016f, 0.900183f, 0.90035f, 0.900517f, 0.900683f, 0.90085f, 0.901016f, 0.901183f,
-    0.901349f, 0.901515f, 0.901681f, 0.901846f, 0.902012f, 0.902178f, 0.902343f, 0.902508f,
-    0.902673f, 0.902838f, 0.903003f, 0.903168f, 0.903332f, 0.903497f, 0.903661f, 0.903825f,
-    0.903989f, 0.904153f, 0.904317f, 0.904481f, 0.904644f, 0.904807f, 0.904971f, 0.905134f,
-    0.905297f, 0.90546f, 0.905622f, 0.905785f, 0.905947f, 0.90611f, 0.906272f, 0.906434f,
-    0.906596f, 0.906757f, 0.906919f, 0.907081f, 0.907242f, 0.907403f, 0.907564f, 0.907725f,
-    0.907886f, 0.908047f, 0.908207f, 0.908368f, 0.908528f, 0.908688f, 0.908848f, 0.909008f,
-    0.909168f, 0.909328f, 0.909487f, 0.909646f, 0.909806f, 0.909965f, 0.910124f, 0.910283f,
-    0.910441f, 0.9106f, 0.910758f, 0.910917f, 0.911075f, 0.911233f, 0.911391f, 0.911548f,
-    0.911706f, 0.911863f, 0.912021f, 0.912178f, 0.912335f, 0.912492f, 0.912649f, 0.912806f,
-    0.912962f, 0.913119f, 0.913275f, 0.913431f, 0.913587f, 0.913743f, 0.913899f, 0.914054f,
-    0.91421f, 0.914365f, 0.91452f, 0.914675f, 0.91483f, 0.914985f, 0.91514f, 0.915294f,
-    0.915449f, 0.915603f, 0.915757f, 0.915911f, 0.916065f, 0.916219f, 0.916372f, 0.916526f,
-    0.916679f, 0.916832f, 0.916985f, 0.917138f, 0.917291f, 0.917444f, 0.917596f, 0.917749f,
-    0.917901f, 0.918053f, 0.918205f, 0.918357f, 0.918508f, 0.91866f, 0.918811f, 0.918963f,
-    0.919114f, 0.919265f, 0.919416f, 0.919567f, 0.919717f, 0.919868f, 0.920018f, 0.920168f,
-    0.920318f, 0.920468f, 0.920618f, 0.920768f, 0.920917f, 0.921067f, 0.921216f, 0.921365f,
-    0.921514f, 0.921663f, 0.921812f, 0.92196f, 0.922109f, 0.922257f, 0.922405f, 0.922553f,
-    0.922701f, 0.922849f, 0.922997f, 0.923144f, 0.923291f, 0.923439f, 0.923586f, 0.923733f,
-    0.92388f, 0.924026f, 0.924173f, 0.924319f, 0.924465f, 0.924612f, 0.924758f, 0.924903f,
-    0.925049f, 0.925195f, 0.92534f, 0.925486f, 0.925631f, 0.925776f, 0.925921f, 0.926066f,
-    0.92621f, 0.926355f, 0.926499f, 0.926643f, 0.926787f, 0.926931f, 0.927075f, 0.927219f,
-    0.927363f, 0.927506f, 0.927649f, 0.927792f, 0.927935f, 0.928078f, 0.928221f, 0.928364f,
-    0.928506f, 0.928648f, 0.928791f, 0.928933f, 0.929075f, 0.929216f, 0.929358f, 0.9295f,
-    0.929641f, 0.929782f, 0.929923f, 0.930064f, 0.930205f, 0.930346f, 0.930486f, 0.930627f,
-    0.930767f, 0.930907f, 0.931047f, 0.931187f, 0.931327f, 0.931466f, 0.931606f, 0.931745f,
-    0.931884f, 0.932023f, 0.932162f, 0.932301f, 0.93244f, 0.932578f, 0.932716f, 0.932855f,
-    0.932993f, 0.933131f, 0.933269f, 0.933406f, 0.933544f, 0.933681f, 0.933818f, 0.933956f,
-    0.934093f, 0.934229f, 0.934366f, 0.934503f, 0.934639f, 0.934775f, 0.934912f, 0.935048f,
-    0.935183f, 0.935319f, 0.935455f, 0.93559f, 0.935726f, 0.935861f, 0.935996f, 0.936131f,
-    0.936266f, 0.9364f, 0.936535f, 0.936669f, 0.936803f, 0.936938f, 0.937071f, 0.937205f,
-    0.937339f, 0.937473f, 0.937606f, 0.937739f, 0.937872f, 0.938005f, 0.938138f, 0.938271f,
-    0.938404f, 0.938536f, 0.938668f, 0.9388f, 0.938932f, 0.939064f, 0.939196f, 0.939328f,
-    0.939459f, 0.939591f, 0.939722f, 0.939853f, 0.939984f, 0.940115f, 0.940245f, 0.940376f,
-    0.940506f, 0.940636f, 0.940766f, 0.940896f, 0.941026f, 0.941156f, 0.941285f, 0.941415f,
-    0.941544f, 0.941673f, 0.941802f, 0.941931f, 0.94206f, 0.942188f, 0.942317f, 0.942445f,
-    0.942573f, 0.942701f, 0.942829f, 0.942957f, 0.943084f, 0.943212f, 0.943339f, 0.943466f,
-    0.943593f, 0.94372f, 0.943847f, 0.943974f, 0.9441f, 0.944227f, 0.944353f, 0.944479f,
-    0.944605f, 0.944731f, 0.944856f, 0.944982f, 0.945107f, 0.945232f, 0.945358f, 0.945482f,
-    0.945607f, 0.945732f, 0.945857f, 0.945981f, 0.946105f, 0.946229f, 0.946353f, 0.946477f,
-    0.946601f, 0.946724f, 0.946848f, 0.946971f, 0.947094f, 0.947217f, 0.94734f, 0.947463f,
-    0.947586f, 0.947708f, 0.94783f, 0.947953f, 0.948075f, 0.948196f, 0.948318f, 0.94844f,
-    0.948561f, 0.948683f, 0.948804f, 0.948925f, 0.949046f, 0.949167f, 0.949287f, 0.949408f,
-    0.949528f, 0.949648f, 0.949768f, 0.949888f, 0.950008f, 0.950128f, 0.950247f, 0.950367f,
-    0.950486f, 0.950605f, 0.950724f, 0.950843f, 0.950962f, 0.95108f, 0.951199f, 0.951317f,
-    0.951435f, 0.951553f, 0.951671f, 0.951789f, 0.951906f, 0.952024f, 0.952141f, 0.952258f,
-    0.952375f, 0.952492f, 0.952609f, 0.952725f, 0.952842f, 0.952958f, 0.953074f, 0.95319f,
-    0.953306f, 0.953422f, 0.953537f, 0.953653f, 0.953768f, 0.953883f, 0.953998f, 0.954113f,
-    0.954228f, 0.954343f, 0.954457f, 0.954572f, 0.954686f, 0.9548f, 0.954914f, 0.955028f,
-    0.955141f, 0.955255f, 0.955368f, 0.955481f, 0.955594f, 0.955707f, 0.95582f, 0.955933f,
-    0.956045f, 0.956158f, 0.95627f, 0.956382f, 0.956494f, 0.956606f, 0.956717f, 0.956829f,
-    0.95694f, 0.957052f, 0.957163f, 0.957274f, 0.957384f, 0.957495f, 0.957606f, 0.957716f,
-    0.957826f, 0.957937f, 0.958047f, 0.958156f, 0.958266f, 0.958376f, 0.958485f, 0.958594f,
-    0.958703f, 0.958812f, 0.958921f, 0.95903f, 0.959139f, 0.959247f, 0.959355f, 0.959463f,
-    0.959571f, 0.959679f, 0.959787f, 0.959895f, 0.960002f, 0.960109f, 0.960217f, 0.960324f,
-    0.960431f, 0.960537f, 0.960644f, 0.96075f, 0.960857f, 0.960963f, 0.961069f, 0.961175f,
-    0.96128f, 0.961386f, 0.961492f, 0.961597f, 0.961702f, 0.961807f, 0.961912f, 0.962017f,
-    0.962121f, 0.962226f, 0.96233f, 0.962434f, 0.962538f, 0.962642f, 0.962746f, 0.96285f,
-    0.962953f, 0.963057f, 0.96316f, 0.963263f, 0.963366f, 0.963469f, 0.963571f, 0.963674f,
-    0.963776f, 0.963878f, 0.96398f, 0.964082f, 0.964184f, 0.964286f, 0.964387f, 0.964489f,
-    0.96459f, 0.964691f, 0.964792f, 0.964893f, 0.964993f, 0.965094f, 0.965194f, 0.965294f,
-    0.965394f, 0.965494f, 0.965594f, 0.965694f, 0.965793f, 0.965893f, 0.965992f, 0.966091f,
-    0.96619f, 0.966289f, 0.966387f, 0.966486f, 0.966584f, 0.966683f, 0.966781f, 0.966879f,
-    0.966976f, 0.967074f, 0.967172f, 0.967269f, 0.967366f, 0.967463f, 0.96756f, 0.967657f,
-    0.967754f, 0.96785f, 0.967947f, 0.968043f, 0.968139f, 0.968235f, 0.968331f, 0.968427f,
-    0.968522f, 0.968617f, 0.968713f, 0.968808f, 0.968903f, 0.968998f, 0.969092f, 0.969187f,
-    0.969281f, 0.969375f, 0.96947f, 0.969564f, 0.969657f, 0.969751f, 0.969845f, 0.969938f,
-    0.970031f, 0.970124f, 0.970217f, 0.97031f, 0.970403f, 0.970495f, 0.970588f, 0.97068f,
-    0.970772f, 0.970864f, 0.970956f, 0.971048f, 0.971139f, 0.971231f, 0.971322f, 0.971413f,
-    0.971504f, 0.971595f, 0.971685f, 0.971776f, 0.971866f, 0.971957f, 0.972047f, 0.972137f,
-    0.972226f, 0.972316f, 0.972406f, 0.972495f, 0.972584f, 0.972673f, 0.972762f, 0.972851f,
-    0.97294f, 0.973028f, 0.973117f, 0.973205f, 0.973293f, 0.973381f, 0.973469f, 0.973557f,
-    0.973644f, 0.973732f, 0.973819f, 0.973906f, 0.973993f, 0.97408f, 0.974166f, 0.974253f,
-    0.974339f, 0.974426f, 0.974512f, 0.974598f, 0.974683f, 0.974769f, 0.974855f, 0.97494f,
-    0.975025f, 0.97511f, 0.975195f, 0.97528f, 0.975365f, 0.975449f, 0.975534f, 0.975618f,
-    0.975702f, 0.975786f, 0.97587f, 0.975954f, 0.976037f, 0.97612f, 0.976204f, 0.976287f,
-    0.97637f, 0.976453f, 0.976535f, 0.976618f, 0.9767f, 0.976782f, 0.976864f, 0.976946f,
-    0.977028f, 0.97711f, 0.977191f, 0.977273f, 0.977354f, 0.977435f, 0.977516f, 0.977597f,
-    0.977677f, 0.977758f, 0.977838f, 0.977918f, 0.977999f, 0.978078f, 0.978158f, 0.978238f,
-    0.978317f, 0.978397f, 0.978476f, 0.978555f, 0.978634f, 0.978713f, 0.978791f, 0.97887f,
-    0.978948f, 0.979026f, 0.979104f, 0.979182f, 0.97926f, 0.979338f, 0.979415f, 0.979493f,
-    0.97957f, 0.979647f, 0.979724f, 0.9798f, 0.979877f, 0.979954f, 0.98003f, 0.980106f,
-    0.980182f, 0.980258f, 0.980334f, 0.980409f, 0.980485f, 0.98056f, 0.980635f, 0.98071f,
-    0.980785f, 0.98086f, 0.980935f, 0.981009f, 0.981083f, 0.981158f, 0.981232f, 0.981305f,
-    0.981379f, 0.981453f, 0.981526f, 0.9816f, 0.981673f, 0.981746f, 0.981819f, 0.981891f,
-    0.981964f, 0.982036f, 0.982109f, 0.982181f, 0.982253f, 0.982325f, 0.982396f, 0.982468f,
-    0.982539f, 0.982611f, 0.982682f, 0.982753f, 0.982824f, 0.982894f, 0.982965f, 0.983035f,
-    0.983105f, 0.983176f, 0.983246f, 0.983315f, 0.983385f, 0.983455f, 0.983524f, 0.983593f,
-    0.983662f, 0.983731f, 0.9838f, 0.983869f, 0.983937f, 0.984006f, 0.984074f, 0.984142f,
-    0.98421f, 0.984278f, 0.984346f, 0.984413f, 0.98448f, 0.984548f, 0.984615f, 0.984682f,
-    0.984748f, 0.984815f, 0.984882f, 0.984948f, 0.985014f, 0.98508f, 0.985146f, 0.985212f,
-    0.985278f, 0.985343f, 0.985408f, 0.985474f, 0.985539f, 0.985604f, 0.985668f, 0.985733f,
-    0.985797f, 0.985862f, 0.985926f, 0.98599f, 0.986054f, 0.986118f, 0.986181f, 0.986245f,
-    0.986308f, 0.986371f, 0.986434f, 0.986497f, 0.98656f, 0.986622f, 0.986685f, 0.986747f,
-    0.986809f, 0.986871f, 0.986933f, 0.986995f, 0.987057f, 0.987118f, 0.987179f, 0.98724f,
-    0.987301f, 0.987362f, 0.987423f, 0.987484f, 0.987544f, 0.987604f, 0.987664f, 0.987724f,
-    0.987784f, 0.987844f, 0.987903f, 0.987963f, 0.988022f, 0.988081f, 0.98814f, 0.988199f,
-    0.988258f, 0.988316f, 0.988374f, 0.988433f, 0.988491f, 0.988549f, 0.988607f, 0.988664f,
-    0.988722f, 0.988779f, 0.988836f, 0.988893f, 0.98895f, 0.989007f, 0.989064f, 0.98912f,
-    0.989176f, 0.989233f, 0.989289f, 0.989345f, 0.9894f, 0.989456f, 0.989512f, 0.989567f,
-    0.989622f, 0.989677f, 0.989732f, 0.989787f, 0.989841f, 0.989896f, 0.98995f, 0.990004f,
-    0.990058f, 0.990112f, 0.990166f, 0.990219f, 0.990273f, 0.990326f, 0.990379f, 0.990432f,
-    0.990485f, 0.990538f, 0.99059f, 0.990643f, 0.990695f, 0.990747f, 0.990799f, 0.990851f,
-    0.990903f, 0.990954f, 0.991006f, 0.991057f, 0.991108f, 0.991159f, 0.99121f, 0.99126f,
-    0.991311f, 0.991361f, 0.991411f, 0.991462f, 0.991511f, 0.991561f, 0.991611f, 0.99166f,
-    0.99171f, 0.991759f, 0.991808f, 0.991857f, 0.991906f, 0.991954f, 0.992003f, 0.992051f,
-    0.992099f, 0.992147f, 0.992195f, 0.992243f, 0.992291f, 0.992338f, 0.992385f, 0.992433f,
-    0.99248f, 0.992526f, 0.992573f, 0.99262f, 0.992666f, 0.992712f, 0.992759f, 0.992805f,
-    0.99285f, 0.992896f, 0.992942f, 0.992987f, 0.993032f, 0.993077f, 0.993122f, 0.993167f,
-    0.993212f, 0.993256f, 0.993301f, 0.993345f, 0.993389f, 0.993433f, 0.993477f, 0.993521f,
-    0.993564f, 0.993607f, 0.993651f, 0.993694f, 0.993737f, 0.993779f, 0.993822f, 0.993865f,
-    0.993907f, 0.993949f, 0.993991f, 0.994033f, 0.994075f, 0.994116f, 0.994158f, 0.994199f,
-    0.99424f, 0.994281f, 0.994322f, 0.994363f, 0.994404f, 0.994444f, 0.994484f, 0.994525f,
-    0.994565f, 0.994604f, 0.994644f, 0.994684f, 0.994723f, 0.994762f, 0.994802f, 0.99484f,
-    0.994879f, 0.994918f, 0.994957f, 0.994995f, 0.995033f, 0.995071f, 0.995109f, 0.995147f,
-    0.995185f, 0.995222f, 0.99526f, 0.995297f, 0.995334f, 0.995371f, 0.995408f, 0.995444f,
-    0.995481f, 0.995517f, 0.995553f, 0.995589f, 0.995625f, 0.995661f, 0.995697f, 0.995732f,
-    0.995767f, 0.995803f, 0.995838f, 0.995872f, 0.995907f, 0.995942f, 0.995976f, 0.996011f,
-    0.996045f, 0.996079f, 0.996113f, 0.996146f, 0.99618f, 0.996213f, 0.996247f, 0.99628f,
-    0.996313f, 0.996345f, 0.996378f, 0.996411f, 0.996443f, 0.996475f, 0.996507f, 0.996539f,
-    0.996571f, 0.996603f, 0.996634f, 0.996666f, 0.996697f, 0.996728f, 0.996759f, 0.99679f,
-    0.99682f, 0.996851f, 0.996881f, 0.996911f, 0.996941f, 0.996971f, 0.997001f, 0.997031f,
-    0.99706f, 0.997089f, 0.997119f, 0.997148f, 0.997176f, 0.997205f, 0.997234f, 0.997262f,
-    0.99729f, 0.997319f, 0.997347f, 0.997374f, 0.997402f, 0.99743f, 0.997457f, 0.997484f,
-    0.997511f, 0.997538f, 0.997565f, 0.997592f, 0.997618f, 0.997645f, 0.997671f, 0.997697f,
-    0.997723f, 0.997749f, 0.997774f, 0.9978f, 0.997825f, 0.997851f, 0.997876f, 0.997901f,
-    0.997925f, 0.99795f, 0.997974f, 0.997999f, 0.998023f, 0.998047f, 0.998071f, 0.998095f,
-    0.998118f, 0.998142f, 0.998165f, 0.998188f, 0.998211f, 0.998234f, 0.998257f, 0.998279f,
-    0.998302f, 0.998324f, 0.998346f, 0.998368f, 0.99839f, 0.998411f, 0.998433f, 0.998454f,
-    0.998476f, 0.998497f, 0.998518f, 0.998538f, 0.998559f, 0.99858f, 0.9986f, 0.99862f,
-    0.99864f, 0.99866f, 0.99868f, 0.9987f, 0.998719f, 0.998738f, 0.998758f, 0.998777f,
-    0.998795f, 0.998814f, 0.998833f, 0.998851f, 0.99887f, 0.998888f, 0.998906f, 0.998924f,
-    0.998941f, 0.998959f, 0.998976f, 0.998994f, 0.999011f, 0.999028f, 0.999044f, 0.999061f,
-    0.999078f, 0.999094f, 0.99911f, 0.999126f, 0.999142f, 0.999158f, 0.999174f, 0.999189f,
-    0.999205f, 0.99922f, 0.999235f, 0.99925f, 0.999265f, 0.999279f, 0.999294f, 0.999308f,
-    0.999322f, 0.999336f, 0.99935f, 0.999364f, 0.999378f, 0.999391f, 0.999404f, 0.999418f,
-    0.999431f, 0.999443f, 0.999456f, 0.999469f, 0.999481f, 0.999493f, 0.999506f, 0.999518f,
-    0.999529f, 0.999541f, 0.999553f, 0.999564f, 0.999575f, 0.999586f, 0.999597f, 0.999608f,
-    0.999619f, 0.999629f, 0.99964f, 0.99965f, 0.99966f, 0.99967f, 0.99968f, 0.999689f,
-    0.999699f, 0.999708f, 0.999717f, 0.999726f, 0.999735f, 0.999744f, 0.999753f, 0.999761f,
-    0.999769f, 0.999778f, 0.999786f, 0.999793f, 0.999801f, 0.999809f, 0.999816f, 0.999823f,
-    0.999831f, 0.999838f, 0.999844f, 0.999851f, 0.999858f, 0.999864f, 0.99987f, 0.999876f,
-    0.999882f, 0.999888f, 0.999894f, 0.999899f, 0.999905f, 0.99991f, 0.999915f, 0.99992f,
-    0.999925f, 0.999929f, 0.999934f, 0.999938f, 0.999942f, 0.999946f, 0.99995f, 0.999954f,
-    0.999958f, 0.999961f, 0.999964f, 0.999968f, 0.999971f, 0.999973f, 0.999976f, 0.999979f,
-    0.999981f, 0.999983f, 0.999986f, 0.999988f, 0.999989f, 0.999991f, 0.999993f, 0.999994f,
-    0.999995f, 0.999996f, 0.999997f, 0.999998f, 0.999999f, 0.999999f, 1.0f, 1.0f
-};
-/* 0x004e3600, 16384 bytes */ GRIM_DATA("004e3600") float g_aTanTable[4096] = {
-    0.0f, 0.000383f, 0.000767f, 0.00115f, 0.001534f, 0.001917f, 0.002301f, 0.002684f,
-    0.003068f, 0.003451f, 0.003835f, 0.004218f, 0.004602f, 0.004985f, 0.005369f, 0.005752f,
-    0.006136f, 0.00652f, 0.006903f, 0.007287f, 0.00767f, 0.008054f, 0.008437f, 0.008821f,
-    0.009204f, 0.009588f, 0.009971f, 0.010355f, 0.010738f, 0.011122f, 0.011505f, 0.011889f,
-    0.012272f, 0.012656f, 0.01304f, 0.013423f, 0.013807f, 0.01419f, 0.014574f, 0.014957f,
-    0.015341f, 0.015725f, 0.016108f, 0.016492f, 0.016875f, 0.017259f, 0.017643f, 0.018026f,
-    0.01841f, 0.018793f, 0.019177f, 0.019561f, 0.019944f, 0.020328f, 0.020712f, 0.021095f,
-    0.021479f, 0.021863f, 0.022246f, 0.02263f, 0.023014f, 0.023397f, 0.023781f, 0.024165f,
-    0.024549f, 0.024932f, 0.025316f, 0.0257f, 0.026084f, 0.026467f, 0.026851f, 0.027235f,
-    0.027619f, 0.028002f, 0.028386f, 0.02877f, 0.029154f, 0.029538f, 0.029922f, 0.030305f,
-    0.030689f, 0.031073f, 0.031457f, 0.031841f, 0.032225f, 0.032609f, 0.032993f, 0.033376f,
-    0.03376f, 0.034144f, 0.034528f, 0.034912f, 0.035296f, 0.03568f, 0.036064f, 0.036448f,
-    0.036832f, 0.037216f, 0.0376f, 0.037984f, 0.038368f, 0.038752f, 0.039136f, 0.039521f,
-    0.039905f, 0.040289f, 0.040673f, 0.041057f, 0.041441f, 0.041825f, 0.04221f, 0.042594f,
-    0.042978f, 0.043362f, 0.043746f, 0.044131f, 0.044515f, 0.044899f, 0.045283f, 0.045668f,
-    0.046052f, 0.046436f, 0.046821f, 0.047205f, 0.047589f, 0.047974f, 0.048358f, 0.048742f,
-    0.049127f, 0.049511f, 0.049896f, 0.05028f, 0.050665f, 0.051049f, 0.051434f, 0.051818f,
-    0.052203f, 0.052587f, 0.052972f, 0.053356f, 0.053741f, 0.054126f, 0.05451f, 0.054895f,
-    0.05528f, 0.055664f, 0.056049f, 0.056434f, 0.056818f, 0.057203f, 0.057588f, 0.057973f,
-    0.058357f, 0.058742f, 0.059127f, 0.059512f, 0.059897f, 0.060282f, 0.060667f, 0.061051f,
-    0.061436f, 0.061821f, 0.062206f, 0.062591f, 0.062976f, 0.063361f, 0.063746f, 0.064131f,
-    0.064516f, 0.064902f, 0.065287f, 0.065672f, 0.066057f, 0.066442f, 0.066827f, 0.067213f,
-    0.067598f, 0.067983f, 0.068368f, 0.068754f, 0.069139f, 0.069524f, 0.06991f, 0.070295f,
-    0.07068f, 0.071066f, 0.071451f, 0.071837f, 0.072222f, 0.072608f, 0.072993f, 0.073379f,
-    0.073764f, 0.07415f, 0.074536f, 0.074921f, 0.075307f, 0.075693f, 0.076078f, 0.076464f,
-    0.07685f, 0.077236f, 0.077621f, 0.078007f, 0.078393f, 0.078779f, 0.079165f, 0.079551f,
-    0.079937f, 0.080323f, 0.080709f, 0.081095f, 0.081481f, 0.081867f, 0.082253f, 0.082639f,
-    0.083025f, 0.083411f, 0.083797f, 0.084183f, 0.08457f, 0.084956f, 0.085342f, 0.085729f,
-    0.086115f, 0.086501f, 0.086888f, 0.087274f, 0.08766f, 0.088047f, 0.088433f, 0.08882f,
-    0.089206f, 0.089593f, 0.08998f, 0.090366f, 0.090753f, 0.091139f, 0.091526f, 0.091913f,
-    0.0923f, 0.092686f, 0.093073f, 0.09346f, 0.093847f, 0.094234f, 0.094621f, 0.095008f,
-    0.095395f, 0.095782f, 0.096169f, 0.096556f, 0.096943f, 0.09733f, 0.097717f, 0.098104f,
-    0.098491f, 0.098879f, 0.099266f, 0.099653f, 0.10004f, 0.100428f, 0.100815f, 0.101203f,
-    0.10159f, 0.101978f, 0.102365f, 0.102753f, 0.10314f, 0.103528f, 0.103915f, 0.104303f,
-    0.104691f, 0.105078f, 0.105466f, 0.105854f, 0.106242f, 0.10663f, 0.107017f, 0.107405f,
-    0.107793f, 0.108181f, 0.108569f, 0.108957f, 0.109345f, 0.109733f, 0.110122f, 0.11051f,
-    0.110898f, 0.111286f, 0.111674f, 0.112063f, 0.112451f, 0.112839f, 0.113228f, 0.113616f,
-    0.114005f, 0.114393f, 0.114782f, 0.11517f, 0.115559f, 0.115947f, 0.116336f, 0.116725f,
-    0.117114f, 0.117502f, 0.117891f, 0.11828f, 0.118669f, 0.119058f, 0.119447f, 0.119836f,
-    0.120225f, 0.120614f, 0.121003f, 0.121392f, 0.121781f, 0.12217f, 0.12256f, 0.122949f,
-    0.123338f, 0.123728f, 0.124117f, 0.124506f, 0.124896f, 0.125285f, 0.125675f, 0.126064f,
-    0.126454f, 0.126844f, 0.127233f, 0.127623f, 0.128013f, 0.128403f, 0.128793f, 0.129182f,
-    0.129572f, 0.129962f, 0.130352f, 0.130742f, 0.131132f, 0.131522f, 0.131913f, 0.132303f,
-    0.132693f, 0.133083f, 0.133474f, 0.133864f, 0.134254f, 0.134645f, 0.135035f, 0.135426f,
-    0.135816f, 0.136207f, 0.136597f, 0.136988f, 0.137379f, 0.13777f, 0.13816f, 0.138551f,
-    0.138942f, 0.139333f, 0.139724f, 0.140115f, 0.140506f, 0.140897f, 0.141288f, 0.141679f,
-    0.142071f, 0.142462f, 0.142853f, 0.143245f, 0.143636f, 0.144027f, 0.144419f, 0.14481f,
-    0.145202f, 0.145594f, 0.145985f, 0.146377f, 0.146769f, 0.14716f, 0.147552f, 0.147944f,
-    0.148336f, 0.148728f, 0.14912f, 0.149512f, 0.149904f, 0.150296f, 0.150688f, 0.151081f,
-    0.151473f, 0.151865f, 0.152258f, 0.15265f, 0.153042f, 0.153435f, 0.153827f, 0.15422f,
-    0.154613f, 0.155005f, 0.155398f, 0.155791f, 0.156184f, 0.156577f, 0.15697f, 0.157362f,
-    0.157756f, 0.158149f, 0.158542f, 0.158935f, 0.159328f, 0.159721f, 0.160115f, 0.160508f,
-    0.160901f, 0.161295f, 0.161688f, 0.162082f, 0.162475f, 0.162869f, 0.163263f, 0.163657f,
-    0.16405f, 0.164444f, 0.164838f, 0.165232f, 0.165626f, 0.16602f, 0.166414f, 0.166808f,
-    0.167202f, 0.167597f, 0.167991f, 0.168385f, 0.16878f, 0.169174f, 0.169569f, 0.169963f,
-    0.170358f, 0.170752f, 0.171147f, 0.171542f, 0.171937f, 0.172332f, 0.172726f, 0.173121f,
-    0.173516f, 0.173912f, 0.174307f, 0.174702f, 0.175097f, 0.175492f, 0.175888f, 0.176283f,
-    0.176678f, 0.177074f, 0.17747f, 0.177865f, 0.178261f, 0.178656f, 0.179052f, 0.179448f,
-    0.179844f, 0.18024f, 0.180636f, 0.181032f, 0.181428f, 0.181824f, 0.18222f, 0.182617f,
-    0.183013f, 0.183409f, 0.183806f, 0.184202f, 0.184599f, 0.184995f, 0.185392f, 0.185789f,
-    0.186185f, 0.186582f, 0.186979f, 0.187376f, 0.187773f, 0.18817f, 0.188567f, 0.188964f,
-    0.189362f, 0.189759f, 0.190156f, 0.190554f, 0.190951f, 0.191348f, 0.191746f, 0.192144f,
-    0.192541f, 0.192939f, 0.193337f, 0.193735f, 0.194133f, 0.194531f, 0.194929f, 0.195327f,
-    0.195725f, 0.196123f, 0.196521f, 0.19692f, 0.197318f, 0.197717f, 0.198115f, 0.198514f,
-    0.198912f, 0.199311f, 0.19971f, 0.200109f, 0.200508f, 0.200906f, 0.201305f, 0.201705f,
-    0.202104f, 0.202503f, 0.202902f, 0.203301f, 0.203701f, 0.2041f, 0.2045f, 0.204899f,
-    0.205299f, 0.205699f, 0.206098f, 0.206498f, 0.206898f, 0.207298f, 0.207698f, 0.208098f,
-    0.208498f, 0.208898f, 0.209299f, 0.209699f, 0.210099f, 0.2105f, 0.2109f, 0.211301f,
-    0.211702f, 0.212102f, 0.212503f, 0.212904f, 0.213305f, 0.213706f, 0.214107f, 0.214508f,
-    0.214909f, 0.21531f, 0.215712f, 0.216113f, 0.216515f, 0.216916f, 0.217318f, 0.217719f,
-    0.218121f, 0.218523f, 0.218925f, 0.219326f, 0.219728f, 0.22013f, 0.220533f, 0.220935f,
-    0.221337f, 0.221739f, 0.222142f, 0.222544f, 0.222947f, 0.223349f, 0.223752f, 0.224155f,
-    0.224557f, 0.22496f, 0.225363f, 0.225766f, 0.226169f, 0.226573f, 0.226976f, 0.227379f,
-    0.227782f, 0.228186f, 0.228589f, 0.228993f, 0.229397f, 0.2298f, 0.230204f, 0.230608f,
-    0.231012f, 0.231416f, 0.23182f, 0.232224f, 0.232628f, 0.233033f, 0.233437f, 0.233841f,
-    0.234246f, 0.23465f, 0.235055f, 0.23546f, 0.235865f, 0.236269f, 0.236674f, 0.237079f,
-    0.237484f, 0.23789f, 0.238295f, 0.2387f, 0.239106f, 0.239511f, 0.239917f, 0.240322f,
-    0.240728f, 0.241134f, 0.241539f, 0.241945f, 0.242351f, 0.242757f, 0.243163f, 0.24357f,
-    0.243976f, 0.244382f, 0.244789f, 0.245195f, 0.245602f, 0.246009f, 0.246415f, 0.246822f,
-    0.247229f, 0.247636f, 0.248043f, 0.24845f, 0.248857f, 0.249265f, 0.249672f, 0.250079f,
-    0.250487f, 0.250895f, 0.251302f, 0.25171f, 0.252118f, 0.252526f, 0.252934f, 0.253342f,
-    0.25375f, 0.254158f, 0.254566f, 0.254975f, 0.255383f, 0.255792f, 0.2562f, 0.256609f,
-    0.257018f, 0.257427f, 0.257836f, 0.258245f, 0.258654f, 0.259063f, 0.259472f, 0.259882f,
-    0.260291f, 0.260701f, 0.26111f, 0.26152f, 0.26193f, 0.26234f, 0.26275f, 0.26316f,
-    0.26357f, 0.26398f, 0.26439f, 0.2648f, 0.265211f, 0.265621f, 0.266032f, 0.266443f,
-    0.266853f, 0.267264f, 0.267675f, 0.268086f, 0.268497f, 0.268908f, 0.26932f, 0.269731f,
-    0.270143f, 0.270554f, 0.270966f, 0.271377f, 0.271789f, 0.272201f, 0.272613f, 0.273025f,
-    0.273437f, 0.273849f, 0.274262f, 0.274674f, 0.275086f, 0.275499f, 0.275912f, 0.276324f,
-    0.276737f, 0.27715f, 0.277563f, 0.277976f, 0.278389f, 0.278803f, 0.279216f, 0.279629f,
-    0.280043f, 0.280457f, 0.28087f, 0.281284f, 0.281698f, 0.282112f, 0.282526f, 0.28294f,
-    0.283354f, 0.283769f, 0.284183f, 0.284598f, 0.285012f, 0.285427f, 0.285842f, 0.286257f,
-    0.286672f, 0.287087f, 0.287502f, 0.287917f, 0.288332f, 0.288748f, 0.289163f, 0.289579f,
-    0.289995f, 0.29041f, 0.290826f, 0.291242f, 0.291658f, 0.292074f, 0.292491f, 0.292907f,
-    0.293324f, 0.29374f, 0.294157f, 0.294573f, 0.29499f, 0.295407f, 0.295824f, 0.296241f,
-    0.296658f, 0.297076f, 0.297493f, 0.297911f, 0.298328f, 0.298746f, 0.299164f, 0.299582f,
-    0.299999f, 0.300418f, 0.300836f, 0.301254f, 0.301672f, 0.302091f, 0.302509f, 0.302928f,
-    0.303347f, 0.303766f, 0.304184f, 0.304603f, 0.305023f, 0.305442f, 0.305861f, 0.306281f,
-    0.3067f, 0.30712f, 0.307539f, 0.307959f, 0.308379f, 0.308799f, 0.309219f, 0.309639f,
-    0.31006f, 0.31048f, 0.310901f, 0.311321f, 0.311742f, 0.312163f, 0.312584f, 0.313005f,
-    0.313426f, 0.313847f, 0.314268f, 0.31469f, 0.315111f, 0.315533f, 0.315955f, 0.316377f,
-    0.316799f, 0.317221f, 0.317643f, 0.318065f, 0.318487f, 0.31891f, 0.319332f, 0.319755f,
-    0.320178f, 0.320601f, 0.321023f, 0.321447f, 0.32187f, 0.322293f, 0.322716f, 0.32314f,
-    0.323563f, 0.323987f, 0.324411f, 0.324835f, 0.325259f, 0.325683f, 0.326107f, 0.326532f,
-    0.326956f, 0.327381f, 0.327805f, 0.32823f, 0.328655f, 0.32908f, 0.329505f, 0.32993f,
-    0.330355f, 0.330781f, 0.331206f, 0.331632f, 0.332058f, 0.332483f, 0.332909f, 0.333335f,
-    0.333762f, 0.334188f, 0.334614f, 0.335041f, 0.335467f, 0.335894f, 0.336321f, 0.336748f,
-    0.337175f, 0.337602f, 0.338029f, 0.338457f, 0.338884f, 0.339312f, 0.339739f, 0.340167f,
-    0.340595f, 0.341023f, 0.341451f, 0.34188f, 0.342308f, 0.342736f, 0.343165f, 0.343594f,
-    0.344023f, 0.344452f, 0.344881f, 0.34531f, 0.345739f, 0.346168f, 0.346598f, 0.347028f,
-    0.347457f, 0.347887f, 0.348317f, 0.348747f, 0.349177f, 0.349608f, 0.350038f, 0.350469f,
-    0.350899f, 0.35133f, 0.351761f, 0.352192f, 0.352623f, 0.353054f, 0.353486f, 0.353917f,
-    0.354349f, 0.35478f, 0.355212f, 0.355644f, 0.356076f, 0.356508f, 0.356941f, 0.357373f,
-    0.357806f, 0.358238f, 0.358671f, 0.359104f, 0.359537f, 0.35997f, 0.360403f, 0.360837f,
-    0.36127f, 0.361704f, 0.362138f, 0.362571f, 0.363005f, 0.363439f, 0.363874f, 0.364308f,
-    0.364742f, 0.365177f, 0.365612f, 0.366047f, 0.366482f, 0.366917f, 0.367352f, 0.367787f,
-    0.368223f, 0.368658f, 0.369094f, 0.36953f, 0.369965f, 0.370402f, 0.370838f, 0.371274f,
-    0.37171f, 0.372147f, 0.372584f, 0.37302f, 0.373457f, 0.373894f, 0.374332f, 0.374769f,
-    0.375206f, 0.375644f, 0.376081f, 0.376519f, 0.376957f, 0.377395f, 0.377833f, 0.378272f,
-    0.37871f, 0.379149f, 0.379587f, 0.380026f, 0.380465f, 0.380904f, 0.381343f, 0.381783f,
-    0.382222f, 0.382662f, 0.383102f, 0.383541f, 0.383981f, 0.384421f, 0.384862f, 0.385302f,
-    0.385743f, 0.386183f, 0.386624f, 0.387065f, 0.387506f, 0.387947f, 0.388388f, 0.38883f,
-    0.389271f, 0.389713f, 0.390155f, 0.390597f, 0.391039f, 0.391481f, 0.391923f, 0.392366f,
-    0.392808f, 0.393251f, 0.393694f, 0.394137f, 0.39458f, 0.395023f, 0.395467f, 0.39591f,
-    0.396354f, 0.396798f, 0.397242f, 0.397686f, 0.39813f, 0.398574f, 0.399019f, 0.399463f,
-    0.399908f, 0.400353f, 0.400798f, 0.401243f, 0.401689f, 0.402134f, 0.40258f, 0.403025f,
-    0.403471f, 0.403917f, 0.404363f, 0.40481f, 0.405256f, 0.405703f, 0.406149f, 0.406596f,
-    0.407043f, 0.40749f, 0.407937f, 0.408385f, 0.408832f, 0.40928f, 0.409728f, 0.410176f,
-    0.410624f, 0.411072f, 0.41152f, 0.411969f, 0.412418f, 0.412866f, 0.413315f, 0.413764f,
-    0.414214f, 0.414663f, 0.415112f, 0.415562f, 0.416012f, 0.416462f, 0.416912f, 0.417362f,
-    0.417812f, 0.418263f, 0.418714f, 0.419164f, 0.419615f, 0.420066f, 0.420518f, 0.420969f,
-    0.421421f, 0.421872f, 0.422324f, 0.422776f, 0.423228f, 0.42368f, 0.424133f, 0.424585f,
-    0.425038f, 0.425491f, 0.425944f, 0.426397f, 0.42685f, 0.427304f, 0.427757f, 0.428211f,
-    0.428665f, 0.429119f, 0.429573f, 0.430028f, 0.430482f, 0.430937f, 0.431392f, 0.431847f,
-    0.432302f, 0.432757f, 0.433212f, 0.433668f, 0.434123f, 0.434579f, 0.435035f, 0.435491f,
-    0.435948f, 0.436404f, 0.436861f, 0.437318f, 0.437774f, 0.438232f, 0.438689f, 0.439146f,
-    0.439604f, 0.440061f, 0.440519f, 0.440977f, 0.441435f, 0.441894f, 0.442352f, 0.442811f,
-    0.443269f, 0.443728f, 0.444187f, 0.444647f, 0.445106f, 0.445566f, 0.446025f, 0.446485f,
-    0.446945f, 0.447405f, 0.447866f, 0.448326f, 0.448787f, 0.449248f, 0.449709f, 0.45017f,
-    0.450631f, 0.451093f, 0.451554f, 0.452016f, 0.452478f, 0.45294f, 0.453402f, 0.453865f,
-    0.454327f, 0.45479f, 0.455253f, 0.455716f, 0.456179f, 0.456643f, 0.457106f, 0.45757f,
-    0.458034f, 0.458498f, 0.458962f, 0.459426f, 0.459891f, 0.460355f, 0.46082f, 0.461285f,
-    0.46175f, 0.462216f, 0.462681f, 0.463147f, 0.463613f, 0.464079f, 0.464545f, 0.465011f,
-    0.465478f, 0.465945f, 0.466411f, 0.466878f, 0.467346f, 0.467813f, 0.46828f, 0.468748f,
-    0.469216f, 0.469684f, 0.470152f, 0.47062f, 0.471089f, 0.471558f, 0.472027f, 0.472496f,
-    0.472965f, 0.473434f, 0.473904f, 0.474373f, 0.474843f, 0.475313f, 0.475784f, 0.476254f,
-    0.476724f, 0.477195f, 0.477666f, 0.478137f, 0.478608f, 0.47908f, 0.479551f, 0.480023f,
-    0.480495f, 0.480967f, 0.48144f, 0.481912f, 0.482385f, 0.482858f, 0.483331f, 0.483804f,
-    0.484277f, 0.484751f, 0.485224f, 0.485698f, 0.486172f, 0.486646f, 0.487121f, 0.487595f,
-    0.48807f, 0.488545f, 0.48902f, 0.489496f, 0.489971f, 0.490447f, 0.490922f, 0.491398f,
-    0.491875f, 0.492351f, 0.492828f, 0.493304f, 0.493781f, 0.494258f, 0.494736f, 0.495213f,
-    0.495691f, 0.496168f, 0.496646f, 0.497125f, 0.497603f, 0.498082f, 0.49856f, 0.499039f,
-    0.499518f, 0.499998f, 0.500477f, 0.500957f, 0.501437f, 0.501917f, 0.502397f, 0.502877f,
-    0.503358f, 0.503838f, 0.504319f, 0.5048f, 0.505282f, 0.505763f, 0.506245f, 0.506727f,
-    0.507209f, 0.507691f, 0.508174f, 0.508656f, 0.509139f, 0.509622f, 0.510105f, 0.510589f,
-    0.511072f, 0.511556f, 0.51204f, 0.512524f, 0.513008f, 0.513493f, 0.513978f, 0.514462f,
-    0.514948f, 0.515433f, 0.515918f, 0.516404f, 0.51689f, 0.517376f, 0.517862f, 0.518349f,
-    0.518835f, 0.519322f, 0.519809f, 0.520296f, 0.520784f, 0.521271f, 0.521759f, 0.522247f,
-    0.522735f, 0.523224f, 0.523712f, 0.524201f, 0.52469f, 0.525179f, 0.525669f, 0.526158f,
-    0.526648f, 0.527138f, 0.527628f, 0.528118f, 0.528609f, 0.5291f, 0.529591f, 0.530082f,
-    0.530573f, 0.531065f, 0.531556f, 0.532048f, 0.53254f, 0.533033f, 0.533525f, 0.534018f,
-    0.534511f, 0.535004f, 0.535498f, 0.535991f, 0.536485f, 0.536979f, 0.537473f, 0.537967f,
-    0.538462f, 0.538957f, 0.539452f, 0.539947f, 0.540442f, 0.540938f, 0.541434f, 0.54193f,
-    0.542426f, 0.542923f, 0.543419f, 0.543916f, 0.544413f, 0.54491f, 0.545408f, 0.545906f,
-    0.546403f, 0.546901f, 0.5474f, 0.547898f, 0.548397f, 0.548896f, 0.549395f, 0.549894f,
-    0.550394f, 0.550894f, 0.551394f, 0.551894f, 0.552394f, 0.552895f, 0.553396f, 0.553897f,
-    0.554398f, 0.5549f, 0.555401f, 0.555903f, 0.556405f, 0.556908f, 0.55741f, 0.557913f,
-    0.558416f, 0.558919f, 0.559423f, 0.559926f, 0.56043f, 0.560934f, 0.561438f, 0.561943f,
-    0.562447f, 0.562952f, 0.563458f, 0.563963f, 0.564468f, 0.564974f, 0.56548f, 0.565987f,
-    0.566493f, 0.567f, 0.567507f, 0.568014f, 0.568521f, 0.569029f, 0.569536f, 0.570044f,
-    0.570553f, 0.571061f, 0.57157f, 0.572079f, 0.572588f, 0.573097f, 0.573607f, 0.574116f,
-    0.574626f, 0.575137f, 0.575647f, 0.576158f, 0.576669f, 0.57718f, 0.577691f, 0.578203f,
-    0.578715f, 0.579227f, 0.579739f, 0.580251f, 0.580764f, 0.581277f, 0.58179f, 0.582304f,
-    0.582817f, 0.583331f, 0.583845f, 0.58436f, 0.584874f, 0.585389f, 0.585904f, 0.586419f,
-    0.586935f, 0.587451f, 0.587966f, 0.588483f, 0.588999f, 0.589516f, 0.590033f, 0.59055f,
-    0.591067f, 0.591585f, 0.592103f, 0.592621f, 0.593139f, 0.593657f, 0.594176f, 0.594695f,
-    0.595214f, 0.595734f, 0.596254f, 0.596774f, 0.597294f, 0.597814f, 0.598335f, 0.598856f,
-    0.599377f, 0.599898f, 0.60042f, 0.600942f, 0.601464f, 0.601986f, 0.602509f, 0.603032f,
-    0.603555f, 0.604078f, 0.604602f, 0.605125f, 0.605649f, 0.606174f, 0.606698f, 0.607223f,
-    0.607748f, 0.608273f, 0.608799f, 0.609325f, 0.609851f, 0.610377f, 0.610903f, 0.61143f,
-    0.611957f, 0.612484f, 0.613012f, 0.61354f, 0.614067f, 0.614596f, 0.615124f, 0.615653f,
-    0.616182f, 0.616711f, 0.617241f, 0.61777f, 0.6183f, 0.618831f, 0.619361f, 0.619892f,
-    0.620423f, 0.620954f, 0.621485f, 0.622017f, 0.622549f, 0.623081f, 0.623614f, 0.624147f,
-    0.62468f, 0.625213f, 0.625747f, 0.62628f, 0.626814f, 0.627349f, 0.627883f, 0.628418f,
-    0.628953f, 0.629488f, 0.630024f, 0.63056f, 0.631096f, 0.631632f, 0.632169f, 0.632706f,
-    0.633243f, 0.63378f, 0.634318f, 0.634856f, 0.635394f, 0.635933f, 0.636471f, 0.63701f,
-    0.63755f, 0.638089f, 0.638629f, 0.639169f, 0.639709f, 0.64025f, 0.640791f, 0.641332f,
-    0.641873f, 0.642415f, 0.642957f, 0.643499f, 0.644041f, 0.644584f, 0.645127f, 0.64567f,
-    0.646214f, 0.646757f, 0.647301f, 0.647846f, 0.64839f, 0.648935f, 0.64948f, 0.650026f,
-    0.650571f, 0.651117f, 0.651663f, 0.65221f, 0.652757f, 0.653304f, 0.653851f, 0.654399f,
-    0.654947f, 0.655495f, 0.656043f, 0.656592f, 0.657141f, 0.65769f, 0.658239f, 0.658789f,
-    0.659339f, 0.65989f, 0.66044f, 0.660991f, 0.661542f, 0.662094f, 0.662646f, 0.663198f,
-    0.66375f, 0.664303f, 0.664855f, 0.665409f, 0.665962f, 0.666516f, 0.66707f, 0.667624f,
-    0.668179f, 0.668733f, 0.669289f, 0.669844f, 0.6704f, 0.670956f, 0.671512f, 0.672069f,
-    0.672625f, 0.673183f, 0.67374f, 0.674298f, 0.674856f, 0.675414f, 0.675973f, 0.676531f,
-    0.677091f, 0.67765f, 0.67821f, 0.67877f, 0.67933f, 0.679891f, 0.680452f, 0.681013f,
-    0.681574f, 0.682136f, 0.682698f, 0.683261f, 0.683823f, 0.684386f, 0.68495f, 0.685513f,
-    0.686077f, 0.686641f, 0.687206f, 0.68777f, 0.688335f, 0.688901f, 0.689466f, 0.690032f,
-    0.690599f, 0.691165f, 0.691732f, 0.692299f, 0.692867f, 0.693434f, 0.694002f, 0.694571f,
-    0.695139f, 0.695708f, 0.696278f, 0.696847f, 0.697417f, 0.697987f, 0.698558f, 0.699129f,
-    0.6997f, 0.700271f, 0.700843f, 0.701415f, 0.701987f, 0.70256f, 0.703133f, 0.703706f,
-    0.704279f, 0.704853f, 0.705427f, 0.706002f, 0.706577f, 0.707152f, 0.707727f, 0.708303f,
-    0.708879f, 0.709455f, 0.710032f, 0.710609f, 0.711186f, 0.711764f, 0.712342f, 0.71292f,
-    0.713499f, 0.714078f, 0.714657f, 0.715236f, 0.715816f, 0.716396f, 0.716977f, 0.717558f,
-    0.718139f, 0.71872f, 0.719302f, 0.719884f, 0.720466f, 0.721049f, 0.721632f, 0.722216f,
-    0.722799f, 0.723383f, 0.723968f, 0.724552f, 0.725137f, 0.725723f, 0.726308f, 0.726894f,
-    0.72748f, 0.728067f, 0.728654f, 0.729241f, 0.729829f, 0.730417f, 0.731005f, 0.731594f,
-    0.732183f, 0.732772f, 0.733361f, 0.733951f, 0.734541f, 0.735132f, 0.735723f, 0.736314f,
-    0.736906f, 0.737498f, 0.73809f, 0.738683f, 0.739275f, 0.739869f, 0.740462f, 0.741056f,
-    0.74165f, 0.742245f, 0.74284f, 0.743435f, 0.744031f, 0.744627f, 0.745223f, 0.74582f,
-    0.746417f, 0.747014f, 0.747612f, 0.74821f, 0.748808f, 0.749407f, 0.750006f, 0.750605f,
-    0.751205f, 0.751805f, 0.752406f, 0.753006f, 0.753607f, 0.754209f, 0.754811f, 0.755413f,
-    0.756015f, 0.756618f, 0.757221f, 0.757825f, 0.758429f, 0.759033f, 0.759638f, 0.760243f,
-    0.760848f, 0.761454f, 0.76206f, 0.762666f, 0.763273f, 0.76388f, 0.764487f, 0.765095f,
-    0.765703f, 0.766312f, 0.766921f, 0.76753f, 0.76814f, 0.76875f, 0.76936f, 0.769971f,
-    0.770582f, 0.771193f, 0.771805f, 0.772417f, 0.773029f, 0.773642f, 0.774255f, 0.774869f,
-    0.775483f, 0.776097f, 0.776712f, 0.777327f, 0.777942f, 0.778558f, 0.779174f, 0.779791f,
-    0.780408f, 0.781025f, 0.781642f, 0.78226f, 0.782879f, 0.783498f, 0.784117f, 0.784736f,
-    0.785356f, 0.785976f, 0.786597f, 0.787218f, 0.787839f, 0.788461f, 0.789083f, 0.789705f,
-    0.790328f, 0.790951f, 0.791575f, 0.792199f, 0.792823f, 0.793448f, 0.794073f, 0.794699f,
-    0.795325f, 0.795951f, 0.796577f, 0.797204f, 0.797832f, 0.79846f, 0.799088f, 0.799716f,
-    0.800345f, 0.800975f, 0.801604f, 0.802235f, 0.802865f, 0.803496f, 0.804127f, 0.804759f,
-    0.805391f, 0.806023f, 0.806656f, 0.807289f, 0.807923f, 0.808557f, 0.809192f, 0.809826f,
-    0.810462f, 0.811097f, 0.811733f, 0.812369f, 0.813006f, 0.813643f, 0.814281f, 0.814919f,
-    0.815557f, 0.816196f, 0.816835f, 0.817475f, 0.818115f, 0.818755f, 0.819396f, 0.820037f,
-    0.820679f, 0.821321f, 0.821963f, 0.822606f, 0.823249f, 0.823893f, 0.824537f, 0.825181f,
-    0.825826f, 0.826471f, 0.827117f, 0.827763f, 0.828409f, 0.829056f, 0.829704f, 0.830351f,
-    0.830999f, 0.831648f, 0.832297f, 0.832946f, 0.833596f, 0.834246f, 0.834897f, 0.835548f,
-    0.836199f, 0.836851f, 0.837503f, 0.838156f, 0.838809f, 0.839463f, 0.840117f, 0.840771f,
-    0.841426f, 0.842081f, 0.842737f, 0.843393f, 0.844049f, 0.844706f, 0.845364f, 0.846021f,
-    0.846679f, 0.847338f, 0.847997f, 0.848657f, 0.849317f, 0.849977f, 0.850638f, 0.851299f,
-    0.85196f, 0.852623f, 0.853285f, 0.853948f, 0.854611f, 0.855275f, 0.855939f, 0.856604f,
-    0.857269f, 0.857935f, 0.858601f, 0.859267f, 0.859934f, 0.860601f, 0.861269f, 0.861937f,
-    0.862606f, 0.863275f, 0.863944f, 0.864614f, 0.865285f, 0.865956f, 0.866627f, 0.867299f,
-    0.867971f, 0.868644f, 0.869317f, 0.86999f, 0.870664f, 0.871339f, 0.872013f, 0.872689f,
-    0.873365f, 0.874041f, 0.874717f, 0.875395f, 0.876072f, 0.87675f, 0.877429f, 0.878108f,
-    0.878787f, 0.879467f, 0.880147f, 0.880828f, 0.881509f, 0.882191f, 0.882873f, 0.883556f,
-    0.884239f, 0.884923f, 0.885607f, 0.886291f, 0.886976f, 0.887662f, 0.888348f, 0.889034f,
-    0.889721f, 0.890408f, 0.891096f, 0.891784f, 0.892473f, 0.893162f, 0.893852f, 0.894542f,
-    0.895232f, 0.895923f, 0.896615f, 0.897307f, 0.898f, 0.898693f, 0.899386f, 0.90008f,
-    0.900774f, 0.901469f, 0.902165f, 0.902861f, 0.903557f, 0.904254f, 0.904951f, 0.905649f,
-    0.906347f, 0.907046f, 0.907745f, 0.908445f, 0.909145f, 0.909846f, 0.910547f, 0.911249f,
-    0.911951f, 0.912654f, 0.913357f, 0.91406f, 0.914765f, 0.915469f, 0.916174f, 0.91688f,
-    0.917586f, 0.918293f, 0.919f, 0.919708f, 0.920416f, 0.921124f, 0.921833f, 0.922543f,
-    0.923253f, 0.923964f, 0.924675f, 0.925387f, 0.926099f, 0.926811f, 0.927525f, 0.928238f,
-    0.928952f, 0.929667f, 0.930382f, 0.931098f, 0.931814f, 0.932531f, 0.933248f, 0.933966f,
-    0.934684f, 0.935403f, 0.936122f, 0.936842f, 0.937562f, 0.938283f, 0.939005f, 0.939727f,
-    0.940449f, 0.941172f, 0.941895f, 0.942619f, 0.943344f, 0.944069f, 0.944794f, 0.945521f,
-    0.946247f, 0.946974f, 0.947702f, 0.94843f, 0.949159f, 0.949888f, 0.950618f, 0.951348f,
-    0.952079f, 0.95281f, 0.953542f, 0.954275f, 0.955008f, 0.955741f, 0.956475f, 0.95721f,
-    0.957945f, 0.958681f, 0.959417f, 0.960154f, 0.960891f, 0.961629f, 0.962367f, 0.963106f,
-    0.963846f, 0.964586f, 0.965326f, 0.966068f, 0.966809f, 0.967551f, 0.968294f, 0.969038f,
-    0.969781f, 0.970526f, 0.971271f, 0.972016f, 0.972763f, 0.973509f, 0.974256f, 0.975004f,
-    0.975753f, 0.976501f, 0.977251f, 0.978001f, 0.978752f, 0.979503f, 0.980254f, 0.981007f,
-    0.98176f, 0.982513f, 0.983267f, 0.984021f, 0.984777f, 0.985532f, 0.986289f, 0.987045f,
-    0.987803f, 0.988561f, 0.989319f, 0.990078f, 0.990838f, 0.991598f, 0.992359f, 0.993121f,
-    0.993883f, 0.994645f, 0.995409f, 0.996172f, 0.996937f, 0.997702f, 0.998467f, 0.999233f,
-    1.0f, 1.000767f, 1.001535f, 1.002304f, 1.003073f, 1.003842f, 1.004612f, 1.005383f,
-    1.006155f, 1.006927f, 1.007699f, 1.008473f, 1.009246f, 1.010021f, 1.010796f, 1.011571f,
-    1.012348f, 1.013125f, 1.013902f, 1.01468f, 1.015459f, 1.016238f, 1.017018f, 1.017798f,
-    1.018579f, 1.019361f, 1.020143f, 1.020926f, 1.02171f, 1.022494f, 1.023278f, 1.024064f,
-    1.02485f, 1.025636f, 1.026424f, 1.027211f, 1.028f, 1.028789f, 1.029579f, 1.030369f,
-    1.03116f, 1.031952f, 1.032744f, 1.033537f, 1.03433f, 1.035124f, 1.035919f, 1.036714f,
-    1.03751f, 1.038307f, 1.039104f, 1.039902f, 1.0407f, 1.0415f, 1.042299f, 1.0431f,
-    1.043901f, 1.044703f, 1.045505f, 1.046308f, 1.047112f, 1.047916f, 1.048721f, 1.049527f,
-    1.050333f, 1.05114f, 1.051947f, 1.052755f, 1.053564f, 1.054374f, 1.055184f, 1.055995f,
-    1.056806f, 1.057618f, 1.058431f, 1.059245f, 1.060059f, 1.060873f, 1.061689f, 1.062505f,
-    1.063322f, 1.064139f, 1.064957f, 1.065776f, 1.066595f, 1.067416f, 1.068236f, 1.069058f,
-    1.06988f, 1.070703f, 1.071526f, 1.07235f, 1.073175f, 1.074001f, 1.074827f, 1.075654f,
-    1.076481f, 1.077309f, 1.078138f, 1.078968f, 1.079798f, 1.080629f, 1.081461f, 1.082293f,
-    1.083126f, 1.08396f, 1.084795f, 1.08563f, 1.086466f, 1.087302f, 1.088139f, 1.088977f,
-    1.089816f, 1.090655f, 1.091495f, 1.092336f, 1.093177f, 1.094019f, 1.094862f, 1.095706f,
-    1.09655f, 1.097395f, 1.098241f, 1.099087f, 1.099934f, 1.100782f, 1.101631f, 1.10248f,
-    1.10333f, 1.104181f, 1.105032f, 1.105884f, 1.106737f, 1.107591f, 1.108445f, 1.1093f,
-    1.110156f, 1.111012f, 1.111869f, 1.112727f, 1.113586f, 1.114446f, 1.115306f, 1.116167f,
-    1.117028f, 1.117891f, 1.118754f, 1.119618f, 1.120482f, 1.121347f, 1.122214f, 1.12308f,
-    1.123948f, 1.124816f, 1.125685f, 1.126555f, 1.127426f, 1.128297f, 1.129169f, 1.130042f,
-    1.130916f, 1.13179f, 1.132665f, 1.133541f, 1.134418f, 1.135295f, 1.136173f, 1.137052f,
-    1.137932f, 1.138812f, 1.139693f, 1.140575f, 1.141458f, 1.142342f, 1.143226f, 1.144111f,
-    1.144997f, 1.145884f, 1.146771f, 1.147659f, 1.148548f, 1.149438f, 1.150329f, 1.15122f,
-    1.152112f, 1.153005f, 1.153899f, 1.154793f, 1.155689f, 1.156585f, 1.157482f, 1.158379f,
-    1.159278f, 1.160177f, 1.161077f, 1.161978f, 1.16288f, 1.163782f, 1.164686f, 1.16559f,
-    1.166495f, 1.1674f, 1.168307f, 1.169214f, 1.170122f, 1.171031f, 1.171941f, 1.172852f,
-    1.173763f, 1.174675f, 1.175589f, 1.176502f, 1.177417f, 1.178333f, 1.179249f, 1.180166f,
-    1.181084f, 1.182003f, 1.182923f, 1.183843f, 1.184765f, 1.185687f, 1.18661f, 1.187534f,
-    1.188459f, 1.189384f, 1.190311f, 1.191238f, 1.192166f, 1.193095f, 1.194025f, 1.194956f,
-    1.195887f, 1.196819f, 1.197753f, 1.198687f, 1.199622f, 1.200558f, 1.201494f, 1.202432f,
-    1.20337f, 1.204309f, 1.20525f, 1.206191f, 1.207132f, 1.208075f, 1.209019f, 1.209963f,
-    1.210909f, 1.211855f, 1.212802f, 1.21375f, 1.214699f, 1.215649f, 1.216599f, 1.217551f,
-    1.218503f, 1.219457f, 1.220411f, 1.221366f, 1.222322f, 1.223279f, 1.224237f, 1.225196f,
-    1.226155f, 1.227116f, 1.228077f, 1.229039f, 1.230003f, 1.230967f, 1.231932f, 1.232898f,
-    1.233865f, 1.234832f, 1.235801f, 1.236771f, 1.237741f, 1.238713f, 1.239685f, 1.240659f,
-    1.241633f, 1.242608f, 1.243584f, 1.244561f, 1.245539f, 1.246518f, 1.247498f, 1.248479f,
-    1.24946f, 1.250443f, 1.251427f, 1.252411f, 1.253397f, 1.254383f, 1.25537f, 1.256359f,
-    1.257348f, 1.258338f, 1.25933f, 1.260322f, 1.261315f, 1.262309f, 1.263304f, 1.2643f,
-    1.265297f, 1.266295f, 1.267294f, 1.268294f, 1.269295f, 1.270296f, 1.271299f, 1.272303f,
-    1.273308f, 1.274314f, 1.27532f, 1.276328f, 1.277337f, 1.278346f, 1.279357f, 1.280369f,
-    1.281381f, 1.282395f, 1.28341f, 1.284425f, 1.285442f, 1.28646f, 1.287478f, 1.288498f,
-    1.289519f, 1.290541f, 1.291563f, 1.292587f, 1.293612f, 1.294637f, 1.295664f, 1.296692f,
-    1.297721f, 1.298751f, 1.299782f, 1.300813f, 1.301846f, 1.30288f, 1.303915f, 1.304951f,
-    1.305988f, 1.307027f, 1.308066f, 1.309106f, 1.310147f, 1.311189f, 1.312233f, 1.313277f,
-    1.314323f, 1.315369f, 1.316417f, 1.317465f, 1.318515f, 1.319566f, 1.320617f, 1.32167f,
-    1.322724f, 1.323779f, 1.324835f, 1.325892f, 1.326951f, 1.32801f, 1.32907f, 1.330132f,
-    1.331194f, 1.332258f, 1.333323f, 1.334388f, 1.335455f, 1.336523f, 1.337592f, 1.338662f,
-    1.339734f, 1.340806f, 1.34188f, 1.342954f, 1.34403f, 1.345107f, 1.346185f, 1.347264f,
-    1.348344f, 1.349425f, 1.350507f, 1.351591f, 1.352676f, 1.353761f, 1.354848f, 1.355936f,
-    1.357025f, 1.358116f, 1.359207f, 1.3603f, 1.361393f, 1.362488f, 1.363584f, 1.364681f,
-    1.365779f, 1.366879f, 1.367979f, 1.369081f, 1.370184f, 1.371288f, 1.372393f, 1.3735f,
-    1.374607f, 1.375716f, 1.376826f, 1.377937f, 1.379049f, 1.380163f, 1.381277f, 1.382393f,
-    1.38351f, 1.384628f, 1.385747f, 1.386868f, 1.38799f, 1.389112f, 1.390237f, 1.391362f,
-    1.392488f, 1.393616f, 1.394745f, 1.395875f, 1.397006f, 1.398139f, 1.399273f, 1.400408f,
-    1.401544f, 1.402681f, 1.40382f, 1.40496f, 1.406101f, 1.407243f, 1.408387f, 1.409532f,
-    1.410678f, 1.411825f, 1.412973f, 1.414123f, 1.415274f, 1.416426f, 1.41758f, 1.418735f,
-    1.419891f, 1.421048f, 1.422207f, 1.423366f, 1.424527f, 1.42569f, 1.426853f, 1.428018f,
-    1.429185f, 1.430352f, 1.431521f, 1.432691f, 1.433862f, 1.435035f, 1.436208f, 1.437384f,
-    1.43856f, 1.439738f, 1.440917f, 1.442097f, 1.443279f, 1.444462f, 1.445646f, 1.446832f,
-    1.448019f, 1.449207f, 1.450397f, 1.451588f, 1.45278f, 1.453973f, 1.455168f, 1.456364f,
-    1.457562f, 1.458761f, 1.459961f, 1.461163f, 1.462366f, 1.46357f, 1.464776f, 1.465983f,
-    1.467191f, 1.468401f, 1.469612f, 1.470824f, 1.472038f, 1.473253f, 1.47447f, 1.475688f,
-    1.476907f, 1.478128f, 1.47935f, 1.480573f, 1.481798f, 1.483024f, 1.484252f, 1.485481f,
-    1.486711f, 1.487943f, 1.489176f, 1.490411f, 1.491647f, 1.492885f, 1.494124f, 1.495364f,
-    1.496606f, 1.497849f, 1.499093f, 1.500339f, 1.501587f, 1.502836f, 1.504086f, 1.505338f,
-    1.506591f, 1.507846f, 1.509102f, 1.51036f, 1.511619f, 1.512879f, 1.514141f, 1.515405f,
-    1.516669f, 1.517936f, 1.519204f, 1.520473f, 1.521744f, 1.523016f, 1.52429f, 1.525565f,
-    1.526842f, 1.52812f, 1.5294f, 1.530681f, 1.531964f, 1.533248f, 1.534534f, 1.535821f,
-    1.53711f, 1.538401f, 1.539692f, 1.540986f, 1.542281f, 1.543577f, 1.544875f, 1.546175f,
-    1.547476f, 1.548778f, 1.550083f, 1.551388f, 1.552696f, 1.554004f, 1.555315f, 1.556627f,
-    1.55794f, 1.559255f, 1.560572f, 1.56189f, 1.56321f, 1.564531f, 1.565854f, 1.567179f,
-    1.568505f, 1.569833f, 1.571162f, 1.572493f, 1.573826f, 1.57516f, 1.576496f, 1.577833f,
-    1.579172f, 1.580513f, 1.581855f, 1.583199f, 1.584545f, 1.585892f, 1.587241f, 1.588591f,
-    1.589943f, 1.591297f, 1.592653f, 1.59401f, 1.595368f, 1.596729f, 1.598091f, 1.599455f,
-    1.60082f, 1.602187f, 1.603556f, 1.604926f, 1.606298f, 1.607672f, 1.609048f, 1.610425f,
-    1.611804f, 1.613185f, 1.614567f, 1.615951f, 1.617337f, 1.618724f, 1.620114f, 1.621504f,
-    1.622897f, 1.624292f, 1.625688f, 1.627086f, 1.628485f, 1.629887f, 1.63129f, 1.632695f,
-    1.634101f, 1.63551f, 1.63692f, 1.638332f, 1.639746f, 1.641161f, 1.642578f, 1.643998f,
-    1.645418f, 1.646841f, 1.648266f, 1.649692f, 1.65112f, 1.65255f, 1.653981f, 1.655415f,
-    1.65685f, 1.658287f, 1.659726f, 1.661167f, 1.66261f, 1.664054f, 1.665501f, 1.666949f,
-    1.668399f, 1.669851f, 1.671305f, 1.67276f, 1.674218f, 1.675677f, 1.677138f, 1.678602f,
-    1.680067f, 1.681533f, 1.683002f, 1.684473f, 1.685946f, 1.68742f, 1.688896f, 1.690375f,
-    1.691855f, 1.693337f, 1.694821f, 1.696307f, 1.697795f, 1.699285f, 1.700777f, 1.702271f,
-    1.703767f, 1.705264f, 1.706764f, 1.708265f, 1.709769f, 1.711275f, 1.712782f, 1.714292f,
-    1.715803f, 1.717317f, 1.718832f, 1.72035f, 1.721869f, 1.723391f, 1.724914f, 1.72644f,
-    1.727967f, 1.729497f, 1.731028f, 1.732562f, 1.734098f, 1.735635f, 1.737175f, 1.738717f,
-    1.740261f, 1.741807f, 1.743355f, 1.744905f, 1.746457f, 1.748011f, 1.749568f, 1.751126f,
-    1.752687f, 1.754249f, 1.755814f, 1.757381f, 1.75895f, 1.760521f, 1.762094f, 1.763669f,
-    1.765247f, 1.766826f, 1.768408f, 1.769992f, 1.771578f, 1.773166f, 1.774756f, 1.776349f,
-    1.777943f, 1.77954f, 1.781139f, 1.782741f, 1.784344f, 1.78595f, 1.787557f, 1.789167f,
-    1.79078f, 1.792394f, 1.794011f, 1.79563f, 1.797251f, 1.798874f, 1.8005f, 1.802127f,
-    1.803758f, 1.80539f, 1.807024f, 1.808661f, 1.8103f, 1.811942f, 1.813586f, 1.815232f,
-    1.81688f, 1.81853f, 1.820183f, 1.821839f, 1.823496f, 1.825156f, 1.826818f, 1.828483f,
-    1.830149f, 1.831818f, 1.83349f, 1.835164f, 1.83684f, 1.838519f, 1.8402f, 1.841883f,
-    1.843569f, 1.845257f, 1.846947f, 1.84864f, 1.850335f, 1.852033f, 1.853733f, 1.855436f,
-    1.857141f, 1.858848f, 1.860558f, 1.86227f, 1.863985f, 1.865702f, 1.867422f, 1.869144f,
-    1.870868f, 1.872595f, 1.874325f, 1.876057f, 1.877791f, 1.879528f, 1.881268f, 1.88301f,
-    1.884754f, 1.886501f, 1.888251f, 1.890003f, 1.891758f, 1.893515f, 1.895275f, 1.897037f,
-    1.898802f, 1.900569f, 1.902339f, 1.904112f, 1.905887f, 1.907665f, 1.909445f, 1.911228f,
-    1.913014f, 1.914802f, 1.916593f, 1.918387f, 1.920183f, 1.921982f, 1.923783f, 1.925587f,
-    1.927394f, 1.929203f, 1.931016f, 1.93283f, 1.934648f, 1.936468f, 1.938291f, 1.940117f,
-    1.941945f, 1.943776f, 1.94561f, 1.947446f, 1.949286f, 1.951128f, 1.952973f, 1.95482f,
-    1.95667f, 1.958524f, 1.960379f, 1.962238f, 1.9641f, 1.965964f, 1.967831f, 1.969701f,
-    1.971574f, 1.973449f, 1.975328f, 1.977209f, 1.979093f, 1.98098f, 1.98287f, 1.984763f,
-    1.986659f, 1.988557f, 1.990458f, 1.992363f, 1.99427f, 1.99618f, 1.998093f, 2.000009f,
-    2.001928f, 2.00385f, 2.005775f, 2.007703f, 2.009634f, 2.011567f, 2.013504f, 2.015444f,
-    2.017387f, 2.019333f, 2.021281f, 2.023233f, 2.025188f, 2.027146f, 2.029107f, 2.031071f,
-    2.033038f, 2.035008f, 2.036981f, 2.038957f, 2.040937f, 2.042919f, 2.044905f, 2.046893f,
-    2.048885f, 2.05088f, 2.052878f, 2.05488f, 2.056884f, 2.058891f, 2.060902f, 2.062916f,
-    2.064933f, 2.066954f, 2.068977f, 2.071004f, 2.073034f, 2.075067f, 2.077103f, 2.079143f,
-    2.081186f, 2.083232f, 2.085281f, 2.087334f, 2.08939f, 2.09145f, 2.093512f, 2.095578f,
-    2.097647f, 2.09972f, 2.101796f, 2.103875f, 2.105958f, 2.108044f, 2.110133f, 2.112226f,
-    2.114322f, 2.116422f, 2.118525f, 2.120631f, 2.122741f, 2.124854f, 2.126971f, 2.129091f,
-    2.131215f, 2.133342f, 2.135472f, 2.137606f, 2.139744f, 2.141885f, 2.14403f, 2.146178f,
-    2.148329f, 2.150485f, 2.152643f, 2.154806f, 2.156972f, 2.159141f, 2.161314f, 2.163491f,
-    2.165671f, 2.167855f, 2.170043f, 2.172234f, 2.174429f, 2.176628f, 2.17883f, 2.181036f,
-    2.183245f, 2.185459f, 2.187676f, 2.189896f, 2.192121f, 2.194349f, 2.196581f, 2.198817f,
-    2.201056f, 2.203299f, 2.205547f, 2.207797f, 2.210052f, 2.212311f, 2.214573f, 2.216839f,
-    2.219109f, 2.221383f, 2.223661f, 2.225943f, 2.228228f, 2.230518f, 2.232811f, 2.235109f,
-    2.23741f, 2.239715f, 2.242024f, 2.244338f, 2.246655f, 2.248976f, 2.251301f, 2.25363f,
-    2.255964f, 2.258301f, 2.260642f, 2.262987f, 2.265337f, 2.26769f, 2.270048f, 2.27241f,
-    2.274776f, 2.277146f, 2.27952f, 2.281898f, 2.284281f, 2.286667f, 2.289058f, 2.291453f,
-    2.293852f, 2.296256f, 2.298664f, 2.301075f, 2.303492f, 2.305912f, 2.308337f, 2.310766f,
-    2.313199f, 2.315637f, 2.318079f, 2.320526f, 2.322976f, 2.325431f, 2.327891f, 2.330355f,
-    2.332823f, 2.335296f, 2.337773f, 2.340254f, 2.342741f, 2.345231f, 2.347726f, 2.350226f,
-    2.35273f, 2.355238f, 2.357751f, 2.360269f, 2.362791f, 2.365318f, 2.367849f, 2.370385f,
-    2.372926f, 2.375471f, 2.378021f, 2.380575f, 2.383134f, 2.385698f, 2.388267f, 2.39084f,
-    2.393418f, 2.396f, 2.398588f, 2.40118f, 2.403777f, 2.406379f, 2.408986f, 2.411597f,
-    2.414213f, 2.416834f, 2.41946f, 2.422091f, 2.424727f, 2.427367f, 2.430013f, 2.432663f,
-    2.435319f, 2.437979f, 2.440645f, 2.443315f, 2.44599f, 2.448671f, 2.451356f, 2.454047f,
-    2.456742f, 2.459443f, 2.462149f, 2.46486f, 2.467576f, 2.470297f, 2.473023f, 2.475755f,
-    2.478491f, 2.481233f, 2.48398f, 2.486733f, 2.48949f, 2.492253f, 2.495021f, 2.497795f,
-    2.500573f, 2.503358f, 2.506147f, 2.508942f, 2.511742f, 2.514548f, 2.517359f, 2.520175f,
-    2.522997f, 2.525824f, 2.528657f, 2.531496f, 2.53434f, 2.537189f, 2.540044f, 2.542904f,
-    2.545771f, 2.548642f, 2.55152f, 2.554403f, 2.557291f, 2.560185f, 2.563085f, 2.565991f,
-    2.568903f, 2.57182f, 2.574743f, 2.577671f, 2.580606f, 2.583546f, 2.586492f, 2.589444f,
-    2.592402f, 2.595366f, 2.598335f, 2.601311f, 2.604293f, 2.60728f, 2.610273f, 2.613273f,
-    2.616278f, 2.61929f, 2.622307f, 2.625331f, 2.628361f, 2.631397f, 2.634439f, 2.637487f,
-    2.640541f, 2.643602f, 2.646668f, 2.649741f, 2.65282f, 2.655906f, 2.658998f, 2.662096f,
-    2.6652f, 2.668311f, 2.671428f, 2.674552f, 2.677681f, 2.680818f, 2.683961f, 2.68711f,
-    2.690266f, 2.693428f, 2.696597f, 2.699772f, 2.702954f, 2.706143f, 2.709338f, 2.71254f,
-    2.715749f, 2.718964f, 2.722186f, 2.725414f, 2.72865f, 2.731892f, 2.735141f, 2.738397f,
-    2.74166f, 2.744929f, 2.748206f, 2.751489f, 2.754779f, 2.758076f, 2.761381f, 2.764692f,
-    2.76801f, 2.771336f, 2.774668f, 2.778007f, 2.781354f, 2.784708f, 2.788069f, 2.791437f,
-    2.794812f, 2.798195f, 2.801585f, 2.804982f, 2.808386f, 2.811798f, 2.815217f, 2.818644f,
-    2.822078f, 2.825519f, 2.828968f, 2.832425f, 2.835888f, 2.83936f, 2.842839f, 2.846325f,
-    2.84982f, 2.853322f, 2.856831f, 2.860348f, 2.863873f, 2.867406f, 2.870947f, 2.874495f,
-    2.878051f, 2.881615f, 2.885187f, 2.888767f, 2.892354f, 2.89595f, 2.899554f, 2.903165f,
-    2.906785f, 2.910413f, 2.914049f, 2.917693f, 2.921345f, 2.925006f, 2.928674f, 2.932351f,
-    2.936037f, 2.93973f, 2.943432f, 2.947142f, 2.950861f, 2.954588f, 2.958323f, 2.962067f,
-    2.96582f, 2.969581f, 2.97335f, 2.977128f, 2.980915f, 2.984711f, 2.988515f, 2.992328f,
-    2.99615f, 2.99998f, 3.00382f, 3.007668f, 3.011525f, 3.015391f, 3.019266f, 3.02315f,
-    3.027043f, 3.030945f, 3.034856f, 3.038776f, 3.042705f, 3.046644f, 3.050591f, 3.054548f,
-    3.058515f, 3.06249f, 3.066475f, 3.070469f, 3.074473f, 3.078486f, 3.082509f, 3.086541f,
-    3.090583f, 3.094634f, 3.098695f, 3.102766f, 3.106846f, 3.110936f, 3.115036f, 3.119146f,
-    3.123265f, 3.127394f, 3.131534f, 3.135683f, 3.139842f, 3.144011f, 3.148191f, 3.15238f,
-    3.15658f, 3.160789f, 3.165009f, 3.16924f, 3.17348f, 3.177731f, 3.181992f, 3.186264f,
-    3.190546f, 3.194838f, 3.199141f, 3.203455f, 3.207779f, 3.212114f, 3.21646f, 3.220816f,
-    3.225184f, 3.229561f, 3.23395f, 3.23835f, 3.242761f, 3.247182f, 3.251615f, 3.256059f,
-    3.260514f, 3.264979f, 3.269457f, 3.273945f, 3.278445f, 3.282956f, 3.287478f, 3.292012f,
-    3.296557f, 3.301114f, 3.305683f, 3.310263f, 3.314854f, 3.319457f, 3.324073f, 3.328699f,
-    3.333338f, 3.337988f, 3.342651f, 3.347325f, 3.352012f, 3.35671f, 3.361421f, 3.366144f,
-    3.370879f, 3.375626f, 3.380385f, 3.385157f, 3.389941f, 3.394738f, 3.399547f, 3.404369f,
-    3.409204f, 3.414051f, 3.41891f, 3.423783f, 3.428668f, 3.433567f, 3.438478f, 3.443402f,
-    3.448339f, 3.453289f, 3.458252f, 3.463229f, 3.468219f, 3.473222f, 3.478238f, 3.483268f,
-    3.488311f, 3.493368f, 3.498438f, 3.503522f, 3.50862f, 3.513731f, 3.518856f, 3.523995f,
-    3.529148f, 3.534315f, 3.539496f, 3.544691f, 3.5499f, 3.555123f, 3.560361f, 3.565613f,
-    3.570879f, 3.57616f, 3.581455f, 3.586765f, 3.59209f, 3.597429f, 3.602783f, 3.608151f,
-    3.613535f, 3.618933f, 3.624347f, 3.629775f, 3.635219f, 3.640678f, 3.646152f, 3.651642f,
-    3.657147f, 3.662667f, 3.668203f, 3.673754f, 3.679322f, 3.684905f, 3.690503f, 3.696118f,
-    3.701748f, 3.707395f, 3.713057f, 3.718736f, 3.724431f, 3.730142f, 3.73587f, 3.741614f,
-    3.747375f, 3.753152f, 3.758946f, 3.764756f, 3.770584f, 3.776428f, 3.782289f, 3.788167f,
-    3.794062f, 3.799975f, 3.805905f, 3.811852f, 3.817816f, 3.823798f, 3.829798f, 3.835815f,
-    3.84185f, 3.847903f, 3.853973f, 3.860062f, 3.866168f, 3.872293f, 3.878436f, 3.884597f,
-    3.890777f, 3.896975f, 3.903192f, 3.909427f, 3.915681f, 3.921954f, 3.928246f, 3.934557f,
-    3.940887f, 3.947236f, 3.953604f, 3.959991f, 3.966398f, 3.972825f, 3.979271f, 3.985737f,
-    3.992223f, 3.998728f, 4.005254f, 4.011799f, 4.018365f, 4.024951f, 4.031558f, 4.038184f,
-    4.044832f, 4.0515f, 4.058189f, 4.064898f, 4.071629f, 4.078381f, 4.085154f, 4.091948f,
-    4.098763f, 4.1056f, 4.112459f, 4.119339f, 4.126241f, 4.133164f, 4.14011f, 4.147078f,
-    4.154068f, 4.16108f, 4.168115f, 4.175172f, 4.182252f, 4.189355f, 4.196481f, 4.203629f,
-    4.210801f, 4.217996f, 4.225214f, 4.232455f, 4.23972f, 4.247009f, 4.254322f, 4.261658f,
-    4.269019f, 4.276403f, 4.283812f, 4.291245f, 4.298703f, 4.306185f, 4.313693f, 4.321225f,
-    4.328782f, 4.336364f, 4.343971f, 4.351604f, 4.359262f, 4.366946f, 4.374656f, 4.382392f,
-    4.390153f, 4.397941f, 4.405755f, 4.413596f, 4.421463f, 4.429357f, 4.437278f, 4.445226f,
-    4.453201f, 4.461203f, 4.469233f, 4.47729f, 4.485375f, 4.493488f, 4.501629f, 4.509798f,
-    4.517995f, 4.526221f, 4.534475f, 4.542758f, 4.55107f, 4.559411f, 4.567782f, 4.576181f,
-    4.584611f, 4.59307f, 4.601558f, 4.610077f, 4.618626f, 4.627205f, 4.635815f, 4.644456f,
-    4.653127f, 4.661829f, 4.670563f, 4.679328f, 4.688124f, 4.696952f, 4.705812f, 4.714704f,
-    4.723628f, 4.732584f, 4.741573f, 4.750595f, 4.75965f, 4.768738f, 4.777859f, 4.787014f,
-    4.796202f, 4.805424f, 4.814681f, 4.823971f, 4.833296f, 4.842656f, 4.85205f, 4.861479f,
-    4.870944f, 4.880444f, 4.88998f, 4.899551f, 4.909159f, 4.918803f, 4.928483f, 4.9382f,
-    4.947954f, 4.957745f, 4.967573f, 4.977439f, 4.987342f, 4.997284f, 5.007263f, 5.017281f,
-    5.027338f, 5.037433f, 5.047568f, 5.057742f, 5.067955f, 5.078208f, 5.088501f, 5.098835f,
-    5.109209f, 5.119623f, 5.130079f, 5.140576f, 5.151114f, 5.161694f, 5.172316f, 5.182981f,
-    5.193687f, 5.204437f, 5.215229f, 5.226065f, 5.236944f, 5.247867f, 5.258834f, 5.269846f,
-    5.280902f, 5.292002f, 5.303148f, 5.31434f, 5.325577f, 5.33686f, 5.34819f, 5.359566f,
-    5.370988f, 5.382458f, 5.393976f, 5.405541f, 5.417154f, 5.428816f, 5.440526f, 5.452285f,
-    5.464094f, 5.475952f, 5.48786f, 5.499818f, 5.511827f, 5.523887f, 5.535998f, 5.54816f,
-    5.560374f, 5.572641f, 5.58496f, 5.597332f, 5.609757f, 5.622235f, 5.634768f, 5.647355f,
-    5.659996f, 5.672693f, 5.685445f, 5.698253f, 5.711116f, 5.724036f, 5.737014f, 5.750048f,
-    5.76314f, 5.77629f, 5.789498f, 5.802765f, 5.816091f, 5.829477f, 5.842923f, 5.856429f,
-    5.869996f, 5.883624f, 5.897314f, 5.911066f, 5.92488f, 5.938758f, 5.952698f, 5.966703f,
-    5.980771f, 5.994905f, 6.009103f, 6.023367f, 6.037698f, 6.052094f, 6.066558f, 6.081089f,
-    6.095688f, 6.110356f, 6.125092f, 6.139898f, 6.154773f, 6.169719f, 6.184736f, 6.199825f,
-    6.214985f, 6.230218f, 6.245523f, 6.260903f, 6.276356f, 6.291884f, 6.307486f, 6.323165f,
-    6.33892f, 6.354751f, 6.37066f, 6.386647f, 6.402712f, 6.418857f, 6.435081f, 6.451385f,
-    6.46777f, 6.484237f, 6.500786f, 6.517418f, 6.534132f, 6.550931f, 6.567815f, 6.584784f,
-    6.601838f, 6.618979f, 6.636208f, 6.653524f, 6.670929f, 6.688424f, 6.706008f, 6.723683f,
-    6.741449f, 6.759308f, 6.777259f, 6.795304f, 6.813443f, 6.831677f, 6.850007f, 6.868433f,
-    6.886957f, 6.905579f, 6.9243f, 6.94312f, 6.962041f, 6.981064f, 7.000188f, 7.019415f,
-    7.038747f, 7.058182f, 7.077724f, 7.097372f, 7.117126f, 7.13699f, 7.156962f, 7.177044f,
-    7.197237f, 7.217541f, 7.237959f, 7.25849f, 7.279135f, 7.299897f, 7.320774f, 7.34177f,
-    7.362884f, 7.384117f, 7.405471f, 7.426947f, 7.448546f, 7.470268f, 7.492115f, 7.514088f,
-    7.536188f, 7.558416f, 7.580773f, 7.60326f, 7.62588f, 7.648631f, 7.671517f, 7.694538f,
-    7.717695f, 7.740989f, 7.764423f, 7.787996f, 7.81171f, 7.835567f, 7.859568f, 7.883714f,
-    7.908006f, 7.932446f, 7.957035f, 7.981775f, 8.006667f, 8.031712f, 8.056911f, 8.082267f,
-    8.107781f, 8.133454f, 8.159287f, 8.185283f, 8.211442f, 8.237767f, 8.264258f, 8.290918f,
-    8.317748f, 8.34475f, 8.371925f, 8.399275f, 8.426802f, 8.454508f, 8.482393f, 8.510461f,
-    8.538712f, 8.56715f, 8.595774f, 8.624588f, 8.653593f, 8.682791f, 8.712185f, 8.741775f,
-    8.771565f, 8.801556f, 8.831749f, 8.862148f, 8.892755f, 8.92357f, 8.954598f, 8.985839f,
-    9.017296f, 9.048972f, 9.080868f, 9.112988f, 9.145332f, 9.177904f, 9.210706f, 9.243741f,
-    9.277011f, 9.310519f, 9.344266f, 9.378256f, 9.412492f, 9.446976f, 9.48171f, 9.516698f,
-    9.551943f, 9.587446f, 9.623212f, 9.659242f, 9.695541f, 9.73211f, 9.768953f, 9.806074f,
-    9.843475f, 9.881159f, 9.919129f, 9.95739f, 9.995944f, 10.034795f, 10.073946f, 10.113401f,
-    10.153163f, 10.193236f, 10.233623f, 10.274329f, 10.315356f, 10.35671f, 10.398393f, 10.44041f,
-    10.482765f, 10.525462f, 10.568505f, 10.611898f, 10.655646f, 10.699752f, 10.744223f, 10.789061f,
-    10.834272f, 10.87986f, 10.92583f, 10.972187f, 11.018936f, 11.066082f, 11.113629f, 11.161583f,
-    11.20995f, 11.258734f, 11.307942f, 11.357578f, 11.407648f, 11.458159f, 11.509115f, 11.560523f,
-    11.612389f, 11.664719f, 11.717519f, 11.770796f, 11.824556f, 11.878806f, 11.933552f, 11.988802f,
-    12.044562f, 12.10084f, 12.157642f, 12.214977f, 12.272851f, 12.331273f, 12.39025f, 12.449789f,
-    12.509901f, 12.570591f, 12.63187f, 12.693745f, 12.756226f, 12.819321f, 12.88304f, 12.947391f,
-    13.012384f, 13.078029f, 13.144337f, 13.211315f, 13.278977f, 13.34733f, 13.416387f, 13.486159f,
-    13.556656f, 13.627889f, 13.699872f, 13.772614f, 13.846129f, 13.920429f, 13.995527f, 14.071434f,
-    14.148166f, 14.225735f, 14.304155f, 14.38344f, 14.463604f, 14.544663f, 14.626631f, 14.709524f,
-    14.793357f, 14.878147f, 14.96391f, 15.050663f, 15.138423f, 15.227209f, 15.317037f, 15.407927f,
-    15.499897f, 15.592967f, 15.687157f, 15.782487f, 15.878978f, 15.976652f, 16.07553f, 16.175634f,
-    16.276987f, 16.379616f, 16.483541f, 16.588787f, 16.695383f, 16.80335f, 16.912722f, 17.023518f,
-    17.13577f, 17.24951f, 17.364763f, 17.481562f, 17.599936f, 17.71992f, 17.841545f, 17.964848f,
-    18.08986f, 18.21662f, 18.345161f, 18.475525f, 18.60775f, 18.741875f, 18.877941f, 19.015993f,
-    19.156075f, 19.298227f, 19.4425f, 19.588942f, 19.737598f, 19.888523f, 20.041769f, 20.197388f,
-    20.355436f, 20.515972f, 20.679054f, 20.844744f, 21.013102f, 21.184196f, 21.358093f, 21.534864f,
-    21.714579f, 21.89731f, 22.083138f, 22.272139f, 22.464396f, 22.659994f, 22.859022f, 23.061571f,
-    23.267735f, 23.477612f, 23.6913f, 23.908909f, 24.130543f, 24.35632f, 24.586351f, 24.820765f,
-    25.059683f, 25.303236f, 25.551563f, 25.804806f, 26.06311f, 26.326632f, 26.595526f, 26.869963f,
-    27.150114f, 27.436163f, 27.728292f, 28.026703f, 28.331598f, 28.64319f, 28.961704f, 29.287373f,
-    29.620441f, 29.961163f, 30.309805f, 30.666645f, 31.031982f, 31.406116f, 31.789375f, 32.182095f,
-    32.584625f, 32.997345f, 33.420643f, 33.854935f, 34.30065f, 34.758247f, 35.22821f, 35.711044f,
-    36.207287f, 36.717506f, 37.2423f, 37.782295f, 38.338177f, 38.910645f, 39.500454f, 40.10841f,
-    40.73536f, 41.382206f, 42.04992f, 42.739517f, 43.4521f, 44.188828f, 44.95096f, 45.739826f,
-    46.556866f, 47.40361f, 48.281708f, 49.19294f, 50.139214f, 51.12259f, 52.145294f, 53.209736f,
-    54.318527f, 55.474495f, 56.680714f, 57.94054f, 59.25762f, 60.63596f, 62.07992f, 63.59432f,
-    65.184425f, 66.85607f, 68.61569f, 70.47042f, 72.428185f, 74.4978f, 76.68916f, 79.01332f,
-    81.482735f, 84.11145f, 86.915405f, 89.91273f, 93.12414f, 96.57342f, 100.28801f, 104.29976f,
-    108.645805f, 113.36976f, 118.52314f, 124.167305f, 130.37587f, 137.23795f, 144.86246f, 153.38394f,
-    162.97058f, 173.8354f, 186.25232f, 200.57945f, 217.2944f, 237.04834f, 260.75296f, 289.72516f,
-    325.94016f, 372.50198f, 434.58386f, 521.49744f, 651.86554f, 869.13983f, 1303.6666f, 2607.0725f
-};
-/* 0x004e7600, 4 bytes */ GRIM_DATA("004e7600") unsigned char DAT_004e7600[4] = { 0x8a };
-/* 0x004e7604, 44 bytes */ GRIM_DATA("004e7604") char s_C__grimjedi_Libs_Std_General_Std_004e7604[44] = "C:\\grimjedi\\Libs\\Std\\General\\Stdconffile.c";
-/* 0x004e7630, 8 bytes */ /* loose */ char s_none_004e7630[8] = "none";
-/* 0x004e7638, 4 bytes */ /* loose */ unsigned char DAT_004e7638[4] = { 0xb8 };
-/* 0x004e763c, 4 bytes */ /* loose */ unsigned char DAT_004e763c[4] = { 0xdc };
-/* 0x004e7640, 4 bytes */ /* loose */ unsigned char DAT_004e7640[4] = { 0xbc, 0x01 };
-/* 0x004e7644, 40 bytes */ /* loose */ char s_C__grimjedi_Libs_Std_General_Std_004e7644[40] = "C:\\grimjedi\\Libs\\Std\\General\\Stdbmp.c";
-/* 0x004e766c, 72 bytes */ /* loose */ char s_Unable_to_read_all_the_data_from_004e766c[72] = "Unable to read all the data from your BMP file.  It may be corrupted.";
-/* 0x004e76b4, 32 bytes */ /* loose */ char s_Unable_to_lock_VBuffer_memory__004e76b4[32] = "Unable to lock VBuffer memory.";
-/* 0x004e76d4, 28 bytes */ /* loose */ char s_Unable_to_allocate_memory__004e76d4[28] = "Unable to allocate memory.";
-/* 0x004e76f0, 60 bytes */ /* loose */ char s_This_BMP_file_uses_a_bit_depth_w_004e76f0[60] = "This BMP file uses a bit-depth which I do not support yet.";
-/* 0x004e772c, 40 bytes */ /* loose */ char s_32bit_per_pixel_BMP_not_yet_supp_004e772c[40] = "32bit-per-pixel BMP not yet supported.";
-/* 0x004e7754, 40 bytes */ /* loose */ char s_16_bit_per_pixel_BMP_not_yet_sup_004e7754[40] = "16 bit-per-pixel BMP not yet supported.";
-/* 0x004e777c, 56 bytes */ /* loose */ char s_Unable_to_read_the_palette__Your_004e777c[56] = "Unable to read the palette.  Your file is corrupted.";
-/* 0x004e77b4, 24 bytes */ /* loose */ char s_Only_24bpp_supported_004e77b4[24] = "Only 24bpp supported";
-/* 0x004e77cc, 4 bytes */ /* loose */ unsigned char DAT_004e77cc[4] = { 0xd4 };
-/* 0x004e77d0, 8 bytes */ /* loose */ unsigned char DAT_004e77d0[8] = { 0xf7, 0x00, 0x00, 0x00, 0xeb, 0x01 };
-/* 0x004e77d8, 40 bytes */ /* loose */ char s_C__grimjedi_Libs_Std_General_std_004e77d8[40] = "C:\\grimjedi\\Libs\\Std\\General\\stdPic.c";
-static unsigned char grim_anchor_004e7800[0] __attribute__((section(".data$grim_004e7800"), aligned(16), used));
-static unsigned char grim_pad_004e7800[0] __attribute__((section(".data$grim_004e7800_"), aligned(4), used));
-/* 0x004e7800, 12 bytes */ GRIM_DATA("004e7800z") unsigned char DAT_004e7800[12] = { 0x00, 0x10 };
-/* 0x004e780c, 76 bytes */ GRIM_DATA("004e780c") unsigned char DAT_004e780c[76] = {
-    0x08, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
-    0x04, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00,
-    0x04, 0x04, 0x08, 0x08, 0x01, 0x01, 0x04, 0x04, 0x08, 0x08, 0x08, 0x04, 0x08, 0x04, 0x08, 0x04,
-    0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x0f, 0x0f, 0xff, 0xff, 0x01, 0x01, 0x0f, 0x0f,
-    0xff, 0xff, 0xff, 0x0f, 0xff, 0x0f, 0xff, 0x0f, 0xff
-};
-/* 0x004e7858, 16 bytes */ GRIM_DATA("004e7858") unsigned char DAT_004e7858[16] = { 0xff, 0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80 };
-/* 0x004e7868, 12 bytes */ GRIM_DATA("004e7868") unsigned char DAT_004e7868[12] = { 0x00, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff };
-/* 0x004e7874, 4 bytes */ GRIM_DATA("004e7874") void *PTR_UINT_004e7874 = (void *)&UINT_00812ed8;
-/* 0x004e7878, 4 bytes */ GRIM_DATA("004e7878") void *PTR_UINT_004e7878 = (void *)&UINT_0080ccf8;
-/* 0x004e787c, 4 bytes */ GRIM_DATA("004e787c") unsigned char DAT_004e787c[4] = { 0xa5 };
-/* 0x004e7880, 4 bytes */ GRIM_DATA("004e7880") unsigned char DAT_004e7880[4] = { 0xa0, 0x01 };
-/* 0x004e7884, 40 bytes */ GRIM_DATA("004e7884") char s_C__grimjedi_Libs_Std_General_Std_004e7884[40] = "C:\\grimjedi\\Libs\\Std\\General\\Stdgif.c";
-/* 0x004e78ac, 4 bytes */ /* loose */ char s_89a_004e78ac[4] = "89a";
-/* 0x004e78b0, 4 bytes */ /* loose */ char s_GIF_004e78b0[4] = "GIF";
-/* 0x004e78b4, 4 bytes */ /* loose */ unsigned char DAT_004e78b4[4] = { 0x3c };
-/* 0x004e78b8, 40 bytes */ /* loose */ char s_C__grimjedi_Libs_Std_General_Std_004e78b8[40] = "C:\\grimjedi\\Libs\\Std\\General\\Stdpcx.c";
-/* 0x004e78e0, 4 bytes */ /* loose */ unsigned char DAT_004e78e0[4] = { 0x54 };
-/* 0x004e78e4, 8 bytes */ /* loose */ char s_FORM_004e78e4[8] = "FORM";
-/* 0x004e78ec, 40 bytes */ /* loose */ char s_C__grimjedi_Libs_Std_General_Std_004e78ec[40] = "C:\\grimjedi\\Libs\\Std\\General\\Stdlbm.c";
-/* 0x004e7914, 12 bytes */ /* loose */ char s_BODYxxxx_004e7914[12] = "BODYxxxx";
-/* 0x004e7920, 8 bytes */ /* loose */ char s_CMAP_004e7920[8] = "CMAP";
-/* 0x004e7928, 20 bytes */ /* loose */ char s_FORMxxxxPBM_BMHD_004e7928[20] = "FORMxxxxPBM BMHD";
-/* 0x004e793c, 4 bytes */ /* loose */ unsigned char DAT_004e793c[4] = { 0x2e };
-/* 0x004e7940, 4 bytes */ /* loose */ unsigned char DAT_004e7940[4] = { 0x63, 0x03 };
-/* 0x004e7944, 4 bytes */ /* loose */ unsigned char DAT_004e7944[4] = { 0x6a, 0x03 };
-/* 0x004e7948, 32 bytes */ /* loose */ char s_allocation__magic____0x12345678_004e7948[32] = "allocation->magic == 0x12345678";
-/* 0x004e7968, 44 bytes */ /* loose */ char s_C__grimjedi_Libs_Std_General_Std_004e7968[44] = "C:\\grimjedi\\Libs\\Std\\General\\Stdmemory.c";
-static unsigned char grim_anchor_004e7994[0] __attribute__((section(".data$grim_004e7994"), aligned(16), used));
-static unsigned char grim_pad_004e7994[4] __attribute__((section(".data$grim_004e7994_"), aligned(4), used));
-/* 0x004e7994, 24 bytes */ GRIM_DATA("004e7994z") char s_allocation_004e7994[24] = "allocation\000\000\000\000\000\000\000\000\000\000HFED";
-/* 0x004e79ac, 8 bytes */ GRIM_DATA("004e79ac") void *PTR_res_DefaultHandler_004e79ac[2] = {
+/* 0x004df548, 8 bytes */ GRIM_DATA("004df548") unsigned char DAT_004df548[8] __asm__("_DAT_004df548") = { 0x44, 0x33, 0x44, 0x5f, 0x4f, 0x4b };
+/* 0x004e76b4, 32 bytes */ /* loose */ char s_Unable_to_lock_VBuffer_memory__004e76b4[32] __asm__("_s_Unable_to_lock_VBuffer_memory__004e76b4") = "Unable to lock VBuffer memory.";
+/* 0x004e76d4, 28 bytes */ /* loose */ char s_Unable_to_allocate_memory__004e76d4[28] __asm__("_s_Unable_to_allocate_memory__004e76d4") = "Unable to allocate memory.";
+/* 0x004e793c, 4 bytes */ /* loose */ unsigned char DAT_004e793c[4] __asm__("_DAT_004e793c") = { 0x2e };
+/* 0x004e79ac, 8 bytes */ GRIM_DATA("004e79ac") void *PTR_res_DefaultHandler_004e79ac[2] __asm__("_PTR_res_DefaultHandler_004e79ac") = {
     (void *)f_res_DefaultHandler, (void *)&DAT_004e79b4
 };
-/* 0x004e79b4, 64 bytes */ GRIM_DATA("004e79b4") unsigned char DAT_004e79b4[64] = {
+/* 0x004e79b4, 64 bytes */ GRIM_DATA("004e79b4") unsigned char DAT_004e79b4[64] __asm__("_DAT_004e79b4") = {
     0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4a, 0x4b, 0x4c, 0x4d, 0x4e, 0x4f, 0x50,
     0x51, 0x52, 0x53, 0x54, 0x55, 0x56, 0x57, 0x58, 0x59, 0x5a, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66,
     0x67, 0x68, 0x69, 0x6a, 0x6b, 0x6c, 0x6d, 0x6e, 0x6f, 0x70, 0x71, 0x72, 0x73, 0x74, 0x75, 0x76,
     0x77, 0x78, 0x79, 0x7a, 0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x5f
 };
-/* 0x004e79f4, 40 bytes */ GRIM_DATA("004e79f4") char s_Resource____12s__allocated___8ld_004e79f4[40] = "Resource <%-12s> allocated: %8ld bytes\n";
-/* 0x004e7a1c, 36 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c[36] = "C:\\grimsrc\\libs\\grimlib\\Temp\\Res.c";
-/* 0x004e7a40, 28 bytes */ /* loose */ char s_Total___d_items___d_bytes_004e7a40[28] = "Total: %d items, %d bytes\n";
-/* 0x004e7a5c, 36 bytes */ /* loose */ char s_Resource___12s__size____7ld__s_004e7a5c[36] = "Resource %-12s,\t\tsize = %7ld\t%s\n";
-/* 0x004e7a80, 12 bytes */ /* loose */ char s_REFERENCED_004e7a80[12] = "REFERENCED";
-/* 0x004e7a8c, 44 bytes */ /* loose */ char s__int_fh___0_____int_fh____MAX_OP_004e7a8c[44] = "(int)fh > 0 && (int)fh <= MAX_OPEN_FILES";
-/* 0x004e7ab8, 40 bytes */ /* loose */ char s_Resource____12s__freed___d_refer_004e7ab8[40] = "Resource <%-12s> freed (%d references)\n";
-/* 0x004e7ae0, 16 bytes */ /* loose */ char s_ref__valid____0_004e7ae0[16] = "ref->valid != 0";
-/* 0x004e7af0, 8 bytes */ /* loose */ char s_LABN_004e7af0[8] = "LABN";
-/* 0x004e7af8, 8 bytes */ /* loose */ char s__s_s_004e7af8[8] = "%s%s";
-/* 0x004e7b00, 20 bytes */ /* loose */ char s_ref_____ref__valid_004e7b00[20] = "ref && !ref->valid";
-/* 0x004e7b14, 12 bytes */ /* loose */ char s_TEMP_004e7b14[12] = "TEMP";
+/* 0x004e7a1c, 36 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c[36] __asm__("_s_C__grimsrc_libs_grimlib_Temp_Res_004e7a1c") = "C:\\grimsrc\\libs\\grimlib\\Temp\\Res.c";
+/* 0x004e7af8, 8 bytes */ /* loose */ char s__s_s_004e7af8[8] __asm__("_s__s_s_004e7af8") = "%s%s";
 static unsigned char grim_anchor_004e7b20[0] __attribute__((section(".data$grim_004e7b20"), aligned(16), used));
 static unsigned char grim_pad_004e7b20[0] __attribute__((section(".data$grim_004e7b20_"), aligned(4), used));
-/* 0x004e7b20, 40 bytes */ GRIM_DATA("004e7b20z") unsigned int g_dwMax_ram = 0x1800000;
+/* 0x004e7b20, 40 bytes */ GRIM_DATA("004e7b20z") unsigned int g_dwMax_ram __asm__("_g_dwMax_ram") = 0x1800000;
 /* 0x004e7b24, 36 bytes: the rest of g_dwMax_ram's span */ GRIM_DATA("004e7b20z") static unsigned char g_dwMax_ram__tail[36] __attribute__((used)) = { 0x00, 0x00, 0x00, 0x00, 0x47, 0x72, 0x69, 0x6d, 0x6c, 0x69, 0x62 };
-/* 0x004e7b48, 8 bytes */ GRIM_DATA("004e7b48") unsigned char DAT_004e7b48[8] = {0};
-/* 0x004e7b50, 584 bytes */ GRIM_DATA("004e7b50") unsigned char g_dwGrimlib_PerfData[584] = {
+/* 0x004e7b50, 584 bytes */ GRIM_DATA("004e7b50") unsigned char g_dwGrimlib_PerfData[584] __asm__("_g_dwGrimlib_PerfData") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x43, 0x6f, 0x6e, 0x74, 0x72, 0x6f, 0x6c, 0x73,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -8014,224 +4078,93 @@ static unsigned char grim_pad_004e7b20[0] __attribute__((section(".data$grim_004
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x57, 0x41, 0x49, 0x54, 0x49, 0x43, 0x4f, 0x4e
 };
-/* 0x004e7d98, 8 bytes */ GRIM_DATA("004e7d98") unsigned char g_dwUpdateLua[8] = { 0x01 };
-/* 0x004e7da0, 32 bytes */ GRIM_DATA("004e7da0") unsigned char DAT_004e7da0[32] = {
-    0x04, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02
-};
-/* 0x004e7dc0, 64 bytes */ GRIM_DATA("004e7dc0") void *PTR_FileUtil_SysInitialize_004e7dc0[16] = {
-    (void *)f_FileUtil_SysInitialize, (void *)&s_FileUtil_SysInitialize_004e7f5c, (void *)f_Memory_SysInitialize, (void *)&s_Memory_SysInitialize_004e7f44,
-    (void *)f_sputRoom_Initialize, (void *)&s_sputRoom_Initialize_004e7f30, (void *)f_sputTime_Initialize, (void *)&s_sputTime_Initialize_004e7f1c,
-    (void *)f_sputLua_Initialize, (void *)&s_sputLua_Initialize_004e7f08, (void *)f_sputCostume_Initialize, (void *)&s_sputCostume_Initialize_004e7ef0,
-    (void *)f_sputActor_Initialize, (void *)&s_sputActor_Initialize_004e7ed8, (void *)f_sputResource_Initialize, (void *)&s_sputResource_Initialize_004e7ec0
-};
-/* 0x004e7e00, 48 bytes */ GRIM_DATA("004e7e00") void *PTR_sputControl_Initialize_004e7e00[12] = {
-    (void *)f_sputControl_Initialize, (void *)&s_sputControl_Initialize_004e7ea8, (void *)f_SoundsInitialize, (void *)&s_SoundsInitialize_004e7e94,
-    (void *)f_sputRender_Initialize, (void *)&s_sputRender_Initialize_004e7e7c, (void *)f_sputText_Initialize, (void *)&s_sputText_Initialize_004e7e68,
-    (void *)f_sputPrimitive_Initialize, (void *)&s_sputPrimitive_Initialize_004e7e4c, (void *)f_sputSmush_Initialize, (void *)&s_sputSmush_Initialize_004e7e34
-};
-/* 0x004e7e30, 4 bytes */ GRIM_DATA("004e7e30") int g_dwGrimlib_NewImuseState = -1;
-/* 0x004e7e34, 24 bytes */ GRIM_DATA("004e7e34") char s_sputSmush_Initialize_004e7e34[24] = "sputSmush_Initialize";
-/* 0x004e7e4c, 28 bytes */ /* loose */ char s_sputPrimitive_Initialize_004e7e4c[28] = "sputPrimitive_Initialize";
-/* 0x004e7e68, 20 bytes */ /* loose */ char s_sputText_Initialize_004e7e68[20] = "sputText_Initialize";
-/* 0x004e7e7c, 24 bytes */ /* loose */ char s_sputRender_Initialize_004e7e7c[24] = "sputRender_Initialize";
-/* 0x004e7e94, 20 bytes */ /* loose */ char s_SoundsInitialize_004e7e94[20] = "SoundsInitialize";
-/* 0x004e7ea8, 24 bytes */ /* loose */ char s_sputControl_Initialize_004e7ea8[24] = "sputControl_Initialize";
-/* 0x004e7ec0, 24 bytes */ /* loose */ char s_sputResource_Initialize_004e7ec0[24] = "sputResource_Initialize";
-/* 0x004e7ed8, 24 bytes */ /* loose */ char s_sputActor_Initialize_004e7ed8[24] = "sputActor_Initialize";
-/* 0x004e7ef0, 24 bytes */ /* loose */ char s_sputCostume_Initialize_004e7ef0[24] = "sputCostume_Initialize";
-/* 0x004e7f08, 20 bytes */ /* loose */ char s_sputLua_Initialize_004e7f08[20] = "sputLua_Initialize";
-/* 0x004e7f1c, 20 bytes */ /* loose */ char s_sputTime_Initialize_004e7f1c[20] = "sputTime_Initialize";
-/* 0x004e7f30, 20 bytes */ /* loose */ char s_sputRoom_Initialize_004e7f30[20] = "sputRoom_Initialize";
-/* 0x004e7f44, 24 bytes */ /* loose */ char s_Memory_SysInitialize_004e7f44[24] = "Memory_SysInitialize";
-/* 0x004e7f5c, 24 bytes */ /* loose */ char s_FileUtil_SysInitialize_004e7f5c[24] = "FileUtil_SysInitialize";
-/* 0x004e7f74, 40 bytes */ /* loose */ char s_slot____1____slot___PerfTotalEnt_004e7f74[40] = "slot > -1 && slot < PerfTotalEntries";
-/* 0x004e7f9c, 44 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c[44] = "C:\\grimsrc\\libs\\grimlib\\Main\\sputmain.cpp";
-/* 0x004e7fc8, 12 bytes */ /* loose */ char s_grim_sav_004e7fc8[12] = "grim.sav";
-/* 0x004e7fd4, 20 bytes */ /* loose */ char s_tot_____int_bytes_004e7fd4[20] = "tot == (int)bytes";
-/* 0x004e7fe8, 12 bytes */ /* loose */ char s_patch05_bin_004e7fe8[12] = "patch05.bin";
-/* 0x004e7ff4, 36 bytes */ /* loose */ char s_size_____int_vbuf__rasterInfo_si_004e7ff4[36] = "size == (int)vbuf->rasterInfo.size";
-/* 0x004e8018, 12 bytes */ /* loose */ char s_grim_tmp_004e8018[12] = "grim.tmp";
-static unsigned char grim_anchor_004e8024[0] __attribute__((section(".data$grim_004e8024"), aligned(16), used));
-static unsigned char grim_pad_004e8024[4] __attribute__((section(".data$grim_004e8024_"), aligned(4), used));
-/* 0x004e8024, 4 bytes */ GRIM_DATA("004e8024z") void *g_pTabFilename = (void *)&DAT_004e8028;
-/* 0x004e8028, 16 bytes */ GRIM_DATA("004e8028") unsigned char DAT_004e8028[16] = { 0x6c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x2e, 0x74, 0x61, 0x62 };
-/* 0x004e8038, 44 bytes */ GRIM_DATA("004e8038") char s_C__grimsrc_libs_grimlib_Engine_p_004e8038[44] = "C:\\grimsrc\\libs\\grimlib\\Engine\\polyglot.c";
-/* 0x004e8064, 4 bytes */ GRIM_DATA("004e8064") int g_nIrisX = 320;
-/* 0x004e8068, 4 bytes */ GRIM_DATA("004e8068") int g_nIrisY = 240;
-/* 0x004e806c, 4 bytes */ GRIM_DATA("004e806c") unsigned int UINT_004e806c = 0x1;
-/* 0x004e8070, 4 bytes */ GRIM_DATA("004e8070") float g_flSputRender_GammaCorrection = 1.0f;
-/* 0x004e8074, 4 bytes */ GRIM_DATA("004e8074") int g_nNumPages = 1;
-/* 0x004e8078, 4 bytes */ GRIM_DATA("004e8078") unsigned int g_dwDebugFlags = 0x8;
-/* 0x004e807c, 4 bytes */ GRIM_DATA("004e807c") float g_flAmbientLight = 0.2f;
-/* 0x004e8080, 4 bytes */ GRIM_DATA("004e8080") int g_nDoTheFlip = 1;
-/* 0x004e8084, 4 bytes */ GRIM_DATA("004e8084") int g_nSputRender_Update_RenderSetup = -1;
-/* 0x004e8088, 4 bytes */ GRIM_DATA("004e8088") unsigned int g_dwLoadImageAllowed = 0x1;
-/* 0x004e808c, 4 bytes */ GRIM_DATA("004e808c") unsigned int UINT_004e808c = 0x1;
-/* 0x004e8090, 24 bytes */ GRIM_DATA("004e8090") char s_Bad_Colormap_Reference_004e8090[24] = "Bad Colormap Reference";
-/* 0x004e80a8, 20 bytes */ /* loose */ char s_main_sputResource_h_004e80a8[20] = "main\\sputResource.h";
-/* 0x004e80bc, 48 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_s_004e80bc[48] = "C:\\grimsrc\\libs\\grimlib\\Engine\\sputRender.cpp";
-/* 0x004e80ec, 40 bytes */ /* loose */ char s__percent____0_0f______percent____004e80ec[40] = "(percent >= 0.0f) && (percent <= 1.0f)";
-/* 0x004e8114, 24 bytes */ /* loose */ char s_Bad_Bitmap_Reference_004e8114[24] = "Bad Bitmap Reference";
-/* 0x004e812c, 12 bytes */ /* loose */ char s_wait_bm_004e812c[12] = "wait.bm";
-/* 0x004e8138, 4 bytes */ /* loose */ unsigned int UINT_004e8138 = 0x0;
-/* 0x004e813c, 4 bytes */ /* loose */ unsigned int UINT_004e813c = 0x0;
-/* 0x004e8140, 4 bytes */ /* loose */ int UINT_004e8140 = 0;
-/* 0x004e8144, 4 bytes */ /* loose */ unsigned int UINT_004e8144 = 0xffffffff;
-/* 0x004e8148, 4 bytes */ /* loose */ unsigned int UINT_004e8148 = 0x0;
-/* 0x004e814c, 4 bytes */ /* loose */ unsigned int UINT_004e814c = 0x1;
-/* 0x004e8150, 8 bytes */ /* loose */ char s_Cancel_004e8150[8] = "Cancel";
-static unsigned char grim_anchor_004e8158[0] __attribute__((section(".data$grim_004e8158"), aligned(16), used));
-static unsigned char grim_pad_004e8158[8] __attribute__((section(".data$grim_004e8158_"), aligned(4), used));
-/* 0x004e8158, 4 bytes */ GRIM_DATA("004e8158z") unsigned char DAT_004e8158[4] = { 0x4f, 0x4b };
-/* 0x004e815c, 8 bytes */ GRIM_DATA("004e815c") char s_BUTTON_004e815c[8] = "BUTTON";
-/* 0x004e8164, 16 bytes */ /* loose */ char s_msctls_updown32_004e8164[16] = "msctls_updown32";
-static unsigned char grim_anchor_004e8174[0] __attribute__((section(".data$grim_004e8174"), aligned(16), used));
-static unsigned char grim_pad_004e8174[4] __attribute__((section(".data$grim_004e8174_"), aligned(4), used));
-/* 0x004e8174, 8 bytes */ GRIM_DATA("004e8174z") unsigned char DAT_004e8174[8] = { 0x45, 0x44, 0x49, 0x54 };
-/* 0x004e817c, 8 bytes */ GRIM_DATA("004e817c") char s_STATIC_004e817c[8] = "STATIC";
-/* 0x004e8184, 16 bytes */ /* loose */ char s_MS_Sans_Serif_004e8184[16] = "MS Sans Serif";
-/* 0x004e8194, 12 bytes */ /* loose */ char s_Recursive_004e8194[12] = "Recursive";
-/* 0x004e81a0, 16 bytes */ /* loose */ char s_SysTreeView32_004e81a0[16] = "SysTreeView32";
-/* 0x004e81b0, 12 bytes */ /* loose */ char s_Tree_Select_004e81b0[12] = "Tree Select";
-/* 0x004e81bc, 8 bytes */ /* loose */ char s_Input_004e81bc[8] = "Input";
-/* 0x004e81c4, 4 bytes */ /* loose */ char s__004e81c4[4] = "\t";
-/* 0x004e81c8, 16 bytes */ /* loose */ char s_Not_so_fast__004e81c8[16] = "Not so fast!";
-/* 0x004e81d8, 20 bytes */ /* loose */ char s_No_item_was_picked__004e81d8[20] = "No item was picked!";
-/* 0x004e81ec, 44 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Win95_gr_004e81ec[44] = "C:\\grimsrc\\libs\\grimlib\\Win95\\grimplat.cpp";
-/* 0x004e8218, 16 bytes */ /* loose */ char s_Spew_Shutdown_004e8218[16] = "Spew_Shutdown";
-/* 0x004e8228, 16 bytes */ /* loose */ char s_Spew_Startup_004e8228[16] = "Spew_Startup";
-static unsigned char grim_anchor_004e8238[0] __attribute__((section(".data$grim_004e8238"), aligned(16), used));
-static unsigned char grim_pad_004e8238[8] __attribute__((section(".data$grim_004e8238_"), aligned(4), used));
-/* 0x004e8238, 16 bytes */ GRIM_DATA("004e8238z") unsigned char DAT_004e8238[16] = { 0x73, 0x70, 0x65, 0x77, 0x2e, 0x64, 0x6c, 0x6c };
-/* 0x004e8248, 28 bytes */ GRIM_DATA("004e8248") grim_span_004e8248 DAT_004e8248 = {
+/* 0x004e7e34, 24 bytes */ GRIM_DATA("004e7e34") char s_sputSmush_Initialize_004e7e34[24] __asm__("_s_sputSmush_Initialize_004e7e34") = "sputSmush_Initialize";
+/* 0x004e7e4c, 28 bytes */ /* loose */ char s_sputPrimitive_Initialize_004e7e4c[28] __asm__("_s_sputPrimitive_Initialize_004e7e4c") = "sputPrimitive_Initialize";
+/* 0x004e7e68, 20 bytes */ /* loose */ char s_sputText_Initialize_004e7e68[20] __asm__("_s_sputText_Initialize_004e7e68") = "sputText_Initialize";
+/* 0x004e7e7c, 24 bytes */ /* loose */ char s_sputRender_Initialize_004e7e7c[24] __asm__("_s_sputRender_Initialize_004e7e7c") = "sputRender_Initialize";
+/* 0x004e7e94, 20 bytes */ /* loose */ char s_SoundsInitialize_004e7e94[20] __asm__("_s_SoundsInitialize_004e7e94") = "SoundsInitialize";
+/* 0x004e7ea8, 24 bytes */ /* loose */ char s_sputControl_Initialize_004e7ea8[24] __asm__("_s_sputControl_Initialize_004e7ea8") = "sputControl_Initialize";
+/* 0x004e7ec0, 24 bytes */ /* loose */ char s_sputResource_Initialize_004e7ec0[24] __asm__("_s_sputResource_Initialize_004e7ec0") = "sputResource_Initialize";
+/* 0x004e7ed8, 24 bytes */ /* loose */ char s_sputActor_Initialize_004e7ed8[24] __asm__("_s_sputActor_Initialize_004e7ed8") = "sputActor_Initialize";
+/* 0x004e7ef0, 24 bytes */ /* loose */ char s_sputCostume_Initialize_004e7ef0[24] __asm__("_s_sputCostume_Initialize_004e7ef0") = "sputCostume_Initialize";
+/* 0x004e7f08, 20 bytes */ /* loose */ char s_sputLua_Initialize_004e7f08[20] __asm__("_s_sputLua_Initialize_004e7f08") = "sputLua_Initialize";
+/* 0x004e7f1c, 20 bytes */ /* loose */ char s_sputTime_Initialize_004e7f1c[20] __asm__("_s_sputTime_Initialize_004e7f1c") = "sputTime_Initialize";
+/* 0x004e7f30, 20 bytes */ /* loose */ char s_sputRoom_Initialize_004e7f30[20] __asm__("_s_sputRoom_Initialize_004e7f30") = "sputRoom_Initialize";
+/* 0x004e7f44, 24 bytes */ /* loose */ char s_Memory_SysInitialize_004e7f44[24] __asm__("_s_Memory_SysInitialize_004e7f44") = "Memory_SysInitialize";
+/* 0x004e7f5c, 24 bytes */ /* loose */ char s_FileUtil_SysInitialize_004e7f5c[24] __asm__("_s_FileUtil_SysInitialize_004e7f5c") = "FileUtil_SysInitialize";
+/* 0x004e7f9c, 44 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c[44] __asm__("_s_C__grimsrc_libs_grimlib_Main_spu_004e7f9c") = "C:\\grimsrc\\libs\\grimlib\\Main\\sputmain.cpp";
+/* 0x004e8028, 16 bytes */ GRIM_DATA("004e8028") unsigned char DAT_004e8028[16] __asm__("_DAT_004e8028") = { 0x6c, 0x61, 0x6e, 0x67, 0x75, 0x61, 0x67, 0x65, 0x2e, 0x74, 0x61, 0x62 };
+/* 0x004e8064, 4 bytes */ GRIM_DATA("004e8064") int g_nIrisX __asm__("_g_nIrisX") = 320;
+/* 0x004e8068, 4 bytes */ GRIM_DATA("004e8068") int g_nIrisY __asm__("_g_nIrisY") = 240;
+/* 0x004e806c, 4 bytes */ GRIM_DATA("004e806c") unsigned int UINT_004e806c __asm__("_UINT_004e806c") = 0x1;
+/* 0x004e8074, 4 bytes */ GRIM_DATA("004e8074") int g_nNumPages __asm__("_g_nNumPages") = 1;
+/* 0x004e8078, 4 bytes */ GRIM_DATA("004e8078") unsigned int g_dwDebugFlags __asm__("_g_dwDebugFlags") = 0x8;
+/* 0x004e8080, 4 bytes */ GRIM_DATA("004e8080") int g_nDoTheFlip __asm__("_g_nDoTheFlip") = 1;
+/* 0x004e8090, 24 bytes */ GRIM_DATA("004e8090") char s_Bad_Colormap_Reference_004e8090[24] __asm__("_s_Bad_Colormap_Reference_004e8090") = "Bad Colormap Reference";
+/* 0x004e80a8, 20 bytes */ /* loose */ char s_main_sputResource_h_004e80a8[20] __asm__("_s_main_sputResource_h_004e80a8") = "main\\sputResource.h";
+/* 0x004e80bc, 48 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_s_004e80bc[48] __asm__("_s_C__grimsrc_libs_grimlib_Engine_s_004e80bc") = "C:\\grimsrc\\libs\\grimlib\\Engine\\sputRender.cpp";
+/* 0x004e8114, 24 bytes */ /* loose */ char s_Bad_Bitmap_Reference_004e8114[24] __asm__("_s_Bad_Bitmap_Reference_004e8114") = "Bad Bitmap Reference";
+/* 0x004e814c, 4 bytes */ /* loose */ unsigned int UINT_004e814c __asm__("_UINT_004e814c") = 0x1;
+/* 0x004e8248, 28 bytes */ GRIM_DATA("004e8248") grim_span_004e8248 DAT_004e8248 __asm__("_DAT_004e8248") = {
     (void *)&DAT_004e8248,
     {0},
     (void *)&DAT_004e8248
 };
-/* 0x004e8264, 40 bytes */ GRIM_DATA("004e8264") char s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264[40] = "C:\\grimsrc\\libs\\grimlib\\Temp\\Memory.c";
-/* 0x004e828c, 8 bytes */ /* loose */ char s_pData_004e828c[8] = "pData";
-/* 0x004e8294, 32 bytes */ /* loose */ char s_pPool__poolItems____itemCount_004e8294[32] = "pPool->poolItems == itemCount";
-/* 0x004e82b4, 8 bytes */ /* loose */ char s_pPool_004e82b4[8] = "pPool";
-/* 0x004e82bc, 16 bytes */ /* loose */ char s_itemGrowBy___0_004e82bc[16] = "itemGrowBy > 0";
-/* 0x004e82cc, 16 bytes */ /* loose */ char s_itemSize___0_004e82cc[16] = "itemSize > 0";
-/* 0x004e82dc, 24 bytes */ /* loose */ char s_pPool__pPool____pPool_004e82dc[24] = "pPool->pPool == pPool";
-/* 0x004e82f4, 8 bytes */ /* loose */ char s_pool_004e82f4[8] = "pool";
-/* 0x004e82fc, 8 bytes */ /* loose */ char s__s____004e82fc[8] = "%s*.*";
-/* 0x004e8304, 8 bytes */ /* loose */ char s__s___s_004e8304[8] = "%s*.%s";
-/* 0x004e830c, 44 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c[44] = "C:\\grimsrc\\libs\\grimlib\\Temp\\Fileutil.c";
 static unsigned char grim_anchor_004e8338[0] __attribute__((section(".data$grim_004e8338"), aligned(16), used));
 static unsigned char grim_pad_004e8338[8] __attribute__((section(".data$grim_004e8338_"), aligned(4), used));
-/* 0x004e8338, 24 bytes */ GRIM_DATA("004e8338z") void *g_pSputVideoCallBacks[6] = {
+/* 0x004e8338, 24 bytes */ GRIM_DATA("004e8338z") void *g_pSputVideoCallBacks[6] __asm__("_g_pSputVideoCallBacks") = {
     (void *)f_sputSmush_StartVideo, (void *)f_sputSmush_StopVideo, (void *)f_sputSmush_LockMovieBuffer, (void *)f_sputSmush_UnLockMovieBuffer,
     0, (void *)f_sputSmush_SetVideoPalette
 };
-/* 0x004e8350, 8 bytes */ GRIM_DATA("004e8350") char s_FALSE_004e8350[8] = "FALSE";
-/* 0x004e8358, 16 bytes */ /* loose */ char s_StartSmush_004e8358[16] = "StartSmush";
-/* 0x004e8368, 4 bytes */ /* loose */ void *PTR_s_color_004e8368 = (void *)&s_color_004e8468;
-/* 0x004e836c, 4 bytes */ /* loose */ void *PTR_s_xoffset_004e836c = (void *)&s_xoffset_004e8460;
-/* 0x004e8370, 4 bytes */ /* loose */ void *PTR_s_yoffset_004e8370 = (void *)&s_yoffset_004e8458;
-/* 0x004e8374, 4 bytes */ /* loose */ void *PTR_s_x_004e8374 = (void *)&s_x_004e8454;
-/* 0x004e8378, 4 bytes */ /* loose */ void *PTR_s_y_004e8378 = (void *)&s_y_004e8450;
-/* 0x004e837c, 4 bytes */ /* loose */ void *PTR_DAT_004e837c = (void *)&DAT_004e844c;
-/* 0x004e8380, 4 bytes */ /* loose */ void *PTR_DAT_004e8380 = (void *)&DAT_004e8448;
-/* 0x004e8384, 4 bytes */ /* loose */ void *PTR_s_width_004e8384 = (void *)&s_width_004e8440;
-/* 0x004e8388, 4 bytes */ /* loose */ void *PTR_s_height_004e8388 = (void *)&s_height_004e8438;
-/* 0x004e838c, 4 bytes */ /* loose */ void *PTR_s_filled_004e838c = (void *)&s_filled_004e8430;
-/* 0x004e8390, 4 bytes */ /* loose */ void *PTR_s_layer_004e8390 = (void *)&s_layer_004e8428;
 static unsigned char grim_anchor_004e8394[0] __attribute__((section(".data$grim_004e8394"), aligned(16), used));
 static unsigned char grim_pad_004e8394[4] __attribute__((section(".data$grim_004e8394_"), aligned(4), used));
-/* 0x004e8394, 4 bytes */ GRIM_DATA("004e8394z") int g_nPrimitiveQueue_nextId = 1;
-/* 0x004e8398, 48 bytes */ GRIM_DATA("004e8398") void *g_pPrimitiveFunctionsToRegister[12] = {
-    (void *)&s_DrawLine_004e841c, (void *)f_sputPrimitive_DrawLine, (void *)&s_DrawPolygon_004e8410, (void *)f_sputPrimitive_DrawPolygon,
-    (void *)&s_DrawRectangle_004e8400, (void *)f_sputPrimitive_DrawRectangle, (void *)&s_ChangePrimitive_004e83f0, (void *)f_sputPrimitive_ChangePrimitive,
-    (void *)&s_KillPrimitive_004e83e0, (void *)f_sputPrimitive_KillPrimitive, (void *)&s_PurgePrimitiveQueue_004e83cc, (void *)f_sputPrimitive_PurgeQueue
-};
-/* 0x004e83c8, 4 bytes */ GRIM_DATA("004e83c8") unsigned int UINT_004e83c8 = 0x6;
-/* 0x004e83cc, 20 bytes */ GRIM_DATA("004e83cc") char s_PurgePrimitiveQueue_004e83cc[20] = "PurgePrimitiveQueue";
-/* 0x004e83e0, 16 bytes */ /* loose */ char s_KillPrimitive_004e83e0[16] = "KillPrimitive";
-/* 0x004e83f0, 16 bytes */ /* loose */ char s_ChangePrimitive_004e83f0[16] = "ChangePrimitive";
-/* 0x004e8400, 16 bytes */ /* loose */ char s_DrawRectangle_004e8400[16] = "DrawRectangle";
-/* 0x004e8410, 12 bytes */ /* loose */ char s_DrawPolygon_004e8410[12] = "DrawPolygon";
-/* 0x004e841c, 12 bytes */ /* loose */ char s_DrawLine_004e841c[12] = "DrawLine";
-/* 0x004e8428, 8 bytes */ /* loose */ char s_layer_004e8428[8] = "layer";
-/* 0x004e8430, 8 bytes */ /* loose */ char s_filled_004e8430[8] = "filled";
-/* 0x004e8438, 8 bytes */ /* loose */ char s_height_004e8438[8] = "height";
-/* 0x004e8440, 8 bytes */ /* loose */ char s_width_004e8440[8] = "width";
+/* 0x004e8394, 4 bytes */ GRIM_DATA("004e8394z") int g_nPrimitiveQueue_nextId __asm__("_g_nPrimitiveQueue_nextId") = 1;
+/* 0x004e83cc, 20 bytes */ GRIM_DATA("004e83cc") char s_PurgePrimitiveQueue_004e83cc[20] __asm__("_s_PurgePrimitiveQueue_004e83cc") = "PurgePrimitiveQueue";
+/* 0x004e83e0, 16 bytes */ /* loose */ char s_KillPrimitive_004e83e0[16] __asm__("_s_KillPrimitive_004e83e0") = "KillPrimitive";
+/* 0x004e83f0, 16 bytes */ /* loose */ char s_ChangePrimitive_004e83f0[16] __asm__("_s_ChangePrimitive_004e83f0") = "ChangePrimitive";
+/* 0x004e8400, 16 bytes */ /* loose */ char s_DrawRectangle_004e8400[16] __asm__("_s_DrawRectangle_004e8400") = "DrawRectangle";
+/* 0x004e8410, 12 bytes */ /* loose */ char s_DrawPolygon_004e8410[12] __asm__("_s_DrawPolygon_004e8410") = "DrawPolygon";
+/* 0x004e841c, 12 bytes */ /* loose */ char s_DrawLine_004e841c[12] __asm__("_s_DrawLine_004e841c") = "DrawLine";
+/* 0x004e8428, 8 bytes */ /* loose */ char s_layer_004e8428[8] __asm__("_s_layer_004e8428") = "layer";
 static unsigned char grim_anchor_004e8448[0] __attribute__((section(".data$grim_004e8448"), aligned(16), used));
 static unsigned char grim_pad_004e8448[8] __attribute__((section(".data$grim_004e8448_"), aligned(4), used));
-/* 0x004e8448, 4 bytes */ GRIM_DATA("004e8448z") unsigned char DAT_004e8448[4] = { 0x79, 0x32 };
-/* 0x004e844c, 4 bytes */ GRIM_DATA("004e844c") unsigned char DAT_004e844c[4] = { 0x78, 0x32 };
-/* 0x004e8450, 4 bytes */ GRIM_DATA("004e8450") char s_y_004e8450[4] = "y";
-/* 0x004e8454, 4 bytes */ /* loose */ char s_x_004e8454[4] = "x";
-/* 0x004e8458, 8 bytes */ /* loose */ char s_yoffset_004e8458[8] = "yoffset";
-/* 0x004e8460, 8 bytes */ /* loose */ char s_xoffset_004e8460[8] = "xoffset";
-/* 0x004e8468, 8 bytes */ /* loose */ char s_color_004e8468[8] = "color";
-/* 0x004e8470, 4 bytes */ /* loose */ unsigned int UINT_004e8470 = 0x28;
-static unsigned char grim_anchor_004e8474[0] __attribute__((section(".data$grim_004e8474"), aligned(16), used));
-static unsigned char grim_pad_004e8474[4] __attribute__((section(".data$grim_004e8474_"), aligned(4), used));
-/* 0x004e8474, 4 bytes */ GRIM_DATA("004e8474z") unsigned int UINT_004e8474 = 0x3;
-/* 0x004e8478, 8 bytes */ GRIM_DATA("004e8478") unsigned char DAT_004e8478[8] = {0};
-/* 0x004e8480, 4 bytes */ GRIM_DATA("004e8480") unsigned int UINT_004e8480 = 0x280;
-/* 0x004e8484, 4 bytes */ GRIM_DATA("004e8484") unsigned int UINT_004e8484 = 0x1e0;
-/* 0x004e8488, 4 bytes */ GRIM_DATA("004e8488") int g_nSubtitleDefaultX = 320;
-/* 0x004e848c, 4 bytes */ GRIM_DATA("004e848c") int g_nSubtitleDefaultY = 450;
-/* 0x004e8490, 8 bytes */ GRIM_DATA("004e8490") unsigned char UINT_004e8490[8] = {0};
-/* 0x004e8498, 48 bytes */ GRIM_DATA("004e8498") TextContext g_PrintLineTextCtx = { .pUnused = (void *)&UINT_008a94b8, .pClipRect = (void *)&DAT_004e8478, .nY = 100, .nScaleX = 65536, .nScaleY = 65536, .dwFlags = 0x4 };
-/* 0x004e84c8, 48 bytes */ GRIM_DATA("004e84c8") TextContext g_SubtitleTextCtx = { .pUnused = (void *)&UINT_008a94b8, .nY = 100, .nScaleX = 65536, .nScaleY = 65536, .dwFlags = 0x5 };
-/* 0x004e84f8, 48 bytes */ GRIM_DATA("004e84f8") TextContext g_TextObjectCtx = { .pUnused = (void *)&UINT_008a94b8, .nY = 200, .dwFgColor = 0xa, .nScaleX = 65536, .nScaleY = 65536, .dwFlags = 0x4 };
-/* 0x004e8528, 176 bytes */ GRIM_DATA("004e8528") void *g_pTextFunctionsToRegister[44] = {
-    (void *)&s_IsMessageGoing_004e8744, (void *)f_sputText_IsMessageGoingL, (void *)&s_SetSayLineDefaults_004e8730, (void *)f_sputText_SetSayLineDefaultsL,
-    (void *)&s_SetActorTalkColor_004e871c, (void *)f_sputText_SetActorTalkColorL, (void *)&s_GetActorTalkColor_004e8708, (void *)f_sputText_GetActorTalkColorL,
-    (void *)&s_SayLine_004e8700, (void *)f_sputText_SayLineL, (void *)&s_PrintLine_004e86f4, (void *)f_sputText_PrintLineL,
-    (void *)&s_MakeTextObject_004e86e4, (void *)f_sputText_MakeTextObjectL, (void *)&s_GetTextObjectDimensions_004e86cc, (void *)f_sputText_GetTextObjectDimensionsL,
-    (void *)&s_GetFontDimensions_004e86b8, (void *)f_sputText_GetFontDimensionsL, (void *)&s_ChangeTextObject_004e86a4, (void *)f_sputText_ChangeTextObjectL,
-    (void *)&s_KillTextObject_004e8694, (void *)f_sputText_KillTextObjectL, (void *)&s_BlastText_004e8688, (void *)f_sputText_BlastText,
-    (void *)&s_ExpireText_004e867c, (void *)f_sputText_ExpireTextQueueL, (void *)&s_PurgeText_004e8670, (void *)f_sputText_PurgeTextQueueL,
-    (void *)&s_MakeColor_004e8664, (void *)f_sputText_MakeColorL, (void *)&s_GetColorComponents_004e8650, (void *)f_sputText_GetColorComponentsL,
-    (void *)&s_SetTranslationMode_004e863c, (void *)f_sputText_SetTranslationModeL, (void *)&s_GetTranslationMode_004e8628, (void *)f_sputText_GetTranslationModeL,
-    (void *)&s_GetTextCharPosition_004e8614, (void *)f_sputText_GetTextCharPositionL, (void *)&s_LocalizeString_004e8604, (void *)f_sputText_LocalizeStringL,
-    (void *)&s_SetEmergencyFont_004e85f0, (void *)f_sputText_SetEmergencyFontL, (void *)&s_SetOffscreenTextPos_004e85dc, (void *)f_sputText_SetOffscreenTextPosL
-};
-/* 0x004e85d8, 4 bytes */ GRIM_DATA("004e85d8") unsigned int UINT_004e85d8 = 0x16;
-/* 0x004e85dc, 20 bytes */ GRIM_DATA("004e85dc") char s_SetOffscreenTextPos_004e85dc[20] = "SetOffscreenTextPos";
-/* 0x004e85f0, 20 bytes */ /* loose */ char s_SetEmergencyFont_004e85f0[20] = "SetEmergencyFont";
-/* 0x004e8604, 16 bytes */ /* loose */ char s_LocalizeString_004e8604[16] = "LocalizeString";
-/* 0x004e8614, 20 bytes */ /* loose */ char s_GetTextCharPosition_004e8614[20] = "GetTextCharPosition";
-/* 0x004e8628, 20 bytes */ /* loose */ char s_GetTranslationMode_004e8628[20] = "GetTranslationMode";
-/* 0x004e863c, 20 bytes */ /* loose */ char s_SetTranslationMode_004e863c[20] = "SetTranslationMode";
-/* 0x004e8650, 20 bytes */ /* loose */ char s_GetColorComponents_004e8650[20] = "GetColorComponents";
-/* 0x004e8664, 12 bytes */ /* loose */ char s_MakeColor_004e8664[12] = "MakeColor";
-/* 0x004e8670, 12 bytes */ /* loose */ char s_PurgeText_004e8670[12] = "PurgeText";
-/* 0x004e867c, 12 bytes */ /* loose */ char s_ExpireText_004e867c[12] = "ExpireText";
-/* 0x004e8688, 12 bytes */ /* loose */ char s_BlastText_004e8688[12] = "BlastText";
-/* 0x004e8694, 16 bytes */ /* loose */ char s_KillTextObject_004e8694[16] = "KillTextObject";
-/* 0x004e86a4, 20 bytes */ /* loose */ char s_ChangeTextObject_004e86a4[20] = "ChangeTextObject";
-/* 0x004e86b8, 20 bytes */ /* loose */ char s_GetFontDimensions_004e86b8[20] = "GetFontDimensions";
-/* 0x004e86cc, 24 bytes */ /* loose */ char s_GetTextObjectDimensions_004e86cc[24] = "GetTextObjectDimensions";
-/* 0x004e86e4, 16 bytes */ /* loose */ char s_MakeTextObject_004e86e4[16] = "MakeTextObject";
-/* 0x004e86f4, 12 bytes */ /* loose */ char s_PrintLine_004e86f4[12] = "PrintLine";
-/* 0x004e8700, 8 bytes */ /* loose */ char s_SayLine_004e8700[8] = "SayLine";
-/* 0x004e8708, 20 bytes */ /* loose */ char s_GetActorTalkColor_004e8708[20] = "GetActorTalkColor";
-/* 0x004e871c, 20 bytes */ /* loose */ char s_SetActorTalkColor_004e871c[20] = "SetActorTalkColor";
-/* 0x004e8730, 20 bytes */ /* loose */ char s_SetSayLineDefaults_004e8730[20] = "SetSayLineDefaults";
-/* 0x004e8744, 16 bytes */ /* loose */ char s_IsMessageGoing_004e8744[16] = "IsMessageGoing";
-/* 0x004e8754, 8 bytes */ /* loose */ char s___s__s_004e8754[8] = "/%s/%s";
-/* 0x004e875c, 12 bytes */ /* loose */ char s_background_004e875c[12] = "background";
-/* 0x004e8768, 4 bytes */ /* loose */ char s_pan_004e8768[4] = "pan";
-/* 0x004e876c, 8 bytes */ /* loose */ char s_volume_004e876c[8] = "volume";
-/* 0x004e8774, 12 bytes */ /* loose */ char s_rjustify_004e8774[12] = "rjustify";
-/* 0x004e8780, 12 bytes */ /* loose */ char s_ljustify_004e8780[12] = "ljustify";
-/* 0x004e878c, 8 bytes */ /* loose */ char s_center_004e878c[8] = "center";
-/* 0x004e8794, 12 bytes */ /* loose */ char s_duration_004e8794[12] = "duration";
-/* 0x004e87a0, 8 bytes */ /* loose */ char s_hicolor_004e87a0[8] = "hicolor";
-/* 0x004e87a8, 8 bytes */ /* loose */ char s_fxcolor_004e87a8[8] = "fxcolor";
-/* 0x004e87b0, 8 bytes */ /* loose */ char s_bgcolor_004e87b0[8] = "bgcolor";
-/* 0x004e87b8, 8 bytes */ /* loose */ char s_fgcolor_004e87b8[8] = "fgcolor";
-/* 0x004e87c0, 8 bytes */ /* loose */ char s_font_004e87c0[8] = "font";
+/* 0x004e8448, 4 bytes */ GRIM_DATA("004e8448z") unsigned char DAT_004e8448[4] __asm__("_DAT_004e8448") = { 0x79, 0x32 };
+/* 0x004e844c, 4 bytes */ GRIM_DATA("004e844c") unsigned char DAT_004e844c[4] __asm__("_DAT_004e844c") = { 0x78, 0x32 };
+/* 0x004e8450, 4 bytes */ GRIM_DATA("004e8450") char s_y_004e8450[4] __asm__("_s_y_004e8450") = "y";
+/* 0x004e8454, 4 bytes */ /* loose */ char s_x_004e8454[4] __asm__("_s_x_004e8454") = "x";
+/* 0x004e8458, 8 bytes */ /* loose */ char s_yoffset_004e8458[8] __asm__("_s_yoffset_004e8458") = "yoffset";
+/* 0x004e8460, 8 bytes */ /* loose */ char s_xoffset_004e8460[8] __asm__("_s_xoffset_004e8460") = "xoffset";
+/* 0x004e8478, 8 bytes */ GRIM_DATA("004e8478") unsigned char DAT_004e8478[8] __asm__("_DAT_004e8478") = {0};
+/* 0x004e8488, 4 bytes */ GRIM_DATA("004e8488") int g_nSubtitleDefaultX __asm__("_g_nSubtitleDefaultX") = 320;
+/* 0x004e848c, 4 bytes */ GRIM_DATA("004e848c") int g_nSubtitleDefaultY __asm__("_g_nSubtitleDefaultY") = 450;
+/* 0x004e8498, 48 bytes */ GRIM_DATA("004e8498") TextContext g_PrintLineTextCtx __asm__("_g_PrintLineTextCtx") = { .pUnused = (void *)&UINT_008a94b8, .pClipRect = (void *)&DAT_004e8478, .nY = 100, .nScaleX = 65536, .nScaleY = 65536, .dwFlags = 0x4 };
+/* 0x004e84c8, 48 bytes */ GRIM_DATA("004e84c8") TextContext g_SubtitleTextCtx __asm__("_g_SubtitleTextCtx") = { .pUnused = (void *)&UINT_008a94b8, .nY = 100, .nScaleX = 65536, .nScaleY = 65536, .dwFlags = 0x5 };
+/* 0x004e84f8, 48 bytes */ GRIM_DATA("004e84f8") TextContext g_TextObjectCtx __asm__("_g_TextObjectCtx") = { .pUnused = (void *)&UINT_008a94b8, .nY = 200, .dwFgColor = 0xa, .nScaleX = 65536, .nScaleY = 65536, .dwFlags = 0x4 };
+/* 0x004e85dc, 20 bytes */ GRIM_DATA("004e85dc") char s_SetOffscreenTextPos_004e85dc[20] __asm__("_s_SetOffscreenTextPos_004e85dc") = "SetOffscreenTextPos";
+/* 0x004e85f0, 20 bytes */ /* loose */ char s_SetEmergencyFont_004e85f0[20] __asm__("_s_SetEmergencyFont_004e85f0") = "SetEmergencyFont";
+/* 0x004e8604, 16 bytes */ /* loose */ char s_LocalizeString_004e8604[16] __asm__("_s_LocalizeString_004e8604") = "LocalizeString";
+/* 0x004e8614, 20 bytes */ /* loose */ char s_GetTextCharPosition_004e8614[20] __asm__("_s_GetTextCharPosition_004e8614") = "GetTextCharPosition";
+/* 0x004e8628, 20 bytes */ /* loose */ char s_GetTranslationMode_004e8628[20] __asm__("_s_GetTranslationMode_004e8628") = "GetTranslationMode";
+/* 0x004e863c, 20 bytes */ /* loose */ char s_SetTranslationMode_004e863c[20] __asm__("_s_SetTranslationMode_004e863c") = "SetTranslationMode";
+/* 0x004e8650, 20 bytes */ /* loose */ char s_GetColorComponents_004e8650[20] __asm__("_s_GetColorComponents_004e8650") = "GetColorComponents";
+/* 0x004e8664, 12 bytes */ /* loose */ char s_MakeColor_004e8664[12] __asm__("_s_MakeColor_004e8664") = "MakeColor";
+/* 0x004e8670, 12 bytes */ /* loose */ char s_PurgeText_004e8670[12] __asm__("_s_PurgeText_004e8670") = "PurgeText";
+/* 0x004e867c, 12 bytes */ /* loose */ char s_ExpireText_004e867c[12] __asm__("_s_ExpireText_004e867c") = "ExpireText";
+/* 0x004e8688, 12 bytes */ /* loose */ char s_BlastText_004e8688[12] __asm__("_s_BlastText_004e8688") = "BlastText";
+/* 0x004e8694, 16 bytes */ /* loose */ char s_KillTextObject_004e8694[16] __asm__("_s_KillTextObject_004e8694") = "KillTextObject";
+/* 0x004e86a4, 20 bytes */ /* loose */ char s_ChangeTextObject_004e86a4[20] __asm__("_s_ChangeTextObject_004e86a4") = "ChangeTextObject";
+/* 0x004e86b8, 20 bytes */ /* loose */ char s_GetFontDimensions_004e86b8[20] __asm__("_s_GetFontDimensions_004e86b8") = "GetFontDimensions";
+/* 0x004e86cc, 24 bytes */ /* loose */ char s_GetTextObjectDimensions_004e86cc[24] __asm__("_s_GetTextObjectDimensions_004e86cc") = "GetTextObjectDimensions";
+/* 0x004e86e4, 16 bytes */ /* loose */ char s_MakeTextObject_004e86e4[16] __asm__("_s_MakeTextObject_004e86e4") = "MakeTextObject";
+/* 0x004e86f4, 12 bytes */ /* loose */ char s_PrintLine_004e86f4[12] __asm__("_s_PrintLine_004e86f4") = "PrintLine";
+/* 0x004e8700, 8 bytes */ /* loose */ char s_SayLine_004e8700[8] __asm__("_s_SayLine_004e8700") = "SayLine";
+/* 0x004e8708, 20 bytes */ /* loose */ char s_GetActorTalkColor_004e8708[20] __asm__("_s_GetActorTalkColor_004e8708") = "GetActorTalkColor";
+/* 0x004e871c, 20 bytes */ /* loose */ char s_SetActorTalkColor_004e871c[20] __asm__("_s_SetActorTalkColor_004e871c") = "SetActorTalkColor";
+/* 0x004e8730, 20 bytes */ /* loose */ char s_SetSayLineDefaults_004e8730[20] __asm__("_s_SetSayLineDefaults_004e8730") = "SetSayLineDefaults";
+/* 0x004e8744, 16 bytes */ /* loose */ char s_IsMessageGoing_004e8744[16] __asm__("_s_IsMessageGoing_004e8744") = "IsMessageGoing";
 static unsigned char grim_anchor_004e87c8[0] __attribute__((section(".data$grim_004e87c8"), aligned(16), used));
 static unsigned char grim_pad_004e87c8[8] __attribute__((section(".data$grim_004e87c8_"), aligned(4), used));
-/* 0x004e87c8, 2672 bytes */ GRIM_DATA("004e87c8z") ControlSymbol g_aControlSymbols[167] = {
+/* 0x004e87c8, 2672 bytes */ GRIM_DATA("004e87c8z") ControlSymbol g_aControlSymbols[167] __asm__("_g_aControlSymbols") = {
     { .dwFlags = 0x4, .nId = 1, .pName = (void *)&s_KEY_ESCAPE_004e99a4 },
     { .dwFlags = 0x4, .nId = 2, .pName = (void *)&DAT_004e999c },
     { .dwFlags = 0x4, .nId = 3, .pName = (void *)&DAT_004e9994 },
@@ -8400,189 +4333,175 @@ static unsigned char grim_pad_004e87c8[8] __attribute__((section(".data$grim_004
     { .dwFlags = 0x2, .nId = 13, .pName = (void *)&DAT_004e924c },
     { .dwFlags = 0x2, .nId = 14, .pName = (void *)&DAT_004e923c }
 };
-/* 0x004e9238, 4 bytes */ GRIM_DATA("004e9238") int g_nSputControl_numControlSymbols = 167;
-/* 0x004e923c, 16 bytes */ GRIM_DATA("004e923c") unsigned char DAT_004e923c[16] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x5a };
-/* 0x004e924c, 16 bytes */ GRIM_DATA("004e924c") unsigned char DAT_004e924c[16] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x59 };
-/* 0x004e925c, 16 bytes */ GRIM_DATA("004e925c") unsigned char DAT_004e925c[16] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x58 };
-/* 0x004e926c, 12 bytes */ GRIM_DATA("004e926c") unsigned char DAT_004e926c[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x56 };
-/* 0x004e9278, 12 bytes */ GRIM_DATA("004e9278") unsigned char DAT_004e9278[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x55 };
-/* 0x004e9284, 12 bytes */ GRIM_DATA("004e9284") unsigned char DAT_004e9284[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x52 };
-/* 0x004e9290, 12 bytes */ GRIM_DATA("004e9290") unsigned char DAT_004e9290[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x5a };
-/* 0x004e929c, 12 bytes */ GRIM_DATA("004e929c") unsigned char DAT_004e929c[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x59 };
-/* 0x004e92a8, 12 bytes */ GRIM_DATA("004e92a8") unsigned char DAT_004e92a8[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x58 };
-/* 0x004e92b4, 12 bytes */ GRIM_DATA("004e92b4") unsigned char DAT_004e92b4[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x56 };
-/* 0x004e92c0, 12 bytes */ GRIM_DATA("004e92c0") unsigned char DAT_004e92c0[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x55 };
-/* 0x004e92cc, 12 bytes */ GRIM_DATA("004e92cc") unsigned char DAT_004e92cc[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x52 };
-/* 0x004e92d8, 12 bytes */ GRIM_DATA("004e92d8") unsigned char DAT_004e92d8[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x5a };
-/* 0x004e92e4, 12 bytes */ GRIM_DATA("004e92e4") unsigned char DAT_004e92e4[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x59 };
-/* 0x004e92f0, 12 bytes */ GRIM_DATA("004e92f0") unsigned char DAT_004e92f0[12] = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x58 };
-/* 0x004e92fc, 16 bytes */ GRIM_DATA("004e92fc") unsigned char DAT_004e92fc[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x42, 0x34 };
-/* 0x004e930c, 16 bytes */ GRIM_DATA("004e930c") unsigned char DAT_004e930c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x42, 0x33 };
-/* 0x004e931c, 16 bytes */ GRIM_DATA("004e931c") unsigned char DAT_004e931c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x42, 0x32 };
-/* 0x004e932c, 16 bytes */ GRIM_DATA("004e932c") unsigned char DAT_004e932c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x42, 0x31 };
-/* 0x004e933c, 16 bytes */ GRIM_DATA("004e933c") unsigned char DAT_004e933c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x48, 0x44, 0x4f, 0x57, 0x4e };
-/* 0x004e934c, 16 bytes */ GRIM_DATA("004e934c") unsigned char DAT_004e934c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x48, 0x52, 0x49, 0x47, 0x48, 0x54 };
-/* 0x004e935c, 16 bytes */ GRIM_DATA("004e935c") unsigned char DAT_004e935c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x48, 0x55, 0x50 };
-/* 0x004e936c, 16 bytes */ GRIM_DATA("004e936c") unsigned char DAT_004e936c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x48, 0x4c, 0x45, 0x46, 0x54 };
-/* 0x004e937c, 16 bytes */ GRIM_DATA("004e937c") unsigned char DAT_004e937c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x31, 0x30 };
-/* 0x004e938c, 12 bytes */ GRIM_DATA("004e938c") unsigned char DAT_004e938c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x39 };
-/* 0x004e9398, 12 bytes */ GRIM_DATA("004e9398") unsigned char DAT_004e9398[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x38 };
-/* 0x004e93a4, 12 bytes */ GRIM_DATA("004e93a4") unsigned char DAT_004e93a4[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x37 };
-/* 0x004e93b0, 12 bytes */ GRIM_DATA("004e93b0") unsigned char DAT_004e93b0[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x36 };
-/* 0x004e93bc, 12 bytes */ GRIM_DATA("004e93bc") unsigned char DAT_004e93bc[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x35 };
-/* 0x004e93c8, 12 bytes */ GRIM_DATA("004e93c8") unsigned char DAT_004e93c8[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x34 };
-/* 0x004e93d4, 12 bytes */ GRIM_DATA("004e93d4") unsigned char DAT_004e93d4[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x33 };
-/* 0x004e93e0, 12 bytes */ GRIM_DATA("004e93e0") unsigned char DAT_004e93e0[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x32 };
-/* 0x004e93ec, 12 bytes */ GRIM_DATA("004e93ec") unsigned char DAT_004e93ec[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x31 };
-/* 0x004e93f8, 16 bytes */ GRIM_DATA("004e93f8") unsigned char DAT_004e93f8[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x48, 0x44, 0x4f, 0x57, 0x4e };
-/* 0x004e9408, 16 bytes */ GRIM_DATA("004e9408") unsigned char DAT_004e9408[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x48, 0x52, 0x49, 0x47, 0x48, 0x54 };
-/* 0x004e9418, 16 bytes */ GRIM_DATA("004e9418") unsigned char DAT_004e9418[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x48, 0x55, 0x50 };
-/* 0x004e9428, 16 bytes */ GRIM_DATA("004e9428") unsigned char DAT_004e9428[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x48, 0x4c, 0x45, 0x46, 0x54 };
-/* 0x004e9438, 16 bytes */ GRIM_DATA("004e9438") unsigned char DAT_004e9438[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x31, 0x30 };
-/* 0x004e9448, 12 bytes */ GRIM_DATA("004e9448") unsigned char DAT_004e9448[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x39 };
-/* 0x004e9454, 12 bytes */ GRIM_DATA("004e9454") unsigned char DAT_004e9454[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x38 };
-/* 0x004e9460, 12 bytes */ GRIM_DATA("004e9460") unsigned char DAT_004e9460[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x37 };
-/* 0x004e946c, 12 bytes */ GRIM_DATA("004e946c") unsigned char DAT_004e946c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x36 };
-/* 0x004e9478, 12 bytes */ GRIM_DATA("004e9478") unsigned char DAT_004e9478[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x35 };
-/* 0x004e9484, 12 bytes */ GRIM_DATA("004e9484") unsigned char DAT_004e9484[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x34 };
-/* 0x004e9490, 12 bytes */ GRIM_DATA("004e9490") unsigned char DAT_004e9490[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x33 };
-/* 0x004e949c, 12 bytes */ GRIM_DATA("004e949c") unsigned char DAT_004e949c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x32 };
-/* 0x004e94a8, 12 bytes */ GRIM_DATA("004e94a8") unsigned char DAT_004e94a8[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x31 };
-/* 0x004e94b4, 12 bytes */ GRIM_DATA("004e94b4") unsigned char DAT_004e94b4[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x50, 0x50, 0x53 };
-/* 0x004e94c0, 12 bytes */ GRIM_DATA("004e94c0") unsigned char DAT_004e94c0[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x57, 0x49, 0x4e };
-/* 0x004e94cc, 12 bytes */ GRIM_DATA("004e94cc") unsigned char DAT_004e94cc[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x57, 0x49, 0x4e };
-/* 0x004e94d8, 12 bytes */ GRIM_DATA("004e94d8") unsigned char DAT_004e94d8[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x44, 0x45, 0x4c, 0x45, 0x54, 0x45 };
-/* 0x004e94e4, 12 bytes */ GRIM_DATA("004e94e4") unsigned char DAT_004e94e4[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x49, 0x4e, 0x53, 0x45, 0x52, 0x54 };
-/* 0x004e94f0, 12 bytes */ GRIM_DATA("004e94f0") unsigned char DAT_004e94f0[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x45, 0x58, 0x54 };
-/* 0x004e94fc, 12 bytes */ GRIM_DATA("004e94fc") unsigned char DAT_004e94fc[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x44, 0x4f, 0x57, 0x4e };
-/* 0x004e9508, 8 bytes */ GRIM_DATA("004e9508") unsigned char DAT_004e9508[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x45, 0x4e, 0x44 };
-/* 0x004e9510, 12 bytes */ GRIM_DATA("004e9510") unsigned char DAT_004e9510[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x49, 0x47, 0x48, 0x54 };
-/* 0x004e951c, 12 bytes */ GRIM_DATA("004e951c") unsigned char DAT_004e951c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x45, 0x46, 0x54 };
-/* 0x004e9528, 12 bytes */ GRIM_DATA("004e9528") unsigned char DAT_004e9528[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x50, 0x52, 0x49, 0x4f, 0x52 };
-/* 0x004e9534, 8 bytes */ GRIM_DATA("004e9534") unsigned char DAT_004e9534[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x55, 0x50 };
-/* 0x004e953c, 12 bytes */ GRIM_DATA("004e953c") unsigned char DAT_004e953c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x48, 0x4f, 0x4d, 0x45 };
-/* 0x004e9548, 12 bytes */ GRIM_DATA("004e9548") unsigned char DAT_004e9548[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x4d, 0x45, 0x4e, 0x55 };
-/* 0x004e9554, 12 bytes */ GRIM_DATA("004e9554") unsigned char DAT_004e9554[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x59, 0x53, 0x52, 0x51 };
-/* 0x004e9560, 12 bytes */ GRIM_DATA("004e9560") unsigned char DAT_004e9560[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x44, 0x49, 0x56, 0x49, 0x44, 0x45 };
-/* 0x004e956c, 16 bytes */ GRIM_DATA("004e956c") unsigned char DAT_004e956c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x43, 0x4f, 0x4d, 0x4d, 0x41 };
-/* 0x004e957c, 16 bytes */ GRIM_DATA("004e957c") unsigned char DAT_004e957c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x43, 0x4f, 0x4e, 0x54, 0x52, 0x4f, 0x4c };
-/* 0x004e958c, 16 bytes */ GRIM_DATA("004e958c") unsigned char DAT_004e958c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x45, 0x4e, 0x54, 0x45, 0x52 };
-/* 0x004e959c, 16 bytes */ GRIM_DATA("004e959c") unsigned char DAT_004e959c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x55, 0x4e, 0x4c, 0x41, 0x42, 0x45, 0x4c, 0x45, 0x44 };
-/* 0x004e95ac, 8 bytes */ GRIM_DATA("004e95ac") unsigned char DAT_004e95ac[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x58 };
-/* 0x004e95b4, 12 bytes */ GRIM_DATA("004e95b4") unsigned char DAT_004e95b4[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x54, 0x4f, 0x50 };
-/* 0x004e95c0, 12 bytes */ GRIM_DATA("004e95c0") unsigned char DAT_004e95c0[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4b, 0x41, 0x4e, 0x4a, 0x49 };
-/* 0x004e95cc, 16 bytes */ GRIM_DATA("004e95cc") unsigned char DAT_004e95cc[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x55, 0x4e, 0x44, 0x45, 0x52, 0x4c, 0x49, 0x4e, 0x45 };
-/* 0x004e95dc, 12 bytes */ GRIM_DATA("004e95dc") unsigned char DAT_004e95dc[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x4f, 0x4c, 0x4f, 0x4e };
-/* 0x004e95e8, 8 bytes */ GRIM_DATA("004e95e8") unsigned char DAT_004e95e8[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x54 };
-/* 0x004e95f0, 16 bytes */ GRIM_DATA("004e95f0") unsigned char DAT_004e95f0[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x49, 0x52, 0x43, 0x55, 0x4d, 0x46, 0x4c, 0x45, 0x58 };
-/* 0x004e9600, 20 bytes */ GRIM_DATA("004e9600") unsigned char DAT_004e9600[20] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x45, 0x51, 0x55, 0x41, 0x4c, 0x53 };
-/* 0x004e9614, 8 bytes */ GRIM_DATA("004e9614") unsigned char DAT_004e9614[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x59, 0x45, 0x4e };
-/* 0x004e961c, 16 bytes */ GRIM_DATA("004e961c") unsigned char DAT_004e961c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x4f, 0x43, 0x4f, 0x4e, 0x56, 0x45, 0x52, 0x54 };
-/* 0x004e962c, 12 bytes */ GRIM_DATA("004e962c") unsigned char DAT_004e962c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x4f, 0x4e, 0x56, 0x45, 0x52, 0x54 };
-/* 0x004e9638, 12 bytes */ GRIM_DATA("004e9638") unsigned char DAT_004e9638[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4b, 0x41, 0x4e, 0x41 };
-/* 0x004e9644, 8 bytes */ GRIM_DATA("004e9644") unsigned char DAT_004e9644[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x35 };
-/* 0x004e964c, 8 bytes */ GRIM_DATA("004e964c") unsigned char DAT_004e964c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x34 };
-/* 0x004e9654, 8 bytes */ GRIM_DATA("004e9654") unsigned char DAT_004e9654[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x33 };
-/* 0x004e965c, 8 bytes */ GRIM_DATA("004e965c") unsigned char DAT_004e965c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x32 };
-/* 0x004e9664, 8 bytes */ GRIM_DATA("004e9664") unsigned char DAT_004e9664[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x31 };
-/* 0x004e966c, 12 bytes */ GRIM_DATA("004e966c") unsigned char DAT_004e966c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x44, 0x45, 0x43, 0x49, 0x4d, 0x41, 0x4c };
-/* 0x004e9678, 12 bytes */ GRIM_DATA("004e9678") unsigned char DAT_004e9678[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x30 };
-/* 0x004e9684, 12 bytes */ GRIM_DATA("004e9684") unsigned char DAT_004e9684[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x33 };
-/* 0x004e9690, 12 bytes */ GRIM_DATA("004e9690") unsigned char DAT_004e9690[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x32 };
-/* 0x004e969c, 12 bytes */ GRIM_DATA("004e969c") unsigned char DAT_004e969c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x31 };
-/* 0x004e96a8, 8 bytes */ GRIM_DATA("004e96a8") unsigned char DAT_004e96a8[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x44, 0x44 };
-/* 0x004e96b0, 12 bytes */ GRIM_DATA("004e96b0") unsigned char DAT_004e96b0[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x36 };
-/* 0x004e96bc, 12 bytes */ GRIM_DATA("004e96bc") unsigned char DAT_004e96bc[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x35 };
-/* 0x004e96c8, 12 bytes */ GRIM_DATA("004e96c8") unsigned char DAT_004e96c8[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x34 };
-/* 0x004e96d4, 16 bytes */ GRIM_DATA("004e96d4") unsigned char DAT_004e96d4[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x55, 0x42, 0x54, 0x52, 0x41, 0x43, 0x54 };
-/* 0x004e96e4, 12 bytes */ GRIM_DATA("004e96e4") unsigned char DAT_004e96e4[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x39 };
-/* 0x004e96f0, 12 bytes */ GRIM_DATA("004e96f0") unsigned char DAT_004e96f0[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x38 };
-/* 0x004e96fc, 12 bytes */ GRIM_DATA("004e96fc") unsigned char DAT_004e96fc[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x37 };
-/* 0x004e9708, 12 bytes */ GRIM_DATA("004e9708") unsigned char DAT_004e9708[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x43, 0x52, 0x4f, 0x4c, 0x4c };
-/* 0x004e9714, 12 bytes */ GRIM_DATA("004e9714") unsigned char DAT_004e9714[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x4c, 0x4f, 0x43, 0x4b };
-/* 0x004e9720, 8 bytes */ GRIM_DATA("004e9720") unsigned char DAT_004e9720[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x30 };
-/* 0x004e9728, 8 bytes */ GRIM_DATA("004e9728") unsigned char DAT_004e9728[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x39 };
-/* 0x004e9730, 8 bytes */ GRIM_DATA("004e9730") unsigned char DAT_004e9730[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x38 };
-/* 0x004e9738, 8 bytes */ GRIM_DATA("004e9738") unsigned char DAT_004e9738[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x37 };
-/* 0x004e9740, 8 bytes */ GRIM_DATA("004e9740") unsigned char DAT_004e9740[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x36 };
-/* 0x004e9748, 8 bytes */ GRIM_DATA("004e9748") unsigned char DAT_004e9748[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x35 };
-/* 0x004e9750, 8 bytes */ GRIM_DATA("004e9750") unsigned char DAT_004e9750[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x34 };
-/* 0x004e9758, 8 bytes */ GRIM_DATA("004e9758") unsigned char DAT_004e9758[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x33 };
-/* 0x004e9760, 8 bytes */ GRIM_DATA("004e9760") unsigned char DAT_004e9760[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x32 };
-/* 0x004e9768, 8 bytes */ GRIM_DATA("004e9768") unsigned char DAT_004e9768[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31 };
-/* 0x004e9770, 12 bytes */ GRIM_DATA("004e9770") unsigned char DAT_004e9770[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x41, 0x50, 0x49, 0x54, 0x41, 0x4c };
-/* 0x004e977c, 12 bytes */ GRIM_DATA("004e977c") unsigned char DAT_004e977c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x50, 0x41, 0x43, 0x45 };
-/* 0x004e9788, 12 bytes */ GRIM_DATA("004e9788") unsigned char DAT_004e9788[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x4d, 0x45, 0x4e, 0x55 };
-/* 0x004e9794, 16 bytes */ GRIM_DATA("004e9794") unsigned char DAT_004e9794[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x55, 0x4c, 0x54, 0x49, 0x50, 0x4c, 0x59 };
-/* 0x004e97a4, 12 bytes */ GRIM_DATA("004e97a4") unsigned char DAT_004e97a4[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x53, 0x48, 0x49, 0x46, 0x54 };
-/* 0x004e97b0, 12 bytes */ GRIM_DATA("004e97b0") unsigned char DAT_004e97b0[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x4c, 0x41, 0x53, 0x48 };
-/* 0x004e97bc, 12 bytes */ GRIM_DATA("004e97bc") unsigned char DAT_004e97bc[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x50, 0x45, 0x52, 0x49, 0x4f, 0x44 };
-/* 0x004e97c8, 12 bytes */ GRIM_DATA("004e97c8") unsigned char DAT_004e97c8[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x4f, 0x4d, 0x4d, 0x41 };
-/* 0x004e97d4, 8 bytes */ GRIM_DATA("004e97d4") unsigned char DAT_004e97d4[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x4d };
-/* 0x004e97dc, 8 bytes */ GRIM_DATA("004e97dc") unsigned char DAT_004e97dc[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x4e };
-/* 0x004e97e4, 8 bytes */ GRIM_DATA("004e97e4") unsigned char DAT_004e97e4[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x42 };
-/* 0x004e97ec, 8 bytes */ GRIM_DATA("004e97ec") unsigned char DAT_004e97ec[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x56 };
-/* 0x004e97f4, 8 bytes */ GRIM_DATA("004e97f4") unsigned char DAT_004e97f4[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x43 };
-/* 0x004e97fc, 8 bytes */ GRIM_DATA("004e97fc") unsigned char DAT_004e97fc[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x58 };
-/* 0x004e9804, 8 bytes */ GRIM_DATA("004e9804") unsigned char DAT_004e9804[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x5a };
-/* 0x004e980c, 16 bytes */ GRIM_DATA("004e980c") unsigned char DAT_004e980c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x42, 0x41, 0x43, 0x4b, 0x53, 0x4c, 0x41, 0x53, 0x48 };
-/* 0x004e981c, 12 bytes */ GRIM_DATA("004e981c") unsigned char DAT_004e981c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x53, 0x48, 0x49, 0x46, 0x54 };
-/* 0x004e9828, 12 bytes */ GRIM_DATA("004e9828") unsigned char DAT_004e9828[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x47, 0x52, 0x41, 0x56, 0x45 };
-/* 0x004e9834, 16 bytes */ GRIM_DATA("004e9834") unsigned char DAT_004e9834[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x50, 0x4f, 0x53, 0x54, 0x52, 0x4f, 0x50, 0x48, 0x45 };
-/* 0x004e9844, 16 bytes */ GRIM_DATA("004e9844") unsigned char DAT_004e9844[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x45, 0x4d, 0x49, 0x43, 0x4f, 0x4c, 0x4f, 0x4e };
-/* 0x004e9854, 8 bytes */ GRIM_DATA("004e9854") unsigned char DAT_004e9854[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x4c };
-/* 0x004e985c, 8 bytes */ GRIM_DATA("004e985c") unsigned char DAT_004e985c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x4b };
-/* 0x004e9864, 8 bytes */ GRIM_DATA("004e9864") unsigned char DAT_004e9864[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x4a };
-/* 0x004e986c, 8 bytes */ GRIM_DATA("004e986c") unsigned char DAT_004e986c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x48 };
-/* 0x004e9874, 8 bytes */ GRIM_DATA("004e9874") unsigned char DAT_004e9874[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x47 };
-/* 0x004e987c, 8 bytes */ GRIM_DATA("004e987c") unsigned char DAT_004e987c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x46 };
-/* 0x004e9884, 8 bytes */ GRIM_DATA("004e9884") unsigned char DAT_004e9884[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x44 };
-/* 0x004e988c, 8 bytes */ GRIM_DATA("004e988c") unsigned char DAT_004e988c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x53 };
-/* 0x004e9894, 8 bytes */ GRIM_DATA("004e9894") unsigned char DAT_004e9894[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x41 };
-/* 0x004e989c, 16 bytes */ GRIM_DATA("004e989c") unsigned char DAT_004e989c[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x43, 0x4f, 0x4e, 0x54, 0x52, 0x4f, 0x4c };
-/* 0x004e98ac, 12 bytes */ GRIM_DATA("004e98ac") unsigned char DAT_004e98ac[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x45, 0x54, 0x55, 0x52, 0x4e };
-/* 0x004e98b8, 16 bytes */ GRIM_DATA("004e98b8") unsigned char DAT_004e98b8[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x42, 0x52, 0x41, 0x43, 0x4b, 0x45, 0x54 };
-/* 0x004e98c8, 16 bytes */ GRIM_DATA("004e98c8") unsigned char DAT_004e98c8[16] = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x42, 0x52, 0x41, 0x43, 0x4b, 0x45, 0x54 };
-/* 0x004e98d8, 8 bytes */ GRIM_DATA("004e98d8") unsigned char DAT_004e98d8[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x50 };
-/* 0x004e98e0, 8 bytes */ GRIM_DATA("004e98e0") unsigned char DAT_004e98e0[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x4f };
-/* 0x004e98e8, 8 bytes */ GRIM_DATA("004e98e8") unsigned char DAT_004e98e8[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x49 };
-/* 0x004e98f0, 8 bytes */ GRIM_DATA("004e98f0") unsigned char DAT_004e98f0[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x55 };
-/* 0x004e98f8, 8 bytes */ GRIM_DATA("004e98f8") unsigned char DAT_004e98f8[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x59 };
-/* 0x004e9900, 8 bytes */ GRIM_DATA("004e9900") unsigned char DAT_004e9900[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x54 };
-/* 0x004e9908, 8 bytes */ GRIM_DATA("004e9908") unsigned char DAT_004e9908[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x52 };
-/* 0x004e9910, 8 bytes */ GRIM_DATA("004e9910") unsigned char DAT_004e9910[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x45 };
-/* 0x004e9918, 8 bytes */ GRIM_DATA("004e9918") unsigned char DAT_004e9918[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x57 };
-/* 0x004e9920, 8 bytes */ GRIM_DATA("004e9920") unsigned char DAT_004e9920[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x51 };
-/* 0x004e9928, 8 bytes */ GRIM_DATA("004e9928") unsigned char DAT_004e9928[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x54, 0x41, 0x42 };
-/* 0x004e9930, 12 bytes */ GRIM_DATA("004e9930") unsigned char DAT_004e9930[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x42, 0x41, 0x43, 0x4b };
-/* 0x004e993c, 12 bytes */ GRIM_DATA("004e993c") unsigned char DAT_004e993c[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x45, 0x51, 0x55, 0x41, 0x4c, 0x53 };
-/* 0x004e9948, 12 bytes */ GRIM_DATA("004e9948") unsigned char DAT_004e9948[12] = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x49, 0x4e, 0x55, 0x53 };
-/* 0x004e9954, 8 bytes */ GRIM_DATA("004e9954") unsigned char DAT_004e9954[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x30 };
-/* 0x004e995c, 8 bytes */ GRIM_DATA("004e995c") unsigned char DAT_004e995c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x39 };
-/* 0x004e9964, 8 bytes */ GRIM_DATA("004e9964") unsigned char DAT_004e9964[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x38 };
-/* 0x004e996c, 8 bytes */ GRIM_DATA("004e996c") unsigned char DAT_004e996c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x37 };
-/* 0x004e9974, 8 bytes */ GRIM_DATA("004e9974") unsigned char DAT_004e9974[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x36 };
-/* 0x004e997c, 8 bytes */ GRIM_DATA("004e997c") unsigned char DAT_004e997c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x35 };
-/* 0x004e9984, 8 bytes */ GRIM_DATA("004e9984") unsigned char DAT_004e9984[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x34 };
-/* 0x004e998c, 8 bytes */ GRIM_DATA("004e998c") unsigned char DAT_004e998c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x33 };
-/* 0x004e9994, 8 bytes */ GRIM_DATA("004e9994") unsigned char DAT_004e9994[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x32 };
-/* 0x004e999c, 8 bytes */ GRIM_DATA("004e999c") unsigned char DAT_004e999c[8] = { 0x4b, 0x45, 0x59, 0x5f, 0x31 };
-/* 0x004e99a4, 12 bytes */ GRIM_DATA("004e99a4") char s_KEY_ESCAPE_004e99a4[12] = "KEY_ESCAPE";
-/* 0x004e99b0, 120 bytes */ GRIM_DATA("004e99b0") void *g_ppRequiredLabs[30] = {
-    (void *)&DAT_004e9c24, (void *)&DAT_004e9c14, (void *)&DAT_004e9c08, (void *)&DAT_004e9bfc,
-    (void *)&DAT_004e9bf4, (void *)&DAT_004e9be8, (void *)&DAT_004e9be0, (void *)&DAT_004e9bd8,
-    (void *)&DAT_004e9bcc, (void *)&DAT_004e9bc0, (void *)&DAT_004e9bb8, (void *)&DAT_004e9bb0,
-    (void *)&DAT_004e9ba4, (void *)&DAT_004e9b9c, (void *)&DAT_004e9b94, (void *)&DAT_004e9b80,
-    (void *)&DAT_004e9b6c, (void *)&DAT_004e9b5c, (void *)&DAT_004e9b48, (void *)&DAT_004e9b38,
-    (void *)&DAT_004e9b24, (void *)&DAT_004e9b14, (void *)&DAT_004e9b04, (void *)&DAT_004e9af4,
-    (void *)&DAT_004e9ae4, (void *)&DAT_004e9ad8, (void *)&DAT_004e9ac8, (void *)&DAT_004e9ab4,
-    (void *)&DAT_004e9aa8, (void *)&s_DEBUG_Loops__004e9a98
-};
-/* 0x004e9a28, 4 bytes */ GRIM_DATA("004e9a28") int g_nRequiredLabCount = 30;
-/* 0x004e9a2c, 4 bytes */ GRIM_DATA("004e9a2c") int g_nMaxRealMemoryUsage = 12288000;
-/* 0x004e9a30, 8 bytes */ GRIM_DATA("004e9a30") int g_dwPurgeAmount = 2560000;
-/* 0x004e9a34, 4 bytes: the rest of g_dwPurgeAmount's span */ GRIM_DATA("004e9a30") static unsigned char g_dwPurgeAmount__tail[4] __attribute__((used)) = {0};
-/* 0x004e9a38, 96 bytes */ GRIM_DATA("004e9a38") void *g_ResTypeTable[24] = {
+/* 0x004e9238, 4 bytes */ GRIM_DATA("004e9238") int g_nSputControl_numControlSymbols __asm__("_g_nSputControl_numControlSymbols") = 167;
+/* 0x004e923c, 16 bytes */ GRIM_DATA("004e923c") unsigned char DAT_004e923c[16] __asm__("_DAT_004e923c") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x5a };
+/* 0x004e924c, 16 bytes */ GRIM_DATA("004e924c") unsigned char DAT_004e924c[16] __asm__("_DAT_004e924c") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x59 };
+/* 0x004e925c, 16 bytes */ GRIM_DATA("004e925c") unsigned char DAT_004e925c[16] __asm__("_DAT_004e925c") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x58 };
+/* 0x004e926c, 12 bytes */ GRIM_DATA("004e926c") unsigned char DAT_004e926c[12] __asm__("_DAT_004e926c") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x56 };
+/* 0x004e9278, 12 bytes */ GRIM_DATA("004e9278") unsigned char DAT_004e9278[12] __asm__("_DAT_004e9278") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x55 };
+/* 0x004e9284, 12 bytes */ GRIM_DATA("004e9284") unsigned char DAT_004e9284[12] __asm__("_DAT_004e9284") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x52 };
+/* 0x004e9290, 12 bytes */ GRIM_DATA("004e9290") unsigned char DAT_004e9290[12] __asm__("_DAT_004e9290") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x5a };
+/* 0x004e929c, 12 bytes */ GRIM_DATA("004e929c") unsigned char DAT_004e929c[12] __asm__("_DAT_004e929c") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x59 };
+/* 0x004e92a8, 12 bytes */ GRIM_DATA("004e92a8") unsigned char DAT_004e92a8[12] __asm__("_DAT_004e92a8") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x58 };
+/* 0x004e92b4, 12 bytes */ GRIM_DATA("004e92b4") unsigned char DAT_004e92b4[12] __asm__("_DAT_004e92b4") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x56 };
+/* 0x004e92c0, 12 bytes */ GRIM_DATA("004e92c0") unsigned char DAT_004e92c0[12] __asm__("_DAT_004e92c0") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x55 };
+/* 0x004e92cc, 12 bytes */ GRIM_DATA("004e92cc") unsigned char DAT_004e92cc[12] __asm__("_DAT_004e92cc") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x52 };
+/* 0x004e92d8, 12 bytes */ GRIM_DATA("004e92d8") unsigned char DAT_004e92d8[12] __asm__("_DAT_004e92d8") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x5a };
+/* 0x004e92e4, 12 bytes */ GRIM_DATA("004e92e4") unsigned char DAT_004e92e4[12] __asm__("_DAT_004e92e4") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x59 };
+/* 0x004e92f0, 12 bytes */ GRIM_DATA("004e92f0") unsigned char DAT_004e92f0[12] __asm__("_DAT_004e92f0") = { 0x41, 0x58, 0x49, 0x53, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x58 };
+/* 0x004e92fc, 16 bytes */ GRIM_DATA("004e92fc") unsigned char DAT_004e92fc[16] __asm__("_DAT_004e92fc") = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x42, 0x34 };
+/* 0x004e930c, 16 bytes */ GRIM_DATA("004e930c") unsigned char DAT_004e930c[16] __asm__("_DAT_004e930c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x42, 0x33 };
+/* 0x004e931c, 16 bytes */ GRIM_DATA("004e931c") unsigned char DAT_004e931c[16] __asm__("_DAT_004e931c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x42, 0x32 };
+/* 0x004e932c, 16 bytes */ GRIM_DATA("004e932c") unsigned char DAT_004e932c[16] __asm__("_DAT_004e932c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x4f, 0x55, 0x53, 0x45, 0x5f, 0x42, 0x31 };
+/* 0x004e933c, 16 bytes */ GRIM_DATA("004e933c") unsigned char DAT_004e933c[16] __asm__("_DAT_004e933c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x48, 0x44, 0x4f, 0x57, 0x4e };
+/* 0x004e934c, 16 bytes */ GRIM_DATA("004e934c") unsigned char DAT_004e934c[16] __asm__("_DAT_004e934c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x48, 0x52, 0x49, 0x47, 0x48, 0x54 };
+/* 0x004e935c, 16 bytes */ GRIM_DATA("004e935c") unsigned char DAT_004e935c[16] __asm__("_DAT_004e935c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x48, 0x55, 0x50 };
+/* 0x004e936c, 16 bytes */ GRIM_DATA("004e936c") unsigned char DAT_004e936c[16] __asm__("_DAT_004e936c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x48, 0x4c, 0x45, 0x46, 0x54 };
+/* 0x004e937c, 16 bytes */ GRIM_DATA("004e937c") unsigned char DAT_004e937c[16] __asm__("_DAT_004e937c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x31, 0x30 };
+/* 0x004e938c, 12 bytes */ GRIM_DATA("004e938c") unsigned char DAT_004e938c[12] __asm__("_DAT_004e938c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x39 };
+/* 0x004e9398, 12 bytes */ GRIM_DATA("004e9398") unsigned char DAT_004e9398[12] __asm__("_DAT_004e9398") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x38 };
+/* 0x004e93a4, 12 bytes */ GRIM_DATA("004e93a4") unsigned char DAT_004e93a4[12] __asm__("_DAT_004e93a4") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x37 };
+/* 0x004e93b0, 12 bytes */ GRIM_DATA("004e93b0") unsigned char DAT_004e93b0[12] __asm__("_DAT_004e93b0") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x36 };
+/* 0x004e93bc, 12 bytes */ GRIM_DATA("004e93bc") unsigned char DAT_004e93bc[12] __asm__("_DAT_004e93bc") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x35 };
+/* 0x004e93c8, 12 bytes */ GRIM_DATA("004e93c8") unsigned char DAT_004e93c8[12] __asm__("_DAT_004e93c8") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x34 };
+/* 0x004e93d4, 12 bytes */ GRIM_DATA("004e93d4") unsigned char DAT_004e93d4[12] __asm__("_DAT_004e93d4") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x33 };
+/* 0x004e93e0, 12 bytes */ GRIM_DATA("004e93e0") unsigned char DAT_004e93e0[12] __asm__("_DAT_004e93e0") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x32 };
+/* 0x004e93ec, 12 bytes */ GRIM_DATA("004e93ec") unsigned char DAT_004e93ec[12] __asm__("_DAT_004e93ec") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x32, 0x5f, 0x42, 0x31 };
+/* 0x004e93f8, 16 bytes */ GRIM_DATA("004e93f8") unsigned char DAT_004e93f8[16] __asm__("_DAT_004e93f8") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x48, 0x44, 0x4f, 0x57, 0x4e };
+/* 0x004e9408, 16 bytes */ GRIM_DATA("004e9408") unsigned char DAT_004e9408[16] __asm__("_DAT_004e9408") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x48, 0x52, 0x49, 0x47, 0x48, 0x54 };
+/* 0x004e9418, 16 bytes */ GRIM_DATA("004e9418") unsigned char DAT_004e9418[16] __asm__("_DAT_004e9418") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x48, 0x55, 0x50 };
+/* 0x004e9428, 16 bytes */ GRIM_DATA("004e9428") unsigned char DAT_004e9428[16] __asm__("_DAT_004e9428") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x48, 0x4c, 0x45, 0x46, 0x54 };
+/* 0x004e9438, 16 bytes */ GRIM_DATA("004e9438") unsigned char DAT_004e9438[16] __asm__("_DAT_004e9438") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x31, 0x30 };
+/* 0x004e9448, 12 bytes */ GRIM_DATA("004e9448") unsigned char DAT_004e9448[12] __asm__("_DAT_004e9448") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x39 };
+/* 0x004e9454, 12 bytes */ GRIM_DATA("004e9454") unsigned char DAT_004e9454[12] __asm__("_DAT_004e9454") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x38 };
+/* 0x004e9460, 12 bytes */ GRIM_DATA("004e9460") unsigned char DAT_004e9460[12] __asm__("_DAT_004e9460") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x37 };
+/* 0x004e946c, 12 bytes */ GRIM_DATA("004e946c") unsigned char DAT_004e946c[12] __asm__("_DAT_004e946c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x36 };
+/* 0x004e9478, 12 bytes */ GRIM_DATA("004e9478") unsigned char DAT_004e9478[12] __asm__("_DAT_004e9478") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x35 };
+/* 0x004e9484, 12 bytes */ GRIM_DATA("004e9484") unsigned char DAT_004e9484[12] __asm__("_DAT_004e9484") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x34 };
+/* 0x004e9490, 12 bytes */ GRIM_DATA("004e9490") unsigned char DAT_004e9490[12] __asm__("_DAT_004e9490") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x33 };
+/* 0x004e949c, 12 bytes */ GRIM_DATA("004e949c") unsigned char DAT_004e949c[12] __asm__("_DAT_004e949c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x32 };
+/* 0x004e94a8, 12 bytes */ GRIM_DATA("004e94a8") unsigned char DAT_004e94a8[12] __asm__("_DAT_004e94a8") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a, 0x4f, 0x59, 0x31, 0x5f, 0x42, 0x31 };
+/* 0x004e94b4, 12 bytes */ GRIM_DATA("004e94b4") unsigned char DAT_004e94b4[12] __asm__("_DAT_004e94b4") = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x50, 0x50, 0x53 };
+/* 0x004e94c0, 12 bytes */ GRIM_DATA("004e94c0") unsigned char DAT_004e94c0[12] __asm__("_DAT_004e94c0") = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x57, 0x49, 0x4e };
+/* 0x004e94cc, 12 bytes */ GRIM_DATA("004e94cc") unsigned char DAT_004e94cc[12] __asm__("_DAT_004e94cc") = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x57, 0x49, 0x4e };
+/* 0x004e94d8, 12 bytes */ GRIM_DATA("004e94d8") unsigned char DAT_004e94d8[12] __asm__("_DAT_004e94d8") = { 0x4b, 0x45, 0x59, 0x5f, 0x44, 0x45, 0x4c, 0x45, 0x54, 0x45 };
+/* 0x004e94e4, 12 bytes */ GRIM_DATA("004e94e4") unsigned char DAT_004e94e4[12] __asm__("_DAT_004e94e4") = { 0x4b, 0x45, 0x59, 0x5f, 0x49, 0x4e, 0x53, 0x45, 0x52, 0x54 };
+/* 0x004e94f0, 12 bytes */ GRIM_DATA("004e94f0") unsigned char DAT_004e94f0[12] __asm__("_DAT_004e94f0") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x45, 0x58, 0x54 };
+/* 0x004e94fc, 12 bytes */ GRIM_DATA("004e94fc") unsigned char DAT_004e94fc[12] __asm__("_DAT_004e94fc") = { 0x4b, 0x45, 0x59, 0x5f, 0x44, 0x4f, 0x57, 0x4e };
+/* 0x004e9508, 8 bytes */ GRIM_DATA("004e9508") unsigned char DAT_004e9508[8] __asm__("_DAT_004e9508") = { 0x4b, 0x45, 0x59, 0x5f, 0x45, 0x4e, 0x44 };
+/* 0x004e9510, 12 bytes */ GRIM_DATA("004e9510") unsigned char DAT_004e9510[12] __asm__("_DAT_004e9510") = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x49, 0x47, 0x48, 0x54 };
+/* 0x004e951c, 12 bytes */ GRIM_DATA("004e951c") unsigned char DAT_004e951c[12] __asm__("_DAT_004e951c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x45, 0x46, 0x54 };
+/* 0x004e9528, 12 bytes */ GRIM_DATA("004e9528") unsigned char DAT_004e9528[12] __asm__("_DAT_004e9528") = { 0x4b, 0x45, 0x59, 0x5f, 0x50, 0x52, 0x49, 0x4f, 0x52 };
+/* 0x004e9534, 8 bytes */ GRIM_DATA("004e9534") unsigned char DAT_004e9534[8] __asm__("_DAT_004e9534") = { 0x4b, 0x45, 0x59, 0x5f, 0x55, 0x50 };
+/* 0x004e953c, 12 bytes */ GRIM_DATA("004e953c") unsigned char DAT_004e953c[12] __asm__("_DAT_004e953c") = { 0x4b, 0x45, 0x59, 0x5f, 0x48, 0x4f, 0x4d, 0x45 };
+/* 0x004e9548, 12 bytes */ GRIM_DATA("004e9548") unsigned char DAT_004e9548[12] __asm__("_DAT_004e9548") = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x4d, 0x45, 0x4e, 0x55 };
+/* 0x004e9554, 12 bytes */ GRIM_DATA("004e9554") unsigned char DAT_004e9554[12] __asm__("_DAT_004e9554") = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x59, 0x53, 0x52, 0x51 };
+/* 0x004e9560, 12 bytes */ GRIM_DATA("004e9560") unsigned char DAT_004e9560[12] __asm__("_DAT_004e9560") = { 0x4b, 0x45, 0x59, 0x5f, 0x44, 0x49, 0x56, 0x49, 0x44, 0x45 };
+/* 0x004e956c, 16 bytes */ GRIM_DATA("004e956c") unsigned char DAT_004e956c[16] __asm__("_DAT_004e956c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x43, 0x4f, 0x4d, 0x4d, 0x41 };
+/* 0x004e957c, 16 bytes */ GRIM_DATA("004e957c") unsigned char DAT_004e957c[16] __asm__("_DAT_004e957c") = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x43, 0x4f, 0x4e, 0x54, 0x52, 0x4f, 0x4c };
+/* 0x004e958c, 16 bytes */ GRIM_DATA("004e958c") unsigned char DAT_004e958c[16] __asm__("_DAT_004e958c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x45, 0x4e, 0x54, 0x45, 0x52 };
+/* 0x004e959c, 16 bytes */ GRIM_DATA("004e959c") unsigned char DAT_004e959c[16] __asm__("_DAT_004e959c") = { 0x4b, 0x45, 0x59, 0x5f, 0x55, 0x4e, 0x4c, 0x41, 0x42, 0x45, 0x4c, 0x45, 0x44 };
+/* 0x004e95ac, 8 bytes */ GRIM_DATA("004e95ac") unsigned char DAT_004e95ac[8] __asm__("_DAT_004e95ac") = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x58 };
+/* 0x004e95b4, 12 bytes */ GRIM_DATA("004e95b4") unsigned char DAT_004e95b4[12] __asm__("_DAT_004e95b4") = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x54, 0x4f, 0x50 };
+/* 0x004e95c0, 12 bytes */ GRIM_DATA("004e95c0") unsigned char DAT_004e95c0[12] __asm__("_DAT_004e95c0") = { 0x4b, 0x45, 0x59, 0x5f, 0x4b, 0x41, 0x4e, 0x4a, 0x49 };
+/* 0x004e95cc, 16 bytes */ GRIM_DATA("004e95cc") unsigned char DAT_004e95cc[16] __asm__("_DAT_004e95cc") = { 0x4b, 0x45, 0x59, 0x5f, 0x55, 0x4e, 0x44, 0x45, 0x52, 0x4c, 0x49, 0x4e, 0x45 };
+/* 0x004e95dc, 12 bytes */ GRIM_DATA("004e95dc") unsigned char DAT_004e95dc[12] __asm__("_DAT_004e95dc") = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x4f, 0x4c, 0x4f, 0x4e };
+/* 0x004e95e8, 8 bytes */ GRIM_DATA("004e95e8") unsigned char DAT_004e95e8[8] __asm__("_DAT_004e95e8") = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x54 };
+/* 0x004e95f0, 16 bytes */ GRIM_DATA("004e95f0") unsigned char DAT_004e95f0[16] __asm__("_DAT_004e95f0") = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x49, 0x52, 0x43, 0x55, 0x4d, 0x46, 0x4c, 0x45, 0x58 };
+/* 0x004e9600, 20 bytes */ GRIM_DATA("004e9600") unsigned char DAT_004e9600[20] __asm__("_DAT_004e9600") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x45, 0x51, 0x55, 0x41, 0x4c, 0x53 };
+/* 0x004e9614, 8 bytes */ GRIM_DATA("004e9614") unsigned char DAT_004e9614[8] __asm__("_DAT_004e9614") = { 0x4b, 0x45, 0x59, 0x5f, 0x59, 0x45, 0x4e };
+/* 0x004e961c, 16 bytes */ GRIM_DATA("004e961c") unsigned char DAT_004e961c[16] __asm__("_DAT_004e961c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x4f, 0x43, 0x4f, 0x4e, 0x56, 0x45, 0x52, 0x54 };
+/* 0x004e962c, 12 bytes */ GRIM_DATA("004e962c") unsigned char DAT_004e962c[12] __asm__("_DAT_004e962c") = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x4f, 0x4e, 0x56, 0x45, 0x52, 0x54 };
+/* 0x004e9638, 12 bytes */ GRIM_DATA("004e9638") unsigned char DAT_004e9638[12] __asm__("_DAT_004e9638") = { 0x4b, 0x45, 0x59, 0x5f, 0x4b, 0x41, 0x4e, 0x41 };
+/* 0x004e9644, 8 bytes */ GRIM_DATA("004e9644") unsigned char DAT_004e9644[8] __asm__("_DAT_004e9644") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x35 };
+/* 0x004e964c, 8 bytes */ GRIM_DATA("004e964c") unsigned char DAT_004e964c[8] __asm__("_DAT_004e964c") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x34 };
+/* 0x004e9654, 8 bytes */ GRIM_DATA("004e9654") unsigned char DAT_004e9654[8] __asm__("_DAT_004e9654") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x33 };
+/* 0x004e965c, 8 bytes */ GRIM_DATA("004e965c") unsigned char DAT_004e965c[8] __asm__("_DAT_004e965c") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x32 };
+/* 0x004e9664, 8 bytes */ GRIM_DATA("004e9664") unsigned char DAT_004e9664[8] __asm__("_DAT_004e9664") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x31 };
+/* 0x004e966c, 12 bytes */ GRIM_DATA("004e966c") unsigned char DAT_004e966c[12] __asm__("_DAT_004e966c") = { 0x4b, 0x45, 0x59, 0x5f, 0x44, 0x45, 0x43, 0x49, 0x4d, 0x41, 0x4c };
+/* 0x004e9678, 12 bytes */ GRIM_DATA("004e9678") unsigned char DAT_004e9678[12] __asm__("_DAT_004e9678") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x30 };
+/* 0x004e9684, 12 bytes */ GRIM_DATA("004e9684") unsigned char DAT_004e9684[12] __asm__("_DAT_004e9684") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x33 };
+/* 0x004e9690, 12 bytes */ GRIM_DATA("004e9690") unsigned char DAT_004e9690[12] __asm__("_DAT_004e9690") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x32 };
+/* 0x004e969c, 12 bytes */ GRIM_DATA("004e969c") unsigned char DAT_004e969c[12] __asm__("_DAT_004e969c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x31 };
+/* 0x004e96a8, 8 bytes */ GRIM_DATA("004e96a8") unsigned char DAT_004e96a8[8] __asm__("_DAT_004e96a8") = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x44, 0x44 };
+/* 0x004e96b0, 12 bytes */ GRIM_DATA("004e96b0") unsigned char DAT_004e96b0[12] __asm__("_DAT_004e96b0") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x36 };
+/* 0x004e96bc, 12 bytes */ GRIM_DATA("004e96bc") unsigned char DAT_004e96bc[12] __asm__("_DAT_004e96bc") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x35 };
+/* 0x004e96c8, 12 bytes */ GRIM_DATA("004e96c8") unsigned char DAT_004e96c8[12] __asm__("_DAT_004e96c8") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x34 };
+/* 0x004e96d4, 16 bytes */ GRIM_DATA("004e96d4") unsigned char DAT_004e96d4[16] __asm__("_DAT_004e96d4") = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x55, 0x42, 0x54, 0x52, 0x41, 0x43, 0x54 };
+/* 0x004e96e4, 12 bytes */ GRIM_DATA("004e96e4") unsigned char DAT_004e96e4[12] __asm__("_DAT_004e96e4") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x39 };
+/* 0x004e96f0, 12 bytes */ GRIM_DATA("004e96f0") unsigned char DAT_004e96f0[12] __asm__("_DAT_004e96f0") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x38 };
+/* 0x004e96fc, 12 bytes */ GRIM_DATA("004e96fc") unsigned char DAT_004e96fc[12] __asm__("_DAT_004e96fc") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x50, 0x41, 0x44, 0x37 };
+/* 0x004e9708, 12 bytes */ GRIM_DATA("004e9708") unsigned char DAT_004e9708[12] __asm__("_DAT_004e9708") = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x43, 0x52, 0x4f, 0x4c, 0x4c };
+/* 0x004e9714, 12 bytes */ GRIM_DATA("004e9714") unsigned char DAT_004e9714[12] __asm__("_DAT_004e9714") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e, 0x55, 0x4d, 0x4c, 0x4f, 0x43, 0x4b };
+/* 0x004e9720, 8 bytes */ GRIM_DATA("004e9720") unsigned char DAT_004e9720[8] __asm__("_DAT_004e9720") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31, 0x30 };
+/* 0x004e9728, 8 bytes */ GRIM_DATA("004e9728") unsigned char DAT_004e9728[8] __asm__("_DAT_004e9728") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x39 };
+/* 0x004e9730, 8 bytes */ GRIM_DATA("004e9730") unsigned char DAT_004e9730[8] __asm__("_DAT_004e9730") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x38 };
+/* 0x004e9738, 8 bytes */ GRIM_DATA("004e9738") unsigned char DAT_004e9738[8] __asm__("_DAT_004e9738") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x37 };
+/* 0x004e9740, 8 bytes */ GRIM_DATA("004e9740") unsigned char DAT_004e9740[8] __asm__("_DAT_004e9740") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x36 };
+/* 0x004e9748, 8 bytes */ GRIM_DATA("004e9748") unsigned char DAT_004e9748[8] __asm__("_DAT_004e9748") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x35 };
+/* 0x004e9750, 8 bytes */ GRIM_DATA("004e9750") unsigned char DAT_004e9750[8] __asm__("_DAT_004e9750") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x34 };
+/* 0x004e9758, 8 bytes */ GRIM_DATA("004e9758") unsigned char DAT_004e9758[8] __asm__("_DAT_004e9758") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x33 };
+/* 0x004e9760, 8 bytes */ GRIM_DATA("004e9760") unsigned char DAT_004e9760[8] __asm__("_DAT_004e9760") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x32 };
+/* 0x004e9768, 8 bytes */ GRIM_DATA("004e9768") unsigned char DAT_004e9768[8] __asm__("_DAT_004e9768") = { 0x4b, 0x45, 0x59, 0x5f, 0x46, 0x31 };
+/* 0x004e9770, 12 bytes */ GRIM_DATA("004e9770") unsigned char DAT_004e9770[12] __asm__("_DAT_004e9770") = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x41, 0x50, 0x49, 0x54, 0x41, 0x4c };
+/* 0x004e977c, 12 bytes */ GRIM_DATA("004e977c") unsigned char DAT_004e977c[12] __asm__("_DAT_004e977c") = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x50, 0x41, 0x43, 0x45 };
+/* 0x004e9788, 12 bytes */ GRIM_DATA("004e9788") unsigned char DAT_004e9788[12] __asm__("_DAT_004e9788") = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x4d, 0x45, 0x4e, 0x55 };
+/* 0x004e9794, 16 bytes */ GRIM_DATA("004e9794") unsigned char DAT_004e9794[16] __asm__("_DAT_004e9794") = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x55, 0x4c, 0x54, 0x49, 0x50, 0x4c, 0x59 };
+/* 0x004e97a4, 12 bytes */ GRIM_DATA("004e97a4") unsigned char DAT_004e97a4[12] __asm__("_DAT_004e97a4") = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x53, 0x48, 0x49, 0x46, 0x54 };
+/* 0x004e97b0, 12 bytes */ GRIM_DATA("004e97b0") unsigned char DAT_004e97b0[12] __asm__("_DAT_004e97b0") = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x4c, 0x41, 0x53, 0x48 };
+/* 0x004e97bc, 12 bytes */ GRIM_DATA("004e97bc") unsigned char DAT_004e97bc[12] __asm__("_DAT_004e97bc") = { 0x4b, 0x45, 0x59, 0x5f, 0x50, 0x45, 0x52, 0x49, 0x4f, 0x44 };
+/* 0x004e97c8, 12 bytes */ GRIM_DATA("004e97c8") unsigned char DAT_004e97c8[12] __asm__("_DAT_004e97c8") = { 0x4b, 0x45, 0x59, 0x5f, 0x43, 0x4f, 0x4d, 0x4d, 0x41 };
+/* 0x004e97d4, 8 bytes */ GRIM_DATA("004e97d4") unsigned char DAT_004e97d4[8] __asm__("_DAT_004e97d4") = { 0x4b, 0x45, 0x59, 0x5f, 0x4d };
+/* 0x004e97dc, 8 bytes */ GRIM_DATA("004e97dc") unsigned char DAT_004e97dc[8] __asm__("_DAT_004e97dc") = { 0x4b, 0x45, 0x59, 0x5f, 0x4e };
+/* 0x004e97e4, 8 bytes */ GRIM_DATA("004e97e4") unsigned char DAT_004e97e4[8] __asm__("_DAT_004e97e4") = { 0x4b, 0x45, 0x59, 0x5f, 0x42 };
+/* 0x004e97ec, 8 bytes */ GRIM_DATA("004e97ec") unsigned char DAT_004e97ec[8] __asm__("_DAT_004e97ec") = { 0x4b, 0x45, 0x59, 0x5f, 0x56 };
+/* 0x004e97f4, 8 bytes */ GRIM_DATA("004e97f4") unsigned char DAT_004e97f4[8] __asm__("_DAT_004e97f4") = { 0x4b, 0x45, 0x59, 0x5f, 0x43 };
+/* 0x004e97fc, 8 bytes */ GRIM_DATA("004e97fc") unsigned char DAT_004e97fc[8] __asm__("_DAT_004e97fc") = { 0x4b, 0x45, 0x59, 0x5f, 0x58 };
+/* 0x004e9804, 8 bytes */ GRIM_DATA("004e9804") unsigned char DAT_004e9804[8] __asm__("_DAT_004e9804") = { 0x4b, 0x45, 0x59, 0x5f, 0x5a };
+/* 0x004e980c, 16 bytes */ GRIM_DATA("004e980c") unsigned char DAT_004e980c[16] __asm__("_DAT_004e980c") = { 0x4b, 0x45, 0x59, 0x5f, 0x42, 0x41, 0x43, 0x4b, 0x53, 0x4c, 0x41, 0x53, 0x48 };
+/* 0x004e981c, 12 bytes */ GRIM_DATA("004e981c") unsigned char DAT_004e981c[12] __asm__("_DAT_004e981c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x53, 0x48, 0x49, 0x46, 0x54 };
+/* 0x004e9828, 12 bytes */ GRIM_DATA("004e9828") unsigned char DAT_004e9828[12] __asm__("_DAT_004e9828") = { 0x4b, 0x45, 0x59, 0x5f, 0x47, 0x52, 0x41, 0x56, 0x45 };
+/* 0x004e9834, 16 bytes */ GRIM_DATA("004e9834") unsigned char DAT_004e9834[16] __asm__("_DAT_004e9834") = { 0x4b, 0x45, 0x59, 0x5f, 0x41, 0x50, 0x4f, 0x53, 0x54, 0x52, 0x4f, 0x50, 0x48, 0x45 };
+/* 0x004e9844, 16 bytes */ GRIM_DATA("004e9844") unsigned char DAT_004e9844[16] __asm__("_DAT_004e9844") = { 0x4b, 0x45, 0x59, 0x5f, 0x53, 0x45, 0x4d, 0x49, 0x43, 0x4f, 0x4c, 0x4f, 0x4e };
+/* 0x004e9854, 8 bytes */ GRIM_DATA("004e9854") unsigned char DAT_004e9854[8] __asm__("_DAT_004e9854") = { 0x4b, 0x45, 0x59, 0x5f, 0x4c };
+/* 0x004e985c, 8 bytes */ GRIM_DATA("004e985c") unsigned char DAT_004e985c[8] __asm__("_DAT_004e985c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4b };
+/* 0x004e9864, 8 bytes */ GRIM_DATA("004e9864") unsigned char DAT_004e9864[8] __asm__("_DAT_004e9864") = { 0x4b, 0x45, 0x59, 0x5f, 0x4a };
+/* 0x004e986c, 8 bytes */ GRIM_DATA("004e986c") unsigned char DAT_004e986c[8] __asm__("_DAT_004e986c") = { 0x4b, 0x45, 0x59, 0x5f, 0x48 };
+/* 0x004e9874, 8 bytes */ GRIM_DATA("004e9874") unsigned char DAT_004e9874[8] __asm__("_DAT_004e9874") = { 0x4b, 0x45, 0x59, 0x5f, 0x47 };
+/* 0x004e987c, 8 bytes */ GRIM_DATA("004e987c") unsigned char DAT_004e987c[8] __asm__("_DAT_004e987c") = { 0x4b, 0x45, 0x59, 0x5f, 0x46 };
+/* 0x004e9884, 8 bytes */ GRIM_DATA("004e9884") unsigned char DAT_004e9884[8] __asm__("_DAT_004e9884") = { 0x4b, 0x45, 0x59, 0x5f, 0x44 };
+/* 0x004e988c, 8 bytes */ GRIM_DATA("004e988c") unsigned char DAT_004e988c[8] __asm__("_DAT_004e988c") = { 0x4b, 0x45, 0x59, 0x5f, 0x53 };
+/* 0x004e9894, 8 bytes */ GRIM_DATA("004e9894") unsigned char DAT_004e9894[8] __asm__("_DAT_004e9894") = { 0x4b, 0x45, 0x59, 0x5f, 0x41 };
+/* 0x004e989c, 16 bytes */ GRIM_DATA("004e989c") unsigned char DAT_004e989c[16] __asm__("_DAT_004e989c") = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x43, 0x4f, 0x4e, 0x54, 0x52, 0x4f, 0x4c };
+/* 0x004e98ac, 12 bytes */ GRIM_DATA("004e98ac") unsigned char DAT_004e98ac[12] __asm__("_DAT_004e98ac") = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x45, 0x54, 0x55, 0x52, 0x4e };
+/* 0x004e98b8, 16 bytes */ GRIM_DATA("004e98b8") unsigned char DAT_004e98b8[16] __asm__("_DAT_004e98b8") = { 0x4b, 0x45, 0x59, 0x5f, 0x52, 0x42, 0x52, 0x41, 0x43, 0x4b, 0x45, 0x54 };
+/* 0x004e98c8, 16 bytes */ GRIM_DATA("004e98c8") unsigned char DAT_004e98c8[16] __asm__("_DAT_004e98c8") = { 0x4b, 0x45, 0x59, 0x5f, 0x4c, 0x42, 0x52, 0x41, 0x43, 0x4b, 0x45, 0x54 };
+/* 0x004e98d8, 8 bytes */ GRIM_DATA("004e98d8") unsigned char DAT_004e98d8[8] __asm__("_DAT_004e98d8") = { 0x4b, 0x45, 0x59, 0x5f, 0x50 };
+/* 0x004e98e0, 8 bytes */ GRIM_DATA("004e98e0") unsigned char DAT_004e98e0[8] __asm__("_DAT_004e98e0") = { 0x4b, 0x45, 0x59, 0x5f, 0x4f };
+/* 0x004e98e8, 8 bytes */ GRIM_DATA("004e98e8") unsigned char DAT_004e98e8[8] __asm__("_DAT_004e98e8") = { 0x4b, 0x45, 0x59, 0x5f, 0x49 };
+/* 0x004e98f0, 8 bytes */ GRIM_DATA("004e98f0") unsigned char DAT_004e98f0[8] __asm__("_DAT_004e98f0") = { 0x4b, 0x45, 0x59, 0x5f, 0x55 };
+/* 0x004e98f8, 8 bytes */ GRIM_DATA("004e98f8") unsigned char DAT_004e98f8[8] __asm__("_DAT_004e98f8") = { 0x4b, 0x45, 0x59, 0x5f, 0x59 };
+/* 0x004e9900, 8 bytes */ GRIM_DATA("004e9900") unsigned char DAT_004e9900[8] __asm__("_DAT_004e9900") = { 0x4b, 0x45, 0x59, 0x5f, 0x54 };
+/* 0x004e9908, 8 bytes */ GRIM_DATA("004e9908") unsigned char DAT_004e9908[8] __asm__("_DAT_004e9908") = { 0x4b, 0x45, 0x59, 0x5f, 0x52 };
+/* 0x004e9910, 8 bytes */ GRIM_DATA("004e9910") unsigned char DAT_004e9910[8] __asm__("_DAT_004e9910") = { 0x4b, 0x45, 0x59, 0x5f, 0x45 };
+/* 0x004e9918, 8 bytes */ GRIM_DATA("004e9918") unsigned char DAT_004e9918[8] __asm__("_DAT_004e9918") = { 0x4b, 0x45, 0x59, 0x5f, 0x57 };
+/* 0x004e9920, 8 bytes */ GRIM_DATA("004e9920") unsigned char DAT_004e9920[8] __asm__("_DAT_004e9920") = { 0x4b, 0x45, 0x59, 0x5f, 0x51 };
+/* 0x004e9928, 8 bytes */ GRIM_DATA("004e9928") unsigned char DAT_004e9928[8] __asm__("_DAT_004e9928") = { 0x4b, 0x45, 0x59, 0x5f, 0x54, 0x41, 0x42 };
+/* 0x004e9930, 12 bytes */ GRIM_DATA("004e9930") unsigned char DAT_004e9930[12] __asm__("_DAT_004e9930") = { 0x4b, 0x45, 0x59, 0x5f, 0x42, 0x41, 0x43, 0x4b };
+/* 0x004e993c, 12 bytes */ GRIM_DATA("004e993c") unsigned char DAT_004e993c[12] __asm__("_DAT_004e993c") = { 0x4b, 0x45, 0x59, 0x5f, 0x45, 0x51, 0x55, 0x41, 0x4c, 0x53 };
+/* 0x004e9948, 12 bytes */ GRIM_DATA("004e9948") unsigned char DAT_004e9948[12] __asm__("_DAT_004e9948") = { 0x4b, 0x45, 0x59, 0x5f, 0x4d, 0x49, 0x4e, 0x55, 0x53 };
+/* 0x004e9954, 8 bytes */ GRIM_DATA("004e9954") unsigned char DAT_004e9954[8] __asm__("_DAT_004e9954") = { 0x4b, 0x45, 0x59, 0x5f, 0x30 };
+/* 0x004e995c, 8 bytes */ GRIM_DATA("004e995c") unsigned char DAT_004e995c[8] __asm__("_DAT_004e995c") = { 0x4b, 0x45, 0x59, 0x5f, 0x39 };
+/* 0x004e9964, 8 bytes */ GRIM_DATA("004e9964") unsigned char DAT_004e9964[8] __asm__("_DAT_004e9964") = { 0x4b, 0x45, 0x59, 0x5f, 0x38 };
+/* 0x004e996c, 8 bytes */ GRIM_DATA("004e996c") unsigned char DAT_004e996c[8] __asm__("_DAT_004e996c") = { 0x4b, 0x45, 0x59, 0x5f, 0x37 };
+/* 0x004e9974, 8 bytes */ GRIM_DATA("004e9974") unsigned char DAT_004e9974[8] __asm__("_DAT_004e9974") = { 0x4b, 0x45, 0x59, 0x5f, 0x36 };
+/* 0x004e997c, 8 bytes */ GRIM_DATA("004e997c") unsigned char DAT_004e997c[8] __asm__("_DAT_004e997c") = { 0x4b, 0x45, 0x59, 0x5f, 0x35 };
+/* 0x004e9984, 8 bytes */ GRIM_DATA("004e9984") unsigned char DAT_004e9984[8] __asm__("_DAT_004e9984") = { 0x4b, 0x45, 0x59, 0x5f, 0x34 };
+/* 0x004e998c, 8 bytes */ GRIM_DATA("004e998c") unsigned char DAT_004e998c[8] __asm__("_DAT_004e998c") = { 0x4b, 0x45, 0x59, 0x5f, 0x33 };
+/* 0x004e9994, 8 bytes */ GRIM_DATA("004e9994") unsigned char DAT_004e9994[8] __asm__("_DAT_004e9994") = { 0x4b, 0x45, 0x59, 0x5f, 0x32 };
+/* 0x004e999c, 8 bytes */ GRIM_DATA("004e999c") unsigned char DAT_004e999c[8] __asm__("_DAT_004e999c") = { 0x4b, 0x45, 0x59, 0x5f, 0x31 };
+/* 0x004e99a4, 12 bytes */ GRIM_DATA("004e99a4") char s_KEY_ESCAPE_004e99a4[12] __asm__("_s_KEY_ESCAPE_004e99a4") = "KEY_ESCAPE";
+/* 0x004e9a38, 96 bytes */ GRIM_DATA("004e9a38") void *g_ResTypeTable[24] __asm__("_g_ResTypeTable") = {
     (void *)0x444e4b42, (void *)f_sputResource_BackgroundHandler, (void *)0x54534f43, (void *)f_sputResource_CostumeHandler,
     (void *)0x50414d43, (void *)f_sputResource_ColormapHandler, (void *)0x544e4f46, (void *)f_sputResource_FontHandler,
     (void *)0x4659454b, (void *)f_sputResource_KeyframeHandler, (void *)0x2054414d, (void *)f_sputResource_MaterialHandler,
@@ -8590,49 +4509,45 @@ static unsigned char grim_pad_004e87c8[8] __attribute__((section(".data$grim_004
     (void *)0x20444e53, (void *)f_LecShare_Nop, (void *)0x53594e43, (void *)f_sputResource_LipSyncHandler,
     (void *)0x4655425a, (void *)f_sputResource_ZBufferHandler, (void *)0x204d454d, (void *)f_sputResource_MemoryHandler
 };
-/* 0x004e9a98, 16 bytes */ GRIM_DATA("004e9a98") char s_DEBUG_Loops__004e9a98[16] = "DEBUG_Loops\\";
-/* 0x004e9aa8, 12 bytes */ GRIM_DATA("004e9aa8") unsigned char DAT_004e9aa8[12] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x53, 0x46, 0x58, 0x5c };
-/* 0x004e9ab4, 20 bytes */ GRIM_DATA("004e9ab4") unsigned char DAT_004e9ab4[20] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x46, 0x6f, 0x6f, 0x74, 0x73, 0x74, 0x65, 0x70, 0x73, 0x5c };
-/* 0x004e9ac8, 16 bytes */ GRIM_DATA("004e9ac8") unsigned char DAT_004e9ac8[16] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x56, 0x6f, 0x69, 0x63, 0x65, 0x73, 0x5c };
-/* 0x004e9ad8, 12 bytes */ GRIM_DATA("004e9ad8") unsigned char DAT_004e9ad8[12] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x53, 0x65, 0x74, 0x73, 0x5c };
-/* 0x004e9ae4, 16 bytes */ GRIM_DATA("004e9ae4") unsigned char DAT_004e9ae4[16] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x53, 0x63, 0x72, 0x69, 0x70, 0x74, 0x73, 0x5c };
-/* 0x004e9af4, 16 bytes */ GRIM_DATA("004e9af4") unsigned char DAT_004e9af4[16] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x5c };
-/* 0x004e9b04, 16 bytes */ GRIM_DATA("004e9b04") unsigned char DAT_004e9b04[16] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x5c };
-/* 0x004e9b14, 16 bytes */ GRIM_DATA("004e9b14") unsigned char DAT_004e9b14[16] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x5c };
-/* 0x004e9b24, 20 bytes */ GRIM_DATA("004e9b24") unsigned char DAT_004e9b24[20] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x4d, 0x61, 0x74, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x73, 0x5c };
-/* 0x004e9b38, 16 bytes */ GRIM_DATA("004e9b38") unsigned char DAT_004e9b38[16] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x46, 0x6f, 0x6e, 0x74, 0x73, 0x5c };
-/* 0x004e9b48, 20 bytes */ GRIM_DATA("004e9b48") unsigned char DAT_004e9b48[20] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x43, 0x6f, 0x6c, 0x6f, 0x72, 0x6d, 0x61, 0x70, 0x73, 0x5c };
-/* 0x004e9b5c, 16 bytes */ GRIM_DATA("004e9b5c") unsigned char DAT_004e9b5c[16] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x43, 0x6f, 0x73, 0x74, 0x75, 0x6d, 0x65, 0x73, 0x5c };
-/* 0x004e9b6c, 20 bytes */ GRIM_DATA("004e9b6c") unsigned char DAT_004e9b6c[20] = {
+/* 0x004e9aa8, 12 bytes */ GRIM_DATA("004e9aa8") unsigned char DAT_004e9aa8[12] __asm__("_DAT_004e9aa8") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x53, 0x46, 0x58, 0x5c };
+/* 0x004e9ab4, 20 bytes */ GRIM_DATA("004e9ab4") unsigned char DAT_004e9ab4[20] __asm__("_DAT_004e9ab4") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x46, 0x6f, 0x6f, 0x74, 0x73, 0x74, 0x65, 0x70, 0x73, 0x5c };
+/* 0x004e9ac8, 16 bytes */ GRIM_DATA("004e9ac8") unsigned char DAT_004e9ac8[16] __asm__("_DAT_004e9ac8") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x56, 0x6f, 0x69, 0x63, 0x65, 0x73, 0x5c };
+/* 0x004e9ad8, 12 bytes */ GRIM_DATA("004e9ad8") unsigned char DAT_004e9ad8[12] __asm__("_DAT_004e9ad8") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x53, 0x65, 0x74, 0x73, 0x5c };
+/* 0x004e9ae4, 16 bytes */ GRIM_DATA("004e9ae4") unsigned char DAT_004e9ae4[16] __asm__("_DAT_004e9ae4") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x53, 0x63, 0x72, 0x69, 0x70, 0x74, 0x73, 0x5c };
+/* 0x004e9af4, 16 bytes */ GRIM_DATA("004e9af4") unsigned char DAT_004e9af4[16] __asm__("_DAT_004e9af4") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x5c };
+/* 0x004e9b04, 16 bytes */ GRIM_DATA("004e9b04") unsigned char DAT_004e9b04[16] __asm__("_DAT_004e9b04") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x5c };
+/* 0x004e9b14, 16 bytes */ GRIM_DATA("004e9b14") unsigned char DAT_004e9b14[16] __asm__("_DAT_004e9b14") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x5c };
+/* 0x004e9b24, 20 bytes */ GRIM_DATA("004e9b24") unsigned char DAT_004e9b24[20] __asm__("_DAT_004e9b24") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x4d, 0x61, 0x74, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x73, 0x5c };
+/* 0x004e9b38, 16 bytes */ GRIM_DATA("004e9b38") unsigned char DAT_004e9b38[16] __asm__("_DAT_004e9b38") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x46, 0x6f, 0x6e, 0x74, 0x73, 0x5c };
+/* 0x004e9b48, 20 bytes */ GRIM_DATA("004e9b48") unsigned char DAT_004e9b48[20] __asm__("_DAT_004e9b48") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x43, 0x6f, 0x6c, 0x6f, 0x72, 0x6d, 0x61, 0x70, 0x73, 0x5c };
+/* 0x004e9b5c, 16 bytes */ GRIM_DATA("004e9b5c") unsigned char DAT_004e9b5c[16] __asm__("_DAT_004e9b5c") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x43, 0x6f, 0x73, 0x74, 0x75, 0x6d, 0x65, 0x73, 0x5c };
+/* 0x004e9b6c, 20 bytes */ GRIM_DATA("004e9b6c") unsigned char DAT_004e9b6c[20] __asm__("_DAT_004e9b6c") = {
     0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x42, 0x61, 0x63, 0x6b, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64,
     0x73, 0x5c
 };
-/* 0x004e9b80, 20 bytes */ GRIM_DATA("004e9b80") unsigned char DAT_004e9b80[20] = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x41, 0x6e, 0x69, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5c };
-/* 0x004e9b94, 8 bytes */ GRIM_DATA("004e9b94") unsigned char DAT_004e9b94[8] = { 0x4c, 0x6f, 0x6f, 0x70, 0x73, 0x5c };
-/* 0x004e9b9c, 8 bytes */ GRIM_DATA("004e9b9c") unsigned char DAT_004e9b9c[8] = { 0x53, 0x46, 0x58, 0x5c };
-/* 0x004e9ba4, 12 bytes */ GRIM_DATA("004e9ba4") unsigned char DAT_004e9ba4[12] = { 0x46, 0x6f, 0x6f, 0x74, 0x73, 0x74, 0x65, 0x70, 0x73, 0x5c };
-/* 0x004e9bb0, 8 bytes */ GRIM_DATA("004e9bb0") unsigned char DAT_004e9bb0[8] = { 0x56, 0x6f, 0x69, 0x63, 0x65, 0x73, 0x5c };
-/* 0x004e9bb8, 8 bytes */ GRIM_DATA("004e9bb8") unsigned char DAT_004e9bb8[8] = { 0x53, 0x65, 0x74, 0x73, 0x5c };
-/* 0x004e9bc0, 12 bytes */ GRIM_DATA("004e9bc0") unsigned char DAT_004e9bc0[12] = { 0x53, 0x63, 0x72, 0x69, 0x70, 0x74, 0x73, 0x5c };
-/* 0x004e9bcc, 12 bytes */ GRIM_DATA("004e9bcc") unsigned char DAT_004e9bcc[12] = { 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x5c };
-/* 0x004e9bd8, 8 bytes */ GRIM_DATA("004e9bd8") unsigned char DAT_004e9bd8[8] = { 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x5c };
-/* 0x004e9be0, 8 bytes */ GRIM_DATA("004e9be0") unsigned char DAT_004e9be0[8] = { 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x5c };
-/* 0x004e9be8, 12 bytes */ GRIM_DATA("004e9be8") unsigned char DAT_004e9be8[12] = { 0x4d, 0x61, 0x74, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x73, 0x5c };
-/* 0x004e9bf4, 8 bytes */ GRIM_DATA("004e9bf4") unsigned char DAT_004e9bf4[8] = { 0x46, 0x6f, 0x6e, 0x74, 0x73, 0x5c };
-/* 0x004e9bfc, 12 bytes */ GRIM_DATA("004e9bfc") unsigned char DAT_004e9bfc[12] = { 0x43, 0x6f, 0x6c, 0x6f, 0x72, 0x6d, 0x61, 0x70, 0x73, 0x5c };
-/* 0x004e9c08, 12 bytes */ GRIM_DATA("004e9c08") unsigned char DAT_004e9c08[12] = { 0x43, 0x6f, 0x73, 0x74, 0x75, 0x6d, 0x65, 0x73, 0x5c };
-/* 0x004e9c14, 16 bytes */ GRIM_DATA("004e9c14") unsigned char DAT_004e9c14[16] = { 0x42, 0x61, 0x63, 0x6b, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x73, 0x5c };
-/* 0x004e9c24, 12 bytes */ GRIM_DATA("004e9c24") unsigned char DAT_004e9c24[12] = { 0x41, 0x6e, 0x69, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5c };
-/* 0x004e9c30, 48 bytes */ GRIM_DATA("004e9c30") char s_C__grimsrc_libs_grimlib_Main_spu_004e9c30[48] = "C:\\grimsrc\\libs\\grimlib\\Main\\sputresource.cpp";
-/* 0x004e9c60, 4 bytes */ /* loose */ char s___004e9c60[4] = "\\";
-/* 0x004e9c64, 4 bytes */ /* loose */ char s_lab_004e9c64[4] = "lab";
-/* 0x004e9c68, 12 bytes */ /* loose */ char s_dflt_mat_004e9c68[12] = "dflt.mat";
-/* 0x004e9c74, 12 bytes */ /* loose */ char s_Grim_res_004e9c74[12] = "Grim.res";
+/* 0x004e9b80, 20 bytes */ GRIM_DATA("004e9b80") unsigned char DAT_004e9b80[20] __asm__("_DAT_004e9b80") = { 0x44, 0x45, 0x42, 0x55, 0x47, 0x5f, 0x41, 0x6e, 0x69, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5c };
+/* 0x004e9b94, 8 bytes */ GRIM_DATA("004e9b94") unsigned char DAT_004e9b94[8] __asm__("_DAT_004e9b94") = { 0x4c, 0x6f, 0x6f, 0x70, 0x73, 0x5c };
+/* 0x004e9b9c, 8 bytes */ GRIM_DATA("004e9b9c") unsigned char DAT_004e9b9c[8] __asm__("_DAT_004e9b9c") = { 0x53, 0x46, 0x58, 0x5c };
+/* 0x004e9ba4, 12 bytes */ GRIM_DATA("004e9ba4") unsigned char DAT_004e9ba4[12] __asm__("_DAT_004e9ba4") = { 0x46, 0x6f, 0x6f, 0x74, 0x73, 0x74, 0x65, 0x70, 0x73, 0x5c };
+/* 0x004e9bb0, 8 bytes */ GRIM_DATA("004e9bb0") unsigned char DAT_004e9bb0[8] __asm__("_DAT_004e9bb0") = { 0x56, 0x6f, 0x69, 0x63, 0x65, 0x73, 0x5c };
+/* 0x004e9bb8, 8 bytes */ GRIM_DATA("004e9bb8") unsigned char DAT_004e9bb8[8] __asm__("_DAT_004e9bb8") = { 0x53, 0x65, 0x74, 0x73, 0x5c };
+/* 0x004e9bc0, 12 bytes */ GRIM_DATA("004e9bc0") unsigned char DAT_004e9bc0[12] __asm__("_DAT_004e9bc0") = { 0x53, 0x63, 0x72, 0x69, 0x70, 0x74, 0x73, 0x5c };
+/* 0x004e9bcc, 12 bytes */ GRIM_DATA("004e9bcc") unsigned char DAT_004e9bcc[12] __asm__("_DAT_004e9bcc") = { 0x4f, 0x62, 0x6a, 0x65, 0x63, 0x74, 0x73, 0x5c };
+/* 0x004e9bd8, 8 bytes */ GRIM_DATA("004e9bd8") unsigned char DAT_004e9bd8[8] __asm__("_DAT_004e9bd8") = { 0x4d, 0x6f, 0x76, 0x69, 0x65, 0x73, 0x5c };
+/* 0x004e9be0, 8 bytes */ GRIM_DATA("004e9be0") unsigned char DAT_004e9be0[8] __asm__("_DAT_004e9be0") = { 0x4d, 0x6f, 0x64, 0x65, 0x6c, 0x73, 0x5c };
+/* 0x004e9be8, 12 bytes */ GRIM_DATA("004e9be8") unsigned char DAT_004e9be8[12] __asm__("_DAT_004e9be8") = { 0x4d, 0x61, 0x74, 0x65, 0x72, 0x69, 0x61, 0x6c, 0x73, 0x5c };
+/* 0x004e9bf4, 8 bytes */ GRIM_DATA("004e9bf4") unsigned char DAT_004e9bf4[8] __asm__("_DAT_004e9bf4") = { 0x46, 0x6f, 0x6e, 0x74, 0x73, 0x5c };
+/* 0x004e9bfc, 12 bytes */ GRIM_DATA("004e9bfc") unsigned char DAT_004e9bfc[12] __asm__("_DAT_004e9bfc") = { 0x43, 0x6f, 0x6c, 0x6f, 0x72, 0x6d, 0x61, 0x70, 0x73, 0x5c };
+/* 0x004e9c08, 12 bytes */ GRIM_DATA("004e9c08") unsigned char DAT_004e9c08[12] __asm__("_DAT_004e9c08") = { 0x43, 0x6f, 0x73, 0x74, 0x75, 0x6d, 0x65, 0x73, 0x5c };
+/* 0x004e9c14, 16 bytes */ GRIM_DATA("004e9c14") unsigned char DAT_004e9c14[16] __asm__("_DAT_004e9c14") = { 0x42, 0x61, 0x63, 0x6b, 0x67, 0x72, 0x6f, 0x75, 0x6e, 0x64, 0x73, 0x5c };
+/* 0x004e9c24, 12 bytes */ GRIM_DATA("004e9c24") unsigned char DAT_004e9c24[12] __asm__("_DAT_004e9c24") = { 0x41, 0x6e, 0x69, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x5c };
+/* 0x004e9c30, 48 bytes */ GRIM_DATA("004e9c30") char s_C__grimsrc_libs_grimlib_Main_spu_004e9c30[48] __asm__("_s_C__grimsrc_libs_grimlib_Main_spu_004e9c30") = "C:\\grimsrc\\libs\\grimlib\\Main\\sputresource.cpp";
+/* 0x004e9c60, 4 bytes */ /* loose */ char s___004e9c60[4] __asm__("_s___004e9c60") = "\\";
 static unsigned char grim_anchor_004e9c80[0] __attribute__((section(".data$grim_004e9c80"), aligned(16), used));
 static unsigned char grim_pad_004e9c80[0] __attribute__((section(".data$grim_004e9c80_"), aligned(4), used));
-/* 0x004e9c80, 8 bytes */ GRIM_DATA("004e9c80z") int g_nMaxActors = 1024;
+/* 0x004e9c80, 8 bytes */ GRIM_DATA("004e9c80z") int g_nMaxActors __asm__("_g_nMaxActors") = 1024;
 /* 0x004e9c84, 4 bytes: the rest of g_nMaxActors's span */ GRIM_DATA("004e9c80z") static unsigned char g_nMaxActors__tail[4] __attribute__((used)) = {0};
-/* 0x004e9c88, 368 bytes */ GRIM_DATA("004e9c88") PhonemeEntry g_aPhonemeTable[46] = {
+/* 0x004e9c88, 368 bytes */ GRIM_DATA("004e9c88") PhonemeEntry g_aPhonemeTable[46] __asm__("_g_aPhonemeTable") = {
     { .dwPhoneme = 0x5f },
     { .dwPhoneme = 0x251, .wTalkChore = 0x1 },
     { .dwPhoneme = 0x61, .wTalkChore = 0x1 },
@@ -8680,880 +4595,413 @@ static unsigned char grim_pad_004e9c80[0] __attribute__((section(".data$grim_004
     { .dwPhoneme = 0x7a, .wTalkChore = 0x2 },
     { .dwPhoneme = 0x292, .wTalkChore = 0x2 }
 };
-/* 0x004e9df8, 4 bytes */ GRIM_DATA("004e9df8") int g_nPhonemeCount = 46;
-/* 0x004e9dfc, 4 bytes */ GRIM_DATA("004e9dfc") unsigned int g_dwSmSpeechMode = 0x2;
-/* 0x004e9e00, 4 bytes */ GRIM_DATA("004e9e00") int g_nTextRate = 6;
-/* 0x004e9e04, 4 bytes */ GRIM_DATA("004e9e04") int g_nWALKSYSTEM_FADE_TIME = 130;
-/* 0x004e9e08, 20 bytes */ GRIM_DATA("004e9e08") char s_Bad_model_Reference_004e9e08[20] = "Bad model Reference";
-/* 0x004e9e1c, 36 bytes */ /* loose */ char s_Valid_Ref___pCosNode__rCostume___004e9e1c[36] = "Valid_Ref( &pCosNode->rCostume )";
-/* 0x004e9e40, 48 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_s_004e9e40[48] = "C:\\grimsrc\\libs\\grimlib\\Engine\\sputActor.cpp";
-/* 0x004e9e70, 32 bytes */ /* loose */ char s_tot_clips___MAX_SHADOW_CLIPS_004e9e70[32] = "tot_clips < MAX_SHADOW_CLIPS";
-/* 0x004e9e90, 24 bytes */ /* loose */ char s_Bad_costume_Reference_004e9e90[24] = "Bad costume Reference";
-/* 0x004e9ea8, 16 bytes */ /* loose */ char s_pActor__pExtra_004e9ea8[16] = "pActor->pExtra";
-/* 0x004e9eb8, 28 bytes */ /* loose */ char s_pActor_____pActor__pExtra_004e9eb8[28] = "pActor && !pActor->pExtra";
-/* 0x004e9ed4, 8 bytes */ /* loose */ char s__s_imu_004e9ed4[8] = "%s.imu";
-/* 0x004e9edc, 8 bytes */ /* loose */ char s__s_imc_004e9edc[8] = "%s.imc";
-/* 0x004e9ee4, 8 bytes */ /* loose */ char s__s_wav_004e9ee4[8] = "%s.wav";
-/* 0x004e9eec, 12 bytes */ /* loose */ char s__s_wvc_004e9eec[12] = "%s.wvc";
-static unsigned char grim_anchor_004e9ef8[0] __attribute__((section(".data$grim_004e9ef8"), aligned(16), used));
-static unsigned char grim_pad_004e9ef8[8] __attribute__((section(".data$grim_004e9ef8_"), aligned(4), used));
-/* 0x004e9ef8, 8 bytes */ GRIM_DATA("004e9ef8z") unsigned char g_aThingCommands[8] = { 0x00, 0x00, 0x00, 0x00, 0x04 };
-/* 0x004e9f00, 8 bytes */ GRIM_DATA("004e9f00") void *DAT_004e9f00[2] = {
+/* 0x004e9df8, 4 bytes */ GRIM_DATA("004e9df8") int g_nPhonemeCount __asm__("_g_nPhonemeCount") = 46;
+/* 0x004e9dfc, 4 bytes */ GRIM_DATA("004e9dfc") unsigned int g_dwSmSpeechMode __asm__("_g_dwSmSpeechMode") = 0x2;
+/* 0x004e9e00, 4 bytes */ GRIM_DATA("004e9e00") int g_nTextRate __asm__("_g_nTextRate") = 6;
+/* 0x004e9e04, 4 bytes */ GRIM_DATA("004e9e04") int g_nWALKSYSTEM_FADE_TIME __asm__("_g_nWALKSYSTEM_FADE_TIME") = 130;
+/* 0x004e9e08, 20 bytes */ GRIM_DATA("004e9e08") char s_Bad_model_Reference_004e9e08[20] __asm__("_s_Bad_model_Reference_004e9e08") = "Bad model Reference";
+/* 0x004e9e40, 48 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_s_004e9e40[48] __asm__("_s_C__grimsrc_libs_grimlib_Engine_s_004e9e40") = "C:\\grimsrc\\libs\\grimlib\\Engine\\sputActor.cpp";
+/* 0x004e9e90, 24 bytes */ /* loose */ char s_Bad_costume_Reference_004e9e90[24] __asm__("_s_Bad_costume_Reference_004e9e90") = "Bad costume Reference";
+/* 0x004e9f00, 8 bytes */ GRIM_DATA("004e9f00") void *DAT_004e9f00[2] __asm__("_DAT_004e9f00") = {
     (void *)&DAT_004ea188, (void *)&DAT_004ea180
 };
-/* 0x004e9f08, 20 bytes */ GRIM_DATA("004e9f08") grim_span_004e9f08 DAT_004e9f08 = {
-    { 0x02 },
-    (void *)&g_aThingCommands,
-    (void *)&DAT_004e9f00,
-    {0}
-};
-/* 0x004e9f1c, 4 bytes */ GRIM_DATA("004e9f1c") void *DAT_004e9f1c = (void *)&DAT_004ea178;
-/* 0x004e9f20, 24 bytes */ GRIM_DATA("004e9f20") grim_span_004e9f20 DAT_004e9f20 = {
-    { 0x01 },
-    (void *)&DAT_008ca7a8,
-    (void *)&DAT_004e9f1c,
-    {0}
-};
-/* 0x004e9f38, 8 bytes */ GRIM_DATA("004e9f38") unsigned char DAT_004e9f38[8] = { 0x00, 0x00, 0x00, 0x00, 0x04 };
-/* 0x004e9f40, 8 bytes */ GRIM_DATA("004e9f40") void *DAT_004e9f40[2] = {
+/* 0x004e9f1c, 4 bytes */ GRIM_DATA("004e9f1c") void *DAT_004e9f1c __asm__("_DAT_004e9f1c") = (void *)&DAT_004ea178;
+/* 0x004e9f40, 8 bytes */ GRIM_DATA("004e9f40") void *DAT_004e9f40[2] __asm__("_DAT_004e9f40") = {
     (void *)&DAT_004ea188, (void *)&DAT_004ea180
 };
-/* 0x004e9f48, 24 bytes */ GRIM_DATA("004e9f48") grim_span_004e9f48 DAT_004e9f48 = {
-    { 0x02 },
-    (void *)&DAT_004e9f38,
-    (void *)&DAT_004e9f40,
-    {0}
-};
-/* 0x004e9f60, 64 bytes */ GRIM_DATA("004e9f60") unsigned char g_aKeyCommands[64] = {
-    0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,
-    0x08, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00,
-    0x05, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x00,
-    0x0c, 0x00, 0x00, 0x00, 0x0d, 0x00, 0x00, 0x00, 0x0e
-};
-/* 0x004e9fa0, 64 bytes */ GRIM_DATA("004e9fa0") void *DAT_004e9fa0[16] = {
+/* 0x004e9fa0, 64 bytes */ GRIM_DATA("004e9fa0") void *DAT_004e9fa0[16] __asm__("_DAT_004e9fa0") = {
     (void *)&DAT_004ea16c, (void *)&DAT_004ea15c, (void *)&DAT_004ea148, (void *)&DAT_004ea134,
     (void *)&DAT_004ea12c, (void *)&DAT_004ea124, (void *)&DAT_004ea11c, (void *)&DAT_004ea110,
     (void *)&DAT_004ea104, (void *)&DAT_004ea0f4, (void *)&DAT_004ea0e4, (void *)&DAT_004ea0d4,
     (void *)&DAT_004ea0c4, (void *)&DAT_004ea0b4, (void *)&DAT_004ea0a4, 0
 };
-/* 0x004e9fe0, 24 bytes */ GRIM_DATA("004e9fe0") grim_span_004e9fe0 DAT_004e9fe0 = {
-    { 0x0f },
-    (void *)&g_aKeyCommands,
-    (void *)&DAT_004e9fa0,
-    {0}
-};
-/* 0x004e9ff8, 16 bytes */ GRIM_DATA("004e9ff8") unsigned char g_aSoundCommands[16] = { 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02 };
-/* 0x004ea008, 16 bytes */ GRIM_DATA("004ea008") void *DAT_004ea008[4] = {
+/* 0x004ea008, 16 bytes */ GRIM_DATA("004ea008") void *DAT_004ea008[4] __asm__("_DAT_004ea008") = {
     (void *)&DAT_004ea09c, (void *)&DAT_004ea12c, (void *)&DAT_004ea08c, 0
 };
-/* 0x004ea018, 24 bytes */ GRIM_DATA("004ea018") grim_span_004ea018 DAT_004ea018 = {
-    { 0x03 },
-    (void *)&g_aSoundCommands,
-    (void *)&DAT_004ea008,
-    {0}
-};
-/* 0x004ea030, 8 bytes */ GRIM_DATA("004ea030") unsigned char DAT_004ea030[8] = { 0x00, 0x00, 0x00, 0x00, 0x01 };
-/* 0x004ea038, 8 bytes */ GRIM_DATA("004ea038") void *DAT_004ea038[2] = {
+/* 0x004ea030, 8 bytes */ GRIM_DATA("004ea030") unsigned char DAT_004ea030[8] __asm__("_DAT_004ea030") = { 0x00, 0x00, 0x00, 0x00, 0x01 };
+/* 0x004ea038, 8 bytes */ GRIM_DATA("004ea038") void *DAT_004ea038[2] __asm__("_DAT_004ea038") = {
     (void *)&DAT_004ea09c, (void *)&DAT_004ea12c
 };
-/* 0x004ea040, 24 bytes */ GRIM_DATA("004ea040") grim_span_004ea040 DAT_004ea040 = {
-    { 0x02 },
-    (void *)&DAT_004ea030,
-    (void *)&DAT_004ea038,
-    {0}
-};
-/* 0x004ea058, 16 bytes */ GRIM_DATA("004ea058") void *g_pLuaCostumeFuncs[4] = {
-    (void *)&s_GetKeyLength_004ea07c, (void *)f_sputCostume_GetKeyLengthL, (void *)&s_GetSmushLength_004ea06c, (void *)f_sputCostume_GetSmushLengthL
-};
-/* 0x004ea068, 4 bytes */ GRIM_DATA("004ea068") unsigned int UINT_004ea068 = 0x2;
-/* 0x004ea06c, 16 bytes */ GRIM_DATA("004ea06c") char s_GetSmushLength_004ea06c[16] = "GetSmushLength";
-/* 0x004ea07c, 16 bytes */ /* loose */ char s_GetKeyLength_004ea07c[16] = "GetKeyLength";
+/* 0x004ea06c, 16 bytes */ GRIM_DATA("004ea06c") char s_GetSmushLength_004ea06c[16] __asm__("_s_GetSmushLength_004ea06c") = "GetSmushLength";
+/* 0x004ea07c, 16 bytes */ /* loose */ char s_GetKeyLength_004ea07c[16] __asm__("_s_GetKeyLength_004ea07c") = "GetKeyLength";
 static unsigned char grim_anchor_004ea08c[0] __attribute__((section(".data$grim_004ea08c"), aligned(16), used));
 static unsigned char grim_pad_004ea08c[12] __attribute__((section(".data$grim_004ea08c_"), aligned(4), used));
-/* 0x004ea08c, 16 bytes */ GRIM_DATA("004ea08cz") unsigned char DAT_004ea08c[16] = { 0x53, 0x74, 0x6f, 0x70, 0x20, 0x4c, 0x6f, 0x6f, 0x70, 0x69, 0x6e, 0x67 };
-/* 0x004ea09c, 8 bytes */ GRIM_DATA("004ea09c") unsigned char DAT_004ea09c[8] = { 0x50, 0x6c, 0x61, 0x79 };
-/* 0x004ea0a4, 16 bytes */ GRIM_DATA("004ea0a4") unsigned char DAT_004ea0a4[16] = { 0x30, 0x2e, 0x31, 0x32, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x6f, 0x75, 0x74 };
-/* 0x004ea0b4, 16 bytes */ GRIM_DATA("004ea0b4") unsigned char DAT_004ea0b4[16] = { 0x30, 0x2e, 0x32, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x6f, 0x75, 0x74 };
-/* 0x004ea0c4, 16 bytes */ GRIM_DATA("004ea0c4") unsigned char DAT_004ea0c4[16] = { 0x30, 0x2e, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x6f, 0x75, 0x74 };
-/* 0x004ea0d4, 16 bytes */ GRIM_DATA("004ea0d4") unsigned char DAT_004ea0d4[16] = { 0x31, 0x2e, 0x30, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x6f, 0x75, 0x74 };
-/* 0x004ea0e4, 16 bytes */ GRIM_DATA("004ea0e4") unsigned char DAT_004ea0e4[16] = { 0x30, 0x2e, 0x31, 0x32, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x69, 0x6e };
-/* 0x004ea0f4, 16 bytes */ GRIM_DATA("004ea0f4") unsigned char DAT_004ea0f4[16] = { 0x30, 0x2e, 0x32, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x69, 0x6e };
-/* 0x004ea104, 12 bytes */ GRIM_DATA("004ea104") unsigned char DAT_004ea104[12] = { 0x30, 0x2e, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x69, 0x6e };
-/* 0x004ea110, 12 bytes */ GRIM_DATA("004ea110") unsigned char DAT_004ea110[12] = { 0x31, 0x2e, 0x30, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x69, 0x6e };
-/* 0x004ea11c, 8 bytes */ GRIM_DATA("004ea11c") unsigned char DAT_004ea11c[8] = { 0x55, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65 };
-/* 0x004ea124, 8 bytes */ GRIM_DATA("004ea124") unsigned char DAT_004ea124[8] = { 0x50, 0x61, 0x75, 0x73, 0x65 };
-/* 0x004ea12c, 8 bytes */ GRIM_DATA("004ea12c") unsigned char DAT_004ea12c[8] = { 0x53, 0x74, 0x6f, 0x70 };
-/* 0x004ea134, 20 bytes */ GRIM_DATA("004ea134") unsigned char DAT_004ea134[20] = { 0x50, 0x6c, 0x61, 0x79, 0x20, 0x61, 0x6e, 0x64, 0x20, 0x45, 0x6e, 0x64, 0x46, 0x61, 0x64, 0x65 };
-/* 0x004ea148, 20 bytes */ GRIM_DATA("004ea148") unsigned char DAT_004ea148[20] = {
+/* 0x004ea08c, 16 bytes */ GRIM_DATA("004ea08cz") unsigned char DAT_004ea08c[16] __asm__("_DAT_004ea08c") = { 0x53, 0x74, 0x6f, 0x70, 0x20, 0x4c, 0x6f, 0x6f, 0x70, 0x69, 0x6e, 0x67 };
+/* 0x004ea09c, 8 bytes */ GRIM_DATA("004ea09c") unsigned char DAT_004ea09c[8] __asm__("_DAT_004ea09c") = { 0x50, 0x6c, 0x61, 0x79 };
+/* 0x004ea0a4, 16 bytes */ GRIM_DATA("004ea0a4") unsigned char DAT_004ea0a4[16] __asm__("_DAT_004ea0a4") = { 0x30, 0x2e, 0x31, 0x32, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x6f, 0x75, 0x74 };
+/* 0x004ea0b4, 16 bytes */ GRIM_DATA("004ea0b4") unsigned char DAT_004ea0b4[16] __asm__("_DAT_004ea0b4") = { 0x30, 0x2e, 0x32, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x6f, 0x75, 0x74 };
+/* 0x004ea0c4, 16 bytes */ GRIM_DATA("004ea0c4") unsigned char DAT_004ea0c4[16] __asm__("_DAT_004ea0c4") = { 0x30, 0x2e, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x6f, 0x75, 0x74 };
+/* 0x004ea0d4, 16 bytes */ GRIM_DATA("004ea0d4") unsigned char DAT_004ea0d4[16] __asm__("_DAT_004ea0d4") = { 0x31, 0x2e, 0x30, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x6f, 0x75, 0x74 };
+/* 0x004ea0e4, 16 bytes */ GRIM_DATA("004ea0e4") unsigned char DAT_004ea0e4[16] __asm__("_DAT_004ea0e4") = { 0x30, 0x2e, 0x31, 0x32, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x69, 0x6e };
+/* 0x004ea0f4, 16 bytes */ GRIM_DATA("004ea0f4") unsigned char DAT_004ea0f4[16] __asm__("_DAT_004ea0f4") = { 0x30, 0x2e, 0x32, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x69, 0x6e };
+/* 0x004ea104, 12 bytes */ GRIM_DATA("004ea104") unsigned char DAT_004ea104[12] __asm__("_DAT_004ea104") = { 0x30, 0x2e, 0x35, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x69, 0x6e };
+/* 0x004ea110, 12 bytes */ GRIM_DATA("004ea110") unsigned char DAT_004ea110[12] __asm__("_DAT_004ea110") = { 0x31, 0x2e, 0x30, 0x20, 0x46, 0x61, 0x64, 0x65, 0x20, 0x69, 0x6e };
+/* 0x004ea11c, 8 bytes */ GRIM_DATA("004ea11c") unsigned char DAT_004ea11c[8] __asm__("_DAT_004ea11c") = { 0x55, 0x6e, 0x70, 0x61, 0x75, 0x73, 0x65 };
+/* 0x004ea124, 8 bytes */ GRIM_DATA("004ea124") unsigned char DAT_004ea124[8] __asm__("_DAT_004ea124") = { 0x50, 0x61, 0x75, 0x73, 0x65 };
+/* 0x004ea12c, 8 bytes */ GRIM_DATA("004ea12c") unsigned char DAT_004ea12c[8] __asm__("_DAT_004ea12c") = { 0x53, 0x74, 0x6f, 0x70 };
+/* 0x004ea134, 20 bytes */ GRIM_DATA("004ea134") unsigned char DAT_004ea134[20] __asm__("_DAT_004ea134") = { 0x50, 0x6c, 0x61, 0x79, 0x20, 0x61, 0x6e, 0x64, 0x20, 0x45, 0x6e, 0x64, 0x46, 0x61, 0x64, 0x65 };
+/* 0x004ea148, 20 bytes */ GRIM_DATA("004ea148") unsigned char DAT_004ea148[20] __asm__("_DAT_004ea148") = {
     0x50, 0x6c, 0x61, 0x79, 0x20, 0x61, 0x6e, 0x64, 0x20, 0x45, 0x6e, 0x64, 0x50, 0x61, 0x75, 0x73,
     0x65
 };
-/* 0x004ea15c, 16 bytes */ GRIM_DATA("004ea15c") unsigned char DAT_004ea15c[16] = { 0x50, 0x6c, 0x61, 0x79, 0x20, 0x4c, 0x6f, 0x6f, 0x70, 0x69, 0x6e, 0x67 };
-/* 0x004ea16c, 12 bytes */ GRIM_DATA("004ea16c") unsigned char DAT_004ea16c[12] = { 0x50, 0x6c, 0x61, 0x79, 0x20, 0x4f, 0x6e, 0x63, 0x65 };
-/* 0x004ea178, 8 bytes */ GRIM_DATA("004ea178") unsigned char DAT_004ea178[8] = { 0x45, 0x78, 0x69, 0x73, 0x74 };
-/* 0x004ea180, 8 bytes */ GRIM_DATA("004ea180") unsigned char DAT_004ea180[8] = { 0x53, 0x68, 0x6f, 0x77 };
-/* 0x004ea188, 8 bytes */ GRIM_DATA("004ea188") unsigned char DAT_004ea188[8] = { 0x48, 0x69, 0x64, 0x65 };
-/* 0x004ea190, 12 bytes */ GRIM_DATA("004ea190") char s_shadow_cmp_004ea190[12] = "shadow.cmp";
-/* 0x004ea19c, 12 bytes */ /* loose */ char s_shadow_mat_004ea19c[12] = "shadow.mat";
-/* 0x004ea1a8, 8 bytes */ /* loose */ char s_skirt_004ea1a8[8] = "skirt";
-/* 0x004ea1b0, 48 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0[48] = "C:\\grimsrc\\libs\\grimlib\\Engine\\sputCostume.cpp";
-/* 0x004ea1e0, 24 bytes */ /* loose */ char s_Bad_keyframe_Reference_004ea1e0[24] = "Bad keyframe Reference";
-/* 0x004ea1f8, 12 bytes */ /* loose */ char s_BitmapPath_004ea1f8[12] = "BitmapPath";
-/* 0x004ea204, 8 bytes */ /* loose */ char s_Objects_004ea204[8] = "Objects";
-/* 0x004ea20c, 12 bytes */ /* loose */ char s_SmushPath_004ea20c[12] = "SmushPath";
-/* 0x004ea218, 8 bytes */ /* loose */ char s_Movies_004ea218[8] = "Movies";
-/* 0x004ea220, 12 bytes */ /* loose */ char s_SoundPath_004ea220[12] = "SoundPath";
-/* 0x004ea22c, 4 bytes */ /* loose */ char s_SFX_004ea22c[4] = "SFX";
-/* 0x004ea230, 12 bytes */ /* loose */ char s_ModelPath_004ea230[12] = "ModelPath";
-/* 0x004ea23c, 8 bytes */ /* loose */ char s_Models_004ea23c[8] = "Models";
-/* 0x004ea244, 16 bytes */ /* loose */ char s_MaterialPath_004ea244[16] = "MaterialPath";
-/* 0x004ea254, 12 bytes */ /* loose */ char s_Materials_004ea254[12] = "Materials";
-/* 0x004ea260, 16 bytes */ /* loose */ char s_ColormapPath_004ea260[16] = "ColormapPath";
-/* 0x004ea270, 12 bytes */ /* loose */ char s_Colormaps_004ea270[12] = "Colormaps";
-/* 0x004ea27c, 16 bytes */ /* loose */ char s_KeyframePath_004ea27c[16] = "KeyframePath";
-/* 0x004ea28c, 12 bytes */ /* loose */ char s_Animation_004ea28c[12] = "Animation";
-/* 0x004ea298, 16 bytes */ /* loose */ char s_Lua_Variable_004ea298[16] = "Lua Variable";
-/* 0x004ea2a8, 12 bytes */ /* loose */ char s_iMuse_State_004ea2a8[12] = "iMuse State";
-/* 0x004ea2b4, 16 bytes */ /* loose */ char s_iMuse_Sequence_004ea2b4[16] = "iMuse Sequence";
-/* 0x004ea2c4, 8 bytes */ /* loose */ char s_Sprite_004ea2c4[8] = "Sprite";
-/* 0x004ea2cc, 12 bytes */ /* loose */ char s_Smush_Movie_004ea2cc[12] = "Smush Movie";
-/* 0x004ea2d8, 24 bytes */ /* loose */ char s_iMuse_Resident_Sound_FX_004ea2d8[24] = "iMuse Resident Sound FX";
-/* 0x004ea2f0, 24 bytes */ /* loose */ char s_iMuse_Streamed_Sound_FX_004ea2f0[24] = "iMuse Streamed Sound FX";
-static unsigned char grim_anchor_004ea308[0] __attribute__((section(".data$grim_004ea308"), aligned(16), used));
-static unsigned char grim_pad_004ea308[8] __attribute__((section(".data$grim_004ea308_"), aligned(4), used));
-/* 0x004ea308, 28 bytes */ GRIM_DATA("004ea308z") unsigned char DAT_004ea308[28] = {
-    0x41, 0x6e, 0x69, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x28, 0x6f, 0x6c, 0x64, 0x2c, 0x75,
-    0x73, 0x65, 0x20, 0x42, 0x69, 0x74, 0x6d, 0x61, 0x70, 0x29
-};
-/* 0x004ea324, 16 bytes */ GRIM_DATA("004ea324") char s_General_Bitmap_004ea324[16] = "General Bitmap";
-/* 0x004ea334, 24 bytes */ GRIM_DATA("004ea334") unsigned char DAT_004ea334[24] = {
-    0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x4b, 0x65, 0x79, 0x66, 0x72, 0x61, 0x6d, 0x65, 0x20,
-    0x28, 0x2e, 0x4b, 0x45, 0x59, 0x29
-};
-/* 0x004ea34c, 28 bytes */ GRIM_DATA("004ea34c") char s_RDroid_Animated_Material_004ea34c[28] = "RDroid Animated Material";
-/* 0x004ea368, 20 bytes */ /* loose */ char s_RDroid_Thing_Mesh_004ea368[20] = "RDroid Thing Mesh";
-/* 0x004ea37c, 16 bytes */ /* loose */ char s_RDroid_Colormap_004ea37c[16] = "RDroid Colormap";
-static unsigned char grim_anchor_004ea38c[0] __attribute__((section(".data$grim_004ea38c"), aligned(16), used));
-static unsigned char grim_pad_004ea38c[12] __attribute__((section(".data$grim_004ea38c_"), aligned(4), used));
-/* 0x004ea38c, 20 bytes */ GRIM_DATA("004ea38cz") unsigned char DAT_004ea38c[20] = {
-    0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x54, 0x68, 0x69, 0x6e, 0x67, 0x20, 0x28, 0x2e, 0x33,
-    0x44, 0x4f, 0x29
-};
-/* 0x004ea3a0, 28 bytes */ GRIM_DATA("004ea3a0") unsigned char DAT_004ea3a0[28] = {
-    0x4d, 0x41, 0x49, 0x4e, 0x20, 0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x54, 0x68, 0x69, 0x6e,
-    0x67, 0x20, 0x28, 0x2e, 0x33, 0x44, 0x4f, 0x29
-};
-/* 0x004ea3bc, 16 bytes */ GRIM_DATA("004ea3bc") char s__s__s____d_004ea3bc[16] = "%s_%s\t\t=\t%d\n";
-/* 0x004ea3cc, 8 bytes */ /* loose */ char s_____s_004ea3cc[8] = "-- %s\n\n";
-/* 0x004ea3d4, 28 bytes */ /* loose */ char s____Chore_numbering_for__s__004ea3d4[28] = "-- Chore numbering for %s.\n";
-/* 0x004ea3f0, 12 bytes */ /* loose */ char s_File_Error__004ea3f0[12] = "File Error!";
-/* 0x004ea3fc, 96 bytes */ /* loose */ char s_Unable_to_open_chore_list_file__C_004ea3fc[96] = "Unable to open chore list file. Check to make sure that the destination file is not read-only.";
-/* 0x004ea45c, 4 bytes */ /* loose */ char s_lua_004ea45c[4] = "lua";
-/* 0x004ea460, 24 bytes */ /* loose */ char s_Name_chore_list_file____004ea460[24] = "Name chore list file...";
-static unsigned char grim_anchor_004ea478[0] __attribute__((section(".data$grim_004ea478"), aligned(16), used));
-static unsigned char grim_pad_004ea478[8] __attribute__((section(".data$grim_004ea478_"), aligned(4), used));
-/* 0x004ea478, 64 bytes */ GRIM_DATA("004ea478z") char s_Script_files____lua____def__004ea478[64] = "Script files (*.lua, *.def)\000*.lua;*.def\000All Files (*.*)\000*.*";
-/* 0x004ea4b8, 28 bytes */ GRIM_DATA("004ea4b8") char s_Select_image_file_to_add____004ea4b8[28] = "Select image file to add...";
-/* 0x004ea4d4, 88 bytes */ GRIM_DATA("004ea4d4") char s_Graphics_files____pcx____gif___l_004ea4d4[88] = "Graphics files (*.pcx, *.gif,*.lbm, *.bm)\000*.pcx;*.gif;*.lbm;*.bm\000All Files (*.*)\000*.*";
-/* 0x004ea52c, 4 bytes */ GRIM_DATA("004ea52c") char s___004ea52c[4] = ",";
-/* 0x004ea530, 32 bytes */ /* loose */ char s_Select_colormap_file_to_add____004ea530[32] = "Select colormap file to add...";
-static unsigned char grim_anchor_004ea550[0] __attribute__((section(".data$grim_004ea550"), aligned(16), used));
-static unsigned char grim_pad_004ea550[0] __attribute__((section(".data$grim_004ea550_"), aligned(4), used));
-/* 0x004ea550, 52 bytes */ GRIM_DATA("004ea550z") char s_Colormap_files____cmp__004ea550[52] = "Colormap files (*.cmp)\000*.cmp\000All Files (*.*)\000*.*";
-/* 0x004ea584, 32 bytes */ GRIM_DATA("004ea584") char s_Select_mat_file_to_animate____004ea584[32] = "Select mat file to animate...";
-/* 0x004ea5a4, 52 bytes */ GRIM_DATA("004ea5a4") char s_Material_files____mat__004ea5a4[52] = "Material files (*.mat)\000*.mat\000All Files (*.*)\000*.*";
-/* 0x004ea5d8, 8 bytes */ GRIM_DATA("004ea5d8") char s__s__d_004ea5d8[8] = "%s,%d";
-/* 0x004ea5e0, 32 bytes */ /* loose */ char s_Resolve_parent_offset__0___off__004ea5e0[32] = "Resolve parent offset (0 = off)";
-/* 0x004ea600, 28 bytes */ /* loose */ char s_Select_model_file_to_add____004ea600[28] = "Select model file to add...";
-static unsigned char grim_anchor_004ea61c[0] __attribute__((section(".data$grim_004ea61c"), aligned(16), used));
-static unsigned char grim_pad_004ea61c[12] __attribute__((section(".data$grim_004ea61c_"), aligned(4), used));
-/* 0x004ea61c, 48 bytes */ GRIM_DATA("004ea61cz") char s_Model_files____3do__004ea61c[48] = "Model files (*.3do)\000*.3do\000All Files (*.*)\000*.*";
-/* 0x004ea64c, 16 bytes */ GRIM_DATA("004ea64c") char s_Mesh__d___s__004ea64c[16] = "Mesh %d (%s)";
-/* 0x004ea65c, 28 bytes */ /* loose */ char s_Select_mesh_node_to_add____004ea65c[28] = "Select mesh node to add...";
-/* 0x004ea678, 16 bytes */ /* loose */ char s__s__d__d__d__d_004ea678[16] = "%s,%d,%d,%d,%d";
-/* 0x004ea688, 16 bytes */ /* loose */ char s_Minimum_Volume_004ea688[16] = "Minimum Volume";
-/* 0x004ea698, 12 bytes */ /* loose */ char s_Priority_004ea698[12] = "Priority";
-/* 0x004ea6a4, 4 bytes */ /* loose */ char s_Pan_004ea6a4[4] = "Pan";
-/* 0x004ea6a8, 16 bytes */ /* loose */ char s_Maximum_Volume_004ea6a8[16] = "Maximum Volume";
-/* 0x004ea6b8, 28 bytes */ /* loose */ char s_Select_sound_file_to_add____004ea6b8[28] = "Select sound file to add...";
-static unsigned char grim_anchor_004ea6d4[0] __attribute__((section(".data$grim_004ea6d4"), aligned(16), used));
-static unsigned char grim_pad_004ea6d4[4] __attribute__((section(".data$grim_004ea6d4_"), aligned(4), used));
-/* 0x004ea6d4, 88 bytes */ GRIM_DATA("004ea6d4z") char s_Sound_files____imu____imc____wvc_004ea6d4[88] = "Sound files (*.imu, *.imc, *.wvc, *.wav)\000*.imu;*.imc;*.wvc;*.wav\000All Files (*.*)\000*.*";
-/* 0x004ea72c, 28 bytes */ GRIM_DATA("004ea72c") char s_Change_variable_properties_004ea72c[28] = "Change variable properties";
-/* 0x004ea748, 16 bytes */ /* loose */ char s_Variable_name_004ea748[16] = "Variable name";
-/* 0x004ea758, 20 bytes */ /* loose */ char s_Name_of_variable_004ea758[20] = "Name of variable";
-/* 0x004ea76c, 32 bytes */ /* loose */ char s_Select_keyframe_file_to_add____004ea76c[32] = "Select keyframe file to add...";
-static unsigned char grim_anchor_004ea78c[0] __attribute__((section(".data$grim_004ea78c"), aligned(16), used));
-static unsigned char grim_pad_004ea78c[12] __attribute__((section(".data$grim_004ea78c_"), aligned(4), used));
-/* 0x004ea78c, 52 bytes */ GRIM_DATA("004ea78cz") char s_Keyframe_files____key__004ea78c[52] = "Keyframe files (*.key)\000*.key\000All Files (*.*)\000*.*";
-/* 0x004ea7c0, 12 bytes */ GRIM_DATA("004ea7c0") char s__s__d__d_004ea7c0[12] = "%s,%d,%d";
-/* 0x004ea7cc, 16 bytes */ /* loose */ char s_Normal_Priority_004ea7cc[16] = "Normal Priority";
-/* 0x004ea7dc, 16 bytes */ /* loose */ char s_Tagged_Priority_004ea7dc[16] = "Tagged Priority";
-/* 0x004ea7ec, 24 bytes */ /* loose */ char s_Select_smush_file____004ea7ec[24] = "Select smush file...";
-static unsigned char grim_anchor_004ea804[0] __attribute__((section(".data$grim_004ea804"), aligned(16), used));
-static unsigned char grim_pad_004ea804[4] __attribute__((section(".data$grim_004ea804_"), aligned(4), used));
-/* 0x004ea804, 48 bytes */ GRIM_DATA("004ea804z") char s_Smush_files____snm__004ea804[48] = "Smush files (*.snm)\000*.snm\000All Files (*.*)\000*.*";
-/* 0x004ea834, 32 bytes */ GRIM_DATA("004ea834") char s_Select_mat_file_for_sprite____004ea834[32] = "Select mat file for sprite...";
-/* 0x004ea854, 20 bytes */ /* loose */ char s__s__d__d__d__d__d_004ea854[20] = "%s,%d,%d,%d,%d,%d";
-/* 0x004ea868, 4 bytes */ /* loose */ char s_Z_004ea868[4] = "Z";
-/* 0x004ea86c, 4 bytes */ /* loose */ char s_Y_004ea86c[4] = "Y";
-/* 0x004ea870, 4 bytes */ /* loose */ char s_X_004ea870[4] = "X";
-/* 0x004ea874, 8 bytes */ /* loose */ char s_Height_004ea874[8] = "Height";
-/* 0x004ea87c, 8 bytes */ /* loose */ char s_Width_004ea87c[8] = "Width";
-/* 0x004ea884, 12 bytes */ /* loose */ char g_szConfigKeyPrefix[12] = "Requesters\\";
-static unsigned char grim_anchor_004ea890[0] __attribute__((section(".data$grim_004ea890"), aligned(16), used));
-static unsigned char grim_pad_004ea890[0] __attribute__((section(".data$grim_004ea890_"), aligned(4), used));
-/* 0x004ea890, 32 bytes */ GRIM_DATA("004ea890z") void *PTR_s_concatfallback_004ea890[8] = {
-    (void *)&s_concatfallback_004ec370, (void *)f_sputLua_ConcatFallback, (void *)&s_typeoverride_004ec360, (void *)f_sputLua_TypeOverride,
-    (void *)&s_dfltcamera_004ec350, (void *)f_Lua_Stub, (void *)&s_dfltcontrol_004ec340, (void *)f_Lua_Stub
-};
-/* 0x004ea8b0, 2232 bytes */ GRIM_DATA("004ea8b0") void *PTR_s_EnginePause_004ea8b0[558] = {
-    (void *)&s_EnginePause_004ec334, (void *)f_sputLua_EnginePause, (void *)&s_EngineResume_004ec324, (void *)f_sputLua_EngineResume,
-    (void *)&s_EngineDisplay_004ec314, (void *)f_sputLua_EngineDisplay, (void *)&s_SearchForFileOrSwapCDs_004ec2fc, (void *)f_sputLua_SearchForFileOrSwapCDsL,
-    (void *)&s_CheckForFile_004ec2ec, (void *)f_sputLua_CheckForFileL, (void *)&DAT_004ec2e4, (void *)f_sputLua_LoadL,
-    (void *)&DAT_004ec2dc, (void *)f_sputLua_SaveL, (void *)&s_SetActorColormap_004ec2c8, (void *)f_sputLua_SetActorColormapL,
-    (void *)&s_GetActorCostume_004ec2b8, (void *)f_sputLua_GetActorCostumeL, (void *)&s_SetActorCostume_004ec2a8, (void *)f_sputLua_SetActorCostumeL,
-    (void *)&s_GetActorScale_004ec298, (void *)f_sputLua_GetActorScaleL, (void *)&s_SetActorScale_004ec288, (void *)f_sputLua_SetActorScaleL,
-    (void *)&s_GetActorTimeScale_004ec274, (void *)f_sputLua_GetActorTimeScaleL, (void *)&s_SetActorTimeScale_004ec260, (void *)f_sputLua_SetActorTimeScaleL,
-    (void *)&s_GetActorNodeLocation_004ec248, (void *)f_sputLua_GetActorNodeLocationL, (void *)&s_SetActorWalkChore_004ec234, (void *)f_sputLua_SetActorWalkChoresL,
-    (void *)&s_SetActorTurnChores_004ec220, (void *)f_sputLua_SetActorTurnChoresL, (void *)&s_SetActorRestChore_004ec20c, (void *)f_sputLua_SetActorRestChoreL,
-    (void *)&s_SetActorMumblechore_004ec1f8, (void *)f_sputLua_SetActorMumbleChoreL, (void *)&s_SetActorTalkChore_004ec1e4, (void *)f_sputLua_SetActorTalkChoreL,
-    (void *)&s_SetActorWalkRate_004ec1d0, (void *)f_sputLua_SetActorWalkRateL, (void *)&s_GetActorWalkRate_004ec1bc, (void *)f_sputLua_GetActorWalkRateL,
-    (void *)&s_SetActorTurnRate_004ec1a8, (void *)f_sputLua_SetActorTurnRateL, (void *)&s_GetActorTurnRate_004ec194, (void *)f_sputLua_GetActorTurnRateL,
-    (void *)&s_SetSelectedActor_004ec180, (void *)f_sputLua_SetSelectedActorL, (void *)&s_LoadActor_004ec174, (void *)f_sputLua_AllocateActorL,
-    (void *)&s_GetActorPos_004ec168, (void *)f_sputLua_GetActorPosL, (void *)&s_GetActorRect_004ec158, (void *)f_sputLua_GetActorRectL,
-    (void *)&s_GetActorPuckVector_004ec144, (void *)f_sputLua_GetActorPuckVectorL, (void *)&s_GetActorYawToPoint_004ec130, (void *)f_sputLua_GetActorYawToPoint,
-    (void *)&s_SetActorReflection_004ec11c, (void *)f_sputLua_SetActorReflection, (void *)&s_SetActorOffsetYaw_004ec108, (void *)f_sputLua_SetActorOffsetYaw,
-    (void *)&s_PutActorAtInterest_004ec0f4, (void *)f_sputLua_PutActorAtInterestL, (void *)&s_PutActorAtOrigin_004ec0e0, (void *)f_Lua_Stub,
-    (void *)&s_PutActorAt_004ec0d4, (void *)f_sputLua_PutActorAtL, (void *)&s_PutActorInSet_004ec0c4, (void *)f_sputLua_PutActorInSetL,
-    (void *)&s_GetClippedPos_004ec0b4, (void *)f_Lua_Stub, (void *)&s_WalkActorVector_004ec0a4, (void *)f_sputLua_WalkActorVectorL,
-    (void *)&s_WalkActorForward_004ec090, (void *)f_sputLua_WalkActorForwardL, (void *)&s_DriveActorTo_004ec080, (void *)f_Lua_Stub,
-    (void *)&s_WalkActorTo_004ec074, (void *)f_sputLua_WalkActorToL, (void *)&s_WalkActorToAvoiding_004ec060, (void *)f_sputLua_WalkActorToAvoidingL,
-    (void *)&s_WalkActorToInterest_004ec04c, (void *)f_Lua_Stub, (void *)&s_ActorLookAt_004ec040, (void *)f_sputLua_ActorLookAtL,
-    (void *)&s_IsActorLooking_004ec030, (void *)f_sputLua_IsActorLookingL, (void *)&s_SetActorLookRate_004ec01c, (void *)f_sputLua_SetActorLookRate,
-    (void *)&s_GetActorLookRate_004ec008, (void *)f_sputLua_GetActorLookRate, (void *)&s_CanActorSee_004ebffc, (void *)f_sputLua_CanActorSeeL,
-    (void *)&s_GetVisibleThings_004ebfe8, (void *)f_sputLua_GetVisibleThingsL, (void *)&s_GetCameraActor_004ebfd8, (void *)f_sputLua_GetCameraActorL,
-    (void *)&s_SetActorHead_004ebfc8, (void *)f_sputLua_SetActorHeadL, (void *)&s_SetActorVisibility_004ebfb4, (void *)f_sputLua_SetActorVisibilityL,
-    (void *)&s_SetActorFollowBoxes_004ebfa0, (void *)f_sputLua_SetActorFollowBoxesL, (void *)&s_ShutUpActor_004ebf94, (void *)f_sputLua_ShutUpActorL,
-    (void *)&s_SetActorFrustrumCull_004ebf7c, (void *)f_sputLua_SetActorFrustrumCull, (void *)&s_IsActorInSector_004ebf6c, (void *)f_sputLua_IsActorInSector,
-    (void *)&s_GetActorSector_004ebf5c, (void *)f_sputLua_GetActorSectorL, (void *)&s_IsPointInSector_004ebf4c, (void *)f_sputLua_IsPointInSector,
-    (void *)&s_GetPointSector_004ebf3c, (void *)f_sputLua_GetPointSectorL, (void *)&s_TurnActor_004ebf30, (void *)f_sputLua_TurnActorL,
-    (void *)&s_GetActorRot_004ebf24, (void *)f_sputLua_GetActorRotL, (void *)&s_SetActorRot_004ebf18, (void *)f_sputLua_SetActorRotL,
-    (void *)&s_SetActorPitch_004ebf08, (void *)f_sputLua_SetActorPitch, (void *)&s_SetActorRoll_004ebef8, (void *)f_sputLua_SetActorRoll,
-    (void *)&s_IsActorTurning_004ebee8, (void *)f_sputLua_IsActorTurningL, (void *)&s_PlayActorChore_004ebed8, (void *)f_sputLua_PlayActorChoreL,
-    (void *)&s_PlayActorChoreLooping_004ebec0, (void *)f_sputLua_PlayActorChoreLoopingL, (void *)&s_StopActorChore_004ebeb0, (void *)f_sputLua_StopActorChoreL,
-    (void *)&s_CompleteActorChore_004ebe9c, (void *)f_sputLua_CompleteActorChoreL, (void *)&s_IsActorMoving_004ebe8c, (void *)f_sputLua_IsActorMovingL,
-    (void *)&s_IsActorChoring_004ebe7c, (void *)f_sputLua_IsActorChoringL, (void *)&s_IsActorResting_004ebe6c, (void *)f_sputLua_IsActorRestingL,
-    (void *)&s_SetActorChoreLooping_004ebe54, (void *)f_sputLua_SetActorChoreLoopingL, (void *)&s_GetActorChores_004ebe44, (void *)f_sputLua_GetActorChoresL,
-    (void *)&s_GetActorLoopingChores_004ebe2c, (void *)f_sputLua_GetActorLoopingChoresL, (void *)&s_GetActorCostumeDepth_004ebe14, (void *)f_sputLua_GetActorCostumeDepthL,
-    (void *)&s_WorldToScreen_004ebe04, (void *)f_sputLua_WorldToScreenL, (void *)&s_ScreenToWorld_004ebdf4, (void *)f_sputLua_ScreenToWorldL,
-    (void *)&DAT_004ebdec, (void *)f_sputLua_ExitL, (void *)&s_FunctionName_004ebddc, (void *)f_sputLua_FunctionNameL,
-    (void *)&s_EnableDebugKeys_004ebdcc, (void *)f_sputLua_EnableDebugKeysL, (void *)&s_LockFont_004ebdc0, (void *)f_sputLua_LockFontL,
-    (void *)&s_UnLockFont_004ebdb4, (void *)f_Lua_Stub, (void *)&s_LockSound_004ebda8, (void *)f_Lua_Stub,
-    (void *)&s_UnlockSound_004ebd9c, (void *)f_Lua_Stub, (void *)&s_LockCostume_004ebd90, (void *)f_Lua_Stub,
-    (void *)&s_UnlockCostume_004ebd80, (void *)f_Lua_Stub, (void *)&s_EnableControl_004ebd70, (void *)f_sputLua_EnableControlL,
-    (void *)&s_DisableControl_004ebd60, (void *)f_sputLua_DisableControlL, (void *)&s_GetControlState_004ebd50, (void *)f_sputLua_GetControlStateL,
-    (void *)&s_PrintMessage_004ebd40, (void *)f_sputLua_MessagePrintL, (void *)&s_PrintError_004ebd34, (void *)f_Lua_Print_NoOp,
-    (void *)&s_PrintWarning_004ebd24, (void *)f_Lua_Print_NoOp, (void *)&s_PrintDebug_004ebd18, (void *)f_Lua_Print_NoOp,
-    (void *)&s_MakeCurrentSet_004ebd08, (void *)f_sputLua_MakeCurrentSetL, (void *)&s_LockSet_004ebd00, (void *)f_sputLua_LockSet,
-    (void *)&s_UnLockSet_004ebcf4, (void *)f_sputLua_UnLockSet, (void *)&s_MakeCurrentSetup_004ebce0, (void *)f_sputLua_MakeCurrentSetupL,
-    (void *)&s_GetCurrentSetup_004ebcd0, (void *)f_sputLua_GetCurrentSetupL, (void *)&s_NextSetup_004ebcc4, (void *)f_grimlib_NextSetup,
-    (void *)&s_PreviousSetup_004ebcb4, (void *)f_grimlib_PreviousSetup, (void *)&s_StartFullscreenMovie_004ebc9c, (void *)f_sputLua_StartFullScreenMovieL,
-    (void *)&s_IsFullscreenMoviePlaying_004ebc80, (void *)f_sputLua_IsMoviePlayingL, (void *)&s_StartMovie_004ebc74, (void *)f_sputLua_StartMovieL,
-    (void *)&s_StopMovie_004ebc68, (void *)f_sputLua_StopMovieL, (void *)&s_PauseMovie_004ebc5c, (void *)f_sputLua_PauseMovieL,
-    (void *)&s_IsMoviePlaying_004ebc4c, (void *)f_sputLua_IsMoviePlayingL, (void *)&s_PlaySound_004ebc40, (void *)f_Lua_Stub,
-    (void *)&s_PlaySoundAt_004ebc34, (void *)f_Lua_Stub, (void *)&s_PlaySoundAttached_004ebc20, (void *)f_Lua_Stub,
-    (void *)&s_IsSoundPlaying_004ebc10, (void *)f_Lua_Stub, (void *)&s_SetSoundPosition_004ebbfc, (void *)f_sputLua_SetSoundPosition,
-    (void *)&s_FileFindFirst_004ebbec, (void *)f_sputLua_FileFindFirst, (void *)&s_FileFindNext_004ebbdc, (void *)f_sputLua_FileFindNext,
-    (void *)&s_FileFindDispose_004ebbcc, (void *)f_sputLua_FileFindDispose, (void *)&s_InputDialog_004ebbc0, (void *)f_sputLua_InputDialog,
-    (void *)&s_QueryDialog_004ebbb4, (void *)f_sputLua_QueryDialog, (void *)&s_WriteRegistryValue_004ebba0, (void *)f_sputLua_WriteRegistryValue,
-    (void *)&s_ReadRegistryValue_004ebb8c, (void *)f_sputLua_ReadRegistryValue, (void *)&s_GetSectorVertices_004ebb78, (void *)f_Lua_Stub,
-    (void *)&s_GetSectorOppositeEdge_004ebb60, (void *)f_sputLua_GetSectorOppositeEdge, (void *)&s_IsSectorActive_004ebb50, (void *)f_sputLua_IsSectorActiveL,
-    (void *)&s_MakeSectorActive_004ebb3c, (void *)f_sputLua_MakeSectorActiveL, (void *)&s_PreRender_004ebb30, (void *)f_sputLua_PreRender,
-    (void *)&s_SpewStartup_004ebb24, (void *)f_sputLua_SpewStartup, (void *)&s_SpewShutdown_004ebb14, (void *)f_sputLua_SpewShutdown,
-    (void *)&s_GetCurrentScript_004ebb00, (void *)f_sputLua_GetCurrentScript, (void *)&s_PrintActorCostumes_004ebaec, (void *)f_sputLua_PrintActorCostumesL,
-    (void *)&s_PushActorCostume_004ebad8, (void *)f_sputLua_PushActorCostumeL, (void *)&s_PopActorCostume_004ebac8, (void *)f_sputLua_PopActorCostumeL,
-    (void *)&s_LoadCostume_004ebabc, (void *)f_sputLua_LoadCostumeL, (void *)&s_GetPhysicalBytes_004ebaa8, (void *)f_sputLua_GetPhysicalBytes,
-    (void *)&s_SetMemoryUsage_004eba98, (void *)f_sputLua_SetMemoryUsage, (void *)&s_RotateVector_004eba88, (void *)f_sputLua_RotateVectorL,
-    (void *)&s_GetCameraPosition_004eba74, (void *)f_sputLua_GetCameraPositionL, (void *)&s_SetCameraPosition_004eba60, (void *)f_sputLua_SetCameraPositionL,
-    (void *)&s_GetCameraInterest_004eba4c, (void *)f_sputLua_GetCameraInterestL, (void *)&s_SetCameraInterest_004eba38, (void *)f_sputLua_SetCameraInterestL,
-    (void *)&s_GetCameraFOV_004eba28, (void *)f_sputLua_GetCameraFOVL, (void *)&s_SetCameraFOV_004eba18, (void *)f_sputLua_SetCameraFOVL,
-    (void *)&s_GetCameraRoll_004eba08, (void *)f_sputLua_GetCameraRollL, (void *)&s_SetCameraRoll_004eb9f8, (void *)f_sputLua_SetCameraRollL,
-    (void *)&s_GetCameraLookVector_004eb9e4, (void *)f_sputLua_GetCameraLookVectorL, (void *)&s_PointActorAt_004eb9d4, (void *)f_sputLua_PointActorAtL,
-    (void *)&s_TurnActorTo_004eb9c8, (void *)f_sputLua_TurnActorTo, (void *)&s_PerSecond_004eb9bc, (void *)f_sputLua_PerSecondL,
-    (void *)&s_SnapToPlane_004eb9b0, (void *)f_sputLua_SnapToPlane, (void *)&s_GetAngleBetweenVectors_004eb998, (void *)f_sputLua_GetAngleBetweenVectorsL,
-    (void *)&s_GetAngleBetweenActors_004eb980, (void *)f_sputLua_GetAngleBetweenActorsL, (void *)&s_SetAmbientLight_004eb970, (void *)f_sputLua_SetAmbientLight,
-    (void *)&s_FindLight_004eb964, (void *)f_sputLua_FindLight, (void *)&s_TurnLightOn_004eb958, (void *)f_sputLua_TurnLightOn,
-    (void *)&s_IsLightOn_004eb94c, (void *)f_sputLua_IsLightOn, (void *)&s_SetLightType_004eb93c, (void *)f_sputLua_SetLightType,
-    (void *)&s_GetLightType_004eb92c, (void *)f_sputLua_GetLightType, (void *)&s_SetLightPosition_004eb918, (void *)f_sputLua_SetLightPosition,
-    (void *)&s_GetLightPosition_004eb904, (void *)f_sputLua_GetLightPosition, (void *)&s_SetLightRotation_004eb8f0, (void *)f_sputLua_SetLightRotation,
-    (void *)&s_GetLightRotation_004eb8dc, (void *)f_sputLua_GetLightRotation, (void *)&s_SetLightAngles_004eb8cc, (void *)f_sputLua_SetLightAngles,
-    (void *)&s_GetLightAngles_004eb8bc, (void *)f_sputLua_GetLightAngles, (void *)&s_SetLightIntensity_004eb8a8, (void *)f_sputLua_SetLightIntensity,
-    (void *)&s_GetLightIntensity_004eb894, (void *)f_sputLua_GetLightIntensity, (void *)&s_PointLightAt_004eb884, (void *)f_sputLua_PointLightAt,
-    (void *)&s_LightMgrStartup_004eb874, (void *)f_Lua_LightMgrStartup, (void *)&s_LightMgrShutdown_004eb860, (void *)f_Lua_LightMgrShutdown,
-    (void *)&s_LightMgrSetChange_004eb84c, (void *)f_Lua_LightMgrSetChange, (void *)&s_ImStartRecording_004eb838, (void *)f_sputLua_ImStartRecording,
-    (void *)&s_ImStopRecording_004eb828, (void *)f_sputLua_ImStopRecording, (void *)&s_ImStartSound_004eb818, (void *)f_sputLua_ImStartSound,
-    (void *)&DAT_004eb810, (void *)f_sputLua_ImStartSound, (void *)&s_ImStopSound_004eb804, (void *)f_sputLua_ImStopSound,
-    (void *)&s_ImStopAllSounds_004eb7f4, (void *)f_sputLua_ImStopAllSounds, (void *)&s_quiet_004eb7ec, (void *)f_sputLua_ImStopAllSounds,
-    (void *)&s_ImGetParam_004eb7e0, (void *)f_sputLua_ImGetParam, (void *)&s_ImSetParam_004eb7d4, (void *)f_sputLua_ImSetParam,
-    (void *)&s_ImFadeParam_004eb7c8, (void *)f_sputLua_ImFadeParam, (void *)&s_ImGetMasterVol_004eb7b8, (void *)f_sputLua_ImGetMasterVol,
-    (void *)&s_ImSetMasterVol_004eb7a8, (void *)f_sputLua_ImSetMasterVol, (void *)&s_ImGetSfxVol_004eb79c, (void *)f_sputLua_ImGetSfxVol,
-    (void *)&s_ImSetSfxVol_004eb790, (void *)f_sputLua_ImSetSfxVol, (void *)&s_ImGetVoiceVol_004eb780, (void *)f_sputLua_ImGetVoiceVol,
-    (void *)&s_ImSetVoiceVol_004eb770, (void *)f_sputLua_ImSetVoiceVol, (void *)&s_ImGetMusicVol_004eb760, (void *)f_sputLua_ImGetMusicVol,
-    (void *)&s_ImSetMusicVol_004eb750, (void *)f_sputLua_ImSetMusicVol, (void *)&s_ImStartVoice_004eb740, (void *)f_sputLua_ImStartVoice,
-    (void *)&s_ImStopVoice_004eb734, (void *)f_sputLua_ImStopVoice, (void *)&s_ImSetState_004eb728, (void *)f_sputLua_ImSetState,
-    (void *)&s_ImSetSequence_004eb718, (void *)f_sputLua_ImSetSequence, (void *)&s_ImSetAttribute_004eb708, (void *)f_sputLua_ImSetAttribute,
-    (void *)&s_ImSetCuePoint_004eb6f8, (void *)f_sputLua_ImSetCuePoint, (void *)&s_ImPause_004eb6f0, (void *)f_sputLua_ImPause,
-    (void *)&s_ImResume_004eb6e4, (void *)f_sputLua_ImResume, (void *)&DAT_004eb6e0, (void *)f_sputLua_ImSetVoiceEffect,
-    (void *)&s_ImSetVoiceEffect_004eb6cc, (void *)f_sputLua_ImSetVoiceEffect, (void *)&s_ImGetMemoryFootprint_004eb6b4, (void *)f_sputLua_ImGetMemoryFootprint,
-    (void *)&s_ImGetSoundCacheSize_004eb6a0, (void *)f_sputLua_ImGetSoundCacheSize, (void *)&s_LoadBundle_004eb694, (void *)f_Lua_Stub,
-    (void *)&s_UnloadBundle_004eb684, (void *)f_Lua_Stub, (void *)&s_SetGamma_004eb678, (void *)f_sputLua_SetGamma,
-    (void *)&s_SetActorWalkDominate_004eb660, (void *)f_sputLua_SetActorWalkDominate, (void *)&s_SetActorConstrain_004eb64c, (void *)f_sputLua_SetActorConstrain,
-    (void *)&s_RenderModeUser_004eb63c, (void *)f_sputLua_RenderModeUser, (void *)&s_ForceRefresh_004eb62c, (void *)f_sputRender_ForceRefresh,
-    (void *)&s_DimScreen_004eb620, (void *)f_sputLua_DimScreen, (void *)&s_DimRegion_004eb614, (void *)f_sputLua_DimRegion,
-    (void *)&s_CleanBuffer_004eb608, (void *)f_sputLua_CleanBuffer, (void *)&s_Display_004eb600, (void *)f_sputLua_Display,
-    (void *)&s_SetSpeechMode_004eb5f0, (void *)f_sputLua_SetSpeechMode, (void *)&s_GetSpeechMode_004eb5e0, (void *)f_sputLua_GetSpeechMode,
-    (void *)&s_SetShadowColor_004eb5d0, (void *)f_sputLua_SetShadowColor, (void *)&s_ActivateActorShadow_004eb5bc, (void *)f_sputLua_ActivateActorShadow,
-    (void *)&s_ActorShadow_004eb5b0, (void *)f_sputLua_ActorShadow, (void *)&s_SetActorShadowPlane_004eb59c, (void *)f_sputLua_SetActorShadowPlane,
-    (void *)&s_SetActorShadowPoint_004eb588, (void *)f_sputLua_SetActorShadowPoint, (void *)&s_SetActiveShadow_004eb578, (void *)f_sputLua_SetActiveShadow,
-    (void *)&s_ActorDistToShadowPlane_004eb560, (void *)f_sputLua_ActorDistToShadowPlane, (void *)&s_KillActorShadows_004eb54c, (void *)f_sputLua_KillActorShadows,
-    (void *)&s_AddShadowPlane_004eb53c, (void *)f_sputLua_AddShadowClipPlane, (void *)&s_SetActorShadowValid_004eb528, (void *)f_sputLua_SetActorShadowValid,
-    (void *)&s_NewObjectState_004eb518, (void *)f_sputLua_NewObjectState, (void *)&s_FreeObjectState_004eb508, (void *)f_sputLua_FreeObjectState,
-    (void *)&s_SetObjectType_004eb4f8, (void *)f_sputLua_SetObjectType, (void *)&s_SendObjectToBack_004eb4e4, (void *)f_sputLua_SendObjectToBack,
-    (void *)&s_SendObjectToFront_004eb4d0, (void *)f_sputLua_SendObjectToFront, (void *)&s_ActorToClean_004eb4c0, (void *)f_sputLua_ActorToClean,
-    (void *)&s_FlushControls_004eb4b0, (void *)f_stdControl_Flush, (void *)&s_SetActorCollisionMode_004eb498, (void *)f_sputLua_SetActorCollisionMode,
-    (void *)&s_SetActorCollisionScale_004eb480, (void *)f_sputLua_SetActorCollisionScale, (void *)&s_MarkDirtyRect_004eb470, (void *)f_sputLua_MarkDirtyRect,
-    (void *)&s_CacheRect_004eb464, (void *)f_sputLua_CacheRect, (void *)&s_RestoreCacheRect_004eb450, (void *)f_sputLua_RestoreCacheRect,
-    (void *)&s_ResReport_004eb444, (void *)f_sputLua_ResReport, (void *)&s_HardwareAccelerated_004eb430, (void *)f_sputLua_HardwareAccelerated,
-    (void *)&s_SetActorClipActive_004eb41c, (void *)f_sputLua_SetActorClipActive, (void *)&s_SetActorClipPlane_004eb408, (void *)f_sputLua_SetActorClipPlane,
-    (void *)&s_FadeOutChore_004eb3f8, (void *)f_sputLua_FadeOutChore, (void *)&s_FadeInChore_004eb3ec, (void *)f_sputLua_FadeInChore,
-    (void *)&s_IrisDown_004eb3e0, (void *)f_sputLua_IrisDown, (void *)&s_IrisUp_004eb3d8, (void *)f_sputLua_IrisUp,
-    (void *)&s_IrisComplete_004eb3c8, (void *)f_sputLua_IrisComplete, (void *)&DAT_004eb3bc, (void *)f_sputRender_ClearIris,
-    (void *)&DAT_004eb3a4, (void *)f_Lua_TextFileGetLineCount, (void *)&DAT_004eb394, (void *)f_Lua_TextFileGetLine,
-    (void *)&DAT_004eb388, (void *)f_sputLua_ScreenShot, (void *)&DAT_004eb37c, (void *)f_sputLua_SaveScreen,
-    (void *)&DAT_004eb368, (void *)f_sputLua_GetSaveGameImage, (void *)&DAT_004eb35c, (void *)f_sputLua_GetImage,
-    (void *)&DAT_004eb350, (void *)f_sputLua_FreeImage, (void *)&DAT_004eb344, (void *)f_sputLua_BlastImage,
-    (void *)&DAT_004eb338, (void *)f_sputLua_BlastRect, (void *)&DAT_004eb324, (void *)f_sputLua_SubmitSaveGameData,
-    (void *)&DAT_004eb314, (void *)f_sputLua_GetSaveGameData, (void *)&DAT_004eb304, (void *)f_sputLua_SetTextSpeed,
-    (void *)&DAT_004eb2f4, (void *)f_sputLua_GetTextSpeed, (void *)&DAT_004eb2e4, (void *)f_sputLua_FindFileOnAnyCD,
-    (void *)&DAT_004eb2d0, (void *)f_sputLua_DetachFromResourcesL, (void *)&DAT_004eb2bc, (void *)f_sputLua_AttachToResourcesL,
-    (void *)&DAT_004eb2a8, (void *)f_sputLua_SetSoundParametersL, (void *)&DAT_004eb294, (void *)f_sputLua_GetSoundParametersL,
-    (void *)&DAT_004eb28c, (void *)f_sputLua_Test, (void *)&DAT_004eb27c, (void *)f_sputLua_ActorPuckOrient,
-    (void *)&DAT_004eb26c, (void *)f_sputLua_GetTickCount, (void *)&DAT_004eb25c, (void *)f_sputLua_ActorVoiceIs3DL,
-    (void *)&DAT_004eb250, (void *)f_sputLua_JustLoadedL, (void *)&DAT_004eb240, (void *)f_sputLua_DumpMemoryLogL,
-    (void *)&DAT_004eb230, (void *)f_sputLua_ResetTexturesL, (void *)&DAT_004eb224, (void *)f_sputLua_BuildCache,
-    (void *)&DAT_004eb214, (void *)f_sputLua_RevertCache, (void *)&DAT_004eb208, (void *)f_sputLua_ShrinkBoxes,
-    (void *)&DAT_004eb1f8, (void *)f_sputLua_UnShrinkBoxes, (void *)&DAT_004eb1e8, (void *)f_sputLua_GetShrinkPosition,
-    (void *)&DAT_004eb1d8, (void *)f_sputLua_NukeResourcesL, (void *)&DAT_004eb1c4, (void *)f_sputLua_SetActorInvClipNode,
-    (void *)&DAT_004eb1b0, (void *)f_sputLua_GetDiskFreeSpaceL, (void *)&DAT_004eb198, (void *)f_sputLua_SetWalkSystemFadeTime,
-    (void *)&DAT_004eb18c, (void *)f_sputLua_SaveIMuse, (void *)&DAT_004eb17c, (void *)f_sputLua_RestoreIMuse,
-    (void *)&DAT_004eb16c, (void *)f_sputLua_GetMemoryUsageL
-};
-/* 0x004eb168, 4 bytes */ GRIM_DATA("004eb168") unsigned int UINT_004eb168 = 0x117;
-/* 0x004eb16c, 16 bytes */ GRIM_DATA("004eb16c") unsigned char DAT_004eb16c[16] = { 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x72, 0x79, 0x55, 0x73, 0x61, 0x67, 0x65 };
-/* 0x004eb17c, 16 bytes */ GRIM_DATA("004eb17c") unsigned char DAT_004eb17c[16] = { 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x4d, 0x75, 0x73, 0x65 };
-/* 0x004eb18c, 12 bytes */ GRIM_DATA("004eb18c") unsigned char DAT_004eb18c[12] = { 0x53, 0x61, 0x76, 0x65, 0x49, 0x4d, 0x75, 0x73, 0x65 };
-/* 0x004eb198, 24 bytes */ GRIM_DATA("004eb198") unsigned char DAT_004eb198[24] = {
+/* 0x004ea15c, 16 bytes */ GRIM_DATA("004ea15c") unsigned char DAT_004ea15c[16] __asm__("_DAT_004ea15c") = { 0x50, 0x6c, 0x61, 0x79, 0x20, 0x4c, 0x6f, 0x6f, 0x70, 0x69, 0x6e, 0x67 };
+/* 0x004ea16c, 12 bytes */ GRIM_DATA("004ea16c") unsigned char DAT_004ea16c[12] __asm__("_DAT_004ea16c") = { 0x50, 0x6c, 0x61, 0x79, 0x20, 0x4f, 0x6e, 0x63, 0x65 };
+/* 0x004ea178, 8 bytes */ GRIM_DATA("004ea178") unsigned char DAT_004ea178[8] __asm__("_DAT_004ea178") = { 0x45, 0x78, 0x69, 0x73, 0x74 };
+/* 0x004ea180, 8 bytes */ GRIM_DATA("004ea180") unsigned char DAT_004ea180[8] __asm__("_DAT_004ea180") = { 0x53, 0x68, 0x6f, 0x77 };
+/* 0x004ea188, 8 bytes */ GRIM_DATA("004ea188") unsigned char DAT_004ea188[8] __asm__("_DAT_004ea188") = { 0x48, 0x69, 0x64, 0x65 };
+/* 0x004ea190, 12 bytes */ GRIM_DATA("004ea190") char s_shadow_cmp_004ea190[12] __asm__("_s_shadow_cmp_004ea190") = "shadow.cmp";
+/* 0x004ea1b0, 48 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0[48] __asm__("_s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0") = "C:\\grimsrc\\libs\\grimlib\\Engine\\sputCostume.cpp";
+/* 0x004ea1e0, 24 bytes */ /* loose */ char s_Bad_keyframe_Reference_004ea1e0[24] __asm__("_s_Bad_keyframe_Reference_004ea1e0") = "Bad keyframe Reference";
+/* 0x004ea2a8, 12 bytes */ /* loose */ char s_iMuse_State_004ea2a8[12] __asm__("_s_iMuse_State_004ea2a8") = "iMuse State";
+/* 0x004ea2b4, 16 bytes */ /* loose */ char s_iMuse_Sequence_004ea2b4[16] __asm__("_s_iMuse_Sequence_004ea2b4") = "iMuse Sequence";
+/* 0x004ea52c, 4 bytes */ GRIM_DATA("004ea52c") char s___004ea52c[4] __asm__("_s___004ea52c") = ",";
+/* 0x004ea5a4, 52 bytes */ GRIM_DATA("004ea5a4") char s_Material_files____mat__004ea5a4[52] __asm__("_s_Material_files____mat__004ea5a4") = "Material files (*.mat)\000*.mat\000All Files (*.*)\000*.*";
+/* 0x004eb16c, 16 bytes */ GRIM_DATA("004eb16c") unsigned char DAT_004eb16c[16] __asm__("_DAT_004eb16c") = { 0x47, 0x65, 0x74, 0x4d, 0x65, 0x6d, 0x6f, 0x72, 0x79, 0x55, 0x73, 0x61, 0x67, 0x65 };
+/* 0x004eb17c, 16 bytes */ GRIM_DATA("004eb17c") unsigned char DAT_004eb17c[16] __asm__("_DAT_004eb17c") = { 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x49, 0x4d, 0x75, 0x73, 0x65 };
+/* 0x004eb18c, 12 bytes */ GRIM_DATA("004eb18c") unsigned char DAT_004eb18c[12] __asm__("_DAT_004eb18c") = { 0x53, 0x61, 0x76, 0x65, 0x49, 0x4d, 0x75, 0x73, 0x65 };
+/* 0x004eb198, 24 bytes */ GRIM_DATA("004eb198") unsigned char DAT_004eb198[24] __asm__("_DAT_004eb198") = {
     0x53, 0x65, 0x74, 0x57, 0x61, 0x6c, 0x6b, 0x53, 0x79, 0x73, 0x74, 0x65, 0x6d, 0x46, 0x61, 0x64,
     0x65, 0x54, 0x69, 0x6d, 0x65
 };
-/* 0x004eb1b0, 20 bytes */ GRIM_DATA("004eb1b0") unsigned char DAT_004eb1b0[20] = { 0x47, 0x65, 0x74, 0x44, 0x69, 0x73, 0x6b, 0x46, 0x72, 0x65, 0x65, 0x53, 0x70, 0x61, 0x63, 0x65 };
-/* 0x004eb1c4, 20 bytes */ GRIM_DATA("004eb1c4") unsigned char DAT_004eb1c4[20] = {
+/* 0x004eb1b0, 20 bytes */ GRIM_DATA("004eb1b0") unsigned char DAT_004eb1b0[20] __asm__("_DAT_004eb1b0") = { 0x47, 0x65, 0x74, 0x44, 0x69, 0x73, 0x6b, 0x46, 0x72, 0x65, 0x65, 0x53, 0x70, 0x61, 0x63, 0x65 };
+/* 0x004eb1c4, 20 bytes */ GRIM_DATA("004eb1c4") unsigned char DAT_004eb1c4[20] __asm__("_DAT_004eb1c4") = {
     0x53, 0x65, 0x74, 0x41, 0x63, 0x74, 0x6f, 0x72, 0x49, 0x6e, 0x76, 0x43, 0x6c, 0x69, 0x70, 0x4e,
     0x6f, 0x64, 0x65
 };
-/* 0x004eb1d8, 16 bytes */ GRIM_DATA("004eb1d8") unsigned char DAT_004eb1d8[16] = { 0x4e, 0x75, 0x6b, 0x65, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73 };
-/* 0x004eb1e8, 16 bytes */ GRIM_DATA("004eb1e8") unsigned char DAT_004eb1e8[16] = { 0x47, 0x65, 0x74, 0x53, 0x68, 0x72, 0x69, 0x6e, 0x6b, 0x50, 0x6f, 0x73 };
-/* 0x004eb1f8, 16 bytes */ GRIM_DATA("004eb1f8") unsigned char DAT_004eb1f8[16] = { 0x55, 0x6e, 0x53, 0x68, 0x72, 0x69, 0x6e, 0x6b, 0x42, 0x6f, 0x78, 0x65, 0x73 };
-/* 0x004eb208, 12 bytes */ GRIM_DATA("004eb208") unsigned char DAT_004eb208[12] = { 0x53, 0x68, 0x72, 0x69, 0x6e, 0x6b, 0x42, 0x6f, 0x78, 0x65, 0x73 };
-/* 0x004eb214, 16 bytes */ GRIM_DATA("004eb214") unsigned char DAT_004eb214[16] = { 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x43, 0x61, 0x63, 0x68, 0x65 };
-/* 0x004eb224, 12 bytes */ GRIM_DATA("004eb224") unsigned char DAT_004eb224[12] = { 0x42, 0x75, 0x69, 0x6c, 0x64, 0x43, 0x61, 0x63, 0x68, 0x65 };
-/* 0x004eb230, 16 bytes */ GRIM_DATA("004eb230") unsigned char DAT_004eb230[16] = { 0x52, 0x65, 0x73, 0x65, 0x74, 0x54, 0x65, 0x78, 0x74, 0x75, 0x72, 0x65, 0x73 };
-/* 0x004eb240, 16 bytes */ GRIM_DATA("004eb240") unsigned char DAT_004eb240[16] = { 0x44, 0x75, 0x6d, 0x70, 0x4d, 0x65, 0x6d, 0x6f, 0x72, 0x79, 0x4c, 0x6f, 0x67 };
-/* 0x004eb250, 12 bytes */ GRIM_DATA("004eb250") unsigned char DAT_004eb250[12] = { 0x4a, 0x75, 0x73, 0x74, 0x4c, 0x6f, 0x61, 0x64, 0x65, 0x64 };
-/* 0x004eb25c, 16 bytes */ GRIM_DATA("004eb25c") unsigned char DAT_004eb25c[16] = { 0x41, 0x63, 0x74, 0x6f, 0x72, 0x56, 0x6f, 0x69, 0x63, 0x65, 0x49, 0x73, 0x33, 0x44 };
-/* 0x004eb26c, 16 bytes */ GRIM_DATA("004eb26c") unsigned char DAT_004eb26c[16] = { 0x47, 0x65, 0x74, 0x54, 0x69, 0x63, 0x6b, 0x43, 0x6f, 0x75, 0x6e, 0x74 };
-/* 0x004eb27c, 16 bytes */ GRIM_DATA("004eb27c") unsigned char DAT_004eb27c[16] = { 0x41, 0x63, 0x74, 0x6f, 0x72, 0x50, 0x75, 0x63, 0x6b, 0x4f, 0x72, 0x69, 0x65, 0x6e, 0x74 };
-/* 0x004eb28c, 8 bytes */ GRIM_DATA("004eb28c") unsigned char DAT_004eb28c[8] = { 0x54, 0x45, 0x53, 0x54 };
-/* 0x004eb294, 20 bytes */ GRIM_DATA("004eb294") unsigned char DAT_004eb294[20] = {
+/* 0x004eb1d8, 16 bytes */ GRIM_DATA("004eb1d8") unsigned char DAT_004eb1d8[16] __asm__("_DAT_004eb1d8") = { 0x4e, 0x75, 0x6b, 0x65, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x73 };
+/* 0x004eb1e8, 16 bytes */ GRIM_DATA("004eb1e8") unsigned char DAT_004eb1e8[16] __asm__("_DAT_004eb1e8") = { 0x47, 0x65, 0x74, 0x53, 0x68, 0x72, 0x69, 0x6e, 0x6b, 0x50, 0x6f, 0x73 };
+/* 0x004eb1f8, 16 bytes */ GRIM_DATA("004eb1f8") unsigned char DAT_004eb1f8[16] __asm__("_DAT_004eb1f8") = { 0x55, 0x6e, 0x53, 0x68, 0x72, 0x69, 0x6e, 0x6b, 0x42, 0x6f, 0x78, 0x65, 0x73 };
+/* 0x004eb208, 12 bytes */ GRIM_DATA("004eb208") unsigned char DAT_004eb208[12] __asm__("_DAT_004eb208") = { 0x53, 0x68, 0x72, 0x69, 0x6e, 0x6b, 0x42, 0x6f, 0x78, 0x65, 0x73 };
+/* 0x004eb214, 16 bytes */ GRIM_DATA("004eb214") unsigned char DAT_004eb214[16] __asm__("_DAT_004eb214") = { 0x52, 0x65, 0x73, 0x74, 0x6f, 0x72, 0x65, 0x43, 0x61, 0x63, 0x68, 0x65 };
+/* 0x004eb224, 12 bytes */ GRIM_DATA("004eb224") unsigned char DAT_004eb224[12] __asm__("_DAT_004eb224") = { 0x42, 0x75, 0x69, 0x6c, 0x64, 0x43, 0x61, 0x63, 0x68, 0x65 };
+/* 0x004eb230, 16 bytes */ GRIM_DATA("004eb230") unsigned char DAT_004eb230[16] __asm__("_DAT_004eb230") = { 0x52, 0x65, 0x73, 0x65, 0x74, 0x54, 0x65, 0x78, 0x74, 0x75, 0x72, 0x65, 0x73 };
+/* 0x004eb240, 16 bytes */ GRIM_DATA("004eb240") unsigned char DAT_004eb240[16] __asm__("_DAT_004eb240") = { 0x44, 0x75, 0x6d, 0x70, 0x4d, 0x65, 0x6d, 0x6f, 0x72, 0x79, 0x4c, 0x6f, 0x67 };
+/* 0x004eb250, 12 bytes */ GRIM_DATA("004eb250") unsigned char DAT_004eb250[12] __asm__("_DAT_004eb250") = { 0x4a, 0x75, 0x73, 0x74, 0x4c, 0x6f, 0x61, 0x64, 0x65, 0x64 };
+/* 0x004eb25c, 16 bytes */ GRIM_DATA("004eb25c") unsigned char DAT_004eb25c[16] __asm__("_DAT_004eb25c") = { 0x41, 0x63, 0x74, 0x6f, 0x72, 0x56, 0x6f, 0x69, 0x63, 0x65, 0x49, 0x73, 0x33, 0x44 };
+/* 0x004eb26c, 16 bytes */ GRIM_DATA("004eb26c") unsigned char DAT_004eb26c[16] __asm__("_DAT_004eb26c") = { 0x47, 0x65, 0x74, 0x54, 0x69, 0x63, 0x6b, 0x43, 0x6f, 0x75, 0x6e, 0x74 };
+/* 0x004eb27c, 16 bytes */ GRIM_DATA("004eb27c") unsigned char DAT_004eb27c[16] __asm__("_DAT_004eb27c") = { 0x41, 0x63, 0x74, 0x6f, 0x72, 0x50, 0x75, 0x63, 0x6b, 0x4f, 0x72, 0x69, 0x65, 0x6e, 0x74 };
+/* 0x004eb28c, 8 bytes */ GRIM_DATA("004eb28c") unsigned char DAT_004eb28c[8] __asm__("_DAT_004eb28c") = { 0x54, 0x45, 0x53, 0x54 };
+/* 0x004eb294, 20 bytes */ GRIM_DATA("004eb294") unsigned char DAT_004eb294[20] __asm__("_DAT_004eb294") = {
     0x47, 0x65, 0x74, 0x53, 0x6f, 0x75, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x65, 0x74, 0x65,
     0x72, 0x73
 };
-/* 0x004eb2a8, 20 bytes */ GRIM_DATA("004eb2a8") unsigned char DAT_004eb2a8[20] = {
+/* 0x004eb2a8, 20 bytes */ GRIM_DATA("004eb2a8") unsigned char DAT_004eb2a8[20] __asm__("_DAT_004eb2a8") = {
     0x53, 0x65, 0x74, 0x53, 0x6f, 0x75, 0x6e, 0x64, 0x50, 0x61, 0x72, 0x61, 0x6d, 0x65, 0x74, 0x65,
     0x72, 0x73
 };
-/* 0x004eb2bc, 20 bytes */ GRIM_DATA("004eb2bc") unsigned char DAT_004eb2bc[20] = {
+/* 0x004eb2bc, 20 bytes */ GRIM_DATA("004eb2bc") unsigned char DAT_004eb2bc[20] __asm__("_DAT_004eb2bc") = {
     0x41, 0x74, 0x74, 0x61, 0x63, 0x68, 0x54, 0x6f, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72, 0x63, 0x65,
     0x73
 };
-/* 0x004eb2d0, 20 bytes */ GRIM_DATA("004eb2d0") unsigned char DAT_004eb2d0[20] = {
+/* 0x004eb2d0, 20 bytes */ GRIM_DATA("004eb2d0") unsigned char DAT_004eb2d0[20] __asm__("_DAT_004eb2d0") = {
     0x44, 0x65, 0x74, 0x61, 0x63, 0x68, 0x46, 0x72, 0x6f, 0x6d, 0x52, 0x65, 0x73, 0x6f, 0x75, 0x72,
     0x63, 0x65, 0x73
 };
-/* 0x004eb2e4, 16 bytes */ GRIM_DATA("004eb2e4") unsigned char DAT_004eb2e4[16] = { 0x46, 0x69, 0x6e, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x4f, 0x6e, 0x41, 0x6e, 0x79, 0x43, 0x44 };
-/* 0x004eb2f4, 16 bytes */ GRIM_DATA("004eb2f4") unsigned char DAT_004eb2f4[16] = { 0x47, 0x65, 0x74, 0x54, 0x65, 0x78, 0x74, 0x53, 0x70, 0x65, 0x65, 0x64 };
-/* 0x004eb304, 16 bytes */ GRIM_DATA("004eb304") unsigned char DAT_004eb304[16] = { 0x53, 0x65, 0x74, 0x54, 0x65, 0x78, 0x74, 0x53, 0x70, 0x65, 0x65, 0x64 };
-/* 0x004eb314, 16 bytes */ GRIM_DATA("004eb314") unsigned char DAT_004eb314[16] = { 0x47, 0x65, 0x74, 0x53, 0x61, 0x76, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61 };
-/* 0x004eb324, 20 bytes */ GRIM_DATA("004eb324") unsigned char DAT_004eb324[20] = {
+/* 0x004eb2e4, 16 bytes */ GRIM_DATA("004eb2e4") unsigned char DAT_004eb2e4[16] __asm__("_DAT_004eb2e4") = { 0x46, 0x69, 0x6e, 0x64, 0x46, 0x69, 0x6c, 0x65, 0x4f, 0x6e, 0x41, 0x6e, 0x79, 0x43, 0x44 };
+/* 0x004eb2f4, 16 bytes */ GRIM_DATA("004eb2f4") unsigned char DAT_004eb2f4[16] __asm__("_DAT_004eb2f4") = { 0x47, 0x65, 0x74, 0x54, 0x65, 0x78, 0x74, 0x53, 0x70, 0x65, 0x65, 0x64 };
+/* 0x004eb304, 16 bytes */ GRIM_DATA("004eb304") unsigned char DAT_004eb304[16] __asm__("_DAT_004eb304") = { 0x53, 0x65, 0x74, 0x54, 0x65, 0x78, 0x74, 0x53, 0x70, 0x65, 0x65, 0x64 };
+/* 0x004eb314, 16 bytes */ GRIM_DATA("004eb314") unsigned char DAT_004eb314[16] __asm__("_DAT_004eb314") = { 0x47, 0x65, 0x74, 0x53, 0x61, 0x76, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61 };
+/* 0x004eb324, 20 bytes */ GRIM_DATA("004eb324") unsigned char DAT_004eb324[20] __asm__("_DAT_004eb324") = {
     0x53, 0x75, 0x62, 0x6d, 0x69, 0x74, 0x53, 0x61, 0x76, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x44, 0x61,
     0x74, 0x61
 };
-/* 0x004eb338, 12 bytes */ GRIM_DATA("004eb338") unsigned char DAT_004eb338[12] = { 0x42, 0x6c, 0x61, 0x73, 0x74, 0x52, 0x65, 0x63, 0x74 };
-/* 0x004eb344, 12 bytes */ GRIM_DATA("004eb344") unsigned char DAT_004eb344[12] = { 0x42, 0x6c, 0x61, 0x73, 0x74, 0x49, 0x6d, 0x61, 0x67, 0x65 };
-/* 0x004eb350, 12 bytes */ GRIM_DATA("004eb350") unsigned char DAT_004eb350[12] = { 0x46, 0x72, 0x65, 0x65, 0x49, 0x6d, 0x61, 0x67, 0x65 };
-/* 0x004eb35c, 12 bytes */ GRIM_DATA("004eb35c") unsigned char DAT_004eb35c[12] = { 0x47, 0x65, 0x74, 0x49, 0x6d, 0x61, 0x67, 0x65 };
-/* 0x004eb368, 20 bytes */ GRIM_DATA("004eb368") unsigned char DAT_004eb368[20] = { 0x47, 0x65, 0x74, 0x53, 0x61, 0x76, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x49, 0x6d, 0x61, 0x67, 0x65 };
-/* 0x004eb37c, 12 bytes */ GRIM_DATA("004eb37c") unsigned char DAT_004eb37c[12] = { 0x53, 0x61, 0x76, 0x65, 0x53, 0x63, 0x72, 0x65, 0x65, 0x6e };
-/* 0x004eb388, 12 bytes */ GRIM_DATA("004eb388") unsigned char DAT_004eb388[12] = { 0x53, 0x63, 0x72, 0x65, 0x65, 0x6e, 0x53, 0x68, 0x6f, 0x74 };
-/* 0x004eb394, 16 bytes */ GRIM_DATA("004eb394") unsigned char DAT_004eb394[16] = { 0x54, 0x65, 0x78, 0x74, 0x46, 0x69, 0x6c, 0x65, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x6e, 0x65 };
-/* 0x004eb3a4, 24 bytes */ GRIM_DATA("004eb3a4") unsigned char DAT_004eb3a4[24] = {
+/* 0x004eb338, 12 bytes */ GRIM_DATA("004eb338") unsigned char DAT_004eb338[12] __asm__("_DAT_004eb338") = { 0x42, 0x6c, 0x61, 0x73, 0x74, 0x52, 0x65, 0x63, 0x74 };
+/* 0x004eb344, 12 bytes */ GRIM_DATA("004eb344") unsigned char DAT_004eb344[12] __asm__("_DAT_004eb344") = { 0x42, 0x6c, 0x61, 0x73, 0x74, 0x49, 0x6d, 0x61, 0x67, 0x65 };
+/* 0x004eb350, 12 bytes */ GRIM_DATA("004eb350") unsigned char DAT_004eb350[12] __asm__("_DAT_004eb350") = { 0x46, 0x72, 0x65, 0x65, 0x49, 0x6d, 0x61, 0x67, 0x65 };
+/* 0x004eb35c, 12 bytes */ GRIM_DATA("004eb35c") unsigned char DAT_004eb35c[12] __asm__("_DAT_004eb35c") = { 0x47, 0x65, 0x74, 0x49, 0x6d, 0x61, 0x67, 0x65 };
+/* 0x004eb368, 20 bytes */ GRIM_DATA("004eb368") unsigned char DAT_004eb368[20] __asm__("_DAT_004eb368") = { 0x47, 0x65, 0x74, 0x53, 0x61, 0x76, 0x65, 0x47, 0x61, 0x6d, 0x65, 0x49, 0x6d, 0x61, 0x67, 0x65 };
+/* 0x004eb37c, 12 bytes */ GRIM_DATA("004eb37c") unsigned char DAT_004eb37c[12] __asm__("_DAT_004eb37c") = { 0x53, 0x61, 0x76, 0x65, 0x53, 0x63, 0x72, 0x65, 0x65, 0x6e };
+/* 0x004eb388, 12 bytes */ GRIM_DATA("004eb388") unsigned char DAT_004eb388[12] __asm__("_DAT_004eb388") = { 0x53, 0x63, 0x72, 0x65, 0x65, 0x6e, 0x53, 0x68, 0x6f, 0x74 };
+/* 0x004eb394, 16 bytes */ GRIM_DATA("004eb394") unsigned char DAT_004eb394[16] __asm__("_DAT_004eb394") = { 0x54, 0x65, 0x78, 0x74, 0x46, 0x69, 0x6c, 0x65, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x6e, 0x65 };
+/* 0x004eb3a4, 24 bytes */ GRIM_DATA("004eb3a4") unsigned char DAT_004eb3a4[24] __asm__("_DAT_004eb3a4") = {
     0x54, 0x65, 0x78, 0x74, 0x46, 0x69, 0x6c, 0x65, 0x47, 0x65, 0x74, 0x4c, 0x69, 0x6e, 0x65, 0x43,
     0x6f, 0x75, 0x6e, 0x74
 };
-/* 0x004eb3bc, 12 bytes */ GRIM_DATA("004eb3bc") unsigned char DAT_004eb3bc[12] = { 0x49, 0x72, 0x69, 0x73, 0x43, 0x6c, 0x65, 0x61, 0x72 };
-/* 0x004eb3c8, 16 bytes */ GRIM_DATA("004eb3c8") char s_IrisComplete_004eb3c8[16] = "IrisComplete";
-/* 0x004eb3d8, 8 bytes */ /* loose */ char s_IrisUp_004eb3d8[8] = "IrisUp";
-/* 0x004eb3e0, 12 bytes */ /* loose */ char s_IrisDown_004eb3e0[12] = "IrisDown";
-/* 0x004eb3ec, 12 bytes */ /* loose */ char s_FadeInChore_004eb3ec[12] = "FadeInChore";
-/* 0x004eb3f8, 16 bytes */ /* loose */ char s_FadeOutChore_004eb3f8[16] = "FadeOutChore";
-/* 0x004eb408, 20 bytes */ /* loose */ char s_SetActorClipPlane_004eb408[20] = "SetActorClipPlane";
-/* 0x004eb41c, 20 bytes */ /* loose */ char s_SetActorClipActive_004eb41c[20] = "SetActorClipActive";
-/* 0x004eb430, 20 bytes */ /* loose */ char s_HardwareAccelerated_004eb430[20] = "HardwareAccelerated";
-/* 0x004eb444, 12 bytes */ /* loose */ char s_ResReport_004eb444[12] = "ResReport";
-/* 0x004eb450, 20 bytes */ /* loose */ char s_RestoreCacheRect_004eb450[20] = "RestoreCacheRect";
-/* 0x004eb464, 12 bytes */ /* loose */ char s_CacheRect_004eb464[12] = "CacheRect";
-/* 0x004eb470, 16 bytes */ /* loose */ char s_MarkDirtyRect_004eb470[16] = "MarkDirtyRect";
-/* 0x004eb480, 24 bytes */ /* loose */ char s_SetActorCollisionScale_004eb480[24] = "SetActorCollisionScale";
-/* 0x004eb498, 24 bytes */ /* loose */ char s_SetActorCollisionMode_004eb498[24] = "SetActorCollisionMode";
-/* 0x004eb4b0, 16 bytes */ /* loose */ char s_FlushControls_004eb4b0[16] = "FlushControls";
-/* 0x004eb4c0, 16 bytes */ /* loose */ char s_ActorToClean_004eb4c0[16] = "ActorToClean";
-/* 0x004eb4d0, 20 bytes */ /* loose */ char s_SendObjectToFront_004eb4d0[20] = "SendObjectToFront";
-/* 0x004eb4e4, 20 bytes */ /* loose */ char s_SendObjectToBack_004eb4e4[20] = "SendObjectToBack";
-/* 0x004eb4f8, 16 bytes */ /* loose */ char s_SetObjectType_004eb4f8[16] = "SetObjectType";
-/* 0x004eb508, 16 bytes */ /* loose */ char s_FreeObjectState_004eb508[16] = "FreeObjectState";
-/* 0x004eb518, 16 bytes */ /* loose */ char s_NewObjectState_004eb518[16] = "NewObjectState";
-/* 0x004eb528, 20 bytes */ /* loose */ char s_SetActorShadowValid_004eb528[20] = "SetActorShadowValid";
-/* 0x004eb53c, 16 bytes */ /* loose */ char s_AddShadowPlane_004eb53c[16] = "AddShadowPlane";
-/* 0x004eb54c, 20 bytes */ /* loose */ char s_KillActorShadows_004eb54c[20] = "KillActorShadows";
-/* 0x004eb560, 24 bytes */ /* loose */ char s_ActorDistToShadowPlane_004eb560[24] = "ActorDistToShadowPlane";
-/* 0x004eb578, 16 bytes */ /* loose */ char s_SetActiveShadow_004eb578[16] = "SetActiveShadow";
-/* 0x004eb588, 20 bytes */ /* loose */ char s_SetActorShadowPoint_004eb588[20] = "SetActorShadowPoint";
-/* 0x004eb59c, 20 bytes */ /* loose */ char s_SetActorShadowPlane_004eb59c[20] = "SetActorShadowPlane";
-/* 0x004eb5b0, 12 bytes */ /* loose */ char s_ActorShadow_004eb5b0[12] = "ActorShadow";
-/* 0x004eb5bc, 20 bytes */ /* loose */ char s_ActivateActorShadow_004eb5bc[20] = "ActivateActorShadow";
-/* 0x004eb5d0, 16 bytes */ /* loose */ char s_SetShadowColor_004eb5d0[16] = "SetShadowColor";
-/* 0x004eb5e0, 16 bytes */ /* loose */ char s_GetSpeechMode_004eb5e0[16] = "GetSpeechMode";
-/* 0x004eb5f0, 16 bytes */ /* loose */ char s_SetSpeechMode_004eb5f0[16] = "SetSpeechMode";
-/* 0x004eb600, 8 bytes */ /* loose */ char s_Display_004eb600[8] = "Display";
-/* 0x004eb608, 12 bytes */ /* loose */ char s_CleanBuffer_004eb608[12] = "CleanBuffer";
-/* 0x004eb614, 12 bytes */ /* loose */ char s_DimRegion_004eb614[12] = "DimRegion";
-/* 0x004eb620, 12 bytes */ /* loose */ char s_DimScreen_004eb620[12] = "DimScreen";
-/* 0x004eb62c, 16 bytes */ /* loose */ char s_ForceRefresh_004eb62c[16] = "ForceRefresh";
-/* 0x004eb63c, 16 bytes */ /* loose */ char s_RenderModeUser_004eb63c[16] = "RenderModeUser";
-/* 0x004eb64c, 20 bytes */ /* loose */ char s_SetActorConstrain_004eb64c[20] = "SetActorConstrain";
-/* 0x004eb660, 24 bytes */ /* loose */ char s_SetActorWalkDominate_004eb660[24] = "SetActorWalkDominate";
-/* 0x004eb678, 12 bytes */ /* loose */ char s_SetGamma_004eb678[12] = "SetGamma";
-/* 0x004eb684, 16 bytes */ /* loose */ char s_UnloadBundle_004eb684[16] = "UnloadBundle";
-/* 0x004eb694, 12 bytes */ /* loose */ char s_LoadBundle_004eb694[12] = "LoadBundle";
-/* 0x004eb6a0, 20 bytes */ /* loose */ char s_ImGetSoundCacheSize_004eb6a0[20] = "ImGetSoundCacheSize";
-/* 0x004eb6b4, 24 bytes */ /* loose */ char s_ImGetMemoryFootprint_004eb6b4[24] = "ImGetMemoryFootprint";
-/* 0x004eb6cc, 20 bytes */ /* loose */ char s_ImSetVoiceEffect_004eb6cc[20] = "ImSetVoiceEffect";
+/* 0x004eb3bc, 12 bytes */ GRIM_DATA("004eb3bc") unsigned char DAT_004eb3bc[12] __asm__("_DAT_004eb3bc") = { 0x49, 0x72, 0x69, 0x73, 0x43, 0x6c, 0x65, 0x61, 0x72 };
+/* 0x004eb3c8, 16 bytes */ GRIM_DATA("004eb3c8") char s_IrisComplete_004eb3c8[16] __asm__("_s_IrisComplete_004eb3c8") = "IrisComplete";
+/* 0x004eb3d8, 8 bytes */ /* loose */ char s_IrisUp_004eb3d8[8] __asm__("_s_IrisUp_004eb3d8") = "IrisUp";
+/* 0x004eb3e0, 12 bytes */ /* loose */ char s_IrisDown_004eb3e0[12] __asm__("_s_IrisDown_004eb3e0") = "IrisDown";
+/* 0x004eb3ec, 12 bytes */ /* loose */ char s_FadeInChore_004eb3ec[12] __asm__("_s_FadeInChore_004eb3ec") = "FadeInChore";
+/* 0x004eb3f8, 16 bytes */ /* loose */ char s_FadeOutChore_004eb3f8[16] __asm__("_s_FadeOutChore_004eb3f8") = "FadeOutChore";
+/* 0x004eb408, 20 bytes */ /* loose */ char s_SetActorClipPlane_004eb408[20] __asm__("_s_SetActorClipPlane_004eb408") = "SetActorClipPlane";
+/* 0x004eb41c, 20 bytes */ /* loose */ char s_SetActorClipActive_004eb41c[20] __asm__("_s_SetActorClipActive_004eb41c") = "SetActorClipActive";
+/* 0x004eb430, 20 bytes */ /* loose */ char s_HardwareAccelerated_004eb430[20] __asm__("_s_HardwareAccelerated_004eb430") = "HardwareAccelerated";
+/* 0x004eb444, 12 bytes */ /* loose */ char s_ResReport_004eb444[12] __asm__("_s_ResReport_004eb444") = "ResReport";
+/* 0x004eb450, 20 bytes */ /* loose */ char s_RestoreCacheRect_004eb450[20] __asm__("_s_RestoreCacheRect_004eb450") = "RestoreCacheRect";
+/* 0x004eb464, 12 bytes */ /* loose */ char s_CacheRect_004eb464[12] __asm__("_s_CacheRect_004eb464") = "CacheRect";
+/* 0x004eb470, 16 bytes */ /* loose */ char s_MarkDirtyRect_004eb470[16] __asm__("_s_MarkDirtyRect_004eb470") = "MarkDirtyRect";
+/* 0x004eb480, 24 bytes */ /* loose */ char s_SetActorCollisionScale_004eb480[24] __asm__("_s_SetActorCollisionScale_004eb480") = "SetActorCollisionScale";
+/* 0x004eb498, 24 bytes */ /* loose */ char s_SetActorCollisionMode_004eb498[24] __asm__("_s_SetActorCollisionMode_004eb498") = "SetActorCollisionMode";
+/* 0x004eb4b0, 16 bytes */ /* loose */ char s_FlushControls_004eb4b0[16] __asm__("_s_FlushControls_004eb4b0") = "FlushControls";
+/* 0x004eb4c0, 16 bytes */ /* loose */ char s_ActorToClean_004eb4c0[16] __asm__("_s_ActorToClean_004eb4c0") = "ActorToClean";
+/* 0x004eb4d0, 20 bytes */ /* loose */ char s_SendObjectToFront_004eb4d0[20] __asm__("_s_SendObjectToFront_004eb4d0") = "SendObjectToFront";
+/* 0x004eb4e4, 20 bytes */ /* loose */ char s_SendObjectToBack_004eb4e4[20] __asm__("_s_SendObjectToBack_004eb4e4") = "SendObjectToBack";
+/* 0x004eb4f8, 16 bytes */ /* loose */ char s_SetObjectType_004eb4f8[16] __asm__("_s_SetObjectType_004eb4f8") = "SetObjectType";
+/* 0x004eb508, 16 bytes */ /* loose */ char s_FreeObjectState_004eb508[16] __asm__("_s_FreeObjectState_004eb508") = "FreeObjectState";
+/* 0x004eb518, 16 bytes */ /* loose */ char s_NewObjectState_004eb518[16] __asm__("_s_NewObjectState_004eb518") = "NewObjectState";
+/* 0x004eb528, 20 bytes */ /* loose */ char s_SetActorShadowValid_004eb528[20] __asm__("_s_SetActorShadowValid_004eb528") = "SetActorShadowValid";
+/* 0x004eb53c, 16 bytes */ /* loose */ char s_AddShadowPlane_004eb53c[16] __asm__("_s_AddShadowPlane_004eb53c") = "AddShadowPlane";
+/* 0x004eb54c, 20 bytes */ /* loose */ char s_KillActorShadows_004eb54c[20] __asm__("_s_KillActorShadows_004eb54c") = "KillActorShadows";
+/* 0x004eb560, 24 bytes */ /* loose */ char s_ActorDistToShadowPlane_004eb560[24] __asm__("_s_ActorDistToShadowPlane_004eb560") = "ActorDistToShadowPlane";
+/* 0x004eb578, 16 bytes */ /* loose */ char s_SetActiveShadow_004eb578[16] __asm__("_s_SetActiveShadow_004eb578") = "SetActiveShadow";
+/* 0x004eb588, 20 bytes */ /* loose */ char s_SetActorShadowPoint_004eb588[20] __asm__("_s_SetActorShadowPoint_004eb588") = "SetActorShadowPoint";
+/* 0x004eb59c, 20 bytes */ /* loose */ char s_SetActorShadowPlane_004eb59c[20] __asm__("_s_SetActorShadowPlane_004eb59c") = "SetActorShadowPlane";
+/* 0x004eb5b0, 12 bytes */ /* loose */ char s_ActorShadow_004eb5b0[12] __asm__("_s_ActorShadow_004eb5b0") = "ActorShadow";
+/* 0x004eb5bc, 20 bytes */ /* loose */ char s_ActivateActorShadow_004eb5bc[20] __asm__("_s_ActivateActorShadow_004eb5bc") = "ActivateActorShadow";
+/* 0x004eb5d0, 16 bytes */ /* loose */ char s_SetShadowColor_004eb5d0[16] __asm__("_s_SetShadowColor_004eb5d0") = "SetShadowColor";
+/* 0x004eb5e0, 16 bytes */ /* loose */ char s_GetSpeechMode_004eb5e0[16] __asm__("_s_GetSpeechMode_004eb5e0") = "GetSpeechMode";
+/* 0x004eb5f0, 16 bytes */ /* loose */ char s_SetSpeechMode_004eb5f0[16] __asm__("_s_SetSpeechMode_004eb5f0") = "SetSpeechMode";
+/* 0x004eb600, 8 bytes */ /* loose */ char s_Display_004eb600[8] __asm__("_s_Display_004eb600") = "Display";
+/* 0x004eb608, 12 bytes */ /* loose */ char s_CleanBuffer_004eb608[12] __asm__("_s_CleanBuffer_004eb608") = "CleanBuffer";
+/* 0x004eb614, 12 bytes */ /* loose */ char s_DimRegion_004eb614[12] __asm__("_s_DimRegion_004eb614") = "DimRegion";
+/* 0x004eb620, 12 bytes */ /* loose */ char s_DimScreen_004eb620[12] __asm__("_s_DimScreen_004eb620") = "DimScreen";
+/* 0x004eb62c, 16 bytes */ /* loose */ char s_ForceRefresh_004eb62c[16] __asm__("_s_ForceRefresh_004eb62c") = "ForceRefresh";
+/* 0x004eb63c, 16 bytes */ /* loose */ char s_RenderModeUser_004eb63c[16] __asm__("_s_RenderModeUser_004eb63c") = "RenderModeUser";
+/* 0x004eb64c, 20 bytes */ /* loose */ char s_SetActorConstrain_004eb64c[20] __asm__("_s_SetActorConstrain_004eb64c") = "SetActorConstrain";
+/* 0x004eb660, 24 bytes */ /* loose */ char s_SetActorWalkDominate_004eb660[24] __asm__("_s_SetActorWalkDominate_004eb660") = "SetActorWalkDominate";
+/* 0x004eb678, 12 bytes */ /* loose */ char s_SetGamma_004eb678[12] __asm__("_s_SetGamma_004eb678") = "SetGamma";
+/* 0x004eb684, 16 bytes */ /* loose */ char s_UnloadBundle_004eb684[16] __asm__("_s_UnloadBundle_004eb684") = "UnloadBundle";
+/* 0x004eb694, 12 bytes */ /* loose */ char s_LoadBundle_004eb694[12] __asm__("_s_LoadBundle_004eb694") = "LoadBundle";
+/* 0x004eb6a0, 20 bytes */ /* loose */ char s_ImGetSoundCacheSize_004eb6a0[20] __asm__("_s_ImGetSoundCacheSize_004eb6a0") = "ImGetSoundCacheSize";
+/* 0x004eb6b4, 24 bytes */ /* loose */ char s_ImGetMemoryFootprint_004eb6b4[24] __asm__("_s_ImGetMemoryFootprint_004eb6b4") = "ImGetMemoryFootprint";
+/* 0x004eb6cc, 20 bytes */ /* loose */ char s_ImSetVoiceEffect_004eb6cc[20] __asm__("_s_ImSetVoiceEffect_004eb6cc") = "ImSetVoiceEffect";
 static unsigned char grim_anchor_004eb6e0[0] __attribute__((section(".data$grim_004eb6e0"), aligned(16), used));
 static unsigned char grim_pad_004eb6e0[0] __attribute__((section(".data$grim_004eb6e0_"), aligned(4), used));
-/* 0x004eb6e0, 4 bytes */ GRIM_DATA("004eb6e0z") unsigned char DAT_004eb6e0[4] = { 0x76, 0x66, 0x78 };
-/* 0x004eb6e4, 12 bytes */ GRIM_DATA("004eb6e4") char s_ImResume_004eb6e4[12] = "ImResume";
-/* 0x004eb6f0, 8 bytes */ /* loose */ char s_ImPause_004eb6f0[8] = "ImPause";
-/* 0x004eb6f8, 16 bytes */ /* loose */ char s_ImSetCuePoint_004eb6f8[16] = "ImSetCuePoint";
-/* 0x004eb708, 16 bytes */ /* loose */ char s_ImSetAttribute_004eb708[16] = "ImSetAttribute";
-/* 0x004eb718, 16 bytes */ /* loose */ char s_ImSetSequence_004eb718[16] = "ImSetSequence";
-/* 0x004eb728, 12 bytes */ /* loose */ char s_ImSetState_004eb728[12] = "ImSetState";
-/* 0x004eb734, 12 bytes */ /* loose */ char s_ImStopVoice_004eb734[12] = "ImStopVoice";
-/* 0x004eb740, 16 bytes */ /* loose */ char s_ImStartVoice_004eb740[16] = "ImStartVoice";
-/* 0x004eb750, 16 bytes */ /* loose */ char s_ImSetMusicVol_004eb750[16] = "ImSetMusicVol";
-/* 0x004eb760, 16 bytes */ /* loose */ char s_ImGetMusicVol_004eb760[16] = "ImGetMusicVol";
-/* 0x004eb770, 16 bytes */ /* loose */ char s_ImSetVoiceVol_004eb770[16] = "ImSetVoiceVol";
-/* 0x004eb780, 16 bytes */ /* loose */ char s_ImGetVoiceVol_004eb780[16] = "ImGetVoiceVol";
-/* 0x004eb790, 12 bytes */ /* loose */ char s_ImSetSfxVol_004eb790[12] = "ImSetSfxVol";
-/* 0x004eb79c, 12 bytes */ /* loose */ char s_ImGetSfxVol_004eb79c[12] = "ImGetSfxVol";
-/* 0x004eb7a8, 16 bytes */ /* loose */ char s_ImSetMasterVol_004eb7a8[16] = "ImSetMasterVol";
-/* 0x004eb7b8, 16 bytes */ /* loose */ char s_ImGetMasterVol_004eb7b8[16] = "ImGetMasterVol";
-/* 0x004eb7c8, 12 bytes */ /* loose */ char s_ImFadeParam_004eb7c8[12] = "ImFadeParam";
-/* 0x004eb7d4, 12 bytes */ /* loose */ char s_ImSetParam_004eb7d4[12] = "ImSetParam";
-/* 0x004eb7e0, 12 bytes */ /* loose */ char s_ImGetParam_004eb7e0[12] = "ImGetParam";
-/* 0x004eb7ec, 8 bytes */ /* loose */ char s_quiet_004eb7ec[8] = "quiet";
-/* 0x004eb7f4, 16 bytes */ /* loose */ char s_ImStopAllSounds_004eb7f4[16] = "ImStopAllSounds";
-/* 0x004eb804, 12 bytes */ /* loose */ char s_ImStopSound_004eb804[12] = "ImStopSound";
+/* 0x004eb6e0, 4 bytes */ GRIM_DATA("004eb6e0z") unsigned char DAT_004eb6e0[4] __asm__("_DAT_004eb6e0") = { 0x76, 0x66, 0x78 };
+/* 0x004eb6e4, 12 bytes */ GRIM_DATA("004eb6e4") char s_ImResume_004eb6e4[12] __asm__("_s_ImResume_004eb6e4") = "ImResume";
+/* 0x004eb6f0, 8 bytes */ /* loose */ char s_ImPause_004eb6f0[8] __asm__("_s_ImPause_004eb6f0") = "ImPause";
+/* 0x004eb6f8, 16 bytes */ /* loose */ char s_ImSetCuePoint_004eb6f8[16] __asm__("_s_ImSetCuePoint_004eb6f8") = "ImSetCuePoint";
+/* 0x004eb708, 16 bytes */ /* loose */ char s_ImSetAttribute_004eb708[16] __asm__("_s_ImSetAttribute_004eb708") = "ImSetAttribute";
+/* 0x004eb718, 16 bytes */ /* loose */ char s_ImSetSequence_004eb718[16] __asm__("_s_ImSetSequence_004eb718") = "ImSetSequence";
+/* 0x004eb728, 12 bytes */ /* loose */ char s_ImSetState_004eb728[12] __asm__("_s_ImSetState_004eb728") = "ImSetState";
+/* 0x004eb734, 12 bytes */ /* loose */ char s_ImStopVoice_004eb734[12] __asm__("_s_ImStopVoice_004eb734") = "ImStopVoice";
+/* 0x004eb740, 16 bytes */ /* loose */ char s_ImStartVoice_004eb740[16] __asm__("_s_ImStartVoice_004eb740") = "ImStartVoice";
+/* 0x004eb750, 16 bytes */ /* loose */ char s_ImSetMusicVol_004eb750[16] __asm__("_s_ImSetMusicVol_004eb750") = "ImSetMusicVol";
+/* 0x004eb760, 16 bytes */ /* loose */ char s_ImGetMusicVol_004eb760[16] __asm__("_s_ImGetMusicVol_004eb760") = "ImGetMusicVol";
+/* 0x004eb770, 16 bytes */ /* loose */ char s_ImSetVoiceVol_004eb770[16] __asm__("_s_ImSetVoiceVol_004eb770") = "ImSetVoiceVol";
+/* 0x004eb780, 16 bytes */ /* loose */ char s_ImGetVoiceVol_004eb780[16] __asm__("_s_ImGetVoiceVol_004eb780") = "ImGetVoiceVol";
+/* 0x004eb790, 12 bytes */ /* loose */ char s_ImSetSfxVol_004eb790[12] __asm__("_s_ImSetSfxVol_004eb790") = "ImSetSfxVol";
+/* 0x004eb79c, 12 bytes */ /* loose */ char s_ImGetSfxVol_004eb79c[12] __asm__("_s_ImGetSfxVol_004eb79c") = "ImGetSfxVol";
+/* 0x004eb7a8, 16 bytes */ /* loose */ char s_ImSetMasterVol_004eb7a8[16] __asm__("_s_ImSetMasterVol_004eb7a8") = "ImSetMasterVol";
+/* 0x004eb7b8, 16 bytes */ /* loose */ char s_ImGetMasterVol_004eb7b8[16] __asm__("_s_ImGetMasterVol_004eb7b8") = "ImGetMasterVol";
+/* 0x004eb7c8, 12 bytes */ /* loose */ char s_ImFadeParam_004eb7c8[12] __asm__("_s_ImFadeParam_004eb7c8") = "ImFadeParam";
+/* 0x004eb7d4, 12 bytes */ /* loose */ char s_ImSetParam_004eb7d4[12] __asm__("_s_ImSetParam_004eb7d4") = "ImSetParam";
+/* 0x004eb7e0, 12 bytes */ /* loose */ char s_ImGetParam_004eb7e0[12] __asm__("_s_ImGetParam_004eb7e0") = "ImGetParam";
+/* 0x004eb7ec, 8 bytes */ /* loose */ char s_quiet_004eb7ec[8] __asm__("_s_quiet_004eb7ec") = "quiet";
+/* 0x004eb7f4, 16 bytes */ /* loose */ char s_ImStopAllSounds_004eb7f4[16] __asm__("_s_ImStopAllSounds_004eb7f4") = "ImStopAllSounds";
+/* 0x004eb804, 12 bytes */ /* loose */ char s_ImStopSound_004eb804[12] __asm__("_s_ImStopSound_004eb804") = "ImStopSound";
 static unsigned char grim_anchor_004eb810[0] __attribute__((section(".data$grim_004eb810"), aligned(16), used));
 static unsigned char grim_pad_004eb810[0] __attribute__((section(".data$grim_004eb810_"), aligned(4), used));
-/* 0x004eb810, 8 bytes */ GRIM_DATA("004eb810z") unsigned char DAT_004eb810[8] = { 0x70, 0x6c, 0x61, 0x79 };
-/* 0x004eb818, 16 bytes */ GRIM_DATA("004eb818") char s_ImStartSound_004eb818[16] = "ImStartSound";
-/* 0x004eb828, 16 bytes */ /* loose */ char s_ImStopRecording_004eb828[16] = "ImStopRecording";
-/* 0x004eb838, 20 bytes */ /* loose */ char s_ImStartRecording_004eb838[20] = "ImStartRecording";
-/* 0x004eb84c, 20 bytes */ /* loose */ char s_LightMgrSetChange_004eb84c[20] = "LightMgrSetChange";
-/* 0x004eb860, 20 bytes */ /* loose */ char s_LightMgrShutdown_004eb860[20] = "LightMgrShutdown";
-/* 0x004eb874, 16 bytes */ /* loose */ char s_LightMgrStartup_004eb874[16] = "LightMgrStartup";
-/* 0x004eb884, 16 bytes */ /* loose */ char s_PointLightAt_004eb884[16] = "PointLightAt";
-/* 0x004eb894, 20 bytes */ /* loose */ char s_GetLightIntensity_004eb894[20] = "GetLightIntensity";
-/* 0x004eb8a8, 20 bytes */ /* loose */ char s_SetLightIntensity_004eb8a8[20] = "SetLightIntensity";
-/* 0x004eb8bc, 16 bytes */ /* loose */ char s_GetLightAngles_004eb8bc[16] = "GetLightAngles";
-/* 0x004eb8cc, 16 bytes */ /* loose */ char s_SetLightAngles_004eb8cc[16] = "SetLightAngles";
-/* 0x004eb8dc, 20 bytes */ /* loose */ char s_GetLightRotation_004eb8dc[20] = "GetLightRotation";
-/* 0x004eb8f0, 20 bytes */ /* loose */ char s_SetLightRotation_004eb8f0[20] = "SetLightRotation";
-/* 0x004eb904, 20 bytes */ /* loose */ char s_GetLightPosition_004eb904[20] = "GetLightPosition";
-/* 0x004eb918, 20 bytes */ /* loose */ char s_SetLightPosition_004eb918[20] = "SetLightPosition";
-/* 0x004eb92c, 16 bytes */ /* loose */ char s_GetLightType_004eb92c[16] = "GetLightType";
-/* 0x004eb93c, 16 bytes */ /* loose */ char s_SetLightType_004eb93c[16] = "SetLightType";
-/* 0x004eb94c, 12 bytes */ /* loose */ char s_IsLightOn_004eb94c[12] = "IsLightOn";
-/* 0x004eb958, 12 bytes */ /* loose */ char s_TurnLightOn_004eb958[12] = "TurnLightOn";
-/* 0x004eb964, 12 bytes */ /* loose */ char s_FindLight_004eb964[12] = "FindLight";
-/* 0x004eb970, 16 bytes */ /* loose */ char s_SetAmbientLight_004eb970[16] = "SetAmbientLight";
-/* 0x004eb980, 24 bytes */ /* loose */ char s_GetAngleBetweenActors_004eb980[24] = "GetAngleBetweenActors";
-/* 0x004eb998, 24 bytes */ /* loose */ char s_GetAngleBetweenVectors_004eb998[24] = "GetAngleBetweenVectors";
-/* 0x004eb9b0, 12 bytes */ /* loose */ char s_SnapToPlane_004eb9b0[12] = "SnapToPlane";
-/* 0x004eb9bc, 12 bytes */ /* loose */ char s_PerSecond_004eb9bc[12] = "PerSecond";
-/* 0x004eb9c8, 12 bytes */ /* loose */ char s_TurnActorTo_004eb9c8[12] = "TurnActorTo";
-/* 0x004eb9d4, 16 bytes */ /* loose */ char s_PointActorAt_004eb9d4[16] = "PointActorAt";
-/* 0x004eb9e4, 20 bytes */ /* loose */ char s_GetCameraLookVector_004eb9e4[20] = "GetCameraLookVector";
-/* 0x004eb9f8, 16 bytes */ /* loose */ char s_SetCameraRoll_004eb9f8[16] = "SetCameraRoll";
-/* 0x004eba08, 16 bytes */ /* loose */ char s_GetCameraRoll_004eba08[16] = "GetCameraRoll";
-/* 0x004eba18, 16 bytes */ /* loose */ char s_SetCameraFOV_004eba18[16] = "SetCameraFOV";
-/* 0x004eba28, 16 bytes */ /* loose */ char s_GetCameraFOV_004eba28[16] = "GetCameraFOV";
-/* 0x004eba38, 20 bytes */ /* loose */ char s_SetCameraInterest_004eba38[20] = "SetCameraInterest";
-/* 0x004eba4c, 20 bytes */ /* loose */ char s_GetCameraInterest_004eba4c[20] = "GetCameraInterest";
-/* 0x004eba60, 20 bytes */ /* loose */ char s_SetCameraPosition_004eba60[20] = "SetCameraPosition";
-/* 0x004eba74, 20 bytes */ /* loose */ char s_GetCameraPosition_004eba74[20] = "GetCameraPosition";
-/* 0x004eba88, 16 bytes */ /* loose */ char s_RotateVector_004eba88[16] = "RotateVector";
-/* 0x004eba98, 16 bytes */ /* loose */ char s_SetMemoryUsage_004eba98[16] = "SetMemoryUsage";
-/* 0x004ebaa8, 20 bytes */ /* loose */ char s_GetPhysicalBytes_004ebaa8[20] = "GetPhysicalBytes";
-/* 0x004ebabc, 12 bytes */ /* loose */ char s_LoadCostume_004ebabc[12] = "LoadCostume";
-/* 0x004ebac8, 16 bytes */ /* loose */ char s_PopActorCostume_004ebac8[16] = "PopActorCostume";
-/* 0x004ebad8, 20 bytes */ /* loose */ char s_PushActorCostume_004ebad8[20] = "PushActorCostume";
-/* 0x004ebaec, 20 bytes */ /* loose */ char s_PrintActorCostumes_004ebaec[20] = "PrintActorCostumes";
-/* 0x004ebb00, 20 bytes */ /* loose */ char s_GetCurrentScript_004ebb00[20] = "GetCurrentScript";
-/* 0x004ebb14, 16 bytes */ /* loose */ char s_SpewShutdown_004ebb14[16] = "SpewShutdown";
-/* 0x004ebb24, 12 bytes */ /* loose */ char s_SpewStartup_004ebb24[12] = "SpewStartup";
-/* 0x004ebb30, 12 bytes */ /* loose */ char s_PreRender_004ebb30[12] = "PreRender";
-/* 0x004ebb3c, 20 bytes */ /* loose */ char s_MakeSectorActive_004ebb3c[20] = "MakeSectorActive";
-/* 0x004ebb50, 16 bytes */ /* loose */ char s_IsSectorActive_004ebb50[16] = "IsSectorActive";
-/* 0x004ebb60, 24 bytes */ /* loose */ char s_GetSectorOppositeEdge_004ebb60[24] = "GetSectorOppositeEdge";
-/* 0x004ebb78, 20 bytes */ /* loose */ char s_GetSectorVertices_004ebb78[20] = "GetSectorVertices";
-/* 0x004ebb8c, 20 bytes */ /* loose */ char s_ReadRegistryValue_004ebb8c[20] = "ReadRegistryValue";
-/* 0x004ebba0, 20 bytes */ /* loose */ char s_WriteRegistryValue_004ebba0[20] = "WriteRegistryValue";
-/* 0x004ebbb4, 12 bytes */ /* loose */ char s_QueryDialog_004ebbb4[12] = "QueryDialog";
-/* 0x004ebbc0, 12 bytes */ /* loose */ char s_InputDialog_004ebbc0[12] = "InputDialog";
-/* 0x004ebbcc, 16 bytes */ /* loose */ char s_FileFindDispose_004ebbcc[16] = "FileFindDispose";
-/* 0x004ebbdc, 16 bytes */ /* loose */ char s_FileFindNext_004ebbdc[16] = "FileFindNext";
-/* 0x004ebbec, 16 bytes */ /* loose */ char s_FileFindFirst_004ebbec[16] = "FileFindFirst";
-/* 0x004ebbfc, 20 bytes */ /* loose */ char s_SetSoundPosition_004ebbfc[20] = "SetSoundPosition";
-/* 0x004ebc10, 16 bytes */ /* loose */ char s_IsSoundPlaying_004ebc10[16] = "IsSoundPlaying";
-/* 0x004ebc20, 20 bytes */ /* loose */ char s_PlaySoundAttached_004ebc20[20] = "PlaySoundAttached";
-/* 0x004ebc34, 12 bytes */ /* loose */ char s_PlaySoundAt_004ebc34[12] = "PlaySoundAt";
-/* 0x004ebc40, 12 bytes */ /* loose */ char s_PlaySound_004ebc40[12] = "PlaySound";
-/* 0x004ebc4c, 16 bytes */ /* loose */ char s_IsMoviePlaying_004ebc4c[16] = "IsMoviePlaying";
-/* 0x004ebc5c, 12 bytes */ /* loose */ char s_PauseMovie_004ebc5c[12] = "PauseMovie";
-/* 0x004ebc68, 12 bytes */ /* loose */ char s_StopMovie_004ebc68[12] = "StopMovie";
-/* 0x004ebc74, 12 bytes */ /* loose */ char s_StartMovie_004ebc74[12] = "StartMovie";
-/* 0x004ebc80, 28 bytes */ /* loose */ char s_IsFullscreenMoviePlaying_004ebc80[28] = "IsFullscreenMoviePlaying";
-/* 0x004ebc9c, 24 bytes */ /* loose */ char s_StartFullscreenMovie_004ebc9c[24] = "StartFullscreenMovie";
-/* 0x004ebcb4, 16 bytes */ /* loose */ char s_PreviousSetup_004ebcb4[16] = "PreviousSetup";
-/* 0x004ebcc4, 12 bytes */ /* loose */ char s_NextSetup_004ebcc4[12] = "NextSetup";
-/* 0x004ebcd0, 16 bytes */ /* loose */ char s_GetCurrentSetup_004ebcd0[16] = "GetCurrentSetup";
-/* 0x004ebce0, 20 bytes */ /* loose */ char s_MakeCurrentSetup_004ebce0[20] = "MakeCurrentSetup";
-/* 0x004ebcf4, 12 bytes */ /* loose */ char s_UnLockSet_004ebcf4[12] = "UnLockSet";
-/* 0x004ebd00, 8 bytes */ /* loose */ char s_LockSet_004ebd00[8] = "LockSet";
-/* 0x004ebd08, 16 bytes */ /* loose */ char s_MakeCurrentSet_004ebd08[16] = "MakeCurrentSet";
-/* 0x004ebd18, 12 bytes */ /* loose */ char s_PrintDebug_004ebd18[12] = "PrintDebug";
-/* 0x004ebd24, 16 bytes */ /* loose */ char s_PrintWarning_004ebd24[16] = "PrintWarning";
-/* 0x004ebd34, 12 bytes */ /* loose */ char s_PrintError_004ebd34[12] = "PrintError";
-/* 0x004ebd40, 16 bytes */ /* loose */ char s_PrintMessage_004ebd40[16] = "PrintMessage";
-/* 0x004ebd50, 16 bytes */ /* loose */ char s_GetControlState_004ebd50[16] = "GetControlState";
-/* 0x004ebd60, 16 bytes */ /* loose */ char s_DisableControl_004ebd60[16] = "DisableControl";
-/* 0x004ebd70, 16 bytes */ /* loose */ char s_EnableControl_004ebd70[16] = "EnableControl";
-/* 0x004ebd80, 16 bytes */ /* loose */ char s_UnlockCostume_004ebd80[16] = "UnlockCostume";
-/* 0x004ebd90, 12 bytes */ /* loose */ char s_LockCostume_004ebd90[12] = "LockCostume";
-/* 0x004ebd9c, 12 bytes */ /* loose */ char s_UnlockSound_004ebd9c[12] = "UnlockSound";
-/* 0x004ebda8, 12 bytes */ /* loose */ char s_LockSound_004ebda8[12] = "LockSound";
-/* 0x004ebdb4, 12 bytes */ /* loose */ char s_UnLockFont_004ebdb4[12] = "UnLockFont";
-/* 0x004ebdc0, 12 bytes */ /* loose */ char s_LockFont_004ebdc0[12] = "LockFont";
-/* 0x004ebdcc, 16 bytes */ /* loose */ char s_EnableDebugKeys_004ebdcc[16] = "EnableDebugKeys";
-/* 0x004ebddc, 16 bytes */ /* loose */ char s_FunctionName_004ebddc[16] = "FunctionName";
+/* 0x004eb810, 8 bytes */ GRIM_DATA("004eb810z") unsigned char DAT_004eb810[8] __asm__("_DAT_004eb810") = { 0x70, 0x6c, 0x61, 0x79 };
+/* 0x004eb818, 16 bytes */ GRIM_DATA("004eb818") char s_ImStartSound_004eb818[16] __asm__("_s_ImStartSound_004eb818") = "ImStartSound";
+/* 0x004eb828, 16 bytes */ /* loose */ char s_ImStopRecording_004eb828[16] __asm__("_s_ImStopRecording_004eb828") = "ImStopRecording";
+/* 0x004eb838, 20 bytes */ /* loose */ char s_ImStartRecording_004eb838[20] __asm__("_s_ImStartRecording_004eb838") = "ImStartRecording";
+/* 0x004eb84c, 20 bytes */ /* loose */ char s_LightMgrSetChange_004eb84c[20] __asm__("_s_LightMgrSetChange_004eb84c") = "LightMgrSetChange";
+/* 0x004eb860, 20 bytes */ /* loose */ char s_LightMgrShutdown_004eb860[20] __asm__("_s_LightMgrShutdown_004eb860") = "LightMgrShutdown";
+/* 0x004eb874, 16 bytes */ /* loose */ char s_LightMgrStartup_004eb874[16] __asm__("_s_LightMgrStartup_004eb874") = "LightMgrStartup";
+/* 0x004eb884, 16 bytes */ /* loose */ char s_PointLightAt_004eb884[16] __asm__("_s_PointLightAt_004eb884") = "PointLightAt";
+/* 0x004eb894, 20 bytes */ /* loose */ char s_GetLightIntensity_004eb894[20] __asm__("_s_GetLightIntensity_004eb894") = "GetLightIntensity";
+/* 0x004eb8a8, 20 bytes */ /* loose */ char s_SetLightIntensity_004eb8a8[20] __asm__("_s_SetLightIntensity_004eb8a8") = "SetLightIntensity";
+/* 0x004eb8bc, 16 bytes */ /* loose */ char s_GetLightAngles_004eb8bc[16] __asm__("_s_GetLightAngles_004eb8bc") = "GetLightAngles";
+/* 0x004eb8cc, 16 bytes */ /* loose */ char s_SetLightAngles_004eb8cc[16] __asm__("_s_SetLightAngles_004eb8cc") = "SetLightAngles";
+/* 0x004eb8dc, 20 bytes */ /* loose */ char s_GetLightRotation_004eb8dc[20] __asm__("_s_GetLightRotation_004eb8dc") = "GetLightRotation";
+/* 0x004eb8f0, 20 bytes */ /* loose */ char s_SetLightRotation_004eb8f0[20] __asm__("_s_SetLightRotation_004eb8f0") = "SetLightRotation";
+/* 0x004eb904, 20 bytes */ /* loose */ char s_GetLightPosition_004eb904[20] __asm__("_s_GetLightPosition_004eb904") = "GetLightPosition";
+/* 0x004eb918, 20 bytes */ /* loose */ char s_SetLightPosition_004eb918[20] __asm__("_s_SetLightPosition_004eb918") = "SetLightPosition";
+/* 0x004eb92c, 16 bytes */ /* loose */ char s_GetLightType_004eb92c[16] __asm__("_s_GetLightType_004eb92c") = "GetLightType";
+/* 0x004eb93c, 16 bytes */ /* loose */ char s_SetLightType_004eb93c[16] __asm__("_s_SetLightType_004eb93c") = "SetLightType";
+/* 0x004eb94c, 12 bytes */ /* loose */ char s_IsLightOn_004eb94c[12] __asm__("_s_IsLightOn_004eb94c") = "IsLightOn";
+/* 0x004eb958, 12 bytes */ /* loose */ char s_TurnLightOn_004eb958[12] __asm__("_s_TurnLightOn_004eb958") = "TurnLightOn";
+/* 0x004eb964, 12 bytes */ /* loose */ char s_FindLight_004eb964[12] __asm__("_s_FindLight_004eb964") = "FindLight";
+/* 0x004eb970, 16 bytes */ /* loose */ char s_SetAmbientLight_004eb970[16] __asm__("_s_SetAmbientLight_004eb970") = "SetAmbientLight";
+/* 0x004eb980, 24 bytes */ /* loose */ char s_GetAngleBetweenActors_004eb980[24] __asm__("_s_GetAngleBetweenActors_004eb980") = "GetAngleBetweenActors";
+/* 0x004eb998, 24 bytes */ /* loose */ char s_GetAngleBetweenVectors_004eb998[24] __asm__("_s_GetAngleBetweenVectors_004eb998") = "GetAngleBetweenVectors";
+/* 0x004eb9b0, 12 bytes */ /* loose */ char s_SnapToPlane_004eb9b0[12] __asm__("_s_SnapToPlane_004eb9b0") = "SnapToPlane";
+/* 0x004eb9bc, 12 bytes */ /* loose */ char s_PerSecond_004eb9bc[12] __asm__("_s_PerSecond_004eb9bc") = "PerSecond";
+/* 0x004eb9c8, 12 bytes */ /* loose */ char s_TurnActorTo_004eb9c8[12] __asm__("_s_TurnActorTo_004eb9c8") = "TurnActorTo";
+/* 0x004eb9d4, 16 bytes */ /* loose */ char s_PointActorAt_004eb9d4[16] __asm__("_s_PointActorAt_004eb9d4") = "PointActorAt";
+/* 0x004eb9e4, 20 bytes */ /* loose */ char s_GetCameraLookVector_004eb9e4[20] __asm__("_s_GetCameraLookVector_004eb9e4") = "GetCameraLookVector";
+/* 0x004eb9f8, 16 bytes */ /* loose */ char s_SetCameraRoll_004eb9f8[16] __asm__("_s_SetCameraRoll_004eb9f8") = "SetCameraRoll";
+/* 0x004eba08, 16 bytes */ /* loose */ char s_GetCameraRoll_004eba08[16] __asm__("_s_GetCameraRoll_004eba08") = "GetCameraRoll";
+/* 0x004eba18, 16 bytes */ /* loose */ char s_SetCameraFOV_004eba18[16] __asm__("_s_SetCameraFOV_004eba18") = "SetCameraFOV";
+/* 0x004eba28, 16 bytes */ /* loose */ char s_GetCameraFOV_004eba28[16] __asm__("_s_GetCameraFOV_004eba28") = "GetCameraFOV";
+/* 0x004eba38, 20 bytes */ /* loose */ char s_SetCameraInterest_004eba38[20] __asm__("_s_SetCameraInterest_004eba38") = "SetCameraInterest";
+/* 0x004eba4c, 20 bytes */ /* loose */ char s_GetCameraInterest_004eba4c[20] __asm__("_s_GetCameraInterest_004eba4c") = "GetCameraInterest";
+/* 0x004eba60, 20 bytes */ /* loose */ char s_SetCameraPosition_004eba60[20] __asm__("_s_SetCameraPosition_004eba60") = "SetCameraPosition";
+/* 0x004eba74, 20 bytes */ /* loose */ char s_GetCameraPosition_004eba74[20] __asm__("_s_GetCameraPosition_004eba74") = "GetCameraPosition";
+/* 0x004eba88, 16 bytes */ /* loose */ char s_RotateVector_004eba88[16] __asm__("_s_RotateVector_004eba88") = "RotateVector";
+/* 0x004eba98, 16 bytes */ /* loose */ char s_SetMemoryUsage_004eba98[16] __asm__("_s_SetMemoryUsage_004eba98") = "SetMemoryUsage";
+/* 0x004ebaa8, 20 bytes */ /* loose */ char s_GetPhysicalBytes_004ebaa8[20] __asm__("_s_GetPhysicalBytes_004ebaa8") = "GetPhysicalBytes";
+/* 0x004ebabc, 12 bytes */ /* loose */ char s_LoadCostume_004ebabc[12] __asm__("_s_LoadCostume_004ebabc") = "LoadCostume";
+/* 0x004ebac8, 16 bytes */ /* loose */ char s_PopActorCostume_004ebac8[16] __asm__("_s_PopActorCostume_004ebac8") = "PopActorCostume";
+/* 0x004ebad8, 20 bytes */ /* loose */ char s_PushActorCostume_004ebad8[20] __asm__("_s_PushActorCostume_004ebad8") = "PushActorCostume";
+/* 0x004ebaec, 20 bytes */ /* loose */ char s_PrintActorCostumes_004ebaec[20] __asm__("_s_PrintActorCostumes_004ebaec") = "PrintActorCostumes";
+/* 0x004ebb00, 20 bytes */ /* loose */ char s_GetCurrentScript_004ebb00[20] __asm__("_s_GetCurrentScript_004ebb00") = "GetCurrentScript";
+/* 0x004ebb14, 16 bytes */ /* loose */ char s_SpewShutdown_004ebb14[16] __asm__("_s_SpewShutdown_004ebb14") = "SpewShutdown";
+/* 0x004ebb24, 12 bytes */ /* loose */ char s_SpewStartup_004ebb24[12] __asm__("_s_SpewStartup_004ebb24") = "SpewStartup";
+/* 0x004ebb30, 12 bytes */ /* loose */ char s_PreRender_004ebb30[12] __asm__("_s_PreRender_004ebb30") = "PreRender";
+/* 0x004ebb3c, 20 bytes */ /* loose */ char s_MakeSectorActive_004ebb3c[20] __asm__("_s_MakeSectorActive_004ebb3c") = "MakeSectorActive";
+/* 0x004ebb50, 16 bytes */ /* loose */ char s_IsSectorActive_004ebb50[16] __asm__("_s_IsSectorActive_004ebb50") = "IsSectorActive";
+/* 0x004ebb60, 24 bytes */ /* loose */ char s_GetSectorOppositeEdge_004ebb60[24] __asm__("_s_GetSectorOppositeEdge_004ebb60") = "GetSectorOppositeEdge";
+/* 0x004ebb78, 20 bytes */ /* loose */ char s_GetSectorVertices_004ebb78[20] __asm__("_s_GetSectorVertices_004ebb78") = "GetSectorVertices";
+/* 0x004ebb8c, 20 bytes */ /* loose */ char s_ReadRegistryValue_004ebb8c[20] __asm__("_s_ReadRegistryValue_004ebb8c") = "ReadRegistryValue";
+/* 0x004ebba0, 20 bytes */ /* loose */ char s_WriteRegistryValue_004ebba0[20] __asm__("_s_WriteRegistryValue_004ebba0") = "WriteRegistryValue";
+/* 0x004ebbb4, 12 bytes */ /* loose */ char s_QueryDialog_004ebbb4[12] __asm__("_s_QueryDialog_004ebbb4") = "QueryDialog";
+/* 0x004ebbc0, 12 bytes */ /* loose */ char s_InputDialog_004ebbc0[12] __asm__("_s_InputDialog_004ebbc0") = "InputDialog";
+/* 0x004ebbcc, 16 bytes */ /* loose */ char s_FileFindDispose_004ebbcc[16] __asm__("_s_FileFindDispose_004ebbcc") = "FileFindDispose";
+/* 0x004ebbdc, 16 bytes */ /* loose */ char s_FileFindNext_004ebbdc[16] __asm__("_s_FileFindNext_004ebbdc") = "FileFindNext";
+/* 0x004ebbec, 16 bytes */ /* loose */ char s_FileFindFirst_004ebbec[16] __asm__("_s_FileFindFirst_004ebbec") = "FileFindFirst";
+/* 0x004ebbfc, 20 bytes */ /* loose */ char s_SetSoundPosition_004ebbfc[20] __asm__("_s_SetSoundPosition_004ebbfc") = "SetSoundPosition";
+/* 0x004ebc10, 16 bytes */ /* loose */ char s_IsSoundPlaying_004ebc10[16] __asm__("_s_IsSoundPlaying_004ebc10") = "IsSoundPlaying";
+/* 0x004ebc20, 20 bytes */ /* loose */ char s_PlaySoundAttached_004ebc20[20] __asm__("_s_PlaySoundAttached_004ebc20") = "PlaySoundAttached";
+/* 0x004ebc34, 12 bytes */ /* loose */ char s_PlaySoundAt_004ebc34[12] __asm__("_s_PlaySoundAt_004ebc34") = "PlaySoundAt";
+/* 0x004ebc40, 12 bytes */ /* loose */ char s_PlaySound_004ebc40[12] __asm__("_s_PlaySound_004ebc40") = "PlaySound";
+/* 0x004ebc4c, 16 bytes */ /* loose */ char s_IsMoviePlaying_004ebc4c[16] __asm__("_s_IsMoviePlaying_004ebc4c") = "IsMoviePlaying";
+/* 0x004ebc5c, 12 bytes */ /* loose */ char s_PauseMovie_004ebc5c[12] __asm__("_s_PauseMovie_004ebc5c") = "PauseMovie";
+/* 0x004ebc68, 12 bytes */ /* loose */ char s_StopMovie_004ebc68[12] __asm__("_s_StopMovie_004ebc68") = "StopMovie";
+/* 0x004ebc74, 12 bytes */ /* loose */ char s_StartMovie_004ebc74[12] __asm__("_s_StartMovie_004ebc74") = "StartMovie";
+/* 0x004ebc80, 28 bytes */ /* loose */ char s_IsFullscreenMoviePlaying_004ebc80[28] __asm__("_s_IsFullscreenMoviePlaying_004ebc80") = "IsFullscreenMoviePlaying";
+/* 0x004ebc9c, 24 bytes */ /* loose */ char s_StartFullscreenMovie_004ebc9c[24] __asm__("_s_StartFullscreenMovie_004ebc9c") = "StartFullscreenMovie";
+/* 0x004ebcb4, 16 bytes */ /* loose */ char s_PreviousSetup_004ebcb4[16] __asm__("_s_PreviousSetup_004ebcb4") = "PreviousSetup";
+/* 0x004ebcc4, 12 bytes */ /* loose */ char s_NextSetup_004ebcc4[12] __asm__("_s_NextSetup_004ebcc4") = "NextSetup";
+/* 0x004ebcd0, 16 bytes */ /* loose */ char s_GetCurrentSetup_004ebcd0[16] __asm__("_s_GetCurrentSetup_004ebcd0") = "GetCurrentSetup";
+/* 0x004ebce0, 20 bytes */ /* loose */ char s_MakeCurrentSetup_004ebce0[20] __asm__("_s_MakeCurrentSetup_004ebce0") = "MakeCurrentSetup";
+/* 0x004ebcf4, 12 bytes */ /* loose */ char s_UnLockSet_004ebcf4[12] __asm__("_s_UnLockSet_004ebcf4") = "UnLockSet";
+/* 0x004ebd00, 8 bytes */ /* loose */ char s_LockSet_004ebd00[8] __asm__("_s_LockSet_004ebd00") = "LockSet";
+/* 0x004ebd08, 16 bytes */ /* loose */ char s_MakeCurrentSet_004ebd08[16] __asm__("_s_MakeCurrentSet_004ebd08") = "MakeCurrentSet";
+/* 0x004ebd18, 12 bytes */ /* loose */ char s_PrintDebug_004ebd18[12] __asm__("_s_PrintDebug_004ebd18") = "PrintDebug";
+/* 0x004ebd24, 16 bytes */ /* loose */ char s_PrintWarning_004ebd24[16] __asm__("_s_PrintWarning_004ebd24") = "PrintWarning";
+/* 0x004ebd34, 12 bytes */ /* loose */ char s_PrintError_004ebd34[12] __asm__("_s_PrintError_004ebd34") = "PrintError";
+/* 0x004ebd40, 16 bytes */ /* loose */ char s_PrintMessage_004ebd40[16] __asm__("_s_PrintMessage_004ebd40") = "PrintMessage";
+/* 0x004ebd50, 16 bytes */ /* loose */ char s_GetControlState_004ebd50[16] __asm__("_s_GetControlState_004ebd50") = "GetControlState";
+/* 0x004ebd60, 16 bytes */ /* loose */ char s_DisableControl_004ebd60[16] __asm__("_s_DisableControl_004ebd60") = "DisableControl";
+/* 0x004ebd70, 16 bytes */ /* loose */ char s_EnableControl_004ebd70[16] __asm__("_s_EnableControl_004ebd70") = "EnableControl";
+/* 0x004ebd80, 16 bytes */ /* loose */ char s_UnlockCostume_004ebd80[16] __asm__("_s_UnlockCostume_004ebd80") = "UnlockCostume";
+/* 0x004ebd90, 12 bytes */ /* loose */ char s_LockCostume_004ebd90[12] __asm__("_s_LockCostume_004ebd90") = "LockCostume";
+/* 0x004ebd9c, 12 bytes */ /* loose */ char s_UnlockSound_004ebd9c[12] __asm__("_s_UnlockSound_004ebd9c") = "UnlockSound";
+/* 0x004ebda8, 12 bytes */ /* loose */ char s_LockSound_004ebda8[12] __asm__("_s_LockSound_004ebda8") = "LockSound";
+/* 0x004ebdb4, 12 bytes */ /* loose */ char s_UnLockFont_004ebdb4[12] __asm__("_s_UnLockFont_004ebdb4") = "UnLockFont";
+/* 0x004ebdc0, 12 bytes */ /* loose */ char s_LockFont_004ebdc0[12] __asm__("_s_LockFont_004ebdc0") = "LockFont";
+/* 0x004ebdcc, 16 bytes */ /* loose */ char s_EnableDebugKeys_004ebdcc[16] __asm__("_s_EnableDebugKeys_004ebdcc") = "EnableDebugKeys";
+/* 0x004ebddc, 16 bytes */ /* loose */ char s_FunctionName_004ebddc[16] __asm__("_s_FunctionName_004ebddc") = "FunctionName";
 static unsigned char grim_anchor_004ebdec[0] __attribute__((section(".data$grim_004ebdec"), aligned(16), used));
 static unsigned char grim_pad_004ebdec[12] __attribute__((section(".data$grim_004ebdec_"), aligned(4), used));
-/* 0x004ebdec, 8 bytes */ GRIM_DATA("004ebdecz") unsigned char DAT_004ebdec[8] = { 0x65, 0x78, 0x69, 0x74 };
-/* 0x004ebdf4, 16 bytes */ GRIM_DATA("004ebdf4") char s_ScreenToWorld_004ebdf4[16] = "ScreenToWorld";
-/* 0x004ebe04, 16 bytes */ /* loose */ char s_WorldToScreen_004ebe04[16] = "WorldToScreen";
-/* 0x004ebe14, 24 bytes */ /* loose */ char s_GetActorCostumeDepth_004ebe14[24] = "GetActorCostumeDepth";
-/* 0x004ebe2c, 24 bytes */ /* loose */ char s_GetActorLoopingChores_004ebe2c[24] = "GetActorLoopingChores";
-/* 0x004ebe44, 16 bytes */ /* loose */ char s_GetActorChores_004ebe44[16] = "GetActorChores";
-/* 0x004ebe54, 24 bytes */ /* loose */ char s_SetActorChoreLooping_004ebe54[24] = "SetActorChoreLooping";
-/* 0x004ebe6c, 16 bytes */ /* loose */ char s_IsActorResting_004ebe6c[16] = "IsActorResting";
-/* 0x004ebe7c, 16 bytes */ /* loose */ char s_IsActorChoring_004ebe7c[16] = "IsActorChoring";
-/* 0x004ebe8c, 16 bytes */ /* loose */ char s_IsActorMoving_004ebe8c[16] = "IsActorMoving";
-/* 0x004ebe9c, 20 bytes */ /* loose */ char s_CompleteActorChore_004ebe9c[20] = "CompleteActorChore";
-/* 0x004ebeb0, 16 bytes */ /* loose */ char s_StopActorChore_004ebeb0[16] = "StopActorChore";
-/* 0x004ebec0, 24 bytes */ /* loose */ char s_PlayActorChoreLooping_004ebec0[24] = "PlayActorChoreLooping";
-/* 0x004ebed8, 16 bytes */ /* loose */ char s_PlayActorChore_004ebed8[16] = "PlayActorChore";
-/* 0x004ebee8, 16 bytes */ /* loose */ char s_IsActorTurning_004ebee8[16] = "IsActorTurning";
-/* 0x004ebef8, 16 bytes */ /* loose */ char s_SetActorRoll_004ebef8[16] = "SetActorRoll";
-/* 0x004ebf08, 16 bytes */ /* loose */ char s_SetActorPitch_004ebf08[16] = "SetActorPitch";
-/* 0x004ebf18, 12 bytes */ /* loose */ char s_SetActorRot_004ebf18[12] = "SetActorRot";
-/* 0x004ebf24, 12 bytes */ /* loose */ char s_GetActorRot_004ebf24[12] = "GetActorRot";
-/* 0x004ebf30, 12 bytes */ /* loose */ char s_TurnActor_004ebf30[12] = "TurnActor";
-/* 0x004ebf3c, 16 bytes */ /* loose */ char s_GetPointSector_004ebf3c[16] = "GetPointSector";
-/* 0x004ebf4c, 16 bytes */ /* loose */ char s_IsPointInSector_004ebf4c[16] = "IsPointInSector";
-/* 0x004ebf5c, 16 bytes */ /* loose */ char s_GetActorSector_004ebf5c[16] = "GetActorSector";
-/* 0x004ebf6c, 16 bytes */ /* loose */ char s_IsActorInSector_004ebf6c[16] = "IsActorInSector";
-/* 0x004ebf7c, 24 bytes */ /* loose */ char s_SetActorFrustrumCull_004ebf7c[24] = "SetActorFrustrumCull";
-/* 0x004ebf94, 12 bytes */ /* loose */ char s_ShutUpActor_004ebf94[12] = "ShutUpActor";
-/* 0x004ebfa0, 20 bytes */ /* loose */ char s_SetActorFollowBoxes_004ebfa0[20] = "SetActorFollowBoxes";
-/* 0x004ebfb4, 20 bytes */ /* loose */ char s_SetActorVisibility_004ebfb4[20] = "SetActorVisibility";
-/* 0x004ebfc8, 16 bytes */ /* loose */ char s_SetActorHead_004ebfc8[16] = "SetActorHead";
-/* 0x004ebfd8, 16 bytes */ /* loose */ char s_GetCameraActor_004ebfd8[16] = "GetCameraActor";
-/* 0x004ebfe8, 20 bytes */ /* loose */ char s_GetVisibleThings_004ebfe8[20] = "GetVisibleThings";
-/* 0x004ebffc, 12 bytes */ /* loose */ char s_CanActorSee_004ebffc[12] = "CanActorSee";
-/* 0x004ec008, 20 bytes */ /* loose */ char s_GetActorLookRate_004ec008[20] = "GetActorLookRate";
-/* 0x004ec01c, 20 bytes */ /* loose */ char s_SetActorLookRate_004ec01c[20] = "SetActorLookRate";
-/* 0x004ec030, 16 bytes */ /* loose */ char s_IsActorLooking_004ec030[16] = "IsActorLooking";
-/* 0x004ec040, 12 bytes */ /* loose */ char s_ActorLookAt_004ec040[12] = "ActorLookAt";
-/* 0x004ec04c, 20 bytes */ /* loose */ char s_WalkActorToInterest_004ec04c[20] = "WalkActorToInterest";
-/* 0x004ec060, 20 bytes */ /* loose */ char s_WalkActorToAvoiding_004ec060[20] = "WalkActorToAvoiding";
-/* 0x004ec074, 12 bytes */ /* loose */ char s_WalkActorTo_004ec074[12] = "WalkActorTo";
-/* 0x004ec080, 16 bytes */ /* loose */ char s_DriveActorTo_004ec080[16] = "DriveActorTo";
-/* 0x004ec090, 20 bytes */ /* loose */ char s_WalkActorForward_004ec090[20] = "WalkActorForward";
-/* 0x004ec0a4, 16 bytes */ /* loose */ char s_WalkActorVector_004ec0a4[16] = "WalkActorVector";
-/* 0x004ec0b4, 16 bytes */ /* loose */ char s_GetClippedPos_004ec0b4[16] = "GetClippedPos";
-/* 0x004ec0c4, 16 bytes */ /* loose */ char s_PutActorInSet_004ec0c4[16] = "PutActorInSet";
-/* 0x004ec0d4, 12 bytes */ /* loose */ char s_PutActorAt_004ec0d4[12] = "PutActorAt";
-/* 0x004ec0e0, 20 bytes */ /* loose */ char s_PutActorAtOrigin_004ec0e0[20] = "PutActorAtOrigin";
-/* 0x004ec0f4, 20 bytes */ /* loose */ char s_PutActorAtInterest_004ec0f4[20] = "PutActorAtInterest";
-/* 0x004ec108, 20 bytes */ /* loose */ char s_SetActorOffsetYaw_004ec108[20] = "SetActorOffsetYaw";
-/* 0x004ec11c, 20 bytes */ /* loose */ char s_SetActorReflection_004ec11c[20] = "SetActorReflection";
-/* 0x004ec130, 20 bytes */ /* loose */ char s_GetActorYawToPoint_004ec130[20] = "GetActorYawToPoint";
-/* 0x004ec144, 20 bytes */ /* loose */ char s_GetActorPuckVector_004ec144[20] = "GetActorPuckVector";
-/* 0x004ec158, 16 bytes */ /* loose */ char s_GetActorRect_004ec158[16] = "GetActorRect";
-/* 0x004ec168, 12 bytes */ /* loose */ char s_GetActorPos_004ec168[12] = "GetActorPos";
-/* 0x004ec174, 12 bytes */ /* loose */ char s_LoadActor_004ec174[12] = "LoadActor";
-/* 0x004ec180, 20 bytes */ /* loose */ char s_SetSelectedActor_004ec180[20] = "SetSelectedActor";
-/* 0x004ec194, 20 bytes */ /* loose */ char s_GetActorTurnRate_004ec194[20] = "GetActorTurnRate";
-/* 0x004ec1a8, 20 bytes */ /* loose */ char s_SetActorTurnRate_004ec1a8[20] = "SetActorTurnRate";
-/* 0x004ec1bc, 20 bytes */ /* loose */ char s_GetActorWalkRate_004ec1bc[20] = "GetActorWalkRate";
-/* 0x004ec1d0, 20 bytes */ /* loose */ char s_SetActorWalkRate_004ec1d0[20] = "SetActorWalkRate";
-/* 0x004ec1e4, 20 bytes */ /* loose */ char s_SetActorTalkChore_004ec1e4[20] = "SetActorTalkChore";
-/* 0x004ec1f8, 20 bytes */ /* loose */ char s_SetActorMumblechore_004ec1f8[20] = "SetActorMumblechore";
-/* 0x004ec20c, 20 bytes */ /* loose */ char s_SetActorRestChore_004ec20c[20] = "SetActorRestChore";
-/* 0x004ec220, 20 bytes */ /* loose */ char s_SetActorTurnChores_004ec220[20] = "SetActorTurnChores";
-/* 0x004ec234, 20 bytes */ /* loose */ char s_SetActorWalkChore_004ec234[20] = "SetActorWalkChore";
-/* 0x004ec248, 24 bytes */ /* loose */ char s_GetActorNodeLocation_004ec248[24] = "GetActorNodeLocation";
-/* 0x004ec260, 20 bytes */ /* loose */ char s_SetActorTimeScale_004ec260[20] = "SetActorTimeScale";
-/* 0x004ec274, 20 bytes */ /* loose */ char s_GetActorTimeScale_004ec274[20] = "GetActorTimeScale";
-/* 0x004ec288, 16 bytes */ /* loose */ char s_SetActorScale_004ec288[16] = "SetActorScale";
-/* 0x004ec298, 16 bytes */ /* loose */ char s_GetActorScale_004ec298[16] = "GetActorScale";
-/* 0x004ec2a8, 16 bytes */ /* loose */ char s_SetActorCostume_004ec2a8[16] = "SetActorCostume";
-/* 0x004ec2b8, 16 bytes */ /* loose */ char s_GetActorCostume_004ec2b8[16] = "GetActorCostume";
-/* 0x004ec2c8, 20 bytes */ /* loose */ char s_SetActorColormap_004ec2c8[20] = "SetActorColormap";
+/* 0x004ebdec, 8 bytes */ GRIM_DATA("004ebdecz") unsigned char DAT_004ebdec[8] __asm__("_DAT_004ebdec") = { 0x65, 0x78, 0x69, 0x74 };
+/* 0x004ebdf4, 16 bytes */ GRIM_DATA("004ebdf4") char s_ScreenToWorld_004ebdf4[16] __asm__("_s_ScreenToWorld_004ebdf4") = "ScreenToWorld";
+/* 0x004ebe04, 16 bytes */ /* loose */ char s_WorldToScreen_004ebe04[16] __asm__("_s_WorldToScreen_004ebe04") = "WorldToScreen";
+/* 0x004ebe14, 24 bytes */ /* loose */ char s_GetActorCostumeDepth_004ebe14[24] __asm__("_s_GetActorCostumeDepth_004ebe14") = "GetActorCostumeDepth";
+/* 0x004ebe2c, 24 bytes */ /* loose */ char s_GetActorLoopingChores_004ebe2c[24] __asm__("_s_GetActorLoopingChores_004ebe2c") = "GetActorLoopingChores";
+/* 0x004ebe44, 16 bytes */ /* loose */ char s_GetActorChores_004ebe44[16] __asm__("_s_GetActorChores_004ebe44") = "GetActorChores";
+/* 0x004ebe54, 24 bytes */ /* loose */ char s_SetActorChoreLooping_004ebe54[24] __asm__("_s_SetActorChoreLooping_004ebe54") = "SetActorChoreLooping";
+/* 0x004ebe6c, 16 bytes */ /* loose */ char s_IsActorResting_004ebe6c[16] __asm__("_s_IsActorResting_004ebe6c") = "IsActorResting";
+/* 0x004ebe7c, 16 bytes */ /* loose */ char s_IsActorChoring_004ebe7c[16] __asm__("_s_IsActorChoring_004ebe7c") = "IsActorChoring";
+/* 0x004ebe8c, 16 bytes */ /* loose */ char s_IsActorMoving_004ebe8c[16] __asm__("_s_IsActorMoving_004ebe8c") = "IsActorMoving";
+/* 0x004ebe9c, 20 bytes */ /* loose */ char s_CompleteActorChore_004ebe9c[20] __asm__("_s_CompleteActorChore_004ebe9c") = "CompleteActorChore";
+/* 0x004ebeb0, 16 bytes */ /* loose */ char s_StopActorChore_004ebeb0[16] __asm__("_s_StopActorChore_004ebeb0") = "StopActorChore";
+/* 0x004ebec0, 24 bytes */ /* loose */ char s_PlayActorChoreLooping_004ebec0[24] __asm__("_s_PlayActorChoreLooping_004ebec0") = "PlayActorChoreLooping";
+/* 0x004ebed8, 16 bytes */ /* loose */ char s_PlayActorChore_004ebed8[16] __asm__("_s_PlayActorChore_004ebed8") = "PlayActorChore";
+/* 0x004ebee8, 16 bytes */ /* loose */ char s_IsActorTurning_004ebee8[16] __asm__("_s_IsActorTurning_004ebee8") = "IsActorTurning";
+/* 0x004ebef8, 16 bytes */ /* loose */ char s_SetActorRoll_004ebef8[16] __asm__("_s_SetActorRoll_004ebef8") = "SetActorRoll";
+/* 0x004ebf08, 16 bytes */ /* loose */ char s_SetActorPitch_004ebf08[16] __asm__("_s_SetActorPitch_004ebf08") = "SetActorPitch";
+/* 0x004ebf18, 12 bytes */ /* loose */ char s_SetActorRot_004ebf18[12] __asm__("_s_SetActorRot_004ebf18") = "SetActorRot";
+/* 0x004ebf24, 12 bytes */ /* loose */ char s_GetActorRot_004ebf24[12] __asm__("_s_GetActorRot_004ebf24") = "GetActorRot";
+/* 0x004ebf30, 12 bytes */ /* loose */ char s_TurnActor_004ebf30[12] __asm__("_s_TurnActor_004ebf30") = "TurnActor";
+/* 0x004ebf3c, 16 bytes */ /* loose */ char s_GetPointSector_004ebf3c[16] __asm__("_s_GetPointSector_004ebf3c") = "GetPointSector";
+/* 0x004ebf4c, 16 bytes */ /* loose */ char s_IsPointInSector_004ebf4c[16] __asm__("_s_IsPointInSector_004ebf4c") = "IsPointInSector";
+/* 0x004ebf5c, 16 bytes */ /* loose */ char s_GetActorSector_004ebf5c[16] __asm__("_s_GetActorSector_004ebf5c") = "GetActorSector";
+/* 0x004ebf6c, 16 bytes */ /* loose */ char s_IsActorInSector_004ebf6c[16] __asm__("_s_IsActorInSector_004ebf6c") = "IsActorInSector";
+/* 0x004ebf7c, 24 bytes */ /* loose */ char s_SetActorFrustrumCull_004ebf7c[24] __asm__("_s_SetActorFrustrumCull_004ebf7c") = "SetActorFrustrumCull";
+/* 0x004ebf94, 12 bytes */ /* loose */ char s_ShutUpActor_004ebf94[12] __asm__("_s_ShutUpActor_004ebf94") = "ShutUpActor";
+/* 0x004ebfa0, 20 bytes */ /* loose */ char s_SetActorFollowBoxes_004ebfa0[20] __asm__("_s_SetActorFollowBoxes_004ebfa0") = "SetActorFollowBoxes";
+/* 0x004ebfb4, 20 bytes */ /* loose */ char s_SetActorVisibility_004ebfb4[20] __asm__("_s_SetActorVisibility_004ebfb4") = "SetActorVisibility";
+/* 0x004ebfc8, 16 bytes */ /* loose */ char s_SetActorHead_004ebfc8[16] __asm__("_s_SetActorHead_004ebfc8") = "SetActorHead";
+/* 0x004ebfd8, 16 bytes */ /* loose */ char s_GetCameraActor_004ebfd8[16] __asm__("_s_GetCameraActor_004ebfd8") = "GetCameraActor";
+/* 0x004ebfe8, 20 bytes */ /* loose */ char s_GetVisibleThings_004ebfe8[20] __asm__("_s_GetVisibleThings_004ebfe8") = "GetVisibleThings";
+/* 0x004ebffc, 12 bytes */ /* loose */ char s_CanActorSee_004ebffc[12] __asm__("_s_CanActorSee_004ebffc") = "CanActorSee";
+/* 0x004ec008, 20 bytes */ /* loose */ char s_GetActorLookRate_004ec008[20] __asm__("_s_GetActorLookRate_004ec008") = "GetActorLookRate";
+/* 0x004ec01c, 20 bytes */ /* loose */ char s_SetActorLookRate_004ec01c[20] __asm__("_s_SetActorLookRate_004ec01c") = "SetActorLookRate";
+/* 0x004ec030, 16 bytes */ /* loose */ char s_IsActorLooking_004ec030[16] __asm__("_s_IsActorLooking_004ec030") = "IsActorLooking";
+/* 0x004ec040, 12 bytes */ /* loose */ char s_ActorLookAt_004ec040[12] __asm__("_s_ActorLookAt_004ec040") = "ActorLookAt";
+/* 0x004ec04c, 20 bytes */ /* loose */ char s_WalkActorToInterest_004ec04c[20] __asm__("_s_WalkActorToInterest_004ec04c") = "WalkActorToInterest";
+/* 0x004ec060, 20 bytes */ /* loose */ char s_WalkActorToAvoiding_004ec060[20] __asm__("_s_WalkActorToAvoiding_004ec060") = "WalkActorToAvoiding";
+/* 0x004ec074, 12 bytes */ /* loose */ char s_WalkActorTo_004ec074[12] __asm__("_s_WalkActorTo_004ec074") = "WalkActorTo";
+/* 0x004ec080, 16 bytes */ /* loose */ char s_DriveActorTo_004ec080[16] __asm__("_s_DriveActorTo_004ec080") = "DriveActorTo";
+/* 0x004ec090, 20 bytes */ /* loose */ char s_WalkActorForward_004ec090[20] __asm__("_s_WalkActorForward_004ec090") = "WalkActorForward";
+/* 0x004ec0a4, 16 bytes */ /* loose */ char s_WalkActorVector_004ec0a4[16] __asm__("_s_WalkActorVector_004ec0a4") = "WalkActorVector";
+/* 0x004ec0b4, 16 bytes */ /* loose */ char s_GetClippedPos_004ec0b4[16] __asm__("_s_GetClippedPos_004ec0b4") = "GetClippedPos";
+/* 0x004ec0c4, 16 bytes */ /* loose */ char s_PutActorInSet_004ec0c4[16] __asm__("_s_PutActorInSet_004ec0c4") = "PutActorInSet";
+/* 0x004ec0d4, 12 bytes */ /* loose */ char s_PutActorAt_004ec0d4[12] __asm__("_s_PutActorAt_004ec0d4") = "PutActorAt";
+/* 0x004ec0e0, 20 bytes */ /* loose */ char s_PutActorAtOrigin_004ec0e0[20] __asm__("_s_PutActorAtOrigin_004ec0e0") = "PutActorAtOrigin";
+/* 0x004ec0f4, 20 bytes */ /* loose */ char s_PutActorAtInterest_004ec0f4[20] __asm__("_s_PutActorAtInterest_004ec0f4") = "PutActorAtInterest";
+/* 0x004ec108, 20 bytes */ /* loose */ char s_SetActorOffsetYaw_004ec108[20] __asm__("_s_SetActorOffsetYaw_004ec108") = "SetActorOffsetYaw";
+/* 0x004ec11c, 20 bytes */ /* loose */ char s_SetActorReflection_004ec11c[20] __asm__("_s_SetActorReflection_004ec11c") = "SetActorReflection";
+/* 0x004ec130, 20 bytes */ /* loose */ char s_GetActorYawToPoint_004ec130[20] __asm__("_s_GetActorYawToPoint_004ec130") = "GetActorYawToPoint";
+/* 0x004ec144, 20 bytes */ /* loose */ char s_GetActorPuckVector_004ec144[20] __asm__("_s_GetActorPuckVector_004ec144") = "GetActorPuckVector";
+/* 0x004ec158, 16 bytes */ /* loose */ char s_GetActorRect_004ec158[16] __asm__("_s_GetActorRect_004ec158") = "GetActorRect";
+/* 0x004ec168, 12 bytes */ /* loose */ char s_GetActorPos_004ec168[12] __asm__("_s_GetActorPos_004ec168") = "GetActorPos";
+/* 0x004ec174, 12 bytes */ /* loose */ char s_LoadActor_004ec174[12] __asm__("_s_LoadActor_004ec174") = "LoadActor";
+/* 0x004ec180, 20 bytes */ /* loose */ char s_SetSelectedActor_004ec180[20] __asm__("_s_SetSelectedActor_004ec180") = "SetSelectedActor";
+/* 0x004ec194, 20 bytes */ /* loose */ char s_GetActorTurnRate_004ec194[20] __asm__("_s_GetActorTurnRate_004ec194") = "GetActorTurnRate";
+/* 0x004ec1a8, 20 bytes */ /* loose */ char s_SetActorTurnRate_004ec1a8[20] __asm__("_s_SetActorTurnRate_004ec1a8") = "SetActorTurnRate";
+/* 0x004ec1bc, 20 bytes */ /* loose */ char s_GetActorWalkRate_004ec1bc[20] __asm__("_s_GetActorWalkRate_004ec1bc") = "GetActorWalkRate";
+/* 0x004ec1d0, 20 bytes */ /* loose */ char s_SetActorWalkRate_004ec1d0[20] __asm__("_s_SetActorWalkRate_004ec1d0") = "SetActorWalkRate";
+/* 0x004ec1e4, 20 bytes */ /* loose */ char s_SetActorTalkChore_004ec1e4[20] __asm__("_s_SetActorTalkChore_004ec1e4") = "SetActorTalkChore";
+/* 0x004ec1f8, 20 bytes */ /* loose */ char s_SetActorMumblechore_004ec1f8[20] __asm__("_s_SetActorMumblechore_004ec1f8") = "SetActorMumblechore";
+/* 0x004ec20c, 20 bytes */ /* loose */ char s_SetActorRestChore_004ec20c[20] __asm__("_s_SetActorRestChore_004ec20c") = "SetActorRestChore";
+/* 0x004ec220, 20 bytes */ /* loose */ char s_SetActorTurnChores_004ec220[20] __asm__("_s_SetActorTurnChores_004ec220") = "SetActorTurnChores";
+/* 0x004ec234, 20 bytes */ /* loose */ char s_SetActorWalkChore_004ec234[20] __asm__("_s_SetActorWalkChore_004ec234") = "SetActorWalkChore";
+/* 0x004ec248, 24 bytes */ /* loose */ char s_GetActorNodeLocation_004ec248[24] __asm__("_s_GetActorNodeLocation_004ec248") = "GetActorNodeLocation";
+/* 0x004ec260, 20 bytes */ /* loose */ char s_SetActorTimeScale_004ec260[20] __asm__("_s_SetActorTimeScale_004ec260") = "SetActorTimeScale";
+/* 0x004ec274, 20 bytes */ /* loose */ char s_GetActorTimeScale_004ec274[20] __asm__("_s_GetActorTimeScale_004ec274") = "GetActorTimeScale";
+/* 0x004ec288, 16 bytes */ /* loose */ char s_SetActorScale_004ec288[16] __asm__("_s_SetActorScale_004ec288") = "SetActorScale";
+/* 0x004ec298, 16 bytes */ /* loose */ char s_GetActorScale_004ec298[16] __asm__("_s_GetActorScale_004ec298") = "GetActorScale";
+/* 0x004ec2a8, 16 bytes */ /* loose */ char s_SetActorCostume_004ec2a8[16] __asm__("_s_SetActorCostume_004ec2a8") = "SetActorCostume";
+/* 0x004ec2b8, 16 bytes */ /* loose */ char s_GetActorCostume_004ec2b8[16] __asm__("_s_GetActorCostume_004ec2b8") = "GetActorCostume";
+/* 0x004ec2c8, 20 bytes */ /* loose */ char s_SetActorColormap_004ec2c8[20] __asm__("_s_SetActorColormap_004ec2c8") = "SetActorColormap";
 static unsigned char grim_anchor_004ec2dc[0] __attribute__((section(".data$grim_004ec2dc"), aligned(16), used));
 static unsigned char grim_pad_004ec2dc[12] __attribute__((section(".data$grim_004ec2dc_"), aligned(4), used));
-/* 0x004ec2dc, 8 bytes */ GRIM_DATA("004ec2dcz") unsigned char DAT_004ec2dc[8] = { 0x53, 0x61, 0x76, 0x65 };
-/* 0x004ec2e4, 8 bytes */ GRIM_DATA("004ec2e4") unsigned char DAT_004ec2e4[8] = { 0x4c, 0x6f, 0x61, 0x64 };
-/* 0x004ec2ec, 16 bytes */ GRIM_DATA("004ec2ec") char s_CheckForFile_004ec2ec[16] = "CheckForFile";
-/* 0x004ec2fc, 24 bytes */ /* loose */ char s_SearchForFileOrSwapCDs_004ec2fc[24] = "SearchForFileOrSwapCDs";
-/* 0x004ec314, 16 bytes */ /* loose */ char s_EngineDisplay_004ec314[16] = "EngineDisplay";
-/* 0x004ec324, 16 bytes */ /* loose */ char s_EngineResume_004ec324[16] = "EngineResume";
-/* 0x004ec334, 12 bytes */ /* loose */ char s_EnginePause_004ec334[12] = "EnginePause";
-/* 0x004ec340, 16 bytes */ /* loose */ char s_dfltcontrol_004ec340[16] = "  dfltcontrol";
-/* 0x004ec350, 16 bytes */ /* loose */ char s_dfltcamera_004ec350[16] = "  dfltcamera";
-/* 0x004ec360, 16 bytes */ /* loose */ char s_typeoverride_004ec360[16] = "  typeoverride";
-/* 0x004ec370, 20 bytes */ /* loose */ char s_concatfallback_004ec370[20] = "  concatfallback";
-/* 0x004ec384, 8 bytes */ /* loose */ char s_count_004ec384[8] = "count";
-/* 0x004ec38c, 44 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Scripts__004ec38c[44] = "C:\\grimsrc\\libs\\grimlib\\Scripts\\sputLua.cpp";
-/* 0x004ec3b8, 4 bytes */ /* loose */ char s_z_004ec3b8[4] = "z";
-/* 0x004ec3bc, 12 bytes */ /* loose */ char s__system_lua_004ec3bc[12] = "_system.lua";
-/* 0x004ec3c8, 8 bytes */ /* loose */ char s_BOOT_004ec3c8[8] = "BOOT";
-/* 0x004ec3d0, 20 bytes */ /* loose */ char s_camChangeHandler_004ec3d0[20] = "camChangeHandler";
-/* 0x004ec3e4, 24 bytes */ /* loose */ char s_postCamChangeHandler_004ec3e4[24] = "postCamChangeHandler";
-/* 0x004ec3fc, 20 bytes */ /* loose */ char s_collisionHandler_004ec3fc[20] = "collisionHandler";
-/* 0x004ec410, 12 bytes */ /* loose */ char s_movieTime_004ec410[12] = "movieTime";
-/* 0x004ec41c, 12 bytes */ /* loose */ char s_frameTime_004ec41c[12] = "frameTime";
-/* 0x004ec428, 20 bytes */ /* loose */ char s__s___s____s__d__004ec428[20] = "%s '%s' (%s:%d)\n";
-/* 0x004ec43c, 20 bytes */ /* loose */ char s_unnamed_function_004ec43c[20] = "unnamed function";
-/* 0x004ec450, 12 bytes */ /* loose */ char s_tag_method_004ec450[12] = "tag method";
-/* 0x004ec45c, 12 bytes */ /* loose */ char s_function_004ec45c[12] = "function";
-/* 0x004ec468, 12 bytes */ /* loose */ char s__unknown__004ec468[12] = "<unknown>";
-/* 0x004ec474, 8 bytes */ /* loose */ char s_actor_004ec474[8] = "actor";
-/* 0x004ec47c, 8 bytes */ /* loose */ char s_costume_004ec47c[8] = "costume";
-/* 0x004ec484, 12 bytes */ /* loose */ char s_keyframe_004ec484[12] = "keyframe";
-/* 0x004ec490, 4 bytes */ /* loose */ char s_set_004ec490[4] = "set";
-/* 0x004ec494, 16 bytes */ /* loose */ char s__actor_d__s__004ec494[16] = "(actor%d:%s)";
-/* 0x004ec4a4, 8 bytes */ /* loose */ char s__nil__004ec4a4[8] = "(nil)";
-/* 0x004ec4ac, 24 bytes */ /* loose */ char s_costumeOverrideHandler_004ec4ac[24] = "costumeOverrideHandler";
-/* 0x004ec4c4, 24 bytes */ /* loose */ char s_costumeMarkerHandler_004ec4c4[24] = "costumeMarkerHandler";
-/* 0x004ec4dc, 20 bytes */ /* loose */ char s_userPaintHandler_004ec4dc[20] = "userPaintHandler";
-/* 0x004ec4f0, 12 bytes */ /* loose */ char s_exitHandler_004ec4f0[12] = "exitHandler";
-/* 0x004ec4fc, 16 bytes */ /* loose */ char s_pauseHandler_004ec4fc[16] = "pauseHandler";
-/* 0x004ec50c, 20 bytes */ /* loose */ char s_characterHandler_004ec50c[20] = "characterHandler";
-/* 0x004ec520, 8 bytes */ /* loose */ char s_concat_004ec520[8] = "concat";
-/* 0x004ec528, 4 bytes */ /* loose */ char s_HOT_004ec528[4] = "HOT";
-/* 0x004ec52c, 8 bytes */ /* loose */ char s_SPECIAL_004ec52c[8] = "SPECIAL";
-/* 0x004ec534, 8 bytes */ /* loose */ char s_CAMERA_004ec534[8] = "CAMERA";
-/* 0x004ec53c, 8 bytes */ /* loose */ char s_WALK_004ec53c[8] = "WALK";
-/* 0x004ec544, 8 bytes */ /* loose */ char s_NONE_004ec544[8] = "NONE";
-/* 0x004ec54c, 8 bytes */ /* loose */ char s_type_004ec54c[8] = "type";
-/* 0x004ec554, 8 bytes */ /* loose */ char s_true_004ec554[8] = "true";
-/* 0x004ec55c, 12 bytes */ /* loose */ char s_TextAllowed_004ec55c[12] = "TextAllowed";
-/* 0x004ec568, 12 bytes */ /* loose */ char s_axisHandler_004ec568[12] = "axisHandler";
-/* 0x004ec574, 16 bytes */ /* loose */ char s_buttonHandler_004ec574[16] = "buttonHandler";
-/* 0x004ec584, 8 bytes */ /* loose */ char s_system_004ec584[8] = "system";
-/* 0x004ec58c, 12 bytes */ /* loose */ char s_controls_004ec58c[12] = "controls";
-/* 0x004ec598, 8 bytes */ /* loose */ char s_spot_004ec598[8] = "spot";
-/* 0x004ec5a0, 8 bytes */ /* loose */ char s_global_004ec5a0[8] = "global";
-/* 0x004ec5a8, 12 bytes */ /* loose */ char s_parallel_004ec5a8[12] = "parallel";
-/* 0x004ec5b4, 8 bytes */ /* loose */ char s_omni_004ec5b4[8] = "omni";
-/* 0x004ec5bc, 4 bytes */ /* loose */ char s_rt_004ec5bc[4] = "rt";
-/* 0x004ec5c0, 20 bytes */ /* loose */ char s_saveGameCallback_004ec5c0[20] = "saveGameCallback";
-/* 0x004ec5d4, 12 bytes */ /* loose */ char s_dfltroom_bm_004ec5d4[12] = "dfltroom.bm";
-/* 0x004ec5e0, 44 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0[44] = "C:\\grimsrc\\libs\\grimlib\\Engine\\sputRoom.cpp";
-/* 0x004ec60c, 8 bytes */ /* loose */ char s__none__004ec60c[8] = "<none>";
-/* 0x004ec614, 24 bytes */ /* loose */ char s_Bad_ZBuffer_Reference_004ec614[24] = "Bad ZBuffer Reference";
-static unsigned char grim_anchor_004ec62c[0] __attribute__((section(".data$grim_004ec62c"), aligned(16), used));
-static unsigned char grim_pad_004ec62c[12] __attribute__((section(".data$grim_004ec62c_"), aligned(4), used));
-/* 0x004ec62c, 40 bytes */ GRIM_DATA("004ec62cz") char s_Bad_room_Reference_004ec62c[40] = "Bad room Reference\000\000\tcolor\t\t\t\t%d %d %d\n";
-/* 0x004ec654, 20 bytes */ GRIM_DATA("004ec654") char s_penumbraangle__f_004ec654[20] = "\tpenumbraangle\t%f\n";
-/* 0x004ec668, 20 bytes */ /* loose */ char s_umbraangle__f_004ec668[20] = "\tumbraangle\t\t%f\n";
-/* 0x004ec67c, 16 bytes */ /* loose */ char s_intensity__f_004ec67c[16] = "\tintensity\t%f\n";
-/* 0x004ec68c, 24 bytes */ /* loose */ char s_direction__f__f__f_004ec68c[24] = "\tdirection\t%f\t%f\t%f\n";
-static unsigned char grim_anchor_004ec6a4[0] __attribute__((section(".data$grim_004ec6a4"), aligned(16), used));
-static unsigned char grim_pad_004ec6a4[4] __attribute__((section(".data$grim_004ec6a4_"), aligned(4), used));
-/* 0x004ec6a4, 88 bytes */ GRIM_DATA("004ec6a4z") char s_position__f__f__f_004ec6a4[88] = "\tposition\t\t%f\t%f\t%f\n\000\000\000\000\ttype\t\t%s\n\000\000direct\000\000spot\t\000\000\000omni\t\000\000\000\tlight\t\t%s\n\000\tnumlights\t%d\n\n";
-/* 0x004ec6fc, 20 bytes */ GRIM_DATA("004ec6fc") char s_section__lights_004ec6fc[20] = "section: lights\n";
-/* 0x004ec710, 12 bytes */ /* loose */ char s_dfltcmp_cmp_004ec710[12] = "dfltcmp.cmp";
-/* 0x004ec71c, 8 bytes */ /* loose */ char s_sectors_004ec71c[8] = "sectors";
-/* 0x004ec724, 8 bytes */ /* loose */ char s_lights_004ec724[8] = "lights";
-/* 0x004ec72c, 8 bytes */ /* loose */ char s_setups_004ec72c[8] = "setups";
-/* 0x004ec734, 12 bytes */ /* loose */ char s_colormaps_004ec734[12] = "colormaps";
-/* 0x004ec740, 12 bytes */ /* loose */ char s_section___s_004ec740[12] = "section: %s";
-/* 0x004ec74c, 16 bytes */ /* loose */ char s_color__d__d__d_004ec74c[16] = " color %d %d %d";
-/* 0x004ec75c, 20 bytes */ /* loose */ char s_penumbraangle__f_004ec75c[20] = " penumbraangle %f";
-/* 0x004ec770, 16 bytes */ /* loose */ char s_umbraangle__f_004ec770[16] = " umbraangle %f";
-/* 0x004ec780, 16 bytes */ /* loose */ char s_intensity__f_004ec780[16] = " intensity %f";
-/* 0x004ec790, 20 bytes */ /* loose */ char s_position__f__f__f_004ec790[20] = " position %f %f %f";
-/* 0x004ec7a4, 20 bytes */ /* loose */ char s_direction__f__f__f_004ec7a4[20] = " direction %f %f %f";
-/* 0x004ec7b8, 12 bytes */ /* loose */ char s_type__s_004ec7b8[12] = " type %s";
-/* 0x004ec7c4, 12 bytes */ /* loose */ char s_light__s_004ec7c4[12] = " light %s";
-/* 0x004ec7d0, 16 bytes */ /* loose */ char s_numlights__d_004ec7d0[16] = " numlights %d\n";
-/* 0x004ec7e0, 16 bytes */ /* loose */ char s_section___s_004ec7e0[16] = " section: %s\n";
-/* 0x004ec7f0, 12 bytes */ /* loose */ char s_fclip__f_004ec7f0[12] = " fclip %f";
-/* 0x004ec7fc, 12 bytes */ /* loose */ char s_nclip__f_004ec7fc[12] = " nclip %f";
-/* 0x004ec808, 8 bytes */ /* loose */ char s_fov__f_004ec808[8] = " fov %f";
-/* 0x004ec810, 12 bytes */ /* loose */ char s_roll__f_004ec810[12] = " roll %f";
-/* 0x004ec81c, 20 bytes */ /* loose */ char s_interest__f__f__f_004ec81c[20] = " interest %f %f %f";
-/* 0x004ec830, 12 bytes */ /* loose */ char s_zbuffer__s_004ec830[12] = " zbuffer %s";
-/* 0x004ec83c, 16 bytes */ /* loose */ char s_background__s_004ec83c[16] = " background %s";
-/* 0x004ec84c, 12 bytes */ /* loose */ char s_setup__s_004ec84c[12] = " setup %s";
-/* 0x004ec858, 16 bytes */ /* loose */ char s_numsetups__d_004ec858[16] = " numsetups %d\n";
-/* 0x004ec868, 16 bytes */ /* loose */ char s_colormap__s_004ec868[16] = " colormap %s";
-/* 0x004ec878, 20 bytes */ /* loose */ char s_numcolormaps__d_004ec878[20] = " numcolormaps %d\n";
-/* 0x004ec88c, 28 bytes */ /* loose */ char s_pRoom__apColormaps____NULL_004ec88c[28] = "pRoom->apColormaps == NULL";
-/* 0x004ec8a8, 32 bytes */ /* loose */ char s_tot_verts___MAX_DB_VERTS___2_004ec8a8[32] = "tot_verts < MAX_DB_VERTS - 2";
-/* 0x004ec8c8, 48 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_W_004ec8c8[48] = "C:\\grimsrc\\libs\\grimlib\\Engine\\WalkPlane.cpp";
-/* 0x004ec8f8, 12 bytes */ /* loose */ char s__f__f__f_004ec8f8[12] = " %f %f %f";
-/* 0x004ec904, 20 bytes */ /* loose */ char s_vertices___f__f__f_004ec904[20] = " vertices: %f %f %f";
-/* 0x004ec918, 16 bytes */ /* loose */ char s_numgates__s_004ec918[16] = " numgates %s";
-/* 0x004ec928, 16 bytes */ /* loose */ char s_numvertices__d_004ec928[16] = " numvertices %d";
-/* 0x004ec938, 12 bytes */ /* loose */ char s_height__f_004ec938[12] = " height %f";
-/* 0x004ec944, 12 bytes */ /* loose */ char s_invisible_004ec944[12] = "invisible";
-/* 0x004ec950, 24 bytes */ /* loose */ char s_default_visibility__s_004ec950[24] = " default visibility %s";
-/* 0x004ec968, 12 bytes */ /* loose */ char s_chernobyl_004ec968[12] = "chernobyl";
-/* 0x004ec974, 8 bytes */ /* loose */ char s_special_004ec974[8] = "special";
-/* 0x004ec97c, 8 bytes */ /* loose */ char s_camera_004ec97c[8] = "camera";
-/* 0x004ec984, 8 bytes */ /* loose */ char s_funnel_004ec984[8] = "funnel";
-/* 0x004ec98c, 8 bytes */ /* loose */ char s_walk_004ec98c[8] = "walk";
-/* 0x004ec994, 8 bytes */ /* loose */ char s_id__i_004ec994[8] = " id %i";
-/* 0x004ec99c, 12 bytes */ /* loose */ char s_sector__s_004ec99c[12] = " sector %s";
-/* 0x004ec9a8, 16 bytes */ /* loose */ char s_numsectors_004ec9a8[16] = " numsectors ";
-/* 0x004ec9b8, 24 bytes */ /* loose */ char s_edge_index___num_verts_004ec9b8[24] = "edge_index < num_verts";
-/* 0x004ec9d0, 48 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_O_004ec9d0[48] = "C:\\grimsrc\\libs\\grimlib\\Engine\\ObjectState.cpp";
-static unsigned char grim_anchor_004eca00[0] __attribute__((section(".data$grim_004eca00"), aligned(16), used));
-static unsigned char grim_pad_004eca00[0] __attribute__((section(".data$grim_004eca00_"), aligned(4), used));
-/* 0x004eca00, 4 bytes */ GRIM_DATA("004eca00z") unsigned int UINT_004eca00 = 0x1060080;
-/* 0x004eca04, 1540 bytes */ GRIM_DATA("004eca04") unsigned int g_adwTextWrapTable[385] = {
-    0x204, 0x20b, 0x213, 0x21b, 0x223, 0x22b, 0x233, 0x23b,
-    0x243, 0x24b, 0x253, 0x25b, 0x263, 0x26b, 0x273, 0x27b,
-    0x283, 0x28b, 0x293, 0x29b, 0x2a3, 0x2ab, 0x2b3, 0x2bb,
-    0x2c3, 0x2cb, 0x2d3, 0x2db, 0x2e4, 0x2ed, 0x2f5, 0x2fd,
-    0x305, 0x30d, 0x315, 0x31d, 0x325, 0x32d, 0x335, 0x33d,
-    0x345, 0x34d, 0x355, 0x35d, 0x365, 0x36d, 0x375, 0x37d,
-    0x385, 0x38d, 0x395, 0x39d, 0x3a5, 0x3ad, 0x3b5, 0x3bd,
-    0x3c5, 0x3cd, 0x3d5, 0x3dd, 0x3e5, 0x3ed, 0x3f5, 0x3fd,
-    0x405, 0x40d, 0x415, 0x41d, 0x425, 0x42d, 0x435, 0x43d,
-    0x445, 0x44d, 0x455, 0x45d, 0x465, 0x46d, 0x475, 0x47d,
-    0x485, 0x48d, 0x495, 0x49d, 0x4a5, 0x4ad, 0x4b5, 0x4bd,
-    0x4c5, 0x4cd, 0x4d5, 0x4dd, 0x4e5, 0x4ed, 0x4f5, 0x4fd,
-    0x505, 0x50d, 0x515, 0x51d, 0x525, 0x52d, 0x535, 0x53d,
-    0x545, 0x54d, 0x555, 0x55d, 0x565, 0x56d, 0x575, 0x57d,
-    0x585, 0x58d, 0x595, 0x59d, 0x5a5, 0x5ad, 0x5b5, 0x5bd,
-    0x5c5, 0x5cd, 0x5d5, 0x5dd, 0x5e5, 0x5ed, 0x5f5, 0x5fd,
-    0x504, 0x5082eea, 0x8000005, 0x40088a9, 0x15000006, 0x4531f35, 0x17000006, 0x4041f77,
-    0x35000006, 0x4b13f55, 0x17000006, 0x4f51f37, 0x17000006, 0x48b7f37, 0x17000006, 0x4a31f15,
-    0x55000006, 0x4285f15, 0x1b000006, 0x4311fbb, 0xdd000006, 0x4dd9fd5, 0x55000006, 0x4cc5f35,
-    0x77000006, 0x48b1f77, 0x11000006, 0x4ec5f55, 0x15000006, 0x4765f55, 0xb5000006, 0x438bf55,
-    0x15000006, 0x4f97f17, 0x95000006, 0x4741f51, 0x15000006, 0x4bc5f35, 0x17000006, 0x4551f1d,
-    0x1b000006, 0x453bfbb, 0x55000006, 0x43f1f55, 0x55000006, 0x4c3bf55, 0x55000006, 0x48b1f51,
-    0x55000006, 0x4555fb5, 0x55000006, 0x405bf1b, 0x1d000006, 0x72a1fb7, 0x10000005, 0xf0f771,
-    0x507, 0x80e0f8fe, 0x60400, 0x20e62600, 0x60410, 0x80ec8c00, 0x60482, 0x80ec8c00,
-    0x6045c, 0x0, 0x604eb, 0x40404400, 0x60416, 0xaa00, 0x60402, 0x404e4e00,
-    0x6040c, 0xc0e66c00, 0x60416, 0xa048a200, 0x60402, 0x604c4e00, 0x6040d, 0x402200,
-    0x6041c, 0x40884800, 0x60409, 0x40224200, 0x6040d, 0xa0e4a400, 0x604b8, 0xe40400,
-    0x60400, 0x80040000, 0x604bb, 0xe00000, 0x60475, 0x40000000, 0x604f7, 0x80482200,
-    0x6043c, 0xe0aaea00, 0x6048a, 0xe044c400, 0x6048b, 0xe0e8e200, 0x6045c, 0xe0e2e200,
-    0x6045c, 0x20e2aa00, 0x6045d, 0xe0e2e800, 0x60483, 0xe0ea8800, 0x60400, 0x2022e200,
-    0x60400, 0xe0eaea00, 0x6045d, 0x20e2ea00, 0x60477, 0x40400, 0x604c3, 0x80040400,
-    0x6048b, 0x20842400, 0x604eb, 0xe0e00, 0x60403, 0x80248400, 0x604fe, 0x4040c200,
-    0x6048b, 0xe0a8ea00, 0x60402, 0xa0eaea00, 0x604c0, 0xe0caea00, 0x604ac, 0xe088e800,
-    0x604fb, 0xc0aaca00, 0x6044e, 0xe0c8e800, 0x6040a, 0x80c8e800, 0x60474, 0xe0eae800,
-    0x6045c, 0xa0eaaa00, 0x604d7, 0xe044e400, 0x604ce, 0x602a2200, 0x60422, 0xa0caaa00,
-    0x60433, 0xe0888800, 0x60474, 0xa0aaee00, 0x60413, 0xa0aaea00, 0x60489, 0x40aa4a00,
-    0x604c7, 0x80e8ea00, 0x60406, 0xe0ae6a00, 0x6048b, 0xa0caea00, 0x60443, 0xe0e2e800,
-    0x604aa, 0x4044e400, 0x604ac, 0xe0aaaa00, 0x604c0, 0x40aaaa00, 0x6043c, 0xe0aeaa00,
-    0x60474, 0xa04aaa00, 0x604aa, 0x40e4aa00, 0x604fa, 0xe048e200, 0x604d5, 0xc088c800,
-    0x604f7, 0x20428800, 0x604f0, 0x60226200, 0x6049a, 0x4a00, 0x60433, 0xe0000000,
-    0x604c2, 0x408800, 0x604f9, 0xa0eaea00, 0x604c0, 0xe0caea00, 0x604ac, 0xe088e800,
-    0x604fb, 0xc0aaca00, 0x6044e, 0xe0c8e800, 0x6040a, 0x80c8e800, 0x60474, 0xe0eae800,
-    0x6045c, 0xa0eaaa00, 0x604d7, 0xe044e400, 0x604ce, 0x602a2200, 0x60422, 0xa0caaa00,
-    0x60433, 0xe0888800, 0x60474, 0xa0aaee00, 0x60413, 0xa0aaea00, 0x60489, 0x40aa4a00,
-    0x604c7, 0x80e8ea00, 0x60406, 0xe0ae6a00, 0x6048b, 0xa0caea00, 0x60443, 0xe0e2e800,
-    0x604aa, 0x4044e400, 0x604ac, 0xe0aaaa00, 0x604c0, 0x40aaaa00, 0x6043c, 0xe0aeaa00,
-    0x60474, 0xa04aaa00, 0x604aa, 0x40e4aa00, 0x604fa, 0xe048e200, 0x604d5, 0x60846400,
-    0x60403, 0x40044400, 0x60450, 0xc024c400, 0x6040c, 0xa600, 0x60490, 0xe04e00,
-    0xff8b
-};
-/* 0x004ed008, 52 bytes */ GRIM_DATA("004ed008") char s_c_____0______c______0______ppTex_004ed008[52] = "c > '\\0' || (c == '\\0' && *ppText == ((void *)0))";
-/* 0x004ed03c, 24 bytes */ /* loose */ char s__ppText______void___0__004ed03c[24] = "*ppText != ((void *)0)";
-/* 0x004ed054, 36 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Temp_Tex_004ed054[36] = "C:\\grimsrc\\libs\\grimlib\\Temp\\Text.c";
-/* 0x004ed078, 8 bytes */ /* loose */ char s_hFont_004ed078[8] = "hFont";
-/* 0x004ed080, 8 bytes */ /* loose */ char s_wKernel_004ed080[8] = "wKernel";
-static unsigned char grim_anchor_004ed088[0] __attribute__((section(".data$grim_004ed088"), aligned(16), used));
-static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004ed088_"), aligned(4), used));
-/* 0x004ed088, 16 bytes */ GRIM_DATA("004ed088z") char s_APPICON_004ed088[16] = "APPICON\000u\230\000\000s\230";
-/* 0x004ed098, 24 bytes */ GRIM_DATA("004ed098") void *PTR_FUN_004ed098[6] = {
+/* 0x004ec2dc, 8 bytes */ GRIM_DATA("004ec2dcz") unsigned char DAT_004ec2dc[8] __asm__("_DAT_004ec2dc") = { 0x53, 0x61, 0x76, 0x65 };
+/* 0x004ec2e4, 8 bytes */ GRIM_DATA("004ec2e4") unsigned char DAT_004ec2e4[8] __asm__("_DAT_004ec2e4") = { 0x4c, 0x6f, 0x61, 0x64 };
+/* 0x004ec2ec, 16 bytes */ GRIM_DATA("004ec2ec") char s_CheckForFile_004ec2ec[16] __asm__("_s_CheckForFile_004ec2ec") = "CheckForFile";
+/* 0x004ec2fc, 24 bytes */ /* loose */ char s_SearchForFileOrSwapCDs_004ec2fc[24] __asm__("_s_SearchForFileOrSwapCDs_004ec2fc") = "SearchForFileOrSwapCDs";
+/* 0x004ec314, 16 bytes */ /* loose */ char s_EngineDisplay_004ec314[16] __asm__("_s_EngineDisplay_004ec314") = "EngineDisplay";
+/* 0x004ec324, 16 bytes */ /* loose */ char s_EngineResume_004ec324[16] __asm__("_s_EngineResume_004ec324") = "EngineResume";
+/* 0x004ec334, 12 bytes */ /* loose */ char s_EnginePause_004ec334[12] __asm__("_s_EnginePause_004ec334") = "EnginePause";
+/* 0x004ec340, 16 bytes */ /* loose */ char s_dfltcontrol_004ec340[16] __asm__("_s_dfltcontrol_004ec340") = "  dfltcontrol";
+/* 0x004ec350, 16 bytes */ /* loose */ char s_dfltcamera_004ec350[16] __asm__("_s_dfltcamera_004ec350") = "  dfltcamera";
+/* 0x004ec360, 16 bytes */ /* loose */ char s_typeoverride_004ec360[16] __asm__("_s_typeoverride_004ec360") = "  typeoverride";
+/* 0x004ec370, 20 bytes */ /* loose */ char s_concatfallback_004ec370[20] __asm__("_s_concatfallback_004ec370") = "  concatfallback";
+/* 0x004ec3b8, 4 bytes */ /* loose */ char s_z_004ec3b8[4] __asm__("_s_z_004ec3b8") = "z";
+/* 0x004ec490, 4 bytes */ /* loose */ char s_set_004ec490[4] __asm__("_s_set_004ec490") = "set";
+/* 0x004ec598, 8 bytes */ /* loose */ char s_spot_004ec598[8] __asm__("_s_spot_004ec598") = "spot";
+/* 0x004ec5b4, 8 bytes */ /* loose */ char s_omni_004ec5b4[8] __asm__("_s_omni_004ec5b4") = "omni";
+/* 0x004ec5bc, 4 bytes */ /* loose */ char s_rt_004ec5bc[4] __asm__("_s_rt_004ec5bc") = "rt";
+/* 0x004ec5d4, 12 bytes */ /* loose */ char s_dfltroom_bm_004ec5d4[12] __asm__("_s_dfltroom_bm_004ec5d4") = "dfltroom.bm";
+/* 0x004ec5e0, 44 bytes */ /* loose */ char s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0[44] __asm__("_s_C__grimsrc_libs_grimlib_Engine_s_004ec5e0") = "C:\\grimsrc\\libs\\grimlib\\Engine\\sputRoom.cpp";
+/* 0x004ec60c, 8 bytes */ /* loose */ char s__none__004ec60c[8] __asm__("_s__none__004ec60c") = "<none>";
+/* 0x004ec614, 24 bytes */ /* loose */ char s_Bad_ZBuffer_Reference_004ec614[24] __asm__("_s_Bad_ZBuffer_Reference_004ec614") = "Bad ZBuffer Reference";
+/* 0x004ec724, 8 bytes */ /* loose */ char s_lights_004ec724[8] __asm__("_s_lights_004ec724") = "lights";
+/* 0x004ec7b8, 12 bytes */ /* loose */ char s_type__s_004ec7b8[12] __asm__("_s_type__s_004ec7b8") = " type %s";
+/* 0x004ec7e0, 16 bytes */ /* loose */ char s_section___s_004ec7e0[16] __asm__("_s_section___s_004ec7e0") = " section: %s\n";
+/* 0x004ed098, 24 bytes */ GRIM_DATA("004ed098") void *PTR_FUN_004ed098[6] __asm__("_PTR_FUN_004ed098") = {
     (void *)f_FUN_004ac690, (void *)f_Mem_DumpLog, (void *)f_Mem_DumpLog, 0,
     0, 0
 };
-/* 0x004ed0b0, 4 bytes */ GRIM_DATA("004ed0b0") void *PTR__exit_004ed0b0 = (void *)f_exit;
-/* 0x004ed0b4, 20 bytes */ GRIM_DATA("004ed0b4") unsigned char UINT_004ed0b4[20] = {
+/* 0x004ed0b0, 4 bytes */ GRIM_DATA("004ed0b0") void *PTR__exit_004ed0b0 __asm__("_PTR__exit_004ed0b0") = (void *)f_exit;
+/* 0x004ed0b4, 20 bytes */ GRIM_DATA("004ed0b4") unsigned char UINT_004ed0b4[20] __asm__("_UINT_004ed0b4") = {
     0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0xe0, 0x3f
 };
-/* 0x004ed0c8, 12 bytes */ GRIM_DATA("004ed0c8") unsigned char DAT_004ed0c8[12] = { 0x70, 0x6f, 0x77, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x05, 0x93, 0x19 };
-/* 0x004ed0d4, 4 bytes, unused (dead) */ GRIM_DATA("004ed0d4") unsigned char UINT_004ed0d4[4];
-/* 0x004ed0d8, 4 bytes, unused (dead) */ GRIM_DATA("004ed0d8") unsigned char UINT_004ed0d8[4];
-/* 0x004ed0dc, 4 bytes, unused (dead) */ GRIM_DATA("004ed0dc") unsigned char UINT_004ed0dc[4];
-/* 0x004ed0e0, 4 bytes */ GRIM_DATA("004ed0e0") unsigned char DAT_004ed0e0[4] = {0};
-/* 0x004ed0e4, 32 bytes, unused (dead) */ GRIM_DATA("004ed0e4") unsigned char PTR_DAT_004ed0e4[32];
-/* 0x004ed104, 16 bytes, unused (dead) */ GRIM_DATA("004ed104") unsigned char PTR_DAT_004ed104[16];
-/* 0x004ed114, 16 bytes, unused (dead) */ GRIM_DATA("004ed114") unsigned char PTR_DAT_004ed114[16];
-/* 0x004ed124, 124 bytes, unused (dead) */ GRIM_DATA("004ed124") unsigned char PTR_DAT_004ed124[124];
-/* 0x004ed1a0, 348 bytes */ GRIM_DATA("004ed1a0") grim_span_004ed1a0 DAT_004ed1a0 = {
+/* 0x004ed0c8, 12 bytes */ GRIM_DATA("004ed0c8") unsigned char DAT_004ed0c8[12] __asm__("_DAT_004ed0c8") = { 0x70, 0x6f, 0x77, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x05, 0x93, 0x19 };
+/* 0x004ed0d4, 4 bytes, unused (dead) */ GRIM_DATA("004ed0d4") unsigned char UINT_004ed0d4[4] __asm__("_UINT_004ed0d4");
+/* 0x004ed0d8, 4 bytes, unused (dead) */ GRIM_DATA("004ed0d8") unsigned char UINT_004ed0d8[4] __asm__("_UINT_004ed0d8");
+/* 0x004ed0dc, 4 bytes, unused (dead) */ GRIM_DATA("004ed0dc") unsigned char UINT_004ed0dc[4] __asm__("_UINT_004ed0dc");
+/* 0x004ed0e0, 4 bytes */ GRIM_DATA("004ed0e0") unsigned char DAT_004ed0e0[4] __asm__("_DAT_004ed0e0") = {0};
+/* 0x004ed0e4, 32 bytes, unused (dead) */ GRIM_DATA("004ed0e4") unsigned char PTR_DAT_004ed0e4[32] __asm__("_PTR_DAT_004ed0e4");
+/* 0x004ed104, 16 bytes, unused (dead) */ GRIM_DATA("004ed104") unsigned char PTR_DAT_004ed104[16] __asm__("_PTR_DAT_004ed104");
+/* 0x004ed114, 16 bytes, unused (dead) */ GRIM_DATA("004ed114") unsigned char PTR_DAT_004ed114[16] __asm__("_PTR_DAT_004ed114");
+/* 0x004ed124, 124 bytes, unused (dead) */ GRIM_DATA("004ed124") unsigned char PTR_DAT_004ed124[124] __asm__("_PTR_DAT_004ed124");
+/* 0x004ed1a0, 348 bytes */ GRIM_DATA("004ed1a0") grim_span_004ed1a0 DAT_004ed1a0 __asm__("_DAT_004ed1a0") = {
     { 0x43 },
     (void *)&DAT_004d89dc,
     {0},
@@ -9585,17 +5033,17 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x43
     }
 };
-/* 0x004ed2fc, 4 bytes, unused (host) */ GRIM_DATA("004ed2fc") unsigned char PTR_DAT_004ed2fc[4];
-/* 0x004ed300, 8 bytes, unused (host) */ GRIM_DATA("004ed300") unsigned char PTR_DAT_004ed300[8];
-/* 0x004ed308, 4 bytes, unused (dead+host) */ GRIM_DATA("004ed308") unsigned char PTR_FUN_004ed308[4];
-/* 0x004ed30c, 4 bytes, unused (dead+host) */ GRIM_DATA("004ed30c") unsigned char PTR_FUN_004ed30c[4];
-/* 0x004ed310, 4 bytes */ GRIM_DATA("004ed310") void *PTR_FUN_004ed310 = (void *)f_FUN_004b77f0;
-/* 0x004ed314, 4 bytes, unused (dead+host) */ GRIM_DATA("004ed314") unsigned char PTR_FUN_004ed314[4];
-/* 0x004ed318, 4 bytes, unused (dead) */ GRIM_DATA("004ed318") unsigned char PTR_FUN_004ed318[4];
-/* 0x004ed31c, 4 bytes, unused (dead) */ GRIM_DATA("004ed31c") unsigned char PTR_FUN_004ed31c[4];
-/* 0x004ed320, 4 bytes */ GRIM_DATA("004ed320") void *PTR_g_awCrtCtype_004ed320 = (void *)&g_awCrtCtype;
-/* 0x004ed324, 6 bytes, unused (dead) */ GRIM_DATA("004ed324") unsigned char PTR_g_awCrtCtype_004ed324[6];
-/* 0x004ed32a, 514 bytes */ GRIM_DATA("004ed324") unsigned short g_awCrtCtype[257] = {
+/* 0x004ed2fc, 4 bytes, unused (host) */ GRIM_DATA("004ed2fc") unsigned char PTR_DAT_004ed2fc[4] __asm__("_PTR_DAT_004ed2fc");
+/* 0x004ed300, 8 bytes, unused (host) */ GRIM_DATA("004ed300") unsigned char PTR_DAT_004ed300[8] __asm__("_PTR_DAT_004ed300");
+/* 0x004ed308, 4 bytes, unused (dead+host) */ GRIM_DATA("004ed308") unsigned char PTR_FUN_004ed308[4] __asm__("_PTR_FUN_004ed308");
+/* 0x004ed30c, 4 bytes, unused (dead+host) */ GRIM_DATA("004ed30c") unsigned char PTR_FUN_004ed30c[4] __asm__("_PTR_FUN_004ed30c");
+/* 0x004ed310, 4 bytes */ GRIM_DATA("004ed310") void *PTR_FUN_004ed310 __asm__("_PTR_FUN_004ed310") = (void *)f_FUN_004b77f0;
+/* 0x004ed314, 4 bytes, unused (dead+host) */ GRIM_DATA("004ed314") unsigned char PTR_FUN_004ed314[4] __asm__("_PTR_FUN_004ed314");
+/* 0x004ed318, 4 bytes, unused (dead) */ GRIM_DATA("004ed318") unsigned char PTR_FUN_004ed318[4] __asm__("_PTR_FUN_004ed318");
+/* 0x004ed31c, 4 bytes, unused (dead) */ GRIM_DATA("004ed31c") unsigned char PTR_FUN_004ed31c[4] __asm__("_PTR_FUN_004ed31c");
+/* 0x004ed320, 4 bytes */ GRIM_DATA("004ed320") void *PTR_g_awCrtCtype_004ed320 __asm__("_PTR_g_awCrtCtype_004ed320") = (void *)&g_awCrtCtype;
+/* 0x004ed324, 6 bytes, unused (dead) */ GRIM_DATA("004ed324") unsigned char PTR_g_awCrtCtype_004ed324[6] __asm__("_PTR_g_awCrtCtype_004ed324");
+/* 0x004ed32a, 514 bytes */ GRIM_DATA("004ed324") unsigned short g_awCrtCtype[257] __asm__("_g_awCrtCtype") = {
     0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x28, 0x28, 0x28, 0x28, 0x28, 0x20, 0x20,
     0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20, 0x20,
     0x48, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10, 0x10,
@@ -9605,11 +5053,11 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
     0x10, 0x82, 0x82, 0x82, 0x82, 0x82, 0x82, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2,
     0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x2, 0x10, 0x10, 0x10, 0x10, 0x20
 };
-/* 0x004ed52c, 4 bytes */ GRIM_DATA("004ed52c") unsigned int UINT_004ed52c = 0x1;
-/* 0x004ed530, 4 bytes */ GRIM_DATA("004ed530") unsigned char DAT_004ed530[4] = { 0x2e };
-/* 0x004ed534, 12 bytes */ GRIM_DATA("004ed534") unsigned char DAT_004ed534[12] = { 0x01 };
-/* 0x004ed540, 8 bytes */ GRIM_DATA("004ed540") unsigned char UINT_004ed540[8] = { 0xff, 0xff, 0xff, 0xff };
-/* 0x004ed548, 120 bytes */ GRIM_DATA("004ed548") unsigned char DAT_004ed548[120] = {
+/* 0x004ed52c, 4 bytes */ GRIM_DATA("004ed52c") unsigned int UINT_004ed52c __asm__("_UINT_004ed52c") = 0x1;
+/* 0x004ed530, 4 bytes */ GRIM_DATA("004ed530") unsigned char DAT_004ed530[4] __asm__("_DAT_004ed530") = { 0x2e };
+/* 0x004ed534, 12 bytes */ GRIM_DATA("004ed534") unsigned char DAT_004ed534[12] __asm__("_DAT_004ed534") = { 0x01 };
+/* 0x004ed540, 8 bytes */ GRIM_DATA("004ed540") unsigned char UINT_004ed540[8] __asm__("_UINT_004ed540") = { 0xff, 0xff, 0xff, 0xff };
+/* 0x004ed548, 120 bytes */ GRIM_DATA("004ed548") unsigned char DAT_004ed548[120] __asm__("_DAT_004ed548") = {
     0x05, 0x00, 0x00, 0xc0, 0x0b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1d, 0x00, 0x00, 0xc0,
     0x04, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x96, 0x00, 0x00, 0xc0, 0x04, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x8d, 0x00, 0x00, 0xc0, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -9619,22 +5067,22 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
     0x92, 0x00, 0x00, 0xc0, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x93, 0x00, 0x00, 0xc0,
     0x08
 };
-/* 0x004ed5c0, 4 bytes */ GRIM_DATA("004ed5c0") unsigned int UINT_004ed5c0 = 0x3;
-/* 0x004ed5c4, 8 bytes */ GRIM_DATA("004ed5c4") unsigned char UINT_004ed5c4[8] = { 0x07, 0x00, 0x00, 0x00, 0x78 };
-/* 0x004ed5cc, 4 bytes */ GRIM_DATA("004ed5cc") unsigned int UINT_004ed5cc = 0xa;
-/* 0x004ed5d0, 8 bytes, unused (dead) */ GRIM_DATA("004ed5d0") unsigned char DAT_004ed5d0[8];
-/* 0x004ed5d8, 4 bytes, unused (dead) */ GRIM_DATA("004ed5d8") unsigned char UINT_004ed5d8[4];
-/* 0x004ed5dc, 4 bytes, unused (dead) */ GRIM_DATA("004ed5dc") unsigned char DAT_004ed5dc[4];
-/* 0x004ed5e0, 4 bytes, unused (dead) */ GRIM_DATA("004ed5e0") unsigned char DAT_004ed5e0[4];
-/* 0x004ed5e4, 4 bytes, unused (dead) */ GRIM_DATA("004ed5e4") unsigned char DAT_004ed5e4[4];
-/* 0x004ed5e8, 224 bytes, unused (dead) */ GRIM_DATA("004ed5e8") unsigned char DAT_004ed5e8[224];
-/* 0x004ed6c8, 40 bytes */ GRIM_DATA("004ed6c8") unsigned char DAT_004ed6c8[40] = {
+/* 0x004ed5c0, 4 bytes */ GRIM_DATA("004ed5c0") unsigned int UINT_004ed5c0 __asm__("_UINT_004ed5c0") = 0x3;
+/* 0x004ed5c4, 8 bytes */ GRIM_DATA("004ed5c4") unsigned char UINT_004ed5c4[8] __asm__("_UINT_004ed5c4") = { 0x07, 0x00, 0x00, 0x00, 0x78 };
+/* 0x004ed5cc, 4 bytes */ GRIM_DATA("004ed5cc") unsigned int UINT_004ed5cc __asm__("_UINT_004ed5cc") = 0xa;
+/* 0x004ed5d0, 8 bytes, unused (dead) */ GRIM_DATA("004ed5d0") unsigned char DAT_004ed5d0[8] __asm__("_DAT_004ed5d0");
+/* 0x004ed5d8, 4 bytes, unused (dead) */ GRIM_DATA("004ed5d8") unsigned char UINT_004ed5d8[4] __asm__("_UINT_004ed5d8");
+/* 0x004ed5dc, 4 bytes, unused (dead) */ GRIM_DATA("004ed5dc") unsigned char DAT_004ed5dc[4] __asm__("_DAT_004ed5dc");
+/* 0x004ed5e0, 4 bytes, unused (dead) */ GRIM_DATA("004ed5e0") unsigned char DAT_004ed5e0[4] __asm__("_DAT_004ed5e0");
+/* 0x004ed5e4, 4 bytes, unused (dead) */ GRIM_DATA("004ed5e4") unsigned char DAT_004ed5e4[4] __asm__("_DAT_004ed5e4");
+/* 0x004ed5e8, 224 bytes, unused (dead) */ GRIM_DATA("004ed5e8") unsigned char DAT_004ed5e8[224] __asm__("_DAT_004ed5e8");
+/* 0x004ed6c8, 40 bytes */ GRIM_DATA("004ed6c8") unsigned char DAT_004ed6c8[40] __asm__("_DAT_004ed6c8") = {
     0xff, 0xff, 0xff, 0xff, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x10
 };
-/* 0x004ed6f0, 4 bytes */ GRIM_DATA("004ed6f0") unsigned int UINT_004ed6f0 = 0x2;
-/* 0x004ed6f4, 140 bytes */ GRIM_DATA("004ed6f4") void *DAT_004ed6f4[35] = {
+/* 0x004ed6f0, 4 bytes */ GRIM_DATA("004ed6f0") unsigned int UINT_004ed6f0 __asm__("_UINT_004ed6f0") = 0x2;
+/* 0x004ed6f4, 140 bytes */ GRIM_DATA("004ed6f4") void *DAT_004ed6f4[35] __asm__("_DAT_004ed6f4") = {
     (void *)&DAT_004d8d04, (void *)0x8, (void *)&DAT_004d8cd8, (void *)0x9,
     (void *)&DAT_004d8cac, (void *)0xa, (void *)&DAT_004d8c88, (void *)0x10,
     (void *)&DAT_004d8c5c, (void *)0x11, (void *)&DAT_004d8c2c, (void *)0x12,
@@ -9645,30 +5093,30 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
     (void *)&DAT_004d8ac4, (void *)0x7a, (void *)&DAT_004d8ab4, (void *)0xfc,
     (void *)&DAT_004d8ab0, (void *)0xff, (void *)&DAT_004d8aa0
 };
-/* 0x004ed780, 16 bytes */ GRIM_DATA("004ed780") void *PTR_DAT_004ed780[4] = {
+/* 0x004ed780, 16 bytes */ GRIM_DATA("004ed780") void *PTR_DAT_004ed780[4] __asm__("_PTR_DAT_004ed780") = {
     (void *)&DAT_00905ae0, 0, (void *)&DAT_00905ae0, (void *)0x101
 };
-/* 0x004ed790, 16 bytes, unused (dead) */ GRIM_DATA("004ed790") unsigned char UINT_004ed790[16];
-/* 0x004ed7a0, 32 bytes */ GRIM_DATA("004ed7a0") unsigned char DAT_004ed7a0[32] = {
+/* 0x004ed790, 16 bytes, unused (dead) */ GRIM_DATA("004ed790") unsigned char UINT_004ed790[16] __asm__("_UINT_004ed790");
+/* 0x004ed7a0, 32 bytes */ GRIM_DATA("004ed7a0") unsigned char DAT_004ed7a0[32] __asm__("_DAT_004ed7a0") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
     0x01
 };
-/* 0x004ed7c0, 48 bytes */ GRIM_DATA("004ed7c0") unsigned char DAT_004ed7c0[48] = {
+/* 0x004ed7c0, 48 bytes */ GRIM_DATA("004ed7c0") unsigned char DAT_004ed7c0[48] __asm__("_DAT_004ed7c0") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
     0x02
 };
-/* 0x004ed7f0, 497 bytes, unused (dead) */ GRIM_DATA("004ed7f0") unsigned char DAT_004ed7f0[497];
-/* 0x004ed9e1, 31 bytes */ GRIM_DATA("004ed7f0") unsigned char DAT_004ed9e1[31] = {0};
-/* 0x004eda00, 4 bytes */ GRIM_DATA("004eda00") void *PTR_LOOP_004eda00 = (void *)&PTR_LOOP_004eda00;
-/* 0x004eda04, 12 bytes */ GRIM_DATA("004eda04") void *PTR_LOOP_004eda04[3] = {
+/* 0x004ed7f0, 497 bytes, unused (dead) */ GRIM_DATA("004ed7f0") unsigned char DAT_004ed7f0[497] __asm__("_DAT_004ed7f0");
+/* 0x004ed9e1, 31 bytes */ GRIM_DATA("004ed7f0") unsigned char DAT_004ed9e1[31] __asm__("_DAT_004ed9e1") = {0};
+/* 0x004eda00, 4 bytes */ GRIM_DATA("004eda00") void *PTR_LOOP_004eda00 __asm__("_PTR_LOOP_004eda00") = (void *)&PTR_LOOP_004eda00;
+/* 0x004eda04, 12 bytes */ GRIM_DATA("004eda04") void *PTR_LOOP_004eda04[3] __asm__("_PTR_LOOP_004eda04") = {
     (void *)&PTR_LOOP_004eda00, (void *)&UINT_004eda18, (void *)&UINT_004eda18
 };
-/* 0x004eda10, 8 bytes */ GRIM_DATA("004eda10") unsigned char UINT_004eda10[8] = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
-/* 0x004eda18, 8200 bytes */ GRIM_DATA("004eda18") unsigned char UINT_004eda18[8200] = { 0xf0, 0x00, 0x00, 0x00, 0xf1 };
-/* 0x004efa20, 4 bytes */ GRIM_DATA("004efa20") void *PTR_LOOP_004efa20 = (void *)&PTR_LOOP_004eda00;
-/* 0x004efa24, 4 bytes */ GRIM_DATA("004efa24") unsigned int UINT_004efa24 = 0x1e0;
-/* 0x004efa28, 4 bytes */ GRIM_DATA("004efa28") unsigned int UINT_004efa28 = 0x1;
-/* 0x004efa2c, 356 bytes */ GRIM_DATA("004efa2c") unsigned char DAT_004efa2c[356] = {
+/* 0x004eda10, 8 bytes */ GRIM_DATA("004eda10") unsigned char UINT_004eda10[8] __asm__("_UINT_004eda10") = { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff };
+/* 0x004eda18, 8200 bytes */ GRIM_DATA("004eda18") unsigned char UINT_004eda18[8200] __asm__("_UINT_004eda18") = { 0xf0, 0x00, 0x00, 0x00, 0xf1 };
+/* 0x004efa20, 4 bytes */ GRIM_DATA("004efa20") void *PTR_LOOP_004efa20 __asm__("_PTR_LOOP_004efa20") = (void *)&PTR_LOOP_004eda00;
+/* 0x004efa24, 4 bytes */ GRIM_DATA("004efa24") unsigned int UINT_004efa24 __asm__("_UINT_004efa24") = 0x1e0;
+/* 0x004efa28, 4 bytes */ GRIM_DATA("004efa28") unsigned int UINT_004efa28 __asm__("_UINT_004efa28") = 0x1;
+/* 0x004efa2c, 356 bytes */ GRIM_DATA("004efa2c") unsigned char DAT_004efa2c[356] __asm__("_DAT_004efa2c") = {
     0x16, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,
     0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x18, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00,
     0x0d, 0x00, 0x00, 0x00, 0x06, 0x00, 0x00, 0x00, 0x09, 0x00, 0x00, 0x00, 0x07, 0x00, 0x00, 0x00,
@@ -9693,9 +5141,9 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
     0x02, 0x00, 0x00, 0x00, 0xd7, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x00, 0x18, 0x07, 0x00, 0x00,
     0x0c
 };
-/* 0x004efb90, 8 bytes */ GRIM_DATA("004efb90") char s_____004efb90[8] = " \t-\015]";
-/* 0x004efb98, 8 bytes */ GRIM_DATA("004efb98") unsigned char DAT_004efb98[8] = { 0x5d };
-/* 0x004efba0, 96 bytes */ GRIM_DATA("004efba0") unsigned char DAT_004efba0[96] = {
+/* 0x004efb90, 8 bytes */ GRIM_DATA("004efb90") char s_____004efb90[8] __asm__("_s_____004efb90") = " \t-\015]";
+/* 0x004efb98, 8 bytes */ GRIM_DATA("004efb98") unsigned char DAT_004efb98[8] __asm__("_DAT_004efb98") = { 0x5d };
+/* 0x004efba0, 96 bytes */ GRIM_DATA("004efba0") unsigned char DAT_004efba0[96] __asm__("_DAT_004efba0") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xff, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x80, 0xff, 0xff, 0xdc, 0xa7, 0xd7, 0xb9, 0x85, 0x66, 0x71, 0xb1, 0x0d, 0x40, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0x0d, 0x40, 0xf7, 0x36, 0x43, 0x0c, 0x98, 0x19, 0xf6, 0x95,
@@ -9703,7 +5151,7 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x14, 0x00, 0xd1, 0x47, 0x4b, 0x00, 0xdd, 0x4a,
     0x4b, 0x00, 0xe2, 0x4a, 0x4b, 0x00, 0x11, 0x49, 0x4b
 };
-/* 0x004efc00, 64 bytes */ GRIM_DATA("004efc00") grim_span_004efc00 DAT_004efc00 = {
+/* 0x004efc00, 64 bytes */ GRIM_DATA("004efc00") grim_span_004efc00 DAT_004efc00 __asm__("_DAT_004efc00") = {
     {
             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xff, 0xff, 0x35, 0xc2, 0x68, 0x21, 0xa2, 0xda,
             0x0f, 0xc9, 0xff, 0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x3f, 0x08, 0x04, 0x08, 0x08,
@@ -9712,67 +5160,67 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
     (void *)f_FUN_004ba230,
     {0}
 };
-/* 0x004efc40, 1936 bytes, unused (dead) */ GRIM_DATA("004efc40") unsigned char PTR_terminate_004efc40[1936];
-/* 0x004f03d0, 24 bytes */ GRIM_DATA("004f03d0") unsigned char DAT_004f03d0[24] = {
+/* 0x004efc40, 1936 bytes, unused (dead) */ GRIM_DATA("004efc40") unsigned char PTR_terminate_004efc40[1936] __asm__("_PTR_terminate_004efc40");
+/* 0x004f03d0, 24 bytes */ GRIM_DATA("004f03d0") unsigned char DAT_004f03d0[24] __asm__("_DAT_004f03d0") = {
     0x00, 0x04, 0x00, 0x00, 0x01, 0xfc, 0xff, 0xff, 0x35, 0x00, 0x00, 0x00, 0x0b, 0x00, 0x00, 0x00,
     0x40, 0x00, 0x00, 0x00, 0xff, 0x03
 };
-/* 0x004f03e8, 24 bytes, unused (dead) */ GRIM_DATA("004f03e8") unsigned char DAT_004f03e8[24];
-/* 0x004f0400, 4 bytes */ GRIM_DATA("004f0400") unsigned int UINT_004f0400 = 0x7080;
-/* 0x004f0404, 4 bytes */ GRIM_DATA("004f0404") unsigned int UINT_004f0404 = 0x1;
-/* 0x004f0408, 8 bytes */ GRIM_DATA("004f0408") unsigned char UINT_004f0408[8] = { 0xf0, 0xf1, 0xff, 0xff };
-/* 0x004f0410, 64 bytes */ GRIM_DATA("004f0410") unsigned char DAT_004f0410[64] = { 0x50, 0x53, 0x54 };
-/* 0x004f0450, 64 bytes */ GRIM_DATA("004f0450") unsigned char DAT_004f0450[64] = { 0x50, 0x44, 0x54 };
-/* 0x004f0490, 4 bytes */ GRIM_DATA("004f0490") void *PTR_DAT_004f0490 = (void *)&DAT_004f0410;
-/* 0x004f0494, 4 bytes */ GRIM_DATA("004f0494") void *PTR_DAT_004f0494 = (void *)&DAT_004f0450;
-/* 0x004f0498, 4 bytes */ GRIM_DATA("004f0498") unsigned int UINT_004f0498 = 0xffffffff;
-/* 0x004f049c, 4 bytes */ GRIM_DATA("004f049c") unsigned int UINT_004f049c = 0x0;
-/* 0x004f04a0, 8 bytes */ GRIM_DATA("004f04a0") unsigned char UINT_004f04a0[8] = {0};
-/* 0x004f04a8, 4 bytes */ GRIM_DATA("004f04a8") unsigned int UINT_004f04a8 = 0xffffffff;
-/* 0x004f04ac, 4 bytes */ GRIM_DATA("004f04ac") unsigned int UINT_004f04ac = 0x0;
-/* 0x004f04b0, 44 bytes */ GRIM_DATA("004f04b0") unsigned char UINT_004f04b0[44] = {
+/* 0x004f03e8, 24 bytes, unused (dead) */ GRIM_DATA("004f03e8") unsigned char DAT_004f03e8[24] __asm__("_DAT_004f03e8");
+/* 0x004f0400, 4 bytes */ GRIM_DATA("004f0400") unsigned int UINT_004f0400 __asm__("_UINT_004f0400") = 0x7080;
+/* 0x004f0404, 4 bytes */ GRIM_DATA("004f0404") unsigned int UINT_004f0404 __asm__("_UINT_004f0404") = 0x1;
+/* 0x004f0408, 8 bytes */ GRIM_DATA("004f0408") unsigned char UINT_004f0408[8] __asm__("_UINT_004f0408") = { 0xf0, 0xf1, 0xff, 0xff };
+/* 0x004f0410, 64 bytes */ GRIM_DATA("004f0410") unsigned char DAT_004f0410[64] __asm__("_DAT_004f0410") = { 0x50, 0x53, 0x54 };
+/* 0x004f0450, 64 bytes */ GRIM_DATA("004f0450") unsigned char DAT_004f0450[64] __asm__("_DAT_004f0450") = { 0x50, 0x44, 0x54 };
+/* 0x004f0490, 4 bytes */ GRIM_DATA("004f0490") void *PTR_DAT_004f0490 __asm__("_PTR_DAT_004f0490") = (void *)&DAT_004f0410;
+/* 0x004f0494, 4 bytes */ GRIM_DATA("004f0494") void *PTR_DAT_004f0494 __asm__("_PTR_DAT_004f0494") = (void *)&DAT_004f0450;
+/* 0x004f0498, 4 bytes */ GRIM_DATA("004f0498") unsigned int UINT_004f0498 __asm__("_UINT_004f0498") = 0xffffffff;
+/* 0x004f049c, 4 bytes */ GRIM_DATA("004f049c") unsigned int UINT_004f049c __asm__("_UINT_004f049c") = 0x0;
+/* 0x004f04a0, 8 bytes */ GRIM_DATA("004f04a0") unsigned char UINT_004f04a0[8] __asm__("_UINT_004f04a0") = {0};
+/* 0x004f04a8, 4 bytes */ GRIM_DATA("004f04a8") unsigned int UINT_004f04a8 __asm__("_UINT_004f04a8") = 0xffffffff;
+/* 0x004f04ac, 4 bytes */ GRIM_DATA("004f04ac") unsigned int UINT_004f04ac __asm__("_UINT_004f04ac") = 0x0;
+/* 0x004f04b0, 44 bytes */ GRIM_DATA("004f04b0") unsigned char UINT_004f04b0[44] __asm__("_UINT_004f04b0") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x01, 0x00, 0x00, 0x04, 0x00, 0x00, 0x07, 0x00, 0x00, 0x0a, 0x00, 0x00, 0x0d, 0x00, 0x00,
     0x00, 0x00, 0x70, 0x3f, 0x00, 0x00, 0x88, 0x3f, 0x00, 0x00, 0x00, 0x5f
 };
-/* 0x004f04dc, 24 bytes, unused (host) */ GRIM_DATA("004f04dc") unsigned char DAT_004f04dc[24];
-/* 0x004f04f4, 24 bytes, unused (rest of DAT_004f04dc) */ GRIM_DATA("004f04f4") unsigned char DAT_004f04f4[24];
-/* 0x004f050c, 276 bytes, unused (rest of DAT_004f04f4) */ GRIM_DATA("004f050c") unsigned char DAT_004f050c[276];
-/* 0x004f0620, 4 bytes */ GRIM_DATA("004f0620") unsigned int UINT_004f0620 = 0x0;
-/* 0x004f0624, 4 bytes */ GRIM_DATA("004f0624") unsigned int UINT_004f0624 = 0x7ff00000;
-/* 0x004f0628, 4 bytes */ GRIM_DATA("004f0628") unsigned int UINT_004f0628 = 0x0;
-/* 0x004f062c, 4 bytes */ GRIM_DATA("004f062c") unsigned int UINT_004f062c = 0xfff80000;
-/* 0x004f0630, 4 bytes */ GRIM_DATA("004f0630") unsigned int UINT_004f0630 = 0xffffffff;
-/* 0x004f0634, 12 bytes */ GRIM_DATA("004f0634") unsigned char UINT_004f0634[12] = { 0xff, 0xff, 0xef, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10 };
-/* 0x004f0640, 4 bytes */ GRIM_DATA("004f0640") unsigned int UINT_004f0640 = 0x0;
-/* 0x004f0644, 4 bytes */ GRIM_DATA("004f0644") unsigned int UINT_004f0644 = 0x80000000;
-/* 0x004f0648, 52 bytes */ GRIM_DATA("004f0648") unsigned char DAT_004f0648[52] = {
+/* 0x004f04dc, 24 bytes, unused (host) */ GRIM_DATA("004f04dc") unsigned char DAT_004f04dc[24] __asm__("_DAT_004f04dc");
+/* 0x004f04f4, 24 bytes, unused (rest of DAT_004f04dc) */ GRIM_DATA("004f04f4") unsigned char DAT_004f04f4[24] __asm__("_DAT_004f04f4");
+/* 0x004f050c, 276 bytes, unused (rest of DAT_004f04f4) */ GRIM_DATA("004f050c") unsigned char DAT_004f050c[276] __asm__("_DAT_004f050c");
+/* 0x004f0620, 4 bytes */ GRIM_DATA("004f0620") unsigned int UINT_004f0620 __asm__("_UINT_004f0620") = 0x0;
+/* 0x004f0624, 4 bytes */ GRIM_DATA("004f0624") unsigned int UINT_004f0624 __asm__("_UINT_004f0624") = 0x7ff00000;
+/* 0x004f0628, 4 bytes */ GRIM_DATA("004f0628") unsigned int UINT_004f0628 __asm__("_UINT_004f0628") = 0x0;
+/* 0x004f062c, 4 bytes */ GRIM_DATA("004f062c") unsigned int UINT_004f062c __asm__("_UINT_004f062c") = 0xfff80000;
+/* 0x004f0630, 4 bytes */ GRIM_DATA("004f0630") unsigned int UINT_004f0630 __asm__("_UINT_004f0630") = 0xffffffff;
+/* 0x004f0634, 12 bytes */ GRIM_DATA("004f0634") unsigned char UINT_004f0634[12] __asm__("_UINT_004f0634") = { 0xff, 0xff, 0xef, 0x7f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x10 };
+/* 0x004f0640, 4 bytes */ GRIM_DATA("004f0640") unsigned int UINT_004f0640 __asm__("_UINT_004f0640") = 0x0;
+/* 0x004f0644, 4 bytes */ GRIM_DATA("004f0644") unsigned int UINT_004f0644 __asm__("_UINT_004f0644") = 0x80000000;
+/* 0x004f0648, 52 bytes */ GRIM_DATA("004f0648") unsigned char DAT_004f0648[52] __asm__("_DAT_004f0648") = {
     0xff, 0xff, 0xff, 0xff, 0x1e, 0x00, 0x00, 0x00, 0x3b, 0x00, 0x00, 0x00, 0x5a, 0x00, 0x00, 0x00,
     0x78, 0x00, 0x00, 0x00, 0x97, 0x00, 0x00, 0x00, 0xb5, 0x00, 0x00, 0x00, 0xd4, 0x00, 0x00, 0x00,
     0xf3, 0x00, 0x00, 0x00, 0x11, 0x01, 0x00, 0x00, 0x30, 0x01, 0x00, 0x00, 0x4e, 0x01, 0x00, 0x00,
     0x6d, 0x01
 };
-/* 0x004f067c, 4 bytes */ GRIM_DATA("004f067c") unsigned char DAT_004f067c[4] = {0};
-/* 0x004f0680, 56 bytes */ GRIM_DATA("004f0680") unsigned char UINT_004f0680[56] = {
+/* 0x004f067c, 4 bytes */ GRIM_DATA("004f067c") unsigned char DAT_004f067c[4] __asm__("_DAT_004f067c") = {0};
+/* 0x004f0680, 56 bytes */ GRIM_DATA("004f0680") unsigned char UINT_004f0680[56] __asm__("_UINT_004f0680") = {
     0xff, 0xff, 0xff, 0xff, 0x1e, 0x00, 0x00, 0x00, 0x3a, 0x00, 0x00, 0x00, 0x59, 0x00, 0x00, 0x00,
     0x77, 0x00, 0x00, 0x00, 0x96, 0x00, 0x00, 0x00, 0xb4, 0x00, 0x00, 0x00, 0xd3, 0x00, 0x00, 0x00,
     0xf2, 0x00, 0x00, 0x00, 0x10, 0x01, 0x00, 0x00, 0x2f, 0x01, 0x00, 0x00, 0x4d, 0x01, 0x00, 0x00,
     0x6c, 0x01
 };
-/* 0x004f06b8, 172 bytes, unused (dead) */ GRIM_DATA("004f06b8") unsigned char PTR_DAT_004f06b8[172];
-/* 0x004f0764, 4 bytes, unused (dead) */ GRIM_DATA("004f0764") unsigned char PTR_PTR_004f0764[4];
-/* 0x004f0768, 8 bytes, unused (dead) */ GRIM_DATA("004f0768") unsigned char DAT_004f0768[8];
-/* 0x004f0770, 4 bytes, unused (dead) */ GRIM_DATA("004f0770") unsigned char PTR_DAT_004f0770[4];
-/* 0x004f0774, 4 bytes, unused (dead) */ GRIM_DATA("004f0774") unsigned char PTR_DAT_004f0774[4];
-/* 0x004f0778, 40 bytes, unused (dead) */ GRIM_DATA("004f0778") unsigned char PTR_DAT_004f0778[40];
-/* 0x004f07a0, 176 bytes, unused (dead) */ GRIM_DATA("004f07a0") unsigned char PTR_PTR_004f07a0[176];
-/* 0x004f0850, 56 bytes */ GRIM_DATA("004f0850") void *DAT_004f0850[14] = {
+/* 0x004f06b8, 172 bytes, unused (dead) */ GRIM_DATA("004f06b8") unsigned char PTR_DAT_004f06b8[172] __asm__("_PTR_DAT_004f06b8");
+/* 0x004f0764, 4 bytes, unused (dead) */ GRIM_DATA("004f0764") unsigned char PTR_PTR_004f0764[4] __asm__("_PTR_PTR_004f0764");
+/* 0x004f0768, 8 bytes, unused (dead) */ GRIM_DATA("004f0768") unsigned char DAT_004f0768[8] __asm__("_DAT_004f0768");
+/* 0x004f0770, 4 bytes, unused (dead) */ GRIM_DATA("004f0770") unsigned char PTR_DAT_004f0770[4] __asm__("_PTR_DAT_004f0770");
+/* 0x004f0774, 4 bytes, unused (dead) */ GRIM_DATA("004f0774") unsigned char PTR_DAT_004f0774[4] __asm__("_PTR_DAT_004f0774");
+/* 0x004f0778, 40 bytes, unused (dead) */ GRIM_DATA("004f0778") unsigned char PTR_DAT_004f0778[40] __asm__("_PTR_DAT_004f0778");
+/* 0x004f07a0, 176 bytes, unused (dead) */ GRIM_DATA("004f07a0") unsigned char PTR_PTR_004f07a0[176] __asm__("_PTR_PTR_004f07a0");
+/* 0x004f0850, 56 bytes */ GRIM_DATA("004f0850") void *DAT_004f0850[14] __asm__("_DAT_004f0850") = {
     (void *)0x11, (void *)&DAT_004d96f0, (void *)0x18, (void *)&DAT_004d96e8,
     (void *)0x16, (void *)&DAT_004d96e0, (void *)0x17, (void *)&DAT_004d96d8,
     (void *)0x22, (void *)&DAT_004d96d4, (void *)0x23, (void *)&DAT_004d96d0,
     (void *)0x24, (void *)&DAT_004d96cc
 };
-/* 0x004f0888, 296 bytes */ GRIM_DATA("004f0888") unsigned char UINT_004f0888[296] = {
+/* 0x004f0888, 296 bytes */ GRIM_DATA("004f0888") unsigned char UINT_004f0888[296] __asm__("_UINT_004f0888") = {
     0x94, 0x26, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
     0x10, 0x44, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80,
     0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -9793,7 +5241,7 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
     0xf8, 0xae, 0x10, 0xe3, 0xc5, 0xc4, 0xfa, 0x44, 0xeb, 0xa7, 0xd4, 0xf3, 0xf7, 0xeb, 0xe1, 0x4a,
     0x7a, 0x95, 0xcf, 0x45, 0x65, 0xcc, 0xc7, 0x91
 };
-/* 0x004f09b0, 448 bytes */ GRIM_DATA("004f09b0") unsigned char DAT_004f09b0[448] = {
+/* 0x004f09b0, 448 bytes */ GRIM_DATA("004f09b0") unsigned char DAT_004f09b0[448] __asm__("_DAT_004f09b0") = {
     0x0e, 0xa6, 0xae, 0xa0, 0x19, 0xe3, 0xa3, 0x46, 0x0d, 0x65, 0x17, 0x0c, 0x75, 0x81, 0x86, 0x75,
     0x76, 0xc9, 0x48, 0x4d, 0x58, 0x42, 0xe4, 0xa7, 0x93, 0x39, 0x3b, 0x35, 0xb8, 0xb2, 0xed, 0x53,
     0x4d, 0xa7, 0xe5, 0x5d, 0x3d, 0xc5, 0x5d, 0x3b, 0x8b, 0x9e, 0x92, 0x5a, 0xff, 0x5d, 0xa6, 0xf0,
@@ -9823,2700 +5271,540 @@ static unsigned char grim_pad_004ed088[8] __attribute__((section(".data$grim_004
     0x50, 0x83, 0x22, 0x18, 0x4e, 0x4b, 0x65, 0x62, 0xfd, 0x83, 0x8f, 0xaf, 0x06, 0x94, 0x7d, 0x11,
     0xe4, 0x2d, 0xde, 0x9f, 0xce, 0xd2, 0xc8, 0x04, 0xdd, 0xa6, 0xd8, 0x0a
 };
-/* 0x004f0b70, 48 bytes */ GRIM_DATA("004f0b70") void *g_pSubscription_info[12] = {
-    (void *)&g_pSmushPlay_file_services, (void *)&DAT_004f0c94, 0, (void *)&g_dwSmushPlay_sound_services,
-    (void *)&DAT_004f0c88, 0, (void *)&g_dwAnimplay_services, (void *)&DAT_004f0c78,
-    0, 0, 0, 0
-};
-/* 0x004f0ba0, 120 bytes */ GRIM_DATA("004f0ba0") void *g_pShl_modules[30] = {
-    (void *)f_grimmem_memory_module, 0, (void *)f_sys_timer_module, 0,
-    (void *)f_bmp_bitmap_module, 0, (void *)f_grimio_stdio_module, 0,
-    (void *)f_fle_stdfile_module, 0, (void *)f_fle_zfilio_module, (void *)&s_FILIO_insane_stdio_004f0c64,
-    (void *)f_fle_directory_module, 0, (void *)f_fob_flobdec_blocky16_module, 0,
-    (void *)f_fob_flobdec_wave_module, 0, (void *)f_sou_dsnd_module, 0,
-    (void *)f_sou_sound_module, 0, (void *)f_fle_streamer_module, 0,
-    (void *)f_anm_animframe_module, 0, (void *)f_anm_animplay_module, 0,
-    0, 0
-};
-/* 0x004f0c18, 16 bytes */ GRIM_DATA("004f0c18") void *g_pGrimmem_module_services[4] = {
-    (void *)f_grimmem_memory_module, (void *)f_grimmem_module_terminate, 0, 0
-};
-/* 0x004f0c28, 16 bytes */ GRIM_DATA("004f0c28") void *g_pGrimmem_memory_services[4] = {
-    (void *)f_mem_Alloc, (void *)f_mem_Free, (void *)f_mem_Realloc, 0
-};
-/* 0x004f0c38, 16 bytes */ GRIM_DATA("004f0c38") void *g_pGrimio_services[4] = {
-    (void *)f_grimio_stdio_module, (void *)f_grimio_terminate, (void *)f_LecShare_Nop, (void *)f_Lua_Stub
-};
-/* 0x004f0c48, 28 bytes */ GRIM_DATA("004f0c48") void *g_pGrimio_filio_services[7] = {
-    (void *)f_grimio_Open, (void *)f_grimio_Close, (void *)f_grimio_Read, (void *)f_grimio_Write,
-    (void *)f_grimio_Tell, (void *)f_grimio_Seek, (void *)f_Lua_Stub
-};
-/* 0x004f0c64, 20 bytes */ GRIM_DATA("004f0c64") char s_FILIO_insane_stdio_004f0c64[20] = "FILIO=insane_stdio";
-/* 0x004f0c78, 16 bytes */ GRIM_DATA("004f0c78") unsigned char DAT_004f0c78[16] = { 0x41, 0x4e, 0x49, 0x4d, 0x50, 0x4c, 0x41, 0x59, 0x2e, 0x61, 0x70, 0x70 };
-/* 0x004f0c88, 12 bytes */ GRIM_DATA("004f0c88") unsigned char DAT_004f0c88[12] = { 0x53, 0x4f, 0x55, 0x4e, 0x44, 0x2e, 0x61, 0x70, 0x70 };
-/* 0x004f0c94, 12 bytes */ GRIM_DATA("004f0c94") unsigned char DAT_004f0c94[12] = { 0x46, 0x49, 0x4c, 0x45, 0x2e, 0x61, 0x70, 0x70 };
-/* 0x004f0ca0, 20 bytes */ GRIM_DATA("004f0ca0") char s_FILIO_insane_zfilio_004f0ca0[20] = "FILIO=insane_zfilio";
-/* 0x004f0cb4, 4 bytes */ /* loose */ char s__gz_004f0cb4[4] = ".gz";
-/* 0x004f0cb8, 4 bytes */ /* loose */ char s__GZ_004f0cb8[4] = ".GZ";
-/* 0x004f0cbc, 8 bytes */ /* loose */ char s__SNM_004f0cbc[8] = ".SNM";
-/* 0x004f0cc4, 8 bytes */ /* loose */ char s__snm_004f0cc4[8] = ".snm";
-/* 0x004f0ccc, 16 bytes */ /* loose */ char s_MEMORY_insane_004f0ccc[16] = "MEMORY=insane";
-/* 0x004f0cdc, 24 bytes */ /* loose */ char s_LECMODULE_insane_memory_004f0cdc[24] = "LECMODULE=insane_memory";
-/* 0x004f0cf4, 24 bytes */ /* loose */ char s_LECMODULE_insane_stdio_004f0cf4[24] = "LECMODULE=insane_stdio";
-/* 0x004f0d0c, 4 bytes */ /* loose */ unsigned int UINT_004f0d0c = 0xffffffff;
-/* 0x004f0d10, 4 bytes */ /* loose */ int g_nLightEdSelected = -1;
-/* 0x004f0d14, 4 bytes */ /* loose */ void *PTR_s_Error_004f0d14 = (void *)&s_Error_004f0d20;
-/* 0x004f0d18, 4 bytes */ /* loose */ float g_flLightEdMoveStep = 0.01f;
-/* 0x004f0d1c, 4 bytes */ /* loose */ float g_flLightEdAngleStep = 1.0f;
-/* 0x004f0d20, 8 bytes */ /* loose */ char s_Error_004f0d20[8] = "Error";
-/* 0x004f0d28, 12 bytes */ /* loose */ char s_x_spot_cos_004f0d28[12] = "x_spot.cos";
-/* 0x004f0d34, 56 bytes */ /* loose */ char s_LightManager_Startup__Could_not_c_004f0d34[56] = "LightManager_Startup: Could not create main dialog.\n";
-/* 0x004f0d6c, 12 bytes */ /* loose */ char s_newlight_d_004f0d6c[12] = "newlight%d";
-/* 0x004f0d78, 64 bytes */ /* loose */ char s_Maximum_number_of_lights_already_004f0d78[64] = "Maximum number of lights already in room.  Try deleting a few.";
-static unsigned char grim_anchor_004f0db8[0] __attribute__((section(".data$grim_004f0db8"), aligned(16), used));
-static unsigned char grim_pad_004f0db8[8] __attribute__((section(".data$grim_004f0db8_"), aligned(4), used));
-/* 0x004f0db8, 16 bytes */ GRIM_DATA("004f0db8z") unsigned char DAT_004f0db8[16] = { 0x43, 0x61, 0x6e, 0x27, 0x74, 0x20, 0x41, 0x64, 0x64, 0x20, 0x4c, 0x69, 0x67, 0x68, 0x74 };
-/* 0x004f0dc8, 28 bytes */ GRIM_DATA("004f0dc8") char s_Could_not_open_file___s___004f0dc8[28] = "Could not open file \"%s\".";
-/* 0x004f0de4, 28 bytes */ GRIM_DATA("004f0de4") unsigned char DAT_004f0de4[28] = {
-    0x43, 0x6f, 0x75, 0x6c, 0x64, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
-    0x20, 0x74, 0x65, 0x6d, 0x70, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x2e
-};
-/* 0x004f0e00, 12 bytes */ GRIM_DATA("004f0e00") char s_section__004f0e00[12] = "section:";
-/* 0x004f0e0c, 48 bytes */ GRIM_DATA("004f0e0c") char s_Set_Files____set__004f0e0c[48] = "Set Files (*.set)\000*.set\000All Files (*.*)\000*.*";
-/* 0x004f0e3c, 44 bytes */ GRIM_DATA("004f0e3c") char s_LightManager_UpdateDialog__No_cu_004f0e3c[44] = "LightManager_UpdateDialog: No current set.\n";
-/* 0x004f0e68, 12 bytes */ /* loose */ char s__Light__d__004f0e68[12] = "<Light %d>";
-static unsigned char grim_anchor_004f0e74[0] __attribute__((section(".data$grim_004f0e74"), aligned(16), used));
-static unsigned char grim_pad_004f0e74[4] __attribute__((section(".data$grim_004f0e74_"), aligned(4), used));
-/* 0x004f0e74, 60 bytes */ GRIM_DATA("004f0e74z") unsigned char DAT_004f0e74[60] = {
-    0x54, 0x68, 0x61, 0x74, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x73, 0x20, 0x61, 0x6c, 0x72,
-    0x65, 0x61, 0x64, 0x79, 0x20, 0x62, 0x65, 0x69, 0x6e, 0x67, 0x20, 0x75, 0x73, 0x65, 0x64, 0x2e,
-    0x20, 0x20, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x20, 0x61, 0x20, 0x64, 0x69, 0x66, 0x66, 0x65, 0x72,
-    0x65, 0x6e, 0x74, 0x20, 0x6f, 0x6e, 0x65, 0x2e
-};
-/* 0x004f0eb0, 24 bytes */ GRIM_DATA("004f0eb0") char s_Duplicate_light_name_004f0eb0[24] = "Duplicate light name";
-/* 0x004f0ec8, 16 bytes */ /* loose */ char s_New_light_name_004f0ec8[16] = "New light name";
-/* 0x004f0ed8, 4 bytes */ /* loose */ unsigned char DAT_004f0ed8[4] = { 0x40 };
-/* 0x004f0edc, 44 bytes */ /* loose */ char s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc[44] = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdcanvas.c";
-/* 0x004f0f08, 4 bytes */ /* loose */ unsigned char DAT_004f0f08[4] = { 0x95 };
-/* 0x004f0f0c, 4 bytes */ /* loose */ unsigned char DAT_004f0f0c[4] = { 0xe2 };
-/* 0x004f0f10, 4 bytes */ /* loose */ unsigned char DAT_004f0f10[4] = { 0x9e, 0x02 };
-/* 0x004f0f14, 44 bytes */ /* loose */ char s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14[44] = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdkeyframe.c";
-/* 0x004f0f40, 20 bytes */ /* loose */ char s__f__f__f__f__f__f_004f0f40[20] = " %f %f %f %f %f %f";
-/* 0x004f0f54, 32 bytes */ /* loose */ char s__d___f__x__f__f__f__f__f__f_004f0f54[32] = " %d: %f %x %f %f %f %f %f %f";
-/* 0x004f0f74, 12 bytes */ /* loose */ char s_entries__d_004f0f74[12] = " entries %d";
-/* 0x004f0f80, 16 bytes */ /* loose */ char s_mesh_name__s_004f0f80[16] = " mesh name %s";
-/* 0x004f0f90, 12 bytes */ /* loose */ char s_node__d_004f0f90[12] = " node %d";
-/* 0x004f0f9c, 12 bytes */ /* loose */ char s_nodes__d_004f0f9c[12] = " nodes %d";
-/* 0x004f0fa8, 8 bytes */ /* loose */ char s__f__d_004f0fa8[8] = "%f %d";
-/* 0x004f0fb0, 12 bytes */ /* loose */ char s_markers__d_004f0fb0[12] = " markers %d";
-/* 0x004f0fbc, 8 bytes */ /* loose */ char s_markers_004f0fbc[8] = "markers";
-/* 0x004f0fc4, 12 bytes */ /* loose */ char s_joints__d_004f0fc4[12] = " joints %d";
-/* 0x004f0fd0, 8 bytes */ /* loose */ char s_fps__f_004f0fd0[8] = " fps %f";
-/* 0x004f0fd8, 12 bytes */ /* loose */ char s_frames__d_004f0fd8[12] = " frames %d";
-/* 0x004f0fe4, 12 bytes */ /* loose */ char s_type__x_004f0fe4[12] = " type %x";
-/* 0x004f0ff0, 16 bytes */ /* loose */ char s_flags__x_004f0ff0[16] = " flags %x";
-static unsigned char grim_anchor_004f1000[0] __attribute__((section(".data$grim_004f1000"), aligned(16), used));
-static unsigned char grim_pad_004f1000[0] __attribute__((section(".data$grim_004f1000_"), aligned(4), used));
-/* 0x004f1000, 136 bytes */ GRIM_DATA("004f1000z") grim_span_004f1000 UINT_004f1000 = {
-    { 0xcd, 0xcc, 0x4c, 0x3f },
-    (void *)&DAT_004f11b8,
-    { 0x0a, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f11a8,
-    { 0x82, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f118c,
-    { 0x64, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f117c,
-    { 0x96, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f1168,
-    { 0x1e, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f1150,
-    { 0x05, 0x40, 0x00, 0x80 },
-    (void *)&DAT_004f1140,
-    { 0x57, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004f112c,
-    { 0x32, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f1118,
-    { 0x10, 0x01, 0x04, 0x80 },
-    (void *)&DAT_004f1104,
-    { 0x78, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f10f4,
-    { 0x01, 0x40, 0x00, 0x80 },
-    (void *)&DAT_004f10e0,
-    { 0x46, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f10c8,
-    { 0x0e, 0x00, 0x07, 0x80 },
-    (void *)&DAT_004f10b4,
-    { 0xa0, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f109c,
-    { 0xaa, 0x00, 0x78, 0x88 },
-    (void *)&DAT_004f1088
-};
-/* 0x004f1088, 20 bytes */ GRIM_DATA("004f1088") unsigned char DAT_004f1088[20] = {
+/* 0x004f0c78, 16 bytes */ GRIM_DATA("004f0c78") unsigned char DAT_004f0c78[16] __asm__("_DAT_004f0c78") = { 0x41, 0x4e, 0x49, 0x4d, 0x50, 0x4c, 0x41, 0x59, 0x2e, 0x61, 0x70, 0x70 };
+/* 0x004f0c88, 12 bytes */ GRIM_DATA("004f0c88") unsigned char DAT_004f0c88[12] __asm__("_DAT_004f0c88") = { 0x53, 0x4f, 0x55, 0x4e, 0x44, 0x2e, 0x61, 0x70, 0x70 };
+/* 0x004f0c94, 12 bytes */ GRIM_DATA("004f0c94") unsigned char DAT_004f0c94[12] __asm__("_DAT_004f0c94") = { 0x46, 0x49, 0x4c, 0x45, 0x2e, 0x61, 0x70, 0x70 };
+/* 0x004f0ca0, 20 bytes */ GRIM_DATA("004f0ca0") char s_FILIO_insane_zfilio_004f0ca0[20] __asm__("_s_FILIO_insane_zfilio_004f0ca0") = "FILIO=insane_zfilio";
+/* 0x004f0d10, 4 bytes */ /* loose */ int g_nLightEdSelected __asm__("_g_nLightEdSelected") = -1;
+/* 0x004f0d20, 8 bytes */ /* loose */ char s_Error_004f0d20[8] __asm__("_s_Error_004f0d20") = "Error";
+/* 0x004f1088, 20 bytes */ GRIM_DATA("004f1088") unsigned char DAT_004f1088[20] __asm__("_DAT_004f1088") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x55, 0x4e, 0x49, 0x4e, 0x49, 0x54, 0x49, 0x41, 0x4c, 0x49,
     0x5a, 0x45, 0x44
 };
-/* 0x004f109c, 24 bytes */ GRIM_DATA("004f109c") unsigned char DAT_004f109c[24] = {
+/* 0x004f109c, 24 bytes */ GRIM_DATA("004f109c") unsigned char DAT_004f109c[24] __asm__("_DAT_004f109c") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x54, 0x48, 0x45, 0x52, 0x41, 0x50, 0x50, 0x48, 0x41,
     0x53, 0x50, 0x52, 0x49, 0x4f
 };
-/* 0x004f10b4, 20 bytes */ GRIM_DATA("004f10b4") unsigned char DAT_004f10b4[20] = {
+/* 0x004f10b4, 20 bytes */ GRIM_DATA("004f10b4") unsigned char DAT_004f10b4[20] __asm__("_DAT_004f10b4") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x4f, 0x55, 0x54, 0x4f, 0x46, 0x4d, 0x45, 0x4d, 0x4f, 0x52,
     0x59
 };
-/* 0x004f10c8, 24 bytes */ GRIM_DATA("004f10c8") unsigned char DAT_004f10c8[24] = {
+/* 0x004f10c8, 24 bytes */ GRIM_DATA("004f10c8") unsigned char DAT_004f10c8[24] __asm__("_DAT_004f10c8") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x50, 0x52, 0x49, 0x4f, 0x4c, 0x45, 0x56, 0x45, 0x4c, 0x4e,
     0x45, 0x45, 0x44, 0x45, 0x44
 };
-/* 0x004f10e0, 20 bytes */ GRIM_DATA("004f10e0") unsigned char DAT_004f10e0[20] = {
+/* 0x004f10e0, 20 bytes */ GRIM_DATA("004f10e0") unsigned char DAT_004f10e0[20] __asm__("_DAT_004f10e0") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x55, 0x4e, 0x53, 0x55, 0x50, 0x50, 0x4f, 0x52, 0x54, 0x45,
     0x44
 };
-/* 0x004f10f4, 16 bytes */ GRIM_DATA("004f10f4") unsigned char DAT_004f10f4[16] = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x44, 0x52, 0x49, 0x56, 0x45, 0x52 };
-/* 0x004f1104, 20 bytes */ GRIM_DATA("004f1104") unsigned char DAT_004f1104[20] = {
+/* 0x004f10f4, 16 bytes */ GRIM_DATA("004f10f4") unsigned char DAT_004f10f4[16] __asm__("_DAT_004f10f4") = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x44, 0x52, 0x49, 0x56, 0x45, 0x52 };
+/* 0x004f1104, 20 bytes */ GRIM_DATA("004f1104") unsigned char DAT_004f1104[20] __asm__("_DAT_004f1104") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x4e, 0x4f, 0x41, 0x47, 0x47, 0x52, 0x45, 0x47, 0x41, 0x54,
     0x49, 0x4f, 0x4e
 };
-/* 0x004f1118, 20 bytes */ GRIM_DATA("004f1118") unsigned char DAT_004f1118[20] = {
+/* 0x004f1118, 20 bytes */ GRIM_DATA("004f1118") unsigned char DAT_004f1118[20] __asm__("_DAT_004f1118") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x43, 0x41, 0x4c,
     0x4c
 };
-/* 0x004f112c, 20 bytes */ GRIM_DATA("004f112c") unsigned char DAT_004f112c[20] = {
+/* 0x004f112c, 20 bytes */ GRIM_DATA("004f112c") unsigned char DAT_004f112c[20] __asm__("_DAT_004f112c") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x49, 0x4e, 0x56, 0x41, 0x4c, 0x49, 0x44, 0x50, 0x41, 0x52,
     0x41, 0x4d
 };
-/* 0x004f1140, 16 bytes */ GRIM_DATA("004f1140") unsigned char DAT_004f1140[16] = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x47, 0x45, 0x4e, 0x45, 0x52, 0x49, 0x43 };
-/* 0x004f1150, 24 bytes */ GRIM_DATA("004f1150") unsigned char DAT_004f1150[24] = {
+/* 0x004f1140, 16 bytes */ GRIM_DATA("004f1140") unsigned char DAT_004f1140[16] __asm__("_DAT_004f1140") = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x47, 0x45, 0x4e, 0x45, 0x52, 0x49, 0x43 };
+/* 0x004f1150, 24 bytes */ GRIM_DATA("004f1150") unsigned char DAT_004f1150[24] __asm__("_DAT_004f1150") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x43, 0x4f, 0x4e, 0x54, 0x52, 0x4f, 0x4c, 0x55, 0x4e, 0x41,
     0x56, 0x41, 0x49, 0x4c
 };
-/* 0x004f1168, 20 bytes */ GRIM_DATA("004f1168") unsigned char DAT_004f1168[20] = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x55, 0x46, 0x46, 0x45, 0x52, 0x4c, 0x4f, 0x53, 0x54 };
-/* 0x004f117c, 16 bytes */ GRIM_DATA("004f117c") unsigned char DAT_004f117c[16] = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x41, 0x44, 0x46, 0x4f, 0x52, 0x4d, 0x41, 0x54 };
-/* 0x004f118c, 28 bytes */ GRIM_DATA("004f118c") unsigned char DAT_004f118c[28] = {
+/* 0x004f1168, 20 bytes */ GRIM_DATA("004f1168") unsigned char DAT_004f1168[20] __asm__("_DAT_004f1168") = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x55, 0x46, 0x46, 0x45, 0x52, 0x4c, 0x4f, 0x53, 0x54 };
+/* 0x004f117c, 16 bytes */ GRIM_DATA("004f117c") unsigned char DAT_004f117c[16] __asm__("_DAT_004f117c") = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x42, 0x41, 0x44, 0x46, 0x4f, 0x52, 0x4d, 0x41, 0x54 };
+/* 0x004f118c, 28 bytes */ GRIM_DATA("004f118c") unsigned char DAT_004f118c[28] __asm__("_DAT_004f118c") = {
     0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x41, 0x4c, 0x52, 0x45, 0x41, 0x44, 0x59, 0x49, 0x4e, 0x49,
     0x54, 0x49, 0x41, 0x4c, 0x49, 0x5a, 0x45, 0x44
 };
-/* 0x004f11a8, 16 bytes */ GRIM_DATA("004f11a8") unsigned char DAT_004f11a8[16] = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x41, 0x4c, 0x4c, 0x4f, 0x43, 0x41, 0x54, 0x45, 0x44 };
-/* 0x004f11b8, 8 bytes */ GRIM_DATA("004f11b8") unsigned char DAT_004f11b8[8] = { 0x44, 0x53, 0x5f, 0x4f, 0x4b };
-/* 0x004f11c0, 4 bytes */ GRIM_DATA("004f11c0") unsigned char DAT_004f11c0[4] = { 0x5c };
-/* 0x004f11c4, 4 bytes */ GRIM_DATA("004f11c4") char s_____004f11c4[4] = "\\*.";
-/* 0x004f11c8, 8 bytes */ /* loose */ char s______004f11c8[8] = "\\*.*";
-/* 0x004f11d0, 48 bytes */ /* loose */ char s_C__grimjedi_Libs_Std_General_Std_004f11d0[48] = "C:\\grimjedi\\Libs\\Std\\General\\Stdfileutil.c";
-static unsigned char grim_anchor_004f1200[0] __attribute__((section(".data$grim_004f1200"), aligned(16), used));
-static unsigned char grim_pad_004f1200[0] __attribute__((section(".data$grim_004f1200_"), aligned(4), used));
-/* 0x004f1200, 32 bytes */ GRIM_DATA("004f1200z") void *g_pLecShareServices[8] = {
-    (void *)f_LecShare_Publish, (void *)f_LecShare_Unpublish, (void *)f_LecShare_Subscribe, (void *)f_LecShare_Unsubscribe,
-    (void *)f_BatchSubscribe, (void *)f_BatchUnsubscribe, (void *)f_GetCatalogEntry, (void *)f_GetCatalogCount
-};
-/* 0x004f1220, 4 bytes */ GRIM_DATA("004f1220") void *PTR_LecShare_Nop_004f1220 = (void *)f_LecShare_Nop;
-/* 0x004f1224, 12 bytes */ GRIM_DATA("004f1224") char s_LECMODULE_004f1224[12] = "LECMODULE";
-/* 0x004f1230, 44 bytes */ /* loose */ char s_LecShare_Startup__Failed_with_mo_004f1230[44] = "LecShare_Startup: Failed with module %s.";
-/* 0x004f125c, 60 bytes */ /* loose */ char s_LecShare_BatchSubscribe_Couldn_t_004f125c[60] = "LecShare:BatchSubscribe Couldn't subscribe to %s interface.";
-/* 0x004f1298, 72 bytes */ /* loose */ char s_LecShare_BatchUnsubscribe_Couldn_004f1298[72] = "LecShare:BatchUnsubscribe Couldn't unsubscribe from %s interface.";
-static unsigned char grim_anchor_004f12e0[0] __attribute__((section(".data$grim_004f12e0"), aligned(16), used));
-static unsigned char grim_pad_004f12e0[0] __attribute__((section(".data$grim_004f12e0_"), aligned(4), used));
-/* 0x004f12e0, 16 bytes */ GRIM_DATA("004f12e0z") void *PTR_anm_animplay_module_004f12e0[4] = {
-    (void *)f_anm_animplay_module, (void *)f_AnimPlay_module_terminate, (void *)f_AnimPlay_module_startup, (void *)f_AnimPlay_module_shutdown
-};
-/* 0x004f12f0, 40 bytes */ GRIM_DATA("004f12f0") void *g_pAnm_animplay_services[10] = {
-    (void *)f_anm_EasyPlay, (void *)f_anm_Start, (void *)f_anm_GetTime, (void *)f_FUN_004c25c0,
-    (void *)f_AnimPlay_anm_Display, (void *)f_anm_Stop, (void *)f_anm_animator_Query, (void *)f_anm_animator_Quit,
-    (void *)f_anm_animator_NewAnim, (void *)f_anm_animator_Pause
-};
-/* 0x004f1318, 4 bytes */ GRIM_DATA("004f1318") void *PTR_anm_SetRate_004f1318 = (void *)f_anm_SetRate;
-/* 0x004f131c, 12 bytes */ GRIM_DATA("004f131c") void *PTR_anm_SyncUp_004f131c[3] = {
-    (void *)f_anm_SyncUp, (void *)f_anm_RenderQuery, 0
-};
-/* 0x004f1328, 12 bytes */ GRIM_DATA("004f1328") void *PTR_AnimPlay_anm_DebugInfo_004f1328[3] = {
-    (void *)f_AnimPlay_anm_DebugInfo, (void *)f_AnimPlay_anm_DebugSetState, (void *)f_AnimPlay_anm_DebugGetState
-};
-/* 0x004f1334, 4 bytes */ GRIM_DATA("004f1334") unsigned int g_dwAnm_Render_count = 0x8;
-/* 0x004f1338, 24 bytes */ GRIM_DATA("004f1338") char s_DEBUG_insane_animplay_004f1338[24] = "DEBUG=insane_animplay";
-/* 0x004f1350, 16 bytes */ /* loose */ char s_ANIMPLAY_insane_004f1350[16] = "ANIMPLAY=insane";
-/* 0x004f1360, 28 bytes */ /* loose */ char s_LECMODULE_insane_animplay_004f1360[28] = "LECMODULE=insane_animplay";
-/* 0x004f137c, 52 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_allocate_004f137c[52] = "AnimPlay Module: Cannot allocate timer services.";
-/* 0x004f13b0, 52 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_allocate_004f13b0[52] = "AnimPlay Module: Cannot allocate bitmap services.";
-/* 0x004f13e4, 56 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_allocate_004f13e4[56] = "AnimPlay Module: Cannot allocate animframe services.";
-/* 0x004f141c, 52 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_allocate_004f141c[52] = "AnimPlay Module: Cannot allocate streamer services.";
-/* 0x004f1450, 52 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_allocate_004f1450[52] = "AnimPlay Module: Cannot allocate memory services.";
-/* 0x004f1484, 16 bytes */ /* loose */ char s_SOUND_lipsync_004f1484[16] = "SOUND.lipsync";
-/* 0x004f1494, 16 bytes */ /* loose */ char s_TIMER_clocks_004f1494[16] = "TIMER.clocks";
-/* 0x004f14a4, 16 bytes */ /* loose */ char s_BITMAP_buffers_004f14a4[16] = "BITMAP.buffers";
-/* 0x004f14b4, 20 bytes */ /* loose */ char s_ANIMFRAME_render_004f14b4[20] = "ANIMFRAME.render";
-/* 0x004f14c8, 20 bytes */ /* loose */ char s_STREAMER_spooler_004f14c8[20] = "STREAMER.spooler";
-/* 0x004f14dc, 16 bytes */ /* loose */ char s_VIRTHERC_debug_004f14dc[16] = "VIRTHERC.debug";
-/* 0x004f14ec, 20 bytes */ /* loose */ char s_MEMORY_workspace_004f14ec[20] = "MEMORY.workspace";
-/* 0x004f1500, 32 bytes */ /* loose */ char s_Cannot_allocate_render_bitmap__004f1500[32] = "Cannot allocate render bitmap.";
-/* 0x004f1520, 52 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_allocate_004f1520[52] = "AnimPlay Module: Cannot allocate streamer buffers";
-/* 0x004f1554, 48 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_init_Ani_004f1554[48] = "AnimPlay Module: Cannot init Animation module";
-/* 0x004f1584, 40 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_open_fil_004f1584[40] = "AnimPlay Module: Cannot open file %s";
-/* 0x004f15ac, 44 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_allocate_004f15ac[44] = "AnimPlay Module: Cannot allocate sync timer";
-/* 0x004f15d8, 48 bytes */ /* loose */ char s_AnimPlay_Module__Cannot_allocate_004f15d8[48] = "AnimPlay Module: Cannot allocate frame timer";
-/* 0x004f1608, 56 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f1608[56] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\animate\\Pcplay.c";
-/* 0x004f1640, 24 bytes */ /* loose */ char s_State___d_004f1640[24] = "State:       %d    \n";
-/* 0x004f1658, 24 bytes */ /* loose */ char s_Sync_Ticks___ld_004f1658[24] = "Sync Ticks:  %ld    \n";
-/* 0x004f1670, 36 bytes */ /* loose */ char s_Frame_Delay___ld___ld_target__004f1670[36] = "Frame Delay: %ld (%ld target)     \n";
-/* 0x004f1694, 24 bytes */ /* loose */ char s_Buffer___ld___004f1694[24] = "Buffer:      %ld%%    \n";
-/* 0x004f16ac, 16 bytes */ /* loose */ char s_Insane_AnimPlay_004f16ac[16] = "Insane AnimPlay";
-/* 0x004f16bc, 32 bytes */ /* loose */ char s_Insane_AnimPlay_Debug_Interface_004f16bc[32] = "Insane AnimPlay Debug Interface";
-/* 0x004f16dc, 68 bytes */ /* loose */ char s_This_is_the_debugging_interface_f_004f16dc[68] = "This is the debugging interface for the Insane Animation module.";
-/* 0x004f1720, 4 bytes */ /* loose */ unsigned int g_dwAnm_overlay_flobdec = 0xffffffff;
-static unsigned char grim_anchor_004f1724[0] __attribute__((section(".data$grim_004f1724"), aligned(16), used));
-static unsigned char grim_pad_004f1724[4] __attribute__((section(".data$grim_004f1724_"), aligned(4), used));
-/* 0x004f1724, 4 bytes */ GRIM_DATA("004f1724z") unsigned int g_dwAnm_preload_out = 0x8;
-/* 0x004f1728, 16 bytes */ GRIM_DATA("004f1728") void *PTR_anm_animframe_module_004f1728[4] = {
-    (void *)f_anm_animframe_module, (void *)f_AnimFrame_module_terminate, (void *)f_AnimFrame_module_startup, (void *)f_AnimFrame_module_shutdown
-};
-/* 0x004f1738, 24 bytes */ GRIM_DATA("004f1738") void *g_pAnimframe_services[6] = {
-    (void *)f_anm_Reset, (void *)f_anm_DecodeHeader, (void *)f_anm_DecodeBody, (void *)f_AnimFrame_anm_Display,
-    (void *)f_anm_PreloadPut, (void *)f_anm_PreloadGet
-};
-/* 0x004f1750, 12 bytes */ GRIM_DATA("004f1750") void *PTR_AnimFrame_anm_DebugInfo_004f1750[3] = {
-    (void *)f_AnimFrame_anm_DebugInfo, (void *)f_AnimFrame_anm_DebugSetState, (void *)f_AnimFrame_anm_DebugGetState
-};
-/* 0x004f175c, 16 bytes */ GRIM_DATA("004f175c") char s_DEBUG_animframe_004f175c[16] = "DEBUG=animframe";
-/* 0x004f176c, 20 bytes */ /* loose */ char s_ANIMFRAME_insane_004f176c[20] = "ANIMFRAME=insane";
-/* 0x004f1780, 28 bytes */ /* loose */ char s_LECMODULE_insane_animframe_004f1780[28] = "LECMODULE=insane_animframe";
-/* 0x004f179c, 16 bytes */ /* loose */ char s_FLOBDEC_temp_004f179c[16] = "FLOBDEC.temp";
-/* 0x004f17ac, 8 bytes */ /* loose */ char s_FLOBDEC_004f17ac[8] = "FLOBDEC";
-/* 0x004f17b4, 60 bytes */ /* loose */ char s_AnimFrame_Module__Can_t_allocate_004f17b4[60] = "AnimFrame Module: Can't allocate preload buffer (%ld bytes)";
-/* 0x004f17f0, 60 bytes */ /* loose */ char s_AnimFrame_Module__Can_t_allocate_004f17f0[60] = "AnimFrame Module: Can't allocate overlay buffer (%ld bytes)";
-/* 0x004f182c, 56 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f182c[56] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\animate\\Frame.c";
-/* 0x004f1864, 16 bytes */ /* loose */ char s_VIDEO_display_004f1864[16] = "VIDEO.display";
-/* 0x004f1874, 52 bytes */ /* loose */ char s_AnimFrame_Module__Cannot_allocat_004f1874[52] = "AnimFrame Module: Cannot allocate memory services.";
-/* 0x004f18a8, 52 bytes */ /* loose */ char s_AnimFrame_Module__Cannot_allocat_004f18a8[52] = "AnimFrame Module: Cannot allocate bitmap services.";
-/* 0x004f18dc, 32 bytes */ /* loose */ char s_Bad_Header_Found___c_c_c_c__004f18dc[32] = "Bad Header Found '%c%c%c%c'\n";
-/* 0x004f18fc, 32 bytes */ /* loose */ char s_Found_Unknown_Block___c_c_c_c__004f18fc[32] = "Found Unknown Block '%c%c%c%c'\n";
-/* 0x004f191c, 32 bytes */ /* loose */ char s_Parsing_Block___c_c_c_c____ld__004f191c[32] = "Parsing Block '%c%c%c%c' (%ld)\n";
-/* 0x004f193c, 20 bytes */ /* loose */ char s_Insane_AnimFrame_004f193c[20] = "Insane AnimFrame";
-/* 0x004f1950, 36 bytes */ /* loose */ char s_Insane_AnimFrame_Debug_Interface_004f1950[36] = "Insane AnimFrame Debug Interface";
-/* 0x004f1974, 72 bytes */ /* loose */ char s_This_is_the_debugging_interface_f_004f1974[72] = "This is the debugging interface for the Insane Animation Frame module.";
-/* 0x004f19bc, 68 bytes */ /* loose */ char s_Read_invalid_frame_header__c_c_c_004f19bc[68] = "Read invalid frame header %c%c%c%c -- CD may be dirty or damaged.";
-static unsigned char grim_anchor_004f1a00[0] __attribute__((section(".data$grim_004f1a00"), aligned(16), used));
-static unsigned char grim_pad_004f1a00[0] __attribute__((section(".data$grim_004f1a00_"), aligned(4), used));
-/* 0x004f1a00, 4 bytes */ GRIM_DATA("004f1a00z") unsigned int UINT_004f1a00 = 0x1f;
-/* 0x004f1a04, 4 bytes */ GRIM_DATA("004f1a04") unsigned int UINT_004f1a04 = 0x8b;
-/* 0x004f1a08, 24 bytes */ GRIM_DATA("004f1a08") char s__c_c_c_c_c_c_c_c_c_c_004f1a08[24] = "%c%c%c%c%c%c%c%c%c%c";
-/* 0x004f1a20, 8 bytes */ /* loose */ char s_1_1_3_004f1a20[8] = "1.1.3";
-/* 0x004f1a28, 8 bytes */ /* loose */ char s___004f1a28[8] = ": ";
-static unsigned char grim_anchor_004f1a30[0] __attribute__((section(".data$grim_004f1a30"), aligned(16), used));
-static unsigned char grim_pad_004f1a30[0] __attribute__((section(".data$grim_004f1a30_"), aligned(4), used));
-/* 0x004f1a30, 16 bytes */ GRIM_DATA("004f1a30z") void *PTR_fle_streamer_module_004f1a30[4] = {
-    (void *)f_fle_streamer_module, (void *)f_Streamer_module_terminate, (void *)f_Streamer_module_startup, (void *)f_Streamer_module_shutdown
-};
-/* 0x004f1a40, 32 bytes */ GRIM_DATA("004f1a40") void *g_pStreamer_services[8] = {
-    (void *)f_fle_StreamerAlloc, (void *)f_fle_StreamerFree, (void *)f_fle_StreamerStart, (void *)f_fle_StreamerCheck,
-    (void *)f_fle_StreamerAcquire, (void *)f_fle_StreamerDispense, (void *)f_fle_StreamerReset, (void *)f_fle_StreamerQuerySize
-};
-/* 0x004f1a60, 28 bytes */ GRIM_DATA("004f1a60") char s_STREAMER_insane_streamer_004f1a60[28] = "STREAMER=insane_streamer";
-/* 0x004f1a7c, 28 bytes */ /* loose */ char s_LECMODULE_insane_streamer_004f1a7c[28] = "LECMODULE=insane_streamer";
-/* 0x004f1a98, 52 bytes */ /* loose */ char s_Streamer_Module__Cannot_allocate_004f1a98[52] = "Streamer Module: Cannot allocate filio services.";
-/* 0x004f1acc, 52 bytes */ /* loose */ char s_Streamer_Module__Cannot_allocate_004f1acc[52] = "Streamer Module: Cannot allocate memory services.";
-/* 0x004f1b00, 12 bytes */ /* loose */ char s_FILIO_io_004f1b00[12] = "FILIO.io";
-/* 0x004f1b0c, 56 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f1b0c[56] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\file\\Cdstream.c";
-/* 0x004f1b44, 44 bytes */ /* loose */ char s_File_Streamer__Invalid_frame_siz_004f1b44[44] = "File Streamer:  Invalid frame size %ld";
-static unsigned char grim_anchor_004f1b70[0] __attribute__((section(".data$grim_004f1b70"), aligned(16), used));
-static unsigned char grim_pad_004f1b70[0] __attribute__((section(".data$grim_004f1b70_"), aligned(4), used));
-/* 0x004f1b70, 16 bytes */ GRIM_DATA("004f1b70z") void *PTR_fle_directory_module_004f1b70[4] = {
-    (void *)f_fle_directory_module, (void *)f_Directory_module_terminate, (void *)f_Directory_module_startup, (void *)f_Directory_module_shutdown
-};
-/* 0x004f1b80, 36 bytes */ GRIM_DATA("004f1b80") void *g_pDirectory_services[9] = {
-    (void *)f_fle_DirectoryLoad, (void *)f_fle_DirectoryGetCWD, (void *)f_fle_DirectoryGetParent, (void *)f_fle_DirectoryGetPath,
-    (void *)f_fle_VolumeLoadList, (void *)f_fle_Exists, (void *)f_fle_Rename, (void *)f_fle_Remove,
-    0
-};
-/* 0x004f1ba4, 28 bytes */ GRIM_DATA("004f1ba4") char s_DIRECTORY_insane_directory_004f1ba4[28] = "DIRECTORY=insane_directory";
-/* 0x004f1bc0, 28 bytes */ /* loose */ char s_LECMODULE_insane_directory_004f1bc0[28] = "LECMODULE=insane_directory";
-/* 0x004f1bdc, 52 bytes */ /* loose */ char s_Directory_Module__Cannot_allocat_004f1bdc[52] = "Directory Module: Cannot allocate file services.";
-/* 0x004f1c10, 8 bytes */ /* loose */ char s_FILE_io_004f1c10[8] = "FILE.io";
-/* 0x004f1c18, 8 bytes */ /* loose */ char s__c___004f1c18[8] = "%c:\\";
+/* 0x004f11a8, 16 bytes */ GRIM_DATA("004f11a8") unsigned char DAT_004f11a8[16] __asm__("_DAT_004f11a8") = { 0x44, 0x53, 0x45, 0x52, 0x52, 0x5f, 0x41, 0x4c, 0x4c, 0x4f, 0x43, 0x41, 0x54, 0x45, 0x44 };
+/* 0x004f11b8, 8 bytes */ GRIM_DATA("004f11b8") unsigned char DAT_004f11b8[8] __asm__("_DAT_004f11b8") = { 0x44, 0x53, 0x5f, 0x4f, 0x4b };
+/* 0x004f1220, 4 bytes */ GRIM_DATA("004f1220") void *PTR_LecShare_Nop_004f1220 __asm__("_PTR_LecShare_Nop_004f1220") = (void *)f_LecShare_Nop;
+/* 0x004f14ec, 20 bytes */ /* loose */ char s_MEMORY_workspace_004f14ec[20] __asm__("_s_MEMORY_workspace_004f14ec") = "MEMORY.workspace";
 static unsigned char grim_anchor_004f1c20[0] __attribute__((section(".data$grim_004f1c20"), aligned(16), used));
 static unsigned char grim_pad_004f1c20[0] __attribute__((section(".data$grim_004f1c20_"), aligned(4), used));
-/* 0x004f1c20, 8 bytes */ GRIM_DATA("004f1c20z") unsigned int UINT_004f1c20 = 0x1;
+/* 0x004f1c20, 8 bytes */ GRIM_DATA("004f1c20z") unsigned int UINT_004f1c20 __asm__("_UINT_004f1c20") = 0x1;
 /* 0x004f1c24, 4 bytes: the rest of UINT_004f1c20's span */ GRIM_DATA("004f1c20z") static unsigned char UINT_004f1c20__tail[4] __attribute__((used)) = {0};
-/* 0x004f1c28, 200 bytes */ GRIM_DATA("004f1c28") grim_span_004f1c28 PTR_s__gz_004f1c28 = {
+/* 0x004f1c28, 200 bytes */ GRIM_DATA("004f1c28") grim_span_004f1c28 PTR_s__gz_004f1c28 __asm__("_PTR_s__gz_004f1c28") = {
     (void *)&s__gz_004f0cb4,
     {0}
 };
-/* 0x004f1cf0, 8 bytes */ GRIM_DATA("004f1cf0") unsigned char DAT_004f1cf0[8] = { 0x01 };
-/* 0x004f1cf8, 16 bytes */ GRIM_DATA("004f1cf8") void *PTR_fle_zfilio_module_004f1cf8[4] = {
-    (void *)f_fle_zfilio_module, (void *)f_Zfile_module_terminate, (void *)f_Zfile_module_startup, (void *)f_Zfile_module_shutdown
-};
-/* 0x004f1d08, 28 bytes */ GRIM_DATA("004f1d08") void *g_pZfilio_services[7] = {
-    (void *)f_Zfile_fle_Open, (void *)f_Zfile_fle_Close, (void *)f_Zfile_fle_Read, (void *)f_Zfile_fle_Write,
-    (void *)f_Zfile_fle_Tell, (void *)f_Zfile_fle_Seek, (void *)f_Zfile_fle_Flush
-};
-/* 0x004f1d24, 24 bytes */ GRIM_DATA("004f1d24") char s_LECMODULE_insane_zfilio_004f1d24[24] = "LECMODULE=insane_zfilio";
-/* 0x004f1d3c, 32 bytes */ /* loose */ char s_Too_many_zfilio_extension_set_004f1d3c[32] = "Too many zfilio extension set";
-/* 0x004f1d5c, 48 bytes */ /* loose */ char s_Zfile_Module__Cannot_allocate_me_004f1d5c[48] = "Zfile Module: Cannot allocate memory services.";
-/* 0x004f1d8c, 48 bytes */ /* loose */ char s_Zfile_Module__Cannot_allocate_fi_004f1d8c[48] = "Zfile Module: Cannot allocate filio services.";
-/* 0x004f1dbc, 16 bytes */ /* loose */ char s_MEMORY_buffers_004f1dbc[16] = "MEMORY.buffers";
-/* 0x004f1dcc, 16 bytes */ /* loose */ char s_FILIO_chainto_004f1dcc[16] = "FILIO.chainto";
-/* 0x004f1ddc, 24 bytes */ /* loose */ char s_Zfile_Memory_Alloc_fail_004f1ddc[24] = "Zfile Memory Alloc fail";
-/* 0x004f1df4, 60 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f1df4[60] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\file\\zfilio\\zfilio.c";
-static unsigned char grim_anchor_004f1e30[0] __attribute__((section(".data$grim_004f1e30"), aligned(16), used));
-static unsigned char grim_pad_004f1e30[0] __attribute__((section(".data$grim_004f1e30_"), aligned(4), used));
-/* 0x004f1e30, 16 bytes */ GRIM_DATA("004f1e30z") void *PTR_fle_stdfile_module_004f1e30[4] = {
-    (void *)f_fle_stdfile_module, (void *)f_StdFile_module_terminate, (void *)f_StdFile_module_startup, (void *)f_StdFile_module_shutdown
-};
-/* 0x004f1e40, 52 bytes */ GRIM_DATA("004f1e40") void *PTR_StdFile_fle_Open_004f1e40[13] = {
-    (void *)f_StdFile_fle_Open, (void *)f_StdFile_fle_Close, (void *)f_StdFile_fle_Read, (void *)f_StdFile_fle_Write,
-    (void *)f_StdFile_fle_Tell, (void *)f_StdFile_fle_Seek, (void *)f_StdFile_fle_Flush, (void *)f_fle_Size,
-    (void *)f_fle_GetS, (void *)f_fle_Eof, (void *)f_fle_PrintF, (void *)f_fle_GetC,
-    (void *)f_fle_PutC
-};
-/* 0x004f1e74, 20 bytes */ GRIM_DATA("004f1e74") char s_FILE_insane_stdfile_004f1e74[20] = "FILE=insane_stdfile";
-/* 0x004f1e88, 28 bytes */ /* loose */ char s_LECMODULE_insane_stdfile_004f1e88[28] = "LECMODULE=insane_stdfile";
-/* 0x004f1ea4, 48 bytes */ /* loose */ char s_StdFile_Module__Cannot_allocate_f_004f1ea4[48] = "StdFile Module: Cannot allocate filio services.";
-/* 0x004f1ed4, 16 bytes */ /* loose */ char s_need_dictionary_004f1ed4[16] = "need dictionary";
-/* 0x004f1ee4, 24 bytes, unused (zlib) */ /* loose */ unsigned char s_incorrect_data_check_004f1ee4[24];
-/* 0x004f1efc, 24 bytes, unused (zlib) */ /* loose */ unsigned char s_incorrect_header_check_004f1efc[24];
-/* 0x004f1f14, 20 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_window_size_004f1f14[20];
-/* 0x004f1f28, 28 bytes, unused (zlib) */ /* loose */ unsigned char s_unknown_compression_method_004f1f28[28];
+/* 0x004f1df4, 60 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f1df4[60] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f1df4") = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\file\\zfilio\\zfilio.c";
+/* 0x004f1ed4, 16 bytes */ /* loose */ char s_need_dictionary_004f1ed4[16] __asm__("_s_need_dictionary_004f1ed4") = "need dictionary";
+/* 0x004f1ee4, 24 bytes, unused (zlib) */ /* loose */ unsigned char s_incorrect_data_check_004f1ee4[24] __asm__("_s_incorrect_data_check_004f1ee4");
+/* 0x004f1efc, 24 bytes, unused (zlib) */ /* loose */ unsigned char s_incorrect_header_check_004f1efc[24] __asm__("_s_incorrect_header_check_004f1efc");
+/* 0x004f1f14, 20 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_window_size_004f1f14[20] __asm__("_s_invalid_window_size_004f1f14");
+/* 0x004f1f28, 28 bytes, unused (zlib) */ /* loose */ unsigned char s_unknown_compression_method_004f1f28[28] __asm__("_s_unknown_compression_method_004f1f28");
 static unsigned char grim_anchor_004f1f44[0] __attribute__((section(".data$grim_004f1f44"), aligned(16), used));
 static unsigned char grim_pad_004f1f44[4] __attribute__((section(".data$grim_004f1f44_"), aligned(4), used));
-/* 0x004f1f44, 12 bytes, unused (zlib) */ GRIM_DATA("004f1f44z") unsigned char PTR_s_1_1_3_004f1f44[12];
-/* 0x004f1f50, 8 bytes */ GRIM_DATA("004f1f50") void *PTR_DAT_004f1f50[2] = {
-    (void *)&DAT_004f5a98, (void *)&s_file_error_004f1fc8
-};
-/* 0x004f1f58, 8 bytes */ GRIM_DATA("004f1f58") void *PTR_s_stream_error_004f1f58[2] = {
-    (void *)&s_stream_error_004f1fb8, (void *)&DAT_004f1fac
-};
-/* 0x004f1f60, 4 bytes */ GRIM_DATA("004f1f60") void *PTR_s_insufficient_memory_004f1f60 = (void *)&s_insufficient_memory_004f1f98;
-/* 0x004f1f64, 12 bytes, unused (zlib) */ GRIM_DATA("004f1f64") unsigned char PTR_s_buffer_error_004f1f64[12];
-/* 0x004f1f70, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("004f1f70") unsigned char DAT_004f1f70[24];
-/* 0x004f1f88, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004f1f88") unsigned char s_buffer_error_004f1f88[16];
-/* 0x004f1f98, 20 bytes */ /* loose */ char s_insufficient_memory_004f1f98[20] = "insufficient memory";
+/* 0x004f1f44, 12 bytes, unused (zlib) */ GRIM_DATA("004f1f44z") unsigned char PTR_s_1_1_3_004f1f44[12] __asm__("_PTR_s_1_1_3_004f1f44");
+/* 0x004f1f60, 4 bytes */ GRIM_DATA("004f1f60") void *PTR_s_insufficient_memory_004f1f60 __asm__("_PTR_s_insufficient_memory_004f1f60") = (void *)&s_insufficient_memory_004f1f98;
+/* 0x004f1f64, 12 bytes, unused (zlib) */ GRIM_DATA("004f1f64") unsigned char PTR_s_buffer_error_004f1f64[12] __asm__("_PTR_s_buffer_error_004f1f64");
+/* 0x004f1f70, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("004f1f70") unsigned char DAT_004f1f70[24] __asm__("_DAT_004f1f70");
+/* 0x004f1f88, 16 bytes, unused (pointed at by unused data) */ GRIM_DATA("004f1f88") unsigned char s_buffer_error_004f1f88[16] __asm__("_s_buffer_error_004f1f88");
+/* 0x004f1f98, 20 bytes */ /* loose */ char s_insufficient_memory_004f1f98[20] __asm__("_s_insufficient_memory_004f1f98") = "insufficient memory";
 static unsigned char grim_anchor_004f1fac[0] __attribute__((section(".data$grim_004f1fac"), aligned(16), used));
 static unsigned char grim_pad_004f1fac[12] __attribute__((section(".data$grim_004f1fac_"), aligned(4), used));
-/* 0x004f1fac, 12 bytes */ GRIM_DATA("004f1facz") unsigned char DAT_004f1fac[12] = { 0x64, 0x61, 0x74, 0x61, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72 };
-/* 0x004f1fb8, 16 bytes */ GRIM_DATA("004f1fb8") char s_stream_error_004f1fb8[16] = "stream error";
-/* 0x004f1fc8, 12 bytes */ /* loose */ char s_file_error_004f1fc8[12] = "file error";
-/* 0x004f1fd4, 12 bytes */ /* loose */ char s_stream_end_004f1fd4[12] = "stream end";
-/* 0x004f1fe0, 28 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_bit_length_repeat_004f1fe0[28];
-/* 0x004f1ffc, 36 bytes, unused (zlib) */ /* loose */ unsigned char s_too_many_length_or_distance_symb_004f1ffc[36];
-/* 0x004f2020, 32 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_stored_block_lengths_004f2020[32];
-/* 0x004f2040, 24 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_block_type_004f2040[24];
+/* 0x004f1fac, 12 bytes */ GRIM_DATA("004f1facz") unsigned char DAT_004f1fac[12] __asm__("_DAT_004f1fac") = { 0x64, 0x61, 0x74, 0x61, 0x20, 0x65, 0x72, 0x72, 0x6f, 0x72 };
+/* 0x004f1fb8, 16 bytes */ GRIM_DATA("004f1fb8") char s_stream_error_004f1fb8[16] __asm__("_s_stream_error_004f1fb8") = "stream error";
+/* 0x004f1fc8, 12 bytes */ /* loose */ char s_file_error_004f1fc8[12] __asm__("_s_file_error_004f1fc8") = "file error";
+/* 0x004f1fd4, 12 bytes */ /* loose */ char s_stream_end_004f1fd4[12] __asm__("_s_stream_end_004f1fd4") = "stream end";
+/* 0x004f1fe0, 28 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_bit_length_repeat_004f1fe0[28] __asm__("_s_invalid_bit_length_repeat_004f1fe0");
+/* 0x004f1ffc, 36 bytes, unused (zlib) */ /* loose */ unsigned char s_too_many_length_or_distance_symb_004f1ffc[36] __asm__("_s_too_many_length_or_distance_symb_004f1ffc");
+/* 0x004f2020, 32 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_stored_block_lengths_004f2020[32] __asm__("_s_invalid_stored_block_lengths_004f2020");
+/* 0x004f2040, 24 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_block_type_004f2040[24] __asm__("_s_invalid_block_type_004f2040");
 static unsigned char grim_anchor_004f2058[0] __attribute__((section(".data$grim_004f2058"), aligned(16), used));
 static unsigned char grim_pad_004f2058[8] __attribute__((section(".data$grim_004f2058_"), aligned(4), used));
-/* 0x004f2058, 24 bytes, unused (zlib) */ GRIM_DATA("004f2058z") unsigned char g_pStatic_l_desc[24];
-/* 0x004f2070, 24 bytes, unused (zlib) */ GRIM_DATA("004f2070") unsigned char g_pStatic_d_desc[24];
-/* 0x004f2088, 20 bytes, unused (zlib) */ GRIM_DATA("004f2088") unsigned char g_aStatic_bl_desc[20];
-/* 0x004f209c, 24 bytes, unused (zlib) */ GRIM_DATA("004f209c") unsigned char s_invalid_distance_code_004f209c[24];
-/* 0x004f20b4, 28 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_literal_length_code_004f20b4[28];
-/* 0x004f20d0, 4 bytes, unused (zlib) */ /* loose */ unsigned char UINT_004f20d0[4];
+/* 0x004f2058, 24 bytes, unused (zlib) */ GRIM_DATA("004f2058z") unsigned char g_pStatic_l_desc[24] __asm__("_g_pStatic_l_desc");
+/* 0x004f2070, 24 bytes, unused (zlib) */ GRIM_DATA("004f2070") unsigned char g_pStatic_d_desc[24] __asm__("_g_pStatic_d_desc");
+/* 0x004f2088, 20 bytes, unused (zlib) */ GRIM_DATA("004f2088") unsigned char g_aStatic_bl_desc[20] __asm__("_g_aStatic_bl_desc");
+/* 0x004f209c, 24 bytes, unused (zlib) */ GRIM_DATA("004f209c") unsigned char s_invalid_distance_code_004f209c[24] __asm__("_s_invalid_distance_code_004f209c");
+/* 0x004f20b4, 28 bytes, unused (zlib) */ /* loose */ unsigned char s_invalid_literal_length_code_004f20b4[28] __asm__("_s_invalid_literal_length_code_004f20b4");
+/* 0x004f20d0, 4 bytes, unused (zlib) */ /* loose */ unsigned char UINT_004f20d0[4] __asm__("_UINT_004f20d0");
 static unsigned char grim_anchor_004f20d4[0] __attribute__((section(".data$grim_004f20d4"), aligned(16), used));
 static unsigned char grim_pad_004f20d4[4] __attribute__((section(".data$grim_004f20d4_"), aligned(4), used));
-/* 0x004f20d4, 4 bytes, unused (zlib) */ GRIM_DATA("004f20d4z") unsigned char UINT_004f20d4[4];
-/* 0x004f20d8, 4096 bytes, unused (zlib) */ GRIM_DATA("004f20d8") unsigned char DAT_004f20d8[4096];
-/* 0x004f30d8, 256 bytes, unused (zlib) */ GRIM_DATA("004f30d8") unsigned char DAT_004f30d8[256];
-/* 0x004f31d8, 36 bytes, unused (zlib) */ GRIM_DATA("004f31d8") unsigned char s_incomplete_dynamic_bit_lengths_t_004f31d8[36];
-/* 0x004f31fc, 40 bytes, unused (zlib) */ /* loose */ unsigned char s_oversubscribed_dynamic_bit_lengt_004f31fc[40];
-/* 0x004f3224, 32 bytes, unused (zlib) */ /* loose */ unsigned char s_incomplete_literal_length_tree_004f3224[32];
-/* 0x004f3244, 36 bytes, unused (zlib) */ /* loose */ unsigned char s_oversubscribed_literal_length_tr_004f3244[36];
-/* 0x004f3268, 36 bytes, unused (zlib) */ /* loose */ unsigned char s_empty_distance_tree_with_lengths_004f3268[36];
-/* 0x004f328c, 28 bytes, unused (zlib) */ /* loose */ unsigned char s_incomplete_distance_tree_004f328c[28];
-/* 0x004f32a8, 32 bytes, unused (zlib) */ /* loose */ unsigned char s_oversubscribed_distance_tree_004f32a8[32];
+/* 0x004f20d4, 4 bytes, unused (zlib) */ GRIM_DATA("004f20d4z") unsigned char UINT_004f20d4[4] __asm__("_UINT_004f20d4");
+/* 0x004f20d8, 4096 bytes, unused (zlib) */ GRIM_DATA("004f20d8") unsigned char DAT_004f20d8[4096] __asm__("_DAT_004f20d8");
+/* 0x004f30d8, 256 bytes, unused (zlib) */ GRIM_DATA("004f30d8") unsigned char DAT_004f30d8[256] __asm__("_DAT_004f30d8");
+/* 0x004f31d8, 36 bytes, unused (zlib) */ GRIM_DATA("004f31d8") unsigned char s_incomplete_dynamic_bit_lengths_t_004f31d8[36] __asm__("_s_incomplete_dynamic_bit_lengths_t_004f31d8");
+/* 0x004f31fc, 40 bytes, unused (zlib) */ /* loose */ unsigned char s_oversubscribed_dynamic_bit_lengt_004f31fc[40] __asm__("_s_oversubscribed_dynamic_bit_lengt_004f31fc");
+/* 0x004f3224, 32 bytes, unused (zlib) */ /* loose */ unsigned char s_incomplete_literal_length_tree_004f3224[32] __asm__("_s_incomplete_literal_length_tree_004f3224");
+/* 0x004f3244, 36 bytes, unused (zlib) */ /* loose */ unsigned char s_oversubscribed_literal_length_tr_004f3244[36] __asm__("_s_oversubscribed_literal_length_tr_004f3244");
+/* 0x004f3268, 36 bytes, unused (zlib) */ /* loose */ unsigned char s_empty_distance_tree_with_lengths_004f3268[36] __asm__("_s_empty_distance_tree_with_lengths_004f3268");
+/* 0x004f328c, 28 bytes, unused (zlib) */ /* loose */ unsigned char s_incomplete_distance_tree_004f328c[28] __asm__("_s_incomplete_distance_tree_004f328c");
+/* 0x004f32a8, 32 bytes, unused (zlib) */ /* loose */ unsigned char s_oversubscribed_distance_tree_004f32a8[32] __asm__("_s_oversubscribed_distance_tree_004f32a8");
 static unsigned char grim_anchor_004f32c8[0] __attribute__((section(".data$grim_004f32c8"), aligned(16), used));
 static unsigned char grim_pad_004f32c8[8] __attribute__((section(".data$grim_004f32c8_"), aligned(4), used));
-/* 0x004f32c8, 72 bytes, unused (zlib) */ GRIM_DATA("004f32c8z") unsigned char DAT_004f32c8[72];
-/* 0x004f3310, 16 bytes */ GRIM_DATA("004f3310") void *PTR_fob_flobdec_wave_module_004f3310[4] = {
-    (void *)f_fob_flobdec_wave_module, (void *)f_DWave_module_terminate, (void *)f_DWave_module_startup, (void *)f_DWave_module_shutdown
-};
-/* 0x004f3320, 32 bytes */ GRIM_DATA("004f3320") void *g_pDWave_flobdec_services[8] = {
-    (void *)f_DWave_flobdec_Info, (void *)f_DWave_flobdec_GetID, (void *)f_DWave_flobdec_GetType, (void *)f_DWave_flobdec_Reset,
-    (void *)f_DWave_flobdec_DecodeHeader, (void *)f_DWave_flobdec_DecodeBody, (void *)f_FUN_004cbf40, (void *)f_FUN_004cbf40
-};
-/* 0x004f3340, 8 bytes */ GRIM_DATA("004f3340") unsigned int g_dwDWave_flobdec_DecodeBody_last_id = 0xffffffff;
-/* 0x004f3344, 4 bytes: the rest of g_dwDWave_flobdec_DecodeBody_last_id's span */ GRIM_DATA("004f3340") static unsigned char g_dwDWave_flobdec_DecodeBody_last_id__tail[4] __attribute__((used)) = {0};
-/* 0x004f3348, 32 bytes */ GRIM_DATA("004f3348") void *g_apAdpcmIndexAdjust[8] = {
-    0, 0, (void *)&g_abAdpcmIndexAdjust2, (void *)&g_abAdpcmIndexAdjust3,
-    (void *)&g_abAdpcmIndexAdjust4, (void *)&g_abAdpcmIndexAdjust5, (void *)&g_abAdpcmIndexAdjust6, (void *)&g_abAdpcmIndexAdjust7
-};
-/* 0x004f3368, 20 bytes */ GRIM_DATA("004f3368") char s_FLOBDEC_insane_wave_004f3368[20] = "FLOBDEC=insane_wave";
-/* 0x004f337c, 32 bytes */ /* loose */ char s_LECMODULE_insane_wave_flobdec_004f337c[32] = "LECMODULE=insane_wave_flobdec";
-/* 0x004f339c, 60 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f339c[60] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\flobject\\D_wave.c";
-/* 0x004f33d8, 44 bytes */ /* loose */ char s_D_WAVE__Cannot_allocate_memory_s_004f33d8[44] = "D_WAVE: Cannot allocate memory services.";
-/* 0x004f3404, 8 bytes */ /* loose */ char s_MEMORY_004f3404[8] = "MEMORY";
-/* 0x004f340c, 40 bytes */ /* loose */ char s_D_WAVE__Cannot_allocate_sound_se_004f340c[40] = "D_WAVE: Cannot allocate sound services.";
-/* 0x004f3434, 8 bytes */ /* loose */ char s_SOUND_004f3434[8] = "SOUND";
-/* 0x004f343c, 8 bytes */ /* loose */ char s_Audio_004f343c[8] = "Audio";
-/* 0x004f3444, 40 bytes */ /* loose */ char s_Decompresses_VBR_ADPCM_16_bit_au_004f3444[40] = "Decompresses VBR-ADPCM 16-bit audio.";
-/* 0x004f346c, 52 bytes */ /* loose */ char s_Decompresses_Variable_Bit_Rate_A_004f346c[52] = "Decompresses Variable Bit Rate ADPCM 16-bit audio.";
-static unsigned char grim_anchor_004f34a0[0] __attribute__((section(".data$grim_004f34a0"), aligned(16), used));
-static unsigned char grim_pad_004f34a0[0] __attribute__((section(".data$grim_004f34a0_"), aligned(4), used));
-/* 0x004f34a0, 8 bytes */ GRIM_DATA("004f34a0z") unsigned int UINT_004f34a0 = 0x5a533653;
-/* 0x004f34a4, 4 bytes: the rest of UINT_004f34a0's span */ GRIM_DATA("004f34a0z") static unsigned char UINT_004f34a0__tail[4] __attribute__((used)) = {0};
-/* 0x004f34a8, 8 bytes */ GRIM_DATA("004f34a8") unsigned int UINT_004f34a8 = 0x5a4d3653;
-/* 0x004f34ac, 4 bytes: the rest of UINT_004f34a8's span */ GRIM_DATA("004f34a8") static unsigned char UINT_004f34a8__tail[4] __attribute__((used)) = {0};
-/* 0x004f34b0, 8 bytes */ GRIM_DATA("004f34b0") unsigned char UINT_004f34b0[8] = { 0x50, 0x53, 0x41, 0x44 };
-/* 0x004f34b8, 16 bytes */ GRIM_DATA("004f34b8") void *PTR_fob_flobdec_blocky16_module_004f34b8[4] = {
-    (void *)f_fob_flobdec_blocky16_module, (void *)f_Blocky16_module_terminate, (void *)f_Blocky16_module_startup, (void *)f_Blocky16_module_shutdown
-};
-/* 0x004f34c8, 32 bytes */ GRIM_DATA("004f34c8") void *g_pBlock16_flobdec_services[8] = {
-    (void *)f_Blocky16_flobdec_Info, (void *)f_Blocky16_flobdec_GetID, (void *)f_LecShare_Nop, (void *)f_Blocky16_flobdec_Reset,
-    (void *)f_Blocky16_flobdec_DecodeHeader, (void *)f_Blocky16_flobdec_DecodeBody, (void *)f_FUN_004cbf40, (void *)f_Blocky16_flobdec_GetVal
-};
-/* 0x004f34e8, 1020 bytes */ GRIM_DATA("004f34e8") BlockyMotionVector g_aBlockyMotionVectors[255] = {
-    {0},
-    { .nX = -1, .nY = -43 },
-    { .nX = 6, .nY = -43 },
-    { .nX = -9, .nY = -42 },
-    { .nX = 13, .nY = -41 },
-    { .nX = -16, .nY = -40 },
-    { .nX = 19, .nY = -39 },
-    { .nX = -23, .nY = -36 },
-    { .nX = 26, .nY = -34 },
-    { .nX = -2, .nY = -33 },
-    { .nX = 4, .nY = -33 },
-    { .nX = -29, .nY = -32 },
-    { .nX = -9, .nY = -32 },
-    { .nX = 11, .nY = -31 },
-    { .nX = -16, .nY = -29 },
-    { .nX = 32, .nY = -29 },
-    { .nX = 18, .nY = -28 },
-    { .nX = -34, .nY = -26 },
-    { .nX = -22, .nY = -25 },
-    { .nX = -1, .nY = -25 },
-    { .nX = 3, .nY = -25 },
-    { .nX = -7, .nY = -24 },
-    { .nX = 8, .nY = -24 },
-    { .nX = 24, .nY = -23 },
-    { .nX = 36, .nY = -23 },
-    { .nX = -12, .nY = -22 },
-    { .nX = 13, .nY = -21 },
-    { .nX = -38, .nY = -20 },
-    { .nY = -20 },
-    { .nX = -27, .nY = -19 },
-    { .nX = -4, .nY = -19 },
-    { .nX = 4, .nY = -19 },
-    { .nX = -17, .nY = -18 },
-    { .nX = -8, .nY = -17 },
-    { .nX = 8, .nY = -17 },
-    { .nX = 18, .nY = -17 },
-    { .nX = 28, .nY = -17 },
-    { .nX = 39, .nY = -17 },
-    { .nX = -12, .nY = -15 },
-    { .nX = 12, .nY = -15 },
-    { .nX = -21, .nY = -14 },
-    { .nX = -1, .nY = -14 },
-    { .nX = 1, .nY = -14 },
-    { .nX = -41, .nY = -13 },
-    { .nX = -5, .nY = -13 },
-    { .nX = 5, .nY = -13 },
-    { .nX = 21, .nY = -13 },
-    { .nX = -31, .nY = -12 },
-    { .nX = -15, .nY = -11 },
-    { .nX = -8, .nY = -11 },
-    { .nX = 8, .nY = -11 },
-    { .nX = 15, .nY = -11 },
-    { .nX = -2, .nY = -10 },
-    { .nX = 1, .nY = -10 },
-    { .nX = 31, .nY = -10 },
-    { .nX = -23, .nY = -9 },
-    { .nX = -11, .nY = -9 },
-    { .nX = -5, .nY = -9 },
-    { .nX = 4, .nY = -9 },
-    { .nX = 11, .nY = -9 },
-    { .nX = 42, .nY = -9 },
-    { .nX = 6, .nY = -8 },
-    { .nX = 24, .nY = -8 },
-    { .nX = -18, .nY = -7 },
-    { .nX = -7, .nY = -7 },
-    { .nX = -3, .nY = -7 },
-    { .nX = -1, .nY = -7 },
-    { .nX = 2, .nY = -7 },
-    { .nX = 18, .nY = -7 },
-    { .nX = -43, .nY = -6 },
-    { .nX = -13, .nY = -6 },
-    { .nX = -4, .nY = -6 },
-    { .nX = 4, .nY = -6 },
-    { .nX = 8, .nY = -6 },
-    { .nX = -33, .nY = -5 },
-    { .nX = -9, .nY = -5 },
-    { .nX = -2, .nY = -5 },
-    { .nY = -5 },
-    { .nX = 2, .nY = -5 },
-    { .nX = 5, .nY = -5 },
-    { .nX = 13, .nY = -5 },
-    { .nX = -25, .nY = -4 },
-    { .nX = -6, .nY = -4 },
-    { .nX = -3, .nY = -4 },
-    { .nX = 3, .nY = -4 },
-    { .nX = 9, .nY = -4 },
-    { .nX = -19, .nY = -3 },
-    { .nX = -7, .nY = -3 },
-    { .nX = -4, .nY = -3 },
-    { .nX = -2, .nY = -3 },
-    { .nX = -1, .nY = -3 },
-    { .nY = -3 },
-    { .nX = 1, .nY = -3 },
-    { .nX = 2, .nY = -3 },
-    { .nX = 4, .nY = -3 },
-    { .nX = 6, .nY = -3 },
-    { .nX = 33, .nY = -3 },
-    { .nX = -14, .nY = -2 },
-    { .nX = -10, .nY = -2 },
-    { .nX = -5, .nY = -2 },
-    { .nX = -3, .nY = -2 },
-    { .nX = -2, .nY = -2 },
-    { .nX = -1, .nY = -2 },
-    { .nY = -2 },
-    { .nX = 1, .nY = -2 },
-    { .nX = 2, .nY = -2 },
-    { .nX = 3, .nY = -2 },
-    { .nX = 5, .nY = -2 },
-    { .nX = 7, .nY = -2 },
-    { .nX = 14, .nY = -2 },
-    { .nX = 19, .nY = -2 },
-    { .nX = 25, .nY = -2 },
-    { .nX = 43, .nY = -2 },
-    { .nX = -7, .nY = -1 },
-    { .nX = -3, .nY = -1 },
-    { .nX = -2, .nY = -1 },
-    { .nX = -1, .nY = -1 },
-    { .nY = -1 },
-    { .nX = 1, .nY = -1 },
-    { .nX = 2, .nY = -1 },
-    { .nX = 3, .nY = -1 },
-    { .nX = 10, .nY = -1 },
-    { .nX = -5 },
-    { .nX = -3 },
-    { .nX = -2 },
-    { .nX = -1 },
-    { .nX = 1 },
-    { .nX = 2 },
-    { .nX = 3 },
-    { .nX = 5 },
-    { .nX = 7 },
-    { .nX = -10, .nY = 1 },
-    { .nX = -7, .nY = 1 },
-    { .nX = -3, .nY = 1 },
-    { .nX = -2, .nY = 1 },
-    { .nX = -1, .nY = 1 },
-    { .nY = 1 },
-    { .nX = 1, .nY = 1 },
-    { .nX = 2, .nY = 1 },
-    { .nX = 3, .nY = 1 },
-    { .nX = -43, .nY = 2 },
-    { .nX = -25, .nY = 2 },
-    { .nX = -19, .nY = 2 },
-    { .nX = -14, .nY = 2 },
-    { .nX = -5, .nY = 2 },
-    { .nX = -3, .nY = 2 },
-    { .nX = -2, .nY = 2 },
-    { .nX = -1, .nY = 2 },
-    { .nY = 2 },
-    { .nX = 1, .nY = 2 },
-    { .nX = 2, .nY = 2 },
-    { .nX = 3, .nY = 2 },
-    { .nX = 5, .nY = 2 },
-    { .nX = 7, .nY = 2 },
-    { .nX = 10, .nY = 2 },
-    { .nX = 14, .nY = 2 },
-    { .nX = -33, .nY = 3 },
-    { .nX = -6, .nY = 3 },
-    { .nX = -4, .nY = 3 },
-    { .nX = -2, .nY = 3 },
-    { .nX = -1, .nY = 3 },
-    { .nY = 3 },
-    { .nX = 1, .nY = 3 },
-    { .nX = 2, .nY = 3 },
-    { .nX = 4, .nY = 3 },
-    { .nX = 19, .nY = 3 },
-    { .nX = -9, .nY = 4 },
-    { .nX = -3, .nY = 4 },
-    { .nX = 3, .nY = 4 },
-    { .nX = 7, .nY = 4 },
-    { .nX = 25, .nY = 4 },
-    { .nX = -13, .nY = 5 },
-    { .nX = -5, .nY = 5 },
-    { .nX = -2, .nY = 5 },
-    { .nY = 5 },
-    { .nX = 2, .nY = 5 },
-    { .nX = 5, .nY = 5 },
-    { .nX = 9, .nY = 5 },
-    { .nX = 33, .nY = 5 },
-    { .nX = -8, .nY = 6 },
-    { .nX = -4, .nY = 6 },
-    { .nX = 4, .nY = 6 },
-    { .nX = 13, .nY = 6 },
-    { .nX = 43, .nY = 6 },
-    { .nX = -18, .nY = 7 },
-    { .nX = -2, .nY = 7 },
-    { .nY = 7 },
-    { .nX = 2, .nY = 7 },
-    { .nX = 7, .nY = 7 },
-    { .nX = 18, .nY = 7 },
-    { .nX = -24, .nY = 8 },
-    { .nX = -6, .nY = 8 },
-    { .nX = -42, .nY = 9 },
-    { .nX = -11, .nY = 9 },
-    { .nX = -4, .nY = 9 },
-    { .nX = 5, .nY = 9 },
-    { .nX = 11, .nY = 9 },
-    { .nX = 23, .nY = 9 },
-    { .nX = -31, .nY = 10 },
-    { .nX = -1, .nY = 10 },
-    { .nX = 2, .nY = 10 },
-    { .nX = -15, .nY = 11 },
-    { .nX = -8, .nY = 11 },
-    { .nX = 8, .nY = 11 },
-    { .nX = 15, .nY = 11 },
-    { .nX = 31, .nY = 12 },
-    { .nX = -21, .nY = 13 },
-    { .nX = -5, .nY = 13 },
-    { .nX = 5, .nY = 13 },
-    { .nX = 41, .nY = 13 },
-    { .nX = -1, .nY = 14 },
-    { .nX = 1, .nY = 14 },
-    { .nX = 21, .nY = 14 },
-    { .nX = -12, .nY = 15 },
-    { .nX = 12, .nY = 15 },
-    { .nX = -39, .nY = 17 },
-    { .nX = -28, .nY = 17 },
-    { .nX = -18, .nY = 17 },
-    { .nX = -8, .nY = 17 },
-    { .nX = 8, .nY = 17 },
-    { .nX = 17, .nY = 18 },
-    { .nX = -4, .nY = 19 },
-    { .nY = 19 },
-    { .nX = 4, .nY = 19 },
-    { .nX = 27, .nY = 19 },
-    { .nX = 38, .nY = 20 },
-    { .nX = -13, .nY = 21 },
-    { .nX = 12, .nY = 22 },
-    { .nX = -36, .nY = 23 },
-    { .nX = -24, .nY = 23 },
-    { .nX = -8, .nY = 24 },
-    { .nX = 7, .nY = 24 },
-    { .nX = -3, .nY = 25 },
-    { .nX = 1, .nY = 25 },
-    { .nX = 22, .nY = 25 },
-    { .nX = 34, .nY = 26 },
-    { .nX = -18, .nY = 28 },
-    { .nX = -32, .nY = 29 },
-    { .nX = 16, .nY = 29 },
-    { .nX = -11, .nY = 31 },
-    { .nX = 9, .nY = 32 },
-    { .nX = 29, .nY = 32 },
-    { .nX = -4, .nY = 33 },
-    { .nX = 2, .nY = 33 },
-    { .nX = -26, .nY = 34 },
-    { .nX = 23, .nY = 36 },
-    { .nX = -19, .nY = 39 },
-    { .nX = 16, .nY = 40 },
-    { .nX = -13, .nY = 41 },
-    { .nX = 9, .nY = 42 },
-    { .nX = -6, .nY = 43 },
-    { .nX = 1, .nY = 43 },
-    {0},
-    {0},
-    {0}
-};
-/* 0x004f38e4, 4 bytes */ GRIM_DATA("004f38e4") unsigned int g_dwFob_blk16_configure_old_mod = 0xffffffff;
-/* 0x004f38e8, 64 bytes */ GRIM_DATA("004f38e8") int g_anBlockySplit4Y[16] = {
-    0, 1, 2, 3, 3, 3, 3, 2,
-    1, 0, 0, 0, 1, 2, 2, 1
-};
-/* 0x004f3928, 64 bytes */ GRIM_DATA("004f3928") int g_anBlockySplit4X[16] = {
-    0, 0, 0, 0, 1, 2, 3, 3,
-    3, 3, 2, 1, 1, 1, 2, 2
-};
-/* 0x004f3968, 64 bytes */ GRIM_DATA("004f3968") int g_anBlockySplit8Y[16] = {
-    0, 2, 5, 7, 7, 7, 7, 7,
-    7, 5, 2
-};
-/* 0x004f39a8, 64 bytes */ GRIM_DATA("004f39a8") int g_anBlockySplit8X[16] = {
-    0, 0, 0, 0, 1, 3, 4, 6,
-    7, 7, 7, 7, 6, 4, 3, 1
-};
-/* 0x004f39e8, 4 bytes */ GRIM_DATA("004f39e8") int g_nBlkLastSeq = -1;
-/* 0x004f39ec, 24 bytes */ GRIM_DATA("004f39ec") char s_FLOBDEC_insane_blocky16_004f39ec[24] = "FLOBDEC=insane_blocky16";
-/* 0x004f3a04, 36 bytes */ /* loose */ char s_LECMODULE_insane_blocky16_flobde_004f3a04[36] = "LECMODULE=insane_blocky16_flobdec";
-/* 0x004f3a28, 60 bytes */ /* loose */ char s_FlobDec_Blocky16_Module__Cannot_a_004f3a28[60] = "FlobDec-Blocky16 Module: Cannot allocate memory services.";
-/* 0x004f3a64, 60 bytes */ /* loose */ char s_FlobDec_Blocky16_Module__Cannot_a_004f3a64[60] = "FlobDec-Blocky16 Module: Cannot allocate bitmap services.";
-/* 0x004f3aa0, 16 bytes */ /* loose */ char s_BITMAP_clear_004f3aa0[16] = "BITMAP.clear";
-/* 0x004f3ab0, 16 bytes */ /* loose */ char s_Blocky16_Tile_004f3ab0[16] = "Blocky16-Tile";
-/* 0x004f3ac0, 44 bytes */ /* loose */ char s_Decompresses_a_block16_tile_vide_004f3ac0[44] = "Decompresses a block16-tile video frame.";
-/* 0x004f3aec, 208 bytes */ /* loose */ char s_This_module_decompresses_the_blo_004f3aec[208] = "This module decompresses the block16-tile compressed animations used in Outlaws, Monkey Island III, and Shadows of the Empire PC. Images are deltad, so they must be decompressed sequentially from frame 0.";
-/* 0x004f3bbc, 60 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f3bbc[60] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\flobject\\D_bloc16.c";
-static unsigned char grim_anchor_004f3bf8[0] __attribute__((section(".data$grim_004f3bf8"), aligned(16), used));
-static unsigned char grim_pad_004f3bf8[8] __attribute__((section(".data$grim_004f3bf8_"), aligned(4), used));
-/* 0x004f3bf8, 16 bytes */ GRIM_DATA("004f3bf8z") void *g_apfnInsaneTimerModule[4] = {
-    (void *)f_sys_timer_module, (void *)f_InsaneTimer_module_terminate, (void *)f_InsaneTimer_module_startup, (void *)f_InsaneTimer_module_shutdown
-};
-/* 0x004f3c08, 36 bytes */ GRIM_DATA("004f3c08") void *g_pInsaneTimer_timer_services[9] = {
-    (void *)f_sys_Alloc, (void *)f_sys_Free, (void *)f_sys_Disable, (void *)f_sys_Enable,
-    (void *)f_sys_Reset, (void *)f_sys_Delay, (void *)f_sys_GetTime, (void *)f_sys_GetCount,
-    (void *)f_sys_ExtSync
-};
-/* 0x004f3c2c, 4 bytes */ GRIM_DATA("004f3c2c") unsigned char DAT_004f3c2c[4] = { 0xff, 0xff, 0xff, 0xff };
-/* 0x004f3c30, 16 bytes */ GRIM_DATA("004f3c30") char s_TIMER_insane_004f3c30[16] = "TIMER=insane";
-/* 0x004f3c40, 24 bytes */ /* loose */ char s_LECMODULE_insane_timer_004f3c40[24] = "LECMODULE=insane_timer";
-/* 0x004f3c58, 48 bytes */ /* loose */ char s_Timer_Module__Cannot_allocate_me_004f3c58[48] = "Timer Module: Cannot allocate memory services.";
-/* 0x004f3c88, 40 bytes */ /* loose */ char s_Waiting_for_timer_thread_to_exit_004f3c88[40] = "Waiting for timer thread to exit!\n";
+/* 0x004f32c8, 72 bytes, unused (zlib) */ GRIM_DATA("004f32c8z") unsigned char DAT_004f32c8[72] __asm__("_DAT_004f32c8");
 static unsigned char grim_anchor_004f3cb0[0] __attribute__((section(".data$grim_004f3cb0"), aligned(16), used));
 static unsigned char grim_pad_004f3cb0[0] __attribute__((section(".data$grim_004f3cb0_"), aligned(4), used));
-/* 0x004f3cb0, 8 bytes */ GRIM_DATA("004f3cb0z") void *DAT_004f3cb0[2] = {
+/* 0x004f3cb0, 8 bytes */ GRIM_DATA("004f3cb0z") void *DAT_004f3cb0[2] __asm__("_DAT_004f3cb0") = {
     0, (void *)&DAT_004f3cb8
 };
-/* 0x004f3cb8, 8 bytes */ GRIM_DATA("004f3cb8") void *DAT_004f3cb8[2] = {
+/* 0x004f3cb8, 8 bytes */ GRIM_DATA("004f3cb8") void *DAT_004f3cb8[2] __asm__("_DAT_004f3cb8") = {
     (void *)&DAT_004f3cb0, 0
 };
-/* 0x004f3cc0, 16 bytes */ GRIM_DATA("004f3cc0") void *PTR_bmp_bitmap_module_004f3cc0[4] = {
-    (void *)f_bmp_bitmap_module, (void *)f_Video_module_terminate, (void *)f_Video_module_startup, (void *)f_Video_module_shutdown
-};
-/* 0x004f3cd0, 12 bytes */ GRIM_DATA("004f3cd0") void *PTR_bmp_bitmap_Alloc_004f3cd0[3] = {
-    (void *)f_bmp_bitmap_Alloc, (void *)f_bmp_bitmap_AllocRaw, (void *)f_bmp_bitmap_Free
-};
-/* 0x004f3cdc, 16 bytes */ GRIM_DATA("004f3cdc") char s_BITMAP_insane_004f3cdc[16] = "BITMAP=insane";
-/* 0x004f3cec, 24 bytes */ /* loose */ char s_LECMODULE_insane_bitmap_004f3cec[24] = "LECMODULE=insane_bitmap";
-/* 0x004f3d04, 48 bytes */ /* loose */ char s_Video_Module__Cannot_allocate_me_004f3d04[48] = "Video Module: Cannot allocate memory services.";
-/* 0x004f3d34, 12 bytes */ /* loose */ char s_VIDEO_getbm_004f3d34[12] = "VIDEO.getbm";
-/* 0x004f3d40, 36 bytes */ /* loose */ char s__s__line__s__Type__d_not_support_004f3d40[36] = "%s, line %s:  Type %d not supported";
-/* 0x004f3d64, 60 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f3d64[60] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\bitmap\\Bitmap.c";
-static unsigned char grim_anchor_004f3da0[0] __attribute__((section(".data$grim_004f3da0"), aligned(16), used));
-static unsigned char grim_pad_004f3da0[0] __attribute__((section(".data$grim_004f3da0_"), aligned(4), used));
-/* 0x004f3da0, 40 bytes */ GRIM_DATA("004f3da0z") unsigned char g_aConvert_bitmask[40] = {
-    0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0xc0, 0x00, 0x00, 0x00, 0xe0, 0x00, 0x00, 0x00,
-    0xf0, 0x00, 0x00, 0x00, 0xf8, 0x00, 0x00, 0x00, 0xfc, 0x00, 0x00, 0x00, 0xfe, 0x00, 0x00, 0x00,
-    0xff
-};
-/* 0x004f3dc8, 16 bytes */ GRIM_DATA("004f3dc8") void *g_apfnSoundModule[4] = {
-    (void *)f_sou_sound_module, (void *)f_SoundModule_module_terminate, (void *)f_SoundModule_module_startup, (void *)f_SoundModule_module_shutdown
-};
-/* 0x004f3dd8, 64 bytes */ GRIM_DATA("004f3dd8") void *g_apfnSoundInterface[16] = {
-    (void *)f_sou_engine_Start, (void *)f_sou_engine_Stop, (void *)f_sou_engine_Pause, (void *)f_sou_engine_Resume,
-    (void *)f_sou_engine_StopAll, (void *)f_sou_engine_GetVol, (void *)f_sou_engine_SetVol, (void *)f_sou_engine_GetPan,
-    (void *)f_sou_engine_SetPan, (void *)f_sou_engine_GetHVol, (void *)f_sou_engine_SetHVol, (void *)f_sou_engine_GetRate,
-    (void *)f_sou_engine_SetRate, (void *)f_sou_engine_Query, (void *)f_sou_engine_GetParam, (void *)f_sou_engine_SetParam
-};
-/* 0x004f3e18, 24 bytes */ GRIM_DATA("004f3e18") unsigned char g_aSou_samplesize[24] = {
-    0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00,
-    0x02, 0x00, 0x00, 0x00, 0x04
-};
-/* 0x004f3e30, 4 bytes */ GRIM_DATA("004f3e30") unsigned int g_dwSou_chans = 0x4;
-/* 0x004f3e34, 4 bytes */ GRIM_DATA("004f3e34") unsigned int g_dwSou_global_volume = 0x7f;
-/* 0x004f3e38, 4 bytes */ GRIM_DATA("004f3e38") unsigned int g_dwSou_sample_rate = 0x5622;
-/* 0x004f3e3c, 4 bytes */ GRIM_DATA("004f3e3c") unsigned int UINT_004f3e3c = 0x40;
-/* 0x004f3e40, 4 bytes */ GRIM_DATA("004f3e40") unsigned int g_dwSou_damp_rate = 0x100;
-/* 0x004f3e44, 4 bytes */ GRIM_DATA("004f3e44") unsigned int g_dwSou_engine_fill_damp_vol = 0x100;
-/* 0x004f3e48, 4 bytes */ GRIM_DATA("004f3e48") unsigned int g_dwSou_engine_fill_first = 0x1;
-/* 0x004f3e4c, 16 bytes */ GRIM_DATA("004f3e4c") char s_SOUND_insane_004f3e4c[16] = "SOUND=insane";
-/* 0x004f3e5c, 24 bytes */ /* loose */ char s_LECMODULE_insane_sound_004f3e5c[24] = "LECMODULE=insane_sound";
-/* 0x004f3e74, 52 bytes */ /* loose */ char s_Sound_Module__Cannot_allocate_sn_004f3e74[52] = "Sound Module: Cannot allocate snddriver services.";
-/* 0x004f3ea8, 48 bytes */ /* loose */ char s_Sound_Module__Cannot_allocate_ti_004f3ea8[48] = "Sound Module: Cannot allocate timer services.";
-/* 0x004f3ed8, 48 bytes */ /* loose */ char s_Sound_Module__Cannot_allocate_me_004f3ed8[48] = "Sound Module: Cannot allocate memory services.";
-/* 0x004f3f08, 20 bytes */ /* loose */ char s_SNDDRIVER_driver_004f3f08[20] = "SNDDRIVER.driver";
-/* 0x004f3f1c, 20 bytes */ /* loose */ char s_TIMER_external_sync_004f3f1c[20] = "TIMER.external_sync";
-/* 0x004f3f30, 56 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f3f30[56] = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\sound\\Engine.c";
-static unsigned char grim_anchor_004f3f68[0] __attribute__((section(".data$grim_004f3f68"), aligned(16), used));
-static unsigned char grim_pad_004f3f68[8] __attribute__((section(".data$grim_004f3f68_"), aligned(4), used));
-/* 0x004f3f68, 16 bytes */ GRIM_DATA("004f3f68z") void *g_apfnDsndDriverModule[4] = {
-    (void *)f_sou_dsnd_module, (void *)f_DsndDriver_module_terminate, (void *)f_DsndDriver_module_startup, (void *)f_DsndDriver_module_shutdown
-};
-/* 0x004f3f78, 28 bytes */ GRIM_DATA("004f3f78") void *g_pDsndDriver_snddriver_services[7] = {
-    (void *)f_dsn_initialize, (void *)f_dsn_terminate, (void *)f_dsn_setvol, (void *)f_dsn_getvol,
-    (void *)f_LecShare_Nop, (void *)f_dsn_getrate, (void *)0xffffffff
-};
-/* 0x004f3f94, 4 bytes */ GRIM_DATA("004f3f94") int g_nStreamLastBlock = -1;
-/* 0x004f3f98, 4 bytes */ GRIM_DATA("004f3f98") unsigned int g_dwStreamRate = 0x5622;
-/* 0x004f3f9c, 4 bytes */ GRIM_DATA("004f3f9c") unsigned int g_dwCurrentVol = 0x7f;
-/* 0x004f3fa0, 8 bytes */ GRIM_DATA("004f3fa0") int g_nStreamSavedVolume = -5000;
-/* 0x004f3fa4, 4 bytes: the rest of g_nStreamSavedVolume's span */ GRIM_DATA("004f3fa0") static unsigned char g_nStreamSavedVolume__tail[4] __attribute__((used)) = {0};
-/* 0x004f3fa8, 24 bytes */ GRIM_DATA("004f3fa8") unsigned char DAT_004f3fa8[24] = { 0x01, 0x00, 0x02, 0x00, 0x22, 0x56, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00, 0x04, 0x00, 0x10 };
-/* 0x004f3fc0, 20 bytes */ GRIM_DATA("004f3fc0") unsigned char DAT_004f3fc0[20] = { 0x01, 0x00, 0x02, 0x00, 0x22, 0x56, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00, 0x04, 0x00, 0x10 };
-/* 0x004f3fd4, 24 bytes */ GRIM_DATA("004f3fd4") char s_SNDDRIVER_insane_dsnd_004f3fd4[24] = "SNDDRIVER=insane_dsnd";
-/* 0x004f3fec, 24 bytes */ /* loose */ char s_LECMODULE_insane_dsnd_004f3fec[24] = "LECMODULE=insane_dsnd";
-/* 0x004f4004, 20 bytes */ /* loose */ char s_MEMORY_mixertable_004f4004[20] = "MEMORY.mixertable";
-/* 0x004f4018, 60 bytes */ /* loose */ char s_DirectSoundDriver_Module__Cannot_004f4018[60] = "DirectSoundDriver Module: Cannot allocate timer services.";
-/* 0x004f4054, 12 bytes */ /* loose */ char s_TIMER_clock_004f4054[12] = "TIMER=clock";
-/* 0x004f4060, 56 bytes */ /* loose */ char s_DirectSound__Error__08X_while_cr_004f4060[56] = "DirectSound: Error %08X while creating primary buffer";
-/* 0x004f4098, 56 bytes */ /* loose */ char s_DirectSound__Error__08X_while_se_004f4098[56] = "DirectSound: Error %08X while setting cooperative level";
-/* 0x004f40d0, 40 bytes */ /* loose */ char s_Cannot_create_DirectSound_object_004f40d0[40] = "Cannot create DirectSound object (%d)";
-static unsigned char grim_anchor_004f40f8[0] __attribute__((section(".data$grim_004f40f8"), aligned(16), used));
-static unsigned char grim_pad_004f40f8[8] __attribute__((section(".data$grim_004f40f8_"), aligned(4), used));
-/* 0x004f40f8, 96 bytes */ GRIM_DATA("004f40f8z") unsigned int g_dwWaveMixCount = 0x4;
-/* 0x004f40fc, 92 bytes: the rest of g_dwWaveMixCount's span */ GRIM_DATA("004f40f8z") static unsigned char g_dwWaveMixCount__tail[92] __attribute__((used)) = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x04, 0x06, 0x08, 0x0a, 0x0c, 0x0e, 0x10, 0x12, 0x13, 0x14,
-    0x15, 0x16, 0x17, 0x18, 0x18, 0x19, 0x1a, 0x1a, 0x1b, 0x1c, 0x1c, 0x1d, 0x1e, 0x1e, 0x1f, 0x1f,
-    0x20, 0x20, 0x20, 0x20, 0x00, 0x01, 0x02, 0x05, 0x07, 0x14, 0x23, 0x32, 0x41, 0x50, 0x55, 0x5a,
-    0x5f, 0x64, 0x69, 0x6e, 0x70, 0x72, 0x74, 0x76, 0x78, 0x79, 0x7a, 0x7b, 0x7c, 0x7d, 0x7e, 0x7f,
-    0x80, 0x80, 0x80, 0x80, 0x04, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
-    0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x01
-};
-/* 0x004f4158, 136 bytes */ GRIM_DATA("004f4158") grim_span_004f4158 s_C__grimsrc_libs_lecsmush_insane__004f4158 = {
-    {
-            0x43, 0x3a, 0x5c, 0x67, 0x72, 0x69, 0x6d, 0x73, 0x72, 0x63, 0x5c, 0x6c, 0x69, 0x62, 0x73, 0x5c,
-            0x6c, 0x65, 0x63, 0x73, 0x6d, 0x75, 0x73, 0x68, 0x5c, 0x69, 0x6e, 0x73, 0x61, 0x6e, 0x65, 0x5c,
-            0x73, 0x6f, 0x75, 0x72, 0x63, 0x65, 0x5c, 0x73, 0x6f, 0x75, 0x6e, 0x64, 0x5c, 0x4d, 0x69, 0x78,
-            0x65, 0x72, 0x2e, 0x63, 0x00, 0x00, 0x00, 0x00, 0x04, 0x66, 0x6d, 0x6f, 0x64, 0x00, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x16
-    },
-    (void *)f_FUN_004d54b4,
-    { 0x76, 0x4b, 0x4b },
-    (void *)f_FUN_004b4b0f,
-    { 0x76, 0x4b, 0x4b },
-    (void *)f_FUN_004b4ad4,
-    { 0x76, 0x4b, 0x4b },
-    (void *)f_FUN_004b4b0f,
-    { 0x76, 0x4b, 0x4b },
-    (void *)f_FUN_004b4b0d,
-    (void *)f_FUN_004b4b0d,
-    { 0x37, 0x4b, 0x4b },
-    (void *)f_FUN_004b4b0d,
-    { 0x76, 0x4b, 0x4b, 0x00, 0x76, 0x4b, 0x4b },
-    (void *)f_FUN_004b4b0f,
-    { 0x76, 0x4b, 0x4b }
-};
-/* 0x004f41e0, 768 bytes */ GRIM_DATA("004f41e0") unsigned char DAT_004f41e0[768] = {0};
-/* 0x004f44e0, 4 bytes */ GRIM_DATA("004f44e0") unsigned int UINT_004f44e0 = 0x0;
-/* 0x004f44e4, 4 bytes */ GRIM_DATA("004f44e4") float g_flMain_Service_frameRate = 0.0f;
-/* 0x004f44e8, 4 bytes */ GRIM_DATA("004f44e8") unsigned int UINT_004f44e8 = 0x0;
-/* 0x004f44ec, 4 bytes */ GRIM_DATA("004f44ec") unsigned int UINT_004f44ec = 0x0;
-/* 0x004f44f0, 28 bytes */ GRIM_DATA("004f44f0") unsigned char DAT_004f44f0[28] = {0};
-/* 0x004f450c, 36 bytes */ GRIM_DATA("004f450c") unsigned char DAT_004f450c[36] = {0};
-/* 0x004f4530, 8 bytes */ GRIM_DATA("004f4530") unsigned char UINT_004f4530[8] = {0};
-/* 0x004f4538, 1024 bytes */ GRIM_DATA("004f4538") unsigned char g_aGrimdemo_StatusPrint_grimStatusBuffer[1024] = {0};
-/* 0x004f4938, 1024 bytes */ GRIM_DATA("004f4938") unsigned char g_aGrimdemo_DebugPrint_grimDebugBuffer[1024] = {0};
-/* 0x004f4d38, 8 bytes */ GRIM_DATA("004f4d38") unsigned char UINT_004f4d38[8] = {0};
-/* 0x004f4d40, 4 bytes */ GRIM_DATA("004f4d40") unsigned char DAT_004f4d40[4] = {0};
-/* 0x004f4d44, 16 bytes */ GRIM_DATA("004f4d44") unsigned char DAT_004f4d44[16] = {0};
-/* 0x004f4d54, 60 bytes */ GRIM_DATA("004f4d54") unsigned char UINT_004f4d54[60] = {0};
-/* 0x004f4d90, 4 bytes */ GRIM_DATA("004f4d90") unsigned char DAT_004f4d90[4] = {0};
-/* 0x004f4d94, 4 bytes */ GRIM_DATA("004f4d94") unsigned int UINT_004f4d94 = 0x0;
-/* 0x004f4d98, 4 bytes */ GRIM_DATA("004f4d98") unsigned int UINT_004f4d98 = 0x0;
-/* 0x004f4d9c, 20 bytes */ GRIM_DATA("004f4d9c") unsigned char UINT_004f4d9c[20] = {0};
-/* 0x004f4db0, 1024 bytes */ GRIM_DATA("004f4db0") unsigned char g_aGrimdemo_ErrorPrint_grimErrorBuffer[1024] = {0};
-/* 0x004f51b0, 1024 bytes */ GRIM_DATA("004f51b0") unsigned char g_aGrimdemo_WarningPrint_grimWarningBuffer[1024] = {0};
-/* 0x004f55b0, 1024 bytes */ GRIM_DATA("004f55b0") unsigned char g_aGrimdemo_MessagePrint_grimMessageBuffer[1024] = {0};
-/* 0x004f59b0, 79 bytes */ GRIM_DATA("004f59b0") unsigned char DAT_004f59b0[79] = {0};
-/* 0x004f59ff, 1 bytes */ GRIM_DATA("004f59b0") unsigned char DAT_004f59ff = 0x0;
-/* 0x004f5a00, 4 bytes */ GRIM_DATA("004f5a00") unsigned char g_dwGrimlib_MinimizeWhenInactive[4] = {0};
-/* 0x004f5a04, 4 bytes */ GRIM_DATA("004f5a04") unsigned int UINT_004f5a04 = 0x0;
-/* 0x004f5a08, 4 bytes */ GRIM_DATA("004f5a08") unsigned int UINT_004f5a08 = 0x0;
-/* 0x004f5a0c, 4 bytes */ GRIM_DATA("004f5a0c") int g_nQuitApp = 0;
-/* 0x004f5a10, 4 bytes */ GRIM_DATA("004f5a10") unsigned int UINT_004f5a10 = 0x0;
-/* 0x004f5a14, 4 bytes */ GRIM_DATA("004f5a14") unsigned int UINT_004f5a14 = 0x0;
-/* 0x004f5a18, 4 bytes */ GRIM_DATA("004f5a18") unsigned int UINT_004f5a18 = 0x0;
-/* 0x004f5a1c, 4 bytes */ GRIM_DATA("004f5a1c") unsigned int UINT_004f5a1c = 0x0;
-/* 0x004f5a20, 4 bytes */ GRIM_DATA("004f5a20") int g_bWindowedMode = 0;
-/* 0x004f5a24, 4 bytes */ GRIM_DATA("004f5a24") unsigned int g_nDeveloper = 0x0;
-/* 0x004f5a28, 4 bytes */ GRIM_DATA("004f5a28") unsigned int UINT_004f5a28 = 0x0;
-/* 0x004f5a2c, 4 bytes */ GRIM_DATA("004f5a2c") unsigned char g_bDrawFrameRate = 0x0;
+/* 0x004f3d64, 60 bytes */ /* loose */ char s_C__grimsrc_libs_lecsmush_insane__004f3d64[60] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f3d64") = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\bitmap\\Bitmap.c";
+/* 0x004f3f98, 4 bytes */ GRIM_DATA("004f3f98") unsigned int g_dwStreamRate __asm__("_g_dwStreamRate") = 0x5622;
+/* 0x004f44e0, 4 bytes */ GRIM_DATA("004f44e0") unsigned int UINT_004f44e0 __asm__("_UINT_004f44e0") = 0x0;
+/* 0x004f44e8, 4 bytes */ GRIM_DATA("004f44e8") unsigned int UINT_004f44e8 __asm__("_UINT_004f44e8") = 0x0;
+/* 0x004f4d38, 8 bytes */ GRIM_DATA("004f4d38") unsigned char UINT_004f4d38[8] __asm__("_UINT_004f4d38") = {0};
+/* 0x004f5a0c, 4 bytes */ GRIM_DATA("004f5a0c") int g_nQuitApp __asm__("_g_nQuitApp") = 0;
+/* 0x004f5a18, 4 bytes */ GRIM_DATA("004f5a18") unsigned int UINT_004f5a18 __asm__("_UINT_004f5a18") = 0x0;
+/* 0x004f5a1c, 4 bytes */ GRIM_DATA("004f5a1c") unsigned int UINT_004f5a1c __asm__("_UINT_004f5a1c") = 0x0;
+/* 0x004f5a20, 4 bytes */ GRIM_DATA("004f5a20") int g_bWindowedMode __asm__("_g_bWindowedMode") = 0;
+/* 0x004f5a24, 4 bytes */ GRIM_DATA("004f5a24") unsigned int g_nDeveloper __asm__("_g_nDeveloper") = 0x0;
+/* 0x004f5a28, 4 bytes */ GRIM_DATA("004f5a28") unsigned int UINT_004f5a28 __asm__("_UINT_004f5a28") = 0x0;
+/* 0x004f5a2c, 4 bytes */ GRIM_DATA("004f5a2c") unsigned char g_bDrawFrameRate __asm__("_g_bDrawFrameRate") = 0x0;
 /* 0x004f5a2d, 3 bytes: the rest of g_bDrawFrameRate's span */ GRIM_DATA("004f5a2c") static unsigned char g_bDrawFrameRate__tail[3] __attribute__((used)) = {0};
-/* 0x004f5a30, 4 bytes */ GRIM_DATA("004f5a30") int g_nDrawPerfData = 0;
-/* 0x004f5a34, 4 bytes */ GRIM_DATA("004f5a34") unsigned int UINT_004f5a34 = 0x0;
-/* 0x004f5a38, 4 bytes */ GRIM_DATA("004f5a38") unsigned char g_pDisplayModes[4] = {0};
-/* 0x004f5a3c, 4 bytes */ GRIM_DATA("004f5a3c") unsigned int UINT_004f5a3c = 0x0;
-/* 0x004f5a40, 4 bytes */ GRIM_DATA("004f5a40") unsigned int UINT_004f5a40 = 0x0;
-/* 0x004f5a44, 4 bytes */ GRIM_DATA("004f5a44") unsigned int UINT_004f5a44 = 0x0;
-/* 0x004f5a48, 8 bytes */ GRIM_DATA("004f5a48") int g_fixedFrameMs = 0;
+/* 0x004f5a30, 4 bytes */ GRIM_DATA("004f5a30") int g_nDrawPerfData __asm__("_g_nDrawPerfData") = 0;
+/* 0x004f5a34, 4 bytes */ GRIM_DATA("004f5a34") unsigned int UINT_004f5a34 __asm__("_UINT_004f5a34") = 0x0;
+/* 0x004f5a38, 4 bytes */ GRIM_DATA("004f5a38") unsigned char g_pDisplayModes[4] __asm__("_g_pDisplayModes") = {0};
+/* 0x004f5a48, 8 bytes */ GRIM_DATA("004f5a48") int g_fixedFrameMs __asm__("_g_fixedFrameMs") = 0;
 /* 0x004f5a4c, 4 bytes: the rest of g_fixedFrameMs's span */ GRIM_DATA("004f5a48") static unsigned char g_fixedFrameMs__tail[4] __attribute__((used)) = {0};
-/* 0x004f5a50, 4 bytes */ GRIM_DATA("004f5a50") unsigned int UINT_004f5a50 = 0x0;
-/* 0x004f5a54, 4 bytes */ GRIM_DATA("004f5a54") unsigned int UINT_004f5a54 = 0x0;
-/* 0x004f5a58, 4 bytes */ GRIM_DATA("004f5a58") unsigned int g_dwMain_Service_frameCount = 0x0;
-/* 0x004f5a5c, 4 bytes */ GRIM_DATA("004f5a5c") unsigned int UINT_004f5a5c = 0x0;
-/* 0x004f5a60, 4 bytes */ GRIM_DATA("004f5a60") unsigned char g_dwMain_Service_frameTime[4] = {0};
-/* 0x004f5a64, 4 bytes */ GRIM_DATA("004f5a64") unsigned int g_dwMain_Service_frameTime0 = 0x0;
-/* 0x004f5a68, 4 bytes */ GRIM_DATA("004f5a68") unsigned int UINT_004f5a68 = 0x0;
-/* 0x004f5a6c, 4 bytes */ GRIM_DATA("004f5a6c") unsigned int UINT_004f5a6c = 0x0;
-/* 0x004f5a70, 4 bytes */ GRIM_DATA("004f5a70") unsigned int UINT_004f5a70 = 0x0;
-/* 0x004f5a74, 4 bytes */ GRIM_DATA("004f5a74") unsigned int UINT_004f5a74 = 0x0;
-/* 0x004f5a78, 4 bytes */ GRIM_DATA("004f5a78") unsigned int UINT_004f5a78 = 0x0;
-/* 0x004f5a7c, 4 bytes */ GRIM_DATA("004f5a7c") unsigned char DAT_004f5a7c[4] = {0};
-/* 0x004f5a80, 4 bytes */ GRIM_DATA("004f5a80") unsigned char DAT_004f5a80[4] = {0};
-/* 0x004f5a84, 4 bytes */ GRIM_DATA("004f5a84") unsigned int UINT_004f5a84 = 0x0;
-/* 0x004f5a88, 8 bytes */ GRIM_DATA("004f5a88") int g_bDebugChordHeld = 0;
-/* 0x004f5a8c, 4 bytes: the rest of g_bDebugChordHeld's span */ GRIM_DATA("004f5a88") static unsigned char g_bDebugChordHeld__tail[4] __attribute__((used)) = {0};
-/* 0x004f5a90, 4 bytes */ GRIM_DATA("004f5a90") unsigned int UINT_004f5a90 = 0x0;
-/* 0x004f5a94, 4 bytes */ GRIM_DATA("004f5a94") unsigned int UINT_004f5a94 = 0x0;
-/* 0x004f5a98, 8 bytes */ GRIM_DATA("004f5a98") unsigned char DAT_004f5a98[8] = {0};
-/* 0x004f5aa0, 1024 bytes */ GRIM_DATA("004f5aa0") unsigned char g_aBuffer[1024] = {0};
-/* 0x004f5ea0, 4 bytes */ GRIM_DATA("004f5ea0") unsigned char g_ppRegValueNames[4] = {0};
-/* 0x004f5ea4, 4 bytes */ GRIM_DATA("004f5ea4") unsigned int g_dwRegValueCount = 0x0;
-/* 0x004f5ea8, 4 bytes */ GRIM_DATA("004f5ea8") unsigned char DAT_004f5ea8[4] = {0};
-/* 0x004f5eac, 4 bytes */ GRIM_DATA("004f5eac") unsigned int UINT_004f5eac = 0x0;
-/* 0x004f5eb0, 4 bytes */ GRIM_DATA("004f5eb0") unsigned char g_pRegRootKey[4] = {0};
-/* 0x004f5eb4, 4 bytes */ GRIM_DATA("004f5eb4") unsigned int g_dwRdroid_frameTrue = 0x0;
-/* 0x004f5eb8, 4 bytes */ GRIM_DATA("004f5eb8") unsigned int g_dwRDroidStartup = 0x0;
-/* 0x004f5ebc, 4 bytes */ GRIM_DATA("004f5ebc") unsigned int g_dwRDroidOpen = 0x0;
-/* 0x004f5ec0, 4 bytes */ GRIM_DATA("004f5ec0") unsigned int g_dwRdColormap_pIdentityMap = 0x0;
-/* 0x004f5ec4, 4 bytes */ GRIM_DATA("004f5ec4") unsigned int g_dwRdColormap_pCurMap = 0x0;
-/* 0x004f5ec8, 4096 bytes */ GRIM_DATA("004f5ec8") unsigned char g_apNewActiveEdges[4096] = {0};
-/* 0x004f6ec8, 8 bytes */ GRIM_DATA("004f6ec8") unsigned int g_dwYMinEdge = 0x0;
-/* 0x004f6ecc, 4 bytes: the rest of g_dwYMinEdge's span */ GRIM_DATA("004f6ec8") static unsigned char g_dwYMinEdge__tail[4] __attribute__((used)) = {0};
-/* 0x004f6ed0, 40 bytes */ GRIM_DATA("004f6ed0") unsigned char g_aActiveEdgeHead[40] = {0};
-/* 0x004f6ef8, 36 bytes */ GRIM_DATA("004f6ef8") unsigned char DAT_004f6ef8[36] = {0};
-/* 0x004f6f1c, 4 bytes */ GRIM_DATA("004f6f1c") unsigned char DAT_004f6f1c[4] = {0};
-/* 0x004f6f20, 8 bytes */ GRIM_DATA("004f6f20") unsigned int UINT_004f6f20 = 0x0;
-/* 0x004f6f24, 4 bytes: the rest of UINT_004f6f20's span */ GRIM_DATA("004f6f20") static unsigned char UINT_004f6f20__tail[4] __attribute__((used)) = {0};
-/* 0x004f6f28, 4 bytes */ GRIM_DATA("004f6f28") unsigned int g_dwYMaxEdge = 0x0;
-/* 0x004f6f2c, 4 bytes */ GRIM_DATA("004f6f2c") unsigned int g_dwNumActiveSpans = 0x0;
-/* 0x004f6f30, 4 bytes */ GRIM_DATA("004f6f30") unsigned char DAT_004f6f30[4] = {0};
-/* 0x004f6f34, 4 bytes */ GRIM_DATA("004f6f34") unsigned char DAT_004f6f34[4] = {0};
-/* 0x004f6f38, 4 bytes */ GRIM_DATA("004f6f38") unsigned char DAT_004f6f38[4] = {0};
-/* 0x004f6f3c, 4 bytes */ GRIM_DATA("004f6f3c") unsigned char DAT_004f6f3c[4] = {0};
-/* 0x004f6f40, 4 bytes */ GRIM_DATA("004f6f40") unsigned char DAT_004f6f40[4] = {0};
-/* 0x004f6f44, 4 bytes */ GRIM_DATA("004f6f44") unsigned char DAT_004f6f44[4] = {0};
-/* 0x004f6f48, 4 bytes */ GRIM_DATA("004f6f48") unsigned char DAT_004f6f48[4] = {0};
-/* 0x004f6f4c, 4 bytes */ GRIM_DATA("004f6f4c") unsigned char DAT_004f6f4c[4] = {0};
-/* 0x004f6f50, 4 bytes */ GRIM_DATA("004f6f50") unsigned char DAT_004f6f50[4] = {0};
-/* 0x004f6f54, 4 bytes */ GRIM_DATA("004f6f54") unsigned char DAT_004f6f54[4] = {0};
-/* 0x004f6f58, 90072 bytes */ GRIM_DATA("004f6f58") unsigned char DAT_004f6f58[90072] = {0};
-/* 0x0050cf30, 8 bytes */ GRIM_DATA("0050cf30") unsigned int g_dwYCurScanLine = 0x0;
-/* 0x0050cf34, 4 bytes: the rest of g_dwYCurScanLine's span */ GRIM_DATA("0050cf30") static unsigned char g_dwYCurScanLine__tail[4] __attribute__((used)) = {0};
-/* 0x0050cf38, 4096 bytes */ GRIM_DATA("0050cf38") unsigned char g_apRemoveActiveEdges[4096] = {0};
-/* 0x0050df38, 360448 bytes */ GRIM_DATA("0050df38") unsigned char DAT_0050df38[360448] = {0};
-/* 0x00565f38, 440 bytes */ GRIM_DATA("00565f38") unsigned char UINT_00565f38[440] = {0};
-/* 0x005660f0, 4 bytes */ GRIM_DATA("005660f0") unsigned int UINT_005660f0 = 0x0;
-/* 0x005660f4, 48 bytes */ GRIM_DATA("005660f4") unsigned char UINT_005660f4[48] = {0};
-/* 0x00566124, 4 bytes */ GRIM_DATA("00566124") unsigned char DAT_00566124[4] = {0};
-/* 0x00566128, 8 bytes */ GRIM_DATA("00566128") unsigned char DAT_00566128[8] = {0};
-/* 0x00566130, 527880 bytes */ GRIM_DATA("00566130") unsigned char DAT_00566130[527880] = {0};
-/* 0x005e6f38, 4 bytes */ GRIM_DATA("005e6f38") unsigned int g_dwNumActiveEdges = 0x0;
-/* 0x005e6f3c, 4 bytes */ GRIM_DATA("005e6f3c") unsigned int g_dwNumActiveFaces = 0x0;
-/* 0x005e6f40, 40 bytes */ GRIM_DATA("005e6f40") unsigned char g_aActiveEdgeTail[40] = {0};
-/* 0x005e6f68, 36 bytes */ GRIM_DATA("005e6f68") unsigned char DAT_005e6f68[36] = {0};
-/* 0x005e6f8c, 4 bytes */ GRIM_DATA("005e6f8c") unsigned char DAT_005e6f8c[4] = {0};
-/* 0x005e6f90, 8 bytes */ GRIM_DATA("005e6f90") unsigned char DAT_005e6f90[8] = {0};
-/* 0x005e6f98, 8 bytes */ GRIM_DATA("005e6f98") unsigned char g_dwRdActive_drawnFaces[8] = {0};
-/* 0x005e6fa0, 131072 bytes */ GRIM_DATA("005e6fa0") unsigned char g_aGreenIntensities[131072] = {0};
-/* 0x00606fa0, 4 bytes */ GRIM_DATA("00606fa0") unsigned char g_aHWSolidTris[4] = {0};
-/* 0x00606fa4, 4 bytes */ GRIM_DATA("00606fa4") unsigned char DAT_00606fa4[4] = {0};
-/* 0x00606fa8, 4 bytes */ GRIM_DATA("00606fa8") unsigned char DAT_00606fa8[4] = {0};
-/* 0x00606fac, 4 bytes */ GRIM_DATA("00606fac") unsigned char DAT_00606fac[4] = {0};
-/* 0x00606fb0, 20464 bytes */ GRIM_DATA("00606fb0") unsigned char DAT_00606fb0[20464] = {0};
-/* 0x0060bfa0, 8 bytes */ GRIM_DATA("0060bfa0") unsigned char g_dwTotalNormalTris[8] = {0};
-/* 0x0060bfa8, 131072 bytes */ GRIM_DATA("0060bfa8") unsigned char g_aRdCache_Intensities[131072] = {0};
-/* 0x0062bfa8, 393216 bytes */ GRIM_DATA("0062bfa8") unsigned char g_aRdCache_Vertices[393216] = {0};
-/* 0x0068bfa8, 8 bytes */ GRIM_DATA("0068bfa8") unsigned char g_dwTotalVerts[8] = {0};
-/* 0x0068bfb0, 262144 bytes */ GRIM_DATA("0068bfb0") unsigned char DAT_0068bfb0[262144] = {0};
-/* 0x006cbfb0, 4 bytes */ GRIM_DATA("006cbfb0") unsigned char g_aHWNormalTris[4] = {0};
-/* 0x006cbfb4, 4 bytes */ GRIM_DATA("006cbfb4") unsigned char DAT_006cbfb4[4] = {0};
-/* 0x006cbfb8, 4 bytes */ GRIM_DATA("006cbfb8") unsigned char DAT_006cbfb8[4] = {0};
-/* 0x006cbfbc, 4 bytes */ GRIM_DATA("006cbfbc") unsigned char DAT_006cbfbc[4] = {0};
-/* 0x006cbfc0, 20464 bytes */ GRIM_DATA("006cbfc0") unsigned char DAT_006cbfc0[20464] = {0};
-/* 0x006d0fb0, 131072 bytes */ GRIM_DATA("006d0fb0") unsigned char g_aBlueIntensities[131072] = {0};
-/* 0x006f0fb0, 8 bytes */ GRIM_DATA("006f0fb0") unsigned char g_dwTotalSolidTris[8] = {0};
-/* 0x006f0fb8, 4 bytes */ GRIM_DATA("006f0fb8") unsigned char g_aHWVertices[4] = {0};
-/* 0x006f0fbc, 4 bytes */ GRIM_DATA("006f0fbc") unsigned char DAT_006f0fbc[4] = {0};
-/* 0x006f0fc0, 4 bytes */ GRIM_DATA("006f0fc0") unsigned char DAT_006f0fc0[4] = {0};
-/* 0x006f0fc4, 4 bytes */ GRIM_DATA("006f0fc4") unsigned char DAT_006f0fc4[4] = {0};
-/* 0x006f0fc8, 4 bytes */ GRIM_DATA("006f0fc8") unsigned char DAT_006f0fc8[4] = {0};
-/* 0x006f0fcc, 4 bytes */ GRIM_DATA("006f0fcc") unsigned char DAT_006f0fcc[4] = {0};
-/* 0x006f0fd0, 4 bytes */ GRIM_DATA("006f0fd0") unsigned char DAT_006f0fd0[4] = {0};
-/* 0x006f0fd4, 1048548 bytes */ GRIM_DATA("006f0fd4") unsigned char DAT_006f0fd4[1048548] = {0};
-/* 0x007f0fb8, 4 bytes */ GRIM_DATA("007f0fb8") unsigned char g_dwRdCache_drawnFaces[4] = {0};
-/* 0x007f0fbc, 4 bytes */ GRIM_DATA("007f0fbc") unsigned int g_dwNumUsedVertices = 0x0;
-/* 0x007f0fc0, 4 bytes */ GRIM_DATA("007f0fc0") unsigned int g_dwNumUsedTexVertices = 0x0;
-/* 0x007f0fc4, 4 bytes */ GRIM_DATA("007f0fc4") unsigned int g_dwNumUsedIntensities = 0x0;
-/* 0x007f0fc8, 8 bytes */ GRIM_DATA("007f0fc8") unsigned char g_pRdCamera_CurCamera[8] = {0};
-/* 0x007f0fd0, 8 bytes */ GRIM_DATA("007f0fd0") unsigned char g_dwCurGeo[8] = {0};
-/* 0x007f0fd8, 4 bytes */ GRIM_DATA("007f0fd8") float FLOAT_007f0fd8 = 0.0f;
-/* 0x007f0fdc, 4 bytes */ GRIM_DATA("007f0fdc") float FLOAT_007f0fdc = 0.0f;
-/* 0x007f0fe0, 8 bytes */ GRIM_DATA("007f0fe0") float FLOAT_007f0fe0 = 0.0f;
-/* 0x007f0fe4, 4 bytes: the rest of FLOAT_007f0fe0's span */ GRIM_DATA("007f0fe0") static unsigned char FLOAT_007f0fe0__tail[4] __attribute__((used)) = {0};
-/* 0x007f0fe8, 384 bytes */ GRIM_DATA("007f0fe8") unsigned char DAT_007f0fe8[384] = {0};
-/* 0x007f1168, 768 bytes */ GRIM_DATA("007f1168") unsigned char g_aLocalLightDir[768] = {0};
-/* 0x007f1468, 12 bytes */ GRIM_DATA("007f1468") unsigned char g_dwVertexDst[12] = {0};
-/* 0x007f1474, 4 bytes */ GRIM_DATA("007f1474") unsigned int UINT_007f1474 = 0x0;
-/* 0x007f1478, 4 bytes */ GRIM_DATA("007f1478") unsigned int UINT_007f1478 = 0x0;
-/* 0x007f147c, 20 bytes */ GRIM_DATA("007f147c") unsigned char UINT_007f147c[20] = {0};
-/* 0x007f1490, 4 bytes */ GRIM_DATA("007f1490") unsigned int UINT_007f1490 = 0x0;
-/* 0x007f1494, 4 bytes */ GRIM_DATA("007f1494") unsigned int g_dwCurTextureMode = 0x0;
-/* 0x007f1498, 256 bytes */ GRIM_DATA("007f1498") unsigned char g_apGeoLights[256] = {0};
-/* 0x007f1598, 768 bytes */ GRIM_DATA("007f1598") unsigned char g_aLocalLightPos[768] = {0};
-/* 0x007f1898, 4 bytes */ GRIM_DATA("007f1898") unsigned int g_dwMeshFrustrumCull = 0x0;
-/* 0x007f189c, 4 bytes */ GRIM_DATA("007f189c") unsigned int UINT_007f189c = 0x0;
-/* 0x007f18a0, 6144 bytes */ GRIM_DATA("007f18a0") unsigned char g_aRdModel3_View[6144] = {0};
-/* 0x007f30a0, 4 bytes */ GRIM_DATA("007f30a0") unsigned char g_pCurMesh[4] = {0};
-/* 0x007f30a4, 4 bytes */ GRIM_DATA("007f30a4") unsigned int g_dwThingFrustrumCull = 0x0;
-/* 0x007f30a8, 4 bytes */ GRIM_DATA("007f30a8") unsigned char g_aVertexSrc[4] = {0};
-/* 0x007f30ac, 4 bytes */ GRIM_DATA("007f30ac") unsigned char DAT_007f30ac[4] = {0};
-/* 0x007f30b0, 4 bytes */ GRIM_DATA("007f30b0") unsigned char DAT_007f30b0[4] = {0};
-/* 0x007f30b4, 4 bytes */ GRIM_DATA("007f30b4") unsigned char DAT_007f30b4[4] = {0};
-/* 0x007f30b8, 4 bytes */ GRIM_DATA("007f30b8") unsigned char DAT_007f30b8[4] = {0};
-/* 0x007f30bc, 4 bytes */ GRIM_DATA("007f30bc") unsigned char DAT_007f30bc[4] = {0};
-/* 0x007f30c0, 20 bytes */ GRIM_DATA("007f30c0") unsigned char DAT_007f30c0[20] = {0};
-/* 0x007f30d4, 4 bytes */ GRIM_DATA("007f30d4") unsigned char g_pCurModel3[4] = {0};
-/* 0x007f30d8, 4 bytes */ GRIM_DATA("007f30d8") unsigned int g_dwTextureMode = 0x0;
-/* 0x007f30dc, 4 bytes */ GRIM_DATA("007f30dc") unsigned int UINT_007f30dc = 0x0;
-/* 0x007f30e0, 256 bytes */ GRIM_DATA("007f30e0") unsigned char UINT_007f30e0[256] = {0};
-/* 0x007f31e0, 4 bytes */ GRIM_DATA("007f31e0") unsigned char g_pCurThing[4] = {0};
-/* 0x007f31e4, 4 bytes */ GRIM_DATA("007f31e4") unsigned int g_dwLightingMode = 0x0;
-/* 0x007f31e8, 4 bytes */ GRIM_DATA("007f31e8") unsigned int g_dwGeometryMode = 0x0;
-/* 0x007f31ec, 4 bytes */ GRIM_DATA("007f31ec") unsigned int g_dwRdModel3_numDrawnModels = 0x0;
-/* 0x007f31f0, 4 bytes */ GRIM_DATA("007f31f0") unsigned int g_dwModel3Loader = 0x0;
-/* 0x007f31f4, 4 bytes */ GRIM_DATA("007f31f4") unsigned int g_dwModel3Unloader = 0x0;
-/* 0x007f31f8, 4 bytes */ GRIM_DATA("007f31f8") unsigned int g_dwNumGeoLights = 0x0;
-/* 0x007f31fc, 4 bytes */ GRIM_DATA("007f31fc") unsigned int g_dwNumMeshLights = 0x0;
-/* 0x007f3200, 4 bytes */ GRIM_DATA("007f3200") unsigned char g_dwMaxGeoRadius[4] = {0};
-/* 0x007f3204, 4 bytes */ GRIM_DATA("007f3204") unsigned int g_dwClipPlaneActive = 0x0;
-/* 0x007f3208, 4 bytes */ GRIM_DATA("007f3208") float FLOAT_007f3208 = 0.0f;
-/* 0x007f320c, 4 bytes */ GRIM_DATA("007f320c") float FLOAT_007f320c = 0.0f;
-/* 0x007f3210, 4 bytes */ GRIM_DATA("007f3210") float FLOAT_007f3210 = 0.0f;
-/* 0x007f3214, 4132 bytes */ GRIM_DATA("007f3214") unsigned char UINT_007f3214[4132] = {0};
-/* 0x007f4238, 4 bytes */ GRIM_DATA("007f4238") unsigned int g_dwMaterialsLoader = 0x0;
-/* 0x007f423c, 4 bytes */ GRIM_DATA("007f423c") unsigned int g_dwMaterialsUnloader = 0x0;
-/* 0x007f4240, 4 bytes */ GRIM_DATA("007f4240") unsigned char g_dwFlexEndScrap[4] = {0};
-/* 0x007f4244, 4 bytes */ GRIM_DATA("007f4244") unsigned int g_dwEndScrap = 0x0;
-/* 0x007f4248, 4 bytes */ GRIM_DATA("007f4248") unsigned char g_dwEndVOverZ[4] = {0};
-/* 0x007f424c, 4 bytes */ GRIM_DATA("007f424c") int g_nRdNRaster_numVertices = 0;
-/* 0x007f4250, 4 bytes */ GRIM_DATA("007f4250") unsigned int g_dwRdNRaster_maxMipMap = 0x0;
-/* 0x007f4254, 4 bytes */ GRIM_DATA("007f4254") unsigned int g_dwVStep = 0x0;
-/* 0x007f4258, 8 bytes */ GRIM_DATA("007f4258") unsigned char g_dwUOverZ[8] = {0};
-/* 0x007f4260, 128 bytes */ GRIM_DATA("007f4260") unsigned char g_dwRdNRaster_aUOverZ[128] = {0};
-/* 0x007f42e0, 4 bytes */ GRIM_DATA("007f42e0") unsigned char g_dwOneOverEndScrap[4] = {0};
-/* 0x007f42e4, 4 bytes */ GRIM_DATA("007f42e4") unsigned char g_dwVOverZ[4] = {0};
-/* 0x007f42e8, 4 bytes */ GRIM_DATA("007f42e8") int g_nRdNRaster_yMinVert = 0;
-/* 0x007f42ec, 4 bytes */ GRIM_DATA("007f42ec") int g_nRdNRaster_leftVertexStep = 0;
-/* 0x007f42f0, 4 bytes */ GRIM_DATA("007f42f0") unsigned char g_dwFlexStartScrap[4] = {0};
-/* 0x007f42f4, 4 bytes */ GRIM_DATA("007f42f4") unsigned char g_dwOneOverZ[4] = {0};
-/* 0x007f42f8, 4 bytes */ GRIM_DATA("007f42f8") unsigned int UINT_007f42f8 = 0x0;
-/* 0x007f42fc, 4 bytes */ GRIM_DATA("007f42fc") int g_nRdNRaster_yMaxVert = 0;
-/* 0x007f4300, 4 bytes */ GRIM_DATA("007f4300") unsigned char g_pDest[4] = {0};
-/* 0x007f4304, 4 bytes */ GRIM_DATA("007f4304") unsigned int g_dwRdNRaster_aIntensities = 0x0;
-/* 0x007f4308, 8 bytes */ GRIM_DATA("007f4308") unsigned char g_pRdNRaster_aVertices[8] = {0};
-/* 0x007f4310, 128 bytes */ GRIM_DATA("007f4310") unsigned char g_dwRdNRaster_aVOverZ[128] = {0};
-/* 0x007f4390, 4 bytes */ GRIM_DATA("007f4390") unsigned int g_dwNumSubdivisions = 0x0;
-/* 0x007f4394, 4 bytes */ GRIM_DATA("007f4394") int g_nRdNRaster_rightVertexStep = 0;
-/* 0x007f4398, 4 bytes */ GRIM_DATA("007f4398") unsigned int g_dwRdNRaster_aTexVertices = 0x0;
-/* 0x007f439c, 4 bytes */ GRIM_DATA("007f439c") unsigned int g_dwIStep = 0x0;
-/* 0x007f43a0, 4 bytes */ GRIM_DATA("007f43a0") unsigned char g_dwOneOverStartScrap[4] = {0};
-/* 0x007f43a4, 4 bytes */ GRIM_DATA("007f43a4") unsigned char g_dwEndOneOverZ[4] = {0};
-/* 0x007f43a8, 4 bytes */ GRIM_DATA("007f43a8") unsigned char g_pWDest[4] = {0};
-/* 0x007f43ac, 4 bytes */ GRIM_DATA("007f43ac") unsigned int g_dwStartScrap = 0x0;
-/* 0x007f43b0, 4 bytes */ GRIM_DATA("007f43b0") unsigned int g_dwEndU = 0x0;
-/* 0x007f43b4, 4 bytes */ GRIM_DATA("007f43b4") unsigned int g_dwEndV = 0x0;
-/* 0x007f43b8, 4 bytes */ GRIM_DATA("007f43b8") unsigned int g_dwEndZ = 0x0;
-/* 0x007f43bc, 4 bytes */ GRIM_DATA("007f43bc") unsigned int g_dwUStep = 0x0;
-/* 0x007f43c0, 4 bytes */ GRIM_DATA("007f43c0") unsigned char g_dwCurU[4] = {0};
-/* 0x007f43c4, 4 bytes */ GRIM_DATA("007f43c4") unsigned char g_dwCurV[4] = {0};
-/* 0x007f43c8, 128 bytes */ GRIM_DATA("007f43c8") unsigned char g_dwRdNRaster_aOneOverZ[128] = {0};
-/* 0x007f4448, 4 bytes */ GRIM_DATA("007f4448") unsigned char g_dwCurZ[4] = {0};
-/* 0x007f444c, 4 bytes */ GRIM_DATA("007f444c") unsigned char g_dwEndUOverZ[4] = {0};
-/* 0x007f4450, 4 bytes */ GRIM_DATA("007f4450") unsigned int g_dwFixI = 0x0;
-/* 0x007f4454, 4 bytes */ GRIM_DATA("007f4454") unsigned int g_dwFixU = 0x0;
-/* 0x007f4458, 8 bytes */ GRIM_DATA("007f4458") unsigned char g_dwFixV[8] = {0};
-/* 0x007f4460, 4 bytes */ GRIM_DATA("007f4460") unsigned int g_dwRdZRaster_numVertices = 0x0;
-/* 0x007f4464, 4 bytes */ GRIM_DATA("007f4464") unsigned int g_dwRdZRaster_maxMipMap = 0x0;
-/* 0x007f4468, 128 bytes */ GRIM_DATA("007f4468") unsigned char g_dwRdZRaster_aUOverZ[128] = {0};
-/* 0x007f44e8, 4 bytes */ GRIM_DATA("007f44e8") unsigned int g_dwRdZRaster_yMinVert = 0x0;
-/* 0x007f44ec, 4 bytes */ GRIM_DATA("007f44ec") unsigned int g_dwRdZRaster_leftVertexStep = 0x0;
-/* 0x007f44f0, 4 bytes */ GRIM_DATA("007f44f0") unsigned int UINT_007f44f0 = 0x0;
-/* 0x007f44f4, 4 bytes */ GRIM_DATA("007f44f4") unsigned int g_dwRdZRaster_yMaxVert = 0x0;
-/* 0x007f44f8, 4 bytes */ GRIM_DATA("007f44f8") unsigned int g_dwRdZRaster_aIntensities = 0x0;
-/* 0x007f44fc, 4 bytes */ GRIM_DATA("007f44fc") unsigned char g_pRdZRaster_aVertices[4] = {0};
-/* 0x007f4500, 128 bytes */ GRIM_DATA("007f4500") unsigned char g_dwRdZRaster_aVOverZ[128] = {0};
-/* 0x007f4580, 4 bytes */ GRIM_DATA("007f4580") unsigned int g_dwRdZRaster_rightVertexStep = 0x0;
-/* 0x007f4584, 4 bytes */ GRIM_DATA("007f4584") unsigned int g_dwRdZRaster_aTexVertices = 0x0;
-/* 0x007f4588, 144 bytes */ GRIM_DATA("007f4588") unsigned char g_dwRdZRaster_aOneOverZ[144] = {0};
-/* 0x007f4618, 4 bytes */ GRIM_DATA("007f4618") unsigned int g_dwSourceIVert = 0x0;
-/* 0x007f461c, 140 bytes */ GRIM_DATA("007f461c") unsigned int g_dwSourceTVert = 0x0;
-/* 0x007f4620, 136 bytes: the rest of g_dwSourceTVert's span */ GRIM_DATA("007f461c") static unsigned char g_dwSourceTVert__tail[136] __attribute__((used)) = {0};
-/* 0x007f46a8, 4 bytes */ GRIM_DATA("007f46a8") unsigned int g_dwDestTVert = 0x0;
-/* 0x007f46ac, 4 bytes */ GRIM_DATA("007f46ac") unsigned int g_dwDestVert = 0x0;
-/* 0x007f46b0, 8 bytes */ GRIM_DATA("007f46b0") unsigned int g_dwDestIVert = 0x0;
-/* 0x007f46b4, 4 bytes: the rest of g_dwDestIVert's span */ GRIM_DATA("007f46b0") static unsigned char g_dwDestIVert__tail[4] __attribute__((used)) = {0};
-/* 0x007f46b8, 4 bytes */ GRIM_DATA("007f46b8") unsigned int g_dwWorkTVerts = 0x0;
-/* 0x007f46bc, 252 bytes */ GRIM_DATA("007f46bc") unsigned char UINT_007f46bc[252] = {0};
-/* 0x007f47b8, 8 bytes */ GRIM_DATA("007f47b8") unsigned int g_dwSourceVert = 0x0;
-/* 0x007f47bc, 4 bytes: the rest of g_dwSourceVert's span */ GRIM_DATA("007f47b8") static unsigned char g_dwSourceVert__tail[4] __attribute__((used)) = {0};
-/* 0x007f47c0, 256 bytes */ GRIM_DATA("007f47c0") unsigned char g_dwWorkIVerts[256] = {0};
-/* 0x007f48c0, 4 bytes */ GRIM_DATA("007f48c0") unsigned int g_dwWorkVerts = 0x0;
-/* 0x007f48c4, 4 bytes */ GRIM_DATA("007f48c4") unsigned int UINT_007f48c4 = 0x0;
-/* 0x007f48c8, 508 bytes */ GRIM_DATA("007f48c8") unsigned char UINT_007f48c8[508] = {0};
-/* 0x007f4ac4, 4 bytes */ GRIM_DATA("007f4ac4") unsigned int g_dwRdClip_faceStatus = 0x0;
-/* 0x007f4ac8, 4 bytes */ GRIM_DATA("007f4ac8") float FLOAT_007f4ac8 = 0.0f;
-/* 0x007f4acc, 4 bytes */ GRIM_DATA("007f4acc") unsigned int UINT_007f4acc = 0x0;
-/* 0x007f4ad0, 4 bytes */ GRIM_DATA("007f4ad0") unsigned int UINT_007f4ad0 = 0x0;
-/* 0x007f4ad4, 8 bytes */ GRIM_DATA("007f4ad4") float FLOAT_007f4ad4 = 0.0f;
-/* 0x007f4ad8, 4 bytes: the rest of FLOAT_007f4ad4's span */ GRIM_DATA("007f4ad4") static unsigned char FLOAT_007f4ad4__tail[4] __attribute__((used)) = {0};
-/* 0x007f4adc, 8 bytes */ GRIM_DATA("007f4adc") unsigned char UINT_007f4adc[8] = {0};
-/* 0x007f4ae4, 8 bytes */ GRIM_DATA("007f4ae4") float FLOAT_007f4ae4 = 0.0f;
-/* 0x007f4ae8, 4 bytes: the rest of FLOAT_007f4ae4's span */ GRIM_DATA("007f4ae4") static unsigned char FLOAT_007f4ae4__tail[4] __attribute__((used)) = {0};
-/* 0x007f4aec, 4 bytes */ GRIM_DATA("007f4aec") float FLOAT_007f4aec = 0.0f;
-/* 0x007f4af0, 4 bytes */ GRIM_DATA("007f4af0") float FLOAT_007f4af0 = 0.0f;
-/* 0x007f4af4, 4 bytes */ GRIM_DATA("007f4af4") float FLOAT_007f4af4 = 0.0f;
-/* 0x007f4af8, 48 bytes */ GRIM_DATA("007f4af8") float FLOAT_007f4af8 = 0.0f;
-/* 0x007f4afc, 44 bytes: the rest of FLOAT_007f4af8's span */ GRIM_DATA("007f4af8") static unsigned char FLOAT_007f4af8__tail[44] __attribute__((used)) = {0};
-/* 0x007f4b28, 4 bytes */ GRIM_DATA("007f4b28") unsigned int UINT_007f4b28 = 0x0;
-/* 0x007f4b2c, 4 bytes */ GRIM_DATA("007f4b2c") unsigned int UINT_007f4b2c = 0x0;
-/* 0x007f4b30, 4 bytes */ GRIM_DATA("007f4b30") unsigned int UINT_007f4b30 = 0x0;
-/* 0x007f4b34, 4 bytes */ GRIM_DATA("007f4b34") float FLOAT_007f4b34 = 0.0f;
-/* 0x007f4b38, 4 bytes */ GRIM_DATA("007f4b38") unsigned char DAT_007f4b38[4] = {0};
-/* 0x007f4b3c, 4 bytes */ GRIM_DATA("007f4b3c") unsigned int UINT_007f4b3c = 0x0;
-/* 0x007f4b40, 4 bytes */ GRIM_DATA("007f4b40") unsigned int UINT_007f4b40 = 0x0;
-/* 0x007f4b44, 4 bytes */ GRIM_DATA("007f4b44") unsigned int UINT_007f4b44 = 0x0;
-/* 0x007f4b48, 4 bytes */ GRIM_DATA("007f4b48") float FLOAT_007f4b48 = 0.0f;
-/* 0x007f4b4c, 4 bytes */ GRIM_DATA("007f4b4c") float FLOAT_007f4b4c = 0.0f;
-/* 0x007f4b50, 4 bytes */ GRIM_DATA("007f4b50") float FLOAT_007f4b50 = 0.0f;
-/* 0x007f4b54, 4 bytes */ GRIM_DATA("007f4b54") unsigned int UINT_007f4b54 = 0x0;
-/* 0x007f4b58, 4 bytes */ GRIM_DATA("007f4b58") float FLOAT_007f4b58 = 0.0f;
-/* 0x007f4b5c, 4 bytes */ GRIM_DATA("007f4b5c") float FLOAT_007f4b5c = 0.0f;
-/* 0x007f4b60, 4 bytes */ GRIM_DATA("007f4b60") float FLOAT_007f4b60 = 0.0f;
-/* 0x007f4b64, 4 bytes */ GRIM_DATA("007f4b64") float FLOAT_007f4b64 = 0.0f;
-/* 0x007f4b68, 4 bytes */ GRIM_DATA("007f4b68") unsigned int UINT_007f4b68 = 0x0;
-/* 0x007f4b6c, 4 bytes */ GRIM_DATA("007f4b6c") unsigned int UINT_007f4b6c = 0x0;
-/* 0x007f4b70, 4 bytes */ GRIM_DATA("007f4b70") unsigned int UINT_007f4b70 = 0x0;
-/* 0x007f4b74, 208 bytes */ GRIM_DATA("007f4b74") unsigned int UINT_007f4b74 = 0x0;
-/* 0x007f4b78, 204 bytes: the rest of UINT_007f4b74's span */ GRIM_DATA("007f4b74") static unsigned char UINT_007f4b74__tail[204] __attribute__((used)) = {0};
-/* 0x007f4c44, 16 bytes */ GRIM_DATA("007f4c44") unsigned char UINT_007f4c44[16] = {0};
-/* 0x007f4c54, 80 bytes */ GRIM_DATA("007f4c54") unsigned char UINT_007f4c54[80] = {0};
-/* 0x007f4ca4, 8 bytes */ GRIM_DATA("007f4ca4") unsigned char UINT_007f4ca4[8] = {0};
-/* 0x007f4cac, 4 bytes */ GRIM_DATA("007f4cac") unsigned int UINT_007f4cac = 0x0;
-/* 0x007f4cb0, 4 bytes */ GRIM_DATA("007f4cb0") unsigned int UINT_007f4cb0 = 0x0;
-/* 0x007f4cb4, 16 bytes */ GRIM_DATA("007f4cb4") unsigned char UINT_007f4cb4[16] = {0};
-/* 0x007f4cc4, 24 bytes */ GRIM_DATA("007f4cc4") unsigned char UINT_007f4cc4[24] = {0};
-/* 0x007f4cdc, 20 bytes */ GRIM_DATA("007f4cdc") unsigned char UINT_007f4cdc[20] = {0};
-/* 0x007f4cf0, 4 bytes */ GRIM_DATA("007f4cf0") unsigned int UINT_007f4cf0 = 0x0;
-/* 0x007f4cf4, 4 bytes */ GRIM_DATA("007f4cf4") unsigned int UINT_007f4cf4 = 0x0;
-/* 0x007f4cf8, 4 bytes */ GRIM_DATA("007f4cf8") unsigned int UINT_007f4cf8 = 0x0;
-/* 0x007f4cfc, 4 bytes */ GRIM_DATA("007f4cfc") unsigned int UINT_007f4cfc = 0x0;
-/* 0x007f4d00, 384 bytes */ GRIM_DATA("007f4d00") unsigned char DAT_007f4d00[384] = {0};
-/* 0x007f4e80, 4 bytes */ GRIM_DATA("007f4e80") unsigned char DAT_007f4e80[4] = {0};
-/* 0x007f4e84, 4 bytes */ GRIM_DATA("007f4e84") float FLOAT_007f4e84 = 0.0f;
-/* 0x007f4e88, 4 bytes */ GRIM_DATA("007f4e88") float FLOAT_007f4e88 = 0.0f;
-/* 0x007f4e8c, 4 bytes */ GRIM_DATA("007f4e8c") float FLOAT_007f4e8c = 0.0f;
-/* 0x007f4e90, 4 bytes */ GRIM_DATA("007f4e90") float FLOAT_007f4e90 = 0.0f;
-/* 0x007f4e94, 4 bytes */ GRIM_DATA("007f4e94") float FLOAT_007f4e94 = 0.0f;
-/* 0x007f4e98, 4 bytes */ GRIM_DATA("007f4e98") float FLOAT_007f4e98 = 0.0f;
-/* 0x007f4e9c, 4 bytes */ GRIM_DATA("007f4e9c") float FLOAT_007f4e9c = 0.0f;
-/* 0x007f4ea0, 4 bytes */ GRIM_DATA("007f4ea0") float FLOAT_007f4ea0 = 0.0f;
-/* 0x007f4ea4, 4 bytes */ GRIM_DATA("007f4ea4") float FLOAT_007f4ea4 = 0.0f;
-/* 0x007f4ea8, 4 bytes */ GRIM_DATA("007f4ea8") float FLOAT_007f4ea8 = 0.0f;
-/* 0x007f4eac, 340 bytes */ GRIM_DATA("007f4eac") float FLOAT_007f4eac = 0.0f;
-/* 0x007f4eb0, 336 bytes: the rest of FLOAT_007f4eac's span */ GRIM_DATA("007f4eac") static unsigned char FLOAT_007f4eac__tail[336] __attribute__((used)) = {0};
-/* 0x007f5000, 4 bytes */ GRIM_DATA("007f5000") unsigned char DAT_007f5000[4] = {0};
-/* 0x007f5004, 4 bytes */ GRIM_DATA("007f5004") unsigned char DAT_007f5004[4] = {0};
-/* 0x007f5008, 4 bytes */ GRIM_DATA("007f5008") float FLOAT_007f5008 = 0.0f;
-/* 0x007f500c, 4 bytes */ GRIM_DATA("007f500c") float FLOAT_007f500c = 0.0f;
-/* 0x007f5010, 4 bytes */ GRIM_DATA("007f5010") float FLOAT_007f5010 = 0.0f;
-/* 0x007f5014, 4 bytes */ GRIM_DATA("007f5014") float FLOAT_007f5014 = 0.0f;
-/* 0x007f5018, 4 bytes */ GRIM_DATA("007f5018") float FLOAT_007f5018 = 0.0f;
-/* 0x007f501c, 4 bytes */ GRIM_DATA("007f501c") float FLOAT_007f501c = 0.0f;
-/* 0x007f5020, 4 bytes */ GRIM_DATA("007f5020") float FLOAT_007f5020 = 0.0f;
-/* 0x007f5024, 4 bytes */ GRIM_DATA("007f5024") float FLOAT_007f5024 = 0.0f;
-/* 0x007f5028, 4 bytes */ GRIM_DATA("007f5028") float FLOAT_007f5028 = 0.0f;
-/* 0x007f502c, 340 bytes */ GRIM_DATA("007f502c") float FLOAT_007f502c = 0.0f;
-/* 0x007f5030, 336 bytes: the rest of FLOAT_007f502c's span */ GRIM_DATA("007f502c") static unsigned char FLOAT_007f502c__tail[336] __attribute__((used)) = {0};
-/* 0x007f5180, 4 bytes */ GRIM_DATA("007f5180") unsigned int UINT_007f5180 = 0x0;
-/* 0x007f5184, 3076 bytes */ GRIM_DATA("007f5184") unsigned char UINT_007f5184[3076] = {0};
-/* 0x007f5d88, 384 bytes */ GRIM_DATA("007f5d88") unsigned char g_aRdSprite_FaceVerts[384] = {0};
-/* 0x007f5f08, 4 bytes */ GRIM_DATA("007f5f08") unsigned char DAT_007f5f08[4] = {0};
-/* 0x007f5f0c, 4 bytes */ GRIM_DATA("007f5f0c") float FLOAT_007f5f0c = 0.0f;
-/* 0x007f5f10, 4 bytes */ GRIM_DATA("007f5f10") float FLOAT_007f5f10 = 0.0f;
-/* 0x007f5f14, 4 bytes */ GRIM_DATA("007f5f14") float FLOAT_007f5f14 = 0.0f;
-/* 0x007f5f18, 4 bytes */ GRIM_DATA("007f5f18") float FLOAT_007f5f18 = 0.0f;
-/* 0x007f5f1c, 4 bytes */ GRIM_DATA("007f5f1c") float FLOAT_007f5f1c = 0.0f;
-/* 0x007f5f20, 4 bytes */ GRIM_DATA("007f5f20") float FLOAT_007f5f20 = 0.0f;
-/* 0x007f5f24, 4 bytes */ GRIM_DATA("007f5f24") float FLOAT_007f5f24 = 0.0f;
-/* 0x007f5f28, 4 bytes */ GRIM_DATA("007f5f28") float FLOAT_007f5f28 = 0.0f;
-/* 0x007f5f2c, 4 bytes */ GRIM_DATA("007f5f2c") float FLOAT_007f5f2c = 0.0f;
-/* 0x007f5f30, 4 bytes */ GRIM_DATA("007f5f30") float FLOAT_007f5f30 = 0.0f;
-/* 0x007f5f34, 340 bytes */ GRIM_DATA("007f5f34") float FLOAT_007f5f34 = 0.0f;
-/* 0x007f5f38, 336 bytes: the rest of FLOAT_007f5f34's span */ GRIM_DATA("007f5f34") static unsigned char FLOAT_007f5f34__tail[336] __attribute__((used)) = {0};
-/* 0x007f6088, 4 bytes */ GRIM_DATA("007f6088") unsigned char g_pMainHwnd[4] = {0};
-/* 0x007f608c, 4 bytes */ GRIM_DATA("007f608c") unsigned int UINT_007f608c = 0x0;
-/* 0x007f6090, 1024 bytes */ GRIM_DATA("007f6090") unsigned char DAT_007f6090[1024] = {0};
-/* 0x007f6490, 8 bytes */ GRIM_DATA("007f6490") unsigned char DAT_007f6490[8] = {0};
-/* 0x007f6498, 8 bytes */ GRIM_DATA("007f6498") unsigned char UINT_007f6498[8] = {0};
-/* 0x007f64a0, 17160 bytes */ GRIM_DATA("007f64a0") unsigned char DAT_007f64a0[17160] = {0};
-/* 0x007fa7a8, 4 bytes */ GRIM_DATA("007fa7a8") unsigned char g_pDebugFont[4] = {0};
-/* 0x007fa7ac, 12 bytes */ GRIM_DATA("007fa7ac") unsigned char UINT_007fa7ac[12] = {0};
-/* 0x007fa7b8, 17168 bytes */ GRIM_DATA("007fa7b8") unsigned char DAT_007fa7b8[17168] = {0};
-/* 0x007feac8, 4 bytes */ GRIM_DATA("007feac8") unsigned char DAT_007feac8[4] = {0};
-/* 0x007feacc, 4 bytes */ GRIM_DATA("007feacc") unsigned char DAT_007feacc[4] = {0};
-/* 0x007fead0, 4 bytes */ GRIM_DATA("007fead0") unsigned char DAT_007fead0[4] = {0};
-/* 0x007fead4, 4 bytes */ GRIM_DATA("007fead4") unsigned char DAT_007fead4[4] = {0};
-/* 0x007fead8, 8 bytes */ GRIM_DATA("007fead8") unsigned char PTR_007fead8[8] = {0};
-/* 0x007feae0, 4 bytes */ GRIM_DATA("007feae0") unsigned int UINT_007feae0 = 0x0;
-/* 0x007feae4, 112 bytes */ GRIM_DATA("007feae4") unsigned char UINT_007feae4[112] = {0};
-/* 0x007feb54, 4 bytes */ GRIM_DATA("007feb54") int INT_007feb54 = 0;
-/* 0x007feb58, 21540 bytes */ GRIM_DATA("007feb58") unsigned char DAT_007feb58[21540] = {0};
-/* 0x00803f7c, 4 bytes */ GRIM_DATA("00803f7c") unsigned int UINT_00803f7c = 0x0;
-/* 0x00803f80, 4 bytes */ GRIM_DATA("00803f80") unsigned char g_bStdDisplay_Startup[4] = {0};
-/* 0x00803f84, 4 bytes */ GRIM_DATA("00803f84") int g_nDisplayDeviceOpen = 0;
-/* 0x00803f88, 4 bytes */ GRIM_DATA("00803f88") int g_nDisplayModeOpen = 0;
-/* 0x00803f8c, 4 bytes */ GRIM_DATA("00803f8c") unsigned int g_dwStdDisplay_numDevices = 0x0;
-/* 0x00803f90, 4 bytes */ GRIM_DATA("00803f90") unsigned char g_pDisplayDevice[4] = {0};
-/* 0x00803f94, 4 bytes */ GRIM_DATA("00803f94") unsigned int g_dwVideoModeCount = 0x0;
-/* 0x00803f98, 4 bytes */ GRIM_DATA("00803f98") unsigned char g_pVideoMode[4] = {0};
-/* 0x00803f9c, 4 bytes */ GRIM_DATA("00803f9c") int UINT_00803f9c = 0;
-/* 0x00803fa0, 4 bytes */ GRIM_DATA("00803fa0") unsigned int g_dwStdDisplay_numDrawBuffers = 0x0;
-/* 0x00803fa4, 4 bytes */ GRIM_DATA("00803fa4") unsigned char g_pDirectDraw[4] = {0};
-/* 0x00803fa8, 4 bytes */ GRIM_DATA("00803fa8") unsigned char g_pDDrawPrimary[4] = {0};
-/* 0x00803fac, 4 bytes */ GRIM_DATA("00803fac") unsigned char g_pDDrawBack[4] = {0};
-/* 0x00803fb0, 4 bytes */ GRIM_DATA("00803fb0") unsigned int UINT_00803fb0 = 0x0;
-/* 0x00803fb4, 4 bytes */ GRIM_DATA("00803fb4") unsigned int UINT_00803fb4 = 0x0;
-/* 0x00803fb8, 8 bytes */ GRIM_DATA("00803fb8") unsigned char UINT_00803fb8[8] = {0};
-/* 0x00803fc0, 8 bytes */ GRIM_DATA("00803fc0") unsigned char PTR_00803fc0[8] = {0};
-/* 0x00803fc8, 4 bytes */ GRIM_DATA("00803fc8") unsigned int UINT_00803fc8 = 0x0;
-/* 0x00803fcc, 4 bytes */ GRIM_DATA("00803fcc") unsigned char DAT_00803fcc[4] = {0};
-/* 0x00803fd0, 4 bytes */ GRIM_DATA("00803fd0") unsigned int UINT_00803fd0 = 0x0;
-/* 0x00803fd4, 44 bytes */ GRIM_DATA("00803fd4") unsigned char UINT_00803fd4[44] = {0};
-/* 0x00804000, 4 bytes */ GRIM_DATA("00804000") unsigned char DAT_00804000[4] = {0};
-/* 0x00804004, 4 bytes */ GRIM_DATA("00804004") unsigned char DAT_00804004[4] = {0};
-/* 0x00804008, 8 bytes */ GRIM_DATA("00804008") unsigned char DAT_00804008[8] = {0};
-/* 0x00804010, 4 bytes */ GRIM_DATA("00804010") unsigned int UINT_00804010 = 0x0;
-/* 0x00804014, 4 bytes */ GRIM_DATA("00804014") unsigned char DAT_00804014[4] = {0};
-/* 0x00804018, 8 bytes */ GRIM_DATA("00804018") unsigned char g_dwKeyInfo[8] = {0};
-/* 0x00804020, 4 bytes */ GRIM_DATA("00804020") unsigned int UINT_00804020 = 0x0;
-/* 0x00804024, 4 bytes */ GRIM_DATA("00804024") unsigned int UINT_00804024 = 0x0;
-/* 0x00804028, 4 bytes */ GRIM_DATA("00804028") unsigned int UINT_00804028 = 0x0;
-/* 0x0080402c, 4 bytes */ GRIM_DATA("0080402c") unsigned int UINT_0080402c = 0x0;
-/* 0x00804030, 256 bytes */ GRIM_DATA("00804030") unsigned char UINT_00804030[256] = {0};
-/* 0x00804130, 8 bytes */ GRIM_DATA("00804130") unsigned char DAT_00804130[8] = {0};
-/* 0x00804138, 4 bytes */ GRIM_DATA("00804138") unsigned char DAT_00804138[4] = {0};
-/* 0x0080413c, 4 bytes */ GRIM_DATA("0080413c") unsigned char DAT_0080413c[4] = {0};
-/* 0x00804140, 4 bytes */ GRIM_DATA("00804140") unsigned char DAT_00804140[4] = {0};
-/* 0x00804144, 4 bytes */ GRIM_DATA("00804144") unsigned char DAT_00804144[4] = {0};
-/* 0x00804148, 4 bytes */ GRIM_DATA("00804148") unsigned char DAT_00804148[4] = {0};
-/* 0x0080414c, 8 bytes */ GRIM_DATA("0080414c") unsigned char DAT_0080414c[8] = {0};
-/* 0x00804154, 4 bytes */ GRIM_DATA("00804154") unsigned char DAT_00804154[4] = {0};
-/* 0x00804158, 4 bytes */ GRIM_DATA("00804158") unsigned char DAT_00804158[4] = {0};
-/* 0x0080415c, 4 bytes */ GRIM_DATA("0080415c") unsigned char DAT_0080415c[4] = {0};
-/* 0x00804160, 4 bytes */ GRIM_DATA("00804160") unsigned char DAT_00804160[4] = {0};
-/* 0x00804164, 4 bytes */ GRIM_DATA("00804164") unsigned char DAT_00804164[4] = {0};
-/* 0x00804168, 8 bytes */ GRIM_DATA("00804168") unsigned char DAT_00804168[8] = {0};
-/* 0x00804170, 4 bytes */ GRIM_DATA("00804170") unsigned char DAT_00804170[4] = {0};
-/* 0x00804174, 4 bytes */ GRIM_DATA("00804174") unsigned char DAT_00804174[4] = {0};
-/* 0x00804178, 4 bytes */ GRIM_DATA("00804178") unsigned char DAT_00804178[4] = {0};
-/* 0x0080417c, 4 bytes */ GRIM_DATA("0080417c") unsigned char DAT_0080417c[4] = {0};
-/* 0x00804180, 4 bytes */ GRIM_DATA("00804180") unsigned char DAT_00804180[4] = {0};
-/* 0x00804184, 8 bytes */ GRIM_DATA("00804184") unsigned char DAT_00804184[8] = {0};
-/* 0x0080418c, 4 bytes */ GRIM_DATA("0080418c") unsigned char DAT_0080418c[4] = {0};
-/* 0x00804190, 4 bytes */ GRIM_DATA("00804190") unsigned char DAT_00804190[4] = {0};
-/* 0x00804194, 4 bytes */ GRIM_DATA("00804194") unsigned char DAT_00804194[4] = {0};
-/* 0x00804198, 4 bytes */ GRIM_DATA("00804198") unsigned char DAT_00804198[4] = {0};
-/* 0x0080419c, 6788 bytes */ GRIM_DATA("0080419c") unsigned char DAT_0080419c[6788] = {0};
-/* 0x00805c20, 784 bytes */ GRIM_DATA("00805c20") unsigned char UINT_00805c20[784] = {0};
-/* 0x00805f30, 104 bytes */ GRIM_DATA("00805f30") unsigned char UINT_00805f30[104] = {0};
-/* 0x00805f98, 4 bytes */ GRIM_DATA("00805f98") unsigned int g_dwStdControl_bStartup = 0x0;
-/* 0x00805f9c, 4 bytes */ GRIM_DATA("00805f9c") int g_nStdControl_bOpen = 0;
-/* 0x00805fa0, 4 bytes */ GRIM_DATA("00805fa0") unsigned int UINT_00805fa0 = 0x0;
-/* 0x00805fa4, 4 bytes */ GRIM_DATA("00805fa4") unsigned int g_dwStdControl_bControlsIdle = 0x0;
-/* 0x00805fa8, 4 bytes */ GRIM_DATA("00805fa8") int g_nInputAcquired = 0;
-/* 0x00805fac, 4 bytes */ GRIM_DATA("00805fac") unsigned char g_pDirectInput[4] = {0};
-/* 0x00805fb0, 4 bytes */ GRIM_DATA("00805fb0") unsigned char g_pDInputMouse[4] = {0};
-/* 0x00805fb4, 4 bytes */ GRIM_DATA("00805fb4") unsigned char g_pDInputKeyboard[4] = {0};
-/* 0x00805fb8, 4 bytes */ GRIM_DATA("00805fb8") unsigned int UINT_00805fb8 = 0x0;
-/* 0x00805fbc, 4 bytes */ GRIM_DATA("00805fbc") unsigned int g_dwCurReadTime = 0x0;
-/* 0x00805fc0, 8 bytes */ GRIM_DATA("00805fc0") unsigned char g_dwLastReadTime[8] = {0};
-/* 0x00805fc8, 4 bytes */ GRIM_DATA("00805fc8") unsigned int UINT_00805fc8 = 0x0;
-/* 0x00805fcc, 4 bytes */ GRIM_DATA("00805fcc") unsigned int UINT_00805fcc = 0x0;
-/* 0x00805fd0, 4 bytes */ GRIM_DATA("00805fd0") unsigned int UINT_00805fd0 = 0x0;
-/* 0x00805fd4, 4 bytes */ GRIM_DATA("00805fd4") unsigned int g_dwStdPlatform_Assert_enteredOnce = 0x0;
-/* 0x00805fd8, 512 bytes */ GRIM_DATA("00805fd8") unsigned char DAT_00805fd8[512] = {0};
-/* 0x008061d8, 4 bytes */ GRIM_DATA("008061d8") unsigned int UINT_008061d8 = 0x0;
-/* 0x008061dc, 4 bytes */ GRIM_DATA("008061dc") unsigned int UINT_008061dc = 0x0;
-/* 0x008061e0, 4 bytes */ GRIM_DATA("008061e0") unsigned int UINT_008061e0 = 0x0;
-/* 0x008061e4, 4 bytes */ GRIM_DATA("008061e4") unsigned char g_pD3dDevice[4] = {0};
-/* 0x008061e8, 512 bytes */ GRIM_DATA("008061e8") unsigned char DAT_008061e8[512] = {0};
-/* 0x008063e8, 4 bytes */ GRIM_DATA("008063e8") unsigned int UINT_008063e8 = 0x0;
-/* 0x008063ec, 4 bytes */ GRIM_DATA("008063ec") unsigned int UINT_008063ec = 0x0;
-/* 0x008063f0, 4 bytes */ GRIM_DATA("008063f0") unsigned char DAT_008063f0[4] = {0};
-/* 0x008063f4, 4 bytes */ GRIM_DATA("008063f4") unsigned char DAT_008063f4[4] = {0};
-/* 0x008063f8, 4 bytes */ GRIM_DATA("008063f8") unsigned char DAT_008063f8[4] = {0};
-/* 0x008063fc, 4 bytes */ GRIM_DATA("008063fc") unsigned char DAT_008063fc[4] = {0};
-/* 0x00806400, 8 bytes */ GRIM_DATA("00806400") unsigned char UINT_00806400[8] = {0};
-/* 0x00806408, 512 bytes */ GRIM_DATA("00806408") unsigned char UINT_00806408[512] = {0};
-/* 0x00806608, 4 bytes */ GRIM_DATA("00806608") unsigned char g_pDirect3D[4] = {0};
-/* 0x0080660c, 4 bytes */ GRIM_DATA("0080660c") unsigned char PTR_0080660c[4] = {0};
-/* 0x00806610, 4 bytes */ GRIM_DATA("00806610") unsigned int UINT_00806610 = 0x0;
-/* 0x00806614, 4 bytes */ GRIM_DATA("00806614") unsigned char PTR_00806614[4] = {0};
-/* 0x00806618, 768 bytes */ GRIM_DATA("00806618") unsigned char DAT_00806618[768] = {0};
-/* 0x00806918, 4 bytes */ GRIM_DATA("00806918") unsigned char PTR_00806918[4] = {0};
-/* 0x0080691c, 4 bytes */ GRIM_DATA("0080691c") unsigned int UINT_0080691c = 0x0;
-/* 0x00806920, 4 bytes */ GRIM_DATA("00806920") unsigned int g_dwD3dRenderFlags = 0x0;
-/* 0x00806924, 4 bytes */ GRIM_DATA("00806924") unsigned int UINT_00806924 = 0x0;
-/* 0x00806928, 4 bytes */ GRIM_DATA("00806928") unsigned int g_dwD3dDriverCount = 0x0;
-/* 0x0080692c, 4 bytes */ GRIM_DATA("0080692c") unsigned char g_pStd3D_CurDevice[4] = {0};
-/* 0x00806930, 4 bytes */ GRIM_DATA("00806930") unsigned int UINT_00806930 = 0x0;
-/* 0x00806934, 4 bytes */ GRIM_DATA("00806934") unsigned int UINT_00806934 = 0x0;
-/* 0x00806938, 4 bytes */ GRIM_DATA("00806938") unsigned int UINT_00806938 = 0x0;
-/* 0x0080693c, 4 bytes */ GRIM_DATA("0080693c") unsigned int UINT_0080693c = 0x0;
-/* 0x00806940, 4 bytes */ GRIM_DATA("00806940") unsigned int g_dwStd3D_maxVertices = 0x0;
-/* 0x00806944, 4 bytes */ GRIM_DATA("00806944") unsigned int UINT_00806944 = 0x0;
-/* 0x00806948, 4 bytes */ GRIM_DATA("00806948") unsigned char g_pD3dTextureList[4] = {0};
-/* 0x0080694c, 4 bytes */ GRIM_DATA("0080694c") unsigned char PTR_0080694c[4] = {0};
-/* 0x00806950, 4 bytes */ GRIM_DATA("00806950") unsigned int UINT_00806950 = 0x0;
-/* 0x00806954, 4 bytes */ GRIM_DATA("00806954") unsigned char g_pD3dExecuteBuffer[4] = {0};
-/* 0x00806958, 4 bytes */ GRIM_DATA("00806958") unsigned char DAT_00806958[4] = {0};
-/* 0x0080695c, 4 bytes */ GRIM_DATA("0080695c") unsigned int UINT_0080695c = 0x0;
-/* 0x00806960, 4 bytes */ GRIM_DATA("00806960") unsigned int UINT_00806960 = 0x0;
-/* 0x00806964, 4 bytes */ GRIM_DATA("00806964") unsigned char PTR_00806964[4] = {0};
-/* 0x00806968, 4 bytes */ GRIM_DATA("00806968") unsigned char PTR_00806968[4] = {0};
-/* 0x0080696c, 4 bytes */ GRIM_DATA("0080696c") unsigned int UINT_0080696c = 0x0;
-/* 0x00806970, 4 bytes */ GRIM_DATA("00806970") unsigned int UINT_00806970 = 0x0;
-/* 0x00806974, 780 bytes */ GRIM_DATA("00806974") unsigned char UINT_00806974[780] = {0};
-/* 0x00806c80, 8 bytes */ GRIM_DATA("00806c80") unsigned char g_dwStdColor_ColorConvertOneRow_row[8] = {0};
-/* 0x00806c88, 2560 bytes */ GRIM_DATA("00806c88") unsigned char DAT_00806c88[2560] = {0};
-/* 0x00807688, 80 bytes */ GRIM_DATA("00807688") unsigned char DAT_00807688[80] = {0};
-/* 0x008076d8, 80 bytes */ GRIM_DATA("008076d8") unsigned char DAT_008076d8[80] = {0};
-/* 0x00807728, 20560 bytes */ GRIM_DATA("00807728") unsigned char DAT_00807728[20560] = {0};
-/* 0x0080c778, 1104 bytes */ GRIM_DATA("0080c778") unsigned char DAT_0080c778[1104] = {0};
-/* 0x0080cbc8, 4 bytes */ GRIM_DATA("0080cbc8") unsigned int g_dwStdConffile_linenum = 0x0;
-/* 0x0080cbcc, 4 bytes */ GRIM_DATA("0080cbcc") unsigned int g_dwStdConffile_bOpen = 0x0;
-/* 0x0080cbd0, 8 bytes */ GRIM_DATA("0080cbd0") unsigned char UINT_0080cbd0[8] = {0};
-/* 0x0080cbd8, 8 bytes */ GRIM_DATA("0080cbd8") unsigned int g_dwStackLevel = 0x0;
-/* 0x0080cbdc, 4 bytes: the rest of g_dwStackLevel's span */ GRIM_DATA("0080cbd8") static unsigned char g_dwStackLevel__tail[4] __attribute__((used)) = {0};
-/* 0x0080cbe0, 4 bytes */ GRIM_DATA("0080cbe0") unsigned char DAT_0080cbe0[4] = {0};
-/* 0x0080cbe4, 4 bytes */ GRIM_DATA("0080cbe4") unsigned int UINT_0080cbe4 = 0x0;
-/* 0x0080cbe8, 4 bytes */ GRIM_DATA("0080cbe8") unsigned char DAT_0080cbe8[4] = {0};
-/* 0x0080cbec, 4 bytes */ GRIM_DATA("0080cbec") unsigned char DAT_0080cbec[4] = {0};
-/* 0x0080cbf0, 8 bytes */ GRIM_DATA("0080cbf0") unsigned char DAT_0080cbf0[8] = {0};
-/* 0x0080cbf8, 256 bytes */ GRIM_DATA("0080cbf8") unsigned char DAT_0080cbf8[256] = {0};
-/* 0x0080ccf8, 20012 bytes */ GRIM_DATA("0080ccf8") unsigned char UINT_0080ccf8[20012] = {0};
-/* 0x00811b24, 4 bytes */ GRIM_DATA("00811b24") unsigned char DAT_00811b24[4] = {0};
-/* 0x00811b28, 4 bytes */ GRIM_DATA("00811b28") unsigned char DAT_00811b28[4] = {0};
-/* 0x00811b2c, 4 bytes */ GRIM_DATA("00811b2c") unsigned char DAT_00811b2c[4] = {0};
-/* 0x00811b30, 5004 bytes */ GRIM_DATA("00811b30") unsigned char DAT_00811b30[5004] = {0};
-/* 0x00812ebc, 4 bytes */ GRIM_DATA("00812ebc") unsigned char DAT_00812ebc[4] = {0};
-/* 0x00812ec0, 4 bytes */ GRIM_DATA("00812ec0") unsigned char PTR_00812ec0[4] = {0};
-/* 0x00812ec4, 4 bytes */ GRIM_DATA("00812ec4") unsigned char DAT_00812ec4[4] = {0};
-/* 0x00812ec8, 4 bytes */ GRIM_DATA("00812ec8") unsigned char DAT_00812ec8[4] = {0};
-/* 0x00812ecc, 4 bytes */ GRIM_DATA("00812ecc") unsigned int UINT_00812ecc = 0x0;
-/* 0x00812ed0, 8 bytes */ GRIM_DATA("00812ed0") unsigned char DAT_00812ed0[8] = {0};
-/* 0x00812ed8, 10008 bytes */ GRIM_DATA("00812ed8") unsigned char UINT_00812ed8[10008] = {0};
-/* 0x008155f0, 4 bytes */ GRIM_DATA("008155f0") unsigned char DAT_008155f0[4] = {0};
-/* 0x008155f4, 4 bytes */ GRIM_DATA("008155f4") unsigned char DAT_008155f4[4] = {0};
-/* 0x008155f8, 8 bytes */ GRIM_DATA("008155f8") unsigned char DAT_008155f8[8] = {0};
-/* 0x00815600, 8 bytes */ GRIM_DATA("00815600") unsigned char DAT_00815600[8] = {0};
-/* 0x00815608, 4 bytes */ GRIM_DATA("00815608") unsigned char DAT_00815608[4] = {0};
-/* 0x0081560c, 4 bytes */ GRIM_DATA("0081560c") unsigned int UINT_0081560c = 0x0;
-/* 0x00815610, 4 bytes */ GRIM_DATA("00815610") char DAT_00815610 = 0;
-/* 0x00815611, 3 bytes: the rest of DAT_00815610's span */ GRIM_DATA("00815610") static unsigned char DAT_00815610__tail[3] __attribute__((used)) = {0};
-/* 0x00815614, 4 bytes */ GRIM_DATA("00815614") unsigned int UINT_00815614 = 0x0;
-/* 0x00815618, 4 bytes */ GRIM_DATA("00815618") unsigned int UINT_00815618 = 0x0;
-/* 0x0081561c, 4 bytes */ GRIM_DATA("0081561c") unsigned char PTR_0081561c[4] = {0};
-/* 0x00815620, 4 bytes */ GRIM_DATA("00815620") unsigned char DAT_00815620[4] = {0};
-/* 0x00815624, 63728 bytes */ GRIM_DATA("00815624") unsigned char DAT_00815624[63728] = {0};
-/* 0x00824f14, 4 bytes */ GRIM_DATA("00824f14") unsigned char DAT_00824f14[4] = {0};
-/* 0x00824f18, 4 bytes */ GRIM_DATA("00824f18") unsigned char DAT_00824f18[4] = {0};
-/* 0x00824f1c, 4 bytes */ GRIM_DATA("00824f1c") unsigned char DAT_00824f1c[4] = {0};
-/* 0x00824f20, 4 bytes */ GRIM_DATA("00824f20") unsigned char DAT_00824f20[4] = {0};
-/* 0x00824f24, 8 bytes */ GRIM_DATA("00824f24") unsigned char DAT_00824f24[8] = {0};
-/* 0x00824f2c, 4 bytes */ GRIM_DATA("00824f2c") unsigned char DAT_00824f2c[4] = {0};
-/* 0x00824f30, 4 bytes */ GRIM_DATA("00824f30") unsigned char DAT_00824f30[4] = {0};
-/* 0x00824f34, 12 bytes */ GRIM_DATA("00824f34") unsigned char DAT_00824f34[12] = {0};
-/* 0x00824f40, 3896 bytes */ GRIM_DATA("00824f40") unsigned char DAT_00824f40[3896] = {0};
-/* 0x00825e78, 4 bytes */ GRIM_DATA("00825e78") unsigned int UINT_00825e78 = 0x0;
-/* 0x00825e7c, 4 bytes */ GRIM_DATA("00825e7c") unsigned int g_dwStdMemory_curState = 0x0;
-/* 0x00825e80, 4 bytes */ GRIM_DATA("00825e80") unsigned int UINT_00825e80 = 0x0;
-/* 0x00825e84, 12 bytes */ GRIM_DATA("00825e84") unsigned char UINT_00825e84[12] = {0};
-/* 0x00825e90, 112 bytes */ GRIM_DATA("00825e90") unsigned char g_aLowLevelHS[112] = {0};
-/* 0x00825f00, 64 bytes */ GRIM_DATA("00825f00") unsigned char g_aFoundFiles[64] = {0};
-/* 0x00825f40, 16 bytes */ GRIM_DATA("00825f40") unsigned char UINT_00825f40[16] = {0};
-/* 0x00825f50, 4 bytes */ GRIM_DATA("00825f50") unsigned char DAT_00825f50[4] = {0};
-/* 0x00825f54, 8 bytes */ GRIM_DATA("00825f54") unsigned char DAT_00825f54[8] = {0};
-/* 0x00825f5c, 4 bytes */ GRIM_DATA("00825f5c") unsigned char DAT_00825f5c[4] = {0};
-/* 0x00825f60, 4 bytes */ GRIM_DATA("00825f60") unsigned char DAT_00825f60[4] = {0};
-/* 0x00825f64, 529884 bytes */ GRIM_DATA("00825f64") unsigned char DAT_00825f64[529884] = {0};
-/* 0x008a7540, 4140 bytes */ GRIM_DATA("008a7540") unsigned char DAT_008a7540[4140] = {0};
-/* 0x008a856c, 4 bytes */ GRIM_DATA("008a856c") unsigned int g_dwResHS = 0x0;
-/* 0x008a8570, 8 bytes */ GRIM_DATA("008a8570") unsigned int g_dwLowLevelHS = 0x0;
+/* 0x004f5a50, 4 bytes */ GRIM_DATA("004f5a50") unsigned int UINT_004f5a50 __asm__("_UINT_004f5a50") = 0x0;
+/* 0x004f5a98, 8 bytes */ GRIM_DATA("004f5a98") unsigned char DAT_004f5a98[8] __asm__("_DAT_004f5a98") = {0};
+/* 0x004f5eb4, 4 bytes */ GRIM_DATA("004f5eb4") unsigned int g_dwRdroid_frameTrue __asm__("_g_dwRdroid_frameTrue") = 0x0;
+/* 0x004f5ec0, 4 bytes */ GRIM_DATA("004f5ec0") unsigned int g_dwRdColormap_pIdentityMap __asm__("_g_dwRdColormap_pIdentityMap") = 0x0;
+/* 0x004f5ec4, 4 bytes */ GRIM_DATA("004f5ec4") unsigned int g_dwRdColormap_pCurMap __asm__("_g_dwRdColormap_pCurMap") = 0x0;
+/* 0x007f0fc8, 8 bytes */ GRIM_DATA("007f0fc8") unsigned char g_pRdCamera_CurCamera[8] __asm__("_g_pRdCamera_CurCamera") = {0};
+/* 0x007f0fd0, 8 bytes */ GRIM_DATA("007f0fd0") unsigned char g_dwCurGeo[8] __asm__("_g_dwCurGeo") = {0};
+/* 0x007f1494, 4 bytes */ GRIM_DATA("007f1494") unsigned int g_dwCurTextureMode __asm__("_g_dwCurTextureMode") = 0x0;
+/* 0x007f1498, 256 bytes */ GRIM_DATA("007f1498") unsigned char g_apGeoLights[256] __asm__("_g_apGeoLights") = {0};
+/* 0x007f189c, 4 bytes */ GRIM_DATA("007f189c") unsigned int UINT_007f189c __asm__("_UINT_007f189c") = 0x0;
+/* 0x007f30a4, 4 bytes */ GRIM_DATA("007f30a4") unsigned int g_dwThingFrustrumCull __asm__("_g_dwThingFrustrumCull") = 0x0;
+/* 0x007f30dc, 4 bytes */ GRIM_DATA("007f30dc") unsigned int UINT_007f30dc __asm__("_UINT_007f30dc") = 0x0;
+/* 0x007f31e0, 4 bytes */ GRIM_DATA("007f31e0") unsigned char g_pCurThing[4] __asm__("_g_pCurThing") = {0};
+/* 0x007f31ec, 4 bytes */ GRIM_DATA("007f31ec") unsigned int g_dwRdModel3_numDrawnModels __asm__("_g_dwRdModel3_numDrawnModels") = 0x0;
+/* 0x007f31f8, 4 bytes */ GRIM_DATA("007f31f8") unsigned int g_dwNumGeoLights __asm__("_g_dwNumGeoLights") = 0x0;
+/* 0x007f3204, 4 bytes */ GRIM_DATA("007f3204") unsigned int g_dwClipPlaneActive __asm__("_g_dwClipPlaneActive") = 0x0;
+/* 0x007f3208, 4 bytes */ GRIM_DATA("007f3208") float FLOAT_007f3208 __asm__("_FLOAT_007f3208") = 0.0f;
+/* 0x007f320c, 4 bytes */ GRIM_DATA("007f320c") float FLOAT_007f320c __asm__("_FLOAT_007f320c") = 0.0f;
+/* 0x007f3210, 4 bytes */ GRIM_DATA("007f3210") float FLOAT_007f3210 __asm__("_FLOAT_007f3210") = 0.0f;
+/* 0x007f46b8, 4 bytes */ GRIM_DATA("007f46b8") unsigned int g_dwWorkTVerts __asm__("_g_dwWorkTVerts") = 0x0;
+/* 0x007f47c0, 256 bytes */ GRIM_DATA("007f47c0") unsigned char g_dwWorkIVerts[256] __asm__("_g_dwWorkIVerts") = {0};
+/* 0x007f48c0, 4 bytes */ GRIM_DATA("007f48c0") unsigned int g_dwWorkVerts __asm__("_g_dwWorkVerts") = 0x0;
+/* 0x00803f84, 4 bytes */ GRIM_DATA("00803f84") int g_nDisplayDeviceOpen __asm__("_g_nDisplayDeviceOpen") = 0;
+/* 0x00803f8c, 4 bytes */ GRIM_DATA("00803f8c") unsigned int g_dwStdDisplay_numDevices __asm__("_g_dwStdDisplay_numDevices") = 0x0;
+/* 0x00803f90, 4 bytes */ GRIM_DATA("00803f90") unsigned char g_pDisplayDevice[4] __asm__("_g_pDisplayDevice") = {0};
+/* 0x00803f94, 4 bytes */ GRIM_DATA("00803f94") unsigned int g_dwVideoModeCount __asm__("_g_dwVideoModeCount") = 0x0;
+/* 0x00803f98, 4 bytes */ GRIM_DATA("00803f98") unsigned char g_pVideoMode[4] __asm__("_g_pVideoMode") = {0};
+/* 0x00803fa0, 4 bytes */ GRIM_DATA("00803fa0") unsigned int g_dwStdDisplay_numDrawBuffers __asm__("_g_dwStdDisplay_numDrawBuffers") = 0x0;
+/* 0x00805f98, 4 bytes */ GRIM_DATA("00805f98") unsigned int g_dwStdControl_bStartup __asm__("_g_dwStdControl_bStartup") = 0x0;
+/* 0x00805f9c, 4 bytes */ GRIM_DATA("00805f9c") int g_nStdControl_bOpen __asm__("_g_nStdControl_bOpen") = 0;
+/* 0x00805fd8, 512 bytes */ GRIM_DATA("00805fd8") unsigned char DAT_00805fd8[512] __asm__("_DAT_00805fd8") = {0};
+/* 0x008061e8, 512 bytes */ GRIM_DATA("008061e8") unsigned char DAT_008061e8[512] __asm__("_DAT_008061e8") = {0};
+/* 0x00806408, 512 bytes */ GRIM_DATA("00806408") unsigned char UINT_00806408[512] __asm__("_UINT_00806408") = {0};
+/* 0x00806928, 4 bytes */ GRIM_DATA("00806928") unsigned int g_dwD3dDriverCount __asm__("_g_dwD3dDriverCount") = 0x0;
+/* 0x0080692c, 4 bytes */ GRIM_DATA("0080692c") unsigned char g_pStd3D_CurDevice[4] __asm__("_g_pStd3D_CurDevice") = {0};
+/* 0x00806934, 4 bytes */ GRIM_DATA("00806934") unsigned int UINT_00806934 __asm__("_UINT_00806934") = 0x0;
+/* 0x00806938, 4 bytes */ GRIM_DATA("00806938") unsigned int UINT_00806938 __asm__("_UINT_00806938") = 0x0;
+/* 0x0080693c, 4 bytes */ GRIM_DATA("0080693c") unsigned int UINT_0080693c __asm__("_UINT_0080693c") = 0x0;
+/* 0x00806940, 4 bytes */ GRIM_DATA("00806940") unsigned int g_dwStd3D_maxVertices __asm__("_g_dwStd3D_maxVertices") = 0x0;
+/* 0x00825e7c, 4 bytes */ GRIM_DATA("00825e7c") unsigned int g_dwStdMemory_curState __asm__("_g_dwStdMemory_curState") = 0x0;
+/* 0x00825f00, 64 bytes */ GRIM_DATA("00825f00") unsigned char g_aFoundFiles[64] __asm__("_g_aFoundFiles") = {0};
+/* 0x008a856c, 4 bytes */ GRIM_DATA("008a856c") unsigned int g_dwResHS __asm__("_g_dwResHS") = 0x0;
+/* 0x008a8570, 8 bytes */ GRIM_DATA("008a8570") unsigned int g_dwLowLevelHS __asm__("_g_dwLowLevelHS") = 0x0;
 /* 0x008a8574, 4 bytes: the rest of g_dwLowLevelHS's span */ GRIM_DATA("008a8570") static unsigned char g_dwLowLevelHS__tail[4] __attribute__((used)) = {0};
-/* 0x008a8578, 64 bytes */ GRIM_DATA("008a8578") unsigned char g_aFoundFileNodes[64] = {0};
-/* 0x008a85b8, 4 bytes */ GRIM_DATA("008a85b8") unsigned int g_dwResSysInitialized = 0x0;
-/* 0x008a85bc, 4 bytes */ GRIM_DATA("008a85bc") unsigned int g_dwResSysStarted = 0x0;
-/* 0x008a85c0, 4 bytes */ GRIM_DATA("008a85c0") unsigned int g_dwResFilePool = 0x0;
-/* 0x008a85c4, 4 bytes */ GRIM_DATA("008a85c4") unsigned char g_pResFileList[4] = {0};
-/* 0x008a85c8, 4 bytes */ GRIM_DATA("008a85c8") unsigned int g_dwResTypePool = 0x0;
-/* 0x008a85cc, 4 bytes */ GRIM_DATA("008a85cc") unsigned char g_dwResTypeList[4] = {0};
-/* 0x008a85d0, 4 bytes */ GRIM_DATA("008a85d0") unsigned int g_dwResNodePool = 0x0;
-/* 0x008a85d4, 4 bytes */ GRIM_DATA("008a85d4") unsigned char g_pNewestResNode[4] = {0};
-/* 0x008a85d8, 8 bytes */ GRIM_DATA("008a85d8") unsigned char g_dwOldestResNode[8] = {0};
-/* 0x008a85e0, 4 bytes */ GRIM_DATA("008a85e0") unsigned int g_dwLastFound = 0x0;
-/* 0x008a85e4, 4 bytes */ GRIM_DATA("008a85e4") unsigned int g_dwLogFile = 0x0;
-/* 0x008a85e8, 8 bytes */ GRIM_DATA("008a85e8") unsigned char g_dwRes_pPeriodicCallback[8] = {0};
-/* 0x008a85f0, 80 bytes */ GRIM_DATA("008a85f0") unsigned char DAT_008a85f0[80] = {0};
-/* 0x008a8640, 4 bytes */ GRIM_DATA("008a8640") unsigned int UINT_008a8640 = 0x0;
-/* 0x008a8644, 124 bytes */ GRIM_DATA("008a8644") unsigned char UINT_008a8644[124] = {0};
-/* 0x008a86c0, 4 bytes */ GRIM_DATA("008a86c0") unsigned int UINT_008a86c0 = 0x0;
-/* 0x008a86c4, 28 bytes */ GRIM_DATA("008a86c4") unsigned char UINT_008a86c4[28] = {0};
-/* 0x008a86e0, 4 bytes */ GRIM_DATA("008a86e0") unsigned int UINT_008a86e0 = 0x0;
-/* 0x008a86e4, 12 bytes */ GRIM_DATA("008a86e4") unsigned char UINT_008a86e4[12] = {0};
-/* 0x008a86f0, 128 bytes */ GRIM_DATA("008a86f0") char g_szGrimlib_aFilename[128] = "";
-/* 0x008a8770, 8 bytes */ GRIM_DATA("008a8770") unsigned char UINT_008a8770[8] = {0};
-/* 0x008a8778, 48 bytes */ GRIM_DATA("008a8778") unsigned char DAT_008a8778[48] = {0};
-/* 0x008a87a8, 4 bytes */ GRIM_DATA("008a87a8") unsigned char g_pfnIMuseSaveHook[4] = {0};
-/* 0x008a87ac, 28 bytes */ GRIM_DATA("008a87ac") unsigned char g_pfnIMuseRestoreHook[28] = {0};
-/* 0x008a87c8, 4 bytes */ GRIM_DATA("008a87c8") unsigned int UINT_008a87c8 = 0x0;
-/* 0x008a87cc, 28 bytes */ GRIM_DATA("008a87cc") unsigned char UINT_008a87cc[28] = {0};
-/* 0x008a87e8, 4 bytes */ GRIM_DATA("008a87e8") unsigned int UINT_008a87e8 = 0x0;
-/* 0x008a87ec, 28 bytes */ GRIM_DATA("008a87ec") unsigned char UINT_008a87ec[28] = {0};
-/* 0x008a8808, 4 bytes */ GRIM_DATA("008a8808") unsigned int UINT_008a8808 = 0x0;
-/* 0x008a880c, 28 bytes */ GRIM_DATA("008a880c") unsigned char UINT_008a880c[28] = {0};
-/* 0x008a8828, 4 bytes */ GRIM_DATA("008a8828") unsigned int UINT_008a8828 = 0x0;
-/* 0x008a882c, 1040 bytes */ GRIM_DATA("008a882c") unsigned char UINT_008a882c[1040] = {0};
-/* 0x008a8c3c, 4 bytes */ GRIM_DATA("008a8c3c") unsigned int g_dwGrimlib_frameNumber = 0x0;
-/* 0x008a8c40, 4 bytes */ GRIM_DATA("008a8c40") unsigned int g_dwGrimlib_mode = 0x0;
-/* 0x008a8c44, 4 bytes */ GRIM_DATA("008a8c44") unsigned int UINT_008a8c44 = 0x0;
-/* 0x008a8c48, 12 bytes */ GRIM_DATA("008a8c48") unsigned int g_dwGrimlib_prevmode = 0x0;
-/* 0x008a8c4c, 8 bytes: the rest of g_dwGrimlib_prevmode's span */ GRIM_DATA("008a8c48") static unsigned char g_dwGrimlib_prevmode__tail[8] __attribute__((used)) = {0};
-/* 0x008a8c54, 4 bytes */ GRIM_DATA("008a8c54") int g_nGrimlib_bDebugKeys = 0;
-/* 0x008a8c58, 4 bytes */ GRIM_DATA("008a8c58") unsigned int g_dwSputmInitialize = 0x0;
-/* 0x008a8c5c, 4 bytes */ GRIM_DATA("008a8c5c") unsigned int g_dwSputmStartup = 0x0;
-/* 0x008a8c60, 16 bytes */ GRIM_DATA("008a8c60") unsigned char UINT_008a8c60[16] = {0};
-/* 0x008a8c70, 4 bytes */ GRIM_DATA("008a8c70") unsigned int g_dwGrimlib_shutdownCallback = 0x0;
-/* 0x008a8c74, 4 bytes */ GRIM_DATA("008a8c74") unsigned char g_pSputmHS[4] = {0};
-/* 0x008a8c78, 4 bytes */ GRIM_DATA("008a8c78") unsigned int g_dwSputmOpen = 0x0;
-/* 0x008a8c7c, 4 bytes */ GRIM_DATA("008a8c7c") unsigned int UINT_008a8c7c = 0x0;
-/* 0x008a8c80, 4 bytes */ GRIM_DATA("008a8c80") unsigned int g_dwDoLoad = 0x0;
-/* 0x008a8c84, 4 bytes */ GRIM_DATA("008a8c84") unsigned int g_dwJustLoaded = 0x0;
-/* 0x008a8c88, 8 bytes */ GRIM_DATA("008a8c88") unsigned char g_pSaveFileName[8] = {0};
-/* 0x008a8c90, 4 bytes */ GRIM_DATA("008a8c90") unsigned int UINT_008a8c90 = 0x0;
-/* 0x008a8c94, 4 bytes */ GRIM_DATA("008a8c94") unsigned int g_dwGrimlib_SetPause_oldmode = 0x0;
-/* 0x008a8c98, 4 bytes */ GRIM_DATA("008a8c98") unsigned char g_pPolyglot_HS[4] = {0};
-/* 0x008a8c9c, 4 bytes */ GRIM_DATA("008a8c9c") unsigned int g_dwLanguageLine = 0x0;
-/* 0x008a8ca0, 4 bytes */ GRIM_DATA("008a8ca0") unsigned char g_pLanguageMalloc[4] = {0};
-/* 0x008a8ca4, 4 bytes */ GRIM_DATA("008a8ca4") unsigned int g_dwLineCount = 0x0;
-/* 0x008a8ca8, 1536 bytes */ GRIM_DATA("008a8ca8") unsigned char DAT_008a8ca8[1536] = {0};
-/* 0x008a92a8, 4 bytes */ GRIM_DATA("008a92a8") unsigned char DAT_008a92a8[4] = {0};
-/* 0x008a92ac, 4 bytes */ GRIM_DATA("008a92ac") unsigned char DAT_008a92ac[4] = {0};
-/* 0x008a92b0, 4 bytes */ GRIM_DATA("008a92b0") unsigned char DAT_008a92b0[4] = {0};
-/* 0x008a92b4, 4 bytes */ GRIM_DATA("008a92b4") unsigned char DAT_008a92b4[4] = {0};
-/* 0x008a92b8, 4 bytes */ GRIM_DATA("008a92b8") unsigned char g_aSputRender_MarkDirtyRect_trect[4] = {0};
-/* 0x008a92bc, 4 bytes */ GRIM_DATA("008a92bc") unsigned char DAT_008a92bc[4] = {0};
-/* 0x008a92c0, 4 bytes */ GRIM_DATA("008a92c0") unsigned char DAT_008a92c0[4] = {0};
-/* 0x008a92c4, 4 bytes */ GRIM_DATA("008a92c4") unsigned char DAT_008a92c4[4] = {0};
-/* 0x008a92c8, 8 bytes */ GRIM_DATA("008a92c8") unsigned char g_dwSputRender_DrawLoadingImage_FrameAccum[8] = {0};
-/* 0x008a92d0, 4 bytes */ GRIM_DATA("008a92d0") unsigned int UINT_008a92d0 = 0x0;
-/* 0x008a92d4, 484 bytes */ GRIM_DATA("008a92d4") unsigned char UINT_008a92d4[484] = {0};
-/* 0x008a94b8, 4 bytes */ GRIM_DATA("008a94b8") unsigned int UINT_008a94b8 = 0x0;
-/* 0x008a94bc, 4 bytes */ GRIM_DATA("008a94bc") unsigned int UINT_008a94bc = 0x0;
-/* 0x008a94c0, 4 bytes */ GRIM_DATA("008a94c0") unsigned int UINT_008a94c0 = 0x0;
-/* 0x008a94c4, 8 bytes */ GRIM_DATA("008a94c4") unsigned char DAT_008a94c4[8] = {0};
-/* 0x008a94cc, 68 bytes */ GRIM_DATA("008a94cc") unsigned char DAT_008a94cc[68] = {0};
-/* 0x008a9510, 4 bytes */ GRIM_DATA("008a9510") unsigned int g_dwRenderVars = 0x0;
-/* 0x008a9514, 4 bytes */ GRIM_DATA("008a9514") unsigned int UINT_008a9514 = 0x0;
-/* 0x008a9518, 4 bytes */ GRIM_DATA("008a9518") unsigned int UINT_008a9518 = 0x0;
-/* 0x008a951c, 4 bytes */ GRIM_DATA("008a951c") unsigned int UINT_008a951c = 0x0;
-/* 0x008a9520, 4 bytes */ GRIM_DATA("008a9520") unsigned int UINT_008a9520 = 0x0;
-/* 0x008a9524, 4 bytes */ GRIM_DATA("008a9524") unsigned int UINT_008a9524 = 0x0;
-/* 0x008a9528, 4 bytes */ GRIM_DATA("008a9528") unsigned int UINT_008a9528 = 0x0;
-/* 0x008a952c, 4 bytes */ GRIM_DATA("008a952c") unsigned int g_dwTotDrawItems = 0x0;
-/* 0x008a9530, 127038 bytes */ GRIM_DATA("008a9530") unsigned short g_wSputRender_ColorLookup = 0x0;
+/* 0x008a8578, 64 bytes */ GRIM_DATA("008a8578") unsigned char g_aFoundFileNodes[64] __asm__("_g_aFoundFileNodes") = {0};
+/* 0x008a85c0, 4 bytes */ GRIM_DATA("008a85c0") unsigned int g_dwResFilePool __asm__("_g_dwResFilePool") = 0x0;
+/* 0x008a85c4, 4 bytes */ GRIM_DATA("008a85c4") unsigned char g_pResFileList[4] __asm__("_g_pResFileList") = {0};
+/* 0x008a85c8, 4 bytes */ GRIM_DATA("008a85c8") unsigned int g_dwResTypePool __asm__("_g_dwResTypePool") = 0x0;
+/* 0x008a85cc, 4 bytes */ GRIM_DATA("008a85cc") unsigned char g_dwResTypeList[4] __asm__("_g_dwResTypeList") = {0};
+/* 0x008a85d0, 4 bytes */ GRIM_DATA("008a85d0") unsigned int g_dwResNodePool __asm__("_g_dwResNodePool") = 0x0;
+/* 0x008a85d4, 4 bytes */ GRIM_DATA("008a85d4") unsigned char g_pNewestResNode[4] __asm__("_g_pNewestResNode") = {0};
+/* 0x008a85d8, 8 bytes */ GRIM_DATA("008a85d8") unsigned char g_dwOldestResNode[8] __asm__("_g_dwOldestResNode") = {0};
+/* 0x008a85e0, 4 bytes */ GRIM_DATA("008a85e0") unsigned int g_dwLastFound __asm__("_g_dwLastFound") = 0x0;
+/* 0x008a85e8, 8 bytes */ GRIM_DATA("008a85e8") unsigned char g_dwRes_pPeriodicCallback[8] __asm__("_g_dwRes_pPeriodicCallback") = {0};
+/* 0x008a86f0, 128 bytes */ GRIM_DATA("008a86f0") char g_szGrimlib_aFilename[128] __asm__("_g_szGrimlib_aFilename") = "";
+/* 0x008a8770, 8 bytes */ GRIM_DATA("008a8770") unsigned char UINT_008a8770[8] __asm__("_UINT_008a8770") = {0};
+/* 0x008a87a8, 4 bytes */ GRIM_DATA("008a87a8") unsigned char g_pfnIMuseSaveHook[4] __asm__("_g_pfnIMuseSaveHook") = {0};
+/* 0x008a87ac, 28 bytes */ GRIM_DATA("008a87ac") unsigned char g_pfnIMuseRestoreHook[28] __asm__("_g_pfnIMuseRestoreHook") = {0};
+/* 0x008a8c40, 4 bytes */ GRIM_DATA("008a8c40") unsigned int g_dwGrimlib_mode __asm__("_g_dwGrimlib_mode") = 0x0;
+/* 0x008a8c54, 4 bytes */ GRIM_DATA("008a8c54") int g_nGrimlib_bDebugKeys __asm__("_g_nGrimlib_bDebugKeys") = 0;
+/* 0x008a8c74, 4 bytes */ GRIM_DATA("008a8c74") unsigned char g_pSputmHS[4] __asm__("_g_pSputmHS") = {0};
+/* 0x008a8c98, 4 bytes */ GRIM_DATA("008a8c98") unsigned char g_pPolyglot_HS[4] __asm__("_g_pPolyglot_HS") = {0};
+/* 0x008a8c9c, 4 bytes */ GRIM_DATA("008a8c9c") unsigned int g_dwLanguageLine __asm__("_g_dwLanguageLine") = 0x0;
+/* 0x008a8ca0, 4 bytes */ GRIM_DATA("008a8ca0") unsigned char g_pLanguageMalloc[4] __asm__("_g_pLanguageMalloc") = {0};
+/* 0x008a92a8, 4 bytes */ GRIM_DATA("008a92a8") unsigned char DAT_008a92a8[4] __asm__("_DAT_008a92a8") = {0};
+/* 0x008a94b8, 4 bytes */ GRIM_DATA("008a94b8") unsigned int UINT_008a94b8 __asm__("_UINT_008a94b8") = 0x0;
+/* 0x008a94bc, 4 bytes */ GRIM_DATA("008a94bc") unsigned int UINT_008a94bc __asm__("_UINT_008a94bc") = 0x0;
+/* 0x008a94c0, 4 bytes */ GRIM_DATA("008a94c0") unsigned int UINT_008a94c0 __asm__("_UINT_008a94c0") = 0x0;
+/* 0x008a9510, 4 bytes */ GRIM_DATA("008a9510") unsigned int g_dwRenderVars __asm__("_g_dwRenderVars") = 0x0;
+/* 0x008a9514, 4 bytes */ GRIM_DATA("008a9514") unsigned int UINT_008a9514 __asm__("_UINT_008a9514") = 0x0;
+/* 0x008a9518, 4 bytes */ GRIM_DATA("008a9518") unsigned int UINT_008a9518 __asm__("_UINT_008a9518") = 0x0;
+/* 0x008a951c, 4 bytes */ GRIM_DATA("008a951c") unsigned int UINT_008a951c __asm__("_UINT_008a951c") = 0x0;
+/* 0x008a9520, 4 bytes */ GRIM_DATA("008a9520") unsigned int UINT_008a9520 __asm__("_UINT_008a9520") = 0x0;
+/* 0x008a9524, 4 bytes */ GRIM_DATA("008a9524") unsigned int UINT_008a9524 __asm__("_UINT_008a9524") = 0x0;
+/* 0x008a9528, 4 bytes */ GRIM_DATA("008a9528") unsigned int UINT_008a9528 __asm__("_UINT_008a9528") = 0x0;
+/* 0x008a952c, 4 bytes */ GRIM_DATA("008a952c") unsigned int g_dwTotDrawItems __asm__("_g_dwTotDrawItems") = 0x0;
+/* 0x008a9530, 127038 bytes */ GRIM_DATA("008a9530") unsigned short g_wSputRender_ColorLookup __asm__("_g_wSputRender_ColorLookup") = 0x0;
 /* 0x008a9532, 127036 bytes: the rest of g_wSputRender_ColorLookup's span */ GRIM_DATA("008a9530") static unsigned char g_wSputRender_ColorLookup__tail[127036] __attribute__((used)) = {0};
-/* 0x008c856e, 4034 bytes */ GRIM_DATA("008a9530") unsigned char DAT_008c856e[4034] = {0};
-/* 0x008c9530, 56 bytes */ GRIM_DATA("008c9530") int g_nCamActorIndex = 0;
+/* 0x008c856e, 4034 bytes */ GRIM_DATA("008a9530") unsigned char DAT_008c856e[4034] __asm__("_DAT_008c856e") = {0};
+/* 0x008c9530, 56 bytes */ GRIM_DATA("008c9530") int g_nCamActorIndex __asm__("_g_nCamActorIndex") = 0;
 /* 0x008c9534, 52 bytes: the rest of g_nCamActorIndex's span */ GRIM_DATA("008c9530") static unsigned char g_nCamActorIndex__tail[52] __attribute__((used)) = {0};
-/* 0x008c9568, 512 bytes */ GRIM_DATA("008c9568") unsigned char g_dwDrawItems[512] = {0};
-/* 0x008c9768, 8 bytes */ GRIM_DATA("008c9768") unsigned char g_pSputRendHS[8] = {0};
-/* 0x008c9770, 4 bytes */ GRIM_DATA("008c9770") unsigned int UINT_008c9770 = 0x0;
-/* 0x008c9774, 4 bytes */ GRIM_DATA("008c9774") unsigned int g_dwIrisStart = 0x0;
-/* 0x008c9778, 4 bytes */ GRIM_DATA("008c9778") float g_flIrisDuration = 0.0f;
-/* 0x008c977c, 4 bytes */ GRIM_DATA("008c977c") unsigned char g_pSputRender_Camera[4] = {0};
-/* 0x008c9780, 4 bytes */ GRIM_DATA("008c9780") unsigned int UINT_008c9780 = 0x0;
-/* 0x008c9784, 4 bytes */ GRIM_DATA("008c9784") int g_nSputRender_b3DAcceleration = 0;
-/* 0x008c9788, 4 bytes */ GRIM_DATA("008c9788") unsigned int g_dwSputRendInitialize = 0x0;
-/* 0x008c978c, 4 bytes */ GRIM_DATA("008c978c") unsigned int g_dwSputRendStartup = 0x0;
-/* 0x008c9790, 8 bytes */ GRIM_DATA("008c9790") unsigned char DAT_008c9790[8] = {0};
-/* 0x008c9798, 4 bytes */ GRIM_DATA("008c9798") unsigned int g_dwRenderFlags = 0x0;
-/* 0x008c979c, 4 bytes */ GRIM_DATA("008c979c") unsigned char g_pDirtyRectList[4] = {0};
-/* 0x008c97a0, 4 bytes */ GRIM_DATA("008c97a0") unsigned int UINT_008c97a0 = 0x0;
-/* 0x008c97a4, 4 bytes */ GRIM_DATA("008c97a4") unsigned int UINT_008c97a4 = 0x0;
-/* 0x008c97a8, 4 bytes */ GRIM_DATA("008c97a8") unsigned char g_pSputRender_Canvas[4] = {0};
-/* 0x008c97ac, 4 bytes */ GRIM_DATA("008c97ac") unsigned char g_pSputRender_DecompressionBuffer[4] = {0};
-/* 0x008c97b0, 4 bytes */ GRIM_DATA("008c97b0") unsigned char g_pSputRender_CleanBuffer[4] = {0};
-/* 0x008c97b4, 4 bytes */ GRIM_DATA("008c97b4") unsigned char g_pSputRender_CleanZBuffer[4] = {0};
-/* 0x008c97b8, 4 bytes */ GRIM_DATA("008c97b8") unsigned int g_dwSputRender_pSetPaletteFunc = 0x0;
-/* 0x008c97bc, 4 bytes */ GRIM_DATA("008c97bc") unsigned char g_pSputRender_PageFlipFunc[4] = {0};
-/* 0x008c97c0, 6 bytes */ GRIM_DATA("008c97c0") unsigned short g_abSputRender_colorMap[3] = {0};
-/* 0x008c97c6, 2 bytes */ GRIM_DATA("008c97c0") unsigned short DAT_008c97c6 = 0x0;
-/* 0x008c97c8, 4 bytes */ GRIM_DATA("008c97c8") unsigned int UINT_008c97c8 = 0x0;
-/* 0x008c97cc, 4 bytes */ GRIM_DATA("008c97cc") unsigned int UINT_008c97cc = 0x0;
-/* 0x008c97d0, 4 bytes */ GRIM_DATA("008c97d0") unsigned int UINT_008c97d0 = 0x0;
-/* 0x008c97d4, 4 bytes */ GRIM_DATA("008c97d4") unsigned int UINT_008c97d4 = 0x0;
-/* 0x008c97d8, 2 bytes */ GRIM_DATA("008c97d8") unsigned char DAT_008c97d8[2] = {0};
-/* 0x008c97da, 2 bytes */ GRIM_DATA("008c97d8") unsigned char DAT_008c97da[2] = {0};
-/* 0x008c97dc, 2 bytes */ GRIM_DATA("008c97dc") unsigned char DAT_008c97dc[2] = {0};
-/* 0x008c97de, 2 bytes */ GRIM_DATA("008c97dc") unsigned char DAT_008c97de[2] = {0};
-/* 0x008c97e0, 4 bytes */ GRIM_DATA("008c97e0") unsigned int UINT_008c97e0 = 0x0;
-/* 0x008c97e4, 4 bytes */ GRIM_DATA("008c97e4") unsigned int UINT_008c97e4 = 0x0;
-/* 0x008c97e8, 4 bytes */ GRIM_DATA("008c97e8") unsigned int UINT_008c97e8 = 0x0;
-/* 0x008c97ec, 4 bytes */ GRIM_DATA("008c97ec") unsigned char g_pDirtyRectPool[4] = {0};
-/* 0x008c97f0, 4 bytes */ GRIM_DATA("008c97f0") int g_nSputRender_Reset = 0;
-/* 0x008c97f4, 4 bytes */ GRIM_DATA("008c97f4") unsigned char g_pCacheRectList[4] = {0};
-/* 0x008c97f8, 4 bytes */ GRIM_DATA("008c97f8") unsigned int g_dwMovieJustFinished = 0x0;
-/* 0x008c97fc, 4 bytes */ GRIM_DATA("008c97fc") int g_nDirtyRectCount = 0;
-/* 0x008c9800, 4 bytes */ GRIM_DATA("008c9800") unsigned char g_pRenderedSet[4] = {0};
-/* 0x008c9804, 4 bytes */ GRIM_DATA("008c9804") unsigned int UINT_008c9804 = 0x0;
-/* 0x008c9808, 4 bytes */ GRIM_DATA("008c9808") unsigned int g_dwSputRender_ControlHandler_bLastL = 0x0;
-/* 0x008c980c, 4 bytes */ GRIM_DATA("008c980c") unsigned int g_dwSputRender_ControlHandler_bLastC = 0x0;
-/* 0x008c9810, 4 bytes */ GRIM_DATA("008c9810") unsigned int g_dwSputRender_ControlHandler_bLastB = 0x0;
-/* 0x008c9814, 4 bytes */ GRIM_DATA("008c9814") unsigned int g_dwSputRender_ControlHandler_bLastR = 0x0;
-/* 0x008c9818, 4 bytes */ GRIM_DATA("008c9818") unsigned int g_dwSputRender_ControlHandler_bLastSpace = 0x0;
-/* 0x008c981c, 4 bytes */ GRIM_DATA("008c981c") unsigned int UINT_008c981c = 0x0;
-/* 0x008c9820, 4 bytes */ GRIM_DATA("008c9820") unsigned int UINT_008c9820 = 0x0;
-/* 0x008c9824, 4 bytes */ GRIM_DATA("008c9824") unsigned int UINT_008c9824 = 0x0;
-/* 0x008c9828, 4 bytes */ GRIM_DATA("008c9828") unsigned int UINT_008c9828 = 0x0;
-/* 0x008c982c, 4 bytes */ GRIM_DATA("008c982c") unsigned int UINT_008c982c = 0x0;
-/* 0x008c9830, 4 bytes */ GRIM_DATA("008c9830") unsigned int UINT_008c9830 = 0x0;
-/* 0x008c9834, 4 bytes */ GRIM_DATA("008c9834") unsigned int UINT_008c9834 = 0x0;
-/* 0x008c9838, 4 bytes */ GRIM_DATA("008c9838") unsigned int UINT_008c9838 = 0x0;
-/* 0x008c983c, 4 bytes */ GRIM_DATA("008c983c") int UINT_008c983c = 0;
-/* 0x008c9840, 8 bytes */ GRIM_DATA("008c9840") unsigned char UINT_008c9840[8] = {0};
-/* 0x008c9848, 4 bytes */ GRIM_DATA("008c9848") int INT_008c9848 = 0;
-/* 0x008c984c, 4 bytes */ GRIM_DATA("008c984c") int INT_008c984c = 0;
-/* 0x008c9850, 4 bytes */ GRIM_DATA("008c9850") unsigned int UINT_008c9850 = 0x0;
-/* 0x008c9854, 4 bytes */ GRIM_DATA("008c9854") unsigned int UINT_008c9854 = 0x0;
-/* 0x008c9858, 263 bytes */ GRIM_DATA("008c9858") char g_szDialogOpenDir[263] = "";
-/* 0x008c995f, 1 bytes */ GRIM_DATA("008c9858") unsigned char DAT_008c995f = 0x0;
-/* 0x008c9960, 260 bytes */ GRIM_DATA("008c9960") char g_szDialogSaveDir[260] = "";
-/* 0x008c9a64, 4 bytes */ /* loose */ unsigned char g_pfnSpewStartup[4] = {0};
-/* 0x008c9a68, 4 bytes */ /* loose */ unsigned char g_pfnSpewShutdown[4] = {0};
-/* 0x008c9a6c, 4 bytes */ /* loose */ unsigned char g_hSpewDll[4] = {0};
-/* 0x008c9a70, 4 bytes */ /* loose */ unsigned char g_pMemoryHS[4] = {0};
-/* 0x008c9a74, 4 bytes */ /* loose */ unsigned int g_dwMemorySysInitialized = 0x0;
-/* 0x008c9a78, 8 bytes */ /* loose */ unsigned char g_dwMemorySysStarted[8] = {0};
-/* 0x008c9a80, 16 bytes */ /* loose */ unsigned char g_pFirstPool[16] = {0};
-/* 0x008c9a90, 4 bytes */ /* loose */ unsigned char g_pSvcFileutil[4] = {0};
-/* 0x008c9a94, 4 bytes */ /* loose */ unsigned int g_dwFileUtilSysInitialized = 0x0;
-/* 0x008c9a98, 8 bytes */ /* loose */ unsigned char g_dwFileUtilSysStarted[8] = {0};
-/* 0x008c9aa0, 520 bytes */ /* loose */ unsigned char g_pPresentBuf[520] = {0};
-static unsigned char grim_anchor_008c9ca8[0] __attribute__((section(".data$grim_008c9ca8"), aligned(16), used));
-static unsigned char grim_pad_008c9ca8[8] __attribute__((section(".data$grim_008c9ca8_"), aligned(4), used));
-/* 0x008c9ca8, 776 bytes */ GRIM_DATA("008c9ca8z") unsigned char g_dwSmushHS[776] = {0};
-/* 0x008c9fb0, 4 bytes */ GRIM_DATA("008c9fb0") unsigned int g_dwSmushX = 0x0;
-/* 0x008c9fb4, 4 bytes */ GRIM_DATA("008c9fb4") unsigned int g_dwSmushY = 0x0;
-/* 0x008c9fb8, 4 bytes */ GRIM_DATA("008c9fb8") unsigned char g_aSmushPlayMS[4] = {0};
-/* 0x008c9fbc, 4 bytes */ GRIM_DATA("008c9fbc") unsigned char DAT_008c9fbc[4] = {0};
-/* 0x008c9fc0, 4 bytes */ GRIM_DATA("008c9fc0") unsigned int UINT_008c9fc0 = 0x0;
-/* 0x008c9fc4, 52 bytes */ GRIM_DATA("008c9fc4") unsigned char DAT_008c9fc4[52] = {0};
-/* 0x008c9ff8, 8 bytes */ GRIM_DATA("008c9ff8") unsigned char g_dwSmushStartTime[8] = {0};
-/* 0x008ca000, 128 bytes */ GRIM_DATA("008ca000") char g_szCurMovieFile[128] = "";
-/* 0x008ca080, 4 bytes */ /* loose */ unsigned char g_dwSmushBuf[4] = {0};
+/* 0x008c9568, 512 bytes */ GRIM_DATA("008c9568") unsigned char g_dwDrawItems[512] __asm__("_g_dwDrawItems") = {0};
+/* 0x008c9768, 8 bytes */ GRIM_DATA("008c9768") unsigned char g_pSputRendHS[8] __asm__("_g_pSputRendHS") = {0};
+/* 0x008c9774, 4 bytes */ GRIM_DATA("008c9774") unsigned int g_dwIrisStart __asm__("_g_dwIrisStart") = 0x0;
+/* 0x008c9778, 4 bytes */ GRIM_DATA("008c9778") float g_flIrisDuration __asm__("_g_flIrisDuration") = 0.0f;
+/* 0x008c977c, 4 bytes */ GRIM_DATA("008c977c") unsigned char g_pSputRender_Camera[4] __asm__("_g_pSputRender_Camera") = {0};
+/* 0x008c9784, 4 bytes */ GRIM_DATA("008c9784") int g_nSputRender_b3DAcceleration __asm__("_g_nSputRender_b3DAcceleration") = 0;
+/* 0x008c9798, 4 bytes */ GRIM_DATA("008c9798") unsigned int g_dwRenderFlags __asm__("_g_dwRenderFlags") = 0x0;
+/* 0x008c97a0, 4 bytes */ GRIM_DATA("008c97a0") unsigned int UINT_008c97a0 __asm__("_UINT_008c97a0") = 0x0;
+/* 0x008c97a4, 4 bytes */ GRIM_DATA("008c97a4") unsigned int UINT_008c97a4 __asm__("_UINT_008c97a4") = 0x0;
+/* 0x008c97a8, 4 bytes */ GRIM_DATA("008c97a8") unsigned char g_pSputRender_Canvas[4] __asm__("_g_pSputRender_Canvas") = {0};
+/* 0x008c97ac, 4 bytes */ GRIM_DATA("008c97ac") unsigned char g_pSputRender_DecompressionBuffer[4] __asm__("_g_pSputRender_DecompressionBuffer") = {0};
+/* 0x008c97b0, 4 bytes */ GRIM_DATA("008c97b0") unsigned char g_pSputRender_CleanBuffer[4] __asm__("_g_pSputRender_CleanBuffer") = {0};
+/* 0x008c97b4, 4 bytes */ GRIM_DATA("008c97b4") unsigned char g_pSputRender_CleanZBuffer[4] __asm__("_g_pSputRender_CleanZBuffer") = {0};
+/* 0x008c97b8, 4 bytes */ GRIM_DATA("008c97b8") unsigned int g_dwSputRender_pSetPaletteFunc __asm__("_g_dwSputRender_pSetPaletteFunc") = 0x0;
+/* 0x008c97c0, 6 bytes */ GRIM_DATA("008c97c0") unsigned short g_abSputRender_colorMap[3] __asm__("_g_abSputRender_colorMap") = {0};
+/* 0x008c97c6, 2 bytes */ GRIM_DATA("008c97c0") unsigned short DAT_008c97c6 __asm__("_DAT_008c97c6") = 0x0;
+/* 0x008c97c8, 4 bytes */ GRIM_DATA("008c97c8") unsigned int UINT_008c97c8 __asm__("_UINT_008c97c8") = 0x0;
+/* 0x008c97cc, 4 bytes */ GRIM_DATA("008c97cc") unsigned int UINT_008c97cc __asm__("_UINT_008c97cc") = 0x0;
+/* 0x008c97d0, 4 bytes */ GRIM_DATA("008c97d0") unsigned int UINT_008c97d0 __asm__("_UINT_008c97d0") = 0x0;
+/* 0x008c97d4, 4 bytes */ GRIM_DATA("008c97d4") unsigned int UINT_008c97d4 __asm__("_UINT_008c97d4") = 0x0;
+/* 0x008c97e0, 4 bytes */ GRIM_DATA("008c97e0") unsigned int UINT_008c97e0 __asm__("_UINT_008c97e0") = 0x0;
+/* 0x008c97e4, 4 bytes */ GRIM_DATA("008c97e4") unsigned int UINT_008c97e4 __asm__("_UINT_008c97e4") = 0x0;
+/* 0x008c97e8, 4 bytes */ GRIM_DATA("008c97e8") unsigned int UINT_008c97e8 __asm__("_UINT_008c97e8") = 0x0;
+/* 0x008c97ec, 4 bytes */ GRIM_DATA("008c97ec") unsigned char g_pDirtyRectPool[4] __asm__("_g_pDirtyRectPool") = {0};
+/* 0x008c97f0, 4 bytes */ GRIM_DATA("008c97f0") int g_nSputRender_Reset __asm__("_g_nSputRender_Reset") = 0;
+/* 0x008c97f8, 4 bytes */ GRIM_DATA("008c97f8") unsigned int g_dwMovieJustFinished __asm__("_g_dwMovieJustFinished") = 0x0;
+/* 0x008c9a90, 4 bytes */ /* loose */ unsigned char g_pSvcFileutil[4] __asm__("_g_pSvcFileutil") = {0};
+/* 0x008c9aa0, 520 bytes */ /* loose */ unsigned char g_pPresentBuf[520] __asm__("_g_pPresentBuf") = {0};
+/* 0x008c9fbc, 4 bytes */ GRIM_DATA("008c9fbc") unsigned char DAT_008c9fbc[4] __asm__("_DAT_008c9fbc") = {0};
 static unsigned char grim_anchor_008ca084[0] __attribute__((section(".data$grim_008ca084"), aligned(16), used));
 static unsigned char grim_pad_008ca084[4] __attribute__((section(".data$grim_008ca084_"), aligned(4), used));
-/* 0x008ca084, 4 bytes */ GRIM_DATA("008ca084z") int g_nSputSmushStarted = 0;
-/* 0x008ca088, 4 bytes */ GRIM_DATA("008ca088") int g_nSmushPlaying = 0;
-/* 0x008ca08c, 4 bytes */ GRIM_DATA("008ca08c") int g_nSmushPaused = 0;
-/* 0x008ca090, 4 bytes */ GRIM_DATA("008ca090") int g_nSmushAbort = 0;
-/* 0x008ca094, 4 bytes */ GRIM_DATA("008ca094") int g_nSmushLooping = 0;
-/* 0x008ca098, 8 bytes */ GRIM_DATA("008ca098") unsigned char DAT_008ca098[8] = {0};
-/* 0x008ca0a0, 8 bytes */ GRIM_DATA("008ca0a0") unsigned char g_dwPrimitiveQ[8] = {0};
-/* 0x008ca0a8, 4 bytes */ GRIM_DATA("008ca0a8") unsigned int g_dwSputPrimitiveInitialize = 0x0;
-/* 0x008ca0ac, 4 bytes */ GRIM_DATA("008ca0ac") unsigned int g_dwSputPrimitiveStartup = 0x0;
-/* 0x008ca0b0, 4 bytes */ GRIM_DATA("008ca0b0") unsigned char g_pSputPrimitiveHS[4] = {0};
-/* 0x008ca0b4, 4 bytes */ GRIM_DATA("008ca0b4") int g_nSputPrimitive_Paused = 0;
-/* 0x008ca0b8, 4 bytes */ GRIM_DATA("008ca0b8") unsigned char g_aTextMS[4] = {0};
-/* 0x008ca0bc, 4 bytes */ GRIM_DATA("008ca0bc") unsigned int UINT_008ca0bc = 0x0;
-/* 0x008ca0c0, 4 bytes */ GRIM_DATA("008ca0c0") unsigned int UINT_008ca0c0 = 0x0;
-/* 0x008ca0c4, 20 bytes */ GRIM_DATA("008ca0c4") unsigned char UINT_008ca0c4[20] = {0};
-/* 0x008ca0d8, 4 bytes */ GRIM_DATA("008ca0d8") unsigned int g_dwLrHeight = 0x0;
-/* 0x008ca0dc, 4 bytes */ GRIM_DATA("008ca0dc") unsigned int g_dwLrX = 0x0;
-/* 0x008ca0e0, 4 bytes */ GRIM_DATA("008ca0e0") unsigned int g_dwLrY = 0x0;
-/* 0x008ca0e4, 4 bytes */ GRIM_DATA("008ca0e4") unsigned int g_dwLrBackground = 0x0;
-/* 0x008ca0e8, 4 bytes */ GRIM_DATA("008ca0e8") unsigned int g_dwLrHiColor = 0x0;
-/* 0x008ca0ec, 4 bytes */ GRIM_DATA("008ca0ec") unsigned int g_dwLrDuration = 0x0;
-/* 0x008ca0f0, 4 bytes */ GRIM_DATA("008ca0f0") unsigned int g_dwLrFXColor = 0x0;
-/* 0x008ca0f4, 4 bytes */ GRIM_DATA("008ca0f4") unsigned int g_dwLrCenter = 0x0;
-/* 0x008ca0f8, 4 bytes */ GRIM_DATA("008ca0f8") unsigned int g_dwLrWidth = 0x0;
-/* 0x008ca0fc, 4 bytes */ GRIM_DATA("008ca0fc") unsigned int g_dwLrBGColor = 0x0;
-/* 0x008ca100, 4 bytes */ GRIM_DATA("008ca100") unsigned int g_dwLrVolume = 0x0;
-/* 0x008ca104, 4 bytes */ GRIM_DATA("008ca104") unsigned int g_dwLrFont = 0x0;
-/* 0x008ca108, 4 bytes */ GRIM_DATA("008ca108") unsigned int g_dwLrLJustify = 0x0;
-/* 0x008ca10c, 4 bytes */ GRIM_DATA("008ca10c") unsigned int g_dwLrRJustify = 0x0;
-/* 0x008ca110, 4 bytes */ GRIM_DATA("008ca110") unsigned int g_dwLrFGColor = 0x0;
-/* 0x008ca114, 4 bytes */ GRIM_DATA("008ca114") unsigned int g_dwLrPan = 0x0;
-/* 0x008ca118, 4 bytes */ GRIM_DATA("008ca118") unsigned char g_aGraphMS[4] = {0};
-/* 0x008ca11c, 4 bytes */ GRIM_DATA("008ca11c") unsigned int UINT_008ca11c = 0x0;
-/* 0x008ca120, 4 bytes */ GRIM_DATA("008ca120") unsigned int UINT_008ca120 = 0x0;
-/* 0x008ca124, 20 bytes */ GRIM_DATA("008ca124") unsigned char UINT_008ca124[20] = {0};
-/* 0x008ca138, 4 bytes */ GRIM_DATA("008ca138") unsigned int g_dwSputtextInitialize = 0x0;
-/* 0x008ca13c, 4 bytes */ GRIM_DATA("008ca13c") unsigned int g_dwSputtextStartup = 0x0;
-/* 0x008ca140, 4 bytes */ GRIM_DATA("008ca140") int g_nTranslationType = 0;
-/* 0x008ca144, 4 bytes */ GRIM_DATA("008ca144") unsigned char g_pSputtextHS[4] = {0};
-/* 0x008ca148, 4 bytes */ GRIM_DATA("008ca148") unsigned int g_hFont = 0x0;
-/* 0x008ca14c, 4 bytes */ GRIM_DATA("008ca14c") unsigned char g_hEmergencyFont[4] = {0};
-/* 0x008ca150, 4 bytes */ GRIM_DATA("008ca150") unsigned char g_pTextQueue[4] = {0};
-/* 0x008ca154, 4 bytes */ GRIM_DATA("008ca154") unsigned char g_pTextEventPool[4] = {0};
-/* 0x008ca158, 8 bytes */ GRIM_DATA("008ca158") int g_nSputText_Paused = 0;
-/* 0x008ca15c, 4 bytes: the rest of g_nSputText_Paused's span */ GRIM_DATA("008ca158") static unsigned char g_nSputText_Paused__tail[4] __attribute__((used)) = {0};
-/* 0x008ca160, 56 bytes */ GRIM_DATA("008ca160") int g_nNumControlCallbacks = 0;
-/* 0x008ca164, 52 bytes: the rest of g_nNumControlCallbacks's span */ GRIM_DATA("008ca160") static unsigned char g_nNumControlCallbacks__tail[52] __attribute__((used)) = {0};
-/* 0x008ca198, 32 bytes */ GRIM_DATA("008ca198") unsigned char g_apControlCallbacks[32] = {0};
-/* 0x008ca1b8, 4 bytes */ GRIM_DATA("008ca1b8") unsigned char g_pSputConHS[4] = {0};
-/* 0x008ca1bc, 4 bytes */ GRIM_DATA("008ca1bc") unsigned int g_dwSputConInitialize = 0x0;
-/* 0x008ca1c0, 4 bytes */ GRIM_DATA("008ca1c0") unsigned int g_dwSputConStartup = 0x0;
-/* 0x008ca1c4, 12 bytes */ GRIM_DATA("008ca1c4") int g_nControlOpen = 0;
-/* 0x008ca1c8, 8 bytes: the rest of g_nControlOpen's span */ GRIM_DATA("008ca1c4") static unsigned char g_nControlOpen__tail[8] __attribute__((used)) = {0};
-/* 0x008ca1d0, 8 bytes */ GRIM_DATA("008ca1d0") unsigned int g_dwSputResHS = 0x0;
+/* 0x008ca084, 4 bytes */ GRIM_DATA("008ca084z") int g_nSputSmushStarted __asm__("_g_nSputSmushStarted") = 0;
+/* 0x008ca0a0, 8 bytes */ GRIM_DATA("008ca0a0") unsigned char g_dwPrimitiveQ[8] __asm__("_g_dwPrimitiveQ") = {0};
+/* 0x008ca0d8, 4 bytes */ GRIM_DATA("008ca0d8") unsigned int g_dwLrHeight __asm__("_g_dwLrHeight") = 0x0;
+/* 0x008ca0dc, 4 bytes */ GRIM_DATA("008ca0dc") unsigned int g_dwLrX __asm__("_g_dwLrX") = 0x0;
+/* 0x008ca0e0, 4 bytes */ GRIM_DATA("008ca0e0") unsigned int g_dwLrY __asm__("_g_dwLrY") = 0x0;
+/* 0x008ca0e4, 4 bytes */ GRIM_DATA("008ca0e4") unsigned int g_dwLrBackground __asm__("_g_dwLrBackground") = 0x0;
+/* 0x008ca0ec, 4 bytes */ GRIM_DATA("008ca0ec") unsigned int g_dwLrDuration __asm__("_g_dwLrDuration") = 0x0;
+/* 0x008ca0f0, 4 bytes */ GRIM_DATA("008ca0f0") unsigned int g_dwLrFXColor __asm__("_g_dwLrFXColor") = 0x0;
+/* 0x008ca0f4, 4 bytes */ GRIM_DATA("008ca0f4") unsigned int g_dwLrCenter __asm__("_g_dwLrCenter") = 0x0;
+/* 0x008ca0f8, 4 bytes */ GRIM_DATA("008ca0f8") unsigned int g_dwLrWidth __asm__("_g_dwLrWidth") = 0x0;
+/* 0x008ca0fc, 4 bytes */ GRIM_DATA("008ca0fc") unsigned int g_dwLrBGColor __asm__("_g_dwLrBGColor") = 0x0;
+/* 0x008ca100, 4 bytes */ GRIM_DATA("008ca100") unsigned int g_dwLrVolume __asm__("_g_dwLrVolume") = 0x0;
+/* 0x008ca104, 4 bytes */ GRIM_DATA("008ca104") unsigned int g_dwLrFont __asm__("_g_dwLrFont") = 0x0;
+/* 0x008ca108, 4 bytes */ GRIM_DATA("008ca108") unsigned int g_dwLrLJustify __asm__("_g_dwLrLJustify") = 0x0;
+/* 0x008ca10c, 4 bytes */ GRIM_DATA("008ca10c") unsigned int g_dwLrRJustify __asm__("_g_dwLrRJustify") = 0x0;
+/* 0x008ca110, 4 bytes */ GRIM_DATA("008ca110") unsigned int g_dwLrFGColor __asm__("_g_dwLrFGColor") = 0x0;
+/* 0x008ca114, 4 bytes */ GRIM_DATA("008ca114") unsigned int g_dwLrPan __asm__("_g_dwLrPan") = 0x0;
+/* 0x008ca140, 4 bytes */ GRIM_DATA("008ca140") int g_nTranslationType __asm__("_g_nTranslationType") = 0;
+/* 0x008ca14c, 4 bytes */ GRIM_DATA("008ca14c") unsigned char g_hEmergencyFont[4] __asm__("_g_hEmergencyFont") = {0};
+/* 0x008ca150, 4 bytes */ GRIM_DATA("008ca150") unsigned char g_pTextQueue[4] __asm__("_g_pTextQueue") = {0};
+/* 0x008ca154, 4 bytes */ GRIM_DATA("008ca154") unsigned char g_pTextEventPool[4] __asm__("_g_pTextEventPool") = {0};
+/* 0x008ca1d0, 8 bytes */ GRIM_DATA("008ca1d0") unsigned int g_dwSputResHS __asm__("_g_dwSputResHS") = 0x0;
 /* 0x008ca1d4, 4 bytes: the rest of g_dwSputResHS's span */ GRIM_DATA("008ca1d0") static unsigned char g_dwSputResHS__tail[4] __attribute__((used)) = {0};
-/* 0x008ca1d8, 4 bytes */ GRIM_DATA("008ca1d8") unsigned char g_aResModServices[4] = {0};
-/* 0x008ca1dc, 4 bytes */ GRIM_DATA("008ca1dc") unsigned int UINT_008ca1dc = 0x0;
-/* 0x008ca1e0, 4 bytes */ GRIM_DATA("008ca1e0") unsigned int UINT_008ca1e0 = 0x0;
-/* 0x008ca1e4, 4 bytes */ GRIM_DATA("008ca1e4") unsigned int UINT_008ca1e4 = 0x0;
-/* 0x008ca1e8, 4 bytes */ GRIM_DATA("008ca1e8") unsigned int UINT_008ca1e8 = 0x0;
-/* 0x008ca1ec, 4 bytes */ GRIM_DATA("008ca1ec") unsigned int UINT_008ca1ec = 0x0;
-/* 0x008ca1f0, 4 bytes */ GRIM_DATA("008ca1f0") unsigned int UINT_008ca1f0 = 0x0;
-/* 0x008ca1f4, 4 bytes */ GRIM_DATA("008ca1f4") unsigned int UINT_008ca1f4 = 0x0;
-/* 0x008ca1f8, 4 bytes */ GRIM_DATA("008ca1f8") unsigned char DAT_008ca1f8[4] = {0};
-/* 0x008ca1fc, 4 bytes */ GRIM_DATA("008ca1fc") unsigned int g_dwSputResStartup = 0x0;
-/* 0x008ca200, 4 bytes */ GRIM_DATA("008ca200") unsigned int g_dwPrdMatLoader = 0x0;
-/* 0x008ca204, 4 bytes */ GRIM_DATA("008ca204") unsigned int g_dwPrdMatUnloader = 0x0;
-/* 0x008ca208, 260 bytes */ GRIM_DATA("008ca208") char g_szExtraDataDir[260] = "";
-/* 0x008ca30c, 4 bytes */ GRIM_DATA("008ca30c") int g_nStopPurge = 0;
-/* 0x008ca310, 16 bytes */ GRIM_DATA("008ca310") unsigned char g_pTalkingActors[16] = {0};
-/* 0x008ca320, 4 bytes */ GRIM_DATA("008ca320") float FLOAT_008ca320 = 0.0f;
-/* 0x008ca324, 4 bytes */ GRIM_DATA("008ca324") float FLOAT_008ca324 = 0.0f;
-/* 0x008ca328, 4 bytes */ GRIM_DATA("008ca328") float FLOAT_008ca328 = 0.0f;
-/* 0x008ca32c, 4 bytes */ GRIM_DATA("008ca32c") unsigned int g_dwSputActHS = 0x0;
-/* 0x008ca330, 8 bytes */ GRIM_DATA("008ca330") int g_nTotActors = 0;
+/* 0x008ca310, 16 bytes */ GRIM_DATA("008ca310") unsigned char g_pTalkingActors[16] __asm__("_g_pTalkingActors") = {0};
+/* 0x008ca320, 4 bytes */ GRIM_DATA("008ca320") float FLOAT_008ca320 __asm__("_FLOAT_008ca320") = 0.0f;
+/* 0x008ca32c, 4 bytes */ GRIM_DATA("008ca32c") unsigned int g_dwSputActHS __asm__("_g_dwSputActHS") = 0x0;
+/* 0x008ca330, 8 bytes */ GRIM_DATA("008ca330") int g_nTotActors __asm__("_g_nTotActors") = 0;
 /* 0x008ca334, 4 bytes: the rest of g_nTotActors's span */ GRIM_DATA("008ca330") static unsigned char g_nTotActors__tail[4] __attribute__((used)) = {0};
-/* 0x008ca338, 4 bytes */ GRIM_DATA("008ca338") unsigned char DAT_008ca338[4] = {0};
-/* 0x008ca33c, 4 bytes */ GRIM_DATA("008ca33c") unsigned char DAT_008ca33c[4] = {0};
-/* 0x008ca340, 8 bytes */ GRIM_DATA("008ca340") unsigned char DAT_008ca340[8] = {0};
-/* 0x008ca348, 4 bytes */ GRIM_DATA("008ca348") unsigned char DAT_008ca348[4] = {0};
-/* 0x008ca34c, 4 bytes */ GRIM_DATA("008ca34c") unsigned char DAT_008ca34c[4] = {0};
-/* 0x008ca350, 8 bytes */ GRIM_DATA("008ca350") unsigned char DAT_008ca350[8] = {0};
-/* 0x008ca358, 1024 bytes */ GRIM_DATA("008ca358") unsigned char g_pDrawableActors[1024] = {0};
-/* 0x008ca758, 4 bytes */ GRIM_DATA("008ca758") unsigned char g_pActors[4] = {0};
-/* 0x008ca75c, 4 bytes */ GRIM_DATA("008ca75c") int g_nNumActors = 0;
-/* 0x008ca760, 4 bytes */ GRIM_DATA("008ca760") unsigned char g_pSelectedActor[4] = {0};
-/* 0x008ca764, 4 bytes */ GRIM_DATA("008ca764") int g_nNumActorsTalking = 0;
-/* 0x008ca768, 4 bytes */ GRIM_DATA("008ca768") unsigned int g_dwSputActInitialize = 0x0;
-/* 0x008ca76c, 4 bytes */ GRIM_DATA("008ca76c") unsigned int g_dwSputActStartup = 0x0;
-/* 0x008ca770, 4 bytes */ GRIM_DATA("008ca770") unsigned char g_aChoreMS[4] = {0};
-/* 0x008ca774, 4 bytes */ GRIM_DATA("008ca774") unsigned int UINT_008ca774 = 0x0;
-/* 0x008ca778, 4 bytes */ GRIM_DATA("008ca778") unsigned int UINT_008ca778 = 0x0;
-/* 0x008ca77c, 20 bytes */ GRIM_DATA("008ca77c") unsigned char UINT_008ca77c[20] = {0};
-/* 0x008ca790, 4 bytes */ GRIM_DATA("008ca790") unsigned char g_pShadowColormap[4] = {0};
-/* 0x008ca794, 4 bytes */ GRIM_DATA("008ca794") unsigned char g_pCosNodePool[4] = {0};
-/* 0x008ca798, 4 bytes */ GRIM_DATA("008ca798") unsigned int g_dwSputCosInitialize = 0x0;
-/* 0x008ca79c, 4 bytes */ GRIM_DATA("008ca79c") unsigned int g_dwSputCosStartup = 0x0;
-/* 0x008ca7a0, 4 bytes */ GRIM_DATA("008ca7a0") unsigned char g_pSputCosHS[4] = {0};
-/* 0x008ca7a4, 4 bytes */ GRIM_DATA("008ca7a4") unsigned int g_dwLECBitmaps = 0x0;
-/* 0x008ca7a8, 4 bytes */ GRIM_DATA("008ca7a8") unsigned char DAT_008ca7a8[4] = {0};
-/* 0x008ca7ac, 4 bytes */ GRIM_DATA("008ca7ac") unsigned int g_dwOldInstanceHook = 0x0;
-/* 0x008ca7b0, 4 bytes */ GRIM_DATA("008ca7b0") unsigned int g_dwOldSaveHook = 0x0;
-/* 0x008ca7b4, 4 bytes */ GRIM_DATA("008ca7b4") unsigned char g_dwRecentBM[4] = {0};
-/* 0x008ca7b8, 127 bytes */ GRIM_DATA("008ca7b8") unsigned char g_bKeyframePath[127] = {0};
-/* 0x008ca837, 1 bytes */ GRIM_DATA("008ca7b8") unsigned char DAT_008ca837 = 0x0;
-/* 0x008ca838, 127 bytes */ GRIM_DATA("008ca838") unsigned char g_bBitmapPath[127] = {0};
-/* 0x008ca8b7, 1 bytes */ GRIM_DATA("008ca838") unsigned char DAT_008ca8b7 = 0x0;
-/* 0x008ca8b8, 127 bytes */ GRIM_DATA("008ca8b8") unsigned char g_bColormapPath[127] = {0};
-/* 0x008ca937, 1 bytes */ GRIM_DATA("008ca8b8") unsigned char DAT_008ca937 = 0x0;
-/* 0x008ca938, 127 bytes */ GRIM_DATA("008ca938") unsigned char g_bMaterialPath[127] = {0};
-/* 0x008ca9b7, 1 bytes */ GRIM_DATA("008ca938") unsigned char DAT_008ca9b7 = 0x0;
-/* 0x008ca9b8, 127 bytes */ GRIM_DATA("008ca9b8") unsigned char g_bModelPath[127] = {0};
-/* 0x008caa37, 1 bytes */ GRIM_DATA("008ca9b8") unsigned char DAT_008caa37 = 0x0;
-/* 0x008caa38, 127 bytes */ GRIM_DATA("008caa38") unsigned char g_bSoundPath[127] = {0};
-/* 0x008caab7, 1 bytes */ GRIM_DATA("008caa38") unsigned char DAT_008caab7 = 0x0;
-/* 0x008caab8, 127 bytes */ GRIM_DATA("008caab8") unsigned char g_bSmushPath[127] = {0};
-/* 0x008cab37, 1 bytes */ GRIM_DATA("008caab8") unsigned char DAT_008cab37 = 0x0;
-/* 0x008cab38, 8 bytes */ GRIM_DATA("008cab38") unsigned char g_pShadowMaterial[8] = {0};
-/* 0x008cab40, 4 bytes */ GRIM_DATA("008cab40") int g_nLrSystemTable = 0;
-/* 0x008cab44, 4 bytes */ GRIM_DATA("008cab44") unsigned int g_dwLrOldConcatFallback = 0x0;
-/* 0x008cab48, 8 bytes */ GRIM_DATA("008cab48") unsigned char g_dwLrTypeFunction[8] = {0};
-/* 0x008cab50, 4 bytes */ GRIM_DATA("008cab50") unsigned char g_aLuaMS[4] = {0};
-/* 0x008cab54, 4 bytes */ GRIM_DATA("008cab54") unsigned int UINT_008cab54 = 0x0;
-/* 0x008cab58, 4 bytes */ GRIM_DATA("008cab58") unsigned int UINT_008cab58 = 0x0;
-/* 0x008cab5c, 20 bytes */ GRIM_DATA("008cab5c") unsigned char UINT_008cab5c[20] = {0};
-/* 0x008cab70, 4 bytes */ GRIM_DATA("008cab70") unsigned char g_pTheWriter[4] = {0};
-/* 0x008cab74, 4 bytes */ GRIM_DATA("008cab74") unsigned int g_dwSputLua_Update_movieTimeMsec = 0x0;
-/* 0x008cab78, 4 bytes */ GRIM_DATA("008cab78") int g_nTotSaveBytes = 0;
-/* 0x008cab7c, 4 bytes */ GRIM_DATA("008cab7c") unsigned int g_dwSputLuaInitialize = 0x0;
-/* 0x008cab80, 4 bytes */ GRIM_DATA("008cab80") unsigned int UINT_008cab80 = 0x0;
-/* 0x008cab84, 4 bytes */ GRIM_DATA("008cab84") unsigned char g_pSputLuaHS[4] = {0};
-/* 0x008cab88, 4 bytes */ GRIM_DATA("008cab88") unsigned char g_pFrFileReq[4] = {0};
-/* 0x008cab8c, 4 bytes */ GRIM_DATA("008cab8c") unsigned int g_dwDebugToggleFunc = 0x0;
-/* 0x008cab90, 4 bytes */ GRIM_DATA("008cab90") unsigned int g_dwSputLua_Update_collectionTime = 0x0;
-/* 0x008cab94, 4 bytes */ GRIM_DATA("008cab94") unsigned char g_pSputTimeHS[4] = {0};
-/* 0x008cab98, 4 bytes */ GRIM_DATA("008cab98") unsigned int g_dwSputTimeInitialize = 0x0;
-/* 0x008cab9c, 4 bytes */ GRIM_DATA("008cab9c") unsigned int g_dwSputTimeStartup = 0x0;
-/* 0x008caba0, 4 bytes */ GRIM_DATA("008caba0") unsigned int g_dwLastClockTime = 0x0;
-/* 0x008caba4, 4 bytes */ GRIM_DATA("008caba4") unsigned int g_dwSputTime_gameTime_ms = 0x0;
-/* 0x008caba8, 4 bytes */ GRIM_DATA("008caba8") unsigned int g_dwSputTime_frameTime_ms = 0x0;
-/* 0x008cabac, 4 bytes */ GRIM_DATA("008cabac") float g_flSputTime_frameTimeSeconds = 0.0f;
-/* 0x008cabb0, 4 bytes */ GRIM_DATA("008cabb0") unsigned int g_dwSputRoom_pCurrentRoom = 0x0;
-/* 0x008cabb4, 52 bytes */ GRIM_DATA("008cabb4") unsigned char g_pCurrentSet[52] = {0};
-/* 0x008cabe8, 32 bytes */ GRIM_DATA("008cabe8") char g_szSputRoom_CurrentRoomName[32] = "";
-/* 0x008cac08, 31 bytes */ GRIM_DATA("008cac08") unsigned char DAT_008cac08[31] = {0};
-/* 0x008cac27, 1 bytes */ GRIM_DATA("008cac08") unsigned char DAT_008cac27 = 0x0;
-/* 0x008cac28, 1120 bytes */ GRIM_DATA("008cac28") unsigned char DAT_008cac28[1120] = {0};
-/* 0x008cb088, 4 bytes */ GRIM_DATA("008cb088") unsigned char g_pSoundPool[4] = {0};
-/* 0x008cb08c, 4 bytes */ GRIM_DATA("008cb08c") unsigned char g_pSoundEventList[4] = {0};
-/* 0x008cb090, 8 bytes */ GRIM_DATA("008cb090") unsigned char g_pSputRoomHS[8] = {0};
-/* 0x008cb098, 4 bytes */ GRIM_DATA("008cb098") unsigned int g_dwSputRoomInitialize = 0x0;
-/* 0x008cb09c, 4 bytes */ GRIM_DATA("008cb09c") unsigned int g_dwSputRoomStartup = 0x0;
-/* 0x008cb0a0, 4 bytes */ GRIM_DATA("008cb0a0") int g_nSkipSetupBitmaps = 0;
-/* 0x008cb0a4, 4 bytes */ GRIM_DATA("008cb0a4") unsigned int UINT_008cb0a4 = 0x0;
-/* 0x008cb0a8, 4 bytes */ GRIM_DATA("008cb0a8") unsigned int g_dwLoadingRoom = 0x0;
-/* 0x008cb0ac, 4 bytes */ GRIM_DATA("008cb0ac") unsigned char g_pRoomList[4] = {0};
-/* 0x008cb0b0, 16384 bytes */ GRIM_DATA("008cb0b0") WalkVertex g_aWalkPlane_vert_db[1024] = {0};
-/* 0x008cf0b0, 4 bytes */ GRIM_DATA("008cf0b0") unsigned int g_dwWorkingPath = 0x0;
-/* 0x008cf0b4, 4 bytes */ GRIM_DATA("008cf0b4") unsigned int UINT_008cf0b4 = 0x0;
-/* 0x008cf0b8, 16 bytes */ GRIM_DATA("008cf0b8") unsigned char UINT_008cf0b8[16] = {0};
-/* 0x008cf0c8, 336 bytes */ GRIM_DATA("008cf0c8") unsigned char UINT_008cf0c8[336] = {0};
-/* 0x008cf218, 48 bytes */ GRIM_DATA("008cf218") unsigned char DAT_008cf218[48] = {0};
-/* 0x008cf248, 8 bytes */ GRIM_DATA("008cf248") unsigned int g_dwTotWorkingPathPoints = 0x0;
-/* 0x008cf24c, 4 bytes: the rest of g_dwTotWorkingPathPoints's span */ GRIM_DATA("008cf248") static unsigned char g_dwTotWorkingPathPoints__tail[4] __attribute__((used)) = {0};
-/* 0x008cf250, 16 bytes */ GRIM_DATA("008cf250") unsigned char g_aPuck_Rot_ret[16] = {0};
-/* 0x008cf260, 4 bytes */ GRIM_DATA("008cf260") float g_vEdgeFollowDir = 0.0f;
-/* 0x008cf264, 4 bytes */ GRIM_DATA("008cf264") float FLOAT_008cf264 = 0.0f;
-/* 0x008cf268, 4 bytes */ GRIM_DATA("008cf268") float FLOAT_008cf268 = 0.0f;
-/* 0x008cf26c, 4 bytes */ GRIM_DATA("008cf26c") unsigned int g_dwWalkPlane_tot_verts = 0x0;
-/* 0x008cf270, 4 bytes */ GRIM_DATA("008cf270") int g_nVertexCacheSize = 0;
-/* 0x008cf274, 4 bytes */ GRIM_DATA("008cf274") unsigned char g_pVertexCache[4] = {0};
-/* 0x008cf278, 4 bytes */ GRIM_DATA("008cf278") int g_nWalkPlaneCacheSize = 0;
-/* 0x008cf27c, 4 bytes */ GRIM_DATA("008cf27c") unsigned char g_pWalkPlaneCache[4] = {0};
-/* 0x008cf280, 4 bytes */ GRIM_DATA("008cf280") unsigned char g_pWalkPlane_wp_head[4] = {0};
-/* 0x008cf284, 4 bytes */ GRIM_DATA("008cf284") unsigned char DAT_008cf284[4] = {0};
-/* 0x008cf288, 4 bytes */ GRIM_DATA("008cf288") unsigned int g_dwWalkPlane_Collection = 0x0;
-/* 0x008cf28c, 5596 bytes */ GRIM_DATA("008cf28c") unsigned char DAT_008cf28c[5596] = {0};
-/* 0x008d0868, 3 bytes */ GRIM_DATA("008d0868") unsigned char g_dwWpCacheBuilt[3] = {0};
-/* 0x008d086b, 1 bytes */ GRIM_DATA("008d0868") unsigned char DAT_008d086b[1] = {0};
-/* 0x008d086c, 4 bytes */ GRIM_DATA("008d086c") unsigned char g_dwPuck_p_head[4] = {0};
-/* 0x008d0870, 4 bytes */ GRIM_DATA("008d0870") unsigned int g_dwPuck_Forward_recursion_level = 0x0;
-/* 0x008d0874, 4 bytes */ GRIM_DATA("008d0874") unsigned char DAT_008d0874[4] = {0};
-/* 0x008d0878, 8 bytes */ GRIM_DATA("008d0878") unsigned char g_pTextHS[8] = {0};
-/* 0x008d0880, 128 bytes */ GRIM_DATA("008d0880") unsigned char g_bLookup[128] = {0};
-/* 0x008d0900, 127 bytes */ GRIM_DATA("008d0900") unsigned char DAT_008d0900[127] = {0};
-/* 0x008d097f, 1 bytes */ GRIM_DATA("008d0900") unsigned char DAT_008d097f = 0x0;
-/* 0x008d0980, 4 bytes */ GRIM_DATA("008d0980") unsigned int g_dwTextSysInitialized = 0x0;
-/* 0x008d0984, 4 bytes */ GRIM_DATA("008d0984") unsigned int g_dwTextSysStarted = 0x0;
-/* 0x008d0988, 4 bytes */ GRIM_DATA("008d0988") unsigned char g_pDefaultFont[4] = {0};
-/* 0x008d098c, 4 bytes */ GRIM_DATA("008d098c") unsigned char g_pGraphHS[4] = {0};
-/* 0x008d0990, 4 bytes */ GRIM_DATA("008d0990") unsigned int g_dwGraphSysInitialized = 0x0;
-/* 0x008d0994, 4 bytes */ GRIM_DATA("008d0994") unsigned int g_dwGraphSysStarted = 0x0;
-/* 0x008d0998, 64 bytes */ GRIM_DATA("008d0998") unsigned char g_pWinDialogs[64] = {0};
-/* 0x008d09d8, 4 bytes */ GRIM_DATA("008d09d8") unsigned char g_pWinMainHwnd[4] = {0};
-/* 0x008d09dc, 4 bytes */ GRIM_DATA("008d09dc") int UINT_008d09dc = 0;
-/* 0x008d09e0, 4 bytes */ GRIM_DATA("008d09e0") int INT_008d09e0 = 0;
-/* 0x008d09e4, 4 bytes */ GRIM_DATA("008d09e4") unsigned int UINT_008d09e4 = 0x0;
-/* 0x008d09e8, 4 bytes */ GRIM_DATA("008d09e8") unsigned char g_pWinMessageHooks[4] = {0};
-/* 0x008d09ec, 124 bytes */ GRIM_DATA("008d09ec") int g_nWinMessageHookOn = 0;
-/* 0x008d09f0, 120 bytes: the rest of g_nWinMessageHookOn's span */ GRIM_DATA("008d09ec") static unsigned char g_nWinMessageHookOn__tail[120] __attribute__((used)) = {0};
-/* 0x008d0a68, 4 bytes */ GRIM_DATA("008d0a68") unsigned char DAT_008d0a68[4] = {0};
-/* 0x008d0a6c, 4 bytes */ GRIM_DATA("008d0a6c") unsigned int UINT_008d0a6c = 0x0;
-/* 0x008d0a70, 4 bytes */ GRIM_DATA("008d0a70") unsigned int g_dwZg_App_bAppActive = 0x0;
-/* 0x008d0a74, 4 bytes */ GRIM_DATA("008d0a74") int g_nWinQuit = 0;
-/* 0x008d0a78, 4 bytes */ GRIM_DATA("008d0a78") unsigned int g_dwWinDialogCount = 0x0;
-/* 0x008d0a7c, 8 bytes */ GRIM_DATA("008d0a7c") unsigned char UINT_008d0a7c[8] = {0};
-/* 0x008d0a84, 4 bytes */ GRIM_DATA("008d0a84") unsigned int UINT_008d0a84 = 0x0;
-/* 0x008d0a88, 4 bytes */ GRIM_DATA("008d0a88") unsigned int UINT_008d0a88 = 0x0;
-/* 0x008d0a8c, 4 bytes */ GRIM_DATA("008d0a8c") unsigned int UINT_008d0a8c = 0x0;
-/* 0x008d0a90, 4 bytes */ GRIM_DATA("008d0a90") unsigned int UINT_008d0a90 = 0x0;
-/* 0x008d0a94, 4 bytes */ GRIM_DATA("008d0a94") unsigned int UINT_008d0a94 = 0x0;
-/* 0x008d0a98, 4 bytes */ GRIM_DATA("008d0a98") unsigned int UINT_008d0a98 = 0x0;
-/* 0x008d0a9c, 4 bytes */ GRIM_DATA("008d0a9c") unsigned int UINT_008d0a9c = 0x0;
-/* 0x008d0aa0, 4 bytes, unused (dead+host) */ GRIM_DATA("008d0aa0") unsigned char UINT_008d0aa0[4];
-/* 0x008d0aa4, 8 bytes */ GRIM_DATA("008d0aa4") unsigned char UINT_008d0aa4[8] = {0};
-/* 0x008d0aac, 4 bytes */ GRIM_DATA("008d0aac") unsigned int UINT_008d0aac = 0x0;
-/* 0x008d0ab0, 4 bytes */ GRIM_DATA("008d0ab0") unsigned int UINT_008d0ab0 = 0x0;
-/* 0x008d0ab4, 4 bytes */ GRIM_DATA("008d0ab4") unsigned char DAT_008d0ab4[4] = {0};
-/* 0x008d0ab8, 4 bytes */ GRIM_DATA("008d0ab8") unsigned char DAT_008d0ab8[4] = {0};
-/* 0x008d0abc, 4 bytes */ GRIM_DATA("008d0abc") unsigned char DAT_008d0abc[4] = {0};
-/* 0x008d0ac0, 4 bytes */ GRIM_DATA("008d0ac0") unsigned char DAT_008d0ac0[4] = {0};
-/* 0x008d0ac4, 4 bytes */ GRIM_DATA("008d0ac4") unsigned char DAT_008d0ac4[4] = {0};
-/* 0x008d0ac8, 8 bytes */ GRIM_DATA("008d0ac8") unsigned char DAT_008d0ac8[8] = {0};
-/* 0x008d0ad0, 4 bytes */ GRIM_DATA("008d0ad0") unsigned int UINT_008d0ad0 = 0x0;
-/* 0x008d0ad4, 4 bytes */ GRIM_DATA("008d0ad4") unsigned int UINT_008d0ad4 = 0x0;
-/* 0x008d0ad8, 8 bytes */ GRIM_DATA("008d0ad8") unsigned char UINT_008d0ad8[8] = {0};
-/* 0x008d0ae0, 8 bytes */ GRIM_DATA("008d0ae0") unsigned char DAT_008d0ae0[8] = {0};
-/* 0x008d0ae8, 4 bytes */ GRIM_DATA("008d0ae8") unsigned char DAT_008d0ae8[4] = {0};
-/* 0x008d0aec, 4 bytes */ GRIM_DATA("008d0aec") unsigned char DAT_008d0aec[4] = {0};
-/* 0x008d0af0, 8 bytes */ GRIM_DATA("008d0af0") unsigned char UINT_008d0af0[8] = {0};
-/* 0x008d0af8, 4 bytes */ GRIM_DATA("008d0af8") unsigned int UINT_008d0af8 = 0x0;
-/* 0x008d0afc, 12 bytes */ GRIM_DATA("008d0afc") unsigned char UINT_008d0afc[12] = {0};
-/* 0x008d0b08, 24 bytes */ GRIM_DATA("008d0b08") unsigned char DAT_008d0b08[24] = {0};
-/* 0x008d0b20, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("008d0b20") unsigned char DAT_008d0b20[24];
-/* 0x008d0b38, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("008d0b38") unsigned char DAT_008d0b38[24];
-/* 0x008d0b50, 32 bytes, unused (pointed at by unused data) */ GRIM_DATA("008d0b50") unsigned char DAT_008d0b50[32];
-/* 0x008d0b70, 4 bytes */ GRIM_DATA("008d0b70") unsigned int UINT_008d0b70 = 0x0;
-/* 0x008d0b74, 4 bytes, unused (dead) */ GRIM_DATA("008d0b74") unsigned char UINT_008d0b74[4];
-/* 0x008d0b78, 4 bytes, unused (dead) */ GRIM_DATA("008d0b78") unsigned char UINT_008d0b78[4];
-/* 0x008d0b7c, 4 bytes, unused (dead) */ GRIM_DATA("008d0b7c") unsigned char UINT_008d0b7c[4];
-/* 0x008d0b80, 16 bytes */ GRIM_DATA("008d0b80") unsigned int UINT_008d0b80 = 0x0;
+/* 0x008ca358, 1024 bytes */ GRIM_DATA("008ca358") unsigned char g_pDrawableActors[1024] __asm__("_g_pDrawableActors") = {0};
+/* 0x008ca758, 4 bytes */ GRIM_DATA("008ca758") unsigned char g_pActors[4] __asm__("_g_pActors") = {0};
+/* 0x008ca75c, 4 bytes */ GRIM_DATA("008ca75c") int g_nNumActors __asm__("_g_nNumActors") = 0;
+/* 0x008ca760, 4 bytes */ GRIM_DATA("008ca760") unsigned char g_pSelectedActor[4] __asm__("_g_pSelectedActor") = {0};
+/* 0x008ca764, 4 bytes */ GRIM_DATA("008ca764") int g_nNumActorsTalking __asm__("_g_nNumActorsTalking") = 0;
+/* 0x008ca790, 4 bytes */ GRIM_DATA("008ca790") unsigned char g_pShadowColormap[4] __asm__("_g_pShadowColormap") = {0};
+/* 0x008ca794, 4 bytes */ GRIM_DATA("008ca794") unsigned char g_pCosNodePool[4] __asm__("_g_pCosNodePool") = {0};
+/* 0x008ca7a0, 4 bytes */ GRIM_DATA("008ca7a0") unsigned char g_pSputCosHS[4] __asm__("_g_pSputCosHS") = {0};
+/* 0x008ca7a4, 4 bytes */ GRIM_DATA("008ca7a4") unsigned int g_dwLECBitmaps __asm__("_g_dwLECBitmaps") = 0x0;
+/* 0x008ca7a8, 4 bytes */ GRIM_DATA("008ca7a8") unsigned char DAT_008ca7a8[4] __asm__("_DAT_008ca7a8") = {0};
+/* 0x008ca7b8, 127 bytes */ GRIM_DATA("008ca7b8") unsigned char g_bKeyframePath[127] __asm__("_g_bKeyframePath") = {0};
+/* 0x008ca837, 1 bytes */ GRIM_DATA("008ca7b8") unsigned char DAT_008ca837 __asm__("_DAT_008ca837") = 0x0;
+/* 0x008ca838, 127 bytes */ GRIM_DATA("008ca838") unsigned char g_bBitmapPath[127] __asm__("_g_bBitmapPath") = {0};
+/* 0x008ca8b7, 1 bytes */ GRIM_DATA("008ca838") unsigned char DAT_008ca8b7 __asm__("_DAT_008ca8b7") = 0x0;
+/* 0x008ca8b8, 127 bytes */ GRIM_DATA("008ca8b8") unsigned char g_bColormapPath[127] __asm__("_g_bColormapPath") = {0};
+/* 0x008ca937, 1 bytes */ GRIM_DATA("008ca8b8") unsigned char DAT_008ca937 __asm__("_DAT_008ca937") = 0x0;
+/* 0x008ca938, 127 bytes */ GRIM_DATA("008ca938") unsigned char g_bMaterialPath[127] __asm__("_g_bMaterialPath") = {0};
+/* 0x008ca9b7, 1 bytes */ GRIM_DATA("008ca938") unsigned char DAT_008ca9b7 __asm__("_DAT_008ca9b7") = 0x0;
+/* 0x008ca9b8, 127 bytes */ GRIM_DATA("008ca9b8") unsigned char g_bModelPath[127] __asm__("_g_bModelPath") = {0};
+/* 0x008caa37, 1 bytes */ GRIM_DATA("008ca9b8") unsigned char DAT_008caa37 __asm__("_DAT_008caa37") = 0x0;
+/* 0x008caa38, 127 bytes */ GRIM_DATA("008caa38") unsigned char g_bSoundPath[127] __asm__("_g_bSoundPath") = {0};
+/* 0x008caab7, 1 bytes */ GRIM_DATA("008caa38") unsigned char DAT_008caab7 __asm__("_DAT_008caab7") = 0x0;
+/* 0x008caab8, 127 bytes */ GRIM_DATA("008caab8") unsigned char g_bSmushPath[127] __asm__("_g_bSmushPath") = {0};
+/* 0x008cab37, 1 bytes */ GRIM_DATA("008caab8") unsigned char DAT_008cab37 __asm__("_DAT_008cab37") = 0x0;
+/* 0x008cab38, 8 bytes */ GRIM_DATA("008cab38") unsigned char g_pShadowMaterial[8] __asm__("_g_pShadowMaterial") = {0};
+/* 0x008cab40, 4 bytes */ GRIM_DATA("008cab40") int g_nLrSystemTable __asm__("_g_nLrSystemTable") = 0;
+/* 0x008cab48, 8 bytes */ GRIM_DATA("008cab48") unsigned char g_dwLrTypeFunction[8] __asm__("_g_dwLrTypeFunction") = {0};
+/* 0x008cab70, 4 bytes */ GRIM_DATA("008cab70") unsigned char g_pTheWriter[4] __asm__("_g_pTheWriter") = {0};
+/* 0x008cab78, 4 bytes */ GRIM_DATA("008cab78") int g_nTotSaveBytes __asm__("_g_nTotSaveBytes") = 0;
+/* 0x008cab80, 4 bytes */ GRIM_DATA("008cab80") unsigned int UINT_008cab80 __asm__("_UINT_008cab80") = 0x0;
+/* 0x008cab84, 4 bytes */ GRIM_DATA("008cab84") unsigned char g_pSputLuaHS[4] __asm__("_g_pSputLuaHS") = {0};
+/* 0x008cab88, 4 bytes */ GRIM_DATA("008cab88") unsigned char g_pFrFileReq[4] __asm__("_g_pFrFileReq") = {0};
+/* 0x008cabb0, 4 bytes */ GRIM_DATA("008cabb0") unsigned int g_dwSputRoom_pCurrentRoom __asm__("_g_dwSputRoom_pCurrentRoom") = 0x0;
+/* 0x008cb088, 4 bytes */ GRIM_DATA("008cb088") unsigned char g_pSoundPool[4] __asm__("_g_pSoundPool") = {0};
+/* 0x008cb090, 8 bytes */ GRIM_DATA("008cb090") unsigned char g_pSputRoomHS[8] __asm__("_g_pSputRoomHS") = {0};
+/* 0x008cb0a8, 4 bytes */ GRIM_DATA("008cb0a8") unsigned int g_dwLoadingRoom __asm__("_g_dwLoadingRoom") = 0x0;
+/* 0x008cb0ac, 4 bytes */ GRIM_DATA("008cb0ac") unsigned char g_pRoomList[4] __asm__("_g_pRoomList") = {0};
+/* 0x008cf0b0, 4 bytes */ GRIM_DATA("008cf0b0") unsigned int g_dwWorkingPath __asm__("_g_dwWorkingPath") = 0x0;
+/* 0x008cf0b4, 4 bytes */ GRIM_DATA("008cf0b4") unsigned int UINT_008cf0b4 __asm__("_UINT_008cf0b4") = 0x0;
+/* 0x008cf0b8, 16 bytes */ GRIM_DATA("008cf0b8") unsigned char UINT_008cf0b8[16] __asm__("_UINT_008cf0b8") = {0};
+/* 0x008cf280, 4 bytes */ GRIM_DATA("008cf280") unsigned char g_pWalkPlane_wp_head[4] __asm__("_g_pWalkPlane_wp_head") = {0};
+/* 0x008cf288, 4 bytes */ GRIM_DATA("008cf288") unsigned int g_dwWalkPlane_Collection __asm__("_g_dwWalkPlane_Collection") = 0x0;
+/* 0x008cf28c, 5596 bytes */ GRIM_DATA("008cf28c") unsigned char DAT_008cf28c[5596] __asm__("_DAT_008cf28c") = {0};
+/* 0x008d0868, 3 bytes */ GRIM_DATA("008d0868") unsigned char g_dwWpCacheBuilt[3] __asm__("_g_dwWpCacheBuilt") = {0};
+/* 0x008d086b, 1 bytes */ GRIM_DATA("008d0868") unsigned char DAT_008d086b[1] __asm__("_DAT_008d086b") = {0};
+/* 0x008d086c, 4 bytes */ GRIM_DATA("008d086c") unsigned char g_dwPuck_p_head[4] __asm__("_g_dwPuck_p_head") = {0};
+/* 0x008d0874, 4 bytes */ GRIM_DATA("008d0874") unsigned char DAT_008d0874[4] __asm__("_DAT_008d0874") = {0};
+/* 0x008d0878, 8 bytes */ GRIM_DATA("008d0878") unsigned char g_pTextHS[8] __asm__("_g_pTextHS") = {0};
+/* 0x008d0880, 128 bytes */ GRIM_DATA("008d0880") unsigned char g_bLookup[128] __asm__("_g_bLookup") = {0};
+/* 0x008d0988, 4 bytes */ GRIM_DATA("008d0988") unsigned char g_pDefaultFont[4] __asm__("_g_pDefaultFont") = {0};
+/* 0x008d0a70, 4 bytes */ GRIM_DATA("008d0a70") unsigned int g_dwZg_App_bAppActive __asm__("_g_dwZg_App_bAppActive") = 0x0;
+/* 0x008d0a9c, 4 bytes */ GRIM_DATA("008d0a9c") unsigned int UINT_008d0a9c __asm__("_UINT_008d0a9c") = 0x0;
+/* 0x008d0aa0, 4 bytes, unused (dead+host) */ GRIM_DATA("008d0aa0") unsigned char UINT_008d0aa0[4] __asm__("_UINT_008d0aa0");
+/* 0x008d0aa4, 8 bytes */ GRIM_DATA("008d0aa4") unsigned char UINT_008d0aa4[8] __asm__("_UINT_008d0aa4") = {0};
+/* 0x008d0aac, 4 bytes */ GRIM_DATA("008d0aac") unsigned int UINT_008d0aac __asm__("_UINT_008d0aac") = 0x0;
+/* 0x008d0ab0, 4 bytes */ GRIM_DATA("008d0ab0") unsigned int UINT_008d0ab0 __asm__("_UINT_008d0ab0") = 0x0;
+/* 0x008d0ab4, 4 bytes */ GRIM_DATA("008d0ab4") unsigned char DAT_008d0ab4[4] __asm__("_DAT_008d0ab4") = {0};
+/* 0x008d0ab8, 4 bytes */ GRIM_DATA("008d0ab8") unsigned char DAT_008d0ab8[4] __asm__("_DAT_008d0ab8") = {0};
+/* 0x008d0abc, 4 bytes */ GRIM_DATA("008d0abc") unsigned char DAT_008d0abc[4] __asm__("_DAT_008d0abc") = {0};
+/* 0x008d0ac0, 4 bytes */ GRIM_DATA("008d0ac0") unsigned char DAT_008d0ac0[4] __asm__("_DAT_008d0ac0") = {0};
+/* 0x008d0ac4, 4 bytes */ GRIM_DATA("008d0ac4") unsigned char DAT_008d0ac4[4] __asm__("_DAT_008d0ac4") = {0};
+/* 0x008d0ac8, 8 bytes */ GRIM_DATA("008d0ac8") unsigned char DAT_008d0ac8[8] __asm__("_DAT_008d0ac8") = {0};
+/* 0x008d0ad0, 4 bytes */ GRIM_DATA("008d0ad0") unsigned int UINT_008d0ad0 __asm__("_UINT_008d0ad0") = 0x0;
+/* 0x008d0ad4, 4 bytes */ GRIM_DATA("008d0ad4") unsigned int UINT_008d0ad4 __asm__("_UINT_008d0ad4") = 0x0;
+/* 0x008d0ad8, 8 bytes */ GRIM_DATA("008d0ad8") unsigned char UINT_008d0ad8[8] __asm__("_UINT_008d0ad8") = {0};
+/* 0x008d0ae0, 8 bytes */ GRIM_DATA("008d0ae0") unsigned char DAT_008d0ae0[8] __asm__("_DAT_008d0ae0") = {0};
+/* 0x008d0ae8, 4 bytes */ GRIM_DATA("008d0ae8") unsigned char DAT_008d0ae8[4] __asm__("_DAT_008d0ae8") = {0};
+/* 0x008d0aec, 4 bytes */ GRIM_DATA("008d0aec") unsigned char DAT_008d0aec[4] __asm__("_DAT_008d0aec") = {0};
+/* 0x008d0af0, 8 bytes */ GRIM_DATA("008d0af0") unsigned char UINT_008d0af0[8] __asm__("_UINT_008d0af0") = {0};
+/* 0x008d0b08, 24 bytes */ GRIM_DATA("008d0b08") unsigned char DAT_008d0b08[24] __asm__("_DAT_008d0b08") = {0};
+/* 0x008d0b20, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("008d0b20") unsigned char DAT_008d0b20[24] __asm__("_DAT_008d0b20");
+/* 0x008d0b38, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("008d0b38") unsigned char DAT_008d0b38[24] __asm__("_DAT_008d0b38");
+/* 0x008d0b50, 32 bytes, unused (pointed at by unused data) */ GRIM_DATA("008d0b50") unsigned char DAT_008d0b50[32] __asm__("_DAT_008d0b50");
+/* 0x008d0b70, 4 bytes */ GRIM_DATA("008d0b70") unsigned int UINT_008d0b70 __asm__("_UINT_008d0b70") = 0x0;
+/* 0x008d0b74, 4 bytes, unused (dead) */ GRIM_DATA("008d0b74") unsigned char UINT_008d0b74[4] __asm__("_UINT_008d0b74");
+/* 0x008d0b78, 4 bytes, unused (dead) */ GRIM_DATA("008d0b78") unsigned char UINT_008d0b78[4] __asm__("_UINT_008d0b78");
+/* 0x008d0b7c, 4 bytes, unused (dead) */ GRIM_DATA("008d0b7c") unsigned char UINT_008d0b7c[4] __asm__("_UINT_008d0b7c");
+/* 0x008d0b80, 16 bytes */ GRIM_DATA("008d0b80") unsigned int UINT_008d0b80 __asm__("_UINT_008d0b80") = 0x0;
 /* 0x008d0b84, 12 bytes: the rest of UINT_008d0b80's span */ GRIM_DATA("008d0b80") static unsigned char UINT_008d0b80__tail[12] __attribute__((used)) = {0};
-/* 0x008d0b90, 264 bytes, unused (dead) */ GRIM_DATA("008d0b90") unsigned char DAT_008d0b90[264];
-/* 0x008d0c98, 8 bytes, unused (dead) */ GRIM_DATA("008d0c98") unsigned char UINT_008d0c98[8];
-/* 0x008d0ca0, 1 bytes */ GRIM_DATA("008d0ca0") unsigned char UINT_008d0ca0[1] = {0};
-/* 0x008d0ca1, 263 bytes */ GRIM_DATA("008d0ca0") unsigned char DAT_008d0ca1[263] = {0};
-/* 0x008d0da8, 256 bytes, unused (dead) */ GRIM_DATA("008d0da8") unsigned char DAT_008d0da8[256];
-/* 0x008d0ea8, 4 bytes */ GRIM_DATA("008d0ea8") unsigned int UINT_008d0ea8 = 0x0;
-/* 0x008d0eac, 4 bytes */ GRIM_DATA("008d0eac") unsigned int UINT_008d0eac = 0x0;
-/* 0x008d0eb0, 4 bytes */ GRIM_DATA("008d0eb0") unsigned char DAT_008d0eb0[4] = {0};
-/* 0x008d0eb4, 4 bytes */ GRIM_DATA("008d0eb4") unsigned char DAT_008d0eb4[4] = {0};
-/* 0x008d0eb8, 4 bytes */ GRIM_DATA("008d0eb8") unsigned char DAT_008d0eb8[4] = {0};
-/* 0x008d0ebc, 4 bytes, unused (dead) */ GRIM_DATA("008d0ebc") unsigned char UINT_008d0ebc[4];
-/* 0x008d0ec0, 8 bytes */ GRIM_DATA("008d0ec0") unsigned char UINT_008d0ec0[8] = {0};
-/* 0x008d0ec8, 8 bytes */ GRIM_DATA("008d0ec8") unsigned char UINT_008d0ec8[8] = {0};
-/* 0x008d0ed0, 4 bytes */ GRIM_DATA("008d0ed0") unsigned int UINT_008d0ed0 = 0x0;
-/* 0x008d0ed4, 4 bytes */ GRIM_DATA("008d0ed4") unsigned int UINT_008d0ed4 = 0x0;
-/* 0x008d0ed8, 4 bytes */ GRIM_DATA("008d0ed8") unsigned int UINT_008d0ed8 = 0x0;
-/* 0x008d0edc, 8 bytes */ GRIM_DATA("008d0edc") unsigned char UINT_008d0edc[8] = {0};
-/* 0x008d0ee4, 4 bytes */ GRIM_DATA("008d0ee4") unsigned int UINT_008d0ee4 = 0x0;
-/* 0x008d0ee8, 4 bytes, unused (dead) */ GRIM_DATA("008d0ee8") unsigned char UINT_008d0ee8[4];
-/* 0x008d0eec, 4 bytes, unused (dead) */ GRIM_DATA("008d0eec") unsigned char UINT_008d0eec[4];
-/* 0x008d0ef0, 4 bytes, unused (dead) */ GRIM_DATA("008d0ef0") unsigned char UINT_008d0ef0[4];
-/* 0x008d0ef4, 4 bytes, unused (dead) */ GRIM_DATA("008d0ef4") unsigned char UINT_008d0ef4[4];
-/* 0x008d0ef8, 4 bytes, unused (dead) */ GRIM_DATA("008d0ef8") unsigned char UINT_008d0ef8[4];
-/* 0x008d0efc, 4 bytes, unused (dead) */ GRIM_DATA("008d0efc") unsigned char UINT_008d0efc[4];
-/* 0x008d0f00, 20 bytes, unused (dead) */ GRIM_DATA("008d0f00") unsigned char UINT_008d0f00[20];
-/* 0x008d0f14, 8 bytes, unused (dead) */ GRIM_DATA("008d0f14") unsigned char DAT_008d0f14[8];
-/* 0x008d0f1c, 6 bytes, unused (dead) */ GRIM_DATA("008d0f1c") unsigned char DAT_008d0f1c[6];
-/* 0x008d0f22, 4 bytes, unused (dead) */ GRIM_DATA("008d0f1c") unsigned char DAT_008d0f22[4];
-/* 0x008d0f26, 2 bytes, unused (dead) */ GRIM_DATA("008d0f1c") unsigned char DAT_008d0f26[2];
-/* 0x008d0f28, 40 bytes, unused (dead) */ GRIM_DATA("008d0f28") unsigned char DAT_008d0f28[40];
-/* 0x008d0f50, 4 bytes, unused (dead) */ GRIM_DATA("008d0f50") unsigned char UINT_008d0f50[4];
-/* 0x008d0f54, 4 bytes */ GRIM_DATA("008d0f54") unsigned int UINT_008d0f54 = 0x0;
-/* 0x008d0f58, 4 bytes */ GRIM_DATA("008d0f58") unsigned int UINT_008d0f58 = 0x0;
-/* 0x008d0f5c, 4 bytes */ GRIM_DATA("008d0f5c") unsigned int UINT_008d0f5c = 0x0;
-/* 0x008d0f60, 8 bytes */ GRIM_DATA("008d0f60") unsigned char UINT_008d0f60[8] = {0};
-/* 0x008d0f68, 8 bytes */ GRIM_DATA("008d0f68") unsigned char UINT_008d0f68[8] = {0};
-/* 0x008d0f70, 4 bytes */ GRIM_DATA("008d0f70") unsigned int UINT_008d0f70 = 0x0;
-/* 0x008d0f74, 64 bytes */ GRIM_DATA("008d0f74") unsigned char DAT_008d0f74[64] = {0};
-/* 0x008d0fb4, 2 bytes */ GRIM_DATA("008d0fb4") unsigned short DAT_008d0fb4 = 0x0;
-/* 0x008d0fb6, 2 bytes */ GRIM_DATA("008d0fb4") unsigned short DAT_008d0fb6 = 0x0;
-/* 0x008d0fb8, 4 bytes */ GRIM_DATA("008d0fb8") unsigned int UINT_008d0fb8 = 0x0;
-/* 0x008d0fbc, 4 bytes */ GRIM_DATA("008d0fbc") unsigned int UINT_008d0fbc = 0x0;
-/* 0x008d0fc0, 4 bytes */ GRIM_DATA("008d0fc0") unsigned int UINT_008d0fc0 = 0x0;
-/* 0x008d0fc4, 4 bytes */ GRIM_DATA("008d0fc4") unsigned int UINT_008d0fc4 = 0x0;
-/* 0x008d0fc8, 64 bytes */ GRIM_DATA("008d0fc8") unsigned char DAT_008d0fc8[64] = {0};
-/* 0x008d1008, 2 bytes */ GRIM_DATA("008d1008") unsigned short DAT_008d1008 = 0x0;
-/* 0x008d100a, 2 bytes */ GRIM_DATA("008d1008") unsigned short DAT_008d100a = 0x0;
-/* 0x008d100c, 4 bytes */ GRIM_DATA("008d100c") unsigned int UINT_008d100c = 0x0;
-/* 0x008d1010, 4 bytes */ GRIM_DATA("008d1010") unsigned int UINT_008d1010 = 0x0;
-/* 0x008d1014, 4 bytes */ GRIM_DATA("008d1014") unsigned int UINT_008d1014 = 0x0;
-/* 0x008d1018, 4 bytes */ GRIM_DATA("008d1018") unsigned int UINT_008d1018 = 0x0;
-/* 0x008d101c, 4 bytes */ GRIM_DATA("008d101c") unsigned int UINT_008d101c = 0x0;
-/* 0x008d1020, 4 bytes */ GRIM_DATA("008d1020") unsigned int UINT_008d1020 = 0x0;
-/* 0x008d1024, 4 bytes */ GRIM_DATA("008d1024") unsigned int UINT_008d1024 = 0x0;
-/* 0x008d1028, 16 bytes, unused (dead) */ GRIM_DATA("008d1028") unsigned char UINT_008d1028[16];
-/* 0x008d1038, 7 bytes, unused (dead) */ GRIM_DATA("008d1038") unsigned char DAT_008d1038[7];
-/* 0x008d103f, 1 bytes, unused (dead) */ GRIM_DATA("008d1038") unsigned char DAT_008d103f[1];
-/* 0x008d1040, 4 bytes, unused (dead) */ GRIM_DATA("008d1040") unsigned char DAT_008d1040[4];
-/* 0x008d1044, 4 bytes */ GRIM_DATA("008d1044") unsigned int UINT_008d1044 = 0x0;
-/* 0x008d1048, 4 bytes */ GRIM_DATA("008d1048") unsigned int UINT_008d1048 = 0x0;
-/* 0x008d104c, 4 bytes */ GRIM_DATA("008d104c") unsigned int UINT_008d104c = 0x0;
-/* 0x008d1050, 8 bytes */ GRIM_DATA("008d1050") unsigned char UINT_008d1050[8] = {0};
-/* 0x008d1058, 36 bytes */ GRIM_DATA("008d1058") unsigned char DAT_008d1058[36] = {0};
-/* 0x008d107c, 4 bytes */ GRIM_DATA("008d107c") unsigned int UINT_008d107c = 0x0;
-/* 0x008d1080, 4 bytes, unused (dead) */ GRIM_DATA("008d1080") unsigned char UINT_008d1080[4];
-/* 0x008d1084, 8 bytes, unused (dead) */ GRIM_DATA("008d1084") unsigned char UINT_008d1084[8];
-/* 0x008d108c, 4 bytes */ GRIM_DATA("008d108c") unsigned int UINT_008d108c = 0x0;
-/* 0x008d1090, 8 bytes */ GRIM_DATA("008d1090") unsigned char g_bMovieFlags[8] = {0};
-/* 0x008d1098, 4 bytes */ GRIM_DATA("008d1098") unsigned int g_dwVideoCallbacks = 0x0;
-/* 0x008d109c, 4 bytes */ GRIM_DATA("008d109c") unsigned int UINT_008d109c = 0x0;
-/* 0x008d10a0, 4 bytes */ GRIM_DATA("008d10a0") unsigned int UINT_008d10a0 = 0x0;
-/* 0x008d10a4, 4 bytes */ GRIM_DATA("008d10a4") unsigned int UINT_008d10a4 = 0x0;
-/* 0x008d10a8, 32 bytes */ GRIM_DATA("008d10a8") unsigned char UINT_008d10a8[32] = {0};
-/* 0x008d10c8, 8 bytes */ GRIM_DATA("008d10c8") unsigned char g_pSmushPlay_file_services[8] = {0};
-/* 0x008d10d0, 260 bytes */ GRIM_DATA("008d10d0") unsigned char g_dwCurFileName[260] = {0};
-/* 0x008d11d4, 4 bytes */ GRIM_DATA("008d11d4") unsigned char g_pSmushPlay_share_services[4] = {0};
-/* 0x008d11d8, 8 bytes */ GRIM_DATA("008d11d8") unsigned char g_dwAh[8] = {0};
-/* 0x008d11e0, 4 bytes */ GRIM_DATA("008d11e0") unsigned int UINT_008d11e0 = 0x0;
-/* 0x008d11e4, 4 bytes */ GRIM_DATA("008d11e4") unsigned int UINT_008d11e4 = 0x0;
-/* 0x008d11e8, 4 bytes */ GRIM_DATA("008d11e8") unsigned int UINT_008d11e8 = 0x0;
-/* 0x008d11ec, 4 bytes */ GRIM_DATA("008d11ec") unsigned int UINT_008d11ec = 0x0;
-/* 0x008d11f0, 4 bytes */ GRIM_DATA("008d11f0") unsigned char g_dwGrimmem_share_config[4] = {0};
-/* 0x008d11f4, 4 bytes */ GRIM_DATA("008d11f4") unsigned int g_dwSmushPlayHS = 0x0;
-/* 0x008d11f8, 8 bytes */ GRIM_DATA("008d11f8") unsigned char g_pGrimmem_share_services[8] = {0};
-/* 0x008d1200, 8 bytes */ GRIM_DATA("008d1200") unsigned char g_dwAnimplay_services[8] = {0};
-/* 0x008d1208, 4 bytes */ GRIM_DATA("008d1208") unsigned char DAT_008d1208[4] = {0};
-/* 0x008d120c, 2 bytes */ GRIM_DATA("008d120c") unsigned short DAT_008d120c = 0x0;
-/* 0x008d120e, 2 bytes */ GRIM_DATA("008d120c") unsigned short DAT_008d120e = 0x0;
-/* 0x008d1210, 2 bytes */ GRIM_DATA("008d1210") unsigned short DAT_008d1210 = 0x0;
-/* 0x008d1212, 4 bytes */ GRIM_DATA("008d1210") unsigned char DAT_008d1212[4] = {0};
-/* 0x008d1216, 4 bytes */ GRIM_DATA("008d1210") unsigned char UINT_008d1216[4] = {0};
-/* 0x008d121a, 1046 bytes */ GRIM_DATA("008d1210") unsigned char UINT_008d121a[1046] = {0};
-/* 0x008d1630, 8 bytes */ GRIM_DATA("008d1630") unsigned char g_dwSmushPlay_share_config[8] = {0};
-/* 0x008d1638, 4 bytes */ GRIM_DATA("008d1638") unsigned int UINT_008d1638 = 0x0;
-/* 0x008d163c, 4 bytes */ GRIM_DATA("008d163c") unsigned int UINT_008d163c = 0x0;
-/* 0x008d1640, 4 bytes */ GRIM_DATA("008d1640") unsigned int UINT_008d1640 = 0x0;
-/* 0x008d1644, 4 bytes */ GRIM_DATA("008d1644") unsigned int UINT_008d1644 = 0x0;
-/* 0x008d1648, 4 bytes */ GRIM_DATA("008d1648") unsigned char g_aFakeBM[4] = {0};
-/* 0x008d164c, 4 bytes */ GRIM_DATA("008d164c") unsigned char DAT_008d164c[4] = {0};
-/* 0x008d1650, 4 bytes */ GRIM_DATA("008d1650") unsigned char DAT_008d1650[4] = {0};
-/* 0x008d1654, 4 bytes */ GRIM_DATA("008d1654") unsigned char DAT_008d1654[4] = {0};
-/* 0x008d1658, 4 bytes */ GRIM_DATA("008d1658") unsigned char DAT_008d1658[4] = {0};
-/* 0x008d165c, 4 bytes */ GRIM_DATA("008d165c") unsigned char DAT_008d165c[4] = {0};
-/* 0x008d1660, 4 bytes */ GRIM_DATA("008d1660") unsigned char DAT_008d1660[4] = {0};
-/* 0x008d1664, 4 bytes */ GRIM_DATA("008d1664") unsigned char DAT_008d1664[4] = {0};
-/* 0x008d1668, 4 bytes */ GRIM_DATA("008d1668") unsigned char DAT_008d1668[4] = {0};
-/* 0x008d166c, 4 bytes */ GRIM_DATA("008d166c") unsigned char DAT_008d166c[4] = {0};
-/* 0x008d1670, 4 bytes */ GRIM_DATA("008d1670") unsigned char DAT_008d1670[4] = {0};
-/* 0x008d1674, 4 bytes */ GRIM_DATA("008d1674") unsigned char DAT_008d1674[4] = {0};
-/* 0x008d1678, 4 bytes */ GRIM_DATA("008d1678") unsigned char DAT_008d1678[4] = {0};
-/* 0x008d167c, 4 bytes */ GRIM_DATA("008d167c") unsigned char DAT_008d167c[4] = {0};
-/* 0x008d1680, 4 bytes */ GRIM_DATA("008d1680") unsigned char DAT_008d1680[4] = {0};
-/* 0x008d1684, 4 bytes */ GRIM_DATA("008d1684") unsigned char DAT_008d1684[4] = {0};
-/* 0x008d1688, 4 bytes */ GRIM_DATA("008d1688") unsigned char DAT_008d1688[4] = {0};
-/* 0x008d168c, 16 bytes */ GRIM_DATA("008d168c") unsigned char DAT_008d168c[16] = {0};
-/* 0x008d169c, 4 bytes */ GRIM_DATA("008d169c") unsigned int g_dwSmushPlay_sound_services = 0x0;
-/* 0x008d16a0, 4 bytes */ GRIM_DATA("008d16a0") unsigned int g_dwSmushPlaySysInitialized = 0x0;
-/* 0x008d16a4, 4 bytes */ GRIM_DATA("008d16a4") unsigned int g_dwSmushPlaySysStarted = 0x0;
-/* 0x008d16a8, 4 bytes */ GRIM_DATA("008d16a8") unsigned int g_dwMovieIsPlaying = 0x0;
-/* 0x008d16ac, 4 bytes */ GRIM_DATA("008d16ac") unsigned char DAT_008d16ac[4] = {0};
-/* 0x008d16b0, 4 bytes */ GRIM_DATA("008d16b0") unsigned int UINT_008d16b0 = 0x0;
-/* 0x008d16b4, 4 bytes */ GRIM_DATA("008d16b4") unsigned char g_pSmushplay_UserLookup[4] = {0};
-/* 0x008d16b8, 4 bytes */ GRIM_DATA("008d16b8") unsigned int g_dwSmush_pInternalBitmap = 0x0;
-/* 0x008d16bc, 4 bytes */ GRIM_DATA("008d16bc") unsigned int g_dwSmushPlay_TranslationTable = 0x0;
-/* 0x008d16c0, 8 bytes */ GRIM_DATA("008d16c0") unsigned char DAT_008d16c0[8] = {0};
-/* 0x008d16c8, 104 bytes */ GRIM_DATA("008d16c8") unsigned char UINT_008d16c8[104] = {0};
-/* 0x008d1730, 4 bytes */ GRIM_DATA("008d1730") unsigned int UINT_008d1730 = 0x0;
-/* 0x008d1734, 4 bytes */ GRIM_DATA("008d1734") unsigned int UINT_008d1734 = 0x0;
-/* 0x008d1738, 4 bytes */ GRIM_DATA("008d1738") unsigned int UINT_008d1738 = 0x0;
-/* 0x008d173c, 4 bytes */ GRIM_DATA("008d173c") unsigned int UINT_008d173c = 0x0;
-/* 0x008d1740, 1264 bytes */ GRIM_DATA("008d1740") unsigned char UINT_008d1740[1264] = {0};
-/* 0x008d1c30, 32 bytes */ GRIM_DATA("008d1c30") unsigned char UINT_008d1c30[32] = {0};
-/* 0x008d1c50, 4 bytes */ GRIM_DATA("008d1c50") unsigned int UINT_008d1c50 = 0x0;
-/* 0x008d1c54, 4 bytes */ GRIM_DATA("008d1c54") unsigned int UINT_008d1c54 = 0x0;
-/* 0x008d1c58, 6616 bytes */ GRIM_DATA("008d1c58") unsigned char UINT_008d1c58[6616] = {0};
-/* 0x008d3630, 4 bytes */ GRIM_DATA("008d3630") unsigned char g_hLightEdDialog[4] = {0};
-/* 0x008d3634, 4 bytes */ GRIM_DATA("008d3634") unsigned char g_pLightEdSet[4] = {0};
-/* 0x008d3638, 4 bytes */ GRIM_DATA("008d3638") unsigned char g_pLightEdMarkerActor[4] = {0};
-/* 0x008d363c, 4 bytes */ GRIM_DATA("008d363c") unsigned char g_hLightEdHook[4] = {0};
-/* 0x008d3640, 4 bytes */ GRIM_DATA("008d3640") int g_nLightEdBusy = 0;
-/* 0x008d3644, 4 bytes */ GRIM_DATA("008d3644") unsigned int UINT_008d3644 = 0x0;
-/* 0x008d3648, 4 bytes */ GRIM_DATA("008d3648") unsigned int g_dwLightEdLastKey = 0x0;
-/* 0x008d364c, 4 bytes */ GRIM_DATA("008d364c") unsigned int g_dwKeyframeLoader = 0x0;
-/* 0x008d3650, 4 bytes */ GRIM_DATA("008d3650") unsigned int g_dwKeyframeUnloader = 0x0;
-/* 0x008d3654, 4 bytes */ GRIM_DATA("008d3654") unsigned int UINT_008d3654 = 0x0;
-/* 0x008d3658, 4 bytes */ GRIM_DATA("008d3658") unsigned int UINT_008d3658 = 0x0;
-/* 0x008d365c, 4 bytes */ GRIM_DATA("008d365c") unsigned char g_pDirectSound[4] = {0};
-/* 0x008d3660, 4 bytes */ GRIM_DATA("008d3660") unsigned int UINT_008d3660 = 0x0;
-/* 0x008d3664, 12 bytes */ GRIM_DATA("008d3664") unsigned char UINT_008d3664[12] = {0};
-/* 0x008d3670, 4 bytes */ GRIM_DATA("008d3670") unsigned char g_pDSoundPrimary[4] = {0};
-/* 0x008d3674, 12 bytes */ GRIM_DATA("008d3674") unsigned char PTR_008d3674[12] = {0};
-/* 0x008d3680, 99 bytes */ GRIM_DATA("008d3680") unsigned char g_bGetCatalogEntry_pLastType[99] = {0};
-/* 0x008d36e3, 5 bytes */ GRIM_DATA("008d3680") unsigned char DAT_008d36e3[5] = {0};
-/* 0x008d36e8, 8192 bytes */ GRIM_DATA("008d36e8") unsigned char g_bFindMatch_stringBuffer = 0x0;
-/* 0x008d36e9, 8191 bytes: the rest of g_bFindMatch_stringBuffer's span */ GRIM_DATA("008d36e8") static unsigned char g_bFindMatch_stringBuffer__tail[8191] __attribute__((used)) = {0};
-/* 0x008d56e8, 4 bytes */ GRIM_DATA("008d56e8") unsigned int g_dwPrivateData = 0x0;
-/* 0x008d56ec, 4 bytes */ GRIM_DATA("008d56ec") unsigned int UINT_008d56ec = 0x0;
-/* 0x008d56f0, 4 bytes */ GRIM_DATA("008d56f0") unsigned int UINT_008d56f0 = 0x0;
-/* 0x008d56f4, 4 bytes */ GRIM_DATA("008d56f4") unsigned char PTR_008d56f4[4] = {0};
-/* 0x008d56f8, 4 bytes */ GRIM_DATA("008d56f8") unsigned int UINT_008d56f8 = 0x0;
-/* 0x008d56fc, 4 bytes */ GRIM_DATA("008d56fc") unsigned int UINT_008d56fc = 0x0;
-/* 0x008d5700, 4 bytes */ GRIM_DATA("008d5700") unsigned int UINT_008d5700 = 0x0;
-/* 0x008d5704, 6136 bytes */ GRIM_DATA("008d5704") unsigned char DAT_008d5704[6136] = {0};
-/* 0x008d6efc, 4 bytes */ GRIM_DATA("008d6efc") unsigned int UINT_008d6efc = 0x0;
-/* 0x008d6f00, 4 bytes */ GRIM_DATA("008d6f00") unsigned int UINT_008d6f00 = 0x0;
-/* 0x008d6f04, 4 bytes */ GRIM_DATA("008d6f04") unsigned int g_dwAnimPlay_bitmap_services = 0x0;
-/* 0x008d6f08, 4 bytes */ GRIM_DATA("008d6f08") unsigned char DAT_008d6f08[4] = {0};
-/* 0x008d6f0c, 4 bytes */ GRIM_DATA("008d6f0c") unsigned char DAT_008d6f0c[4] = {0};
-/* 0x008d6f10, 4 bytes */ GRIM_DATA("008d6f10") unsigned char g_pAnimPlay_timer_services[4] = {0};
-/* 0x008d6f14, 4 bytes */ GRIM_DATA("008d6f14") unsigned int g_dwAnimPlay_share_config = 0x0;
-/* 0x008d6f18, 4 bytes */ GRIM_DATA("008d6f18") unsigned char g_pAnimPlay_sound_services[4] = {0};
-/* 0x008d6f1c, 4 bytes */ GRIM_DATA("008d6f1c") int g_nBretsFrameCount = 0;
-/* 0x008d6f20, 4 bytes */ GRIM_DATA("008d6f20") unsigned int UINT_008d6f20 = 0x0;
-/* 0x008d6f24, 4 bytes */ GRIM_DATA("008d6f24") unsigned int g_dwAnm_audio_halted = 0x0;
-/* 0x008d6f28, 8 bytes */ GRIM_DATA("008d6f28") unsigned char g_dwRenderHandler_totalTime[8] = {0};
-/* 0x008d6f30, 400 bytes */ GRIM_DATA("008d6f30") unsigned char g_dwAnm_flobdec_types[400] = {0};
-/* 0x008d70c0, 400 bytes */ GRIM_DATA("008d70c0") unsigned char g_dwAnm_flobdec_services[400] = {0};
-/* 0x008d7250, 400 bytes */ GRIM_DATA("008d7250") unsigned char g_dwAnm_flobdec_ids[400] = {0};
-/* 0x008d73e0, 8 bytes */ GRIM_DATA("008d73e0") unsigned int g_dwAnimFrame_share_config = 0x0;
-/* 0x008d73e4, 4 bytes: the rest of g_dwAnimFrame_share_config's span */ GRIM_DATA("008d73e0") static unsigned char g_dwAnimFrame_share_config__tail[4] __attribute__((used)) = {0};
-/* 0x008d73e8, 1024 bytes */ GRIM_DATA("008d73e8") unsigned char g_aAnm_transform_palette[1024] = {0};
-/* 0x008d77e8, 4 bytes */ GRIM_DATA("008d77e8") unsigned int UINT_008d77e8 = 0x0;
-/* 0x008d77ec, 4 bytes */ GRIM_DATA("008d77ec") unsigned int g_dwAnm_flobdec_count = 0x0;
-/* 0x008d77f0, 4 bytes */ GRIM_DATA("008d77f0") unsigned int g_dwAnm_overlay_buffer = 0x0;
-/* 0x008d77f4, 4 bytes */ GRIM_DATA("008d77f4") unsigned int g_dwAnm_preload_buffer = 0x0;
-/* 0x008d77f8, 4 bytes */ GRIM_DATA("008d77f8") unsigned int g_dwAnm_overlay_size = 0x0;
-/* 0x008d77fc, 4 bytes */ GRIM_DATA("008d77fc") unsigned int UINT_008d77fc = 0x0;
-/* 0x008d7800, 4 bytes */ GRIM_DATA("008d7800") unsigned int g_dwAnm_preload_in = 0x0;
-/* 0x008d7804, 4 bytes */ GRIM_DATA("008d7804") unsigned int g_dwAnm_transform_count = 0x0;
-/* 0x008d7808, 4 bytes */ GRIM_DATA("008d7808") unsigned int g_dwAnm_PreloadPut_lastblock = 0x0;
-/* 0x008d780c, 4 bytes */ GRIM_DATA("008d780c") unsigned char DAT_008d780c[4] = {0};
-/* 0x008d7810, 4 bytes */ GRIM_DATA("008d7810") unsigned char DAT_008d7810[4] = {0};
-/* 0x008d7814, 4 bytes */ GRIM_DATA("008d7814") unsigned char g_pStreamer_memory_services[4] = {0};
-/* 0x008d7818, 4 bytes */ GRIM_DATA("008d7818") unsigned char g_pStreamer_share_services[4] = {0};
-/* 0x008d781c, 4 bytes */ GRIM_DATA("008d781c") unsigned char g_pStreamer_filio_services[4] = {0};
-/* 0x008d7820, 4 bytes */ GRIM_DATA("008d7820") unsigned int g_dwStreamer_share_config = 0x0;
-/* 0x008d7824, 4 bytes */ GRIM_DATA("008d7824") unsigned int g_dwFle_StreamerDispense_incremented = 0x0;
-/* 0x008d7828, 4 bytes */ GRIM_DATA("008d7828") unsigned int g_dwDirectory_file_services = 0x0;
-/* 0x008d782c, 4 bytes */ GRIM_DATA("008d782c") unsigned char g_pDirectory_share_services[4] = {0};
-/* 0x008d7830, 4 bytes */ GRIM_DATA("008d7830") unsigned int g_dwDirectory_share_config = 0x0;
-/* 0x008d7834, 4 bytes */ GRIM_DATA("008d7834") unsigned char g_pZfile_memory_services[4] = {0};
-/* 0x008d7838, 4 bytes */ GRIM_DATA("008d7838") unsigned char g_pZfile_share_services[4] = {0};
-/* 0x008d783c, 4 bytes */ GRIM_DATA("008d783c") unsigned int g_dwZfile_virtherc_services = 0x0;
-/* 0x008d7840, 4 bytes */ GRIM_DATA("008d7840") unsigned int g_dwZfile_share_config = 0x0;
-/* 0x008d7844, 4 bytes */ GRIM_DATA("008d7844") unsigned char g_pStdFile_share_services[4] = {0};
-/* 0x008d7848, 4 bytes */ GRIM_DATA("008d7848") unsigned char g_pStdFile_filio_services[4] = {0};
-/* 0x008d784c, 4 bytes */ GRIM_DATA("008d784c") unsigned int g_dwStdFile_share_config = 0x0;
-/* 0x008d7850, 8 bytes */ GRIM_DATA("008d7850") unsigned char g_pMemoryServices[8] = {0};
-/* 0x008d7858, 1 bytes */ GRIM_DATA("008d7858") unsigned char DAT_008d7858 = 0x0;
-/* 0x008d7859, 1 bytes */ GRIM_DATA("008d7858") unsigned char DAT_008d7859 = 0x0;
-/* 0x008d785a, 2 bytes */ GRIM_DATA("008d7858") unsigned short DAT_008d785a = 0x0;
-/* 0x008d785c, 2 bytes */ GRIM_DATA("008d785c") unsigned short DAT_008d785c = 0x0;
-/* 0x008d785e, 2 bytes */ GRIM_DATA("008d785c") unsigned short DAT_008d785e = 0x0;
-/* 0x008d7860, 4 bytes */ GRIM_DATA("008d7860") unsigned int UINT_008d7860 = 0x0;
-/* 0x008d7864, 4 bytes */ GRIM_DATA("008d7864") unsigned char g_pDWave_share_services[4] = {0};
-/* 0x008d7868, 128 bytes */ GRIM_DATA("008d7868") unsigned char g_wDWave_aDeltaTable[128] = {0};
-/* 0x008d78e8, 11264 bytes */ GRIM_DATA("008d78e8") unsigned char DAT_008d78e8[11264] = {0};
-/* 0x008da4e8, 4 bytes */ GRIM_DATA("008da4e8") unsigned int g_dwDWave_share_config = 0x0;
-/* 0x008da4ec, 4 bytes */ GRIM_DATA("008da4ec") unsigned int g_dwSoundServices = 0x0;
-/* 0x008da4f0, 4 bytes */ GRIM_DATA("008da4f0") unsigned char g_pDWave_outputBuffer[4] = {0};
-/* 0x008da4f4, 4 bytes */ GRIM_DATA("008da4f4") unsigned int g_dwDWave_bDeltaTableInitialized = 0x0;
-/* 0x008da4f8, 4 bytes */ GRIM_DATA("008da4f8") unsigned char g_pBlocky16_memory_services[4] = {0};
-/* 0x008da4fc, 4 bytes */ GRIM_DATA("008da4fc") unsigned char g_pBlocky16_bitmap_services[4] = {0};
-/* 0x008da500, 4 bytes */ GRIM_DATA("008da500") unsigned char g_pBlocky16_share_services[4] = {0};
-/* 0x008da504, 4 bytes */ GRIM_DATA("008da504") unsigned int g_dwBlocky16_share_config = 0x0;
-/* 0x008da508, 4 bytes */ GRIM_DATA("008da508") unsigned char g_pFob_blit_routine[4] = {0};
-/* 0x008da50c, 4 bytes */ GRIM_DATA("008da50c") unsigned char g_pFob_blk16_render_buffer[4] = {0};
-/* 0x008da510, 4 bytes */ GRIM_DATA("008da510") unsigned char g_pbBlkExpand[4] = {0};
-/* 0x008da514, 4 bytes */ GRIM_DATA("008da514") int g_nFob_translation_shiftr = 0;
-/* 0x008da518, 4 bytes */ GRIM_DATA("008da518") int g_nFob_translation_shiftg = 0;
-/* 0x008da51c, 4 bytes */ GRIM_DATA("008da51c") int g_nFob_translation_shiftb = 0;
-/* 0x008da520, 8 bytes */ GRIM_DATA("008da520") int g_nGlobal_bm_type = 0;
-/* 0x008da524, 4 bytes: the rest of g_nGlobal_bm_type's span */ GRIM_DATA("008da520") static unsigned char g_nGlobal_bm_type__tail[4] __attribute__((used)) = {0};
-/* 0x008da528, 4 bytes */ GRIM_DATA("008da528") unsigned char g_pBlkBitmap0[4] = {0};
-/* 0x008da52c, 4 bytes */ GRIM_DATA("008da52c") unsigned char g_pBlkBitmap1[4] = {0};
-/* 0x008da530, 4 bytes */ GRIM_DATA("008da530") unsigned char g_pBlkBitmap2[4] = {0};
-/* 0x008da534, 4 bytes */ GRIM_DATA("008da534") int g_nFob_buffersize = 0;
-/* 0x008da538, 8 bytes */ GRIM_DATA("008da538") unsigned char g_pbBlkOutput[8] = {0};
-/* 0x008da540, 4 bytes */ GRIM_DATA("008da540") unsigned int g_dwInsaneTimer_memory_services = 0x0;
-/* 0x008da544, 4 bytes */ GRIM_DATA("008da544") unsigned int g_dwTimer_rate = 0x0;
-/* 0x008da548, 64 bytes */ GRIM_DATA("008da548") unsigned char DAT_008da548[64] = {0};
-/* 0x008da588, 64 bytes */ GRIM_DATA("008da588") unsigned char DAT_008da588[64] = {0};
-/* 0x008da5c8, 4 bytes */ GRIM_DATA("008da5c8") int g_nSys_global_timer = 0;
-/* 0x008da5cc, 4 bytes */ GRIM_DATA("008da5cc") unsigned char g_pInsaneTimer_share_services[4] = {0};
-/* 0x008da5d0, 4 bytes */ GRIM_DATA("008da5d0") unsigned char DAT_008da5d0[4] = {0};
-/* 0x008da5d4, 4 bytes */ GRIM_DATA("008da5d4") unsigned int UINT_008da5d4 = 0x0;
-/* 0x008da5d8, 4 bytes */ GRIM_DATA("008da5d8") unsigned char DAT_008da5d8[4] = {0};
-/* 0x008da5dc, 4 bytes */ GRIM_DATA("008da5dc") unsigned char DAT_008da5dc[4] = {0};
-/* 0x008da5e0, 4 bytes */ GRIM_DATA("008da5e0") unsigned char DAT_008da5e0[4] = {0};
-/* 0x008da5e4, 4 bytes */ GRIM_DATA("008da5e4") unsigned char DAT_008da5e4[4] = {0};
-/* 0x008da5e8, 4 bytes */ GRIM_DATA("008da5e8") unsigned char DAT_008da5e8[4] = {0};
-/* 0x008da5ec, 4 bytes */ GRIM_DATA("008da5ec") unsigned char DAT_008da5ec[4] = {0};
-/* 0x008da5f0, 4 bytes */ GRIM_DATA("008da5f0") unsigned char DAT_008da5f0[4] = {0};
-/* 0x008da5f4, 4 bytes */ GRIM_DATA("008da5f4") unsigned char DAT_008da5f4[4] = {0};
-/* 0x008da5f8, 20 bytes */ GRIM_DATA("008da5f8") unsigned char UINT_008da5f8[20] = {0};
-/* 0x008da60c, 588 bytes */ GRIM_DATA("008da60c") unsigned char UINT_008da60c[588] = {0};
-/* 0x008da858, 4 bytes */ GRIM_DATA("008da858") unsigned int UINT_008da858 = 0x0;
-/* 0x008da85c, 4 bytes */ GRIM_DATA("008da85c") unsigned int g_dwInsaneTimer_share_config = 0x0;
-/* 0x008da860, 4 bytes */ GRIM_DATA("008da860") unsigned int g_dwSys_timer_count = 0x0;
-/* 0x008da864, 4 bytes */ GRIM_DATA("008da864") unsigned int g_dwTimer_thread_lastTime = 0x0;
-/* 0x008da868, 3 bytes */ GRIM_DATA("008da868") unsigned char UINT_008da868[3] = {0};
-/* 0x008da86b, 1 bytes */ GRIM_DATA("008da868") unsigned char DAT_008da86b[1] = {0};
-/* 0x008da86c, 4 bytes */ GRIM_DATA("008da86c") unsigned char DAT_008da86c[4] = {0};
-/* 0x008da870, 4 bytes */ GRIM_DATA("008da870") unsigned int UINT_008da870 = 0x0;
-/* 0x008da874, 4 bytes */ GRIM_DATA("008da874") unsigned int UINT_008da874 = 0x0;
-/* 0x008da878, 4 bytes */ GRIM_DATA("008da878") unsigned int g_dwSys_disable_flag = 0x0;
-/* 0x008da87c, 4 bytes */ GRIM_DATA("008da87c") unsigned int UINT_008da87c = 0x0;
-/* 0x008da880, 4 bytes */ GRIM_DATA("008da880") unsigned int UINT_008da880 = 0x0;
-/* 0x008da884, 4 bytes */ GRIM_DATA("008da884") unsigned int UINT_008da884 = 0x0;
-/* 0x008da888, 4 bytes */ GRIM_DATA("008da888") unsigned char DAT_008da888[4] = {0};
-/* 0x008da88c, 4 bytes */ GRIM_DATA("008da88c") unsigned int UINT_008da88c = 0x0;
-/* 0x008da890, 4 bytes */ GRIM_DATA("008da890") unsigned char g_pVideo_memory_services[4] = {0};
-/* 0x008da894, 4 bytes */ GRIM_DATA("008da894") unsigned char g_pVideo_share_services[4] = {0};
-/* 0x008da898, 4 bytes */ GRIM_DATA("008da898") unsigned int g_dwVideo_share_config = 0x0;
-/* 0x008da89c, 4 bytes */ GRIM_DATA("008da89c") unsigned int g_dwVideo_video_services = 0x0;
-/* 0x008da8a0, 8 bytes */ GRIM_DATA("008da8a0") unsigned char UINT_008da8a0[8] = {0};
-/* 0x008da8a8, 8 bytes */ GRIM_DATA("008da8a8") unsigned char g_pSoundModule_memory_services[8] = {0};
-/* 0x008da8b0, 64 bytes */ GRIM_DATA("008da8b0") int g_anSndStreamKind[16] = {0};
-/* 0x008da8f0, 4 bytes */ GRIM_DATA("008da8f0") unsigned int UINT_008da8f0 = 0x0;
-/* 0x008da8f4, 4 bytes */ GRIM_DATA("008da8f4") unsigned int UINT_008da8f4 = 0x0;
-/* 0x008da8f8, 4 bytes */ GRIM_DATA("008da8f8") unsigned int UINT_008da8f8 = 0x0;
-/* 0x008da8fc, 4 bytes */ GRIM_DATA("008da8fc") unsigned int UINT_008da8fc = 0x0;
-/* 0x008da900, 4 bytes */ GRIM_DATA("008da900") unsigned int UINT_008da900 = 0x0;
-/* 0x008da904, 4 bytes */ GRIM_DATA("008da904") unsigned int UINT_008da904 = 0x0;
-/* 0x008da908, 4 bytes */ GRIM_DATA("008da908") unsigned char DAT_008da908[4] = {0};
-/* 0x008da90c, 4 bytes */ GRIM_DATA("008da90c") unsigned int UINT_008da90c = 0x0;
-/* 0x008da910, 4 bytes */ GRIM_DATA("008da910") unsigned int UINT_008da910 = 0x0;
-/* 0x008da914, 4 bytes */ GRIM_DATA("008da914") unsigned int UINT_008da914 = 0x0;
-/* 0x008da918, 4 bytes */ GRIM_DATA("008da918") unsigned int UINT_008da918 = 0x0;
-/* 0x008da91c, 4 bytes */ GRIM_DATA("008da91c") unsigned char DAT_008da91c[4] = {0};
-/* 0x008da920, 4 bytes */ GRIM_DATA("008da920") unsigned int UINT_008da920 = 0x0;
-/* 0x008da924, 4 bytes */ GRIM_DATA("008da924") unsigned int UINT_008da924 = 0x0;
-/* 0x008da928, 904 bytes */ GRIM_DATA("008da928") unsigned char UINT_008da928[904] = {0};
-/* 0x008dacb0, 4 bytes */ GRIM_DATA("008dacb0") unsigned int g_dwSound_bufsize = 0x0;
-/* 0x008dacb4, 4 bytes */ GRIM_DATA("008dacb4") unsigned int UINT_008dacb4 = 0x0;
-/* 0x008dacb8, 4 bytes */ GRIM_DATA("008dacb8") unsigned int UINT_008dacb8 = 0x0;
-/* 0x008dacbc, 4 bytes */ GRIM_DATA("008dacbc") unsigned int UINT_008dacbc = 0x0;
-/* 0x008dacc0, 4 bytes */ GRIM_DATA("008dacc0") unsigned int UINT_008dacc0 = 0x0;
-/* 0x008dacc4, 4 bytes */ GRIM_DATA("008dacc4") unsigned int UINT_008dacc4 = 0x0;
-/* 0x008dacc8, 4 bytes */ GRIM_DATA("008dacc8") unsigned int UINT_008dacc8 = 0x0;
-/* 0x008daccc, 4 bytes */ GRIM_DATA("008daccc") unsigned int UINT_008daccc = 0x0;
-/* 0x008dacd0, 4 bytes */ GRIM_DATA("008dacd0") unsigned int UINT_008dacd0 = 0x0;
-/* 0x008dacd4, 4 bytes */ GRIM_DATA("008dacd4") unsigned int UINT_008dacd4 = 0x0;
-/* 0x008dacd8, 4 bytes */ GRIM_DATA("008dacd8") unsigned int UINT_008dacd8 = 0x0;
-/* 0x008dacdc, 4 bytes */ GRIM_DATA("008dacdc") unsigned int UINT_008dacdc = 0x0;
-/* 0x008dace0, 4 bytes */ GRIM_DATA("008dace0") unsigned int UINT_008dace0 = 0x0;
-/* 0x008dace4, 4 bytes */ GRIM_DATA("008dace4") unsigned int UINT_008dace4 = 0x0;
-/* 0x008dace8, 4 bytes */ GRIM_DATA("008dace8") unsigned int UINT_008dace8 = 0x0;
-/* 0x008dacec, 4 bytes */ GRIM_DATA("008dacec") unsigned int UINT_008dacec = 0x0;
-/* 0x008dacf0, 4 bytes */ GRIM_DATA("008dacf0") unsigned char g_pSoundModule_snddriver_services[4] = {0};
-/* 0x008dacf4, 4 bytes */ GRIM_DATA("008dacf4") unsigned int g_dwSound_ticks = 0x0;
-/* 0x008dacf8, 4 bytes */ GRIM_DATA("008dacf8") unsigned char g_pSoundModule_share_services[4] = {0};
-/* 0x008dacfc, 4 bytes */ GRIM_DATA("008dacfc") unsigned int g_dwSound_reserveram = 0x0;
-/* 0x008dad00, 64 bytes */ GRIM_DATA("008dad00") int g_anSndStreamKey[16] = {0};
-/* 0x008dad40, 4 bytes */ GRIM_DATA("008dad40") unsigned int g_dwSound_music_on = 0x0;
-/* 0x008dad44, 4 bytes */ GRIM_DATA("008dad44") unsigned int g_dwSound_sound_on = 0x0;
-/* 0x008dad48, 4 bytes */ GRIM_DATA("008dad48") unsigned int g_dwSoundModule_timer_services = 0x0;
-/* 0x008dad4c, 4 bytes */ GRIM_DATA("008dad4c") unsigned int g_dwSound_voice_on = 0x0;
-/* 0x008dad50, 8 bytes */ GRIM_DATA("008dad50") unsigned char g_dwSound_flipped[8] = {0};
-/* 0x008dad58, 4 bytes */ GRIM_DATA("008dad58") unsigned int UINT_008dad58 = 0x0;
-/* 0x008dad5c, 4 bytes */ GRIM_DATA("008dad5c") unsigned int UINT_008dad5c = 0x0;
-/* 0x008dad60, 4 bytes */ GRIM_DATA("008dad60") unsigned int UINT_008dad60 = 0x0;
-/* 0x008dad64, 4 bytes */ GRIM_DATA("008dad64") unsigned int UINT_008dad64 = 0x0;
-/* 0x008dad68, 4 bytes */ GRIM_DATA("008dad68") unsigned char DAT_008dad68[4] = {0};
-/* 0x008dad6c, 1 bytes */ GRIM_DATA("008dad6c") unsigned char g_bSou_hooks = 0x0;
-/* 0x008dad6d, 1 bytes */ GRIM_DATA("008dad6c") unsigned char DAT_008dad6d = 0x0;
-/* 0x008dad6e, 1 bytes */ GRIM_DATA("008dad6c") unsigned char DAT_008dad6e = 0x0;
-/* 0x008dad6f, 1 bytes */ GRIM_DATA("008dad6c") unsigned char DAT_008dad6f = 0x0;
-/* 0x008dad70, 4 bytes */ GRIM_DATA("008dad70") unsigned int UINT_008dad70 = 0x0;
-/* 0x008dad74, 4 bytes */ GRIM_DATA("008dad74") unsigned int UINT_008dad74 = 0x0;
-/* 0x008dad78, 4 bytes */ GRIM_DATA("008dad78") unsigned char DAT_008dad78[4] = {0};
-/* 0x008dad7c, 4 bytes */ GRIM_DATA("008dad7c") unsigned int UINT_008dad7c = 0x0;
-/* 0x008dad80, 4 bytes */ GRIM_DATA("008dad80") unsigned int UINT_008dad80 = 0x0;
-/* 0x008dad84, 4 bytes */ GRIM_DATA("008dad84") unsigned int UINT_008dad84 = 0x0;
-/* 0x008dad88, 784 bytes */ GRIM_DATA("008dad88") unsigned char UINT_008dad88[784] = {0};
-/* 0x008db098, 4 bytes */ GRIM_DATA("008db098") unsigned int g_dwSoundModule_share_config = 0x0;
-/* 0x008db09c, 4 bytes */ GRIM_DATA("008db09c") unsigned int g_dwSound_samplerate = 0x0;
-/* 0x008db0a0, 8 bytes */ GRIM_DATA("008db0a0") unsigned int g_dwSound_name = 0x0;
-/* 0x008db0a4, 4 bytes: the rest of g_dwSound_name's span */ GRIM_DATA("008db0a0") static unsigned char g_dwSound_name__tail[4] __attribute__((used)) = {0};
-/* 0x008db0a8, 64 bytes */ GRIM_DATA("008db0a8") int g_anSndChunkCount[16] = {0};
-/* 0x008db0e8, 256 bytes */ GRIM_DATA("008db0e8") unsigned char DAT_008db0e8[256] = {0};
-/* 0x008db1e8, 4 bytes */ GRIM_DATA("008db1e8") unsigned char g_dwSound_channel[4] = {0};
-/* 0x008db1ec, 4 bytes */ GRIM_DATA("008db1ec") unsigned int g_dwSou_paused_flag = 0x0;
-/* 0x008db1f0, 8 bytes */ GRIM_DATA("008db1f0") unsigned char g_dwSou_active_flag[8] = {0};
-/* 0x008db1f8, 8 bytes */ GRIM_DATA("008db1f8") unsigned char UINT_008db1f8[8] = {0};
-/* 0x008db200, 8 bytes */ GRIM_DATA("008db200") double g_dSndClock = 0.0;
-/* 0x008db208, 4 bytes */ GRIM_DATA("008db208") unsigned int g_dwDsndDriver_memory_services = 0x0;
-/* 0x008db20c, 4 bytes */ GRIM_DATA("008db20c") unsigned char DAT_008db20c[4] = {0};
-/* 0x008db210, 4 bytes */ GRIM_DATA("008db210") unsigned int UINT_008db210 = 0x0;
-/* 0x008db214, 4 bytes */ GRIM_DATA("008db214") unsigned char DAT_008db214[4] = {0};
-/* 0x008db218, 4 bytes */ GRIM_DATA("008db218") unsigned char DAT_008db218[4] = {0};
-/* 0x008db21c, 4 bytes */ GRIM_DATA("008db21c") unsigned char DAT_008db21c[4] = {0};
-/* 0x008db220, 4 bytes */ GRIM_DATA("008db220") unsigned char DAT_008db220[4] = {0};
-/* 0x008db224, 4 bytes */ GRIM_DATA("008db224") unsigned char DAT_008db224[4] = {0};
-/* 0x008db228, 4 bytes */ GRIM_DATA("008db228") unsigned char DAT_008db228[4] = {0};
-/* 0x008db22c, 4 bytes */ GRIM_DATA("008db22c") unsigned char DAT_008db22c[4] = {0};
-/* 0x008db230, 96 bytes */ GRIM_DATA("008db230") unsigned char UINT_008db230[96] = {0};
-/* 0x008db290, 128 bytes */ GRIM_DATA("008db290") unsigned char UINT_008db290[128] = {0};
-/* 0x008db310, 252 bytes */ GRIM_DATA("008db310") unsigned char UINT_008db310[252] = {0};
-/* 0x008db40c, 4 bytes */ GRIM_DATA("008db40c") unsigned int UINT_008db40c = 0x0;
-/* 0x008db410, 4 bytes */ GRIM_DATA("008db410") unsigned char g_pfnStreamMix[4] = {0};
-/* 0x008db414, 4 bytes */ GRIM_DATA("008db414") unsigned char DAT_008db414[4] = {0};
-/* 0x008db418, 4 bytes */ GRIM_DATA("008db418") unsigned char DAT_008db418[4] = {0};
-/* 0x008db41c, 4 bytes */ GRIM_DATA("008db41c") unsigned char g_pDsndDriver_share_services[4] = {0};
-/* 0x008db420, 4 bytes */ GRIM_DATA("008db420") int g_nStreamBlocks = 0;
-/* 0x008db424, 4 bytes */ GRIM_DATA("008db424") unsigned char g_pDsndDriver_timer_services[4] = {0};
-/* 0x008db428, 4 bytes */ GRIM_DATA("008db428") unsigned int UINT_008db428 = 0x0;
-/* 0x008db42c, 4 bytes */ GRIM_DATA("008db42c") unsigned char DAT_008db42c[4] = {0};
-/* 0x008db430, 8 bytes */ GRIM_DATA("008db430") unsigned int g_dwDsndDriver_share_config = 0x0;
-/* 0x008db434, 4 bytes: the rest of g_dwDsndDriver_share_config's span */ GRIM_DATA("008db430") static unsigned char g_dwDsndDriver_share_config__tail[4] __attribute__((used)) = {0};
-/* 0x008db438, 6144 bytes */ GRIM_DATA("008db438") unsigned char UINT_008db438[6144] = {0};
-/* 0x008dcc38, 4 bytes */ GRIM_DATA("008dcc38") unsigned char DAT_008dcc38[4] = {0};
-/* 0x008dcc3c, 4 bytes */ GRIM_DATA("008dcc3c") unsigned char DAT_008dcc3c[4] = {0};
-/* 0x008dcc40, 4 bytes */ GRIM_DATA("008dcc40") unsigned char g_pStreamDS[4] = {0};
-/* 0x008dcc44, 4 bytes */ GRIM_DATA("008dcc44") unsigned char g_pStreamDSPrimary[4] = {0};
-/* 0x008dcc48, 4 bytes */ GRIM_DATA("008dcc48") unsigned char g_pStreamDSBuffer[4] = {0};
-/* 0x008dcc4c, 4 bytes */ GRIM_DATA("008dcc4c") unsigned char DAT_008dcc4c[4] = {0};
-/* 0x008dcc50, 4 bytes */ GRIM_DATA("008dcc50") unsigned int UINT_008dcc50 = 0x0;
-/* 0x008dcc54, 4 bytes */ GRIM_DATA("008dcc54") int g_nStreamTimerId = 0;
-/* 0x008dcc58, 8 bytes */ GRIM_DATA("008dcc58") unsigned char UINT_008dcc58[8] = {0};
-/* 0x008dcc60, 4 bytes */ GRIM_DATA("008dcc60") unsigned int g_dwMixer_outChannelCount = 0x0;
-/* 0x008dcc64, 12 bytes */ GRIM_DATA("008dcc64") unsigned char g_pMixer_softLTable[12] = {0};
-/* 0x008dcc70, 8 bytes */ GRIM_DATA("008dcc70") unsigned char DAT_008dcc70[8] = {0};
-/* 0x008dcc78, 292 bytes */ GRIM_DATA("008dcc78") unsigned char DAT_008dcc78[292] = {0};
-/* 0x008dcd9c, 4 bytes */ GRIM_DATA("008dcd9c") unsigned int g_dwMixer_mixBufSize = 0x0;
-/* 0x008dcda0, 16 bytes */ GRIM_DATA("008dcda0") int INT_008dcda0 = 0;
-/* 0x008dcda4, 12 bytes: the rest of INT_008dcda0's span */ GRIM_DATA("008dcda0") static unsigned char INT_008dcda0__tail[12] __attribute__((used)) = {0};
-/* 0x008dcdb0, 8 bytes */ GRIM_DATA("008dcdb0") unsigned char g_pMixer_mixBuf[8] = {0};
-/* 0x008dcdb8, 4 bytes */ GRIM_DATA("008dcdb8") unsigned int g_dwMsc_uncompress_count = 0x0;
-/* 0x008dcdbc, 4 bytes */ GRIM_DATA("008dcdbc") unsigned int g_dwMsc_uncompress_state = 0x0;
-/* 0x008dcdc0, 4 bytes */ GRIM_DATA("008dcdc0") unsigned char g_bMsc_uncompress_val[4] = {0};
-/* 0x008dcdc4, 4 bytes */ GRIM_DATA("008dcdc4") unsigned char g_pMsc_uncompress_data[4] = {0};
-/* 0x008dcdc8, 4000 bytes */ GRIM_DATA("008dcdc8") unsigned char g_aMsc_error_string[4000] = {0};
-/* 0x008ddd68, 4 bytes */ GRIM_DATA("008ddd68") unsigned int g_dwMsc_error_loc = 0x0;
-/* 0x008ddd6c, 20 bytes */ GRIM_DATA("008ddd6c") unsigned int g_dwMsc_error_count = 0x0;
-/* 0x008ddd70, 16 bytes: the rest of g_dwMsc_error_count's span */ GRIM_DATA("008ddd6c") static unsigned char g_dwMsc_error_count__tail[16] __attribute__((used)) = {0};
-/* 0x008ddd80, 4 bytes */ GRIM_DATA("008ddd80") unsigned char g_aPolyglotServices[4] = {0};
-/* 0x008ddd84, 4 bytes */ GRIM_DATA("008ddd84") unsigned int UINT_008ddd84 = 0x0;
-/* 0x008ddd88, 4 bytes */ GRIM_DATA("008ddd88") unsigned int UINT_008ddd88 = 0x0;
-/* 0x008ddd8c, 20 bytes */ GRIM_DATA("008ddd8c") unsigned char UINT_008ddd8c[20] = {0};
-/* 0x008ddda0, 4 bytes */ GRIM_DATA("008ddda0") unsigned char g_aHs[4] = {0};
-/* 0x008ddda4, 4 bytes */ GRIM_DATA("008ddda4") unsigned char DAT_008ddda4[4] = {0};
-/* 0x008ddda8, 4 bytes */ GRIM_DATA("008ddda8") unsigned char DAT_008ddda8[4] = {0};
-/* 0x008dddac, 4 bytes */ GRIM_DATA("008dddac") unsigned int UINT_008dddac = 0x0;
-/* 0x008dddb0, 4 bytes */ GRIM_DATA("008dddb0") unsigned char DAT_008dddb0[4] = {0};
-/* 0x008dddb4, 108 bytes */ GRIM_DATA("008dddb4") unsigned char DAT_008dddb4[108] = {0};
-/* 0x008dde20, 4 bytes */ GRIM_DATA("008dde20") unsigned char g_aMs[4] = {0};
-/* 0x008dde24, 4 bytes */ GRIM_DATA("008dde24") unsigned int UINT_008dde24 = 0x0;
-/* 0x008dde28, 4 bytes */ GRIM_DATA("008dde28") unsigned int UINT_008dde28 = 0x0;
-/* 0x008dde2c, 20 bytes */ GRIM_DATA("008dde2c") unsigned char UINT_008dde2c[20] = {0};
-/* 0x008dde40, 4 bytes */ GRIM_DATA("008dde40") unsigned int UINT_008dde40 = 0x0;
-/* 0x008dde44, 4 bytes */ GRIM_DATA("008dde44") unsigned int g_dwRdZRaster_aRGBToPalette = 0x0;
-/* 0x008dde48, 4 bytes */ GRIM_DATA("008dde48") unsigned int g_dwRdZRaster_uWrap = 0x0;
-/* 0x008dde4c, 4 bytes */ GRIM_DATA("008dde4c") unsigned char g_dwRdZRaster_oneOverZStep[4] = {0};
-/* 0x008dde50, 4 bytes */ GRIM_DATA("008dde50") unsigned int g_dwRdZRaster_dVdXModifier = 0x0;
-/* 0x008dde54, 4 bytes */ GRIM_DATA("008dde54") unsigned int g_dwRdZRaster_mipMapNum = 0x0;
-/* 0x008dde58, 4 bytes */ GRIM_DATA("008dde58") unsigned int g_dwRdZRaster_vWrap = 0x0;
-/* 0x008dde5c, 4 bytes */ GRIM_DATA("008dde5c") unsigned int g_dwRdZRaster_aRGBMap = 0x0;
-/* 0x008dde60, 4 bytes */ GRIM_DATA("008dde60") unsigned char g_dwRdZRaster_dUOverZdX[4] = {0};
-/* 0x008dde64, 4 bytes */ GRIM_DATA("008dde64") unsigned char g_dwRdZRaster_dUOverZdY[4] = {0};
-/* 0x008dde68, 4 bytes */ GRIM_DATA("008dde68") unsigned int g_dwRdZRaster_texPitch = 0x0;
-/* 0x008dde6c, 4 bytes */ GRIM_DATA("008dde6c") unsigned int g_dwRdZRaster_aMonoMap = 0x0;
-/* 0x008dde70, 4 bytes */ GRIM_DATA("008dde70") unsigned short g_wRdZRaster_RGBcolor = 0x0;
-/* 0x008dde72, 2 bytes: the rest of g_wRdZRaster_RGBcolor's span */ GRIM_DATA("008dde70") static unsigned char g_wRdZRaster_RGBcolor__tail[2] __attribute__((used)) = {0};
-/* 0x008dde74, 4 bytes */ GRIM_DATA("008dde74") unsigned char g_dwRdZRaster_vOverZStep[4] = {0};
-/* 0x008dde78, 4 bytes */ GRIM_DATA("008dde78") unsigned int g_dwRdZRaster_dUdXModifier = 0x0;
-/* 0x008dde7c, 4 bytes */ GRIM_DATA("008dde7c") unsigned int g_dwRdZRaster_pPixels = 0x0;
-/* 0x008dde80, 4 bytes */ GRIM_DATA("008dde80") unsigned char g_dwRdZRaster_dVOverZdX[4] = {0};
-/* 0x008dde84, 4 bytes */ GRIM_DATA("008dde84") unsigned char g_dwRdZRaster_dVOverZdY[4] = {0};
-/* 0x008dde88, 4 bytes */ GRIM_DATA("008dde88") unsigned int g_dwRdZRaster_dOneOverZdXFixed = 0x0;
-/* 0x008dde8c, 4 bytes */ GRIM_DATA("008dde8c") unsigned int g_dwRdZRaster_texRowShift = 0x0;
-/* 0x008dde90, 4 bytes */ GRIM_DATA("008dde90") unsigned int g_dwRdZRaster_aAlphaMap = 0x0;
-/* 0x008dde94, 4 bytes */ GRIM_DATA("008dde94") unsigned char g_dwRdZRaster_uOverZStep[4] = {0};
-/* 0x008dde98, 4 bytes */ GRIM_DATA("008dde98") unsigned char g_bRdZRaster_color[4] = {0};
-/* 0x008dde9c, 4 bytes */ GRIM_DATA("008dde9c") unsigned char g_dwRdZRaster_dOneOverZdY[4] = {0};
-/* 0x008ddea0, 4 bytes */ GRIM_DATA("008ddea0") unsigned char g_dwRdZRaster_dOneOverZdX[4] = {0};
-/* 0x008ddea4, 4 bytes */ GRIM_DATA("008ddea4") unsigned int g_dwRdZRaster_zScaleShift = 0x0;
-/* 0x008ddea8, 4 bytes */ GRIM_DATA("008ddea8") unsigned int g_dwRdNRaster_aAlphaMap = 0x0;
-/* 0x008ddeac, 4 bytes */ GRIM_DATA("008ddeac") unsigned int g_dwRdNRaster_dVdXModifier = 0x0;
-/* 0x008ddeb0, 4 bytes */ GRIM_DATA("008ddeb0") unsigned int g_dwRdNRaster_aMonoMap = 0x0;
-/* 0x008ddeb4, 4 bytes */ GRIM_DATA("008ddeb4") unsigned int g_dwRdNRaster_texPitch = 0x0;
-/* 0x008ddeb8, 4 bytes */ GRIM_DATA("008ddeb8") unsigned short g_wRdNRaster_RGBcolor = 0x0;
-/* 0x008ddeba, 2 bytes: the rest of g_wRdNRaster_RGBcolor's span */ GRIM_DATA("008ddeb8") static unsigned char g_wRdNRaster_RGBcolor__tail[2] __attribute__((used)) = {0};
-/* 0x008ddebc, 4 bytes */ GRIM_DATA("008ddebc") unsigned int g_dwRdNRaster_aRGBMap = 0x0;
-/* 0x008ddec0, 4 bytes */ GRIM_DATA("008ddec0") unsigned char g_bRdNRaster_color[4] = {0};
-/* 0x008ddec4, 4 bytes */ GRIM_DATA("008ddec4") unsigned char g_dwRdNRaster_dUOverZdY[4] = {0};
-/* 0x008ddec8, 4 bytes */ GRIM_DATA("008ddec8") unsigned char g_dwRdNRaster_dUOverZdX[4] = {0};
-/* 0x008ddecc, 4 bytes */ GRIM_DATA("008ddecc") unsigned int g_dwRdNRaster_uWrap = 0x0;
-/* 0x008dded0, 4 bytes */ GRIM_DATA("008dded0") unsigned char g_dwRdNRaster_uOverZStep[4] = {0};
-/* 0x008dded4, 4 bytes */ GRIM_DATA("008dded4") unsigned int g_dwRdNRaster_aRGBToPalette = 0x0;
-/* 0x008dded8, 4 bytes */ GRIM_DATA("008dded8") unsigned int g_dwRdNRaster_texRowShift = 0x0;
-/* 0x008ddedc, 4 bytes */ GRIM_DATA("008ddedc") unsigned char g_dwRdNRaster_dVOverZdX[4] = {0};
-/* 0x008ddee0, 4 bytes */ GRIM_DATA("008ddee0") unsigned char g_dwRdNRaster_dVOverZdY[4] = {0};
-/* 0x008ddee4, 4 bytes */ GRIM_DATA("008ddee4") unsigned int g_dwRdNRaster_mipMapNum = 0x0;
-/* 0x008ddee8, 4 bytes */ GRIM_DATA("008ddee8") int g_dwRdNRaster_pPixels = 0;
-/* 0x008ddeec, 4 bytes */ GRIM_DATA("008ddeec") unsigned char g_dwRdNRaster_oneOverZStep[4] = {0};
-/* 0x008ddef0, 4 bytes */ GRIM_DATA("008ddef0") unsigned char g_dwRdNRaster_dOneOverZdY[4] = {0};
-/* 0x008ddef4, 4 bytes */ GRIM_DATA("008ddef4") unsigned char g_dwRdNRaster_dOneOverZdX[4] = {0};
-/* 0x008ddef8, 4 bytes */ GRIM_DATA("008ddef8") unsigned int g_dwRdNRaster_dUdXModifier = 0x0;
-/* 0x008ddefc, 4 bytes */ GRIM_DATA("008ddefc") unsigned int g_dwRdNRaster_vWrap = 0x0;
-/* 0x008ddf00, 4 bytes */ GRIM_DATA("008ddf00") unsigned char g_dwRdNRaster_vOverZStep[4] = {0};
-/* 0x008ddf04, 4 bytes */ GRIM_DATA("008ddf04") unsigned int g_dwRdAFRaster_mipMapNum = 0x0;
-/* 0x008ddf08, 4 bytes */ GRIM_DATA("008ddf08") unsigned char g_wRdAFRaster_RGBcolor[4] = {0};
-/* 0x008ddf0c, 4 bytes */ GRIM_DATA("008ddf0c") unsigned int g_dwRdAFRaster_aMonoMap = 0x0;
-/* 0x008ddf10, 4 bytes */ GRIM_DATA("008ddf10") unsigned int g_dwRdAFRaster_texRowShift = 0x0;
-/* 0x008ddf14, 4 bytes */ GRIM_DATA("008ddf14") unsigned int g_dwRdAFRaster_vWrap = 0x0;
-/* 0x008ddf18, 4 bytes */ GRIM_DATA("008ddf18") unsigned int g_dwRdAFRaster_dVdXModifier = 0x0;
-/* 0x008ddf1c, 4 bytes */ GRIM_DATA("008ddf1c") unsigned char g_dwRdAFRaster_dOneOverZdX[4] = {0};
-/* 0x008ddf20, 4 bytes */ GRIM_DATA("008ddf20") unsigned char g_dwRdAFRaster_dUOverZdX[4] = {0};
-/* 0x008ddf24, 4 bytes */ GRIM_DATA("008ddf24") unsigned int g_dwRdAFRaster_dOneOverZdXFixed = 0x0;
-/* 0x008ddf28, 4 bytes */ GRIM_DATA("008ddf28") unsigned char g_dwRdAFRaster_oneOverZStep[4] = {0};
-/* 0x008ddf2c, 4 bytes */ GRIM_DATA("008ddf2c") unsigned char g_dwRdAFRaster_uOverZStep[4] = {0};
-/* 0x008ddf30, 4 bytes */ GRIM_DATA("008ddf30") unsigned int g_dwRdAFRaster_aRGBMap = 0x0;
-/* 0x008ddf34, 4 bytes */ GRIM_DATA("008ddf34") unsigned char g_dwRdAFRaster_texPitch[4] = {0};
-/* 0x008ddf38, 4 bytes */ GRIM_DATA("008ddf38") unsigned char g_dwRdAFRaster_dVOverZdX[4] = {0};
-/* 0x008ddf3c, 4 bytes */ GRIM_DATA("008ddf3c") unsigned int g_dwRdAFRaster_pPixels = 0x0;
-/* 0x008ddf40, 4 bytes */ GRIM_DATA("008ddf40") unsigned char g_bRdAFRaster_color[4] = {0};
-/* 0x008ddf44, 4 bytes */ GRIM_DATA("008ddf44") unsigned int g_dwRdAFRaster_dUdXModifier = 0x0;
-/* 0x008ddf48, 4 bytes */ GRIM_DATA("008ddf48") unsigned char g_dwRdAFRaster_vOverZStep[4] = {0};
-/* 0x008ddf4c, 4 bytes */ GRIM_DATA("008ddf4c") unsigned int g_dwRdAFRaster_uWrap = 0x0;
-/* 0x008ddf50, 16 bytes */ GRIM_DATA("008ddf50") unsigned char g_aRdCamera_camPYR[16] = {0};
-/* 0x008ddf60, 36 bytes */ GRIM_DATA("008ddf60") unsigned char UINT_008ddf60[36] = {0};
-/* 0x008ddf84, 4 bytes */ GRIM_DATA("008ddf84") unsigned int UINT_008ddf84 = 0x0;
-/* 0x008ddf88, 4 bytes */ GRIM_DATA("008ddf88") unsigned int UINT_008ddf88 = 0x0;
-/* 0x008ddf8c, 4 bytes */ GRIM_DATA("008ddf8c") unsigned int UINT_008ddf8c = 0x0;
-/* 0x008ddf90, 4 bytes */ GRIM_DATA("008ddf90") int g_nRdCache_ulcExtent = 0;
-/* 0x008ddf94, 4 bytes */ GRIM_DATA("008ddf94") int g_nDrawBoxMinY = 0;
-/* 0x008ddf98, 4 bytes */ GRIM_DATA("008ddf98") int g_nRdCache_lrcExtent = 0;
-/* 0x008ddf9c, 4 bytes */ GRIM_DATA("008ddf9c") int g_nDrawBoxMaxY = 0;
-/* 0x008ddfa0, 32 bytes */ GRIM_DATA("008ddfa0") unsigned int g_dwRdCache_numProcFaces = 0x0;
+/* 0x008d0b90, 264 bytes, unused (dead) */ GRIM_DATA("008d0b90") unsigned char DAT_008d0b90[264] __asm__("_DAT_008d0b90");
+/* 0x008d0c98, 8 bytes, unused (dead) */ GRIM_DATA("008d0c98") unsigned char UINT_008d0c98[8] __asm__("_UINT_008d0c98");
+/* 0x008d0ca0, 1 bytes */ GRIM_DATA("008d0ca0") unsigned char UINT_008d0ca0[1] __asm__("_UINT_008d0ca0") = {0};
+/* 0x008d0ca1, 263 bytes */ GRIM_DATA("008d0ca0") unsigned char DAT_008d0ca1[263] __asm__("_DAT_008d0ca1") = {0};
+/* 0x008d0da8, 256 bytes, unused (dead) */ GRIM_DATA("008d0da8") unsigned char DAT_008d0da8[256] __asm__("_DAT_008d0da8");
+/* 0x008d0ea8, 4 bytes */ GRIM_DATA("008d0ea8") unsigned int UINT_008d0ea8 __asm__("_UINT_008d0ea8") = 0x0;
+/* 0x008d0eac, 4 bytes */ GRIM_DATA("008d0eac") unsigned int UINT_008d0eac __asm__("_UINT_008d0eac") = 0x0;
+/* 0x008d0eb0, 4 bytes */ GRIM_DATA("008d0eb0") unsigned char DAT_008d0eb0[4] __asm__("_DAT_008d0eb0") = {0};
+/* 0x008d0eb4, 4 bytes */ GRIM_DATA("008d0eb4") unsigned char DAT_008d0eb4[4] __asm__("_DAT_008d0eb4") = {0};
+/* 0x008d0eb8, 4 bytes */ GRIM_DATA("008d0eb8") unsigned char DAT_008d0eb8[4] __asm__("_DAT_008d0eb8") = {0};
+/* 0x008d0ebc, 4 bytes, unused (dead) */ GRIM_DATA("008d0ebc") unsigned char UINT_008d0ebc[4] __asm__("_UINT_008d0ebc");
+/* 0x008d0ec0, 8 bytes */ GRIM_DATA("008d0ec0") unsigned char UINT_008d0ec0[8] __asm__("_UINT_008d0ec0") = {0};
+/* 0x008d0ec8, 8 bytes */ GRIM_DATA("008d0ec8") unsigned char UINT_008d0ec8[8] __asm__("_UINT_008d0ec8") = {0};
+/* 0x008d0ed0, 4 bytes */ GRIM_DATA("008d0ed0") unsigned int UINT_008d0ed0 __asm__("_UINT_008d0ed0") = 0x0;
+/* 0x008d0ed4, 4 bytes */ GRIM_DATA("008d0ed4") unsigned int UINT_008d0ed4 __asm__("_UINT_008d0ed4") = 0x0;
+/* 0x008d0ed8, 4 bytes */ GRIM_DATA("008d0ed8") unsigned int UINT_008d0ed8 __asm__("_UINT_008d0ed8") = 0x0;
+/* 0x008d0edc, 8 bytes */ GRIM_DATA("008d0edc") unsigned char UINT_008d0edc[8] __asm__("_UINT_008d0edc") = {0};
+/* 0x008d0ee4, 4 bytes */ GRIM_DATA("008d0ee4") unsigned int UINT_008d0ee4 __asm__("_UINT_008d0ee4") = 0x0;
+/* 0x008d0ee8, 4 bytes, unused (dead) */ GRIM_DATA("008d0ee8") unsigned char UINT_008d0ee8[4] __asm__("_UINT_008d0ee8");
+/* 0x008d0eec, 4 bytes, unused (dead) */ GRIM_DATA("008d0eec") unsigned char UINT_008d0eec[4] __asm__("_UINT_008d0eec");
+/* 0x008d0ef0, 4 bytes, unused (dead) */ GRIM_DATA("008d0ef0") unsigned char UINT_008d0ef0[4] __asm__("_UINT_008d0ef0");
+/* 0x008d0ef4, 4 bytes, unused (dead) */ GRIM_DATA("008d0ef4") unsigned char UINT_008d0ef4[4] __asm__("_UINT_008d0ef4");
+/* 0x008d0ef8, 4 bytes, unused (dead) */ GRIM_DATA("008d0ef8") unsigned char UINT_008d0ef8[4] __asm__("_UINT_008d0ef8");
+/* 0x008d0efc, 4 bytes, unused (dead) */ GRIM_DATA("008d0efc") unsigned char UINT_008d0efc[4] __asm__("_UINT_008d0efc");
+/* 0x008d0f00, 20 bytes, unused (dead) */ GRIM_DATA("008d0f00") unsigned char UINT_008d0f00[20] __asm__("_UINT_008d0f00");
+/* 0x008d0f14, 8 bytes, unused (dead) */ GRIM_DATA("008d0f14") unsigned char DAT_008d0f14[8] __asm__("_DAT_008d0f14");
+/* 0x008d0f1c, 6 bytes, unused (dead) */ GRIM_DATA("008d0f1c") unsigned char DAT_008d0f1c[6] __asm__("_DAT_008d0f1c");
+/* 0x008d0f22, 4 bytes, unused (dead) */ GRIM_DATA("008d0f1c") unsigned char DAT_008d0f22[4] __asm__("_DAT_008d0f22");
+/* 0x008d0f26, 2 bytes, unused (dead) */ GRIM_DATA("008d0f1c") unsigned char DAT_008d0f26[2] __asm__("_DAT_008d0f26");
+/* 0x008d0f28, 40 bytes, unused (dead) */ GRIM_DATA("008d0f28") unsigned char DAT_008d0f28[40] __asm__("_DAT_008d0f28");
+/* 0x008d0f50, 4 bytes, unused (dead) */ GRIM_DATA("008d0f50") unsigned char UINT_008d0f50[4] __asm__("_UINT_008d0f50");
+/* 0x008d0f54, 4 bytes */ GRIM_DATA("008d0f54") unsigned int UINT_008d0f54 __asm__("_UINT_008d0f54") = 0x0;
+/* 0x008d0f58, 4 bytes */ GRIM_DATA("008d0f58") unsigned int UINT_008d0f58 __asm__("_UINT_008d0f58") = 0x0;
+/* 0x008d0f5c, 4 bytes */ GRIM_DATA("008d0f5c") unsigned int UINT_008d0f5c __asm__("_UINT_008d0f5c") = 0x0;
+/* 0x008d0f60, 8 bytes */ GRIM_DATA("008d0f60") unsigned char UINT_008d0f60[8] __asm__("_UINT_008d0f60") = {0};
+/* 0x008d0f68, 8 bytes */ GRIM_DATA("008d0f68") unsigned char UINT_008d0f68[8] __asm__("_UINT_008d0f68") = {0};
+/* 0x008d0f70, 4 bytes */ GRIM_DATA("008d0f70") unsigned int UINT_008d0f70 __asm__("_UINT_008d0f70") = 0x0;
+/* 0x008d0f74, 64 bytes */ GRIM_DATA("008d0f74") unsigned char DAT_008d0f74[64] __asm__("_DAT_008d0f74") = {0};
+/* 0x008d0fb4, 2 bytes */ GRIM_DATA("008d0fb4") unsigned short DAT_008d0fb4 __asm__("_DAT_008d0fb4") = 0x0;
+/* 0x008d0fb6, 2 bytes */ GRIM_DATA("008d0fb4") unsigned short DAT_008d0fb6 __asm__("_DAT_008d0fb6") = 0x0;
+/* 0x008d0fb8, 4 bytes */ GRIM_DATA("008d0fb8") unsigned int UINT_008d0fb8 __asm__("_UINT_008d0fb8") = 0x0;
+/* 0x008d0fbc, 4 bytes */ GRIM_DATA("008d0fbc") unsigned int UINT_008d0fbc __asm__("_UINT_008d0fbc") = 0x0;
+/* 0x008d0fc0, 4 bytes */ GRIM_DATA("008d0fc0") unsigned int UINT_008d0fc0 __asm__("_UINT_008d0fc0") = 0x0;
+/* 0x008d0fc4, 4 bytes */ GRIM_DATA("008d0fc4") unsigned int UINT_008d0fc4 __asm__("_UINT_008d0fc4") = 0x0;
+/* 0x008d0fc8, 64 bytes */ GRIM_DATA("008d0fc8") unsigned char DAT_008d0fc8[64] __asm__("_DAT_008d0fc8") = {0};
+/* 0x008d1008, 2 bytes */ GRIM_DATA("008d1008") unsigned short DAT_008d1008 __asm__("_DAT_008d1008") = 0x0;
+/* 0x008d100a, 2 bytes */ GRIM_DATA("008d1008") unsigned short DAT_008d100a __asm__("_DAT_008d100a") = 0x0;
+/* 0x008d100c, 4 bytes */ GRIM_DATA("008d100c") unsigned int UINT_008d100c __asm__("_UINT_008d100c") = 0x0;
+/* 0x008d1010, 4 bytes */ GRIM_DATA("008d1010") unsigned int UINT_008d1010 __asm__("_UINT_008d1010") = 0x0;
+/* 0x008d1014, 4 bytes */ GRIM_DATA("008d1014") unsigned int UINT_008d1014 __asm__("_UINT_008d1014") = 0x0;
+/* 0x008d1018, 4 bytes */ GRIM_DATA("008d1018") unsigned int UINT_008d1018 __asm__("_UINT_008d1018") = 0x0;
+/* 0x008d101c, 4 bytes */ GRIM_DATA("008d101c") unsigned int UINT_008d101c __asm__("_UINT_008d101c") = 0x0;
+/* 0x008d1020, 4 bytes */ GRIM_DATA("008d1020") unsigned int UINT_008d1020 __asm__("_UINT_008d1020") = 0x0;
+/* 0x008d1024, 4 bytes */ GRIM_DATA("008d1024") unsigned int UINT_008d1024 __asm__("_UINT_008d1024") = 0x0;
+/* 0x008d1028, 16 bytes, unused (dead) */ GRIM_DATA("008d1028") unsigned char UINT_008d1028[16] __asm__("_UINT_008d1028");
+/* 0x008d1038, 7 bytes, unused (dead) */ GRIM_DATA("008d1038") unsigned char DAT_008d1038[7] __asm__("_DAT_008d1038");
+/* 0x008d103f, 1 bytes, unused (dead) */ GRIM_DATA("008d1038") unsigned char DAT_008d103f[1] __asm__("_DAT_008d103f");
+/* 0x008d1040, 4 bytes, unused (dead) */ GRIM_DATA("008d1040") unsigned char DAT_008d1040[4] __asm__("_DAT_008d1040");
+/* 0x008d1044, 4 bytes */ GRIM_DATA("008d1044") unsigned int UINT_008d1044 __asm__("_UINT_008d1044") = 0x0;
+/* 0x008d1048, 4 bytes */ GRIM_DATA("008d1048") unsigned int UINT_008d1048 __asm__("_UINT_008d1048") = 0x0;
+/* 0x008d104c, 4 bytes */ GRIM_DATA("008d104c") unsigned int UINT_008d104c __asm__("_UINT_008d104c") = 0x0;
+/* 0x008d1050, 8 bytes */ GRIM_DATA("008d1050") unsigned char UINT_008d1050[8] __asm__("_UINT_008d1050") = {0};
+/* 0x008d1058, 36 bytes */ GRIM_DATA("008d1058") unsigned char DAT_008d1058[36] __asm__("_DAT_008d1058") = {0};
+/* 0x008d107c, 4 bytes */ GRIM_DATA("008d107c") unsigned int UINT_008d107c __asm__("_UINT_008d107c") = 0x0;
+/* 0x008d1080, 4 bytes, unused (dead) */ GRIM_DATA("008d1080") unsigned char UINT_008d1080[4] __asm__("_UINT_008d1080");
+/* 0x008d1084, 8 bytes, unused (dead) */ GRIM_DATA("008d1084") unsigned char UINT_008d1084[8] __asm__("_UINT_008d1084");
+/* 0x008d108c, 4 bytes */ GRIM_DATA("008d108c") unsigned int UINT_008d108c __asm__("_UINT_008d108c") = 0x0;
+/* 0x008d1090, 8 bytes */ GRIM_DATA("008d1090") unsigned char g_bMovieFlags[8] __asm__("_g_bMovieFlags") = {0};
+/* 0x008d1098, 4 bytes */ GRIM_DATA("008d1098") unsigned int g_dwVideoCallbacks __asm__("_g_dwVideoCallbacks") = 0x0;
+/* 0x008d10c8, 8 bytes */ GRIM_DATA("008d10c8") unsigned char g_pSmushPlay_file_services[8] __asm__("_g_pSmushPlay_file_services") = {0};
+/* 0x008d11d4, 4 bytes */ GRIM_DATA("008d11d4") unsigned char g_pSmushPlay_share_services[4] __asm__("_g_pSmushPlay_share_services") = {0};
+/* 0x008d11e0, 4 bytes */ GRIM_DATA("008d11e0") unsigned int UINT_008d11e0 __asm__("_UINT_008d11e0") = 0x0;
+/* 0x008d11e4, 4 bytes */ GRIM_DATA("008d11e4") unsigned int UINT_008d11e4 __asm__("_UINT_008d11e4") = 0x0;
+/* 0x008d11e8, 4 bytes */ GRIM_DATA("008d11e8") unsigned int UINT_008d11e8 __asm__("_UINT_008d11e8") = 0x0;
+/* 0x008d11ec, 4 bytes */ GRIM_DATA("008d11ec") unsigned int UINT_008d11ec __asm__("_UINT_008d11ec") = 0x0;
+/* 0x008d11f4, 4 bytes */ GRIM_DATA("008d11f4") unsigned int g_dwSmushPlayHS __asm__("_g_dwSmushPlayHS") = 0x0;
+/* 0x008d16a8, 4 bytes */ GRIM_DATA("008d16a8") unsigned int g_dwMovieIsPlaying __asm__("_g_dwMovieIsPlaying") = 0x0;
+/* 0x008d16b8, 4 bytes */ GRIM_DATA("008d16b8") unsigned int g_dwSmush_pInternalBitmap __asm__("_g_dwSmush_pInternalBitmap") = 0x0;
+/* 0x008d16bc, 4 bytes */ GRIM_DATA("008d16bc") unsigned int g_dwSmushPlay_TranslationTable __asm__("_g_dwSmushPlay_TranslationTable") = 0x0;
+/* 0x008d1730, 4 bytes */ GRIM_DATA("008d1730") unsigned int UINT_008d1730 __asm__("_UINT_008d1730") = 0x0;
+/* 0x008d1734, 4 bytes */ GRIM_DATA("008d1734") unsigned int UINT_008d1734 __asm__("_UINT_008d1734") = 0x0;
+/* 0x008d1c30, 32 bytes */ GRIM_DATA("008d1c30") unsigned char UINT_008d1c30[32] __asm__("_UINT_008d1c30") = {0};
+/* 0x008d3630, 4 bytes */ GRIM_DATA("008d3630") unsigned char g_hLightEdDialog[4] __asm__("_g_hLightEdDialog") = {0};
+/* 0x008d3634, 4 bytes */ GRIM_DATA("008d3634") unsigned char g_pLightEdSet[4] __asm__("_g_pLightEdSet") = {0};
+/* 0x008d3638, 4 bytes */ GRIM_DATA("008d3638") unsigned char g_pLightEdMarkerActor[4] __asm__("_g_pLightEdMarkerActor") = {0};
+/* 0x008d363c, 4 bytes */ GRIM_DATA("008d363c") unsigned char g_hLightEdHook[4] __asm__("_g_hLightEdHook") = {0};
+/* 0x008d3644, 4 bytes */ GRIM_DATA("008d3644") unsigned int UINT_008d3644 __asm__("_UINT_008d3644") = 0x0;
+/* 0x008d365c, 4 bytes */ GRIM_DATA("008d365c") unsigned char g_pDirectSound[4] __asm__("_g_pDirectSound") = {0};
+/* 0x008d6f10, 4 bytes */ GRIM_DATA("008d6f10") unsigned char g_pAnimPlay_timer_services[4] __asm__("_g_pAnimPlay_timer_services") = {0};
+/* 0x008d6f18, 4 bytes */ GRIM_DATA("008d6f18") unsigned char g_pAnimPlay_sound_services[4] __asm__("_g_pAnimPlay_sound_services") = {0};
+/* 0x008d6f1c, 4 bytes */ GRIM_DATA("008d6f1c") int g_nBretsFrameCount __asm__("_g_nBretsFrameCount") = 0;
+/* 0x008d6f20, 4 bytes */ GRIM_DATA("008d6f20") unsigned int UINT_008d6f20 __asm__("_UINT_008d6f20") = 0x0;
+/* 0x008d6f24, 4 bytes */ GRIM_DATA("008d6f24") unsigned int g_dwAnm_audio_halted __asm__("_g_dwAnm_audio_halted") = 0x0;
+/* 0x008d7834, 4 bytes */ GRIM_DATA("008d7834") unsigned char g_pZfile_memory_services[4] __asm__("_g_pZfile_memory_services") = {0};
+/* 0x008d783c, 4 bytes */ GRIM_DATA("008d783c") unsigned int g_dwZfile_virtherc_services __asm__("_g_dwZfile_virtherc_services") = 0x0;
+/* 0x008d7848, 4 bytes */ GRIM_DATA("008d7848") unsigned char g_pStdFile_filio_services[4] __asm__("_g_pStdFile_filio_services") = {0};
+/* 0x008da60c, 588 bytes */ GRIM_DATA("008da60c") unsigned char UINT_008da60c[588] __asm__("_UINT_008da60c") = {0};
+/* 0x008da860, 4 bytes */ GRIM_DATA("008da860") unsigned int g_dwSys_timer_count __asm__("_g_dwSys_timer_count") = 0x0;
+/* 0x008da86c, 4 bytes */ GRIM_DATA("008da86c") unsigned char DAT_008da86c[4] __asm__("_DAT_008da86c") = {0};
+/* 0x008da890, 4 bytes */ GRIM_DATA("008da890") unsigned char g_pVideo_memory_services[4] __asm__("_g_pVideo_memory_services") = {0};
+/* 0x008da89c, 4 bytes */ GRIM_DATA("008da89c") unsigned int g_dwVideo_video_services __asm__("_g_dwVideo_video_services") = 0x0;
+/* 0x008dacf0, 4 bytes */ GRIM_DATA("008dacf0") unsigned char g_pSoundModule_snddriver_services[4] __asm__("_g_pSoundModule_snddriver_services") = {0};
+/* 0x008dad6c, 1 bytes */ GRIM_DATA("008dad6c") unsigned char g_bSou_hooks __asm__("_g_bSou_hooks") = 0x0;
+/* 0x008dad6d, 1 bytes */ GRIM_DATA("008dad6c") unsigned char DAT_008dad6d __asm__("_DAT_008dad6d") = 0x0;
+/* 0x008dad6e, 1 bytes */ GRIM_DATA("008dad6c") unsigned char DAT_008dad6e __asm__("_DAT_008dad6e") = 0x0;
+/* 0x008dad6f, 1 bytes */ GRIM_DATA("008dad6c") unsigned char DAT_008dad6f __asm__("_DAT_008dad6f") = 0x0;
+/* 0x008dad84, 4 bytes */ GRIM_DATA("008dad84") unsigned int UINT_008dad84 __asm__("_UINT_008dad84") = 0x0;
+/* 0x008db410, 4 bytes */ GRIM_DATA("008db410") unsigned char g_pfnStreamMix[4] __asm__("_g_pfnStreamMix") = {0};
+/* 0x008db420, 4 bytes */ GRIM_DATA("008db420") int g_nStreamBlocks __asm__("_g_nStreamBlocks") = 0;
+/* 0x008db424, 4 bytes */ GRIM_DATA("008db424") unsigned char g_pDsndDriver_timer_services[4] __asm__("_g_pDsndDriver_timer_services") = {0};
+/* 0x008dcc48, 4 bytes */ GRIM_DATA("008dcc48") unsigned char g_pStreamDSBuffer[4] __asm__("_g_pStreamDSBuffer") = {0};
+/* 0x008dcc54, 4 bytes */ GRIM_DATA("008dcc54") int g_nStreamTimerId __asm__("_g_nStreamTimerId") = 0;
+/* 0x008dddac, 4 bytes */ GRIM_DATA("008dddac") unsigned int UINT_008dddac __asm__("_UINT_008dddac") = 0x0;
+/* 0x008dddb4, 108 bytes */ GRIM_DATA("008dddb4") unsigned char DAT_008dddb4[108] __asm__("_DAT_008dddb4") = {0};
+/* 0x008ddf90, 4 bytes */ GRIM_DATA("008ddf90") int g_nRdCache_ulcExtent __asm__("_g_nRdCache_ulcExtent") = 0;
+/* 0x008ddf94, 4 bytes */ GRIM_DATA("008ddf94") int g_nDrawBoxMinY __asm__("_g_nDrawBoxMinY") = 0;
+/* 0x008ddf98, 4 bytes */ GRIM_DATA("008ddf98") int g_nRdCache_lrcExtent __asm__("_g_nRdCache_lrcExtent") = 0;
+/* 0x008ddf9c, 4 bytes */ GRIM_DATA("008ddf9c") int g_nDrawBoxMaxY __asm__("_g_nDrawBoxMaxY") = 0;
+/* 0x008ddfa0, 32 bytes */ GRIM_DATA("008ddfa0") unsigned int g_dwRdCache_numProcFaces __asm__("_g_dwRdCache_numProcFaces") = 0x0;
 /* 0x008ddfa4, 28 bytes: the rest of g_dwRdCache_numProcFaces's span */ GRIM_DATA("008ddfa0") static unsigned char g_dwRdCache_numProcFaces__tail[28] __attribute__((used)) = {0};
-/* 0x008ddfc0, 122880 bytes */ GRIM_DATA("008ddfc0") ProcEntry g_bRdCache_aProcFaces[1024] = {0};
-/* 0x008fbfc0, 4 bytes */ GRIM_DATA("008fbfc0") unsigned char g_aRdRaster_OneOverNFixed[4] = {0};
-/* 0x008fbfc4, 8188 bytes */ GRIM_DATA("008fbfc4") unsigned char UINT_008fbfc4[8188] = {0};
-/* 0x008fdfc0, 64 bytes */ GRIM_DATA("008fdfc0") unsigned char UINT_008fdfc0[64] = {0};
-/* 0x008fe000, 4 bytes */ GRIM_DATA("008fe000") unsigned int g_dwRdRaster_aOneOverNFlex = 0x0;
-/* 0x008fe004, 8188 bytes */ GRIM_DATA("008fe004") unsigned char UINT_008fe004[8188] = {0};
-/* 0x00900000, 4 bytes */ GRIM_DATA("00900000") int g_nRdroid_curLightingMode = 0;
-/* 0x00900004, 4 bytes */ GRIM_DATA("00900004") unsigned char g_pRdroid_HS[4] = {0};
-/* 0x00900008, 24 bytes */ GRIM_DATA("00900008") int g_nRdroid_curGeometryMode = 0;
+/* 0x008ddfc0, 122880 bytes */ GRIM_DATA("008ddfc0") ProcEntry g_bRdCache_aProcFaces[1024] __asm__("_g_bRdCache_aProcFaces") = {0};
+/* 0x008fbfc0, 4 bytes */ GRIM_DATA("008fbfc0") unsigned char g_aRdRaster_OneOverNFixed[4] __asm__("_g_aRdRaster_OneOverNFixed") = {0};
+/* 0x008fe000, 4 bytes */ GRIM_DATA("008fe000") unsigned int g_dwRdRaster_aOneOverNFlex __asm__("_g_dwRdRaster_aOneOverNFlex") = 0x0;
+/* 0x00900000, 4 bytes */ GRIM_DATA("00900000") int g_nRdroid_curLightingMode __asm__("_g_nRdroid_curLightingMode") = 0;
+/* 0x00900004, 4 bytes */ GRIM_DATA("00900004") unsigned char g_pRdroid_HS[4] __asm__("_g_pRdroid_HS") = {0};
+/* 0x00900008, 24 bytes */ GRIM_DATA("00900008") int g_nRdroid_curGeometryMode __asm__("_g_nRdroid_curGeometryMode") = 0;
 /* 0x0090000c, 20 bytes: the rest of g_nRdroid_curGeometryMode's span */ GRIM_DATA("00900008") static unsigned char g_nRdroid_curGeometryMode__tail[20] __attribute__((used)) = {0};
-/* 0x00900020, 4 bytes */ GRIM_DATA("00900020") unsigned int g_dwRdroid_curColorEffects = 0x0;
-/* 0x00900024, 4 bytes */ GRIM_DATA("00900024") unsigned int UINT_00900024 = 0x0;
-/* 0x00900028, 4 bytes */ GRIM_DATA("00900028") unsigned int UINT_00900028 = 0x0;
-/* 0x0090002c, 4 bytes */ GRIM_DATA("0090002c") float FLOAT_0090002c = 0.0f;
-/* 0x00900030, 4 bytes */ GRIM_DATA("00900030") float FLOAT_00900030 = 0.0f;
-/* 0x00900034, 16 bytes */ GRIM_DATA("00900034") float FLOAT_00900034 = 0.0f;
-/* 0x00900038, 12 bytes: the rest of FLOAT_00900034's span */ GRIM_DATA("00900034") static unsigned char FLOAT_00900034__tail[12] __attribute__((used)) = {0};
-/* 0x00900044, 4 bytes */ GRIM_DATA("00900044") float FLOAT_00900044 = 0.0f;
-/* 0x00900048, 4 bytes */ GRIM_DATA("00900048") int g_nRdroid_curOcclusionMethod = 0;
-/* 0x0090004c, 4 bytes */ GRIM_DATA("0090004c") unsigned int g_dwRdroid_curVertexColorMode = 0x0;
-/* 0x00900050, 4 bytes */ GRIM_DATA("00900050") int g_nRdroid_curZBufferMethod = 0;
-/* 0x00900054, 4 bytes */ GRIM_DATA("00900054") unsigned int g_dwRdroid_curProcFaceUserData = 0x0;
-/* 0x00900058, 4 bytes */ GRIM_DATA("00900058") int g_nRdroid_curSortingMethod = 0;
-/* 0x0090005c, 4 bytes */ GRIM_DATA("0090005c") int g_nRdroid_curAcceleration = 0;
-/* 0x00900060, 4 bytes */ GRIM_DATA("00900060") int g_nRdroid_curTextureMode = 0;
-/* 0x00900064, 4 bytes */ GRIM_DATA("00900064") unsigned int g_dwRdroid_curRenderOptions = 0x0;
-/* 0x00900068, 24 bytes */ GRIM_DATA("00900068") unsigned char g_bRdroid_curCullFlags[24] = {0};
-/* 0x00900080, 1056 bytes */ GRIM_DATA("00900080") unsigned char UINT_00900080[1056] = {0};
-/* 0x009004a0, 127 bytes */ GRIM_DATA("009004a0") unsigned char g_bStdConffile_pFilename[127] = {0};
-/* 0x0090051f, 1 bytes */ GRIM_DATA("009004a0") unsigned char DAT_0090051f = 0x0;
-/* 0x00900520, 4 bytes */ GRIM_DATA("00900520") unsigned int g_dwStdConffile_aLine = 0x0;
-/* 0x00900524, 2 bytes */ GRIM_DATA("00900524") unsigned short DAT_00900524 = 0x0;
-/* 0x00900526, 2 bytes */ GRIM_DATA("00900524") unsigned short DAT_00900526 = 0x0;
-/* 0x00900528, 2 bytes */ GRIM_DATA("00900528") unsigned short DAT_00900528 = 0x0;
-/* 0x0090052a, 2 bytes */ GRIM_DATA("00900528") unsigned short DAT_0090052a = 0x0;
-/* 0x0090052c, 4 bytes */ GRIM_DATA("0090052c") unsigned char DAT_0090052c[4] = {0};
-/* 0x00900530, 4 bytes */ GRIM_DATA("00900530") unsigned int UINT_00900530 = 0x0;
-/* 0x00900534, 12 bytes */ GRIM_DATA("00900534") unsigned char UINT_00900534[12] = {0};
-/* 0x00900540, 4 bytes */ GRIM_DATA("00900540") unsigned char DAT_00900540[4] = {0};
-/* 0x00900544, 4 bytes */ GRIM_DATA("00900544") unsigned char DAT_00900544[4] = {0};
-/* 0x00900548, 4 bytes */ GRIM_DATA("00900548") unsigned char DAT_00900548[4] = {0};
-/* 0x0090054c, 4 bytes */ GRIM_DATA("0090054c") unsigned char DAT_0090054c[4] = {0};
-/* 0x00900550, 4 bytes */ GRIM_DATA("00900550") unsigned char DAT_00900550[4] = {0};
-/* 0x00900554, 4 bytes */ GRIM_DATA("00900554") unsigned char DAT_00900554[4] = {0};
-/* 0x00900558, 4 bytes */ GRIM_DATA("00900558") unsigned char DAT_00900558[4] = {0};
-/* 0x0090055c, 4 bytes */ GRIM_DATA("0090055c") unsigned char DAT_0090055c[4] = {0};
-/* 0x00900560, 4 bytes */ GRIM_DATA("00900560") unsigned char DAT_00900560[4] = {0};
-/* 0x00900564, 4 bytes */ GRIM_DATA("00900564") unsigned char DAT_00900564[4] = {0};
-/* 0x00900568, 24 bytes */ GRIM_DATA("00900568") unsigned char DAT_00900568[24] = {0};
-/* 0x00900580, 4 bytes */ GRIM_DATA("00900580") float FLOAT_00900580 = 0.0f;
-/* 0x00900584, 28 bytes */ GRIM_DATA("00900584") float FLOAT_00900584 = 0.0f;
-/* 0x00900588, 24 bytes: the rest of FLOAT_00900584's span */ GRIM_DATA("00900584") static unsigned char FLOAT_00900584__tail[24] __attribute__((used)) = {0};
-/* 0x009005a0, 4 bytes */ GRIM_DATA("009005a0") float FLOAT_009005a0 = 0.0f;
-/* 0x009005a4, 28 bytes */ GRIM_DATA("009005a4") float FLOAT_009005a4 = 0.0f;
-/* 0x009005a8, 24 bytes: the rest of FLOAT_009005a4's span */ GRIM_DATA("009005a4") static unsigned char FLOAT_009005a4__tail[24] __attribute__((used)) = {0};
-/* 0x009005c0, 4 bytes */ GRIM_DATA("009005c0") float FLOAT_009005c0 = 0.0f;
-/* 0x009005c4, 28 bytes */ GRIM_DATA("009005c4") float FLOAT_009005c4 = 0.0f;
-/* 0x009005c8, 24 bytes: the rest of FLOAT_009005c4's span */ GRIM_DATA("009005c4") static unsigned char FLOAT_009005c4__tail[24] __attribute__((used)) = {0};
-/* 0x009005e0, 4 bytes */ GRIM_DATA("009005e0") unsigned char DAT_009005e0[4] = {0};
-/* 0x009005e4, 28 bytes */ GRIM_DATA("009005e4") float FLOAT_009005e4 = 0.0f;
-/* 0x009005e8, 24 bytes: the rest of FLOAT_009005e4's span */ GRIM_DATA("009005e4") static unsigned char FLOAT_009005e4__tail[24] __attribute__((used)) = {0};
-/* 0x00900600, 4 bytes */ GRIM_DATA("00900600") unsigned int UINT_00900600 = 0x0;
-/* 0x00900604, 4 bytes */ GRIM_DATA("00900604") unsigned int UINT_00900604 = 0x0;
-/* 0x00900608, 4 bytes */ GRIM_DATA("00900608") unsigned int UINT_00900608 = 0x0;
-/* 0x0090060c, 20 bytes */ GRIM_DATA("0090060c") unsigned char UINT_0090060c[20] = {0};
-/* 0x00900620, 4 bytes */ GRIM_DATA("00900620") unsigned char DAT_00900620[4] = {0};
-/* 0x00900624, 4 bytes */ GRIM_DATA("00900624") unsigned char DAT_00900624[4] = {0};
-/* 0x00900628, 4 bytes */ GRIM_DATA("00900628") unsigned char DAT_00900628[4] = {0};
-/* 0x0090062c, 4 bytes */ GRIM_DATA("0090062c") unsigned char DAT_0090062c[4] = {0};
-/* 0x00900630, 4 bytes */ GRIM_DATA("00900630") unsigned char DAT_00900630[4] = {0};
-/* 0x00900634, 4 bytes */ GRIM_DATA("00900634") unsigned char DAT_00900634[4] = {0};
-/* 0x00900638, 4 bytes */ GRIM_DATA("00900638") unsigned char DAT_00900638[4] = {0};
-/* 0x0090063c, 4 bytes */ GRIM_DATA("0090063c") unsigned char DAT_0090063c[4] = {0};
-/* 0x00900640, 4 bytes */ GRIM_DATA("00900640") unsigned char DAT_00900640[4] = {0};
-/* 0x00900644, 4 bytes */ GRIM_DATA("00900644") unsigned char DAT_00900644[4] = {0};
-/* 0x00900648, 4 bytes */ GRIM_DATA("00900648") unsigned char DAT_00900648[4] = {0};
-/* 0x0090064c, 4 bytes */ GRIM_DATA("0090064c") unsigned char DAT_0090064c[4] = {0};
-/* 0x00900650, 4 bytes */ GRIM_DATA("00900650") unsigned char DAT_00900650[4] = {0};
-/* 0x00900654, 4 bytes */ GRIM_DATA("00900654") unsigned char DAT_00900654[4] = {0};
-/* 0x00900658, 1256 bytes */ GRIM_DATA("00900658") unsigned char DAT_00900658[1256] = {0};
-/* 0x00900b40, 4 bytes */ GRIM_DATA("00900b40") unsigned int UINT_00900b40 = 0x0;
-/* 0x00900b44, 4 bytes */ GRIM_DATA("00900b44") unsigned char DAT_00900b44[4] = {0};
-/* 0x00900b48, 4 bytes */ GRIM_DATA("00900b48") unsigned char DAT_00900b48[4] = {0};
-/* 0x00900b4c, 4 bytes */ GRIM_DATA("00900b4c") unsigned char DAT_00900b4c[4] = {0};
-/* 0x00900b50, 4 bytes */ GRIM_DATA("00900b50") unsigned char DAT_00900b50[4] = {0};
-/* 0x00900b54, 4 bytes */ GRIM_DATA("00900b54") unsigned char DAT_00900b54[4] = {0};
-/* 0x00900b58, 4 bytes */ GRIM_DATA("00900b58") unsigned char DAT_00900b58[4] = {0};
-/* 0x00900b5c, 8 bytes */ GRIM_DATA("00900b5c") unsigned char DAT_00900b5c[8] = {0};
-/* 0x00900b64, 4 bytes */ GRIM_DATA("00900b64") unsigned char DAT_00900b64[4] = {0};
-/* 0x00900b68, 4 bytes */ GRIM_DATA("00900b68") unsigned char DAT_00900b68[4] = {0};
-/* 0x00900b6c, 4 bytes */ GRIM_DATA("00900b6c") unsigned char DAT_00900b6c[4] = {0};
-/* 0x00900b70, 4 bytes */ GRIM_DATA("00900b70") unsigned char DAT_00900b70[4] = {0};
-/* 0x00900b74, 4 bytes */ GRIM_DATA("00900b74") unsigned char DAT_00900b74[4] = {0};
-/* 0x00900b78, 4 bytes */ GRIM_DATA("00900b78") unsigned char DAT_00900b78[4] = {0};
-/* 0x00900b7c, 4 bytes */ GRIM_DATA("00900b7c") unsigned char DAT_00900b7c[4] = {0};
-/* 0x00900b80, 4 bytes */ GRIM_DATA("00900b80") unsigned char DAT_00900b80[4] = {0};
-/* 0x00900b84, 4 bytes */ GRIM_DATA("00900b84") unsigned char DAT_00900b84[4] = {0};
-/* 0x00900b88, 127 bytes */ GRIM_DATA("00900b88") unsigned char DAT_00900b88[127] = {0};
-/* 0x00900c07, 1 bytes */ GRIM_DATA("00900b88") unsigned char DAT_00900c07 = 0x0;
-/* 0x00900c08, 127 bytes */ GRIM_DATA("00900c08") unsigned char DAT_00900c08[127] = {0};
-/* 0x00900c87, 9 bytes */ GRIM_DATA("00900c08") unsigned char DAT_00900c87[9] = {0};
-/* 0x00900c90, 8 bytes */ GRIM_DATA("00900c90") unsigned char DAT_00900c90[8] = {0};
-/* 0x00900c98, 104 bytes */ GRIM_DATA("00900c98") unsigned char DAT_00900c98[104] = {0};
-/* 0x00900d00, 16 bytes */ GRIM_DATA("00900d00") unsigned char DAT_00900d00[16] = {0};
-/* 0x00900d10, 4 bytes */ GRIM_DATA("00900d10") unsigned char DAT_00900d10[4] = {0};
-/* 0x00900d14, 8 bytes */ GRIM_DATA("00900d14") unsigned char DAT_00900d14[8] = {0};
-/* 0x00900d1c, 16 bytes */ GRIM_DATA("00900d1c") unsigned char DAT_00900d1c[16] = {0};
-/* 0x00900d2c, 4 bytes */ GRIM_DATA("00900d2c") unsigned char DAT_00900d2c[4] = {0};
-/* 0x00900d30, 4 bytes */ GRIM_DATA("00900d30") unsigned char DAT_00900d30[4] = {0};
-/* 0x00900d34, 4 bytes */ GRIM_DATA("00900d34") unsigned char DAT_00900d34[4] = {0};
-/* 0x00900d38, 4 bytes */ GRIM_DATA("00900d38") unsigned char DAT_00900d38[4] = {0};
-/* 0x00900d3c, 4 bytes */ GRIM_DATA("00900d3c") unsigned char DAT_00900d3c[4] = {0};
-/* 0x00900d40, 4 bytes */ GRIM_DATA("00900d40") unsigned char DAT_00900d40[4] = {0};
-/* 0x00900d44, 4 bytes */ GRIM_DATA("00900d44") unsigned char DAT_00900d44[4] = {0};
-/* 0x00900d48, 20 bytes */ GRIM_DATA("00900d48") unsigned char DAT_00900d48[20] = {0};
-/* 0x00900d5c, 1700 bytes */ GRIM_DATA("00900d5c") unsigned char DAT_00900d5c[1700] = {0};
-/* 0x00901400, 8 bytes */ GRIM_DATA("00901400") unsigned char DAT_00901400[8] = {0};
-/* 0x00901408, 4 bytes */ GRIM_DATA("00901408") unsigned char DAT_00901408[4] = {0};
-/* 0x0090140c, 76 bytes */ GRIM_DATA("0090140c") unsigned char DAT_0090140c[76] = {0};
-/* 0x00901458, 4 bytes */ GRIM_DATA("00901458") unsigned char DAT_00901458[4] = {0};
-/* 0x0090145c, 8 bytes */ GRIM_DATA("0090145c") unsigned char DAT_0090145c[8] = {0};
-/* 0x00901464, 8 bytes */ GRIM_DATA("00901464") unsigned char PTR_00901464[8] = {0};
-/* 0x0090146c, 108 bytes */ GRIM_DATA("0090146c") unsigned char UINT_0090146c[108] = {0};
-/* 0x009014d8, 8 bytes */ GRIM_DATA("009014d8") unsigned char DAT_009014d8[8] = {0};
-/* 0x009014e0, 4 bytes */ GRIM_DATA("009014e0") unsigned int UINT_009014e0 = 0x0;
-/* 0x009014e4, 4 bytes */ GRIM_DATA("009014e4") unsigned char DAT_009014e4[4] = {0};
-/* 0x009014e8, 4 bytes */ GRIM_DATA("009014e8") unsigned int UINT_009014e8 = 0x0;
-/* 0x009014ec, 20 bytes */ GRIM_DATA("009014ec") unsigned char DAT_009014ec[20] = {0};
-/* 0x00901500, 4 bytes */ GRIM_DATA("00901500") unsigned int g_dwStdControl_aAxes = 0x0;
-/* 0x00901504, 4 bytes */ GRIM_DATA("00901504") unsigned int UINT_00901504 = 0x0;
-/* 0x00901508, 4 bytes */ GRIM_DATA("00901508") unsigned char DAT_00901508[4] = {0};
-/* 0x0090150c, 4 bytes */ GRIM_DATA("0090150c") unsigned char DAT_0090150c[4] = {0};
-/* 0x00901510, 4 bytes */ GRIM_DATA("00901510") unsigned char DAT_00901510[4] = {0};
-/* 0x00901514, 340 bytes */ GRIM_DATA("00901514") unsigned char DAT_00901514[340] = {0};
-/* 0x00901668, 4 bytes */ GRIM_DATA("00901668") unsigned int UINT_00901668 = 0x0;
-/* 0x0090166c, 20 bytes */ GRIM_DATA("0090166c") unsigned char DAT_0090166c[20] = {0};
-/* 0x00901680, 4 bytes */ GRIM_DATA("00901680") unsigned int g_dwStdDisplay_frontBuffer = 0x0;
-/* 0x00901684, 4 bytes */ GRIM_DATA("00901684") unsigned char DAT_00901684[4] = {0};
-/* 0x00901688, 4 bytes */ GRIM_DATA("00901688") unsigned char DAT_00901688[4] = {0};
-/* 0x0090168c, 12 bytes */ GRIM_DATA("0090168c") unsigned char DAT_0090168c[12] = {0};
-/* 0x00901698, 4 bytes */ GRIM_DATA("00901698") unsigned int UINT_00901698 = 0x0;
-/* 0x0090169c, 16 bytes */ GRIM_DATA("0090169c") unsigned char DAT_0090169c[16] = {0};
-/* 0x009016ac, 44 bytes */ GRIM_DATA("009016ac") unsigned char UINT_009016ac[44] = {0};
-/* 0x009016d8, 4 bytes */ GRIM_DATA("009016d8") unsigned char DAT_009016d8[4] = {0};
-/* 0x009016dc, 8 bytes */ GRIM_DATA("009016dc") unsigned char UINT_009016dc[8] = {0};
-/* 0x009016e4, 8 bytes */ GRIM_DATA("009016e4") unsigned char UINT_009016e4[8] = {0};
-/* 0x009016ec, 108 bytes */ GRIM_DATA("009016ec") unsigned char UINT_009016ec[108] = {0};
-/* 0x00901758, 4 bytes */ GRIM_DATA("00901758") unsigned int UINT_00901758 = 0x0;
-/* 0x0090175c, 4 bytes */ GRIM_DATA("0090175c") unsigned int UINT_0090175c = 0x0;
-/* 0x00901760, 4 bytes */ GRIM_DATA("00901760") unsigned int UINT_00901760 = 0x0;
-/* 0x00901764, 4 bytes */ GRIM_DATA("00901764") unsigned char DAT_00901764[4] = {0};
-/* 0x00901768, 4 bytes */ GRIM_DATA("00901768") unsigned char DAT_00901768[4] = {0};
-/* 0x0090176c, 4 bytes */ GRIM_DATA("0090176c") unsigned char DAT_0090176c[4] = {0};
-/* 0x00901770, 4 bytes */ GRIM_DATA("00901770") unsigned char DAT_00901770[4] = {0};
-/* 0x00901774, 4 bytes */ GRIM_DATA("00901774") unsigned char DAT_00901774[4] = {0};
-/* 0x00901778, 4 bytes */ GRIM_DATA("00901778") unsigned char DAT_00901778[4] = {0};
-/* 0x0090177c, 4 bytes */ GRIM_DATA("0090177c") unsigned char DAT_0090177c[4] = {0};
-/* 0x00901780, 4 bytes */ GRIM_DATA("00901780") unsigned char DAT_00901780[4] = {0};
-/* 0x00901784, 4 bytes */ GRIM_DATA("00901784") unsigned char DAT_00901784[4] = {0};
-/* 0x00901788, 4 bytes */ GRIM_DATA("00901788") unsigned char DAT_00901788[4] = {0};
-/* 0x0090178c, 4 bytes */ GRIM_DATA("0090178c") unsigned char DAT_0090178c[4] = {0};
-/* 0x00901790, 4 bytes */ GRIM_DATA("00901790") unsigned char DAT_00901790[4] = {0};
-/* 0x00901794, 4 bytes */ GRIM_DATA("00901794") unsigned char DAT_00901794[4] = {0};
-/* 0x00901798, 4 bytes */ GRIM_DATA("00901798") unsigned char DAT_00901798[4] = {0};
-/* 0x0090179c, 4 bytes */ GRIM_DATA("0090179c") unsigned char DAT_0090179c[4] = {0};
-/* 0x009017a0, 4 bytes */ GRIM_DATA("009017a0") unsigned char DAT_009017a0[4] = {0};
-/* 0x009017a4, 16 bytes */ GRIM_DATA("009017a4") unsigned char DAT_009017a4[16] = {0};
-/* 0x009017b4, 4 bytes */ GRIM_DATA("009017b4") unsigned char DAT_009017b4[4] = {0};
-/* 0x009017b8, 4 bytes */ GRIM_DATA("009017b8") unsigned char DAT_009017b8[4] = {0};
-/* 0x009017bc, 4 bytes */ GRIM_DATA("009017bc") unsigned char DAT_009017bc[4] = {0};
-/* 0x009017c0, 4 bytes */ GRIM_DATA("009017c0") unsigned char DAT_009017c0[4] = {0};
-/* 0x009017c4, 4 bytes */ GRIM_DATA("009017c4") unsigned char DAT_009017c4[4] = {0};
-/* 0x009017c8, 4 bytes */ GRIM_DATA("009017c8") unsigned char DAT_009017c8[4] = {0};
-/* 0x009017cc, 4 bytes */ GRIM_DATA("009017cc") unsigned char DAT_009017cc[4] = {0};
-/* 0x009017d0, 4 bytes */ GRIM_DATA("009017d0") unsigned char DAT_009017d0[4] = {0};
-/* 0x009017d4, 4 bytes */ GRIM_DATA("009017d4") unsigned char DAT_009017d4[4] = {0};
-/* 0x009017d8, 4 bytes */ GRIM_DATA("009017d8") unsigned char DAT_009017d8[4] = {0};
-/* 0x009017dc, 4 bytes */ GRIM_DATA("009017dc") unsigned char DAT_009017dc[4] = {0};
-/* 0x009017e0, 40 bytes */ GRIM_DATA("009017e0") unsigned char DAT_009017e0[40] = {0};
-/* 0x00901808, 4 bytes */ GRIM_DATA("00901808") unsigned char DAT_00901808[4] = {0};
-/* 0x0090180c, 4 bytes */ GRIM_DATA("0090180c") unsigned char DAT_0090180c[4] = {0};
-/* 0x00901810, 4 bytes */ GRIM_DATA("00901810") unsigned char DAT_00901810[4] = {0};
-/* 0x00901814, 4 bytes */ GRIM_DATA("00901814") unsigned char DAT_00901814[4] = {0};
-/* 0x00901818, 4 bytes */ GRIM_DATA("00901818") unsigned char DAT_00901818[4] = {0};
-/* 0x0090181c, 4 bytes */ GRIM_DATA("0090181c") unsigned char DAT_0090181c[4] = {0};
-/* 0x00901820, 4 bytes */ GRIM_DATA("00901820") unsigned char DAT_00901820[4] = {0};
-/* 0x00901824, 4 bytes */ GRIM_DATA("00901824") unsigned char DAT_00901824[4] = {0};
-/* 0x00901828, 4 bytes */ GRIM_DATA("00901828") unsigned char DAT_00901828[4] = {0};
-/* 0x0090182c, 4 bytes */ GRIM_DATA("0090182c") unsigned char DAT_0090182c[4] = {0};
-/* 0x00901830, 4 bytes */ GRIM_DATA("00901830") unsigned char DAT_00901830[4] = {0};
-/* 0x00901834, 40 bytes */ GRIM_DATA("00901834") unsigned char DAT_00901834[40] = {0};
-/* 0x0090185c, 4 bytes */ GRIM_DATA("0090185c") unsigned char DAT_0090185c[4] = {0};
-/* 0x00901860, 4 bytes */ GRIM_DATA("00901860") unsigned char DAT_00901860[4] = {0};
-/* 0x00901864, 4 bytes */ GRIM_DATA("00901864") unsigned char DAT_00901864[4] = {0};
-/* 0x00901868, 4 bytes */ GRIM_DATA("00901868") unsigned char DAT_00901868[4] = {0};
-/* 0x0090186c, 4 bytes */ GRIM_DATA("0090186c") unsigned char DAT_0090186c[4] = {0};
-/* 0x00901870, 4 bytes */ GRIM_DATA("00901870") unsigned char DAT_00901870[4] = {0};
-/* 0x00901874, 4 bytes */ GRIM_DATA("00901874") unsigned char DAT_00901874[4] = {0};
-/* 0x00901878, 4 bytes */ GRIM_DATA("00901878") unsigned char DAT_00901878[4] = {0};
-/* 0x0090187c, 4 bytes */ GRIM_DATA("0090187c") unsigned char DAT_0090187c[4] = {0};
-/* 0x00901880, 4 bytes */ GRIM_DATA("00901880") unsigned char DAT_00901880[4] = {0};
-/* 0x00901884, 4 bytes */ GRIM_DATA("00901884") unsigned char DAT_00901884[4] = {0};
-/* 0x00901888, 40 bytes */ GRIM_DATA("00901888") unsigned char DAT_00901888[40] = {0};
-/* 0x009018b0, 4 bytes */ GRIM_DATA("009018b0") unsigned char DAT_009018b0[4] = {0};
-/* 0x009018b4, 4 bytes */ GRIM_DATA("009018b4") unsigned char DAT_009018b4[4] = {0};
-/* 0x009018b8, 4 bytes */ GRIM_DATA("009018b8") unsigned char DAT_009018b8[4] = {0};
-/* 0x009018bc, 4 bytes */ GRIM_DATA("009018bc") unsigned char DAT_009018bc[4] = {0};
-/* 0x009018c0, 4 bytes */ GRIM_DATA("009018c0") unsigned char DAT_009018c0[4] = {0};
-/* 0x009018c4, 4 bytes */ GRIM_DATA("009018c4") unsigned char DAT_009018c4[4] = {0};
-/* 0x009018c8, 4 bytes */ GRIM_DATA("009018c8") unsigned char DAT_009018c8[4] = {0};
-/* 0x009018cc, 4 bytes */ GRIM_DATA("009018cc") unsigned char DAT_009018cc[4] = {0};
-/* 0x009018d0, 4 bytes */ GRIM_DATA("009018d0") unsigned char DAT_009018d0[4] = {0};
-/* 0x009018d4, 4 bytes */ GRIM_DATA("009018d4") unsigned char DAT_009018d4[4] = {0};
-/* 0x009018d8, 4 bytes */ GRIM_DATA("009018d8") unsigned char DAT_009018d8[4] = {0};
-/* 0x009018dc, 40 bytes */ GRIM_DATA("009018dc") unsigned char DAT_009018dc[40] = {0};
-/* 0x00901904, 4 bytes */ GRIM_DATA("00901904") unsigned char DAT_00901904[4] = {0};
-/* 0x00901908, 4 bytes */ GRIM_DATA("00901908") unsigned char DAT_00901908[4] = {0};
-/* 0x0090190c, 4 bytes */ GRIM_DATA("0090190c") unsigned char DAT_0090190c[4] = {0};
-/* 0x00901910, 4 bytes */ GRIM_DATA("00901910") unsigned char DAT_00901910[4] = {0};
-/* 0x00901914, 4 bytes */ GRIM_DATA("00901914") unsigned char DAT_00901914[4] = {0};
-/* 0x00901918, 4 bytes */ GRIM_DATA("00901918") unsigned char DAT_00901918[4] = {0};
-/* 0x0090191c, 4 bytes */ GRIM_DATA("0090191c") unsigned char DAT_0090191c[4] = {0};
-/* 0x00901920, 4 bytes */ GRIM_DATA("00901920") unsigned char DAT_00901920[4] = {0};
-/* 0x00901924, 4 bytes */ GRIM_DATA("00901924") unsigned char DAT_00901924[4] = {0};
-/* 0x00901928, 4 bytes */ GRIM_DATA("00901928") unsigned char DAT_00901928[4] = {0};
-/* 0x0090192c, 4 bytes */ GRIM_DATA("0090192c") unsigned char DAT_0090192c[4] = {0};
-/* 0x00901930, 40 bytes */ GRIM_DATA("00901930") unsigned char DAT_00901930[40] = {0};
-/* 0x00901958, 4 bytes */ GRIM_DATA("00901958") unsigned char DAT_00901958[4] = {0};
-/* 0x0090195c, 4 bytes */ GRIM_DATA("0090195c") unsigned char DAT_0090195c[4] = {0};
-/* 0x00901960, 4 bytes */ GRIM_DATA("00901960") unsigned char DAT_00901960[4] = {0};
-/* 0x00901964, 4 bytes */ GRIM_DATA("00901964") unsigned char DAT_00901964[4] = {0};
-/* 0x00901968, 4 bytes */ GRIM_DATA("00901968") unsigned char DAT_00901968[4] = {0};
-/* 0x0090196c, 4 bytes */ GRIM_DATA("0090196c") unsigned char DAT_0090196c[4] = {0};
-/* 0x00901970, 4 bytes */ GRIM_DATA("00901970") unsigned char DAT_00901970[4] = {0};
-/* 0x00901974, 4 bytes */ GRIM_DATA("00901974") unsigned char DAT_00901974[4] = {0};
-/* 0x00901978, 4 bytes */ GRIM_DATA("00901978") unsigned char DAT_00901978[4] = {0};
-/* 0x0090197c, 4 bytes */ GRIM_DATA("0090197c") unsigned char DAT_0090197c[4] = {0};
-/* 0x00901980, 4 bytes */ GRIM_DATA("00901980") unsigned char DAT_00901980[4] = {0};
-/* 0x00901984, 40 bytes */ GRIM_DATA("00901984") unsigned char DAT_00901984[40] = {0};
-/* 0x009019ac, 4 bytes */ GRIM_DATA("009019ac") unsigned char DAT_009019ac[4] = {0};
-/* 0x009019b0, 4 bytes */ GRIM_DATA("009019b0") unsigned char DAT_009019b0[4] = {0};
-/* 0x009019b4, 4 bytes */ GRIM_DATA("009019b4") unsigned char DAT_009019b4[4] = {0};
-/* 0x009019b8, 4 bytes */ GRIM_DATA("009019b8") unsigned char DAT_009019b8[4] = {0};
-/* 0x009019bc, 4 bytes */ GRIM_DATA("009019bc") unsigned char DAT_009019bc[4] = {0};
-/* 0x009019c0, 4 bytes */ GRIM_DATA("009019c0") unsigned char DAT_009019c0[4] = {0};
-/* 0x009019c4, 4 bytes */ GRIM_DATA("009019c4") unsigned char DAT_009019c4[4] = {0};
-/* 0x009019c8, 4 bytes */ GRIM_DATA("009019c8") unsigned char DAT_009019c8[4] = {0};
-/* 0x009019cc, 4 bytes */ GRIM_DATA("009019cc") unsigned char DAT_009019cc[4] = {0};
-/* 0x009019d0, 4 bytes */ GRIM_DATA("009019d0") unsigned char DAT_009019d0[4] = {0};
-/* 0x009019d4, 4 bytes */ GRIM_DATA("009019d4") unsigned char DAT_009019d4[4] = {0};
-/* 0x009019d8, 4 bytes */ GRIM_DATA("009019d8") unsigned char DAT_009019d8[4] = {0};
-/* 0x009019dc, 4 bytes */ GRIM_DATA("009019dc") unsigned char DAT_009019dc[4] = {0};
-/* 0x009019e0, 4 bytes */ GRIM_DATA("009019e0") unsigned char DAT_009019e0[4] = {0};
-/* 0x009019e4, 4 bytes */ GRIM_DATA("009019e4") unsigned char DAT_009019e4[4] = {0};
-/* 0x009019e8, 4 bytes */ GRIM_DATA("009019e8") unsigned char DAT_009019e8[4] = {0};
-/* 0x009019ec, 4 bytes */ GRIM_DATA("009019ec") unsigned char DAT_009019ec[4] = {0};
-/* 0x009019f0, 16 bytes */ GRIM_DATA("009019f0") unsigned char DAT_009019f0[16] = {0};
-/* 0x00901a00, 4 bytes */ GRIM_DATA("00901a00") unsigned char DAT_00901a00[4] = {0};
-/* 0x00901a04, 4 bytes */ GRIM_DATA("00901a04") unsigned char DAT_00901a04[4] = {0};
-/* 0x00901a08, 4 bytes */ GRIM_DATA("00901a08") unsigned char DAT_00901a08[4] = {0};
-/* 0x00901a0c, 4 bytes */ GRIM_DATA("00901a0c") unsigned char DAT_00901a0c[4] = {0};
-/* 0x00901a10, 4 bytes */ GRIM_DATA("00901a10") unsigned char DAT_00901a10[4] = {0};
-/* 0x00901a14, 4 bytes */ GRIM_DATA("00901a14") unsigned char DAT_00901a14[4] = {0};
-/* 0x00901a18, 4 bytes */ GRIM_DATA("00901a18") unsigned char DAT_00901a18[4] = {0};
-/* 0x00901a1c, 4 bytes */ GRIM_DATA("00901a1c") unsigned char DAT_00901a1c[4] = {0};
-/* 0x00901a20, 4 bytes */ GRIM_DATA("00901a20") unsigned char DAT_00901a20[4] = {0};
-/* 0x00901a24, 4 bytes */ GRIM_DATA("00901a24") unsigned char DAT_00901a24[4] = {0};
-/* 0x00901a28, 4 bytes */ GRIM_DATA("00901a28") unsigned char DAT_00901a28[4] = {0};
-/* 0x00901a2c, 4 bytes */ GRIM_DATA("00901a2c") unsigned char DAT_00901a2c[4] = {0};
-/* 0x00901a30, 4 bytes */ GRIM_DATA("00901a30") unsigned char DAT_00901a30[4] = {0};
-/* 0x00901a34, 4 bytes */ GRIM_DATA("00901a34") unsigned char DAT_00901a34[4] = {0};
-/* 0x00901a38, 4 bytes */ GRIM_DATA("00901a38") unsigned char DAT_00901a38[4] = {0};
-/* 0x00901a3c, 4 bytes */ GRIM_DATA("00901a3c") unsigned char DAT_00901a3c[4] = {0};
-/* 0x00901a40, 4 bytes */ GRIM_DATA("00901a40") unsigned char DAT_00901a40[4] = {0};
-/* 0x00901a44, 16 bytes */ GRIM_DATA("00901a44") unsigned char DAT_00901a44[16] = {0};
-/* 0x00901a54, 4 bytes */ GRIM_DATA("00901a54") unsigned char DAT_00901a54[4] = {0};
-/* 0x00901a58, 4 bytes */ GRIM_DATA("00901a58") unsigned char DAT_00901a58[4] = {0};
-/* 0x00901a5c, 4 bytes */ GRIM_DATA("00901a5c") unsigned char DAT_00901a5c[4] = {0};
-/* 0x00901a60, 4 bytes */ GRIM_DATA("00901a60") unsigned char DAT_00901a60[4] = {0};
-/* 0x00901a64, 4 bytes */ GRIM_DATA("00901a64") unsigned char DAT_00901a64[4] = {0};
-/* 0x00901a68, 4 bytes */ GRIM_DATA("00901a68") unsigned char DAT_00901a68[4] = {0};
-/* 0x00901a6c, 4 bytes */ GRIM_DATA("00901a6c") unsigned char DAT_00901a6c[4] = {0};
-/* 0x00901a70, 4 bytes */ GRIM_DATA("00901a70") unsigned char DAT_00901a70[4] = {0};
-/* 0x00901a74, 4 bytes */ GRIM_DATA("00901a74") unsigned char DAT_00901a74[4] = {0};
-/* 0x00901a78, 4 bytes */ GRIM_DATA("00901a78") unsigned char DAT_00901a78[4] = {0};
-/* 0x00901a7c, 4 bytes */ GRIM_DATA("00901a7c") unsigned char DAT_00901a7c[4] = {0};
-/* 0x00901a80, 4 bytes */ GRIM_DATA("00901a80") unsigned char DAT_00901a80[4] = {0};
-/* 0x00901a84, 4 bytes */ GRIM_DATA("00901a84") unsigned char DAT_00901a84[4] = {0};
-/* 0x00901a88, 4 bytes */ GRIM_DATA("00901a88") unsigned char DAT_00901a88[4] = {0};
-/* 0x00901a8c, 4 bytes */ GRIM_DATA("00901a8c") unsigned char DAT_00901a8c[4] = {0};
-/* 0x00901a90, 4 bytes */ GRIM_DATA("00901a90") unsigned char DAT_00901a90[4] = {0};
-/* 0x00901a94, 4 bytes */ GRIM_DATA("00901a94") unsigned char DAT_00901a94[4] = {0};
-/* 0x00901a98, 4552 bytes */ GRIM_DATA("00901a98") unsigned char DAT_00901a98[4552] = {0};
-/* 0x00902c60, 127 bytes */ GRIM_DATA("00902c60") unsigned char DAT_00902c60[127] = {0};
-/* 0x00902cdf, 1 bytes */ GRIM_DATA("00902c60") unsigned char DAT_00902cdf = 0x0;
-/* 0x00902ce0, 127 bytes */ GRIM_DATA("00902ce0") unsigned char DAT_00902ce0[127] = {0};
-/* 0x00902d5f, 1 bytes */ GRIM_DATA("00902ce0") unsigned char DAT_00902d5f = 0x0;
-/* 0x00902d60, 4 bytes */ GRIM_DATA("00902d60") unsigned int UINT_00902d60 = 0x0;
-/* 0x00902d64, 4 bytes */ GRIM_DATA("00902d64") unsigned int UINT_00902d64 = 0x0;
-/* 0x00902d68, 4 bytes */ GRIM_DATA("00902d68") unsigned int UINT_00902d68 = 0x0;
-/* 0x00902d6c, 4 bytes */ GRIM_DATA("00902d6c") unsigned int UINT_00902d6c = 0x0;
-/* 0x00902d70, 4 bytes */ GRIM_DATA("00902d70") unsigned int UINT_00902d70 = 0x0;
-/* 0x00902d74, 4 bytes */ GRIM_DATA("00902d74") unsigned int UINT_00902d74 = 0x0;
-/* 0x00902d78, 368 bytes */ GRIM_DATA("00902d78") unsigned char UINT_00902d78[368] = {0};
-/* 0x00902ee8, 4 bytes */ GRIM_DATA("00902ee8") unsigned char DAT_00902ee8[4] = {0};
-/* 0x00902eec, 4 bytes */ GRIM_DATA("00902eec") unsigned char DAT_00902eec[4] = {0};
-/* 0x00902ef0, 4 bytes */ GRIM_DATA("00902ef0") unsigned char DAT_00902ef0[4] = {0};
-/* 0x00902ef4, 9964 bytes */ GRIM_DATA("00902ef4") unsigned char DAT_00902ef4[9964] = {0};
-/* 0x009055e0, 4 bytes */ GRIM_DATA("009055e0") unsigned int g_dwStdDisplay_backBuffer = 0x0;
-/* 0x009055e4, 4 bytes */ GRIM_DATA("009055e4") unsigned char DAT_009055e4[4] = {0};
-/* 0x009055e8, 4 bytes */ GRIM_DATA("009055e8") unsigned char DAT_009055e8[4] = {0};
-/* 0x009055ec, 4 bytes */ GRIM_DATA("009055ec") unsigned int UINT_009055ec = 0x0;
-/* 0x009055f0, 8 bytes */ GRIM_DATA("009055f0") unsigned char UINT_009055f0[8] = {0};
-/* 0x009055f8, 4 bytes */ GRIM_DATA("009055f8") unsigned int UINT_009055f8 = 0x0;
-/* 0x009055fc, 4 bytes */ GRIM_DATA("009055fc") unsigned char DAT_009055fc[4] = {0};
-/* 0x00905600, 4 bytes */ GRIM_DATA("00905600") unsigned char DAT_00905600[4] = {0};
-/* 0x00905604, 4 bytes */ GRIM_DATA("00905604") unsigned int UINT_00905604 = 0x0;
-/* 0x00905608, 4 bytes */ GRIM_DATA("00905608") unsigned int UINT_00905608 = 0x0;
-/* 0x0090560c, 4 bytes */ GRIM_DATA("0090560c") unsigned int UINT_0090560c = 0x0;
-/* 0x00905610, 4 bytes */ GRIM_DATA("00905610") unsigned int UINT_00905610 = 0x0;
-/* 0x00905614, 4 bytes */ GRIM_DATA("00905614") unsigned char DAT_00905614[4] = {0};
-/* 0x00905618, 4 bytes */ GRIM_DATA("00905618") unsigned int UINT_00905618 = 0x0;
-/* 0x0090561c, 28 bytes */ GRIM_DATA("0090561c") unsigned char UINT_0090561c[28] = {0};
-/* 0x00905638, 4 bytes */ GRIM_DATA("00905638") unsigned char DAT_00905638[4] = {0};
-/* 0x0090563c, 8 bytes */ GRIM_DATA("0090563c") unsigned int UINT_0090563c = 0x0;
+/* 0x00900020, 4 bytes */ GRIM_DATA("00900020") unsigned int g_dwRdroid_curColorEffects __asm__("_g_dwRdroid_curColorEffects") = 0x0;
+/* 0x00900048, 4 bytes */ GRIM_DATA("00900048") int g_nRdroid_curOcclusionMethod __asm__("_g_nRdroid_curOcclusionMethod") = 0;
+/* 0x0090004c, 4 bytes */ GRIM_DATA("0090004c") unsigned int g_dwRdroid_curVertexColorMode __asm__("_g_dwRdroid_curVertexColorMode") = 0x0;
+/* 0x00900050, 4 bytes */ GRIM_DATA("00900050") int g_nRdroid_curZBufferMethod __asm__("_g_nRdroid_curZBufferMethod") = 0;
+/* 0x00900054, 4 bytes */ GRIM_DATA("00900054") unsigned int g_dwRdroid_curProcFaceUserData __asm__("_g_dwRdroid_curProcFaceUserData") = 0x0;
+/* 0x00900058, 4 bytes */ GRIM_DATA("00900058") int g_nRdroid_curSortingMethod __asm__("_g_nRdroid_curSortingMethod") = 0;
+/* 0x0090005c, 4 bytes */ GRIM_DATA("0090005c") int g_nRdroid_curAcceleration __asm__("_g_nRdroid_curAcceleration") = 0;
+/* 0x00900060, 4 bytes */ GRIM_DATA("00900060") int g_nRdroid_curTextureMode __asm__("_g_nRdroid_curTextureMode") = 0;
+/* 0x00900064, 4 bytes */ GRIM_DATA("00900064") unsigned int g_dwRdroid_curRenderOptions __asm__("_g_dwRdroid_curRenderOptions") = 0x0;
+/* 0x00900068, 24 bytes */ GRIM_DATA("00900068") unsigned char g_bRdroid_curCullFlags[24] __asm__("_g_bRdroid_curCullFlags") = {0};
+/* 0x00900520, 4 bytes */ GRIM_DATA("00900520") unsigned int g_dwStdConffile_aLine __asm__("_g_dwStdConffile_aLine") = 0x0;
+/* 0x00900524, 2 bytes */ GRIM_DATA("00900524") unsigned short DAT_00900524 __asm__("_DAT_00900524") = 0x0;
+/* 0x00900526, 2 bytes */ GRIM_DATA("00900524") unsigned short DAT_00900526 __asm__("_DAT_00900526") = 0x0;
+/* 0x00900530, 4 bytes */ GRIM_DATA("00900530") unsigned int UINT_00900530 __asm__("_UINT_00900530") = 0x0;
+/* 0x00900534, 12 bytes */ GRIM_DATA("00900534") unsigned char UINT_00900534[12] __asm__("_UINT_00900534") = {0};
+/* 0x00900b40, 4 bytes */ GRIM_DATA("00900b40") unsigned int UINT_00900b40 __asm__("_UINT_00900b40") = 0x0;
+/* 0x00901400, 8 bytes */ GRIM_DATA("00901400") unsigned char DAT_00901400[8] __asm__("_DAT_00901400") = {0};
+/* 0x00901680, 4 bytes */ GRIM_DATA("00901680") unsigned int g_dwStdDisplay_frontBuffer __asm__("_g_dwStdDisplay_frontBuffer") = 0x0;
+/* 0x00901698, 4 bytes */ GRIM_DATA("00901698") unsigned int UINT_00901698 __asm__("_UINT_00901698") = 0x0;
+/* 0x009016dc, 8 bytes */ GRIM_DATA("009016dc") unsigned char UINT_009016dc[8] __asm__("_UINT_009016dc") = {0};
+/* 0x00901758, 4 bytes */ GRIM_DATA("00901758") unsigned int UINT_00901758 __asm__("_UINT_00901758") = 0x0;
+/* 0x00901760, 4 bytes */ GRIM_DATA("00901760") unsigned int UINT_00901760 __asm__("_UINT_00901760") = 0x0;
+/* 0x00902ce0, 127 bytes */ GRIM_DATA("00902ce0") unsigned char DAT_00902ce0[127] __asm__("_DAT_00902ce0") = {0};
+/* 0x00902d5f, 1 bytes */ GRIM_DATA("00902ce0") unsigned char DAT_00902d5f __asm__("_DAT_00902d5f") = 0x0;
+/* 0x00902d68, 4 bytes */ GRIM_DATA("00902d68") unsigned int UINT_00902d68 __asm__("_UINT_00902d68") = 0x0;
+/* 0x00902d6c, 4 bytes */ GRIM_DATA("00902d6c") unsigned int UINT_00902d6c __asm__("_UINT_00902d6c") = 0x0;
+/* 0x009055e0, 4 bytes */ GRIM_DATA("009055e0") unsigned int g_dwStdDisplay_backBuffer __asm__("_g_dwStdDisplay_backBuffer") = 0x0;
+/* 0x009055ec, 4 bytes */ GRIM_DATA("009055ec") unsigned int UINT_009055ec __asm__("_UINT_009055ec") = 0x0;
+/* 0x009055f8, 4 bytes */ GRIM_DATA("009055f8") unsigned int UINT_009055f8 __asm__("_UINT_009055f8") = 0x0;
+/* 0x0090563c, 8 bytes */ GRIM_DATA("0090563c") unsigned int UINT_0090563c __asm__("_UINT_0090563c") = 0x0;
 /* 0x00905640, 4 bytes: the rest of UINT_0090563c's span */ GRIM_DATA("0090563c") static unsigned char UINT_0090563c__tail[4] __attribute__((used)) = {0};
-/* 0x00905644, 4 bytes */ GRIM_DATA("00905644") unsigned char PTR_00905644[4] = {0};
-/* 0x00905648, 4 bytes */ GRIM_DATA("00905648") unsigned int UINT_00905648 = 0x0;
-/* 0x0090564c, 116 bytes */ GRIM_DATA("0090564c") unsigned char UINT_0090564c[116] = {0};
-/* 0x009056c0, 1024 bytes */ GRIM_DATA("009056c0") unsigned char g_bStd_genBuffer[1024] = {0};
-/* 0x00905ac0, 4 bytes */ GRIM_DATA("00905ac0") unsigned char g_pStd_HS[4] = {0};
-/* 0x00905ac4, 28 bytes */ GRIM_DATA("00905ac4") unsigned char UINT_00905ac4[28] = {0};
-/* 0x00905ae0, 4096 bytes */ GRIM_DATA("00905ae0") unsigned char DAT_00905ae0[4096] = {0};
-/* 0x00906ae0, 4 bytes */ GRIM_DATA("00906ae0") unsigned int UINT_00906ae0 = 0x0;
-/* 0x00906ae4, 28 bytes */ GRIM_DATA("00906ae4") unsigned char UINT_00906ae4[28] = {0};
-/* 0x00906b00, 4 bytes */ GRIM_DATA("00906b00") unsigned char PTR_00906b00[4] = {0};
-/* 0x00906b04, 252 bytes, unused (dead) */ GRIM_DATA("00906b04") unsigned char UINT_00906b04[252];
-/* 0x00906c00, 4 bytes */ GRIM_DATA("00906c00") unsigned int UINT_00906c00 = 0x0;
-/* 0x00906c04, 4 bytes */ GRIM_DATA("00906c04") unsigned char DAT_00906c04[4] = {0};
-/* 0x00906c08, 4 bytes */ GRIM_DATA("00906c08") unsigned int UINT_00906c08 = 0x0;
-/* 0x00906c0c, 4 bytes */ GRIM_DATA("00906c0c") unsigned char DAT_00906c0c[4] = {0};
-/* 0x00906c10, 4 bytes */ GRIM_DATA("00906c10") unsigned char g_pOnExitEnd[4] = {0};
-/* 0x00906c14, 4 bytes */ GRIM_DATA("00906c14") unsigned char g_pOnExitBegin[4] = {0};
-/* 0x00906c18, 4 bytes */ GRIM_DATA("00906c18") unsigned int UINT_00906c18 = 0x0;
-/* 0x00906c1c, 4 bytes */ GRIM_DATA("00906c1c") unsigned char g_pAnimFrame_memory_services[4] = {0};
-/* 0x00906c20, 4 bytes */ GRIM_DATA("00906c20") unsigned int g_dwAnimFrame_bitmap_services = 0x0;
-/* 0x00906c24, 4 bytes */ GRIM_DATA("00906c24") unsigned char g_pAnimFrame_share_services[4] = {0};
-/* 0x00906c28, 4 bytes */ GRIM_DATA("00906c28") unsigned int g_dwAnimFrame_virtherc_services = 0x0;
-/* 0x00906c2c, 4 bytes */ GRIM_DATA("00906c2c") unsigned int g_dwAnimFrame_video_services = 0x0;
-/* 0x00906c30, 4 bytes */ GRIM_DATA("00906c30") unsigned char g_pAnm_virtherc_services[4] = {0};
-/* 0x00906c34, 4 bytes */ GRIM_DATA("00906c34") unsigned char g_pAnm_animframe_services[4] = {0};
-/* 0x00906c38, 4 bytes */ GRIM_DATA("00906c38") unsigned char g_pAnm_streamer_services[4] = {0};
-/* 0x00906c3c, 4 bytes */ GRIM_DATA("00906c3c") unsigned char g_pAnm_memory_services[4] = {0};
-/* 0x00906c40, 4 bytes */ GRIM_DATA("00906c40") unsigned char g_pAnm_share_services[4] = {0};
-/* 0x00906c44, 4 bytes */ GRIM_DATA("00906c44") unsigned char g_pZf_filio_services[4] = {0};
-/* 0x00906c48, 4 bytes */ GRIM_DATA("00906c48") unsigned int g_stBlockyDecState = 0x0;
-/* 0x00906c4c, 4 bytes */ GRIM_DATA("00906c4c") unsigned int UINT_00906c4c = 0x0;
-/* 0x00906c50, 4 bytes */ GRIM_DATA("00906c50") unsigned char DAT_00906c50[4] = {0};
-/* 0x00906c54, 4 bytes */ GRIM_DATA("00906c54") unsigned int UINT_00906c54 = 0x0;
-/* 0x00906c58, 4 bytes */ GRIM_DATA("00906c58") unsigned char DAT_00906c58[4] = {0};
-/* 0x00906c5c, 1 bytes */ GRIM_DATA("00906c5c") unsigned char DAT_00906c5c = 0x0;
-/* 0x00906c5d, 3 bytes */ GRIM_DATA("00906c5c") unsigned char DAT_00906c5d[3] = {0};
-/* 0x00906c60, 4 bytes */ GRIM_DATA("00906c60") int INT_00906c60 = 0;
-/* 0x00906c64, 4 bytes */ GRIM_DATA("00906c64") unsigned char DAT_00906c64[4] = {0};
-/* 0x00906c68, 4 bytes */ GRIM_DATA("00906c68") unsigned int UINT_00906c68 = 0x0;
-/* 0x00906c6c, 4 bytes */ GRIM_DATA("00906c6c") unsigned int UINT_00906c6c = 0x0;
-/* 0x00906c70, 4 bytes */ GRIM_DATA("00906c70") unsigned char DAT_00906c70[4] = {0};
-/* 0x00906c74, 12 bytes */ GRIM_DATA("00906c74") unsigned char g_pFob_blk16_key_buffer[12] = {0};
-/* 0x00906c80, 256 bytes */ GRIM_DATA("00906c80") unsigned char g_aBlockySplit8[256] = {0};
-/* 0x00906d80, 64 bytes */ GRIM_DATA("00906d80") unsigned char DAT_00906d80[64] = {0};
-/* 0x00906dc0, 64 bytes */ GRIM_DATA("00906dc0") unsigned char DAT_00906dc0[64] = {0};
-/* 0x00906e00, 1 bytes */ GRIM_DATA("00906e00") unsigned char DAT_00906e00 = 0x0;
-/* 0x00906e01, 98943 bytes */ GRIM_DATA("00906e00") unsigned char DAT_00906e01[98943] = {0};
-/* 0x0091f080, 32 bytes */ GRIM_DATA("0091f080") unsigned char g_pFob_blk16_delta_buffer[32] = {0};
-/* 0x0091f0a0, 64 bytes */ GRIM_DATA("0091f0a0") unsigned char g_aBlockySplit4[64] = {0};
-/* 0x0091f0e0, 16 bytes */ GRIM_DATA("0091f0e0") unsigned char DAT_0091f0e0[16] = {0};
-/* 0x0091f0f0, 16 bytes */ GRIM_DATA("0091f0f0") unsigned char DAT_0091f0f0[16] = {0};
-/* 0x0091f100, 1 bytes */ GRIM_DATA("0091f100") unsigned char DAT_0091f100 = 0x0;
-/* 0x0091f101, 255 bytes */ GRIM_DATA("0091f100") unsigned char DAT_0091f101[255] = {0};
-/* 0x0091f200, 1 bytes */ GRIM_DATA("0091f200") unsigned char DAT_0091f200[1] = {0};
-/* 0x0091f201, 32415 bytes */ GRIM_DATA("0091f200") unsigned char DAT_0091f201[32415] = {0};
-/* 0x009270a0, 96 bytes */ GRIM_DATA("009270a0") short g_asBlockyMotion = 0;
-/* 0x009270a2, 94 bytes: the rest of g_asBlockyMotion's span */ GRIM_DATA("009270a0") static unsigned char g_asBlockyMotion__tail[94] __attribute__((used)) = {0};
-/* 0x00927100, 1 bytes */ GRIM_DATA("00927100") unsigned char DAT_00927100[1] = {0};
-/* 0x00927101, 415 bytes */ GRIM_DATA("00927100") unsigned char DAT_00927101[415] = {0};
-/* 0x009272a0, 10240 bytes */ GRIM_DATA("009272a0") unsigned char DAT_009272a0[10240] = {0};
-/* 0x004ce808, 56 bytes */ GRIM_DATA("t004ce808") unsigned char DAT_004ce808[56] = {
-    0x41, 0xe7, 0x4c, 0x00, 0xd1, 0xe4, 0x4c, 0x00, 0xad, 0xe4, 0x4c, 0x00, 0x75, 0xe5, 0x4c, 0x00,
-    0xdc, 0xe5, 0x4c, 0x00, 0xdf, 0xe6, 0x4c, 0x00, 0xf5, 0xe4, 0x4c, 0x00, 0x49, 0xe6, 0x4c, 0x00,
-    0x75, 0xe5, 0x4c, 0x00, 0xdc, 0xe5, 0x4c, 0x00, 0xdf, 0xe6, 0x4c, 0x00, 0xf5, 0xe4, 0x4c, 0x00,
-    0x49, 0xe6, 0x4c, 0x00, 0x49, 0xe6, 0x4c
-};
-/* 0x004d4370, 4096 bytes */ GRIM_DATA("t004d4370") grim_span_004d4370 DAT_004d4370 = {
+/* 0x00905644, 4 bytes */ GRIM_DATA("00905644") unsigned char PTR_00905644[4] __asm__("_PTR_00905644") = {0};
+/* 0x009056c0, 1024 bytes */ GRIM_DATA("009056c0") unsigned char g_bStd_genBuffer[1024] __asm__("_g_bStd_genBuffer") = {0};
+/* 0x00905ac0, 4 bytes */ GRIM_DATA("00905ac0") unsigned char g_pStd_HS[4] __asm__("_g_pStd_HS") = {0};
+/* 0x00905ac4, 28 bytes */ GRIM_DATA("00905ac4") unsigned char UINT_00905ac4[28] __asm__("_UINT_00905ac4") = {0};
+/* 0x00905ae0, 4096 bytes */ GRIM_DATA("00905ae0") unsigned char DAT_00905ae0[4096] __asm__("_DAT_00905ae0") = {0};
+/* 0x00906ae0, 4 bytes */ GRIM_DATA("00906ae0") unsigned int UINT_00906ae0 __asm__("_UINT_00906ae0") = 0x0;
+/* 0x00906ae4, 28 bytes */ GRIM_DATA("00906ae4") unsigned char UINT_00906ae4[28] __asm__("_UINT_00906ae4") = {0};
+/* 0x00906b00, 4 bytes */ GRIM_DATA("00906b00") unsigned char PTR_00906b00[4] __asm__("_PTR_00906b00") = {0};
+/* 0x00906b04, 252 bytes, unused (dead) */ GRIM_DATA("00906b04") unsigned char UINT_00906b04[252] __asm__("_UINT_00906b04");
+/* 0x00906c00, 4 bytes */ GRIM_DATA("00906c00") unsigned int UINT_00906c00 __asm__("_UINT_00906c00") = 0x0;
+/* 0x00906c04, 4 bytes */ GRIM_DATA("00906c04") unsigned char DAT_00906c04[4] __asm__("_DAT_00906c04") = {0};
+/* 0x00906c08, 4 bytes */ GRIM_DATA("00906c08") unsigned int UINT_00906c08 __asm__("_UINT_00906c08") = 0x0;
+/* 0x00906c0c, 4 bytes */ GRIM_DATA("00906c0c") unsigned char DAT_00906c0c[4] __asm__("_DAT_00906c0c") = {0};
+/* 0x00906c10, 4 bytes */ GRIM_DATA("00906c10") unsigned char g_pOnExitEnd[4] __asm__("_g_pOnExitEnd") = {0};
+/* 0x00906c14, 4 bytes */ GRIM_DATA("00906c14") unsigned char g_pOnExitBegin[4] __asm__("_g_pOnExitBegin") = {0};
+/* 0x00906c18, 4 bytes */ GRIM_DATA("00906c18") unsigned int UINT_00906c18 __asm__("_UINT_00906c18") = 0x0;
+/* 0x00906c30, 4 bytes */ GRIM_DATA("00906c30") unsigned char g_pAnm_virtherc_services[4] __asm__("_g_pAnm_virtherc_services") = {0};
+/* 0x00906c34, 4 bytes */ GRIM_DATA("00906c34") unsigned char g_pAnm_animframe_services[4] __asm__("_g_pAnm_animframe_services") = {0};
+/* 0x00906c38, 4 bytes */ GRIM_DATA("00906c38") unsigned char g_pAnm_streamer_services[4] __asm__("_g_pAnm_streamer_services") = {0};
+/* 0x00906c3c, 4 bytes */ GRIM_DATA("00906c3c") unsigned char g_pAnm_memory_services[4] __asm__("_g_pAnm_memory_services") = {0};
+/* 0x00906c44, 4 bytes */ GRIM_DATA("00906c44") unsigned char g_pZf_filio_services[4] __asm__("_g_pZf_filio_services") = {0};
+/* 0x004d4370, 4096 bytes */ GRIM_DATA("t004d4370") grim_span_004d4370 DAT_004d4370 __asm__("_DAT_004d4370") = {
     (void *)&DAT_004d8310,
     { 0x00, 0x00, 0x00, 0x00, 0x0c, 0x00, 0x00, 0x80 },
     (void *)&DAT_004d8310,
@@ -13030,15 +6318,7 @@ static unsigned char grim_pad_008ca084[4] __attribute__((section(".data$grim_008
     (void *)&DAT_004d8310,
     { 0xff, 0x00, 0x00, 0x00, 0x0c, 0xff, 0x00, 0x80 }
 };
-/* 0x004d5370, 32 bytes */ GRIM_DATA("t004d5370") grim_span_004d5370 DAT_004d5370 = {
-    {
-            0x18, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00,
-            0x00, 0x01
-    },
-    (void *)&DAT_004d4370,
-    { 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc, 0xcc }
-};
-/* 0x004d5390, 112 bytes */ GRIM_DATA("t004d5390") grim_span_004d5390 DAT_004d5390 = {
+/* 0x004d5390, 112 bytes */ GRIM_DATA("t004d5390") grim_span_004d5390 DAT_004d5390 __asm__("_DAT_004d5390") = {
     (void *)&DAT_004d8290,
     { 0x00, 0x00, 0x00, 0x00, 0x03, 0xff, 0xff },
     (void *)&DAT_004d82a0,
@@ -13052,89 +6332,16 @@ static unsigned char grim_pad_008ca084[4] __attribute__((section(".data$grim_008
             0x0f, 0x00, 0x00, 0x00, 0x0c, 0xff, 0xff, 0x80
     }
 };
-/* 0x004d5400, 24 bytes */ GRIM_DATA("t004d5400") grim_span_004d5400 DAT_004d5400 = {
-    {
-            0x18, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x10, 0x00, 0x00, 0x00,
-            0x07
-    },
-    (void *)&DAT_004d5390
-};
 
 __asm__(".globl _PTR_DAT_004f1c28\n\t.set _PTR_DAT_004f1c28, _PTR_s__gz_004f1c28\n");
 __asm__(".text\n\t.def _DAT_004891a0; .scl 2; .type 32; .endef\n\t.globl _DAT_004891a0\n_DAT_004891a0:\tjmp *_DAT_008c9fbc + 0x0\n");
-__asm__(".globl _grim_img_exe_0x004d8700\n\t.set _grim_img_exe_0x004d8700, _g_anColorDither + 96\n");
-__asm__(".globl _grim_img_exe_0x004d8704\n\t.set _grim_img_exe_0x004d8704, _g_anColorDither + 100\n");
-__asm__(".globl _grim_img_exe_0x004d872c\n\t.set _grim_img_exe_0x004d872c, _g_anColorDither + 140\n");
-__asm__(".globl _grim_img_exe_0x004d8730\n\t.set _grim_img_exe_0x004d8730, _g_anColorDither + 144\n");
-__asm__(".globl _grim_img_exe_0x004d8734\n\t.set _grim_img_exe_0x004d8734, _g_anColorDither + 148\n");
-__asm__(".globl _grim_img_exe_0x004d8738\n\t.set _grim_img_exe_0x004d8738, _g_anColorDither + 152\n");
-__asm__(".globl _grim_img_exe_0x004d873c\n\t.set _grim_img_exe_0x004d873c, _g_anColorDither + 156\n");
-__asm__(".globl _grim_img_exe_0x004d8740\n\t.set _grim_img_exe_0x004d8740, _g_anColorDither + 160\n");
-__asm__(".globl _grim_img_exe_0x004d8744\n\t.set _grim_img_exe_0x004d8744, _g_anColorDither + 164\n");
-__asm__(".globl _grim_img_exe_0x004d8748\n\t.set _grim_img_exe_0x004d8748, _g_anColorDither + 168\n");
-__asm__(".globl _grim_img_exe_0x004d874c\n\t.set _grim_img_exe_0x004d874c, _g_anColorDither + 172\n");
-__asm__(".globl _grim_img_exe_0x004d8750\n\t.set _grim_img_exe_0x004d8750, _g_anColorDither + 176\n");
-__asm__(".globl _grim_img_exe_0x004d8754\n\t.set _grim_img_exe_0x004d8754, _g_anColorDither + 180\n");
-__asm__(".globl _grim_img_exe_0x004d8758\n\t.set _grim_img_exe_0x004d8758, _g_anColorDither + 184\n");
-__asm__(".globl _grim_img_exe_0x004d875c\n\t.set _grim_img_exe_0x004d875c, _g_anColorDither + 188\n");
-__asm__(".globl _grim_img_exe_0x004d8760\n\t.set _grim_img_exe_0x004d8760, _g_anColorDither + 192\n");
-__asm__(".globl _grim_img_exe_0x004d8764\n\t.set _grim_img_exe_0x004d8764, _g_anColorDither + 196\n");
-__asm__(".globl _grim_img_exe_0x004d8768\n\t.set _grim_img_exe_0x004d8768, _g_anColorDither + 200\n");
-__asm__(".globl _grim_img_exe_0x004d876c\n\t.set _grim_img_exe_0x004d876c, _g_anColorDither + 204\n");
-__asm__(".globl _grim_img_exe_0x004d8770\n\t.set _grim_img_exe_0x004d8770, _g_anColorDither + 208\n");
-__asm__(".globl _grim_img_exe_0x004d8774\n\t.set _grim_img_exe_0x004d8774, _g_anColorDither + 212\n");
-__asm__(".globl _grim_img_exe_0x004d8778\n\t.set _grim_img_exe_0x004d8778, _g_anColorDither + 216\n");
-__asm__(".globl _grim_img_exe_0x004d877c\n\t.set _grim_img_exe_0x004d877c, _g_anColorDither + 220\n");
-__asm__(".globl _grim_img_exe_0x004d8780\n\t.set _grim_img_exe_0x004d8780, _g_anColorDither + 224\n");
-__asm__(".globl _grim_img_exe_0x004d8918\n\t.set _grim_img_exe_0x004d8918, _g_anColorDither + 632\n");
-__asm__(".globl _grim_img_exe_0x004d891c\n\t.set _grim_img_exe_0x004d891c, _g_anColorDither + 636\n");
-__asm__(".globl _grim_img_exe_0x004d8928\n\t.set _grim_img_exe_0x004d8928, _g_anColorDither + 648\n");
 __asm__(".globl _grim_img_exe_0x004dda90\n\t.set _grim_img_exe_0x004dda90, _FLOAT_004dda90 + 0\n");
 __asm__(".globl _grim_img_exe_0x004dda94\n\t.set _grim_img_exe_0x004dda94, _g_aRdroid_MipDistances + 0\n");
 __asm__(".globl _grim_img_exe_0x004dda98\n\t.set _grim_img_exe_0x004dda98, _FLOAT_004dda98 + 0\n");
-__asm__(".globl _grim_img_exe_0x004ddb80\n\t.set _grim_img_exe_0x004ddb80, _DAT_004ddb80 + 0\n");
-__asm__(".globl _grim_img_exe_0x004ddc10\n\t.set _grim_img_exe_0x004ddc10, _s___004ddc10 + 0\n");
-__asm__(".globl _grim_img_exe_0x004ea890\n\t.set _grim_img_exe_0x004ea890, _PTR_s_concatfallback_004ea890 + 0\n");
-__asm__(".globl _grim_img_exe_0x004ea8b0\n\t.set _grim_img_exe_0x004ea8b0, _PTR_s_EnginePause_004ea8b0 + 0\n");
-__asm__(".globl _grim_img_exe_0x004ed080\n\t.set _grim_img_exe_0x004ed080, _s_wKernel_004ed080 + 0\n");
-__asm__(".globl _grim_img_exe_0x004ed088\n\t.set _grim_img_exe_0x004ed088, _s_APPICON_004ed088 + 0\n");
 __asm__(".globl _grim_img_exe_0x004f5ec4\n\t.set _grim_img_exe_0x004f5ec4, _g_dwRdColormap_pCurMap + 0\n");
-__asm__(".globl _grim_img_exe_0x00606fa0\n\t.set _grim_img_exe_0x00606fa0, _g_aHWSolidTris + 0\n");
-__asm__(".globl _grim_img_exe_0x0060bfa0\n\t.set _grim_img_exe_0x0060bfa0, _g_dwTotalNormalTris + 0\n");
-__asm__(".globl _grim_img_exe_0x0068bfa8\n\t.set _grim_img_exe_0x0068bfa8, _g_dwTotalVerts + 0\n");
-__asm__(".globl _grim_img_exe_0x006cbfb0\n\t.set _grim_img_exe_0x006cbfb0, _g_aHWNormalTris + 0\n");
-__asm__(".globl _grim_img_exe_0x006f0fb0\n\t.set _grim_img_exe_0x006f0fb0, _g_dwTotalSolidTris + 0\n");
-__asm__(".globl _grim_img_exe_0x006f0fb8\n\t.set _grim_img_exe_0x006f0fb8, _g_aHWVertices + 0\n");
 __asm__(".globl _grim_img_exe_0x007f0fc8\n\t.set _grim_img_exe_0x007f0fc8, _g_pRdCamera_CurCamera + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4c44\n\t.set _grim_img_exe_0x007f4c44, _UINT_007f4c44 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4c54\n\t.set _grim_img_exe_0x007f4c54, _UINT_007f4c54 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4ca4\n\t.set _grim_img_exe_0x007f4ca4, _UINT_007f4ca4 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cac\n\t.set _grim_img_exe_0x007f4cac, _UINT_007f4cac + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cb0\n\t.set _grim_img_exe_0x007f4cb0, _UINT_007f4cb0 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cb4\n\t.set _grim_img_exe_0x007f4cb4, _UINT_007f4cb4 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cc4\n\t.set _grim_img_exe_0x007f4cc4, _UINT_007f4cc4 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cdc\n\t.set _grim_img_exe_0x007f4cdc, _UINT_007f4cdc + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cf0\n\t.set _grim_img_exe_0x007f4cf0, _UINT_007f4cf0 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cf4\n\t.set _grim_img_exe_0x007f4cf4, _UINT_007f4cf4 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cf8\n\t.set _grim_img_exe_0x007f4cf8, _UINT_007f4cf8 + 0\n");
-__asm__(".globl _grim_img_exe_0x007f4cfc\n\t.set _grim_img_exe_0x007f4cfc, _UINT_007f4cfc + 0\n");
-__asm__(".globl _grim_img_exe_0x00804000\n\t.set _grim_img_exe_0x00804000, _DAT_00804000 + 0\n");
-__asm__(".globl _grim_img_exe_0x00804020\n\t.set _grim_img_exe_0x00804020, _UINT_00804020 + 0\n");
-__asm__(".globl _grim_img_exe_0x00805f30\n\t.set _grim_img_exe_0x00805f30, _UINT_00805f30 + 0\n");
-__asm__(".globl _grim_img_exe_0x00805fcc\n\t.set _grim_img_exe_0x00805fcc, _UINT_00805fcc + 0\n");
-__asm__(".globl _grim_img_exe_0x00805fd0\n\t.set _grim_img_exe_0x00805fd0, _UINT_00805fd0 + 0\n");
 __asm__(".globl _grim_img_exe_0x0080692c\n\t.set _grim_img_exe_0x0080692c, _g_pStd3D_CurDevice + 0\n");
 __asm__(".globl _grim_img_exe_0x00806940\n\t.set _grim_img_exe_0x00806940, _g_dwStd3D_maxVertices + 0\n");
-__asm__(".globl _grim_img_exe_0x0080ccf8\n\t.set _grim_img_exe_0x0080ccf8, _UINT_0080ccf8 + 0\n");
-__asm__(".globl _grim_img_exe_0x00812ed8\n\t.set _grim_img_exe_0x00812ed8, _UINT_00812ed8 + 0\n");
-__asm__(".globl _grim_img_exe_0x008dde48\n\t.set _grim_img_exe_0x008dde48, _g_dwRdZRaster_uWrap + 0\n");
-__asm__(".globl _grim_img_exe_0x008dde50\n\t.set _grim_img_exe_0x008dde50, _g_dwRdZRaster_dVdXModifier + 0\n");
-__asm__(".globl _grim_img_exe_0x008dde54\n\t.set _grim_img_exe_0x008dde54, _g_dwRdZRaster_mipMapNum + 0\n");
-__asm__(".globl _grim_img_exe_0x008dde58\n\t.set _grim_img_exe_0x008dde58, _g_dwRdZRaster_vWrap + 0\n");
-__asm__(".globl _grim_img_exe_0x008dde5c\n\t.set _grim_img_exe_0x008dde5c, _g_dwRdZRaster_aRGBMap + 0\n");
-__asm__(".globl _grim_img_exe_0x008dde78\n\t.set _grim_img_exe_0x008dde78, _g_dwRdZRaster_dUdXModifier + 0\n");
-__asm__(".globl _grim_img_exe_0x008dde7c\n\t.set _grim_img_exe_0x008dde7c, _g_dwRdZRaster_pPixels + 0\n");
-__asm__(".globl _grim_img_exe_0x008dde8c\n\t.set _grim_img_exe_0x008dde8c, _g_dwRdZRaster_texRowShift + 0\n");
 __asm__(".globl _grim_img_exe_0x008ddfa0\n\t.set _grim_img_exe_0x008ddfa0, _g_dwRdCache_numProcFaces + 0\n");
 __asm__(".globl _grim_img_exe_0x008ddfc0\n\t.set _grim_img_exe_0x008ddfc0, _g_bRdCache_aProcFaces + 0\n");
 __asm__(".globl _grim_img_exe_0x008fbfc0\n\t.set _grim_img_exe_0x008fbfc0, _g_aRdRaster_OneOverNFixed + 0\n");
@@ -13142,18 +6349,11 @@ __asm__(".globl _grim_img_exe_0x008fe000\n\t.set _grim_img_exe_0x008fe000, _g_dw
 __asm__(".globl _grim_img_exe_0x00900000\n\t.set _grim_img_exe_0x00900000, _g_nRdroid_curLightingMode + 0\n");
 __asm__(".globl _grim_img_exe_0x00900008\n\t.set _grim_img_exe_0x00900008, _g_nRdroid_curGeometryMode + 0\n");
 __asm__(".globl _grim_img_exe_0x00900020\n\t.set _grim_img_exe_0x00900020, _g_dwRdroid_curColorEffects + 0\n");
-__asm__(".globl _grim_img_exe_0x00900024\n\t.set _grim_img_exe_0x00900024, _UINT_00900024 + 0\n");
-__asm__(".globl _grim_img_exe_0x00900028\n\t.set _grim_img_exe_0x00900028, _UINT_00900028 + 0\n");
-__asm__(".globl _grim_img_exe_0x0090002c\n\t.set _grim_img_exe_0x0090002c, _FLOAT_0090002c + 0\n");
-__asm__(".globl _grim_img_exe_0x00900030\n\t.set _grim_img_exe_0x00900030, _FLOAT_00900030 + 0\n");
-__asm__(".globl _grim_img_exe_0x00900034\n\t.set _grim_img_exe_0x00900034, _FLOAT_00900034 + 0\n");
-__asm__(".globl _grim_img_exe_0x00900044\n\t.set _grim_img_exe_0x00900044, _FLOAT_00900044 + 0\n");
 __asm__(".globl _grim_img_exe_0x0090004c\n\t.set _grim_img_exe_0x0090004c, _g_dwRdroid_curVertexColorMode + 0\n");
 __asm__(".globl _grim_img_exe_0x00900050\n\t.set _grim_img_exe_0x00900050, _g_nRdroid_curZBufferMethod + 0\n");
 __asm__(".globl _grim_img_exe_0x00900064\n\t.set _grim_img_exe_0x00900064, _g_dwRdroid_curRenderOptions + 0\n");
 __asm__(".globl _grim_img_exe_0x00900524\n\t.set _grim_img_exe_0x00900524, _DAT_00900524 + 0\n");
 __asm__(".globl _grim_img_exe_0x00900526\n\t.set _grim_img_exe_0x00900526, _DAT_00900526 + 0\n");
 __asm__(".globl _grim_img_exe_0x00900534\n\t.set _grim_img_exe_0x00900534, _UINT_00900534 + 0\n");
-__asm__(".globl _grim_img_exe_0x00902c60\n\t.set _grim_img_exe_0x00902c60, _DAT_00902c60 + 0\n");
 __asm__(".globl _sect_rdata\n\t.set _sect_rdata, _PTR_RegQueryInfoKeyA_004d7000\n");
 __asm__(".globl _sect_data\n\t.set _sect_data, _DAT_004dd000\n");

@@ -739,3 +739,81 @@ void __cdecl Plat_Free(void *p)
   (*g_pStd_HS->pFree)(p);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e8158[4] __asm__("_DAT_004e8158");
+extern unsigned char grim_def_DAT_004e8174[8] __asm__("_DAT_004e8174");
+extern unsigned char grim_def_DAT_008c995f __asm__("_DAT_008c995f");
+extern int grim_def_INT_008c9848 __asm__("_INT_008c9848");
+extern int grim_def_INT_008c984c __asm__("_INT_008c984c");
+extern unsigned int grim_def_UINT_004e8138 __asm__("_UINT_004e8138");
+extern unsigned int grim_def_UINT_004e813c __asm__("_UINT_004e813c");
+extern int grim_def_UINT_004e8140 __asm__("_UINT_004e8140");
+extern unsigned int grim_def_UINT_004e8144 __asm__("_UINT_004e8144");
+extern unsigned int grim_def_UINT_004e8148 __asm__("_UINT_004e8148");
+extern unsigned int grim_def_UINT_008c9828 __asm__("_UINT_008c9828");
+extern unsigned int grim_def_UINT_008c982c __asm__("_UINT_008c982c");
+extern unsigned int grim_def_UINT_008c9830 __asm__("_UINT_008c9830");
+extern unsigned int grim_def_UINT_008c9834 __asm__("_UINT_008c9834");
+extern unsigned int grim_def_UINT_008c9838 __asm__("_UINT_008c9838");
+extern int grim_def_UINT_008c983c __asm__("_UINT_008c983c");
+extern unsigned char grim_def_UINT_008c9840[8] __asm__("_UINT_008c9840");
+extern unsigned int grim_def_UINT_008c9850 __asm__("_UINT_008c9850");
+extern unsigned int grim_def_UINT_008c9854 __asm__("_UINT_008c9854");
+extern char grim_def_g_szDialogOpenDir[263] __asm__("_g_szDialogOpenDir");
+extern char grim_def_g_szDialogSaveDir[260] __asm__("_g_szDialogSaveDir");
+extern char grim_def_s_BUTTON_004e815c[8] __asm__("_s_BUTTON_004e815c");
+extern char grim_def_s_C__grimsrc_libs_grimlib_Win95_gr_004e81ec[44] __asm__("_s_C__grimsrc_libs_grimlib_Win95_gr_004e81ec");
+extern char grim_def_s_Cancel_004e8150[8] __asm__("_s_Cancel_004e8150");
+extern char grim_def_s_Input_004e81bc[8] __asm__("_s_Input_004e81bc");
+extern char grim_def_s_MS_Sans_Serif_004e8184[16] __asm__("_s_MS_Sans_Serif_004e8184");
+extern char grim_def_s_No_item_was_picked__004e81d8[20] __asm__("_s_No_item_was_picked__004e81d8");
+extern char grim_def_s_Not_so_fast__004e81c8[16] __asm__("_s_Not_so_fast__004e81c8");
+extern char grim_def_s_Recursive_004e8194[12] __asm__("_s_Recursive_004e8194");
+extern char grim_def_s_STATIC_004e817c[8] __asm__("_s_STATIC_004e817c");
+extern char grim_def_s_SysTreeView32_004e81a0[16] __asm__("_s_SysTreeView32_004e81a0");
+extern char grim_def_s_Tree_Select_004e81b0[12] __asm__("_s_Tree_Select_004e81b0");
+extern char grim_def_s__004e81c4[4] __asm__("_s__004e81c4");
+extern char grim_def_s_msctls_updown32_004e8164[16] __asm__("_s_msctls_updown32_004e8164");
+/* 0x004e8138, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004e8138 __asm__("_UINT_004e8138") = 0x0;
+/* 0x004e813c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004e813c __asm__("_UINT_004e813c") = 0x0;
+/* 0x004e8140, 4 bytes */ /* loose */ int grim_def_UINT_004e8140 __asm__("_UINT_004e8140") = 0;
+/* 0x004e8144, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004e8144 __asm__("_UINT_004e8144") = 0xffffffff;
+/* 0x004e8148, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004e8148 __asm__("_UINT_004e8148") = 0x0;
+/* 0x004e8150, 8 bytes */ /* loose */ char grim_def_s_Cancel_004e8150[8] __asm__("_s_Cancel_004e8150") = "Cancel";
+static unsigned char grim_anchor_004e8158[0] __attribute__((section(".data$grim_004e8158"), aligned(16), used));
+static unsigned char grim_pad_004e8158[8] __attribute__((section(".data$grim_004e8158_"), aligned(4), used));
+/* 0x004e8158, 4 bytes */ GRIM_DATA("004e8158z") unsigned char grim_def_DAT_004e8158[4] __asm__("_DAT_004e8158") = { 0x4f, 0x4b };
+/* 0x004e815c, 8 bytes */ GRIM_DATA("004e815c") char grim_def_s_BUTTON_004e815c[8] __asm__("_s_BUTTON_004e815c") = "BUTTON";
+/* 0x004e8164, 16 bytes */ /* loose */ char grim_def_s_msctls_updown32_004e8164[16] __asm__("_s_msctls_updown32_004e8164") = "msctls_updown32";
+static unsigned char grim_anchor_004e8174[0] __attribute__((section(".data$grim_004e8174"), aligned(16), used));
+static unsigned char grim_pad_004e8174[4] __attribute__((section(".data$grim_004e8174_"), aligned(4), used));
+/* 0x004e8174, 8 bytes */ GRIM_DATA("004e8174z") unsigned char grim_def_DAT_004e8174[8] __asm__("_DAT_004e8174") = { 0x45, 0x44, 0x49, 0x54 };
+/* 0x004e817c, 8 bytes */ GRIM_DATA("004e817c") char grim_def_s_STATIC_004e817c[8] __asm__("_s_STATIC_004e817c") = "STATIC";
+/* 0x004e8184, 16 bytes */ /* loose */ char grim_def_s_MS_Sans_Serif_004e8184[16] __asm__("_s_MS_Sans_Serif_004e8184") = "MS Sans Serif";
+/* 0x004e8194, 12 bytes */ /* loose */ char grim_def_s_Recursive_004e8194[12] __asm__("_s_Recursive_004e8194") = "Recursive";
+/* 0x004e81a0, 16 bytes */ /* loose */ char grim_def_s_SysTreeView32_004e81a0[16] __asm__("_s_SysTreeView32_004e81a0") = "SysTreeView32";
+/* 0x004e81b0, 12 bytes */ /* loose */ char grim_def_s_Tree_Select_004e81b0[12] __asm__("_s_Tree_Select_004e81b0") = "Tree Select";
+/* 0x004e81bc, 8 bytes */ /* loose */ char grim_def_s_Input_004e81bc[8] __asm__("_s_Input_004e81bc") = "Input";
+/* 0x004e81c4, 4 bytes */ /* loose */ char grim_def_s__004e81c4[4] __asm__("_s__004e81c4") = "\t";
+/* 0x004e81c8, 16 bytes */ /* loose */ char grim_def_s_Not_so_fast__004e81c8[16] __asm__("_s_Not_so_fast__004e81c8") = "Not so fast!";
+/* 0x004e81d8, 20 bytes */ /* loose */ char grim_def_s_No_item_was_picked__004e81d8[20] __asm__("_s_No_item_was_picked__004e81d8") = "No item was picked!";
+/* 0x004e81ec, 44 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_grimlib_Win95_gr_004e81ec[44] __asm__("_s_C__grimsrc_libs_grimlib_Win95_gr_004e81ec") = "C:\\grimsrc\\libs\\grimlib\\Win95\\grimplat.cpp";
+/* 0x008c9828, 4 bytes */ GRIM_DATA("008c9828") unsigned int grim_def_UINT_008c9828 __asm__("_UINT_008c9828") = 0x0;
+/* 0x008c982c, 4 bytes */ GRIM_DATA("008c982c") unsigned int grim_def_UINT_008c982c __asm__("_UINT_008c982c") = 0x0;
+/* 0x008c9830, 4 bytes */ GRIM_DATA("008c9830") unsigned int grim_def_UINT_008c9830 __asm__("_UINT_008c9830") = 0x0;
+/* 0x008c9834, 4 bytes */ GRIM_DATA("008c9834") unsigned int grim_def_UINT_008c9834 __asm__("_UINT_008c9834") = 0x0;
+/* 0x008c9838, 4 bytes */ GRIM_DATA("008c9838") unsigned int grim_def_UINT_008c9838 __asm__("_UINT_008c9838") = 0x0;
+/* 0x008c983c, 4 bytes */ GRIM_DATA("008c983c") int grim_def_UINT_008c983c __asm__("_UINT_008c983c") = 0;
+/* 0x008c9840, 8 bytes */ GRIM_DATA("008c9840") unsigned char grim_def_UINT_008c9840[8] __asm__("_UINT_008c9840") = {0};
+/* 0x008c9848, 4 bytes */ GRIM_DATA("008c9848") int grim_def_INT_008c9848 __asm__("_INT_008c9848") = 0;
+/* 0x008c984c, 4 bytes */ GRIM_DATA("008c984c") int grim_def_INT_008c984c __asm__("_INT_008c984c") = 0;
+/* 0x008c9850, 4 bytes */ GRIM_DATA("008c9850") unsigned int grim_def_UINT_008c9850 __asm__("_UINT_008c9850") = 0x0;
+/* 0x008c9854, 4 bytes */ GRIM_DATA("008c9854") unsigned int grim_def_UINT_008c9854 __asm__("_UINT_008c9854") = 0x0;
+/* 0x008c9858, 263 bytes */ GRIM_DATA("008c9858") char grim_def_g_szDialogOpenDir[263] __asm__("_g_szDialogOpenDir") = "";
+/* 0x008c995f, 1 bytes */ GRIM_DATA("008c9858") unsigned char grim_def_DAT_008c995f __asm__("_DAT_008c995f") = 0x0;
+/* 0x008c9960, 260 bytes */ GRIM_DATA("008c9960") char grim_def_g_szDialogSaveDir[260] __asm__("_g_szDialogSaveDir") = "";

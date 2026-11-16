@@ -1525,3 +1525,168 @@ void init_func(void)
   g_pLuaState->pCurrState->pF->nLineDefined = *(int *)((int)g_pLuaState->pLexState + 8);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern short grim_def_g_aYycheck[263] __asm__("_g_aYycheck");
+extern short grim_def_g_aYyr1[103] __asm__("_g_aYyr1");
+extern short grim_def_g_aYyr2[103] __asm__("_g_aYyr2");
+extern short grim_def_g_aYytable[263] __asm__("_g_aYytable");
+extern signed char grim_def_g_aYytranslate[285] __asm__("_g_aYytranslate");
+extern short grim_def_g_wYydefact[184] __asm__("_g_wYydefact");
+extern short grim_def_g_wYypact[184] __asm__("_g_wYypact");
+extern char grim_def_s___100s__last_token_read_____50s__10027ac4[60] __asm__("_s___100s__last_token_read_____50s__10027ac4");
+extern char grim_def_s__eof__10027b00[8] __asm__("_s__eof__10027b00");
+extern char grim_def_s_arg_10027cb0[4] __asm__("_s_arg_10027cb0");
+extern char grim_def_s_cannot_access_a_variable_in_oute_10027c08[40] __asm__("_s_cannot_access_a_variable_in_oute_10027c08");
+extern char grim_def_s_cannot_access_an_upvalue_in_curr_10027c30[44] __asm__("_s_cannot_access_an_upvalue_in_curr_10027c30");
+extern char grim_def_s_cannot_access_upvalue_in_main_10027c5c[32] __asm__("_s_cannot_access_upvalue_in_main_10027c5c");
+extern char grim_def_s_code_size_overflow_10027b08[20] __asm__("_s_code_size_overflow_10027b08");
+extern char grim_def_s_code_too_long__limit_64K__10027b1c[28] __asm__("_s_code_too_long__limit_64K__10027b1c");
+extern char grim_def_s_constant_table_overflow_10027ba8[24] __asm__("_s_constant_table_overflow_10027ba8");
+extern char grim_def_s_function_expression_too_complex_10027b38[32] __asm__("_s_function_expression_too_complex_10027b38");
+extern char grim_def_s_invalid_constructor_syntax_10027b84[28] __asm__("_s_invalid_constructor_syntax_10027b84");
+extern char grim_def_s_lua_stx_10027b64[8] __asm__("_s_lua_stx_10027b64");
+extern char grim_def_s_parse_error_10027b58[12] __asm__("_s_parse_error_10027b58");
+extern char grim_def_s_parser_stack_overflow_10027b6c[24] __asm__("_s_parser_stack_overflow_10027b6c");
+extern char grim_def_s_self_10027ba0[8] __asm__("_s_self_10027ba0");
+extern char grim_def_s_too_many_local_variables__limit__10027bc0[36] __asm__("_s_too_many_local_variables__limit__10027bc0");
+extern char grim_def_s_too_many_nested_functions__limit_10027cb4[36] __asm__("_s_too_many_nested_functions__limit_10027cb4");
+extern char grim_def_s_too_many_upvalues_in_a_single_fu_10027c7c[52] __asm__("_s_too_many_upvalues_in_a_single_fu_10027c7c");
+extern char grim_def_s_variable_buffer_overflow__limit__10027be4[36] __asm__("_s_variable_buffer_overflow__limit__10027be4");
+/* 0x10023188, 288 bytes */ GRIM_DATA("10023188") signed char grim_def_g_aYytranslate[285] __asm__("_g_aYytranslate") = {
+    0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 43, 2, 2, 41, 42, 32, 30, 48, 31, 39, 33,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 40, 37, 26, 38, 25, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 44, 2, 45, 36, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 46, 2, 47, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
+    17, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 34, 35
+};
+/* 0x100232a5, 3 bytes: the rest of grim_def_g_aYytranslate's span */ GRIM_DATA("10023188") static unsigned char g_aYytranslate__tail[3] __attribute__((used)) = {0};
+/* 0x100232a8, 208 bytes */ GRIM_DATA("100232a8") short grim_def_g_aYyr1[103] __asm__("_g_aYyr1") = {
+    0, 49, 50, 50, 51, 51, 52, 52, 52, 52, 52, 52, 52, 52, 54, 53,
+    55, 55, 55, 56, 57, 58, 59, 59, 59, 60, 60, 61, 62, 63, 64, 65,
+    66, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67, 67,
+    67, 67, 67, 67, 67, 68, 67, 67, 67, 69, 70, 70, 70, 71, 71, 71,
+    72, 73, 74, 75, 75, 76, 76, 76, 77, 77, 78, 79, 78, 80, 80, 80,
+    80, 81, 81, 82, 82, 82, 83, 83, 84, 85, 86, 86, 87, 88, 88, 89,
+    89, 90, 90, 91, 91, 92, 92
+};
+/* 0x10023376, 2 bytes: the rest of grim_def_g_aYyr1's span */ GRIM_DATA("100232a8") static unsigned char g_aYyr1__tail[2] __attribute__((used)) = {0};
+/* 0x10023378, 208 bytes */ GRIM_DATA("10023378") short grim_def_g_aYyr2[103] __asm__("_g_aYyr2") = {
+    0, 2, 0, 3, 0, 1, 7, 3, 6, 5, 3, 1, 3, 3, 0, 2,
+    1, 3, 3, 1, 1, 5, 0, 2, 6, 0, 3, 0, 0, 1, 1, 2,
+    1, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2,
+    1, 1, 1, 1, 1, 0, 3, 4, 4, 1, 1, 2, 1, 1, 4, 3,
+    1, 4, 2, 1, 3, 3, 1, 1, 0, 1, 1, 0, 4, 0, 1, 1,
+    3, 1, 3, 0, 1, 1, 0, 1, 2, 2, 1, 3, 3, 3, 1, 1,
+    3, 1, 3, 1, 3, 0, 2
+};
+/* 0x10023446, 2 bytes: the rest of grim_def_g_aYyr2's span */ GRIM_DATA("10023378") static unsigned char g_aYyr2__tail[2] __attribute__((used)) = {0};
+/* 0x10023448, 368 bytes */ GRIM_DATA("10023448") short grim_def_g_wYydefact[184] __asm__("_g_wYydefact") = {
+    2, 25, 0, 27, 14, 27, 72, 0, 0, 64, 0, 4, 1, 67, 57, 58,
+    61, 11, 0, 0, 52, 53, 50, 51, 0, 0, 0, 28, 0, 28, 32, 48,
+    58, 49, 60, 0, 0, 2, 14, 0, 74, 4, 73, 99, 101, 0, 0, 19,
+    59, 5, 3, 0, 0, 0, 71, 72, 70, 66, 0, 0, 0, 46, 47, 32,
+    30, 83, 14, 28, 28, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 29, 31, 0, 7, 15, 0, 26, 75, 0, 0, 12, 77, 13, 0, 0,
+    63, 68, 0, 0, 10, 58, 54, 33, 64, 0, 94, 95, 0, 81, 84, 85,
+    86, 90, 0, 86, 28, 0, 0, 34, 37, 36, 35, 38, 39, 45, 40, 41,
+    42, 43, 44, 14, 0, 0, 102, 100, 78, 0, 79, 20, 17, 18, 62, 69,
+    0, 65, 83, 87, 88, 0, 87, 89, 22, 55, 56, 0, 9, 76, 2, 0,
+    93, 82, 91, 92, 96, 14, 0, 0, 8, 0, 80, 23, 0, 6, 21, 14,
+    28, 22, 24
+};
+/* 0x10023610, 368 bytes */ GRIM_DATA("10023610") short grim_def_g_wYypact[184] __asm__("_g_wYypact") = {
+    (short)0x8000, 147, 94, (short)0x8000, (short)0x8000, (short)0x8000, 94, 19, 34, (short)0x8000, 39, -19, (short)0x8000, 2, (short)0x8000, -29,
+    (short)0x8000, -10, -6, -27, (short)0x8000, (short)0x8000, (short)0x8000, (short)0x8000, 94, 94, 94, (short)0x8000, 14, 196, (short)0x8000, 4,
+    (short)0x8000, (short)0x8000, (short)0x8000, 94, 49, (short)0x8000, (short)0x8000, 196, 212, -19, 18, (short)0x8000, -22, 38, 21, 40,
+    (short)0x8000, (short)0x8000, (short)0x8000, 68, 71, 94, (short)0x8000, 94, (short)0x8000, (short)0x8000, 94, 9, 38, 57, 57, 62,
+    (short)0x8000, 76, (short)0x8000, (short)0x8000, (short)0x8000, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94, 94,
+    94, (short)0x8000, (short)0x8000, 96, (short)0x8000, (short)0x8000, 106, (short)0x8000, (short)0x8000, 94, 102, (short)0x8000, -4, (short)0x8000, 109, 109,
+    (short)0x8000, (short)0x8000, 146, 91, 18, -21, (short)0x8000, (short)0x8000, 98, 94, (short)0x8000, 196, 92, 105, (short)0x8000, (short)0x8000,
+    90, (short)0x8000, 107, 95, (short)0x8000, 94, 94, 53, 53, 53, 53, 53, 53, 69, 23, 23,
+    57, 57, 57, (short)0x8000, 94, 94, 18, (short)0x8000, (short)0x8000, 104, 112, (short)0x8000, (short)0x8000, (short)0x8000, (short)0x8000, (short)0x8000,
+    171, (short)0x8000, 76, -7, (short)0x8000, 94, 94, (short)0x8000, 101, 226, 226, 136, 196, 212, (short)0x8000, 30,
+    (short)0x8000, (short)0x8000, (short)0x8000, 196, 196, (short)0x8000, 94, 137, (short)0x8000, 140, (short)0x8000, (short)0x8000, 148, (short)0x8000, (short)0x8000, (short)0x8000,
+    (short)0x8000, 101, (short)0x8000, 155, 165, (short)0x8000
+};
+/* 0x100237d8, 528 bytes */ GRIM_DATA("100237d8") short grim_def_g_aYytable[263] __asm__("_g_aYytable") = {
+    29, 179, 64, 83, 86, 40, 14, 15, 100, -97, -60, 58, 139, 136, 54, 43,
+    89, -98, 49, -97, 66, 59, 61, 62, -57, 63, 90, -98, 9, -60, -60, -60,
+    116, 29, -60, 55, -60, 105, 43, 134, 27, 51, 52, -57, -57, -57, 53, 170,
+    -57, 135, -57, 98, 10, 9, 40, 78, 79, 40, 48, 80, 94, 95, 84, 107,
+    14, 101, 88, 119, 120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 92,
+    20, -16, 75, 76, 77, 78, 79, 96, 40, 80, 97, 152, 21, 80, 22, 104,
+    23, 155, 20, 76, 77, 78, 79, 144, 103, 80, 131, 24, 165, 166, 21, 25,
+    22, 9, 23, 153, 154, 26, 132, 10, 105, 135, 27, 140, 141, 24, 117, 118,
+    139, 25, 156, 171, 157, 143, 172, 26, -20, 10, 147, 145, 27, 176, 146, 150,
+    107, 149, 158, 163, 164, 168, 173, 177, 2, 174, 175, 180, 3, 4, 5, 169,
+    159, 6, 7, 8, 29, 181, 9, 67, 68, 69, 70, 71, 72, 73, 74, 75,
+    76, 77, 78, 79, 87, 102, 80, 38, 178, 47, 56, 17, 99, 161, 10, 142,
+    67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 162, 138, 80,
+    151, 0, 0, 0, 0, 0, 0, 0, 160, 67, 68, 69, 70, 71, 72, 73,
+    74, 75, 76, 77, 78, 79, 0, 0, 80, -32, -32, -32, -32, -32, -32, -32,
+    -32, -32, -32, -32, -32, -32, 0, 0, -32, 69, 70, 71, 72, 73, 74, 75,
+    76, 77, 78, 79, 0, 0, 80
+};
+/* 0x100239e6, 2 bytes: the rest of grim_def_g_aYytable's span */ GRIM_DATA("100237d8") static unsigned char g_aYytable__tail[2] __attribute__((used)) = {0};
+/* 0x100239e8, 580 bytes */ GRIM_DATA("100239e8") short grim_def_g_aYycheck[263] __asm__("_g_aYycheck") = {
+    2, 0, 27, 35, 38, 6, 1, 1, 58, 38, 20, 38, 19, 17, 20, 19,
+    38, 38, 37, 48, 6, 48, 24, 25, 20, 26, 48, 48, 19, 39, 40, 41,
+    66, 35, 44, 41, 46, 44, 19, 89, 46, 39, 40, 39, 40, 41, 44, 17,
+    44, 19, 46, 53, 43, 19, 55, 32, 33, 58, 19, 36, 39, 40, 13, 65,
+    59, 59, 48, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 41,
+    4, 41, 29, 30, 31, 32, 33, 19, 89, 36, 19, 116, 16, 36, 18, 19,
+    20, 131, 4, 30, 31, 32, 33, 105, 42, 36, 10, 31, 7, 8, 16, 35,
+    18, 19, 20, 117, 118, 41, 12, 43, 44, 19, 46, 94, 95, 31, 67, 68,
+    19, 35, 132, 165, 133, 42, 166, 41, 38, 43, 48, 47, 46, 175, 37, 48,
+    146, 38, 42, 149, 150, 13, 13, 176, 5, 13, 6, 0, 9, 10, 11, 158,
+    48, 14, 15, 16, 166, 0, 19, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+    30, 31, 32, 33, 41, 60, 36, 5, 177, 8, 18, 1, 55, 146, 43, 45,
+    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 147, 92, 36,
+    115, -1, -1, -1, -1, -1, -1, -1, 45, 21, 22, 23, 24, 25, 26, 27,
+    28, 29, 30, 31, 32, 33, -1, -1, 36, 21, 22, 23, 24, 25, 26, 27,
+    28, 29, 30, 31, 32, 33, -1, -1, 36, 23, 24, 25, 26, 27, 28, 29,
+    30, 31, 32, 33, -1, -1, 36
+};
+/* 0x10023bf6, 54 bytes: the rest of grim_def_g_aYycheck's span */ GRIM_DATA("100239e8") static unsigned char g_aYycheck__tail[54] __attribute__((used)) = {
+    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xfe, 0x7f, 0x47, 0xb7, 0x6d, 0xdb, 0xb6, 0x6d, 0xdb,
+    0xf6, 0x3f, 0x66, 0x66, 0x66, 0x66, 0x66, 0x66, 0xe6, 0x3f, 0x46, 0x0a, 0xbf, 0x17, 0x00, 0x00,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0xc0, 0x48, 0xe1, 0xf7, 0x3a, 0x00, 0x00, 0x00, 0xcf, 0x00, 0x00,
+    0x00, 0x4f, 0x00, 0x00, 0x80, 0xbf
+};
+/* 0x10027ac4, 60 bytes */ /* loose */ char grim_def_s___100s__last_token_read_____50s__10027ac4[60] __asm__("_s___100s__last_token_read_____50s__10027ac4") = "%.100s;\n  last token read: \"%.50s\" at line %d in file %.50s";
+/* 0x10027b00, 8 bytes */ /* loose */ char grim_def_s__eof__10027b00[8] __asm__("_s__eof__10027b00") = "<eof>";
+/* 0x10027b08, 20 bytes */ /* loose */ char grim_def_s_code_size_overflow_10027b08[20] __asm__("_s_code_size_overflow_10027b08") = "code size overflow";
+/* 0x10027b1c, 28 bytes */ /* loose */ char grim_def_s_code_too_long__limit_64K__10027b1c[28] __asm__("_s_code_too_long__limit_64K__10027b1c") = "code too long (limit=64K)";
+/* 0x10027b38, 32 bytes */ /* loose */ char grim_def_s_function_expression_too_complex_10027b38[32] __asm__("_s_function_expression_too_complex_10027b38") = "function/expression too complex";
+/* 0x10027b58, 12 bytes */ /* loose */ char grim_def_s_parse_error_10027b58[12] __asm__("_s_parse_error_10027b58") = "parse error";
+/* 0x10027b64, 8 bytes */ /* loose */ char grim_def_s_lua_stx_10027b64[8] __asm__("_s_lua_stx_10027b64") = "lua.stx";
+/* 0x10027b6c, 24 bytes */ /* loose */ char grim_def_s_parser_stack_overflow_10027b6c[24] __asm__("_s_parser_stack_overflow_10027b6c") = "parser stack overflow";
+/* 0x10027b84, 28 bytes */ /* loose */ char grim_def_s_invalid_constructor_syntax_10027b84[28] __asm__("_s_invalid_constructor_syntax_10027b84") = "invalid constructor syntax";
+/* 0x10027ba0, 8 bytes */ /* loose */ char grim_def_s_self_10027ba0[8] __asm__("_s_self_10027ba0") = "self";
+/* 0x10027ba8, 24 bytes */ /* loose */ char grim_def_s_constant_table_overflow_10027ba8[24] __asm__("_s_constant_table_overflow_10027ba8") = "constant table overflow";
+/* 0x10027bc0, 36 bytes */ /* loose */ char grim_def_s_too_many_local_variables__limit__10027bc0[36] __asm__("_s_too_many_local_variables__limit__10027bc0") = "too many local variables (limit=32)";
+/* 0x10027be4, 36 bytes */ /* loose */ char grim_def_s_variable_buffer_overflow__limit__10027be4[36] __asm__("_s_variable_buffer_overflow__limit__10027be4") = "variable buffer overflow (limit=32)";
+/* 0x10027c08, 40 bytes */ /* loose */ char grim_def_s_cannot_access_a_variable_in_oute_10027c08[40] __asm__("_s_cannot_access_a_variable_in_oute_10027c08") = "cannot access a variable in outer scope";
+/* 0x10027c30, 44 bytes */ /* loose */ char grim_def_s_cannot_access_an_upvalue_in_curr_10027c30[44] __asm__("_s_cannot_access_an_upvalue_in_curr_10027c30") = "cannot access an upvalue in current scope";
+/* 0x10027c5c, 32 bytes */ /* loose */ char grim_def_s_cannot_access_upvalue_in_main_10027c5c[32] __asm__("_s_cannot_access_upvalue_in_main_10027c5c") = "cannot access upvalue in main";
+/* 0x10027c7c, 52 bytes */ /* loose */ char grim_def_s_too_many_upvalues_in_a_single_fu_10027c7c[52] __asm__("_s_too_many_upvalues_in_a_single_fu_10027c7c") = "too many upvalues in a single function (limit=16)";
+/* 0x10027cb0, 4 bytes */ /* loose */ char grim_def_s_arg_10027cb0[4] __asm__("_s_arg_10027cb0") = "arg";
+/* 0x10027cb4, 36 bytes */ /* loose */ char grim_def_s_too_many_nested_functions__limit_10027cb4[36] __asm__("_s_too_many_nested_functions__limit_10027cb4") = "too many nested functions (limit=6)";

@@ -1581,3 +1581,18 @@ WalkPlane * __cdecl Planner_SharedSector(float *from,float *to)
   WalkPlane_AllActive();
   return this;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_UINT_008cf0c8[336] __asm__("_UINT_008cf0c8");
+extern unsigned char grim_def_g_aPuck_Rot_ret[16] __asm__("_g_aPuck_Rot_ret");
+extern unsigned int grim_def_g_dwPuck_Forward_recursion_level __asm__("_g_dwPuck_Forward_recursion_level");
+extern unsigned int grim_def_g_dwTotWorkingPathPoints __asm__("_g_dwTotWorkingPathPoints");
+/* 0x008cf0c8, 336 bytes */ GRIM_DATA("008cf0c8") unsigned char grim_def_UINT_008cf0c8[336] __asm__("_UINT_008cf0c8") = {0};
+/* 0x008cf248, 8 bytes */ GRIM_DATA("008cf248") unsigned int grim_def_g_dwTotWorkingPathPoints __asm__("_g_dwTotWorkingPathPoints") = 0x0;
+/* 0x008cf24c, 4 bytes: the rest of grim_def_g_dwTotWorkingPathPoints's span */ GRIM_DATA("008cf248") static unsigned char g_dwTotWorkingPathPoints__tail[4] __attribute__((used)) = {0};
+/* 0x008cf250, 16 bytes */ GRIM_DATA("008cf250") unsigned char grim_def_g_aPuck_Rot_ret[16] __asm__("_g_aPuck_Rot_ret") = {0};
+/* 0x008d0870, 4 bytes */ GRIM_DATA("008d0870") unsigned int grim_def_g_dwPuck_Forward_recursion_level __asm__("_g_dwPuck_Forward_recursion_level") = 0x0;

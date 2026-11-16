@@ -394,3 +394,61 @@ void __cdecl stdPlatform_InitServices(GrimServices *svc)
   svc->pHUnlock = Mem_DumpLog;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_LecShare_Nop[] __asm__("_LecShare_Nop");
+extern char f_Lua_Stub[] __asm__("_Lua_Stub");
+extern char f_Svc_Free[] __asm__("_Svc_Free");
+extern char f_Svc_Malloc[] __asm__("_Svc_Malloc");
+extern char f_Svc_Realloc[] __asm__("_Svc_Realloc");
+extern char f_defaultAssert[] __asm__("_defaultAssert");
+extern char f_defaultAtExit[] __asm__("_defaultAtExit");
+extern char f_defaultDebugPrint[] __asm__("_defaultDebugPrint");
+extern char f_defaultErrorPrint[] __asm__("_defaultErrorPrint");
+extern char f_defaultFileClose[] __asm__("_defaultFileClose");
+extern char f_defaultFileEOF[] __asm__("_defaultFileEOF");
+extern char f_defaultFileGets[] __asm__("_defaultFileGets");
+extern char f_defaultFileOpen[] __asm__("_defaultFileOpen");
+extern char f_defaultFilePrintf[] __asm__("_defaultFilePrintf");
+extern char f_defaultFileRead[] __asm__("_defaultFileRead");
+extern char f_defaultFileSeek[] __asm__("_defaultFileSeek");
+extern char f_defaultFileSize[] __asm__("_defaultFileSize");
+extern char f_defaultFileTell[] __asm__("_defaultFileTell");
+extern char f_defaultFileWrite[] __asm__("_defaultFileWrite");
+extern char f_defaultGetTimerTick[] __asm__("_defaultGetTimerTick");
+extern char f_defaultLockHandle[] __asm__("_defaultLockHandle");
+extern char f_defaultMessagePrint[] __asm__("_defaultMessagePrint");
+extern char f_defaultStatusPrint[] __asm__("_defaultStatusPrint");
+extern char f_defaultWarningPrint[] __asm__("_defaultWarningPrint");
+extern unsigned char grim_def_DAT_007f6490[8] __asm__("_DAT_007f6490");
+extern unsigned short grim_def_DAT_00900528 __asm__("_DAT_00900528");
+extern unsigned short grim_def_DAT_0090052a __asm__("_DAT_0090052a");
+extern unsigned char grim_def_g_aBuffer[1024] __asm__("_g_aBuffer");
+extern void *grim_def_g_aDefaultHostServices[28] __asm__("_g_aDefaultHostServices");
+extern char grim_def_s_ASSERT____s__d___s_004dda40[20] __asm__("_s_ASSERT____s__d___s_004dda40");
+extern char grim_def_s_DEBUG___s_004dda34[12] __asm__("_s_DEBUG___s_004dda34");
+extern char grim_def_s_ERROR___s_004dda28[12] __asm__("_s_ERROR___s_004dda28");
+extern char grim_def_s_WARNING___s_004dda1c[12] __asm__("_s_WARNING___s_004dda1c");
+extern char grim_def_s__s_004dda18[4] __asm__("_s__s_004dda18");
+/* 0x004dd9a8, 112 bytes */ GRIM_DATA("004dd9a8") void *grim_def_g_aDefaultHostServices[28] __asm__("_g_aDefaultHostServices") = {
+    (void *)0x447a0000, (void *)f_defaultStatusPrint, (void *)f_defaultMessagePrint, (void *)f_defaultWarningPrint,
+    (void *)f_defaultErrorPrint, (void *)f_defaultDebugPrint, (void *)f_defaultAssert, (void *)f_defaultAtExit,
+    (void *)f_Svc_Malloc, (void *)f_Svc_Free, (void *)f_Svc_Realloc, (void *)f_defaultGetTimerTick,
+    (void *)f_defaultFileOpen, (void *)f_defaultFileClose, (void *)f_defaultFileRead, (void *)f_defaultFileGets,
+    (void *)f_defaultFileWrite, (void *)f_defaultFileEOF, (void *)f_defaultFileTell, (void *)f_defaultFileSeek,
+    (void *)f_defaultFileSize, (void *)f_defaultFilePrintf, (void *)f_LecShare_Nop, (void *)f_Svc_Malloc,
+    (void *)f_Svc_Free, (void *)f_Svc_Realloc, (void *)f_defaultLockHandle, (void *)f_Lua_Stub
+};
+/* 0x004dda18, 4 bytes */ GRIM_DATA("004dda18") char grim_def_s__s_004dda18[4] __asm__("_s__s_004dda18") = "%s";
+/* 0x004dda1c, 12 bytes */ GRIM_DATA("004dda1c") char grim_def_s_WARNING___s_004dda1c[12] __asm__("_s_WARNING___s_004dda1c") = "WARNING: %s";
+/* 0x004dda28, 12 bytes */ GRIM_DATA("004dda28") char grim_def_s_ERROR___s_004dda28[12] __asm__("_s_ERROR___s_004dda28") = "ERROR: %s";
+/* 0x004dda34, 12 bytes */ GRIM_DATA("004dda34") char grim_def_s_DEBUG___s_004dda34[12] __asm__("_s_DEBUG___s_004dda34") = "DEBUG: %s";
+/* 0x004dda40, 20 bytes */ GRIM_DATA("004dda40") char grim_def_s_ASSERT____s__d___s_004dda40[20] __asm__("_s_ASSERT____s__d___s_004dda40") = "ASSERT! (%s:%d) %s";
+/* 0x004f5aa0, 1024 bytes */ GRIM_DATA("004f5aa0") unsigned char grim_def_g_aBuffer[1024] __asm__("_g_aBuffer") = {0};
+/* 0x007f6490, 8 bytes */ GRIM_DATA("007f6490") unsigned char grim_def_DAT_007f6490[8] __asm__("_DAT_007f6490") = {0};
+/* 0x00900528, 2 bytes */ GRIM_DATA("00900528") unsigned short grim_def_DAT_00900528 __asm__("_DAT_00900528") = 0x0;
+/* 0x0090052a, 2 bytes */ GRIM_DATA("00900528") unsigned short grim_def_DAT_0090052a __asm__("_DAT_0090052a") = 0x0;

@@ -1195,3 +1195,53 @@ void __cdecl rdKeyframe_FreeEntry(int keyframe)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004dddd8[4] __asm__("_DAT_004dddd8");
+extern unsigned char grim_def_DAT_004f0f08[4] __asm__("_DAT_004f0f08");
+extern unsigned char grim_def_DAT_004f0f0c[4] __asm__("_DAT_004f0f0c");
+extern unsigned char grim_def_DAT_004f0f10[4] __asm__("_DAT_004f0f10");
+extern unsigned int grim_def_g_dwKeyframeLoader __asm__("_g_dwKeyframeLoader");
+extern unsigned int grim_def_g_dwKeyframeUnloader __asm__("_g_dwKeyframeUnloader");
+extern char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc[48] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc");
+extern char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14");
+extern char grim_def_s__d___f__x__f__f__f__f__f__f_004f0f54[32] __asm__("_s__d___f__x__f__f__f__f__f__f_004f0f54");
+extern char grim_def_s__f__d_004f0fa8[8] __asm__("_s__f__d_004f0fa8");
+extern char grim_def_s__f__f__f__f__f__f_004f0f40[20] __asm__("_s__f__f__f__f__f__f_004f0f40");
+extern char grim_def_s_entries__d_004f0f74[12] __asm__("_s_entries__d_004f0f74");
+extern char grim_def_s_flags__x_004f0ff0[16] __asm__("_s_flags__x_004f0ff0");
+extern char grim_def_s_fps__f_004f0fd0[8] __asm__("_s_fps__f_004f0fd0");
+extern char grim_def_s_frames__d_004f0fd8[12] __asm__("_s_frames__d_004f0fd8");
+extern char grim_def_s_joints__d_004f0fc4[12] __asm__("_s_joints__d_004f0fc4");
+extern char grim_def_s_markers_004f0fbc[8] __asm__("_s_markers_004f0fbc");
+extern char grim_def_s_markers__d_004f0fb0[12] __asm__("_s_markers__d_004f0fb0");
+extern char grim_def_s_mesh_name__s_004f0f80[16] __asm__("_s_mesh_name__s_004f0f80");
+extern char grim_def_s_node__d_004f0f90[12] __asm__("_s_node__d_004f0f90");
+extern char grim_def_s_nodes__d_004f0f9c[12] __asm__("_s_nodes__d_004f0f9c");
+extern char grim_def_s_type__x_004f0fe4[12] __asm__("_s_type__x_004f0fe4");
+/* 0x004dddd8, 4 bytes */ GRIM_DATA("004dddd8") unsigned char grim_def_DAT_004dddd8[4] __asm__("_DAT_004dddd8") = { 0x40 };
+/* 0x004ddddc, 48 bytes */ GRIM_DATA("004ddddc") char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc[48] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004ddddc") = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdpuppet.c\000\000\000=";
+/* 0x004f0f08, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004f0f08[4] __asm__("_DAT_004f0f08") = { 0x95 };
+/* 0x004f0f0c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004f0f0c[4] __asm__("_DAT_004f0f0c") = { 0xe2 };
+/* 0x004f0f10, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004f0f10[4] __asm__("_DAT_004f0f10") = { 0x9e, 0x02 };
+/* 0x004f0f14, 44 bytes */ /* loose */ char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004f0f14") = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdkeyframe.c";
+/* 0x004f0f40, 20 bytes */ /* loose */ char grim_def_s__f__f__f__f__f__f_004f0f40[20] __asm__("_s__f__f__f__f__f__f_004f0f40") = " %f %f %f %f %f %f";
+/* 0x004f0f54, 32 bytes */ /* loose */ char grim_def_s__d___f__x__f__f__f__f__f__f_004f0f54[32] __asm__("_s__d___f__x__f__f__f__f__f__f_004f0f54") = " %d: %f %x %f %f %f %f %f %f";
+/* 0x004f0f74, 12 bytes */ /* loose */ char grim_def_s_entries__d_004f0f74[12] __asm__("_s_entries__d_004f0f74") = " entries %d";
+/* 0x004f0f80, 16 bytes */ /* loose */ char grim_def_s_mesh_name__s_004f0f80[16] __asm__("_s_mesh_name__s_004f0f80") = " mesh name %s";
+/* 0x004f0f90, 12 bytes */ /* loose */ char grim_def_s_node__d_004f0f90[12] __asm__("_s_node__d_004f0f90") = " node %d";
+/* 0x004f0f9c, 12 bytes */ /* loose */ char grim_def_s_nodes__d_004f0f9c[12] __asm__("_s_nodes__d_004f0f9c") = " nodes %d";
+/* 0x004f0fa8, 8 bytes */ /* loose */ char grim_def_s__f__d_004f0fa8[8] __asm__("_s__f__d_004f0fa8") = "%f %d";
+/* 0x004f0fb0, 12 bytes */ /* loose */ char grim_def_s_markers__d_004f0fb0[12] __asm__("_s_markers__d_004f0fb0") = " markers %d";
+/* 0x004f0fbc, 8 bytes */ /* loose */ char grim_def_s_markers_004f0fbc[8] __asm__("_s_markers_004f0fbc") = "markers";
+/* 0x004f0fc4, 12 bytes */ /* loose */ char grim_def_s_joints__d_004f0fc4[12] __asm__("_s_joints__d_004f0fc4") = " joints %d";
+/* 0x004f0fd0, 8 bytes */ /* loose */ char grim_def_s_fps__f_004f0fd0[8] __asm__("_s_fps__f_004f0fd0") = " fps %f";
+/* 0x004f0fd8, 12 bytes */ /* loose */ char grim_def_s_frames__d_004f0fd8[12] __asm__("_s_frames__d_004f0fd8") = " frames %d";
+/* 0x004f0fe4, 12 bytes */ /* loose */ char grim_def_s_type__x_004f0fe4[12] __asm__("_s_type__x_004f0fe4") = " type %x";
+/* 0x004f0ff0, 16 bytes */ /* loose */ char grim_def_s_flags__x_004f0ff0[16] __asm__("_s_flags__x_004f0ff0") = " flags %x";
+/* 0x008d364c, 4 bytes */ GRIM_DATA("008d364c") unsigned int grim_def_g_dwKeyframeLoader __asm__("_g_dwKeyframeLoader") = 0x0;
+/* 0x008d3650, 4 bytes */ GRIM_DATA("008d3650") unsigned int grim_def_g_dwKeyframeUnloader __asm__("_g_dwKeyframeUnloader") = 0x0;

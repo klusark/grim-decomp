@@ -243,3 +243,105 @@ void __cdecl sputCostume_Shutdown(void)
   g_dwSputCosStartup = 0;
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_sputCostume_GetKeyLengthL[] __asm__("_sputCostume_GetKeyLengthL");
+extern char f_sputCostume_GetSmushLengthL[] __asm__("_sputCostume_GetSmushLengthL");
+extern unsigned char grim_def_DAT_004ea308[28] __asm__("_DAT_004ea308");
+extern unsigned char grim_def_DAT_004ea334[24] __asm__("_DAT_004ea334");
+extern unsigned char grim_def_DAT_004ea38c[20] __asm__("_DAT_004ea38c");
+extern unsigned char grim_def_DAT_004ea3a0[28] __asm__("_DAT_004ea3a0");
+extern unsigned int grim_def_UINT_004ea068 __asm__("_UINT_004ea068");
+extern unsigned int grim_def_UINT_008ca774 __asm__("_UINT_008ca774");
+extern unsigned int grim_def_UINT_008ca778 __asm__("_UINT_008ca778");
+extern unsigned char grim_def_UINT_008ca77c[20] __asm__("_UINT_008ca77c");
+extern unsigned char grim_def_g_aChoreMS[4] __asm__("_g_aChoreMS");
+extern unsigned int grim_def_g_dwOldInstanceHook __asm__("_g_dwOldInstanceHook");
+extern unsigned int grim_def_g_dwOldSaveHook __asm__("_g_dwOldSaveHook");
+extern unsigned int grim_def_g_dwSputCosInitialize __asm__("_g_dwSputCosInitialize");
+extern unsigned int grim_def_g_dwSputCosStartup __asm__("_g_dwSputCosStartup");
+extern void *grim_def_g_pLuaCostumeFuncs[4] __asm__("_g_pLuaCostumeFuncs");
+extern char grim_def_s_Animation_004ea28c[12] __asm__("_s_Animation_004ea28c");
+extern char grim_def_s_BitmapPath_004ea1f8[12] __asm__("_s_BitmapPath_004ea1f8");
+extern char grim_def_s_ColormapPath_004ea260[16] __asm__("_s_ColormapPath_004ea260");
+extern char grim_def_s_Colormaps_004ea270[12] __asm__("_s_Colormaps_004ea270");
+extern char grim_def_s_General_Bitmap_004ea324[16] __asm__("_s_General_Bitmap_004ea324");
+extern char grim_def_s_GetKeyLength_004ea07c[] __asm__("_s_GetKeyLength_004ea07c");
+extern char grim_def_s_GetSmushLength_004ea06c[] __asm__("_s_GetSmushLength_004ea06c");
+extern char grim_def_s_KeyframePath_004ea27c[16] __asm__("_s_KeyframePath_004ea27c");
+extern char grim_def_s_Lua_Variable_004ea298[16] __asm__("_s_Lua_Variable_004ea298");
+extern char grim_def_s_MaterialPath_004ea244[16] __asm__("_s_MaterialPath_004ea244");
+extern char grim_def_s_Materials_004ea254[12] __asm__("_s_Materials_004ea254");
+extern char grim_def_s_ModelPath_004ea230[12] __asm__("_s_ModelPath_004ea230");
+extern char grim_def_s_Models_004ea23c[8] __asm__("_s_Models_004ea23c");
+extern char grim_def_s_Movies_004ea218[8] __asm__("_s_Movies_004ea218");
+extern char grim_def_s_Objects_004ea204[8] __asm__("_s_Objects_004ea204");
+extern char grim_def_s_RDroid_Animated_Material_004ea34c[28] __asm__("_s_RDroid_Animated_Material_004ea34c");
+extern char grim_def_s_RDroid_Colormap_004ea37c[16] __asm__("_s_RDroid_Colormap_004ea37c");
+extern char grim_def_s_RDroid_Thing_Mesh_004ea368[20] __asm__("_s_RDroid_Thing_Mesh_004ea368");
+extern char grim_def_s_SFX_004ea22c[4] __asm__("_s_SFX_004ea22c");
+extern char grim_def_s_SmushPath_004ea20c[12] __asm__("_s_SmushPath_004ea20c");
+extern char grim_def_s_Smush_Movie_004ea2cc[12] __asm__("_s_Smush_Movie_004ea2cc");
+extern char grim_def_s_SoundPath_004ea220[12] __asm__("_s_SoundPath_004ea220");
+extern char grim_def_s_Sprite_004ea2c4[8] __asm__("_s_Sprite_004ea2c4");
+extern char grim_def_s_iMuse_Resident_Sound_FX_004ea2d8[24] __asm__("_s_iMuse_Resident_Sound_FX_004ea2d8");
+extern char grim_def_s_iMuse_Streamed_Sound_FX_004ea2f0[24] __asm__("_s_iMuse_Streamed_Sound_FX_004ea2f0");
+/* 0x004ea058, 16 bytes */ GRIM_DATA("004ea058") void *grim_def_g_pLuaCostumeFuncs[4] __asm__("_g_pLuaCostumeFuncs") = {
+    (void *)&grim_def_s_GetKeyLength_004ea07c, (void *)f_sputCostume_GetKeyLengthL, (void *)&grim_def_s_GetSmushLength_004ea06c, (void *)f_sputCostume_GetSmushLengthL
+};
+/* 0x004ea068, 4 bytes */ GRIM_DATA("004ea068") unsigned int grim_def_UINT_004ea068 __asm__("_UINT_004ea068") = 0x2;
+/* 0x004ea1f8, 12 bytes */ /* loose */ char grim_def_s_BitmapPath_004ea1f8[12] __asm__("_s_BitmapPath_004ea1f8") = "BitmapPath";
+/* 0x004ea204, 8 bytes */ /* loose */ char grim_def_s_Objects_004ea204[8] __asm__("_s_Objects_004ea204") = "Objects";
+/* 0x004ea20c, 12 bytes */ /* loose */ char grim_def_s_SmushPath_004ea20c[12] __asm__("_s_SmushPath_004ea20c") = "SmushPath";
+/* 0x004ea218, 8 bytes */ /* loose */ char grim_def_s_Movies_004ea218[8] __asm__("_s_Movies_004ea218") = "Movies";
+/* 0x004ea220, 12 bytes */ /* loose */ char grim_def_s_SoundPath_004ea220[12] __asm__("_s_SoundPath_004ea220") = "SoundPath";
+/* 0x004ea22c, 4 bytes */ /* loose */ char grim_def_s_SFX_004ea22c[4] __asm__("_s_SFX_004ea22c") = "SFX";
+/* 0x004ea230, 12 bytes */ /* loose */ char grim_def_s_ModelPath_004ea230[12] __asm__("_s_ModelPath_004ea230") = "ModelPath";
+/* 0x004ea23c, 8 bytes */ /* loose */ char grim_def_s_Models_004ea23c[8] __asm__("_s_Models_004ea23c") = "Models";
+/* 0x004ea244, 16 bytes */ /* loose */ char grim_def_s_MaterialPath_004ea244[16] __asm__("_s_MaterialPath_004ea244") = "MaterialPath";
+/* 0x004ea254, 12 bytes */ /* loose */ char grim_def_s_Materials_004ea254[12] __asm__("_s_Materials_004ea254") = "Materials";
+/* 0x004ea260, 16 bytes */ /* loose */ char grim_def_s_ColormapPath_004ea260[16] __asm__("_s_ColormapPath_004ea260") = "ColormapPath";
+/* 0x004ea270, 12 bytes */ /* loose */ char grim_def_s_Colormaps_004ea270[12] __asm__("_s_Colormaps_004ea270") = "Colormaps";
+/* 0x004ea27c, 16 bytes */ /* loose */ char grim_def_s_KeyframePath_004ea27c[16] __asm__("_s_KeyframePath_004ea27c") = "KeyframePath";
+/* 0x004ea28c, 12 bytes */ /* loose */ char grim_def_s_Animation_004ea28c[12] __asm__("_s_Animation_004ea28c") = "Animation";
+/* 0x004ea298, 16 bytes */ /* loose */ char grim_def_s_Lua_Variable_004ea298[16] __asm__("_s_Lua_Variable_004ea298") = "Lua Variable";
+/* 0x004ea2c4, 8 bytes */ /* loose */ char grim_def_s_Sprite_004ea2c4[8] __asm__("_s_Sprite_004ea2c4") = "Sprite";
+/* 0x004ea2cc, 12 bytes */ /* loose */ char grim_def_s_Smush_Movie_004ea2cc[12] __asm__("_s_Smush_Movie_004ea2cc") = "Smush Movie";
+/* 0x004ea2d8, 24 bytes */ /* loose */ char grim_def_s_iMuse_Resident_Sound_FX_004ea2d8[24] __asm__("_s_iMuse_Resident_Sound_FX_004ea2d8") = "iMuse Resident Sound FX";
+/* 0x004ea2f0, 24 bytes */ /* loose */ char grim_def_s_iMuse_Streamed_Sound_FX_004ea2f0[24] __asm__("_s_iMuse_Streamed_Sound_FX_004ea2f0") = "iMuse Streamed Sound FX";
+static unsigned char grim_anchor_004ea308[0] __attribute__((section(".data$grim_004ea308"), aligned(16), used));
+static unsigned char grim_pad_004ea308[8] __attribute__((section(".data$grim_004ea308_"), aligned(4), used));
+/* 0x004ea308, 28 bytes */ GRIM_DATA("004ea308z") unsigned char grim_def_DAT_004ea308[28] __asm__("_DAT_004ea308") = {
+    0x41, 0x6e, 0x69, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x28, 0x6f, 0x6c, 0x64, 0x2c, 0x75,
+    0x73, 0x65, 0x20, 0x42, 0x69, 0x74, 0x6d, 0x61, 0x70, 0x29
+};
+/* 0x004ea324, 16 bytes */ GRIM_DATA("004ea324") char grim_def_s_General_Bitmap_004ea324[16] __asm__("_s_General_Bitmap_004ea324") = "General Bitmap";
+/* 0x004ea334, 24 bytes */ GRIM_DATA("004ea334") unsigned char grim_def_DAT_004ea334[24] __asm__("_DAT_004ea334") = {
+    0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x4b, 0x65, 0x79, 0x66, 0x72, 0x61, 0x6d, 0x65, 0x20,
+    0x28, 0x2e, 0x4b, 0x45, 0x59, 0x29
+};
+/* 0x004ea34c, 28 bytes */ GRIM_DATA("004ea34c") char grim_def_s_RDroid_Animated_Material_004ea34c[28] __asm__("_s_RDroid_Animated_Material_004ea34c") = "RDroid Animated Material";
+/* 0x004ea368, 20 bytes */ /* loose */ char grim_def_s_RDroid_Thing_Mesh_004ea368[20] __asm__("_s_RDroid_Thing_Mesh_004ea368") = "RDroid Thing Mesh";
+/* 0x004ea37c, 16 bytes */ /* loose */ char grim_def_s_RDroid_Colormap_004ea37c[16] __asm__("_s_RDroid_Colormap_004ea37c") = "RDroid Colormap";
+static unsigned char grim_anchor_004ea38c[0] __attribute__((section(".data$grim_004ea38c"), aligned(16), used));
+static unsigned char grim_pad_004ea38c[12] __attribute__((section(".data$grim_004ea38c_"), aligned(4), used));
+/* 0x004ea38c, 20 bytes */ GRIM_DATA("004ea38cz") unsigned char grim_def_DAT_004ea38c[20] __asm__("_DAT_004ea38c") = {
+    0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x54, 0x68, 0x69, 0x6e, 0x67, 0x20, 0x28, 0x2e, 0x33,
+    0x44, 0x4f, 0x29
+};
+/* 0x004ea3a0, 28 bytes */ GRIM_DATA("004ea3a0") unsigned char grim_def_DAT_004ea3a0[28] __asm__("_DAT_004ea3a0") = {
+    0x4d, 0x41, 0x49, 0x4e, 0x20, 0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x54, 0x68, 0x69, 0x6e,
+    0x67, 0x20, 0x28, 0x2e, 0x33, 0x44, 0x4f, 0x29
+};
+/* 0x008ca770, 4 bytes */ GRIM_DATA("008ca770") unsigned char grim_def_g_aChoreMS[4] __asm__("_g_aChoreMS") = {0};
+/* 0x008ca774, 4 bytes */ GRIM_DATA("008ca774") unsigned int grim_def_UINT_008ca774 __asm__("_UINT_008ca774") = 0x0;
+/* 0x008ca778, 4 bytes */ GRIM_DATA("008ca778") unsigned int grim_def_UINT_008ca778 __asm__("_UINT_008ca778") = 0x0;
+/* 0x008ca77c, 20 bytes */ GRIM_DATA("008ca77c") unsigned char grim_def_UINT_008ca77c[20] __asm__("_UINT_008ca77c") = {0};
+/* 0x008ca798, 4 bytes */ GRIM_DATA("008ca798") unsigned int grim_def_g_dwSputCosInitialize __asm__("_g_dwSputCosInitialize") = 0x0;
+/* 0x008ca79c, 4 bytes */ GRIM_DATA("008ca79c") unsigned int grim_def_g_dwSputCosStartup __asm__("_g_dwSputCosStartup") = 0x0;
+/* 0x008ca7ac, 4 bytes */ GRIM_DATA("008ca7ac") unsigned int grim_def_g_dwOldInstanceHook __asm__("_g_dwOldInstanceHook") = 0x0;
+/* 0x008ca7b0, 4 bytes */ GRIM_DATA("008ca7b0") unsigned int grim_def_g_dwOldSaveHook __asm__("_g_dwOldSaveHook") = 0x0;

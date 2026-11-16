@@ -662,3 +662,23 @@ float __fastcall FUN_100120fa(undefined4 param_1)
 /* ---- 0x1002205b  FUN_1002205b ---- */
 /* not in the source: names/lib_replace.json (dead): original C runtime code that nothing live reaches */
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_FUN_10012104[] __asm__("_FUN_10012104");
+extern char f_FUN_10018d14[] __asm__("_FUN_10018d14");
+extern char f_FUN_10018d4d[] __asm__("_FUN_10018d4d");
+extern char f_FUN_10018d4f[] __asm__("_FUN_10018d4f");
+extern char f_FUN_10018d77[] __asm__("_FUN_10018d77");
+extern char f_FUN_10018db6[] __asm__("_FUN_10018db6");
+extern void *grim_def_DAT_100288f0[20] __asm__("_DAT_100288f0");
+/* 0x100288f0, 80 bytes */ GRIM_DATA("100288f0") void *grim_def_DAT_100288f0[20] __asm__("_DAT_100288f0") = {
+    (void *)0x6f6d6604, (void *)0x64, 0, (void *)0x160200,
+    (void *)f_FUN_10012104, (void *)f_FUN_10018db6, (void *)f_FUN_10018d4f, (void *)f_FUN_10018db6,
+    (void *)f_FUN_10018d14, (void *)f_FUN_10018db6, (void *)f_FUN_10018d4f, (void *)f_FUN_10018db6,
+    (void *)f_FUN_10018d4d, (void *)f_FUN_10018d4d, (void *)f_FUN_10018d77, (void *)f_FUN_10018d4d,
+    (void *)f_FUN_10018db6, (void *)f_FUN_10018db6, (void *)f_FUN_10018d4f, (void *)f_FUN_10018db6
+};

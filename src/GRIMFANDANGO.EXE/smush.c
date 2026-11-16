@@ -300,3 +300,85 @@ int __cdecl SmushPlay_GetMovieLength(char *path)
 #undef auStack_428
 #undef sStack_426
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_008d1208[4] __asm__("_DAT_008d1208");
+extern unsigned short grim_def_DAT_008d120c __asm__("_DAT_008d120c");
+extern unsigned short grim_def_DAT_008d120e __asm__("_DAT_008d120e");
+extern unsigned short grim_def_DAT_008d1210 __asm__("_DAT_008d1210");
+extern unsigned char grim_def_DAT_008d1212[4] __asm__("_DAT_008d1212");
+extern unsigned char grim_def_DAT_008d164c[4] __asm__("_DAT_008d164c");
+extern unsigned char grim_def_DAT_008d1650[4] __asm__("_DAT_008d1650");
+extern unsigned char grim_def_DAT_008d1654[4] __asm__("_DAT_008d1654");
+extern unsigned char grim_def_DAT_008d1658[4] __asm__("_DAT_008d1658");
+extern unsigned char grim_def_DAT_008d165c[4] __asm__("_DAT_008d165c");
+extern unsigned char grim_def_DAT_008d1660[4] __asm__("_DAT_008d1660");
+extern unsigned char grim_def_DAT_008d1664[4] __asm__("_DAT_008d1664");
+extern unsigned char grim_def_DAT_008d1668[4] __asm__("_DAT_008d1668");
+extern unsigned char grim_def_DAT_008d166c[4] __asm__("_DAT_008d166c");
+extern unsigned char grim_def_DAT_008d1670[4] __asm__("_DAT_008d1670");
+extern unsigned char grim_def_DAT_008d1674[4] __asm__("_DAT_008d1674");
+extern unsigned char grim_def_DAT_008d1678[4] __asm__("_DAT_008d1678");
+extern unsigned char grim_def_DAT_008d167c[4] __asm__("_DAT_008d167c");
+extern unsigned char grim_def_DAT_008d1680[4] __asm__("_DAT_008d1680");
+extern unsigned char grim_def_DAT_008d1684[4] __asm__("_DAT_008d1684");
+extern unsigned char grim_def_DAT_008d1688[4] __asm__("_DAT_008d1688");
+extern unsigned char grim_def_DAT_008d168c[16] __asm__("_DAT_008d168c");
+extern unsigned int grim_def_UINT_008d109c __asm__("_UINT_008d109c");
+extern unsigned int grim_def_UINT_008d10a0 __asm__("_UINT_008d10a0");
+extern unsigned int grim_def_UINT_008d10a4 __asm__("_UINT_008d10a4");
+extern unsigned char grim_def_UINT_008d10a8[32] __asm__("_UINT_008d10a8");
+extern unsigned char grim_def_UINT_008d1216[4] __asm__("_UINT_008d1216");
+extern unsigned char grim_def_UINT_008d121a[1046] __asm__("_UINT_008d121a");
+extern unsigned int grim_def_UINT_008d1638 __asm__("_UINT_008d1638");
+extern unsigned int grim_def_UINT_008d163c __asm__("_UINT_008d163c");
+extern unsigned int grim_def_UINT_008d1640 __asm__("_UINT_008d1640");
+extern unsigned int grim_def_UINT_008d1644 __asm__("_UINT_008d1644");
+extern unsigned char grim_def_g_aFakeBM[4] __asm__("_g_aFakeBM");
+extern unsigned char grim_def_g_dwAh[8] __asm__("_g_dwAh");
+extern unsigned char grim_def_g_dwAnimplay_services[8] __asm__("_g_dwAnimplay_services");
+extern unsigned char grim_def_g_dwCurFileName[260] __asm__("_g_dwCurFileName");
+extern unsigned int grim_def_g_dwSmushPlay_sound_services __asm__("_g_dwSmushPlay_sound_services");
+extern unsigned char grim_def_g_pSmushplay_UserLookup[4] __asm__("_g_pSmushplay_UserLookup");
+/* 0x008d109c, 4 bytes */ GRIM_DATA("008d109c") unsigned int grim_def_UINT_008d109c __asm__("_UINT_008d109c") = 0x0;
+/* 0x008d10a0, 4 bytes */ GRIM_DATA("008d10a0") unsigned int grim_def_UINT_008d10a0 __asm__("_UINT_008d10a0") = 0x0;
+/* 0x008d10a4, 4 bytes */ GRIM_DATA("008d10a4") unsigned int grim_def_UINT_008d10a4 __asm__("_UINT_008d10a4") = 0x0;
+/* 0x008d10a8, 32 bytes */ GRIM_DATA("008d10a8") unsigned char grim_def_UINT_008d10a8[32] __asm__("_UINT_008d10a8") = {0};
+/* 0x008d10d0, 260 bytes */ GRIM_DATA("008d10d0") unsigned char grim_def_g_dwCurFileName[260] __asm__("_g_dwCurFileName") = {0};
+/* 0x008d11d8, 8 bytes */ GRIM_DATA("008d11d8") unsigned char grim_def_g_dwAh[8] __asm__("_g_dwAh") = {0};
+/* 0x008d1200, 8 bytes */ GRIM_DATA("008d1200") unsigned char grim_def_g_dwAnimplay_services[8] __asm__("_g_dwAnimplay_services") = {0};
+/* 0x008d1208, 4 bytes */ GRIM_DATA("008d1208") unsigned char grim_def_DAT_008d1208[4] __asm__("_DAT_008d1208") = {0};
+/* 0x008d120c, 2 bytes */ GRIM_DATA("008d120c") unsigned short grim_def_DAT_008d120c __asm__("_DAT_008d120c") = 0x0;
+/* 0x008d120e, 2 bytes */ GRIM_DATA("008d120c") unsigned short grim_def_DAT_008d120e __asm__("_DAT_008d120e") = 0x0;
+/* 0x008d1210, 2 bytes */ GRIM_DATA("008d1210") unsigned short grim_def_DAT_008d1210 __asm__("_DAT_008d1210") = 0x0;
+/* 0x008d1212, 4 bytes */ GRIM_DATA("008d1210") unsigned char grim_def_DAT_008d1212[4] __asm__("_DAT_008d1212") = {0};
+/* 0x008d1216, 4 bytes */ GRIM_DATA("008d1210") unsigned char grim_def_UINT_008d1216[4] __asm__("_UINT_008d1216") = {0};
+/* 0x008d121a, 1046 bytes */ GRIM_DATA("008d1210") unsigned char grim_def_UINT_008d121a[1046] __asm__("_UINT_008d121a") = {0};
+/* 0x008d1638, 4 bytes */ GRIM_DATA("008d1638") unsigned int grim_def_UINT_008d1638 __asm__("_UINT_008d1638") = 0x0;
+/* 0x008d163c, 4 bytes */ GRIM_DATA("008d163c") unsigned int grim_def_UINT_008d163c __asm__("_UINT_008d163c") = 0x0;
+/* 0x008d1640, 4 bytes */ GRIM_DATA("008d1640") unsigned int grim_def_UINT_008d1640 __asm__("_UINT_008d1640") = 0x0;
+/* 0x008d1644, 4 bytes */ GRIM_DATA("008d1644") unsigned int grim_def_UINT_008d1644 __asm__("_UINT_008d1644") = 0x0;
+/* 0x008d1648, 4 bytes */ GRIM_DATA("008d1648") unsigned char grim_def_g_aFakeBM[4] __asm__("_g_aFakeBM") = {0};
+/* 0x008d164c, 4 bytes */ GRIM_DATA("008d164c") unsigned char grim_def_DAT_008d164c[4] __asm__("_DAT_008d164c") = {0};
+/* 0x008d1650, 4 bytes */ GRIM_DATA("008d1650") unsigned char grim_def_DAT_008d1650[4] __asm__("_DAT_008d1650") = {0};
+/* 0x008d1654, 4 bytes */ GRIM_DATA("008d1654") unsigned char grim_def_DAT_008d1654[4] __asm__("_DAT_008d1654") = {0};
+/* 0x008d1658, 4 bytes */ GRIM_DATA("008d1658") unsigned char grim_def_DAT_008d1658[4] __asm__("_DAT_008d1658") = {0};
+/* 0x008d165c, 4 bytes */ GRIM_DATA("008d165c") unsigned char grim_def_DAT_008d165c[4] __asm__("_DAT_008d165c") = {0};
+/* 0x008d1660, 4 bytes */ GRIM_DATA("008d1660") unsigned char grim_def_DAT_008d1660[4] __asm__("_DAT_008d1660") = {0};
+/* 0x008d1664, 4 bytes */ GRIM_DATA("008d1664") unsigned char grim_def_DAT_008d1664[4] __asm__("_DAT_008d1664") = {0};
+/* 0x008d1668, 4 bytes */ GRIM_DATA("008d1668") unsigned char grim_def_DAT_008d1668[4] __asm__("_DAT_008d1668") = {0};
+/* 0x008d166c, 4 bytes */ GRIM_DATA("008d166c") unsigned char grim_def_DAT_008d166c[4] __asm__("_DAT_008d166c") = {0};
+/* 0x008d1670, 4 bytes */ GRIM_DATA("008d1670") unsigned char grim_def_DAT_008d1670[4] __asm__("_DAT_008d1670") = {0};
+/* 0x008d1674, 4 bytes */ GRIM_DATA("008d1674") unsigned char grim_def_DAT_008d1674[4] __asm__("_DAT_008d1674") = {0};
+/* 0x008d1678, 4 bytes */ GRIM_DATA("008d1678") unsigned char grim_def_DAT_008d1678[4] __asm__("_DAT_008d1678") = {0};
+/* 0x008d167c, 4 bytes */ GRIM_DATA("008d167c") unsigned char grim_def_DAT_008d167c[4] __asm__("_DAT_008d167c") = {0};
+/* 0x008d1680, 4 bytes */ GRIM_DATA("008d1680") unsigned char grim_def_DAT_008d1680[4] __asm__("_DAT_008d1680") = {0};
+/* 0x008d1684, 4 bytes */ GRIM_DATA("008d1684") unsigned char grim_def_DAT_008d1684[4] __asm__("_DAT_008d1684") = {0};
+/* 0x008d1688, 4 bytes */ GRIM_DATA("008d1688") unsigned char grim_def_DAT_008d1688[4] __asm__("_DAT_008d1688") = {0};
+/* 0x008d168c, 16 bytes */ GRIM_DATA("008d168c") unsigned char grim_def_DAT_008d168c[16] __asm__("_DAT_008d168c") = {0};
+/* 0x008d169c, 4 bytes */ GRIM_DATA("008d169c") unsigned int grim_def_g_dwSmushPlay_sound_services __asm__("_g_dwSmushPlay_sound_services") = 0x0;
+/* 0x008d16b4, 4 bytes */ GRIM_DATA("008d16b4") unsigned char grim_def_g_pSmushplay_UserLookup[4] __asm__("_g_pSmushplay_UserLookup") = {0};

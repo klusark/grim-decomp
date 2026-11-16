@@ -954,3 +954,41 @@ void __cdecl sputLua_SubmitSaveGameData(void)
     g_nTotSaveBytes = g_nTotSaveBytes + ~uVar7 + 4;
   } while( true );
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_UINT_008cab54 __asm__("_UINT_008cab54");
+extern unsigned char grim_def_UINT_008cab5c[20] __asm__("_UINT_008cab5c");
+extern unsigned char grim_def_g_aLuaMS[4] __asm__("_g_aLuaMS");
+extern unsigned int grim_def_g_dwSputLuaInitialize __asm__("_g_dwSputLuaInitialize");
+extern unsigned int grim_def_g_dwSputLua_Update_collectionTime __asm__("_g_dwSputLua_Update_collectionTime");
+extern unsigned int grim_def_g_dwSputLua_Update_movieTimeMsec __asm__("_g_dwSputLua_Update_movieTimeMsec");
+extern char grim_def_s__s___s____s__d__004ec428[20] __asm__("_s__s___s____s__d__004ec428");
+extern char grim_def_s__unknown__004ec468[12] __asm__("_s__unknown__004ec468");
+extern char grim_def_s_actor_004ec474[8] __asm__("_s_actor_004ec474");
+extern char grim_def_s_costume_004ec47c[8] __asm__("_s_costume_004ec47c");
+extern char grim_def_s_frameTime_004ec41c[12] __asm__("_s_frameTime_004ec41c");
+extern char grim_def_s_function_004ec45c[12] __asm__("_s_function_004ec45c");
+extern char grim_def_s_keyframe_004ec484[12] __asm__("_s_keyframe_004ec484");
+extern char grim_def_s_movieTime_004ec410[12] __asm__("_s_movieTime_004ec410");
+extern char grim_def_s_tag_method_004ec450[12] __asm__("_s_tag_method_004ec450");
+extern char grim_def_s_unnamed_function_004ec43c[20] __asm__("_s_unnamed_function_004ec43c");
+/* 0x004ec410, 12 bytes */ /* loose */ char grim_def_s_movieTime_004ec410[12] __asm__("_s_movieTime_004ec410") = "movieTime";
+/* 0x004ec41c, 12 bytes */ /* loose */ char grim_def_s_frameTime_004ec41c[12] __asm__("_s_frameTime_004ec41c") = "frameTime";
+/* 0x004ec428, 20 bytes */ /* loose */ char grim_def_s__s___s____s__d__004ec428[20] __asm__("_s__s___s____s__d__004ec428") = "%s '%s' (%s:%d)\n";
+/* 0x004ec43c, 20 bytes */ /* loose */ char grim_def_s_unnamed_function_004ec43c[20] __asm__("_s_unnamed_function_004ec43c") = "unnamed function";
+/* 0x004ec450, 12 bytes */ /* loose */ char grim_def_s_tag_method_004ec450[12] __asm__("_s_tag_method_004ec450") = "tag method";
+/* 0x004ec45c, 12 bytes */ /* loose */ char grim_def_s_function_004ec45c[12] __asm__("_s_function_004ec45c") = "function";
+/* 0x004ec468, 12 bytes */ /* loose */ char grim_def_s__unknown__004ec468[12] __asm__("_s__unknown__004ec468") = "<unknown>";
+/* 0x004ec474, 8 bytes */ /* loose */ char grim_def_s_actor_004ec474[8] __asm__("_s_actor_004ec474") = "actor";
+/* 0x004ec47c, 8 bytes */ /* loose */ char grim_def_s_costume_004ec47c[8] __asm__("_s_costume_004ec47c") = "costume";
+/* 0x004ec484, 12 bytes */ /* loose */ char grim_def_s_keyframe_004ec484[12] __asm__("_s_keyframe_004ec484") = "keyframe";
+/* 0x008cab50, 4 bytes */ GRIM_DATA("008cab50") unsigned char grim_def_g_aLuaMS[4] __asm__("_g_aLuaMS") = {0};
+/* 0x008cab54, 4 bytes */ GRIM_DATA("008cab54") unsigned int grim_def_UINT_008cab54 __asm__("_UINT_008cab54") = 0x0;
+/* 0x008cab5c, 20 bytes */ GRIM_DATA("008cab5c") unsigned char grim_def_UINT_008cab5c[20] __asm__("_UINT_008cab5c") = {0};
+/* 0x008cab74, 4 bytes */ GRIM_DATA("008cab74") unsigned int grim_def_g_dwSputLua_Update_movieTimeMsec __asm__("_g_dwSputLua_Update_movieTimeMsec") = 0x0;
+/* 0x008cab7c, 4 bytes */ GRIM_DATA("008cab7c") unsigned int grim_def_g_dwSputLuaInitialize __asm__("_g_dwSputLuaInitialize") = 0x0;
+/* 0x008cab90, 4 bytes */ GRIM_DATA("008cab90") unsigned int grim_def_g_dwSputLua_Update_collectionTime __asm__("_g_dwSputLua_Update_collectionTime") = 0x0;

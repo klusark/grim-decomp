@@ -270,3 +270,31 @@ int __cdecl anm_animator_NewAnim(AnimPlayer *p,char *name,uint flags,int a4,int 
   FUN_004c3d90((int)p,a4,a5);
   return 0;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_g_dwRenderHandler_totalTime[8] __asm__("_g_dwRenderHandler_totalTime");
+extern char grim_def_s_AnimPlay_Module__Cannot_allocate_004f1520[52] __asm__("_s_AnimPlay_Module__Cannot_allocate_004f1520");
+extern char grim_def_s_AnimPlay_Module__Cannot_allocate_004f15ac[44] __asm__("_s_AnimPlay_Module__Cannot_allocate_004f15ac");
+extern char grim_def_s_AnimPlay_Module__Cannot_allocate_004f15d8[48] __asm__("_s_AnimPlay_Module__Cannot_allocate_004f15d8");
+extern char grim_def_s_AnimPlay_Module__Cannot_init_Ani_004f1554[48] __asm__("_s_AnimPlay_Module__Cannot_init_Ani_004f1554");
+extern char grim_def_s_AnimPlay_Module__Cannot_open_fil_004f1584[40] __asm__("_s_AnimPlay_Module__Cannot_open_fil_004f1584");
+extern char grim_def_s_Buffer___ld___004f1694[24] __asm__("_s_Buffer___ld___004f1694");
+extern char grim_def_s_C__grimsrc_libs_lecsmush_insane__004f1608[56] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f1608");
+extern char grim_def_s_Frame_Delay___ld___ld_target__004f1670[36] __asm__("_s_Frame_Delay___ld___ld_target__004f1670");
+extern char grim_def_s_State___d_004f1640[24] __asm__("_s_State___d_004f1640");
+extern char grim_def_s_Sync_Ticks___ld_004f1658[24] __asm__("_s_Sync_Ticks___ld_004f1658");
+/* 0x004f1520, 52 bytes */ /* loose */ char grim_def_s_AnimPlay_Module__Cannot_allocate_004f1520[52] __asm__("_s_AnimPlay_Module__Cannot_allocate_004f1520") = "AnimPlay Module: Cannot allocate streamer buffers";
+/* 0x004f1554, 48 bytes */ /* loose */ char grim_def_s_AnimPlay_Module__Cannot_init_Ani_004f1554[48] __asm__("_s_AnimPlay_Module__Cannot_init_Ani_004f1554") = "AnimPlay Module: Cannot init Animation module";
+/* 0x004f1584, 40 bytes */ /* loose */ char grim_def_s_AnimPlay_Module__Cannot_open_fil_004f1584[40] __asm__("_s_AnimPlay_Module__Cannot_open_fil_004f1584") = "AnimPlay Module: Cannot open file %s";
+/* 0x004f15ac, 44 bytes */ /* loose */ char grim_def_s_AnimPlay_Module__Cannot_allocate_004f15ac[44] __asm__("_s_AnimPlay_Module__Cannot_allocate_004f15ac") = "AnimPlay Module: Cannot allocate sync timer";
+/* 0x004f15d8, 48 bytes */ /* loose */ char grim_def_s_AnimPlay_Module__Cannot_allocate_004f15d8[48] __asm__("_s_AnimPlay_Module__Cannot_allocate_004f15d8") = "AnimPlay Module: Cannot allocate frame timer";
+/* 0x004f1608, 56 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lecsmush_insane__004f1608[56] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f1608") = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\animate\\Pcplay.c";
+/* 0x004f1640, 24 bytes */ /* loose */ char grim_def_s_State___d_004f1640[24] __asm__("_s_State___d_004f1640") = "State:       %d    \n";
+/* 0x004f1658, 24 bytes */ /* loose */ char grim_def_s_Sync_Ticks___ld_004f1658[24] __asm__("_s_Sync_Ticks___ld_004f1658") = "Sync Ticks:  %ld    \n";
+/* 0x004f1670, 36 bytes */ /* loose */ char grim_def_s_Frame_Delay___ld___ld_target__004f1670[36] __asm__("_s_Frame_Delay___ld___ld_target__004f1670") = "Frame Delay: %ld (%ld target)     \n";
+/* 0x004f1694, 24 bytes */ /* loose */ char grim_def_s_Buffer___ld___004f1694[24] __asm__("_s_Buffer___ld___004f1694") = "Buffer:      %ld%%    \n";
+/* 0x008d6f28, 8 bytes */ GRIM_DATA("008d6f28") unsigned char grim_def_g_dwRenderHandler_totalTime[8] __asm__("_g_dwRenderHandler_totalTime") = {0};

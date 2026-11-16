@@ -344,3 +344,33 @@ void __cdecl Pool_Grow(int pool,int count)
   }
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_g_dwMemorySysInitialized __asm__("_g_dwMemorySysInitialized");
+extern unsigned char grim_def_g_dwMemorySysStarted[8] __asm__("_g_dwMemorySysStarted");
+extern unsigned char grim_def_g_pFirstPool[16] __asm__("_g_pFirstPool");
+extern unsigned char grim_def_g_pMemoryHS[4] __asm__("_g_pMemoryHS");
+extern char grim_def_s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264[40] __asm__("_s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264");
+extern char grim_def_s_itemGrowBy___0_004e82bc[16] __asm__("_s_itemGrowBy___0_004e82bc");
+extern char grim_def_s_itemSize___0_004e82cc[16] __asm__("_s_itemSize___0_004e82cc");
+extern char grim_def_s_pData_004e828c[8] __asm__("_s_pData_004e828c");
+extern char grim_def_s_pPool_004e82b4[8] __asm__("_s_pPool_004e82b4");
+extern char grim_def_s_pPool__pPool____pPool_004e82dc[24] __asm__("_s_pPool__pPool____pPool_004e82dc");
+extern char grim_def_s_pPool__poolItems____itemCount_004e8294[32] __asm__("_s_pPool__poolItems____itemCount_004e8294");
+extern char grim_def_s_pool_004e82f4[8] __asm__("_s_pool_004e82f4");
+/* 0x004e8264, 40 bytes */ GRIM_DATA("004e8264") char grim_def_s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264[40] __asm__("_s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264") = "C:\\grimsrc\\libs\\grimlib\\Temp\\Memory.c";
+/* 0x004e828c, 8 bytes */ /* loose */ char grim_def_s_pData_004e828c[8] __asm__("_s_pData_004e828c") = "pData";
+/* 0x004e8294, 32 bytes */ /* loose */ char grim_def_s_pPool__poolItems____itemCount_004e8294[32] __asm__("_s_pPool__poolItems____itemCount_004e8294") = "pPool->poolItems == itemCount";
+/* 0x004e82b4, 8 bytes */ /* loose */ char grim_def_s_pPool_004e82b4[8] __asm__("_s_pPool_004e82b4") = "pPool";
+/* 0x004e82bc, 16 bytes */ /* loose */ char grim_def_s_itemGrowBy___0_004e82bc[16] __asm__("_s_itemGrowBy___0_004e82bc") = "itemGrowBy > 0";
+/* 0x004e82cc, 16 bytes */ /* loose */ char grim_def_s_itemSize___0_004e82cc[16] __asm__("_s_itemSize___0_004e82cc") = "itemSize > 0";
+/* 0x004e82dc, 24 bytes */ /* loose */ char grim_def_s_pPool__pPool____pPool_004e82dc[24] __asm__("_s_pPool__pPool____pPool_004e82dc") = "pPool->pPool == pPool";
+/* 0x004e82f4, 8 bytes */ /* loose */ char grim_def_s_pool_004e82f4[8] __asm__("_s_pool_004e82f4") = "pool";
+/* 0x008c9a70, 4 bytes */ /* loose */ unsigned char grim_def_g_pMemoryHS[4] __asm__("_g_pMemoryHS") = {0};
+/* 0x008c9a74, 4 bytes */ /* loose */ unsigned int grim_def_g_dwMemorySysInitialized __asm__("_g_dwMemorySysInitialized") = 0x0;
+/* 0x008c9a78, 8 bytes */ /* loose */ unsigned char grim_def_g_dwMemorySysStarted[8] __asm__("_g_dwMemorySysStarted") = {0};
+/* 0x008c9a80, 16 bytes */ /* loose */ unsigned char grim_def_g_pFirstPool[16] __asm__("_g_pFirstPool") = {0};

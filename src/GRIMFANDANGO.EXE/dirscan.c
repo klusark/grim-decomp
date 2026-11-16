@@ -135,3 +135,15 @@ uint __cdecl DirScan_Next(int scan,char *outEntry)
 #undef local_10c
 #undef local_118
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c[44] __asm__("_s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c");
+extern char grim_def_s__s____004e82fc[8] __asm__("_s__s____004e82fc");
+extern char grim_def_s__s___s_004e8304[8] __asm__("_s__s___s_004e8304");
+/* 0x004e82fc, 8 bytes */ /* loose */ char grim_def_s__s____004e82fc[8] __asm__("_s__s____004e82fc") = "%s*.*";
+/* 0x004e8304, 8 bytes */ /* loose */ char grim_def_s__s___s_004e8304[8] __asm__("_s__s___s_004e8304") = "%s*.%s";
+/* 0x004e830c, 44 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c[44] __asm__("_s_C__grimsrc_libs_grimlib_Temp_Fil_004e830c") = "C:\\grimsrc\\libs\\grimlib\\Temp\\Fileutil.c";

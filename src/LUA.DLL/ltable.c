@@ -432,3 +432,17 @@ Node * __cdecl hashnext(Hash *t,int i)
   }
   return (Node *)0x0;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char grim_def_s_C__grimsrc_libs_lua_src_ltable_c_10027cf4[36] __asm__("_s_C__grimsrc_libs_lua_src_ltable_c_10027cf4");
+extern char grim_def_s_key_not_found_10027d38[16] __asm__("_s_key_not_found_10027d38");
+extern char grim_def_s_unexpected_type_to_index_table_10027d18[32] __asm__("_s_unexpected_type_to_index_table_10027d18");
+extern char grim_def_s_writtenItems____numItems_10027cd8[28] __asm__("_s_writtenItems____numItems_10027cd8");
+/* 0x10027cd8, 28 bytes */ /* loose */ char grim_def_s_writtenItems____numItems_10027cd8[28] __asm__("_s_writtenItems____numItems_10027cd8") = "writtenItems == numItems";
+/* 0x10027cf4, 36 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_ltable_c_10027cf4[36] __asm__("_s_C__grimsrc_libs_lua_src_ltable_c_10027cf4") = "C:\\grimsrc\\libs\\lua\\src\\ltable.cpp";
+/* 0x10027d18, 32 bytes */ /* loose */ char grim_def_s_unexpected_type_to_index_table_10027d18[32] __asm__("_s_unexpected_type_to_index_table_10027d18") = "unexpected type to index table";
+/* 0x10027d38, 16 bytes */ /* loose */ char grim_def_s_key_not_found_10027d38[16] __asm__("_s_key_not_found_10027d38") = "key not found";

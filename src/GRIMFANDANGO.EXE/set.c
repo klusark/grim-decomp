@@ -1302,3 +1302,31 @@ LAB_004a719c:
     }
   } while( true );
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_008cac08[31] __asm__("_DAT_008cac08");
+extern unsigned char grim_def_DAT_008cac27 __asm__("_DAT_008cac27");
+extern unsigned char grim_def_DAT_008cac28[1120] __asm__("_DAT_008cac28");
+extern unsigned char grim_def_DAT_008cf284[4] __asm__("_DAT_008cf284");
+extern unsigned int grim_def_UINT_008cb0a4 __asm__("_UINT_008cb0a4");
+extern int grim_def_g_nSkipSetupBitmaps __asm__("_g_nSkipSetupBitmaps");
+extern unsigned char grim_def_g_pCurrentSet[52] __asm__("_g_pCurrentSet");
+extern char grim_def_g_szSputRoom_CurrentRoomName[32] __asm__("_g_szSputRoom_CurrentRoomName");
+extern char grim_def_s_Bad_room_Reference_004ec62c[40] __asm__("_s_Bad_room_Reference_004ec62c");
+extern char grim_def_s_dfltcmp_cmp_004ec710[12] __asm__("_s_dfltcmp_cmp_004ec710");
+static unsigned char grim_anchor_004ec62c[0] __attribute__((section(".data$grim_004ec62c"), aligned(16), used));
+static unsigned char grim_pad_004ec62c[12] __attribute__((section(".data$grim_004ec62c_"), aligned(4), used));
+/* 0x004ec62c, 40 bytes */ GRIM_DATA("004ec62cz") char grim_def_s_Bad_room_Reference_004ec62c[40] __asm__("_s_Bad_room_Reference_004ec62c") = "Bad room Reference\000\000\tcolor\t\t\t\t%d %d %d\n";
+/* 0x004ec710, 12 bytes */ /* loose */ char grim_def_s_dfltcmp_cmp_004ec710[12] __asm__("_s_dfltcmp_cmp_004ec710") = "dfltcmp.cmp";
+/* 0x008cabb4, 52 bytes */ GRIM_DATA("008cabb4") unsigned char grim_def_g_pCurrentSet[52] __asm__("_g_pCurrentSet") = {0};
+/* 0x008cabe8, 32 bytes */ GRIM_DATA("008cabe8") char grim_def_g_szSputRoom_CurrentRoomName[32] __asm__("_g_szSputRoom_CurrentRoomName") = "";
+/* 0x008cac08, 31 bytes */ GRIM_DATA("008cac08") unsigned char grim_def_DAT_008cac08[31] __asm__("_DAT_008cac08") = {0};
+/* 0x008cac27, 1 bytes */ GRIM_DATA("008cac08") unsigned char grim_def_DAT_008cac27 __asm__("_DAT_008cac27") = 0x0;
+/* 0x008cac28, 1120 bytes */ GRIM_DATA("008cac28") unsigned char grim_def_DAT_008cac28[1120] __asm__("_DAT_008cac28") = {0};
+/* 0x008cb0a0, 4 bytes */ GRIM_DATA("008cb0a0") int grim_def_g_nSkipSetupBitmaps __asm__("_g_nSkipSetupBitmaps") = 0;
+/* 0x008cb0a4, 4 bytes */ GRIM_DATA("008cb0a4") unsigned int grim_def_UINT_008cb0a4 __asm__("_UINT_008cb0a4") = 0x0;
+/* 0x008cf284, 4 bytes */ GRIM_DATA("008cf284") unsigned char grim_def_DAT_008cf284[4] __asm__("_DAT_008cf284") = {0};

@@ -61,8 +61,9 @@ class Image:
 
 
 def loose_spans(prog):
-    """The original addresses of the spans data.c leaves to the linker (tools/data_reach.py), marked `/* loose */`."""
-    t = open(os.path.join(ROOT, "src", prog, "data.c"), encoding="utf-8").read()
+    """The original addresses of the spans datagen leaves to the linker (tools/data_reach.py), marked `/* loose */`."""
+    d = os.path.join(ROOT, "src", prog)   # (data.c, and the modules datagen moved data into)
+    t = "".join(open(os.path.join(d, f), encoding="utf-8").read() for f in sorted(os.listdir(d)) if f.endswith(".c"))
     return {int(a, 16) for a in re.findall(r"/\* 0x([0-9a-f]{8}), \d+ bytes[^*]*\*/ /\* loose \*/", t)}
 
 

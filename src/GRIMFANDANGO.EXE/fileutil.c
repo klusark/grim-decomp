@@ -94,3 +94,13 @@ uint __cdecl FileUtil_SysSave(code *write)
   (*write)(&local_4,4);
   return 0;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned int grim_def_g_dwFileUtilSysInitialized __asm__("_g_dwFileUtilSysInitialized");
+extern unsigned char grim_def_g_dwFileUtilSysStarted[8] __asm__("_g_dwFileUtilSysStarted");
+/* 0x008c9a94, 4 bytes */ /* loose */ unsigned int grim_def_g_dwFileUtilSysInitialized __asm__("_g_dwFileUtilSysInitialized") = 0x0;
+/* 0x008c9a98, 8 bytes */ /* loose */ unsigned char grim_def_g_dwFileUtilSysStarted[8] __asm__("_g_dwFileUtilSysStarted") = {0};

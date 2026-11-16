@@ -337,3 +337,29 @@ uint __cdecl stdBmp_Write(char *filename,stdBitmap *bitmap)
   (*g_pStd_HS->pFclose)(iVar5);
   return 0;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004e7638[4] __asm__("_DAT_004e7638");
+extern unsigned char grim_def_DAT_004e763c[4] __asm__("_DAT_004e763c");
+extern unsigned char grim_def_DAT_004e7640[4] __asm__("_DAT_004e7640");
+extern char grim_def_s_16_bit_per_pixel_BMP_not_yet_sup_004e7754[40] __asm__("_s_16_bit_per_pixel_BMP_not_yet_sup_004e7754");
+extern char grim_def_s_32bit_per_pixel_BMP_not_yet_supp_004e772c[40] __asm__("_s_32bit_per_pixel_BMP_not_yet_supp_004e772c");
+extern char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e7644[40] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e7644");
+extern char grim_def_s_Only_24bpp_supported_004e77b4[24] __asm__("_s_Only_24bpp_supported_004e77b4");
+extern char grim_def_s_This_BMP_file_uses_a_bit_depth_w_004e76f0[60] __asm__("_s_This_BMP_file_uses_a_bit_depth_w_004e76f0");
+extern char grim_def_s_Unable_to_read_all_the_data_from_004e766c[72] __asm__("_s_Unable_to_read_all_the_data_from_004e766c");
+extern char grim_def_s_Unable_to_read_the_palette__Your_004e777c[56] __asm__("_s_Unable_to_read_the_palette__Your_004e777c");
+/* 0x004e7638, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004e7638[4] __asm__("_DAT_004e7638") = { 0xb8 };
+/* 0x004e763c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004e763c[4] __asm__("_DAT_004e763c") = { 0xdc };
+/* 0x004e7640, 4 bytes */ /* loose */ unsigned char grim_def_DAT_004e7640[4] __asm__("_DAT_004e7640") = { 0xbc, 0x01 };
+/* 0x004e7644, 40 bytes */ /* loose */ char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e7644[40] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e7644") = "C:\\grimjedi\\Libs\\Std\\General\\Stdbmp.c";
+/* 0x004e766c, 72 bytes */ /* loose */ char grim_def_s_Unable_to_read_all_the_data_from_004e766c[72] __asm__("_s_Unable_to_read_all_the_data_from_004e766c") = "Unable to read all the data from your BMP file.  It may be corrupted.";
+/* 0x004e76f0, 60 bytes */ /* loose */ char grim_def_s_This_BMP_file_uses_a_bit_depth_w_004e76f0[60] __asm__("_s_This_BMP_file_uses_a_bit_depth_w_004e76f0") = "This BMP file uses a bit-depth which I do not support yet.";
+/* 0x004e772c, 40 bytes */ /* loose */ char grim_def_s_32bit_per_pixel_BMP_not_yet_supp_004e772c[40] __asm__("_s_32bit_per_pixel_BMP_not_yet_supp_004e772c") = "32bit-per-pixel BMP not yet supported.";
+/* 0x004e7754, 40 bytes */ /* loose */ char grim_def_s_16_bit_per_pixel_BMP_not_yet_sup_004e7754[40] __asm__("_s_16_bit_per_pixel_BMP_not_yet_sup_004e7754") = "16 bit-per-pixel BMP not yet supported.";
+/* 0x004e777c, 56 bytes */ /* loose */ char grim_def_s_Unable_to_read_the_palette__Your_004e777c[56] __asm__("_s_Unable_to_read_the_palette__Your_004e777c") = "Unable to read the palette.  Your file is corrupted.";
+/* 0x004e77b4, 24 bytes */ /* loose */ char grim_def_s_Only_24bpp_supported_004e77b4[24] __asm__("_s_Only_24bpp_supported_004e77b4") = "Only 24bpp supported";

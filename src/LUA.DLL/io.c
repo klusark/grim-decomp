@@ -556,3 +556,40 @@ void __cdecl errorfb(void)
   lua_printstack(0);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_g_aSetloc_cat[24] __asm__("_g_aSetloc_cat");
+extern char grim_def_s_C__grimsrc_libs_lua_src_liolib_c_10026cc8[36] __asm__("_s_C__grimsrc_libs_lua_src_liolib_c_10026cc8");
+extern char grim_def_s_FALSE_10026cc0[8] __asm__("_s_FALSE_10026cc0");
+extern char grim_def_s__________10026c88[12] __asm__("_s__________10026c88");
+extern char grim_def_s__c_10026cac[4] __asm__("_s__c_10026cac");
+extern char grim_def_s_a_10026c60[4] __asm__("_s_a_10026c60");
+extern char grim_def_s_cannot_access_a_closed_file_10026c38[28] __asm__("_s_cannot_access_a_closed_file_10026c38");
+extern char grim_def_s_cont_10026cec[8] __asm__("_s_cont_10026cec");
+extern char grim_def_s_global_variable____50s__is_not_a_10026c08[48] __asm__("_s_global_variable____50s__is_not_a_10026c08");
+extern char grim_def_s_invalid__date__format_10026c94[24] __asm__("_s_invalid__date__format_10026c94");
+extern char grim_def_s_invalid_option_10026cb0[16] __asm__("_s_invalid_option_10026cb0");
+extern char grim_def_s_unbalanced_braces_in_read_patter_10026c64[36] __asm__("_s_unbalanced_braces_in_read_patter_10026c64");
+extern char grim_def_s_w_10026c54[4] __asm__("_s_w_10026c54");
+static unsigned char grim_anchor_10026ae8[0] __attribute__((section(".data$grim_10026ae8"), aligned(16), used));
+static unsigned char grim_pad_10026ae8[8] __attribute__((section(".data$grim_10026ae8_"), aligned(4), used));
+/* 0x10026ae8, 24 bytes */ GRIM_DATA("10026ae8z") unsigned char grim_def_g_aSetloc_cat[24] __asm__("_g_aSetloc_cat") = {
+    0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x03, 0x00, 0x00, 0x00,
+    0x04, 0x00, 0x00, 0x00, 0x05
+};
+/* 0x10026c08, 48 bytes */ /* loose */ char grim_def_s_global_variable____50s__is_not_a_10026c08[48] __asm__("_s_global_variable____50s__is_not_a_10026c08") = "global variable `%.50s' is not a file handle";
+/* 0x10026c38, 28 bytes */ /* loose */ char grim_def_s_cannot_access_a_closed_file_10026c38[28] __asm__("_s_cannot_access_a_closed_file_10026c38") = "cannot access a closed file";
+/* 0x10026c54, 4 bytes */ /* loose */ char grim_def_s_w_10026c54[4] __asm__("_s_w_10026c54") = "w";
+/* 0x10026c60, 4 bytes */ /* loose */ char grim_def_s_a_10026c60[4] __asm__("_s_a_10026c60") = "a";
+/* 0x10026c64, 36 bytes */ /* loose */ char grim_def_s_unbalanced_braces_in_read_patter_10026c64[36] __asm__("_s_unbalanced_braces_in_read_patter_10026c64") = "unbalanced braces in read pattern";
+/* 0x10026c88, 12 bytes */ /* loose */ char grim_def_s__________10026c88[12] __asm__("_s__________10026c88") = "[^\n]*{\n}";
+/* 0x10026c94, 24 bytes */ /* loose */ char grim_def_s_invalid__date__format_10026c94[24] __asm__("_s_invalid__date__format_10026c94") = "invalid `date' format";
+/* 0x10026cac, 4 bytes */ /* loose */ char grim_def_s__c_10026cac[4] __asm__("_s__c_10026cac") = "%c";
+/* 0x10026cb0, 16 bytes */ /* loose */ char grim_def_s_invalid_option_10026cb0[16] __asm__("_s_invalid_option_10026cb0") = "invalid option";
+/* 0x10026cc0, 8 bytes */ /* loose */ char grim_def_s_FALSE_10026cc0[8] __asm__("_s_FALSE_10026cc0") = "FALSE";
+/* 0x10026cc8, 36 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_liolib_c_10026cc8[36] __asm__("_s_C__grimsrc_libs_lua_src_liolib_c_10026cc8") = "C:\\grimsrc\\libs\\lua\\src\\liolib.c";
+/* 0x10026cec, 8 bytes */ /* loose */ char grim_def_s_cont_10026cec[8] __asm__("_s_cont_10026cec") = "cont\n";

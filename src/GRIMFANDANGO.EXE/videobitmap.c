@@ -164,3 +164,22 @@ gra_ConvertCopy(byte *src,LecPixelFormat *srcFmt,int count,byte *palette,byte *d
   }
   return -1;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004ce808[56] __asm__("_DAT_004ce808");
+extern unsigned char grim_def_DAT_009272a0[10240] __asm__("_DAT_009272a0");
+extern unsigned char grim_def_UINT_008da8a0[8] __asm__("_UINT_008da8a0");
+extern char grim_def_s__s__line__s__Type__d_not_support_004f3d40[36] __asm__("_s__s__line__s__Type__d_not_support_004f3d40");
+/* 0x004f3d40, 36 bytes */ /* loose */ char grim_def_s__s__line__s__Type__d_not_support_004f3d40[36] __asm__("_s__s__line__s__Type__d_not_support_004f3d40") = "%s, line %s:  Type %d not supported";
+/* 0x008da8a0, 8 bytes */ GRIM_DATA("008da8a0") unsigned char grim_def_UINT_008da8a0[8] __asm__("_UINT_008da8a0") = {0};
+/* 0x009272a0, 10240 bytes */ GRIM_DATA("009272a0") unsigned char grim_def_DAT_009272a0[10240] __asm__("_DAT_009272a0") = {0};
+/* 0x004ce808, 56 bytes */ GRIM_DATA("t004ce808") unsigned char grim_def_DAT_004ce808[56] __asm__("_DAT_004ce808") = {
+    0x41, 0xe7, 0x4c, 0x00, 0xd1, 0xe4, 0x4c, 0x00, 0xad, 0xe4, 0x4c, 0x00, 0x75, 0xe5, 0x4c, 0x00,
+    0xdc, 0xe5, 0x4c, 0x00, 0xdf, 0xe6, 0x4c, 0x00, 0xf5, 0xe4, 0x4c, 0x00, 0x49, 0xe6, 0x4c, 0x00,
+    0x75, 0xe5, 0x4c, 0x00, 0xdc, 0xe5, 0x4c, 0x00, 0xdf, 0xe6, 0x4c, 0x00, 0xf5, 0xe4, 0x4c, 0x00,
+    0x49, 0xe6, 0x4c, 0x00, 0x49, 0xe6, 0x4c
+};

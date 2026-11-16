@@ -109,3 +109,17 @@ uint __cdecl stdPlatform_LockHandle(uint handle)
 {
   return handle;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_DAT_004dee28[12] __asm__("_DAT_004dee28");
+extern unsigned int grim_def_g_dwStdPlatform_Assert_enteredOnce __asm__("_g_dwStdPlatform_Assert_enteredOnce");
+extern char grim_def_s_Assert_Handler_004dee18[16] __asm__("_s_Assert_Handler_004dee18");
+extern char grim_def_s__s__d____s_004dee38[16] __asm__("_s__s__d____s_004dee38");
+/* 0x004dee18, 16 bytes */ GRIM_DATA("004dee18") char grim_def_s_Assert_Handler_004dee18[16] __asm__("_s_Assert_Handler_004dee18") = "Assert Handler";
+/* 0x004dee28, 12 bytes */ GRIM_DATA("004dee28") unsigned char grim_def_DAT_004dee28[12] __asm__("_DAT_004dee28") = { 0x61, 0x73, 0x73, 0x65, 0x72, 0x74, 0x2e, 0x74, 0x78, 0x74 };
+/* 0x004dee38, 16 bytes */ GRIM_DATA("004dee38") char grim_def_s__s__d____s_004dee38[16] __asm__("_s__s__d____s_004dee38") = "%s(%d):  %s\n";
+/* 0x00805fd4, 4 bytes */ GRIM_DATA("00805fd4") unsigned int grim_def_g_dwStdPlatform_Assert_enteredOnce __asm__("_g_dwStdPlatform_Assert_enteredOnce") = 0x0;

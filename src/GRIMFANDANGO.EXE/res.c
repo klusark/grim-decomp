@@ -879,3 +879,27 @@ void __cdecl sputResource_ReportAllocations(void)
   Res_Dump(s_Grim_res_004e9c74,0);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern unsigned char grim_def_g_aLowLevelHS[112] __asm__("_g_aLowLevelHS");
+extern unsigned int grim_def_g_dwLogFile __asm__("_g_dwLogFile");
+extern char grim_def_s_Grim_res_004e9c74[12] __asm__("_s_Grim_res_004e9c74");
+extern char grim_def_s_REFERENCED_004e7a80[12] __asm__("_s_REFERENCED_004e7a80");
+extern char grim_def_s_Resource___12s__size____7ld__s_004e7a5c[36] __asm__("_s_Resource___12s__size____7ld__s_004e7a5c");
+extern char grim_def_s_Resource____12s__allocated___8ld_004e79f4[40] __asm__("_s_Resource____12s__allocated___8ld_004e79f4");
+extern char grim_def_s_Resource____12s__freed___d_refer_004e7ab8[40] __asm__("_s_Resource____12s__freed___d_refer_004e7ab8");
+extern char grim_def_s_Total___d_items___d_bytes_004e7a40[28] __asm__("_s_Total___d_items___d_bytes_004e7a40");
+extern char grim_def_s_ref__valid____0_004e7ae0[16] __asm__("_s_ref__valid____0_004e7ae0");
+/* 0x004e79f4, 40 bytes */ GRIM_DATA("004e79f4") char grim_def_s_Resource____12s__allocated___8ld_004e79f4[40] __asm__("_s_Resource____12s__allocated___8ld_004e79f4") = "Resource <%-12s> allocated: %8ld bytes\n";
+/* 0x004e7a40, 28 bytes */ /* loose */ char grim_def_s_Total___d_items___d_bytes_004e7a40[28] __asm__("_s_Total___d_items___d_bytes_004e7a40") = "Total: %d items, %d bytes\n";
+/* 0x004e7a5c, 36 bytes */ /* loose */ char grim_def_s_Resource___12s__size____7ld__s_004e7a5c[36] __asm__("_s_Resource___12s__size____7ld__s_004e7a5c") = "Resource %-12s,\t\tsize = %7ld\t%s\n";
+/* 0x004e7a80, 12 bytes */ /* loose */ char grim_def_s_REFERENCED_004e7a80[12] __asm__("_s_REFERENCED_004e7a80") = "REFERENCED";
+/* 0x004e7ab8, 40 bytes */ /* loose */ char grim_def_s_Resource____12s__freed___d_refer_004e7ab8[40] __asm__("_s_Resource____12s__freed___d_refer_004e7ab8") = "Resource <%-12s> freed (%d references)\n";
+/* 0x004e7ae0, 16 bytes */ /* loose */ char grim_def_s_ref__valid____0_004e7ae0[16] __asm__("_s_ref__valid____0_004e7ae0") = "ref->valid != 0";
+/* 0x004e9c74, 12 bytes */ /* loose */ char grim_def_s_Grim_res_004e9c74[12] __asm__("_s_Grim_res_004e9c74") = "Grim.res";
+/* 0x00825e90, 112 bytes */ GRIM_DATA("00825e90") unsigned char grim_def_g_aLowLevelHS[112] __asm__("_g_aLowLevelHS") = {0};
+/* 0x008a85e4, 4 bytes */ GRIM_DATA("008a85e4") unsigned int grim_def_g_dwLogFile __asm__("_g_dwLogFile") = 0x0;

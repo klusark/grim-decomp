@@ -1107,3 +1107,148 @@ void luaB_predefine(void)
   lua_setglobal((byte *)s__VERSION_10026998);
   return;
 }
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_bi_tostring[] __asm__("_bi_tostring");
+extern char f_copytagmethods[] __asm__("_copytagmethods");
+extern char f_foreach[] __asm__("_foreach");
+extern char f_foreachvar[] __asm__("_foreachvar");
+extern char f_getglobal[] __asm__("_getglobal");
+extern char f_gettagmethod[] __asm__("_gettagmethod");
+extern char f_internaldofile[] __asm__("_internaldofile");
+extern char f_internaldostring[] __asm__("_internaldostring");
+extern char f_luaI_assert[] __asm__("_luaI_assert");
+extern char f_luaI_breakhere[] __asm__("_luaI_breakhere");
+extern char f_luaI_call[] __asm__("_luaI_call");
+extern char f_luaI_collectgarbage[] __asm__("_luaI_collectgarbage");
+extern char f_luaI_error[] __asm__("_luaI_error");
+extern char f_luaI_findscript[] __asm__("_luaI_findscript");
+extern char f_luaI_identifyscript[] __asm__("_luaI_identifyscript");
+extern char f_luaI_nextscript[] __asm__("_luaI_nextscript");
+extern char f_luaI_print[] __asm__("_luaI_print");
+extern char f_luaI_startscript[] __asm__("_luaI_startscript");
+extern char f_luaI_stopscript[] __asm__("_luaI_stopscript");
+extern char f_luaI_type[] __asm__("_luaI_type");
+extern char f_luaT_setfallback[] __asm__("_luaT_setfallback");
+extern char f_lua_pausetasks[] __asm__("_lua_pausetasks");
+extern char f_lua_unpausetasks[] __asm__("_lua_unpausetasks");
+extern char f_luatag[] __asm__("_luatag");
+extern char f_newtag[] __asm__("_newtag");
+extern char f_next[] __asm__("_next");
+extern char f_nextvar[] __asm__("_nextvar");
+extern char f_rawgetglobal[] __asm__("_rawgetglobal");
+extern char f_rawgettable[] __asm__("_rawgettable");
+extern char f_rawsetglobal[] __asm__("_rawsetglobal");
+extern char f_rawsettable[] __asm__("_rawsettable");
+extern char f_seterrormethod[] __asm__("_seterrormethod");
+extern char f_setglobal[] __asm__("_setglobal");
+extern char f_settag[] __asm__("_settag");
+extern char f_settagmethod[] __asm__("_settagmethod");
+extern char f_tonumber[] __asm__("_tonumber");
+extern char grim_def_DAT_10026568[] __asm__("_DAT_10026568");
+extern char grim_def_DAT_10026570[] __asm__("_DAT_10026570");
+extern char grim_def_DAT_10026618[] __asm__("_DAT_10026618");
+extern char grim_def_DAT_10026684[] __asm__("_DAT_10026684");
+extern void *grim_def_g_pInt_funcs[72] __asm__("_g_pInt_funcs");
+extern char grim_def_s_Argument_to_findscript_must_be_a_100267ec[60] __asm__("_s_Argument_to_findscript_must_be_a_100267ec");
+extern char grim_def_s_Argument_to_identifyscript_must_b_10026870[52] __asm__("_s_Argument_to_identifyscript_must_b_10026870");
+extern char grim_def_s_Argument_to_nextscript_must_be_n_100268e8[56] __asm__("_s_Argument_to_nextscript_must_be_n_100268e8");
+extern char grim_def_s_Argument_to_stopscript_must_be_a_1002675c[60] __asm__("_s_Argument_to_stopscript_must_be_a_1002675c");
+extern char grim_def_s_Current_task_is_committing_suici_10026734[40] __asm__("_s_Current_task_is_committing_suici_10026734");
+extern char grim_def_s_Lua_3_1__alpha__100269a4[16] __asm__("_s_Lua_3_1__alpha__100269a4");
+extern char grim_def_s_Too_few_arguments_to_findscript__10026828[72] __asm__("_s_Too_few_arguments_to_findscript__10026828");
+extern char grim_def_s_Too_few_arguments_to_identifyscr_100268a4[68] __asm__("_s_Too_few_arguments_to_identifyscr_100268a4");
+extern char grim_def_s_Too_few_arguments_to_nextscript__10026920[64] __asm__("_s_Too_few_arguments_to_nextscript__10026920");
+extern char grim_def_s_Too_few_arguments_to_stopscript__10026798[84] __asm__("_s_Too_few_arguments_to_stopscript__10026798");
+extern char grim_def_s__VERSION_10026998[12] __asm__("_s__VERSION_10026998");
+extern char grim_def_s__s_10026960[4] __asm__("_s__s_10026960");
+extern char grim_def_s_assert_1002668c[] __asm__("_s_assert_1002668c");
+extern char grim_def_s_assertion_failed____100s_10026978[28] __asm__("_s_assertion_failed____100s_10026978");
+extern char grim_def_s_base_out_of_range_10026964[20] __asm__("_s_base_out_of_range_10026964");
+extern char grim_def_s_break_here_100264f8[] __asm__("_s_break_here_100264f8");
+extern char grim_def_s_collectgarbage_10026674[] __asm__("_s_collectgarbage_10026674");
+extern char grim_def_s_copytagmethods_1002665c[] __asm__("_s_copytagmethods_1002665c");
+extern char grim_def_s_dofile_1002666c[] __asm__("_s_dofile_1002666c");
+extern char grim_def_s_dostring_10026650[] __asm__("_s_dostring_10026650");
+extern char grim_def_s_error_10026648[] __asm__("_s_error_10026648");
+extern char grim_def_s_find_script_10026504[] __asm__("_s_find_script_10026504");
+extern char grim_def_s_foreach_10026640[] __asm__("_s_foreach_10026640");
+extern char grim_def_s_foreachvar_10026634[] __asm__("_s_foreachvar_10026634");
+extern char grim_def_s_function___p_10026718[16] __asm__("_s_function___p_10026718");
+extern char grim_def_s_getglobal_10026628[] __asm__("_s_getglobal_10026628");
+extern char grim_def_s_gettagmethod_10026594[] __asm__("_s_gettagmethod_10026594");
+extern char grim_def_s_identify_script_10026530[] __asm__("_s_identify_script_10026530");
+extern char grim_def_s_internal_error_100266e8[16] __asm__("_s_internal_error_100266e8");
+extern char grim_def_s_invalid_2nd_argument__probably_o_100266b8[48] __asm__("_s_invalid_2nd_argument__probably_o_100266b8");
+extern char grim_def_s_newtag_10026620[] __asm__("_s_newtag_10026620");
+extern char grim_def_s_next_script_10026540[] __asm__("_s_next_script_10026540");
+extern char grim_def_s_nextvar_10026610[] __asm__("_s_nextvar_10026610");
+extern char grim_def_s_nil_100266f8[4] __asm__("_s_nil_100266f8");
+extern char grim_def_s_pause_scripts_10026520[] __asm__("_s_pause_scripts_10026520");
+extern char grim_def_s_print_10026608[] __asm__("_s_print_10026608");
+extern char grim_def_s_rawgetglobal_100265f8[] __asm__("_s_rawgetglobal_100265f8");
+extern char grim_def_s_rawgettable_100265ec[] __asm__("_s_rawgettable_100265ec");
+extern char grim_def_s_rawsetglobal_100265dc[] __asm__("_s_rawsetglobal_100265dc");
+extern char grim_def_s_rawsettable_100265d0[] __asm__("_s_rawsettable_100265d0");
+extern char grim_def_s_seterrormethod_100265c0[] __asm__("_s_seterrormethod_100265c0");
+extern char grim_def_s_setfallback_10026694[] __asm__("_s_setfallback_10026694");
+extern char grim_def_s_setglobal_100265b4[] __asm__("_s_setglobal_100265b4");
+extern char grim_def_s_settag_1002658c[] __asm__("_s_settag_1002658c");
+extern char grim_def_s_settagmethod_100265a4[] __asm__("_s_settagmethod_100265a4");
+extern char grim_def_s_start_script_10026558[] __asm__("_s_start_script_10026558");
+extern char grim_def_s_stop_script_1002654c[] __asm__("_s_stop_script_1002654c");
+extern char grim_def_s_table___p_10026728[12] __asm__("_s_table___p_10026728");
+extern char grim_def_s_task___d_100266fc[12] __asm__("_s_task___d_100266fc");
+extern char grim_def_s_tonumber_10026580[] __asm__("_s_tonumber_10026580");
+extern char grim_def_s_tostring_10026574[] __asm__("_s_tostring_10026574");
+extern char grim_def_s_unpause_scripts_10026510[] __asm__("_s_unpause_scripts_10026510");
+extern char grim_def_s_userdata___p_10026708[16] __asm__("_s_userdata___p_10026708");
+extern char grim_def_s_variable_name_expected_100266a0[24] __asm__("_s_variable_name_expected_100266a0");
+static unsigned char grim_anchor_100263d8[0] __attribute__((section(".data$grim_100263d8"), aligned(16), used));
+static unsigned char grim_pad_100263d8[8] __attribute__((section(".data$grim_100263d8_"), aligned(4), used));
+/* 0x100263d8, 288 bytes */ GRIM_DATA("100263d8z") void *grim_def_g_pInt_funcs[72] __asm__("_g_pInt_funcs") = {
+    (void *)&grim_def_s_setfallback_10026694, (void *)f_luaT_setfallback, (void *)&grim_def_s_assert_1002668c, (void *)f_luaI_assert,
+    (void *)&grim_def_DAT_10026684, (void *)f_luaI_call, (void *)&grim_def_s_collectgarbage_10026674, (void *)f_luaI_collectgarbage,
+    (void *)&grim_def_s_dofile_1002666c, (void *)f_internaldofile, (void *)&grim_def_s_copytagmethods_1002665c, (void *)f_copytagmethods,
+    (void *)&grim_def_s_dostring_10026650, (void *)f_internaldostring, (void *)&grim_def_s_error_10026648, (void *)f_luaI_error,
+    (void *)&grim_def_s_foreach_10026640, (void *)f_foreach, (void *)&grim_def_s_foreachvar_10026634, (void *)f_foreachvar,
+    (void *)&grim_def_s_getglobal_10026628, (void *)f_getglobal, (void *)&grim_def_s_newtag_10026620, (void *)f_newtag,
+    (void *)&grim_def_DAT_10026618, (void *)f_next, (void *)&grim_def_s_nextvar_10026610, (void *)f_nextvar,
+    (void *)&grim_def_s_print_10026608, (void *)f_luaI_print, (void *)&grim_def_s_rawgetglobal_100265f8, (void *)f_rawgetglobal,
+    (void *)&grim_def_s_rawgettable_100265ec, (void *)f_rawgettable, (void *)&grim_def_s_rawsetglobal_100265dc, (void *)f_rawsetglobal,
+    (void *)&grim_def_s_rawsettable_100265d0, (void *)f_rawsettable, (void *)&grim_def_s_seterrormethod_100265c0, (void *)f_seterrormethod,
+    (void *)&grim_def_s_setglobal_100265b4, (void *)f_setglobal, (void *)&grim_def_s_settagmethod_100265a4, (void *)f_settagmethod,
+    (void *)&grim_def_s_gettagmethod_10026594, (void *)f_gettagmethod, (void *)&grim_def_s_settag_1002658c, (void *)f_settag,
+    (void *)&grim_def_s_tonumber_10026580, (void *)f_tonumber, (void *)&grim_def_s_tostring_10026574, (void *)f_bi_tostring,
+    (void *)&grim_def_DAT_10026570, (void *)f_luatag, (void *)&grim_def_DAT_10026568, (void *)f_luaI_type,
+    (void *)&grim_def_s_start_script_10026558, (void *)f_luaI_startscript, (void *)&grim_def_s_stop_script_1002654c, (void *)f_luaI_stopscript,
+    (void *)&grim_def_s_next_script_10026540, (void *)f_luaI_nextscript, (void *)&grim_def_s_identify_script_10026530, (void *)f_luaI_identifyscript,
+    (void *)&grim_def_s_pause_scripts_10026520, (void *)f_lua_pausetasks, (void *)&grim_def_s_unpause_scripts_10026510, (void *)f_lua_unpausetasks,
+    (void *)&grim_def_s_find_script_10026504, (void *)f_luaI_findscript, (void *)&grim_def_s_break_here_100264f8, (void *)f_luaI_breakhere
+};
+/* 0x100266a0, 24 bytes */ /* loose */ char grim_def_s_variable_name_expected_100266a0[24] __asm__("_s_variable_name_expected_100266a0") = "variable name expected";
+/* 0x100266b8, 48 bytes */ /* loose */ char grim_def_s_invalid_2nd_argument__probably_o_100266b8[48] __asm__("_s_invalid_2nd_argument__probably_o_100266b8") = "invalid 2nd argument (probably obsolete code)";
+/* 0x100266e8, 16 bytes */ /* loose */ char grim_def_s_internal_error_100266e8[16] __asm__("_s_internal_error_100266e8") = "internal error";
+/* 0x100266f8, 4 bytes */ /* loose */ char grim_def_s_nil_100266f8[4] __asm__("_s_nil_100266f8") = "nil";
+/* 0x100266fc, 12 bytes */ /* loose */ char grim_def_s_task___d_100266fc[12] __asm__("_s_task___d_100266fc") = "task: %d";
+/* 0x10026708, 16 bytes */ /* loose */ char grim_def_s_userdata___p_10026708[16] __asm__("_s_userdata___p_10026708") = "userdata: %p";
+/* 0x10026718, 16 bytes */ /* loose */ char grim_def_s_function___p_10026718[16] __asm__("_s_function___p_10026718") = "function: %p";
+/* 0x10026728, 12 bytes */ /* loose */ char grim_def_s_table___p_10026728[12] __asm__("_s_table___p_10026728") = "table: %p";
+/* 0x10026734, 40 bytes */ /* loose */ char grim_def_s_Current_task_is_committing_suici_10026734[40] __asm__("_s_Current_task_is_committing_suici_10026734") = "Current task is committing suicide!\n";
+/* 0x1002675c, 60 bytes */ /* loose */ char grim_def_s_Argument_to_stopscript_must_be_a_1002675c[60] __asm__("_s_Argument_to_stopscript_must_be_a_1002675c") = "Argument to stopscript must be a task handle or function!";
+/* 0x10026798, 84 bytes */ /* loose */ char grim_def_s_Too_few_arguments_to_stopscript__10026798[84] __asm__("_s_Too_few_arguments_to_stopscript__10026798") = "Too few arguments to stopscript! Specify the name of a function or a task handle.";
+/* 0x100267ec, 60 bytes */ /* loose */ char grim_def_s_Argument_to_findscript_must_be_a_100267ec[60] __asm__("_s_Argument_to_findscript_must_be_a_100267ec") = "Argument to findscript must be a function or task handle!";
+/* 0x10026828, 72 bytes */ /* loose */ char grim_def_s_Too_few_arguments_to_findscript__10026828[72] __asm__("_s_Too_few_arguments_to_findscript__10026828") = "Too few arguments to findscript! Specify a function or a task handle.";
+/* 0x10026870, 52 bytes */ /* loose */ char grim_def_s_Argument_to_identifyscript_must_b_10026870[52] __asm__("_s_Argument_to_identifyscript_must_b_10026870") = "Argument to identifyscript must be a task handle!";
+/* 0x100268a4, 68 bytes */ /* loose */ char grim_def_s_Too_few_arguments_to_identifyscr_100268a4[68] __asm__("_s_Too_few_arguments_to_identifyscr_100268a4") = "Too few arguments to identifyscript! Specify nil or a task handle.";
+/* 0x100268e8, 56 bytes */ /* loose */ char grim_def_s_Argument_to_nextscript_must_be_n_100268e8[56] __asm__("_s_Argument_to_nextscript_must_be_n_100268e8") = "Argument to nextscript must be nil or a task handle!";
+/* 0x10026920, 64 bytes */ /* loose */ char grim_def_s_Too_few_arguments_to_nextscript__10026920[64] __asm__("_s_Too_few_arguments_to_nextscript__10026920") = "Too few arguments to nextscript! Specify nil or a task handle.";
+/* 0x10026960, 4 bytes */ /* loose */ char grim_def_s__s_10026960[4] __asm__("_s__s_10026960") = "%s\t";
+/* 0x10026964, 20 bytes */ /* loose */ char grim_def_s_base_out_of_range_10026964[20] __asm__("_s_base_out_of_range_10026964") = "base out of range";
+/* 0x10026978, 28 bytes */ /* loose */ char grim_def_s_assertion_failed____100s_10026978[28] __asm__("_s_assertion_failed____100s_10026978") = "assertion failed!  %.100s";
+/* 0x10026998, 12 bytes */ /* loose */ char grim_def_s__VERSION_10026998[12] __asm__("_s__VERSION_10026998") = "_VERSION";
+/* 0x100269a4, 16 bytes */ /* loose */ char grim_def_s_Lua_3_1__alpha__100269a4[16] __asm__("_s_Lua_3_1__alpha__100269a4") = "Lua 3.1 (alpha)";

@@ -1559,3 +1559,422 @@ byte * __cdecl block16_RenderBlock2(byte *src,byte *dst,int pitch)
 }
 #endif
 
+
+
+/* ---- data only this file names (tools/datagen.py: place_in_modules) ---- */
+#ifndef GRIM_DATA
+#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
+#endif
+extern char f_Blocky16_flobdec_DecodeBody[] __asm__("_Blocky16_flobdec_DecodeBody");
+extern char f_Blocky16_flobdec_DecodeHeader[] __asm__("_Blocky16_flobdec_DecodeHeader");
+extern char f_Blocky16_flobdec_GetID[] __asm__("_Blocky16_flobdec_GetID");
+extern char f_Blocky16_flobdec_GetVal[] __asm__("_Blocky16_flobdec_GetVal");
+extern char f_Blocky16_flobdec_Info[] __asm__("_Blocky16_flobdec_Info");
+extern char f_Blocky16_flobdec_Reset[] __asm__("_Blocky16_flobdec_Reset");
+extern char f_Blocky16_module_shutdown[] __asm__("_Blocky16_module_shutdown");
+extern char f_Blocky16_module_startup[] __asm__("_Blocky16_module_startup");
+extern char f_Blocky16_module_terminate[] __asm__("_Blocky16_module_terminate");
+extern char f_FUN_004cbf40[] __asm__("_FUN_004cbf40");
+extern char f_LecShare_Nop[] __asm__("_LecShare_Nop");
+extern char f_fob_flobdec_blocky16_module[] __asm__("_fob_flobdec_blocky16_module");
+extern unsigned char grim_def_DAT_00906c50[4] __asm__("_DAT_00906c50");
+extern unsigned char grim_def_DAT_00906c58[4] __asm__("_DAT_00906c58");
+extern unsigned char grim_def_DAT_00906c5c __asm__("_DAT_00906c5c");
+extern unsigned char grim_def_DAT_00906c5d[3] __asm__("_DAT_00906c5d");
+extern unsigned char grim_def_DAT_00906c64[4] __asm__("_DAT_00906c64");
+extern unsigned char grim_def_DAT_00906c70[4] __asm__("_DAT_00906c70");
+extern unsigned char grim_def_DAT_00906d80[64] __asm__("_DAT_00906d80");
+extern unsigned char grim_def_DAT_00906dc0[64] __asm__("_DAT_00906dc0");
+extern unsigned char grim_def_DAT_00906e00 __asm__("_DAT_00906e00");
+extern unsigned char grim_def_DAT_00906e01[98943] __asm__("_DAT_00906e01");
+extern unsigned char grim_def_DAT_0091f0e0[16] __asm__("_DAT_0091f0e0");
+extern unsigned char grim_def_DAT_0091f0f0[16] __asm__("_DAT_0091f0f0");
+extern unsigned char grim_def_DAT_0091f100 __asm__("_DAT_0091f100");
+extern unsigned char grim_def_DAT_0091f101[255] __asm__("_DAT_0091f101");
+extern unsigned char grim_def_DAT_0091f200[1] __asm__("_DAT_0091f200");
+extern unsigned char grim_def_DAT_0091f201[32415] __asm__("_DAT_0091f201");
+extern unsigned char grim_def_DAT_00927100[1] __asm__("_DAT_00927100");
+extern unsigned char grim_def_DAT_00927101[415] __asm__("_DAT_00927101");
+extern int grim_def_INT_00906c60 __asm__("_INT_00906c60");
+extern void *grim_def_PTR_fob_flobdec_blocky16_module_004f34b8[4] __asm__("_PTR_fob_flobdec_blocky16_module_004f34b8");
+extern unsigned int grim_def_UINT_00906c4c __asm__("_UINT_00906c4c");
+extern unsigned int grim_def_UINT_00906c54 __asm__("_UINT_00906c54");
+extern unsigned int grim_def_UINT_00906c68 __asm__("_UINT_00906c68");
+extern unsigned int grim_def_UINT_00906c6c __asm__("_UINT_00906c6c");
+extern BlockyMotionVector grim_def_g_aBlockyMotionVectors[255] __asm__("_g_aBlockyMotionVectors");
+extern unsigned char grim_def_g_aBlockySplit4[64] __asm__("_g_aBlockySplit4");
+extern unsigned char grim_def_g_aBlockySplit8[256] __asm__("_g_aBlockySplit8");
+extern int grim_def_g_anBlockySplit4X[16] __asm__("_g_anBlockySplit4X");
+extern int grim_def_g_anBlockySplit4Y[16] __asm__("_g_anBlockySplit4Y");
+extern int grim_def_g_anBlockySplit8X[16] __asm__("_g_anBlockySplit8X");
+extern int grim_def_g_anBlockySplit8Y[16] __asm__("_g_anBlockySplit8Y");
+extern short grim_def_g_asBlockyMotion __asm__("_g_asBlockyMotion");
+extern unsigned int grim_def_g_dwBlocky16_share_config __asm__("_g_dwBlocky16_share_config");
+extern unsigned int grim_def_g_dwFob_blk16_configure_old_mod __asm__("_g_dwFob_blk16_configure_old_mod");
+extern int grim_def_g_nBlkLastSeq __asm__("_g_nBlkLastSeq");
+extern int grim_def_g_nFob_buffersize __asm__("_g_nFob_buffersize");
+extern int grim_def_g_nFob_translation_shiftb __asm__("_g_nFob_translation_shiftb");
+extern int grim_def_g_nFob_translation_shiftg __asm__("_g_nFob_translation_shiftg");
+extern int grim_def_g_nFob_translation_shiftr __asm__("_g_nFob_translation_shiftr");
+extern int grim_def_g_nGlobal_bm_type __asm__("_g_nGlobal_bm_type");
+extern unsigned char grim_def_g_pBlkBitmap0[4] __asm__("_g_pBlkBitmap0");
+extern unsigned char grim_def_g_pBlkBitmap1[4] __asm__("_g_pBlkBitmap1");
+extern unsigned char grim_def_g_pBlkBitmap2[4] __asm__("_g_pBlkBitmap2");
+extern void *grim_def_g_pBlock16_flobdec_services[8] __asm__("_g_pBlock16_flobdec_services");
+extern unsigned char grim_def_g_pBlocky16_bitmap_services[4] __asm__("_g_pBlocky16_bitmap_services");
+extern unsigned char grim_def_g_pBlocky16_memory_services[4] __asm__("_g_pBlocky16_memory_services");
+extern unsigned char grim_def_g_pBlocky16_share_services[4] __asm__("_g_pBlocky16_share_services");
+extern unsigned char grim_def_g_pFob_blit_routine[4] __asm__("_g_pFob_blit_routine");
+extern unsigned char grim_def_g_pFob_blk16_delta_buffer[32] __asm__("_g_pFob_blk16_delta_buffer");
+extern unsigned char grim_def_g_pFob_blk16_key_buffer[12] __asm__("_g_pFob_blk16_key_buffer");
+extern unsigned char grim_def_g_pFob_blk16_render_buffer[4] __asm__("_g_pFob_blk16_render_buffer");
+extern unsigned char grim_def_g_pbBlkExpand[4] __asm__("_g_pbBlkExpand");
+extern unsigned char grim_def_g_pbBlkOutput[8] __asm__("_g_pbBlkOutput");
+extern unsigned int grim_def_g_stBlockyDecState __asm__("_g_stBlockyDecState");
+extern char grim_def_s_BITMAP_clear_004f3aa0[16] __asm__("_s_BITMAP_clear_004f3aa0");
+extern char grim_def_s_Blocky16_Tile_004f3ab0[16] __asm__("_s_Blocky16_Tile_004f3ab0");
+extern char grim_def_s_C__grimsrc_libs_lecsmush_insane__004f3bbc[60] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f3bbc");
+extern char grim_def_s_Decompresses_a_block16_tile_vide_004f3ac0[44] __asm__("_s_Decompresses_a_block16_tile_vide_004f3ac0");
+extern char grim_def_s_FLOBDEC_insane_blocky16_004f39ec[24] __asm__("_s_FLOBDEC_insane_blocky16_004f39ec");
+extern char grim_def_s_FlobDec_Blocky16_Module__Cannot_a_004f3a28[60] __asm__("_s_FlobDec_Blocky16_Module__Cannot_a_004f3a28");
+extern char grim_def_s_FlobDec_Blocky16_Module__Cannot_a_004f3a64[60] __asm__("_s_FlobDec_Blocky16_Module__Cannot_a_004f3a64");
+extern char grim_def_s_LECMODULE_insane_blocky16_flobde_004f3a04[36] __asm__("_s_LECMODULE_insane_blocky16_flobde_004f3a04");
+extern char grim_def_s_This_module_decompresses_the_blo_004f3aec[208] __asm__("_s_This_module_decompresses_the_blo_004f3aec");
+/* 0x004f34b8, 16 bytes */ GRIM_DATA("004f34b8") void *grim_def_PTR_fob_flobdec_blocky16_module_004f34b8[4] __asm__("_PTR_fob_flobdec_blocky16_module_004f34b8") = {
+    (void *)f_fob_flobdec_blocky16_module, (void *)f_Blocky16_module_terminate, (void *)f_Blocky16_module_startup, (void *)f_Blocky16_module_shutdown
+};
+/* 0x004f34c8, 32 bytes */ GRIM_DATA("004f34c8") void *grim_def_g_pBlock16_flobdec_services[8] __asm__("_g_pBlock16_flobdec_services") = {
+    (void *)f_Blocky16_flobdec_Info, (void *)f_Blocky16_flobdec_GetID, (void *)f_LecShare_Nop, (void *)f_Blocky16_flobdec_Reset,
+    (void *)f_Blocky16_flobdec_DecodeHeader, (void *)f_Blocky16_flobdec_DecodeBody, (void *)f_FUN_004cbf40, (void *)f_Blocky16_flobdec_GetVal
+};
+/* 0x004f34e8, 1020 bytes */ GRIM_DATA("004f34e8") BlockyMotionVector grim_def_g_aBlockyMotionVectors[255] __asm__("_g_aBlockyMotionVectors") = {
+    {0},
+    { .nX = -1, .nY = -43 },
+    { .nX = 6, .nY = -43 },
+    { .nX = -9, .nY = -42 },
+    { .nX = 13, .nY = -41 },
+    { .nX = -16, .nY = -40 },
+    { .nX = 19, .nY = -39 },
+    { .nX = -23, .nY = -36 },
+    { .nX = 26, .nY = -34 },
+    { .nX = -2, .nY = -33 },
+    { .nX = 4, .nY = -33 },
+    { .nX = -29, .nY = -32 },
+    { .nX = -9, .nY = -32 },
+    { .nX = 11, .nY = -31 },
+    { .nX = -16, .nY = -29 },
+    { .nX = 32, .nY = -29 },
+    { .nX = 18, .nY = -28 },
+    { .nX = -34, .nY = -26 },
+    { .nX = -22, .nY = -25 },
+    { .nX = -1, .nY = -25 },
+    { .nX = 3, .nY = -25 },
+    { .nX = -7, .nY = -24 },
+    { .nX = 8, .nY = -24 },
+    { .nX = 24, .nY = -23 },
+    { .nX = 36, .nY = -23 },
+    { .nX = -12, .nY = -22 },
+    { .nX = 13, .nY = -21 },
+    { .nX = -38, .nY = -20 },
+    { .nY = -20 },
+    { .nX = -27, .nY = -19 },
+    { .nX = -4, .nY = -19 },
+    { .nX = 4, .nY = -19 },
+    { .nX = -17, .nY = -18 },
+    { .nX = -8, .nY = -17 },
+    { .nX = 8, .nY = -17 },
+    { .nX = 18, .nY = -17 },
+    { .nX = 28, .nY = -17 },
+    { .nX = 39, .nY = -17 },
+    { .nX = -12, .nY = -15 },
+    { .nX = 12, .nY = -15 },
+    { .nX = -21, .nY = -14 },
+    { .nX = -1, .nY = -14 },
+    { .nX = 1, .nY = -14 },
+    { .nX = -41, .nY = -13 },
+    { .nX = -5, .nY = -13 },
+    { .nX = 5, .nY = -13 },
+    { .nX = 21, .nY = -13 },
+    { .nX = -31, .nY = -12 },
+    { .nX = -15, .nY = -11 },
+    { .nX = -8, .nY = -11 },
+    { .nX = 8, .nY = -11 },
+    { .nX = 15, .nY = -11 },
+    { .nX = -2, .nY = -10 },
+    { .nX = 1, .nY = -10 },
+    { .nX = 31, .nY = -10 },
+    { .nX = -23, .nY = -9 },
+    { .nX = -11, .nY = -9 },
+    { .nX = -5, .nY = -9 },
+    { .nX = 4, .nY = -9 },
+    { .nX = 11, .nY = -9 },
+    { .nX = 42, .nY = -9 },
+    { .nX = 6, .nY = -8 },
+    { .nX = 24, .nY = -8 },
+    { .nX = -18, .nY = -7 },
+    { .nX = -7, .nY = -7 },
+    { .nX = -3, .nY = -7 },
+    { .nX = -1, .nY = -7 },
+    { .nX = 2, .nY = -7 },
+    { .nX = 18, .nY = -7 },
+    { .nX = -43, .nY = -6 },
+    { .nX = -13, .nY = -6 },
+    { .nX = -4, .nY = -6 },
+    { .nX = 4, .nY = -6 },
+    { .nX = 8, .nY = -6 },
+    { .nX = -33, .nY = -5 },
+    { .nX = -9, .nY = -5 },
+    { .nX = -2, .nY = -5 },
+    { .nY = -5 },
+    { .nX = 2, .nY = -5 },
+    { .nX = 5, .nY = -5 },
+    { .nX = 13, .nY = -5 },
+    { .nX = -25, .nY = -4 },
+    { .nX = -6, .nY = -4 },
+    { .nX = -3, .nY = -4 },
+    { .nX = 3, .nY = -4 },
+    { .nX = 9, .nY = -4 },
+    { .nX = -19, .nY = -3 },
+    { .nX = -7, .nY = -3 },
+    { .nX = -4, .nY = -3 },
+    { .nX = -2, .nY = -3 },
+    { .nX = -1, .nY = -3 },
+    { .nY = -3 },
+    { .nX = 1, .nY = -3 },
+    { .nX = 2, .nY = -3 },
+    { .nX = 4, .nY = -3 },
+    { .nX = 6, .nY = -3 },
+    { .nX = 33, .nY = -3 },
+    { .nX = -14, .nY = -2 },
+    { .nX = -10, .nY = -2 },
+    { .nX = -5, .nY = -2 },
+    { .nX = -3, .nY = -2 },
+    { .nX = -2, .nY = -2 },
+    { .nX = -1, .nY = -2 },
+    { .nY = -2 },
+    { .nX = 1, .nY = -2 },
+    { .nX = 2, .nY = -2 },
+    { .nX = 3, .nY = -2 },
+    { .nX = 5, .nY = -2 },
+    { .nX = 7, .nY = -2 },
+    { .nX = 14, .nY = -2 },
+    { .nX = 19, .nY = -2 },
+    { .nX = 25, .nY = -2 },
+    { .nX = 43, .nY = -2 },
+    { .nX = -7, .nY = -1 },
+    { .nX = -3, .nY = -1 },
+    { .nX = -2, .nY = -1 },
+    { .nX = -1, .nY = -1 },
+    { .nY = -1 },
+    { .nX = 1, .nY = -1 },
+    { .nX = 2, .nY = -1 },
+    { .nX = 3, .nY = -1 },
+    { .nX = 10, .nY = -1 },
+    { .nX = -5 },
+    { .nX = -3 },
+    { .nX = -2 },
+    { .nX = -1 },
+    { .nX = 1 },
+    { .nX = 2 },
+    { .nX = 3 },
+    { .nX = 5 },
+    { .nX = 7 },
+    { .nX = -10, .nY = 1 },
+    { .nX = -7, .nY = 1 },
+    { .nX = -3, .nY = 1 },
+    { .nX = -2, .nY = 1 },
+    { .nX = -1, .nY = 1 },
+    { .nY = 1 },
+    { .nX = 1, .nY = 1 },
+    { .nX = 2, .nY = 1 },
+    { .nX = 3, .nY = 1 },
+    { .nX = -43, .nY = 2 },
+    { .nX = -25, .nY = 2 },
+    { .nX = -19, .nY = 2 },
+    { .nX = -14, .nY = 2 },
+    { .nX = -5, .nY = 2 },
+    { .nX = -3, .nY = 2 },
+    { .nX = -2, .nY = 2 },
+    { .nX = -1, .nY = 2 },
+    { .nY = 2 },
+    { .nX = 1, .nY = 2 },
+    { .nX = 2, .nY = 2 },
+    { .nX = 3, .nY = 2 },
+    { .nX = 5, .nY = 2 },
+    { .nX = 7, .nY = 2 },
+    { .nX = 10, .nY = 2 },
+    { .nX = 14, .nY = 2 },
+    { .nX = -33, .nY = 3 },
+    { .nX = -6, .nY = 3 },
+    { .nX = -4, .nY = 3 },
+    { .nX = -2, .nY = 3 },
+    { .nX = -1, .nY = 3 },
+    { .nY = 3 },
+    { .nX = 1, .nY = 3 },
+    { .nX = 2, .nY = 3 },
+    { .nX = 4, .nY = 3 },
+    { .nX = 19, .nY = 3 },
+    { .nX = -9, .nY = 4 },
+    { .nX = -3, .nY = 4 },
+    { .nX = 3, .nY = 4 },
+    { .nX = 7, .nY = 4 },
+    { .nX = 25, .nY = 4 },
+    { .nX = -13, .nY = 5 },
+    { .nX = -5, .nY = 5 },
+    { .nX = -2, .nY = 5 },
+    { .nY = 5 },
+    { .nX = 2, .nY = 5 },
+    { .nX = 5, .nY = 5 },
+    { .nX = 9, .nY = 5 },
+    { .nX = 33, .nY = 5 },
+    { .nX = -8, .nY = 6 },
+    { .nX = -4, .nY = 6 },
+    { .nX = 4, .nY = 6 },
+    { .nX = 13, .nY = 6 },
+    { .nX = 43, .nY = 6 },
+    { .nX = -18, .nY = 7 },
+    { .nX = -2, .nY = 7 },
+    { .nY = 7 },
+    { .nX = 2, .nY = 7 },
+    { .nX = 7, .nY = 7 },
+    { .nX = 18, .nY = 7 },
+    { .nX = -24, .nY = 8 },
+    { .nX = -6, .nY = 8 },
+    { .nX = -42, .nY = 9 },
+    { .nX = -11, .nY = 9 },
+    { .nX = -4, .nY = 9 },
+    { .nX = 5, .nY = 9 },
+    { .nX = 11, .nY = 9 },
+    { .nX = 23, .nY = 9 },
+    { .nX = -31, .nY = 10 },
+    { .nX = -1, .nY = 10 },
+    { .nX = 2, .nY = 10 },
+    { .nX = -15, .nY = 11 },
+    { .nX = -8, .nY = 11 },
+    { .nX = 8, .nY = 11 },
+    { .nX = 15, .nY = 11 },
+    { .nX = 31, .nY = 12 },
+    { .nX = -21, .nY = 13 },
+    { .nX = -5, .nY = 13 },
+    { .nX = 5, .nY = 13 },
+    { .nX = 41, .nY = 13 },
+    { .nX = -1, .nY = 14 },
+    { .nX = 1, .nY = 14 },
+    { .nX = 21, .nY = 14 },
+    { .nX = -12, .nY = 15 },
+    { .nX = 12, .nY = 15 },
+    { .nX = -39, .nY = 17 },
+    { .nX = -28, .nY = 17 },
+    { .nX = -18, .nY = 17 },
+    { .nX = -8, .nY = 17 },
+    { .nX = 8, .nY = 17 },
+    { .nX = 17, .nY = 18 },
+    { .nX = -4, .nY = 19 },
+    { .nY = 19 },
+    { .nX = 4, .nY = 19 },
+    { .nX = 27, .nY = 19 },
+    { .nX = 38, .nY = 20 },
+    { .nX = -13, .nY = 21 },
+    { .nX = 12, .nY = 22 },
+    { .nX = -36, .nY = 23 },
+    { .nX = -24, .nY = 23 },
+    { .nX = -8, .nY = 24 },
+    { .nX = 7, .nY = 24 },
+    { .nX = -3, .nY = 25 },
+    { .nX = 1, .nY = 25 },
+    { .nX = 22, .nY = 25 },
+    { .nX = 34, .nY = 26 },
+    { .nX = -18, .nY = 28 },
+    { .nX = -32, .nY = 29 },
+    { .nX = 16, .nY = 29 },
+    { .nX = -11, .nY = 31 },
+    { .nX = 9, .nY = 32 },
+    { .nX = 29, .nY = 32 },
+    { .nX = -4, .nY = 33 },
+    { .nX = 2, .nY = 33 },
+    { .nX = -26, .nY = 34 },
+    { .nX = 23, .nY = 36 },
+    { .nX = -19, .nY = 39 },
+    { .nX = 16, .nY = 40 },
+    { .nX = -13, .nY = 41 },
+    { .nX = 9, .nY = 42 },
+    { .nX = -6, .nY = 43 },
+    { .nX = 1, .nY = 43 },
+    {0},
+    {0},
+    {0}
+};
+/* 0x004f38e4, 4 bytes */ GRIM_DATA("004f38e4") unsigned int grim_def_g_dwFob_blk16_configure_old_mod __asm__("_g_dwFob_blk16_configure_old_mod") = 0xffffffff;
+/* 0x004f38e8, 64 bytes */ GRIM_DATA("004f38e8") int grim_def_g_anBlockySplit4Y[16] __asm__("_g_anBlockySplit4Y") = {
+    0, 1, 2, 3, 3, 3, 3, 2,
+    1, 0, 0, 0, 1, 2, 2, 1
+};
+/* 0x004f3928, 64 bytes */ GRIM_DATA("004f3928") int grim_def_g_anBlockySplit4X[16] __asm__("_g_anBlockySplit4X") = {
+    0, 0, 0, 0, 1, 2, 3, 3,
+    3, 3, 2, 1, 1, 1, 2, 2
+};
+/* 0x004f3968, 64 bytes */ GRIM_DATA("004f3968") int grim_def_g_anBlockySplit8Y[16] __asm__("_g_anBlockySplit8Y") = {
+    0, 2, 5, 7, 7, 7, 7, 7,
+    7, 5, 2
+};
+/* 0x004f39a8, 64 bytes */ GRIM_DATA("004f39a8") int grim_def_g_anBlockySplit8X[16] __asm__("_g_anBlockySplit8X") = {
+    0, 0, 0, 0, 1, 3, 4, 6,
+    7, 7, 7, 7, 6, 4, 3, 1
+};
+/* 0x004f39e8, 4 bytes */ GRIM_DATA("004f39e8") int grim_def_g_nBlkLastSeq __asm__("_g_nBlkLastSeq") = -1;
+/* 0x004f39ec, 24 bytes */ GRIM_DATA("004f39ec") char grim_def_s_FLOBDEC_insane_blocky16_004f39ec[24] __asm__("_s_FLOBDEC_insane_blocky16_004f39ec") = "FLOBDEC=insane_blocky16";
+/* 0x004f3a04, 36 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_blocky16_flobde_004f3a04[36] __asm__("_s_LECMODULE_insane_blocky16_flobde_004f3a04") = "LECMODULE=insane_blocky16_flobdec";
+/* 0x004f3a28, 60 bytes */ /* loose */ char grim_def_s_FlobDec_Blocky16_Module__Cannot_a_004f3a28[60] __asm__("_s_FlobDec_Blocky16_Module__Cannot_a_004f3a28") = "FlobDec-Blocky16 Module: Cannot allocate memory services.";
+/* 0x004f3a64, 60 bytes */ /* loose */ char grim_def_s_FlobDec_Blocky16_Module__Cannot_a_004f3a64[60] __asm__("_s_FlobDec_Blocky16_Module__Cannot_a_004f3a64") = "FlobDec-Blocky16 Module: Cannot allocate bitmap services.";
+/* 0x004f3aa0, 16 bytes */ /* loose */ char grim_def_s_BITMAP_clear_004f3aa0[16] __asm__("_s_BITMAP_clear_004f3aa0") = "BITMAP.clear";
+/* 0x004f3ab0, 16 bytes */ /* loose */ char grim_def_s_Blocky16_Tile_004f3ab0[16] __asm__("_s_Blocky16_Tile_004f3ab0") = "Blocky16-Tile";
+/* 0x004f3ac0, 44 bytes */ /* loose */ char grim_def_s_Decompresses_a_block16_tile_vide_004f3ac0[44] __asm__("_s_Decompresses_a_block16_tile_vide_004f3ac0") = "Decompresses a block16-tile video frame.";
+/* 0x004f3aec, 208 bytes */ /* loose */ char grim_def_s_This_module_decompresses_the_blo_004f3aec[208] __asm__("_s_This_module_decompresses_the_blo_004f3aec") = "This module decompresses the block16-tile compressed animations used in Outlaws, Monkey Island III, and Shadows of the Empire PC. Images are deltad, so they must be decompressed sequentially from frame 0.";
+/* 0x004f3bbc, 60 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lecsmush_insane__004f3bbc[60] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f3bbc") = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\flobject\\D_bloc16.c";
+/* 0x008da4f8, 4 bytes */ GRIM_DATA("008da4f8") unsigned char grim_def_g_pBlocky16_memory_services[4] __asm__("_g_pBlocky16_memory_services") = {0};
+/* 0x008da4fc, 4 bytes */ GRIM_DATA("008da4fc") unsigned char grim_def_g_pBlocky16_bitmap_services[4] __asm__("_g_pBlocky16_bitmap_services") = {0};
+/* 0x008da500, 4 bytes */ GRIM_DATA("008da500") unsigned char grim_def_g_pBlocky16_share_services[4] __asm__("_g_pBlocky16_share_services") = {0};
+/* 0x008da504, 4 bytes */ GRIM_DATA("008da504") unsigned int grim_def_g_dwBlocky16_share_config __asm__("_g_dwBlocky16_share_config") = 0x0;
+/* 0x008da508, 4 bytes */ GRIM_DATA("008da508") unsigned char grim_def_g_pFob_blit_routine[4] __asm__("_g_pFob_blit_routine") = {0};
+/* 0x008da50c, 4 bytes */ GRIM_DATA("008da50c") unsigned char grim_def_g_pFob_blk16_render_buffer[4] __asm__("_g_pFob_blk16_render_buffer") = {0};
+/* 0x008da510, 4 bytes */ GRIM_DATA("008da510") unsigned char grim_def_g_pbBlkExpand[4] __asm__("_g_pbBlkExpand") = {0};
+/* 0x008da514, 4 bytes */ GRIM_DATA("008da514") int grim_def_g_nFob_translation_shiftr __asm__("_g_nFob_translation_shiftr") = 0;
+/* 0x008da518, 4 bytes */ GRIM_DATA("008da518") int grim_def_g_nFob_translation_shiftg __asm__("_g_nFob_translation_shiftg") = 0;
+/* 0x008da51c, 4 bytes */ GRIM_DATA("008da51c") int grim_def_g_nFob_translation_shiftb __asm__("_g_nFob_translation_shiftb") = 0;
+/* 0x008da520, 8 bytes */ GRIM_DATA("008da520") int grim_def_g_nGlobal_bm_type __asm__("_g_nGlobal_bm_type") = 0;
+/* 0x008da524, 4 bytes: the rest of grim_def_g_nGlobal_bm_type's span */ GRIM_DATA("008da520") static unsigned char g_nGlobal_bm_type__tail[4] __attribute__((used)) = {0};
+/* 0x008da528, 4 bytes */ GRIM_DATA("008da528") unsigned char grim_def_g_pBlkBitmap0[4] __asm__("_g_pBlkBitmap0") = {0};
+/* 0x008da52c, 4 bytes */ GRIM_DATA("008da52c") unsigned char grim_def_g_pBlkBitmap1[4] __asm__("_g_pBlkBitmap1") = {0};
+/* 0x008da530, 4 bytes */ GRIM_DATA("008da530") unsigned char grim_def_g_pBlkBitmap2[4] __asm__("_g_pBlkBitmap2") = {0};
+/* 0x008da534, 4 bytes */ GRIM_DATA("008da534") int grim_def_g_nFob_buffersize __asm__("_g_nFob_buffersize") = 0;
+/* 0x008da538, 8 bytes */ GRIM_DATA("008da538") unsigned char grim_def_g_pbBlkOutput[8] __asm__("_g_pbBlkOutput") = {0};
+/* 0x00906c48, 4 bytes */ GRIM_DATA("00906c48") unsigned int grim_def_g_stBlockyDecState __asm__("_g_stBlockyDecState") = 0x0;
+/* 0x00906c4c, 4 bytes */ GRIM_DATA("00906c4c") unsigned int grim_def_UINT_00906c4c __asm__("_UINT_00906c4c") = 0x0;
+/* 0x00906c50, 4 bytes */ GRIM_DATA("00906c50") unsigned char grim_def_DAT_00906c50[4] __asm__("_DAT_00906c50") = {0};
+/* 0x00906c54, 4 bytes */ GRIM_DATA("00906c54") unsigned int grim_def_UINT_00906c54 __asm__("_UINT_00906c54") = 0x0;
+/* 0x00906c58, 4 bytes */ GRIM_DATA("00906c58") unsigned char grim_def_DAT_00906c58[4] __asm__("_DAT_00906c58") = {0};
+/* 0x00906c5c, 1 bytes */ GRIM_DATA("00906c5c") unsigned char grim_def_DAT_00906c5c __asm__("_DAT_00906c5c") = 0x0;
+/* 0x00906c5d, 3 bytes */ GRIM_DATA("00906c5c") unsigned char grim_def_DAT_00906c5d[3] __asm__("_DAT_00906c5d") = {0};
+/* 0x00906c60, 4 bytes */ GRIM_DATA("00906c60") int grim_def_INT_00906c60 __asm__("_INT_00906c60") = 0;
+/* 0x00906c64, 4 bytes */ GRIM_DATA("00906c64") unsigned char grim_def_DAT_00906c64[4] __asm__("_DAT_00906c64") = {0};
+/* 0x00906c68, 4 bytes */ GRIM_DATA("00906c68") unsigned int grim_def_UINT_00906c68 __asm__("_UINT_00906c68") = 0x0;
+/* 0x00906c6c, 4 bytes */ GRIM_DATA("00906c6c") unsigned int grim_def_UINT_00906c6c __asm__("_UINT_00906c6c") = 0x0;
+/* 0x00906c70, 4 bytes */ GRIM_DATA("00906c70") unsigned char grim_def_DAT_00906c70[4] __asm__("_DAT_00906c70") = {0};
+/* 0x00906c74, 12 bytes */ GRIM_DATA("00906c74") unsigned char grim_def_g_pFob_blk16_key_buffer[12] __asm__("_g_pFob_blk16_key_buffer") = {0};
+/* 0x00906c80, 256 bytes */ GRIM_DATA("00906c80") unsigned char grim_def_g_aBlockySplit8[256] __asm__("_g_aBlockySplit8") = {0};
+/* 0x00906d80, 64 bytes */ GRIM_DATA("00906d80") unsigned char grim_def_DAT_00906d80[64] __asm__("_DAT_00906d80") = {0};
+/* 0x00906dc0, 64 bytes */ GRIM_DATA("00906dc0") unsigned char grim_def_DAT_00906dc0[64] __asm__("_DAT_00906dc0") = {0};
+/* 0x00906e00, 1 bytes */ GRIM_DATA("00906e00") unsigned char grim_def_DAT_00906e00 __asm__("_DAT_00906e00") = 0x0;
+/* 0x00906e01, 98943 bytes */ GRIM_DATA("00906e00") unsigned char grim_def_DAT_00906e01[98943] __asm__("_DAT_00906e01") = {0};
+/* 0x0091f080, 32 bytes */ GRIM_DATA("0091f080") unsigned char grim_def_g_pFob_blk16_delta_buffer[32] __asm__("_g_pFob_blk16_delta_buffer") = {0};
+/* 0x0091f0a0, 64 bytes */ GRIM_DATA("0091f0a0") unsigned char grim_def_g_aBlockySplit4[64] __asm__("_g_aBlockySplit4") = {0};
+/* 0x0091f0e0, 16 bytes */ GRIM_DATA("0091f0e0") unsigned char grim_def_DAT_0091f0e0[16] __asm__("_DAT_0091f0e0") = {0};
+/* 0x0091f0f0, 16 bytes */ GRIM_DATA("0091f0f0") unsigned char grim_def_DAT_0091f0f0[16] __asm__("_DAT_0091f0f0") = {0};
+/* 0x0091f100, 1 bytes */ GRIM_DATA("0091f100") unsigned char grim_def_DAT_0091f100 __asm__("_DAT_0091f100") = 0x0;
+/* 0x0091f101, 255 bytes */ GRIM_DATA("0091f100") unsigned char grim_def_DAT_0091f101[255] __asm__("_DAT_0091f101") = {0};
+/* 0x0091f200, 1 bytes */ GRIM_DATA("0091f200") unsigned char grim_def_DAT_0091f200[1] __asm__("_DAT_0091f200") = {0};
+/* 0x0091f201, 32415 bytes */ GRIM_DATA("0091f200") unsigned char grim_def_DAT_0091f201[32415] __asm__("_DAT_0091f201") = {0};
+/* 0x009270a0, 96 bytes */ GRIM_DATA("009270a0") short grim_def_g_asBlockyMotion __asm__("_g_asBlockyMotion") = 0;
+/* 0x009270a2, 94 bytes: the rest of grim_def_g_asBlockyMotion's span */ GRIM_DATA("009270a0") static unsigned char g_asBlockyMotion__tail[94] __attribute__((used)) = {0};
+/* 0x00927100, 1 bytes */ GRIM_DATA("00927100") unsigned char grim_def_DAT_00927100[1] __asm__("_DAT_00927100") = {0};
+/* 0x00927101, 415 bytes */ GRIM_DATA("00927100") unsigned char grim_def_DAT_00927101[415] __asm__("_DAT_00927101") = {0};
