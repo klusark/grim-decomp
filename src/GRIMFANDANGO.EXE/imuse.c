@@ -13,8 +13,8 @@ void __cdecl IMuse_SaveToTemp(void)
 {
   UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,s_wb_004ddd78);
   if ((void *)UINT_008a8770 != (void *)0x0) {
-    if (g_pfnIMuseSaveHook != (void *)0x0) {
-      (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
+    if (g_aBaseModuleServices[1].pfnSave != (code *)0x0) {
+      (*g_aBaseModuleServices[1].pfnSave)(SaveGame_Write);
     }
     gzclose(UINT_008a8770);
   }
@@ -30,9 +30,9 @@ void __cdecl IMuse_RestoreFromTemp(void)
 {
   UINT_008a8770 = (uint)SaveFile_Open(s_grim_tmp_004e8018,s_rb_004ddb18);
   if ((void *)UINT_008a8770 != (void *)0x0) {
-    if (g_pfnIMuseRestoreHook != (void *)0x0) {
+    if (g_aBaseModuleServices[1].pfnRestore != (code *)0x0) {
       ImStopAllSounds();
-      (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
+      (*g_aBaseModuleServices[1].pfnRestore)(SaveGame_Read);
     }
     gzclose(UINT_008a8770);
     DeleteFileA(((unsigned)(uintptr_t)&s_grim_tmp_004e8018));

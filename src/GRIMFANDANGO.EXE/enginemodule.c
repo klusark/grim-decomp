@@ -26,12 +26,12 @@ undefined * __cdecl grimlib_GameInitialize(GrimServices *services,undefined **if
   iface[6] = (undefined *)0x0;
   iface[7] = (undefined *)0x0;
   puVar1 = (undefined *)
-           Engine_RegisterSubsystems((uint)services,&PTR_FileUtil_SysInitialize_004e7dc0,((unsigned)(uintptr_t)&DAT_008a85f0),8)
+           Engine_RegisterSubsystems((uint)services,&PTR_FileUtil_SysInitialize_004e7dc0,((unsigned)(uintptr_t)&g_aGrimlib_Filenames),8)
   ;
   if (puVar1 == (undefined *)0x0) {
     puVar1 = (undefined *)
              Engine_RegisterSubsystems
-                       ((uint)services,&PTR_sputControl_Initialize_004e7e00,((unsigned)(uintptr_t)&DAT_008a8778),6);
+                       ((uint)services,&PTR_sputControl_Initialize_004e7e00,((unsigned)(uintptr_t)&g_aBaseModuleServices),6);
   }
   g_dwSputmInitialize = (uint)(puVar1 == (undefined *)0x0);
   return puVar1;
@@ -53,8 +53,8 @@ undefined * grimlib_GameTerminate(void)
   g_pSputmHS = (GrimServices *)0x0;
   puVar1 = (undefined *)0x0;
   if (g_dwSputmInitialize != 0) {
-    Engine_ResetSubsystems(((unsigned)(uintptr_t)&DAT_008a8778),6);
-    puVar1 = (undefined *)Engine_ResetSubsystems(((unsigned)(uintptr_t)&DAT_008a85f0),8);
+    Engine_ResetSubsystems(((unsigned)(uintptr_t)&g_aBaseModuleServices),6);
+    puVar1 = (undefined *)Engine_ResetSubsystems(((unsigned)(uintptr_t)&g_aGrimlib_Filenames),8);
     g_dwSputmInitialize = 0;
   }
   return puVar1;
@@ -75,7 +75,7 @@ int __cdecl grimlib_GameStartup(void)
   if (g_dwSputmStartup != 0) {
     return 1;
   }
-  uVar1 = Engine_InitSubsystems(((unsigned)(uintptr_t)&DAT_008a85f0),8);
+  uVar1 = Engine_InitSubsystems(((unsigned)(uintptr_t)&g_aGrimlib_Filenames),8);
   if (uVar1 == 0) {
     uVar1 = DSound_Init();
     if (uVar1 == 0) {
@@ -97,7 +97,7 @@ int __cdecl grimlib_GameStartup(void)
     }
     sputResource_SetMemoryUsage(uVar1,0);
     Sounds_PlatformDevice((int)g_pDirectSound);
-    uVar1 = Engine_InitSubsystems(((unsigned)(uintptr_t)&DAT_008a8778),6);
+    uVar1 = Engine_InitSubsystems(((unsigned)(uintptr_t)&g_aBaseModuleServices),6);
   }
   g_dwSputmStartup = (uint)(uVar1 == 0);
   return uVar1;
@@ -115,9 +115,9 @@ undefined * grimlib_GameShutdown(void)
 {
   undefined *puVar1;
   
-  Engine_ShutdownSubsystems(((unsigned)(uintptr_t)&DAT_008a8778),6);
+  Engine_ShutdownSubsystems(((unsigned)(uintptr_t)&g_aBaseModuleServices),6);
   DSound_Shutdown();
-  puVar1 = (undefined *)Engine_ShutdownSubsystems(((unsigned)(uintptr_t)&DAT_008a85f0),8);
+  puVar1 = (undefined *)Engine_ShutdownSubsystems(((unsigned)(uintptr_t)&g_aGrimlib_Filenames),8);
   g_dwSputmStartup = 0;
   return puVar1;
 }
@@ -141,8 +141,6 @@ extern char f_sputRoom_Initialize[] __asm__("_sputRoom_Initialize");
 extern char f_sputSmush_Initialize[] __asm__("_sputSmush_Initialize");
 extern char f_sputText_Initialize[] __asm__("_sputText_Initialize");
 extern char f_sputTime_Initialize[] __asm__("_sputTime_Initialize");
-extern unsigned char grim_def_DAT_008a85f0[80] __asm__("_DAT_008a85f0");
-extern unsigned char grim_def_DAT_008a8778[48] __asm__("_DAT_008a8778");
 extern void *grim_def_PTR_FileUtil_SysInitialize_004e7dc0[16] __asm__("_PTR_FileUtil_SysInitialize_004e7dc0");
 extern void *grim_def_PTR_sputControl_Initialize_004e7e00[12] __asm__("_PTR_sputControl_Initialize_004e7e00");
 extern unsigned int grim_def_g_dwSputmInitialize __asm__("_g_dwSputmInitialize");
@@ -172,7 +170,5 @@ extern char grim_def_s_sputTime_Initialize_004e7f1c[] __asm__("_s_sputTime_Initi
     (void *)f_sputRender_Initialize, (void *)&grim_def_s_sputRender_Initialize_004e7e7c, (void *)f_sputText_Initialize, (void *)&grim_def_s_sputText_Initialize_004e7e68,
     (void *)f_sputPrimitive_Initialize, (void *)&grim_def_s_sputPrimitive_Initialize_004e7e4c, (void *)f_sputSmush_Initialize, (void *)&grim_def_s_sputSmush_Initialize_004e7e34
 };
-/* 0x008a85f0, 80 bytes */ GRIM_DATA("008a85f0") unsigned char grim_def_DAT_008a85f0[80] __asm__("_DAT_008a85f0") = {0};
-/* 0x008a8778, 48 bytes */ GRIM_DATA("008a8778") unsigned char grim_def_DAT_008a8778[48] __asm__("_DAT_008a8778") = {0};
-/* 0x008a8c58, 4 bytes */ GRIM_DATA("008a8c58") unsigned int grim_def_g_dwSputmInitialize __asm__("_g_dwSputmInitialize") = 0x0;
-/* 0x008a8c5c, 4 bytes */ GRIM_DATA("008a8c5c") unsigned int grim_def_g_dwSputmStartup __asm__("_g_dwSputmStartup") = 0x0;
+/* 0x008a8c58, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputmInitialize __asm__("_g_dwSputmInitialize") = 0x0;
+/* 0x008a8c5c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputmStartup __asm__("_g_dwSputmStartup") = 0x0;

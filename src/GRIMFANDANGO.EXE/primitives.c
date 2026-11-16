@@ -13,7 +13,7 @@ void __cdecl sputPrimitive_Update(uint layerMask)
 
 {
   if (g_nSputPrimitive_Paused == 0) {
-    PrimitiveQueue_draw(&g_dwPrimitiveQ,g_pRdCamera_CurCamera->pCanvas,layerMask);
+    PrimitiveQueue_draw(g_dwPrimitiveQ,g_pRdCamera_CurCamera->pCanvas,layerMask);
   }
   return;
 }
@@ -26,7 +26,7 @@ void __cdecl sputPrimitive_Update(uint layerMask)
 void __cdecl sputPrimitive_Pause(void)
 
 {
-  PrimitiveQueue_markAllDirty(&g_dwPrimitiveQ,3);
+  PrimitiveQueue_markAllDirty(g_dwPrimitiveQ,3);
   g_nSputPrimitive_Paused = 1;
   return;
 }
@@ -457,4 +457,4 @@ void __cdecl PrimitiveQueue_resetId(void)
 #define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
 #endif
 extern int grim_def_g_nSputPrimitive_Paused __asm__("_g_nSputPrimitive_Paused");
-/* 0x008ca0b4, 4 bytes */ GRIM_DATA("008ca0b4") int grim_def_g_nSputPrimitive_Paused __asm__("_g_nSputPrimitive_Paused") = 0;
+/* 0x008ca0b4, 4 bytes */ /* loose */ int grim_def_g_nSputPrimitive_Paused __asm__("_g_nSputPrimitive_Paused") = 0;

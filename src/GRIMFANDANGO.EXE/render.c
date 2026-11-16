@@ -339,19 +339,19 @@ void __cdecl Render_SetPixelFormat(uint *format)
   int iVar1;
   uint *puVar2;
   
-  puVar2 = &g_dwRenderVars;
+  puVar2 = g_dwRenderVars;
   for (iVar1 = 7; iVar1 != 0; iVar1 = iVar1 + -1) {
     *puVar2 = *format;
     format = format + 1;
     puVar2 = puVar2 + 1;
   }
-  rdSetGeometryMode(g_dwRenderVars);
-  rdSetLightingMode(UINT_008a9514);
-  rdSetTextureMode(UINT_008a9518);
-  rdSetRenderOptions(UINT_008a951c);
-  rdSetSortingMethod(UINT_008a9520);
-  rdSetOcclusionMethod(UINT_008a9524);
-  rdSetZBufferMethod(UINT_008a9528);
+  rdSetGeometryMode(g_dwRenderVars[0]);
+  rdSetLightingMode(g_dwRenderVars[1]);
+  rdSetTextureMode(g_dwRenderVars[2]);
+  rdSetRenderOptions(g_dwRenderVars[3]);
+  rdSetSortingMethod(g_dwRenderVars[4]);
+  rdSetOcclusionMethod(g_dwRenderVars[5]);
+  rdSetZBufferMethod(g_dwRenderVars[6]);
   return;
 }
 
@@ -713,7 +713,7 @@ void __cdecl Render_BuildActorDrawList(void)
   pRVar2 = pSVar3->pRoomActors->pActors;
   do {
     if (pRVar2 == (RoomActorNode *)0x0) {
-      qsort(&g_dwDrawItems,g_dwTotDrawItems,4,Render_CompareDrawDepth);
+      qsort(g_dwDrawItems,g_dwTotDrawItems,4,Render_CompareDrawDepth);
       return;
     }
     pAVar1 = g_pActors + pRVar2->nActor;
@@ -1744,10 +1744,12 @@ extern float grim_def_g_flSputRender_GammaCorrection __asm__("_g_flSputRender_Ga
 extern unsigned char grim_def_g_pSputRender_PageFlipFunc[4] __asm__("_g_pSputRender_PageFlipFunc");
 extern char grim_def_s__percent____0_0f______percent____004e80ec[40] __asm__("_s__percent____0_0f______percent____004e80ec");
 extern char grim_def_s_wait_bm_004e812c[12] __asm__("_s_wait_bm_004e812c");
-/* 0x004e8070, 4 bytes */ GRIM_DATA("004e8070") float grim_def_g_flSputRender_GammaCorrection __asm__("_g_flSputRender_GammaCorrection") = 1.0f;
-/* 0x004e807c, 4 bytes */ GRIM_DATA("004e807c") float grim_def_g_flAmbientLight __asm__("_g_flAmbientLight") = 0.2f;
-/* 0x004e8088, 4 bytes */ GRIM_DATA("004e8088") unsigned int grim_def_g_dwLoadImageAllowed __asm__("_g_dwLoadImageAllowed") = 0x1;
-/* 0x004e808c, 4 bytes */ GRIM_DATA("004e808c") unsigned int grim_def_UINT_004e808c __asm__("_UINT_004e808c") = 0x1;
+static unsigned char grim_anchor_004e8070[0] __attribute__((section(".data$grim_004e8070"), aligned(16), used));
+static unsigned char grim_pad_004e8070[0] __attribute__((section(".data$grim_004e8070_"), aligned(4), used));
+/* 0x004e8070, 4 bytes */ GRIM_DATA("004e8070z") float grim_def_g_flSputRender_GammaCorrection __asm__("_g_flSputRender_GammaCorrection") = 1.0f;
+/* 0x004e807c, 4 bytes */ /* loose */ float grim_def_g_flAmbientLight __asm__("_g_flAmbientLight") = 0.2f;
+/* 0x004e8088, 4 bytes */ /* loose */ unsigned int grim_def_g_dwLoadImageAllowed __asm__("_g_dwLoadImageAllowed") = 0x1;
+/* 0x004e808c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004e808c __asm__("_UINT_004e808c") = 0x1;
 /* 0x004e80ec, 40 bytes */ /* loose */ char grim_def_s__percent____0_0f______percent____004e80ec[40] __asm__("_s__percent____0_0f______percent____004e80ec") = "(percent >= 0.0f) && (percent <= 1.0f)";
 /* 0x004e812c, 12 bytes */ /* loose */ char grim_def_s_wait_bm_004e812c[12] __asm__("_s_wait_bm_004e812c") = "wait.bm";
 /* 0x008a92ac, 4 bytes */ GRIM_DATA("008a92ac") unsigned char grim_def_DAT_008a92ac[4] __asm__("_DAT_008a92ac") = {0};

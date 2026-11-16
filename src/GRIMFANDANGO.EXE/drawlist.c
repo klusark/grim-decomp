@@ -9,17 +9,17 @@
 void __cdecl DrawList_Reset(void)
 
 {
-  undefined *puVar1;
-  uint *puVar2;
+  byte *pbVar1;
+  void **ppvVar2;
   
   g_dwTotDrawItems = 0;
-  puVar2 = &g_dwDrawItems;
-  puVar1 = &DAT_008a8ca8;
+  ppvVar2 = g_dwDrawItems;
+  pbVar1 = g_abDrawItemPool;
   do {
-    *puVar2 = (uint)puVar1;
-    puVar1 = puVar1 + 0xc;
-    puVar2 = puVar2 + 1;
-  } while ((int)puVar1 < ((unsigned)(uintptr_t)&DAT_008a92a8));
+    *ppvVar2 = pbVar1;
+    pbVar1 = pbVar1 + 0xc;
+    ppvVar2 = ppvVar2 + 1;
+  } while ((int)pbVar1 < ((unsigned)(uintptr_t)&DAT_008a92a8));
   return;
 }
 
@@ -34,7 +34,7 @@ undefined * __cdecl DrawList_Alloc(void)
   uVar1 = g_dwTotDrawItems;
   if ((int)g_dwTotDrawItems < 0x80) {
     g_dwTotDrawItems = g_dwTotDrawItems + 1;
-    return &DAT_008a8ca8 + uVar1 * 0xc;
+    return g_abDrawItemPool + uVar1 * 0xc;
   }
   return (undefined *)0x0;
 }
@@ -57,5 +57,5 @@ uint __cdecl Render_CompareDrawDepth(int *a,int *b)
 #ifndef GRIM_DATA
 #define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
 #endif
-extern unsigned char grim_def_DAT_008a8ca8[1536] __asm__("_DAT_008a8ca8");
-/* 0x008a8ca8, 1536 bytes */ GRIM_DATA("008a8ca8") unsigned char grim_def_DAT_008a8ca8[1536] __asm__("_DAT_008a8ca8") = {0};
+extern unsigned char grim_def_g_abDrawItemPool[1536] __asm__("_g_abDrawItemPool");
+/* 0x008a8ca8, 1536 bytes */ GRIM_DATA("008a8ca8") unsigned char grim_def_g_abDrawItemPool[1536] __asm__("_g_abDrawItemPool") = {0};

@@ -737,21 +737,21 @@ void __cdecl Engine_SaveGame(void)
     Render_DrawProgressBar(0.2f);
     Cos_Save(SaveGame_Write);
     Render_DrawProgressBar(0.3f);
-    (*(code *)UINT_008a86e0)(SaveGame_Write);
+    (*g_aGrimlib_Filenames[7].pfnSave)(SaveGame_Write);
     Render_DrawProgressBar(0.4f);
-    (*(code *)UINT_008a87e8)(SaveGame_Write);
-    (*(code *)UINT_008a8640)(SaveGame_Write);
+    (*g_aBaseModuleServices[3].pfnSave)(SaveGame_Write);
+    (*g_aGrimlib_Filenames[2].pfnSave)(SaveGame_Write);
     Render_DrawProgressBar(0.5f);
-    (*(code *)UINT_008a86c0)(SaveGame_Write);
-    (*(code *)UINT_008a87c8)(SaveGame_Write);
-    (*(code *)UINT_008a8808)(SaveGame_Write);
-    (*(code *)UINT_008a8828)(SaveGame_Write);
+    (*g_aGrimlib_Filenames[6].pfnSave)(SaveGame_Write);
+    (*g_aBaseModuleServices[2].pfnSave)(SaveGame_Write);
+    (*g_aBaseModuleServices[4].pfnSave)(SaveGame_Write);
+    (*g_aBaseModuleServices[5].pfnSave)(SaveGame_Write);
     SaveGame_Write(&g_dwGrimlib_prevmode,4);
     Render_DrawProgressBar(0.75f);
     lua_Save((int *)SaveGame_Write);
     Render_DrawProgressBar(1.0f);
-    if (g_pfnIMuseSaveHook != (void *)0x0) {
-      (*(code *)g_pfnIMuseSaveHook)(SaveGame_Write);
+    if (g_aBaseModuleServices[1].pfnSave != (code *)0x0) {
+      (*g_aBaseModuleServices[1].pfnSave)(SaveGame_Write);
     }
     gzclose(UINT_008a8770);
     sputRender_AllowLoadImage(1);
@@ -797,21 +797,21 @@ void __cdecl Engine_LoadGame(void)
     Render_DrawProgressBar(0.2f);
     Cos_Restore(SaveGame_Read);
     Render_DrawProgressBar(0.3f);
-    (*(code *)UINT_008a86e4)(SaveGame_Read);
-    (*(code *)UINT_008a87ec)(SaveGame_Read);
+    (*g_aGrimlib_Filenames[7].pfnRestore)(SaveGame_Read);
+    (*g_aBaseModuleServices[3].pfnRestore)(SaveGame_Read);
     Render_DrawProgressBar(0.4f);
-    (*(code *)UINT_008a8644)(SaveGame_Read);
-    (*(code *)UINT_008a86c4)(SaveGame_Read);
-    (*(code *)UINT_008a87cc)(SaveGame_Read);
-    (*(code *)UINT_008a880c)(SaveGame_Read);
-    (*(code *)UINT_008a882c)(SaveGame_Read);
+    (*g_aGrimlib_Filenames[2].pfnRestore)(SaveGame_Read);
+    (*g_aGrimlib_Filenames[6].pfnRestore)(SaveGame_Read);
+    (*g_aBaseModuleServices[2].pfnRestore)(SaveGame_Read);
+    (*g_aBaseModuleServices[4].pfnRestore)(SaveGame_Read);
+    (*g_aBaseModuleServices[5].pfnRestore)(SaveGame_Read);
     g_dwGrimlib_mode = 4;
     SaveGame_Read(&g_dwGrimlib_prevmode,4);
     Render_DrawProgressBar(0.75f);
     lua_Restore(SaveGame_Read);
     Render_DrawProgressBar(1.0f);
-    if (g_pfnIMuseRestoreHook != (void *)0x0) {
-      (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
+    if (g_aBaseModuleServices[1].pfnRestore != (code *)0x0) {
+      (*g_aBaseModuleServices[1].pfnRestore)(SaveGame_Read);
     }
     Resource_SetNoPurge(0);
     set = sputRoom_GetCurrentRoom();
@@ -904,7 +904,7 @@ void __cdecl sputRender_Update(void)
   float *pfVar9;
   Setup *pSVar10;
   int iVar11;
-  uint *puVar12;
+  void **ppvVar12;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   uint local_10;
   #define fStack_c (*(float *)(_frame + (0x30 - 0xc)))
@@ -990,13 +990,13 @@ void __cdecl sputRender_Update(void)
         PerfBegin(5);
         iVar11 = 0;
         if (0 < (int)g_dwTotDrawItems) {
-          puVar12 = &g_dwDrawItems;
+          ppvVar12 = g_dwDrawItems;
           do {
-            if (*(char *)*puVar12 == '\0') {
-              sputCostume_Draw2D((g_pActors[*(int *)((char *)*puVar12 + 8)].pCostumes)->dwInstance);
+            if (*(char *)*ppvVar12 == '\0') {
+              sputCostume_Draw2D((g_pActors[*(int *)((int)*ppvVar12 + 8)].pCostumes)->dwInstance);
             }
             iVar11 = iVar11 + 1;
-            puVar12 = puVar12 + 1;
+            ppvVar12 = ppvVar12 + 1;
           } while (iVar11 < (int)g_dwTotDrawItems);
         }
         PerfEnd(5);
@@ -1013,18 +1013,18 @@ void __cdecl sputRender_Update(void)
         }
         PerfBegin(6);
         if (iVar11 != 0) {
-          puVar12 = &g_dwDrawItems + iVar11 + -1;
+          ppvVar12 = g_dwDrawItems + iVar11 + -1;
           do {
-            actor = g_pActors + *(int *)(*puVar12 + 8);
-            if (g_pActors[*(int *)(*puVar12 + 8)].flScale != 1.0f) {
+            actor = g_pActors + *(int *)((int)*ppvVar12 + 8);
+            if (g_pActors[*(int *)((int)*ppvVar12 + 8)].flScale != 1.0f) {
               fStack_8 = actor->flScale;
               pfVar9 = &fStack_c;
               fStack_4 = actor->flScale;
-              fStack_c = g_pActors[*(int *)(*puVar12 + 8)].flScale;
+              fStack_c = g_pActors[*(int *)((int)*ppvVar12 + 8)].flScale;
               pfVar8 = sputActor_GetOrientMatrix(actor);
               rdMatrix_PreScale34(pfVar8,(uint)pfVar9);
             }
-            if (*(char *)*puVar12 == '\0') {
+            if (*(char *)*ppvVar12 == '\0') {
               piVar2 = actor->pColormapRef;
               iVar3 = *piVar2;
               if (iVar3 == 0) {
@@ -1063,7 +1063,7 @@ void __cdecl sputRender_Update(void)
                 Actor_DrawDebugWalker(actor);
               }
             }
-            else if (*(char *)*puVar12 == '\x01') {
+            else if (*(char *)*ppvVar12 == '\x01') {
               if (g_nSputRender_b3DAcceleration == 0) {
                 stdDisplay_VBufferLock((VBuffer *)&g_dwStdDisplay_backBuffer);
               }
@@ -1082,7 +1082,7 @@ void __cdecl sputRender_Update(void)
               rdMatrix_PreScale34(pfVar8,(uint)pfVar9);
             }
             iVar11 = iVar11 + -1;
-            puVar12 = puVar12 + -1;
+            ppvVar12 = ppvVar12 + -1;
             pSVar10 = PUN(Setup *,(float)local_1c[0]);
           } while (iVar11 != 0);
         }
@@ -1208,20 +1208,6 @@ void __cdecl sputControl_Update(undefined4 dt,undefined4 reserved)
 #endif
 extern unsigned char grim_def_DAT_004e7b48[8] __asm__("_DAT_004e7b48");
 extern unsigned char grim_def_DAT_004e7da0[32] __asm__("_DAT_004e7da0");
-extern unsigned int grim_def_UINT_008a8640 __asm__("_UINT_008a8640");
-extern unsigned char grim_def_UINT_008a8644[124] __asm__("_UINT_008a8644");
-extern unsigned int grim_def_UINT_008a86c0 __asm__("_UINT_008a86c0");
-extern unsigned char grim_def_UINT_008a86c4[28] __asm__("_UINT_008a86c4");
-extern unsigned int grim_def_UINT_008a86e0 __asm__("_UINT_008a86e0");
-extern unsigned char grim_def_UINT_008a86e4[12] __asm__("_UINT_008a86e4");
-extern unsigned int grim_def_UINT_008a87c8 __asm__("_UINT_008a87c8");
-extern unsigned char grim_def_UINT_008a87cc[28] __asm__("_UINT_008a87cc");
-extern unsigned int grim_def_UINT_008a87e8 __asm__("_UINT_008a87e8");
-extern unsigned char grim_def_UINT_008a87ec[28] __asm__("_UINT_008a87ec");
-extern unsigned int grim_def_UINT_008a8808 __asm__("_UINT_008a8808");
-extern unsigned char grim_def_UINT_008a880c[28] __asm__("_UINT_008a880c");
-extern unsigned int grim_def_UINT_008a8828 __asm__("_UINT_008a8828");
-extern unsigned char grim_def_UINT_008a882c[1040] __asm__("_UINT_008a882c");
 extern unsigned int grim_def_UINT_008a8c44 __asm__("_UINT_008a8c44");
 extern unsigned char grim_def_UINT_008a8c60[16] __asm__("_UINT_008a8c60");
 extern unsigned int grim_def_UINT_008a8c7c __asm__("_UINT_008a8c7c");
@@ -1254,34 +1240,22 @@ extern char grim_def_s_slot____1____slot___PerfTotalEnt_004e7f74[40] __asm__("_s
 /* 0x004e7f74, 40 bytes */ /* loose */ char grim_def_s_slot____1____slot___PerfTotalEnt_004e7f74[40] __asm__("_s_slot____1____slot___PerfTotalEnt_004e7f74") = "slot > -1 && slot < PerfTotalEntries";
 /* 0x004e7fc8, 12 bytes */ /* loose */ char grim_def_s_grim_sav_004e7fc8[12] __asm__("_s_grim_sav_004e7fc8") = "grim.sav";
 /* 0x004e7fe8, 12 bytes */ /* loose */ char grim_def_s_patch05_bin_004e7fe8[12] __asm__("_s_patch05_bin_004e7fe8") = "patch05.bin";
-/* 0x004e8084, 4 bytes */ GRIM_DATA("004e8084") int grim_def_g_nSputRender_Update_RenderSetup __asm__("_g_nSputRender_Update_RenderSetup") = -1;
-/* 0x008a8640, 4 bytes */ GRIM_DATA("008a8640") unsigned int grim_def_UINT_008a8640 __asm__("_UINT_008a8640") = 0x0;
-/* 0x008a8644, 124 bytes */ GRIM_DATA("008a8644") unsigned char grim_def_UINT_008a8644[124] __asm__("_UINT_008a8644") = {0};
-/* 0x008a86c0, 4 bytes */ GRIM_DATA("008a86c0") unsigned int grim_def_UINT_008a86c0 __asm__("_UINT_008a86c0") = 0x0;
-/* 0x008a86c4, 28 bytes */ GRIM_DATA("008a86c4") unsigned char grim_def_UINT_008a86c4[28] __asm__("_UINT_008a86c4") = {0};
-/* 0x008a86e0, 4 bytes */ GRIM_DATA("008a86e0") unsigned int grim_def_UINT_008a86e0 __asm__("_UINT_008a86e0") = 0x0;
-/* 0x008a86e4, 12 bytes */ GRIM_DATA("008a86e4") unsigned char grim_def_UINT_008a86e4[12] __asm__("_UINT_008a86e4") = {0};
-/* 0x008a87c8, 4 bytes */ GRIM_DATA("008a87c8") unsigned int grim_def_UINT_008a87c8 __asm__("_UINT_008a87c8") = 0x0;
-/* 0x008a87cc, 28 bytes */ GRIM_DATA("008a87cc") unsigned char grim_def_UINT_008a87cc[28] __asm__("_UINT_008a87cc") = {0};
-/* 0x008a87e8, 4 bytes */ GRIM_DATA("008a87e8") unsigned int grim_def_UINT_008a87e8 __asm__("_UINT_008a87e8") = 0x0;
-/* 0x008a87ec, 28 bytes */ GRIM_DATA("008a87ec") unsigned char grim_def_UINT_008a87ec[28] __asm__("_UINT_008a87ec") = {0};
-/* 0x008a8808, 4 bytes */ GRIM_DATA("008a8808") unsigned int grim_def_UINT_008a8808 __asm__("_UINT_008a8808") = 0x0;
-/* 0x008a880c, 28 bytes */ GRIM_DATA("008a880c") unsigned char grim_def_UINT_008a880c[28] __asm__("_UINT_008a880c") = {0};
-/* 0x008a8828, 4 bytes */ GRIM_DATA("008a8828") unsigned int grim_def_UINT_008a8828 __asm__("_UINT_008a8828") = 0x0;
-/* 0x008a882c, 1040 bytes */ GRIM_DATA("008a882c") unsigned char grim_def_UINT_008a882c[1040] __asm__("_UINT_008a882c") = {0};
-/* 0x008a8c3c, 4 bytes */ GRIM_DATA("008a8c3c") unsigned int grim_def_g_dwGrimlib_frameNumber __asm__("_g_dwGrimlib_frameNumber") = 0x0;
-/* 0x008a8c44, 4 bytes */ GRIM_DATA("008a8c44") unsigned int grim_def_UINT_008a8c44 __asm__("_UINT_008a8c44") = 0x0;
-/* 0x008a8c48, 12 bytes */ GRIM_DATA("008a8c48") unsigned int grim_def_g_dwGrimlib_prevmode __asm__("_g_dwGrimlib_prevmode") = 0x0;
-/* 0x008a8c4c, 8 bytes: the rest of grim_def_g_dwGrimlib_prevmode's span */ GRIM_DATA("008a8c48") static unsigned char g_dwGrimlib_prevmode__tail[8] __attribute__((used)) = {0};
-/* 0x008a8c60, 16 bytes */ GRIM_DATA("008a8c60") unsigned char grim_def_UINT_008a8c60[16] __asm__("_UINT_008a8c60") = {0};
-/* 0x008a8c70, 4 bytes */ GRIM_DATA("008a8c70") unsigned int grim_def_g_dwGrimlib_shutdownCallback __asm__("_g_dwGrimlib_shutdownCallback") = 0x0;
-/* 0x008a8c78, 4 bytes */ GRIM_DATA("008a8c78") unsigned int grim_def_g_dwSputmOpen __asm__("_g_dwSputmOpen") = 0x0;
-/* 0x008a8c7c, 4 bytes */ GRIM_DATA("008a8c7c") unsigned int grim_def_UINT_008a8c7c __asm__("_UINT_008a8c7c") = 0x0;
-/* 0x008a8c80, 4 bytes */ GRIM_DATA("008a8c80") unsigned int grim_def_g_dwDoLoad __asm__("_g_dwDoLoad") = 0x0;
-/* 0x008a8c84, 4 bytes */ GRIM_DATA("008a8c84") unsigned int grim_def_g_dwJustLoaded __asm__("_g_dwJustLoaded") = 0x0;
-/* 0x008a8c88, 8 bytes */ GRIM_DATA("008a8c88") unsigned char grim_def_g_pSaveFileName[8] __asm__("_g_pSaveFileName") = {0};
-/* 0x008a8c90, 4 bytes */ GRIM_DATA("008a8c90") unsigned int grim_def_UINT_008a8c90 __asm__("_UINT_008a8c90") = 0x0;
-/* 0x008a8c94, 4 bytes */ GRIM_DATA("008a8c94") unsigned int grim_def_g_dwGrimlib_SetPause_oldmode __asm__("_g_dwGrimlib_SetPause_oldmode") = 0x0;
+/* 0x004e8084, 4 bytes */ /* loose */ int grim_def_g_nSputRender_Update_RenderSetup __asm__("_g_nSputRender_Update_RenderSetup") = -1;
+/* 0x008a8c3c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwGrimlib_frameNumber __asm__("_g_dwGrimlib_frameNumber") = 0x0;
+/* 0x008a8c44, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008a8c44 __asm__("_UINT_008a8c44") = 0x0;
+static unsigned char grim_anchor_008a8c48[0] __attribute__((section(".data$grim_008a8c48"), aligned(16), used));
+static unsigned char grim_pad_008a8c48[8] __attribute__((section(".data$grim_008a8c48_"), aligned(4), used));
+/* 0x008a8c48, 12 bytes */ GRIM_DATA("008a8c48z") unsigned int grim_def_g_dwGrimlib_prevmode __asm__("_g_dwGrimlib_prevmode") = 0x0;
+/* 0x008a8c4c, 8 bytes: the rest of grim_def_g_dwGrimlib_prevmode's span */ GRIM_DATA("008a8c48z") static unsigned char g_dwGrimlib_prevmode__tail[8] __attribute__((used)) = {0};
+/* 0x008a8c60, 16 bytes */ /* loose */ unsigned char grim_def_UINT_008a8c60[16] __asm__("_UINT_008a8c60") = {0};
+/* 0x008a8c70, 4 bytes */ /* loose */ unsigned int grim_def_g_dwGrimlib_shutdownCallback __asm__("_g_dwGrimlib_shutdownCallback") = 0x0;
+/* 0x008a8c78, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputmOpen __asm__("_g_dwSputmOpen") = 0x0;
+/* 0x008a8c7c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008a8c7c __asm__("_UINT_008a8c7c") = 0x0;
+/* 0x008a8c80, 4 bytes */ /* loose */ unsigned int grim_def_g_dwDoLoad __asm__("_g_dwDoLoad") = 0x0;
+/* 0x008a8c84, 4 bytes */ /* loose */ unsigned int grim_def_g_dwJustLoaded __asm__("_g_dwJustLoaded") = 0x0;
+/* 0x008a8c88, 8 bytes */ /* loose */ unsigned char grim_def_g_pSaveFileName[8] __asm__("_g_pSaveFileName") = {0};
+/* 0x008a8c90, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008a8c90 __asm__("_UINT_008a8c90") = 0x0;
+/* 0x008a8c94, 4 bytes */ /* loose */ unsigned int grim_def_g_dwGrimlib_SetPause_oldmode __asm__("_g_dwGrimlib_SetPause_oldmode") = 0x0;
 /* 0x008c9800, 4 bytes */ GRIM_DATA("008c9800") unsigned char grim_def_g_pRenderedSet[4] __asm__("_g_pRenderedSet") = {0};
 /* 0x008c9804, 4 bytes */ GRIM_DATA("008c9804") unsigned int grim_def_UINT_008c9804 __asm__("_UINT_008c9804") = 0x0;
 /* 0x008ca160, 56 bytes */ GRIM_DATA("008ca160") int grim_def_g_nNumControlCallbacks __asm__("_g_nNumControlCallbacks") = 0;

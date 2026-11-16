@@ -447,7 +447,7 @@ undefined4 sputLua_Startup(void)
 
     if (UINT_008cab80 != 0)
         return 1;
-    (*(code *)UINT_008cab58)();
+    (*g_aLuaMS.pfnStartup)();
     wuRegistry_GetStr(s_TextAllowed_004ec55c, text, 0x20, (char *)&DAT_004f5a98);
     GRIM_RegisterModApiLib();    /* build patch */
     if (_stricmp((byte *)text, (byte *)s_true_004ec554) != 0)

@@ -138,14 +138,16 @@ uint __cdecl Main_Startup(char *cmdline)
 
 {
   unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
-  char *pcVar2;
+  undefined uVar1;
+  int iVar2;
   char *pcVar3;
-  void *pvVar4;
-  undefined *puVar5;
-  uint uVar6;
-  int iVar7;
-  undefined4 *puVar8;
+  char *pcVar4;
+  void *pvVar5;
+  undefined *puVar6;
+  undefined3 extraout_var;
+  uint uVar7;
+  int iVar8;
+  undefined4 *puVar9;
   #define local_80 (*(uint *)(_frame + (0x90 - 0x80)))
   #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
   #define local_78 (*(undefined2 *)(_frame + (0x90 - 0x78)))
@@ -157,81 +159,81 @@ uint __cdecl Main_Startup(char *cmdline)
   local_7c = UINT_004dd66c;
   local_76 = DAT_004dd672;
   local_78 = DAT_004dd670;
-  puVar8 = local_75;
-  for (iVar7 = 0xd; iVar7 != 0; iVar7 = iVar7 + -1) {
-    *puVar8 = 0;
-    puVar8 = puVar8 + 1;
+  puVar9 = local_75;
+  for (iVar8 = 0xd; iVar8 != 0; iVar8 = iVar8 + -1) {
+    *puVar9 = 0;
+    puVar9 = puVar9 + 1;
   }
-  *(undefined1 *)puVar8 = 0;
-  HostServicesInitialize((GrimServices *)&g_aHs);
-  iVar7 = Grim_ParseCommandLine(cmdline);
-  if (iVar7 == 0) {
+  *(undefined1 *)puVar9 = 0;
+  HostServicesInitialize(&g_aHs);
+  iVar8 = Grim_ParseCommandLine(cmdline);
+  if (iVar8 == 0) {
     return 0;
   }
-  stdInitServices((GrimServices *)&g_aHs);
-  _DAT_008dddb4 = UINT_008dddac;
-  stdStartup((GrimServices *)&g_aHs);
-  PolyglotInitialize((GrimServices *)&g_aHs,(undefined4 *)&g_aPolyglotServices);
-  (*(code *)UINT_008ddd88)();
+  stdInitServices(&g_aHs);
+  g_aHs.pDebug = g_aHs.pWarning;
+  stdStartup(&g_aHs);
+  PolyglotInitialize(&g_aHs,&g_aPolyglotServices.pfnInitialize);
+  (*g_aPolyglotServices.pfnStartup)();
   PolyglotConfigure(s_grim_tab_004dd238);
   Grim_OpenRegistry();
   Grim_DecodeRegKeyName((char *)&local_80);
   wuRegistry_GetStr((char *)&local_80,(char *)abStack_40,0x40,(char *)0x0);
-  iVar7 = _stricmp(abStack_40,(byte *)s_TRUE_004dd660);
-  if (iVar7 == 0) {
+  iVar8 = _stricmp(abStack_40,(byte *)s_TRUE_004dd660);
+  if (iVar8 == 0) {
     g_nDeveloper = 1;
   }
-  iVar7 = _stricmp(abStack_40,(byte *)s_pl_004dd65c);
-  if (iVar7 == 0) {
+  iVar8 = _stricmp(abStack_40,(byte *)s_pl_004dd65c);
+  if (iVar8 == 0) {
     g_nDeveloper = 1;
   }
   if (g_nDeveloper == 0) {
-    iVar7 = Grim_FindDataOnDrives(s_GrimData_004dd650);
-    if (iVar7 == 0) {
+    iVar8 = Grim_FindDataOnDrives(s_GrimData_004dd650);
+    if (iVar8 == 0) {
       return 0;
     }
   }
-  rdStartup((GrimServices *)&g_aHs);
-  iVar7 = rdOpen(0);
-  if (iVar7 == 0) {
+  rdStartup(&g_aHs);
+  iVar8 = rdOpen(0);
+  if (iVar8 == 0) {
     return 0;
   }
   Win_AddMessageHook(Win_WndProc);
   Win_AddMessageHook(Win_IsSysCommandBlocked);
-  iVar7 = GetDC(0);
-  iVar1 = GetDeviceCaps(iVar7,0xc);
-  ReleaseDC(0,iVar7);
-  if (iVar1 < 8) {
-    iVar7 = 0;
-    pcVar2 = PolyglotGetString(s__engn001_Grim_Fandango_004dd638);
-    pcVar3 = PolyglotGetString(s__engn002_System_must_be_in_256_c_004dd5f8);
-    pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar7);
+  iVar8 = GetDC(0);
+  iVar2 = GetDeviceCaps(iVar8,0xc);
+  ReleaseDC(0,iVar8);
+  if (iVar2 < 8) {
+    iVar8 = 0;
+    pcVar3 = PolyglotGetString(s__engn001_Grim_Fandango_004dd638);
+    pcVar4 = PolyglotGetString(s__engn002_System_must_be_in_256_c_004dd5f8);
+    pvVar5 = Win_GetMainHwnd();
+    Grim_FatalMessageBox((int)pvVar5,(int)pcVar4,(int)pcVar3,iVar8);
     return 0;
   }
-  iVar7 = stdDisplay_Startup();
-  if (iVar7 == 0) {
+  iVar8 = stdDisplay_Startup();
+  if (iVar8 == 0) {
     return 0;
   }
   Grim_EnumDisplayModes();
   if ((g_nDeveloper != 0) && (g_bWindowedMode != 0)) {
     Reg_SetInt(s_ExperimentalDisplay_004dd5e4,1);
   }
-  puVar5 = Display_InitFromConfig();
-  if (puVar5 == (undefined *)0x0) {
+  puVar6 = Display_InitFromConfig();
+  if (puVar6 == (undefined *)0x0) {
     return 0;
   }
-  puVar5 = grimlib_GameInitialize((GrimServices *)&g_aHs,(undefined **)&g_aMs);
-  if (puVar5 != (undefined *)0x0) {
+  puVar6 = grimlib_GameInitialize(&g_aHs,&g_aMs.pfnInitialize);
+  if (puVar6 != (undefined *)0x0) {
     return 0;
   }
-  iVar7 = (*(code *)UINT_008dde28)();
-  if (iVar7 != 0) {
-    iVar7 = 0;
-    pcVar2 = PolyglotGetString(s__engn005_Grim_Fandango_could_not_004dd5a8);
-    pcVar3 = PolyglotGetString(s__engn004_Please_make_sure_you_ar_004dd534);
-    pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar7);
+  uVar1 = (*g_aMs.pfnStartup)();
+  if (((uint)(byte)(uVar1)) != 0) {
+    iVar8 = 0;
+    pcVar3 = PolyglotGetString(s__engn005_Grim_Fandango_could_not_004dd5a8);
+    pcVar4 = PolyglotGetString(s__engn004_Please_make_sure_you_ar_004dd534);
+    pvVar5 = Win_GetMainHwnd();
+    Grim_FatalMessageBox((int)pvVar5,(int)pcVar4,(int)pcVar3,iVar8);
     return 0;
   }
   lua_openlib((int *)&PTR_s_Is3DHardwareEnabled_004dd350,UINT_004dd380);
@@ -242,24 +244,24 @@ uint __cdecl Main_Startup(char *cmdline)
   grimlib_FindResources();
   Grim_ShowSplash();
   grimdemo_EnableDebugging(1);
-  iVar7 = grimlib_FindSystemFiles();
-  if (iVar7 != 0) {
-    iVar7 = 0;
-    pcVar2 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
-    pcVar3 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
-    pvVar4 = Win_GetMainHwnd();
-    Grim_FatalMessageBox((int)pvVar4,(int)pcVar3,(int)pcVar2,iVar7);
+  iVar8 = grimlib_FindSystemFiles();
+  if (iVar8 != 0) {
+    iVar8 = 0;
+    pcVar3 = PolyglotGetString(s__engn007_Grim_Fandango_could_not_004dd4dc);
+    pcVar4 = PolyglotGetString(s__engn006_Please_make_sure_that_t_004dd47c);
+    pvVar5 = Win_GetMainHwnd();
+    Grim_FatalMessageBox((int)pvVar5,(int)pcVar4,(int)pcVar3,iVar8);
     return 0;
   }
-  uVar6 = grimlib_Open(UINT_004f5a10,(char *)(-(uint)(UINT_004f5a14 != 0) & 0x4f59b0));
-  if (uVar6 != 0) {
+  uVar7 = grimlib_Open(UINT_004f5a10,(char *)(-(uint)(UINT_004f5a14 != 0) & ((unsigned)(uintptr_t)&g_szBootFileArg)));
+  if (uVar7 != 0) {
     return 0;
   }
   if (UINT_004f5a44 != 0) {
     ChoreFace_Toggle(1);
   }
-  pvVar4 = Win_GetMainHwnd();
-  SetActiveWindow((int)pvVar4);
+  pvVar5 = Win_GetMainHwnd();
+  SetActiveWindow((int)pvVar5);
   _g_dwGrimlib_MinimizeWhenInactive = 1;
   return 1;
 }
@@ -367,8 +369,8 @@ void __cdecl Main_Shutdown(void)
   }
   grimDebug_Shutdown();
   grimlib_Close();
-  (*(code *)UINT_008dde2c)();
-  (*(code *)UINT_008dde24)();
+  (*g_aMs.pfnShutdown)();
+  (*g_aMs.pfnTerminate)();
   rdClose();
   rdShutdown();
   Grim_ShutdownDisplay();
@@ -377,11 +379,11 @@ void __cdecl Main_Shutdown(void)
     stdControl_ShowMouseCursor(1);
   }
   wuRegistry_Shutdown();
-  if (UINT_008ddd8c != 0) {
-    (*(code *)UINT_008ddd8c)();
+  if (g_aPolyglotServices.pfnShutdown != (code *)0x0) {
+    (*g_aPolyglotServices.pfnShutdown)();
   }
-  if (UINT_008ddd84 != 0) {
-    (*(code *)UINT_008ddd84)();
+  if (g_aPolyglotServices.pfnTerminate != (code *)0x0) {
+    (*g_aPolyglotServices.pfnTerminate)();
   }
   stdShutdown();
   grimdemo_EnableDebugging(0);
@@ -402,23 +404,25 @@ void __cdecl Grim_EnumDisplayModes(void)
   int iVar4;
   uint uVar5;
   ColorFormat *pCVar6;
-  uint *puVar7;
-  undefined4 *puVar8;
+  VideoMode *pVVar7;
+  Std3DDevice *pSVar8;
   uint *puVar9;
+  undefined4 *puVar10;
+  int *piVar11;
   ColorFormat format;
   
   format.dwRedBits = 5;
   format.dwBlueBits = 5;
   format.dwGreenShift = 5;
-  puVar7 = &UINT_004f44e8;
+  puVar9 = &UINT_004f44e8;
   for (iVar2 = 0x12; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar7 = 0;
-    puVar7 = puVar7 + 1;
+    *puVar9 = 0;
+    puVar9 = puVar9 + 1;
   }
-  puVar7 = &UINT_004f4d38;
+  puVar9 = &UINT_004f4d38;
   for (iVar2 = 0x13; uVar5 = g_dwStdDisplay_numDevices, iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar7 = 0;
-    puVar7 = puVar7 + 1;
+    *puVar9 = 0;
+    puVar9 = puVar9 + 1;
   }
   iVar4 = 0;
   format.dwGreenLoss = 2;
@@ -434,11 +438,11 @@ void __cdecl Grim_EnumDisplayModes(void)
   format.dwUnknown30 = 0;
   format.dwUnknown34 = 0;
   pCVar6 = &format;
-  puVar7 = &UINT_004f4d54;
+  puVar9 = &UINT_004f4d54;
   for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar7 = pCVar6->nColorMode;
+    *puVar9 = pCVar6->nColorMode;
     pCVar6 = (ColorFormat *)&pCVar6->nBpp;
-    puVar7 = puVar7 + 1;
+    puVar9 = puVar9 + 1;
   }
   UINT_004f44e8 = 1;
   UINT_004f44ec = 1;
@@ -447,15 +451,15 @@ void __cdecl Grim_EnumDisplayModes(void)
   _DAT_004f4d44 = 0x1e0;
   g_pDisplayModes =
        (void *)(*g_pStd_HS->pAlloc)(uVar5 << 4,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x313);
-  puVar8 = g_pDisplayModes;
+  puVar10 = g_pDisplayModes;
   for (iVar2 = (g_dwStdDisplay_numDevices & 0xfffffff) << 2; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar8 = 0;
-    puVar8 = puVar8 + 1;
+    *puVar10 = 0;
+    puVar10 = puVar10 + 1;
   }
   uVar5 = 0;
   for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *(undefined1 *)puVar8 = 0;
-    puVar8 = (undefined4 *)((int)puVar8 + 1);
+    *(undefined1 *)puVar10 = 0;
+    puVar10 = (undefined4 *)((int)puVar10 + 1);
   }
   if (g_dwStdDisplay_numDevices != 0) {
     do {
@@ -465,17 +469,17 @@ void __cdecl Grim_EnumDisplayModes(void)
                         (g_dwVideoModeCount * 0x54,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x31e
                         );
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 4) = uVar1;
-      puVar7 = &UINT_00901760;
-      puVar9 = *(uint **)((int)g_pDisplayModes + iVar4 + 4);
+      pVVar7 = g_aVideoModes;
+      piVar11 = *(int **)((int)g_pDisplayModes + iVar4 + 4);
       for (uVar3 = g_dwVideoModeCount * 0x15 & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-        *puVar9 = *puVar7;
-        puVar7 = puVar7 + 1;
-        puVar9 = puVar9 + 1;
+        *piVar11 = pVVar7->nFullscreen;
+        pVVar7 = (VideoMode *)&pVVar7->dwUnknown4;
+        piVar11 = piVar11 + 1;
       }
       for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *(char *)puVar9 = (char)*puVar7;
-        puVar7 = (uint *)((int)puVar7 + 1);
-        puVar9 = (uint *)((int)puVar9 + 1);
+        *(char *)piVar11 = (char)pVVar7->nFullscreen;
+        pVVar7 = (VideoMode *)((int)&pVVar7->nFullscreen + 1);
+        piVar11 = (int *)((int)piVar11 + 1);
       }
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 8) = 0;
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = 0;
@@ -488,17 +492,17 @@ void __cdecl Grim_EnumDisplayModes(void)
                              0x32a);
           *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = uVar1;
         }
-        puVar7 = &UINT_00900b40;
-        puVar9 = *(uint **)((int)g_pDisplayModes + iVar4 + 0xc);
+        pSVar8 = g_aStd3DDevices;
+        piVar11 = *(int **)((int)g_pDisplayModes + iVar4 + 0xc);
         for (uVar3 = g_dwD3dDriverCount * 0x8b & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-          *puVar9 = *puVar7;
-          puVar7 = puVar7 + 1;
-          puVar9 = puVar9 + 1;
+          *piVar11 = pSVar8->nHardware;
+          pSVar8 = (Std3DDevice *)&pSVar8->field_0x4;
+          piVar11 = piVar11 + 1;
         }
         for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *(char *)puVar9 = (char)*puVar7;
-          puVar7 = (uint *)((int)puVar7 + 1);
-          puVar9 = (uint *)((int)puVar9 + 1);
+          *(char *)piVar11 = (char)pSVar8->nHardware;
+          pSVar8 = (Std3DDevice *)((int)&pSVar8->nHardware + 1);
+          piVar11 = (int *)((int)piVar11 + 1);
         }
         D3D_Release();
       }
@@ -607,8 +611,8 @@ LAB_00402f60:
       if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__b_004dd8d0), iVar2 == 0)) {
         UINT_004f5a14 = 1;
         puVar3 = (uint *)strtok((byte *)0x0,(byte *)s__004dd918);
-        strncpy((uint *)&DAT_004f59b0,puVar3,0x4f);
-        DAT_004f59ff = 0;
+        strncpy((uint *)g_szBootFileArg,puVar3,0x4f);
+        g_szBootFileArg[0x4f] = '\0';
         goto LAB_00402f60;
       }
       iVar2 = _stricmp(pbVar1,(byte *)s__p_004dd8cc);
@@ -712,8 +716,6 @@ extern unsigned char grim_def_DAT_004f44f0[28] __asm__("_DAT_004f44f0");
 extern unsigned char grim_def_DAT_004f450c[36] __asm__("_DAT_004f450c");
 extern unsigned char grim_def_DAT_004f4d40[4] __asm__("_DAT_004f4d40");
 extern unsigned char grim_def_DAT_004f4d44[16] __asm__("_DAT_004f4d44");
-extern unsigned char grim_def_DAT_004f59b0[79] __asm__("_DAT_004f59b0");
-extern unsigned char grim_def_DAT_004f59ff __asm__("_DAT_004f59ff");
 extern void *grim_def_PTR_s_Is3DHardwareEnabled_004dd350[12] __asm__("_PTR_s_Is3DHardwareEnabled_004dd350");
 extern unsigned int grim_def_UINT_004dd380 __asm__("_UINT_004dd380");
 extern unsigned int grim_def_UINT_004dd668 __asm__("_UINT_004dd668");
@@ -723,16 +725,10 @@ extern unsigned char grim_def_UINT_004f4d54[60] __asm__("_UINT_004f4d54");
 extern unsigned int grim_def_UINT_004f5a10 __asm__("_UINT_004f5a10");
 extern unsigned int grim_def_UINT_004f5a14 __asm__("_UINT_004f5a14");
 extern unsigned int grim_def_UINT_004f5a44 __asm__("_UINT_004f5a44");
-extern unsigned int grim_def_UINT_008ddd84 __asm__("_UINT_008ddd84");
-extern unsigned int grim_def_UINT_008ddd88 __asm__("_UINT_008ddd88");
-extern unsigned char grim_def_UINT_008ddd8c[20] __asm__("_UINT_008ddd8c");
-extern unsigned int grim_def_UINT_008dde24 __asm__("_UINT_008dde24");
-extern unsigned int grim_def_UINT_008dde28 __asm__("_UINT_008dde28");
-extern unsigned char grim_def_UINT_008dde2c[20] __asm__("_UINT_008dde2c");
-extern unsigned char grim_def_g_aHs[4] __asm__("_g_aHs");
-extern unsigned char grim_def_g_aMs[4] __asm__("_g_aMs");
-extern unsigned char grim_def_g_aPolyglotServices[4] __asm__("_g_aPolyglotServices");
+extern SysModuleIface grim_def_g_aMs __asm__("_g_aMs");
+extern SysModuleIface grim_def_g_aPolyglotServices __asm__("_g_aPolyglotServices");
 extern unsigned char grim_def_g_dwGrimlib_MinimizeWhenInactive[4] __asm__("_g_dwGrimlib_MinimizeWhenInactive");
+extern char grim_def_g_szBootFileArg[80] __asm__("_g_szBootFileArg");
 extern char grim_def_s_1_0_004dd998[4] __asm__("_s_1_0_004dd998");
 extern char grim_def_s_Enumerate3DDevices_004dd3a8[] __asm__("_s_Enumerate3DDevices_004dd3a8");
 extern char grim_def_s_EnumerateVideoDevices_004dd390[] __asm__("_s_EnumerateVideoDevices_004dd390");
@@ -839,18 +835,10 @@ extern char grim_def_s_splash_bm_004dd99c[12] __asm__("_s_splash_bm_004dd99c");
 /* 0x004f4d40, 4 bytes */ GRIM_DATA("004f4d40") unsigned char grim_def_DAT_004f4d40[4] __asm__("_DAT_004f4d40") = {0};
 /* 0x004f4d44, 16 bytes */ GRIM_DATA("004f4d44") unsigned char grim_def_DAT_004f4d44[16] __asm__("_DAT_004f4d44") = {0};
 /* 0x004f4d54, 60 bytes */ GRIM_DATA("004f4d54") unsigned char grim_def_UINT_004f4d54[60] __asm__("_UINT_004f4d54") = {0};
-/* 0x004f59b0, 79 bytes */ GRIM_DATA("004f59b0") unsigned char grim_def_DAT_004f59b0[79] __asm__("_DAT_004f59b0") = {0};
-/* 0x004f59ff, 1 bytes */ GRIM_DATA("004f59b0") unsigned char grim_def_DAT_004f59ff __asm__("_DAT_004f59ff") = 0x0;
-/* 0x004f5a00, 4 bytes */ GRIM_DATA("004f5a00") unsigned char grim_def_g_dwGrimlib_MinimizeWhenInactive[4] __asm__("_g_dwGrimlib_MinimizeWhenInactive") = {0};
-/* 0x004f5a10, 4 bytes */ GRIM_DATA("004f5a10") unsigned int grim_def_UINT_004f5a10 __asm__("_UINT_004f5a10") = 0x0;
-/* 0x004f5a14, 4 bytes */ GRIM_DATA("004f5a14") unsigned int grim_def_UINT_004f5a14 __asm__("_UINT_004f5a14") = 0x0;
-/* 0x004f5a44, 4 bytes */ GRIM_DATA("004f5a44") unsigned int grim_def_UINT_004f5a44 __asm__("_UINT_004f5a44") = 0x0;
-/* 0x008ddd80, 4 bytes */ GRIM_DATA("008ddd80") unsigned char grim_def_g_aPolyglotServices[4] __asm__("_g_aPolyglotServices") = {0};
-/* 0x008ddd84, 4 bytes */ GRIM_DATA("008ddd84") unsigned int grim_def_UINT_008ddd84 __asm__("_UINT_008ddd84") = 0x0;
-/* 0x008ddd88, 4 bytes */ GRIM_DATA("008ddd88") unsigned int grim_def_UINT_008ddd88 __asm__("_UINT_008ddd88") = 0x0;
-/* 0x008ddd8c, 20 bytes */ GRIM_DATA("008ddd8c") unsigned char grim_def_UINT_008ddd8c[20] __asm__("_UINT_008ddd8c") = {0};
-/* 0x008ddda0, 4 bytes */ GRIM_DATA("008ddda0") unsigned char grim_def_g_aHs[4] __asm__("_g_aHs") = {0};
-/* 0x008dde20, 4 bytes */ GRIM_DATA("008dde20") unsigned char grim_def_g_aMs[4] __asm__("_g_aMs") = {0};
-/* 0x008dde24, 4 bytes */ GRIM_DATA("008dde24") unsigned int grim_def_UINT_008dde24 __asm__("_UINT_008dde24") = 0x0;
-/* 0x008dde28, 4 bytes */ GRIM_DATA("008dde28") unsigned int grim_def_UINT_008dde28 __asm__("_UINT_008dde28") = 0x0;
-/* 0x008dde2c, 20 bytes */ GRIM_DATA("008dde2c") unsigned char grim_def_UINT_008dde2c[20] __asm__("_UINT_008dde2c") = {0};
+/* 0x004f59b0, 80 bytes */ GRIM_DATA("004f59b0") char grim_def_g_szBootFileArg[80] __asm__("_g_szBootFileArg") = "";
+/* 0x004f5a00, 4 bytes */ /* loose */ unsigned char grim_def_g_dwGrimlib_MinimizeWhenInactive[4] __asm__("_g_dwGrimlib_MinimizeWhenInactive") = {0};
+/* 0x004f5a10, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a10 __asm__("_UINT_004f5a10") = 0x0;
+/* 0x004f5a14, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a14 __asm__("_UINT_004f5a14") = 0x0;
+/* 0x004f5a44, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a44 __asm__("_UINT_004f5a44") = 0x0;
+/* 0x008ddd80, 32 bytes */ GRIM_DATA("008ddd80") SysModuleIface grim_def_g_aPolyglotServices __asm__("_g_aPolyglotServices") = {0};
+/* 0x008dde20, 32 bytes */ GRIM_DATA("008dde20") SysModuleIface grim_def_g_aMs __asm__("_g_aMs") = {0};

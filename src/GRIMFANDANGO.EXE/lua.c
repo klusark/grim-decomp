@@ -331,7 +331,7 @@ void __cdecl sputPrimitive_DrawLine(void)
             }
           }
           uVar6 = PrimitiveQueue_addLine
-                            (&g_dwPrimitiveQ,(int)lVar7,(int)lVar8,(int)lVar9,(int)lVar10,local_1c,
+                            (g_dwPrimitiveQ,(int)lVar7,(int)lVar8,(int)lVar9,(int)lVar10,local_1c,
                              local_18);
           lua_pushnumber((float)uVar6);
           return;
@@ -465,7 +465,7 @@ void __cdecl sputPrimitive_DrawPolygon(void)
           pcVar8 = lua_gettable_exref;
         } while (local_10 != 0);
       }
-      uVar5 = PrimitiveQueue_addPolygon(&g_dwPrimitiveQ,uVar5,(int *)local_14,local_18,local_c);
+      uVar5 = PrimitiveQueue_addPolygon(g_dwPrimitiveQ,uVar5,(int *)local_14,local_18,local_c);
       lua_pushnumber((float)uVar5);
       return;
     }
@@ -560,7 +560,7 @@ void __cdecl sputPrimitive_DrawRectangle(void)
       }
     }
     uVar7 = PrimitiveQueue_addRect
-                      (&g_dwPrimitiveQ,(int)lVar8,(int)lVar9,(int)lVar10,(int)lVar11,local_20,
+                      (g_dwPrimitiveQ,(int)lVar8,(int)lVar9,(int)lVar10,(int)lVar11,local_20,
                        local_14,local_18);
     lua_pushnumber((float)uVar7);
     return;
@@ -614,7 +614,7 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
       uVar5 = lua_getuserdata(iVar3);
       PIECE(local_10,2,1) = (byte)(uVar5 >> 0x10);
       PrimitiveQueue_changeColor
-                (&g_dwPrimitiveQ,iVar1,
+                (g_dwPrimitiveQ,iVar1,
                  (uint)(PIECE(local_10,2,1) >> ((byte)UINT_004ddac8 & 0x1f)) <<
                  ((byte)UINT_004ddabc & 0x1f) & 0xffff |
                  ((uVar5 >> 8 & 0xff) >> ((byte)UINT_004ddac4 & 0x1f)) <<
@@ -629,7 +629,7 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
     if (iVar4 != 0) {
       fVar8 = lua_getnumber(iVar3);
       lVar7 = FTOL((float10)fVar8);
-      PrimitiveQueue_changeLayer(&g_dwPrimitiveQ,iVar1,(int)lVar7);
+      PrimitiveQueue_changeLayer(g_dwPrimitiveQ,iVar1,(int)lVar7);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_xoffset_004e836c);
@@ -655,7 +655,7 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
         lVar7 = FTOL((float10)fVar8);
         iVar3 = (int)lVar7;
       }
-      PrimitiveQueue_move(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
+      PrimitiveQueue_move(g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_x_004e8374);
@@ -681,7 +681,7 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
         lVar7 = FTOL((float10)fVar8);
         iVar3 = (int)lVar7;
       }
-      PrimitiveQueue_moveTo(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
+      PrimitiveQueue_moveTo(g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_DAT_004e837c);
@@ -707,7 +707,7 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
         lVar7 = FTOL((float10)fVar8);
         iVar3 = (int)lVar7;
       }
-      PrimitiveQueue_moveEndpoint(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
+      PrimitiveQueue_moveEndpoint(g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
     lua_pushstring(PTR_s_width_004e8384);
@@ -735,7 +735,7 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
       lVar7 = FTOL((float10)fVar8);
       iVar6 = (int)lVar7;
     }
-    PrimitiveQueue_changeDimensions(&g_dwPrimitiveQ,iVar1,iVar3,iVar6);
+    PrimitiveQueue_changeDimensions(g_dwPrimitiveQ,iVar1,iVar3,iVar6);
     return;
   }
   return;
@@ -761,7 +761,7 @@ void __cdecl sputPrimitive_KillPrimitive(void)
   if (iVar2 != 0) {
     fVar4 = lua_getnumber(iVar1);
     lVar3 = FTOL((float10)fVar4);
-    PrimitiveQueue_deletePrimitive(&g_dwPrimitiveQ,(int)lVar3);
+    PrimitiveQueue_deletePrimitive(g_dwPrimitiveQ,(int)lVar3);
   }
   return;
 }
@@ -774,7 +774,7 @@ void __cdecl sputPrimitive_KillPrimitive(void)
 void sputPrimitive_PurgeQueue(void)
 
 {
-  PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
+  PrimitiveQueue_purge((int *)g_dwPrimitiveQ);
   PrimitiveQueue_resetId();
   return;
 }
@@ -6245,7 +6245,7 @@ uint __cdecl sputLua_Startup(void)
   if (UINT_008cab80 != 0) {
     return 1;
   }
-  (*(code *)UINT_008cab58)();
+  (*g_aLuaMS.pfnStartup)();
   wuRegistry_GetStr(s_TextAllowed_004ec55c,(char *)abStack_20,0x20,&DAT_004f5a98);
   iVar1 = _stricmp(abStack_20,(byte *)s_true_004ec554);
   if (iVar1 != 0) {
@@ -11587,7 +11587,6 @@ extern unsigned int grim_def_UINT_004e8480 __asm__("_UINT_004e8480");
 extern unsigned int grim_def_UINT_004e8484 __asm__("_UINT_004e8484");
 extern unsigned int grim_def_UINT_004eb168 __asm__("_UINT_004eb168");
 extern unsigned int grim_def_UINT_004f0d0c __asm__("_UINT_004f0d0c");
-extern unsigned int grim_def_UINT_008cab58 __asm__("_UINT_008cab58");
 extern unsigned int grim_def_g_dwDebugToggleFunc __asm__("_g_dwDebugToggleFunc");
 extern unsigned int grim_def_g_dwLrOldConcatFallback __asm__("_g_dwLrOldConcatFallback");
 extern char grim_def_s_ActivateActorShadow_004eb5bc[] __asm__("_s_ActivateActorShadow_004eb5bc");
@@ -12082,8 +12081,7 @@ static unsigned char grim_pad_004ea890[0] __attribute__((section(".data$grim_004
 /* 0x004f0d0c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f0d0c __asm__("_UINT_004f0d0c") = 0xffffffff;
 /* 0x004f0d28, 12 bytes */ /* loose */ char grim_def_s_x_spot_cos_004f0d28[12] __asm__("_s_x_spot_cos_004f0d28") = "x_spot.cos";
 /* 0x004f0d34, 56 bytes */ /* loose */ char grim_def_s_LightManager_Startup__Could_not_c_004f0d34[56] __asm__("_s_LightManager_Startup__Could_not_c_004f0d34") = "LightManager_Startup: Could not create main dialog.\n";
-/* 0x008cab44, 4 bytes */ GRIM_DATA("008cab44") unsigned int grim_def_g_dwLrOldConcatFallback __asm__("_g_dwLrOldConcatFallback") = 0x0;
-/* 0x008cab58, 4 bytes */ GRIM_DATA("008cab58") unsigned int grim_def_UINT_008cab58 __asm__("_UINT_008cab58") = 0x0;
-/* 0x008cab8c, 4 bytes */ GRIM_DATA("008cab8c") unsigned int grim_def_g_dwDebugToggleFunc __asm__("_g_dwDebugToggleFunc") = 0x0;
+/* 0x008cab44, 4 bytes */ /* loose */ unsigned int grim_def_g_dwLrOldConcatFallback __asm__("_g_dwLrOldConcatFallback") = 0x0;
+/* 0x008cab8c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwDebugToggleFunc __asm__("_g_dwDebugToggleFunc") = 0x0;
 __asm__(".globl _grim_img_exe_0x004ea890\n\t.set _grim_img_exe_0x004ea890, _PTR_s_concatfallback_004ea890 + 0\n");
 __asm__(".globl _grim_img_exe_0x004ea8b0\n\t.set _grim_img_exe_0x004ea8b0, _PTR_s_EnginePause_004ea8b0 + 0\n");

@@ -55,7 +55,7 @@ int __cdecl SmushRequester(uint cosInst,int tag,int parent,int type,char *name)
   
   pcVar4 = name;
   if (name == (char *)0x0) {
-    if (g_bSmushPath != '\0') {
+    if (g_bSmushPath[0] != '\0') {
       grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bSmushPath));
     }
     iVar2 = grimPlat_OpenFileRequest(s_Select_smush_file____004ea7ec,s_Smush_files____snm__004ea804)
@@ -65,8 +65,8 @@ int __cdecl SmushRequester(uint cosInst,int tag,int parent,int type,char *name)
     }
     uVar9 = 0x7f;
     puVar3 = (uint *)grimPlat_GetDefaultOpenPath();
-    strncpy((uint *)&g_bSmushPath,puVar3,uVar9);
-    DAT_008cab37 = 0;
+    strncpy((uint *)g_bSmushPath,puVar3,uVar9);
+    g_bSmushPath[0x7f] = '\0';
     pcVar4 = stdFnames_FindMedName(g_szGrimlib_aFilename);
   }
   uVar9 = 0xffffffff;

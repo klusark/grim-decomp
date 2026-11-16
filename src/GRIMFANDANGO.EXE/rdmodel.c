@@ -545,7 +545,7 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh,float *matrix)
                fVar3 = prVar7->aLightPositions[iVar5 * 3 + 2] - matrix[0xb],
                SQRT(fVar3 * fVar3 + fVar10 * fVar10 + fVar2 * fVar2) <
                PUN(float,piVar1[0xd]) + prVar9->flRadius)) {
-              (&UINT_007f30e0)[uVar8] = (uint)piVar1;
+              g_adwRdModel3_meshLights[uVar8] = (uint)piVar1;
               rdMatrix_TransformPoint34
                         ((float *)(&g_aLocalLightPos + uVar8 * 0xc),
                          prVar7->aLightPositions + *piVar1 * 3,local_84);
@@ -594,7 +594,7 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh,float *matrix)
               }
               fVar2 = PUN(float,piVar1[0xd]) + prVar9->flRadius;
               if (fVar10 < fVar2 * fVar2) {
-                (&UINT_007f30e0)[uVar8] = (uint)piVar1;
+                g_adwRdModel3_meshLights[uVar8] = (uint)piVar1;
                 rdMatrix_TransformPoint34
                           ((float *)(&g_aLocalLightPos + uVar8 * 0xc),
                            prVar7->aLightPositions + *piVar1 * 3,local_84);
@@ -622,8 +622,8 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh,float *matrix)
           } while (local_a8 < g_dwNumGeoLights);
         }
         fVar10 = rdLight_CalcVertexIntensities
-                           ((int *)&UINT_007f30e0,(float *)&g_aLocalLightPos,((unsigned)(uintptr_t)&g_aLocalLightDir),uVar8,
-                            (int *)prVar9->pVertexNormals,(uint)prVar9->pVertices,
+                           ((int *)g_adwRdModel3_meshLights,(float *)&g_aLocalLightPos,((unsigned)(uintptr_t)&g_aLocalLightDir),
+                            uVar8,(int *)prVar9->pVertexNormals,(uint)prVar9->pVertices,
                             *(float **)&prVar9->field_0x38,*(float **)&prVar9->field_0x3c,
                             prVar9->dwNumVertices,prVar7->flAttenuationMin);
         mesh->flLight = fVar10;
@@ -773,8 +773,8 @@ uint __cdecl rdModel3_DrawFace(int face,int backFacing)
       pfVar4 = &local_24;
     }
     fVar7 = rdLight_CalcFaceIntensity
-                      ((int *)&UINT_007f30e0,((unsigned)(uintptr_t)&g_aLocalLightPos),((unsigned)(uintptr_t)&g_aLocalLightDir),g_dwNumMeshLights,face,pfVar4,
-                       (int)vertices,fVar7);
+                      ((int *)g_adwRdModel3_meshLights,((unsigned)(uintptr_t)&g_aLocalLightPos),((unsigned)(uintptr_t)&g_aLocalLightDir),g_dwNumMeshLights,face,
+                       pfVar4,(int)vertices,fVar7);
     pPVar2->flLightIndex = fVar7;
   }
   (*g_pRdCamera_CurCamera->pfnProjectLst)(UINT_007f1490,UINT_007f1474,g_dwVertexDst);
@@ -878,7 +878,6 @@ extern unsigned int grim_def_UINT_007f1474 __asm__("_UINT_007f1474");
 extern unsigned int grim_def_UINT_007f1478 __asm__("_UINT_007f1478");
 extern unsigned char grim_def_UINT_007f147c[20] __asm__("_UINT_007f147c");
 extern unsigned int grim_def_UINT_007f1490 __asm__("_UINT_007f1490");
-extern unsigned char grim_def_UINT_007f30e0[256] __asm__("_UINT_007f30e0");
 extern unsigned int grim_def_UINT_008ddf84 __asm__("_UINT_008ddf84");
 extern unsigned int grim_def_UINT_008ddf88 __asm__("_UINT_008ddf88");
 extern unsigned int grim_def_UINT_008ddf8c __asm__("_UINT_008ddf8c");
@@ -886,6 +885,7 @@ extern unsigned char grim_def_g_aLocalLightDir[768] __asm__("_g_aLocalLightDir")
 extern unsigned char grim_def_g_aLocalLightPos[768] __asm__("_g_aLocalLightPos");
 extern unsigned char grim_def_g_aRdModel3_View[6144] __asm__("_g_aRdModel3_View");
 extern unsigned char grim_def_g_aVertexSrc[4] __asm__("_g_aVertexSrc");
+extern unsigned int grim_def_g_adwRdModel3_meshLights[64] __asm__("_g_adwRdModel3_meshLights");
 extern unsigned int grim_def_g_dwGeometryMode __asm__("_g_dwGeometryMode");
 extern unsigned int grim_def_g_dwLightingMode __asm__("_g_dwLightingMode");
 extern unsigned int grim_def_g_dwMeshFrustrumCull __asm__("_g_dwMeshFrustrumCull");
@@ -916,7 +916,7 @@ extern unsigned char grim_def_g_pCurMesh[4] __asm__("_g_pCurMesh");
 /* 0x007f30bc, 4 bytes */ GRIM_DATA("007f30bc") unsigned char grim_def_DAT_007f30bc[4] __asm__("_DAT_007f30bc") = {0};
 /* 0x007f30c0, 20 bytes */ GRIM_DATA("007f30c0") unsigned char grim_def_DAT_007f30c0[20] __asm__("_DAT_007f30c0") = {0};
 /* 0x007f30d8, 4 bytes */ GRIM_DATA("007f30d8") unsigned int grim_def_g_dwTextureMode __asm__("_g_dwTextureMode") = 0x0;
-/* 0x007f30e0, 256 bytes */ GRIM_DATA("007f30e0") unsigned char grim_def_UINT_007f30e0[256] __asm__("_UINT_007f30e0") = {0};
+/* 0x007f30e0, 256 bytes */ GRIM_DATA("007f30e0") unsigned int grim_def_g_adwRdModel3_meshLights[64] __asm__("_g_adwRdModel3_meshLights") = {0};
 /* 0x007f31e4, 4 bytes */ GRIM_DATA("007f31e4") unsigned int grim_def_g_dwLightingMode __asm__("_g_dwLightingMode") = 0x0;
 /* 0x007f31e8, 4 bytes */ GRIM_DATA("007f31e8") unsigned int grim_def_g_dwGeometryMode __asm__("_g_dwGeometryMode") = 0x0;
 /* 0x007f31fc, 4 bytes */ GRIM_DATA("007f31fc") unsigned int grim_def_g_dwNumMeshLights __asm__("_g_dwNumMeshLights") = 0x0;

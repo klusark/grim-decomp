@@ -6,7 +6,6 @@
 #include "functions.h"
 
 /* ---- 0x00401040  grimdemo_EnableDebugging ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Opens debug.log / resource.log and installs the debug-print callbacks into the service table
    Original name grimdemo_EnableDebugging (the remaster's GrimFandango (Linux): the debug-toggle
    callback of Main_Startup; sets the same five host-service print slots (+4, +8, +0xc, +0x10,
@@ -35,11 +34,11 @@ void __cdecl grimdemo_EnableDebugging(int enable)
         grimlib_LogResources(((unsigned)(uintptr_t)&DAT_004dd414));
       }
       UINT_004f5a08 = DebugLog_Load();
-      _DAT_008ddda8 = grimdemo_MessagePrint;
-      _DAT_008ddda4 = grimdemo_StatusPrint;
-      _DAT_008dddb0 = grimdemo_ErrorPrint;
-      UINT_008dddac = (uint)grimdemo_WarningPrint;
-      _DAT_008dddb4 = grimdemo_DebugPrint;
+      g_aHs.pPrintf2 = grimdemo_MessagePrint;
+      g_aHs.pPrintf = grimdemo_StatusPrint;
+      g_aHs.pError = grimdemo_ErrorPrint;
+      g_aHs.pWarning = grimdemo_WarningPrint;
+      g_aHs.pDebug = grimdemo_DebugPrint;
       UINT_004f5a54 = 1;
     }
     if (enable != 0) {
@@ -204,9 +203,6 @@ void __cdecl DebugLog_Write(char *fmt,uint arg)
 #endif
 extern unsigned char grim_def_DAT_004dd414[16] __asm__("_DAT_004dd414");
 extern unsigned char grim_def_DAT_004dd6c4[16] __asm__("_DAT_004dd6c4");
-extern unsigned char grim_def_DAT_008ddda4[4] __asm__("_DAT_008ddda4");
-extern unsigned char grim_def_DAT_008ddda8[4] __asm__("_DAT_008ddda8");
-extern unsigned char grim_def_DAT_008dddb0[4] __asm__("_DAT_008dddb0");
 extern unsigned int grim_def_UINT_004f5a04 __asm__("_UINT_004f5a04");
 extern unsigned int grim_def_UINT_004f5a08 __asm__("_UINT_004f5a08");
 extern unsigned int grim_def_UINT_004f5a3c __asm__("_UINT_004f5a3c");
@@ -237,12 +233,9 @@ extern char grim_def_s_debug_log_004dd46c[12] __asm__("_s_debug_log_004dd46c");
 /* 0x004f4db0, 1024 bytes */ GRIM_DATA("004f4db0") unsigned char grim_def_g_aGrimdemo_ErrorPrint_grimErrorBuffer[1024] __asm__("_g_aGrimdemo_ErrorPrint_grimErrorBuffer") = {0};
 /* 0x004f51b0, 1024 bytes */ GRIM_DATA("004f51b0") unsigned char grim_def_g_aGrimdemo_WarningPrint_grimWarningBuffer[1024] __asm__("_g_aGrimdemo_WarningPrint_grimWarningBuffer") = {0};
 /* 0x004f55b0, 1024 bytes */ GRIM_DATA("004f55b0") unsigned char grim_def_g_aGrimdemo_MessagePrint_grimMessageBuffer[1024] __asm__("_g_aGrimdemo_MessagePrint_grimMessageBuffer") = {0};
-/* 0x004f5a04, 4 bytes */ GRIM_DATA("004f5a04") unsigned int grim_def_UINT_004f5a04 __asm__("_UINT_004f5a04") = 0x0;
-/* 0x004f5a08, 4 bytes */ GRIM_DATA("004f5a08") unsigned int grim_def_UINT_004f5a08 __asm__("_UINT_004f5a08") = 0x0;
-/* 0x004f5a3c, 4 bytes */ GRIM_DATA("004f5a3c") unsigned int grim_def_UINT_004f5a3c __asm__("_UINT_004f5a3c") = 0x0;
-/* 0x004f5a40, 4 bytes */ GRIM_DATA("004f5a40") unsigned int grim_def_UINT_004f5a40 __asm__("_UINT_004f5a40") = 0x0;
-/* 0x004f5a54, 4 bytes */ GRIM_DATA("004f5a54") unsigned int grim_def_UINT_004f5a54 __asm__("_UINT_004f5a54") = 0x0;
-/* 0x004f5a68, 4 bytes */ GRIM_DATA("004f5a68") unsigned int grim_def_UINT_004f5a68 __asm__("_UINT_004f5a68") = 0x0;
-/* 0x008ddda4, 4 bytes */ GRIM_DATA("008ddda4") unsigned char grim_def_DAT_008ddda4[4] __asm__("_DAT_008ddda4") = {0};
-/* 0x008ddda8, 4 bytes */ GRIM_DATA("008ddda8") unsigned char grim_def_DAT_008ddda8[4] __asm__("_DAT_008ddda8") = {0};
-/* 0x008dddb0, 4 bytes */ GRIM_DATA("008dddb0") unsigned char grim_def_DAT_008dddb0[4] __asm__("_DAT_008dddb0") = {0};
+/* 0x004f5a04, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a04 __asm__("_UINT_004f5a04") = 0x0;
+/* 0x004f5a08, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a08 __asm__("_UINT_004f5a08") = 0x0;
+/* 0x004f5a3c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a3c __asm__("_UINT_004f5a3c") = 0x0;
+/* 0x004f5a40, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a40 __asm__("_UINT_004f5a40") = 0x0;
+/* 0x004f5a54, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a54 __asm__("_UINT_004f5a54") = 0x0;
+/* 0x004f5a68, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a68 __asm__("_UINT_004f5a68") = 0x0;

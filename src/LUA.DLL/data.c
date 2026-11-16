@@ -1416,7 +1416,7 @@ static unsigned char grim_pad_10024d88[8] __attribute__((section(".data$grim_100
 /* 0x100261f0, 4 bytes */ /* loose */ char s__100261f0[4] __asm__("_s__100261f0") = "\n";
 /* 0x10026264, 4 bytes */ /* loose */ char s__C__10026264[4] __asm__("_s__C__10026264") = "(C)";
 /* 0x10026390, 20 bytes */ /* loose */ char s_function_expected_10026390[20] __asm__("_s_function_expected_10026390") = "function expected";
-/* 0x100264f8, 12 bytes */ GRIM_DATA("100264f8") char s_break_here_100264f8[12] __asm__("_s_break_here_100264f8") = "break_here";
+/* 0x100264f8, 12 bytes */ /* loose */ char s_break_here_100264f8[12] __asm__("_s_break_here_100264f8") = "break_here";
 /* 0x10026504, 12 bytes */ /* loose */ char s_find_script_10026504[12] __asm__("_s_find_script_10026504") = "find_script";
 /* 0x10026510, 16 bytes */ /* loose */ char s_unpause_scripts_10026510[16] __asm__("_s_unpause_scripts_10026510") = "unpause_scripts";
 /* 0x10026520, 16 bytes */ /* loose */ char s_pause_scripts_10026520[16] __asm__("_s_pause_scripts_10026520") = "pause_scripts";

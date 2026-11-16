@@ -40,12 +40,12 @@ uint __cdecl sputPrimitive_Save(code *write)
   
   pcVar2 = write;
   local_4 = 0;
-  for (puVar1 = (undefined4 *)g_dwPrimitiveQ; puVar1 != (undefined4 *)0x0;
+  for (puVar1 = (undefined4 *)g_dwPrimitiveQ[0]; puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
     local_4 = local_4 + 1;
   }
   (*write)(&local_4,4);
-  for (puVar1 = (undefined4 *)g_dwPrimitiveQ; puVar1 != (undefined4 *)0x0;
+  for (puVar1 = (undefined4 *)g_dwPrimitiveQ[0]; puVar1 != (undefined4 *)0x0;
       puVar1 = (undefined4 *)*puVar1) {
     write = (code *)puVar1[2];
     (*pcVar2)(&write,4);
@@ -83,7 +83,7 @@ uint __cdecl sputPrimitive_Restore(code *id)
   #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
-  PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
+  PrimitiveQueue_purge((int *)g_dwPrimitiveQ);
   pcVar1 = id;
   (*id)(&local_28,4);
   while (local_28 != 0) {
@@ -100,7 +100,7 @@ uint __cdecl sputPrimitive_Restore(code *id)
     (*pcVar1)(&iStack_1c,4);
     (*pcVar1)(&iStack_18,4);
     (*pcVar1)(&iStack_14,4);
-    pPVar2 = PrimitiveQueue_addObject(&g_dwPrimitiveQ,(int)id,iStack_24);
+    pPVar2 = PrimitiveQueue_addObject(g_dwPrimitiveQ,(int)id,iStack_24);
     if (pPVar2 != (Primitive *)0x0) {
       pPVar2->nType = iStack_20;
       pPVar2->nX1 = iStack_10;
@@ -161,7 +161,7 @@ uint __cdecl sputPrimitive_Startup(void)
 void __cdecl sputPrimitive_Shutdown(void)
 
 {
-  PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
+  PrimitiveQueue_purge((int *)g_dwPrimitiveQ);
   g_dwSputPrimitiveStartup = 0;
   return;
 }
@@ -194,6 +194,6 @@ extern char grim_def_s_PurgePrimitiveQueue_004e83cc[] __asm__("_s_PurgePrimitive
     (void *)&grim_def_s_KillPrimitive_004e83e0, (void *)f_sputPrimitive_KillPrimitive, (void *)&grim_def_s_PurgePrimitiveQueue_004e83cc, (void *)f_sputPrimitive_PurgeQueue
 };
 /* 0x004e83c8, 4 bytes */ GRIM_DATA("004e83c8") unsigned int grim_def_UINT_004e83c8 __asm__("_UINT_004e83c8") = 0x6;
-/* 0x008ca0a8, 4 bytes */ GRIM_DATA("008ca0a8") unsigned int grim_def_g_dwSputPrimitiveInitialize __asm__("_g_dwSputPrimitiveInitialize") = 0x0;
-/* 0x008ca0ac, 4 bytes */ GRIM_DATA("008ca0ac") unsigned int grim_def_g_dwSputPrimitiveStartup __asm__("_g_dwSputPrimitiveStartup") = 0x0;
-/* 0x008ca0b0, 4 bytes */ GRIM_DATA("008ca0b0") unsigned char grim_def_g_pSputPrimitiveHS[4] __asm__("_g_pSputPrimitiveHS") = {0};
+/* 0x008ca0a8, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputPrimitiveInitialize __asm__("_g_dwSputPrimitiveInitialize") = 0x0;
+/* 0x008ca0ac, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputPrimitiveStartup __asm__("_g_dwSputPrimitiveStartup") = 0x0;
+/* 0x008ca0b0, 4 bytes */ /* loose */ unsigned char grim_def_g_pSputPrimitiveHS[4] __asm__("_g_pSputPrimitiveHS") = {0};

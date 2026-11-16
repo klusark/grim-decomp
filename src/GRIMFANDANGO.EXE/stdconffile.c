@@ -71,8 +71,8 @@ LAB_0047c827:
   }
   g_dwStdConffile_aLine =
        (*g_pStd_HS->pAlloc)(0x400,s_C__grimjedi_Libs_Std_General_Std_004e7604,DAT_004e7600 + 0x1d);
-  strncpy((uint *)&g_bStdConffile_pFilename,(uint *)path,0x7f);
-  DAT_0090051f = 0;
+  strncpy((uint *)g_bStdConffile_pFilename,(uint *)path,0x7f);
+  g_bStdConffile_pFilename[0x7f] = '\0';
   g_dwStdConffile_linenum = 0;
   g_dwStdConffile_bOpen = 1;
   return 1;
@@ -182,7 +182,7 @@ void __cdecl stdConffile_Push(void)
   uint *puVar8;
   
   uVar2 = 0xffffffff;
-  pcVar5 = &g_bStdConffile_pFilename;
+  pcVar5 = g_bStdConffile_pFilename;
   do {
     pcVar7 = pcVar5;
     if (uVar2 == 0) break;
@@ -252,7 +252,7 @@ void __cdecl stdConffile_Pop(void)
     } while (cVar1 != '\0');
     uVar2 = ~uVar2;
     pcVar6 = pcVar8 + -uVar2;
-    pcVar8 = &g_bStdConffile_pFilename;
+    pcVar8 = g_bStdConffile_pFilename;
     g_dwStackLevel = uVar5;
     for (uVar3 = uVar2 >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
       *(undefined4 *)pcVar8 = *(undefined4 *)pcVar6;
@@ -289,10 +289,9 @@ extern unsigned char grim_def_DAT_00807688[80] __asm__("_DAT_00807688");
 extern unsigned char grim_def_DAT_008076d8[80] __asm__("_DAT_008076d8");
 extern unsigned char grim_def_DAT_00807728[20560] __asm__("_DAT_00807728");
 extern unsigned char grim_def_DAT_0080c778[1104] __asm__("_DAT_0080c778");
-extern unsigned char grim_def_DAT_0090051f __asm__("_DAT_0090051f");
 extern unsigned char grim_def_UINT_0080cbd0[8] __asm__("_UINT_0080cbd0");
 extern unsigned char grim_def_UINT_00900080[1056] __asm__("_UINT_00900080");
-extern unsigned char grim_def_g_bStdConffile_pFilename[127] __asm__("_g_bStdConffile_pFilename");
+extern char grim_def_g_bStdConffile_pFilename[128] __asm__("_g_bStdConffile_pFilename");
 extern unsigned int grim_def_g_dwStackLevel __asm__("_g_dwStackLevel");
 extern unsigned int grim_def_g_dwStdConffile_bOpen __asm__("_g_dwStdConffile_bOpen");
 extern unsigned int grim_def_g_dwStdConffile_linenum __asm__("_g_dwStdConffile_linenum");
@@ -312,5 +311,4 @@ extern char grim_def_s_none_004e7630[8] __asm__("_s_none_004e7630");
 /* 0x0080cbd8, 8 bytes */ GRIM_DATA("0080cbd8") unsigned int grim_def_g_dwStackLevel __asm__("_g_dwStackLevel") = 0x0;
 /* 0x0080cbdc, 4 bytes: the rest of grim_def_g_dwStackLevel's span */ GRIM_DATA("0080cbd8") static unsigned char g_dwStackLevel__tail[4] __attribute__((used)) = {0};
 /* 0x00900080, 1056 bytes */ GRIM_DATA("00900080") unsigned char grim_def_UINT_00900080[1056] __asm__("_UINT_00900080") = {0};
-/* 0x009004a0, 127 bytes */ GRIM_DATA("009004a0") unsigned char grim_def_g_bStdConffile_pFilename[127] __asm__("_g_bStdConffile_pFilename") = {0};
-/* 0x0090051f, 1 bytes */ GRIM_DATA("009004a0") unsigned char grim_def_DAT_0090051f __asm__("_DAT_0090051f") = 0x0;
+/* 0x009004a0, 128 bytes */ GRIM_DATA("009004a0") char grim_def_g_bStdConffile_pFilename[128] __asm__("_g_bStdConffile_pFilename") = "";

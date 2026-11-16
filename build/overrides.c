@@ -1032,21 +1032,21 @@ void Engine_LoadGame(void)
         Render_DrawProgressBar(0.2);
         Cos_Restore(SaveGame_Read);
         Render_DrawProgressBar(0.3);
-        (*(code *)UINT_008a86e4)(SaveGame_Read);
-        (*(code *)UINT_008a87ec)(SaveGame_Read);
+        (*g_aGrimlib_Filenames[7].pfnRestore)(SaveGame_Read);
+        (*g_aBaseModuleServices[3].pfnRestore)(SaveGame_Read);
         Render_DrawProgressBar(0.4);
-        (*(code *)UINT_008a8644)(SaveGame_Read);
-        (*(code *)UINT_008a86c4)(SaveGame_Read);
-        (*(code *)UINT_008a87cc)(SaveGame_Read);
-        (*(code *)UINT_008a880c)(SaveGame_Read);
-        (*(code *)UINT_008a882c)(SaveGame_Read);
+        (*g_aGrimlib_Filenames[2].pfnRestore)(SaveGame_Read);
+        (*g_aGrimlib_Filenames[6].pfnRestore)(SaveGame_Read);
+        (*g_aBaseModuleServices[2].pfnRestore)(SaveGame_Read);
+        (*g_aBaseModuleServices[4].pfnRestore)(SaveGame_Read);
+        (*g_aBaseModuleServices[5].pfnRestore)(SaveGame_Read);
         g_dwGrimlib_mode = 4;
         SaveGame_Read(&g_dwGrimlib_prevmode, 4);
         Render_DrawProgressBar(0.75);
         lua_Restore(SaveGame_Read);
         Render_DrawProgressBar(1.0);
-        if (g_pfnIMuseRestoreHook != 0)
-            (*(code *)g_pfnIMuseRestoreHook)(SaveGame_Read);
+        if (g_aBaseModuleServices[1].pfnRestore != 0)
+            (*g_aBaseModuleServices[1].pfnRestore)(SaveGame_Read);
         GRIM_FixTextActors();
         Resource_SetNoPurge(0);
         set = sputRoom_GetCurrentRoom();

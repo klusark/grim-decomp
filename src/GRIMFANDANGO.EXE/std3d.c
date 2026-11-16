@@ -81,8 +81,8 @@ int __cdecl D3D_SelectDriver(uint driverIdx,int useZBuffer)
     return 0;
   }
   UINT_00900530 = driverIdx;
-  g_pStd3D_CurDevice = (Std3DDevice *)(&UINT_00900b40 + driverIdx * 0x8b);
-  if (((useZBuffer == 0) || (*(int *)(&DAT_00900b48 + driverIdx * 0x22c) == 0)) ||
+  g_pStd3D_CurDevice = g_aStd3DDevices + driverIdx;
+  if (((useZBuffer == 0) || (g_aStd3DDevices[driverIdx].nHasZBuffer == 0)) ||
      ((g_dwD3dRenderFlags & 0x1800) == 0)) {
     UINT_004dee60 = 0;
   }
@@ -668,20 +668,21 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
-  undefined2 *puVar2;
-  VBuffer *pVVar3;
+  ushort *puVar2;
+  undefined2 *puVar3;
   VBuffer *pVVar4;
-  int iVar5;
-  byte *pbVar6;
-  VBuffer *pVVar7;
+  VBuffer *pVVar5;
+  int iVar6;
+  byte *pbVar7;
+  VBuffer *pVVar8;
   uint size;
-  VBufferFormat *pVVar8;
-  int iVar9;
-  uint uVar10;
+  VBufferFormat *pVVar9;
+  int iVar10;
   uint uVar11;
-  VBufferFormat *pVVar12;
+  uint uVar12;
+  VBufferFormat *pVVar13;
   int x;
-  DDSurfaceDesc *pDVar13;
+  DDSurfaceDesc *pDVar14;
   DDSurfaceDesc lockDesc;
   VBufferFormat format;
   DDSurfaceDesc ddsd;
@@ -697,244 +698,244 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
   #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
   #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
-  pVVar3 = (VBuffer *)(surface->format).nWidth;
+  pVVar4 = (VBuffer *)(surface->format).nWidth;
   local_8 = 0;
   local_18 = 0;
   local_10 = 0;
   local_14 = 0;
   local_30 = 0;
-  if (pVVar3 == (VBuffer *)0x0) {
-    pVVar3 = (VBuffer *)0x1;
+  if (pVVar4 == (VBuffer *)0x0) {
+    pVVar4 = (VBuffer *)0x1;
   }
-  else if ((VBuffer *)0x100 < pVVar3) {
-    pVVar3 = (VBuffer *)0x100;
+  else if ((VBuffer *)0x100 < pVVar4) {
+    pVVar4 = (VBuffer *)0x100;
   }
-  pVVar7 = (VBuffer *)(surface->format).nHeight;
-  if (pVVar7 == (VBuffer *)0x0) {
-    pVVar7 = (VBuffer *)0x1;
+  pVVar8 = (VBuffer *)(surface->format).nHeight;
+  if (pVVar8 == (VBuffer *)0x0) {
+    pVVar8 = (VBuffer *)0x1;
   }
-  else if ((VBuffer *)0x100 < pVVar7) {
-    pVVar7 = (VBuffer *)0x100;
+  else if ((VBuffer *)0x100 < pVVar8) {
+    pVVar8 = (VBuffer *)0x100;
   }
-  local_c = (uint)pVVar3;
-  if (((pVVar3 < UINT_004dee48) || (pVVar7 < UINT_004dee4c)) ||
-     ((pVVar4 = surface, g_pStd3D_CurDevice->nUnknown1c != 0 && (pVVar3 != pVVar7)))) {
-    pVVar8 = &surface->format;
-    pVVar12 = &format;
-    for (iVar5 = 0x13; iVar5 != 0; iVar5 = iVar5 + -1) {
-      pVVar12->nWidth = pVVar8->nWidth;
-      pVVar8 = (VBufferFormat *)&pVVar8->nHeight;
-      pVVar12 = (VBufferFormat *)&pVVar12->nHeight;
+  local_c = (uint)pVVar4;
+  if (((pVVar4 < UINT_004dee48) || (pVVar8 < UINT_004dee4c)) ||
+     ((pVVar5 = surface, g_pStd3D_CurDevice->nUnknown1c != 0 && (pVVar4 != pVVar8)))) {
+    pVVar9 = &surface->format;
+    pVVar13 = &format;
+    for (iVar6 = 0x13; iVar6 != 0; iVar6 = iVar6 + -1) {
+      pVVar13->nWidth = pVVar9->nWidth;
+      pVVar9 = (VBufferFormat *)&pVVar9->nHeight;
+      pVVar13 = (VBufferFormat *)&pVVar13->nHeight;
     }
-    if ((g_pStd3D_CurDevice->nUnknown1c == 0) || (pVVar3 == pVVar7)) {
-      if (pVVar3 < UINT_004dee48) {
-        pVVar3 = (VBuffer *)UINT_004dee48;
+    if ((g_pStd3D_CurDevice->nUnknown1c == 0) || (pVVar4 == pVVar8)) {
+      if (pVVar4 < UINT_004dee48) {
+        pVVar4 = (VBuffer *)UINT_004dee48;
       }
-      pVVar4 = pVVar7;
-      if (pVVar7 < UINT_004dee4c) {
-        pVVar4 = (VBuffer *)UINT_004dee4c;
+      pVVar5 = pVVar8;
+      if (pVVar8 < UINT_004dee4c) {
+        pVVar5 = (VBuffer *)UINT_004dee4c;
       }
     }
     else {
-      pVVar4 = pVVar3;
-      if (pVVar3 <= pVVar7) {
-        pVVar3 = pVVar7;
-        pVVar4 = pVVar7;
+      pVVar5 = pVVar4;
+      if (pVVar4 <= pVVar8) {
+        pVVar4 = pVVar8;
+        pVVar5 = pVVar8;
       }
     }
     aColorKey[0] = local_c;
     aColorKey[1] = 0;
-    iVar5 = (int)ROUND_DOWN(PUN(float,pVVar3) / (float)(int)local_c - -0.5f);
-    iStack_1c = (int)ROUND_DOWN(PUN(float,pVVar4) / (float)(int)pVVar7 - -0.5f);
-    format.nWidth = format.nWidth * iVar5;
+    iVar6 = (int)ROUND_DOWN(PUN(float,pVVar4) / (float)(int)local_c - -0.5f);
+    iStack_1c = (int)ROUND_DOWN(PUN(float,pVVar5) / (float)(int)pVVar8 - -0.5f);
+    format.nWidth = format.nWidth * iVar6;
     format.nHeight = format.nHeight * iStack_1c;
-    pVVar4 = stdDisplay_VBufferNew(&format,0,0,0);
+    pVVar5 = stdDisplay_VBufferNew(&format,0,0,0);
     if (iStack_1c != 0) {
       local_34 = 0;
       do {
-        if (iVar5 != 0) {
+        if (iVar6 != 0) {
           x = 0;
-          iVar9 = iVar5;
+          iVar10 = iVar6;
           do {
-            Surface_Blit(pVVar4,surface,x,local_34,(int *)0x0,0);
+            Surface_Blit(pVVar5,surface,x,local_34,(int *)0x0,0);
             x = x + local_c;
-            iVar9 = iVar9 + -1;
-          } while (iVar9 != 0);
+            iVar10 = iVar10 + -1;
+          } while (iVar10 != 0);
         }
-        local_34 = (int)&pVVar7->nType + local_34;
+        local_34 = (int)&pVVar8->nType + local_34;
         iStack_1c = iStack_1c + -1;
       } while (iStack_1c != 0);
     }
     local_c = format.nWidth;
     surface = (VBuffer *)format.nHeight;
-    pVVar7 = surface;
-    local_30 = (uint)pVVar4;
+    pVVar8 = surface;
+    local_30 = (uint)pVVar5;
   }
-  surface = pVVar7;
+  surface = pVVar8;
   size = (int)surface * local_c;
   if ((usePalette == 0) || (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
     if (colorKey == 0) {
       *(undefined4 *)&texture->field_0x7c = 0;
-      uVar10 = UINT_00806934;
+      uVar11 = UINT_00806934;
     }
     else {
       *(undefined4 *)&texture->field_0x7c = 1;
-      uVar10 = UINT_0080693c;
+      uVar11 = UINT_0080693c;
     }
   }
   else {
     *(undefined4 *)&texture->field_0x7c = 1;
-    uVar10 = UINT_00806938;
+    uVar11 = UINT_00806938;
     if (colorKey != 0) {
-      uVar10 = UINT_0080693c;
+      uVar11 = UINT_0080693c;
     }
   }
-  Mem_Copy(&ddsd,(void *)(uVar10 + 0x38),0x6c);
-  uVar10 = local_c;
+  Mem_Copy(&ddsd,(void *)(uVar11 + 0x38),0x6c);
+  uVar11 = local_c;
   ddsd.dwHeight = (uint)surface;
   ddsd.dwSize = 0x6c;
   ddsd.dwFlags = 0x1007;
   ddsd.dwCaps = 0x1800;
   ddsd.dwWidth = local_c;
-  iVar5 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_8,0);
-  if (iVar5 != 0) {
+  iVar6 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_8,0);
+  if (iVar6 != 0) {
     local_8 = 0;
     goto LAB_0047940a;
   }
-  pDVar13 = &lockDesc;
-  for (iVar5 = 0x1b; iVar5 != 0; iVar5 = iVar5 + -1) {
-    pDVar13->dwSize = 0;
-    pDVar13 = (DDSurfaceDesc *)&pDVar13->dwFlags;
+  pDVar14 = &lockDesc;
+  for (iVar6 = 0x1b; iVar6 != 0; iVar6 = iVar6 + -1) {
+    pDVar14->dwSize = 0;
+    pDVar14 = (DDSurfaceDesc *)&pDVar14->dwFlags;
   }
   lockDesc.dwSize = 0x6c;
-  iVar5 = (**(code_std **)(*(int *)local_8 + 100))(local_8,0,&lockDesc,1,0);
-  if (iVar5 != 0) goto LAB_0047940a;
-  iVar5 = (pVVar4->format).colorFormat.nColorMode;
-  if (iVar5 == 0) {
-    stdDisplay_VBufferLock(pVVar4);
+  iVar6 = (**(code_std **)(*(int *)local_8 + 100))(local_8,0,&lockDesc,1,0);
+  if (iVar6 != 0) goto LAB_0047940a;
+  iVar6 = (pVVar5->format).colorFormat.nColorMode;
+  if (iVar6 == 0) {
+    stdDisplay_VBufferLock(pVVar5);
     if ((usePalette == 0) || (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
       if (colorKey == 0) {
-        pVVar3 = (VBuffer *)0x0;
+        pVVar4 = (VBuffer *)0x0;
         if (surface != (VBuffer *)0x0) {
           do {
-            pbVar6 = (byte *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels);
-            puVar2 = (undefined2 *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface);
-            uVar11 = uVar10;
-            for (; uVar11 != 0; uVar11 = uVar11 - 1) {
-              bVar1 = *pbVar6;
-              pbVar6 = pbVar6 + 1;
-              *puVar2 = *(undefined2 *)((int)&UINT_00806408 + (uint)bVar1 * 2);
+            pbVar7 = (byte *)((int)pVVar4 * (pVVar5->format).nPitch + (int)pVVar5->pPixels);
+            puVar2 = (ushort *)((int)pVVar4 * lockDesc.nPitch + (int)lockDesc.pSurface);
+            uVar12 = uVar11;
+            for (; uVar12 != 0; uVar12 = uVar12 - 1) {
+              bVar1 = *pbVar7;
+              pbVar7 = pbVar7 + 1;
+              *puVar2 = g_awStd3D_Palette16[bVar1];
               puVar2 = puVar2 + 1;
-              uVar10 = local_c;
+              uVar11 = local_c;
             }
-            pVVar3 = (VBuffer *)((int)&pVVar3->nType + 1);
-          } while (pVVar3 < surface);
+            pVVar4 = (VBuffer *)((int)&pVVar4->nType + 1);
+          } while (pVVar4 < surface);
         }
       }
       else {
-        pVVar3 = (VBuffer *)0x0;
+        pVVar4 = (VBuffer *)0x0;
         if (surface != (VBuffer *)0x0) {
           do {
-            pbVar6 = (byte *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels);
-            puVar2 = (undefined2 *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface);
-            uVar11 = uVar10;
-            for (; uVar11 != 0; uVar11 = uVar11 - 1) {
-              bVar1 = *pbVar6;
-              pbVar6 = pbVar6 + 1;
-              *puVar2 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
-              puVar2 = puVar2 + 1;
-              uVar10 = local_c;
+            pbVar7 = (byte *)((int)pVVar4 * (pVVar5->format).nPitch + (int)pVVar5->pPixels);
+            puVar3 = (undefined2 *)((int)pVVar4 * lockDesc.nPitch + (int)lockDesc.pSurface);
+            uVar12 = uVar11;
+            for (; uVar12 != 0; uVar12 = uVar12 - 1) {
+              bVar1 = *pbVar7;
+              pbVar7 = pbVar7 + 1;
+              *puVar3 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
+              puVar3 = puVar3 + 1;
+              uVar11 = local_c;
             }
-            pVVar3 = (VBuffer *)((int)&pVVar3->nType + 1);
-          } while (pVVar3 < surface);
+            pVVar4 = (VBuffer *)((int)&pVVar4->nType + 1);
+          } while (pVVar4 < surface);
         }
       }
     }
     else if (colorKey == 0) {
-      pVVar3 = (VBuffer *)0x0;
+      pVVar4 = (VBuffer *)0x0;
       if (surface != (VBuffer *)0x0) {
         do {
-          pbVar6 = (byte *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels);
-          puVar2 = (undefined2 *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface);
-          uVar11 = uVar10;
-          for (; uVar11 != 0; uVar11 = uVar11 - 1) {
-            bVar1 = *pbVar6;
-            pbVar6 = pbVar6 + 1;
-            *puVar2 = *(undefined2 *)(&DAT_008061e8 + (uint)bVar1 * 2);
-            puVar2 = puVar2 + 1;
-            uVar10 = local_c;
+          pbVar7 = (byte *)((int)pVVar4 * (pVVar5->format).nPitch + (int)pVVar5->pPixels);
+          puVar3 = (undefined2 *)((int)pVVar4 * lockDesc.nPitch + (int)lockDesc.pSurface);
+          uVar12 = uVar11;
+          for (; uVar12 != 0; uVar12 = uVar12 - 1) {
+            bVar1 = *pbVar7;
+            pbVar7 = pbVar7 + 1;
+            *puVar3 = *(undefined2 *)(&DAT_008061e8 + (uint)bVar1 * 2);
+            puVar3 = puVar3 + 1;
+            uVar11 = local_c;
           }
-          pVVar3 = (VBuffer *)((int)&pVVar3->nType + 1);
-        } while (pVVar3 < surface);
+          pVVar4 = (VBuffer *)((int)&pVVar4->nType + 1);
+        } while (pVVar4 < surface);
       }
     }
     else {
-      pVVar3 = (VBuffer *)0x0;
+      pVVar4 = (VBuffer *)0x0;
       if (surface != (VBuffer *)0x0) {
         do {
-          pbVar6 = (byte *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels);
-          puVar2 = (undefined2 *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface);
-          uVar11 = uVar10;
-          for (; uVar11 != 0; uVar11 = uVar11 - 1) {
-            bVar1 = *pbVar6;
-            pbVar6 = pbVar6 + 1;
-            *puVar2 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
-            puVar2 = puVar2 + 1;
-            uVar10 = local_c;
+          pbVar7 = (byte *)((int)pVVar4 * (pVVar5->format).nPitch + (int)pVVar5->pPixels);
+          puVar3 = (undefined2 *)((int)pVVar4 * lockDesc.nPitch + (int)lockDesc.pSurface);
+          uVar12 = uVar11;
+          for (; uVar12 != 0; uVar12 = uVar12 - 1) {
+            bVar1 = *pbVar7;
+            pbVar7 = pbVar7 + 1;
+            *puVar3 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
+            puVar3 = puVar3 + 1;
+            uVar11 = local_c;
           }
-          pVVar3 = (VBuffer *)((int)&pVVar3->nType + 1);
-        } while (pVVar3 < surface);
+          pVVar4 = (VBuffer *)((int)&pVVar4->nType + 1);
+        } while (pVVar4 < surface);
       }
     }
 LAB_00479709:
-    stdDisplay_VBufferUnlock(pVVar4);
+    stdDisplay_VBufferUnlock(pVVar5);
   }
-  else if ((0 < iVar5) && (iVar5 < 3)) {
-    stdDisplay_VBufferLock(pVVar4);
-    pVVar3 = (VBuffer *)0x0;
+  else if ((0 < iVar6) && (iVar6 < 3)) {
+    stdDisplay_VBufferLock(pVVar5);
+    pVVar4 = (VBuffer *)0x0;
     if (surface != (VBuffer *)0x0) {
       do {
-        Mem_Copy((void *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface),
-                 (void *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels),uVar10 * 2);
-        pVVar3 = (VBuffer *)((int)&pVVar3->nType + 1);
-      } while (pVVar3 < surface);
+        Mem_Copy((void *)((int)pVVar4 * lockDesc.nPitch + (int)lockDesc.pSurface),
+                 (void *)((int)pVVar4 * (pVVar5->format).nPitch + (int)pVVar5->pPixels),uVar11 * 2);
+        pVVar4 = (VBuffer *)((int)&pVVar4->nType + 1);
+      } while (pVVar4 < surface);
     }
     goto LAB_00479709;
   }
-  iVar5 = (**(code_std **)(*(int *)local_8 + 0x80))(local_8,0);
-  if (iVar5 == 0) {
+  iVar6 = (**(code_std **)(*(int *)local_8 + 0x80))(local_8,0);
+  if (iVar6 == 0) {
     if ((usePalette != 0) && (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
-      iVar5 = (pVVar4->format).colorFormat.nColorMode;
-      if (iVar5 == 0) {
-        aColorKey[0] = UINT_00806408 & 0xffff;
+      iVar6 = (pVVar5->format).colorFormat.nColorMode;
+      if (iVar6 == 0) {
+        aColorKey[0] = PIECE(g_awStd3D_Palette16,0,4) & 0xffff;
         aColorKey[1] = aColorKey[0];
       }
-      else if (iVar5 == 1) {
-        aColorKey[0] = pVVar4->dwColorKey;
-        aColorKey[1] = pVVar4->dwColorKey;
+      else if (iVar6 == 1) {
+        aColorKey[0] = pVVar5->dwColorKey;
+        aColorKey[1] = pVVar5->dwColorKey;
       }
       (**(code_std **)(*(int *)local_8 + 0x74))(local_8,8,aColorKey);
     }
-    iVar5 = (*(code_std *)**(undefined4 **)local_8)(local_8,&DAT_004d85f0,&local_10);
-    if (iVar5 == 0) {
-      iVar5 = (**(code_std **)(*(int *)local_8 + 0x58))(local_8,&ddsd);
-      if (iVar5 == 0) {
+    iVar6 = (*(code_std *)**(undefined4 **)local_8)(local_8,&DAT_004d85f0,&local_10);
+    if (iVar6 == 0) {
+      iVar6 = (**(code_std **)(*(int *)local_8 + 0x58))(local_8,&ddsd);
+      if (iVar6 == 0) {
         Mem_Copy(&texture->field_0x8,&ddsd,0x6c);
         ddsd.dwFlags = 0x1007;
         ddsd.dwCaps = 0x4005000;
-        iVar5 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_18,0);
-        if (iVar5 != 0) {
-          if (iVar5 != -0x7789fe84) goto LAB_0047940a;
+        iVar6 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_18,0);
+        if (iVar6 != 0) {
+          if (iVar6 != -0x7789fe84) goto LAB_0047940a;
           D3D_EvictTexture(size);
-          iVar5 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_18,0);
-          if (iVar5 != 0) goto LAB_0047940a;
+          iVar6 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_18,0);
+          if (iVar6 != 0) goto LAB_0047940a;
         }
-        iVar5 = (*(code_std *)**(undefined4 **)local_18)(local_18,&DAT_004d85f0,&local_14);
-        if (iVar5 == 0) {
-          iVar5 = (**(code_std **)(*(int *)local_14 + 0x18))(local_14,local_10);
-          if (iVar5 == 0) {
-            iVar5 = (**(code_std **)(*(int *)local_14 + 0x10))(local_14,g_pD3dDevice,&local_2c);
-            if (iVar5 != 0) {
+        iVar6 = (*(code_std *)**(undefined4 **)local_18)(local_18,&DAT_004d85f0,&local_14);
+        if (iVar6 == 0) {
+          iVar6 = (**(code_std **)(*(int *)local_14 + 0x18))(local_14,local_10);
+          if (iVar6 == 0) {
+            iVar6 = (**(code_std **)(*(int *)local_14 + 0x10))(local_14,g_pD3dDevice,&local_2c);
+            if (iVar6 != 0) {
               local_2c = 0;
             }
             (**(code_std **)(*(int *)local_10 + 8))(local_10);
@@ -947,7 +948,7 @@ LAB_00479709:
             *(uint *)texture = local_14;
             *(uint *)&texture->field_0x4 = local_18;
             texture->dwHandle = local_2c;
-            *(uint *)&texture->field_0x80 = uVar10;
+            *(uint *)&texture->field_0x80 = uVar11;
             *(VBuffer **)&texture->field_0x84 = surface;
             texture->nSize = size;
             texture->nValid = 1;
@@ -1623,82 +1624,86 @@ uint __cdecl D3D_CreateZBuffer(int width,int height)
 undefined * __stdcall D3D_EnumDevicesCallback(int a1,int a2,int a3,int a4,int a5,int a6)
 
 {
-  int iVar1;
+  Std3DDevice *pSVar1;
   uint uVar2;
   uint uVar3;
-  int iVar4;
-  undefined4 uVar5;
+  uint uVar4;
+  int iVar5;
   
+  uVar3 = g_dwD3dDriverCount;
   if (g_dwD3dDriverCount < 4) {
-    iVar1 = g_dwD3dDriverCount * 0x22c;
-    iVar4 = g_dwD3dDriverCount * 0x8b;
-    Mem_Copy((void *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900d5c)),(void *)a1,0x10);
-    strncpy((uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900c08)),(uint *)a2,0x7f);
-    (&DAT_00900c87)[iVar1] = 0;
-    strncpy((uint *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900b88)),(uint *)a3,0x7f);
-    (&DAT_00900c07)[iVar1] = 0;
+    pSVar1 = g_aStd3DDevices + g_dwD3dDriverCount;
+    Mem_Copy(g_aStd3DDevices[g_dwD3dDriverCount].aGuid,(void *)a1,0x10);
+    strncpy((uint *)&g_aStd3DDevices[uVar3].field_0xc8,(uint *)a2,0x7f);
+    g_aStd3DDevices[uVar3].field_0x147 = 0;
+    strncpy((uint *)&g_aStd3DDevices[uVar3].field_0x48,(uint *)a3,0x7f);
+    g_aStd3DDevices[uVar3].field_0xc7 = 0;
     if (*(int *)(a4 + 8) == 0) {
-      (&UINT_00900b40)[iVar4] = 0;
+      pSVar1->nHardware = 0;
       a4 = a5;
     }
     else {
-      (&UINT_00900b40)[iVar4] = 1;
+      pSVar1->nHardware = 1;
     }
-    Mem_Copy((void *)(iVar1 + ((unsigned)(uintptr_t)&DAT_00900c90)),(void *)a4,0xcc);
-    *(undefined4 *)(&DAT_00900b64 + iVar1) = 0;
-    if ((*(uint *)(&DAT_00900c98 + iVar1) & 2) != 0) {
-      *(undefined4 *)(&DAT_00900b64 + iVar1) = 2;
+    Mem_Copy(&g_aStd3DDevices[uVar3].field_0x150,(void *)a4,0xcc);
+    uVar4 = *(uint *)&g_aStd3DDevices[uVar3].field_0x158;
+    *(undefined4 *)&g_aStd3DDevices[uVar3].field_0x24 = 0;
+    if ((uVar4 & 2) != 0) {
+      *(undefined4 *)&g_aStd3DDevices[uVar3].field_0x24 = 2;
     }
-    if ((*(uint *)(&DAT_00900c98 + iVar1) & 1) != 0) {
-      *(uint *)(&DAT_00900b64 + iVar1) = *(uint *)(&DAT_00900b64 + iVar1) | 1;
+    if ((uVar4 & 1) != 0) {
+      *(uint *)&g_aStd3DDevices[uVar3].field_0x24 = *(uint *)&g_aStd3DDevices[uVar3].field_0x24 | 1;
     }
-    uVar3 = *(uint *)(&DAT_00900d14 + iVar1);
-    *(uint *)(&DAT_00900b44 + iVar1) = uVar3 & 1;
-    *(uint *)(&DAT_00900b48 + iVar1) = (uint)(*(int *)(&DAT_00900d30 + iVar1) != 0);
-    *(uint *)(&DAT_00900b50 + iVar1) = uVar3 >> 2 & 1;
-    uVar2 = *(uint *)(&DAT_00900d10 + iVar1);
-    *(uint *)(&DAT_00900b5c + iVar1) = uVar3 >> 5 & 1;
+    uVar4 = *(uint *)&g_aStd3DDevices[uVar3].field_0x1d4;
+    *(uint *)&g_aStd3DDevices[uVar3].field_0x4 = uVar4 & 1;
+    g_aStd3DDevices[uVar3].nHasZBuffer = (uint)(g_aStd3DDevices[uVar3].dwZBufferBitDepths != 0);
+    g_aStd3DDevices[uVar3].nPalettedTextures = uVar4 >> 2 & 1;
+    uVar2 = *(uint *)&g_aStd3DDevices[uVar3].field_0x1d0;
+    g_aStd3DDevices[uVar3].nUnknown1c = uVar4 >> 5 & 1;
     if (((uVar2 & 0x1000) == 0) && ((uVar2 & 0x2000) != 0)) {
-      *(undefined4 *)(&DAT_00900b54 + iVar1) = 1;
+      g_aStd3DDevices[uVar3].nUnknown14 = 1;
     }
     else {
-      *(undefined4 *)(&DAT_00900b54 + iVar1) = 0;
+      g_aStd3DDevices[uVar3].nUnknown14 = 0;
     }
-    if (((((&DAT_00900d1c)[iVar1] & 8) == 0) || ((uVar2 & 0x4000) == 0)) &&
-       (*(int *)(&DAT_00900b54 + iVar1) == 0)) {
-      uVar5 = 0;
+    if ((((g_aStd3DDevices[uVar3].field_0x1dc & 8) == 0) || ((uVar2 & 0x4000) == 0)) &&
+       (g_aStd3DDevices[uVar3].nUnknown14 == 0)) {
+      iVar5 = 0;
     }
     else {
-      uVar5 = 1;
+      iVar5 = 1;
     }
-    *(undefined4 *)(&DAT_00900b58 + iVar1) = uVar5;
-    *(uint *)(&DAT_00900b4c + iVar1) = uVar3 >> 3 & 1;
-    uVar3 = D3D_CapsToFilterBits(*(uint *)(&DAT_00900d2c + iVar1));
-    *(uint *)(&DAT_00900b68 + iVar1) = uVar3;
-    uVar3 = D3D_FilterBitsToMask((byte)*(undefined4 *)(&DAT_00900d00 + iVar1));
-    *(uint *)(&DAT_00900b6c + iVar1) = uVar3;
-    uVar3 = *(uint *)(&DAT_00900d3c + iVar1);
-    if (uVar3 < 5) {
-      uVar3 = 4;
+    uVar2 = *(uint *)&g_aStd3DDevices[uVar3].field_0x1ec;
+    g_aStd3DDevices[uVar3].nUnknown18 = iVar5;
+    *(uint *)&g_aStd3DDevices[uVar3].field_0xc = uVar4 >> 3 & 1;
+    uVar4 = D3D_CapsToFilterBits(uVar2);
+    *(uint *)&g_aStd3DDevices[uVar3].field_0x28 = uVar4;
+    uVar4 = D3D_FilterBitsToMask((byte)*(undefined4 *)&g_aStd3DDevices[uVar3].field_0x1c0);
+    g_aStd3DDevices[uVar3].dwCaps = uVar4;
+    uVar4 = *(uint *)&g_aStd3DDevices[uVar3].field_0x1fc;
+    if (uVar4 < 5) {
+      uVar4 = 4;
     }
-    *(uint *)(&DAT_00900b70 + iVar1) = uVar3;
-    uVar3 = *(uint *)(&DAT_00900d40 + iVar1);
-    if (uVar3 < 5) {
-      uVar3 = 4;
+    g_aStd3DDevices[uVar3].nMinTexWidth = uVar4;
+    uVar4 = *(uint *)&g_aStd3DDevices[uVar3].field_0x200;
+    if (uVar4 < 5) {
+      uVar4 = 4;
     }
-    *(uint *)(&DAT_00900b74 + iVar1) = uVar3;
-    iVar4 = *(int *)(&DAT_00900d44 + iVar1);
-    if (iVar4 == 0) {
-      iVar4 = 0x100;
+    g_aStd3DDevices[uVar3].nMinTexHeight = uVar4;
+    iVar5 = *(int *)&g_aStd3DDevices[uVar3].field_0x204;
+    if (iVar5 == 0) {
+      iVar5 = 0x100;
     }
-    *(int *)(&DAT_00900b78 + iVar1) = iVar4;
-    iVar4 = *(int *)(&DAT_00900d48 + iVar1);
-    if (iVar4 == 0) {
-      iVar4 = 0x100;
+    g_aStd3DDevices[uVar3].nMaxTexWidth = iVar5;
+    iVar5 = *(int *)&g_aStd3DDevices[uVar3].field_0x208;
+    if (iVar5 == 0) {
+      iVar5 = 0x100;
     }
-    *(int *)(&DAT_00900b7c + iVar1) = iVar4;
-    *(undefined4 *)(&DAT_00900b80 + iVar1) = *(undefined4 *)(&DAT_00900d34 + iVar1);
-    *(undefined4 *)(&DAT_00900b84 + iVar1) = *(undefined4 *)(&DAT_00900d38 + iVar1);
+    uVar4 = *(uint *)&g_aStd3DDevices[uVar3].field_0x1f4;
+    uVar2 = *(uint *)&g_aStd3DDevices[uVar3].field_0x1f8;
+    g_aStd3DDevices[uVar3].nMaxTexHeight = iVar5;
+    g_aStd3DDevices[uVar3].dwMaxBufferSize = uVar4;
+    g_aStd3DDevices[uVar3].dwMaxVertexCount = uVar2;
     g_dwD3dDriverCount = g_dwD3dDriverCount + 1;
     return (undefined *)0x1;
   }
@@ -2029,41 +2034,6 @@ extern unsigned char grim_def_DAT_0090064c[4] __asm__("_DAT_0090064c");
 extern unsigned char grim_def_DAT_00900650[4] __asm__("_DAT_00900650");
 extern unsigned char grim_def_DAT_00900654[4] __asm__("_DAT_00900654");
 extern unsigned char grim_def_DAT_00900658[1256] __asm__("_DAT_00900658");
-extern unsigned char grim_def_DAT_00900b44[4] __asm__("_DAT_00900b44");
-extern unsigned char grim_def_DAT_00900b48[4] __asm__("_DAT_00900b48");
-extern unsigned char grim_def_DAT_00900b4c[4] __asm__("_DAT_00900b4c");
-extern unsigned char grim_def_DAT_00900b50[4] __asm__("_DAT_00900b50");
-extern unsigned char grim_def_DAT_00900b54[4] __asm__("_DAT_00900b54");
-extern unsigned char grim_def_DAT_00900b58[4] __asm__("_DAT_00900b58");
-extern unsigned char grim_def_DAT_00900b5c[8] __asm__("_DAT_00900b5c");
-extern unsigned char grim_def_DAT_00900b64[4] __asm__("_DAT_00900b64");
-extern unsigned char grim_def_DAT_00900b68[4] __asm__("_DAT_00900b68");
-extern unsigned char grim_def_DAT_00900b6c[4] __asm__("_DAT_00900b6c");
-extern unsigned char grim_def_DAT_00900b70[4] __asm__("_DAT_00900b70");
-extern unsigned char grim_def_DAT_00900b74[4] __asm__("_DAT_00900b74");
-extern unsigned char grim_def_DAT_00900b78[4] __asm__("_DAT_00900b78");
-extern unsigned char grim_def_DAT_00900b7c[4] __asm__("_DAT_00900b7c");
-extern unsigned char grim_def_DAT_00900b80[4] __asm__("_DAT_00900b80");
-extern unsigned char grim_def_DAT_00900b84[4] __asm__("_DAT_00900b84");
-extern unsigned char grim_def_DAT_00900b88[127] __asm__("_DAT_00900b88");
-extern unsigned char grim_def_DAT_00900c07 __asm__("_DAT_00900c07");
-extern unsigned char grim_def_DAT_00900c08[127] __asm__("_DAT_00900c08");
-extern unsigned char grim_def_DAT_00900c87[9] __asm__("_DAT_00900c87");
-extern unsigned char grim_def_DAT_00900c90[8] __asm__("_DAT_00900c90");
-extern unsigned char grim_def_DAT_00900c98[104] __asm__("_DAT_00900c98");
-extern unsigned char grim_def_DAT_00900d00[16] __asm__("_DAT_00900d00");
-extern unsigned char grim_def_DAT_00900d10[4] __asm__("_DAT_00900d10");
-extern unsigned char grim_def_DAT_00900d14[8] __asm__("_DAT_00900d14");
-extern unsigned char grim_def_DAT_00900d1c[16] __asm__("_DAT_00900d1c");
-extern unsigned char grim_def_DAT_00900d2c[4] __asm__("_DAT_00900d2c");
-extern unsigned char grim_def_DAT_00900d30[4] __asm__("_DAT_00900d30");
-extern unsigned char grim_def_DAT_00900d34[4] __asm__("_DAT_00900d34");
-extern unsigned char grim_def_DAT_00900d38[4] __asm__("_DAT_00900d38");
-extern unsigned char grim_def_DAT_00900d3c[4] __asm__("_DAT_00900d3c");
-extern unsigned char grim_def_DAT_00900d40[4] __asm__("_DAT_00900d40");
-extern unsigned char grim_def_DAT_00900d44[4] __asm__("_DAT_00900d44");
-extern unsigned char grim_def_DAT_00900d48[20] __asm__("_DAT_00900d48");
-extern unsigned char grim_def_DAT_00900d5c[1700] __asm__("_DAT_00900d5c");
 extern unsigned char grim_def_DAT_00901408[4] __asm__("_DAT_00901408");
 extern unsigned char grim_def_DAT_0090140c[76] __asm__("_DAT_0090140c");
 extern unsigned char grim_def_DAT_00901458[4] __asm__("_DAT_00901458");
@@ -2193,18 +2163,20 @@ extern unsigned char grim_def_g_pDirect3D[4] __asm__("_g_pDirect3D");
 /* 0x0080696c, 4 bytes */ GRIM_DATA("0080696c") unsigned int grim_def_UINT_0080696c __asm__("_UINT_0080696c") = 0x0;
 /* 0x00806970, 4 bytes */ GRIM_DATA("00806970") unsigned int grim_def_UINT_00806970 __asm__("_UINT_00806970") = 0x0;
 /* 0x00806974, 780 bytes */ GRIM_DATA("00806974") unsigned char grim_def_UINT_00806974[780] __asm__("_UINT_00806974") = {0};
-/* 0x0090052c, 4 bytes */ GRIM_DATA("0090052c") unsigned char grim_def_DAT_0090052c[4] __asm__("_DAT_0090052c") = {0};
-/* 0x00900540, 4 bytes */ GRIM_DATA("00900540") unsigned char grim_def_DAT_00900540[4] __asm__("_DAT_00900540") = {0};
-/* 0x00900544, 4 bytes */ GRIM_DATA("00900544") unsigned char grim_def_DAT_00900544[4] __asm__("_DAT_00900544") = {0};
-/* 0x00900548, 4 bytes */ GRIM_DATA("00900548") unsigned char grim_def_DAT_00900548[4] __asm__("_DAT_00900548") = {0};
-/* 0x0090054c, 4 bytes */ GRIM_DATA("0090054c") unsigned char grim_def_DAT_0090054c[4] __asm__("_DAT_0090054c") = {0};
-/* 0x00900550, 4 bytes */ GRIM_DATA("00900550") unsigned char grim_def_DAT_00900550[4] __asm__("_DAT_00900550") = {0};
-/* 0x00900554, 4 bytes */ GRIM_DATA("00900554") unsigned char grim_def_DAT_00900554[4] __asm__("_DAT_00900554") = {0};
-/* 0x00900558, 4 bytes */ GRIM_DATA("00900558") unsigned char grim_def_DAT_00900558[4] __asm__("_DAT_00900558") = {0};
-/* 0x0090055c, 4 bytes */ GRIM_DATA("0090055c") unsigned char grim_def_DAT_0090055c[4] __asm__("_DAT_0090055c") = {0};
-/* 0x00900560, 4 bytes */ GRIM_DATA("00900560") unsigned char grim_def_DAT_00900560[4] __asm__("_DAT_00900560") = {0};
-/* 0x00900564, 4 bytes */ GRIM_DATA("00900564") unsigned char grim_def_DAT_00900564[4] __asm__("_DAT_00900564") = {0};
-/* 0x00900568, 24 bytes */ GRIM_DATA("00900568") unsigned char grim_def_DAT_00900568[24] __asm__("_DAT_00900568") = {0};
+/* 0x0090052c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_0090052c[4] __asm__("_DAT_0090052c") = {0};
+/* 0x00900540, 4 bytes */ /* loose */ unsigned char grim_def_DAT_00900540[4] __asm__("_DAT_00900540") = {0};
+/* 0x00900544, 4 bytes */ /* loose */ unsigned char grim_def_DAT_00900544[4] __asm__("_DAT_00900544") = {0};
+/* 0x00900548, 4 bytes */ /* loose */ unsigned char grim_def_DAT_00900548[4] __asm__("_DAT_00900548") = {0};
+/* 0x0090054c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_0090054c[4] __asm__("_DAT_0090054c") = {0};
+/* 0x00900550, 4 bytes */ /* loose */ unsigned char grim_def_DAT_00900550[4] __asm__("_DAT_00900550") = {0};
+/* 0x00900554, 4 bytes */ /* loose */ unsigned char grim_def_DAT_00900554[4] __asm__("_DAT_00900554") = {0};
+/* 0x00900558, 4 bytes */ /* loose */ unsigned char grim_def_DAT_00900558[4] __asm__("_DAT_00900558") = {0};
+/* 0x0090055c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_0090055c[4] __asm__("_DAT_0090055c") = {0};
+/* 0x00900560, 4 bytes */ /* loose */ unsigned char grim_def_DAT_00900560[4] __asm__("_DAT_00900560") = {0};
+/* 0x00900564, 4 bytes */ /* loose */ unsigned char grim_def_DAT_00900564[4] __asm__("_DAT_00900564") = {0};
+static unsigned char grim_anchor_00900568[0] __attribute__((section(".data$grim_00900568"), aligned(16), used));
+static unsigned char grim_pad_00900568[8] __attribute__((section(".data$grim_00900568_"), aligned(4), used));
+/* 0x00900568, 24 bytes */ GRIM_DATA("00900568z") unsigned char grim_def_DAT_00900568[24] __asm__("_DAT_00900568") = {0};
 /* 0x00900580, 4 bytes */ GRIM_DATA("00900580") float grim_def_FLOAT_00900580 __asm__("_FLOAT_00900580") = 0.0f;
 /* 0x00900584, 28 bytes */ GRIM_DATA("00900584") float grim_def_FLOAT_00900584 __asm__("_FLOAT_00900584") = 0.0f;
 /* 0x00900588, 24 bytes: the rest of grim_def_FLOAT_00900584's span */ GRIM_DATA("00900584") static unsigned char FLOAT_00900584__tail[24] __attribute__((used)) = {0};
@@ -2236,41 +2208,6 @@ extern unsigned char grim_def_g_pDirect3D[4] __asm__("_g_pDirect3D");
 /* 0x00900650, 4 bytes */ GRIM_DATA("00900650") unsigned char grim_def_DAT_00900650[4] __asm__("_DAT_00900650") = {0};
 /* 0x00900654, 4 bytes */ GRIM_DATA("00900654") unsigned char grim_def_DAT_00900654[4] __asm__("_DAT_00900654") = {0};
 /* 0x00900658, 1256 bytes */ GRIM_DATA("00900658") unsigned char grim_def_DAT_00900658[1256] __asm__("_DAT_00900658") = {0};
-/* 0x00900b44, 4 bytes */ GRIM_DATA("00900b44") unsigned char grim_def_DAT_00900b44[4] __asm__("_DAT_00900b44") = {0};
-/* 0x00900b48, 4 bytes */ GRIM_DATA("00900b48") unsigned char grim_def_DAT_00900b48[4] __asm__("_DAT_00900b48") = {0};
-/* 0x00900b4c, 4 bytes */ GRIM_DATA("00900b4c") unsigned char grim_def_DAT_00900b4c[4] __asm__("_DAT_00900b4c") = {0};
-/* 0x00900b50, 4 bytes */ GRIM_DATA("00900b50") unsigned char grim_def_DAT_00900b50[4] __asm__("_DAT_00900b50") = {0};
-/* 0x00900b54, 4 bytes */ GRIM_DATA("00900b54") unsigned char grim_def_DAT_00900b54[4] __asm__("_DAT_00900b54") = {0};
-/* 0x00900b58, 4 bytes */ GRIM_DATA("00900b58") unsigned char grim_def_DAT_00900b58[4] __asm__("_DAT_00900b58") = {0};
-/* 0x00900b5c, 8 bytes */ GRIM_DATA("00900b5c") unsigned char grim_def_DAT_00900b5c[8] __asm__("_DAT_00900b5c") = {0};
-/* 0x00900b64, 4 bytes */ GRIM_DATA("00900b64") unsigned char grim_def_DAT_00900b64[4] __asm__("_DAT_00900b64") = {0};
-/* 0x00900b68, 4 bytes */ GRIM_DATA("00900b68") unsigned char grim_def_DAT_00900b68[4] __asm__("_DAT_00900b68") = {0};
-/* 0x00900b6c, 4 bytes */ GRIM_DATA("00900b6c") unsigned char grim_def_DAT_00900b6c[4] __asm__("_DAT_00900b6c") = {0};
-/* 0x00900b70, 4 bytes */ GRIM_DATA("00900b70") unsigned char grim_def_DAT_00900b70[4] __asm__("_DAT_00900b70") = {0};
-/* 0x00900b74, 4 bytes */ GRIM_DATA("00900b74") unsigned char grim_def_DAT_00900b74[4] __asm__("_DAT_00900b74") = {0};
-/* 0x00900b78, 4 bytes */ GRIM_DATA("00900b78") unsigned char grim_def_DAT_00900b78[4] __asm__("_DAT_00900b78") = {0};
-/* 0x00900b7c, 4 bytes */ GRIM_DATA("00900b7c") unsigned char grim_def_DAT_00900b7c[4] __asm__("_DAT_00900b7c") = {0};
-/* 0x00900b80, 4 bytes */ GRIM_DATA("00900b80") unsigned char grim_def_DAT_00900b80[4] __asm__("_DAT_00900b80") = {0};
-/* 0x00900b84, 4 bytes */ GRIM_DATA("00900b84") unsigned char grim_def_DAT_00900b84[4] __asm__("_DAT_00900b84") = {0};
-/* 0x00900b88, 127 bytes */ GRIM_DATA("00900b88") unsigned char grim_def_DAT_00900b88[127] __asm__("_DAT_00900b88") = {0};
-/* 0x00900c07, 1 bytes */ GRIM_DATA("00900b88") unsigned char grim_def_DAT_00900c07 __asm__("_DAT_00900c07") = 0x0;
-/* 0x00900c08, 127 bytes */ GRIM_DATA("00900c08") unsigned char grim_def_DAT_00900c08[127] __asm__("_DAT_00900c08") = {0};
-/* 0x00900c87, 9 bytes */ GRIM_DATA("00900c08") unsigned char grim_def_DAT_00900c87[9] __asm__("_DAT_00900c87") = {0};
-/* 0x00900c90, 8 bytes */ GRIM_DATA("00900c90") unsigned char grim_def_DAT_00900c90[8] __asm__("_DAT_00900c90") = {0};
-/* 0x00900c98, 104 bytes */ GRIM_DATA("00900c98") unsigned char grim_def_DAT_00900c98[104] __asm__("_DAT_00900c98") = {0};
-/* 0x00900d00, 16 bytes */ GRIM_DATA("00900d00") unsigned char grim_def_DAT_00900d00[16] __asm__("_DAT_00900d00") = {0};
-/* 0x00900d10, 4 bytes */ GRIM_DATA("00900d10") unsigned char grim_def_DAT_00900d10[4] __asm__("_DAT_00900d10") = {0};
-/* 0x00900d14, 8 bytes */ GRIM_DATA("00900d14") unsigned char grim_def_DAT_00900d14[8] __asm__("_DAT_00900d14") = {0};
-/* 0x00900d1c, 16 bytes */ GRIM_DATA("00900d1c") unsigned char grim_def_DAT_00900d1c[16] __asm__("_DAT_00900d1c") = {0};
-/* 0x00900d2c, 4 bytes */ GRIM_DATA("00900d2c") unsigned char grim_def_DAT_00900d2c[4] __asm__("_DAT_00900d2c") = {0};
-/* 0x00900d30, 4 bytes */ GRIM_DATA("00900d30") unsigned char grim_def_DAT_00900d30[4] __asm__("_DAT_00900d30") = {0};
-/* 0x00900d34, 4 bytes */ GRIM_DATA("00900d34") unsigned char grim_def_DAT_00900d34[4] __asm__("_DAT_00900d34") = {0};
-/* 0x00900d38, 4 bytes */ GRIM_DATA("00900d38") unsigned char grim_def_DAT_00900d38[4] __asm__("_DAT_00900d38") = {0};
-/* 0x00900d3c, 4 bytes */ GRIM_DATA("00900d3c") unsigned char grim_def_DAT_00900d3c[4] __asm__("_DAT_00900d3c") = {0};
-/* 0x00900d40, 4 bytes */ GRIM_DATA("00900d40") unsigned char grim_def_DAT_00900d40[4] __asm__("_DAT_00900d40") = {0};
-/* 0x00900d44, 4 bytes */ GRIM_DATA("00900d44") unsigned char grim_def_DAT_00900d44[4] __asm__("_DAT_00900d44") = {0};
-/* 0x00900d48, 20 bytes */ GRIM_DATA("00900d48") unsigned char grim_def_DAT_00900d48[20] __asm__("_DAT_00900d48") = {0};
-/* 0x00900d5c, 1700 bytes */ GRIM_DATA("00900d5c") unsigned char grim_def_DAT_00900d5c[1700] __asm__("_DAT_00900d5c") = {0};
 /* 0x00901408, 4 bytes */ GRIM_DATA("00901408") unsigned char grim_def_DAT_00901408[4] __asm__("_DAT_00901408") = {0};
 /* 0x0090140c, 76 bytes */ GRIM_DATA("0090140c") unsigned char grim_def_DAT_0090140c[76] __asm__("_DAT_0090140c") = {0};
 /* 0x00901458, 4 bytes */ GRIM_DATA("00901458") unsigned char grim_def_DAT_00901458[4] __asm__("_DAT_00901458") = {0};

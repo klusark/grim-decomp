@@ -1,0 +1,144 @@
+{
+ "_comment": "Tables and objects the code reaches through their address, typed to their real extent (2026-11-16), so that tools/data_reach.py can end their chains there and release the data after them. Module service tables: every *_Initialize / *_SysInitialize writes slots 0..7 (SysModuleIface). g_aHs is the GrimServices the engine fills and hands to every module. 00901760: DDraw_EnumModesCallback stores up to 64 VideoMode (0x54 each). 00900b40: D3D_EnumDevicesCallback stores up to 4 Std3DDevice (0x22c). 008d0880: Text_SysStartup fills g_bLookup[0..0xff]. 008c9568: DrawList_Reset points the 128 draw-list slots at the 128 items of 12 bytes at 008a8ca8 (its loop ends at 008a92a8). 008dacb0: SoundModule's config ints, cleared up to g_pSoundModule_snddriver_services (008dacf0). 009004a0: StdConffile's file name, 127 characters and the NUL at 0090051f. 004f59b0: strncpy(.., 0x4f) into it, NUL at 004f59ff. 008d73e8: the 256-colour transform palette, copied 0x400 bytes at a time. 00806618: Mem_Copy(.., palette, 0x300). 008a8778 / 008a85f0: the module tables Engine_RegisterSubsystems fills, 6 and 8 SysModuleIface (it steps the modules by 0x20; the 8-byte step is its list of initializers). 00906c0c: the C runtime's int that _strupr / tolower / mbtowc pass to InterlockedIncrement. Second batch: 008dcdc8 msc_error_SaveString vsprintf's 20 messages of 200 bytes. 008a9510 Render_SetPixelFormat copies 7 ints into it. 008d0874 the C runtime's one-character string for GetStringTypeA / CompareStringA (count 1). 008ca0a0 the primitive queue object its methods use at +0 and +4 only. 00906b00 the C runtime's __pioinfo table of 64 pointers (_ioinit walks it from 00906b04). 008d7250 the animation codec ids, indexed up to 100. 00806408 std3D's 16-bit palette, indexed by byte. 008caab8 Smush's path, 127 characters and a NUL. 007f30e0 rdModel3's 64 indexed slots. 008d7868 VbrAdpcm's delta table of 64 words.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "globals": [
+  {
+   "addr": "008ddd80",
+   "type": "SysModuleIface"
+  },
+  {
+   "addr": "008ddda0",
+   "type": "GrimServices"
+  },
+  {
+   "addr": "008dde20",
+   "type": "SysModuleIface"
+  },
+  {
+   "addr": "008ca0b8",
+   "type": "SysModuleIface"
+  },
+  {
+   "addr": "008cab50",
+   "type": "SysModuleIface"
+  },
+  {
+   "addr": "008ca118",
+   "type": "SysModuleIface"
+  },
+  {
+   "addr": "008ca1d8",
+   "type": "SysModuleIface"
+  },
+  {
+   "addr": "008ca770",
+   "type": "SysModuleIface"
+  },
+  {
+   "addr": "008c9fb8",
+   "type": "SysModuleIface"
+  },
+  {
+   "addr": "00901760",
+   "type": "VideoMode[64]",
+   "name": "g_aVideoModes"
+  },
+  {
+   "addr": "00900b40",
+   "type": "Std3DDevice[4]",
+   "name": "g_aStd3DDevices"
+  },
+  {
+   "addr": "008d0880",
+   "type": "byte[256]"
+  },
+  {
+   "addr": "008c9568",
+   "type": "void *[128]"
+  },
+  {
+   "addr": "008a8ca8",
+   "type": "byte[1536]",
+   "name": "g_abDrawItemPool"
+  },
+  {
+   "addr": "008dacb0",
+   "type": "uint[16]"
+  },
+  {
+   "addr": "009004a0",
+   "type": "char[128]"
+  },
+  {
+   "addr": "004f59b0",
+   "type": "char[80]",
+   "name": "g_szBootFileArg"
+  },
+  {
+   "addr": "008d73e8",
+   "type": "uint[256]"
+  },
+  {
+   "addr": "00806618",
+   "type": "byte[768]",
+   "name": "g_abStd3D_Palette"
+  },
+  {
+   "addr": "008a8778",
+   "type": "SysModuleIface[6]"
+  },
+  {
+   "addr": "008a85f0",
+   "type": "SysModuleIface[8]"
+  },
+  {
+   "addr": "00906c0c",
+   "type": "int",
+   "name": "g_nCrt_unguardedReadlcActive"
+  },
+  {
+   "addr": "008dcdc8",
+   "type": "char[4000]"
+  },
+  {
+   "addr": "008a9510",
+   "type": "uint[7]"
+  },
+  {
+   "addr": "008d0874",
+   "type": "byte[4]",
+   "name": "g_abCrt_oneChar"
+  },
+  {
+   "addr": "008ca0a0",
+   "type": "uint[2]"
+  },
+  {
+   "addr": "00906b00",
+   "type": "void *[64]",
+   "name": "g_apCrt_pioinfo"
+  },
+  {
+   "addr": "008d7250",
+   "type": "uint[100]"
+  },
+  {
+   "addr": "00806408",
+   "type": "ushort[256]",
+   "name": "g_awStd3D_Palette16"
+  },
+  {
+   "addr": "008caab8",
+   "type": "char[128]"
+  },
+  {
+   "addr": "007f30e0",
+   "type": "uint[64]",
+   "name": "g_adwRdModel3_meshLights"
+  },
+  {
+   "addr": "008d7868",
+   "type": "ushort[64]"
+  }
+ ]
+}

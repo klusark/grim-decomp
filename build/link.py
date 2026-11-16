@@ -154,8 +154,13 @@ def link(cc, src, obj, prog, env):
     if not os.path.exists(data_o):
         print(f"{prog}: no obj/{prog}/data.o (src/{prog}/data.c missing, or it did not compile)")
         return
-    in_sections = defined_data(os.path.join(os.path.dirname(cc), "nm") if os.path.dirname(cc) else "nm", data_o)
+    nm = os.path.join(os.path.dirname(cc), "nm") if os.path.dirname(cc) else "nm"
+    in_sections = defined_data(nm, data_o)
     print(f"{prog}: data.c: {len(in_sections)} data symbols")
+    # the data datagen moved into the modules that use it (tools/datagen.py: place_in_modules)
+    for o in objs:
+        if o != data_o:
+            in_sections |= defined_data(nm, o)
     # Win32 entry points the import libraries lack (intrinsics) + mingwex hooks
     fence = ["-DGRIM_FENCE"] if os.environ.get("GRIM_FENCE") and not prog.endswith(".DLL") else []  # debug allocator, see win32_shims.c
     rc, out = run([cc] + cflags + fence + ["-c", os.path.join(here, "win32_shims.c"), "-o", os.path.join(d, "win32_shims.o")], env)
