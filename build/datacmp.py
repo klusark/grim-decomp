@@ -3,7 +3,8 @@
 For every span of tools/datagen.py's model:
 * the bytes of the span in the new build equal those at the same original address in the old build;
 * a dword that is a pointer in either build points at the same original address (data) or at the same function;
-* the span sits at its original distance from the start of its section (`sect_<name>`): the layout is pinned.
+* a span that data.c pins sits at its original distance from the pinned spans around it (each run of pinned spans
+  between two loose ones keeps the original layout); a loose span may be anywhere (tools/data_reach.py).
 A span in names/data_unused.json (tools/data_unused.py) must be zero in the new build instead.
 
 The old build may be one with the data.s blob (`_sect_rdata` / `_sect_data` / `_sect_text`) or one with data.c.
@@ -13,6 +14,7 @@ usage: python -I build/datacmp.py OLD_DIR NEW_DIR [PROG...]
        (each DIR holds grimfandango.exe, lua.dll, imuse.dll, chore.dll)"""
 import bisect
 import json
+import re
 import os
 import shutil
 import struct
@@ -58,6 +60,12 @@ class Image:
         raise ValueError("%#x not in the image" % va)
 
 
+def loose_spans(prog):
+    """The original addresses of the spans data.c leaves to the linker (tools/data_reach.py), marked `/* loose */`."""
+    t = open(os.path.join(ROOT, "src", prog, "data.c"), encoding="utf-8").read()
+    return {int(a, 16) for a in re.findall(r"/\* 0x([0-9a-f]{8}), \d+ bytes[^*]*\*/ /\* loose \*/", t)}
+
+
 def compare(prog, old, new):
     model = datagen.build_model(prog, os.path.join(ROOT, "src"))
     secs = {s["key"]: s for s in model.secs}
@@ -88,7 +96,11 @@ def compare(prog, old, new):
                 return va + sp.start - s["start"]
         return old.by_name.get("_" + sp.name)
 
+    old_span_at = {old.by_name["_" + sp.name]: sp.start for sp in model.spans if "_" + sp.name in old.by_name}
+
     def orig_old(v):
+        if v in old_span_at and model.island_by_start.get(old_span_at[v]):
+            return ("d", old_span_at[v])   # a span outside the sections (the DirectInput formats of .text)
         for va, size, ostart in old_ranges:
             if va <= v < va + size:
                 return ("d", ostart + v - va)
@@ -114,20 +126,22 @@ def compare(prog, old, new):
     up = os.path.join(ROOT, "names", "data_unused.json")
     if os.path.exists(up):
         unused = {(int(r["addr"], 16), r["size"]) for r in json.load(open(up)).get(prog, [])}   # (address, size)
-    first = {}
-    for a, sp in new_spans:
-        if sp.sec is not None and sp.sec["key"] not in first:
-            first[sp.sec["key"]] = (a, sp)
+    loose = loose_spans(prog)
+    run_first = None   # (new address, span) of the first span of the current run of pinned spans
     for sp in model.spans:
         n = sp.end - sp.start
         if "_" + sp.name not in new.by_name:
             missing.append(sp.name)
             continue
         nv = new.by_name["_" + sp.name]
-        if sp.sec is not None:
-            fa, fsp = first[sp.sec["key"]]
-            if nv - fa != sp.start - fsp.start:
-                moved.append(sp.name)
+        if sp.island:
+            pass
+        elif sp.start in loose:
+            run_first = None   # the linker places it; the pinned spans after it start a new run
+        elif run_first is None:
+            run_first = (nv, sp)
+        elif nv - run_first[0] != sp.start - run_first[1].start:
+            moved.append(sp.name)
         ov = old_va(sp)
         if ov is None:
             missing.append("old:" + sp.name)

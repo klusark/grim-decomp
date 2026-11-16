@@ -2255,17 +2255,13 @@ def build(prog):
     with open(os.path.join(out, "ghidra_types.h"), "w", newline="\n") as w:
         w.write(GHIDRA_TYPES)
         if IMG_SECTIONS:
-            w.write("\n/* The original data sections: src/<prog>/data.c (tools/datagen.py) defines every global in the\n"
-                    " * original layout, and sect_<name> labels the first one of each section. The generated code names\n"
-                    " * its data; IMG_ADDR() is for the hand-written overrides (build/overrides*.c), which compute data\n"
-                    " * addresses from the original's. */\n")
-            for name, start, size in IMG_SECTIONS:
-                w.write(f"extern unsigned char sect_{name.strip('.')}[];  /* {name}: 0x{start:08x}, {size} bytes */\n")
-            w.write("#define IMG_ADDR(a) ((unsigned)(uintptr_t)img_addr_(a))  /* integer, like the literal it replaces */\n")
-            w.write("static inline void *img_addr_(unsigned a) {\n")
-            for name, start, size in IMG_SECTIONS:
-                w.write(f"    if (a >= 0x{start:08x}u && a <= 0x{start + size:08x}u) return sect_{name.strip('.')} + (a - 0x{start:08x}u);\n")
-            w.write("    return (void *)(uintptr_t)a;\n}\n")
+            tag = datagen.img_tag(prog)
+            w.write("\n/* IMG_ADDR(0x...) is for the hand-written overrides (build/overrides*.c), which name data by the\n"
+                    " * original's address: src/<prog>/data.c (tools/datagen.py) defines a label grim_img_<prog>_0x... at\n"
+                    " * every such address, on the span that holds it, so the data need not keep the original layout\n"
+                    " * (tools/data_reach.py). The argument must be a literal, or a macro for one. */\n")
+            w.write("#define IMG_ADDR(a) IMG_ADDR_(a)\n")
+            w.write(f"#define IMG_ADDR_(a) ((unsigned)(uintptr_t)({{ extern unsigned char grim_img_{tag}_##a[]; grim_img_{tag}_##a; }}))\n")
         unknown = sorted(t for t in ctx.known_types - PRIM_TYPES - set(STRUCTS)
                          if re.fullmatch(r"[A-Za-z_]\w*", t))
         if unknown:

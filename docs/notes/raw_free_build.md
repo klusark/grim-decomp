@@ -197,6 +197,15 @@ drop its pinned section. The linker then places it where it likes. Globals that 
 stay pinned, or are joined into one typed array. Done in batches, each checked by the cleanroom. This step is not
 needed to remove `data.s` and can wait indefinitely.
 
+**Started (2026-11-16).** `tools/data_reach.py` classifies every span from the original's disassembly, the data's
+pointers and the IMG_ADDR targets; `datagen.py` writes the loose spans as plain definitions and pins the chains.
+The overrides name their addresses through labels (`grim_img_<prog>_0x...`) instead of `sect_data + offset`, and
+`build/datacmp.py` checks the pinned runs only. A first rule (a table glues only the next referenced span) crashed at
+startup: PolyglotInitialize fills g_aPolyglotServices through its address, and the code calls a field of it as the
+separate global UINT_008ddd88. A chain therefore runs on through every span read only directly, up to the next string
+taken by its address. It also reaches one span back: luaX_init reads its reserved-word table from one entry before the
+address it takes. Most of the data stays pinned; what moves is the strings. Releasing more needs object extents: typing the tables and structures the code passes by address.
+
 ## Order
 
 Steps 1, 2 and 4 are independent, and 4 is the largest change to the code. Step 3 is the tool for steps 4 to 8, so it
