@@ -1259,12 +1259,11 @@ int __cdecl Cos_Initialize(GrimServices *svc,void **moduleIface)
 uint __cdecl Cos_Save(void *io)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   int iVar2;
   int iVar3;
   int iVar4;
-  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int iStack_4;
   
                     /* 0x37a0  64  Cos_Save */
   pvVar1 = io;
@@ -1308,8 +1307,6 @@ LAB_10003863:
   (*(code *)pvVar1)(&g_nMaxInstances,4);
   return 0;
 }
-#undef iStack_4
-
 
 /* ---- 0x10003890  Cos_SaveInstance ---- */
 /* Export: writes a costume instance into the save game: the Save handler (ComponentTag +0x44, slot
@@ -1365,16 +1362,16 @@ int __cdecl Cos_SaveInstance(int hInst,void *io)
 uint __cdecl Cos_Restore(void *io)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char *pcVar1;
   void *pvVar2;
   int hCostume;
   int iVar3;
   undefined4 *puVar4;
   int iVar5;
-  #define iStack_28 (*(int *)(_frame + (0x40 - 0x28)))
-  #define iStack_24 (*(int *)(_frame + (0x40 - 0x24)))
-  #define acStack_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
+  int iStack_28;
+  int iStack_24;
+  #define acStack_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
                     /* 0x3970  62  Cos_Restore */
   iVar3 = 0;
@@ -1451,8 +1448,6 @@ uint __cdecl Cos_Restore(void *io)
   return 0;
 }
 #undef acStack_20
-#undef iStack_24
-#undef iStack_28
 
 
 /* ---- 0x10003b40  Cos_RestoreInstance ---- */

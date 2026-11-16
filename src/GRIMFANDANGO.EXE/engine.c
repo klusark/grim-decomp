@@ -699,39 +699,25 @@ uint __cdecl grimlib_JustLoaded(void)
 void __cdecl Engine_SaveGame(void)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *data;
   char *name;
   VBuffer *pVVar1;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
+  ColorFormat format;
   
-  local_30 = 5;
-  local_28 = 5;
-  local_20 = 5;
-  local_38 = 1;
-  local_34 = 0x10;
-  local_2c = 6;
-  local_24 = 0xb;
-  local_1c = 0;
-  local_18 = 3;
-  local_14 = 2;
-  local_10 = 3;
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
+  format.dwRedBits = 5;
+  format.dwBlueBits = 5;
+  format.dwGreenShift = 5;
+  format.nColorMode = 1;
+  format.nBpp = 0x10;
+  format.dwGreenBits = 6;
+  format.dwRedShift = 0xb;
+  format.dwBlueShift = 0;
+  format.dwRedLoss = 3;
+  format.dwGreenLoss = 2;
+  format.dwBlueLoss = 3;
+  format.dwUnknown2c = 0;
+  format.dwUnknown30 = 0;
+  format.dwUnknown34 = 0;
   UINT_008a8c7c = 0;
   sputRender_AllowLoadImage(0);
   Render_DrawProgressBar(0.1f);
@@ -743,7 +729,7 @@ void __cdecl Engine_SaveGame(void)
   if ((void *)UINT_008a8770 != (void *)0x0) {
     sputLua_SaveGameCallback(SaveGame_Write);
     pVVar1 = sputRender_ScreenShot(0xfa,0xbc);
-    pVVar1 = stdDisplay_VBufferConvertColorFormat((ColorFormat *)&local_38,pVVar1);
+    pVVar1 = stdDisplay_VBufferConvertColorFormat(&format,pVVar1);
     data = &(pVVar1->format).dwSize;
     SaveGame_Write(data,4);
     SaveGame_Write(pVVar1->pPixels,*data);
@@ -772,21 +758,6 @@ void __cdecl Engine_SaveGame(void)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x00483240  Engine_LoadGame ---- */
 /* replaced by the hand-written version in build/overrides.c */
@@ -796,13 +767,13 @@ void __cdecl Engine_SaveGame(void)
 void __cdecl Engine_LoadGame(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char *name;
   Set *set;
   int setupIdx;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define aiStack_10 (*(int (*)[4])(_frame + (0x30 - 0x10)))
+  uint local_18;
+  uint local_14;
+  #define aiStack_10 (*(int (*)[4])(_frame + (0x20 - 0x10)))
   
   g_dwDoLoad = 0;
   name = g_pSaveFileName;
@@ -864,8 +835,6 @@ void __cdecl Engine_LoadGame(void)
   return;
 }
 #undef aiStack_10
-#undef local_14
-#undef local_18
 
 #endif
 

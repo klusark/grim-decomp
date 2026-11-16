@@ -223,17 +223,13 @@ void __cdecl Set_DrawDebugLights(int set)
   float *vec;
   uint local_74;
   uint local_70;
-  #define local_6c (*(uint *)(_frame + (0x80 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0x80 - 0x64)))
+  #define local_6c (*(float (*)[3])(_frame + (0x80 - 0x6c)))
   #define local_60 (*(float *)(_frame + (0x80 - 0x60)))
   #define local_5c (*(float *)(_frame + (0x80 - 0x5c)))
   #define local_58 (*(float (*)[3])(_frame + (0x80 - 0x58)))
   float local_4c;
-  #define local_48 (*(float *)(_frame + (0x80 - 0x48)))
-  #define local_44 (*(float (*)[2])(_frame + (0x80 - 0x44)))
-  #define local_3c (*(float *)(_frame + (0x80 - 0x3c)))
-  #define local_38 (*(float (*)[2])(_frame + (0x80 - 0x38)))
+  #define local_48 (*(float (*)[3])(_frame + (0x80 - 0x48)))
+  #define local_3c (*(float (*)[3])(_frame + (0x80 - 0x3c)))
   #define local_30 (*(float (*)[12])(_frame + (0x80 - 0x30)))
   
   local_70 = 0;
@@ -241,31 +237,31 @@ void __cdecl Set_DrawDebugLights(int set)
     pfVar2 = (float *)(set + 0x11c);
     do {
       if (PUN(int,(float)pfVar2[-0xc]) < 3) {
-        local_6c = PUN(uint,(float)pfVar2[-0x10]);
-        local_68 = PUN(uint,(float)pfVar2[-0xf]);
-        local_64 = 0;
-        rdPrimit3_DrawLine(pfVar2 + -0x10,(float *)&local_6c,(int *)0x0,(int *)0x0,(int *)0x0,
-                           (int *)0x0,(uint)PIECE(UINT_008c97c8,2,2),0xffffffff);
+        local_6c[0] = pfVar2[-0x10];
+        local_6c[1] = pfVar2[-0xf];
+        local_6c[2] = 0.0f;
+        rdPrimit3_DrawLine(pfVar2 + -0x10,local_6c,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+                           (uint)PIECE(UINT_008c97c8,2,2),0xffffffff);
         rdPrimit3_DrawPoint(pfVar2 + -0x10,*pfVar2,0x41980000,(uint)PIECE(UINT_008c97c8,2,2),0xffffffff);
       }
       else {
-        local_68 = PUN(uint,(float)(pfVar2[-9] + pfVar2[-0xf]));
-        local_64 = PUN(uint,(float)(pfVar2[-8] + pfVar2[-0xe]));
-        local_6c = PUN(uint,(float)(pfVar2[-10] + pfVar2[-0x10]));
-        rdMatrix_LookAt(local_30,pfVar2 + -0x10,(float *)&local_6c,0);
+        local_6c[1] = pfVar2[-9] + pfVar2[-0xf];
+        local_6c[2] = pfVar2[-8] + pfVar2[-0xe];
+        local_6c[0] = pfVar2[-10] + pfVar2[-0x10];
+        rdMatrix_LookAt(local_30,pfVar2 + -0x10,local_6c,0);
         local_5c = pfVar2[-7] * 0.1f;
         vec = &local_60;
         local_60 = (1.0f - pfVar2[-2]) * local_5c;
-        local_48 = -local_60;
+        local_48[0] = -local_60;
         iVar1 = 4;
         local_58[0] = local_60;
         local_58[1] = local_60;
         local_58[2] = local_5c;
-        local_44[0] = local_5c;
-        local_44[1] = local_48;
-        local_3c = local_48;
-        local_38[0] = local_5c;
-        local_38[1] = local_60;
+        local_48[1] = local_5c;
+        local_48[2] = local_48[0];
+        local_3c[0] = local_48[0];
+        local_3c[1] = local_5c;
+        local_3c[2] = local_60;
         do {
           rdMatrix_TransformPoint34Acc(vec,local_30);
           rdPrimit3_DrawLine(pfVar2 + -0x10,vec,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
@@ -275,11 +271,11 @@ void __cdecl Set_DrawDebugLights(int set)
         } while (iVar1 != 0);
         rdPrimit3_DrawLine(&local_60,local_58 + 1,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                            (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(local_58 + 1,&local_48,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+        rdPrimit3_DrawLine(local_58 + 1,local_48,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                            (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(&local_48,&local_3c,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+        rdPrimit3_DrawLine(local_48,local_3c,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                            (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
-        rdPrimit3_DrawLine(&local_3c,&local_60,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
+        rdPrimit3_DrawLine(local_3c,&local_60,(int *)0x0,(int *)0x0,(int *)0x0,(int *)0x0,
                            (uint)PIECE(UINT_008c97cc,2,2),0xffffffff);
       }
       local_70 = local_70 + 1;
@@ -289,15 +285,11 @@ void __cdecl Set_DrawDebugLights(int set)
   return;
 }
 #undef local_30
-#undef local_38
 #undef local_3c
-#undef local_44
 #undef local_48
 #undef local_58
 #undef local_5c
 #undef local_60
-#undef local_64
-#undef local_68
 #undef local_6c
 
 
@@ -533,7 +525,7 @@ int __cdecl sputRoom_Save(void *writeFn)
 int __cdecl sputRoom_Restore(void *readFn)
 
 {
-  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   WalkPlane *this;
   float fVar2;
@@ -542,21 +534,21 @@ int __cdecl sputRoom_Restore(void *readFn)
   void *pvVar4;
   Set *set;
   int iVar5;
-  #define uStack_74 (*(uint *)(_frame + (0x90 - 0x74)))
-  #define iStack_70 (*(int *)(_frame + (0x90 - 0x70)))
-  #define iStack_6c (*(int *)(_frame + (0x90 - 0x6c)))
-  #define iStack_68 (*(int *)(_frame + (0x90 - 0x68)))
-  #define fStack_64 (*(float *)(_frame + (0x90 - 0x64)))
-  #define local_60 (*(int *)(_frame + (0x90 - 0x60)))
-  #define pvStack_5c (*(void **)(_frame + (0x90 - 0x5c)))
-  #define iStack_58 (*(int *)(_frame + (0x90 - 0x58)))
-  #define iStack_54 (*(int *)(_frame + (0x90 - 0x54)))
-  #define iStack_50 (*(int *)(_frame + (0x90 - 0x50)))
-  #define uStack_4c (*(undefined4 *)(_frame + (0x90 - 0x4c)))
-  #define iStack_48 (*(int *)(_frame + (0x90 - 0x48)))
-  #define pvStack_44 (*(void **)(_frame + (0x90 - 0x44)))
-  #define acStack_40 (*(char (*)[32])(_frame + (0x90 - 0x40)))
-  #define acStack_20 (*(char (*)[32])(_frame + (0x90 - 0x20)))
+  uint uStack_74;
+  int iStack_70;
+  int iStack_6c;
+  int iStack_68;
+  float fStack_64;
+  int local_60;
+  void *pvStack_5c;
+  int iStack_58;
+  int iStack_54;
+  int iStack_50;
+  undefined4 uStack_4c;
+  int iStack_48;
+  void *pvStack_44;
+  #define acStack_40 (*(char (*)[32])(_frame + (0x50 - 0x40)))
+  #define acStack_20 (*(char (*)[32])(_frame + (0x50 - 0x20)))
   
   iVar3 = (*(code *)readFn)(&local_60,4);
   if (iVar3 != 0) {
@@ -674,19 +666,6 @@ int __cdecl sputRoom_Restore(void *readFn)
 }
 #undef acStack_20
 #undef acStack_40
-#undef fStack_64
-#undef iStack_48
-#undef iStack_50
-#undef iStack_54
-#undef iStack_58
-#undef iStack_68
-#undef iStack_6c
-#undef iStack_70
-#undef local_60
-#undef pvStack_44
-#undef pvStack_5c
-#undef uStack_4c
-#undef uStack_74
 
 
 /* ---- 0x004a49a0  sputRoom_LoadRoom ---- */

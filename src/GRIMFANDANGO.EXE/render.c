@@ -705,10 +705,8 @@ void __cdecl Render_BuildActorDrawList(void)
   RoomActorNode *pRVar2;
   Set *pSVar3;
   undefined *puVar4;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   DrawList_Reset();
   pSVar3 = sputRoom_GetCurrentRoom();
@@ -724,11 +722,11 @@ void __cdecl Render_BuildActorDrawList(void)
       if (puVar4 == (undefined *)0x0) {
         return;
       }
-      local_18 = pAVar1->aPos[0] - *g_pSputRender_Camera;
-      local_14[0] = pAVar1->aPos[1] - g_pSputRender_Camera[1];
-      local_14[1] = pAVar1->aPos[2] - g_pSputRender_Camera[2];
-      rdMatrix_TransformVectorOrtho34(&local_c,&local_18,g_pSputRender_Camera + 0xc);
-      *(uint *)(puVar4 + 4) = local_8;
+      local_18[0] = pAVar1->aPos[0] - *g_pSputRender_Camera;
+      local_18[1] = pAVar1->aPos[1] - g_pSputRender_Camera[1];
+      local_18[2] = pAVar1->aPos[2] - g_pSputRender_Camera[2];
+      rdMatrix_TransformVectorOrtho34(local_c,local_18,g_pSputRender_Camera + 0xc);
+      *(float *)(puVar4 + 4) = local_c[1];
       if (pAVar1->pCostumes == (CostumeNode *)0x0) {
         *(int *)(puVar4 + 8) = ((int)pAVar1 - (int)g_pActors) / 0xa8;
         if ((pAVar1->pCostumes == (CostumeNode *)0x0) ||
@@ -747,9 +745,7 @@ void __cdecl Render_BuildActorDrawList(void)
     pRVar2 = pRVar2->pNext;
   } while( true );
 }
-#undef local_14
 #undef local_18
-#undef local_8
 #undef local_c
 
 
@@ -764,8 +760,7 @@ void __cdecl sputRender_ReverseProject(int x,int y,float *outPos)
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(float (*)[2])(_frame + (0x20 - 0x8)))
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   if ((g_pRdCamera_CurCamera != (rdCamera *)0x0) &&
      (g_pRdCamera_CurCamera->pCanvas != (rdCanvas *)0x0)) {
@@ -774,14 +769,13 @@ void __cdecl sputRender_ReverseProject(int x,int y,float *outPos)
                                 (*(int *)(UINT_008c97a4 + 0xc) * y + x) * 2) <<
                         ((byte)g_pRdCamera_CurCamera->pCanvas->dwExtra & 0x1f)) * 1.5258789e-05f;
     fVar1 = g_pRdCamera_CurCamera->flFovY * fVar2;
-    local_8[0] = 1.0f / fVar2 - 1.0f;
-    local_c = (1.0f / fVar1) * ((float)x - g_pRdCamera_CurCamera->pCanvas->flCenterX);
-    local_8[1] = (-1.0f / fVar1) * ((float)y - g_pRdCamera_CurCamera->pCanvas->flCenterY);
-    rdMatrix_TransformPoint34(outPos,&local_c,g_pSputRender_Camera + 0xc);
+    local_c[1] = 1.0f / fVar2 - 1.0f;
+    local_c[0] = (1.0f / fVar1) * ((float)x - g_pRdCamera_CurCamera->pCanvas->flCenterX);
+    local_c[2] = (-1.0f / fVar1) * ((float)y - g_pRdCamera_CurCamera->pCanvas->flCenterY);
+    rdMatrix_TransformPoint34(outPos,local_c,g_pSputRender_Camera + 0xc);
   }
   return;
 }
-#undef local_8
 #undef local_c
 
 
@@ -1482,60 +1476,31 @@ void __cdecl sputRender_DimRegion(int x,int y,int w,int h,float scale)
 void __cdecl sputRender_SaveScreen(char *filename)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   stdBitmap *bitmap;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
+  ColorFormat format;
   
-  local_30 = 8;
-  local_2c = 8;
-  local_28 = 8;
-  local_20 = 8;
-  local_38 = 1;
-  local_34 = 0x18;
-  local_24 = 0x10;
-  local_1c = 0;
-  local_18 = 0;
-  local_14 = 0;
-  local_10 = 0;
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
+  format.dwRedBits = 8;
+  format.dwGreenBits = 8;
+  format.dwBlueBits = 8;
+  format.dwGreenShift = 8;
+  format.nColorMode = 1;
+  format.nBpp = 0x18;
+  format.dwRedShift = 0x10;
+  format.dwBlueShift = 0;
+  format.dwRedLoss = 0;
+  format.dwGreenLoss = 0;
+  format.dwBlueLoss = 0;
+  format.dwUnknown2c = 0;
+  format.dwUnknown30 = 0;
+  format.dwUnknown34 = 0;
   if (filename != (char *)0x0) {
     bitmap = stdBitmap_VBufferToBitmap((VBuffer *)&g_dwStdDisplay_backBuffer,0,0);
-    stdBitmap_ConvertColorFormat((int *)&local_38,(int)bitmap);
+    stdBitmap_ConvertColorFormat(&format,(int)bitmap);
     stdWriteImage(filename,bitmap);
     stdBitmap_Free(bitmap);
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004872f0  Render_SaveZBufferBmp ---- */
 void __cdecl Render_SaveZBufferBmp(char *filename)
@@ -1559,58 +1524,29 @@ void __cdecl Render_SaveZBufferBmp(char *filename)
 void __cdecl sputRender_SaveDrawBuffer(char *filename)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   stdBitmap *bitmap;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
+  ColorFormat format;
   
-  local_30 = 8;
-  local_2c = 8;
-  local_28 = 8;
-  local_20 = 8;
-  local_38 = 1;
-  local_34 = 0x18;
-  local_24 = 0x10;
-  local_1c = 0;
-  local_18 = 0;
-  local_14 = 0;
-  local_10 = 0;
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
+  format.dwRedBits = 8;
+  format.dwGreenBits = 8;
+  format.dwBlueBits = 8;
+  format.dwGreenShift = 8;
+  format.nColorMode = 1;
+  format.nBpp = 0x18;
+  format.dwRedShift = 0x10;
+  format.dwBlueShift = 0;
+  format.dwRedLoss = 0;
+  format.dwGreenLoss = 0;
+  format.dwBlueLoss = 0;
+  format.dwUnknown2c = 0;
+  format.dwUnknown30 = 0;
+  format.dwUnknown34 = 0;
   bitmap = stdBitmap_VBufferToBitmap((VBuffer *)&g_dwStdDisplay_backBuffer,0,0);
-  stdBitmap_ConvertColorFormat((int *)&local_38,(int)bitmap);
+  stdBitmap_ConvertColorFormat(&format,(int)bitmap);
   stdWriteImage(filename,bitmap);
   stdBitmap_Free(bitmap);
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004873d0  Render_DrawProgressBar ---- */
 /* Draws the save/load progress bar directly on the primary surface */

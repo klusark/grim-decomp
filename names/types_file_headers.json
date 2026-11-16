@@ -1,0 +1,637 @@
+{
+ "_comment": "On-disk and Win32 image headers that the code builds or reads in one block of the frame (2026-11-16): Softimage PIC (big-endian, the loader swaps it in place), BMP (BITMAPFILEHEADER, packed, and BITMAPINFOHEADER), PCX, the IFF ILBM BMHD chunk (big-endian, stdLbm_SwapHeader), GIF (the header and the image descriptor, read and written field by field).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "PicHeader",
+   "size": 104,
+   "comment": "Softimage .pic file header (0x68 bytes, big-endian)",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwMagic",
+     "0x5380f634"
+    ],
+    [
+     4,
+     "float",
+     "flVersion",
+     ""
+    ],
+    [
+     8,
+     "char[80]",
+     "aComment",
+     ""
+    ],
+    [
+     88,
+     "uint",
+     "dwId",
+     "'PICT'"
+    ],
+    [
+     92,
+     "ushort",
+     "wWidth",
+     ""
+    ],
+    [
+     94,
+     "ushort",
+     "wHeight",
+     ""
+    ],
+    [
+     96,
+     "float",
+     "flRatio",
+     ""
+    ],
+    [
+     100,
+     "ushort",
+     "wFields",
+     ""
+    ],
+    [
+     102,
+     "ushort",
+     "wPad",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "PicChannel",
+   "size": 4,
+   "comment": "One channel packet of a Softimage .pic file",
+   "fields": [
+    [
+     0,
+     "byte",
+     "bChained",
+     "another packet follows"
+    ],
+    [
+     1,
+     "byte",
+     "bSize",
+     "bits per channel"
+    ],
+    [
+     2,
+     "byte",
+     "bType",
+     "0 uncompressed, 1 pure run-length, 2 mixed run-length"
+    ],
+    [
+     3,
+     "byte",
+     "bChannels",
+     "0x80 red, 0x40 green, 0x20 blue, 0x10 alpha"
+    ]
+   ]
+  },
+  {
+   "name": "BitmapFileHeader",
+   "size": 14,
+   "comment": "BITMAPFILEHEADER (14 bytes, packed)",
+   "fields": [
+    [
+     0,
+     "ushort",
+     "wType",
+     "'BM'"
+    ],
+    [
+     2,
+     "uint",
+     "dwSize",
+     "file size"
+    ],
+    [
+     6,
+     "ushort",
+     "wReserved1",
+     ""
+    ],
+    [
+     8,
+     "ushort",
+     "wReserved2",
+     ""
+    ],
+    [
+     10,
+     "uint",
+     "dwOffBits",
+     "offset of the pixels"
+    ]
+   ]
+  },
+  {
+   "name": "BitmapInfoHeader",
+   "size": 40,
+   "comment": "BITMAPINFOHEADER",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwSize",
+     "40"
+    ],
+    [
+     4,
+     "int",
+     "nWidth",
+     ""
+    ],
+    [
+     8,
+     "int",
+     "nHeight",
+     "negative: top-down"
+    ],
+    [
+     12,
+     "ushort",
+     "wPlanes",
+     "1"
+    ],
+    [
+     14,
+     "ushort",
+     "wBitCount",
+     ""
+    ],
+    [
+     16,
+     "uint",
+     "dwCompression",
+     "0 BI_RGB, 3 BI_BITFIELDS"
+    ],
+    [
+     20,
+     "uint",
+     "dwSizeImage",
+     ""
+    ],
+    [
+     24,
+     "int",
+     "nXPelsPerMeter",
+     ""
+    ],
+    [
+     28,
+     "int",
+     "nYPelsPerMeter",
+     ""
+    ],
+    [
+     32,
+     "uint",
+     "dwClrUsed",
+     ""
+    ],
+    [
+     36,
+     "uint",
+     "dwClrImportant",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "PcxHeader",
+   "size": 128,
+   "comment": "ZSoft .pcx file header",
+   "fields": [
+    [
+     0,
+     "byte",
+     "bManufacturer",
+     "10"
+    ],
+    [
+     1,
+     "byte",
+     "bVersion",
+     "5"
+    ],
+    [
+     2,
+     "byte",
+     "bEncoding",
+     "1: run-length"
+    ],
+    [
+     3,
+     "byte",
+     "bBitsPerPixel",
+     ""
+    ],
+    [
+     4,
+     "ushort",
+     "wXMin",
+     ""
+    ],
+    [
+     6,
+     "ushort",
+     "wYMin",
+     ""
+    ],
+    [
+     8,
+     "ushort",
+     "wXMax",
+     ""
+    ],
+    [
+     10,
+     "ushort",
+     "wYMax",
+     ""
+    ],
+    [
+     12,
+     "ushort",
+     "wHDpi",
+     ""
+    ],
+    [
+     14,
+     "ushort",
+     "wVDpi",
+     ""
+    ],
+    [
+     16,
+     "byte[48]",
+     "aPalette",
+     "16-colour palette"
+    ],
+    [
+     64,
+     "byte",
+     "bReserved",
+     ""
+    ],
+    [
+     65,
+     "byte",
+     "bPlanes",
+     ""
+    ],
+    [
+     66,
+     "ushort",
+     "wBytesPerLine",
+     ""
+    ],
+    [
+     68,
+     "ushort",
+     "wPaletteInfo",
+     ""
+    ],
+    [
+     70,
+     "ushort",
+     "wHScreen",
+     ""
+    ],
+    [
+     72,
+     "ushort",
+     "wVScreen",
+     ""
+    ],
+    [
+     74,
+     "byte[54]",
+     "aFiller",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "LbmBitmapHeader",
+   "size": 20,
+   "comment": "IFF ILBM BMHD chunk (big-endian)",
+   "fields": [
+    [
+     0,
+     "ushort",
+     "wWidth",
+     ""
+    ],
+    [
+     2,
+     "ushort",
+     "wHeight",
+     ""
+    ],
+    [
+     4,
+     "short",
+     "nX",
+     ""
+    ],
+    [
+     6,
+     "short",
+     "nY",
+     ""
+    ],
+    [
+     8,
+     "byte",
+     "bPlanes",
+     ""
+    ],
+    [
+     9,
+     "byte",
+     "bMasking",
+     ""
+    ],
+    [
+     10,
+     "byte",
+     "bCompression",
+     "1: ByteRun1"
+    ],
+    [
+     11,
+     "byte",
+     "bPad",
+     ""
+    ],
+    [
+     12,
+     "ushort",
+     "wTransparentColor",
+     ""
+    ],
+    [
+     14,
+     "byte",
+     "bXAspect",
+     ""
+    ],
+    [
+     15,
+     "byte",
+     "bYAspect",
+     ""
+    ],
+    [
+     16,
+     "short",
+     "nPageWidth",
+     ""
+    ],
+    [
+     18,
+     "short",
+     "nPageHeight",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "GifHeader",
+   "size": 13,
+   "comment": "GIF header and logical screen descriptor (13 bytes)",
+   "fields": [
+    [
+     0,
+     "char[3]",
+     "aSignature",
+     "GIF"
+    ],
+    [
+     3,
+     "char[3]",
+     "aVersion",
+     "87a / 89a"
+    ],
+    [
+     6,
+     "ushort",
+     "wWidth",
+     ""
+    ],
+    [
+     8,
+     "ushort",
+     "wHeight",
+     ""
+    ],
+    [
+     10,
+     "byte",
+     "bFlags",
+     "0x80: global colour table, low 3 bits: its size"
+    ],
+    [
+     11,
+     "byte",
+     "bBackground",
+     ""
+    ],
+    [
+     12,
+     "byte",
+     "bAspect",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "GifImageDesc",
+   "size": 12,
+   "comment": "GIF image descriptor as the code holds it (the separator, a gap, then the 9 bytes of the file)",
+   "fields": [
+    [
+     0,
+     "byte",
+     "bSeparator",
+     "','"
+    ],
+    [
+     2,
+     "ushort",
+     "wLeft",
+     ""
+    ],
+    [
+     4,
+     "ushort",
+     "wTop",
+     ""
+    ],
+    [
+     6,
+     "ushort",
+     "wWidth",
+     ""
+    ],
+    [
+     8,
+     "ushort",
+     "wHeight",
+     ""
+    ],
+    [
+     10,
+     "byte",
+     "bFlags",
+     "0x80: local colour table, 0x40: interlaced"
+    ]
+   ]
+  }
+ ],
+ "locals": [
+  {
+   "addr": "0047d2d0",
+   "name": "uStack_ec",
+   "type": "PicHeader",
+   "_fn": "stdPic_LoadEntry",
+   "rename": "header"
+  },
+  {
+   "addr": "0047d2d0",
+   "name": "cStack_10c",
+   "type": "PicChannel",
+   "_fn": "stdPic_LoadEntry",
+   "rename": "channel"
+  },
+  {
+   "addr": "0047d2d0",
+   "name": "local_84",
+   "type": "ColorFormat",
+   "_fn": "stdPic_LoadEntry",
+   "rename": "format"
+  },
+  {
+   "addr": "0047d2d0",
+   "name": "local_fc",
+   "type": "uint[4]",
+   "_fn": "stdPic_LoadEntry",
+   "rename": "aChannelType"
+  },
+  {
+   "addr": "0047d050",
+   "name": "local_38",
+   "type": "BitmapFileHeader",
+   "_fn": "stdBmp_Write",
+   "rename": "fileHeader"
+  },
+  {
+   "addr": "0047d050",
+   "name": "local_28",
+   "type": "BitmapInfoHeader",
+   "_fn": "stdBmp_Write",
+   "rename": "infoHeader"
+  },
+  {
+   "addr": "0047cb70",
+   "name": "asStack_10",
+   "type": "BitmapFileHeader",
+   "_fn": "stdBmp_LoadEntry",
+   "rename": "fileHeader"
+  },
+  {
+   "addr": "0047cb70",
+   "name": "iStack_38",
+   "type": "BitmapInfoHeader",
+   "_fn": "stdBmp_LoadEntry",
+   "rename": "infoHeader"
+  },
+  {
+   "addr": "0047ef10",
+   "name": "local_80",
+   "type": "PcxHeader",
+   "_fn": "stdPcx_Write",
+   "rename": "header"
+  },
+  {
+   "addr": "0047ec80",
+   "name": "acStack_80",
+   "type": "PcxHeader",
+   "_fn": "stdPcx_Load",
+   "rename": "header"
+  },
+  {
+   "addr": "0047f720",
+   "name": "LStack_7e8",
+   "type": "LbmBitmapHeader",
+   "_fn": "stdLbm_Write",
+   "rename": "header"
+  },
+  {
+   "addr": "0047f120",
+   "name": "header",
+   "type": "LbmBitmapHeader",
+   "_fn": "stdLbm_Load",
+   "stack": -116
+  },
+  {
+   "addr": "0047db00",
+   "name": "cStack_5c",
+   "type": "GifHeader",
+   "_fn": "stdGif_Load",
+   "rename": "header"
+  },
+  {
+   "addr": "0047db00",
+   "name": "desc",
+   "type": "GifImageDesc",
+   "stack": -104,
+   "_fn": "stdGif_Load"
+  },
+  {
+   "addr": "0047e060",
+   "name": "auStack_10",
+   "type": "GifHeader",
+   "_fn": "stdGif_Write",
+   "rename": "header"
+  },
+  {
+   "addr": "0047e060",
+   "name": "auStack_1c",
+   "type": "GifImageDesc",
+   "_fn": "stdGif_Write",
+   "rename": "desc"
+  }
+ ],
+ "params": [
+  {
+   "addr": "0047d050",
+   "index": 0,
+   "type": "char *",
+   "name": "filename",
+   "_fn": "stdBmp_Write"
+  },
+  {
+   "addr": "0047d050",
+   "index": 1,
+   "type": "stdBitmap *",
+   "name": "bitmap",
+   "_fn": "stdBmp_Write"
+  },
+  {
+   "addr": "0047fc80",
+   "index": 0,
+   "type": "LbmBitmapHeader *",
+   "name": "header",
+   "_fn": "stdLbm_SwapHeader"
+  }
+ ]
+}

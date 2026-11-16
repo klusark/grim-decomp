@@ -65,45 +65,44 @@ int __cdecl LuaVarRequester(uint cosInst,int tag,int parent,int type,int name)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
   int iVar2;
-  undefined4 *puVar3;
-  #define local_20 (*(undefined1 *)(_frame + (0x30 - 0x20)))
-  #define local_1f (*(undefined4 *)(_frame + (0x30 - 0x1f)))
-  #define local_1 (*(undefined1 *)(_frame + (0x30 - 0x1)))
+  char *pcVar3;
+  #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
-  local_20 = DAT_004f5a98;
-  puVar3 = &local_1f;
+  local_20[0] = DAT_004f5a98;
+  pcVar3 = local_20 + 1;
   for (iVar2 = 7; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar3 = 0;
-    puVar3 = puVar3 + 1;
+    pcVar3[0] = '\0';
+    pcVar3[1] = '\0';
+    pcVar3[2] = '\0';
+    pcVar3[3] = '\0';
+    pcVar3 = pcVar3 + 4;
   }
-  *(undefined2 *)puVar3 = 0;
-  *(undefined1 *)((int)puVar3 + 2) = 0;
+  pcVar3[0] = '\0';
+  pcVar3[1] = '\0';
+  pcVar3[2] = '\0';
   if (parent != 0) {
     return 0;
   }
   if (name == 0) {
     iVar2 = grimPlat_InputDialog
-                      (s_Name_of_variable_004ea758,s_Variable_name_004ea748,&local_20,0x20,&local_20
-                      );
+                      (s_Name_of_variable_004ea758,s_Variable_name_004ea748,local_20,0x20,local_20);
     if (iVar2 == 0) {
       return 0;
     }
   }
   else {
-    strncpy((uint *)&local_20,(uint *)name,0x1f);
-    local_1 = 0;
+    strncpy((uint *)local_20,(uint *)name,0x1f);
+    local_20[0x1f] = '\0';
   }
   puVar1 = (uint *)(*g_pSputCosHS->pAlloc)(0x20,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0xd86);
   if (puVar1 == (uint *)0x0) {
     return 0;
   }
-  strncpy(puVar1,(uint *)&local_20,0x1f);
+  strncpy(puVar1,(uint *)local_20,0x1f);
   *(undefined1 *)((int)puVar1 + 0x1f) = 0;
   iVar2 = Cos_RegisterComponent(cosInst,(int)puVar1,(int)puVar1,tag,0,type,0);
   return (uint)(iVar2 != 0);
 }
-#undef local_1
-#undef local_1f
 #undef local_20
 
 

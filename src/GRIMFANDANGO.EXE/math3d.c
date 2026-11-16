@@ -758,8 +758,7 @@ void __cdecl rdMatrix_LookAt(float *out,float *from,float *to,uint roll)
   float *v;
   float fVar1;
   float *v_00;
-  #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(float (*)[2])(_frame + (0x60 - 0x44)))
+  #define local_48 (*(float (*)[3])(_frame + (0x60 - 0x48)))
   #define local_3c (*(float (*)[3])(_frame + (0x60 - 0x3c)))
   #define local_30 (*(float (*)[12])(_frame + (0x60 - 0x30)))
   
@@ -785,10 +784,10 @@ void __cdecl rdMatrix_LookAt(float *out,float *from,float *to,uint roll)
     v_00 = local_3c;
     local_3c[2] = -0.0f;
   }
-  rdMatrix_TransformVector34(&local_48,v_00,local_30);
-  *out = out[4] * local_44[1] - out[5] * local_44[0];
-  out[1] = out[5] * local_48 - *v * local_44[1];
-  out[2] = *v * local_44[0] - out[4] * local_48;
+  rdMatrix_TransformVector34(local_48,v_00,local_30);
+  *out = out[4] * local_48[2] - out[5] * local_48[1];
+  out[1] = out[5] * local_48[0] - *v * local_48[2];
+  out[2] = *v * local_48[1] - out[4] * local_48[0];
   rdVector_Normalize3Acc(out);
   out[6] = out[5] * out[1] - out[4] * out[2];
   out[7] = out[2] * *v - out[5] * *out;
@@ -801,7 +800,6 @@ void __cdecl rdMatrix_LookAt(float *out,float *from,float *to,uint roll)
 }
 #undef local_30
 #undef local_3c
-#undef local_44
 #undef local_48
 
 
@@ -1271,29 +1269,25 @@ void __cdecl rdMath_CalcSurfaceNormal(float *out,float *a,float *b,float *c)
 
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float (*)[2])(_frame + (0x30 - 0x8)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
-  local_c = *b - *a;
-  local_18 = *c - *a;
-  local_8[0] = b[1] - a[1];
-  local_8[1] = b[2] - a[2];
-  local_14[0] = c[1] - a[1];
-  local_14[1] = c[2] - a[2];
-  rdVector_Normalize3Acc(&local_c);
-  rdVector_Normalize3Acc(&local_18);
-  *out = local_14[1] * local_8[0] - local_14[0] * local_8[1];
-  out[1] = local_18 * local_8[1] - local_14[1] * local_c;
-  out[2] = local_14[0] * local_c - local_18 * local_8[0];
+  local_c[0] = *b - *a;
+  local_18[0] = *c - *a;
+  local_c[1] = b[1] - a[1];
+  local_c[2] = b[2] - a[2];
+  local_18[1] = c[1] - a[1];
+  local_18[2] = c[2] - a[2];
+  rdVector_Normalize3Acc(local_c);
+  rdVector_Normalize3Acc(local_18);
+  *out = local_18[2] * local_c[1] - local_18[1] * local_c[2];
+  out[1] = local_18[0] * local_c[2] - local_18[2] * local_c[0];
+  out[2] = local_18[1] * local_c[0] - local_18[0] * local_c[1];
   rdVector_Normalize3Acc(out);
   rdMath_ClampVector(out,1e-06f);
   return;
 }
-#undef local_14
 #undef local_18
-#undef local_8
 #undef local_c
 
 
@@ -1352,20 +1346,18 @@ uint __cdecl rdMath_PointsCollinear(float *a,float *b,float *c)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float (*)[2])(_frame + (0x30 - 0x8)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
-  local_c = *b - *a;
-  local_18 = *c - *a;
-  local_8[0] = b[1] - a[1];
-  local_8[1] = b[2] - a[2];
-  local_14[0] = c[1] - a[1];
-  local_14[1] = c[2] - a[2];
-  rdVector_Normalize3Acc(&local_c);
-  rdVector_Normalize3Acc(&local_18);
-  fVar1 = local_14[1] * local_8[1] + local_14[0] * local_8[0] + local_18 * local_c;
+  local_c[0] = *b - *a;
+  local_18[0] = *c - *a;
+  local_c[1] = b[1] - a[1];
+  local_c[2] = b[2] - a[2];
+  local_18[1] = c[1] - a[1];
+  local_18[2] = c[2] - a[2];
+  rdVector_Normalize3Acc(local_c);
+  rdVector_Normalize3Acc(local_18);
+  fVar1 = local_18[2] * local_c[2] + local_18[1] * local_c[1] + local_18[0] * local_c[0];
   if (fVar1 < 0.0f) {
     fVar1 = -fVar1;
   }
@@ -1374,8 +1366,6 @@ uint __cdecl rdMath_PointsCollinear(float *a,float *b,float *c)
   }
   return 0;
 }
-#undef local_14
 #undef local_18
-#undef local_8
 #undef local_c
 

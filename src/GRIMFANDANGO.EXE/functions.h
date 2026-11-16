@@ -1127,7 +1127,7 @@ void __cdecl stdBitmap_Free(stdBitmap *bitmap); /* 0x0047ae70 */
 void __cdecl stdBitmap_FreeEntry(int bitmap); /* 0x0047ae90 */
 uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap); /* 0x0047aef0 */
 int __cdecl stdBitmap_Write(char *filename,void *bitmap); /* 0x0047b250 */
-void __cdecl stdBitmap_ConvertColorFormat(int *want,int have); /* 0x0047b2b0 */
+void __cdecl stdBitmap_ConvertColorFormat(ColorFormat *want,int have); /* 0x0047b2b0 */
 stdBitmap * __cdecl stdBitmap_VBufferToBitmap(VBuffer *vbuf,int format,int flags); /* 0x0047b380 */
 uint __cdecl stdBitmap_NewEntry(undefined4 *bitmap,uint width,uint height,uint frames,uint flags, undefined4 *format); /* 0x0047b4b0 */
 void __cdecl stdBitmap_SetSurface(int bitmap,int frame,uint surface); /* 0x0047b540 */
@@ -1238,7 +1238,7 @@ void __cdecl stdConffile_Pop(void); /* 0x0047ca90 */
 /* ===== stdbmp.c ===== */
 uint __cdecl stdBmp_Load(uint name,uint videoMem,uint b); /* 0x0047cb20 */
 uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b); /* 0x0047cb70 */
-uint __cdecl stdBmp_Write(uint filename,int bitmap); /* 0x0047d050 */
+uint __cdecl stdBmp_Write(char *filename,stdBitmap *bitmap); /* 0x0047d050 */
 
 /* ===== stdpic.c ===== */
 uint __cdecl stdPic_Load(uint name,uint a,uint b); /* 0x0047d280 */
@@ -1263,7 +1263,7 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b); /* 0x0047f120 */
 uint __cdecl stdLbm_Write(uint filename,int bitmap); /* 0x0047f720 */
 void __cdecl stdLbm_PackBits(uint f,undefined1 *src,int count,char *buf); /* 0x0047f9d0 */
 void __cdecl stdLbm_PackByte(char c); /* 0x0047fa70 */
-void __cdecl stdLbm_SwapHeader(undefined2 *header); /* 0x0047fc80 */
+void __cdecl stdLbm_SwapHeader(LbmBitmapHeader *header); /* 0x0047fc80 */
 
 /* ===== std.c ===== */
 uint __cdecl Std_Swap32(uint v); /* 0x0047fc50 */

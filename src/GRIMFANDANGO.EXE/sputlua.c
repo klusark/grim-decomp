@@ -191,21 +191,23 @@ void __cdecl sputLua_FunctionNameL(void)
   char *pcVar3;
   char *pcVar4;
   int iVar5;
-  undefined4 *puVar6;
   #define local_10c (*(uint *)(_frame + (0x120 - 0x10c)))
   #define local_108 (*(uint *)(_frame + (0x120 - 0x108)))
   #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
-  #define local_100 (*(char *)(_frame + (0x120 - 0x100)))
-  #define local_ff (*(undefined4 *)(_frame + (0x120 - 0xff)))
+  #define local_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
   
-  local_100 = DAT_004f5a98;
-  puVar6 = &local_ff;
+  local_100[0] = DAT_004f5a98;
+  pcVar3 = local_100 + 1;
   for (iVar5 = 0x3f; iVar5 != 0; iVar5 = iVar5 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+    pcVar3[0] = '\0';
+    pcVar3[1] = '\0';
+    pcVar3[2] = '\0';
+    pcVar3[3] = '\0';
+    pcVar3 = pcVar3 + 4;
   }
-  *(undefined2 *)puVar6 = 0;
-  *(undefined1 *)((int)puVar6 + 2) = 0;
+  pcVar3[0] = '\0';
+  pcVar3[1] = '\0';
+  pcVar3[2] = '\0';
   iVar5 = lua_lua2C(1);
   iVar2 = lua_isfunction(iVar5);
   if (iVar2 != 0) {
@@ -224,8 +226,8 @@ void __cdecl sputLua_FunctionNameL(void)
         pcVar4 = s_unnamed_function_004ec43c;
       }
     }
-    sprintf(&local_100,s__s___s____s__d__004ec428,pcVar4,pcVar3,local_108,local_10c);
-    lua_pushstring(&local_100);
+    sprintf(local_100,s__s___s____s__d__004ec428,pcVar4,pcVar3,local_108,local_10c);
+    lua_pushstring(local_100);
   }
   return;
 }
@@ -233,7 +235,6 @@ void __cdecl sputLua_FunctionNameL(void)
 #undef local_104
 #undef local_108
 #undef local_10c
-#undef local_ff
 
 
 /* ---- 0x0049d140  sputLua_TypeOverride ---- */
@@ -888,7 +889,6 @@ void __cdecl sputLua_FadeInChore(void)
 void __cdecl sputLua_SubmitSaveGameData(void)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
   int iVar3;
@@ -898,8 +898,8 @@ void __cdecl sputLua_SubmitSaveGameData(void)
   uint uVar7;
   uint local_10;
   uint local_c;
-  #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint uStack_8;
+  uint local_4;
   
   local_10 = 0;
   iVar2 = lua_lua2C(1);
@@ -954,6 +954,3 @@ void __cdecl sputLua_SubmitSaveGameData(void)
     g_nTotSaveBytes = g_nTotSaveBytes + ~uVar7 + 4;
   } while( true );
 }
-#undef local_4
-#undef uStack_8
-

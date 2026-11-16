@@ -678,7 +678,7 @@ void __cdecl Text_CopyRunes(byte *dst,undefined4 *src,int count,int stride)
 uint __cdecl Text_BuildLineTable(uint text,int *outFont)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int *piVar2;
   uint uVar3;
@@ -687,15 +687,15 @@ uint __cdecl Text_BuildLineTable(uint text,int *outFont)
   int *piVar6;
   char *pcVar7;
   int *piVar8;
-  #define uStack_42 (*(undefined2 *)(_frame + (0x60 - 0x42)))
-  #define local_40 (*(int *)(_frame + (0x60 - 0x40)))
-  #define iStack_3c (*(int *)(_frame + (0x60 - 0x3c)))
-  #define iStack_38 (*(int *)(_frame + (0x60 - 0x38)))
-  #define iStack_34 (*(int *)(_frame + (0x60 - 0x34)))
-  #define aiStack_30 (*(int (*)[4])(_frame + (0x60 - 0x30)))
-  #define iStack_20 (*(int *)(_frame + (0x60 - 0x20)))
-  #define iStack_14 (*(int *)(_frame + (0x60 - 0x14)))
-  #define iStack_10 (*(int *)(_frame + (0x60 - 0x10)))
+  undefined2 uStack_42;
+  int local_40;
+  int iStack_3c;
+  int iStack_38;
+  int iStack_34;
+  #define aiStack_30 (*(int (*)[4])(_frame + (0x40 - 0x30)))
+  #define iStack_20 (*(int *)(_frame + (0x40 - 0x20)))
+  #define iStack_14 (*(int *)(_frame + (0x40 - 0x14)))
+  #define iStack_10 (*(int *)(_frame + (0x40 - 0x10)))
   
   uVar1 = text;
   (*g_pTextHS->pFread)(text,&local_40,4);
@@ -796,11 +796,6 @@ uint __cdecl Text_BuildLineTable(uint text,int *outFont)
 #undef iStack_10
 #undef iStack_14
 #undef iStack_20
-#undef iStack_34
-#undef iStack_38
-#undef iStack_3c
-#undef local_40
-#undef uStack_42
 
 
 /* ---- 0x004ab210  text_FindNextBreak ---- */

@@ -1,0 +1,12 @@
+{
+ "_comment": "Frame locals that Ghidra split where the code passes them to a string function: one char array reaching to the next local used on its own (2026-11-16).",
+ "program": "/LUA.DLL",
+ "locals": [
+  {
+   "addr": "1000a440",
+   "name": "uStack_c7",
+   "type": "char[199]",
+   "_fn": "str_format"
+  }
+ ]
+}

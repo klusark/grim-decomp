@@ -1,0 +1,516 @@
+{
+ "_comment": "Win32 structures and engine formats the code fills in one block of the frame (2026-11-16): OPENFILENAMEA (the file requesters), JOYINFO / JOYINFOEX / JOYCAPSA (winmm joysticks), BITMAPINFOHEADER (the DIB sections), and the ColorFormat / VBufferFormat the save and screenshot code builds.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "OpenFileName",
+   "size": 76,
+   "comment": "OPENFILENAMEA (GetOpenFileNameA / GetSaveFileNameA)",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwStructSize",
+     "0x4c"
+    ],
+    [
+     4,
+     "void *",
+     "pOwner",
+     "HWND"
+    ],
+    [
+     8,
+     "void *",
+     "pInstance",
+     ""
+    ],
+    [
+     12,
+     "char *",
+     "pFilter",
+     "pairs of strings"
+    ],
+    [
+     16,
+     "char *",
+     "pCustomFilter",
+     ""
+    ],
+    [
+     20,
+     "uint",
+     "dwMaxCustFilter",
+     ""
+    ],
+    [
+     24,
+     "uint",
+     "dwFilterIndex",
+     ""
+    ],
+    [
+     28,
+     "char *",
+     "pFile",
+     "in: the initial name, out: the chosen path"
+    ],
+    [
+     32,
+     "uint",
+     "dwMaxFile",
+     ""
+    ],
+    [
+     36,
+     "char *",
+     "pFileTitle",
+     ""
+    ],
+    [
+     40,
+     "uint",
+     "dwMaxFileTitle",
+     ""
+    ],
+    [
+     44,
+     "char *",
+     "pInitialDir",
+     ""
+    ],
+    [
+     48,
+     "char *",
+     "pTitle",
+     ""
+    ],
+    [
+     52,
+     "uint",
+     "dwFlags",
+     "OFN_*"
+    ],
+    [
+     56,
+     "ushort",
+     "wFileOffset",
+     "the file name's offset in pFile"
+    ],
+    [
+     58,
+     "ushort",
+     "wFileExtension",
+     ""
+    ],
+    [
+     60,
+     "char *",
+     "pDefExt",
+     ""
+    ],
+    [
+     64,
+     "uint",
+     "dwCustData",
+     ""
+    ],
+    [
+     68,
+     "void *",
+     "pHook",
+     ""
+    ],
+    [
+     72,
+     "char *",
+     "pTemplateName",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "JoyInfo",
+   "size": 16,
+   "comment": "JOYINFO (joyGetPos)",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwXPos",
+     ""
+    ],
+    [
+     4,
+     "uint",
+     "dwYPos",
+     ""
+    ],
+    [
+     8,
+     "uint",
+     "dwZPos",
+     ""
+    ],
+    [
+     12,
+     "uint",
+     "dwButtons",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "JoyInfoEx",
+   "size": 52,
+   "comment": "JOYINFOEX (joyGetPosEx)",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwSize",
+     "0x34"
+    ],
+    [
+     4,
+     "uint",
+     "dwFlags",
+     "JOY_RETURN*"
+    ],
+    [
+     8,
+     "uint",
+     "dwXPos",
+     ""
+    ],
+    [
+     12,
+     "uint",
+     "dwYPos",
+     ""
+    ],
+    [
+     16,
+     "uint",
+     "dwZPos",
+     ""
+    ],
+    [
+     20,
+     "uint",
+     "dwRPos",
+     ""
+    ],
+    [
+     24,
+     "uint",
+     "dwUPos",
+     ""
+    ],
+    [
+     28,
+     "uint",
+     "dwVPos",
+     ""
+    ],
+    [
+     32,
+     "uint",
+     "dwButtons",
+     ""
+    ],
+    [
+     36,
+     "uint",
+     "dwButtonNumber",
+     ""
+    ],
+    [
+     40,
+     "uint",
+     "dwPOV",
+     "hundredths of a degree, 0xffff centred"
+    ],
+    [
+     44,
+     "uint",
+     "dwReserved1",
+     ""
+    ],
+    [
+     48,
+     "uint",
+     "dwReserved2",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "JoyCaps",
+   "size": 404,
+   "comment": "JOYCAPSA (joyGetDevCapsA)",
+   "fields": [
+    [
+     0,
+     "ushort",
+     "wMid",
+     ""
+    ],
+    [
+     2,
+     "ushort",
+     "wPid",
+     ""
+    ],
+    [
+     4,
+     "char[32]",
+     "aName",
+     ""
+    ],
+    [
+     36,
+     "uint",
+     "dwXMin",
+     ""
+    ],
+    [
+     40,
+     "uint",
+     "dwXMax",
+     ""
+    ],
+    [
+     44,
+     "uint",
+     "dwYMin",
+     ""
+    ],
+    [
+     48,
+     "uint",
+     "dwYMax",
+     ""
+    ],
+    [
+     52,
+     "uint",
+     "dwZMin",
+     ""
+    ],
+    [
+     56,
+     "uint",
+     "dwZMax",
+     ""
+    ],
+    [
+     60,
+     "uint",
+     "dwNumButtons",
+     ""
+    ],
+    [
+     64,
+     "uint",
+     "dwPeriodMin",
+     ""
+    ],
+    [
+     68,
+     "uint",
+     "dwPeriodMax",
+     ""
+    ],
+    [
+     72,
+     "uint",
+     "dwRMin",
+     ""
+    ],
+    [
+     76,
+     "uint",
+     "dwRMax",
+     ""
+    ],
+    [
+     80,
+     "uint",
+     "dwUMin",
+     ""
+    ],
+    [
+     84,
+     "uint",
+     "dwUMax",
+     ""
+    ],
+    [
+     88,
+     "uint",
+     "dwVMin",
+     ""
+    ],
+    [
+     92,
+     "uint",
+     "dwVMax",
+     ""
+    ],
+    [
+     96,
+     "uint",
+     "dwCaps",
+     "JOYCAPS_HASZ 1, HASR 2, HASU 4, HASV 8, HASPOV 0x10"
+    ],
+    [
+     100,
+     "uint",
+     "dwMaxAxes",
+     ""
+    ],
+    [
+     104,
+     "uint",
+     "dwNumAxes",
+     ""
+    ],
+    [
+     108,
+     "uint",
+     "dwMaxButtons",
+     ""
+    ],
+    [
+     112,
+     "char[32]",
+     "aRegKey",
+     ""
+    ],
+    [
+     144,
+     "char[260]",
+     "aOEMVxD",
+     ""
+    ]
+   ]
+  }
+ ],
+ "params": [
+  {
+   "addr": "0047b2b0",
+   "index": 0,
+   "type": "ColorFormat *",
+   "name": "want",
+   "_fn": "stdBitmap_ConvertColorFormat"
+  }
+ ],
+ "locals": [
+  {
+   "addr": "004876c0",
+   "name": "local_150",
+   "type": "OpenFileName",
+   "rename": "ofn",
+   "_fn": "grimPlat_OpenFileRequest"
+  },
+  {
+   "addr": "004877d0",
+   "name": "local_150",
+   "type": "OpenFileName",
+   "rename": "ofn",
+   "_fn": "grimPlat_SaveFileRequest"
+  },
+  {
+   "addr": "004778f0",
+   "name": "local_34",
+   "type": "JoyInfoEx",
+   "rename": "info",
+   "_fn": "Input_PollJoysticks"
+  },
+  {
+   "addr": "00477390",
+   "name": "local_1a4",
+   "type": "JoyInfo",
+   "rename": "pos",
+   "_fn": "Input_InitJoysticks"
+  },
+  {
+   "addr": "00477390",
+   "name": "local_194",
+   "type": "JoyCaps",
+   "rename": "caps",
+   "_fn": "Input_InitJoysticks"
+  },
+  {
+   "addr": "004730d0",
+   "name": "local_428",
+   "type": "BitmapInfoHeader",
+   "rename": "header",
+   "_fn": "stdDisplay_BuildBitmapInfo8"
+  },
+  {
+   "addr": "004730d0",
+   "name": "local_400",
+   "type": "uint[256]",
+   "rename": "aPalette",
+   "_fn": "stdDisplay_BuildBitmapInfo8"
+  },
+  {
+   "addr": "00473180",
+   "name": "local_2c",
+   "type": "BitmapInfoHeader",
+   "rename": "header",
+   "_fn": "stdDisplay_BuildBitmapInfo16"
+  },
+  {
+   "addr": "004731f0",
+   "name": "local_34",
+   "type": "BitmapInfoHeader",
+   "rename": "header",
+   "_fn": "DIB_CreateSection565"
+  },
+  {
+   "addr": "004731f0",
+   "name": "local_c",
+   "type": "uint[3]",
+   "rename": "aMasks",
+   "_fn": "DIB_CreateSection565"
+  },
+  {
+   "addr": "00487260",
+   "name": "local_38",
+   "type": "ColorFormat",
+   "rename": "format",
+   "_fn": "sputRender_SaveScreen"
+  },
+  {
+   "addr": "00487340",
+   "name": "local_38",
+   "type": "ColorFormat",
+   "rename": "format",
+   "_fn": "sputRender_SaveDrawBuffer"
+  },
+  {
+   "addr": "00482fe0",
+   "name": "local_38",
+   "type": "ColorFormat",
+   "rename": "format",
+   "_fn": "Engine_SaveGame"
+  },
+  {
+   "addr": "00483490",
+   "name": "local_84",
+   "type": "ColorFormat",
+   "rename": "format",
+   "_fn": "sputMain_GetSaveGameImage"
+  },
+  {
+   "addr": "00483490",
+   "name": "local_4c",
+   "type": "VBufferFormat",
+   "rename": "bufferFormat",
+   "_fn": "sputMain_GetSaveGameImage"
+  }
+ ]
+}

@@ -53,28 +53,25 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
   uint uVar17;
   uint local_98;
   #define VStack_84 (*(VBufferFormat *)(_frame + (0xa0 - 0x84)))
-  #define iStack_38 (*(int *)(_frame + (0xa0 - 0x38)))
-  #define iStack_34 (*(int *)(_frame + (0xa0 - 0x34)))
-  #define iStack_30 (*(int *)(_frame + (0xa0 - 0x30)))
-  #define uStack_2a (*(uint *)(_frame + (0xa0 - 0x2a)))
-  #define asStack_10 (*(short (*)[8])(_frame + (0xa0 - 0x10)))
+  BitmapInfoHeader infoHeader;
+  BitmapFileHeader fileHeader;
   
   local_98 = 0;
   iVar2 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
   if (iVar2 == 0) {
     return 0;
   }
-  iVar3 = (*g_pStd_HS->pFread)(iVar2,asStack_10,0xe);
-  iVar4 = (*g_pStd_HS->pFread)(iVar2,&iStack_38,0x28);
+  iVar3 = (*g_pStd_HS->pFread)(iVar2,&fileHeader,0xe);
+  iVar4 = (*g_pStd_HS->pFread)(iVar2,&infoHeader,0x28);
   if (iVar3 + iVar4 != 0x36) {
     return 0;
   }
-  if (asStack_10[0] != 0x4d42) {
+  if (fileHeader.wType != 0x4d42) {
     return 0;
   }
-  if (iStack_38 == 0x28) {
-    if ((ushort)uStack_2a < 8) {
-      iVar4 = (1 << ((byte)uStack_2a & 0x1f)) * 4;
+  if (infoHeader.dwSize == 0x28) {
+    if (infoHeader.wBitCount < 8) {
+      iVar4 = (1 << ((byte)infoHeader.wBitCount & 0x1f)) * 4;
       local_98 = (*g_pStd_HS->pAlloc)
                            (iVar4 + 0x2c,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                             DAT_004e763c + 0x43);
@@ -102,10 +99,10 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
     bitmap->pPalette = (void *)local_98;
     bitmap->nFrames = 1;
     bitmap->nCurFrame = 0;
-    switch(uStack_2a & 0xffff) {
+    switch(PIECE(infoHeader,14,4) & 0xffff) {
     case 8:
       bitmap->dwPalFlags = 2;
-      (bitmap->colorFormat).nBpp = uStack_2a & 0xffff;
+      (bitmap->colorFormat).nBpp = PIECE(infoHeader,14,4) & 0xffff;
       (bitmap->colorFormat).nColorMode = 0;
       break;
     default:
@@ -156,8 +153,8 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
                 (s_Unable_to_allocate_memory__004e76d4,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                  DAT_004e763c + 0x77);
     }
-    VStack_84.nHeight = iStack_30;
-    bVar16 = iStack_30 < 0;
+    VStack_84.nHeight = infoHeader.nHeight;
+    bVar16 = infoHeader.nHeight < 0;
     pCVar11 = &bitmap->colorFormat;
     pCVar14 = &VStack_84.colorFormat;
     for (iVar3 = 0xe; iVar3 != 0; iVar3 = iVar3 + -1) {
@@ -165,7 +162,7 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
       pCVar11 = (ColorFormat *)&pCVar11->nBpp;
       pCVar14 = (ColorFormat *)&pCVar14->nBpp;
     }
-    VStack_84.nWidth = iStack_34;
+    VStack_84.nWidth = infoHeader.nWidth;
     if (bVar16) {
       VStack_84.nHeight = -VStack_84.nHeight;
     }
@@ -213,7 +210,7 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
         local_98 = local_98 - 1;
       } while (local_98 != 0);
     }
-    if ((0 < iStack_30) && (local_98 = (int)uVar17 / 2, 0 < (int)local_98)) {
+    if ((0 < infoHeader.nHeight) && (local_98 = (int)uVar17 / 2, 0 < (int)local_98)) {
       iVar4 = iVar3 * uVar17;
       pbVar15 = pbVar1;
       do {
@@ -241,135 +238,102 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
   return 0;
 }
 #undef VStack_84
-#undef asStack_10
-#undef iStack_30
-#undef iStack_34
-#undef iStack_38
-#undef uStack_2a
 
 
 /* ---- 0x0047d050  stdBmp_Write ---- */
 /* Original name stdBmp_Write (the remaster's GrimFandango (Linux): aligned call in stdWriteImage);
    was stdBmp_Save. */
 
-uint __cdecl stdBmp_Write(uint filename,int bitmap)
+uint __cdecl stdBmp_Write(char *filename,stdBitmap *bitmap)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  int iVar1;
+  VBuffer *pVVar1;
   int iVar2;
-  int iVar3;
-  byte *pbVar4;
-  uint uVar5;
+  byte *pbVar3;
+  uint uVar4;
+  int iVar5;
   uint uVar6;
   int iVar7;
-  uint *puVar8;
+  BitmapInfoHeader *pBVar8;
   byte *pbVar9;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(undefined2 *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(undefined2 *)(_frame + (0x50 - 0x1c)))
-  #define local_1a (*(undefined2 *)(_frame + (0x50 - 0x1a)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  BitmapFileHeader fileHeader;
+  BitmapInfoHeader infoHeader;
   
-  iVar1 = **(int **)(bitmap + 0x78);
-  if (*(int *)(iVar1 + 0x20) == 0) {
-    iVar7 = (1 << ((byte)*(undefined4 *)(iVar1 + 0x24) & 0x1f)) << 2;
+  pVVar1 = *bitmap->ppFrames;
+  if ((pVVar1->format).colorFormat.nColorMode == 0) {
+    iVar7 = (1 << ((byte)(pVVar1->format).colorFormat.nBpp & 0x1f)) << 2;
   }
   else {
-    if (*(int *)(iVar1 + 0x24) != 0x18) {
+    if ((pVVar1->format).colorFormat.nBpp != 0x18) {
       (*g_pStd_HS->pAssertFail)
                 (s_Only_24bpp_supported_004e77b4,s_C__grimjedi_Libs_Std_General_Std_004e7644,
                  DAT_004e7640 + 0x18);
     }
     iVar7 = 0;
   }
-  iVar2 = iVar7 + 0x36;
-  PIECE(local_34,2,2) = 0;
-  PIECE(local_30,0,2) = 0;
-  PIECE(local_38,0,2) = 0x4d42;
-  uVar6 = (uint)(*(int *)(iVar1 + 0xc) * *(int *)(iVar1 + 0x10) * *(int *)(iVar1 + 0x24)) >> 3;
-  PIECE(local_30,2,2) = (undefined2)iVar2;
-  local_2c = (undefined2)((uint)iVar2 >> 0x10);
-  iVar2 = iVar2 + uVar6;
-  PIECE(local_38,2,2) = (undefined2)iVar2;
-  PIECE(local_34,0,2) = (undefined2)((uint)iVar2 >> 0x10);
-  puVar8 = &local_28;
-  for (iVar2 = 10; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar8 = 0;
-    puVar8 = puVar8 + 1;
+  fileHeader.dwOffBits = iVar7 + 0x36;
+  fileHeader.wReserved1 = 0;
+  fileHeader.wReserved2 = 0;
+  fileHeader.wType = 0x4d42;
+  uVar6 = (uint)((pVVar1->format).nWidth * (pVVar1->format).nHeight *
+                (pVVar1->format).colorFormat.nBpp) >> 3;
+  fileHeader.dwSize = fileHeader.dwOffBits + uVar6;
+  pBVar8 = &infoHeader;
+  for (iVar5 = 10; iVar5 != 0; iVar5 = iVar5 + -1) {
+    pBVar8->dwSize = 0;
+    pBVar8 = (BitmapInfoHeader *)&pBVar8->nWidth;
   }
-  local_28 = 0x28;
-  local_24 = *(uint *)(iVar1 + 0xc);
-  local_20 = *(uint *)(iVar1 + 0x10);
-  local_1c = 1;
-  local_1a = *(undefined2 *)(iVar1 + 0x24);
-  local_18 = 0;
-  local_10 = 0xb12;
-  local_c = 0xb12;
-  local_14 = uVar6;
-  iVar2 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
-  if (iVar2 == 0) {
+  infoHeader.dwSize = 0x28;
+  infoHeader.nWidth = (pVVar1->format).nWidth;
+  infoHeader.nHeight = (pVVar1->format).nHeight;
+  infoHeader.wPlanes = 1;
+  infoHeader.wBitCount = (ushort)(pVVar1->format).colorFormat.nBpp;
+  infoHeader.dwCompression = 0;
+  infoHeader.nXPelsPerMeter = 0xb12;
+  infoHeader.nYPelsPerMeter = 0xb12;
+  infoHeader.dwSizeImage = uVar6;
+  iVar5 = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
+  if (iVar5 == 0) {
     return 0;
   }
-  iVar3 = (*g_pStd_HS->pFwrite)(iVar2,&local_38,0xe);
-  if (iVar3 != 0xe) {
-    (*g_pStd_HS->pFclose)(iVar2);
+  iVar2 = (*g_pStd_HS->pFwrite)(iVar5,&fileHeader,0xe);
+  if (iVar2 != 0xe) {
+    (*g_pStd_HS->pFclose)(iVar5);
     return 0;
   }
-  iVar3 = (*g_pStd_HS->pFwrite)(iVar2,&local_28,0x28);
-  if (iVar3 == 0x28) {
-    if ((0 < iVar7) &&
-       (iVar3 = (*g_pStd_HS->pFwrite)(iVar2,*(undefined4 *)(bitmap + 0x60),iVar7), iVar3 != iVar7))
-    {
-      (*g_pStd_HS->pFclose)(iVar2);
-      return 0;
+  iVar2 = (*g_pStd_HS->pFwrite)(iVar5,&infoHeader,0x28);
+  if (iVar2 == 0x28) {
+    if (0 < iVar7) {
+      iVar2 = (*g_pStd_HS->pFwrite)(iVar5,bitmap->pPalette,iVar7);
+      if (iVar2 != iVar7) {
+        (*g_pStd_HS->pFclose)(iVar5);
+        return 0;
+      }
     }
-    iVar7 = *(int *)(iVar1 + 0x10);
-    uVar6 = (uint)(*(int *)(iVar1 + 0xc) * *(int *)(iVar1 + 0x24)) >> 3;
+    iVar7 = (pVVar1->format).nHeight;
+    uVar6 = (uint)((pVVar1->format).nWidth * (pVVar1->format).colorFormat.nBpp) >> 3;
     do {
       iVar7 = iVar7 + -1;
       if (iVar7 < 0) {
-        (*g_pStd_HS->pFclose)(iVar2);
+        (*g_pStd_HS->pFclose)(iVar5);
         return 1;
       }
-      pbVar9 = (byte *)(iVar7 * *(int *)(iVar1 + 0x18) + *(int *)(iVar1 + 0x5c));
-      if ((*(int *)(iVar1 + 0x24) == 0x18) &&
-         (iVar3 = 0, pbVar4 = pbVar9, 0 < *(int *)(iVar1 + 0xc))) {
+      pbVar9 = (byte *)(iVar7 * (pVVar1->format).nPitch + (int)pVVar1->pPixels);
+      if (((pVVar1->format).colorFormat.nBpp == 0x18) &&
+         (iVar2 = 0, pbVar3 = pbVar9, 0 < (pVVar1->format).nWidth)) {
         do {
-          *pbVar4 = *pbVar4 ^ pbVar4[2];
-          pbVar4[2] = pbVar4[2] ^ *pbVar4;
-          *pbVar4 = *pbVar4 ^ pbVar4[2];
-          pbVar4 = pbVar4 + 3;
-          iVar3 = iVar3 + 1;
-        } while (iVar3 < *(int *)(iVar1 + 0xc));
+          *pbVar3 = *pbVar3 ^ pbVar3[2];
+          pbVar3[2] = pbVar3[2] ^ *pbVar3;
+          *pbVar3 = *pbVar3 ^ pbVar3[2];
+          pbVar3 = pbVar3 + 3;
+          iVar2 = iVar2 + 1;
+        } while (iVar2 < (pVVar1->format).nWidth);
       }
-      uVar5 = (*g_pStd_HS->pFwrite)(iVar2,pbVar9,uVar6);
-    } while (uVar5 == uVar6);
-    (*g_pStd_HS->pFclose)(iVar2);
+      uVar4 = (*g_pStd_HS->pFwrite)(iVar5,pbVar9,uVar6);
+    } while (uVar4 == uVar6);
+    (*g_pStd_HS->pFclose)(iVar5);
     return 0;
   }
-  (*g_pStd_HS->pFclose)(iVar2);
+  (*g_pStd_HS->pFclose)(iVar5);
   return 0;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1a
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_c
-

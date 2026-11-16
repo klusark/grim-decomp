@@ -37,7 +37,7 @@ uint __cdecl sputActor_Initialize(uint services,undefined4 *iface)
 uint __cdecl sputActor_Save(code *write)
 
 {
-  unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *actor;
   undefined4 *puVar1;
   ModelComponent *pMVar2;
@@ -49,16 +49,16 @@ uint __cdecl sputActor_Save(code *write)
   int iVar8;
   int *piVar9;
   int iStack_a8;
-  #define iStack_a4 (*(int *)(_frame + (0xc0 - 0xa4)))
-  #define iStack_a0 (*(int *)(_frame + (0xc0 - 0xa0)))
-  #define iStack_9c (*(int *)(_frame + (0xc0 - 0x9c)))
-  #define iStack_98 (*(int *)(_frame + (0xc0 - 0x98)))
-  #define iStack_94 (*(int *)(_frame + (0xc0 - 0x94)))
-  #define iStack_90 (*(int *)(_frame + (0xc0 - 0x90)))
-  #define iStack_8c (*(int *)(_frame + (0xc0 - 0x8c)))
-  #define uStack_88 (*(uint *)(_frame + (0xc0 - 0x88)))
-  #define local_84 (*(uint *)(_frame + (0xc0 - 0x84)))
-  #define aiStack_80 (*(int (*)[32])(_frame + (0xc0 - 0x80)))
+  int iStack_a4;
+  int iStack_a0;
+  int iStack_9c;
+  int iStack_98;
+  int iStack_94;
+  int iStack_90;
+  int iStack_8c;
+  uint uStack_88;
+  uint local_84;
+  #define aiStack_80 (*(int (*)[32])(_frame + (0x90 - 0x80)))
   
   local_84 = g_nNumActors;
   (*write)(&g_nMaxActors,4);
@@ -308,15 +308,6 @@ uint __cdecl sputActor_Save(code *write)
   return 0;
 }
 #undef aiStack_80
-#undef iStack_8c
-#undef iStack_90
-#undef iStack_94
-#undef iStack_98
-#undef iStack_9c
-#undef iStack_a0
-#undef iStack_a4
-#undef local_84
-#undef uStack_88
 
 
 /* ---- 0x0048ecd0  sputActor_Restore ---- */
@@ -328,7 +319,7 @@ uint __cdecl sputActor_Save(code *write)
 uint __cdecl sputActor_Restore(code *read)
 
 {
-  unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x150] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
   char cVar2;
   ModelComponent *pMVar3;
@@ -347,36 +338,36 @@ uint __cdecl sputActor_Restore(code *read)
   Actor *pAVar15;
   char *pcVar16;
   int *piVar17;
-  #define iStack_164 (*(int *)(_frame + (0x180 - 0x164)))
-  #define pvStack_160 (*(void **)(_frame + (0x180 - 0x160)))
-  #define local_15c (*(int *)(_frame + (0x180 - 0x15c)))
-  #define iStack_158 (*(int *)(_frame + (0x180 - 0x158)))
-  #define iStack_154 (*(int *)(_frame + (0x180 - 0x154)))
-  #define iStack_150 (*(int *)(_frame + (0x180 - 0x150)))
-  #define iStack_14c (*(int *)(_frame + (0x180 - 0x14c)))
-  #define iStack_148 (*(int *)(_frame + (0x180 - 0x148)))
-  #define uStack_144 (*(uint *)(_frame + (0x180 - 0x144)))
-  #define iStack_140 (*(int *)(_frame + (0x180 - 0x140)))
-  #define iStack_13c (*(int *)(_frame + (0x180 - 0x13c)))
-  #define uStack_138 (*(uint *)(_frame + (0x180 - 0x138)))
-  #define auStack_134 (*(undefined1 (*)[12])(_frame + (0x180 - 0x134)))
-  #define iStack_128 (*(int *)(_frame + (0x180 - 0x128)))
-  #define iStack_124 (*(int *)(_frame + (0x180 - 0x124)))
-  #define iStack_120 (*(int *)(_frame + (0x180 - 0x120)))
-  #define fStack_11c (*(float *)(_frame + (0x180 - 0x11c)))
-  #define fStack_118 (*(float *)(_frame + (0x180 - 0x118)))
-  #define fStack_114 (*(float *)(_frame + (0x180 - 0x114)))
-  #define fStack_110 (*(float *)(_frame + (0x180 - 0x110)))
-  #define iStack_10c (*(int *)(_frame + (0x180 - 0x10c)))
-  #define iStack_108 (*(int *)(_frame + (0x180 - 0x108)))
-  #define iStack_104 (*(int *)(_frame + (0x180 - 0x104)))
-  #define iStack_100 (*(int *)(_frame + (0x180 - 0x100)))
-  #define aiStack_fc (*(int (*)[16])(_frame + (0x180 - 0xfc)))
-  #define iStack_bc (*(int *)(_frame + (0x180 - 0xbc)))
-  #define RStack_b8 (*(ResRef *)(_frame + (0x180 - 0xb8)))
-  #define acStack_80 (*(char (*)[32])(_frame + (0x180 - 0x80)))
-  #define acStack_60 (*(char (*)[32])(_frame + (0x180 - 0x60)))
-  #define acStack_40 (*(char (*)[64])(_frame + (0x180 - 0x40)))
+  int iStack_164;
+  void *pvStack_160;
+  int local_15c;
+  int iStack_158;
+  int iStack_154;
+  int iStack_150;
+  int iStack_14c;
+  int iStack_148;
+  uint uStack_144;
+  int iStack_140;
+  int iStack_13c;
+  uint uStack_138;
+  #define auStack_134 (*(undefined1 (*)[12])(_frame + (0x150 - 0x134)))
+  #define iStack_128 (*(int *)(_frame + (0x150 - 0x128)))
+  #define iStack_124 (*(int *)(_frame + (0x150 - 0x124)))
+  #define iStack_120 (*(int *)(_frame + (0x150 - 0x120)))
+  #define fStack_11c (*(float *)(_frame + (0x150 - 0x11c)))
+  #define fStack_118 (*(float *)(_frame + (0x150 - 0x118)))
+  #define fStack_114 (*(float *)(_frame + (0x150 - 0x114)))
+  #define fStack_110 (*(float *)(_frame + (0x150 - 0x110)))
+  #define iStack_10c (*(int *)(_frame + (0x150 - 0x10c)))
+  #define iStack_108 (*(int *)(_frame + (0x150 - 0x108)))
+  #define iStack_104 (*(int *)(_frame + (0x150 - 0x104)))
+  #define iStack_100 (*(int *)(_frame + (0x150 - 0x100)))
+  #define aiStack_fc (*(int (*)[16])(_frame + (0x150 - 0xfc)))
+  #define iStack_bc (*(int *)(_frame + (0x150 - 0xbc)))
+  #define RStack_b8 (*(ResRef *)(_frame + (0x150 - 0xb8)))
+  #define acStack_80 (*(char (*)[32])(_frame + (0x150 - 0x80)))
+  #define acStack_60 (*(char (*)[32])(_frame + (0x150 - 0x60)))
+  #define acStack_40 (*(char (*)[64])(_frame + (0x150 - 0x40)))
   
   g_pTalkingActors[0] = (Actor *)0x0;
   g_pTalkingActors[1] = (Actor *)0x0;
@@ -726,19 +717,7 @@ uint __cdecl sputActor_Restore(code *read)
 #undef iStack_120
 #undef iStack_124
 #undef iStack_128
-#undef iStack_13c
-#undef iStack_140
-#undef iStack_148
-#undef iStack_14c
-#undef iStack_150
-#undef iStack_154
-#undef iStack_158
-#undef iStack_164
 #undef iStack_bc
-#undef local_15c
-#undef pvStack_160
-#undef uStack_138
-#undef uStack_144
 
 
 /* ---- 0x00490a60  sputActor_SetWalkChore ---- */

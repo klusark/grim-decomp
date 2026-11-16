@@ -18,75 +18,69 @@ GetOuttaTheBox(float *pos,float xmin,float ymin,float zmin,float xmax,float ymax
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
-  local_c = *pos - *out;
-  local_8 = pos[1] - out[1];
-  local_4 = pos[2] - out[2];
-  rdMatrix_TransformVectorOrtho34(&local_18,&local_c,frame);
-  if ((((zmin < local_14[1]) && (ymin < local_14[0])) && (local_14[0] < ymax)) &&
-     (((xmin < local_18 && (local_18 < xmax)) && (local_14[1] < zmax)))) {
+  local_c[0] = *pos - *out;
+  local_c[1] = pos[1] - out[1];
+  local_c[2] = pos[2] - out[2];
+  rdMatrix_TransformVectorOrtho34(local_18,local_c,frame);
+  if ((((zmin < local_18[2]) && (ymin < local_18[1])) && (local_18[1] < ymax)) &&
+     (((xmin < local_18[0] && (local_18[0] < xmax)) && (local_18[2] < zmax)))) {
     fVar1 = 3.4028235e+38;
-    if (local_14[0] < ymax) {
-      fVar2 = ymax - local_14[0];
+    if (local_18[1] < ymax) {
+      fVar2 = ymax - local_18[1];
       if (fVar2 < 0.0f) {
         fVar2 = -fVar2;
       }
       fVar1 = 3.4028235e+38;
       if (fVar2 < 3.4028235e+38) {
-        local_8 = ymax - -0.01f;
-        local_c = local_18;
-        local_4 = local_14[1];
+        local_c[1] = ymax - -0.01f;
+        local_c[0] = local_18[0];
+        local_c[2] = local_18[2];
         fVar1 = fVar2;
       }
     }
-    if (ymin < local_14[0]) {
-      fVar2 = ymin - local_14[0];
+    if (ymin < local_18[1]) {
+      fVar2 = ymin - local_18[1];
       if (fVar2 < 0.0f) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_8 = ymin - 0.01f;
-        local_c = local_18;
-        local_4 = local_14[1];
+        local_c[1] = ymin - 0.01f;
+        local_c[0] = local_18[0];
+        local_c[2] = local_18[2];
         fVar1 = fVar2;
       }
     }
-    if (local_18 < xmax) {
-      fVar2 = xmax - local_18;
+    if (local_18[0] < xmax) {
+      fVar2 = xmax - local_18[0];
       if (fVar2 < 0.0f) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_c = xmax - -0.01f;
-        local_8 = local_14[0];
-        local_4 = local_14[1];
+        local_c[0] = xmax - -0.01f;
+        local_c[1] = local_18[1];
+        local_c[2] = local_18[2];
         fVar1 = fVar2;
       }
     }
-    if (xmin < local_18) {
-      fVar2 = xmin - local_18;
+    if (xmin < local_18[0]) {
+      fVar2 = xmin - local_18[0];
       if (fVar2 < 0.0f) {
         fVar2 = -fVar2;
       }
       if (fVar2 < fVar1) {
-        local_c = xmin - 0.01f;
-        local_8 = local_14[0];
-        local_4 = local_14[1];
+        local_c[0] = xmin - 0.01f;
+        local_c[1] = local_18[1];
+        local_c[2] = local_18[2];
       }
     }
-    rdMatrix_TransformPoint34(pos,&local_c,frame);
+    rdMatrix_TransformPoint34(pos,local_c,frame);
   }
   return;
 }
-#undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
 #undef local_c
 
 

@@ -34,10 +34,9 @@ uint __cdecl sputPrimitive_Initialize(uint services,undefined4 *iface)
 uint __cdecl sputPrimitive_Save(code *write)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 *puVar1;
   code *pcVar2;
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_4;
   
   pcVar2 = write;
   local_4 = 0;
@@ -60,8 +59,6 @@ uint __cdecl sputPrimitive_Save(code *write)
   }
   return 0;
 }
-#undef local_4
-
 
 /* ---- 0x004896b0  sputPrimitive_Restore ---- */
 /* Module interface slot 5 (sputPrimitive): save-game reader, calls the SaveGame_Read callback it is
@@ -72,19 +69,19 @@ uint __cdecl sputPrimitive_Save(code *write)
 uint __cdecl sputPrimitive_Restore(code *id)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   code *pcVar1;
   Primitive *pPVar2;
-  #define local_28 (*(int *)(_frame + (0x40 - 0x28)))
-  #define iStack_24 (*(int *)(_frame + (0x40 - 0x24)))
-  #define iStack_20 (*(int *)(_frame + (0x40 - 0x20)))
-  #define iStack_1c (*(int *)(_frame + (0x40 - 0x1c)))
-  #define iStack_18 (*(int *)(_frame + (0x40 - 0x18)))
-  #define iStack_14 (*(int *)(_frame + (0x40 - 0x14)))
-  #define iStack_10 (*(int *)(_frame + (0x40 - 0x10)))
-  #define iStack_c (*(int *)(_frame + (0x40 - 0xc)))
-  #define iStack_8 (*(int *)(_frame + (0x40 - 0x8)))
-  #define iStack_4 (*(int *)(_frame + (0x40 - 0x4)))
+  int local_28;
+  int iStack_24;
+  int iStack_20;
+  int iStack_1c;
+  int iStack_18;
+  int iStack_14;
+  #define iStack_10 (*(int *)(_frame + (0x20 - 0x10)))
+  #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
+  #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
+  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   PrimitiveQueue_purge((int *)&g_dwPrimitiveQ);
   pcVar1 = id;
@@ -119,15 +116,9 @@ uint __cdecl sputPrimitive_Restore(code *id)
   return 0;
 }
 #undef iStack_10
-#undef iStack_14
-#undef iStack_18
-#undef iStack_1c
-#undef iStack_20
-#undef iStack_24
 #undef iStack_4
 #undef iStack_8
 #undef iStack_c
-#undef local_28
 
 
 /* ---- 0x004897d0  sputPrimitive_Terminate ---- */

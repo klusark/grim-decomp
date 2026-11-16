@@ -1,0 +1,66 @@
+{
+ "_comment": "Frame locals that Ghidra split where the code passes them to a string function: one char array reaching to the next local used on its own (2026-11-16).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "locals": [
+  {
+   "addr": "00473660",
+   "name": "local_8",
+   "type": "char[8]",
+   "_fn": "stdLoadImageData"
+  },
+  {
+   "addr": "00473810",
+   "name": "local_8",
+   "type": "char[8]",
+   "_fn": "stdWriteImage"
+  },
+  {
+   "addr": "00492b30",
+   "name": "local_44",
+   "type": "char[32]",
+   "_fn": "sputActor_SayLine"
+  },
+  {
+   "addr": "00496b60",
+   "name": "local_20",
+   "type": "char[32]",
+   "_fn": "ThingRequester"
+  },
+  {
+   "addr": "00497460",
+   "name": "local_20",
+   "type": "char[32]",
+   "_fn": "SoundRequester"
+  },
+  {
+   "addr": "00497710",
+   "name": "local_20",
+   "type": "char[32]",
+   "_fn": "LuaVarRequester"
+  },
+  {
+   "addr": "00497e10",
+   "name": "local_20",
+   "type": "char[32]",
+   "_fn": "KeyframeRequester"
+  },
+  {
+   "addr": "00498280",
+   "name": "local_20",
+   "type": "char[32]",
+   "_fn": "SpriteRequester"
+  },
+  {
+   "addr": "0049cbe0",
+   "name": "local_100",
+   "type": "char[256]",
+   "_fn": "sputLua_FunctionNameL"
+  },
+  {
+   "addr": "004bf950",
+   "name": "local_28",
+   "type": "char[40]",
+   "_fn": "FUN_004bf950"
+  }
+ ]
+}

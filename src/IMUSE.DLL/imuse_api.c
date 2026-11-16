@@ -2151,7 +2151,6 @@ void __cdecl Sounds_MlFreeAll(void)
 uint __cdecl sounds_save(code *write)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   code *pcVar1;
   undefined4 *puVar2;
   uint uVar3;
@@ -2162,10 +2161,10 @@ uint __cdecl sounds_save(code *write)
   char *pcVar8;
   char *pcVar9;
   bool bVar10;
-  #define iStack_10 (*(int *)(_frame + (0x20 - 0x10)))
-  #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
-  #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define puStack_4 (*(undefined4 **)(_frame + (0x20 - 0x4)))
+  int iStack_10;
+  int iStack_c;
+  uint uStack_8;
+  undefined4 *puStack_4;
   
   pcVar1 = write;
   puVar2 = (undefined4 *)
@@ -2305,11 +2304,6 @@ uint __cdecl sounds_save(code *write)
     }
   } while( true );
 }
-#undef iStack_10
-#undef iStack_c
-#undef puStack_4
-#undef uStack_8
-
 
 /* ---- 0x10008580  sounds_restore ---- */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
@@ -2319,7 +2313,7 @@ uint __cdecl sounds_save(code *write)
 undefined4 sounds_restore(code *param_1,uint param_2)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   code *pcVar1;
   undefined uVar2;
   int *buf;
@@ -2335,10 +2329,10 @@ undefined4 sounds_restore(code *param_1,uint param_2)
   undefined3 extraout_var_06;
   undefined3 extraout_var_07;
   undefined3 extraout_var_08;
-  #define iStack_2c (*(int *)(_frame + (0x40 - 0x2c)))
-  #define uStack_28 (*(undefined4 *)(_frame + (0x40 - 0x28)))
-  #define puStack_24 (*(uint **)(_frame + (0x40 - 0x24)))
-  #define auStack_20 (*(uint (*)[8])(_frame + (0x40 - 0x20)))
+  int iStack_2c;
+  undefined4 uStack_28;
+  uint *puStack_24;
+  #define auStack_20 (*(uint (*)[8])(_frame + (0x30 - 0x20)))
   
   buf = (int *)(**(code **)(g_dwSounds_pHS + 0x20))
                          (0x20000,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x46a);
@@ -2428,9 +2422,6 @@ LAB_1000883c:
   return 1;
 }
 #undef auStack_20
-#undef iStack_2c
-#undef puStack_24
-#undef uStack_28
 
 
 /* ---- 0x10008860  sounds_pause ---- */

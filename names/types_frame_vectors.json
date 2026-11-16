@@ -1,0 +1,336 @@
+{
+ "_comment": "Frame locals that Ghidra split into floats where the code passes them to the rd*/Puck/WalkPlane math as a vector (3 floats) or a matrix (12): one float[3] / float[12] each (2026-11-16). Actor_UpdateLookAt: four vectors (up, angles, direction, axis); local_b4 .. local_9c were added by a script (no Ghidra variable there once local_c0 was a float[3]).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "locals": [
+  {
+   "addr": "0040c710",
+   "name": "local_a8",
+   "type": "float[3]",
+   "_fn": "rdModel3_CalcModelBoundingBox"
+  },
+  {
+   "addr": "0040dde0",
+   "name": "local_30",
+   "type": "float[3]",
+   "_fn": "rdPrimit3_DrawPoint"
+  },
+  {
+   "addr": "0044f490",
+   "name": "local_48",
+   "type": "float[3]",
+   "_fn": "rdMatrix_LookAt"
+  },
+  {
+   "addr": "00450290",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "rdMath_CalcSurfaceNormal"
+  },
+  {
+   "addr": "00450290",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "rdMath_CalcSurfaceNormal"
+  },
+  {
+   "addr": "00450410",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "rdMath_PointsCollinear"
+  },
+  {
+   "addr": "00450410",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "rdMath_PointsCollinear"
+  },
+  {
+   "addr": "00471ee0",
+   "name": "local_78",
+   "type": "float[12]",
+   "_fn": "rdPolyline_Draw"
+  },
+  {
+   "addr": "00472bd0",
+   "name": "local_64",
+   "type": "float[3]",
+   "_fn": "rdSprite_Draw"
+  },
+  {
+   "addr": "00472bd0",
+   "name": "local_70",
+   "type": "float[3]",
+   "_fn": "rdSprite_Draw"
+  },
+  {
+   "addr": "00485780",
+   "name": "local_3c",
+   "type": "float[3]",
+   "_fn": "Set_DrawDebugLights"
+  },
+  {
+   "addr": "00485780",
+   "name": "local_48",
+   "type": "float[3]",
+   "_fn": "Set_DrawDebugLights"
+  },
+  {
+   "addr": "00485780",
+   "name": "local_6c",
+   "type": "float[3]",
+   "_fn": "Set_DrawDebugLights"
+  },
+  {
+   "addr": "00486120",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "Render_BuildActorDrawList"
+  },
+  {
+   "addr": "00486120",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "Render_BuildActorDrawList"
+  },
+  {
+   "addr": "004862e0",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "sputRender_ReverseProject"
+  },
+  {
+   "addr": "0048fe80",
+   "name": "local_9c",
+   "type": "float[3]",
+   "_fn": "Actor_UpdateLookAt"
+  },
+  {
+   "addr": "0048fe80",
+   "name": "local_a8",
+   "type": "float[3]",
+   "_fn": "Actor_UpdateLookAt"
+  },
+  {
+   "addr": "0048fe80",
+   "name": "local_b4",
+   "type": "float[3]",
+   "_fn": "Actor_UpdateLookAt"
+  },
+  {
+   "addr": "0048fe80",
+   "name": "local_c0",
+   "type": "float[3]",
+   "_fn": "Actor_UpdateLookAt"
+  },
+  {
+   "addr": "004922d0",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "GetOuttaTheBox"
+  },
+  {
+   "addr": "004922d0",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "GetOuttaTheBox"
+  },
+  {
+   "addr": "00499590",
+   "name": "local_30",
+   "type": "float[12]",
+   "_fn": "sputLua_WalkActorVectorL"
+  },
+  {
+   "addr": "0049f690",
+   "name": "local_30",
+   "type": "float[12]",
+   "_fn": "sputLua_GetActorNodeLocationL"
+  },
+  {
+   "addr": "0049f690",
+   "name": "local_3c",
+   "type": "float[3]",
+   "_fn": "sputLua_GetActorNodeLocationL"
+  },
+  {
+   "addr": "0049f9b0",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "sputLua_GetCameraLookVectorL"
+  },
+  {
+   "addr": "004a00a0",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "sputLua_GetAngleBetweenActorsL"
+  },
+  {
+   "addr": "004a00a0",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "sputLua_GetAngleBetweenActorsL"
+  },
+  {
+   "addr": "004a0800",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "sputLua_SetLightRotation"
+  },
+  {
+   "addr": "004a0800",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "sputLua_SetLightRotation"
+  },
+  {
+   "addr": "004a09a0",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "sputLua_GetLightRotation"
+  },
+  {
+   "addr": "004a0bd0",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "sputLua_PointLightAt"
+  },
+  {
+   "addr": "004a27b0",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "sputLua_SetActorClipPlane"
+  },
+  {
+   "addr": "004a6790",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "WalkPlane_SetType"
+  },
+  {
+   "addr": "004a6790",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "WalkPlane_SetType"
+  },
+  {
+   "addr": "004a6d10",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "WalkPlane_Intersection"
+  },
+  {
+   "addr": "004a6d10",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "WalkPlane_Intersection"
+  },
+  {
+   "addr": "004a7390",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "WalkPlane_JumpOut"
+  },
+  {
+   "addr": "004a7520",
+   "name": "local_24",
+   "type": "float[3]",
+   "_fn": "WalkPlane_GetConstraintVector"
+  },
+  {
+   "addr": "004a8370",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "Puck_InvXform"
+  },
+  {
+   "addr": "004a8450",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "Puck_PointAt"
+  },
+  {
+   "addr": "004a8500",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "Puck_GetYawToPoint"
+  },
+  {
+   "addr": "004a8610",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "Puck_Forward"
+  },
+  {
+   "addr": "004a8610",
+   "name": "local_24",
+   "type": "float[3]",
+   "_fn": "Puck_Forward"
+  },
+  {
+   "addr": "004a8610",
+   "name": "local_30",
+   "type": "float[3]",
+   "_fn": "Puck_Forward"
+  },
+  {
+   "addr": "004a8610",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "Puck_Forward"
+  },
+  {
+   "addr": "004a8b00",
+   "name": "local_18",
+   "type": "float[3]",
+   "_fn": "Puck_Draw"
+  },
+  {
+   "addr": "004a8b00",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "Puck_Draw"
+  },
+  {
+   "addr": "004a9070",
+   "name": "fStack_18",
+   "type": "float[3]",
+   "_fn": "WalkPlane_DistToEdge"
+  },
+  {
+   "addr": "004a9070",
+   "name": "fStack_24",
+   "type": "float[3]",
+   "_fn": "WalkPlane_DistToEdge"
+  },
+  {
+   "addr": "004a9070",
+   "name": "local_30",
+   "type": "float[3]",
+   "_fn": "WalkPlane_DistToEdge"
+  },
+  {
+   "addr": "004a9070",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "WalkPlane_DistToEdge"
+  },
+  {
+   "addr": "004a9180",
+   "name": "local_40",
+   "type": "float[3]",
+   "_fn": "WalkPlane_RemoveShortEdge"
+  },
+  {
+   "addr": "004a94d0",
+   "name": "local_1f4",
+   "type": "float[3]",
+   "_fn": "Planner_FindPath"
+  },
+  {
+   "addr": "004bf7d0",
+   "name": "local_c",
+   "type": "float[3]",
+   "_fn": "LightEd_SetLightAngle"
+  }
+ ]
+}

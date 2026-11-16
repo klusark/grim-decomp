@@ -715,38 +715,37 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
 
 {
   unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char *pcVar1;
+  char cVar1;
   short sVar2;
-  uint uVar3;
-  int iVar4;
-  int iVar5;
-  uint uVar6;
-  undefined4 *puVar7;
-  uint *puVar8;
+  int iVar3;
+  uint uVar4;
+  char *pcVar5;
+  int *piVar6;
+  int iVar7;
+  uint uVar8;
   uint *puVar9;
-  undefined4 *puVar10;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  char *pcVar10;
+  #define local_28 (*(char (*)[40])(_frame + (0x40 - 0x28)))
   
-  iVar4 = g_nLightEdSelected;
+  iVar3 = g_nLightEdSelected;
   if ((uint)a2 < 0x111) {
     if (a2 == 0x110) {
       SendDlgItemMessageA(a1,0x3fb,0x465,0,32000);
       SendDlgItemMessageA(a1,0x3ff,0x465,0,32000);
       SendDlgItemMessageA(a1,0x400,0x465,0,32000);
-      uVar6 = 0;
-      puVar8 = &local_24;
-      uVar3 = 1;
+      iVar7 = 0;
+      piVar6 = (int *)(local_28 + 4);
+      iVar3 = 1;
       do {
-        uVar6 = uVar6 + 1;
-        puVar8[-1] = uVar6;
-        *puVar8 = uVar3;
-        uVar3 = uVar3 + 5;
-        puVar8 = puVar8 + 2;
-      } while ((int)uVar3 < 0x1a);
-      SendDlgItemMessageA(a1,0x3fb,0x46b,5,(int)&local_28);
-      SendDlgItemMessageA(a1,0x3ff,0x46b,5,(int)&local_28);
-      SendDlgItemMessageA(a1,0x400,0x46b,5,(int)&local_28);
+        iVar7 = iVar7 + 1;
+        piVar6[-1] = iVar7;
+        *piVar6 = iVar3;
+        iVar3 = iVar3 + 5;
+        piVar6 = piVar6 + 2;
+      } while (iVar3 < 0x1a);
+      SendDlgItemMessageA(a1,0x3fb,0x46b,5,(int)local_28);
+      SendDlgItemMessageA(a1,0x3ff,0x46b,5,(int)local_28);
+      SendDlgItemMessageA(a1,0x400,0x46b,5,(int)local_28);
       return (undefined *)0x1;
     }
     if (a2 != 0x10) {
@@ -759,23 +758,23 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     if (a2 != 0x115) {
       return (undefined *)0x0;
     }
-    uVar3 = a3 & 0xffff;
-    uVar6 = (uint)a3 >> 0x10;
-    iVar4 = GetDlgItem(a1,0x3fb);
-    if (a4 == iVar4) {
-      LightEd_RefreshControl(a1,1.42792e-42f,uVar3,uVar6);
+    uVar4 = a3 & 0xffff;
+    uVar8 = (uint)a3 >> 0x10;
+    iVar3 = GetDlgItem(a1,0x3fb);
+    if (a4 == iVar3) {
+      LightEd_RefreshControl(a1,1.42792e-42f,uVar4,uVar8);
       return (undefined *)0x1;
     }
-    iVar4 = GetDlgItem(a1,0x3ff);
-    if (a4 == iVar4) {
-      LightEd_RefreshControl(a1,1.43353e-42f,uVar3,uVar6);
+    iVar3 = GetDlgItem(a1,0x3ff);
+    if (a4 == iVar3) {
+      LightEd_RefreshControl(a1,1.43353e-42f,uVar4,uVar8);
       return (undefined *)0x1;
     }
-    iVar4 = GetDlgItem(a1,0x400);
-    if (a4 != iVar4) {
+    iVar3 = GetDlgItem(a1,0x400);
+    if (a4 != iVar3) {
       return (undefined *)0x0;
     }
-    LightEd_RefreshControl(a1,1.43493e-42f,uVar3,uVar6);
+    LightEd_RefreshControl(a1,1.43493e-42f,uVar4,uVar8);
     return (undefined *)0x1;
   }
   sVar2 = (short)((uint)a3 >> 0x10);
@@ -796,18 +795,18 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     if (g_nLightEdSelected == -1) {
       return (undefined *)0x1;
     }
-    iVar4 = IsDlgButtonChecked(a1,0x3e9);
-    if (iVar4 == 1) {
+    iVar3 = IsDlgButtonChecked(a1,0x3e9);
+    if (iVar3 == 1) {
       *(undefined4 *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x30) = 1;
     }
     else {
-      iVar4 = IsDlgButtonChecked(a1,0x3ea);
-      if (iVar4 == 1) {
+      iVar3 = IsDlgButtonChecked(a1,0x3ea);
+      if (iVar3 == 1) {
         *(undefined4 *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x30) = 2;
       }
       else {
-        iVar4 = IsDlgButtonChecked(a1,0x3eb);
-        if (iVar4 == 1) {
+        iVar3 = IsDlgButtonChecked(a1,0x3eb);
+        if (iVar3 == 1) {
           *(undefined4 *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x30) = 3;
         }
       }
@@ -860,8 +859,8 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     if (g_nLightEdSelected == -1) {
       return (undefined *)0x1;
     }
-    iVar4 = IsDlgButtonChecked(a1,0x3fa);
-    *(uint *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x34) = (uint)(iVar4 == 1);
+    iVar3 = IsDlgButtonChecked(a1,0x3fa);
+    *(uint *)((&UINT_008d1730)[g_nLightEdSelected * 5] + 0x34) = (uint)(iVar3 == 1);
     return (undefined *)0x1;
   case 0x3fc:
     LightEd_SetAllEnabled(0);
@@ -871,8 +870,8 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     return (undefined *)0x1;
   case 0x3fe:
     if ((g_pLightEdSet != (Set *)0x0) && (g_nLightEdSelected != -1)) {
-      iVar4 = IsDlgButtonChecked(a1,0x3fe);
-      (&UINT_008d1734)[g_nLightEdSelected * 5] = (uint)(iVar4 == 1);
+      iVar3 = IsDlgButtonChecked(a1,0x3fe);
+      (&UINT_008d1734)[g_nLightEdSelected * 5] = (uint)(iVar3 == 1);
       LightEd_MoveMarkerActor();
       return (undefined *)0x1;
     }
@@ -886,65 +885,64 @@ undefined * __stdcall FUN_004bf950(int a1,int a2,int a3,int a4)
     break;
   case 0x402:
     if (((sVar2 == 0) && (g_nLightEdSelected != -1)) &&
-       (iVar5 = grimPlat_InputDialog
-                          (s_New_light_name_004f0ec8,(char *)0x0,(char *)&local_28,0x20,(char *)0x0)
-       , iVar5 != 0)) {
-      uVar3 = 0;
+       (iVar7 = grimPlat_InputDialog
+                          (s_New_light_name_004f0ec8,(char *)0x0,local_28,0x20,(char *)0x0),
+       iVar7 != 0)) {
+      uVar4 = 0;
       if (g_pLightEdSet->nLights != 0) {
-        puVar8 = &UINT_008d1730;
+        puVar9 = &UINT_008d1730;
         do {
-          if ((uVar3 != iVar4) && (iVar5 = _stricmp((byte *)*puVar8,(byte *)&local_28), iVar5 == 0))
+          if ((uVar4 != iVar3) && (iVar7 = _stricmp((byte *)*puVar9,(byte *)local_28), iVar7 == 0))
           break;
-          uVar3 = uVar3 + 1;
-          puVar8 = puVar8 + 5;
-        } while (uVar3 < (uint)g_pLightEdSet->nLights);
+          uVar4 = uVar4 + 1;
+          puVar9 = puVar9 + 5;
+        } while (uVar4 < (uint)g_pLightEdSet->nLights);
       }
-      if (uVar3 < (uint)g_pLightEdSet->nLights) {
+      if (uVar4 < (uint)g_pLightEdSet->nLights) {
         MessageBoxA(0,((unsigned)(uintptr_t)&DAT_004f0e74),((unsigned)(uintptr_t)&s_Duplicate_light_name_004f0eb0),0x30);
       }
       else {
-        puVar8 = &local_28;
-        while ((char)local_28 != '\0') {
-          if ((char)*puVar8 == ' ') {
-            *(char *)puVar8 = '_';
+        pcVar5 = local_28;
+        while (local_28[0] != '\0') {
+          if (*pcVar5 == ' ') {
+            *pcVar5 = '_';
           }
-          pcVar1 = (char *)((int)puVar8 + 1);
-          puVar8 = (uint *)((int)puVar8 + 1);
-          PIECE(local_28,0,1) = *pcVar1;
+          pcVar10 = pcVar5 + 1;
+          pcVar5 = pcVar5 + 1;
+          local_28[0] = *pcVar10;
         }
-        uVar3 = 0xffffffff;
-        puVar8 = &local_28;
+        uVar4 = 0xffffffff;
+        pcVar5 = local_28;
         do {
-          puVar9 = puVar8;
-          if (uVar3 == 0) break;
-          uVar3 = uVar3 - 1;
-          puVar9 = (uint *)((int)puVar8 + 1);
-          uVar6 = *puVar8;
-          puVar8 = puVar9;
-        } while ((char)uVar6 != '\0');
-        uVar3 = ~uVar3;
-        puVar7 = (undefined4 *)((int)puVar9 - uVar3);
-        puVar10 = (undefined4 *)(&UINT_008d1730)[iVar4 * 5];
-        for (uVar6 = uVar3 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-          *puVar10 = *puVar7;
-          puVar7 = puVar7 + 1;
-          puVar10 = puVar10 + 1;
+          pcVar10 = pcVar5;
+          if (uVar4 == 0) break;
+          uVar4 = uVar4 - 1;
+          pcVar10 = pcVar5 + 1;
+          cVar1 = *pcVar5;
+          pcVar5 = pcVar10;
+        } while (cVar1 != '\0');
+        uVar4 = ~uVar4;
+        pcVar5 = pcVar10 + -uVar4;
+        pcVar10 = (char *)(&UINT_008d1730)[iVar3 * 5];
+        for (uVar8 = uVar4 >> 2; uVar8 != 0; uVar8 = uVar8 - 1) {
+          *(undefined4 *)pcVar10 = *(undefined4 *)pcVar5;
+          pcVar5 = pcVar5 + 4;
+          pcVar10 = pcVar10 + 4;
         }
-        for (uVar3 = uVar3 & 3; uVar3 != 0; uVar3 = uVar3 - 1) {
-          *(undefined1 *)puVar10 = *(undefined1 *)puVar7;
-          puVar7 = (undefined4 *)((int)puVar7 + 1);
-          puVar10 = (undefined4 *)((int)puVar10 + 1);
+        for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
+          *pcVar10 = *pcVar5;
+          pcVar5 = pcVar5 + 1;
+          pcVar10 = pcVar10 + 1;
         }
       }
       LightMgr_UpdateDialog(a1);
-      SendDlgItemMessageA(a1,1000,0x186,iVar4,0);
+      SendDlgItemMessageA(a1,1000,0x186,iVar3,0);
       LightEd_UpdateDialog(a1);
-      LightEd_ResetLight(iVar4,1);
+      LightEd_ResetLight(iVar3,1);
     }
   }
   return (undefined *)0x0;
 }
-#undef local_24
 #undef local_28
 
 
@@ -3367,14 +3365,13 @@ void __cdecl Zfile_module_shutdown(void)
 int * Zfile_fle_Open(char *param_1,char *mode)
 
 {
-  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   uint *puVar2;
   void *pvVar3;
   undefined4 uVar4;
   undefined **ppuVar5;
   int iVar6;
-  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
+  int iStack_4;
   
   piVar1 = (int *)(*(code *)*g_pZfile_memory_services)
                             (0x14,s_C__grimsrc_libs_lecsmush_insane__004f1df4,0xd2);
@@ -3423,8 +3420,6 @@ int * Zfile_fle_Open(char *param_1,char *mode)
   }
   return (int *)0x0;
 }
-#undef iStack_4
-
 
 /* ---- 0x004c5b00  Zfile_fle_Read ---- */
 /* Original name Zfile_fle_Read (the remaster's GrimFandango (Linux): slot 2 of the

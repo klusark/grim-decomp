@@ -468,10 +468,9 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
   float fStack_c8;
   uint local_c4;
   #define local_c0 (*(float (*)[3])(_frame + (0xd0 - 0xc0)))
-  #define fStack_b4 (*(float *)(_frame + (0xd0 - 0xb4)))
-  #define fStack_b0 (*(float *)(_frame + (0xd0 - 0xb0)))
-  #define afStack_a8 (*(float (*)[3])(_frame + (0xd0 - 0xa8)))
-  #define afStack_9c (*(float (*)[3])(_frame + (0xd0 - 0x9c)))
+  #define local_b4 (*(float (*)[3])(_frame + (0xd0 - 0xb4)))
+  #define local_a8 (*(float (*)[3])(_frame + (0xd0 - 0xa8)))
+  #define local_9c (*(float (*)[3])(_frame + (0xd0 - 0x9c)))
   #define afStack_90 (*(float (*)[12])(_frame + (0xd0 - 0x90)))
   #define afStack_60 (*(float (*)[12])(_frame + (0xd0 - 0x60)))
   #define afStack_30 (*(float (*)[12])(_frame + (0xd0 - 0x30)))
@@ -501,16 +500,16 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
       pfVar5 = afStack_90;
       bVar4 = true;
       pfVar6 = sputActor_GetOrientMatrix(actor);
-      rdMatrix_TransformVector34(afStack_a8,pfVar6 + 3,pfVar5);
+      rdMatrix_TransformVector34(local_a8,pfVar6 + 3,pfVar5);
     }
     else {
-      rdMatrix_TransformPoint34(afStack_a8,a->aLookAt,afStack_90);
-      rdVector_Normalize3Acc(afStack_a8);
+      rdMatrix_TransformPoint34(local_a8,a->aLookAt,afStack_90);
+      rdVector_Normalize3Acc(local_a8);
     }
-    rdVector_Cross3(afStack_9c,local_c0,afStack_a8);
-    rdVector_Normalize3Acc(afStack_9c);
+    rdVector_Cross3(local_9c,local_c0,local_a8);
+    rdVector_Normalize3Acc(local_9c);
     fStack_c8 = pCVar1->flLookRate * dt;
-    fVar9 = rdVector_Dot2(local_c0,afStack_a8);
+    fVar9 = rdVector_Dot2(local_c0,local_a8);
     fVar9 = stdMath_ArcSin1(fVar9);
     fVar9 = 90.0f - fVar9;
     fVar2 = fVar9;
@@ -526,9 +525,9 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
         fStack_c8 = -fVar9;
       }
     }
-    rdMatrix_BuildFromVectorAngle34(afStack_30,afStack_9c,fStack_c8);
+    rdMatrix_BuildFromVectorAngle34(afStack_30,local_9c,fStack_c8);
     rdMatrix_TransformPoint34Acc(local_c0,afStack_30);
-    rdVector_ExtractAngles(local_c0,&fStack_b4);
+    rdVector_ExtractAngles(local_c0,local_b4);
     if ((actor->dwMoveFlags & 2) == 0) {
       iVar8 = 3;
       do {
@@ -546,9 +545,9 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
     fVar9 = pCVar1->flMaxPitch * 0.33333334f;
     do {
       pfVar5 = pCVar1->pMainModel->pHierarchyRot;
-      pfVar5[*piVar7 * 3 + 1] = fStack_b0 * 0.33333334f + pfVar5[*piVar7 * 3 + 1];
+      pfVar5[*piVar7 * 3 + 1] = local_b4[1] * 0.33333334f + pfVar5[*piVar7 * 3 + 1];
       pfVar5 = pCVar1->pMainModel->pHierarchyRot;
-      pfVar5[*piVar7 * 3] = fStack_b4 * 0.33333334f + pfVar5[*piVar7 * 3];
+      pfVar5[*piVar7 * 3] = local_b4[0] * 0.33333334f + pfVar5[*piVar7 * 3];
       pCVar1->pMainModel->pHierarchyRot[*piVar7 * 3 + 2] = 0.0f;
       pfVar6 = pCVar1->pMainModel->pHierarchyRot;
       pfVar5 = pfVar6 + *piVar7 * 3 + 1;
@@ -574,10 +573,9 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
 #undef afStack_30
 #undef afStack_60
 #undef afStack_90
-#undef afStack_9c
-#undef afStack_a8
-#undef fStack_b0
-#undef fStack_b4
+#undef local_9c
+#undef local_a8
+#undef local_b4
 #undef local_c0
 
 
@@ -1437,7 +1435,7 @@ sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int 
   uint uVar16;
   char *pcVar17;
   bool bVar18;
-  #define local_44 (*(undefined4 *)(_frame + (0x60 - 0x44)))
+  #define local_44 (*(char (*)[32])(_frame + (0x60 - 0x44)))
   #define local_24 (*(char (*)[36])(_frame + (0x60 - 0x24)))
   
   if (actor->pExtra == (ActorExtra *)0x0) {
@@ -1445,19 +1443,19 @@ sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int 
   }
   uVar7 = g_dwSmSpeechMode & 1;
   uVar16 = g_dwSmSpeechMode & 2;
-  text_00 = sputText_ExtractSayLineData(text,(char *)&local_44);
+  text_00 = sputText_ExtractSayLineData(text,local_44);
   local_24[0] = '\0';
-  if ((byte)local_44 != 0) {
-    sprintf(local_24,s__s_wvc_004e9eec,&local_44);
+  if (local_44[0] != '\0') {
+    sprintf(local_24,s__s_wvc_004e9eec,local_44);
     iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
     if (iVar8 == 0) {
-      sprintf(local_24,s__s_wav_004e9ee4,&local_44);
+      sprintf(local_24,s__s_wav_004e9ee4,local_44);
       iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
       if (iVar8 == 0) {
-        sprintf(local_24,s__s_imc_004e9edc,&local_44);
+        sprintf(local_24,s__s_imc_004e9edc,local_44);
         iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
         if (iVar8 == 0) {
-          sprintf(local_24,s__s_imu_004e9ed4,&local_44);
+          sprintf(local_24,s__s_imu_004e9ed4,local_44);
           iVar8 = (**(code **)(g_dwSputActHS + 0x30))(local_24,&DAT_004ddb18);
           if (iVar8 == 0) {
             local_24[0] = '\0';
@@ -1470,8 +1468,8 @@ sputActor_SayLine(Actor *actor,char *text,int background,int volume,int pan,int 
   }
 LAB_00492c61:
   if (actor->pExtra->nTalking != 0) {
-    if ((byte)local_44 != 0) {
-      pbVar15 = (byte *)&local_44;
+    if (local_44[0] != '\0') {
+      pbVar15 = (byte *)local_44;
       pcVar9 = actor->pExtra->aMsgId;
       do {
         bVar4 = *pcVar9;
@@ -1498,7 +1496,7 @@ LAB_00492cab:
   }
   actor->pExtra->nTalkTime = 0;
   actor->pExtra->nTalking = 1;
-  strncpy((uint *)actor->pExtra->aMsgId,&local_44,0xc);
+  strncpy((uint *)actor->pExtra->aMsgId,(uint *)local_44,0xc);
   g_nNumActorsTalking = g_nNumActorsTalking + 1;
   iVar8 = 0;
   ppAVar10 = g_pTalkingActors;
@@ -2721,30 +2719,26 @@ float __thiscall Puck_GetYawToPoint(Puck *this,float *point)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined *puVar1;
   float fVar2;
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   uint local_c;
   uint local_8;
   uint local_4;
   
-  local_18 = *point;
-  local_14 = point[1];
-  local_10 = PUN(uint,(float)point[2]);
+  local_18[0] = *point;
+  local_18[1] = point[1];
+  local_18[2] = point[2];
   if (this->pSector != (WalkPlane *)0x0) {
-    WalkPlane_Project(this->pSector,(int)&local_18);
+    WalkPlane_Project(this->pSector,(int)local_18);
   }
-  Puck_InvXform(this,&local_18);
-  rdVector_Normalize3Acc(&local_18);
-  fVar2 = stdMath_ArcSin3(local_14);
+  Puck_InvXform(this,local_18);
+  rdVector_Normalize3Acc(local_18);
+  fVar2 = stdMath_ArcSin3(local_18[1]);
   point = PUN(float *,(float)(90.0f - fVar2));
-  if (0.0f < local_18) {
+  if (0.0f < local_18[0]) {
     point = PUN(float *,(float)(PUN(float,point) * -1.0f));
   }
   puVar1 = Puck_Rot(this);
   return *(float *)(puVar1 + 4) + PUN(float,point);
 }
-#undef local_10
-#undef local_14
 #undef local_18
 

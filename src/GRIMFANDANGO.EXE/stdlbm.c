@@ -37,9 +37,7 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
   #define auStack_80 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x80)))
   #define uStack_7c (*(uint *)(_frame + (0xa0 - 0x7c)))
   #define pvStack_78 (*(void **)(_frame + (0xa0 - 0x78)))
-  #define uStack_74 (*(ushort *)(_frame + (0xa0 - 0x74)))
-  #define uStack_72 (*(ushort *)(_frame + (0xa0 - 0x72)))
-  #define uStack_6a (*(uint *)(_frame + (0xa0 - 0x6a)))
+  LbmBitmapHeader header;
   #define auStack_60 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x60)))
   #define uStack_5c (*(uint *)(_frame + (0xa0 - 0x5c)))
   #define acStack_58 (*(char (*)[4])(_frame + (0xa0 - 0x58)))
@@ -93,8 +91,8 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
         return (stdBitmap *)0x0;
       }
       uStack_84 = Std_Swap32(uStack_84);
-      (*g_pStd_HS->pFread)(f,&uStack_74,0x14);
-      stdLbm_SwapHeader(&uStack_74);
+      (*g_pStd_HS->pFread)(f,&header,0x14);
+      stdLbm_SwapHeader(&header);
       uVar6 = (int)uStack_84 >> 0x1f;
       if (((uStack_84 ^ uVar6) - uVar6 & 1 ^ uVar6) != uVar6) {
         stdFGetc(f);
@@ -137,13 +135,13 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
                           (4,s_C__grimjedi_Libs_Std_General_Std_004e78ec,DAT_004e78e0 + 0x72);
       bitmap->ppFrames = ppVVar9;
       if (ppVVar9 != (VBuffer **)0x0) {
-        if ((uStack_74 & 1) == 0) {
-          VStack_4c.nWidth = (int)uStack_74;
+        if ((header.wWidth & 1) == 0) {
+          VStack_4c.nWidth = (int)header.wWidth;
         }
         else {
-          VStack_4c.nWidth = uStack_74 + 1;
+          VStack_4c.nWidth = header.wWidth + 1;
         }
-        VStack_4c.nHeight = (int)uStack_72;
+        VStack_4c.nHeight = (int)header.wHeight;
         VStack_4c.colorFormat.nColorMode = 0;
         VStack_4c.colorFormat.nBpp = 8;
         pVVar10 = stdDisplay_VBufferNew(&VStack_4c,videoMem,b,0);
@@ -153,7 +151,7 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
           iVar7 = 0;
           pvVar12 = (*bitmap->ppFrames)->pPixels;
           pvStack_78 = pvVar12;
-          if ((uStack_6a & 0xff) == 0) {
+          if ((PIECE(header,10,4) & 0xff) == 0) {
             if (0 < (int)uStack_7c) {
               do {
                 uVar6 = stdFGetc(f);
@@ -162,10 +160,10 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
               } while (iVar7 < (int)uStack_7c);
             }
           }
-          else if ((uStack_6a & 0xff) == 1) {
+          else if ((PIECE(header,10,4) & 0xff) == 1) {
             iStack_8c = 0;
             iStack_90 = 0;
-            if (uStack_72 != 0) {
+            if (header.wHeight != 0) {
               do {
                 iStack_94 = 0;
                 do {
@@ -202,9 +200,9 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
                       iStack_90 = iVar7;
                     } while (iVar11 != 0);
                   }
-                } while (iStack_94 < (int)(uint)uStack_74);
+                } while (iStack_94 < (int)(uint)header.wWidth);
                 iStack_8c = iStack_8c + 1;
-              } while (iStack_8c < (int)(uint)uStack_72);
+              } while (iStack_8c < (int)(uint)header.wHeight);
             }
           }
           stdDisplay_VBufferUnlock(*bitmap->ppFrames);
@@ -253,9 +251,6 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
 #undef pvStack_78
 #undef uStack_54
 #undef uStack_5c
-#undef uStack_6a
-#undef uStack_72
-#undef uStack_74
 #undef uStack_7c
 #undef uStack_84
 
@@ -264,28 +259,16 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
 uint __cdecl stdLbm_Write(uint filename,int bitmap)
 
 {
-  unsigned char _frame[0x800] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x7e0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   uint f;
   int iVar2;
   int iVar3;
   uint uVar4;
   undefined1 *src;
-  #define uStack_7ec (*(uint *)(_frame + (0x800 - 0x7ec)))
-  #define uStack_7e8 (*(undefined2 *)(_frame + (0x800 - 0x7e8)))
-  #define uStack_7e6 (*(undefined2 *)(_frame + (0x800 - 0x7e6)))
-  #define uStack_7e4 (*(undefined2 *)(_frame + (0x800 - 0x7e4)))
-  #define uStack_7e2 (*(undefined2 *)(_frame + (0x800 - 0x7e2)))
-  #define uStack_7e0 (*(undefined1 *)(_frame + (0x800 - 0x7e0)))
-  #define uStack_7df (*(undefined1 *)(_frame + (0x800 - 0x7df)))
-  #define uStack_7de (*(undefined1 *)(_frame + (0x800 - 0x7de)))
-  #define uStack_7dc (*(undefined2 *)(_frame + (0x800 - 0x7dc)))
-  #define uStack_7da (*(undefined1 *)(_frame + (0x800 - 0x7da)))
-  #define uStack_7d9 (*(undefined1 *)(_frame + (0x800 - 0x7d9)))
-  #define uStack_7d8 (*(undefined2 *)(_frame + (0x800 - 0x7d8)))
-  #define uStack_7d6 (*(undefined2 *)(_frame + (0x800 - 0x7d6)))
-  #define iStack_7d4 (*(int *)(_frame + (0x800 - 0x7d4)))
-  #define acStack_7d0 (*(char (*)[2000])(_frame + (0x800 - 0x7d0)))
+  uint uStack_7ec;
+  LbmBitmapHeader header;
+  #define acStack_7d0 (*(char (*)[2000])(_frame + (0x7e0 - 0x7d0)))
   
   f = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
   if (f == 0) {
@@ -294,13 +277,13 @@ uint __cdecl stdLbm_Write(uint filename,int bitmap)
   (*g_pStd_HS->pFwrite)(f,s_FORMxxxxPBM_BMHD_004e7928,0x10);
   uStack_7ec = Std_Swap32(0x14);
   (*g_pStd_HS->pFwrite)(f,&uStack_7ec,4);
-  stdLbm_SwapHeader(&uStack_7e8);
-  (*g_pStd_HS->pFwrite)(f,&uStack_7e8,0x14);
+  stdLbm_SwapHeader(&header);
+  (*g_pStd_HS->pFwrite)(f,&header,0x14);
   (*g_pStd_HS->pFwrite)(f,&DAT_004e7920,4);
   uStack_7ec = Std_Swap32(0x300);
   (*g_pStd_HS->pFwrite)(f,&uStack_7ec,4);
   (*g_pStd_HS->pFwrite)(f,*(undefined4 *)(bitmap + 0x60),0x300);
-  iStack_7d4 = (*g_pStd_HS->pFtell)(f);
+  iVar2 = (*g_pStd_HS->pFtell)(f);
   (*g_pStd_HS->pFwrite)(f,s_BODYxxxx_004e7914,8);
   stdDisplay_VBufferLock((VBuffer *)**(undefined4 **)(bitmap + 0x78));
   uVar4 = 0;
@@ -316,53 +299,38 @@ uint __cdecl stdLbm_Write(uint filename,int bitmap)
     } while (uVar4 < *(uint *)(**(int **)(bitmap + 0x78) + 0x10));
   }
   stdDisplay_VBufferUnlock((VBuffer *)**(undefined4 **)(bitmap + 0x78));
-  iVar2 = (*g_pStd_HS->pFtell)(f);
-  iVar3 = iStack_7d4;
-  uStack_7ec = iVar2 + (-8 - iStack_7d4);
+  iVar3 = (*g_pStd_HS->pFtell)(f);
+  uStack_7ec = iVar3 + (-8 - iVar2);
   uStack_7ec = Std_Swap32(uStack_7ec);
-  (*g_pStd_HS->pFseek)(f,iVar3 + 4,0);
+  (*g_pStd_HS->pFseek)(f,iVar2 + 4,0);
   (*g_pStd_HS->pFwrite)(f,&uStack_7ec,4);
   (*g_pStd_HS->pFseek)(f,0,2);
   iVar3 = (*g_pStd_HS->pFtell)(f);
   uStack_7ec = iVar3 - 8;
   uStack_7ec = Std_Swap32(uStack_7ec);
   piVar1 = *(int **)(bitmap + 0x78);
-  uStack_7e8 = *(undefined2 *)(*piVar1 + 0xc);
-  uStack_7e6 = *(undefined2 *)(*piVar1 + 0x10);
-  uStack_7e4 = 0;
-  uStack_7e2 = 0;
-  uStack_7e0 = 8;
-  uStack_7df = 0;
-  uStack_7de = 1;
-  uStack_7dc = 0;
-  uStack_7da = 6;
-  uStack_7d9 = 5;
-  uStack_7d8 = *(undefined2 *)(*piVar1 + 0xc);
-  uStack_7d6 = *(undefined2 *)(*piVar1 + 0x10);
+  header.wWidth = *(ushort *)(*piVar1 + 0xc);
+  header.wHeight = *(ushort *)(*piVar1 + 0x10);
+  header.nX = 0;
+  header.nY = 0;
+  header.bPlanes = 8;
+  header.bMasking = 0;
+  header.bCompression = 1;
+  header.wTransparentColor = 0;
+  header.bXAspect = 6;
+  header.bYAspect = 5;
+  header.nPageWidth = *(short *)(*piVar1 + 0xc);
+  header.nPageHeight = *(short *)(*piVar1 + 0x10);
   (*g_pStd_HS->pFseek)(f,4,0);
   (*g_pStd_HS->pFwrite)(f,&uStack_7ec,4);
   (*g_pStd_HS->pFseek)(f,0x14,0);
-  stdLbm_SwapHeader(&uStack_7e8);
-  (*g_pStd_HS->pFwrite)(f,&uStack_7e8,0x14);
+  stdLbm_SwapHeader(&header);
+  (*g_pStd_HS->pFwrite)(f,&header,0x14);
   (*g_pStd_HS->pFseek)(f,0,2);
   (*g_pStd_HS->pFclose)(f);
   return 1;
 }
 #undef acStack_7d0
-#undef iStack_7d4
-#undef uStack_7d6
-#undef uStack_7d8
-#undef uStack_7d9
-#undef uStack_7da
-#undef uStack_7dc
-#undef uStack_7de
-#undef uStack_7df
-#undef uStack_7e0
-#undef uStack_7e2
-#undef uStack_7e4
-#undef uStack_7e6
-#undef uStack_7e8
-#undef uStack_7ec
 
 
 /* ---- 0x0047f9d0  stdLbm_PackBits ---- */
@@ -478,7 +446,7 @@ void __cdecl stdLbm_PackByte(char c)
 /* ---- 0x0047fc80  stdLbm_SwapHeader ---- */
 /* Byte-swaps the big-endian BMHD fields */
 
-void __cdecl stdLbm_SwapHeader(undefined2 *header)
+void __cdecl stdLbm_SwapHeader(LbmBitmapHeader *header)
 
 {
   undefined4 in_EAX;
@@ -488,19 +456,19 @@ void __cdecl stdLbm_SwapHeader(undefined2 *header)
   undefined2 extraout_var_01;
   undefined2 extraout_var_02;
   
-  uVar1 = Std_Swap16(CONCAT22((short)((uint)in_EAX >> 0x10),*header));
-  *header = (short)uVar1;
-  uVar1 = Std_Swap16(CONCAT22(extraout_var,header[1]));
-  header[1] = (short)uVar1;
-  uVar1 = Std_Swap16(CONCAT22(extraout_var_01,header[2]));
-  header[2] = (short)uVar1;
-  uVar1 = Std_Swap16(CONCAT22((short)(uVar1 >> 0x10),header[3]));
-  header[3] = (short)uVar1;
-  uVar1 = Std_Swap16(CONCAT22(extraout_var_00,header[6]));
-  header[6] = (short)uVar1;
-  uVar1 = Std_Swap16(CONCAT22(extraout_var_02,header[8]));
-  header[8] = (short)uVar1;
-  uVar1 = Std_Swap16(CONCAT22((short)(uVar1 >> 0x10),header[9]));
-  header[9] = (short)uVar1;
+  uVar1 = Std_Swap16(CONCAT22((short)((uint)in_EAX >> 0x10),header->wWidth));
+  header->wWidth = (ushort)uVar1;
+  uVar1 = Std_Swap16(CONCAT22(extraout_var,header->wHeight));
+  header->wHeight = (ushort)uVar1;
+  uVar1 = Std_Swap16(CONCAT22(extraout_var_01,header->nX));
+  header->nX = (short)uVar1;
+  uVar1 = Std_Swap16(CONCAT22((short)(uVar1 >> 0x10),header->nY));
+  header->nY = (short)uVar1;
+  uVar1 = Std_Swap16(CONCAT22(extraout_var_00,header->wTransparentColor));
+  header->wTransparentColor = (ushort)uVar1;
+  uVar1 = Std_Swap16(CONCAT22(extraout_var_02,header->nPageWidth));
+  header->nPageWidth = (short)uVar1;
+  uVar1 = Std_Swap16(CONCAT22((short)(uVar1 >> 0x10),header->nPageHeight));
+  header->nPageHeight = (short)uVar1;
   return;
 }

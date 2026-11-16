@@ -19,12 +19,11 @@ uint __cdecl SpriteRequester(uint cosInst,int tag,int parent,float type,char *fi
   uint uVar2;
   undefined *puVar3;
   uint *puVar4;
-  char *name;
-  int *piVar5;
-  int iVar6;
-  uint uVar7;
-  int *piVar8;
-  undefined4 *puVar9;
+  char *pcVar5;
+  int *piVar6;
+  int iVar7;
+  uint uVar8;
+  int *piVar9;
   char *pcVar10;
   int *piVar11;
   #define local_50 (*(float (*)[3])(_frame + (0x60 - 0x50)))
@@ -35,18 +34,20 @@ uint __cdecl SpriteRequester(uint cosInst,int tag,int parent,float type,char *fi
   #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(undefined1 *)(_frame + (0x60 - 0x20)))
-  #define local_1f (*(undefined4 *)(_frame + (0x60 - 0x1f)))
-  #define local_1 (*(undefined1 *)(_frame + (0x60 - 0x1)))
+  #define local_20 (*(char (*)[32])(_frame + (0x60 - 0x20)))
   
-  local_20 = DAT_004f5a98;
-  puVar9 = &local_1f;
-  for (iVar6 = 7; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *puVar9 = 0;
-    puVar9 = puVar9 + 1;
+  local_20[0] = DAT_004f5a98;
+  pcVar5 = local_20 + 1;
+  for (iVar7 = 7; iVar7 != 0; iVar7 = iVar7 + -1) {
+    pcVar5[0] = '\0';
+    pcVar5[1] = '\0';
+    pcVar5[2] = '\0';
+    pcVar5[3] = '\0';
+    pcVar5 = pcVar5 + 4;
   }
-  *(undefined2 *)puVar9 = 0;
-  *(undefined1 *)((int)puVar9 + 2) = 0;
+  pcVar5[0] = '\0';
+  pcVar5[1] = '\0';
+  pcVar5[2] = '\0';
   local_34 = 1;
   local_30 = 0;
   local_2c = 0;
@@ -60,24 +61,24 @@ uint __cdecl SpriteRequester(uint cosInst,int tag,int parent,float type,char *fi
       if (g_bMaterialPath != '\0') {
         grimPlat_SetDefaultOpenPath(((unsigned)(uintptr_t)&g_bMaterialPath));
       }
-      iVar6 = grimPlat_OpenFileRequest
+      iVar7 = grimPlat_OpenFileRequest
                         (s_Select_mat_file_for_sprite____004ea834,s_Material_files____mat__004ea5a4)
       ;
-      if (iVar6 == 0) {
+      if (iVar7 == 0) {
         return 0;
       }
       uVar2 = 0x7f;
       puVar4 = (uint *)grimPlat_GetDefaultOpenPath();
       strncpy((uint *)&g_bMaterialPath,puVar4,uVar2);
       DAT_008ca9b7 = 0;
-      name = stdFnames_FindMedName(g_szGrimlib_aFilename);
-      filename = name;
+      pcVar5 = stdFnames_FindMedName(g_szGrimlib_aFilename);
+      filename = pcVar5;
     }
     else {
-      strncpy((uint *)&local_20,(uint *)filename,0x1f);
-      local_1 = 0;
-      name = &local_20;
-      strtok(&local_20,&DAT_004ea52c);
+      strncpy((uint *)local_20,(uint *)filename,0x1f);
+      local_20[0x1f] = '\0';
+      pcVar5 = local_20;
+      strtok((byte *)local_20,&DAT_004ea52c);
       uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
       if (uVar2 != 0) {
         puVar3 = atoi(uVar2);
@@ -96,47 +97,47 @@ uint __cdecl SpriteRequester(uint cosInst,int tag,int parent,float type,char *fi
         type = (float)(int)puVar3 * 0.01f;
       }
     }
-    piVar5 = (int *)(*g_pSputCosHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026)
+    piVar6 = (int *)(*g_pSputCosHS->pAlloc)(0x24,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x1026)
     ;
-    if (piVar5 != (int *)0x0) {
-      piVar11 = piVar5;
-      for (iVar6 = 9; iVar6 != 0; iVar6 = iVar6 + -1) {
+    if (piVar6 != (int *)0x0) {
+      piVar11 = piVar6;
+      for (iVar7 = 9; iVar7 != 0; iVar7 = iVar7 + -1) {
         *piVar11 = 0;
         piVar11 = piVar11 + 1;
       }
       local_40[0] = local_50[0];
       local_40[1] = local_50[1];
       local_40[2] = type;
-      iVar6 = rdSprite_New(0,(uint)name,(uint)name,PUN(uint,(float)local_44),PUN(uint,(float)local_50[2]),5,0,1,0,
+      iVar7 = rdSprite_New(0,(uint)pcVar5,(uint)pcVar5,PUN(uint,(float)local_44),PUN(uint,(float)local_50[2]),5,0,1,0,
                            (uint)local_40);
-      *piVar5 = iVar6;
+      *piVar6 = iVar7;
       uVar2 = 0xffffffff;
       do {
-        pcVar10 = name;
+        pcVar10 = pcVar5;
         if (uVar2 == 0) break;
         uVar2 = uVar2 - 1;
-        pcVar10 = name + 1;
-        cVar1 = *name;
-        name = pcVar10;
+        pcVar10 = pcVar5 + 1;
+        cVar1 = *pcVar5;
+        pcVar5 = pcVar10;
       } while (cVar1 != '\0');
       uVar2 = ~uVar2;
-      piVar8 = (int *)(pcVar10 + -uVar2);
-      piVar11 = piVar5;
-      for (uVar7 = uVar2 >> 2; piVar11 = piVar11 + 1, uVar7 != 0; uVar7 = uVar7 - 1) {
-        *piVar11 = *piVar8;
-        piVar8 = piVar8 + 1;
+      piVar9 = (int *)(pcVar10 + -uVar2);
+      piVar11 = piVar6;
+      for (uVar8 = uVar2 >> 2; piVar11 = piVar11 + 1, uVar8 != 0; uVar8 = uVar8 - 1) {
+        *piVar11 = *piVar9;
+        piVar9 = piVar9 + 1;
       }
       for (uVar2 = uVar2 & 3; uVar2 != 0; uVar2 = uVar2 - 1) {
-        *(char *)piVar11 = (char)*piVar8;
-        piVar8 = (int *)((int)piVar8 + 1);
+        *(char *)piVar11 = (char)*piVar9;
+        piVar9 = (int *)((int)piVar9 + 1);
         piVar11 = (int *)((int)piVar11 + 1);
       }
-      local_34 = *(int *)(*(int *)(*piVar5 + 0x7c) + 0x60) + 1;
+      local_34 = *(int *)(*(int *)(*piVar6 + 0x7c) + 0x60) + 1;
       local_30 = 0;
       local_2c = 0;
-      iVar6 = Cos_RegisterComponent
-                        (cosInst,(int)filename,(int)piVar5,tag,parent,0x4853454d,(int)&local_34);
-      if (iVar6 != 0) {
+      iVar7 = Cos_RegisterComponent
+                        (cosInst,(int)filename,(int)piVar6,tag,parent,0x4853454d,(int)&local_34);
+      if (iVar7 != 0) {
         return 1;
       }
       if (local_30 != 0) {
@@ -147,8 +148,6 @@ uint __cdecl SpriteRequester(uint cosInst,int tag,int parent,float type,char *fi
   }
   return 0;
 }
-#undef local_1
-#undef local_1f
 #undef local_20
 #undef local_24
 #undef local_28

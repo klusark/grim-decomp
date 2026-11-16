@@ -40,8 +40,7 @@ stdBitmap * __cdecl stdLoadImageData(char *name,int a,int b)
   char *pcVar7;
   char *pcVar8;
   char *pcVar9;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined1 *)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(char (*)[8])(_frame + (0x20 - 0x8)))
   
   puVar2 = (uint *)strrchr(name,'.');
   if (puVar2 == (uint *)0x0) {
@@ -80,31 +79,31 @@ stdBitmap * __cdecl stdLoadImageData(char *name,int a,int b)
       pcVar9 = pcVar9 + 1;
     }
   }
-  strncpy(&local_8,puVar2,4);
-  local_4 = 0;
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddec4);
+  strncpy((uint *)local_8,puVar2,4);
+  local_8[4] = '\0';
+  iVar5 = _stricmp((byte *)local_8,&DAT_004ddec4);
   if (iVar5 == 0) {
     psVar3 = stdLbm_Load(name,a,b);
     return psVar3;
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddebc);
+  iVar5 = _stricmp((byte *)local_8,&DAT_004ddebc);
   if (iVar5 == 0) {
     psVar3 = (stdBitmap *)stdPcx_Load((uint)name,a,b);
     return psVar3;
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddeb4);
+  iVar5 = _stricmp((byte *)local_8,&DAT_004ddeb4);
   if (iVar5 == 0) {
     psVar3 = stdGif_Load(name,a,b);
     return psVar3;
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddeb0);
-  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)&local_8,&DAT_004ddea8), iVar5 != 0)) {
-    iVar5 = _stricmp((byte *)&local_8,&DAT_004ddea0);
+  iVar5 = _stricmp((byte *)local_8,&DAT_004ddeb0);
+  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)local_8,&DAT_004ddea8), iVar5 != 0)) {
+    iVar5 = _stricmp((byte *)local_8,&DAT_004ddea0);
     if (iVar5 == 0) {
       psVar3 = (stdBitmap *)stdPic_Load((uint)name,a,b);
       return psVar3;
     }
-    iVar5 = _stricmp((byte *)&local_8,&DAT_004dde98);
+    iVar5 = _stricmp((byte *)local_8,&DAT_004dde98);
     if (iVar5 != 0) {
       return (stdBitmap *)0x0;
     }
@@ -114,7 +113,6 @@ stdBitmap * __cdecl stdLoadImageData(char *name,int a,int b)
   psVar3 = stdBitmap_Load(name,a,b);
   return psVar3;
 }
-#undef local_4
 #undef local_8
 
 
@@ -136,8 +134,7 @@ int __cdecl stdWriteImage(char *filename,stdBitmap *bitmap)
   char *pcVar7;
   char *pcVar8;
   char *pcVar9;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(undefined1 *)(_frame + (0x20 - 0x4)))
+  #define local_8 (*(char (*)[8])(_frame + (0x20 - 0x8)))
   
   puVar2 = (uint *)stdFnames_FindExt(filename);
   if (puVar2 == (uint *)0x0) {
@@ -176,36 +173,36 @@ int __cdecl stdWriteImage(char *filename,stdBitmap *bitmap)
       pcVar9 = pcVar9 + 1;
     }
   }
-  strncpy(&local_8,puVar2,4);
-  local_4 = 0;
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004ddee0);
-  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)&local_8,&DAT_004ddedc), iVar5 != 0)) {
+  strncpy((uint *)local_8,puVar2,4);
+  local_8[4] = '\0';
+  iVar5 = _stricmp((byte *)local_8,&DAT_004ddee0);
+  if ((iVar5 != 0) && (iVar5 = _stricmp((byte *)local_8,&DAT_004ddedc), iVar5 != 0)) {
     stdBitmap_DeCompress((int)bitmap);
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004dded8);
+  iVar5 = _stricmp((byte *)local_8,&DAT_004dded8);
   if (iVar5 == 0) {
     uVar4 = stdLbm_Write((uint)filename,(int)bitmap);
     return (uint)(uVar4 != 0);
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004dded4);
+  iVar5 = _stricmp((byte *)local_8,&DAT_004dded4);
   if (iVar5 == 0) {
     uVar4 = stdPcx_Write((uint)filename,(int)bitmap);
     return (uint)(uVar4 != 0);
   }
-  iVar5 = _stricmp((byte *)&local_8,&DAT_004dded0);
+  iVar5 = _stricmp((byte *)local_8,&DAT_004dded0);
   if (iVar5 != 0) {
-    iVar5 = _stricmp((byte *)&local_8,&DAT_004ddee0);
+    iVar5 = _stricmp((byte *)local_8,&DAT_004ddee0);
     if (iVar5 == 0) {
       iVar5 = stdBitmap_Write(filename,bitmap);
       return (uint)(iVar5 != 0);
     }
-    iVar5 = _stricmp((byte *)&local_8,&DAT_004ddedc);
+    iVar5 = _stricmp((byte *)local_8,&DAT_004ddedc);
     if (iVar5 != 0) {
-      iVar5 = _stricmp((byte *)&local_8,&DAT_004ddecc);
+      iVar5 = _stricmp((byte *)local_8,&DAT_004ddecc);
       if (iVar5 != 0) {
         return 0;
       }
-      uVar4 = stdBmp_Write((uint)filename,(int)bitmap);
+      uVar4 = stdBmp_Write(filename,bitmap);
       return (uint)(uVar4 != 0);
     }
     iVar5 = bitmap->nFrames;
@@ -224,7 +221,6 @@ int __cdecl stdWriteImage(char *filename,stdBitmap *bitmap)
   uVar4 = stdGif_Write((uint)filename,(int)bitmap);
   return (uint)(uVar4 != 0);
 }
-#undef local_4
 #undef local_8
 
 
@@ -299,8 +295,8 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
   void *pvVar11;
   byte *pbVar12;
   uint uStack_e0;
-  #define uStack_dc (*(uint *)(_frame + (0xf0 - 0xdc)))
-  #define pbStack_d8 (*(byte **)(_frame + (0xf0 - 0xd8)))
+  uint uStack_dc;
+  byte *pbStack_d8;
   #define iStack_d4 (*(int *)(_frame + (0xf0 - 0xd4)))
   #define uStack_d0 (*(uint *)(_frame + (0xf0 - 0xd0)))
   #define local_cc (*(char (*)[4])(_frame + (0xf0 - 0xcc)))
@@ -430,7 +426,6 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
 #undef iStack_c8
 #undef iStack_d4
 #undef local_cc
-#undef pbStack_d8
 #undef uStack_b0
 #undef uStack_b4
 #undef uStack_b8
@@ -438,7 +433,6 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
 #undef uStack_c0
 #undef uStack_c4
 #undef uStack_d0
-#undef uStack_dc
 
 
 /* ---- 0x0047ae70  stdBitmap_Free ---- */
@@ -506,8 +500,8 @@ uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap)
   uint uVar14;
   uint uStack_a4;
   uint uStack_a0;
-  #define uStack_9c (*(undefined4 *)(_frame + (0xb0 - 0x9c)))
-  #define uStack_98 (*(uint *)(_frame + (0xb0 - 0x98)))
+  undefined4 uStack_9c;
+  uint uStack_98;
   #define iStack_94 (*(int *)(_frame + (0xb0 - 0x94)))
   #define uStack_90 (*(uint *)(_frame + (0xb0 - 0x90)))
   #define uStack_8c (*(uint *)(_frame + (0xb0 - 0x8c)))
@@ -649,8 +643,6 @@ uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap)
 #undef uStack_84
 #undef uStack_8c
 #undef uStack_90
-#undef uStack_98
-#undef uStack_9c
 
 
 /* ---- 0x0047b250  stdBitmap_Write ---- */
@@ -682,12 +674,12 @@ int __cdecl stdBitmap_Write(char *filename,void *bitmap)
    stdBitmap_ConvertColorFormat (the remaster's GrimFandango (Linux): aligned call in
    sputRender_SaveDrawBuffer, sputRender_SaveScreen); was stdBitmap_CopyFrom. */
 
-void __cdecl stdBitmap_ConvertColorFormat(int *want,int have)
+void __cdecl stdBitmap_ConvertColorFormat(ColorFormat *want,int have)
 
 {
   VBuffer *pVVar1;
   int iVar2;
-  int *piVar3;
+  ColorFormat *pCVar3;
   int *piVar4;
   int *srcFormat;
   bool bVar5;
@@ -695,22 +687,22 @@ void __cdecl stdBitmap_ConvertColorFormat(int *want,int have)
   srcFormat = (int *)(have + 0x28);
   iVar2 = 0x38;
   bVar5 = true;
-  piVar3 = want;
+  pCVar3 = want;
   piVar4 = srcFormat;
   do {
     if (iVar2 == 0) break;
     iVar2 = iVar2 + -1;
-    bVar5 = (char)*piVar3 == (char)*piVar4;
-    piVar3 = (int *)((int)piVar3 + 1);
+    bVar5 = (char)pCVar3->nColorMode == (char)*piVar4;
+    pCVar3 = (ColorFormat *)((int)&pCVar3->nColorMode + 1);
     piVar4 = (int *)((int)piVar4 + 1);
   } while (bVar5);
-  if ((!bVar5) && ((*srcFormat != 0 || (*want != 0)))) {
+  if ((!bVar5) && ((*srcFormat != 0 || (want->nColorMode != 0)))) {
     iVar2 = 0;
     if (0 < *(int *)(have + 100)) {
       do {
         pVVar1 = *(VBuffer **)(*(int *)(have + 0x78) + iVar2 * 4);
         if (pVVar1->nType != 2) {
-          pVVar1 = stdDisplay_VBufferConvertColorFormat((ColorFormat *)want,pVVar1);
+          pVVar1 = stdDisplay_VBufferConvertColorFormat(want,pVVar1);
           *(VBuffer **)(*(int *)(have + 0x78) + iVar2 * 4) = pVVar1;
           if (*(int *)(*(int *)(have + 0x78) + iVar2 * 4) == 0) {
             (*g_pStd_HS->pAssertFail)
@@ -730,8 +722,8 @@ void __cdecl stdBitmap_ConvertColorFormat(int *want,int have)
       *(int *)(have + 0x74) = iVar2;
     }
     for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-      *srcFormat = *want;
-      want = want + 1;
+      *srcFormat = want->nColorMode;
+      want = (ColorFormat *)&want->nBpp;
       srcFormat = srcFormat + 1;
     }
   }
