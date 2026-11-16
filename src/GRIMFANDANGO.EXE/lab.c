@@ -473,7 +473,7 @@ LAB_00481a61:
 LAB_00481a66:
       if (iVar4 == 0) {
         *(LabEntry **)(&g_aFoundFiles + g_dwLastFound * 4) = pLVar7;
-        *(Lab **)(&g_aFoundFileNodes + g_dwLastFound * 4) = lab;
+        g_aFoundFileNodes[g_dwLastFound] = lab;
         uVar5 = 0xffffffff;
         g_dwLastFound = g_dwLastFound + 1 & 0xf;
         pcVar9 = pLVar7->pName;

@@ -7,7 +7,10 @@ code uses as numbers (IMG_ADDR, in the generated code and in build/overrides*.c)
 * indexed: `[REG*s + 0xADDR]`, `[REG + 0xADDR]`. A table: how far it goes depends on the index.
 * address: `PUSH 0xADDR`, `MOV ECX,0xADDR`, `LEA EAX,[0xADDR]`, a pointer in the data, an IMG_ADDR. Whatever receives it
   can walk on from there.
-* end: `CMP reg,0xADDR`, a loop's end pointer. It reaches nothing itself; the span before ADDR reaches up to it.
+* end: `CMP reg,0xADDR`, a loop's end pointer. It reaches nothing itself; the nearest table before it (reached by
+  address or index) reaches up to and including it.
+* an address pushed for an Interlocked* import (`PUSH 0xADDR` / `CALL [slot]` or `CALL EDI` loaded from the slot) is
+  a direct access of 4 bytes.
 The overrides' macros that read one value at a literal address (RG32(0x...), Q3G(0x...): OVERRIDE_READS) are direct
 reads; their other literals are addresses.
 
@@ -22,6 +25,12 @@ span) may be read on into what follows: it is *glued* to its neighbours. How far
   plus a known extent for stdMath_SinCos's tables (KNOWN_EXTENT); a scalar type does not bound it (it says how the
   code reads the global: Res_SetReference((ResRef *)&g_dwSputRoom_pCurrentRoom, ..) fills g_pCurrentSet after the
   `uint`);
+* a global the remaster's symbols named (names/orig_sizes.json, tools/orig_sizes.py: the remaster's i386 ELF has the
+  same objects, aLookup 0x100, polyglotServices 0x20) reaches as far as that symbol's size, but no further than the next
+  such global (the remaster grew some buffers: aHWVertices 8 MB against 1 MB); with GRIM_ORIG_BOUNDARY=1 such a
+  global, an object of its own, also ends the chain of an unbounded one before it, unless that one is a biased table
+  base (biased(): Res_F*'s `&DAT_00824f14 + fh * 0x102c` with handles from 1 reaches over stdMemory's counters to the
+  files) -- off by default, as the movie tests crash with it (build/BUILD_NOTES.md);
 * an untyped one is *unbounded*: its chain runs on through every span read only directly (it may be a field of the
   object, filled through the object's address: PolyglotInitialize writes g_aPolyglotServices[2], which the code then
   calls as UINT_008ddd88), up to and including the next string taken by its address, an object of its own.
@@ -68,12 +77,32 @@ def code_refs(prog, ranges):
     def inside(a):
         return any(lo <= a < hi for lo, hi in ranges)
 
+    # `PUSH 0xADDR` / `CALL dword ptr [slot]` with an Interlocked* import: the call reads and writes the one dword
+    # (the C runtime's InterlockedIncrement(&__unguarded_readlc_active))
+    interlocked = set()
+    for line in open(os.path.join(ROOT, "raw", prog, "data_items.txt"), encoding="utf-8", errors="replace"):
+        mm = re.match(r"^PTR_Interlocked\w*_([0-9a-f]{8}) @ ", line)
+        if mm:
+            interlocked.add(int(mm.group(1), 16))
     for body in json.load(open(os.path.join(ROOT, "raw", prog, "disasm.json"))).values():
+        pushed = None   # the address the previous instruction pushed
+        regs = set()    # registers holding an Interlocked* import
         for line in body.split("\n"):
             m = INSN.match(line)
             if not m:
                 continue
             mn, ops = m.group(2).upper(), m.group(3)
+            load = re.match(r"(E[A-Z]{2}),dword ptr \[0x([0-9a-f]+)\]$", ops.strip()) if mn == "MOV" else None
+            if load:   # `MOV EDI,dword ptr [slot]` ... `CALL EDI`
+                if int(load.group(2), 16) in interlocked:
+                    regs.add(load.group(1))
+                else:
+                    regs.discard(load.group(1))
+            call = re.match(r"dword ptr \[0x([0-9a-f]+)\]", ops) if mn == "CALL" else None
+            hit = (call and int(call.group(1), 16) in interlocked) or (mn == "CALL" and ops.strip() in regs)
+            if hit and pushed is not None and out and out[-1][:2] == (pushed, "address"):
+                out[-1] = (pushed, "direct", 4)
+            pushed = int(ops.strip()[2:], 16) if mn == "PUSH" and HEX.fullmatch(ops.strip()) else None
             if BRANCH.match(mn):
                 continue
             spans = []
@@ -179,6 +208,7 @@ def classify(model, img_targets=()):
     unbounded = set()   # glued spans whose reach no type bounds: the chain runs on after them (see below)
     ends = set()        # span starts a loop compares against: the span before reaches up to there
     indexed = set()     # spans read through an index register: a biased base may reach back into the span before
+    walked = set()      # spans reached through their address or an index (a table a loop may walk)
     known = KNOWN_EXTENT.get(prog, {})
     for a, kind, w in refs:
         sp = datagen.span_containing(model, a)
@@ -203,9 +233,16 @@ def classify(model, img_targets=()):
             strings.add(sp.start)
             continue
         bad.add(sp.start)
+        walked.add(sp.start)
         if kind == "indexed":
             indexed.add(sp.start)
-        if sp.name in sized_uses(prog):
+        osz = orig_sizes(prog).get(sp.start)
+        if osz and osz[1]:
+            # the remaster's symbol of the same global has this size (tools/orig_sizes.py); the remaster grew some
+            # buffers, so it goes no further than the next global that is an object of its own (named likewise)
+            far[sp.start] = max(far.get(sp.start, 0), sp.end,
+                                min(sp.start + osz[1], next_named(prog, sp.start)))
+        elif sp.name in sized_uses(prog):
             # every use of its address is a call given its byte count (a save-game write of the global)
             far[sp.start] = max(far.get(sp.start, 0), sp.start + sized_uses(prog)[sp.name], sp.end)
         elif datagen.placeholder_decl(sp.decl) or declared_size(prog, sp) == 0 or not aggregate(prog, sp):
@@ -222,11 +259,34 @@ def classify(model, img_targets=()):
             unbounded.add(sp.start)
             seen.add(sp.start)
     strings -= bad
+    # A loop's end pointer belongs to the table it walks: the nearest table or object before it reaches up to and
+    # including it, over any global in between (InsaneTimer_Tick walks the timers from 0x8da60c `while (p <
+    # &DAT_008da86c)`, past share_config and timer_thread.lastTime: a named global must not end that chain)
+    starts = [sp.start for sp in spans]
+    import bisect
+    for e in ends:
+        i = bisect.bisect_left(starts, e) - 1
+        while i >= 0 and spans[i].start not in walked:
+            i -= 1
+        if i >= 0:
+            far[spans[i].start] = max(far.get(spans[i].start, 0), e + 1)
     LAST.update(unbounded=unbounded, strings=strings, indexed=indexed, ends=ends)
     chains, cur = [], []
     glue, reach = False, 0
+    glue_indexed = False   # the glue comes from a table read through an index
+    holder, cuts = None, []   # the unbounded span whose chain runs on; where a named global ended one (for reports)
     prev = None
     for sp in spans:
+        if glue and sp.start >= reach and sp.start in orig_sizes(prog) and not glue_indexed \
+                and os.environ.get("GRIM_ORIG_BOUNDARY") == "1" and boundary_allowed(sp.start):
+            # (opt-in, GRIM_ORIG_BOUNDARY=1: with it the movie clean-room tests crash in InsaneTimer_Tick, from the cut
+            # at std3D_maxVertices 0x806940 (GRIM_BOUNDARY_RANGES bisected it), not yet explained; build/BUILD_NOTES.md)
+            # a global the remaster has a symbol of is an object of its own: the untyped object before it ends here.
+            # Not for a table read through an index: a biased base reaches over other globals (Res_F*'s
+            # `fh * 0x102c + 0x824f14` skips stdMemory's counters to the files at 0x825f40)
+            glue = False
+            cuts.append((holder, sp.start))
+        inside = not glue and sp.start < reach   # within the known extent of an object before it
         back = prev is not None and prev.start not in strings and (
             sp.start in unbounded or sp.start in indexed or sp.start not in seen or sp.start in ends)
         if glue or sp.start < reach or back:
@@ -236,13 +296,19 @@ def classify(model, img_targets=()):
                 chains.append(cur)
             cur = [sp]
         if sp.start in bad:
-            if sp.start in unbounded:
+            if sp.start in unbounded and not (inside and sp.start in indexed and sp.start not in ends):
+                holder = sp.start
+                # (inside the extent of a table with a known size, an index at a field offset stays in that table:
+                # aHWVertices's `[EAX*0x20 + 0x6f0fd4]` is its +0x1c field; not an object passed by its address there,
+                # nor a loop's end pointer: the dirty rect at 0x8a92a8, right after the draw-item pool, is both)
                 glue = True
+                # (a table with an original name is an object that starts there; a nameless base may be biased)
+                glue_indexed = glue_indexed or (sp.start in indexed and biased(prog, sp))
             reach = max(reach, sp.start + declared_size(prog, sp), far.get(sp.start, 0))
         elif sp.start not in seen:
             glue = True     # nothing names it: only a neighbour's reach gets there, so it stays with both
         elif sp.start in strings:
-            glue = False
+            glue = glue_indexed = False
         prev = sp
         # A span read only directly keeps the glue of the chain it follows: it may be a field of the object before it,
         # filled through that object's address (PolyglotInitialize writes g_aPolyglotServices[2], which the code then
@@ -251,6 +317,7 @@ def classify(model, img_targets=()):
         # reserved-word table from the address one entry in, reading ppuVar3[-1]), and so does a span nothing names.
     if cur:
         chains.append(cur)
+    LAST["cuts"] = cuts
     # A chain keeps its inner layout only from a 4-aligned start: datagen opens a new input section (4-aligned) at
     # every 4-aligned span, so a chain that started at 4k+2 would get padding inside it. Such a chain joins the one
     # before it (which then stays pinned with it, harmless).
@@ -271,7 +338,60 @@ def loose_starts(model, img_targets=()):
 
 # Tables whose reads go further than any type says: stdMath_SinCos indexes three 4096-float tables from .rdata
 # on through the gap into .data (docs/notes/raw_free_build.md).
-KNOWN_EXTENT = {"GRIMFANDANGO.EXE": {0x004d7600: 0x4000, 0x004db600: 0x4000, 0x004df600: 0x4000}}
+KNOWN_EXTENT = {"GRIMFANDANGO.EXE": {0x004d7600: 0x4000, 0x004db600: 0x4000, 0x004df600: 0x4000,
+                                     # Res_F*: `fh * 0x102c + 0x824f14`, handles 1..128, Res_FOpen's end pointer
+                                     0x00824f14: 0x8a7540 - 0x824f14}}
+
+
+_ORIG = {}
+
+
+def orig_sizes(prog):
+    """{address: (original name, size or None)} of the globals the remaster's symbols named (names/orig_sizes.json,
+    tools/orig_sizes.py)."""
+    if prog not in _ORIG:
+        p = os.path.join(ROOT, "names", "orig_sizes.json")
+        d = json.load(open(p)).get(prog, {}) if os.path.exists(p) else {}
+        if os.environ.get("GRIM_NO_ORIG") == "1":   # (to bisect: the classification without the remaster's symbols)
+            d = {}
+        _ORIG[prog] = {int(a, 16): tuple(v) for a, v in d.items()}
+    return _ORIG[prog]
+
+
+_STRIDES = {}
+STRIDE_RE = re.compile(r"&(\w+) \+ \w+ \* (0x[0-9a-f]+|\d+)\b")
+
+
+def biased(prog, sp):
+    """True when the table indexed at sp's start cannot start there: the code steps it by a stride
+    (`&DAT_00824f14 + fh * 0x102c`) and a global the remaster names (an object of its own) lies within the first
+    stride, so the index starts above 0 (Res_F*'s handles 1..128 over stdMemory's counters)."""
+    if prog not in _STRIDES:
+        d = os.path.join(ROOT, "src", prog)
+        st = {}
+        for f in sorted(os.listdir(d)):
+            if f.endswith(".c") and f != "data.c":
+                for m in STRIDE_RE.finditer(open(os.path.join(d, f), encoding="utf-8").read()):
+                    st[m.group(1)] = max(st.get(m.group(1), 0), int(m.group(2), 0))
+        _STRIDES[prog] = st
+    s = _STRIDES[prog].get(sp.name, 0)
+    return s > 0 and next_named(prog, sp.start) < sp.start + s
+
+
+def boundary_allowed(a):
+    """GRIM_BOUNDARY_RANGES=lo-hi,.. (hex): the named-global boundary only there (to bisect a wrong one)."""
+    r = os.environ.get("GRIM_BOUNDARY_RANGES")
+    if not r:
+        return True
+    return any(int(x.split("-")[0], 16) <= a < int(x.split("-")[1], 16) for x in r.split(","))
+
+
+def next_named(prog, a):
+    """The address of the next global after a that has an original name (an object of its own), or no bound."""
+    import bisect
+    names = sorted(orig_sizes(prog))
+    i = bisect.bisect_right(names, a)
+    return names[i] if i < len(names) else 1 << 40
 
 
 _SIZED = {}

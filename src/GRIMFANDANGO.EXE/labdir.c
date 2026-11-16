@@ -168,7 +168,7 @@ LAB_00481d3e:
 LAB_00481d43:
       if (iVar4 == 0) {
         *(uint **)(&g_aFoundFiles + g_dwLastFound * 4) = puVar8;
-        *(int *)(&g_aFoundFileNodes + g_dwLastFound * 4) = archive;
+        g_aFoundFileNodes[g_dwLastFound] = (void *)archive;
         g_dwLastFound = g_dwLastFound + 1 & 0xf;
         break;
       }

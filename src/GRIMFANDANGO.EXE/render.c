@@ -455,7 +455,7 @@ void __cdecl Render_InitColorConstants(int format)
 {
   Render_BuildColorTable(UINT_008c9780,g_flSputRender_GammaCorrection);
   g_abSputRender_colorMap[2] =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
@@ -463,14 +463,14 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97c8,0,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0x80 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
-  DAT_008c97c6 = (&g_wSputRender_ColorLookup)
+  DAT_008c97c6 = g_wSputRender_ColorLookup
                  [(0xff >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
                   ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
                   (0xff >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
@@ -478,7 +478,7 @@ void __cdecl Render_InitColorConstants(int format)
                   (0xff >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
                   ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97c8,2,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xff >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
         (0xff >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
@@ -486,7 +486,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97cc,0,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xff >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
@@ -494,7 +494,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97cc,2,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xff >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
@@ -502,7 +502,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d0,0,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xff >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
@@ -510,7 +510,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d4,0,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0x80 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
@@ -518,7 +518,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d4,2,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0x80 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
@@ -526,7 +526,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   _DAT_008c97d8 =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0x80 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
@@ -534,7 +534,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU];
   _DAT_008c97da =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0x80 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
         (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
@@ -542,7 +542,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97d0,2,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0x80 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
@@ -550,7 +550,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU];
   _DAT_008c97dc =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0x80 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0x80 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
@@ -558,7 +558,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   _DAT_008c97de =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xc0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0xc0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
@@ -566,7 +566,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0xc0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e0,0,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xdc >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0xc0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
@@ -574,7 +574,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0xc0 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e0,2,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xf0 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
         (0xca >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
@@ -582,7 +582,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0xa6 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e4,0,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xb4 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (0xb4 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
@@ -590,7 +590,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0xb4 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e4,2,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(100 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU |
         (100 >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
@@ -598,7 +598,7 @@ void __cdecl Render_InitColorConstants(int format)
         (100 >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x14) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e8,0,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xff >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
         (0xff >> ((byte)*(undefined4 *)(format + 0x20) & 0x1f)) <<
@@ -606,7 +606,7 @@ void __cdecl Render_InitColorConstants(int format)
         (0 >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x18) & 0x1f) & 0xffffU];
   PIECE(UINT_008c97e8,2,2) =
-       (&g_wSputRender_ColorLookup)
+       g_wSputRender_ColorLookup
        [(0xff >> ((byte)*(undefined4 *)(format + 0x28) & 0x1f)) <<
         ((byte)*(undefined4 *)(format + 0x1c) & 0x1f) & 0xffffU |
         (0xff >> ((byte)*(undefined4 *)(format + 0x24) & 0x1f)) <<
@@ -877,7 +877,7 @@ void __cdecl Render_BuildColorTable(int fmt,float gamma)
     lVar8 = FTOL((float10)((float)((1 << ((byte)uVar1 & 0x1f)) + -1) * (float)fVar5));
     uVar1 = *(undefined4 *)(fmt + 0x18);
     lVar9 = FTOL((float10)((float)((1 << ((byte)uVar2 & 0x1f)) + -1) * (float)fVar6));
-    (&g_wSputRender_ColorLookup)[local_24] =
+    g_wSputRender_ColorLookup[local_24] =
          (ushort)((int)lVar7 << ((byte)uVar3 & 0x1f)) | (ushort)((int)lVar8 << ((byte)uVar1 & 0x1f))
          | (ushort)((int)lVar9 << ((byte)*(undefined4 *)(fmt + 0x1c) & 0x1f));
     local_24 = local_24 + 1;
@@ -904,15 +904,15 @@ void __cdecl sputRender_ColorCorrect(ushort *pixels,uint n)
   if (0 < iVar1) {
     do {
       puVar2 = pixels + 8;
-      *pixels = (&g_wSputRender_ColorLookup)[*pixels];
-      pixels[1] = (&g_wSputRender_ColorLookup)[pixels[1]];
-      pixels[2] = (&g_wSputRender_ColorLookup)[pixels[2]];
-      pixels[3] = (&g_wSputRender_ColorLookup)[pixels[3]];
-      pixels[4] = (&g_wSputRender_ColorLookup)[pixels[4]];
-      pixels[5] = (&g_wSputRender_ColorLookup)[pixels[5]];
-      pixels[6] = (&g_wSputRender_ColorLookup)[pixels[6]];
+      *pixels = g_wSputRender_ColorLookup[*pixels];
+      pixels[1] = g_wSputRender_ColorLookup[pixels[1]];
+      pixels[2] = g_wSputRender_ColorLookup[pixels[2]];
+      pixels[3] = g_wSputRender_ColorLookup[pixels[3]];
+      pixels[4] = g_wSputRender_ColorLookup[pixels[4]];
+      pixels[5] = g_wSputRender_ColorLookup[pixels[5]];
+      pixels[6] = g_wSputRender_ColorLookup[pixels[6]];
       iVar1 = iVar1 + -1;
-      pixels[7] = (&g_wSputRender_ColorLookup)[pixels[7]];
+      pixels[7] = g_wSputRender_ColorLookup[pixels[7]];
       pixels = puVar2;
     } while (iVar1 != 0);
   }
@@ -921,7 +921,7 @@ void __cdecl sputRender_ColorCorrect(ushort *pixels,uint n)
     puVar2 = puVar2 + (uVar3 - 1);
     do {
       uVar3 = uVar3 - 1;
-      *puVar2 = (&g_wSputRender_ColorLookup)[*puVar2];
+      *puVar2 = g_wSputRender_ColorLookup[*puVar2];
       puVar2 = puVar2 + -1;
     } while (uVar3 != 0);
   }
@@ -980,7 +980,7 @@ void __cdecl sputRender_Decompress(VBuffer *vbuf)
   g_pSputRender_DecompressionBuffer->dwColorKey = 0xf81f;
   if ((vbuf->format).colorFormat.nColorMode != 5) {
     sputRender_ColorCorrect(g_pSputRender_DecompressionBuffer->pPixels,iVar1 * iVar2);
-    g_pSputRender_DecompressionBuffer->dwColorKey = (uint)DAT_008c856e;
+    g_pSputRender_DecompressionBuffer->dwColorKey = (uint)g_wSputRender_ColorLookup[0xf81f];
   }
   return;
 }

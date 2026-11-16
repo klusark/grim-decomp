@@ -17,7 +17,7 @@
 | 004ac160 | Win_AddMessageHook | window.c | 18 |
 | 004ac1a0 | Win_RemoveMessageHook | window.c | 18 |
 | 004ac1f0 | Win_CreateMainWindow | window.c | 1 |
-| 004ac340 | Win_KernelWndProc | window.c | 83 |
+| 004ac340 | Win_KernelWndProc | window.c | 88 |
 | 004bff70 | Win_IsFocusWithin | window.c | 21 |
 | 00401040 | grimdemo_EnableDebugging | debuglog.c | 50 |
 | 004020a0 | DebugLog_Load | debuglog.c | 24 |
@@ -1145,7 +1145,7 @@
 | 0047a130 | D3D_CreateViewport | std3d.c | 1 |
 | 0047a240 | D3D_CreateZBuffer | std3d.c | 59 |
 | 0047a3b0 | D3D_EnumDevicesCallback | std3d.c | 91 |
-| 0047a590 | D3D_EnumTextureFormatsCallback | std3d.c | 137 |
+| 0047a590 | D3D_EnumTextureFormatsCallback | std3d.c | 199 |
 | 0047a850 | D3D_CapsToFilterBits | std3d.c | 26 |
 | 0047a890 | D3D_FilterBitsToMask | std3d.c | 29 |
 | 0047a8e0 | D3D_FilterBitsToEnum | std3d.c | 29 |
@@ -1186,10 +1186,10 @@
 | 0047fc50 | Std_Swap32 | std.c | 5 |
 | 0047fd00 | Std_Swap16 | std.c | 5 |
 | 0047fe20 | stdMemory_CheckMagic | stdmemory.c | 1 |
-| 0047fe50 | stdMemory_Alloc | stdmemory.c | 28 |
-| 0047ff00 | stdMemory_Free | stdmemory.c | 23 |
+| 0047fe50 | stdMemory_Alloc | stdmemory.c | 30 |
+| 0047ff00 | stdMemory_Free | stdmemory.c | 25 |
 | 0047ff70 | stdMemory_Realloc | stdmemory.c | 39 |
-| 00480000 | daTotalAllocated | res.c | 10 |
+| 00480000 | daTotalAllocated | res.c | 11 |
 | 00480230 | Res_SysAddHandle | res.c | 31 |
 | 004802b0 | Res_FindExternalFile | res.c | 47 |
 | 00480520 | Res_Load | res.c | 17 |
@@ -1266,7 +1266,7 @@
 | 0048de70 | sputResource_SetHandler | restype.c | 34 |
 | 0048dee0 | sputResource_ZBufferHandler | restype.c | 33 |
 | 0048e1e0 | sputResource_MemoryHandler | restype.c | 25 |
-| 00480890 | Res_FOpen | resfile.c | 97 |
+| 00480890 | Res_FOpen | resfile.c | 96 |
 | 00480a00 | Res_FClose | resfile.c | 29 |
 | 00480a70 | Res_FRead | resfile.c | 77 |
 | 00480bb0 | Res_FGets | resfile.c | 67 |
@@ -2441,7 +2441,7 @@
 | 004c1460 | LecShare_Startup | lecshare.c | 45 |
 | 004c1500 | LecShare_Shutdown | lecshare.c | 32 |
 | 004c1590 | LecShare_Reset | lecshare.c | 17 |
-| 004c15c0 | LecShare_Publish | lecshare.c | 39 |
+| 004c15c0 | LecShare_Publish | lecshare.c | 37 |
 | 004c1650 | LecShare_Unpublish | lecshare.c | 33 |
 | 004c16c0 | LecShare_Subscribe | lecshare.c | 1 |
 | 004c1800 | LecShare_Unsubscribe | lecshare.c | 26 |

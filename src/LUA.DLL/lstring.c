@@ -699,9 +699,7 @@ void __cdecl str_len(void)
 extern unsigned char grim_def_g_EMPTY[28] __asm__("_g_EMPTY");
 extern unsigned char grim_def_lua_savehook[4] __asm__("_lua_savehook");
 extern char grim_def_s_C__grimsrc_libs_lua_src_lstring__100278b4[36] __asm__("_s_C__grimsrc_libs_lua_src_lstring__100278b4");
-static unsigned char grim_anchor_10027898[0] __attribute__((section(".data$grim_10027898"), aligned(16), used));
-static unsigned char grim_pad_10027898[8] __attribute__((section(".data$grim_10027898_"), aligned(4), used));
-/* 0x10027898, 28 bytes */ GRIM_DATA("10027898z") unsigned char grim_def_g_EMPTY[28] __asm__("_g_EMPTY") = {
+/* 0x10027898, 28 bytes */ GRIM_DATA("10027898") unsigned char grim_def_g_EMPTY[28] __asm__("_g_EMPTY") = {
     0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0xf9, 0xff, 0xff, 0xff
 };

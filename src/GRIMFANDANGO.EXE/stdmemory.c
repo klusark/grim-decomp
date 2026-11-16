@@ -24,6 +24,8 @@ void __cdecl stdMemory_CheckMagic(int p)
 
 
 /* ---- 0x0047fe50  stdMemory_Alloc ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
 void * __cdecl stdMemory_Alloc(uint size,char *file,int line)
 
 {
@@ -34,26 +36,28 @@ void * __cdecl stdMemory_Alloc(uint size,char *file,int line)
     (*g_pStd_HS->pAssertFail)
               (s_allocation_004e7994,s_C__grimjedi_Libs_Std_General_Std_004e7968,DAT_004e7944 + 8);
   }
-  UINT_00825e78 = UINT_00825e78 + 1;
-  g_dwStdMemory_curState = g_dwStdMemory_curState + size;
-  if ((int)UINT_00825e80 <= (int)g_dwStdMemory_curState) {
-    UINT_00825e80 = g_dwStdMemory_curState;
+  _DAT_00825e78 = _DAT_00825e78 + 1;
+  _g_dwStdMemory_curState = _g_dwStdMemory_curState + size;
+  if (_DAT_00825e80 <= _g_dwStdMemory_curState) {
+    _DAT_00825e80 = _g_dwStdMemory_curState;
   }
   *puVar1 = 0;
-  puVar1[1] = UINT_00825e84;
-  puVar1[3] = UINT_00825e78;
+  puVar1[1] = _DAT_00825e84;
+  puVar1[3] = _DAT_00825e78;
   puVar1[2] = file;
   puVar1[4] = line;
   puVar1[5] = size;
   puVar1[6] = 0x12345678;
-  if (UINT_00825e84 != 0) {
-    *(undefined4 **)UINT_00825e84 = puVar1;
+  if (_DAT_00825e84 != (undefined4 *)0x0) {
+    *_DAT_00825e84 = puVar1;
   }
-  UINT_00825e84 = (uint)puVar1;
+  _DAT_00825e84 = puVar1;
   return puVar1 + 7;
 }
 
 /* ---- 0x0047ff00  stdMemory_Free ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
 void __cdecl stdMemory_Free(void *p)
 
 {
@@ -62,10 +66,10 @@ void __cdecl stdMemory_Free(void *p)
   if (p != (void *)0x0) {
     piVar1 = (int *)((int)p + -0x1c);
     stdMemory_CheckMagic((int)p);
-    UINT_00825e78 = UINT_00825e78 - 1;
-    g_dwStdMemory_curState = g_dwStdMemory_curState - *(int *)((int)p + -8);
-    if (piVar1 == (int *)UINT_00825e84) {
-      UINT_00825e84 = *(uint *)((int)p + -0x18);
+    _DAT_00825e78 = _DAT_00825e78 + -1;
+    _g_dwStdMemory_curState = _g_dwStdMemory_curState - *(int *)((int)p + -8);
+    if (piVar1 == _DAT_00825e84) {
+      _DAT_00825e84 = *(int **)((int)p + -0x18);
     }
     if (*piVar1 != 0) {
       *(undefined4 *)(*piVar1 + 4) = *(undefined4 *)((int)p + -0x18);
@@ -126,9 +130,9 @@ void * __cdecl stdMemory_Realloc(void *p,uint size,char *file,int line)
 #endif
 extern unsigned char grim_def_DAT_004e7940[4] __asm__("_DAT_004e7940");
 extern unsigned char grim_def_DAT_004e7944[4] __asm__("_DAT_004e7944");
-extern unsigned int grim_def_UINT_00825e78 __asm__("_UINT_00825e78");
-extern unsigned int grim_def_UINT_00825e80 __asm__("_UINT_00825e80");
-extern unsigned char grim_def_UINT_00825e84[12] __asm__("_UINT_00825e84");
+extern unsigned char grim_def_DAT_00825e78[4] __asm__("_DAT_00825e78");
+extern unsigned char grim_def_DAT_00825e80[4] __asm__("_DAT_00825e80");
+extern unsigned char grim_def_DAT_00825e84[12] __asm__("_DAT_00825e84");
 extern char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e7968[44] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e7968");
 extern char grim_def_s_allocation_004e7994[24] __asm__("_s_allocation_004e7994");
 extern char grim_def_s_allocation__magic____0x12345678_004e7948[32] __asm__("_s_allocation__magic____0x12345678_004e7948");
@@ -139,6 +143,6 @@ extern char grim_def_s_allocation__magic____0x12345678_004e7948[32] __asm__("_s_
 static unsigned char grim_anchor_004e7994[0] __attribute__((section(".data$grim_004e7994"), aligned(16), used));
 static unsigned char grim_pad_004e7994[4] __attribute__((section(".data$grim_004e7994_"), aligned(4), used));
 /* 0x004e7994, 24 bytes */ GRIM_DATA("004e7994z") char grim_def_s_allocation_004e7994[24] __asm__("_s_allocation_004e7994") = "allocation\000\000\000\000\000\000\000\000\000\000HFED";
-/* 0x00825e78, 4 bytes */ GRIM_DATA("00825e78") unsigned int grim_def_UINT_00825e78 __asm__("_UINT_00825e78") = 0x0;
-/* 0x00825e80, 4 bytes */ GRIM_DATA("00825e80") unsigned int grim_def_UINT_00825e80 __asm__("_UINT_00825e80") = 0x0;
-/* 0x00825e84, 12 bytes */ GRIM_DATA("00825e84") unsigned char grim_def_UINT_00825e84[12] __asm__("_UINT_00825e84") = {0};
+/* 0x00825e78, 4 bytes */ GRIM_DATA("00825e78") unsigned char grim_def_DAT_00825e78[4] __asm__("_DAT_00825e78") = {0};
+/* 0x00825e80, 4 bytes */ GRIM_DATA("00825e80") unsigned char grim_def_DAT_00825e80[4] __asm__("_DAT_00825e80") = {0};
+/* 0x00825e84, 12 bytes */ GRIM_DATA("00825e84") unsigned char grim_def_DAT_00825e84[12] __asm__("_DAT_00825e84") = {0};

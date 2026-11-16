@@ -1,0 +1,46 @@
+{
+ "_comment": "Second round of data extents (2026-11-16). 008a9530: Render_BuildColorTable fills g_wSputRender_ColorLookup[0..0xffff] (it ends at g_nCamActorIndex, 008c9530). 008d09e8: Win_AddMessageHook / Win_RemoveMessageHook keep {hook, on} pairs from g_pWinMessageHooks and stop at the end pointer 008d0a6c (from the on field): 16 WinMessageHook. 008d6f30 / 008d70c0: AnimFrame_module_startup clears 100 services and stops at 100 codec types (as for the ids, 008d7250). 00825f40: Res_FOpen scans 128 ResFile (0x102c) up to the end pointer 008a7540; the handle-indexed accesses (handles 1..128) use 00824f14 as the base, but entry 0 is not a file: the memory counters of stdMemory_Alloc and daTotalAllocated live there. WinMessageHook.pHook is code *. 008d56fc: LecShare's catalog of up to 0x200 entries of 3 dwords (it ends at 008d6efc). 00900620: D3D_EnumTextureFormatsCallback keeps up to 8 records of 0xa4 bytes (they end at g_aStd3DDevices). 008a8578: the ring of 16 found-file nodes (indexed & 0xf). 00900020: stdPalEffects_ResetEffect clears 10 dwords of the current colour effect.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "globals": [
+  {
+   "addr": "008a9530",
+   "type": "ushort[65536]"
+  },
+  {
+   "addr": "008d09e8",
+   "type": "WinMessageHook[16]",
+   "name": "g_aWinMessageHooks"
+  },
+  {
+   "addr": "008d6f30",
+   "type": "uint[100]"
+  },
+  {
+   "addr": "008d70c0",
+   "type": "uint[100]"
+  },
+  {
+   "addr": "00825f40",
+   "type": "ResFile[128]",
+   "name": "g_aResFiles"
+  },
+  {
+   "addr": "008d56fc",
+   "type": "uint[1536]",
+   "name": "g_adwLecShare_catalog"
+  },
+  {
+   "addr": "00900620",
+   "type": "byte[1312]",
+   "name": "g_abD3D_TextureFormats"
+  },
+  {
+   "addr": "008a8578",
+   "type": "void *[16]"
+  },
+  {
+   "addr": "00900020",
+   "type": "uint[10]"
+  }
+ ]
+}

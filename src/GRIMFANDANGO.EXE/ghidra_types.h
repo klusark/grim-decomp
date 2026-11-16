@@ -295,6 +295,7 @@ typedef struct WalkPlane WalkPlane;
 typedef struct WalkPlaneCache WalkPlaneCache;
 typedef struct WalkVertex WalkVertex;
 typedef struct WalkVertexCache WalkVertexCache;
+typedef struct WinMessageHook WinMessageHook;
 typedef struct rdCamera rdCamera;
 typedef struct rdCanvas rdCanvas;
 typedef struct rdClipFrustum rdClipFrustum;
@@ -2126,6 +2127,13 @@ struct WalkVertexCache {  /* 0x14 */
 _Static_assert(__builtin_offsetof(WalkVertexCache, nIndex) == 0x0, "WalkVertexCache.nIndex");
 _Static_assert(__builtin_offsetof(WalkVertexCache, vert) == 0x4, "WalkVertexCache.vert");
 _Static_assert(sizeof(WalkVertexCache) == 0x14, "sizeof WalkVertexCache");
+struct WinMessageHook {  /* 0x8 */
+    code *pHook;  /* 0x00 */
+    int nOn;  /* 0x04 */
+};
+_Static_assert(__builtin_offsetof(WinMessageHook, pHook) == 0x0, "WinMessageHook.pHook");
+_Static_assert(__builtin_offsetof(WinMessageHook, nOn) == 0x4, "WinMessageHook.nOn");
+_Static_assert(sizeof(WinMessageHook) == 0x8, "sizeof WinMessageHook");
 /* rdCamera: A camera of the renderer (0x464 bytes). */
 struct rdCamera {  /* 0x464 */
     int nProjectType;  /* 0x00: 0 orthographic, 1 perspective */

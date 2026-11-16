@@ -6,6 +6,7 @@
 #include "functions.h"
 
 /* ---- 0x00480000  daTotalAllocated ---- */
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WARNING: Unknown calling convention -- yet parameter storage is locked */
 /* Total bytes held by loaded resources Original name daTotalAllocated (the remaster's GrimFandango
    (Linux): the only unmatched callee of Lua_GetMemoryUsage; the only unmatched callee of
@@ -14,7 +15,7 @@
 int daTotalAllocated(void)
 
 {
-  return g_dwStdMemory_curState;
+  return _g_dwStdMemory_curState;
 }
 
 /* ---- 0x00480230  Res_SysAddHandle ---- */
@@ -264,14 +265,14 @@ void __cdecl Res_OverrideFileCalls(GrimServices *svc)
 {
   int iVar1;
   GrimServices *pGVar2;
-  GrimServices *pGVar3;
+  float *pfVar3;
   
   pGVar2 = svc;
-  pGVar3 = &g_aLowLevelHS;
+  pfVar3 = (float *)&g_aLowLevelHS;
   for (iVar1 = 0x1c; iVar1 != 0; iVar1 = iVar1 + -1) {
-    pGVar3->flVersion = pGVar2->flVersion;
+    *pfVar3 = pGVar2->flVersion;
     pGVar2 = (GrimServices *)&pGVar2->pPrintf;
-    pGVar3 = (GrimServices *)&pGVar3->pPrintf;
+    pfVar3 = pfVar3 + 1;
   }
   g_dwLowLevelHS = (uint)&g_aLowLevelHS;
   svc->pFopen = Res_FOpen;
@@ -596,7 +597,7 @@ void * __cdecl Res_CreateRecord(int type,char *name,void *data)
       if ((puVar2 != (uint *)0x0) && (iVar3 = _stricmp((byte *)name,(byte *)puVar2[1]), iVar3 == 0))
       {
         res->pName = (char *)puVar2[1];
-        res->pLab = *(void **)(&g_aFoundFileNodes + (g_dwLastFound - iVar6 & 0xf) * 4);
+        res->pLab = g_aFoundFileNodes[g_dwLastFound - iVar6 & 0xf];
         res->dwHash = *puVar2;
         break;
       }

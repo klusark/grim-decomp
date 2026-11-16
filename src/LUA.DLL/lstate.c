@@ -1109,11 +1109,11 @@ static unsigned char grim_pad_100271ac[12] __attribute__((section(".data$grim_10
     0x7e, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7e, 0x00, 0x00, 0x00,
     0x01, 0x00, 0x00, 0x00, 0x01
 };
-/* 0x100277cc, 36 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lua_src_lstate_c_100277cc[36] __asm__("_s_C__grimsrc_libs_lua_src_lstate_c_100277cc") = "C:\\grimsrc\\libs\\lua\\src\\lstate.cpp";
-/* 0x100277f0, 56 bytes */ /* loose */ char grim_def_s_aStringPtrs____aClosurePtrs____a_100277f0[56] __asm__("_s_aStringPtrs____aClosurePtrs____a_100277f0") = "aStringPtrs && aClosurePtrs && aTablePtrs && aProtoPtrs";
-/* 0x10027828, 12 bytes */ /* loose */ char grim_def_s_pTString_10027828[12] __asm__("_s_pTString_10027828") = "pTString";
-/* 0x10027834, 60 bytes */ /* loose */ char grim_def_s_op____sizeof_opcodeDirectory__si_10027834[60] __asm__("_s_op____sizeof_opcodeDirectory__si_10027834") = "op < (sizeof(opcodeDirectory)/sizeof(opcodeDirectory[0]))";
-/* 0x10027870, 40 bytes */ /* loose */ char grim_def_s_pExecutionState_____pPreviousSta_10027870[40] __asm__("_s_pExecutionState_____pPreviousSta_10027870") = "pExecutionState || !pPreviousState";
+/* 0x100277cc, 36 bytes */ GRIM_DATA("100277cc") char grim_def_s_C__grimsrc_libs_lua_src_lstate_c_100277cc[36] __asm__("_s_C__grimsrc_libs_lua_src_lstate_c_100277cc") = "C:\\grimsrc\\libs\\lua\\src\\lstate.cpp";
+/* 0x100277f0, 56 bytes */ GRIM_DATA("100277f0") char grim_def_s_aStringPtrs____aClosurePtrs____a_100277f0[56] __asm__("_s_aStringPtrs____aClosurePtrs____a_100277f0") = "aStringPtrs && aClosurePtrs && aTablePtrs && aProtoPtrs";
+/* 0x10027828, 12 bytes */ GRIM_DATA("10027828") char grim_def_s_pTString_10027828[12] __asm__("_s_pTString_10027828") = "pTString";
+/* 0x10027834, 60 bytes */ GRIM_DATA("10027834") char grim_def_s_op____sizeof_opcodeDirectory__si_10027834[60] __asm__("_s_op____sizeof_opcodeDirectory__si_10027834") = "op < (sizeof(opcodeDirectory)/sizeof(opcodeDirectory[0]))";
+/* 0x10027870, 40 bytes */ GRIM_DATA("10027870") char grim_def_s_pExecutionState_____pPreviousSta_10027870[40] __asm__("_s_pExecutionState_____pPreviousSta_10027870") = "pExecutionState || !pPreviousState";
 /* 0x1002bed8, 4 bytes */ GRIM_DATA("1002bed8") unsigned char grim_def_lua_restorehook[4] __asm__("_lua_restorehook") = {0};
 /* 0x1002bf0c, 4 bytes */ GRIM_DATA("1002bf0c") unsigned char grim_def_DAT_1002bf0c[4] __asm__("_DAT_1002bf0c") = {0};
 /* 0x1002bf7c, 4 bytes */ GRIM_DATA("1002bf7c") unsigned int grim_def_g_dwLState_bPtrsSorted __asm__("_g_dwLState_bPtrsSorted") = 0x0;

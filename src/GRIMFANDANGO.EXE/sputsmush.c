@@ -85,7 +85,7 @@ extern unsigned char grim_def_g_dwSmushBuf[4] __asm__("_g_dwSmushBuf");
 extern unsigned char grim_def_g_dwSmushHS[776] __asm__("_g_dwSmushHS");
 extern char grim_def_s_FALSE_004e8350[8] __asm__("_s_FALSE_004e8350");
 extern char grim_def_s_StartSmush_004e8358[16] __asm__("_s_StartSmush_004e8358");
-/* 0x004e8350, 8 bytes */ GRIM_DATA("004e8350") char grim_def_s_FALSE_004e8350[8] __asm__("_s_FALSE_004e8350") = "FALSE";
+/* 0x004e8350, 8 bytes */ /* loose */ char grim_def_s_FALSE_004e8350[8] __asm__("_s_FALSE_004e8350") = "FALSE";
 /* 0x004e8358, 16 bytes */ /* loose */ char grim_def_s_StartSmush_004e8358[16] __asm__("_s_StartSmush_004e8358") = "StartSmush";
 /* 0x008c9ca8, 776 bytes */ /* loose */ unsigned char grim_def_g_dwSmushHS[776] __asm__("_g_dwSmushHS") = {0};
 /* 0x008c9fb8, 64 bytes */ GRIM_DATA("008c9fb8") SysModuleIface grim_def_g_aSmushPlayMS __asm__("_g_aSmushPlayMS") = {0};

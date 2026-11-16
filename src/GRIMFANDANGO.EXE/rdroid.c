@@ -55,7 +55,7 @@ int __cdecl rdOpen(int flags)
     g_nRdroid_curOcclusionMethod = 0;
     _g_bRdroid_curCullFlags = 1;
     g_dwRdroid_curProcFaceUserData = 0;
-    stdPalEffects_ResetEffect(&g_dwRdroid_curColorEffects);
+    stdPalEffects_ResetEffect(g_dwRdroid_curColorEffects);
     g_dwRdroid_curVertexColorMode = 0;
     g_dwRdroid_frameTrue = 0;
     rdClearPreStatistics();
