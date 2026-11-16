@@ -746,8 +746,8 @@ int __thiscall WalkPlane_Within(WalkPlane *this, float *point, int checkActive)
  * the next span routine expects.  The functions differ only in the texture width: 4 (_16), 8 (_17, _25), 16 (_18,
  * _26) ... 256 (_22, _30), or the width in 0x008dde8c / u mask in 0x008dde48 (_15, _24, whose loop keeps u / v / z in
  * memory and gives the same results); _25 .. _30 are copies of _17 .. _22. */
-/* the globals of the original's .data by address (constants: no img_addr_ call, which -O2 code cannot inline) */
-#define SPAN_DATA(a) ((void *)(sect_data + ((a) - 0x004dd000u)))
+/* the globals of the original's .data by address */
+#define SPAN_DATA(a) ((void *)IMG_ADDR(a))
 #define RG32(a) (*(int *)SPAN_DATA(a))
 #define RGU32(a) (*(uint *)SPAN_DATA(a))
 #define RG16(a) (*(ushort *)SPAN_DATA(a))

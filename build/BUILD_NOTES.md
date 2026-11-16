@@ -2477,3 +2477,45 @@ The double is `g_dSndClock` at 0x008db200. The decompiler only ever read 4 bytes
 The hand-written overrides that named these globals use the new names. For the strings, `&DAT_x` becomes the array name `s_x`.
 
 The clean room shows 0 of 5490 tests differing, and the whole-game autorun passes. (One earlier run stopped in the morgue: "use corpse 1 with dog tags" was not offered although the corpse was touchable and in the list. The same build then passed, so that was a timing flake, not the typing.)
+
+## The data layout released where nothing reads past (2026-11-16)
+
+The data no longer has to sit in the original order as a whole: only the parts the code can read past do.
+
+* tools/data_reach.py classifies each span of data.c by how it is reached:
+  * from the original's disassembly: `[0xADDR]` direct with a width, `[REG*s + 0xADDR]` indexed, an address taken;
+  * from the data's own pointers and from the IMG_ADDR targets.
+  - **Loose:** every reference is direct and ends inside the span, or the span is a string taken at its start.
+  - **Loose** requires a pure string: no pointer inside, only zeros after the NUL.
+  - **Glued:** every other span starts a chain that keeps the original layout. The chain runs through:
+    - every span read only directly;
+    - spans nothing refers to;
+    - the extent of the span's type, plus a known one for stdMath_SinCos's three 4096-float tables.
+    It ends at the next string taken by its address. Backwards, it takes in the span before it unless that is a string,
+    and a span nothing names stays with both its neighbours.
+* tools/datagen.py writes loose spans as plain definitions, marked `/* loose */`, which the linker places anywhere.
+  * A loose span with a tail stays pinned.
+  * Each pinned run after loose spans starts behind a 16-aligned empty anchor and a pad of (address % 16) bytes. Without
+    that, a double inside it (g_dSndClock) was padded out of place.
+* The overrides no longer compute addresses from `sect_data`:
+  * IMG_ADDR(0x...) names a label `grim_img_<prog>_0x...` that data.c sets on the span holding that address.
+  * q3_mesh_fan takes pointers.
+  * IMB/IMW of an expression became IMB(base) + offset.
+* build/datacmp.py:
+  * checks that each run of pinned spans between loose ones keeps its layout;
+  * maps island pointers (the DirectInput formats) by symbol.
+* **Two earlier rules were too loose; each crashed every clean-room test at startup:**
+  - A table glued only the next referenced span. PolyglotInitialize fills g_aPolyglotServices through its address, and
+    Main_Startup calls a field of it as the separate global UINT_008ddd88. That global had moved and was still null.
+    Hence the rule that a span read only directly keeps the chain going.
+  - Chains ran only forwards. luaX_init walks its reserved-word table from one entry in (`ppuVar3[-1]`). The first
+    entry sat in the span `s__STDIN_10026d04`, which ends in that pointer, and was taken for a string. Hence backward
+    glue and the pure-string test.
+* **Loose now:**
+  * EXE: 750 spans;
+  * LUA: 274;
+  * IMUSE: 46;
+  * CHORE: 0.
+  Almost all of them are strings. The rest stays in chains: 70 / 41 / 10 / 3. Releasing more needs object extents,
+  from typing the structures and tables the code passes by address.
+* datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490; whole-game autorun passes.

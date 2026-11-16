@@ -196,7 +196,7 @@ void Script_Trans(char *entry, int index, int no_attr, uint caller_esi, uint ret
             ImPrintf(s_and_PAN__lu____1001e7c0, *(int *)(entry + 0x50));
         }
     } else if (no_attr == 0 && *(int *)(entry + 0x40) != 0
-               && *(int *)(entry + 0x40) == *(int *)(IMB(STATE_TAB + 0x40) + IMW(CUR_STATE) * ENT_SIZE)) {
+               && *(int *)(entry + 0x40) == *(int *)((IMB(STATE_TAB) + (0x40)) + IMW(CUR_STATE) * ENT_SIZE)) {
         ImSwitchStream(old, snd, fade, 0, 1);
         ImFadeParam(snd, 0x600, *(uint *)(entry + 0x4c), step);
         ImFadeParam(snd, 0x700, *(uint *)(entry + 0x50), step);
@@ -245,18 +245,18 @@ int Script_SetState(int id)
     int i;
 
     if (id == -1)
-        return IMW(STATE_TAB + 0x24 + IMW(CUR_STATE) * ENT_SIZE);
-    for (i = 0; id != IMW(STATE_TAB + 0x24 + i * ENT_SIZE); )
+        return (*(int *)(IMB(STATE_TAB) + (0x24 + IMW(CUR_STATE) * ENT_SIZE)));
+    for (i = 0; id != (*(int *)(IMB(STATE_TAB) + (0x24 + i * ENT_SIZE))); )
         if (++i >= 181)
             return 0;
-    ImPrintf(IMB(STATE_TAB + 0x28 + i * ENT_SIZE));
+    ImPrintf((IMB(STATE_TAB) + (0x28 + i * ENT_SIZE)));
     ImPrintf(IMB(STR_NL));
     if (i != IMW(CUR_STATE)) {
         if (IMW(CUR_SEQ) == 0)
-            Script_Trans(i != 0 ? IMB(STATE_TAB + i * ENT_SIZE) : 0, i, 0, 0xffffffffu, 0x100065f3u);
+            Script_Trans(i != 0 ? (IMB(STATE_TAB) + (i * ENT_SIZE)) : 0, i, 0, 0xffffffffu, 0x100065f3u);
         IMW(CUR_STATE) = i;
     }
-    return IMW(STATE_TAB + 0x24 + IMW(CUR_STATE) * ENT_SIZE);
+    return (*(int *)(IMB(STATE_TAB) + (0x24 + IMW(CUR_STATE) * ENT_SIZE)));
 }
 
 /* ==== Script_SetSequence (0x10006620): ImSetSequence (command 5 of the dispatcher, and Script_Update) ====
@@ -269,45 +269,45 @@ static undefined4 Im_SetSequence(int id, uint caller_esi)
     int i, cur;
 
     if (id == -1)
-        return IMW(SEQ_TAB + 0x24 + IMW(CUR_SEQ) * ENT_SIZE);
+        return (*(int *)(IMB(SEQ_TAB) + (0x24 + IMW(CUR_SEQ) * ENT_SIZE)));
     if (id == 0)
         id = 2000;
-    for (i = 0; id != IMW(SEQ_TAB + 0x24 + i * ENT_SIZE); )
+    for (i = 0; id != (*(int *)(IMB(SEQ_TAB) + (0x24 + i * ENT_SIZE))); )
         if (++i >= 41) {
             ImPrintf(s_ERR__bogus_sequence____1001e720);
             return 0xffffffff;
         }
-    ImPrintf(IMB(SEQ_TAB + 0x28 + i * ENT_SIZE));
+    ImPrintf((IMB(SEQ_TAB) + (0x28 + i * ENT_SIZE)));
     ImPrintf(IMB(STR_NL));
     cur = IMW(CUR_SEQ);
     if (i == cur)
-        return IMW(SEQ_TAB + 0x24 + cur * ENT_SIZE);
+        return (*(int *)(IMB(SEQ_TAB) + (0x24 + cur * ENT_SIZE)));
     if (i != 0) {
         if (cur != 0) {
-            int t = IMW(SEQ_TAB + 0x20 + cur * ENT_SIZE);
+            int t = (*(int *)(IMB(SEQ_TAB) + (0x20 + cur * ENT_SIZE)));
             if (t == 4 || t == 6) {
                 IMW(PENDING_SEQ) = i;
-                return IMW(SEQ_TAB + 0x24 + cur * ENT_SIZE);
+                return (*(int *)(IMB(SEQ_TAB) + (0x24 + cur * ENT_SIZE)));
             }
         }
-        Script_Trans(IMB(SEQ_TAB + i * ENT_SIZE), 0, 1, caller_esi, 0x100066ebu);
+        Script_Trans((IMB(SEQ_TAB) + (i * ENT_SIZE)), 0, 1, caller_esi, 0x100066ebu);
         IMW(PENDING_SEQ) = 0;
         ((int *)IMB(SEQ_PLAYED))[i] = 1;
         cur = i;
     } else if (IMW(PENDING_SEQ) != 0) {
-        Script_Trans(IMB(SEQ_TAB + IMW(PENDING_SEQ) * ENT_SIZE), 0, 1, caller_esi, 0x1000672cu);
+        Script_Trans((IMB(SEQ_TAB) + (IMW(PENDING_SEQ) * ENT_SIZE)), 0, 1, caller_esi, 0x1000672cu);
         cur = IMW(PENDING_SEQ);
         IMW(CUR_SEQ) = cur;
         IMW(PENDING_SEQ) = 0;
         ((int *)IMB(SEQ_PLAYED))[cur] = 1;
-        return IMW(SEQ_TAB + 0x24 + cur * ENT_SIZE);
+        return (*(int *)(IMB(SEQ_TAB) + (0x24 + cur * ENT_SIZE)));
     } else {
         int st = IMW(CUR_STATE);
-        Script_Trans(st != 0 ? IMB(STATE_TAB + st * ENT_SIZE) : 0, st, 1, caller_esi, 0x10006778u);
+        Script_Trans(st != 0 ? (IMB(STATE_TAB) + (st * ENT_SIZE)) : 0, st, 1, caller_esi, 0x10006778u);
         cur = 0;
     }
     IMW(CUR_SEQ) = cur;
-    return IMW(SEQ_TAB + 0x24 + cur * ENT_SIZE);
+    return (*(int *)(IMB(SEQ_TAB) + (0x24 + cur * ENT_SIZE)));
 }
 
 /* OVERRIDES: Script_SetSequence */

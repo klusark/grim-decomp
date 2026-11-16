@@ -530,23 +530,24 @@ static void q3_mesh_light(char *e, int light, float fl, long double mul, int fir
     }
 }
 
-/* a fan of n - 2 triangles over the mesh's vertices base..base+n-1, or one triangle when n <= 3 */
-static void q3_mesh_fan(uint countva, uint listva, uint n, int base, uint flags, uint tex)
+/* a fan of n - 2 triangles over the mesh's vertices base..base+n-1, or one triangle when n <= 3; countp / list: the
+   triangle count and the triangle list (IMG_ADDR of their original addresses) */
+static void q3_mesh_fan(uint *countp, uint list, uint n, int base, uint flags, uint tex)
 {
     if (n <= 3) {
-        uint t = Q3G(countva);
-        uint *r = (uint *)(IMG_ADDR(listva) + t * 0x14);
+        uint t = *countp;
+        uint *r = (uint *)(list + t * 0x14);
         r[2] = base;
         r[1] = base + 1;
         r[0] = base + 2;
         r[3] = flags;
         r[4] = tex;
-        Q3G(countva) = t + 1;
+        *countp = t + 1;
     } else {
         int cnt = (int)n - 2, k, lo = 1, hi = (int)n - 1, prev = 0;
-        uint t = Q3G(countva);
-        uint *r = (uint *)(IMG_ADDR(listva) + t * 0x14);
-        Q3G(countva) = t + cnt;
+        uint t = *countp;
+        uint *r = (uint *)(list + t * 0x14);
+        *countp = t + cnt;
         for (k = 0; k < cnt; k++, r += 5) {
             r[2] = prev + base;
             r[1] = lo + base;
@@ -747,7 +748,7 @@ undefined4 rdCache_SendFaceListToHardware(void)
                 Q3_VBF(n, 0x1c) = q3_f((long double)((float *)Q3P(e, 0x24))[i * 2 + 1] / (long double)texh);
                 Q3G(0x0068bfa8) = n + 1;
             }
-            q3_mesh_fan(0x0060bfa0, 0x006cbfb0, Q3U(e, 0x1c), base, flags, tex3c);
+            q3_mesh_fan((uint *)IMG_ADDR(0x0060bfa0), IMG_ADDR(0x006cbfb0), Q3U(e, 0x1c), base, flags, tex3c);
         } else if (geo == 3) {
             q3_mesh_light(e, light, fl, 63.0L, 0x28);
             for (i = 0; i < Q3U(e, 0x1c); i++) {
@@ -817,7 +818,7 @@ undefined4 rdCache_SendFaceListToHardware(void)
                 Q3_VB(n, 0x1c) = 0;
                 Q3G(0x0068bfa8) = n + 1;
             }
-            q3_mesh_fan(0x006f0fb0, 0x00606fa0, Q3U(e, 0x1c), base, flags, 0);
+            q3_mesh_fan((uint *)IMG_ADDR(0x006f0fb0), IMG_ADDR(0x00606fa0), Q3U(e, 0x1c), base, flags, 0);
         }
     }
     rdCache_DrawRenderList();

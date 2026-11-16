@@ -10,26 +10,31 @@ spans. A span starts at:
 A point inside a declared array of N scalars that names no typed global of its own (a biased base the code indexes
 from, a pointer into the table) starts no span: its names become aliases at their offset.
 
-Each span becomes one C definition with its bytes as the initialiser, in the original order. A span declared as a
-scalar or an array of scalars gets values (floats as the shortest decimal that reads back as the same bits); when the
-span is longer than the type, the rest follows as a static `<name>__tail` byte array in the same section run. The
-layout is pinned:
-* every span is placed in a section `.data$grim_<key>`, and the i686 ld script sorts `*(SORT(.data$*))` by name, so
-  the spans keep the original order whatever file they are in;
+Each span becomes one C definition with its bytes as the initialiser. A span declared as a scalar or an array of
+scalars gets values (floats as the shortest decimal that reads back as the same bits); when the span is longer than the
+type, the rest follows as a static `<name>__tail` byte array in the same section run.
+
+Only the spans the code can read past keep the original layout (tools/data_reach.py says which): tables, objects passed
+by address, strings indexed, and each one's neighbours as far as it may reach. They are pinned:
+* every pinned span is placed in a section `.data$grim_<key>`, and the i686 ld script sorts `*(SORT(.data$*))` by name,
+  so they keep their order whatever file they are in;
 * a key is the address of the 4-aligned span that opens a run, because an input section is at least 4-aligned and
   would pad an odd-sized span;
-* within a run, `no_reorder` keeps the definitions in order, and `aligned(1)` stops gcc from padding large arrays.
-
-The code still reads across globals (tables indexed past their end, the sine/cosine quadrant tables that run from
-.rdata into .data), so the layout stays the original's until the data is typed (docs/notes/raw_free_build.md).
+* within a run, `no_reorder` keeps the definitions in order, and `aligned(1)` stops gcc from padding large arrays;
+* the first pinned span after loose ones starts its run behind an empty 16-aligned anchor and a pad of (address % 16)
+  bytes, so it sits at its original address modulo 16 (a double further on needs no padding).
+The other spans are *loose*: a plain definition (marked `/* loose */`) that the linker places where it likes. A loose
+span with a tail stays pinned, as only the pinned layout keeps the tail behind it.
 
 Pointers in the data use the same rules as the old build/gendata.py (data.s): a dword that holds a function start is
 the function, an address inside a section is that span plus an offset, and text (raw/<prog>/strings.txt) and
 names/data_relocs.json decide the doubtful cases. A data item that lives in the code section (DirectInput's data
 formats) becomes a span of its own, with whatever it points at; the code bytes themselves are not copied.
 
-`sect_rdata` / `sect_data` (ghidra_types.h) remain as labels on the first span of each section, for the hand-written
-overrides that compute data addresses from the original's (IMG_ADDR in build/overrides*.c).
+The hand-written overrides name data by the original's address (IMG_ADDR(0x...) in build/overrides*.c): every 8-digit
+address inside the data that they write gets a label `grim_img_<prog>_0x<address>` on the span that holds it, which
+ghidra_types.h's IMG_ADDR names. `sect_rdata` / `sect_data` remain as labels on the first span of each section, for
+build/datacmp.py.
 
 usage: python -I tools/datagen.py report [PROG...]     the data report (spans, typed and untyped bytes)
        (build_src.py calls generate())"""
@@ -43,6 +48,8 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "build"))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import data_reach  # noqa: E402  which spans may leave the original layout
 import dllnames  # noqa: E402  decorated names of the DLLs' callee-pop exports (raw/<DLL>/stdcall_funcs.json)
 
 ADDR_SUFFIX = re.compile(r"_([0-9a-f]{8})$")
@@ -351,6 +358,7 @@ def build_model(prog, srcdir, img_targets=()):
         return any((p - k) in relocs for k in (1, 2, 3))
 
     model = Model()
+    model.loose, model.img_labels = set(), set()
     model.prog, model.secs, model.relocs, model.std = prog, secs, relocs, std
     model.code_stubs, model.decls = code_stubs, decls
     model.img = {}
@@ -684,6 +692,22 @@ def struct_span(base, is_arr, count, start, b, relocs, target):
     return "%s %%s[%d]" % (base, k), "{\n" + ",\n".join("    " + e for e in elems) + "\n}", k * size
 
 
+def tail_spans(model, unused, target):
+    """The spans emit writes as their type plus a tail object (the span is longer than the type): they stay pinned, as
+    only the pinned layout keeps the tail behind its head."""
+    out = set()
+    for sp in model.spans:
+        if sp.start not in model.loose or (sp.start, sp.end - sp.start) in unused:
+            continue
+        b = section_bytes(model, sp)
+        base, is_arr, count = sp.decl if sp.decl else ("", False, None)
+        base = base.replace("const ", "").strip()
+        typed = struct_span(base, is_arr, count, sp.start, b, sp.relocs, target) or             (None if sp.relocs else typed_value(base, is_arr, count, sp.start, b, DIMS.get(sp.name)))
+        if typed and typed[2] < len(b):
+            out.add(sp.start)
+    return out
+
+
 def emit(model, srcdir):
     prog = model.prog
     std = model.std
@@ -705,7 +729,7 @@ def emit(model, srcdir):
             raise SystemExit("datagen: %s: pointer to %#x outside the data" % (prog, v))
         return "(void *)&%s" % sp.name if off == 0 else "(void *)((unsigned char *)&%s + 0x%x)" % (sp.name, off)
 
-    stats = {"spans": 0, "typed": 0, "string": 0, "pointer": 0, "table": 0, "bytes": 0, "struct": 0,
+    stats = {"loose": 0, "spans": 0, "typed": 0, "string": 0, "pointer": 0, "table": 0, "bytes": 0, "struct": 0,
              "bytes_untyped": 0, "zero": 0, "unused": 0, "unused_bytes": 0, "untyped_spans": []}
     unused = {}
     up = os.path.join(ROOT, "names", "data_unused.json")
@@ -714,6 +738,8 @@ def emit(model, srcdir):
             unused[(int(r["addr"], 16), r["size"])] = r["reader"]   # (by address and size: a rename keeps it)
     first_of_sec = {}
     run_key = None
+    prev_loose = True
+    model.loose = model.loose - tail_spans(model, unused, target)
     for sp in model.spans:
         b = section_bytes(model, sp)
         n = len(b)
@@ -723,7 +749,23 @@ def emit(model, srcdir):
         sec_key = "t" if sp.island else ""
         if sp.start % 4 == 0 or run_key is None or run_key[0] != sec_key:
             run_key = (sec_key, "%s%08x" % (sec_key, sp.start))
-        attr = 'GRIM_DATA("%s")' % run_key[1]
+        attr = pinned = 'GRIM_DATA("%s")' % run_key[1]
+        if sp.start in model.loose:
+            attr = "/* loose */"   # nothing reaches past it: the linker places it (tools/data_reach.py)
+            stats["loose"] += 1
+        elif not sp.island and prev_loose:
+            # the first pinned span after loose ones starts a run of its own, wherever the linker puts it: a pad in
+            # front of it, in a 16-aligned section, puts it at its original address modulo 16, as the original's
+            # 16-aligned sections did, so a double or an aligned structure further on needs no padding
+            # (three input sections, sorted in this order: an empty 16-aligned anchor, since a section ends padded to
+            # its alignment; the pad, 4-aligned like the run's start; then the run)
+            run_key = ("", "%08xz" % sp.start)
+            attr = pinned = 'GRIM_DATA("%s")' % run_key[1]
+            defs.append("static unsigned char grim_anchor_%08x[0] __attribute__((section(\".data$grim_%08x\"), "
+                        "aligned(16), used));" % (sp.start, sp.start))
+            defs.append("static unsigned char grim_pad_%08x[%d] __attribute__((section(\".data$grim_%08x_\"), "
+                        "aligned(4), used));" % (sp.start, sp.start % 16, sp.start))
+        prev_loose = sp.start in model.loose
         if sp.sec is not None and sp.sec["name"] not in first_of_sec:
             first_of_sec[sp.sec["name"]] = sp
         relocs = sp.relocs
@@ -754,7 +796,8 @@ def emit(model, srcdir):
             stats["typed"] += 1
             if head < n:
                 # the span runs past the declared type (an undeclared neighbour, or a table read past its end): the
-                # rest goes right behind it, in the same run of the section, so the layout does not move
+                # rest goes right behind it, in the same run of the section, so the layout does not move (such a
+                # span is never loose: see tail_spans)
                 rest = b[head:]
                 tname = "%s__tail" % sp.name
                 decls.append("extern %s;" % decl)
@@ -823,6 +866,13 @@ def emit(model, srcdir):
         sp, off = resolve(model, mem)
         tail.append('__asm__(".text\\n\\t.def _%s; .scl 2; .type 32; .endef\\n\\t.globl _%s\\n_%s:\\tjmp *_%s + 0x%x\\n");'
                     % (n, n, n, sp.name, off))
+    tag = img_tag(prog)
+    for a in sorted(model.img_labels):
+        sp, off = resolve(model, a)
+        if sp is None:
+            continue
+        tail.append('__asm__(".globl _grim_img_%s_0x%08x\\n\\t.set _grim_img_%s_0x%08x, _%s + %d\\n");'
+                    % (tag, a, tag, a, sp.name, off))
     for s in model.secs:
         sp = first_of_sec.get(s["name"])
         if sp is not None:
@@ -830,7 +880,8 @@ def emit(model, srcdir):
     head = [
         "/* %s: the original's initialised data, one definition per span." % prog,
         " * GENERATED by tools/datagen.py (from tools/build_src.py) from the Ghidra memory dump; see the docstring there",
-        " * and docs/notes/raw_free_build.md. The layout is the original's: GRIM_DATA's section keys keep the order. */",
+        " * and docs/notes/raw_free_build.md. GRIM_DATA's section keys keep the original layout of the spans the code can",
+        " * read past (tools/data_reach.py); the spans marked loose go wherever the linker puts them. */",
         "",
         '#define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))',
         "",
@@ -859,6 +910,12 @@ def img_targets_of(texts):
     return out
 
 
+def img_tag(prog):
+    """The program's tag in the names of the overrides' address labels (`grim_img_exe_0x004ed080`): each program's
+    ghidra_types.h turns IMG_ADDR(0x...) into its own label, so two DLLs with data at the same address do not clash."""
+    return prog.split(".")[0].lower().replace("grimfandango", "exe")
+
+
 def generate(prog, srcdir, extra_img=()):
     """Called by tools/build_src.py once the program's files are written: rewrites IMG_ADDR(0x...) of the generated
     code into the name of the span at that address, declares the new names in globals.h and writes data.c. extra_img:
@@ -875,6 +932,8 @@ def generate(prog, srcdir, extra_img=()):
 
     targets = {a for a in img_targets_of(texts.values()) if mapped(a)} | {a for a in extra_img if mapped(a)}
     model = build_model(prog, srcdir, targets)
+    model.loose = data_reach.loose_starts(model, targets) if os.environ.get("GRIM_PIN_DATA") != "1" else set()
+    model.img_labels = {a for a in data_reach.override_targets(prog, ranges) if span_containing(model, a) is not None}
     new_names = {}
 
     def rep(m):
@@ -976,6 +1035,6 @@ if __name__ == "__main__":
         for f in os.listdir(os.path.join(ROOT, "build")):
             if f.startswith("overrides") and f.endswith(".c"):
                 n += len(re.findall(r"\bIMG_ADDR\(", open(os.path.join(ROOT, "build", f), encoding="utf-8").read()))
-        print("IMG_ADDR uses left in build/overrides*.c (by address, through sect_rdata / sect_data): %d" % n)
+        print("IMG_ADDR uses in build/overrides*.c (by address, through the grim_img_ labels): %d" % n)
     else:
         print(__doc__)

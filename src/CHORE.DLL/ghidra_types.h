@@ -209,18 +209,12 @@ typedef struct __attribute__((packed)) { uint64_t v; } ghidra_piece8;
 #define SCARRY8(a,b) (((int64_t)((uint64_t)(a) + (uint64_t)(b)) < 0) != (((int64_t)(a) < 0) && ((int64_t)(b) < 0)) && (((int64_t)(a) < 0) == ((int64_t)(b) < 0)))
 #define SBORROW8(a,b) ((((int64_t)(a) ^ (int64_t)(b)) & ((int64_t)(a) ^ (int64_t)((uint64_t)(a) - (uint64_t)(b)))) < 0)
 
-/* The original data sections: src/<prog>/data.c (tools/datagen.py) defines every global in the
- * original layout, and sect_<name> labels the first one of each section. The generated code names
- * its data; IMG_ADDR() is for the hand-written overrides (build/overrides*.c), which compute data
- * addresses from the original's. */
-extern unsigned char sect_rdata[];  /* .rdata: 0x1000e000, 6656 bytes */
-extern unsigned char sect_data[];  /* .data: 0x10010000, 23292 bytes */
-#define IMG_ADDR(a) ((unsigned)(uintptr_t)img_addr_(a))  /* integer, like the literal it replaces */
-static inline void *img_addr_(unsigned a) {
-    if (a >= 0x1000e000u && a <= 0x1000fa00u) return sect_rdata + (a - 0x1000e000u);
-    if (a >= 0x10010000u && a <= 0x10015afcu) return sect_data + (a - 0x10010000u);
-    return (void *)(uintptr_t)a;
-}
+/* IMG_ADDR(0x...) is for the hand-written overrides (build/overrides*.c), which name data by the
+ * original's address: src/<prog>/data.c (tools/datagen.py) defines a label grim_img_<prog>_0x... at
+ * every such address, on the span that holds it, so the data need not keep the original layout
+ * (tools/data_reach.py). The argument must be a literal, or a macro for one. */
+#define IMG_ADDR(a) IMG_ADDR_(a)
+#define IMG_ADDR_(a) ((unsigned)(uintptr_t)({ extern unsigned char grim_img_chore_##a[]; grim_img_chore_##a; }))
 
 /* Ghidra's structures (raw/<prog>/structs.json). Those build/compat.h defines by hand
  * are only declared here: Chore, ChoreInstance, ChoreKey, ChoreTrack, ComponentTag, CosComponent, CosInstance, CosStateBitmap, Costume, GrimServices. */
