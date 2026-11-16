@@ -33,7 +33,7 @@ uint __cdecl stdBmp_Load(uint name,uint videoMem,uint b)
 uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
 
 {
-  unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *pbVar1;
   int iVar2;
   int iVar3;
@@ -51,13 +51,13 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
   byte *pbVar15;
   bool bVar16;
   uint uVar17;
-  #define local_98 (*(uint *)(_frame + (0xb0 - 0x98)))
-  #define VStack_84 (*(VBufferFormat *)(_frame + (0xb0 - 0x84)))
-  #define iStack_38 (*(int *)(_frame + (0xb0 - 0x38)))
-  #define iStack_34 (*(int *)(_frame + (0xb0 - 0x34)))
-  #define iStack_30 (*(int *)(_frame + (0xb0 - 0x30)))
-  #define uStack_2a (*(uint *)(_frame + (0xb0 - 0x2a)))
-  #define asStack_10 (*(short (*)[8])(_frame + (0xb0 - 0x10)))
+  uint local_98;
+  #define VStack_84 (*(VBufferFormat *)(_frame + (0xa0 - 0x84)))
+  #define iStack_38 (*(int *)(_frame + (0xa0 - 0x38)))
+  #define iStack_34 (*(int *)(_frame + (0xa0 - 0x34)))
+  #define iStack_30 (*(int *)(_frame + (0xa0 - 0x30)))
+  #define uStack_2a (*(uint *)(_frame + (0xa0 - 0x2a)))
+  #define asStack_10 (*(short (*)[8])(_frame + (0xa0 - 0x10)))
   
   local_98 = 0;
   iVar2 = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
@@ -245,7 +245,6 @@ uint __cdecl stdBmp_LoadEntry(char *path,stdBitmap *bitmap,int videoMem,int b)
 #undef iStack_30
 #undef iStack_34
 #undef iStack_38
-#undef local_98
 #undef uStack_2a
 
 

@@ -95,7 +95,7 @@ uint __cdecl MeshRequester(uint cosInst,int tag,int *parent,int type,char *name)
   uint uVar12;
   char *pcVar13;
   undefined *puVar14;
-  #define uStack_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint uStack_c;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
@@ -227,7 +227,6 @@ LAB_004970d4:
 }
 #undef iStack_4
 #undef local_8
-#undef uStack_c
 
 
 /* ---- 0x00497180  MeshAdjuster ---- */

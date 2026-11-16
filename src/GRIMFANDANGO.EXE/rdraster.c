@@ -279,14 +279,14 @@ void __cdecl rdAFRaster_CalcPerspGradients(float *rec,int mode)
   #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  uint local_20;
+  uint local_1c;
   #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   pfVar19 = rec;
   fVar12 = *rec;
@@ -500,17 +500,10 @@ LAB_0040f4ea:
   pfVar19[0x69] = 4.59177e-41f;
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
 #undef local_24
 #undef local_28
 #undef local_2c
-#undef local_4
-#undef local_8
-#undef local_c
 
 #endif
 
@@ -20143,7 +20136,7 @@ void __cdecl rdZRaster_DrawNGonTGS(int poly,int mat)
   float *pfVar3;
   float *pfVar4;
   uint uVar5;
-  #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
+  uint local_8c;
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
   #define local_80 (*(uint *)(_frame + (0xa0 - 0x80)))
@@ -20257,7 +20250,6 @@ void __cdecl rdZRaster_DrawNGonTGS(int poly,int mat)
 #undef local_80
 #undef local_84
 #undef local_88
-#undef local_8c
 #undef local_c
 
 #endif

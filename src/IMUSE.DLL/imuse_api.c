@@ -2479,7 +2479,7 @@ uint __cdecl sounds_resume(void)
 int __cdecl CacheGetSoundId(uint *name)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int *f;
   char *pcVar2;
@@ -2492,16 +2492,16 @@ int __cdecl CacheGetSoundId(uint *name)
   undefined4 *puVar9;
   undefined4 *puVar10;
   bool bVar11;
-  #define local_44 (*(int *)(_frame + (0x60 - 0x44)))
-  #define uStack_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define uStack_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define iStack_38 (*(int *)(_frame + (0x60 - 0x38)))
-  #define iStack_34 (*(int *)(_frame + (0x60 - 0x34)))
-  #define iStack_30 (*(int *)(_frame + (0x60 - 0x30)))
-  #define puStack_2c (*(undefined4 **)(_frame + (0x60 - 0x2c)))
-  #define uStack_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define uStack_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define auStack_20 (*(uint (*)[8])(_frame + (0x60 - 0x20)))
+  int local_44;
+  #define uStack_40 (*(uint *)(_frame + (0x50 - 0x40)))
+  #define uStack_3c (*(uint *)(_frame + (0x50 - 0x3c)))
+  #define iStack_38 (*(int *)(_frame + (0x50 - 0x38)))
+  #define iStack_34 (*(int *)(_frame + (0x50 - 0x34)))
+  #define iStack_30 (*(int *)(_frame + (0x50 - 0x30)))
+  #define puStack_2c (*(undefined4 **)(_frame + (0x50 - 0x2c)))
+  #define uStack_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define uStack_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define auStack_20 (*(uint (*)[8])(_frame + (0x50 - 0x20)))
   
   uVar5 = 0xffffffff;
   local_44 = -1;
@@ -2684,7 +2684,6 @@ LAB_10009063:
 #undef iStack_30
 #undef iStack_34
 #undef iStack_38
-#undef local_44
 #undef puStack_2c
 #undef uStack_24
 #undef uStack_28

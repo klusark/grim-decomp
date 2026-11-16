@@ -258,7 +258,7 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
   uint uVar7;
   int iVar8;
   int iVar9;
-  #define puStack_2c (*(undefined4 **)(_frame + (0x40 - 0x2c)))
+  undefined4 *puStack_2c;
   #define puStack_28 (*(undefined4 **)(_frame + (0x40 - 0x28)))
   #define puStack_24 (*(undefined4 **)(_frame + (0x40 - 0x24)))
   #define local_20 (*(int *)(_frame + (0x40 - 0x20)))
@@ -545,7 +545,6 @@ undefined4 __stdcall LState_GlobalBeginRestore(int a1)
 #undef puStack_10
 #undef puStack_24
 #undef puStack_28
-#undef puStack_2c
 #undef pvStack_1c
 #undef uStack_18
 #undef uStack_c

@@ -3476,7 +3476,7 @@ void __cdecl
 stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,uint count)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ushort uVar1;
   int iVar2;
   undefined4 uVar3;
@@ -3491,13 +3491,13 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
   longlong lVar13;
   longlong lVar14;
   longlong lVar15;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint local_8;
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   byte bVar12;
   
   g_dwStdColor_ColorConvertOneRow_row = g_dwStdColor_ColorConvertOneRow_row + 1;
@@ -3575,12 +3575,7 @@ stdColor_ColorConvertOneRow(ushort *dst,int dstFormat,ushort *src,int srcFormat,
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
 #undef local_4
-#undef local_8
 #undef local_c
 
 #endif

@@ -236,7 +236,7 @@ undefined4 * __cdecl stdPcx_Load(uint name,int videoMem,int b)
 uint __cdecl stdPcx_Write(uint filename,int bitmap)
 
 {
-  unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   int *piVar2;
   int iVar3;
@@ -249,24 +249,24 @@ uint __cdecl stdPcx_Write(uint filename,int bitmap)
   uint uVar8;
   undefined4 *puVar9;
   uint uVar10;
-  #define uStack_94 (*(uint *)(_frame + (0xb0 - 0x94)))
-  #define uStack_8c (*(uint *)(_frame + (0xb0 - 0x8c)))
-  #define local_80 (*(undefined1 *)(_frame + (0xb0 - 0x80)))
-  #define local_7f (*(undefined1 *)(_frame + (0xb0 - 0x7f)))
-  #define local_7e (*(undefined1 *)(_frame + (0xb0 - 0x7e)))
-  #define local_7d (*(undefined1 *)(_frame + (0xb0 - 0x7d)))
-  #define local_7c (*(undefined2 *)(_frame + (0xb0 - 0x7c)))
-  #define local_7a (*(undefined2 *)(_frame + (0xb0 - 0x7a)))
-  #define local_78 (*(short *)(_frame + (0xb0 - 0x78)))
-  #define local_76 (*(short *)(_frame + (0xb0 - 0x76)))
-  #define local_74 (*(undefined2 *)(_frame + (0xb0 - 0x74)))
-  #define local_72 (*(undefined2 *)(_frame + (0xb0 - 0x72)))
-  #define local_70 (*(undefined4 (*)[12])(_frame + (0xb0 - 0x70)))
-  #define local_40 (*(undefined1 *)(_frame + (0xb0 - 0x40)))
-  #define local_3f (*(undefined1 *)(_frame + (0xb0 - 0x3f)))
-  #define local_3e (*(undefined2 *)(_frame + (0xb0 - 0x3e)))
-  #define local_3c (*(undefined2 *)(_frame + (0xb0 - 0x3c)))
-  #define local_3a (*(undefined4 (*)[14])(_frame + (0xb0 - 0x3a)))
+  uint uStack_94;
+  uint uStack_8c;
+  #define local_80 (*(undefined1 *)(_frame + (0x90 - 0x80)))
+  #define local_7f (*(undefined1 *)(_frame + (0x90 - 0x7f)))
+  #define local_7e (*(undefined1 *)(_frame + (0x90 - 0x7e)))
+  #define local_7d (*(undefined1 *)(_frame + (0x90 - 0x7d)))
+  #define local_7c (*(undefined2 *)(_frame + (0x90 - 0x7c)))
+  #define local_7a (*(undefined2 *)(_frame + (0x90 - 0x7a)))
+  #define local_78 (*(short *)(_frame + (0x90 - 0x78)))
+  #define local_76 (*(short *)(_frame + (0x90 - 0x76)))
+  #define local_74 (*(undefined2 *)(_frame + (0x90 - 0x74)))
+  #define local_72 (*(undefined2 *)(_frame + (0x90 - 0x72)))
+  #define local_70 (*(undefined4 (*)[12])(_frame + (0x90 - 0x70)))
+  #define local_40 (*(undefined1 *)(_frame + (0x90 - 0x40)))
+  #define local_3f (*(undefined1 *)(_frame + (0x90 - 0x3f)))
+  #define local_3e (*(undefined2 *)(_frame + (0x90 - 0x3e)))
+  #define local_3c (*(undefined2 *)(_frame + (0x90 - 0x3c)))
+  #define local_3a (*(undefined4 (*)[14])(_frame + (0x90 - 0x3a)))
   
   local_80 = 10;
   piVar2 = *(int **)(bitmap + 0x78);
@@ -358,6 +358,4 @@ uint __cdecl stdPcx_Write(uint filename,int bitmap)
 #undef local_7e
 #undef local_7f
 #undef local_80
-#undef uStack_8c
-#undef uStack_94
 

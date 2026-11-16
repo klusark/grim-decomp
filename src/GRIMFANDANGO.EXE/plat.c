@@ -215,7 +215,7 @@ int __cdecl grimPlat_SaveFileRequest(char *title,char *filter)
 int __cdecl grimPlat_SpinDialog(int hwnd,int title,undefined4 *fields,uint count)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   short sVar2;
   int *piVar3;
@@ -233,10 +233,10 @@ int __cdecl grimPlat_SpinDialog(int hwnd,int title,undefined4 *fields,uint count
   undefined4 *puVar13;
   ushort uVar14;
   code *a4;
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
   if (((title != 0) && (fields != (undefined4 *)0x0)) && (0 < (int)count)) {
     UINT_008c9850 = (uint)fields;
@@ -332,9 +332,6 @@ int __cdecl grimPlat_SpinDialog(int hwnd,int title,undefined4 *fields,uint count
   return 0;
 }
 #undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
 
 
 /* ---- 0x00487c10  grimPlat_TreeDialog ---- */

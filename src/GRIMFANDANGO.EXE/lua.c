@@ -259,7 +259,7 @@ void __cdecl sputRender_ClearIris(void)
 void __cdecl sputPrimitive_DrawLine(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -272,12 +272,12 @@ void __cdecl sputPrimitive_DrawLine(void)
   longlong lVar10;
   longlong lVar11;
   float fVar12;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  uint local_30;
+  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  uint local_14;
+  uint local_10;
+  uint local_c;
   
   local_18 = 2;
   iVar1 = lua_lua2C(1);
@@ -342,12 +342,8 @@ void __cdecl sputPrimitive_DrawLine(void)
   lua_pushnil();
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_18
 #undef local_1c
-#undef local_30
-#undef local_c
 
 
 /* ---- 0x00489a80  sputPrimitive_DrawPolygon ---- */
@@ -358,7 +354,7 @@ void __cdecl sputPrimitive_DrawLine(void)
 void __cdecl sputPrimitive_DrawPolygon(void)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -369,14 +365,14 @@ void __cdecl sputPrimitive_DrawPolygon(void)
   code *pcVar8;
   longlong lVar9;
   float fVar10;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  uint local_38;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
   
   local_c = 2;
   iVar1 = lua_lua2C(1);
@@ -480,10 +476,6 @@ void __cdecl sputPrimitive_DrawPolygon(void)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_38
 #undef local_c
 
 
@@ -495,7 +487,7 @@ void __cdecl sputPrimitive_DrawPolygon(void)
 void __cdecl sputPrimitive_DrawRectangle(void)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -509,13 +501,13 @@ void __cdecl sputPrimitive_DrawRectangle(void)
   longlong lVar11;
   longlong lVar12;
   float fVar13;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
+  uint local_34;
+  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
+  uint local_1c;
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  uint local_10;
+  uint local_c;
   
   local_20 = 0;
   local_14 = 0;
@@ -576,13 +568,9 @@ void __cdecl sputPrimitive_DrawRectangle(void)
   lua_pushnil();
   return;
 }
-#undef local_10
 #undef local_14
 #undef local_18
-#undef local_1c
 #undef local_20
-#undef local_34
-#undef local_c
 
 
 /* ---- 0x00489fe0  sputPrimitive_ChangePrimitive ---- */
@@ -592,7 +580,7 @@ void __cdecl sputPrimitive_DrawRectangle(void)
 void __cdecl sputPrimitive_ChangePrimitive(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -601,11 +589,11 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
   int iVar6;
   longlong lVar7;
   float fVar8;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_14;
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  uint local_c;
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_4;
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -753,10 +741,7 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
   return;
 }
 #undef local_10
-#undef local_14
-#undef local_4
 #undef local_8
-#undef local_c
 
 
 /* ---- 0x0048a460  sputPrimitive_KillPrimitive ---- */
@@ -1323,7 +1308,7 @@ Lua_ParseSayLineTable
 void __cdecl sputText_PrintLineL(void)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   int iVar2;
   void *table;
@@ -1335,10 +1320,10 @@ void __cdecl sputText_PrintLineL(void)
   TextContext *pTVar7;
   undefined4 *puVar8;
   longlong lVar9;
-  #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(int *)(_frame + (0x70 - 0x58)))
-  #define local_50 (*(char (*)[32])(_frame + (0x70 - 0x50)))
-  #define local_30 (*(undefined4 (*)[12])(_frame + (0x70 - 0x30)))
+  uint local_5c;
+  int local_58;
+  #define local_50 (*(char (*)[32])(_frame + (0x60 - 0x50)))
+  #define local_30 (*(undefined4 (*)[12])(_frame + (0x60 - 0x30)))
   
   iVar2 = lua_lua2C(1);
   table = (void *)lua_lua2C(2);
@@ -1397,8 +1382,6 @@ void __cdecl sputText_PrintLineL(void)
 }
 #undef local_30
 #undef local_50
-#undef local_58
-#undef local_5c
 
 
 /* ---- 0x0048b9a0  sputText_IsMessageGoingL ---- */
@@ -2058,7 +2041,7 @@ void __cdecl sputLua_GetShrinkPosition(void)
 void __cdecl sputLua_SetSoundParametersL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -2070,13 +2053,13 @@ void __cdecl sputLua_SetSoundParametersL(void)
   byte volume;
   longlong lVar7;
   float fVar8;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(float (*)[3])(_frame + (0x40 - 0x20)))
-  #define local_14 (*(float (*)[2])(_frame + (0x40 - 0x14)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
+  uint local_28;
+  uint local_24;
+  #define local_20 (*(float (*)[3])(_frame + (0x30 - 0x20)))
+  #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
+  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -2136,8 +2119,6 @@ void __cdecl sputLua_SetSoundParametersL(void)
 }
 #undef local_14
 #undef local_20
-#undef local_24
-#undef local_28
 #undef local_4
 #undef local_8
 #undef local_c
@@ -2154,7 +2135,7 @@ void __cdecl sputLua_GetSoundParametersL(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Set *set;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
+  uint local_20;
   #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
@@ -2178,7 +2159,6 @@ void __cdecl sputLua_GetSoundParametersL(void)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_20
 #undef local_4
 #undef local_8
 #undef local_c
@@ -2340,7 +2320,7 @@ void __cdecl sputLua_PutActorAtL(void)
   int iVar4;
   int iVar5;
   Actor *actor;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  uint local_10;
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
@@ -2370,7 +2350,6 @@ void __cdecl sputLua_PutActorAtL(void)
   }
   return;
 }
-#undef local_10
 #undef local_c
 
 
@@ -2426,7 +2405,7 @@ void __cdecl sputLua_PutActorInSetL(void)
 void __cdecl sputLua_WalkActorVectorL(void)
 
 {
-  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   int iVar2;
   int iVar3;
@@ -2441,19 +2420,19 @@ void __cdecl sputLua_WalkActorVectorL(void)
   float *pfVar10;
   float fVar11;
   float fVar12;
-  #define local_78 (*(uint *)(_frame + (0x90 - 0x78)))
-  #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
-  #define local_60 (*(uint *)(_frame + (0x90 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0x90 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x90 - 0x58)))
-  #define local_54 (*(float (*)[3])(_frame + (0x90 - 0x54)))
-  #define local_48 (*(float (*)[3])(_frame + (0x90 - 0x48)))
-  #define local_3c (*(uint *)(_frame + (0x90 - 0x3c)))
-  #define local_38 (*(float (*)[2])(_frame + (0x90 - 0x38)))
-  #define local_30 (*(float (*)[9])(_frame + (0x90 - 0x30)))
-  #define local_c (*(uint *)(_frame + (0x90 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x90 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x90 - 0x4)))
+  uint local_78;
+  uint local_64;
+  uint local_60;
+  uint local_5c;
+  uint local_58;
+  #define local_54 (*(float (*)[3])(_frame + (0x70 - 0x54)))
+  #define local_48 (*(float (*)[3])(_frame + (0x70 - 0x48)))
+  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
+  #define local_38 (*(float (*)[2])(_frame + (0x70 - 0x38)))
+  #define local_30 (*(float (*)[9])(_frame + (0x70 - 0x30)))
+  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x70 - 0x4)))
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
@@ -2532,11 +2511,6 @@ void __cdecl sputLua_WalkActorVectorL(void)
 #undef local_4
 #undef local_48
 #undef local_54
-#undef local_58
-#undef local_5c
-#undef local_60
-#undef local_64
-#undef local_78
 #undef local_8
 #undef local_c
 
@@ -2573,7 +2547,7 @@ void __cdecl sputLua_WalkActorForwardL(void)
 void __cdecl sputLua_WalkActorToL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -2582,11 +2556,11 @@ void __cdecl sputLua_WalkActorToL(void)
   int iVar6;
   Actor *actor;
   Actor *pAVar7;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
-  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -2628,9 +2602,6 @@ void __cdecl sputLua_WalkActorToL(void)
   return;
 }
 #undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
 #undef local_c
 
 
@@ -2642,7 +2613,7 @@ void __cdecl sputLua_WalkActorToL(void)
 void __cdecl sputLua_WalkActorToAvoidingL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -2653,12 +2624,12 @@ void __cdecl sputLua_WalkActorToAvoidingL(void)
   Actor *actor;
   Actor *other;
   Actor *pAVar8;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
-  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -2705,10 +2676,6 @@ void __cdecl sputLua_WalkActorToAvoidingL(void)
   return;
 }
 #undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
 #undef local_c
 
 
@@ -2875,7 +2842,7 @@ void __cdecl sputLua_IsActorRestingL(void)
 void __cdecl sputLua_IsActorChoringL(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -2887,10 +2854,10 @@ void __cdecl sputLua_IsActorChoringL(void)
   uint uVar8;
   longlong lVar9;
   float fVar10;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_20;
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -2955,7 +2922,6 @@ void __cdecl sputLua_IsActorChoringL(void)
   }
   return;
 }
-#undef local_20
 #undef local_4
 #undef local_8
 #undef local_c
@@ -2971,7 +2937,7 @@ void __cdecl sputLua_IsActorChoringL(void)
 void __cdecl sputLua_GetActorChoresL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *luaObj;
   int iVar2;
@@ -2979,9 +2945,9 @@ void __cdecl sputLua_GetActorChoresL(void)
   float fVar4;
   uint uVar5;
   float fVar6;
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float (*)[3])(_frame + (0x40 - 0x14)))
+  uint local_2c;
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float (*)[3])(_frame + (0x30 - 0x14)))
   
   iVar1 = lua_lua2C(1);
   luaObj = (void *)lua_lua2C(2);
@@ -3028,7 +2994,6 @@ void __cdecl sputLua_GetActorChoresL(void)
 }
 #undef local_14
 #undef local_18
-#undef local_2c
 
 #endif
 
@@ -3077,7 +3042,7 @@ void __cdecl sputLua_GetActorCostumeDepthL(void)
 void __cdecl sputLua_GetActorLoopingChoresL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   void *luaObj;
   int iVar2;
@@ -3085,9 +3050,9 @@ void __cdecl sputLua_GetActorLoopingChoresL(void)
   float fVar4;
   uint uVar5;
   float fVar6;
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float (*)[3])(_frame + (0x40 - 0x14)))
+  uint local_2c;
+  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float (*)[3])(_frame + (0x30 - 0x14)))
   
   iVar1 = lua_lua2C(1);
   luaObj = (void *)lua_lua2C(2);
@@ -3134,7 +3099,6 @@ void __cdecl sputLua_GetActorLoopingChoresL(void)
 }
 #undef local_14
 #undef local_18
-#undef local_2c
 
 #endif
 
@@ -4051,7 +4015,7 @@ void __cdecl sputLua_SetActorTurnChoresL(void)
   Actor *actor;
   longlong lVar5;
   float fVar6;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   iVar1 = lua_lua2C(1);
@@ -4084,7 +4048,6 @@ void __cdecl sputLua_SetActorTurnChoresL(void)
   return;
 }
 #undef local_4
-#undef local_8
 
 
 /* ---- 0x0049b430  sputLua_SetActorRestChoreL ---- */
@@ -4421,7 +4384,7 @@ void __cdecl sputLua_GetVisibleThingsL(void)
   RoomActorNode *pRVar3;
   char *pcVar4;
   uint uVar5;
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  uint local_8;
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   iVar1 = lua_lua2C(1);
@@ -4461,7 +4424,6 @@ void __cdecl sputLua_GetVisibleThingsL(void)
   return;
 }
 #undef local_4
-#undef local_8
 
 #endif
 
@@ -4555,17 +4517,17 @@ void __cdecl sputLua_GetActorPuckVectorL(void)
 void __cdecl sputLua_GetActorYawToPoint(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
   Actor *actor;
   int iVar4;
   float n;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -4609,9 +4571,6 @@ void __cdecl sputLua_GetActorYawToPoint(void)
   lua_pushnil();
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
 #undef local_c
 
 
@@ -4707,7 +4666,7 @@ void __cdecl sputLua_GetActorRotL(void)
 void __cdecl sputLua_SetActorRotL(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -4715,9 +4674,9 @@ void __cdecl sputLua_SetActorRotL(void)
   int iVar5;
   int iVar6;
   Actor *actor;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
+  uint local_14;
+  uint local_10;
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -4748,8 +4707,6 @@ void __cdecl sputLua_SetActorRotL(void)
   }
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_c
 
 
@@ -4949,7 +4906,7 @@ void __cdecl sputLua_IsActorInSector(void)
 void __cdecl sputLua_IsPointInSector(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -4958,8 +4915,8 @@ void __cdecl sputLua_IsPointInSector(void)
   char *sub;
   uint *puVar6;
   WalkPlane *this;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
+  uint local_20;
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -4993,7 +4950,6 @@ void __cdecl sputLua_IsPointInSector(void)
   lua_pushnil();
   return;
 }
-#undef local_20
 #undef local_c
 
 
@@ -5419,14 +5375,14 @@ void __cdecl sputLua_EnableDebugKeysL(void)
 void __cdecl sputLua_WorldToScreenL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
   int iVar4;
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
-  #define local_c (*(ScreenCoord *)(_frame + (0x40 - 0xc)))
+  uint local_2c;
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(ScreenCoord *)(_frame + (0x30 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -5454,7 +5410,6 @@ void __cdecl sputLua_WorldToScreenL(void)
   return;
 }
 #undef local_18
-#undef local_2c
 #undef local_c
 
 
@@ -5703,7 +5658,7 @@ void __cdecl sputLua_GetControlStateL(void)
   uint uVar3;
   longlong lVar4;
   float fVar5;
-  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  float local_c;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(int *)(_frame + (0x20 - 0x4)))
   
@@ -5740,7 +5695,6 @@ void __cdecl sputLua_GetControlStateL(void)
 }
 #undef local_4
 #undef local_8
-#undef local_c
 
 
 /* ---- 0x0049d550  sputLua_DoCostumeOverrideCallback ---- */
@@ -6657,8 +6611,8 @@ void __cdecl sputLua_SetSoundPosition(void)
   #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
   #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
   #define local_20 (*(float (*)[3])(_frame + (0x40 - 0x20)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  uint local_14;
+  uint local_10;
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   set = sputRoom_GetCurrentRoom();
@@ -6745,8 +6699,6 @@ void __cdecl sputLua_SetSoundPosition(void)
              0x3f4ccccd);
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_20
 #undef local_24
 #undef local_28
@@ -6965,7 +6917,7 @@ void __cdecl sputLua_InputDialog(void)
   char *prompt;
   char *defaultText;
   char *pcVar5;
-  #define local_6c (*(uint *)(_frame + (0x80 - 0x6c)))
+  uint local_6c;
   #define local_68 (*(char (*)[104])(_frame + (0x80 - 0x68)))
   
   iVar1 = lua_lua2C(1);
@@ -7010,7 +6962,6 @@ LAB_0049ec38:
   return;
 }
 #undef local_68
-#undef local_6c
 
 
 /* ---- 0x0049ec50  sputLua_WriteRegistryValue ---- */
@@ -7056,13 +7007,13 @@ void __cdecl sputLua_WriteRegistryValue(void)
 void __cdecl sputLua_ReadRegistryValue(void)
 
 {
-  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   char *name;
   float n;
-  #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
-  #define local_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
+  uint local_104;
+  #define local_100 (*(char (*)[256])(_frame + (0x110 - 0x100)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isstring(iVar1);
@@ -7084,7 +7035,6 @@ void __cdecl sputLua_ReadRegistryValue(void)
   return;
 }
 #undef local_100
-#undef local_104
 
 
 /* ---- 0x0049ed90  sputLua_GetSectorOppositeEdge ---- */
@@ -7803,7 +7753,7 @@ void __cdecl sputLua_GetCameraLookVectorL(void)
 void __cdecl sputLua_PointActorAtL(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   ActorExtra *pAVar1;
   int iVar2;
   int iVar3;
@@ -7812,9 +7762,9 @@ void __cdecl sputLua_PointActorAtL(void)
   int iVar6;
   Actor *actor;
   Actor *pAVar7;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
+  uint local_14;
+  uint local_10;
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
@@ -7851,8 +7801,6 @@ void __cdecl sputLua_PointActorAtL(void)
   pAVar1->flTurnRate = pAVar1->flTurnRate * -1.0f;
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_c
 
 
@@ -7866,7 +7814,7 @@ void __cdecl sputLua_PointActorAtL(void)
 void __cdecl sputLua_TurnActorTo(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   int iVar2;
   int iVar3;
@@ -7877,9 +7825,9 @@ void __cdecl sputLua_TurnActorTo(void)
   Actor *pAVar7;
   float fVar8;
   float fVar9;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
+  uint local_14;
+  uint local_10;
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
@@ -7927,8 +7875,6 @@ LAB_0049fde2:
   lua_pushnil();
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_c
 
 
@@ -7970,7 +7916,7 @@ void __cdecl sputLua_SnapToPlane(void)
   int iVar4;
   char *name;
   WalkPlane *this;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  uint local_10;
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
@@ -7992,7 +7938,6 @@ void __cdecl sputLua_SnapToPlane(void)
   lua_pushnumber(local_c[2]);
   return;
 }
-#undef local_10
 #undef local_c
 
 
@@ -8005,15 +7950,15 @@ void __cdecl sputLua_SnapToPlane(void)
 void __cdecl sputLua_GetAngleBetweenVectorsL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
   float fVar4;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
-  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
+  uint local_30;
+  uint local_1c;
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -8057,8 +8002,6 @@ void __cdecl sputLua_GetAngleBetweenVectorsL(void)
   return;
 }
 #undef local_18
-#undef local_1c
-#undef local_30
 #undef local_c
 
 
@@ -8074,7 +8017,7 @@ void __cdecl sputLua_GetAngleBetweenVectorsL(void)
 void __cdecl sputLua_GetAngleBetweenActorsL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Puck *pPVar1;
   int iVar2;
   int iVar3;
@@ -8082,14 +8025,14 @@ void __cdecl sputLua_GetAngleBetweenActorsL(void)
   Actor *pAVar5;
   Actor *pAVar6;
   float fVar7;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
+  uint local_30;
+  uint local_1c;
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_lua2C(2);
@@ -8129,8 +8072,6 @@ void __cdecl sputLua_GetAngleBetweenActorsL(void)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_1c
-#undef local_30
 #undef local_4
 #undef local_8
 #undef local_c
@@ -8511,7 +8452,7 @@ LAB_004a07f0:
 void __cdecl sputLua_SetLightRotation(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -8523,15 +8464,15 @@ void __cdecl sputLua_SetLightRotation(void)
   uint uVar8;
   longlong lVar9;
   float fVar10;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -8601,9 +8542,6 @@ void __cdecl sputLua_SetLightRotation(void)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
 #undef local_4
 #undef local_8
 #undef local_c
@@ -8758,7 +8696,7 @@ LAB_004a0bbc:
 void __cdecl sputLua_PointLightAt(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -8769,14 +8707,14 @@ void __cdecl sputLua_PointLightAt(void)
   Actor *pAVar7;
   longlong lVar8;
   float fVar9;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  uint local_20;
+  uint local_1c;
+  float local_18;
+  float local_14;
+  float local_10;
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -8839,11 +8777,6 @@ void __cdecl sputLua_PointLightAt(void)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
 #undef local_4
 #undef local_8
 #undef local_c
@@ -10201,7 +10134,7 @@ void __cdecl sputLua_SetActorClipActive(void)
 void __cdecl sputLua_SetActorClipPlane(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -10210,16 +10143,16 @@ void __cdecl sputLua_SetActorClipPlane(void)
   int iVar6;
   int iVar7;
   Actor *actor;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -10263,10 +10196,6 @@ void __cdecl sputLua_SetActorClipPlane(void)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
 #undef local_4
 #undef local_8
 #undef local_c
@@ -10458,16 +10387,16 @@ void __fastcall sputLua_IrisComplete(undefined4 unused)
 void __cdecl Lua_TextFileGetLineCount(void)
 
 {
-  unsigned char _frame[0x230] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   int iVar2;
   int iVar3;
   uint uVar4;
   undefined4 *puVar5;
-  #define local_21c (*(uint *)(_frame + (0x230 - 0x21c)))
-  #define local_208 (*(uint *)(_frame + (0x230 - 0x208)))
-  #define local_204 (*(uint *)(_frame + (0x230 - 0x204)))
-  #define local_200 (*(char (*)[512])(_frame + (0x230 - 0x200)))
+  uint local_21c;
+  uint local_208;
+  uint local_204;
+  #define local_200 (*(char (*)[512])(_frame + (0x210 - 0x200)))
   
   iVar2 = lua_lua2C(1);
   local_208 = 0;
@@ -10503,9 +10432,6 @@ void __cdecl Lua_TextFileGetLineCount(void)
   return;
 }
 #undef local_200
-#undef local_204
-#undef local_208
-#undef local_21c
 
 
 /* ---- 0x004a2e20  Lua_TextFileGetLine ---- */
@@ -10960,7 +10886,7 @@ void __cdecl sputLua_GetSaveGameData(void)
   char *name;
   int *file;
   char *mode;
-  #define local_90 (*(uint *)(_frame + (0xa0 - 0x90)))
+  uint local_90;
   #define local_8c (*(uint *)(_frame + (0xa0 - 0x8c)))
   #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
   #define local_84 (*(uint *)(_frame + (0xa0 - 0x84)))
@@ -10996,7 +10922,6 @@ void __cdecl sputLua_GetSaveGameData(void)
 #undef local_84
 #undef local_88
 #undef local_8c
-#undef local_90
 
 
 /* ---- 0x004a3830  sputLua_GetTextSpeed ---- */
@@ -11058,8 +10983,8 @@ void __cdecl sputLua_FindFileOnAnyCD(void)
   char *pcVar8;
   char *pcVar9;
   char *pcVar10;
-  #define local_180 (*(uint *)(_frame + (0x190 - 0x180)))
-  #define local_178 (*(uint *)(_frame + (0x190 - 0x178)))
+  uint local_180;
+  uint local_178;
   #define acStack_174 (*(char (*)[52])(_frame + (0x190 - 0x174)))
   #define auStack_140 (*(undefined1 (*)[320])(_frame + (0x190 - 0x140)))
   
@@ -11160,8 +11085,6 @@ void __cdecl sputLua_FindFileOnAnyCD(void)
 }
 #undef acStack_174
 #undef auStack_140
-#undef local_178
-#undef local_180
 
 
 /* ---- 0x004a3a10  sputLua_ActorPuckOrient ---- */

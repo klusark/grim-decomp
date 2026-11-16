@@ -66,7 +66,7 @@ rdMaterial * __cdecl rdMaterial_Load(char *name,int a,int b)
 int __cdecl rdMaterial_LoadEntry(char *filename,rdMaterial *material,int a,int b)
 
 {
-  unsigned char _frame[0x440] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   void *pvVar2;
   VBuffer *surface;
@@ -80,31 +80,31 @@ int __cdecl rdMaterial_LoadEntry(char *filename,rdMaterial *material,int a,int b
   rdMaterial *prVar10;
   int *piVar11;
   byte *pbVar12;
-  #define uStack_428 (*(uint *)(_frame + (0x440 - 0x428)))
-  #define iStack_420 (*(int *)(_frame + (0x440 - 0x420)))
-  #define uStack_418 (*(uint *)(_frame + (0x440 - 0x418)))
-  #define uStack_414 (*(uint *)(_frame + (0x440 - 0x414)))
-  #define uStack_410 (*(undefined4 *)(_frame + (0x440 - 0x410)))
-  #define uStack_40c (*(undefined4 *)(_frame + (0x440 - 0x40c)))
-  #define uStack_408 (*(undefined4 *)(_frame + (0x440 - 0x408)))
-  #define uStack_404 (*(undefined4 *)(_frame + (0x440 - 0x404)))
-  #define uStack_400 (*(uint *)(_frame + (0x440 - 0x400)))
-  #define uStack_3fc (*(undefined4 *)(_frame + (0x440 - 0x3fc)))
-  #define uStack_3f8 (*(undefined4 *)(_frame + (0x440 - 0x3f8)))
-  #define uStack_3f4 (*(undefined4 *)(_frame + (0x440 - 0x3f4)))
-  #define uStack_3f0 (*(undefined4 *)(_frame + (0x440 - 0x3f0)))
-  #define uStack_3ec (*(undefined4 *)(_frame + (0x440 - 0x3ec)))
-  #define auStack_3e8 (*(undefined4 (*)[3])(_frame + (0x440 - 0x3e8)))
-  #define iStack_3dc (*(int *)(_frame + (0x440 - 0x3dc)))
-  #define VStack_3d8 (*(VBufferFormat *)(_frame + (0x440 - 0x3d8)))
-  #define acStack_38c (*(char (*)[4])(_frame + (0x440 - 0x38c)))
-  #define iStack_388 (*(int *)(_frame + (0x440 - 0x388)))
-  #define uStack_384 (*(uint *)(_frame + (0x440 - 0x384)))
-  #define iStack_380 (*(int *)(_frame + (0x440 - 0x380)))
-  #define iStack_37c (*(int *)(_frame + (0x440 - 0x37c)))
-  #define aiStack_378 (*(int (*)[14])(_frame + (0x440 - 0x378)))
-  #define aiStack_340 (*(int (*)[16])(_frame + (0x440 - 0x340)))
-  #define auStack_300 (*(undefined1 (*)[768])(_frame + (0x440 - 0x300)))
+  uint uStack_428;
+  int iStack_420;
+  #define uStack_418 (*(uint *)(_frame + (0x430 - 0x418)))
+  #define uStack_414 (*(uint *)(_frame + (0x430 - 0x414)))
+  #define uStack_410 (*(undefined4 *)(_frame + (0x430 - 0x410)))
+  #define uStack_40c (*(undefined4 *)(_frame + (0x430 - 0x40c)))
+  #define uStack_408 (*(undefined4 *)(_frame + (0x430 - 0x408)))
+  #define uStack_404 (*(undefined4 *)(_frame + (0x430 - 0x404)))
+  #define uStack_400 (*(uint *)(_frame + (0x430 - 0x400)))
+  #define uStack_3fc (*(undefined4 *)(_frame + (0x430 - 0x3fc)))
+  #define uStack_3f8 (*(undefined4 *)(_frame + (0x430 - 0x3f8)))
+  #define uStack_3f4 (*(undefined4 *)(_frame + (0x430 - 0x3f4)))
+  #define uStack_3f0 (*(undefined4 *)(_frame + (0x430 - 0x3f0)))
+  #define uStack_3ec (*(undefined4 *)(_frame + (0x430 - 0x3ec)))
+  #define auStack_3e8 (*(undefined4 (*)[3])(_frame + (0x430 - 0x3e8)))
+  #define iStack_3dc (*(int *)(_frame + (0x430 - 0x3dc)))
+  #define VStack_3d8 (*(VBufferFormat *)(_frame + (0x430 - 0x3d8)))
+  #define acStack_38c (*(char (*)[4])(_frame + (0x430 - 0x38c)))
+  #define iStack_388 (*(int *)(_frame + (0x430 - 0x388)))
+  #define uStack_384 (*(uint *)(_frame + (0x430 - 0x384)))
+  #define iStack_380 (*(int *)(_frame + (0x430 - 0x380)))
+  #define iStack_37c (*(int *)(_frame + (0x430 - 0x37c)))
+  #define aiStack_378 (*(int (*)[14])(_frame + (0x430 - 0x378)))
+  #define aiStack_340 (*(int (*)[16])(_frame + (0x430 - 0x340)))
+  #define auStack_300 (*(undefined1 (*)[768])(_frame + (0x430 - 0x300)))
   
   prVar10 = material;
   for (iVar4 = 0x2c; iVar4 != 0; iVar4 = iVar4 + -1) {
@@ -262,7 +262,6 @@ LAB_0041833a:
 #undef iStack_380
 #undef iStack_388
 #undef iStack_3dc
-#undef iStack_420
 #undef uStack_384
 #undef uStack_3ec
 #undef uStack_3f0
@@ -276,7 +275,6 @@ LAB_0041833a:
 #undef uStack_410
 #undef uStack_414
 #undef uStack_418
-#undef uStack_428
 
 
 /* ---- 0x00418360  rdMaterial_Free ---- */

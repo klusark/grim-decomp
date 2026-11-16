@@ -182,7 +182,7 @@ uint __cdecl ThingStopper(int inst)
 int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *filename)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char *name;
   uint uVar1;
   void *data;
@@ -192,10 +192,10 @@ int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *filena
   char *pcVar4;
   undefined4 *puVar5;
   ResRef *pRVar6;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(undefined1 *)(_frame + (0x40 - 0x20)))
-  #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
-  #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
+  uint local_24;
+  #define local_20 (*(undefined1 *)(_frame + (0x30 - 0x20)))
+  #define local_1f (*(undefined4 *)(_frame + (0x30 - 0x1f)))
+  #define local_1 (*(undefined1 *)(_frame + (0x30 - 0x1)))
   
   pcVar4 = filename;
   local_20 = DAT_004f5a98;
@@ -256,7 +256,6 @@ int __cdecl ThingRequester(uint cosInst,int tag,int parent,int type,char *filena
 #undef local_1
 #undef local_1f
 #undef local_20
-#undef local_24
 
 
 /* ---- 0x00496d10  ThingFreer ---- */

@@ -48,13 +48,13 @@ void __cdecl
 sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,ActorShadow *shadow)
 
 {
-  unsigned char _frame[0xd0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   int count_00;
   ProcEntry *pPVar2;
   void **ppvVar3;
-  #define local_b4 (*(uint *)(_frame + (0xd0 - 0xb4)))
-  #define local_90 (*(float (*)[36])(_frame + (0xd0 - 0x90)))
+  uint local_b4;
+  #define local_90 (*(float (*)[36])(_frame + (0xa0 - 0x90)))
   
   local_b4 = 0;
   ppvVar3 = shadow->aClipPlanes;
@@ -93,5 +93,4 @@ sputCostume_OutputShadowPoly(float *verts,int count,float *minXY,float *maxXY,Ac
   return;
 }
 #undef local_90
-#undef local_b4
 

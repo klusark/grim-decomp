@@ -56,8 +56,16 @@ def rewrite(body):
     used = [it for it in items if re.search(r"\b%s\b" % it[1], code)]
     if not needs_layout(used, code):
         return body, ""
-    # (a function that keeps the frame keeps all its locals there, the unused ones too: the deepest one decides
-    # which of the addresses below the frame negative_stack_into_frame maps onto the locals, Res_FOpen's LabFile)
+    if not ("_stkneg" in code or "STACK0X" in code):
+        # Only the locals the layout can reach stay in the frame: those that need it themselves, and every local at
+        # or above the deepest of them (a structure passed by address runs up from its first slot into the slots
+        # Ghidra split it into). The locals below that and the unused ones are plain C locals. (A frame left with
+        # one local stays a frame: the code reaches past Ghidra's extent of the local, into the frame's slack.)
+        deepest = max(it[2] for it in observed(used, code))
+        items = [it for it in used if it[2] <= deepest]
+    # (with addresses below the frame mapped onto it, a function keeps all its locals there, the unused ones too:
+    # the deepest one decides which of those addresses negative_stack_into_frame maps onto the locals, Res_FOpen's
+    # LabFile)
     for it in items:
         frame = max(frame, it[2])
     frame = (frame + 15) & ~15
@@ -91,14 +99,54 @@ def needs_layout(items, code):
     """True when the frame's layout can be observed: see rewrite. items: the used (m, name, off, type, stars, dims)."""
     if "_stkneg" in code or "STACK0X" in code:
         return True     # addresses below or around the frame are mapped onto it (negative_stack_into_frame)
-    spans = []
-    for m, name, off, typ, stars, dims in items:
-        if dims or re.search(r"&\s*%s\b|\b%s\._|PIECE\(\s*%s\b" % (name, name, name), code):
+    return bool(observed(items, code))
+
+
+def observed(items, code):
+    """The locals whose place in the frame the code can see: address taken, an array, a piece of one, a structure
+    held by value (its extent is not known here), or two that overlap."""
+    out, spans = [], []
+    for it in items:
+        m, name, off, typ, stars, dims = it
+        size = 4 if stars else PRIM_SIZE.get(typ.split()[-1])
+        if dims or size is None or re.search(r"\b%s\._|PIECE\(\s*%s\b" % (name, name), code) or \
+                address_seen(name, typ, stars, code):
+            out.append(it)
+        else:
+            spans.append((off - size, off, it))
+    spans.sort(key=lambda t: t[:2])
+    for a, b in zip(spans, spans[1:]):
+        if a[1] > b[0]:
+            out += [a[2], b[2]]
+    return out
+
+
+SCAN_FUNCS = ("sscanf",)
+
+
+def address_seen(name, typ, stars, code):
+    """True when `&name` is used where the layout around the local can matter. An int, uint or float whose address
+    only goes to sscanf as one argument is written as one %d / %f: its neighbours are not reached through it."""
+    refs = list(re.finditer(r"(?<!&)&\s*%s\b" % name, code))
+    if not refs:
+        return False
+    if stars or typ not in ("int", "uint", "float"):
+        return True
+    for r in refs:
+        if not re.match(r"\s*[,)]", code[r.end():]) or not re.search(r",\s*$", code[:r.start()]):
             return True
-        base = typ.split()[-1]
-        size = 4 if stars else PRIM_SIZE.get(base)
-        if size is None:
-            return True     # a structure held by value: its extent is not known here
-        spans.append((off - size, off))
-    spans.sort()
-    return any(a[1] > b[0] for a, b in zip(spans, spans[1:]))
+        i, depth = r.start(), 0
+        while i > 0:
+            i -= 1
+            if code[i] == ")":
+                depth += 1
+            elif code[i] == "(":
+                if depth == 0:
+                    break
+                depth -= 1
+            elif code[i] in ";{}":
+                return True
+        callee = re.search(r"(\w+)\s*$", code[:i])
+        if not callee or callee.group(1) not in SCAN_FUNCS:
+            return True
+    return False

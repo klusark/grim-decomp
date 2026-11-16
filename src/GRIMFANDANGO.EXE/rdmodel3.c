@@ -112,7 +112,7 @@ uint __cdecl rdModel3_LoadEntry(int name,uint model)
 uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
 
 {
-  unsigned char _frame[0x204a0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20450] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint *puVar2;
   int iVar3;
@@ -133,42 +133,42 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
   char *pcVar18;
   char *pcVar19;
   uint uVar20;
-  #define uStack_20488 (*(uint *)(_frame + (0x204a0 - 0x20488)))
-  #define fStack_20484 (*(float *)(_frame + (0x204a0 - 0x20484)))
-  #define fStack_20480 (*(float *)(_frame + (0x204a0 - 0x20480)))
-  #define fStack_2047c (*(float *)(_frame + (0x204a0 - 0x2047c)))
-  #define iStack_20478 (*(int *)(_frame + (0x204a0 - 0x20478)))
-  #define uStack_20474 (*(uint *)(_frame + (0x204a0 - 0x20474)))
-  #define uStack_20470 (*(uint *)(_frame + (0x204a0 - 0x20470)))
-  #define uStack_2046c (*(uint *)(_frame + (0x204a0 - 0x2046c)))
-  #define uStack_20468 (*(uint *)(_frame + (0x204a0 - 0x20468)))
-  #define pprStack_20464 (*(rdMesh ***)(_frame + (0x204a0 - 0x20464)))
-  #define uStack_20460 (*(uint *)(_frame + (0x204a0 - 0x20460)))
-  #define iStack_2045c (*(int *)(_frame + (0x204a0 - 0x2045c)))
-  #define uStack_20458 (*(uint *)(_frame + (0x204a0 - 0x20458)))
-  #define uStack_20454 (*(uint *)(_frame + (0x204a0 - 0x20454)))
-  #define puStack_20450 (*(uint **)(_frame + (0x204a0 - 0x20450)))
-  #define uStack_2044c (*(uint *)(_frame + (0x204a0 - 0x2044c)))
-  #define uStack_20448 (*(uint *)(_frame + (0x204a0 - 0x20448)))
-  #define fStack_20444 (*(float *)(_frame + (0x204a0 - 0x20444)))
-  #define fStack_20440 (*(float *)(_frame + (0x204a0 - 0x20440)))
-  #define fStack_2043c (*(float *)(_frame + (0x204a0 - 0x2043c)))
-  #define uStack_20438 (*(undefined4 *)(_frame + (0x204a0 - 0x20438)))
-  #define fStack_20434 (*(float *)(_frame + (0x204a0 - 0x20434)))
-  #define fStack_20430 (*(float *)(_frame + (0x204a0 - 0x20430)))
-  #define fStack_2042c (*(float *)(_frame + (0x204a0 - 0x2042c)))
-  #define iStack_20428 (*(int *)(_frame + (0x204a0 - 0x20428)))
-  #define fStack_20424 (*(float *)(_frame + (0x204a0 - 0x20424)))
-  #define iStack_20420 (*(int *)(_frame + (0x204a0 - 0x20420)))
-  #define fStack_2041c (*(float *)(_frame + (0x204a0 - 0x2041c)))
-  #define fStack_20418 (*(float *)(_frame + (0x204a0 - 0x20418)))
-  #define uStack_20414 (*(uint *)(_frame + (0x204a0 - 0x20414)))
-  #define iStack_20410 (*(int *)(_frame + (0x204a0 - 0x20410)))
-  #define uStack_2040c (*(uint *)(_frame + (0x204a0 - 0x2040c)))
-  #define auStack_20408 (*(undefined1 (*)[4])(_frame + (0x204a0 - 0x20408)))
-  #define auStack_20404 (*(undefined1 (*)[4])(_frame + (0x204a0 - 0x20404)))
-  #define acStack_20400 (*(char (*)[1024])(_frame + (0x204a0 - 0x20400)))
-  #define acStack_20000 (*(char (*)[131072])(_frame + (0x204a0 - 0x20000)))
+  uint uStack_20488;
+  float fStack_20484;
+  float fStack_20480;
+  float fStack_2047c;
+  int iStack_20478;
+  uint uStack_20474;
+  uint uStack_20470;
+  uint uStack_2046c;
+  uint uStack_20468;
+  rdMesh **pprStack_20464;
+  uint uStack_20460;
+  int iStack_2045c;
+  uint uStack_20458;
+  uint uStack_20454;
+  uint *puStack_20450;
+  uint uStack_2044c;
+  uint uStack_20448;
+  float fStack_20444;
+  float fStack_20440;
+  float fStack_2043c;
+  #define uStack_20438 (*(undefined4 *)(_frame + (0x20450 - 0x20438)))
+  #define fStack_20434 (*(float *)(_frame + (0x20450 - 0x20434)))
+  #define fStack_20430 (*(float *)(_frame + (0x20450 - 0x20430)))
+  #define fStack_2042c (*(float *)(_frame + (0x20450 - 0x2042c)))
+  #define iStack_20428 (*(int *)(_frame + (0x20450 - 0x20428)))
+  #define fStack_20424 (*(float *)(_frame + (0x20450 - 0x20424)))
+  #define iStack_20420 (*(int *)(_frame + (0x20450 - 0x20420)))
+  #define fStack_2041c (*(float *)(_frame + (0x20450 - 0x2041c)))
+  #define fStack_20418 (*(float *)(_frame + (0x20450 - 0x20418)))
+  #define uStack_20414 (*(uint *)(_frame + (0x20450 - 0x20414)))
+  #define iStack_20410 (*(int *)(_frame + (0x20450 - 0x20410)))
+  #define uStack_2040c (*(uint *)(_frame + (0x20450 - 0x2040c)))
+  #define auStack_20408 (*(undefined1 (*)[4])(_frame + (0x20450 - 0x20408)))
+  #define auStack_20404 (*(undefined1 (*)[4])(_frame + (0x20450 - 0x20404)))
+  #define acStack_20400 (*(char (*)[1024])(_frame + (0x20450 - 0x20400)))
+  #define acStack_20000 (*(char (*)[131072])(_frame + (0x20450 - 0x20000)))
   
   rdModel3_NewEntry(model);
   uVar20 = 0x1f;
@@ -663,32 +663,12 @@ LAB_0040b8c4:
 #undef fStack_2042c
 #undef fStack_20430
 #undef fStack_20434
-#undef fStack_2043c
-#undef fStack_20440
-#undef fStack_20444
-#undef fStack_2047c
-#undef fStack_20480
-#undef fStack_20484
 #undef iStack_20410
 #undef iStack_20420
 #undef iStack_20428
-#undef iStack_2045c
-#undef iStack_20478
-#undef pprStack_20464
-#undef puStack_20450
 #undef uStack_2040c
 #undef uStack_20414
 #undef uStack_20438
-#undef uStack_20448
-#undef uStack_2044c
-#undef uStack_20454
-#undef uStack_20458
-#undef uStack_20460
-#undef uStack_20468
-#undef uStack_2046c
-#undef uStack_20470
-#undef uStack_20474
-#undef uStack_20488
 
 
 /* ---- 0x0040b8e0  rdModel3_LoadEntryBinary ---- */
@@ -700,7 +680,7 @@ LAB_0040b8c4:
 uint __cdecl rdModel3_LoadEntryBinary(int f,int model)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   int *piVar2;
   int *piVar3;
@@ -716,13 +696,13 @@ uint __cdecl rdModel3_LoadEntryBinary(int f,int model)
   int iVar13;
   uint uVar14;
   char *name;
-  #define iStack_24 (*(int *)(_frame + (0x40 - 0x24)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define iStack_18 (*(int *)(_frame + (0x40 - 0x18)))
-  #define iStack_14 (*(int *)(_frame + (0x40 - 0x14)))
-  #define iStack_c (*(int *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(int *)(_frame + (0x40 - 0x8)))
-  #define uStack_4 (*(undefined4 *)(_frame + (0x40 - 0x4)))
+  int iStack_24;
+  uint local_1c;
+  int iStack_18;
+  int iStack_14;
+  int iStack_c;
+  #define local_8 (*(int *)(_frame + (0x20 - 0x8)))
+  #define uStack_4 (*(undefined4 *)(_frame + (0x20 - 0x4)))
   
   iVar12 = model;
   iVar9 = f;
@@ -961,11 +941,6 @@ uint __cdecl rdModel3_LoadEntryBinary(int f,int model)
   }
   return 1;
 }
-#undef iStack_14
-#undef iStack_18
-#undef iStack_24
-#undef iStack_c
-#undef local_1c
 #undef local_8
 #undef uStack_4
 
@@ -1591,13 +1566,13 @@ void __cdecl rdModel3_CalcVertexNormals(int model)
   #define local_44 (*(float (*)[3])(_frame + (0x60 - 0x44)))
   #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
   #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
+  uint local_30;
   #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
+  uint local_28;
   #define local_20 (*(float (*)[2])(_frame + (0x60 - 0x20)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
+  uint local_14;
+  uint local_10;
+  uint local_4;
   
   puVar15 = (uint *)(model + 0x24);
   local_2c = 0;
@@ -1693,15 +1668,10 @@ void __cdecl rdModel3_CalcVertexNormals(int model)
   }
   return;
 }
-#undef local_10
-#undef local_14
 #undef local_20
-#undef local_28
 #undef local_2c
-#undef local_30
 #undef local_34
 #undef local_38
-#undef local_4
 #undef local_44
 
 #endif

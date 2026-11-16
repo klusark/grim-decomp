@@ -749,7 +749,7 @@ char * __cdecl matchbalance(char *s,int b,int e)
 void __cdecl str_gsub(void)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint *s;
   int *pat;
@@ -759,8 +759,8 @@ void __cdecl str_gsub(void)
   bool bVar4;
   longlong lVar5;
   float fVar6;
-  #define iStack_60 (*(int *)(_frame + (0x70 - 0x60)))
-  #define aiStack_4c (*(int (*)[19])(_frame + (0x70 - 0x4c)))
+  int iStack_60;
+  #define aiStack_4c (*(int (*)[19])(_frame + (0x60 - 0x4c)))
   
   s = (uint *)luaL_check_string(1);
   pat = (int *)luaL_check_string(2);
@@ -807,7 +807,6 @@ LAB_1000a291:
   } while( true );
 }
 #undef aiStack_4c
-#undef iStack_60
 
 
 /* ---- 0x1000a2e0  add_s ---- */

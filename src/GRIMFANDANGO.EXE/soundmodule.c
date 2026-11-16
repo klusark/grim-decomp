@@ -705,7 +705,7 @@ void __cdecl SoundModule_SetChannelVolume(byte channel,byte value)
 void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,uint flags)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
   int *piVar3;
@@ -715,9 +715,9 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
   int iVar7;
   int iVar8;
   int iVar9;
-  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define aiStack_40 (*(int (*)[16])(_frame + (0x60 - 0x40)))
+  uint local_48;
+  uint local_44;
+  #define aiStack_40 (*(int (*)[16])(_frame + (0x50 - 0x40)))
   
   iVar2 = g_dwSou_chans - 1;
   local_44 = 0;
@@ -838,8 +838,6 @@ void __cdecl SoundModule_PlayVoc(byte *src,uint size,int id,int volume,int pan,u
   return;
 }
 #undef aiStack_40
-#undef local_44
-#undef local_48
 
 
 /* ---- 0x004d1180  sou_engine_start_stream ---- */
@@ -855,7 +853,7 @@ sou_engine_start_stream
           int whole)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   byte bVar2;
   byte bVar3;
@@ -870,8 +868,8 @@ sou_engine_start_stream
   int iVar11;
   int iVar12;
   int iVar13;
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define aiStack_40 (*(int (*)[16])(_frame + (0x60 - 0x40)))
+  uint local_44;
+  #define aiStack_40 (*(int (*)[16])(_frame + (0x50 - 0x40)))
   
   if (chunkNo == 0) {
     if ((kind != 1) || (iVar10 = 0, whole != 0)) {
@@ -1099,7 +1097,6 @@ LAB_004d153e:
   return;
 }
 #undef aiStack_40
-#undef local_44
 
 
 /* ---- 0x004d1690  SoundModule_SyncClock ---- */

@@ -247,7 +247,7 @@ void __cdecl LightEd_MakeUniqueName(int lightEdSet,char *buf)
 void __cdecl LightEd_AddLight(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined1 *puVar1;
   float *pfVar2;
   rdLight *light;
@@ -259,8 +259,8 @@ void __cdecl LightEd_AddLight(void)
   char *pcVar7;
   char *pcVar8;
   SetLight *pSVar9;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(char (*)[32])(_frame + (0x40 - 0x20)))
+  uint local_24;
+  #define local_20 (*(char (*)[32])(_frame + (0x30 - 0x20)))
   
   if (0x3f < (uint)g_pLightEdSet->nLights) {
     MessageBoxA((int)g_hLightEdDialog,((unsigned)(uintptr_t)&s_Maximum_number_of_lights_already_004f0d78),((unsigned)(uintptr_t)&DAT_004f0db8),0x30);
@@ -333,7 +333,6 @@ void __cdecl LightEd_AddLight(void)
   return;
 }
 #undef local_20
-#undef local_24
 
 
 /* ---- 0x004be990  LightEd_SaveSetFile ---- */
@@ -806,7 +805,7 @@ void __cdecl LightEd_RefreshControl(int hDlg,float id,uint kind,int pos)
   unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int a2;
   float fVar1;
-  #define local_50 (*(uint *)(_frame + (0x60 - 0x50)))
+  uint local_50;
   #define local_4c (*(byte (*)[76])(_frame + (0x60 - 0x4c)))
   
   if (g_nLightEdSelected == -1) {
@@ -853,7 +852,6 @@ switchD_004bf4ef_caseD_2:
   return;
 }
 #undef local_4c
-#undef local_50
 
 
 /* ---- 0x004bf560  LightEd_ReadControl ---- */

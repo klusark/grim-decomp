@@ -298,7 +298,7 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
   ColorFormat *pCVar10;
   void *pvVar11;
   byte *pbVar12;
-  #define uStack_e0 (*(uint *)(_frame + (0xf0 - 0xe0)))
+  uint uStack_e0;
   #define uStack_dc (*(uint *)(_frame + (0xf0 - 0xdc)))
   #define pbStack_d8 (*(byte **)(_frame + (0xf0 - 0xd8)))
   #define iStack_d4 (*(int *)(_frame + (0xf0 - 0xd4)))
@@ -439,7 +439,6 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
 #undef uStack_c4
 #undef uStack_d0
 #undef uStack_dc
-#undef uStack_e0
 
 
 /* ---- 0x0047ae70  stdBitmap_Free ---- */
@@ -489,7 +488,7 @@ void __cdecl stdBitmap_FreeEntry(int bitmap)
 uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap)
 
 {
-  unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *pbVar1;
   byte bVar2;
   int *piVar3;
@@ -505,24 +504,24 @@ uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap)
   undefined4 *puVar12;
   int iVar13;
   uint uVar14;
-  #define uStack_a4 (*(uint *)(_frame + (0xc0 - 0xa4)))
-  #define uStack_a0 (*(uint *)(_frame + (0xc0 - 0xa0)))
-  #define uStack_9c (*(undefined4 *)(_frame + (0xc0 - 0x9c)))
-  #define uStack_98 (*(uint *)(_frame + (0xc0 - 0x98)))
-  #define iStack_94 (*(int *)(_frame + (0xc0 - 0x94)))
-  #define uStack_90 (*(uint *)(_frame + (0xc0 - 0x90)))
-  #define uStack_8c (*(uint *)(_frame + (0xc0 - 0x8c)))
-  #define iStack_88 (*(int *)(_frame + (0xc0 - 0x88)))
-  #define uStack_84 (*(uint *)(_frame + (0xc0 - 0x84)))
-  #define local_80 (*(uint *)(_frame + (0xc0 - 0x80)))
-  #define local_7c (*(uint *)(_frame + (0xc0 - 0x7c)))
-  #define local_78 (*(uint *)(_frame + (0xc0 - 0x78)))
-  #define local_74 (*(uint *)(_frame + (0xc0 - 0x74)))
-  #define local_70 (*(uint *)(_frame + (0xc0 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0xc0 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0xc0 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0xc0 - 0x64)))
-  #define local_60 (*(undefined4 (*)[24])(_frame + (0xc0 - 0x60)))
+  uint uStack_a4;
+  uint uStack_a0;
+  #define uStack_9c (*(undefined4 *)(_frame + (0xb0 - 0x9c)))
+  #define uStack_98 (*(uint *)(_frame + (0xb0 - 0x98)))
+  #define iStack_94 (*(int *)(_frame + (0xb0 - 0x94)))
+  #define uStack_90 (*(uint *)(_frame + (0xb0 - 0x90)))
+  #define uStack_8c (*(uint *)(_frame + (0xb0 - 0x8c)))
+  #define iStack_88 (*(int *)(_frame + (0xb0 - 0x88)))
+  #define uStack_84 (*(uint *)(_frame + (0xb0 - 0x84)))
+  #define local_80 (*(uint *)(_frame + (0xb0 - 0x80)))
+  #define local_7c (*(uint *)(_frame + (0xb0 - 0x7c)))
+  #define local_78 (*(uint *)(_frame + (0xb0 - 0x78)))
+  #define local_74 (*(uint *)(_frame + (0xb0 - 0x74)))
+  #define local_70 (*(uint *)(_frame + (0xb0 - 0x70)))
+  #define local_6c (*(uint *)(_frame + (0xb0 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0xb0 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0xb0 - 0x64)))
+  #define local_60 (*(undefined4 (*)[24])(_frame + (0xb0 - 0x60)))
   
   puVar11 = &local_80;
   for (iVar7 = 0x20; iVar7 != 0; iVar7 = iVar7 + -1) {
@@ -652,8 +651,6 @@ uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap)
 #undef uStack_90
 #undef uStack_98
 #undef uStack_9c
-#undef uStack_a0
-#undef uStack_a4
 
 
 /* ---- 0x0047b250  stdBitmap_Write ---- */

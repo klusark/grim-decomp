@@ -48,7 +48,7 @@ uint __cdecl sputActor_Save(code *write)
   Actor *pAVar7;
   int iVar8;
   int *piVar9;
-  #define iStack_a8 (*(int *)(_frame + (0xc0 - 0xa8)))
+  int iStack_a8;
   #define iStack_a4 (*(int *)(_frame + (0xc0 - 0xa4)))
   #define iStack_a0 (*(int *)(_frame + (0xc0 - 0xa0)))
   #define iStack_9c (*(int *)(_frame + (0xc0 - 0x9c)))
@@ -315,7 +315,6 @@ uint __cdecl sputActor_Save(code *write)
 #undef iStack_9c
 #undef iStack_a0
 #undef iStack_a4
-#undef iStack_a8
 #undef local_84
 #undef uStack_88
 

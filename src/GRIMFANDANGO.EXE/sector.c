@@ -726,7 +726,7 @@ void __thiscall WalkPlane_SetName(WalkPlane *this,char *name)
 void __thiscall WalkPlane_SetType(WalkPlane *this,uint type)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   WalkVertex *pWVar1;
   WalkVertex *pWVar2;
   WalkVertex *pWVar3;
@@ -737,16 +737,16 @@ void __thiscall WalkPlane_SetType(WalkPlane *this,uint type)
   float fVar8;
   float fVar9;
   float fVar10;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   this->dwType = type;
   this->flHeight = 9999.0f;
@@ -809,10 +809,6 @@ void __thiscall WalkPlane_SetType(WalkPlane *this,uint type)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
 #undef local_4
 #undef local_8
 #undef local_c
@@ -1030,7 +1026,7 @@ int __thiscall WalkPlane_ClosestPoint(WalkPlane *this,int a1)
 float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   float fVar3;
@@ -1044,17 +1040,17 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
   float *pfVar11;
   int iVar12;
   float fVar13;
-  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x50 - 0x4)))
+  uint local_3c;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
+  #define local_10 (*(float *)(_frame + (0x30 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   local_1c = 0;
   this->nHitEdge = -1;
@@ -1135,11 +1131,6 @@ float __thiscall WalkPlane_Intersection(WalkPlane *this,int a1,int a2,int a3)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_3c
 #undef local_4
 #undef local_8
 #undef local_c
@@ -1332,7 +1323,7 @@ WalkPlane * __cdecl WalkPlane_PlaneClosest(float *point,uint mask)
   WalkPlane *this;
   WalkPlane *pWVar2;
   WalkPlane *pWVar3;
-  #define local_10 (*(float *)(_frame + (0x20 - 0x10)))
+  float local_10;
   #define local_c (*(float *)(_frame + (0x20 - 0xc)))
   #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
@@ -1361,7 +1352,6 @@ WalkPlane * __cdecl WalkPlane_PlaneClosest(float *point,uint mask)
   }
   return pWVar3;
 }
-#undef local_10
 #undef local_4
 #undef local_8
 #undef local_c
@@ -1462,7 +1452,7 @@ void __thiscall WalkPlane_JumpOut(WalkPlane *this,float *walker)
 float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   WalkVertex *pWVar2;
   int iVar3;
@@ -1476,19 +1466,19 @@ float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
   uint uVar11;
   uint uVar12;
   float fVar13;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(float *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(float *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(float *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(float *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(float *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(float *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(float *)(_frame + (0x50 - 0x10)))
-  #define local_8 (*(float *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x50 - 0x4)))
+  uint local_38;
+  uint local_34;
+  #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(float *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(float *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(float *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(float *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(float *)(_frame + (0x40 - 0x10)))
+  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x40 - 0x4)))
   
   local_18 = *walker;
   local_14 = walker[1];
@@ -1650,8 +1640,6 @@ float * __thiscall WalkPlane_GetConstraintVector(WalkPlane *this,float *walker)
 #undef local_28
 #undef local_2c
 #undef local_30
-#undef local_34
-#undef local_38
 #undef local_4
 #undef local_8
 
@@ -1747,7 +1735,7 @@ void __cdecl WalkPlane_RemoveVertex(int *vertex)
 undefined * __cdecl ParseCollection(int loadingRoom)
 
 {
-  unsigned char _frame[0x210] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x200] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   byte bVar2;
   uint uVar3;
@@ -1763,19 +1751,19 @@ undefined * __cdecl ParseCollection(int loadingRoom)
   char *pcVar13;
   uint *puVar14;
   bool bVar15;
-  #define local_200 (*(uint *)(_frame + (0x210 - 0x200)))
-  #define local_1fc (*(uint *)(_frame + (0x210 - 0x1fc)))
-  #define local_1f8 (*(uint *)(_frame + (0x210 - 0x1f8)))
-  #define local_1f4 (*(float *)(_frame + (0x210 - 0x1f4)))
-  #define local_1f0 (*(uint *)(_frame + (0x210 - 0x1f0)))
-  #define local_1ec (*(uint *)(_frame + (0x210 - 0x1ec)))
-  #define local_1e8 (*(uint *)(_frame + (0x210 - 0x1e8)))
-  #define local_1e4 (*(byte (*)[48])(_frame + (0x210 - 0x1e4)))
-  #define local_1b4 (*(byte (*)[48])(_frame + (0x210 - 0x1b4)))
-  #define local_184 (*(undefined1 (*)[4])(_frame + (0x210 - 0x184)))
-  #define auStack_180 (*(undefined1 (*)[4])(_frame + (0x210 - 0x180)))
-  #define auStack_17c (*(undefined1 (*)[112])(_frame + (0x210 - 0x17c)))
-  #define local_10c (*(uint (*)[64])(_frame + (0x210 - 0x10c)))
+  uint local_200;
+  uint local_1fc;
+  uint local_1f8;
+  float local_1f4;
+  uint local_1f0;
+  uint local_1ec;
+  uint local_1e8;
+  #define local_1e4 (*(byte (*)[48])(_frame + (0x200 - 0x1e4)))
+  #define local_1b4 (*(byte (*)[48])(_frame + (0x200 - 0x1b4)))
+  #define local_184 (*(undefined1 (*)[4])(_frame + (0x200 - 0x184)))
+  #define auStack_180 (*(undefined1 (*)[4])(_frame + (0x200 - 0x180)))
+  #define auStack_17c (*(undefined1 (*)[112])(_frame + (0x200 - 0x17c)))
+  #define local_10c (*(uint (*)[64])(_frame + (0x200 - 0x10c)))
   
   local_1fc = 0;
   local_1ec = 0;
@@ -2098,13 +2086,6 @@ LAB_004a80a5:
 #undef local_184
 #undef local_1b4
 #undef local_1e4
-#undef local_1e8
-#undef local_1ec
-#undef local_1f0
-#undef local_1f4
-#undef local_1f8
-#undef local_1fc
-#undef local_200
 
 
 /* ---- 0x004a8cb0  WalkPlane_ClipPoly ---- */
@@ -2116,7 +2097,7 @@ LAB_004a80a5:
 int __thiscall WalkPlane_ClipPoly(WalkPlane *this,float *verts,int count,float *out)
 
 {
-  unsigned char _frame[0x160] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
   float fVar3;
@@ -2135,25 +2116,25 @@ int __thiscall WalkPlane_ClipPoly(WalkPlane *this,float *verts,int count,float *
   undefined1 *puVar16;
   float *pfVar17;
   float *pfVar18;
-  #define local_150 (*(uint *)(_frame + (0x160 - 0x150)))
-  #define local_14c (*(uint *)(_frame + (0x160 - 0x14c)))
-  #define local_148 (*(uint *)(_frame + (0x160 - 0x148)))
-  #define local_144 (*(uint *)(_frame + (0x160 - 0x144)))
-  #define local_140 (*(uint *)(_frame + (0x160 - 0x140)))
-  #define local_13c (*(uint *)(_frame + (0x160 - 0x13c)))
-  #define local_138 (*(float *)(_frame + (0x160 - 0x138)))
-  #define local_134 (*(uint *)(_frame + (0x160 - 0x134)))
-  #define local_130 (*(uint *)(_frame + (0x160 - 0x130)))
-  #define local_12c (*(uint *)(_frame + (0x160 - 0x12c)))
-  #define local_128 (*(uint *)(_frame + (0x160 - 0x128)))
-  #define local_124 (*(uint *)(_frame + (0x160 - 0x124)))
-  #define local_120 (*(float *)(_frame + (0x160 - 0x120)))
-  #define local_11c (*(uint *)(_frame + (0x160 - 0x11c)))
-  #define local_118 (*(uint *)(_frame + (0x160 - 0x118)))
-  #define local_90 (*(undefined1 (*)[12])(_frame + (0x160 - 0x90)))
-  #define local_84 (*(uint *)(_frame + (0x160 - 0x84)))
-  #define local_80 (*(uint *)(_frame + (0x160 - 0x80)))
-  #define local_7c (*(uint *)(_frame + (0x160 - 0x7c)))
+  uint local_150;
+  uint local_14c;
+  uint local_148;
+  uint local_144;
+  uint local_140;
+  uint local_13c;
+  float local_138;
+  uint local_134;
+  uint local_130;
+  uint local_12c;
+  uint local_128;
+  uint local_124;
+  #define local_120 (*(float *)(_frame + (0x130 - 0x120)))
+  uint local_11c;
+  uint local_118;
+  #define local_90 (*(undefined1 (*)[12])(_frame + (0x130 - 0x90)))
+  uint local_84;
+  uint local_80;
+  uint local_7c;
   
   if (0 < count) {
     pfVar18 = &local_120;
@@ -2282,24 +2263,7 @@ LAB_004a903f:
   }
   return local_150;
 }
-#undef local_118
-#undef local_11c
 #undef local_120
-#undef local_124
-#undef local_128
-#undef local_12c
-#undef local_130
-#undef local_134
-#undef local_138
-#undef local_13c
-#undef local_140
-#undef local_144
-#undef local_148
-#undef local_14c
-#undef local_150
-#undef local_7c
-#undef local_80
-#undef local_84
 #undef local_90
 
 
@@ -2378,7 +2342,7 @@ float __thiscall WalkPlane_DistToEdge(WalkPlane *this,int edge,float *point)
 undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pfVar1;
   WalkVertex *pWVar2;
   WalkVertex *pWVar3;
@@ -2395,18 +2359,18 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
   WalkVertex **ppWVar14;
   int iVar15;
   int iVar16;
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(float *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(float *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(float *)(_frame + (0x70 - 0x30)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
+  uint local_54;
+  float local_50;
+  uint local_4c;
+  uint local_48;
+  uint local_44;
+  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(float *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(float *)(_frame + (0x50 - 0x30)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
   
   local_50 = 3.4028235e+38;
   iVar16 = plane->nNumVerts;
@@ -2510,11 +2474,6 @@ undefined4 __fastcall WalkPlane_RemoveShortEdge(WalkPlane *plane)
 #undef local_38
 #undef local_3c
 #undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
 
 
 /* ---- 0x004a9d00  ShrinkBoxes ---- */
@@ -2569,10 +2528,10 @@ void __cdecl ShrinkBoxes(float radius)
   #define afStack_4080 (*(float (*)[30])(_frame + (0x40e0 - 0x4080)))
   #define aiStack_4008 (*(int (*)[1024])(_frame + (0x40e0 - 0x4008)))
   #define afStack_3008 (*(float (*)[3068])(_frame + (0x40e0 - 0x3008)))
-  #define local_18 (*(uint *)(_frame + (0x40e0 - 0x18)))
+  uint local_18;
   #define uStack_c (*(undefined4 *)(_frame + (0x40e0 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40e0 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x40e0 - 0x4)))
+  uint local_8;
+  float local_4;
   
   uStack_c = 0x4a9d10;
   if (0.0f <= radius) {
@@ -2719,9 +2678,6 @@ LAB_004a9ffa:
 #undef fStack_40c4
 #undef iStack_40b0
 #undef iStack_40b4
-#undef local_18
-#undef local_4
-#undef local_8
 #undef pfStack_40a0
 #undef uStack_c
 

@@ -198,9 +198,9 @@ TestCollision(float *from,float *to,float *hit,float xmin,float ymin,float zmin,
   float fVar5;
   float fVar6;
   float fVar7;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  uint local_30;
+  uint local_2c;
+  uint local_28;
   #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
   #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
@@ -268,9 +268,6 @@ LAB_00492801:
 }
 #undef local_18
 #undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
 #undef local_c
 
 
@@ -590,7 +587,7 @@ Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float 
                   float zmax,float *out)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -602,14 +599,14 @@ Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float 
   int iVar9;
   float fVar10;
   float fVar11;
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(float *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(float (*)[2])(_frame + (0x70 - 0x44)))
-  #define local_3c (*(float *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(float (*)[2])(_frame + (0x70 - 0x38)))
-  #define local_30 (*(float (*)[12])(_frame + (0x70 - 0x30)))
+  uint local_58;
+  uint local_50;
+  uint local_4c;
+  #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
+  #define local_44 (*(float (*)[2])(_frame + (0x60 - 0x44)))
+  #define local_3c (*(float *)(_frame + (0x60 - 0x3c)))
+  #define local_38 (*(float (*)[2])(_frame + (0x60 - 0x38)))
+  #define local_30 (*(float (*)[12])(_frame + (0x60 - 0x30)))
   
   pfVar8 = out;
   iVar9 = 0;
@@ -797,9 +794,6 @@ Collision_BoxSlide(float *from,float *to,float xmin,float ymin,float zmin,float 
 #undef local_3c
 #undef local_44
 #undef local_48
-#undef local_4c
-#undef local_50
-#undef local_58
 
 #endif
 

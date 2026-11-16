@@ -26,7 +26,7 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *pos)
   float *pfVar5;
   float fVar6;
   #define local_48 (*(float (*)[3])(_frame + (0x60 - 0x48)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
+  uint local_38;
   #define local_30 (*(float (*)[12])(_frame + (0x60 - 0x30)))
   
   pAVar4 = actor;
@@ -80,7 +80,6 @@ undefined4 __cdecl sputActor_AlignToPuck(Actor *actor,float *pos)
   return 0;
 }
 #undef local_30
-#undef local_38
 #undef local_48
 
 #endif
@@ -104,15 +103,15 @@ void __cdecl sputActor_ActorWalkTo(Actor *actor,int flags,undefined4 *local_c,Ac
   uint *puVar6;
   undefined4 *puVar7;
   uint uVar8;
-  #define local_2d8 (*(uint *)(_frame + (0x2f0 - 0x2d8)))
+  uint local_2d8;
   #define local_2d4 (*(uint *)(_frame + (0x2f0 - 0x2d4)))
   #define local_2d0 (*(uint *)(_frame + (0x2f0 - 0x2d0)))
-  #define local_2cc (*(uint *)(_frame + (0x2f0 - 0x2cc)))
-  #define local_2c8 (*(uint *)(_frame + (0x2f0 - 0x2c8)))
+  uint local_2cc;
+  uint local_2c8;
   #define auStack_1b0 (*(undefined4 (*)[18])(_frame + (0x2f0 - 0x1b0)))
   #define local_168 (*(uint *)(_frame + (0x2f0 - 0x168)))
-  #define local_164 (*(uint *)(_frame + (0x2f0 - 0x164)))
-  #define local_160 (*(uint *)(_frame + (0x2f0 - 0x160)))
+  uint local_164;
+  uint local_160;
   
   actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
   from = actor->pExtra->pPuck;
@@ -168,14 +167,9 @@ void __cdecl sputActor_ActorWalkTo(Actor *actor,int flags,undefined4 *local_c,Ac
   return;
 }
 #undef auStack_1b0
-#undef local_160
-#undef local_164
 #undef local_168
-#undef local_2c8
-#undef local_2cc
 #undef local_2d0
 #undef local_2d4
-#undef local_2d8
 
 
 /* ---- 0x004917e0  Walker_AvoidActorPath ---- */
@@ -917,27 +911,27 @@ void __thiscall Puck_Constrain(Puck *this,int a1)
 undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int turnRightOk)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   WalkPlane *this_00;
   WalkVertex *pWVar1;
   int iVar2;
   WalkPlane *pWVar3;
   undefined *puVar4;
   float fVar5;
-  #define local_48 (*(float *)(_frame + (0x60 - 0x48)))
-  #define local_34 (*(float *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(float *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(float *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(float *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(float *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(float *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
+  float local_48;
+  float local_34;
+  #define local_30 (*(float *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(float *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(float *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(float *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(float *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   puVar4 = (undefined *)0x0;
   if (g_dwPuck_Forward_recursion_level == 0) {
@@ -1052,9 +1046,7 @@ undefined * __thiscall Puck_Forward(Puck *this,float step,int turnLeftOk,int tur
 #undef local_28
 #undef local_2c
 #undef local_30
-#undef local_34
 #undef local_4
-#undef local_48
 #undef local_8
 #undef local_c
 
@@ -1246,8 +1238,8 @@ undefined4 __cdecl Planner_FindPath(float *from,float *to,WalkPlane *plane)
   int iVar2;
   WalkPlane *planeB;
   float *point;
-  #define local_1fc (*(uint *)(_frame + (0x210 - 0x1fc)))
-  #define local_1f8 (*(uint *)(_frame + (0x210 - 0x1f8)))
+  uint local_1fc;
+  uint local_1f8;
   #define local_1f4 (*(float *)(_frame + (0x210 - 0x1f4)))
   #define local_1f0 (*(float *)(_frame + (0x210 - 0x1f0)))
   #define local_1ec (*(float *)(_frame + (0x210 - 0x1ec)))
@@ -1323,8 +1315,6 @@ undefined4 __cdecl Planner_FindPath(float *from,float *to,WalkPlane *plane)
 #undef local_1ec
 #undef local_1f0
 #undef local_1f4
-#undef local_1f8
-#undef local_1fc
 
 
 /* ---- 0x004a96f0  FindExitPoints ---- */
@@ -1335,7 +1325,7 @@ undefined4 __cdecl Planner_FindPath(float *from,float *to,WalkPlane *plane)
 uint __cdecl FindExitPoints(WalkPlane *plane,float *pos,uint *outCount)
 
 {
-  unsigned char _frame[0x200] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x1f0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
@@ -1349,18 +1339,18 @@ uint __cdecl FindExitPoints(WalkPlane *plane,float *pos,uint *outCount)
   uint uVar11;
   float *pfVar12;
   bool bVar13;
-  #define local_1f0 (*(uint *)(_frame + (0x200 - 0x1f0)))
-  #define local_1ec (*(uint *)(_frame + (0x200 - 0x1ec)))
-  #define local_1e8 (*(uint *)(_frame + (0x200 - 0x1e8)))
-  #define local_1e4 (*(uint *)(_frame + (0x200 - 0x1e4)))
-  #define local_1e0 (*(uint *)(_frame + (0x200 - 0x1e0)))
-  #define local_1dc (*(uint *)(_frame + (0x200 - 0x1dc)))
-  #define local_1d8 (*(uint *)(_frame + (0x200 - 0x1d8)))
-  #define local_1d4 (*(uint *)(_frame + (0x200 - 0x1d4)))
-  #define local_1d0 (*(uint *)(_frame + (0x200 - 0x1d0)))
-  #define local_1cc (*(uint *)(_frame + (0x200 - 0x1cc)))
-  #define local_1c8 (*(uint *)(_frame + (0x200 - 0x1c8)))
-  #define local_1c4 (*(uint *)(_frame + (0x200 - 0x1c4)))
+  uint local_1f0;
+  uint local_1ec;
+  uint local_1e8;
+  uint local_1e4;
+  #define local_1e0 (*(uint *)(_frame + (0x1f0 - 0x1e0)))
+  #define local_1dc (*(uint *)(_frame + (0x1f0 - 0x1dc)))
+  #define local_1d8 (*(uint *)(_frame + (0x1f0 - 0x1d8)))
+  #define local_1d4 (*(uint *)(_frame + (0x1f0 - 0x1d4)))
+  #define local_1d0 (*(uint *)(_frame + (0x1f0 - 0x1d0)))
+  uint local_1cc;
+  uint local_1c8;
+  uint local_1c4;
   
   uVar11 = 0;
   local_1e8 = 0;
@@ -1449,18 +1439,11 @@ uint __cdecl FindExitPoints(WalkPlane *plane,float *pos,uint *outCount)
   }
   return uVar11;
 }
-#undef local_1c4
-#undef local_1c8
-#undef local_1cc
 #undef local_1d0
 #undef local_1d4
 #undef local_1d8
 #undef local_1dc
 #undef local_1e0
-#undef local_1e4
-#undef local_1e8
-#undef local_1ec
-#undef local_1f0
 
 
 /* ---- 0x004a9920  Planner_PortalPoint ---- */
@@ -1535,7 +1518,7 @@ undefined4 __cdecl Planner_PortalPoint(WalkPlane *planeA,WalkPlane *planeB,float
 uint __cdecl TightenPath(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *from;
   bool bVar1;
   bool bVar2;
@@ -1545,12 +1528,12 @@ uint __cdecl TightenPath(void)
   int iVar6;
   uint *puVar7;
   uint uVar8;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   bVar2 = false;
   local_10 = 0;
@@ -1619,9 +1602,6 @@ uint __cdecl TightenPath(void)
   }
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
 #undef local_4
 #undef local_8
 #undef local_c

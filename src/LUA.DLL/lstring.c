@@ -352,7 +352,7 @@ void __cdecl luaS_writestrings(undefined *writer,int *LState_string_root)
   int iVar3;
   int *piVar4;
   int *piVar5;
-  #define local_c (*(int *)(_frame + (0x20 - 0xc)))
+  int local_c;
   #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
   #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
@@ -405,7 +405,6 @@ void __cdecl luaS_writestrings(undefined *writer,int *LState_string_root)
 }
 #undef iStack_4
 #undef iStack_8
-#undef local_c
 
 
 /* ---- 0x10009290  luaS_resolvestrings ---- */

@@ -17,7 +17,7 @@
 int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint *puVar1;
   char cVar2;
   int iVar3;
@@ -34,12 +34,12 @@ int __cdecl CosUtil_Write(char *fileName,Costume *pCostume,char *comment)
   CosComponent *pCVar14;
   Chore *pCVar15;
   ChoreKey *pCVar16;
-  #define uStack_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define uStack_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define uStack_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define iStack_1c (*(int *)(_frame + (0x40 - 0x1c)))
-  #define iStack_10 (*(int *)(_frame + (0x40 - 0x10)))
-  #define uStack_c (*(undefined1 *)(_frame + (0x40 - 0xc)))
+  uint uStack_28;
+  uint uStack_24;
+  uint uStack_20;
+  int iStack_1c;
+  #define iStack_10 (*(int *)(_frame + (0x20 - 0x10)))
+  #define uStack_c (*(undefined1 *)(_frame + (0x20 - 0xc)))
   
                     /* 0x1110  24  CosUtil_Write */
   iStack_1c = 1;
@@ -250,10 +250,6 @@ LAB_1000167e:
   return iStack_1c;
 }
 #undef iStack_10
-#undef iStack_1c
-#undef uStack_20
-#undef uStack_24
-#undef uStack_28
 #undef uStack_c
 
 

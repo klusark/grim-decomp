@@ -624,7 +624,7 @@ void __cdecl Render_DrawDebugGrid(void)
 {
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
-  #define local_1c (*(float *)(_frame + (0x30 - 0x1c)))
+  float local_1c;
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
@@ -683,7 +683,6 @@ void __cdecl Render_DrawDebugGrid(void)
   return;
 }
 #undef local_18
-#undef local_1c
 #undef local_c
 
 
@@ -1001,7 +1000,7 @@ void __cdecl sputRender_Decompress(VBuffer *vbuf)
 void __cdecl sputRender_Dim(ushort *dst,byte shift)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   VBuffer *surface;
@@ -1013,14 +1012,14 @@ void __cdecl sputRender_Dim(ushort *dst,byte shift)
   uint uVar8;
   uint uVar9;
   uint uVar10;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
   if ((g_dwGrimlib_mode != 4) || (dst != (ushort *)0x0)) {
     if (g_dwGrimlib_mode == 3) {
@@ -1091,10 +1090,6 @@ void __cdecl sputRender_Dim(ushort *dst,byte shift)
   return;
 }
 #undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
 #undef local_4
 #undef local_8
 #undef local_c
@@ -1343,7 +1338,7 @@ uint __cdecl sputRender_IrisComplete(void)
 void * __cdecl sputRender_ScreenShot(int w,int h)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void *pvVar1;
   uint uVar2;
   VBuffer *surface;
@@ -1359,12 +1354,12 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
   float10 extraout_ST1;
   longlong lVar8;
   longlong lVar9;
-  #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
+  uint local_5c;
+  uint local_58;
+  uint local_54;
+  uint local_50;
+  #define local_4c (*(uint *)(_frame + (0x60 - 0x4c)))
+  #define local_48 (*(uint *)(_frame + (0x60 - 0x48)))
   
   uVar2 = g_dwGrimlib_mode;
   g_dwGrimlib_mode = 2;
@@ -1416,10 +1411,6 @@ void * __cdecl sputRender_ScreenShot(int w,int h)
 }
 #undef local_48
 #undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_5c
 
 #endif
 

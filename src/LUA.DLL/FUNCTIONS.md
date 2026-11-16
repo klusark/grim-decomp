@@ -120,7 +120,7 @@
 | 10002e40 | pushstring | lbuiltin.c | 17 |
 | 10002e70 | foreachvar | lbuiltin.c | 44 |
 | 10002f80 | next | lbuiltin.c | 22 |
-| 10002fd0 | foreach | lbuiltin.c | 46 |
+| 10002fd0 | foreach | lbuiltin.c | 45 |
 | 100030d0 | internaldostring | lbuiltin.c | 23 |
 | 10003120 | internaldofile | lbuiltin.c | 19 |
 | 10003150 | bi_tostring | lbuiltin.c | 14 |
@@ -264,7 +264,7 @@
 | 100078b0 | LState_ResolveObject | lstate.c | 26 |
 | 10007910 | LState_LoadResolvedObject | lstate.c | 12 |
 | 10007930 | LState_GlobalEndRestore | lstate.c | 29 |
-| 100079d0 | LState_GlobalBeginRestore | lstate.c | 311 |
+| 100079d0 | LState_GlobalBeginRestore | lstate.c | 310 |
 | 100081c0 | LState_SaveGlobals | lstate.c | 174 |
 | 100085e0 | LState_CodeLength | lstate.c | 24 |
 | 10008640 | LState_Save | lstate.c | 76 |
@@ -283,7 +283,7 @@
 | 100090e0 | luaS_new | lstring.c | 9 |
 | 10009110 | luaS_newfixedstring | lstring.c | 13 |
 | 10009130 | luaS_free | lstring.c | 35 |
-| 10009180 | luaS_writestrings | lstring.c | 68 |
+| 10009180 | luaS_writestrings | lstring.c | 67 |
 | 10009290 | luaS_resolvestrings | lstring.c | 28 |
 | 100092e0 | luaS_count | lstring.c | 50 |
 | 10009370 | luaS_collector | lstring.c | 38 |
@@ -312,7 +312,7 @@
 | 1000a060 | matchitem | str.c | 44 |
 | 1000a150 | check_cap | str.c | 15 |
 | 1000a180 | matchbalance | str.c | 32 |
-| 1000a1d0 | str_gsub | str.c | 65 |
+| 1000a1d0 | str_gsub | str.c | 64 |
 | 1000a2e0 | add_s | str.c | 76 |
 | 1000a440 | str_format | str.c | 123 |
 | 1000a680 | luaI_addquoted | str.c | 26 |
@@ -330,7 +330,7 @@
 | 1000ab20 | code_neutralop | lparser.c | 10 |
 | 1000ab30 | code_opcode | lparser.c | 11 |
 | 1000ab50 | luaI_registerlocalvar | lparser.c | 23 |
-| 1000abd0 | luaY_parse | lparser.c | 515 |
+| 1000abd0 | luaY_parse | lparser.c | 510 |
 | 1000b770 | fix_opcode | lparser.c | 29 |
 | 1000b800 | code_pop | lparser.c | 10 |
 | 1000b810 | string_constant | lparser.c | 22 |

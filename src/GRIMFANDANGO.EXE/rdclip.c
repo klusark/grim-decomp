@@ -3771,10 +3771,10 @@ uint __cdecl rdClip_Face3GT(int *frustum,float *verts,float *tverts,uint *ivert,
   uint uVar17;
   int iVar18;
   float *pfVar19;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  uint local_18;
   #define local_14 (*(float (*)[2])(_frame + (0x30 - 0x14)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
+  uint local_8;
   #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
   
   g_dwSourceIVert = (uint)ivert;
@@ -4304,9 +4304,7 @@ uint __cdecl rdClip_Face3GT(int *frustum,float *verts,float *tverts,uint *ivert,
   return PUN(uint,(float)fVar11);
 }
 #undef local_14
-#undef local_18
 #undef local_4
-#undef local_8
 #undef local_c
 
 #endif

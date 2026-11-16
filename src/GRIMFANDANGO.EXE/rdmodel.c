@@ -456,7 +456,7 @@ void __cdecl rdModel3_DrawHNode(int pHierarchyNodes)
 void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh,float *matrix)
 
 {
-  unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   float fVar2;
   float fVar3;
@@ -468,19 +468,19 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh,float *matrix)
   rdMesh *prVar9;
   void *face;
   float fVar10;
-  #define local_ac (*(uint *)(_frame + (0xc0 - 0xac)))
-  #define local_a8 (*(uint *)(_frame + (0xc0 - 0xa8)))
-  #define local_a4 (*(uint *)(_frame + (0xc0 - 0xa4)))
-  #define local_a0 (*(float (*)[3])(_frame + (0xc0 - 0xa0)))
-  #define local_90 (*(float (*)[3])(_frame + (0xc0 - 0x90)))
-  #define local_84 (*(float (*)[9])(_frame + (0xc0 - 0x84)))
-  #define local_60 (*(uint *)(_frame + (0xc0 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0xc0 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0xc0 - 0x58)))
-  #define local_54 (*(float (*)[3])(_frame + (0xc0 - 0x54)))
-  #define local_48 (*(float (*)[5])(_frame + (0xc0 - 0x48)))
-  #define local_34 (*(uint *)(_frame + (0xc0 - 0x34)))
-  #define local_30 (*(float (*)[12])(_frame + (0xc0 - 0x30)))
+  uint local_ac;
+  uint local_a8;
+  uint local_a4;
+  #define local_a0 (*(float (*)[3])(_frame + (0xb0 - 0xa0)))
+  float local_90 [3];
+  #define local_84 (*(float (*)[9])(_frame + (0xb0 - 0x84)))
+  #define local_60 (*(uint *)(_frame + (0xb0 - 0x60)))
+  #define local_5c (*(uint *)(_frame + (0xb0 - 0x5c)))
+  #define local_58 (*(uint *)(_frame + (0xb0 - 0x58)))
+  #define local_54 (*(float (*)[3])(_frame + (0xb0 - 0x54)))
+  #define local_48 (*(float (*)[5])(_frame + (0xb0 - 0x48)))
+  #define local_34 (*(uint *)(_frame + (0xb0 - 0x34)))
+  #define local_30 (*(float (*)[12])(_frame + (0xb0 - 0x30)))
   
   g_pCurMesh = mesh;
   if (mesh->nGeometryMode != 0) {
@@ -677,11 +677,7 @@ LAB_0040d640:
 #undef local_5c
 #undef local_60
 #undef local_84
-#undef local_90
 #undef local_a0
-#undef local_a4
-#undef local_a8
-#undef local_ac
 
 #endif
 

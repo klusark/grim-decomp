@@ -234,7 +234,7 @@
 | 10008580 | sounds_restore | imuse_api.c | 120 |
 | 10008860 | sounds_pause | imuse_api.c | 13 |
 | 100088a0 | sounds_resume | imuse_api.c | 12 |
-| 10008ec0 | CacheGetSoundId | imuse_api.c | 228 |
+| 10008ec0 | CacheGetSoundId | imuse_api.c | 227 |
 | 100092f0 | CachePurgeOldestStoppedSound | imuse_api.c | 61 |
 | 1000b940 | ImFile_Read | imuse_api.c | 1 |
 | 1000b980 | ImFile_ReadImpl | imuse_api.c | 1 |
