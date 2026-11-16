@@ -544,18 +544,9 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
   #define local_78 (*(float (*)[2])(_frame + (0x90 - 0x78)))
   #define local_70 (*(float (*)[3])(_frame + (0x90 - 0x70)))
   #define local_64 (*(float (*)[3])(_frame + (0x90 - 0x64)))
-  #define local_58 (*(uint *)(_frame + (0x90 - 0x58)))
-  #define local_4c (*(uint *)(_frame + (0x90 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x90 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x90 - 0x44)))
-  #define local_30 (*(uint *)(_frame + (0x90 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x90 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x90 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x90 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x90 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x90 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x90 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x90 - 0x14)))
+  rdProcFace face;
+  uint local_30;
+  rdProcVerts verts;
   
   iVar1 = *(int *)(thing + 4);
   rdMatrix_TransformPoint34(local_64,matrix + 9,g_pRdCamera_CurCamera->aView);
@@ -584,17 +575,17 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
     *(float *)&DAT_007f5f28 = local_64[2] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_70[2];
     *(float *)&DAT_007f5f2c = local_64[0] + (local_70[0] - local_78[0]);
     *(float *)&DAT_007f5f34 = local_64[2] + *(float *)(iVar1 + 0x58) + *(float *)(iVar1 + 0x58) + local_70[2];
-    local_2c = *(uint *)(iVar1 + 0x70);
-    local_28 = *(uint *)(iVar1 + 0x74);
-    local_24 = *(uint *)(iVar1 + 0x78);
-    local_20 = (uint)&DAT_007f5f08;
-    local_1c = *(uint *)(iVar1 + 0xa8);
-    local_18 = 0;
-    local_14 = 0;
-    local_4c = (uint)&g_aRdSprite_FaceVerts;
-    local_30 = (uint)pPVar5->pVertices;
-    local_48 = (uint)pPVar5->pTexVertices;
-    local_44 = (uint)pPVar5->pIntensities;
+    verts.dwVertices = *(uint *)(iVar1 + 0x70);
+    verts.pPosIdx = *(int **)(iVar1 + 0x74);
+    verts.pUvIdx = *(int **)(iVar1 + 0x78);
+    verts.pVertices = (float *)&DAT_007f5f08;
+    verts.pUvs = *(float **)(iVar1 + 0xa8);
+    verts.pLights = (float *)0x0;
+    verts.pIntensities = (float *)0x0;
+    face.pVertices = (float *)&g_aRdSprite_FaceVerts;
+    pfVar7 = pPVar5->pVertices;
+    face.pTexVertices = pPVar5->pTexVertices;
+    face.pIntensities = pPVar5->pIntensities;
     uVar4 = *(uint *)(iVar1 + 100);
     uVar9 = g_nRdroid_curGeometryMode;
     if ((int)uVar4 <= g_nRdroid_curGeometryMode) {
@@ -638,9 +629,9 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
     }
     pPVar5->nTextureMode = texMode;
     rdPrimit3_ClipFace((uint)g_pRdCamera_CurCamera->pFrustum,geoMode,pPVar5->nLightingMode,texMode,
-                       &local_2c,&local_58,(float *)(iVar1 + 0x84));
-    if (2 < local_58) {
-      (*g_pRdCamera_CurCamera->pfnProjectLst)(local_30,local_4c,local_58);
+                       &verts.dwVertices,&face.dwVertices,(float *)(iVar1 + 0x84));
+    if (2 < face.dwVertices) {
+      (*g_pRdCamera_CurCamera->pfnProjectLst)(pfVar7,face.pVertices,face.dwVertices);
       if (((byte)g_dwRdroid_curRenderOptions & 2) == 0) {
         pPVar5->flAlpha = 0.0f;
       }
@@ -665,14 +656,14 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
             pfVar7 = pPVar5->pIntensities;
             fVar3 = *pfVar7;
             uVar4 = 1;
-            if (1 < local_58) {
+            if (1 < face.dwVertices) {
               do {
                 pfVar7 = pfVar7 + 1;
                 if (*pfVar7 != fVar3) break;
                 uVar4 = uVar4 + 1;
-              } while (uVar4 < local_58);
+              } while (uVar4 < face.dwVertices);
             }
-            if (uVar4 == local_58) {
+            if (uVar4 == face.dwVertices) {
               if (fVar3 == 1.0f) {
                 if (bVar10) {
                   pPVar5->nLightingMode = 0;
@@ -709,24 +700,12 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
       pPVar5->dwFlags = *(uint *)(iVar1 + 0x60);
       pPVar5->flLight = *(float *)(iVar1 + 0x8c);
       pPVar5->pMaterial = *(rdMaterial **)(iVar1 + 0x7c);
-      rdCache_AddProcFace((void *)0x0,local_58,flags);
+      rdCache_AddProcFace((void *)0x0,face.dwVertices,flags);
       return 1;
     }
   }
   return 0;
 }
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_58
 #undef local_64
 #undef local_70
 #undef local_78

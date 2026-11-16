@@ -280,7 +280,7 @@ void * __cdecl stdBitmap_LoadFromFile(char *filename,int a,int b,int c)
 uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
 
 {
-  unsigned char _frame[0xf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
   VBuffer *surface;
@@ -297,40 +297,32 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
   uint uStack_e0;
   uint uStack_dc;
   byte *pbStack_d8;
-  #define iStack_d4 (*(int *)(_frame + (0xf0 - 0xd4)))
-  #define uStack_d0 (*(uint *)(_frame + (0xf0 - 0xd0)))
-  #define local_cc (*(char (*)[4])(_frame + (0xf0 - 0xcc)))
-  #define iStack_c8 (*(int *)(_frame + (0xf0 - 0xc8)))
-  #define uStack_c4 (*(uint *)(_frame + (0xf0 - 0xc4)))
-  #define uStack_c0 (*(uint *)(_frame + (0xf0 - 0xc0)))
-  #define uStack_bc (*(uint *)(_frame + (0xf0 - 0xbc)))
-  #define uStack_b8 (*(undefined4 *)(_frame + (0xf0 - 0xb8)))
-  #define uStack_b4 (*(undefined4 *)(_frame + (0xf0 - 0xb4)))
-  #define uStack_b0 (*(undefined4 *)(_frame + (0xf0 - 0xb0)))
-  #define auStack_ac (*(undefined4 (*)[24])(_frame + (0xf0 - 0xac)))
-  #define VStack_4c (*(VBufferFormat *)(_frame + (0xf0 - 0x4c)))
+  BmFrameHeader frame;
+  BmHeader header;
+  #define VStack_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
   
-  (*g_pStd_HS->pFread)(f,local_cc,0x80);
-  uVar2 = strncmp(local_cc,&DAT_004df5a0,4);
+  (*g_pStd_HS->pFread)(f,&header,0x80);
+  uVar2 = strncmp(header.aMagic,&DAT_004df5a0,4);
   if (uVar2 != 0) {
     return 0;
   }
-  if (iStack_c8 == 0x46) {
-    stdBitmap_NewEntry((undefined4 *)a,uStack_bc,0,uStack_c4,uStack_c0,auStack_ac);
-    *(undefined4 *)(a + 0x6c) = uStack_b8;
-    *(undefined4 *)(a + 0x74) = uStack_b0;
+  if (header.nVersion == 0x46) {
+    stdBitmap_NewEntry((undefined4 *)a,header.nFrames,0,header.nType,header.dwPalFlags,
+                       &header.colorFormat.nColorMode);
+    *(int *)(a + 0x6c) = header.nX;
+    *(uint *)(a + 0x74) = header.dwColorKey;
     pVVar9 = &VStack_4c;
     for (iVar5 = 0x13; iVar5 != 0; iVar5 = iVar5 + -1) {
       pVVar9->nWidth = 0;
       pVVar9 = (VBufferFormat *)&pVVar9->nHeight;
     }
     uStack_e0 = 0;
-    *(undefined4 *)(a + 0x70) = uStack_b4;
+    *(int *)(a + 0x70) = header.nY;
     if (*(int *)(a + 100) != 0) {
       do {
-        (*g_pStd_HS->pFread)(f,&iStack_d4,8);
-        VStack_4c.nHeight = uStack_d0;
-        VStack_4c.nWidth = iStack_d4;
+        (*g_pStd_HS->pFread)(f,&frame,8);
+        VStack_4c.nHeight = frame.nHeight;
+        VStack_4c.nWidth = frame.nWidth;
         piVar8 = (int *)(a + 0x28);
         pCVar10 = &VStack_4c.colorFormat;
         for (iVar5 = 0xe; iVar5 != 0; iVar5 = iVar5 + -1) {
@@ -350,12 +342,12 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
           pvVar11 = surface->pPixels;
           uVar7 = 0;
           iVar5 = (surface->format).nWidth;
-          if (uStack_d0 != 0) {
+          if (frame.nHeight != 0) {
             do {
               (*g_pStd_HS->pFread)(f,pvVar11,(uVar2 >> 3) * iVar5);
               pvVar11 = (void *)((int)pvVar11 + (surface->format).nPitch);
               uVar7 = uVar7 + 1;
-            } while (uVar7 < uStack_d0);
+            } while (uVar7 < (uint)frame.nHeight);
           }
         }
         else if (iVar5 == 1) {
@@ -422,17 +414,6 @@ uint __cdecl stdBitmap_LoadEntryFromFile(uint f,int a,int videoMem,int b)
   return 0;
 }
 #undef VStack_4c
-#undef auStack_ac
-#undef iStack_c8
-#undef iStack_d4
-#undef local_cc
-#undef uStack_b0
-#undef uStack_b4
-#undef uStack_b8
-#undef uStack_bc
-#undef uStack_c0
-#undef uStack_c4
-#undef uStack_d0
 
 
 /* ---- 0x0047ae70  stdBitmap_Free ---- */
@@ -482,168 +463,144 @@ void __cdecl stdBitmap_FreeEntry(int bitmap)
 uint __cdecl stdBitmap_AppendToFile(uint f,int bitmap)
 
 {
-  unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *pbVar1;
   byte bVar2;
   int *piVar3;
   int iVar4;
   int iVar5;
-  uint uVar6;
-  int iVar7;
-  byte bVar8;
-  undefined3 uVar9;
+  int iVar6;
+  uint uVar7;
+  int iVar8;
+  byte bVar9;
+  undefined3 uVar10;
   undefined3 extraout_var;
-  undefined4 *puVar10;
-  uint *puVar11;
-  undefined4 *puVar12;
+  BmHeader *pBVar11;
+  ColorFormat *pCVar12;
   int iVar13;
   uint uVar14;
   uint uStack_a4;
   uint uStack_a0;
   undefined4 uStack_9c;
   uint uStack_98;
-  #define iStack_94 (*(int *)(_frame + (0xb0 - 0x94)))
-  #define uStack_90 (*(uint *)(_frame + (0xb0 - 0x90)))
-  #define uStack_8c (*(uint *)(_frame + (0xb0 - 0x8c)))
-  #define iStack_88 (*(int *)(_frame + (0xb0 - 0x88)))
-  #define uStack_84 (*(uint *)(_frame + (0xb0 - 0x84)))
-  #define local_80 (*(uint *)(_frame + (0xb0 - 0x80)))
-  #define local_7c (*(uint *)(_frame + (0xb0 - 0x7c)))
-  #define local_78 (*(uint *)(_frame + (0xb0 - 0x78)))
-  #define local_74 (*(uint *)(_frame + (0xb0 - 0x74)))
-  #define local_70 (*(uint *)(_frame + (0xb0 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0xb0 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0xb0 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0xb0 - 0x64)))
-  #define local_60 (*(undefined4 (*)[24])(_frame + (0xb0 - 0x60)))
+  BmFrameHeader frame;
+  uint uStack_8c;
+  BmHeader header;
   
-  puVar11 = &local_80;
-  for (iVar7 = 0x20; iVar7 != 0; iVar7 = iVar7 + -1) {
-    *puVar11 = 0;
-    puVar11 = puVar11 + 1;
+  pBVar11 = &header;
+  for (iVar8 = 0x20; iVar8 != 0; iVar8 = iVar8 + -1) {
+    pBVar11->aMagic[0] = '\0';
+    pBVar11->aMagic[1] = '\0';
+    pBVar11->aMagic[2] = '\0';
+    pBVar11->aMagic[3] = '\0';
+    pBVar11 = (BmHeader *)&pBVar11->nVersion;
   }
-  strncpy(&local_80,(uint *)&DAT_004df5a0,4);
-  local_7c = 0x46;
-  local_78 = *(uint *)(bitmap + 0x20);
-  local_74 = *(uint *)(bitmap + 0x24);
-  local_70 = *(uint *)(bitmap + 100);
-  local_6c = *(uint *)(bitmap + 0x6c);
-  local_68 = *(uint *)(bitmap + 0x70);
-  local_64 = *(uint *)(bitmap + 0x74);
-  puVar10 = (undefined4 *)(bitmap + 0x28);
-  puVar12 = local_60;
-  for (iVar7 = 0xe; iVar7 != 0; iVar7 = iVar7 + -1) {
-    *puVar12 = *puVar10;
-    puVar10 = puVar10 + 1;
-    puVar12 = puVar12 + 1;
+  strncpy((uint *)&header,(uint *)&DAT_004df5a0,4);
+  header.nVersion = 0x46;
+  header.nType = *(int *)(bitmap + 0x20);
+  header.dwPalFlags = *(uint *)(bitmap + 0x24);
+  header.nFrames = *(int *)(bitmap + 100);
+  header.nX = *(int *)(bitmap + 0x6c);
+  header.nY = *(int *)(bitmap + 0x70);
+  header.dwColorKey = *(uint *)(bitmap + 0x74);
+  piVar3 = (int *)(bitmap + 0x28);
+  pCVar12 = &header.colorFormat;
+  for (iVar8 = 0xe; iVar8 != 0; iVar8 = iVar8 + -1) {
+    pCVar12->nColorMode = *piVar3;
+    piVar3 = piVar3 + 1;
+    pCVar12 = (ColorFormat *)&pCVar12->nBpp;
   }
-  iVar7 = (*g_pStd_HS->pFwrite)(f,&local_80,0x80);
-  if (iVar7 != 0x80) {
+  iVar8 = (*g_pStd_HS->pFwrite)(f,&header,0x80);
+  if (iVar8 != 0x80) {
     return 0;
   }
-  iVar7 = 0;
+  iVar8 = 0;
   uStack_98 = 0;
   if (*(int *)(bitmap + 100) != 0) {
     do {
-      piVar3 = (int *)(*(int *)(bitmap + 0x78) + iVar7);
-      iStack_94 = *(int *)(*piVar3 + 0xc);
-      uStack_90 = *(uint *)(*piVar3 + 0x10);
-      iVar4 = (*g_pStd_HS->pFwrite)(f,&iStack_94,8);
+      piVar3 = (int *)(*(int *)(bitmap + 0x78) + iVar8);
+      frame.nWidth = *(int *)(*piVar3 + 0xc);
+      frame.nHeight = *(int *)(*piVar3 + 0x10);
+      iVar4 = (*g_pStd_HS->pFwrite)(f,&frame,8);
       if (iVar4 != 8) {
         return 0;
       }
-      if (local_78 == 0) {
-        stdDisplay_VBufferLock(*(VBuffer **)(iVar7 + *(int *)(bitmap + 0x78)));
+      if (header.nType == 0) {
+        stdDisplay_VBufferLock(*(VBuffer **)(iVar8 + *(int *)(bitmap + 0x78)));
         uStack_a4 = 0;
-        iVar4 = *(int *)(iVar7 + *(int *)(bitmap + 0x78));
+        iVar4 = *(int *)(iVar8 + *(int *)(bitmap + 0x78));
         iVar13 = *(int *)(iVar4 + 0x5c);
-        iVar4 = (*(uint *)(iVar4 + 0x24) >> 3) * iStack_94;
-        if (uStack_90 != 0) {
+        iVar4 = (*(uint *)(iVar4 + 0x24) >> 3) * frame.nWidth;
+        if (frame.nHeight != 0) {
           do {
             iVar5 = (*g_pStd_HS->pFwrite)(f,iVar13,iVar4);
             if (iVar5 != iVar4) {
               return 0;
             }
-            iVar13 = iVar13 + *(int *)(*(int *)(iVar7 + *(int *)(bitmap + 0x78)) + 0x18);
+            iVar13 = iVar13 + *(int *)(*(int *)(iVar8 + *(int *)(bitmap + 0x78)) + 0x18);
             uStack_a4 = uStack_a4 + 1;
-          } while (uStack_a4 < uStack_90);
+          } while (uStack_a4 < (uint)frame.nHeight);
         }
-        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar7 + *(int *)(bitmap + 0x78)));
+        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar8 + *(int *)(bitmap + 0x78)));
       }
-      else if (local_78 == 1) {
-        iVar4 = *(int *)(bitmap + 0x78);
+      else if (header.nType == 1) {
+        iVar13 = *(int *)(bitmap + 0x78);
         uStack_8c = 0;
-        iStack_88 = *(int *)(*(int *)(iVar7 + iVar4) + 0x5c);
-        if (*(int *)(*(int *)(iVar7 + iVar4) + 0x10) != 0) {
+        iVar4 = *(int *)(*(int *)(iVar8 + iVar13) + 0x5c);
+        if (*(int *)(*(int *)(iVar8 + iVar13) + 0x10) != 0) {
           do {
-            iVar13 = *(int *)(*(int *)(iVar7 + iVar4) + 0xc);
-            iVar5 = uStack_8c * iVar13 + iStack_88;
+            iVar5 = *(int *)(*(int *)(iVar8 + iVar13) + 0xc);
+            iVar6 = uStack_8c * iVar5 + iVar4;
             uVar14 = 0;
-            if (iVar13 != 0) {
+            if (iVar5 != 0) {
               do {
-                pbVar1 = (byte *)(iVar5 + uVar14);
-                uVar9 = (undefined3)((uint)iVar13 >> 8);
-                bVar8 = 1;
+                pbVar1 = (byte *)(iVar6 + uVar14);
+                uVar10 = (undefined3)((uint)iVar5 >> 8);
+                bVar9 = 1;
                 bVar2 = *pbVar1;
                 uStack_a0 = 1;
-                if (bVar2 == *(byte *)(uVar14 + 1 + iVar5)) {
-                  uVar6 = 1;
-                  uStack_84 = *(uint *)(*(int *)(iVar7 + iVar4) + 0xc);
+                if (bVar2 == *(byte *)(uVar14 + 1 + iVar6)) {
+                  uVar7 = 1;
                   do {
-                    if ((uStack_84 <= uVar6 + uVar14) || (0x3e < bVar8)) break;
-                    bVar8 = bVar8 + 1;
-                    uStack_a0 = (uint)bVar8;
-                    uVar6 = (uint)bVar8;
-                  } while (bVar2 == pbVar1[uVar6]);
+                    if ((*(uint *)(*(int *)(iVar8 + iVar13) + 0xc) <= uVar7 + uVar14) ||
+                       (0x3e < bVar9)) break;
+                    bVar9 = bVar9 + 1;
+                    uStack_a0 = (uint)bVar9;
+                    uVar7 = (uint)bVar9;
+                  } while (bVar2 == pbVar1[uVar7]);
                 }
-                if ((1 < bVar8) || (0xbf < bVar2)) {
-                  stdFPutc(CONCAT31(uVar9,bVar8) | 0xc0,f);
-                  uVar9 = extraout_var;
+                if ((1 < bVar9) || (0xbf < bVar2)) {
+                  stdFPutc(CONCAT31(uVar10,bVar9) | 0xc0,f);
+                  uVar10 = extraout_var;
                 }
-                stdFPutc(CONCAT31(uVar9,*pbVar1),f);
+                stdFPutc(CONCAT31(uVar10,*pbVar1),f);
                 uVar14 = uVar14 + uStack_a0;
-                iVar4 = *(int *)(bitmap + 0x78);
-                iVar13 = *(int *)(iVar7 + iVar4);
-              } while (uVar14 < *(uint *)(iVar13 + 0xc));
+                iVar13 = *(int *)(bitmap + 0x78);
+                iVar5 = *(int *)(iVar8 + iVar13);
+              } while (uVar14 < *(uint *)(iVar5 + 0xc));
             }
-            iVar4 = *(int *)(bitmap + 0x78);
+            iVar13 = *(int *)(bitmap + 0x78);
             uStack_8c = uStack_8c + 1;
-          } while (uStack_8c < *(uint *)(*(int *)(iVar4 + iVar7) + 0x10));
+          } while (uStack_8c < *(uint *)(*(int *)(iVar13 + iVar8) + 0x10));
         }
       }
-      else if (local_78 == 3) {
-        stdDisplay_VBufferLock(*(VBuffer **)(iVar7 + *(int *)(bitmap + 0x78)));
-        uStack_9c = *(undefined4 *)(*(int *)(iVar7 + *(int *)(bitmap + 0x78)) + 0x14);
+      else if (header.nType == 3) {
+        stdDisplay_VBufferLock(*(VBuffer **)(iVar8 + *(int *)(bitmap + 0x78)));
+        uStack_9c = *(undefined4 *)(*(int *)(iVar8 + *(int *)(bitmap + 0x78)) + 0x14);
         (*g_pStd_HS->pFwrite)(f,&uStack_9c,4);
         (*g_pStd_HS->pFwrite)
-                  (f,*(undefined4 *)(*(int *)(iVar7 + *(int *)(bitmap + 0x78)) + 0x5c),uStack_9c);
-        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar7 + *(int *)(bitmap + 0x78)));
+                  (f,*(undefined4 *)(*(int *)(iVar8 + *(int *)(bitmap + 0x78)) + 0x5c),uStack_9c);
+        stdDisplay_VBufferUnlock(*(VBuffer **)(iVar8 + *(int *)(bitmap + 0x78)));
       }
       uStack_98 = uStack_98 + 1;
-      iVar7 = iVar7 + 4;
+      iVar8 = iVar8 + 4;
     } while (uStack_98 < *(uint *)(bitmap + 100));
   }
   if (((*(byte *)(bitmap + 0x24) & 2) != 0) &&
-     (iVar7 = (*g_pStd_HS->pFwrite)(f,*(undefined4 *)(bitmap + 0x60),0x300), iVar7 != 0x300)) {
+     (iVar8 = (*g_pStd_HS->pFwrite)(f,*(undefined4 *)(bitmap + 0x60),0x300), iVar8 != 0x300)) {
     return 0;
   }
   return 1;
 }
-#undef iStack_88
-#undef iStack_94
-#undef local_60
-#undef local_64
-#undef local_68
-#undef local_6c
-#undef local_70
-#undef local_74
-#undef local_78
-#undef local_7c
-#undef local_80
-#undef uStack_84
-#undef uStack_8c
-#undef uStack_90
-
 
 /* ---- 0x0047b250  stdBitmap_Write ---- */
 /* Original name stdBitmap_Write (the remaster's GrimFandango (Linux): same body (open the file for

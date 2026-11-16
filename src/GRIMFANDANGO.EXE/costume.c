@@ -114,8 +114,8 @@ void __cdecl sputCostume_FreeCostumeNodes(CostumeNode *list,int free)
     if (free != 0) {
       Cos_FreeCosInstance(list->dwInstance);
     }
-    if (list->aCostumeRef[0] != 0) {
-      Res_RemoveReference((ResRef *)list->aCostumeRef);
+    if ((list->costumeRef).nValid != 0) {
+      Res_RemoveReference(&list->costumeRef);
     }
     Pool_Free(list);
     list = pCVar1;
@@ -183,8 +183,8 @@ CostumeNode * __cdecl sputCostume_PushCostume(CostumeNode *list,void *costumeRes
     }
     uVar2 = Cos_CreateCosInstance(costumeRes,uVar2);
     pCVar1->dwInstance = uVar2;
-    Res_SetReference((ResRef *)pCVar1->aCostumeRef,costumeRes,
-                     s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,0x47a);
+    Res_SetReference(&pCVar1->costumeRef,costumeRes,s_C__grimsrc_libs_grimlib_Engine_s_004ea1b0,
+                     0x47a);
   }
   else {
     pCVar1->dwInstance = flags;
@@ -241,7 +241,7 @@ void __cdecl Costume_InitRecord(CostumeNode *node)
 {
   int iVar1;
   int *piVar2;
-  uint *puVar3;
+  ResRef *pRVar3;
   
   node->dwInstance = 0;
   node->aHeadJoints[0] = -1;
@@ -261,10 +261,10 @@ void __cdecl Costume_InitRecord(CostumeNode *node)
     *piVar2 = -1;
     piVar2 = piVar2 + 1;
   }
-  puVar3 = node->aCostumeRef;
+  pRVar3 = &node->costumeRef;
   for (iVar1 = 0xd; iVar1 != 0; iVar1 = iVar1 + -1) {
-    *puVar3 = 0;
-    puVar3 = puVar3 + 1;
+    pRVar3->nValid = 0;
+    pRVar3 = (ResRef *)&pRVar3->pData;
   }
   node->pComponents = (ModelComponent *)0x0;
   node->pNext = (CostumeNode *)0x0;

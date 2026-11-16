@@ -834,7 +834,6 @@ int __cdecl rdKeyframe_Load(char *name)
 uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   rdKeyframe *prVar2;
   uint *puVar3;
@@ -850,22 +849,22 @@ uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
   uint uStack_68;
   uint uStack_64;
   uint uStack_60;
-  #define pcStack_5c (*(char **)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define fStack_54 (*(float *)(_frame + (0x70 - 0x54)))
-  #define fStack_50 (*(float *)(_frame + (0x70 - 0x50)))
-  #define fStack_4c (*(float *)(_frame + (0x70 - 0x4c)))
-  #define fStack_48 (*(float *)(_frame + (0x70 - 0x48)))
-  #define fStack_44 (*(float *)(_frame + (0x70 - 0x44)))
-  #define fStack_40 (*(float *)(_frame + (0x70 - 0x40)))
-  #define fStack_3c (*(float *)(_frame + (0x70 - 0x3c)))
-  #define fStack_38 (*(float *)(_frame + (0x70 - 0x38)))
-  #define fStack_34 (*(float *)(_frame + (0x70 - 0x34)))
-  #define fStack_30 (*(float *)(_frame + (0x70 - 0x30)))
-  #define fStack_2c (*(float *)(_frame + (0x70 - 0x2c)))
-  #define fStack_28 (*(float *)(_frame + (0x70 - 0x28)))
-  #define auStack_24 (*(undefined1 (*)[4])(_frame + (0x70 - 0x24)))
-  #define auStack_20 (*(uint (*)[8])(_frame + (0x70 - 0x20)))
+  int nNodes;
+  float flFps;
+  float fStack_54;
+  float fStack_50;
+  float fStack_4c;
+  float fStack_48;
+  float fStack_44;
+  float fStack_40;
+  float fStack_3c;
+  float fStack_38;
+  float fStack_34;
+  float fStack_30;
+  float fStack_2c;
+  float fStack_28;
+  int nFrame;
+  char aMeshName [32];
   
   prVar2 = keyframe;
   rdKeyframe_NewEntry(keyframe);
@@ -896,9 +895,9 @@ uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
                 if (iVar4 == 1) {
                   uVar12 = stdConffile_ReadLine();
                   if (uVar12 != 0) {
-                    iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_fps__f_004f0fd0,&local_58);
+                    iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_fps__f_004f0fd0,&flFps);
                     if (iVar4 == 1) {
-                      prVar2->flFps = PUN(float,local_58);
+                      prVar2->flFps = flFps;
                       uVar12 = stdConffile_ReadLine();
                       if (uVar12 != 0) {
                         iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_joints__d_004f0fc4,&keyframe)
@@ -978,10 +977,10 @@ LAB_004c099f:
                                 uVar12 = stdConffile_ReadLine();
                                 if (uVar12 != 0) {
                                   iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_nodes__d_004f0f9c,
-                                                 &pcStack_5c);
+                                                 &nNodes);
                                   if (iVar4 == 1) {
                                     path = (char *)0x0;
-                                    if (pcStack_5c == (char *)0x0) {
+                                    if (nNodes == 0) {
                                       stdConffile_Close();
                                       return 1;
                                     }
@@ -994,10 +993,10 @@ LAB_004c099f:
                                       uVar12 = stdConffile_ReadLine();
                                       if (uVar12 == 0) break;
                                       iVar4 = sscanf((char *)g_dwStdConffile_aLine,
-                                                     s_mesh_name__s_004f0f80,auStack_20);
+                                                     s_mesh_name__s_004f0f80,aMeshName);
                                       if (iVar4 != 1) break;
                                       prVar5 = prVar2->pNodes + uStack_64;
-                                      strncpy((uint *)prVar5,auStack_20,0x1f);
+                                      strncpy((uint *)prVar5,(uint *)aMeshName,0x1f);
                                       prVar5->aMeshName[0x1f] = '\0';
                                       uVar12 = stdConffile_ReadLine();
                                       if (uVar12 == 0) break;
@@ -1021,9 +1020,9 @@ LAB_004c099f:
                                           if (uVar7 == 0) goto LAB_004c0cbf;
                                           iVar4 = sscanf((char *)g_dwStdConffile_aLine,
                                                          s__d___f__x__f__f__f__f__f__f_004f0f54,
-                                                         auStack_24,prVar8,&prVar8->dwFlags,
-                                                         &fStack_54,&fStack_50,&fStack_4c,&fStack_48
-                                                         ,&fStack_44,&fStack_40);
+                                                         &nFrame,prVar8,&prVar8->dwFlags,&fStack_54,
+                                                         &fStack_50,&fStack_4c,&fStack_48,&fStack_44
+                                                         ,&fStack_40);
                                           if (iVar4 != 9) goto LAB_004c0cbf;
                                           prVar8->aPos[0] = fStack_54;
                                           prVar8->aPos[1] = fStack_50;
@@ -1049,7 +1048,7 @@ LAB_004c099f:
                                         } while (uVar12 < (uint)prVar5->nNumEntries);
                                       }
                                       path = path + 1;
-                                      if (pcStack_5c <= path) {
+                                      if ((uint)nNodes <= path) {
                                         stdConffile_Close();
                                         return 1;
                                       }
@@ -1075,23 +1074,6 @@ LAB_004c0cbf:
   stdConffile_Close();
   return 0;
 }
-#undef auStack_20
-#undef auStack_24
-#undef fStack_28
-#undef fStack_2c
-#undef fStack_30
-#undef fStack_34
-#undef fStack_38
-#undef fStack_3c
-#undef fStack_40
-#undef fStack_44
-#undef fStack_48
-#undef fStack_4c
-#undef fStack_50
-#undef fStack_54
-#undef local_58
-#undef pcStack_5c
-
 
 /* ---- 0x004c0ce0  rdKeyframe_LoadEntryBinary ---- */
 /* Reader of the binary 'KEYF' animation format. Source file Rdkeyframe.c

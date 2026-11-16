@@ -319,7 +319,7 @@ uint __cdecl sputActor_Save(code *write)
 uint __cdecl sputActor_Restore(code *read)
 
 {
-  unsigned char _frame[0x150] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *pAVar1;
   char cVar2;
   ModelComponent *pMVar3;
@@ -350,24 +350,10 @@ uint __cdecl sputActor_Restore(code *read)
   int iStack_140;
   int iStack_13c;
   uint uStack_138;
-  #define auStack_134 (*(undefined1 (*)[12])(_frame + (0x150 - 0x134)))
-  #define iStack_128 (*(int *)(_frame + (0x150 - 0x128)))
-  #define iStack_124 (*(int *)(_frame + (0x150 - 0x124)))
-  #define iStack_120 (*(int *)(_frame + (0x150 - 0x120)))
-  #define fStack_11c (*(float *)(_frame + (0x150 - 0x11c)))
-  #define fStack_118 (*(float *)(_frame + (0x150 - 0x118)))
-  #define fStack_114 (*(float *)(_frame + (0x150 - 0x114)))
-  #define fStack_110 (*(float *)(_frame + (0x150 - 0x110)))
-  #define iStack_10c (*(int *)(_frame + (0x150 - 0x10c)))
-  #define iStack_108 (*(int *)(_frame + (0x150 - 0x108)))
-  #define iStack_104 (*(int *)(_frame + (0x150 - 0x104)))
-  #define iStack_100 (*(int *)(_frame + (0x150 - 0x100)))
-  #define aiStack_fc (*(int (*)[16])(_frame + (0x150 - 0xfc)))
-  #define iStack_bc (*(int *)(_frame + (0x150 - 0xbc)))
-  #define RStack_b8 (*(ResRef *)(_frame + (0x150 - 0xb8)))
-  #define acStack_80 (*(char (*)[32])(_frame + (0x150 - 0x80)))
-  #define acStack_60 (*(char (*)[32])(_frame + (0x150 - 0x60)))
-  #define acStack_40 (*(char (*)[64])(_frame + (0x150 - 0x40)))
+  CostumeNode costume;
+  #define acStack_80 (*(char (*)[32])(_frame + (0x90 - 0x80)))
+  #define acStack_60 (*(char (*)[32])(_frame + (0x90 - 0x60)))
+  #define acStack_40 (*(char (*)[64])(_frame + (0x90 - 0x40)))
   
   g_pTalkingActors[0] = (Actor *)0x0;
   g_pTalkingActors[1] = (Actor *)0x0;
@@ -485,25 +471,25 @@ uint __cdecl sputActor_Restore(code *read)
       iStack_164 = 0;
       if (0 < iStack_148) {
         do {
-          (*read)(auStack_134,4);
-          (*read)(&iStack_128,0xc);
-          (*read)(&fStack_11c,4);
-          (*read)(&fStack_118,4);
-          (*read)(&fStack_114,4);
-          (*read)(&fStack_110,4);
-          (*read)(&iStack_10c,4);
-          (*read)(&iStack_108,4);
-          (*read)(&iStack_104,4);
-          (*read)(&iStack_100,4);
-          (*read)(aiStack_fc,0x40);
-          (*read)(&iStack_bc,4);
-          (*read)(&RStack_b8.pData,4);
-          Res_ResolveToSerialNumber(&RStack_b8);
-          if (RStack_b8.nValid == 0) {
+          (*read)(&costume,4);
+          (*read)(costume.aHeadJoints,0xc);
+          (*read)(&costume.flLookRate,4);
+          (*read)(&costume.flMaxPitch,4);
+          (*read)(&costume.flMaxYaw,4);
+          (*read)(&costume.flViewCos,4);
+          (*read)(&costume.nWalkChore,4);
+          (*read)(&costume.nTurnLeftChore,4);
+          (*read)(&costume.nTurnRightChore,4);
+          (*read)(&costume.nRestChore,4);
+          (*read)(costume.aTalkChores,0x40);
+          (*read)(&costume.nMumbleChore,4);
+          (*read)(&costume.costumeRef.pData,4);
+          Res_ResolveToSerialNumber(&costume.costumeRef);
+          if (costume.costumeRef.nValid == 0) {
             (*g_pStd_HS->pAssertFail)
                       (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
           }
-          pcVar6 = (char *)CosUtil_PtrFromHandle((int)RStack_b8.pData);
+          pcVar6 = (char *)CosUtil_PtrFromHandle((int)costume.costumeRef.pData);
           if (iStack_164 == 0) {
             sputActor_SetCostume(pAVar15,pcVar6,0);
           }
@@ -511,26 +497,26 @@ uint __cdecl sputActor_Restore(code *read)
             sputActor_PushCostume(pAVar15,pcVar6,0);
           }
           Cos_RestoreInstance(pAVar15->pCostumes->dwInstance,read);
-          pAVar15->pCostumes->aHeadJoints[0] = iStack_128;
-          pAVar15->pCostumes->aHeadJoints[1] = iStack_124;
-          pAVar15->pCostumes->aHeadJoints[2] = iStack_120;
-          pAVar15->pCostumes->flLookRate = fStack_11c;
-          pAVar15->pCostumes->flMaxPitch = fStack_118;
-          pAVar15->pCostumes->flMaxYaw = fStack_114;
-          pAVar15->pCostumes->flViewCos = fStack_110;
-          pAVar15->pCostumes->nWalkChore = iStack_10c;
-          pAVar15->pCostumes->nTurnLeftChore = iStack_108;
-          pAVar15->pCostumes->nTurnRightChore = iStack_104;
-          pAVar15->pCostumes->nRestChore = iStack_100;
-          piVar13 = aiStack_fc;
+          pAVar15->pCostumes->aHeadJoints[0] = costume.aHeadJoints[0];
+          pAVar15->pCostumes->aHeadJoints[1] = costume.aHeadJoints[1];
+          pAVar15->pCostumes->aHeadJoints[2] = costume.aHeadJoints[2];
+          pAVar15->pCostumes->flLookRate = costume.flLookRate;
+          pAVar15->pCostumes->flMaxPitch = costume.flMaxPitch;
+          pAVar15->pCostumes->flMaxYaw = costume.flMaxYaw;
+          pAVar15->pCostumes->flViewCos = costume.flViewCos;
+          pAVar15->pCostumes->nWalkChore = costume.nWalkChore;
+          pAVar15->pCostumes->nTurnLeftChore = costume.nTurnLeftChore;
+          pAVar15->pCostumes->nTurnRightChore = costume.nTurnRightChore;
+          pAVar15->pCostumes->nRestChore = costume.nRestChore;
+          piVar13 = costume.aTalkChores;
           piVar17 = pAVar15->pCostumes->aTalkChores;
           for (iVar14 = 0x10; iVar14 != 0; iVar14 = iVar14 + -1) {
             *piVar17 = *piVar13;
             piVar13 = piVar13 + 1;
             piVar17 = piVar17 + 1;
           }
-          pAVar15->pCostumes->nMumbleChore = iStack_bc;
-          Res_RemoveReference(&RStack_b8);
+          pAVar15->pCostumes->nMumbleChore = costume.nMumbleChore;
+          Res_RemoveReference(&costume.costumeRef);
           iStack_164 = iStack_164 + 1;
         } while (iStack_164 < iStack_148);
       }
@@ -700,24 +686,9 @@ uint __cdecl sputActor_Restore(code *read)
   }
   return 0;
 }
-#undef RStack_b8
 #undef acStack_40
 #undef acStack_60
 #undef acStack_80
-#undef aiStack_fc
-#undef auStack_134
-#undef fStack_110
-#undef fStack_114
-#undef fStack_118
-#undef fStack_11c
-#undef iStack_100
-#undef iStack_104
-#undef iStack_108
-#undef iStack_10c
-#undef iStack_120
-#undef iStack_124
-#undef iStack_128
-#undef iStack_bc
 
 
 /* ---- 0x00490a60  sputActor_SetWalkChore ---- */

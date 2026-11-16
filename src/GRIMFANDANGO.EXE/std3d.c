@@ -668,42 +668,36 @@ int __cdecl
 std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,int colorKey)
 
 {
-  unsigned char _frame[0x170] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   undefined2 *puVar2;
   VBuffer *pVVar3;
-  int iVar4;
-  byte *pbVar5;
-  VBuffer *pVVar6;
+  VBuffer *pVVar4;
+  int iVar5;
+  byte *pbVar6;
   VBuffer *pVVar7;
+  uint size;
   VBufferFormat *pVVar8;
-  float fVar9;
+  int iVar9;
   uint uVar10;
   uint uVar11;
-  uint *puVar12;
-  #define local_15c (*(uint *)(_frame + (0x170 - 0x15c)))
-  #define local_14c (*(uint *)(_frame + (0x170 - 0x14c)))
-  #define local_138 (*(uint *)(_frame + (0x170 - 0x138)))
-  #define local_f0 (*(uint *)(_frame + (0x170 - 0xf0)))
-  #define local_ec (*(uint *)(_frame + (0x170 - 0xec)))
-  #define local_a4 (*(uint *)(_frame + (0x170 - 0xa4)))
-  #define local_a0 (*(uint *)(_frame + (0x170 - 0xa0)))
-  #define local_9c (*(uint *)(_frame + (0x170 - 0x9c)))
-  #define local_98 (*(uint *)(_frame + (0x170 - 0x98)))
-  #define local_3c (*(uint *)(_frame + (0x170 - 0x3c)))
-  #define local_38 (*(float *)(_frame + (0x170 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x170 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x170 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x170 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x170 - 0x28)))
-  #define uStack_24 (*(uint *)(_frame + (0x170 - 0x24)))
-  #define local_20 (*(VBuffer **)(_frame + (0x170 - 0x20)))
-  #define fStack_1c (*(float *)(_frame + (0x170 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x170 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x170 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x170 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x170 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x170 - 0x8)))
+  VBufferFormat *pVVar12;
+  int x;
+  DDSurfaceDesc *pDVar13;
+  DDSurfaceDesc lockDesc;
+  VBufferFormat format;
+  DDSurfaceDesc ddsd;
+  float local_38;
+  uint local_34;
+  uint local_30;
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  uint aColorKey [2];
+  #define iStack_1c (*(int *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
   
   pVVar3 = (VBuffer *)(surface->format).nWidth;
   local_8 = 0;
@@ -717,73 +711,69 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
   else if ((VBuffer *)0x100 < pVVar3) {
     pVVar3 = (VBuffer *)0x100;
   }
-  pVVar6 = (VBuffer *)(surface->format).nHeight;
-  if (pVVar6 == (VBuffer *)0x0) {
-    pVVar6 = (VBuffer *)0x1;
+  pVVar7 = (VBuffer *)(surface->format).nHeight;
+  if (pVVar7 == (VBuffer *)0x0) {
+    pVVar7 = (VBuffer *)0x1;
   }
-  else if ((VBuffer *)0x100 < pVVar6) {
-    pVVar6 = (VBuffer *)0x100;
+  else if ((VBuffer *)0x100 < pVVar7) {
+    pVVar7 = (VBuffer *)0x100;
   }
   local_c = (uint)pVVar3;
-  if (((pVVar3 < UINT_004dee48) || (pVVar6 < UINT_004dee4c)) ||
-     ((pVVar7 = surface, g_pStd3D_CurDevice->nUnknown1c != 0 && (pVVar3 != pVVar6)))) {
+  if (((pVVar3 < UINT_004dee48) || (pVVar7 < UINT_004dee4c)) ||
+     ((pVVar4 = surface, g_pStd3D_CurDevice->nUnknown1c != 0 && (pVVar3 != pVVar7)))) {
     pVVar8 = &surface->format;
-    puVar12 = &local_f0;
-    for (iVar4 = 0x13; iVar4 != 0; iVar4 = iVar4 + -1) {
-      *puVar12 = pVVar8->nWidth;
+    pVVar12 = &format;
+    for (iVar5 = 0x13; iVar5 != 0; iVar5 = iVar5 + -1) {
+      pVVar12->nWidth = pVVar8->nWidth;
       pVVar8 = (VBufferFormat *)&pVVar8->nHeight;
-      puVar12 = puVar12 + 1;
+      pVVar12 = (VBufferFormat *)&pVVar12->nHeight;
     }
-    if ((g_pStd3D_CurDevice->nUnknown1c == 0) || (pVVar3 == pVVar6)) {
+    if ((g_pStd3D_CurDevice->nUnknown1c == 0) || (pVVar3 == pVVar7)) {
       if (pVVar3 < UINT_004dee48) {
         pVVar3 = (VBuffer *)UINT_004dee48;
       }
-      pVVar7 = pVVar6;
-      if (pVVar6 < UINT_004dee4c) {
-        pVVar7 = (VBuffer *)UINT_004dee4c;
+      pVVar4 = pVVar7;
+      if (pVVar7 < UINT_004dee4c) {
+        pVVar4 = (VBuffer *)UINT_004dee4c;
       }
     }
     else {
-      pVVar7 = pVVar3;
-      if (pVVar3 <= pVVar6) {
-        pVVar3 = pVVar6;
-        pVVar7 = pVVar6;
+      pVVar4 = pVVar3;
+      if (pVVar3 <= pVVar7) {
+        pVVar3 = pVVar7;
+        pVVar4 = pVVar7;
       }
     }
-    local_28 = local_c;
-    uStack_24 = 0;
-    local_38 = (float)(int)ROUND_DOWN(PUN(float,pVVar3) / (float)(int)local_c - -0.5f);
-    fStack_1c = PUN(float,pVVar7) / (float)(int)pVVar6 - -0.5f;
-    uVar10 = (uint)ROUND_DOWN(fStack_1c);
-    local_f0 = local_f0 * (int)local_38;
-    local_ec = local_ec * uVar10;
-    local_34 = uVar10;
-    local_20 = pVVar6;
-    local_30 = (uint)stdDisplay_VBufferNew((VBufferFormat *)&local_f0,0,0,0);
-    if (uVar10 != 0) {
+    aColorKey[0] = local_c;
+    aColorKey[1] = 0;
+    iVar5 = (int)ROUND_DOWN(PUN(float,pVVar3) / (float)(int)local_c - -0.5f);
+    iStack_1c = (int)ROUND_DOWN(PUN(float,pVVar4) / (float)(int)pVVar7 - -0.5f);
+    format.nWidth = format.nWidth * iVar5;
+    format.nHeight = format.nHeight * iStack_1c;
+    pVVar4 = stdDisplay_VBufferNew(&format,0,0,0);
+    if (iStack_1c != 0) {
       local_34 = 0;
-      fStack_1c = (float)uVar10;
       do {
-        if (local_38 != 0.0f) {
-          iVar4 = 0;
-          fVar9 = local_38;
+        if (iVar5 != 0) {
+          x = 0;
+          iVar9 = iVar5;
           do {
-            Surface_Blit((VBuffer *)local_30,surface,iVar4,local_34,(int *)0x0,0);
-            iVar4 = iVar4 + local_c;
-            fVar9 = (float)((int)fVar9 + -1);
-          } while (fVar9 != 0.0f);
+            Surface_Blit(pVVar4,surface,x,local_34,(int *)0x0,0);
+            x = x + local_c;
+            iVar9 = iVar9 + -1;
+          } while (iVar9 != 0);
         }
-        local_34 = (int)&pVVar6->nType + local_34;
-        fStack_1c = (float)((int)fStack_1c - 1);
-      } while (fStack_1c != 0.0f);
+        local_34 = (int)&pVVar7->nType + local_34;
+        iStack_1c = iStack_1c + -1;
+      } while (iStack_1c != 0);
     }
-    local_c = local_f0;
-    surface = (VBuffer *)local_ec;
-    pVVar7 = (VBuffer *)local_30;
-    pVVar6 = surface;
+    local_c = format.nWidth;
+    surface = (VBuffer *)format.nHeight;
+    pVVar7 = surface;
+    local_30 = (uint)pVVar4;
   }
-  surface = pVVar6;
-  fStack_1c = (float)((int)surface * local_c);
+  surface = pVVar7;
+  size = (int)surface * local_c;
   if ((usePalette == 0) || (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
     if (colorKey == 0) {
       *(undefined4 *)&texture->field_0x7c = 0;
@@ -801,40 +791,40 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
       uVar10 = UINT_0080693c;
     }
   }
-  Mem_Copy(&local_a4,(void *)(uVar10 + 0x38),0x6c);
+  Mem_Copy(&ddsd,(void *)(uVar10 + 0x38),0x6c);
   uVar10 = local_c;
-  local_9c = (uint)surface;
-  local_a4 = 0x6c;
-  local_a0 = 0x1007;
-  local_3c = 0x1800;
-  local_98 = local_c;
-  iVar4 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&local_a4,&local_8,0);
-  if (iVar4 != 0) {
+  ddsd.dwHeight = (uint)surface;
+  ddsd.dwSize = 0x6c;
+  ddsd.dwFlags = 0x1007;
+  ddsd.dwCaps = 0x1800;
+  ddsd.dwWidth = local_c;
+  iVar5 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_8,0);
+  if (iVar5 != 0) {
     local_8 = 0;
     goto LAB_0047940a;
   }
-  puVar12 = &local_15c;
-  for (iVar4 = 0x1b; iVar4 != 0; iVar4 = iVar4 + -1) {
-    *puVar12 = 0;
-    puVar12 = puVar12 + 1;
+  pDVar13 = &lockDesc;
+  for (iVar5 = 0x1b; iVar5 != 0; iVar5 = iVar5 + -1) {
+    pDVar13->dwSize = 0;
+    pDVar13 = (DDSurfaceDesc *)&pDVar13->dwFlags;
   }
-  local_15c = 0x6c;
-  iVar4 = (**(code_std **)(*(int *)local_8 + 100))(local_8,0,&local_15c,1,0);
-  if (iVar4 != 0) goto LAB_0047940a;
-  iVar4 = (pVVar7->format).colorFormat.nColorMode;
-  if (iVar4 == 0) {
-    stdDisplay_VBufferLock(pVVar7);
+  lockDesc.dwSize = 0x6c;
+  iVar5 = (**(code_std **)(*(int *)local_8 + 100))(local_8,0,&lockDesc,1,0);
+  if (iVar5 != 0) goto LAB_0047940a;
+  iVar5 = (pVVar4->format).colorFormat.nColorMode;
+  if (iVar5 == 0) {
+    stdDisplay_VBufferLock(pVVar4);
     if ((usePalette == 0) || (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
       if (colorKey == 0) {
         pVVar3 = (VBuffer *)0x0;
         if (surface != (VBuffer *)0x0) {
           do {
-            pbVar5 = (byte *)((int)pVVar3 * (pVVar7->format).nPitch + (int)pVVar7->pPixels);
-            puVar2 = (undefined2 *)((int)pVVar3 * local_14c + local_138);
+            pbVar6 = (byte *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels);
+            puVar2 = (undefined2 *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface);
             uVar11 = uVar10;
             for (; uVar11 != 0; uVar11 = uVar11 - 1) {
-              bVar1 = *pbVar5;
-              pbVar5 = pbVar5 + 1;
+              bVar1 = *pbVar6;
+              pbVar6 = pbVar6 + 1;
               *puVar2 = *(undefined2 *)((int)&UINT_00806408 + (uint)bVar1 * 2);
               puVar2 = puVar2 + 1;
               uVar10 = local_c;
@@ -847,12 +837,12 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
         pVVar3 = (VBuffer *)0x0;
         if (surface != (VBuffer *)0x0) {
           do {
-            pbVar5 = (byte *)((int)pVVar3 * (pVVar7->format).nPitch + (int)pVVar7->pPixels);
-            puVar2 = (undefined2 *)((int)pVVar3 * local_14c + local_138);
+            pbVar6 = (byte *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels);
+            puVar2 = (undefined2 *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface);
             uVar11 = uVar10;
             for (; uVar11 != 0; uVar11 = uVar11 - 1) {
-              bVar1 = *pbVar5;
-              pbVar5 = pbVar5 + 1;
+              bVar1 = *pbVar6;
+              pbVar6 = pbVar6 + 1;
               *puVar2 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
               puVar2 = puVar2 + 1;
               uVar10 = local_c;
@@ -866,12 +856,12 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
       pVVar3 = (VBuffer *)0x0;
       if (surface != (VBuffer *)0x0) {
         do {
-          pbVar5 = (byte *)((int)pVVar3 * (pVVar7->format).nPitch + (int)pVVar7->pPixels);
-          puVar2 = (undefined2 *)((int)pVVar3 * local_14c + local_138);
+          pbVar6 = (byte *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels);
+          puVar2 = (undefined2 *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface);
           uVar11 = uVar10;
           for (; uVar11 != 0; uVar11 = uVar11 - 1) {
-            bVar1 = *pbVar5;
-            pbVar5 = pbVar5 + 1;
+            bVar1 = *pbVar6;
+            pbVar6 = pbVar6 + 1;
             *puVar2 = *(undefined2 *)(&DAT_008061e8 + (uint)bVar1 * 2);
             puVar2 = puVar2 + 1;
             uVar10 = local_c;
@@ -884,12 +874,12 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
       pVVar3 = (VBuffer *)0x0;
       if (surface != (VBuffer *)0x0) {
         do {
-          pbVar5 = (byte *)((int)pVVar3 * (pVVar7->format).nPitch + (int)pVVar7->pPixels);
-          puVar2 = (undefined2 *)((int)pVVar3 * local_14c + local_138);
+          pbVar6 = (byte *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels);
+          puVar2 = (undefined2 *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface);
           uVar11 = uVar10;
           for (; uVar11 != 0; uVar11 = uVar11 - 1) {
-            bVar1 = *pbVar5;
-            pbVar5 = pbVar5 + 1;
+            bVar1 = *pbVar6;
+            pbVar6 = pbVar6 + 1;
             *puVar2 = *(undefined2 *)(&DAT_00805fd8 + (uint)bVar1 * 2);
             puVar2 = puVar2 + 1;
             uVar10 = local_c;
@@ -899,54 +889,54 @@ std3D_AddToTextureCache(VBuffer *surface,Std3DTexture *texture,int usePalette,in
       }
     }
 LAB_00479709:
-    stdDisplay_VBufferUnlock(pVVar7);
+    stdDisplay_VBufferUnlock(pVVar4);
   }
-  else if ((0 < iVar4) && (iVar4 < 3)) {
-    stdDisplay_VBufferLock(pVVar7);
+  else if ((0 < iVar5) && (iVar5 < 3)) {
+    stdDisplay_VBufferLock(pVVar4);
     pVVar3 = (VBuffer *)0x0;
     if (surface != (VBuffer *)0x0) {
       do {
-        Mem_Copy((void *)((int)pVVar3 * local_14c + local_138),
-                 (void *)((int)pVVar3 * (pVVar7->format).nPitch + (int)pVVar7->pPixels),uVar10 * 2);
+        Mem_Copy((void *)((int)pVVar3 * lockDesc.nPitch + (int)lockDesc.pSurface),
+                 (void *)((int)pVVar3 * (pVVar4->format).nPitch + (int)pVVar4->pPixels),uVar10 * 2);
         pVVar3 = (VBuffer *)((int)&pVVar3->nType + 1);
       } while (pVVar3 < surface);
     }
     goto LAB_00479709;
   }
-  iVar4 = (**(code_std **)(*(int *)local_8 + 0x80))(local_8,0);
-  if (iVar4 == 0) {
+  iVar5 = (**(code_std **)(*(int *)local_8 + 0x80))(local_8,0);
+  if (iVar5 == 0) {
     if ((usePalette != 0) && (g_pStd3D_CurDevice->nPalettedTextures == 0)) {
-      iVar4 = (pVVar7->format).colorFormat.nColorMode;
-      if (iVar4 == 0) {
-        local_28 = UINT_00806408 & 0xffff;
-        uStack_24 = local_28;
+      iVar5 = (pVVar4->format).colorFormat.nColorMode;
+      if (iVar5 == 0) {
+        aColorKey[0] = UINT_00806408 & 0xffff;
+        aColorKey[1] = aColorKey[0];
       }
-      else if (iVar4 == 1) {
-        local_28 = pVVar7->dwColorKey;
-        uStack_24 = pVVar7->dwColorKey;
+      else if (iVar5 == 1) {
+        aColorKey[0] = pVVar4->dwColorKey;
+        aColorKey[1] = pVVar4->dwColorKey;
       }
-      (**(code_std **)(*(int *)local_8 + 0x74))(local_8,8,&local_28);
+      (**(code_std **)(*(int *)local_8 + 0x74))(local_8,8,aColorKey);
     }
-    iVar4 = (*(code_std *)**(undefined4 **)local_8)(local_8,&DAT_004d85f0,&local_10);
-    if (iVar4 == 0) {
-      iVar4 = (**(code_std **)(*(int *)local_8 + 0x58))(local_8,&local_a4);
-      if (iVar4 == 0) {
-        Mem_Copy(&texture->field_0x8,&local_a4,0x6c);
-        local_a0 = 0x1007;
-        local_3c = 0x4005000;
-        iVar4 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&local_a4,&local_18,0);
-        if (iVar4 != 0) {
-          if (iVar4 != -0x7789fe84) goto LAB_0047940a;
-          D3D_EvictTexture((uint)fStack_1c);
-          iVar4 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&local_a4,&local_18,0);
-          if (iVar4 != 0) goto LAB_0047940a;
+    iVar5 = (*(code_std *)**(undefined4 **)local_8)(local_8,&DAT_004d85f0,&local_10);
+    if (iVar5 == 0) {
+      iVar5 = (**(code_std **)(*(int *)local_8 + 0x58))(local_8,&ddsd);
+      if (iVar5 == 0) {
+        Mem_Copy(&texture->field_0x8,&ddsd,0x6c);
+        ddsd.dwFlags = 0x1007;
+        ddsd.dwCaps = 0x4005000;
+        iVar5 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_18,0);
+        if (iVar5 != 0) {
+          if (iVar5 != -0x7789fe84) goto LAB_0047940a;
+          D3D_EvictTexture(size);
+          iVar5 = (**(code_std **)(*PTR_00806968 + 0x18))(PTR_00806968,&ddsd,&local_18,0);
+          if (iVar5 != 0) goto LAB_0047940a;
         }
-        iVar4 = (*(code_std *)**(undefined4 **)local_18)(local_18,&DAT_004d85f0,&local_14);
-        if (iVar4 == 0) {
-          iVar4 = (**(code_std **)(*(int *)local_14 + 0x18))(local_14,local_10);
-          if (iVar4 == 0) {
-            iVar4 = (**(code_std **)(*(int *)local_14 + 0x10))(local_14,g_pD3dDevice,&local_2c);
-            if (iVar4 != 0) {
+        iVar5 = (*(code_std *)**(undefined4 **)local_18)(local_18,&DAT_004d85f0,&local_14);
+        if (iVar5 == 0) {
+          iVar5 = (**(code_std **)(*(int *)local_14 + 0x18))(local_14,local_10);
+          if (iVar5 == 0) {
+            iVar5 = (**(code_std **)(*(int *)local_14 + 0x10))(local_14,g_pD3dDevice,&local_2c);
+            if (iVar5 != 0) {
               local_2c = 0;
             }
             (**(code_std **)(*(int *)local_10 + 8))(local_10);
@@ -961,7 +951,7 @@ LAB_00479709:
             texture->dwHandle = local_2c;
             *(uint *)&texture->field_0x80 = uVar10;
             *(VBuffer **)&texture->field_0x84 = surface;
-            texture->nSize = (int)fStack_1c;
+            texture->nSize = size;
             texture->nValid = 1;
             texture->dwFrameStamp = UINT_004dee58;
             D3D_LinkTexture(texture);
@@ -1003,29 +993,13 @@ LAB_0047940a:
   texture->dwFrameStamp = 0;
   return 0;
 }
-#undef fStack_1c
+#undef iStack_1c
 #undef local_10
-#undef local_138
 #undef local_14
-#undef local_14c
-#undef local_15c
 #undef local_18
-#undef local_20
-#undef local_28
 #undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
 #undef local_8
-#undef local_98
-#undef local_9c
-#undef local_a0
-#undef local_a4
 #undef local_c
-#undef local_ec
-#undef local_f0
-#undef uStack_24
 
 
 /* ---- 0x00479860  D3D_FreeAllTextures ---- */

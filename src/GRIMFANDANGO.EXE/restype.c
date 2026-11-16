@@ -247,39 +247,25 @@ int __cdecl sputResource_CostumeHandler(ResMsg *msg)
 void * __cdecl sputResource_ColormapHandler(int *msg)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   rdColormap *data;
   void *pvVar2;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
+  ColorFormat format;
   
-  local_30 = 5;
-  local_28 = 5;
-  local_20 = 5;
-  local_18 = 3;
-  local_10 = 3;
-  local_38 = 1;
-  local_34 = 0x10;
-  local_2c = 6;
-  local_24 = 0xb;
-  local_1c = 0;
-  local_14 = 2;
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
+  format.dwRedBits = 5;
+  format.dwBlueBits = 5;
+  format.dwGreenShift = 5;
+  format.dwRedLoss = 3;
+  format.dwBlueLoss = 3;
+  format.nColorMode = 1;
+  format.nBpp = 0x10;
+  format.dwGreenBits = 6;
+  format.dwRedShift = 0xb;
+  format.dwBlueShift = 0;
+  format.dwGreenLoss = 2;
+  format.dwUnknown2c = 0;
+  format.dwUnknown30 = 0;
+  format.dwUnknown34 = 0;
   if (msg[2] != 0x50414d43) {
     return (void *)0x0;
   }
@@ -287,7 +273,7 @@ void * __cdecl sputResource_ColormapHandler(int *msg)
   if (iVar1 == 1) {
     data = rdColormap_Load((char *)msg[1]);
     if (data != (rdColormap *)0x0) {
-      rdColormap_BuildRGB16(data->pRGB16,(ushort *)data->aPalette,0,0,0,(int)&local_38);
+      rdColormap_BuildRGB16(data->pRGB16,(ushort *)data->aPalette,0,0,0,(int)&format);
       sputRender_ColorCorrect(data->pRGB16,0x4000);
       pvVar2 = Res_SysAddHandle(msg[2],(char *)msg[1],data);
       return pvVar2;
@@ -306,21 +292,6 @@ void * __cdecl sputResource_ColormapHandler(int *msg)
   }
   return (void *)0x0;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x0048dbd0  sputResource_FontHandler ---- */
 /* Resource type handler for 'FONT' (entry of g_ResTypeTable): op 1 loads, op 2 frees, op 3 reports

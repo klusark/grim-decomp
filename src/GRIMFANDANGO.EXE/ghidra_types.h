@@ -238,6 +238,8 @@ typedef struct AnimPlayer AnimPlayer;
 typedef struct BitmapFileHeader BitmapFileHeader;
 typedef struct BitmapInfoHeader BitmapInfoHeader;
 typedef struct BlockyMotionVector BlockyMotionVector;
+typedef struct BmFrameHeader BmFrameHeader;
+typedef struct BmHeader BmHeader;
 typedef struct CacheRect CacheRect;
 typedef struct ColorFormat ColorFormat;
 typedef struct ControlSymbol ControlSymbol;
@@ -259,6 +261,10 @@ typedef struct LabEntry LabEntry;
 typedef struct LabFile LabFile;
 typedef struct LbmBitmapHeader LbmBitmapHeader;
 typedef struct LecPixelFormat LecPixelFormat;
+typedef struct MatCelColor MatCelColor;
+typedef struct MatCelHeader MatCelHeader;
+typedef struct MatHeader MatHeader;
+typedef struct MatTextureHeader MatTextureHeader;
 typedef struct ModelComponent ModelComponent;
 typedef struct ObjectState ObjectState;
 typedef struct ObjectStateImage ObjectStateImage;
@@ -308,6 +314,8 @@ typedef struct rdLight rdLight;
 typedef struct rdMaterial rdMaterial;
 typedef struct rdMesh rdMesh;
 typedef struct rdModel3 rdModel3;
+typedef struct rdProcFace rdProcFace;
+typedef struct rdProcVerts rdProcVerts;
 typedef struct rdThing rdThing;
 typedef struct stdBitmap stdBitmap;
 
@@ -552,26 +560,14 @@ struct BlockyMotionVector {  /* 0x4 */
 _Static_assert(__builtin_offsetof(BlockyMotionVector, nX) == 0x0, "BlockyMotionVector.nX");
 _Static_assert(__builtin_offsetof(BlockyMotionVector, nY) == 0x2, "BlockyMotionVector.nY");
 _Static_assert(sizeof(BlockyMotionVector) == 0x4, "sizeof BlockyMotionVector");
-/* CacheRect: A saved screen rectangle and its z-buffer (g_pCacheRectList). */
-struct CacheRect {  /* 0x20 */
-    uint dwMagic;  /* 0x00 */
-    int nX;  /* 0x04 */
-    int nY;  /* 0x08 */
-    int nWidth;  /* 0x0c */
-    int nHeight;  /* 0x10 */
-    VBuffer *pClean;  /* 0x14 */
-    VBuffer *pCleanZ;  /* 0x18 */
-    CacheRect *pNext;  /* 0x1c */
+/* BmFrameHeader: Size of one frame of a 'BM  ' file, before its pixels */
+struct BmFrameHeader {  /* 0x8 */
+    int nWidth;  /* 0x00 */
+    int nHeight;  /* 0x04 */
 };
-_Static_assert(__builtin_offsetof(CacheRect, dwMagic) == 0x0, "CacheRect.dwMagic");
-_Static_assert(__builtin_offsetof(CacheRect, nX) == 0x4, "CacheRect.nX");
-_Static_assert(__builtin_offsetof(CacheRect, nY) == 0x8, "CacheRect.nY");
-_Static_assert(__builtin_offsetof(CacheRect, nWidth) == 0xc, "CacheRect.nWidth");
-_Static_assert(__builtin_offsetof(CacheRect, nHeight) == 0x10, "CacheRect.nHeight");
-_Static_assert(__builtin_offsetof(CacheRect, pClean) == 0x14, "CacheRect.pClean");
-_Static_assert(__builtin_offsetof(CacheRect, pCleanZ) == 0x18, "CacheRect.pCleanZ");
-_Static_assert(__builtin_offsetof(CacheRect, pNext) == 0x1c, "CacheRect.pNext");
-_Static_assert(sizeof(CacheRect) == 0x20, "sizeof CacheRect");
+_Static_assert(__builtin_offsetof(BmFrameHeader, nWidth) == 0x0, "BmFrameHeader.nWidth");
+_Static_assert(__builtin_offsetof(BmFrameHeader, nHeight) == 0x4, "BmFrameHeader.nHeight");
+_Static_assert(sizeof(BmFrameHeader) == 0x8, "sizeof BmFrameHeader");
 /* ColorFormat: Pixel format of a video mode or buffer (0x38 bytes): colour model, depth, the bits and position of each channel. */
 struct ColorFormat {  /* 0x38 */
     int nColorMode;  /* 0x00: 0 = palette indexed, 1 = RGB (DIB_CreateSurface, stdDisplay_VBufferConvertColorFormat) */
@@ -604,6 +600,50 @@ _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown2c) == 0x2c, "ColorForma
 _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown30) == 0x30, "ColorFormat.dwUnknown30");
 _Static_assert(__builtin_offsetof(ColorFormat, dwUnknown34) == 0x34, "ColorFormat.dwUnknown34");
 _Static_assert(sizeof(ColorFormat) == 0x38, "sizeof ColorFormat");
+/* BmHeader: Header of a 'BM  ' bitmap file (version 0x46): stdBitmap_LoadEntryFromFile reads it, stdBitmap_AppendToFile writes it */
+struct BmHeader {  /* 0x80 */
+    char aMagic[4];  /* 0x00: 'BM  ' */
+    int nVersion;  /* 0x04: 0x46 */
+    int nType;  /* 0x08: 0 raw, 1 run-length, 3 compressed */
+    uint dwPalFlags;  /* 0x0c: bit 1: a 0x300-byte palette follows the frames */
+    int nFrames;  /* 0x10 */
+    int nX;  /* 0x14 */
+    int nY;  /* 0x18 */
+    uint dwColorKey;  /* 0x1c */
+    ColorFormat colorFormat;  /* 0x20 */
+    uint aPad[10];  /* 0x58: zero */
+};
+_Static_assert(__builtin_offsetof(BmHeader, aMagic) == 0x0, "BmHeader.aMagic");
+_Static_assert(__builtin_offsetof(BmHeader, nVersion) == 0x4, "BmHeader.nVersion");
+_Static_assert(__builtin_offsetof(BmHeader, nType) == 0x8, "BmHeader.nType");
+_Static_assert(__builtin_offsetof(BmHeader, dwPalFlags) == 0xc, "BmHeader.dwPalFlags");
+_Static_assert(__builtin_offsetof(BmHeader, nFrames) == 0x10, "BmHeader.nFrames");
+_Static_assert(__builtin_offsetof(BmHeader, nX) == 0x14, "BmHeader.nX");
+_Static_assert(__builtin_offsetof(BmHeader, nY) == 0x18, "BmHeader.nY");
+_Static_assert(__builtin_offsetof(BmHeader, dwColorKey) == 0x1c, "BmHeader.dwColorKey");
+_Static_assert(__builtin_offsetof(BmHeader, colorFormat) == 0x20, "BmHeader.colorFormat");
+_Static_assert(__builtin_offsetof(BmHeader, aPad) == 0x58, "BmHeader.aPad");
+_Static_assert(sizeof(BmHeader) == 0x80, "sizeof BmHeader");
+/* CacheRect: A saved screen rectangle and its z-buffer (g_pCacheRectList). */
+struct CacheRect {  /* 0x20 */
+    uint dwMagic;  /* 0x00 */
+    int nX;  /* 0x04 */
+    int nY;  /* 0x08 */
+    int nWidth;  /* 0x0c */
+    int nHeight;  /* 0x10 */
+    VBuffer *pClean;  /* 0x14 */
+    VBuffer *pCleanZ;  /* 0x18 */
+    CacheRect *pNext;  /* 0x1c */
+};
+_Static_assert(__builtin_offsetof(CacheRect, dwMagic) == 0x0, "CacheRect.dwMagic");
+_Static_assert(__builtin_offsetof(CacheRect, nX) == 0x4, "CacheRect.nX");
+_Static_assert(__builtin_offsetof(CacheRect, nY) == 0x8, "CacheRect.nY");
+_Static_assert(__builtin_offsetof(CacheRect, nWidth) == 0xc, "CacheRect.nWidth");
+_Static_assert(__builtin_offsetof(CacheRect, nHeight) == 0x10, "CacheRect.nHeight");
+_Static_assert(__builtin_offsetof(CacheRect, pClean) == 0x14, "CacheRect.pClean");
+_Static_assert(__builtin_offsetof(CacheRect, pCleanZ) == 0x18, "CacheRect.pCleanZ");
+_Static_assert(__builtin_offsetof(CacheRect, pNext) == 0x1c, "CacheRect.pNext");
+_Static_assert(sizeof(CacheRect) == 0x20, "sizeof CacheRect");
 /* ControlValue: The last value of an input control: a button's key state or an axis's value, in the same slot (sputLua_NotifyControlHandlers compares and stores each as its own type). */
 union ControlValue {  /* 0x4 */
     int nState;
@@ -622,6 +662,22 @@ _Static_assert(__builtin_offsetof(ControlSymbol, nId) == 0x4, "ControlSymbol.nId
 _Static_assert(__builtin_offsetof(ControlSymbol, uValue) == 0x8, "ControlSymbol.uValue");
 _Static_assert(__builtin_offsetof(ControlSymbol, pName) == 0xc, "ControlSymbol.pName");
 _Static_assert(sizeof(ControlSymbol) == 0x10, "sizeof ControlSymbol");
+/* ResRef: A resource reference (0x34 bytes, Res_SetReference / Res_RemoveReference). */
+struct ResRef {  /* 0x34 */
+    int nValid;  /* 0x00: non-zero while it refers to a resource */
+    void *pData;  /* 0x04: the resource's data (a bitmap: ObjectStateImage_VBuffer reads its frames) */
+    char aTag[32];  /* 0x08: source file of the code that took it (Res_SetReference's file, from the last backslash) */
+    int nLine;  /* 0x28: its line */
+    ResRef *pPrev;  /* 0x2c: the resource's reference list */
+    ResRef *pNext;  /* 0x30 */
+};
+_Static_assert(__builtin_offsetof(ResRef, nValid) == 0x0, "ResRef.nValid");
+_Static_assert(__builtin_offsetof(ResRef, pData) == 0x4, "ResRef.pData");
+_Static_assert(__builtin_offsetof(ResRef, aTag) == 0x8, "ResRef.aTag");
+_Static_assert(__builtin_offsetof(ResRef, nLine) == 0x28, "ResRef.nLine");
+_Static_assert(__builtin_offsetof(ResRef, pPrev) == 0x2c, "ResRef.pPrev");
+_Static_assert(__builtin_offsetof(ResRef, pNext) == 0x30, "ResRef.pNext");
+_Static_assert(sizeof(ResRef) == 0x34, "sizeof ResRef");
 /* CostumeNode: One costume of an actor's costume stack (Actor::pCostumes, sputCostume.cpp; from the pool g_pCosNodePool): the CHORE.DLL instance and the actor's chores in it. Costume_InitRecord sets the defaults. */
 struct CostumeNode {  /* 0xb4 */
     uint dwInstance;  /* 0x00: CHORE.DLL costume instance (Cos_CreateCosInstance) */
@@ -638,7 +694,7 @@ struct CostumeNode {  /* 0xb4 */
     int nRestChore;  /* 0x34: sputActor_SetRestChore */
     int aTalkChores[16];  /* 0x38: mouth shapes; [0] is the closed mouth */
     int nMumbleChore;  /* 0x78 */
-    uint aCostumeRef[13];  /* 0x7c: 0x34-byte resource reference of the costume (Res_SetReference) */
+    ResRef costumeRef;  /* 0x7c: 0x34-byte resource reference of the costume (Res_SetReference) */
     CostumeNode *pNext;  /* 0xb0: the costume below on the stack */
 };
 _Static_assert(__builtin_offsetof(CostumeNode, dwInstance) == 0x0, "CostumeNode.dwInstance");
@@ -655,7 +711,7 @@ _Static_assert(__builtin_offsetof(CostumeNode, nTurnRightChore) == 0x30, "Costum
 _Static_assert(__builtin_offsetof(CostumeNode, nRestChore) == 0x34, "CostumeNode.nRestChore");
 _Static_assert(__builtin_offsetof(CostumeNode, aTalkChores) == 0x38, "CostumeNode.aTalkChores");
 _Static_assert(__builtin_offsetof(CostumeNode, nMumbleChore) == 0x78, "CostumeNode.nMumbleChore");
-_Static_assert(__builtin_offsetof(CostumeNode, aCostumeRef) == 0x7c, "CostumeNode.aCostumeRef");
+_Static_assert(__builtin_offsetof(CostumeNode, costumeRef) == 0x7c, "CostumeNode.costumeRef");
 _Static_assert(__builtin_offsetof(CostumeNode, pNext) == 0xb0, "CostumeNode.pNext");
 _Static_assert(sizeof(CostumeNode) == 0xb4, "sizeof CostumeNode");
 /* DDSurfaceDesc: DirectDraw's DDSURFACEDESC (0x6c bytes). */
@@ -1091,22 +1147,66 @@ _Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaBits) == 0x48, "LecPixel
 _Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaShift) == 0x4c, "LecPixelFormat.nAlphaShift");
 _Static_assert(__builtin_offsetof(LecPixelFormat, nAlphaLoss) == 0x50, "LecPixelFormat.nAlphaLoss");
 _Static_assert(sizeof(LecPixelFormat) == 0x54, "sizeof LecPixelFormat");
-/* ResRef: A resource reference (0x34 bytes, Res_SetReference / Res_RemoveReference). */
-struct ResRef {  /* 0x34 */
-    int nValid;  /* 0x00: non-zero while it refers to a resource */
-    void *pData;  /* 0x04: the resource's data (a bitmap: ObjectStateImage_VBuffer reads its frames) */
-    char aTag[32];  /* 0x08: source file of the code that took it (Res_SetReference's file, from the last backslash) */
-    int nLine;  /* 0x28: its line */
-    ResRef *pPrev;  /* 0x2c: the resource's reference list */
-    ResRef *pNext;  /* 0x30 */
+/* MatCelColor: The 0x10 bytes that follow a 'MAT ' cel record with bit 3 set */
+struct MatCelColor {  /* 0x10 */
+    uint dwColor;  /* 0x00 */
+    uint dwUnknown4;  /* 0x04 */
+    uint dwUnknown8;  /* 0x08 */
+    int nTexture;  /* 0x0c: per-cel value kept in the loader's table */
 };
-_Static_assert(__builtin_offsetof(ResRef, nValid) == 0x0, "ResRef.nValid");
-_Static_assert(__builtin_offsetof(ResRef, pData) == 0x4, "ResRef.pData");
-_Static_assert(__builtin_offsetof(ResRef, aTag) == 0x8, "ResRef.aTag");
-_Static_assert(__builtin_offsetof(ResRef, nLine) == 0x28, "ResRef.nLine");
-_Static_assert(__builtin_offsetof(ResRef, pPrev) == 0x2c, "ResRef.pPrev");
-_Static_assert(__builtin_offsetof(ResRef, pNext) == 0x30, "ResRef.pNext");
-_Static_assert(sizeof(ResRef) == 0x34, "sizeof ResRef");
+_Static_assert(__builtin_offsetof(MatCelColor, dwColor) == 0x0, "MatCelColor.dwColor");
+_Static_assert(__builtin_offsetof(MatCelColor, dwUnknown4) == 0x4, "MatCelColor.dwUnknown4");
+_Static_assert(__builtin_offsetof(MatCelColor, dwUnknown8) == 0x8, "MatCelColor.dwUnknown8");
+_Static_assert(__builtin_offsetof(MatCelColor, nTexture) == 0xc, "MatCelColor.nTexture");
+_Static_assert(sizeof(MatCelColor) == 0x10, "sizeof MatCelColor");
+/* MatCelHeader: One cel record of a 'MAT ' file, copied into the cel; bit 3 of dwType: a MatCelColor follows */
+struct MatCelHeader {  /* 0x18 */
+    uint dwType;  /* 0x00 */
+    uint dwUnknown4;  /* 0x04 */
+    uint dwUnknown8;  /* 0x08 */
+    uint dwUnknownC;  /* 0x0c */
+    uint dwUnknown10;  /* 0x10 */
+    uint dwUnknown14;  /* 0x14 */
+};
+_Static_assert(__builtin_offsetof(MatCelHeader, dwType) == 0x0, "MatCelHeader.dwType");
+_Static_assert(__builtin_offsetof(MatCelHeader, dwUnknown4) == 0x4, "MatCelHeader.dwUnknown4");
+_Static_assert(__builtin_offsetof(MatCelHeader, dwUnknown8) == 0x8, "MatCelHeader.dwUnknown8");
+_Static_assert(__builtin_offsetof(MatCelHeader, dwUnknownC) == 0xc, "MatCelHeader.dwUnknownC");
+_Static_assert(__builtin_offsetof(MatCelHeader, dwUnknown10) == 0x10, "MatCelHeader.dwUnknown10");
+_Static_assert(__builtin_offsetof(MatCelHeader, dwUnknown14) == 0x14, "MatCelHeader.dwUnknown14");
+_Static_assert(sizeof(MatCelHeader) == 0x18, "sizeof MatCelHeader");
+/* MatHeader: Header of a 'MAT ' material file (rdMaterial_LoadEntry) */
+struct MatHeader {  /* 0x4c */
+    char aMagic[4];  /* 0x00: 'MAT ' */
+    int nVersion;  /* 0x04: 0x32 */
+    uint dwType;  /* 0x08 */
+    int nCels;  /* 0x0c */
+    int nTextures;  /* 0x10 */
+    ColorFormat colorFormat;  /* 0x14 */
+};
+_Static_assert(__builtin_offsetof(MatHeader, aMagic) == 0x0, "MatHeader.aMagic");
+_Static_assert(__builtin_offsetof(MatHeader, nVersion) == 0x4, "MatHeader.nVersion");
+_Static_assert(__builtin_offsetof(MatHeader, dwType) == 0x8, "MatHeader.dwType");
+_Static_assert(__builtin_offsetof(MatHeader, nCels) == 0xc, "MatHeader.nCels");
+_Static_assert(__builtin_offsetof(MatHeader, nTextures) == 0x10, "MatHeader.nTextures");
+_Static_assert(__builtin_offsetof(MatHeader, colorFormat) == 0x14, "MatHeader.colorFormat");
+_Static_assert(sizeof(MatHeader) == 0x4c, "sizeof MatHeader");
+/* MatTextureHeader: One texture record of a 'MAT ' file */
+struct MatTextureHeader {  /* 0x18 */
+    int nWidth;  /* 0x00 */
+    int nHeight;  /* 0x04 */
+    uint dwUnknown8;  /* 0x08 */
+    uint dwUnknownC;  /* 0x0c */
+    uint dwUnknown10;  /* 0x10 */
+    int nMipmaps;  /* 0x14: surfaces that follow */
+};
+_Static_assert(__builtin_offsetof(MatTextureHeader, nWidth) == 0x0, "MatTextureHeader.nWidth");
+_Static_assert(__builtin_offsetof(MatTextureHeader, nHeight) == 0x4, "MatTextureHeader.nHeight");
+_Static_assert(__builtin_offsetof(MatTextureHeader, dwUnknown8) == 0x8, "MatTextureHeader.dwUnknown8");
+_Static_assert(__builtin_offsetof(MatTextureHeader, dwUnknownC) == 0xc, "MatTextureHeader.dwUnknownC");
+_Static_assert(__builtin_offsetof(MatTextureHeader, dwUnknown10) == 0x10, "MatTextureHeader.dwUnknown10");
+_Static_assert(__builtin_offsetof(MatTextureHeader, nMipmaps) == 0x14, "MatTextureHeader.nMipmaps");
+_Static_assert(sizeof(MatTextureHeader) == 0x18, "sizeof MatTextureHeader");
 /* ModelComponent: A costume's model component (ThingInstancer): its model and thing, linked at +0x190. */
 struct ModelComponent {  /* 0x194 */
     ResRef modelRef;  /* 0x00: the 'MODL' resource */
@@ -2337,6 +2437,37 @@ _Static_assert(__builtin_offsetof(rdModel3, pHierarchyNodes) == 0x58, "rdModel3.
 _Static_assert(__builtin_offsetof(rdModel3, flRadius) == 0x5c, "rdModel3.flRadius");
 _Static_assert(__builtin_offsetof(rdModel3, aInsertOffset) == 0x78, "rdModel3.aInsertOffset");
 _Static_assert(sizeof(rdModel3) == 0x90, "sizeof rdModel3");
+/* rdProcFace: The clipped face rdPrimit3_ClipFace writes (its procFace): the corners copied out, then clipped; dwVertices is the count left */
+struct rdProcFace {  /* 0x18 */
+    uint dwVertices;  /* 0x00 */
+    uint8_t field_0x4, field_0x5, field_0x6, field_0x7, field_0x8, field_0x9, field_0xa, field_0xb;
+    float *pVertices;  /* 0x0c: 3 floats per corner */
+    float *pTexVertices;  /* 0x10: 2 floats per corner */
+    float *pIntensities;  /* 0x14: 1 float per corner */
+};
+_Static_assert(__builtin_offsetof(rdProcFace, dwVertices) == 0x0, "rdProcFace.dwVertices");
+_Static_assert(__builtin_offsetof(rdProcFace, pVertices) == 0xc, "rdProcFace.pVertices");
+_Static_assert(__builtin_offsetof(rdProcFace, pTexVertices) == 0x10, "rdProcFace.pTexVertices");
+_Static_assert(__builtin_offsetof(rdProcFace, pIntensities) == 0x14, "rdProcFace.pIntensities");
+_Static_assert(sizeof(rdProcFace) == 0x18, "sizeof rdProcFace");
+/* rdProcVerts: The vertices of one face going into rdPrimit3_ClipFace (its procVerts): indices into the mesh's arrays */
+struct rdProcVerts {  /* 0x1c */
+    uint dwVertices;  /* 0x00 */
+    int *pPosIdx;  /* 0x04: vertex index per corner */
+    int *pUvIdx;  /* 0x08: texture vertex index per corner */
+    float *pVertices;  /* 0x0c: 3 floats per vertex */
+    float *pUvs;  /* 0x10: 2 floats per texture vertex */
+    float *pLights;  /* 0x14: light per vertex */
+    float *pIntensities;  /* 0x18: extra intensity per corner, may be null */
+};
+_Static_assert(__builtin_offsetof(rdProcVerts, dwVertices) == 0x0, "rdProcVerts.dwVertices");
+_Static_assert(__builtin_offsetof(rdProcVerts, pPosIdx) == 0x4, "rdProcVerts.pPosIdx");
+_Static_assert(__builtin_offsetof(rdProcVerts, pUvIdx) == 0x8, "rdProcVerts.pUvIdx");
+_Static_assert(__builtin_offsetof(rdProcVerts, pVertices) == 0xc, "rdProcVerts.pVertices");
+_Static_assert(__builtin_offsetof(rdProcVerts, pUvs) == 0x10, "rdProcVerts.pUvs");
+_Static_assert(__builtin_offsetof(rdProcVerts, pLights) == 0x14, "rdProcVerts.pLights");
+_Static_assert(__builtin_offsetof(rdProcVerts, pIntensities) == 0x18, "rdProcVerts.pIntensities");
+_Static_assert(sizeof(rdProcVerts) == 0x1c, "sizeof rdProcVerts");
 /* rdThing: A drawable of the renderer (0x4c bytes): a model with its puppet, or a camera / polyline. */
 struct rdThing {  /* 0x4c */
     int nType;  /* 0x00: 1 model (rdThing_SetModel3) */

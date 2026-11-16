@@ -2438,3 +2438,26 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
   (`p = DAT_x + 1` with p a frame view) went with them: g_dwLState_aClosurePtrs / aProtoPtrs became non-pointers
   and 26 save tests crashed. A plain offset-named local is the same evidence now; globals.h is unchanged.
 * Clean room 0 of 5490; whole-game autorun passes.
+
+## Frame locals typed as the structures they are (2026-11-16)
+
+`names/types_frame_structs.json` adds eight structures and types 37 locals in 16 functions:
+
+- `rdProcVerts` (0x1c) and `rdProcFace` (0x18) are the in and out records of `rdPrimit3_ClipFace` (`procVerts` holds the vertex count, the index arrays and the source arrays; `procFace` holds the corners copied out, which are clipped in place). `rdSprite_Draw` builds one of each on its frame. Only the locals are typed: the parameters stay `uint *` for the other callers, and Ghidra casts at the call.
+- `MatHeader`, `MatCelHeader`, `MatCelColor` and `MatTextureHeader` are the records of a 'MAT ' file (`rdMaterial_LoadEntry`).
+- `BmHeader` (0x80) and `BmFrameHeader` are the records of a 'BM  ' file, read by `stdBitmap_LoadEntryFromFile` and written by `stdBitmap_AppendToFile`.
+- Locals with existing types:
+  - `ColorFormat`: `Grim_EnumDisplayModes`, `Resource_RebuildColormaps`, `sputResource_ColormapHandler`.
+  - `VBufferFormat` and two `DDSurfaceDesc`: `std3D_AddToTextureCache`.
+  - `OpenFileName`: `LightEd_SaveSetFile`.
+  - `FontData`: `Text_WrapLines`.
+  - `CostumeNode`: `sputActor_Restore` reads a saved costume into one.
+- Arrays:
+  - control IDs (`LightEd_EnableControls`);
+  - three `int[4]` rectangles (`DirtyRect_Add`);
+  - three 16-byte GUIDs (`Display_GetLastFromRegistry`);
+  - path and line buffers.
+- sscanf targets that Ghidra had typed as byte arrays are now int or float (`rdKeyframe_LoadEntry`, `rdModel3_LoadEntryText`). They therefore stop being observed and become plain C locals.
+- `CostumeNode.aCostumeRef` (uint[13]) became `ResRef costumeRef`. costume.c lost its `(ResRef *)` casts.
+
+Frame views went from 2581 to 2346. The clean room shows 0 of 5490 tests differing, and the whole-game autorun passes.

@@ -747,60 +747,33 @@ void __cdecl Resource_RebuildColormaps(void)
   undefined4 *puVar1;
   #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
   #define local_3c (*(int *)(_frame + (0x50 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
+  ColorFormat format;
   
-  local_30 = 5;
-  local_28 = 5;
-  local_20 = 5;
-  local_18 = 3;
-  local_10 = 3;
-  local_38 = 1;
-  local_34 = 0x10;
-  local_2c = 6;
-  local_24 = 0xb;
-  local_1c = 0;
-  local_14 = 2;
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
+  format.dwRedBits = 5;
+  format.dwBlueBits = 5;
+  format.dwGreenShift = 5;
+  format.dwRedLoss = 3;
+  format.dwBlueLoss = 3;
+  format.nColorMode = 1;
+  format.nBpp = 0x10;
+  format.dwGreenBits = 6;
+  format.dwRedShift = 0xb;
+  format.dwBlueShift = 0;
+  format.dwGreenLoss = 2;
+  format.dwUnknown2c = 0;
+  format.dwUnknown30 = 0;
+  format.dwUnknown34 = 0;
   Res_GetFirstType(&local_3c,(int *)&local_40,0x50414d43);
   while (local_40 != 0) {
     puVar1 = (undefined4 *)(local_40 + 0x348);
-    rdColormap_BuildRGB16((undefined2 *)*puVar1,(ushort *)(local_40 + 0x30),0,0,0,(int)&local_38);
+    rdColormap_BuildRGB16((undefined2 *)*puVar1,(ushort *)(local_40 + 0x30),0,0,0,(int)&format);
     sputRender_ColorCorrect((ushort *)*puVar1,0x4000);
     Res_GetNextType(&local_3c,(int *)&local_40,0x50414d43);
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
 #undef local_3c
-#undef local_4
 #undef local_40
-#undef local_8
-#undef local_c
 
 
 /* ---- 0x0048e170  sputResource_MatLoader ---- */
