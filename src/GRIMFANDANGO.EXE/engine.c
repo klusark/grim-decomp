@@ -937,7 +937,7 @@ void __cdecl sputRender_Update(void)
   int iVar11;
   uint *puVar12;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
+  uint local_10;
   #define fStack_c (*(float *)(_frame + (0x30 - 0xc)))
   #define fStack_8 (*(float *)(_frame + (0x30 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x30 - 0x4)))
@@ -1181,7 +1181,6 @@ void __cdecl sputRender_Update(void)
 #undef fStack_4
 #undef fStack_8
 #undef fStack_c
-#undef local_10
 #undef local_1c
 
 #endif

@@ -17,21 +17,21 @@ gra_BlitRectLookup(LecPixelFormat *pLecPixelFormat,uint *clip,int x,int y,int *s
                   byte *expandTable)
 
 {
-  unsigned char _frame[0x430] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x420] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte *dst;
   int iVar1;
   byte *src;
   uint uVar2;
   int iVar3;
-  #define local_420 (*(uint *)(_frame + (0x430 - 0x420)))
-  #define local_41c (*(uint *)(_frame + (0x430 - 0x41c)))
-  #define local_418 (*(uint *)(_frame + (0x430 - 0x418)))
-  #define local_414 (*(uint *)(_frame + (0x430 - 0x414)))
-  #define local_410 (*(uint *)(_frame + (0x430 - 0x410)))
-  #define local_40c (*(uint *)(_frame + (0x430 - 0x40c)))
-  #define local_408 (*(uint *)(_frame + (0x430 - 0x408)))
-  #define local_404 (*(uint *)(_frame + (0x430 - 0x404)))
-  #define local_400 (*(byte (*)[1024])(_frame + (0x430 - 0x400)))
+  uint local_420;
+  uint local_41c;
+  uint local_418;
+  uint local_414;
+  #define local_410 (*(uint *)(_frame + (0x420 - 0x410)))
+  #define local_40c (*(uint *)(_frame + (0x420 - 0x40c)))
+  #define local_408 (*(uint *)(_frame + (0x420 - 0x408)))
+  #define local_404 (*(uint *)(_frame + (0x420 - 0x404)))
+  #define local_400 (*(byte (*)[1024])(_frame + (0x420 - 0x400)))
   
   if (clip == (uint *)0x0) {
     clip = &local_410;
@@ -101,10 +101,6 @@ gra_BlitRectLookup(LecPixelFormat *pLecPixelFormat,uint *clip,int x,int y,int *s
 #undef local_408
 #undef local_40c
 #undef local_410
-#undef local_414
-#undef local_418
-#undef local_41c
-#undef local_420
 
 
 /* ---- 0x004cec40  gra_SetBuffer ---- */

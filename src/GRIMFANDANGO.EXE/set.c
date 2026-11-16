@@ -217,24 +217,24 @@ void __cdecl sputRender_UseSetup(Set *set,int setupIdx)
 void __cdecl Set_DrawDebugLights(int set)
 
 {
-  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float *pfVar2;
   float *vec;
-  #define local_74 (*(uint *)(_frame + (0x90 - 0x74)))
-  #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0x90 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
-  #define local_60 (*(float *)(_frame + (0x90 - 0x60)))
-  #define local_5c (*(float *)(_frame + (0x90 - 0x5c)))
-  #define local_58 (*(float (*)[3])(_frame + (0x90 - 0x58)))
-  #define local_4c (*(float *)(_frame + (0x90 - 0x4c)))
-  #define local_48 (*(float *)(_frame + (0x90 - 0x48)))
-  #define local_44 (*(float (*)[2])(_frame + (0x90 - 0x44)))
-  #define local_3c (*(float *)(_frame + (0x90 - 0x3c)))
-  #define local_38 (*(float (*)[2])(_frame + (0x90 - 0x38)))
-  #define local_30 (*(float (*)[12])(_frame + (0x90 - 0x30)))
+  uint local_74;
+  uint local_70;
+  #define local_6c (*(uint *)(_frame + (0x80 - 0x6c)))
+  #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
+  #define local_64 (*(uint *)(_frame + (0x80 - 0x64)))
+  #define local_60 (*(float *)(_frame + (0x80 - 0x60)))
+  #define local_5c (*(float *)(_frame + (0x80 - 0x5c)))
+  #define local_58 (*(float (*)[3])(_frame + (0x80 - 0x58)))
+  float local_4c;
+  #define local_48 (*(float *)(_frame + (0x80 - 0x48)))
+  #define local_44 (*(float (*)[2])(_frame + (0x80 - 0x44)))
+  #define local_3c (*(float *)(_frame + (0x80 - 0x3c)))
+  #define local_38 (*(float (*)[2])(_frame + (0x80 - 0x38)))
+  #define local_30 (*(float (*)[12])(_frame + (0x80 - 0x30)))
   
   local_70 = 0;
   if (*(int *)(set + 0xb8) != 0) {
@@ -293,15 +293,12 @@ void __cdecl Set_DrawDebugLights(int set)
 #undef local_3c
 #undef local_44
 #undef local_48
-#undef local_4c
 #undef local_58
 #undef local_5c
 #undef local_60
 #undef local_64
 #undef local_68
 #undef local_6c
-#undef local_70
-#undef local_74
 
 
 /* ---- 0x004859c0  Set_DrawDebugCameras ---- */

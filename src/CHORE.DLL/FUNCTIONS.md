@@ -9,7 +9,7 @@
 | 100010d0 | Cos_NewEntry | costume.c | 18 |
 | 100016a0 | Cos_New | costume.c | 17 |
 | 100016e0 | Cos_Load | costume.c | 40 |
-| 10001770 | Cos_LoadEntry | costume.c | 117 |
+| 10001770 | Cos_LoadEntry | costume.c | 116 |
 | 10001a30 | Cos_FreeCosInstance | costume.c | 18 |
 | 10001a80 | Cos_CreateCosInstance | costume.c | 158 |
 | 10001d70 | Cos_InstGetInstanceData | costume.c | 22 |
@@ -58,7 +58,7 @@
 | 10004390 | Cos_ReadComponentsSection | costume.c | 172 |
 | 10004770 | Cos_FindComponentWithParent | costume.c | 25 |
 | 100047f0 | Cos_ReadChoresSection | costume.c | 83 |
-| 10004970 | Cos_ReadKeysSection | costume.c | 107 |
+| 10004970 | Cos_ReadKeysSection | costume.c | 105 |
 | 10004bb0 | Cos_ReadLine | costume.c | 37 |
 | 10004c40 | Cos_InitChoreInstances | costume.c | 22 |
 | 10004c70 | Cos_FreeCostume | costume.c | 54 |
@@ -75,7 +75,7 @@
 | 10005200 | Cos_Startup | costume.c | 60 |
 | 10005350 | Cos_Shutdown | costume.c | 24 |
 | 10005590 | Cos_RegisterSaveVerify | costume.c | 10 |
-| 10001110 | CosUtil_Write | cosutil.c | 250 |
+| 10001110 | CosUtil_Write | cosutil.c | 246 |
 | 10002020 | CosUtil_CompPtrFromHandle | cosutil.c | 11 |
 | 10002040 | CosUtil_PtrFromHandle | cosutil.c | 11 |
 | 10002060 | CosUtil_RegisterCompNotifier | cosutil.c | 13 |
@@ -109,7 +109,7 @@
 | 10005740 | msvc_stricmp | msvc.c | 1 |
 | 10005810 | msvc_sscanf | msvc.c | 1 |
 | 10005860 | msvc_memmove | msvc.c | 1 |
-| 10005ba0 | msvc_qsort | msvc.c | 96 |
+| 10005ba0 | msvc_qsort | msvc.c | 92 |
 | 10005d50 | msvc_shortsort | msvc.c | 21 |
 | 10005db0 | msvc_qsort_swap | msvc.c | 18 |
 | 10005de0 | msvc_bsearch | msvc.c | 1 |

@@ -45,15 +45,15 @@ void __cdecl Actor_ComputeScreenBox(Actor *actor)
 void __cdecl Actor_DrawDebugWalker(Actor *actor)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Puck *this;
   rdModel3 *prVar1;
   ActorExtra *pAVar2;
   float *b;
   int iVar3;
   int iVar4;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
+  uint local_28;
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   if (actor->pExtra != (ActorExtra *)0x0) {
     this = actor->pExtra->pPuck;
@@ -85,7 +85,6 @@ void __cdecl Actor_DrawDebugWalker(Actor *actor)
   }
   return;
 }
-#undef local_28
 #undef local_c
 
 
@@ -454,7 +453,7 @@ void __cdecl Actor_UpdateMovement(Actor *actor,float dt)
 void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
 
 {
-  unsigned char _frame[0xe0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xd0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   CostumeNode *pCVar1;
   ActorExtra *a;
   float fVar2;
@@ -466,16 +465,16 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
   int iVar8;
   float fVar9;
   uint index;
-  #define fStack_c8 (*(float *)(_frame + (0xe0 - 0xc8)))
-  #define local_c4 (*(uint *)(_frame + (0xe0 - 0xc4)))
-  #define local_c0 (*(float (*)[3])(_frame + (0xe0 - 0xc0)))
-  #define fStack_b4 (*(float *)(_frame + (0xe0 - 0xb4)))
-  #define fStack_b0 (*(float *)(_frame + (0xe0 - 0xb0)))
-  #define afStack_a8 (*(float (*)[3])(_frame + (0xe0 - 0xa8)))
-  #define afStack_9c (*(float (*)[3])(_frame + (0xe0 - 0x9c)))
-  #define afStack_90 (*(float (*)[12])(_frame + (0xe0 - 0x90)))
-  #define afStack_60 (*(float (*)[12])(_frame + (0xe0 - 0x60)))
-  #define afStack_30 (*(float (*)[12])(_frame + (0xe0 - 0x30)))
+  float fStack_c8;
+  uint local_c4;
+  #define local_c0 (*(float (*)[3])(_frame + (0xd0 - 0xc0)))
+  #define fStack_b4 (*(float *)(_frame + (0xd0 - 0xb4)))
+  #define fStack_b0 (*(float *)(_frame + (0xd0 - 0xb0)))
+  #define afStack_a8 (*(float (*)[3])(_frame + (0xd0 - 0xa8)))
+  #define afStack_9c (*(float (*)[3])(_frame + (0xd0 - 0x9c)))
+  #define afStack_90 (*(float (*)[12])(_frame + (0xd0 - 0x90)))
+  #define afStack_60 (*(float (*)[12])(_frame + (0xd0 - 0x60)))
+  #define afStack_30 (*(float (*)[12])(_frame + (0xd0 - 0x30)))
   
   bVar4 = false;
   pCVar1 = actor->pCostumes;
@@ -579,9 +578,7 @@ void __cdecl Actor_UpdateLookAt(Actor *actor,float dt)
 #undef afStack_a8
 #undef fStack_b0
 #undef fStack_b4
-#undef fStack_c8
 #undef local_c0
-#undef local_c4
 
 
 /* ---- 0x00490210  sputActor_UpdateActorSpeech ---- */
@@ -704,14 +701,14 @@ int __cdecl sputActor_GetActorHandle(Actor *actor)
 int sputActor_AllocateActor(void)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   undefined4 *puVar2;
   int *piVar3;
   Actor *pAVar4;
   Actor *pAVar5;
-  #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
-  #define aiStack_10 (*(int (*)[4])(_frame + (0x30 - 0x10)))
+  uint local_14;
+  #define aiStack_10 (*(int (*)[4])(_frame + (0x20 - 0x10)))
   
   iVar1 = 0;
   pAVar4 = (Actor *)0x0;
@@ -781,7 +778,6 @@ int sputActor_AllocateActor(void)
   return ((int)pAVar4 - (int)g_pActors) / 0xa8;
 }
 #undef aiStack_10
-#undef local_14
 
 
 /* ---- 0x00490580  sputActor_AllocateActorExtra ---- */
@@ -955,13 +951,13 @@ void __cdecl sputActor_SetActorPosition(Actor *actor,float *pos)
 void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *angles,int turn)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Puck *this;
   ActorExtra *pAVar1;
   float fVar2;
-  #define local_40 (*(float *)(_frame + (0x50 - 0x40)))
-  #define local_30 (*(float (*)[3])(_frame + (0x50 - 0x30)))
-  #define local_24 (*(float (*)[3])(_frame + (0x50 - 0x24)))
+  float local_40;
+  #define local_30 (*(float (*)[3])(_frame + (0x40 - 0x30)))
+  #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
   
   actor->dwMoveFlags = actor->dwMoveFlags & 0xfffffffe;
   if ((actor->pExtra != (ActorExtra *)0x0) && (this = actor->pExtra->pPuck, this != (Puck *)0x0)) {
@@ -998,7 +994,6 @@ void __cdecl sputActor_SetActorRotation(Actor *actor,undefined4 *angles,int turn
 }
 #undef local_24
 #undef local_30
-#undef local_40
 
 
 /* ---- 0x00490a40  sputActor_SetReflection ---- */
@@ -1168,7 +1163,7 @@ void __cdecl sputActor_PopCostume(Actor *actor,int free)
 void __cdecl Actor_PuckOrient(Actor *actor)
 
 {
-  unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float *pos;
   float *outAngles;
   float *out;
@@ -1176,11 +1171,11 @@ void __cdecl Actor_PuckOrient(Actor *actor)
   Actor *pAVar2;
   Actor *pAVar3;
   float fVar4;
-  #define local_68 (*(uint *)(_frame + (0x80 - 0x68)))
-  #define local_54 (*(float (*)[3])(_frame + (0x80 - 0x54)))
-  #define local_48 (*(float (*)[3])(_frame + (0x80 - 0x48)))
-  #define local_3c (*(float (*)[3])(_frame + (0x80 - 0x3c)))
-  #define local_30 (*(float (*)[12])(_frame + (0x80 - 0x30)))
+  uint local_68;
+  #define local_54 (*(float (*)[3])(_frame + (0x70 - 0x54)))
+  #define local_48 (*(float (*)[3])(_frame + (0x70 - 0x48)))
+  #define local_3c (*(float (*)[3])(_frame + (0x70 - 0x3c)))
+  #define local_30 (*(float (*)[12])(_frame + (0x70 - 0x30)))
   
   if (((actor != (Actor *)0x0) && (actor->pExtra != (ActorExtra *)0x0)) &&
      (pPVar1 = actor->pExtra->pPuck, pPVar1 != (Puck *)0x0)) {
@@ -1227,7 +1222,6 @@ void __cdecl Actor_PuckOrient(Actor *actor)
 #undef local_3c
 #undef local_48
 #undef local_54
-#undef local_68
 
 #endif
 
@@ -2078,7 +2072,7 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
   float *pfVar11;
   int iVar12;
   undefined4 uVar13;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  uint local_10;
   #define fStack_c (*(float *)(_frame + (0x20 - 0xc)))
   #define fStack_8 (*(float *)(_frame + (0x20 - 0x8)))
   #define fStack_4 (*(float *)(_frame + (0x20 - 0x4)))
@@ -2155,7 +2149,6 @@ void __cdecl sputActor_DrawToClean(Actor *actor)
 #undef fStack_4
 #undef fStack_8
 #undef fStack_c
-#undef local_10
 
 
 /* ---- 0x00494690  Actor_CountCostumes ---- */
@@ -2300,12 +2293,12 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
   longlong lVar8;
   #define local_fc (*(float (*)[2])(_frame + (0x110 - 0xfc)))
   #define local_f4 (*(uint *)(_frame + (0x110 - 0xf4)))
-  #define local_f0 (*(uint *)(_frame + (0x110 - 0xf0)))
+  uint local_f0;
   #define local_ec (*(uint *)(_frame + (0x110 - 0xec)))
-  #define local_e8 (*(uint *)(_frame + (0x110 - 0xe8)))
+  uint local_e8;
   #define local_e4 (*(float (*)[3])(_frame + (0x110 - 0xe4)))
   #define local_d8 (*(uint *)(_frame + (0x110 - 0xd8)))
-  #define local_d4 (*(uint *)(_frame + (0x110 - 0xd4)))
+  uint local_d4;
   #define local_d0 (*(uint *)(_frame + (0x110 - 0xd0)))
   #define local_cc (*(uint *)(_frame + (0x110 - 0xcc)))
   #define local_c8 (*(uint *)(_frame + (0x110 - 0xc8)))
@@ -2392,12 +2385,9 @@ void __cdecl sputCostume_DrawMeshShadow(CostumeNode *costumeList,ActorShadow *sh
 #undef local_c8
 #undef local_cc
 #undef local_d0
-#undef local_d4
 #undef local_d8
 #undef local_e4
-#undef local_e8
 #undef local_ec
-#undef local_f0
 #undef local_f4
 #undef local_fc
 
@@ -2429,7 +2419,7 @@ void __cdecl sputCostume_Draw3D(uint pCostumes,uint matrix)
 void __cdecl sputCostume_InternalDraw3D(int *costumes,float *matrix)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   Actor *actor;
   int *piVar1;
   int iVar2;
@@ -2438,14 +2428,14 @@ void __cdecl sputCostume_InternalDraw3D(int *costumes,float *matrix)
   VBuffer *pVVar5;
   int iVar6;
   int iVar7;
-  #define local_20 (*(uint *)(_frame + (0x30 - 0x20)))
-  #define uStack_1c (*(undefined4 *)(_frame + (0x30 - 0x1c)))
-  #define uStack_18 (*(undefined4 *)(_frame + (0x30 - 0x18)))
-  #define uStack_14 (*(undefined4 *)(_frame + (0x30 - 0x14)))
-  #define iStack_10 (*(int *)(_frame + (0x30 - 0x10)))
-  #define iStack_c (*(int *)(_frame + (0x30 - 0xc)))
-  #define iStack_8 (*(int *)(_frame + (0x30 - 0x8)))
-  #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
+  uint local_20;
+  undefined4 uStack_1c;
+  undefined4 uStack_18;
+  undefined4 uStack_14;
+  #define iStack_10 (*(int *)(_frame + (0x20 - 0x10)))
+  #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
+  #define iStack_8 (*(int *)(_frame + (0x20 - 0x8)))
+  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   iVar4 = costumes[1];
   for (piVar1 = costumes; (piVar1 != (int *)0x0 && (piVar1[1] == iVar4));
@@ -2599,10 +2589,6 @@ LAB_004951b3:
 #undef iStack_4
 #undef iStack_8
 #undef iStack_c
-#undef local_20
-#undef uStack_14
-#undef uStack_18
-#undef uStack_1c
 
 
 /* ---- 0x004a5eb0  sputRoom_RemoveActor ---- */
@@ -2738,9 +2724,9 @@ float __thiscall Puck_GetYawToPoint(Puck *this,float *point)
   #define local_18 (*(float *)(_frame + (0x30 - 0x18)))
   #define local_14 (*(float *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   local_18 = *point;
   local_14 = point[1];
@@ -2761,7 +2747,4 @@ float __thiscall Puck_GetYawToPoint(Puck *this,float *point)
 #undef local_10
 #undef local_14
 #undef local_18
-#undef local_4
-#undef local_8
-#undef local_c
 

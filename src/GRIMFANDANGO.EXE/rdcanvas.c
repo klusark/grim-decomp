@@ -1347,9 +1347,9 @@ rdCanvas_DrawLine(rdCanvas *canvas,int x0,int y0,int x1,int y1,ushort color,uint
   uint uVar8;
   int iVar9;
   #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   iVar4 = y0;
   iVar3 = x0;
@@ -1437,9 +1437,6 @@ rdCanvas_DrawLine(rdCanvas *canvas,int x0,int y0,int x1,int y1,ushort color,uint
   return;
 }
 #undef local_10
-#undef local_4
-#undef local_8
-#undef local_c
 
 
 /* ---- 0x00451dd0  rdCanvas_DrawPoint ---- */
@@ -1458,7 +1455,7 @@ void __cdecl rdCanvas_DrawPoint(void *canvas,int x,int y,uint radius,float step,
   int y2;
   longlong lVar2;
   longlong lVar3;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint local_c;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -1487,7 +1484,6 @@ void __cdecl rdCanvas_DrawPoint(void *canvas,int x,int y,uint radius,float step,
 }
 #undef local_4
 #undef local_8
-#undef local_c
 
 #endif
 

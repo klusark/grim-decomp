@@ -66,8 +66,8 @@ int __cdecl MaterialRequester(uint cosInst,int tag,int *parent,int type,char *na
   int iVar5;
   int *piVar6;
   uint uVar7;
-  #define uStack_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define pbStack_18 (*(byte **)(_frame + (0x30 - 0x18)))
+  uint uStack_1c;
+  byte *pbStack_18;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -155,6 +155,4 @@ int __cdecl MaterialRequester(uint cosInst,int tag,int *parent,int type,char *na
 #undef local_4
 #undef local_8
 #undef local_c
-#undef pbStack_18
-#undef uStack_1c
 

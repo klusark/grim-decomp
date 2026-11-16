@@ -311,17 +311,17 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
   longlong lVar17;
   longlong lVar18;
   #define local_7c (*(float (*)[3])(_frame + (0x90 - 0x7c)))
-  #define local_70 (*(uint *)(_frame + (0x90 - 0x70)))
-  #define local_6c (*(uint *)(_frame + (0x90 - 0x6c)))
-  #define local_68 (*(uint *)(_frame + (0x90 - 0x68)))
+  uint local_70;
+  uint local_6c;
+  uint local_68;
   #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
   #define local_60 (*(uint *)(_frame + (0x90 - 0x60)))
   #define local_5c (*(uint *)(_frame + (0x90 - 0x5c)))
   #define local_58 (*(uint *)(_frame + (0x90 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x90 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x90 - 0x50)))
+  uint local_54;
+  uint local_50;
   #define local_4c (*(uint *)(_frame + (0x90 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x90 - 0x48)))
+  uint local_48;
   #define local_44 (*(uint *)(_frame + (0x90 - 0x44)))
   #define local_40 (*(uint *)(_frame + (0x90 - 0x40)))
   #define local_3c (*(uint *)(_frame + (0x90 - 0x3c)))
@@ -1234,17 +1234,11 @@ LAB_00407e89:
 #undef local_3c
 #undef local_40
 #undef local_44
-#undef local_48
 #undef local_4c
-#undef local_50
-#undef local_54
 #undef local_58
 #undef local_5c
 #undef local_60
 #undef local_64
-#undef local_68
-#undef local_6c
-#undef local_70
 #undef local_7c
 #undef local_8
 #undef local_c

@@ -321,7 +321,7 @@ void __cdecl luaI_registerlocalvar(TaggedString *varname,int line)
 undefined4 luaY_parse(void)
 
 {
-  unsigned char _frame[0xbf0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xbe0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   short sVar2;
   FuncState *pFVar3;
@@ -336,20 +336,20 @@ undefined4 luaY_parse(void)
   byte *pbVar9;
   int iVar10;
   byte *pbVar11;
-  #define local_be0 (*(uint *)(_frame + (0xbf0 - 0xbe0)))
-  #define local_bdc (*(int *)(_frame + (0xbf0 - 0xbdc)))
-  #define local_bd8 (*(short **)(_frame + (0xbf0 - 0xbd8)))
-  #define local_bd4 (*(int *)(_frame + (0xbf0 - 0xbd4)))
-  #define local_bd0 (*(int *)(_frame + (0xbf0 - 0xbd0)))
-  #define local_bcc (*(int *)(_frame + (0xbf0 - 0xbcc)))
-  #define local_bc8 (*(int *)(_frame + (0xbf0 - 0xbc8)))
-  #define local_bc4 (*(int *)(_frame + (0xbf0 - 0xbc4)))
-  #define local_bc0 (*(uint *)(_frame + (0xbf0 - 0xbc0)))
-  #define local_bbc (*(FuncState **)(_frame + (0xbf0 - 0xbbc)))
-  #define local_bb8 (*(short (*)[499])(_frame + (0xbf0 - 0xbb8)))
-  #define local_7d2 (*(short *)(_frame + (0xbf0 - 0x7d2)))
-  #define local_7d0 (*(int *)(_frame + (0xbf0 - 0x7d0)))
-  #define afStack_7cc (*(int (*)[499])(_frame + (0xbf0 - 0x7cc)))
+  uint local_be0;
+  int local_bdc;
+  short *local_bd8;
+  int local_bd4;
+  #define local_bd0 (*(int *)(_frame + (0xbe0 - 0xbd0)))
+  #define local_bcc (*(int *)(_frame + (0xbe0 - 0xbcc)))
+  #define local_bc8 (*(int *)(_frame + (0xbe0 - 0xbc8)))
+  #define local_bc4 (*(int *)(_frame + (0xbe0 - 0xbc4)))
+  #define local_bc0 (*(uint *)(_frame + (0xbe0 - 0xbc0)))
+  #define local_bbc (*(FuncState **)(_frame + (0xbe0 - 0xbbc)))
+  #define local_bb8 (*(short (*)[499])(_frame + (0xbe0 - 0xbb8)))
+  #define local_7d2 (*(short *)(_frame + (0xbe0 - 0x7d2)))
+  #define local_7d0 (*(int *)(_frame + (0xbe0 - 0x7d0)))
+  int afStack_7cc [499];
   int fVar3;
   int fVar4;
   
@@ -814,7 +814,6 @@ LAB_1000b464:
   if (&local_7d2 <= local_bd8) goto LAB_1000b47d;
   goto LAB_1000ac11;
 }
-#undef afStack_7cc
 #undef local_7d0
 #undef local_7d2
 #undef local_bb8
@@ -824,10 +823,6 @@ LAB_1000b464:
 #undef local_bc8
 #undef local_bcc
 #undef local_bd0
-#undef local_bd4
-#undef local_bd8
-#undef local_bdc
-#undef local_be0
 
 
 /* ---- 0x1000b770  fix_opcode ---- */

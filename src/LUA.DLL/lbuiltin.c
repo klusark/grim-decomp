@@ -190,7 +190,7 @@ void __cdecl foreach(void)
   int iVar2;
   int *piVar3;
   TObject *o;
-  #define uStack_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  uint uStack_10;
   #define TStack_8 (*(TObject *)(_frame + (0x20 - 0x8)))
   
   iVar1 = luaL_tablearg(1);
@@ -224,7 +224,6 @@ void __cdecl foreach(void)
   return;
 }
 #undef TStack_8
-#undef uStack_10
 
 
 /* ---- 0x100030d0  internaldostring ---- */

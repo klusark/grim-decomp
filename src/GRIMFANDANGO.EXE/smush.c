@@ -65,7 +65,7 @@ SmushPlay_StartMovie
   char *pcVar8;
   char *pcVar9;
   uint *puVar10;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  uint local_1c;
   #define local_18 (*(undefined4 (*)[6])(_frame + (0x30 - 0x18)))
   
   bVar2 = false;
@@ -163,7 +163,6 @@ SmushPlay_StartMovie
   return 1;
 }
 #undef local_18
-#undef local_1c
 
 
 /* ---- 0x004bd930  SmushPlay_StopMovie ---- */

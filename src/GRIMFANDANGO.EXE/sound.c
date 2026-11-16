@@ -113,7 +113,7 @@ PositionedSound_Add(uint sound,undefined **pos,uint minVol,uint maxVol,uint near
 uint __cdecl SetSoundPosition(int entry)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   Setup *pSVar2;
   Set *pSVar3;
@@ -123,10 +123,10 @@ uint __cdecl SetSoundPosition(int entry)
   float10 fVar7;
   longlong lVar8;
   float fVar9;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define local_c (*(float *)(_frame + (0x30 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
-  #define local_4 (*(float *)(_frame + (0x30 - 0x4)))
+  uint local_18;
+  #define local_c (*(float *)(_frame + (0x20 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
+  #define local_4 (*(float *)(_frame + (0x20 - 0x4)))
   
   pSVar3 = sputRoom_GetCurrentRoom();
   if (pSVar3 != (Set *)0x0) {
@@ -169,7 +169,6 @@ uint __cdecl SetSoundPosition(int entry)
   }
   return 0;
 }
-#undef local_18
 #undef local_4
 #undef local_8
 #undef local_c

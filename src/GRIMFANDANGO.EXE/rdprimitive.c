@@ -12,26 +12,26 @@
 uint __cdecl rdPolyline_Draw(int thing,float *b)
 
 {
-  unsigned char _frame[0xc0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
   float fVar3;
-  #define local_b0 (*(uint *)(_frame + (0xc0 - 0xb0)))
-  #define local_a0 (*(uint *)(_frame + (0xc0 - 0xa0)))
-  #define local_9c (*(float *)(_frame + (0xc0 - 0x9c)))
-  #define local_94 (*(float (*)[2])(_frame + (0xc0 - 0x94)))
-  #define local_88 (*(float (*)[3])(_frame + (0xc0 - 0x88)))
-  #define local_7c (*(float *)(_frame + (0xc0 - 0x7c)))
-  #define local_78 (*(float (*)[9])(_frame + (0xc0 - 0x78)))
-  #define local_54 (*(float (*)[3])(_frame + (0xc0 - 0x54)))
-  #define local_48 (*(float *)(_frame + (0xc0 - 0x48)))
-  #define local_40 (*(float *)(_frame + (0xc0 - 0x40)))
-  #define local_38 (*(float (*)[3])(_frame + (0xc0 - 0x38)))
-  #define local_2c (*(undefined4 (*)[3])(_frame + (0xc0 - 0x2c)))
-  #define local_20 (*(uint *)(_frame + (0xc0 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0xc0 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0xc0 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0xc0 - 0x14)))
+  uint local_b0;
+  uint local_a0;
+  float local_9c;
+  #define local_94 (*(float (*)[2])(_frame + (0xb0 - 0x94)))
+  #define local_88 (*(float (*)[3])(_frame + (0xb0 - 0x88)))
+  #define local_7c (*(float *)(_frame + (0xb0 - 0x7c)))
+  #define local_78 (*(float (*)[9])(_frame + (0xb0 - 0x78)))
+  #define local_54 (*(float (*)[3])(_frame + (0xb0 - 0x54)))
+  float local_48;
+  float local_40;
+  #define local_38 (*(float (*)[3])(_frame + (0xb0 - 0x38)))
+  #define local_2c (*(undefined4 (*)[3])(_frame + (0xb0 - 0x2c)))
+  #define local_20 (*(uint *)(_frame + (0xb0 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0xb0 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0xb0 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0xb0 - 0x14)))
   
   iVar1 = *(int *)(thing + 4);
   local_20 = (uint)&DAT_007f4e80;
@@ -106,16 +106,11 @@ uint __cdecl rdPolyline_Draw(int thing,float *b)
 #undef local_20
 #undef local_2c
 #undef local_38
-#undef local_40
-#undef local_48
 #undef local_54
 #undef local_78
 #undef local_7c
 #undef local_88
 #undef local_94
-#undef local_9c
-#undef local_a0
-#undef local_b0
 
 
 /* ---- 0x00472360  rdPolyline_DrawFace ---- */
@@ -290,7 +285,7 @@ int __cdecl rdSprite_DrawThing(rdThing *thing,void *sprite)
   uint uVar2;
   ProcEntry *pPVar3;
   uint *puVar4;
-  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
+  uint local_40;
   #define local_3c (*(float (*)[3])(_frame + (0x50 - 0x3c)))
   #define local_30 (*(float (*)[12])(_frame + (0x50 - 0x30)))
   
@@ -371,7 +366,6 @@ int __cdecl rdSprite_DrawThing(rdThing *thing,void *sprite)
 }
 #undef local_30
 #undef local_3c
-#undef local_40
 
 
 /* ---- 0x004728a0  rdSprite_New ---- */
@@ -548,7 +542,7 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
   int iVar8;
   uint uVar9;
   bool bVar10;
-  #define local_7c (*(uint *)(_frame + (0x90 - 0x7c)))
+  uint local_7c;
   #define local_78 (*(float (*)[2])(_frame + (0x90 - 0x78)))
   #define local_70 (*(float *)(_frame + (0x90 - 0x70)))
   #define local_6c (*(float (*)[2])(_frame + (0x90 - 0x6c)))
@@ -742,5 +736,4 @@ uint __cdecl rdSprite_Draw(int thing,float *matrix)
 #undef local_6c
 #undef local_70
 #undef local_78
-#undef local_7c
 

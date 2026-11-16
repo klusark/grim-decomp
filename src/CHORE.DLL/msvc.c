@@ -156,17 +156,17 @@ LAB_100057ef:
 void __cdecl msvc_qsort(uint pKeys,uint dwNumKeys,uint param_3,void *cos_CompareKeys)
 
 {
-  unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x100] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
   undefined1 *puVar3;
   undefined1 *puVar4;
-  #define puStack_100 (*(undefined1 **)(_frame + (0x110 - 0x100)))
-  #define piStack_fc (*(int **)(_frame + (0x110 - 0xfc)))
-  #define puStack_f8 (*(undefined4 **)(_frame + (0x110 - 0xf8)))
-  #define iStack_f4 (*(int *)(_frame + (0x110 - 0xf4)))
-  #define aiStack_f0 (*(int (*)[30])(_frame + (0x110 - 0xf0)))
-  #define auStack_78 (*(undefined4 (*)[30])(_frame + (0x110 - 0x78)))
+  undefined1 *puStack_100;
+  int *piStack_fc;
+  undefined4 *puStack_f8;
+  int iStack_f4;
+  #define aiStack_f0 (*(int (*)[30])(_frame + (0x100 - 0xf0)))
+  #define auStack_78 (*(undefined4 (*)[30])(_frame + (0x100 - 0x78)))
   
   if ((dwNumKeys < 2) || (param_3 == 0)) {
     return;
@@ -239,10 +239,6 @@ LAB_10005c15:
 }
 #undef aiStack_f0
 #undef auStack_78
-#undef iStack_f4
-#undef piStack_fc
-#undef puStack_100
-#undef puStack_f8
 
 
 /* ---- 0x10005d50  msvc_shortsort ---- */

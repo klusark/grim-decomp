@@ -687,26 +687,26 @@ void __cdecl Input_FlushKeyboard(void)
 void __cdecl Input_PollJoysticks(void)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint *puVar2;
   int iVar3;
   uint uVar4;
   uint uVar5;
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
+  uint local_44;
+  #define local_40 (*(uint *)(_frame + (0x50 - 0x40)))
+  #define local_3c (*(uint *)(_frame + (0x50 - 0x3c)))
+  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
+  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
+  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
+  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
   
   local_40 = 1;
   local_38 = 0;
@@ -888,7 +888,6 @@ LAB_00477bd5:
 #undef local_38
 #undef local_3c
 #undef local_40
-#undef local_44
 #undef local_c
 
 

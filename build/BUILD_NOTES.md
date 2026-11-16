@@ -2398,3 +2398,19 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
   hwnd, 5) and builds {0x14, 0x10, 0, 0, 0x20} in its `_frame` before SetProperty, as the machine code and the
   hand-written version do.
 * docs/OVERRIDES.md: 529. Clean room 0 of 5490; whole-game autorun passes.
+
+## The frame holds only the locals its layout reaches (2026-11-16)
+
+* tools/frame_locals.py put every offset-named local of a function into `_frame` as soon as one of them needed it.
+  Now only the locals the layout can reach stay there: the ones that need it themselves (address taken, an array, a
+  piece, a structure held by value, two that overlap), and every local at or above the deepest of those (a structure
+  passed by address runs up from its first slot into the slots Ghidra split it into). The locals below it and the
+  unused ones are plain C locals again. Functions with `_stkneg` or STACK0X keep everything as before (Res_FOpen).
+* An int, uint or float whose address only goes to sscanf as one argument no longer counts as address taken: it is
+  written as one %d / %f.
+* Tried and dropped: a frame left with one local becoming that plain local. A lone array overflowed by the original
+  then ran past gcc's copy into the return address (args_SetObjectType_none crashed, "...\spu...rces.cpp" over the
+  saved EBP), and 25 more tests differed (shadow meshes, WorldToScreen, the Lua string calls): Ghidra's extent of a
+  lone local is short of what the code uses, and the frame's slack takes the rest. Every function with a frame keeps
+  one: 497 still.
+* Frame views 3457 -> 3058. Clean room 0 of 5490; whole-game autorun passes.

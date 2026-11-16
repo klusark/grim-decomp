@@ -11,7 +11,7 @@
 void * __cdecl LabDir_Open(char *dir)
 
 {
-  unsigned char _frame[0x130] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   undefined4 *scan;
   uint uVar2;
@@ -23,10 +23,10 @@ void * __cdecl LabDir_Open(char *dir)
   int *piVar8;
   int *piVar9;
   char *pcVar10;
-  #define local_114 (*(uint *)(_frame + (0x130 - 0x114)))
-  #define local_110 (*(uint *)(_frame + (0x130 - 0x110)))
-  #define local_10c (*(char (*)[260])(_frame + (0x130 - 0x10c)))
-  #define local_8 (*(uint *)(_frame + (0x130 - 0x8)))
+  uint local_114;
+  uint local_110;
+  #define local_10c (*(char (*)[260])(_frame + (0x120 - 0x10c)))
+  #define local_8 (*(uint *)(_frame + (0x120 - 0x8)))
   
   iVar7 = 0;
   piVar4 = (int *)0x0;
@@ -119,8 +119,6 @@ void * __cdecl LabDir_Open(char *dir)
   return piVar4;
 }
 #undef local_10c
-#undef local_110
-#undef local_114
 #undef local_8
 
 

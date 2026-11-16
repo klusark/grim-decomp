@@ -455,7 +455,7 @@ uint __cdecl Text_DrawFormatted(TextContext *ctx,char *fmt,...)
 uint __cdecl Text_WrapLines(uint *defaultFont)
 
 {
-  unsigned char _frame[0x460] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x450] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint uVar2;
   int iVar3;
@@ -469,23 +469,23 @@ uint __cdecl Text_WrapLines(uint *defaultFont)
   uint uVar11;
   uint *puVar12;
   undefined4 *puVar13;
-  #define local_444 (*(uint *)(_frame + (0x460 - 0x444)))
-  #define local_43e (*(undefined1 *)(_frame + (0x460 - 0x43e)))
-  #define local_43d (*(undefined1 *)(_frame + (0x460 - 0x43d)))
-  #define local_43c (*(uint *)(_frame + (0x460 - 0x43c)))
-  #define uStack_438 (*(uint *)(_frame + (0x460 - 0x438)))
-  #define iStack_434 (*(int *)(_frame + (0x460 - 0x434)))
-  #define local_430 (*(uint *)(_frame + (0x460 - 0x430)))
-  #define local_42c (*(uint *)(_frame + (0x460 - 0x42c)))
-  #define local_428 (*(uint *)(_frame + (0x460 - 0x428)))
-  #define local_424 (*(uint *)(_frame + (0x460 - 0x424)))
-  #define local_420 (*(uint *)(_frame + (0x460 - 0x420)))
-  #define local_414 (*(uint *)(_frame + (0x460 - 0x414)))
-  #define local_410 (*(uint *)(_frame + (0x460 - 0x410)))
-  #define local_40c (*(uint *)(_frame + (0x460 - 0x40c)))
-  #define local_408 (*(uint *)(_frame + (0x460 - 0x408)))
-  #define local_404 (*(uint *)(_frame + (0x460 - 0x404)))
-  #define local_400 (*(uint *)(_frame + (0x460 - 0x400)))
+  uint local_444;
+  #define local_43e (*(undefined1 *)(_frame + (0x450 - 0x43e)))
+  #define local_43d (*(undefined1 *)(_frame + (0x450 - 0x43d)))
+  #define local_43c (*(uint *)(_frame + (0x450 - 0x43c)))
+  #define uStack_438 (*(uint *)(_frame + (0x450 - 0x438)))
+  #define iStack_434 (*(int *)(_frame + (0x450 - 0x434)))
+  #define local_430 (*(uint *)(_frame + (0x450 - 0x430)))
+  #define local_42c (*(uint *)(_frame + (0x450 - 0x42c)))
+  #define local_428 (*(uint *)(_frame + (0x450 - 0x428)))
+  #define local_424 (*(uint *)(_frame + (0x450 - 0x424)))
+  #define local_420 (*(uint *)(_frame + (0x450 - 0x420)))
+  #define local_414 (*(uint *)(_frame + (0x450 - 0x414)))
+  #define local_410 (*(uint *)(_frame + (0x450 - 0x410)))
+  #define local_40c (*(uint *)(_frame + (0x450 - 0x40c)))
+  #define local_408 (*(uint *)(_frame + (0x450 - 0x408)))
+  #define local_404 (*(uint *)(_frame + (0x450 - 0x404)))
+  #define local_400 (*(uint *)(_frame + (0x450 - 0x400)))
   
   puVar8 = &local_430;
   for (iVar6 = 0xc; iVar6 != 0; iVar6 = iVar6 + -1) {
@@ -623,7 +623,6 @@ uint __cdecl Text_WrapLines(uint *defaultFont)
 #undef local_43c
 #undef local_43d
 #undef local_43e
-#undef local_444
 #undef uStack_438
 
 
@@ -1031,7 +1030,7 @@ void __cdecl Text_DrawString(TextContext *ctx,void *font,char *text)
   TextContext *pTVar4;
   int ch;
   uint uVar5;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  uint local_18;
   #define local_14 (*(uint *)(_frame + (0x30 - 0x14)))
   #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
   #define local_c (*(uint *)(_frame + (0x30 - 0xc)))
@@ -1090,7 +1089,6 @@ LAB_004ab66a:
 }
 #undef local_10
 #undef local_14
-#undef local_18
 #undef local_4
 #undef local_8
 #undef local_c

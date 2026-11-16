@@ -61,7 +61,7 @@ LAB_0049a295:
 void __cdecl sputLua_GetPointSectorL(void)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   int iVar3;
@@ -71,9 +71,9 @@ void __cdecl sputLua_GetPointSectorL(void)
   uint mask;
   longlong lVar7;
   float fVar8;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
+  uint local_24;
+  uint local_10;
+  #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   iVar1 = lua_lua2C(1);
   iVar2 = lua_lua2C(2);
@@ -110,8 +110,6 @@ void __cdecl sputLua_GetPointSectorL(void)
   lua_pushnil();
   return;
 }
-#undef local_10
-#undef local_24
 #undef local_c
 
 
@@ -389,7 +387,7 @@ void __cdecl sputLua_RotateVectorL(void)
   int iVar1;
   int iVar2;
   int iVar3;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
+  uint local_1c;
   #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
   #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
@@ -445,7 +443,6 @@ void __cdecl sputLua_RotateVectorL(void)
   return;
 }
 #undef local_18
-#undef local_1c
 #undef local_c
 
 
@@ -899,8 +896,8 @@ void __cdecl sputLua_SubmitSaveGameData(void)
   char *pcVar5;
   char *pcVar6;
   uint uVar7;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint local_10;
+  uint local_c;
   #define uStack_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -957,8 +954,6 @@ void __cdecl sputLua_SubmitSaveGameData(void)
     g_nTotSaveBytes = g_nTotSaveBytes + ~uVar7 + 4;
   } while( true );
 }
-#undef local_10
 #undef local_4
-#undef local_c
 #undef uStack_8
 

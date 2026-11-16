@@ -168,7 +168,7 @@ uint __cdecl Cos_LoadEntry(char *name,int handle)
   int iVar7;
   uint *puVar8;
   uint *puVar9;
-  #define uStack_10 (*(uint *)(_frame + (0x20 - 0x10)))
+  uint uStack_10;
   #define auStack_8 (*(undefined1 (*)[4])(_frame + (0x20 - 0x8)))
   #define auStack_4 (*(undefined1 (*)[4])(_frame + (0x20 - 0x4)))
   
@@ -266,7 +266,6 @@ LAB_10001a10:
 }
 #undef auStack_4
 #undef auStack_8
-#undef uStack_10
 
 
 /* ---- 0x10001a30  Cos_FreeCosInstance ---- */
@@ -2278,18 +2277,18 @@ uint __cdecl Cos_ReadChoresSection(uint file,int costume,uint unused3)
 uint __cdecl Cos_ReadKeysSection(uint file,int costume)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   int iVar3;
   int *piVar4;
   uint uVar5;
   uint *puVar6;
-  #define uStack_18 (*(uint *)(_frame + (0x30 - 0x18)))
-  #define uStack_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define iStack_c (*(int *)(_frame + (0x30 - 0xc)))
-  #define pCStack_8 (*(ComponentTag **)(_frame + (0x30 - 0x8)))
-  #define iStack_4 (*(int *)(_frame + (0x30 - 0x4)))
+  uint uStack_18;
+  uint uStack_10;
+  #define iStack_c (*(int *)(_frame + (0x20 - 0xc)))
+  #define pCStack_8 (*(ComponentTag **)(_frame + (0x20 - 0x8)))
+  #define iStack_4 (*(int *)(_frame + (0x20 - 0x4)))
   
   uStack_10 = 0;
   if (*(int *)(costume + 0x30) == 0) {
@@ -2374,8 +2373,6 @@ uint __cdecl Cos_ReadKeysSection(uint file,int costume)
 #undef iStack_4
 #undef iStack_c
 #undef pCStack_8
-#undef uStack_10
-#undef uStack_18
 
 
 /* ---- 0x10004bb0  Cos_ReadLine ---- */

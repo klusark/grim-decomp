@@ -439,7 +439,7 @@ void __cdecl rdPuppet_ResetTrack(int puppet,int track)
 void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
 
 {
-  unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x90] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   float fVar2;
   float fVar3;
@@ -458,20 +458,20 @@ void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
   float *pfVar16;
   float *pfVar17;
   float fVar18;
-  #define local_88 (*(uint *)(_frame + (0xa0 - 0x88)))
-  #define local_74 (*(float (*)[3])(_frame + (0xa0 - 0x74)))
-  #define local_68 (*(uint *)(_frame + (0xa0 - 0x68)))
-  #define local_64 (*(uint *)(_frame + (0xa0 - 0x64)))
-  #define local_60 (*(uint *)(_frame + (0xa0 - 0x60)))
-  #define local_5c (*(float (*)[3])(_frame + (0xa0 - 0x5c)))
-  #define local_50 (*(uint *)(_frame + (0xa0 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0xa0 - 0x4c)))
-  #define local_48 (*(float (*)[3])(_frame + (0xa0 - 0x48)))
-  #define local_3c (*(float (*)[3])(_frame + (0xa0 - 0x3c)))
-  #define local_30 (*(float (*)[3])(_frame + (0xa0 - 0x30)))
-  #define local_24 (*(float (*)[3])(_frame + (0xa0 - 0x24)))
-  #define local_18 (*(float (*)[3])(_frame + (0xa0 - 0x18)))
-  #define local_c (*(float (*)[3])(_frame + (0xa0 - 0xc)))
+  uint local_88;
+  #define local_74 (*(float (*)[3])(_frame + (0x90 - 0x74)))
+  uint local_68;
+  #define local_64 (*(uint *)(_frame + (0x90 - 0x64)))
+  #define local_60 (*(uint *)(_frame + (0x90 - 0x60)))
+  #define local_5c (*(float (*)[3])(_frame + (0x90 - 0x5c)))
+  #define local_50 (*(uint *)(_frame + (0x90 - 0x50)))
+  uint local_4c;
+  #define local_48 (*(float (*)[3])(_frame + (0x90 - 0x48)))
+  #define local_3c (*(float (*)[3])(_frame + (0x90 - 0x3c)))
+  #define local_30 (*(float (*)[3])(_frame + (0x90 - 0x30)))
+  #define local_24 (*(float (*)[3])(_frame + (0x90 - 0x24)))
+  #define local_18 (*(float (*)[3])(_frame + (0x90 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x90 - 0xc)))
   
   prVar4 = thing->pModel;
   piVar5 = thing->pPuppet;
@@ -742,14 +742,11 @@ void __cdecl rdPuppet_UpdateFrame(rdThing *thing,float *frame)
 #undef local_30
 #undef local_3c
 #undef local_48
-#undef local_4c
 #undef local_50
 #undef local_5c
 #undef local_60
 #undef local_64
-#undef local_68
 #undef local_74
-#undef local_88
 #undef local_c
 
 #endif
@@ -837,7 +834,7 @@ int __cdecl rdKeyframe_Load(char *name)
 uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
 
 {
-  unsigned char _frame[0x80] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   rdKeyframe *prVar2;
   uint *puVar3;
@@ -850,25 +847,25 @@ uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
   undefined1 *puVar10;
   bool bVar11;
   uint uVar12;
-  #define uStack_68 (*(uint *)(_frame + (0x80 - 0x68)))
-  #define uStack_64 (*(uint *)(_frame + (0x80 - 0x64)))
-  #define uStack_60 (*(uint *)(_frame + (0x80 - 0x60)))
-  #define pcStack_5c (*(char **)(_frame + (0x80 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x80 - 0x58)))
-  #define fStack_54 (*(float *)(_frame + (0x80 - 0x54)))
-  #define fStack_50 (*(float *)(_frame + (0x80 - 0x50)))
-  #define fStack_4c (*(float *)(_frame + (0x80 - 0x4c)))
-  #define fStack_48 (*(float *)(_frame + (0x80 - 0x48)))
-  #define fStack_44 (*(float *)(_frame + (0x80 - 0x44)))
-  #define fStack_40 (*(float *)(_frame + (0x80 - 0x40)))
-  #define fStack_3c (*(float *)(_frame + (0x80 - 0x3c)))
-  #define fStack_38 (*(float *)(_frame + (0x80 - 0x38)))
-  #define fStack_34 (*(float *)(_frame + (0x80 - 0x34)))
-  #define fStack_30 (*(float *)(_frame + (0x80 - 0x30)))
-  #define fStack_2c (*(float *)(_frame + (0x80 - 0x2c)))
-  #define fStack_28 (*(float *)(_frame + (0x80 - 0x28)))
-  #define auStack_24 (*(undefined1 (*)[4])(_frame + (0x80 - 0x24)))
-  #define auStack_20 (*(uint (*)[8])(_frame + (0x80 - 0x20)))
+  uint uStack_68;
+  uint uStack_64;
+  uint uStack_60;
+  #define pcStack_5c (*(char **)(_frame + (0x70 - 0x5c)))
+  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
+  #define fStack_54 (*(float *)(_frame + (0x70 - 0x54)))
+  #define fStack_50 (*(float *)(_frame + (0x70 - 0x50)))
+  #define fStack_4c (*(float *)(_frame + (0x70 - 0x4c)))
+  #define fStack_48 (*(float *)(_frame + (0x70 - 0x48)))
+  #define fStack_44 (*(float *)(_frame + (0x70 - 0x44)))
+  #define fStack_40 (*(float *)(_frame + (0x70 - 0x40)))
+  #define fStack_3c (*(float *)(_frame + (0x70 - 0x3c)))
+  #define fStack_38 (*(float *)(_frame + (0x70 - 0x38)))
+  #define fStack_34 (*(float *)(_frame + (0x70 - 0x34)))
+  #define fStack_30 (*(float *)(_frame + (0x70 - 0x30)))
+  #define fStack_2c (*(float *)(_frame + (0x70 - 0x2c)))
+  #define fStack_28 (*(float *)(_frame + (0x70 - 0x28)))
+  #define auStack_24 (*(undefined1 (*)[4])(_frame + (0x70 - 0x24)))
+  #define auStack_20 (*(uint (*)[8])(_frame + (0x70 - 0x20)))
   
   prVar2 = keyframe;
   rdKeyframe_NewEntry(keyframe);
@@ -1094,9 +1091,6 @@ LAB_004c0cbf:
 #undef fStack_54
 #undef local_58
 #undef pcStack_5c
-#undef uStack_60
-#undef uStack_64
-#undef uStack_68
 
 
 /* ---- 0x004c0ce0  rdKeyframe_LoadEntryBinary ---- */

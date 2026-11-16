@@ -52,12 +52,12 @@ float __cdecl stdMath_FlexPower(float x,int n)
 float __cdecl stdMath_NormalizeAngle(float degrees)
 
 {
-  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
-  #define local_1c (*(uint *)(_frame + (0x30 - 0x1c)))
-  #define local_10 (*(uint *)(_frame + (0x30 - 0x10)))
-  #define local_c (*(float (*)[2])(_frame + (0x30 - 0xc)))
+  uint local_1c;
+  uint local_10;
+  #define local_c (*(float (*)[2])(_frame + (0x20 - 0xc)))
   
   if (0.0f <= degrees) {
     if (degrees < 360.0f) {
@@ -79,8 +79,6 @@ float __cdecl stdMath_NormalizeAngle(float degrees)
   }
   return local_c[0];
 }
-#undef local_10
-#undef local_1c
 #undef local_c
 
 #endif
@@ -259,21 +257,21 @@ float __cdecl Math_Floor(float x)
 float10 stdMath_Tan(float deg)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   int iVar2;
   longlong lVar3;
   float fVar4;
   float fVar5;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(float (*)[2])(_frame + (0x40 - 0x10)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
+  uint local_30;
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  #define local_10 (*(float (*)[2])(_frame + (0x20 - 0x10)))
+  #define local_8 (*(float *)(_frame + (0x20 - 0x8)))
   
   fVar4 = stdMath_NormalizeAngle(deg);
   if (90.0f <= fVar4) {
@@ -341,13 +339,6 @@ float10 stdMath_Tan(float deg)
   return (float10)local_10[0];
 }
 #undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_30
 #undef local_8
 
 #endif
@@ -367,7 +358,7 @@ float __cdecl stdMath_ArcSin1(float x)
   unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
-  #define local_18 (*(uint *)(_frame + (0x30 - 0x18)))
+  uint local_18;
   #define local_14 (*(float (*)[3])(_frame + (0x30 - 0x14)))
   #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
   
@@ -392,7 +383,6 @@ float __cdecl stdMath_ArcSin1(float x)
   return local_8;
 }
 #undef local_14
-#undef local_18
 #undef local_8
 
 #endif
@@ -420,18 +410,18 @@ float __cdecl Math_Sqrt(float x)
 float __cdecl stdMath_ArcSin3(float x)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   float fVar4;
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(float (*)[3])(_frame + (0x40 - 0x14)))
-  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
+  uint local_28;
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  uint local_18;
+  #define local_14 (*(float (*)[3])(_frame + (0x30 - 0x14)))
+  #define local_8 (*(float *)(_frame + (0x30 - 0x8)))
   
   if (0.0f <= x) {
     local_14[0] = x;
@@ -458,11 +448,6 @@ float __cdecl stdMath_ArcSin3(float x)
   return local_8;
 }
 #undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
 #undef local_8
 
 #endif
@@ -478,21 +463,21 @@ float __cdecl stdMath_ArcSin3(float x)
 float __cdecl stdMath_ArcTan4(float y,float x)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   float fVar3;
   float fVar4;
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(float *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(float (*)[3])(_frame + (0x50 - 0x24)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(float *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(float *)(_frame + (0x50 - 0x8)))
+  uint local_34;
+  uint local_30;
+  uint local_2c;
+  float local_28;
+  #define local_24 (*(float (*)[3])(_frame + (0x40 - 0x24)))
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  #define local_c (*(float *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(float *)(_frame + (0x40 - 0x8)))
   
   if ((x == 0.0f) && (y == 0.0f)) {
     local_c = 0.0f;
@@ -541,14 +526,7 @@ float __cdecl stdMath_ArcTan4(float y,float x)
   }
   return local_c;
 }
-#undef local_10
-#undef local_14
-#undef local_18
 #undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
 #undef local_8
 #undef local_c
 

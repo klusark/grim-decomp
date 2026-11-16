@@ -359,7 +359,7 @@ int __cdecl Lab_ReadDirectory(Lab *lab)
   Lab *pLVar6;
   int iVar7;
   Lab *pLVar8;
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint local_c;
   #define local_8 (*(char (*)[8])(_frame + (0x20 - 0x8)))
   
   pLVar1 = lab;
@@ -426,7 +426,6 @@ LAB_00481994:
   return 0;
 }
 #undef local_8
-#undef local_c
 
 
 /* ---- 0x00481a00  Lab_FindEntry ---- */

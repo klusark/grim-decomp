@@ -73,10 +73,10 @@ rdLight_CalcVertexIntensities
   float *pfVar6;
   float *pfVar7;
   float fVar8;
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  uint local_2c;
   #define local_28 (*(float (*)[3])(_frame + (0x40 - 0x28)))
   #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  uint local_18;
   #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
   
   local_28[0] = 0.0f;
@@ -159,10 +159,8 @@ LAB_0045173f:
   }
   return local_28[0] / (float)nverts;
 }
-#undef local_18
 #undef local_1c
 #undef local_28
-#undef local_2c
 #undef local_c
 
 #endif
@@ -187,7 +185,7 @@ rdLight_CalcFaceIntensity
   uint uVar4;
   float *pfVar5;
   float fVar6;
-  #define local_10 (*(float *)(_frame + (0x20 - 0x10)))
+  float local_10;
   #define local_c (*(float (*)[3])(_frame + (0x20 - 0xc)))
   
   uVar4 = 0;
@@ -220,6 +218,5 @@ rdLight_CalcFaceIntensity
   }
   return local_10;
 }
-#undef local_10
 #undef local_c
 

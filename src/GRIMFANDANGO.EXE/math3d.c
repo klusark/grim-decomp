@@ -103,7 +103,7 @@ float __cdecl rdVector_Normalize3QuickAcc(float *v)
   float fVar2;
   #define local_28 (*(float (*)[3])(_frame + (0x40 - 0x28)))
   #define local_1c (*(float (*)[3])(_frame + (0x40 - 0x1c)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  uint local_10;
   #define local_c (*(float (*)[2])(_frame + (0x40 - 0xc)))
   
   if (0.0f <= *v) {
@@ -156,7 +156,6 @@ float __cdecl rdVector_Normalize3QuickAcc(float *v)
   v[2] = v[2] * fVar2;
   return fVar1;
 }
-#undef local_10
 #undef local_1c
 #undef local_28
 #undef local_c
@@ -311,7 +310,7 @@ rdClip_FaceToPlane(float *normal,float *point,float *verts,uint *outFlags,float 
                   uint *count)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   float fVar1;
   float fVar2;
   int iVar3;
@@ -326,11 +325,11 @@ rdClip_FaceToPlane(float *normal,float *point,float *verts,uint *outFlags,float 
   uint *puVar12;
   uint *puVar13;
   uint *puVar14;
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(float (*)[3])(_frame + (0x40 - 0x18)))
-  #define local_c (*(float (*)[3])(_frame + (0x40 - 0xc)))
+  uint local_24;
+  uint local_20;
+  uint local_1c;
+  #define local_18 (*(float (*)[3])(_frame + (0x30 - 0x18)))
+  #define local_c (*(float (*)[3])(_frame + (0x30 - 0xc)))
   
   local_c[2] = PUN(float,count);
   puVar5 = outFlags;
@@ -477,9 +476,6 @@ LAB_0044ed90:
   return local_20;
 }
 #undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
 #undef local_c
 
 #endif
@@ -499,7 +495,7 @@ void __cdecl rdMatrix_Build34(float *out,uint *angles,float *pos)
   uint *puVar1;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   #define local_10 (*(float (*)[3])(_frame + (0x30 - 0x10)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_4;
   
   puVar1 = angles;
   stdMath_SinCos(PUN(float,PUN(float,*angles)),(float *)&angles,local_1c);
@@ -521,7 +517,6 @@ void __cdecl rdMatrix_Build34(float *out,uint *angles,float *pos)
 }
 #undef local_10
 #undef local_1c
-#undef local_4
 
 #endif
 
@@ -570,7 +565,7 @@ void __cdecl rdMatrix_BuildRotate34(float *out,uint *angles)
   uint *puVar1;
   #define local_1c (*(float (*)[3])(_frame + (0x30 - 0x1c)))
   #define local_10 (*(float (*)[3])(_frame + (0x30 - 0x10)))
-  #define local_4 (*(uint *)(_frame + (0x30 - 0x4)))
+  uint local_4;
   
   puVar1 = angles;
   stdMath_SinCos(PUN(float,PUN(float,*angles)),(float *)&angles,local_1c);
@@ -592,7 +587,6 @@ void __cdecl rdMatrix_BuildRotate34(float *out,uint *angles)
 }
 #undef local_10
 #undef local_1c
-#undef local_4
 
 #endif
 
@@ -668,13 +662,13 @@ void __cdecl rdMatrix_BuildFromVectorAngle34(float *out,float *axis,float angle)
   float fVar12;
   float fVar13;
   #define local_28 (*(float (*)[3])(_frame + (0x40 - 0x28)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  uint local_1c;
+  uint local_18;
+  uint local_14;
+  uint local_10;
+  uint local_c;
+  uint local_8;
+  uint local_4;
   
   stdMath_SinCos(angle,local_28,&angle);
   fVar1 = 1.0f - axis[2];
@@ -744,14 +738,7 @@ void __cdecl rdMatrix_BuildFromVectorAngle34(float *out,float *axis,float angle)
   out[0xb] = 0.0f;
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
 #undef local_28
-#undef local_4
-#undef local_8
-#undef local_c
 
 #endif
 

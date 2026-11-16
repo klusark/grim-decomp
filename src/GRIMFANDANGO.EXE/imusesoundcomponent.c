@@ -188,7 +188,7 @@ uint __cdecl SoundAdjuster(int *comp,uint text)
 int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint *puVar2;
   uint *puVar3;
@@ -196,11 +196,11 @@ int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
   undefined1 uVar5;
   undefined *puVar6;
   undefined4 *puVar7;
-  #define local_25 (*(undefined1 *)(_frame + (0x40 - 0x25)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(undefined1 *)(_frame + (0x40 - 0x20)))
-  #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
-  #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
+  undefined1 local_25;
+  uint local_24;
+  #define local_20 (*(undefined1 *)(_frame + (0x30 - 0x20)))
+  #define local_1f (*(undefined4 *)(_frame + (0x30 - 0x1f)))
+  #define local_1 (*(undefined1 *)(_frame + (0x30 - 0x1)))
   
   local_20 = DAT_004f5a98;
   uVar5 = 0x7f;
@@ -270,8 +270,6 @@ int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
 #undef local_1
 #undef local_1f
 #undef local_20
-#undef local_24
-#undef local_25
 
 
 /* ---- 0x00497640  SoundFreer ---- */

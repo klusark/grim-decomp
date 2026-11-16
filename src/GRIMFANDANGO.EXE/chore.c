@@ -18,8 +18,8 @@ void __cdecl sputCostume_FadeKeysIn(void *cosInst,int chore,int ms)
   int *piVar3;
   int track;
   int iVar4;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint local_10;
+  uint local_c;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -62,10 +62,8 @@ void __cdecl sputCostume_FadeKeysIn(void *cosInst,int chore,int ms)
   }
   return;
 }
-#undef local_10
 #undef local_4
 #undef local_8
-#undef local_c
 
 
 /* ---- 0x00498ad0  sputCostume_FadeKeysOut ---- */
@@ -81,8 +79,8 @@ void __cdecl sputCostume_FadeKeysOut(void *cosInst,int chore,int ms)
   int *piVar3;
   int track;
   int iVar4;
-  #define local_10 (*(uint *)(_frame + (0x20 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x20 - 0xc)))
+  uint local_10;
+  uint local_c;
   #define local_8 (*(uint *)(_frame + (0x20 - 0x8)))
   #define local_4 (*(uint *)(_frame + (0x20 - 0x4)))
   
@@ -122,8 +120,6 @@ void __cdecl sputCostume_FadeKeysOut(void *cosInst,int chore,int ms)
   }
   return;
 }
-#undef local_10
 #undef local_4
 #undef local_8
-#undef local_c
 

@@ -12,7 +12,7 @@
 stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
 
 {
-  unsigned char _frame[0xb0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0xa0] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   void **ppvVar1;
   bool bVar2;
   char cVar3;
@@ -29,22 +29,22 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
   void *pvVar12;
   uint uVar13;
   undefined4 *puVar14;
-  #define iStack_94 (*(int *)(_frame + (0xb0 - 0x94)))
-  #define iStack_90 (*(int *)(_frame + (0xb0 - 0x90)))
-  #define iStack_8c (*(int *)(_frame + (0xb0 - 0x8c)))
-  #define auStack_88 (*(undefined1 (*)[4])(_frame + (0xb0 - 0x88)))
-  #define uStack_84 (*(uint *)(_frame + (0xb0 - 0x84)))
-  #define auStack_80 (*(undefined1 (*)[4])(_frame + (0xb0 - 0x80)))
-  #define uStack_7c (*(uint *)(_frame + (0xb0 - 0x7c)))
-  #define pvStack_78 (*(void **)(_frame + (0xb0 - 0x78)))
-  #define uStack_74 (*(ushort *)(_frame + (0xb0 - 0x74)))
-  #define uStack_72 (*(ushort *)(_frame + (0xb0 - 0x72)))
-  #define uStack_6a (*(uint *)(_frame + (0xb0 - 0x6a)))
-  #define auStack_60 (*(undefined1 (*)[4])(_frame + (0xb0 - 0x60)))
-  #define uStack_5c (*(uint *)(_frame + (0xb0 - 0x5c)))
-  #define acStack_58 (*(char (*)[4])(_frame + (0xb0 - 0x58)))
-  #define uStack_54 (*(uint *)(_frame + (0xb0 - 0x54)))
-  #define VStack_4c (*(VBufferFormat *)(_frame + (0xb0 - 0x4c)))
+  int iStack_94;
+  int iStack_90;
+  int iStack_8c;
+  #define auStack_88 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x88)))
+  #define uStack_84 (*(uint *)(_frame + (0xa0 - 0x84)))
+  #define auStack_80 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x80)))
+  #define uStack_7c (*(uint *)(_frame + (0xa0 - 0x7c)))
+  #define pvStack_78 (*(void **)(_frame + (0xa0 - 0x78)))
+  #define uStack_74 (*(ushort *)(_frame + (0xa0 - 0x74)))
+  #define uStack_72 (*(ushort *)(_frame + (0xa0 - 0x72)))
+  #define uStack_6a (*(uint *)(_frame + (0xa0 - 0x6a)))
+  #define auStack_60 (*(undefined1 (*)[4])(_frame + (0xa0 - 0x60)))
+  #define uStack_5c (*(uint *)(_frame + (0xa0 - 0x5c)))
+  #define acStack_58 (*(char (*)[4])(_frame + (0xa0 - 0x58)))
+  #define uStack_54 (*(uint *)(_frame + (0xa0 - 0x54)))
+  #define VStack_4c (*(VBufferFormat *)(_frame + (0xa0 - 0x4c)))
   
   f = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
   if (f == 0) {
@@ -250,9 +250,6 @@ stdBitmap * __cdecl stdLbm_Load(char *path,int videoMem,int b)
 #undef auStack_60
 #undef auStack_80
 #undef auStack_88
-#undef iStack_8c
-#undef iStack_90
-#undef iStack_94
 #undef pvStack_78
 #undef uStack_54
 #undef uStack_5c

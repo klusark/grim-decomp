@@ -374,7 +374,7 @@ void __cdecl fob_blk16_configure(uint width)
 void __cdecl fob_block_maketiles(int size)
 
 {
-  unsigned char _frame[0x180] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   int iVar2;
   undefined1 *puVar3;
@@ -395,35 +395,35 @@ void __cdecl fob_block_maketiles(int size)
   int iVar18;
   int iVar19;
   bool bVar20;
-  #define local_168 (*(uint *)(_frame + (0x180 - 0x168)))
-  #define local_164 (*(uint *)(_frame + (0x180 - 0x164)))
-  #define local_160 (*(uint *)(_frame + (0x180 - 0x160)))
-  #define local_15c (*(uint *)(_frame + (0x180 - 0x15c)))
-  #define local_158 (*(uint *)(_frame + (0x180 - 0x158)))
-  #define local_154 (*(uint *)(_frame + (0x180 - 0x154)))
-  #define local_150 (*(uint *)(_frame + (0x180 - 0x150)))
-  #define local_14c (*(uint *)(_frame + (0x180 - 0x14c)))
-  #define local_148 (*(uint *)(_frame + (0x180 - 0x148)))
-  #define local_144 (*(uint *)(_frame + (0x180 - 0x144)))
-  #define local_140 (*(uint *)(_frame + (0x180 - 0x140)))
-  #define local_13c (*(uint *)(_frame + (0x180 - 0x13c)))
-  #define local_138 (*(uint *)(_frame + (0x180 - 0x138)))
-  #define local_134 (*(uint *)(_frame + (0x180 - 0x134)))
-  #define local_130 (*(uint *)(_frame + (0x180 - 0x130)))
-  #define local_12c (*(uint *)(_frame + (0x180 - 0x12c)))
-  #define local_128 (*(uint *)(_frame + (0x180 - 0x128)))
-  #define local_124 (*(uint *)(_frame + (0x180 - 0x124)))
-  #define local_120 (*(uint *)(_frame + (0x180 - 0x120)))
-  #define local_11c (*(uint *)(_frame + (0x180 - 0x11c)))
-  #define local_118 (*(uint *)(_frame + (0x180 - 0x118)))
-  #define local_114 (*(uint *)(_frame + (0x180 - 0x114)))
-  #define local_110 (*(uint *)(_frame + (0x180 - 0x110)))
-  #define local_10c (*(uint *)(_frame + (0x180 - 0x10c)))
-  #define local_108 (*(uint *)(_frame + (0x180 - 0x108)))
-  #define local_104 (*(uint *)(_frame + (0x180 - 0x104)))
-  #define auStack_100 (*(undefined4 (*)[15])(_frame + (0x180 - 0x100)))
-  #define local_c4 (*(uint *)(_frame + (0x180 - 0xc4)))
-  #define local_4 (*(uint *)(_frame + (0x180 - 0x4)))
+  uint local_168;
+  uint local_164;
+  uint local_160;
+  uint local_15c;
+  uint local_158;
+  uint local_154;
+  uint local_150;
+  uint local_14c;
+  uint local_148;
+  uint local_144;
+  uint local_140;
+  uint local_13c;
+  uint local_138;
+  uint local_134;
+  uint local_130;
+  uint local_12c;
+  uint local_128;
+  uint local_124;
+  uint local_120;
+  uint local_11c;
+  uint local_118;
+  uint local_114;
+  uint local_110;
+  uint local_10c;
+  uint local_108;
+  uint local_104;
+  #define auStack_100 (*(undefined4 (*)[15])(_frame + (0x110 - 0x100)))
+  #define local_c4 (*(uint *)(_frame + (0x110 - 0xc4)))
+  uint local_4;
   
   if (size == 8) {
     local_164 = (uint)g_anBlockySplit8Y;
@@ -664,33 +664,6 @@ LAB_004ccb89:
   } while( true );
 }
 #undef auStack_100
-#undef local_104
-#undef local_108
-#undef local_10c
-#undef local_110
-#undef local_114
-#undef local_118
-#undef local_11c
-#undef local_120
-#undef local_124
-#undef local_128
-#undef local_12c
-#undef local_130
-#undef local_134
-#undef local_138
-#undef local_13c
-#undef local_140
-#undef local_144
-#undef local_148
-#undef local_14c
-#undef local_150
-#undef local_154
-#undef local_158
-#undef local_15c
-#undef local_160
-#undef local_164
-#undef local_168
-#undef local_4
 #undef local_c4
 
 #endif

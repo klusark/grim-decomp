@@ -111,7 +111,7 @@ void __cdecl sputRoom_Shutdown(void)
 uint __cdecl sputRoom_ParseLights(void)
 
 {
-  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   byte bVar1;
   uint uVar2;
   uint uVar3;
@@ -122,11 +122,11 @@ uint __cdecl sputRoom_ParseLights(void)
   byte *pbVar8;
   byte *pbVar9;
   bool bVar10;
-  #define local_110 (*(uint *)(_frame + (0x120 - 0x110)))
-  #define local_10c (*(uint *)(_frame + (0x120 - 0x10c)))
-  #define local_108 (*(uint *)(_frame + (0x120 - 0x108)))
-  #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
-  #define local_100 (*(byte (*)[256])(_frame + (0x120 - 0x100)))
+  uint local_110;
+  uint local_10c;
+  uint local_108;
+  uint local_104;
+  #define local_100 (*(byte (*)[256])(_frame + (0x110 - 0x100)))
   
   uVar2 = g_dwLoadingRoom;
   puVar7 = (undefined4 *)(g_dwLoadingRoom + 0xb8);
@@ -243,10 +243,6 @@ LAB_004a5767:
   } while( true );
 }
 #undef local_100
-#undef local_104
-#undef local_108
-#undef local_10c
-#undef local_110
 
 
 /* ---- 0x004a5890  sputRoom_ParseSetups ---- */
@@ -257,7 +253,7 @@ LAB_004a5767:
 uint __cdecl sputRoom_ParseSetups(void)
 
 {
-  unsigned char _frame[0x120] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x110] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int *piVar1;
   char cVar2;
   uint uVar3;
@@ -269,8 +265,8 @@ uint __cdecl sputRoom_ParseSetups(void)
   uint *puVar9;
   char *pcVar10;
   char *pcVar11;
-  #define local_104 (*(uint *)(_frame + (0x120 - 0x104)))
-  #define local_100 (*(char (*)[256])(_frame + (0x120 - 0x100)))
+  uint local_104;
+  #define local_100 (*(char (*)[256])(_frame + (0x110 - 0x100)))
   
   uVar3 = g_dwLoadingRoom;
   puVar9 = (uint *)(g_dwLoadingRoom + 0xac);
@@ -375,5 +371,4 @@ uint __cdecl sputRoom_ParseSetups(void)
   } while( true );
 }
 #undef local_100
-#undef local_104
 

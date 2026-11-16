@@ -13,7 +13,7 @@
 void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx)
 
 {
-  unsigned char _frame[0x60] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint uVar1;
   uint uVar2;
   uint uVar3;
@@ -25,23 +25,23 @@ void __cdecl DirtyRect_Add(int *rect,int flag,int bufferIdx)
   int iVar9;
   int iVar10;
   int iVar11;
-  #define local_44 (*(uint *)(_frame + (0x60 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x60 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x60 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x60 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x60 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x60 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x60 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x60 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x60 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x60 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x60 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x60 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x60 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x60 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x60 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x60 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x60 - 0x4)))
+  uint local_44;
+  uint local_40;
+  uint local_3c;
+  uint local_38;
+  uint local_34;
+  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
+  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
+  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
+  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
+  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
+  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
+  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
+  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
+  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
+  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
+  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
+  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
   
   uVar1 = *rect;
   uVar2 = rect[1];
@@ -189,12 +189,7 @@ LAB_0048555c:
 #undef local_28
 #undef local_2c
 #undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
 #undef local_4
-#undef local_40
-#undef local_44
 #undef local_8
 #undef local_c
 

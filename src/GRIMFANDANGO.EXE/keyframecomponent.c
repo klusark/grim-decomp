@@ -230,7 +230,7 @@ int * __cdecl KeyframeInstancer(int inst,int component,int create)
 int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint filename)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x30] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char *name;
   void *data;
   uint uVar1;
@@ -239,12 +239,12 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint file
   int iVar3;
   undefined4 *puVar4;
   ResRef *pRVar5;
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(undefined1 *)(_frame + (0x40 - 0x20)))
-  #define local_1f (*(undefined4 *)(_frame + (0x40 - 0x1f)))
-  #define local_1 (*(undefined1 *)(_frame + (0x40 - 0x1)))
+  uint local_2c;
+  uint local_28;
+  uint local_24;
+  #define local_20 (*(undefined1 *)(_frame + (0x30 - 0x20)))
+  #define local_1f (*(undefined4 *)(_frame + (0x30 - 0x1f)))
+  #define local_1 (*(undefined1 *)(_frame + (0x30 - 0x1)))
   
   local_20 = DAT_004f5a98;
   local_24 = 0;
@@ -313,9 +313,6 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint file
 #undef local_1
 #undef local_1f
 #undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
 
 
 /* ---- 0x00498000  KeyframeAdjuster ---- */
