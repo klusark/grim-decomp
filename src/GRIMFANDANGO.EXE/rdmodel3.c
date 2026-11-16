@@ -112,7 +112,7 @@ uint __cdecl rdModel3_LoadEntry(int name,uint model)
 uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
 
 {
-  unsigned char _frame[0x20450] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  unsigned char _frame[0x20420] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
   uint *puVar2;
   int iVar3;
@@ -153,22 +153,22 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
   float fStack_20444;
   float fStack_20440;
   float fStack_2043c;
-  #define uStack_20438 (*(undefined4 *)(_frame + (0x20450 - 0x20438)))
-  #define fStack_20434 (*(float *)(_frame + (0x20450 - 0x20434)))
-  #define fStack_20430 (*(float *)(_frame + (0x20450 - 0x20430)))
-  #define fStack_2042c (*(float *)(_frame + (0x20450 - 0x2042c)))
-  #define iStack_20428 (*(int *)(_frame + (0x20450 - 0x20428)))
-  #define fStack_20424 (*(float *)(_frame + (0x20450 - 0x20424)))
-  #define iStack_20420 (*(int *)(_frame + (0x20450 - 0x20420)))
-  #define fStack_2041c (*(float *)(_frame + (0x20450 - 0x2041c)))
-  #define fStack_20418 (*(float *)(_frame + (0x20450 - 0x20418)))
-  #define uStack_20414 (*(uint *)(_frame + (0x20450 - 0x20414)))
-  #define iStack_20410 (*(int *)(_frame + (0x20450 - 0x20410)))
-  #define uStack_2040c (*(uint *)(_frame + (0x20450 - 0x2040c)))
-  #define auStack_20408 (*(undefined1 (*)[4])(_frame + (0x20450 - 0x20408)))
-  #define auStack_20404 (*(undefined1 (*)[4])(_frame + (0x20450 - 0x20404)))
-  #define acStack_20400 (*(char (*)[1024])(_frame + (0x20450 - 0x20400)))
-  #define acStack_20000 (*(char (*)[131072])(_frame + (0x20450 - 0x20000)))
+  float flIntensity;
+  float fStack_20434;
+  float fStack_20430;
+  float fStack_2042c;
+  int iStack_20428;
+  float fStack_20424;
+  int iStack_20420;
+  float fStack_2041c;
+  float fStack_20418;
+  uint uStack_20414;
+  int iStack_20410;
+  #define uStack_2040c (*(uint *)(_frame + (0x20420 - 0x2040c)))
+  int nVersionMinor;
+  int nVersionMajor;
+  #define acStack_20400 (*(char (*)[1024])(_frame + (0x20420 - 0x20400)))
+  #define acStack_20000 (*(char (*)[131072])(_frame + (0x20420 - 0x20000)))
   
   rdModel3_NewEntry(model);
   uVar20 = 0x1f;
@@ -183,7 +183,7 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
   if (((uVar20 != 0) &&
       (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64,&g_bStd_genBuffer),
       iVar3 == 1)) && (uVar20 = stdConffile_ReadLine(), uVar20 != 0)) {
-    sscanf((char *)g_dwStdConffile_aLine,s_3do__d__d_004ddd58,auStack_20404,auStack_20408);
+    sscanf((char *)g_dwStdConffile_aLine,s_3do__d__d_004ddd58,&nVersionMajor,&nVersionMinor);
     uVar20 = stdConffile_ReadLine();
     if (((uVar20 != 0) &&
         (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64,&g_bStd_genBuffer),
@@ -375,12 +375,12 @@ uint __cdecl rdModel3_LoadEntryText(char *path,rdModel3 *model)
                         if ((uVar4 == 0) ||
                            (iVar3 = sscanf((char *)g_dwStdConffile_aLine,s__d___f__f__f__f_004ddc60,
                                            &iStack_20478,&fStack_2047c,&fStack_20484,&fStack_20480,
-                                           &uStack_20438), iVar3 != 5)) goto LAB_0040b8c4;
+                                           &flIntensity), iVar3 != 5)) goto LAB_0040b8c4;
                         *pfVar7 = fStack_2047c;
                         pfVar7[1] = fStack_20484;
                         pfVar7[2] = fStack_20480;
                         pfVar7 = pfVar7 + 3;
-                        *(undefined4 *)(*(uint *)(pcVar18 + 0x38) + uVar20 * 4) = uStack_20438;
+                        *(float *)(*(uint *)(pcVar18 + 0x38) + uVar20 * 4) = flIntensity;
                         uVar20 = uVar20 + 1;
                       } while (uVar20 < uStack_20488);
                     }
@@ -655,20 +655,7 @@ LAB_0040b8c4:
 }
 #undef acStack_20000
 #undef acStack_20400
-#undef auStack_20404
-#undef auStack_20408
-#undef fStack_20418
-#undef fStack_2041c
-#undef fStack_20424
-#undef fStack_2042c
-#undef fStack_20430
-#undef fStack_20434
-#undef iStack_20410
-#undef iStack_20420
-#undef iStack_20428
 #undef uStack_2040c
-#undef uStack_20414
-#undef uStack_20438
 
 
 /* ---- 0x0040b8e0  rdModel3_LoadEntryBinary ---- */

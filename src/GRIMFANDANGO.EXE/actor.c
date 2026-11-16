@@ -414,6 +414,7 @@ void __cdecl Actor_UpdateMovement(Actor *actor,float dt)
 
 {
   CostumeNode *pCVar1;
+  int iVar2;
   
   if (actor->pExtra != (ActorExtra *)0x0) {
     dt = actor->pExtra->flTimeScale * dt;
@@ -422,12 +423,12 @@ void __cdecl Actor_UpdateMovement(Actor *actor,float dt)
   actor->aPrevPos[0] = actor->aPos[0];
   actor->aPrevPos[1] = actor->aPos[1];
   actor->aPrevPos[2] = actor->aPos[2];
-  if ((pCVar1 != (CostumeNode *)0x0) && (pCVar1->aCostumeRef[0] != 0)) {
-    if (pCVar1->aCostumeRef[0] == 0) {
+  if ((pCVar1 != (CostumeNode *)0x0) && (iVar2 = (pCVar1->costumeRef).nValid, iVar2 != 0)) {
+    if (iVar2 == 0) {
       (*g_pStd_HS->pAssertFail)
                 (s_Bad_costume_Reference_004e9e90,s_main_sputResource_h_004e80a8,0xb8);
     }
-    Cos_InstRescue(actor->pCostumes->dwInstance,pCVar1->aCostumeRef[1]);
+    Cos_InstRescue(actor->pCostumes->dwInstance,(int)(pCVar1->costumeRef).pData);
   }
   if ((actor->dwMoveFlags & 1) != 0) {
     Actor_FollowPath(actor);

@@ -341,90 +341,75 @@ void __cdecl LightEd_AddLight(void)
 void __cdecl LightEd_SaveSetFile(void)
 
 {
-  unsigned char _frame[0x370] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
-  char *pcVar1;
+  unsigned char _frame[0x220] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
+  int iVar1;
   int iVar2;
-  int iVar3;
-  uint *puVar4;
+  uint *puVar3;
+  uint uVar4;
   uint uVar5;
-  uint uVar6;
-  undefined4 *puVar7;
+  char *pcVar6;
+  Set *pSVar7;
   Set *pSVar8;
-  Set *pSVar9;
-  undefined4 *puVar10;
+  char *pcVar9;
   void *file;
-  #define local_358 (*(uint *)(_frame + (0x370 - 0x358)))
-  #define local_354 (*(uint *)(_frame + (0x370 - 0x354)))
-  #define local_350 (*(uint *)(_frame + (0x370 - 0x350)))
-  #define local_34c (*(uint *)(_frame + (0x370 - 0x34c)))
-  #define local_348 (*(uint *)(_frame + (0x370 - 0x348)))
-  #define local_33c (*(uint *)(_frame + (0x370 - 0x33c)))
-  #define local_338 (*(uint *)(_frame + (0x370 - 0x338)))
-  #define local_334 (*(uint *)(_frame + (0x370 - 0x334)))
-  #define local_32c (*(uint *)(_frame + (0x370 - 0x32c)))
-  #define local_328 (*(uint *)(_frame + (0x370 - 0x328)))
-  #define local_324 (*(uint *)(_frame + (0x370 - 0x324)))
-  #define local_31c (*(uint *)(_frame + (0x370 - 0x31c)))
-  #define local_318 (*(uint *)(_frame + (0x370 - 0x318)))
-  #define local_314 (*(uint *)(_frame + (0x370 - 0x314)))
-  #define local_310 (*(uint *)(_frame + (0x370 - 0x310)))
-  #define auStack_30c (*(uint (*)[65])(_frame + (0x370 - 0x30c)))
-  #define acStack_208 (*(char (*)[260])(_frame + (0x370 - 0x208)))
-  #define local_104 (*(undefined4 (*)[65])(_frame + (0x370 - 0x104)))
+  OpenFileName ofn;
+  char aLine [260];
+  #define acStack_208 (*(char (*)[260])(_frame + (0x220 - 0x208)))
+  char aPath [260];
   
-  local_358 = 0x4c;
-  local_354 = (uint)g_hLightEdDialog;
-  local_350 = Win_GetInstance();
-  local_33c = (uint)local_104;
-  uVar5 = 0xffffffff;
-  local_34c = (uint)s_Set_Files____set__004f0e0c;
-  local_348 = 0;
-  local_338 = 0x104;
-  local_334 = 0;
-  local_32c = 0;
-  local_328 = 0;
-  local_324 = 0x8080e;
-  local_31c = (uint)&DAT_004ec490;
-  local_318 = 0;
-  local_314 = 0;
-  local_310 = 0;
-  pSVar8 = g_pLightEdSet;
+  ofn.dwStructSize = 0x4c;
+  ofn.pOwner = g_hLightEdDialog;
+  ofn.pInstance = (void *)Win_GetInstance();
+  ofn.pFile = aPath;
+  uVar4 = 0xffffffff;
+  ofn.pFilter = s_Set_Files____set__004f0e0c;
+  ofn.pCustomFilter = (char *)0x0;
+  ofn.dwMaxFile = 0x104;
+  ofn.pFileTitle = (char *)0x0;
+  ofn.pInitialDir = (char *)0x0;
+  ofn.pTitle = (char *)0x0;
+  ofn.dwFlags = 0x8080e;
+  ofn.pDefExt = &DAT_004ec490;
+  ofn.dwCustData = 0;
+  ofn.pHook = (void *)0x0;
+  ofn.pTemplateName = (char *)0x0;
+  pSVar7 = g_pLightEdSet;
   do {
-    pSVar9 = pSVar8;
-    if (uVar5 == 0) break;
-    uVar5 = uVar5 - 1;
-    pSVar9 = (Set *)(pSVar8->aName + 1);
-    pcVar1 = pSVar8->aName;
-    pSVar8 = pSVar9;
-  } while (*pcVar1 != '\0');
-  uVar5 = ~uVar5;
-  puVar7 = (undefined4 *)((int)pSVar9 - uVar5);
-  puVar10 = local_104;
-  for (uVar6 = uVar5 >> 2; uVar6 != 0; uVar6 = uVar6 - 1) {
-    *puVar10 = *puVar7;
-    puVar7 = puVar7 + 1;
-    puVar10 = puVar10 + 1;
+    pSVar8 = pSVar7;
+    if (uVar4 == 0) break;
+    uVar4 = uVar4 - 1;
+    pSVar8 = (Set *)(pSVar7->aName + 1);
+    pcVar6 = pSVar7->aName;
+    pSVar7 = pSVar8;
+  } while (*pcVar6 != '\0');
+  uVar4 = ~uVar4;
+  pcVar6 = (char *)((int)pSVar8 - uVar4);
+  pcVar9 = aPath;
+  for (uVar5 = uVar4 >> 2; uVar5 != 0; uVar5 = uVar5 - 1) {
+    *(undefined4 *)pcVar9 = *(undefined4 *)pcVar6;
+    pcVar6 = pcVar6 + 4;
+    pcVar9 = pcVar9 + 4;
   }
-  for (uVar5 = uVar5 & 3; uVar5 != 0; uVar5 = uVar5 - 1) {
-    *(undefined1 *)puVar10 = *(undefined1 *)puVar7;
-    puVar7 = (undefined4 *)((int)puVar7 + 1);
-    puVar10 = (undefined4 *)((int)puVar10 + 1);
+  for (uVar4 = uVar4 & 3; uVar4 != 0; uVar4 = uVar4 - 1) {
+    *pcVar9 = *pcVar6;
+    pcVar6 = pcVar6 + 1;
+    pcVar9 = pcVar9 + 1;
   }
-  iVar2 = GetSaveFileNameA((int)&local_358);
-  if (iVar2 == 0) {
+  iVar1 = GetSaveFileNameA((int)&ofn);
+  if (iVar1 == 0) {
     return;
   }
-  iVar2 = (*g_pStd_HS->pFopen)(g_pLightEdSet,&DAT_004ec5bc);
+  iVar1 = (*g_pStd_HS->pFopen)(g_pLightEdSet,&DAT_004ec5bc);
   file = (void *)0x0;
   acStack_208[0] = '\0';
-  if (iVar2 == 0) {
-    wsprintfA((char *)auStack_30c,s_Could_not_open_file___s___004f0dc8,g_pLightEdSet);
-    MessageBoxA(0,(int)auStack_30c,(int)PTR_s_Error_004f0d14,0x30);
+  if (iVar1 == 0) {
+    wsprintfA(aLine,s_Could_not_open_file___s___004f0dc8,g_pLightEdSet);
+    MessageBoxA(0,(int)aLine,(int)PTR_s_Error_004f0d14,0x30);
     return;
   }
-  GetTempPathA(0x104,(int)auStack_30c);
-  iVar3 = GetTempFileNameA((int)auStack_30c,((unsigned)(uintptr_t)&DAT_004ec490),0,(int)acStack_208);
-  if (iVar3 == 0) {
+  GetTempPathA(0x104,(int)aLine);
+  iVar2 = GetTempFileNameA((int)aLine,((unsigned)(uintptr_t)&DAT_004ec490),0,(int)acStack_208);
+  if (iVar2 == 0) {
 LAB_004becb0:
     if (file != (void *)0x0) {
       (*g_pStd_HS->pFclose)(file);
@@ -434,48 +419,48 @@ LAB_004becb0:
   else {
     file = (void *)(*g_pStd_HS->pFopen)(acStack_208,&DAT_004dee34);
     if (file != (void *)0x0) {
-      iVar3 = (*g_pStd_HS->pFeof)(iVar2);
-      while (iVar3 == 0) {
-        (*g_pStd_HS->pFgets)(iVar2,auStack_30c,0x104);
-        puVar4 = String_ContainsSubstring(auStack_30c,s_section__004f0e00);
-        if ((puVar4 != (uint *)0x0) &&
-           (puVar4 = String_ContainsSubstring(auStack_30c,s_lights_004ec724), puVar4 != (uint *)0x0)
-           ) break;
-        (*g_pStd_HS->pFprintf)(file,auStack_30c);
-        iVar3 = (*g_pStd_HS->pFeof)(iVar2);
+      iVar2 = (*g_pStd_HS->pFeof)(iVar1);
+      while (iVar2 == 0) {
+        (*g_pStd_HS->pFgets)(iVar1,aLine,0x104);
+        puVar3 = String_ContainsSubstring((uint *)aLine,s_section__004f0e00);
+        if ((puVar3 != (uint *)0x0) &&
+           (puVar3 = String_ContainsSubstring((uint *)aLine,s_lights_004ec724),
+           puVar3 != (uint *)0x0)) break;
+        (*g_pStd_HS->pFprintf)(file,aLine);
+        iVar2 = (*g_pStd_HS->pFeof)(iVar1);
       }
-      iVar3 = (*g_pStd_HS->pFeof)(iVar2);
-      if (iVar3 == 0) {
+      iVar2 = (*g_pStd_HS->pFeof)(iVar1);
+      if (iVar2 == 0) {
         LightEd_WriteLightsSection(g_pLightEdSet,file);
-        iVar3 = (*g_pStd_HS->pFeof)(iVar2);
-        while (iVar3 == 0) {
-          (*g_pStd_HS->pFgets)(iVar2,auStack_30c,0x104);
-          puVar4 = String_ContainsSubstring(auStack_30c,s_section__004f0e00);
-          if (puVar4 != (uint *)0x0) {
-            (*g_pStd_HS->pFprintf)(file,auStack_30c);
+        iVar2 = (*g_pStd_HS->pFeof)(iVar1);
+        while (iVar2 == 0) {
+          (*g_pStd_HS->pFgets)(iVar1,aLine,0x104);
+          puVar3 = String_ContainsSubstring((uint *)aLine,s_section__004f0e00);
+          if (puVar3 != (uint *)0x0) {
+            (*g_pStd_HS->pFprintf)(file,aLine);
             break;
           }
-          iVar3 = (*g_pStd_HS->pFeof)(iVar2);
+          iVar2 = (*g_pStd_HS->pFeof)(iVar1);
         }
-        iVar3 = (*g_pStd_HS->pFeof)(iVar2);
-        if (iVar3 == 0) {
-          iVar3 = (*g_pStd_HS->pFeof)(iVar2);
-          while (iVar3 == 0) {
-            (*g_pStd_HS->pFgets)(iVar2,auStack_30c,0x104);
-            (*g_pStd_HS->pFprintf)(file,auStack_30c);
-            iVar3 = (*g_pStd_HS->pFeof)(iVar2);
+        iVar2 = (*g_pStd_HS->pFeof)(iVar1);
+        if (iVar2 == 0) {
+          iVar2 = (*g_pStd_HS->pFeof)(iVar1);
+          while (iVar2 == 0) {
+            (*g_pStd_HS->pFgets)(iVar1,aLine,0x104);
+            (*g_pStd_HS->pFprintf)(file,aLine);
+            iVar2 = (*g_pStd_HS->pFeof)(iVar1);
           }
-          (*g_pStd_HS->pFclose)(iVar2);
+          (*g_pStd_HS->pFclose)(iVar1);
           (*g_pStd_HS->pFclose)(file);
-          iVar2 = (*g_pStd_HS->pFopen)(acStack_208,&DAT_004ec5bc);
-          file = (void *)(*g_pStd_HS->pFopen)(local_104,&DAT_004dee34);
-          if (iVar2 != 0) {
+          iVar1 = (*g_pStd_HS->pFopen)(acStack_208,&DAT_004ec5bc);
+          file = (void *)(*g_pStd_HS->pFopen)(aPath,&DAT_004dee34);
+          if (iVar1 != 0) {
             if (file == (void *)0x0) goto LAB_004becb4;
-            iVar3 = (*g_pStd_HS->pFeof)(iVar2);
-            while (iVar3 == 0) {
-              (*g_pStd_HS->pFgets)(iVar2,auStack_30c,0x104);
-              (*g_pStd_HS->pFprintf)(file,auStack_30c);
-              iVar3 = (*g_pStd_HS->pFeof)(iVar2);
+            iVar2 = (*g_pStd_HS->pFeof)(iVar1);
+            while (iVar2 == 0) {
+              (*g_pStd_HS->pFgets)(iVar1,aLine,0x104);
+              (*g_pStd_HS->pFprintf)(file,aLine);
+              iVar2 = (*g_pStd_HS->pFeof)(iVar1);
             }
           }
         }
@@ -486,7 +471,7 @@ LAB_004becb0:
 LAB_004becb4:
   MessageBoxA(0,((unsigned)(uintptr_t)&DAT_004f0de4),(int)PTR_s_Error_004f0d14,0x30);
 LAB_004becd7:
-  (*g_pStd_HS->pFclose)(iVar2);
+  (*g_pStd_HS->pFclose)(iVar1);
   if (acStack_208[0] == '\0') {
     return;
   }
@@ -494,23 +479,6 @@ LAB_004becd7:
   return;
 }
 #undef acStack_208
-#undef auStack_30c
-#undef local_104
-#undef local_310
-#undef local_314
-#undef local_318
-#undef local_31c
-#undef local_324
-#undef local_328
-#undef local_32c
-#undef local_334
-#undef local_338
-#undef local_33c
-#undef local_348
-#undef local_34c
-#undef local_350
-#undef local_354
-#undef local_358
 
 
 /* ---- 0x004bed40  LightEd_WriteLightsSection ---- */
@@ -682,62 +650,38 @@ void __cdecl LightEd_UpdateDialog(int hDlg)
 void __cdecl LightEd_EnableControls(int hDlg)
 
 {
-  unsigned char _frame[0x70] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   uint a2;
   int a1;
   uint *puVar1;
   int a2_00;
-  #define local_60 (*(uint *)(_frame + (0x70 - 0x60)))
-  #define local_5c (*(uint *)(_frame + (0x70 - 0x5c)))
-  #define local_58 (*(uint *)(_frame + (0x70 - 0x58)))
-  #define local_54 (*(uint *)(_frame + (0x70 - 0x54)))
-  #define local_50 (*(uint *)(_frame + (0x70 - 0x50)))
-  #define local_4c (*(uint *)(_frame + (0x70 - 0x4c)))
-  #define local_48 (*(uint *)(_frame + (0x70 - 0x48)))
-  #define local_44 (*(uint *)(_frame + (0x70 - 0x44)))
-  #define local_40 (*(uint *)(_frame + (0x70 - 0x40)))
-  #define local_3c (*(uint *)(_frame + (0x70 - 0x3c)))
-  #define local_38 (*(uint *)(_frame + (0x70 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x70 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x70 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x70 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x70 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x70 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x70 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x70 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x70 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x70 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x70 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x70 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x70 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x70 - 0x4)))
+  uint aControlIds [24];
   
   a2 = 0x3e9;
-  local_60 = 0x3e9;
-  local_5c = 0x3ea;
-  local_58 = 0x3eb;
-  local_54 = 0x3ec;
-  local_50 = 0x3ed;
-  local_4c = 0x3ee;
-  local_48 = 0x3ef;
-  local_44 = 0x3f0;
-  local_40 = 0x3f1;
-  local_3c = 0x3f2;
-  local_38 = 0x3f4;
-  local_34 = 0x3f5;
-  local_30 = 0x3f7;
-  local_2c = 0x3f9;
-  local_28 = 0x3fa;
-  local_24 = 0x3fb;
-  local_20 = 0x3fc;
-  local_1c = 0x3fd;
-  local_18 = 0x3fe;
-  local_14 = 0x3ff;
-  local_10 = 0x400;
-  local_c = 0x401;
-  local_8 = 0x402;
-  local_4 = 0;
-  puVar1 = &local_60;
+  aControlIds[0] = 0x3e9;
+  aControlIds[1] = 0x3ea;
+  aControlIds[2] = 0x3eb;
+  aControlIds[3] = 0x3ec;
+  aControlIds[4] = 0x3ed;
+  aControlIds[5] = 0x3ee;
+  aControlIds[6] = 0x3ef;
+  aControlIds[7] = 0x3f0;
+  aControlIds[8] = 0x3f1;
+  aControlIds[9] = 0x3f2;
+  aControlIds[10] = 0x3f4;
+  aControlIds[0xb] = 0x3f5;
+  aControlIds[0xc] = 0x3f7;
+  aControlIds[0xd] = 0x3f9;
+  aControlIds[0xe] = 0x3fa;
+  aControlIds[0xf] = 0x3fb;
+  aControlIds[0x10] = 0x3fc;
+  aControlIds[0x11] = 0x3fd;
+  aControlIds[0x12] = 0x3fe;
+  aControlIds[0x13] = 0x3ff;
+  aControlIds[0x14] = 0x400;
+  aControlIds[0x15] = 0x401;
+  aControlIds[0x16] = 0x402;
+  aControlIds[0x17] = 0;
+  puVar1 = aControlIds;
   do {
     a2_00 = hDlg;
     a1 = GetDlgItem((int)g_hLightEdDialog,a2);
@@ -747,31 +691,6 @@ void __cdecl LightEd_EnableControls(int hDlg)
   } while (a2 != 0);
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_3c
-#undef local_4
-#undef local_40
-#undef local_44
-#undef local_48
-#undef local_4c
-#undef local_50
-#undef local_54
-#undef local_58
-#undef local_5c
-#undef local_60
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x004bf3f0  LightEd_SetDlgFloat ---- */
 void __cdecl LightEd_SetDlgFloat(int hDlg,int id,float value,int force)

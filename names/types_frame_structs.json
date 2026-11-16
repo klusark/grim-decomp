@@ -1,0 +1,593 @@
+{
+ "_comment": "Frame locals that are one structure or array (2026-11-16): ClipFace's in/out face records, the 'MAT ' and 'BM  ' file records, ColorFormat / VBufferFormat / DDSURFACEDESC / OPENFILENAME / FontData blocks built field by field, GUIDs, rectangles, string buffers, and sscanf targets typed as what they hold.",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "structs": [
+  {
+   "name": "rdProcVerts",
+   "size": 28,
+   "comment": "The vertices of one face going into rdPrimit3_ClipFace (its procVerts): indices into the mesh's arrays",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwVertices",
+     ""
+    ],
+    [
+     4,
+     "int *",
+     "pPosIdx",
+     "vertex index per corner"
+    ],
+    [
+     8,
+     "int *",
+     "pUvIdx",
+     "texture vertex index per corner"
+    ],
+    [
+     12,
+     "float *",
+     "pVertices",
+     "3 floats per vertex"
+    ],
+    [
+     16,
+     "float *",
+     "pUvs",
+     "2 floats per texture vertex"
+    ],
+    [
+     20,
+     "float *",
+     "pLights",
+     "light per vertex"
+    ],
+    [
+     24,
+     "float *",
+     "pIntensities",
+     "extra intensity per corner, may be null"
+    ]
+   ]
+  },
+  {
+   "name": "rdProcFace",
+   "size": 24,
+   "comment": "The clipped face rdPrimit3_ClipFace writes (its procFace): the corners copied out, then clipped; dwVertices is the count left",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwVertices",
+     ""
+    ],
+    [
+     12,
+     "float *",
+     "pVertices",
+     "3 floats per corner"
+    ],
+    [
+     16,
+     "float *",
+     "pTexVertices",
+     "2 floats per corner"
+    ],
+    [
+     20,
+     "float *",
+     "pIntensities",
+     "1 float per corner"
+    ]
+   ]
+  },
+  {
+   "name": "MatHeader",
+   "size": 76,
+   "comment": "Header of a 'MAT ' material file (rdMaterial_LoadEntry)",
+   "fields": [
+    [
+     0,
+     "char[4]",
+     "aMagic",
+     "'MAT '"
+    ],
+    [
+     4,
+     "int",
+     "nVersion",
+     "0x32"
+    ],
+    [
+     8,
+     "uint",
+     "dwType",
+     ""
+    ],
+    [
+     12,
+     "int",
+     "nCels",
+     ""
+    ],
+    [
+     16,
+     "int",
+     "nTextures",
+     ""
+    ],
+    [
+     20,
+     "ColorFormat",
+     "colorFormat",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "MatCelHeader",
+   "size": 24,
+   "comment": "One cel record of a 'MAT ' file, copied into the cel; bit 3 of dwType: a MatCelColor follows",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwType",
+     ""
+    ],
+    [
+     4,
+     "uint",
+     "dwUnknown4",
+     ""
+    ],
+    [
+     8,
+     "uint",
+     "dwUnknown8",
+     ""
+    ],
+    [
+     12,
+     "uint",
+     "dwUnknownC",
+     ""
+    ],
+    [
+     16,
+     "uint",
+     "dwUnknown10",
+     ""
+    ],
+    [
+     20,
+     "uint",
+     "dwUnknown14",
+     ""
+    ]
+   ]
+  },
+  {
+   "name": "MatCelColor",
+   "size": 16,
+   "comment": "The 0x10 bytes that follow a 'MAT ' cel record with bit 3 set",
+   "fields": [
+    [
+     0,
+     "uint",
+     "dwColor",
+     ""
+    ],
+    [
+     4,
+     "uint",
+     "dwUnknown4",
+     ""
+    ],
+    [
+     8,
+     "uint",
+     "dwUnknown8",
+     ""
+    ],
+    [
+     12,
+     "int",
+     "nTexture",
+     "per-cel value kept in the loader's table"
+    ]
+   ]
+  },
+  {
+   "name": "MatTextureHeader",
+   "size": 24,
+   "comment": "One texture record of a 'MAT ' file",
+   "fields": [
+    [
+     0,
+     "int",
+     "nWidth",
+     ""
+    ],
+    [
+     4,
+     "int",
+     "nHeight",
+     ""
+    ],
+    [
+     8,
+     "uint",
+     "dwUnknown8",
+     ""
+    ],
+    [
+     12,
+     "uint",
+     "dwUnknownC",
+     ""
+    ],
+    [
+     16,
+     "uint",
+     "dwUnknown10",
+     ""
+    ],
+    [
+     20,
+     "int",
+     "nMipmaps",
+     "surfaces that follow"
+    ]
+   ]
+  },
+  {
+   "name": "BmHeader",
+   "size": 128,
+   "comment": "Header of a 'BM  ' bitmap file (version 0x46): stdBitmap_LoadEntryFromFile reads it, stdBitmap_AppendToFile writes it",
+   "fields": [
+    [
+     0,
+     "char[4]",
+     "aMagic",
+     "'BM  '"
+    ],
+    [
+     4,
+     "int",
+     "nVersion",
+     "0x46"
+    ],
+    [
+     8,
+     "int",
+     "nType",
+     "0 raw, 1 run-length, 3 compressed"
+    ],
+    [
+     12,
+     "uint",
+     "dwPalFlags",
+     "bit 1: a 0x300-byte palette follows the frames"
+    ],
+    [
+     16,
+     "int",
+     "nFrames",
+     ""
+    ],
+    [
+     20,
+     "int",
+     "nX",
+     ""
+    ],
+    [
+     24,
+     "int",
+     "nY",
+     ""
+    ],
+    [
+     28,
+     "uint",
+     "dwColorKey",
+     ""
+    ],
+    [
+     32,
+     "ColorFormat",
+     "colorFormat",
+     ""
+    ],
+    [
+     88,
+     "uint[10]",
+     "aPad",
+     "zero"
+    ]
+   ]
+  },
+  {
+   "name": "BmFrameHeader",
+   "size": 8,
+   "comment": "Size of one frame of a 'BM  ' file, before its pixels",
+   "fields": [
+    [
+     0,
+     "int",
+     "nWidth",
+     ""
+    ],
+    [
+     4,
+     "int",
+     "nHeight",
+     ""
+    ]
+   ]
+  }
+ ],
+ "locals": [
+  {
+   "addr": "004bf2f0",
+   "name": "local_60",
+   "type": "uint[24]",
+   "rename": "aControlIds",
+   "_fn": "LightEd_EnableControls"
+  },
+  {
+   "addr": "00485420",
+   "name": "local_30",
+   "type": "int[4]",
+   "rename": "aRectA",
+   "_fn": "DirtyRect_Add"
+  },
+  {
+   "addr": "00485420",
+   "name": "local_20",
+   "type": "int[4]",
+   "rename": "aRectB",
+   "_fn": "DirtyRect_Add"
+  },
+  {
+   "addr": "00485420",
+   "name": "local_10",
+   "type": "int[4]",
+   "rename": "aRectC",
+   "_fn": "DirtyRect_Add"
+  },
+  {
+   "addr": "00401a50",
+   "name": "local_38",
+   "type": "ColorFormat",
+   "rename": "format",
+   "_fn": "Grim_EnumDisplayModes"
+  },
+  {
+   "addr": "0048e0a0",
+   "name": "local_38",
+   "type": "ColorFormat",
+   "rename": "format",
+   "_fn": "Resource_RebuildColormaps"
+  },
+  {
+   "addr": "0048dab0",
+   "name": "local_38",
+   "type": "ColorFormat",
+   "rename": "format",
+   "_fn": "sputResource_ColormapHandler"
+  },
+  {
+   "addr": "004be990",
+   "name": "local_358",
+   "type": "OpenFileName",
+   "rename": "ofn",
+   "_fn": "LightEd_SaveSetFile"
+  },
+  {
+   "addr": "004be990",
+   "name": "auStack_30c",
+   "type": "char[260]",
+   "rename": "aLine",
+   "_fn": "LightEd_SaveSetFile"
+  },
+  {
+   "addr": "004be990",
+   "name": "local_104",
+   "type": "char[260]",
+   "rename": "aPath",
+   "_fn": "LightEd_SaveSetFile"
+  },
+  {
+   "addr": "00472bd0",
+   "name": "local_2c",
+   "type": "rdProcVerts",
+   "rename": "verts",
+   "_fn": "rdSprite_Draw"
+  },
+  {
+   "addr": "00472bd0",
+   "name": "local_58",
+   "type": "rdProcFace",
+   "rename": "face",
+   "_fn": "rdSprite_Draw"
+  },
+  {
+   "addr": "004c0770",
+   "name": "pcStack_5c",
+   "type": "int",
+   "rename": "nNodes",
+   "_fn": "rdKeyframe_LoadEntry"
+  },
+  {
+   "addr": "004c0770",
+   "name": "local_58",
+   "type": "float",
+   "rename": "flFps",
+   "_fn": "rdKeyframe_LoadEntry"
+  },
+  {
+   "addr": "004c0770",
+   "name": "auStack_24",
+   "type": "int",
+   "rename": "nFrame",
+   "_fn": "rdKeyframe_LoadEntry"
+  },
+  {
+   "addr": "004c0770",
+   "name": "auStack_20",
+   "type": "char[32]",
+   "rename": "aMeshName",
+   "_fn": "rdKeyframe_LoadEntry"
+  },
+  {
+   "addr": "0040aa20",
+   "name": "auStack_20404",
+   "type": "int",
+   "rename": "nVersionMajor",
+   "_fn": "rdModel3_LoadEntryText"
+  },
+  {
+   "addr": "0040aa20",
+   "name": "auStack_20408",
+   "type": "int",
+   "rename": "nVersionMinor",
+   "_fn": "rdModel3_LoadEntryText"
+  },
+  {
+   "addr": "0040aa20",
+   "name": "uStack_20438",
+   "type": "float",
+   "rename": "flIntensity",
+   "_fn": "rdModel3_LoadEntryText"
+  },
+  {
+   "addr": "0048ecd0",
+   "name": "auStack_134",
+   "type": "CostumeNode",
+   "rename": "costume",
+   "_fn": "sputActor_Restore"
+  },
+  {
+   "addr": "00479170",
+   "name": "local_f0",
+   "type": "VBufferFormat",
+   "rename": "format",
+   "_fn": "std3D_AddToTextureCache"
+  },
+  {
+   "addr": "00479170",
+   "name": "local_a4",
+   "type": "DDSurfaceDesc",
+   "rename": "ddsd",
+   "_fn": "std3D_AddToTextureCache"
+  },
+  {
+   "addr": "00479170",
+   "name": "local_15c",
+   "type": "DDSurfaceDesc",
+   "rename": "lockDesc",
+   "_fn": "std3D_AddToTextureCache"
+  },
+  {
+   "addr": "00479170",
+   "name": "local_28",
+   "type": "uint[2]",
+   "rename": "aColorKey",
+   "_fn": "std3D_AddToTextureCache"
+  },
+  {
+   "addr": "0047ab20",
+   "name": "local_cc",
+   "type": "BmHeader",
+   "rename": "header",
+   "_fn": "stdBitmap_LoadEntryFromFile"
+  },
+  {
+   "addr": "0047ab20",
+   "name": "iStack_d4",
+   "type": "BmFrameHeader",
+   "rename": "frame",
+   "_fn": "stdBitmap_LoadEntryFromFile"
+  },
+  {
+   "addr": "0047aef0",
+   "name": "local_80",
+   "type": "BmHeader",
+   "rename": "header",
+   "_fn": "stdBitmap_AppendToFile"
+  },
+  {
+   "addr": "0047aef0",
+   "name": "iStack_94",
+   "type": "BmFrameHeader",
+   "rename": "frame",
+   "_fn": "stdBitmap_AppendToFile"
+  },
+  {
+   "addr": "004029b0",
+   "name": "local_20",
+   "type": "byte[16]",
+   "rename": "aDeviceGuid",
+   "_fn": "Display_GetLastFromRegistry"
+  },
+  {
+   "addr": "004029b0",
+   "name": "local_30",
+   "type": "byte[16]",
+   "rename": "a3DGuid",
+   "_fn": "Display_GetLastFromRegistry"
+  },
+  {
+   "addr": "004029b0",
+   "name": "local_10",
+   "type": "byte[16]",
+   "rename": "aNullGuid",
+   "_fn": "Display_GetLastFromRegistry"
+  },
+  {
+   "addr": "004aac40",
+   "name": "local_430",
+   "type": "FontData",
+   "rename": "header",
+   "_fn": "Text_WrapLines"
+  },
+  {
+   "addr": "004aac40",
+   "name": "local_400",
+   "type": "uint[256]",
+   "rename": "aGlyphOffsets",
+   "_fn": "Text_WrapLines"
+  },
+  {
+   "addr": "00417f30",
+   "name": "acStack_38c",
+   "type": "MatHeader",
+   "rename": "header",
+   "_fn": "rdMaterial_LoadEntry"
+  },
+  {
+   "addr": "00417f30",
+   "name": "uStack_400",
+   "type": "MatCelHeader",
+   "rename": "cel",
+   "_fn": "rdMaterial_LoadEntry"
+  },
+  {
+   "addr": "00417f30",
+   "name": "auStack_3e8",
+   "type": "MatCelColor",
+   "rename": "celColor",
+   "_fn": "rdMaterial_LoadEntry"
+  },
+  {
+   "addr": "00417f30",
+   "name": "uStack_418",
+   "type": "MatTextureHeader",
+   "rename": "texHeader",
+   "_fn": "rdMaterial_LoadEntry"
+  }
+ ]
+}

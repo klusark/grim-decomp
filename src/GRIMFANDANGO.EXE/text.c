@@ -457,169 +457,148 @@ uint __cdecl Text_WrapLines(uint *defaultFont)
 {
   unsigned char _frame[0x450] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   char cVar1;
-  uint uVar2;
-  int iVar3;
-  uint uVar4;
-  uint *puVar5;
-  int iVar6;
-  uint uVar7;
-  uint *puVar8;
-  undefined2 *puVar9;
-  char *pcVar10;
-  uint uVar11;
-  uint *puVar12;
-  undefined4 *puVar13;
+  int iVar2;
+  uint uVar3;
+  uint *puVar4;
+  int iVar5;
+  uint uVar6;
+  uint *puVar7;
+  undefined2 *puVar8;
+  uint uVar9;
+  FontData *pFVar10;
+  char *pcVar11;
+  undefined4 *puVar12;
   uint local_444;
   #define local_43e (*(undefined1 *)(_frame + (0x450 - 0x43e)))
   #define local_43d (*(undefined1 *)(_frame + (0x450 - 0x43d)))
   #define local_43c (*(uint *)(_frame + (0x450 - 0x43c)))
   #define uStack_438 (*(uint *)(_frame + (0x450 - 0x438)))
   #define iStack_434 (*(int *)(_frame + (0x450 - 0x434)))
-  #define local_430 (*(uint *)(_frame + (0x450 - 0x430)))
-  #define local_42c (*(uint *)(_frame + (0x450 - 0x42c)))
-  #define local_428 (*(uint *)(_frame + (0x450 - 0x428)))
-  #define local_424 (*(uint *)(_frame + (0x450 - 0x424)))
-  #define local_420 (*(uint *)(_frame + (0x450 - 0x420)))
-  #define local_414 (*(uint *)(_frame + (0x450 - 0x414)))
-  #define local_410 (*(uint *)(_frame + (0x450 - 0x410)))
-  #define local_40c (*(uint *)(_frame + (0x450 - 0x40c)))
-  #define local_408 (*(uint *)(_frame + (0x450 - 0x408)))
-  #define local_404 (*(uint *)(_frame + (0x450 - 0x404)))
-  #define local_400 (*(uint *)(_frame + (0x450 - 0x400)))
+  FontData header;
+  uint aGlyphOffsets [256];
   
-  puVar8 = &local_430;
-  for (iVar6 = 0xc; iVar6 != 0; iVar6 = iVar6 + -1) {
-    *puVar8 = 0;
-    puVar8 = puVar8 + 1;
+  pFVar10 = &header;
+  for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
+    *(undefined4 *)pFVar10 = 0;
+    pFVar10 = (FontData *)&pFVar10->field_0x4;
   }
-  local_42c = UINT_004eca00 >> 0x10 & 0xff;
+  PIECE(header,4,4) = UINT_004eca00 >> 0x10 & 0xff;
   local_43e = 0;
-  local_428 = local_42c - 1;
-  uVar4 = UINT_004eca00 & 0xffff;
+  PIECE(header,8,4) = PIECE(header,4,4) - 1;
+  uVar3 = UINT_004eca00 & 0xffff;
   local_43d = 0xff;
-  local_424 = 0;
-  local_420 = 1;
-  local_414 = 0;
-  local_410 = uVar4;
-  if (uVar4 != 0) {
-    puVar8 = g_adwTextWrapTable;
-    puVar12 = &local_400;
-    for (uVar7 = uVar4; uVar7 != 0; uVar7 = uVar7 - 1) {
-      *puVar12 = *puVar8;
-      puVar8 = puVar8 + 1;
-      puVar12 = puVar12 + 1;
+  PIECE(header,12,4) = 0;
+  PIECE(header,16,4) = 1;
+  header.nFirstChar = 0;
+  header.nLastChar = uVar3;
+  if (uVar3 != 0) {
+    puVar7 = g_adwTextWrapTable;
+    puVar4 = aGlyphOffsets;
+    for (uVar6 = uVar3; uVar6 != 0; uVar6 = uVar6 - 1) {
+      *puVar4 = *puVar7;
+      puVar7 = puVar7 + 1;
+      puVar4 = puVar4 + 1;
     }
   }
-  local_408 = uVar4 * 2 + 0x30;
-  local_43c = uVar4 * 0x5c;
-  uVar7 = local_408 + local_43c;
-  local_40c = 0x30;
-  local_404 = uVar7;
-  if (uVar4 != 0) {
-    puVar8 = &local_400;
-    uVar11 = uVar4;
+  header.nGlyphOffset = uVar3 * 2 + 0x30;
+  local_43c = uVar3 * 0x5c;
+  iVar5 = header.nGlyphOffset + local_43c;
+  header.nCharMapOffset = 0x30;
+  header.nBitmapOffset = iVar5;
+  if (uVar3 != 0) {
+    puVar7 = aGlyphOffsets;
+    uVar6 = uVar3;
     do {
-      uVar2 = *puVar8;
-      if (uVar2 != 0) {
-        uVar7 = uVar7 + (uint)*(byte *)((int)&UINT_004eca00 + uVar2 + 1) *
-                        (uint)*(byte *)((int)&UINT_004eca00 + uVar2);
+      uVar9 = *puVar7;
+      if (uVar9 != 0) {
+        iVar5 = iVar5 + (uint)*(byte *)((int)&UINT_004eca00 + uVar9 + 1) *
+                        (uint)*(byte *)((int)&UINT_004eca00 + uVar9);
       }
-      puVar8 = puVar8 + 1;
-      uVar11 = uVar11 - 1;
-    } while (uVar11 != 0);
+      puVar7 = puVar7 + 1;
+      uVar6 = uVar6 - 1;
+    } while (uVar6 != 0);
   }
-  uStack_438 = (*g_pTextHS->pHAlloc)(uVar7);
+  uStack_438 = (*g_pTextHS->pHAlloc)(iVar5);
   if (uStack_438 != 0) {
-    puVar5 = (uint *)(*g_pTextHS->pHLock)(uStack_438);
-    puVar8 = &local_430;
-    puVar12 = puVar5;
-    for (iVar6 = 0xc; iVar6 != 0; iVar6 = iVar6 + -1) {
-      *puVar12 = *puVar8;
-      puVar8 = puVar8 + 1;
+    puVar4 = (uint *)(*g_pTextHS->pHLock)(uStack_438);
+    pFVar10 = &header;
+    puVar7 = puVar4;
+    for (iVar5 = 0xc; iVar5 != 0; iVar5 = iVar5 + -1) {
+      *puVar7 = *(uint *)pFVar10;
+      pFVar10 = (FontData *)&pFVar10->field_0x4;
+      puVar7 = puVar7 + 1;
+    }
+    *puVar4 = uStack_438;
+    puVar8 = (undefined2 *)(puVar4[9] + (int)puVar4);
+    iVar5 = 0;
+    if (uVar3 != 0) {
+      do {
+        *puVar8 = (short)iVar5;
+        iVar5 = iVar5 + 1;
+        puVar8 = puVar8 + 1;
+      } while (iVar5 < (int)uVar3);
+    }
+    uVar6 = puVar4[10];
+    puVar12 = (undefined4 *)(uVar6 + (int)puVar4);
+    for (uVar9 = local_43c >> 2; uVar9 != 0; uVar9 = uVar9 - 1) {
+      *puVar12 = 0;
       puVar12 = puVar12 + 1;
     }
-    *puVar5 = uStack_438;
-    puVar9 = (undefined2 *)(puVar5[9] + (int)puVar5);
-    iVar6 = 0;
-    if (uVar4 != 0) {
+    iVar5 = 0;
+    for (uVar9 = local_43c & 3; uVar9 != 0; uVar9 = uVar9 - 1) {
+      *(undefined1 *)puVar12 = 0;
+      puVar12 = (undefined4 *)((int)puVar12 + 1);
+    }
+    iStack_434 = puVar4[0xb] + (int)puVar4;
+    if (uVar3 != 0) {
+      local_444 = (uint)aGlyphOffsets;
+      pcVar11 = (char *)((int)(uVar6 + (int)puVar4) + 6);
+      local_43c = uVar3;
       do {
-        *puVar9 = (short)iVar6;
-        iVar6 = iVar6 + 1;
-        puVar9 = puVar9 + 1;
-      } while (iVar6 < (int)uVar4);
-    }
-    uVar7 = puVar5[10];
-    puVar13 = (undefined4 *)(uVar7 + (int)puVar5);
-    for (uVar11 = local_43c >> 2; uVar11 != 0; uVar11 = uVar11 - 1) {
-      *puVar13 = 0;
-      puVar13 = puVar13 + 1;
-    }
-    iVar6 = 0;
-    for (uVar11 = local_43c & 3; uVar11 != 0; uVar11 = uVar11 - 1) {
-      *(undefined1 *)puVar13 = 0;
-      puVar13 = (undefined4 *)((int)puVar13 + 1);
-    }
-    iStack_434 = puVar5[0xb] + (int)puVar5;
-    if (uVar4 != 0) {
-      local_444 = (uint)&local_400;
-      pcVar10 = (char *)((int)(uVar7 + (int)puVar5) + 6);
-      local_43c = uVar4;
-      do {
-        iVar3 = *(int *)local_444;
-        if (iVar3 != 0) {
-          *(uint *)(pcVar10 + 6) = (uint)*(byte *)((int)&UINT_004eca00 + iVar3);
-          *(uint *)(pcVar10 + 10) = (uint)*(byte *)((int)&UINT_004eca00 + iVar3 + 1);
-          cVar1 = *(char *)((int)&UINT_004eca00 + iVar3 + 2);
-          pcVar10[-1] = cVar1;
-          pcVar10[-2] = pcVar10[6] + cVar1;
-          cVar1 = *(char *)((int)&UINT_004eca00 + iVar3 + 3);
-          uVar4 = puVar5[2];
-          pcVar10[0xe] = '\x01';
-          pcVar10[0xf] = '\0';
-          pcVar10[0x10] = '\0';
-          pcVar10[0x11] = '\0';
-          *pcVar10 = cVar1 - (char)uVar4;
-          *(int *)(pcVar10 + -6) = iVar6;
-          *(int *)(pcVar10 + 2) = iVar6 + iStack_434;
-          uVar4 = (int)*pcVar10;
-          if ((int)puVar5[5] < (int)*pcVar10) {
-            uVar4 = puVar5[5];
+        iVar2 = *(int *)local_444;
+        if (iVar2 != 0) {
+          *(uint *)(pcVar11 + 6) = (uint)*(byte *)((int)&UINT_004eca00 + iVar2);
+          *(uint *)(pcVar11 + 10) = (uint)*(byte *)((int)&UINT_004eca00 + iVar2 + 1);
+          cVar1 = *(char *)((int)&UINT_004eca00 + iVar2 + 2);
+          pcVar11[-1] = cVar1;
+          pcVar11[-2] = pcVar11[6] + cVar1;
+          cVar1 = *(char *)((int)&UINT_004eca00 + iVar2 + 3);
+          uVar3 = puVar4[2];
+          pcVar11[0xe] = '\x01';
+          pcVar11[0xf] = '\0';
+          pcVar11[0x10] = '\0';
+          pcVar11[0x11] = '\0';
+          *pcVar11 = cVar1 - (char)uVar3;
+          *(int *)(pcVar11 + -6) = iVar5;
+          *(int *)(pcVar11 + 2) = iVar5 + iStack_434;
+          uVar3 = (int)*pcVar11;
+          if ((int)puVar4[5] < (int)*pcVar11) {
+            uVar3 = puVar4[5];
           }
-          puVar5[5] = uVar4;
-          uVar4 = *(int *)(pcVar10 + 10) + (int)*pcVar10;
-          if ((uint)(*(int *)(pcVar10 + 10) + (int)*pcVar10) < puVar5[6]) {
-            uVar4 = puVar5[6];
+          puVar4[5] = uVar3;
+          uVar3 = *(int *)(pcVar11 + 10) + (int)*pcVar11;
+          if ((uint)(*(int *)(pcVar11 + 10) + (int)*pcVar11) < puVar4[6]) {
+            uVar3 = puVar4[6];
           }
-          puVar5[6] = uVar4;
-          Text_CopyRunes((byte *)((int)g_adwTextWrapTable + iVar3),(undefined4 *)(pcVar10 + 2),1,
+          puVar4[6] = uVar3;
+          Text_CopyRunes((byte *)((int)g_adwTextWrapTable + iVar2),(undefined4 *)(pcVar11 + 2),1,
                          (int)&local_43e);
-          iVar6 = iVar6 + *(int *)(pcVar10 + 6) * *(int *)(pcVar10 + 10);
+          iVar5 = iVar5 + *(int *)(pcVar11 + 6) * *(int *)(pcVar11 + 10);
         }
         local_444 = local_444 + 4;
-        pcVar10 = pcVar10 + 0x5c;
+        pcVar11 = pcVar11 + 0x5c;
         local_43c = local_43c - 1;
       } while (local_43c != 0);
     }
-    uVar4 = uStack_438;
+    uVar3 = uStack_438;
     (*g_pTextHS->pHUnlock)(uStack_438);
-    *defaultFont = uVar4;
+    *defaultFont = uVar3;
     return 0;
   }
   *defaultFont = 0;
   return 1;
 }
 #undef iStack_434
-#undef local_400
-#undef local_404
-#undef local_408
-#undef local_40c
-#undef local_410
-#undef local_414
-#undef local_420
-#undef local_424
-#undef local_428
-#undef local_42c
-#undef local_430
 #undef local_43c
 #undef local_43d
 #undef local_43e

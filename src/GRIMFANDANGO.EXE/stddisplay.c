@@ -220,66 +220,92 @@ undefined * Display_InitFromConfig(void)
 int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *threeDIdx)
 
 {
-  unsigned char _frame[0x40] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int iVar1;
   uint uVar2;
   uint *puVar3;
   void *pvVar4;
   int iVar5;
-  char *pcVar6;
-  char *pcVar7;
-  uint *puVar8;
+  byte *pbVar6;
+  byte *pbVar7;
+  byte *pbVar8;
   bool bVar9;
-  #define local_30 (*(uint *)(_frame + (0x40 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x40 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x40 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x40 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x40 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x40 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x40 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x40 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x40 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x40 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x40 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x40 - 0x4)))
+  byte a3DGuid [16];
+  byte aDeviceGuid [16];
+  byte aNullGuid [16];
   
   iVar1 = Reg_GetInt(s_ExperimentalDisplay_004dd5e4,1);
   if (iVar1 != 0) {
     OutputDebugStringA(((unsigned)(uintptr_t)&DAT_004dd874));
     return 0;
   }
-  local_10 = 0;
-  local_c = 0;
-  local_20 = 0;
-  local_8 = 0;
-  local_30 = 0;
-  local_4 = 0;
-  local_1c = 0;
-  local_2c = 0;
-  local_18 = 0;
-  local_28 = 0;
-  local_14 = 0;
-  local_24 = 0;
-  Reg_GetBinary(s_LastDisplayDevice_004dd738,&local_20,0x10);
-  Reg_GetBinary(s_Last3DDevice_004dd794,&local_30,0x10);
+  aNullGuid[0] = 0;
+  aNullGuid[1] = 0;
+  aNullGuid[2] = 0;
+  aNullGuid[3] = 0;
+  aNullGuid[4] = 0;
+  aNullGuid[5] = 0;
+  aNullGuid[6] = 0;
+  aNullGuid[7] = 0;
+  aDeviceGuid[0] = 0;
+  aDeviceGuid[1] = 0;
+  aDeviceGuid[2] = 0;
+  aDeviceGuid[3] = 0;
+  aNullGuid[8] = 0;
+  aNullGuid[9] = 0;
+  aNullGuid[10] = 0;
+  aNullGuid[0xb] = 0;
+  a3DGuid[0] = 0;
+  a3DGuid[1] = 0;
+  a3DGuid[2] = 0;
+  a3DGuid[3] = 0;
+  aNullGuid[0xc] = 0;
+  aNullGuid[0xd] = 0;
+  aNullGuid[0xe] = 0;
+  aNullGuid[0xf] = 0;
+  aDeviceGuid[4] = 0;
+  aDeviceGuid[5] = 0;
+  aDeviceGuid[6] = 0;
+  aDeviceGuid[7] = 0;
+  a3DGuid[4] = 0;
+  a3DGuid[5] = 0;
+  a3DGuid[6] = 0;
+  a3DGuid[7] = 0;
+  aDeviceGuid[8] = 0;
+  aDeviceGuid[9] = 0;
+  aDeviceGuid[10] = 0;
+  aDeviceGuid[0xb] = 0;
+  a3DGuid[8] = 0;
+  a3DGuid[9] = 0;
+  a3DGuid[10] = 0;
+  a3DGuid[0xb] = 0;
+  aDeviceGuid[0xc] = 0;
+  aDeviceGuid[0xd] = 0;
+  aDeviceGuid[0xe] = 0;
+  aDeviceGuid[0xf] = 0;
+  a3DGuid[0xc] = 0;
+  a3DGuid[0xd] = 0;
+  a3DGuid[0xe] = 0;
+  a3DGuid[0xf] = 0;
+  Reg_GetBinary(s_LastDisplayDevice_004dd738,aDeviceGuid,0x10);
+  Reg_GetBinary(s_Last3DDevice_004dd794,a3DGuid,0x10);
   uVar2 = 0;
   if (g_dwStdDisplay_numDevices != 0) {
-    pcVar6 = &DAT_00902ee8;
+    pbVar6 = &DAT_00902ee8;
     do {
       iVar1 = 0x10;
       bVar9 = true;
-      pcVar7 = pcVar6;
-      puVar3 = &local_20;
+      pbVar7 = pbVar6;
+      pbVar8 = aDeviceGuid;
       do {
         if (iVar1 == 0) break;
         iVar1 = iVar1 + -1;
-        bVar9 = *pcVar7 == (char)*puVar3;
-        pcVar7 = pcVar7 + 1;
-        puVar3 = (uint *)((int)puVar3 + 1);
+        bVar9 = *pbVar7 == *pbVar8;
+        pbVar7 = pbVar7 + 1;
+        pbVar8 = pbVar8 + 1;
       } while (bVar9);
       if (bVar9) break;
       uVar2 = uVar2 + 1;
-      pcVar6 = pcVar6 + 0x298;
+      pbVar6 = pbVar6 + 0x298;
     } while (uVar2 < g_dwStdDisplay_numDevices);
   }
   if (uVar2 == g_dwStdDisplay_numDevices) {
@@ -292,14 +318,14 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
   *modeIdx = uVar2;
   iVar1 = 0x10;
   bVar9 = true;
-  puVar3 = &local_30;
-  puVar8 = &local_10;
+  pbVar6 = a3DGuid;
+  pbVar7 = aNullGuid;
   do {
     if (iVar1 == 0) break;
     iVar1 = iVar1 + -1;
-    bVar9 = (char)*puVar3 == (char)*puVar8;
-    puVar3 = (uint *)((int)puVar3 + 1);
-    puVar8 = (uint *)((int)puVar8 + 1);
+    bVar9 = *pbVar6 == *pbVar7;
+    pbVar6 = pbVar6 + 1;
+    pbVar7 = pbVar7 + 1;
   } while (bVar9);
   if (bVar9) {
     *threeDIdx = 0xffffffff;
@@ -312,14 +338,14 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
     do {
       iVar5 = 0x10;
       bVar9 = true;
-      pcVar6 = (char *)(*(int *)((int)pvVar4 + 0xc) + 0x21c + iVar1);
-      puVar3 = &local_30;
+      pbVar6 = (byte *)(*(int *)((int)pvVar4 + 0xc) + 0x21c + iVar1);
+      pbVar7 = a3DGuid;
       do {
         if (iVar5 == 0) break;
         iVar5 = iVar5 + -1;
-        bVar9 = *pcVar6 == (char)*puVar3;
-        pcVar6 = pcVar6 + 1;
-        puVar3 = (uint *)((int)puVar3 + 1);
+        bVar9 = *pbVar6 == *pbVar7;
+        pbVar6 = pbVar6 + 1;
+        pbVar7 = pbVar7 + 1;
       } while (bVar9);
       if (bVar9) break;
       pvVar4 = (void *)((int)g_pDisplayModes + *deviceIdx * 0x10);
@@ -334,19 +360,6 @@ int __cdecl Display_GetLastFromRegistry(uint *deviceIdx,uint *modeIdx,uint *thre
   *threeDIdx = uVar2;
   return 1;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x00402b60  Display_PickDefault ---- */
 int __cdecl

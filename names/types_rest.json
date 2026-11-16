@@ -319,8 +319,8 @@
     ],
     [
      124,
-     "uint[13]",
-     "aCostumeRef",
+     "ResRef",
+     "costumeRef",
      "0x34-byte resource reference of the costume (Res_SetReference)"
     ],
     [

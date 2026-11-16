@@ -33,7 +33,7 @@
 | 004018b0 | Grim_FatalMessageBox | grim.c | 15 |
 | 00401900 | Grim_ShutdownDisplay | grim.c | 18 |
 | 00401950 | Main_Shutdown | grim.c | 59 |
-| 00401a50 | Grim_EnumDisplayModes | grim.c | 148 |
+| 00401a50 | Grim_EnumDisplayModes | grim.c | 120 |
 | 00402050 | grimdemo_PleaseShutdown | grim.c | 9 |
 | 00402060 | grimdemo_SetPalette | grim.c | 14 |
 | 00402c80 | Grim_ParseCommandLine | grim.c | 99 |
@@ -328,7 +328,7 @@
 | 004025b0 | Display_Select | stddisplay.c | 107 |
 | 00402860 | Display_Select3DDevice | stddisplay.c | 45 |
 | 00402930 | Display_InitFromConfig | stddisplay.c | 1 |
-| 004029b0 | Display_GetLastFromRegistry | stddisplay.c | 133 |
+| 004029b0 | Display_GetLastFromRegistry | stddisplay.c | 146 |
 | 00402b60 | Display_PickDefault | stddisplay.c | 45 |
 | 004730d0 | stdDisplay_BuildBitmapInfo8 | stddisplay.c | 37 |
 | 00473180 | stdDisplay_BuildBitmapInfo16 | stddisplay.c | 19 |
@@ -529,7 +529,7 @@
 | 0040a8c0 | rdModel3_NewEntry | rdmodel3.c | 22 |
 | 0040a8f0 | rdModel3_Load | rdmodel3.c | 40 |
 | 0040a980 | rdModel3_LoadEntry | rdmodel3.c | 31 |
-| 0040aa20 | rdModel3_LoadEntryText | rdmodel3.c | 565 |
+| 0040aa20 | rdModel3_LoadEntryText | rdmodel3.c | 552 |
 | 0040b8e0 | rdModel3_LoadEntryBinary | rdmodel3.c | 268 |
 | 0040c090 | rdModel3_LoadPostProcess | rdmodel3.c | 14 |
 | 0040c0d0 | rdModel3_Free | rdmodel3.c | 16 |
@@ -558,7 +558,7 @@
 | 00450ba0 | rdPuppet_UpdateFrame | rdpuppet.c | 1 |
 | 004c0630 | rdKeyframe_NewEntry | rdpuppet.c | 21 |
 | 004c0660 | rdKeyframe_Load | rdpuppet.c | 50 |
-| 004c0770 | rdKeyframe_LoadEntry | rdpuppet.c | 264 |
+| 004c0770 | rdKeyframe_LoadEntry | rdpuppet.c | 246 |
 | 004c0ce0 | rdKeyframe_LoadEntryBinary | rdpuppet.c | 72 |
 | 004c0e40 | rdKeyframe_Free | rdpuppet.c | 16 |
 | 004c0e70 | rdKeyframe_FreeEntry | rdpuppet.c | 27 |
@@ -947,7 +947,7 @@
 | 00417e90 | rdMaterial_RegisterLoader | rdmaterial.c | 13 |
 | 00417ea0 | rdMaterial_RegisterUnloader | rdmaterial.c | 12 |
 | 00417eb0 | rdMaterial_Load | rdmaterial.c | 22 |
-| 00417f30 | rdMaterial_LoadEntry | rdmaterial.c | 217 |
+| 00417f30 | rdMaterial_LoadEntry | rdmaterial.c | 167 |
 | 00418360 | rdMaterial_Free | rdmaterial.c | 11 |
 | 004183a0 | rdMaterial_FreeEntry | rdmaterial.c | 55 |
 | 004184a0 | rdMaterial_AddToTextureCache | rdmaterial.c | 34 |
@@ -1026,7 +1026,7 @@
 | 00472910 | rdSprite_NewEntry | rdprimitive.c | 96 |
 | 00472b50 | rdSprite_Free | rdprimitive.c | 9 |
 | 00472b70 | rdSprite_FreeEntry | rdprimitive.c | 20 |
-| 00472bd0 | rdSprite_Draw | rdprimitive.c | 211 |
+| 00472bd0 | rdSprite_Draw | rdprimitive.c | 190 |
 | 00473430 | stdFileOpen | stdfileutil.c | 1 |
 | 00473450 | stdFileClose | stdfileutil.c | 1 |
 | 00473460 | stdFileRead | stdfileutil.c | 1 |
@@ -1061,10 +1061,10 @@
 | 00473810 | stdWriteImage | stdbitmap.c | 106 |
 | 0047aa50 | stdBitmap_Load | stdbitmap.c | 21 |
 | 0047aab0 | stdBitmap_LoadFromFile | stdbitmap.c | 22 |
-| 0047ab20 | stdBitmap_LoadEntryFromFile | stdbitmap.c | 162 |
+| 0047ab20 | stdBitmap_LoadEntryFromFile | stdbitmap.c | 143 |
 | 0047ae70 | stdBitmap_Free | stdbitmap.c | 7 |
 | 0047ae90 | stdBitmap_FreeEntry | stdbitmap.c | 28 |
-| 0047aef0 | stdBitmap_AppendToFile | stdbitmap.c | 169 |
+| 0047aef0 | stdBitmap_AppendToFile | stdbitmap.c | 145 |
 | 0047b250 | stdBitmap_Write | stdbitmap.c | 22 |
 | 0047b2b0 | stdBitmap_ConvertColorFormat | stdbitmap.c | 59 |
 | 0047b380 | stdBitmap_VBufferToBitmap | stdbitmap.c | 70 |
@@ -1131,7 +1131,7 @@
 | 00478c00 | D3D_SetRenderFlags | std3d.c | 127 |
 | 00479070 | std3D_GetValidDimensions | std3d.c | 39 |
 | 00479110 | std3D_PurgeTextureCache | std3d.c | 17 |
-| 00479170 | std3D_AddToTextureCache | std3d.c | 368 |
+| 00479170 | std3D_AddToTextureCache | std3d.c | 342 |
 | 00479860 | D3D_FreeAllTextures | std3d.c | 33 |
 | 004798e0 | D3D_LinkTexture | std3d.c | 19 |
 | 00479950 | D3D_UnlinkTexture | std3d.c | 32 |
@@ -1237,7 +1237,7 @@
 | 0048d870 | Resource_RegisterTypes | resource.c | 18 |
 | 0048d8a0 | sputResource_SetMemoryUsage | resource.c | 14 |
 | 0048df50 | Resource_ReloadBitmaps | resource.c | 78 |
-| 0048e0a0 | Resource_RebuildColormaps | resource.c | 64 |
+| 0048e0a0 | Resource_RebuildColormaps | resource.c | 37 |
 | 0048e170 | sputResource_MatLoader | resource.c | 16 |
 | 0048e1b0 | sputResource_MatUnloader | resource.c | 15 |
 | 00480120 | Res_FileCloseAll | lab.c | 11 |
@@ -1258,7 +1258,7 @@
 | 0048d8c0 | sputResource_LipSyncHandler | restype.c | 34 |
 | 0048d930 | sputResource_BackgroundHandler | restype.c | 58 |
 | 0048da40 | sputResource_CostumeHandler | restype.c | 34 |
-| 0048dab0 | sputResource_ColormapHandler | restype.c | 82 |
+| 0048dab0 | sputResource_ColormapHandler | restype.c | 53 |
 | 0048dbd0 | sputResource_FontHandler | restype.c | 37 |
 | 0048dc60 | sputResource_KeyframeHandler | restype.c | 52 |
 | 0048dd20 | sputResource_MaterialHandler | restype.c | 46 |
@@ -1426,7 +1426,7 @@
 | 0048fb80 | sputActor_CanActorSeeActor | actor.c | 22 |
 | 0048fbd0 | sputActor_Turn | actor.c | 39 |
 | 0048fc80 | sputActor_Forward | actor.c | 15 |
-| 0048fd90 | Actor_UpdateMovement | actor.c | 39 |
+| 0048fd90 | Actor_UpdateMovement | actor.c | 40 |
 | 0048fe80 | Actor_UpdateLookAt | actor.c | 131 |
 | 00490210 | sputActor_UpdateActorSpeech | actor.c | 1 |
 | 00490320 | sputActor_SetSelectedActor | actor.c | 18 |
@@ -1474,7 +1474,7 @@
 | 004a5eb0 | sputRoom_RemoveActor | actor.c | 40 |
 | 004a5f60 | sputRoom_AddActor | actor.c | 75 |
 | 004a8500 | Puck_GetYawToPoint | actor.c | 33 |
-| 00485420 | DirtyRect_Add | dirtyrect.c | 187 |
+| 00485420 | DirtyRect_Add | dirtyrect.c | 162 |
 | 00485e50 | DirtyRect_Flush | dirtyrect.c | 84 |
 | 00486020 | DirtyRect_Clear | dirtyrect.c | 16 |
 | 00485a40 | Setup_DrawDebugCamera | setup.c | 47 |
@@ -1608,7 +1608,7 @@
 | 004aaa80 | Text_GetStringWidth | text.c | 43 |
 | 004aab10 | Text_GetStringHeight | text.c | 38 |
 | 004aabb0 | Text_DrawFormatted | text.c | 26 |
-| 004aac40 | Text_WrapLines | text.c | 175 |
+| 004aac40 | Text_WrapLines | text.c | 154 |
 | 004aae90 | Text_CopyRunes | text.c | 42 |
 | 004aaf30 | Text_BuildLineTable | text.c | 126 |
 | 004ab210 | text_FindNextBreak | text.c | 166 |
@@ -1640,7 +1640,7 @@
 | 0048fcf0 | sputActor_UpdateActors | actors.c | 37 |
 | 0048e2c0 | sputActor_Initialize | sputactor.c | 22 |
 | 0048e330 | sputActor_Save | sputactor.c | 279 |
-| 0048ecd0 | sputActor_Restore | sputactor.c | 408 |
+| 0048ecd0 | sputActor_Restore | sputactor.c | 379 |
 | 00490a60 | sputActor_SetWalkChore | sputactor.c | 39 |
 | 00490e60 | sputActor_Terminate | sputactor.c | 12 |
 | 00490e80 | sputActor_Startup | sputactor.c | 25 |
@@ -2401,11 +2401,11 @@
 | 004be560 | LightEd_DeleteLight | lighted.c | 87 |
 | 004be730 | LightEd_MakeUniqueName | lighted.c | 31 |
 | 004be7b0 | LightEd_AddLight | lighted.c | 92 |
-| 004be990 | LightEd_SaveSetFile | lighted.c | 176 |
+| 004be990 | LightEd_SaveSetFile | lighted.c | 144 |
 | 004bed40 | LightEd_WriteLightsSection | lighted.c | 33 |
 | 004bef10 | LightEd_FillListBox | lighted.c | 38 |
 | 004befe0 | LightEd_UpdateDialog | lighted.c | 88 |
-| 004bf2f0 | LightEd_EnableControls | lighted.c | 93 |
+| 004bf2f0 | LightEd_EnableControls | lighted.c | 44 |
 | 004bf3f0 | LightEd_SetDlgFloat | lighted.c | 21 |
 | 004bf460 | LightEd_RefreshControl | lighted.c | 56 |
 | 004bf560 | LightEd_ReadControl | lighted.c | 78 |

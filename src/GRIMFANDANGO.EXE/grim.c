@@ -396,62 +396,49 @@ void __cdecl Main_Shutdown(void)
 void __cdecl Grim_EnumDisplayModes(void)
 
 {
-  unsigned char _frame[0x50] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   undefined4 uVar1;
   int iVar2;
   uint uVar3;
   int iVar4;
   uint uVar5;
-  uint *puVar6;
-  undefined4 *puVar7;
-  uint *puVar8;
-  #define local_38 (*(uint *)(_frame + (0x50 - 0x38)))
-  #define local_34 (*(uint *)(_frame + (0x50 - 0x34)))
-  #define local_30 (*(uint *)(_frame + (0x50 - 0x30)))
-  #define local_2c (*(uint *)(_frame + (0x50 - 0x2c)))
-  #define local_28 (*(uint *)(_frame + (0x50 - 0x28)))
-  #define local_24 (*(uint *)(_frame + (0x50 - 0x24)))
-  #define local_20 (*(uint *)(_frame + (0x50 - 0x20)))
-  #define local_1c (*(uint *)(_frame + (0x50 - 0x1c)))
-  #define local_18 (*(uint *)(_frame + (0x50 - 0x18)))
-  #define local_14 (*(uint *)(_frame + (0x50 - 0x14)))
-  #define local_10 (*(uint *)(_frame + (0x50 - 0x10)))
-  #define local_c (*(uint *)(_frame + (0x50 - 0xc)))
-  #define local_8 (*(uint *)(_frame + (0x50 - 0x8)))
-  #define local_4 (*(uint *)(_frame + (0x50 - 0x4)))
+  ColorFormat *pCVar6;
+  uint *puVar7;
+  undefined4 *puVar8;
+  uint *puVar9;
+  ColorFormat format;
   
-  local_30 = 5;
-  local_28 = 5;
-  local_20 = 5;
-  puVar6 = &UINT_004f44e8;
+  format.dwRedBits = 5;
+  format.dwBlueBits = 5;
+  format.dwGreenShift = 5;
+  puVar7 = &UINT_004f44e8;
   for (iVar2 = 0x12; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+    *puVar7 = 0;
+    puVar7 = puVar7 + 1;
   }
-  puVar6 = &UINT_004f4d38;
+  puVar7 = &UINT_004f4d38;
   for (iVar2 = 0x13; uVar5 = g_dwStdDisplay_numDevices, iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar6 = 0;
-    puVar6 = puVar6 + 1;
+    *puVar7 = 0;
+    puVar7 = puVar7 + 1;
   }
   iVar4 = 0;
-  local_14 = 2;
+  format.dwGreenLoss = 2;
   _DAT_004f450c = 2;
-  local_38 = 1;
-  local_34 = 0x10;
-  local_2c = 6;
-  local_24 = 0xb;
-  local_1c = 0;
-  local_18 = 3;
-  local_10 = 3;
-  local_c = 0;
-  local_8 = 0;
-  local_4 = 0;
-  puVar6 = &local_38;
-  puVar8 = &UINT_004f4d54;
+  format.nColorMode = 1;
+  format.nBpp = 0x10;
+  format.dwGreenBits = 6;
+  format.dwRedShift = 0xb;
+  format.dwBlueShift = 0;
+  format.dwRedLoss = 3;
+  format.dwBlueLoss = 3;
+  format.dwUnknown2c = 0;
+  format.dwUnknown30 = 0;
+  format.dwUnknown34 = 0;
+  pCVar6 = &format;
+  puVar7 = &UINT_004f4d54;
   for (iVar2 = 0xe; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar8 = *puVar6;
-    puVar6 = puVar6 + 1;
-    puVar8 = puVar8 + 1;
+    *puVar7 = pCVar6->nColorMode;
+    pCVar6 = (ColorFormat *)&pCVar6->nBpp;
+    puVar7 = puVar7 + 1;
   }
   UINT_004f44e8 = 1;
   UINT_004f44ec = 1;
@@ -460,15 +447,15 @@ void __cdecl Grim_EnumDisplayModes(void)
   _DAT_004f4d44 = 0x1e0;
   g_pDisplayModes =
        (void *)(*g_pStd_HS->pAlloc)(uVar5 << 4,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x313);
-  puVar7 = g_pDisplayModes;
+  puVar8 = g_pDisplayModes;
   for (iVar2 = (g_dwStdDisplay_numDevices & 0xfffffff) << 2; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *puVar7 = 0;
-    puVar7 = puVar7 + 1;
+    *puVar8 = 0;
+    puVar8 = puVar8 + 1;
   }
   uVar5 = 0;
   for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-    *(undefined1 *)puVar7 = 0;
-    puVar7 = (undefined4 *)((int)puVar7 + 1);
+    *(undefined1 *)puVar8 = 0;
+    puVar8 = (undefined4 *)((int)puVar8 + 1);
   }
   if (g_dwStdDisplay_numDevices != 0) {
     do {
@@ -478,17 +465,17 @@ void __cdecl Grim_EnumDisplayModes(void)
                         (g_dwVideoModeCount * 0x54,s_C__grimsrc_tools_grimdemo_grimde_004dd50c,0x31e
                         );
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 4) = uVar1;
-      puVar6 = &UINT_00901760;
-      puVar8 = *(uint **)((int)g_pDisplayModes + iVar4 + 4);
+      puVar7 = &UINT_00901760;
+      puVar9 = *(uint **)((int)g_pDisplayModes + iVar4 + 4);
       for (uVar3 = g_dwVideoModeCount * 0x15 & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-        *puVar8 = *puVar6;
-        puVar6 = puVar6 + 1;
-        puVar8 = puVar8 + 1;
+        *puVar9 = *puVar7;
+        puVar7 = puVar7 + 1;
+        puVar9 = puVar9 + 1;
       }
       for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-        *(char *)puVar8 = (char)*puVar6;
-        puVar6 = (uint *)((int)puVar6 + 1);
-        puVar8 = (uint *)((int)puVar8 + 1);
+        *(char *)puVar9 = (char)*puVar7;
+        puVar7 = (uint *)((int)puVar7 + 1);
+        puVar9 = (uint *)((int)puVar9 + 1);
       }
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 8) = 0;
       *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = 0;
@@ -501,17 +488,17 @@ void __cdecl Grim_EnumDisplayModes(void)
                              0x32a);
           *(undefined4 *)((int)g_pDisplayModes + iVar4 + 0xc) = uVar1;
         }
-        puVar6 = &UINT_00900b40;
-        puVar8 = *(uint **)((int)g_pDisplayModes + iVar4 + 0xc);
+        puVar7 = &UINT_00900b40;
+        puVar9 = *(uint **)((int)g_pDisplayModes + iVar4 + 0xc);
         for (uVar3 = g_dwD3dDriverCount * 0x8b & 0x3fffffff; uVar3 != 0; uVar3 = uVar3 - 1) {
-          *puVar8 = *puVar6;
-          puVar6 = puVar6 + 1;
-          puVar8 = puVar8 + 1;
+          *puVar9 = *puVar7;
+          puVar7 = puVar7 + 1;
+          puVar9 = puVar9 + 1;
         }
         for (iVar2 = 0; iVar2 != 0; iVar2 = iVar2 + -1) {
-          *(char *)puVar8 = (char)*puVar6;
-          puVar6 = (uint *)((int)puVar6 + 1);
-          puVar8 = (uint *)((int)puVar8 + 1);
+          *(char *)puVar9 = (char)*puVar7;
+          puVar7 = (uint *)((int)puVar7 + 1);
+          puVar9 = (uint *)((int)puVar9 + 1);
         }
         D3D_Release();
       }
@@ -522,21 +509,6 @@ void __cdecl Grim_EnumDisplayModes(void)
   }
   return;
 }
-#undef local_10
-#undef local_14
-#undef local_18
-#undef local_1c
-#undef local_20
-#undef local_24
-#undef local_28
-#undef local_2c
-#undef local_30
-#undef local_34
-#undef local_38
-#undef local_4
-#undef local_8
-#undef local_c
-
 
 /* ---- 0x00402050  grimdemo_PleaseShutdown ---- */
 /* Sets g_nQuitApp. Original name grimdemo_PleaseShutdown (the remaster's GrimFandango (Linux): sets
