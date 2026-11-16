@@ -1,0 +1,747 @@
+{
+ "_comment": "Data globals typed from how the code uses them (2026-11-16): every use reads or writes the global as one scalar type the decompiler had evidence for (*(T *)&DAT_x, or the _DAT_x alias of that width; an alias of an undefinedN type alone is no evidence), and data used only by its address whose bytes are one NUL-terminated printable string, typed as that char array (Ghidra names it s_...). 008db200 is the mixer's double clock (build/overrides_mixer_snd.c).",
+ "program": "/v101/GRIMFANDANGO.EXE",
+ "globals": [
+  {
+   "addr": "004dea44",
+   "type": "float"
+  },
+  {
+   "addr": "004dea48",
+   "type": "float"
+  },
+  {
+   "addr": "004dee54",
+   "type": "int"
+  },
+  {
+   "addr": "007f4ac8",
+   "type": "float"
+  },
+  {
+   "addr": "007f4ae4",
+   "type": "float"
+  },
+  {
+   "addr": "007f4aec",
+   "type": "float"
+  },
+  {
+   "addr": "007f4af0",
+   "type": "float"
+  },
+  {
+   "addr": "007f4af4",
+   "type": "float"
+  },
+  {
+   "addr": "007f4af8",
+   "type": "float"
+  },
+  {
+   "addr": "007f4b34",
+   "type": "float"
+  },
+  {
+   "addr": "007f4b58",
+   "type": "float"
+  },
+  {
+   "addr": "007f4b5c",
+   "type": "float"
+  },
+  {
+   "addr": "007f4b60",
+   "type": "float"
+  },
+  {
+   "addr": "007f4e84",
+   "type": "float"
+  },
+  {
+   "addr": "007f4e88",
+   "type": "float"
+  },
+  {
+   "addr": "007f4e8c",
+   "type": "float"
+  },
+  {
+   "addr": "007f4e90",
+   "type": "float"
+  },
+  {
+   "addr": "007f4e94",
+   "type": "float"
+  },
+  {
+   "addr": "007f4e98",
+   "type": "float"
+  },
+  {
+   "addr": "007f4e9c",
+   "type": "float"
+  },
+  {
+   "addr": "007f4ea0",
+   "type": "float"
+  },
+  {
+   "addr": "007f4ea4",
+   "type": "float"
+  },
+  {
+   "addr": "007f4ea8",
+   "type": "float"
+  },
+  {
+   "addr": "007f4eac",
+   "type": "float"
+  },
+  {
+   "addr": "007f5008",
+   "type": "float"
+  },
+  {
+   "addr": "007f500c",
+   "type": "float"
+  },
+  {
+   "addr": "007f5014",
+   "type": "float"
+  },
+  {
+   "addr": "007f5018",
+   "type": "float"
+  },
+  {
+   "addr": "007f5020",
+   "type": "float"
+  },
+  {
+   "addr": "007f5024",
+   "type": "float"
+  },
+  {
+   "addr": "007f502c",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f0c",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f10",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f14",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f18",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f1c",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f20",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f24",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f28",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f2c",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f30",
+   "type": "float"
+  },
+  {
+   "addr": "007f5f34",
+   "type": "float"
+  },
+  {
+   "addr": "007feb54",
+   "type": "int"
+  },
+  {
+   "addr": "008c9848",
+   "type": "int"
+  },
+  {
+   "addr": "008c984c",
+   "type": "int"
+  },
+  {
+   "addr": "008cf264",
+   "type": "float"
+  },
+  {
+   "addr": "008cf268",
+   "type": "float"
+  },
+  {
+   "addr": "008d09e0",
+   "type": "int"
+  },
+  {
+   "addr": "008d16b0",
+   "type": "uint"
+  },
+  {
+   "addr": "008db200",
+   "type": "double",
+   "name": "g_dSndClock"
+  },
+  {
+   "addr": "008dcda0",
+   "type": "int"
+  },
+  {
+   "addr": "0090002c",
+   "type": "float"
+  },
+  {
+   "addr": "00900030",
+   "type": "float"
+  },
+  {
+   "addr": "00900034",
+   "type": "float"
+  },
+  {
+   "addr": "009005a0",
+   "type": "float"
+  },
+  {
+   "addr": "009005a4",
+   "type": "float"
+  },
+  {
+   "addr": "009005c0",
+   "type": "float"
+  },
+  {
+   "addr": "009005c4",
+   "type": "float"
+  },
+  {
+   "addr": "009005e4",
+   "type": "float"
+  },
+  {
+   "addr": "0090175c",
+   "type": "uint"
+  },
+  {
+   "addr": "00906c60",
+   "type": "int"
+  },
+  {
+   "addr": "004dd414",
+   "type": "char[13]"
+  },
+  {
+   "addr": "004dd478",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004dd65c",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd660",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004dd6c4",
+   "type": "char[13]"
+  },
+  {
+   "addr": "004dd728",
+   "type": "char[14]"
+  },
+  {
+   "addr": "004dd800",
+   "type": "char[55]"
+  },
+  {
+   "addr": "004dd838",
+   "type": "char[58]"
+  },
+  {
+   "addr": "004dd874",
+   "type": "char[58]"
+  },
+  {
+   "addr": "004dd8b8",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8bc",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8c0",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8c4",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8c8",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8cc",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8d0",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8d4",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8d8",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8dc",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8e0",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8e4",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8e8",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8ec",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8f0",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8f4",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8f8",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd8fc",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd900",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd904",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd908",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd90c",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd910",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd914",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd918",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dd934",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004dd958",
+   "type": "char[64]"
+  },
+  {
+   "addr": "004dd998",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004dda18",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dda54",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004ddb10",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ddb18",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004ddb1c",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ddc10",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ddc14",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004ddc18",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004ddc1c",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004ddd78",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dddb0",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004dde98",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ddea0",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ddea8",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ddeb0",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ddeb4",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ddebc",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ddec4",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ddecc",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004dded0",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004dded4",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004dded8",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ddedc",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ddee0",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004dee28",
+   "type": "char[11]"
+  },
+  {
+   "addr": "004dee34",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004df5a0",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e7630",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e78ac",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004e78b0",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004e78e4",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e7920",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e7af0",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e7af8",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e7b14",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e8158",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004e8174",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e81c4",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004e8238",
+   "type": "char[9]"
+  },
+  {
+   "addr": "004e82f4",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e8450",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004e8454",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004e8768",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004e87c0",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004e9c60",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004e9c64",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ea22c",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ea308",
+   "type": "char[27]"
+  },
+  {
+   "addr": "004ea334",
+   "type": "char[23]"
+  },
+  {
+   "addr": "004ea38c",
+   "type": "char[20]"
+  },
+  {
+   "addr": "004ea3a0",
+   "type": "char[25]"
+  },
+  {
+   "addr": "004ea45c",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ea52c",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004ea6a4",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ea868",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004ea86c",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004ea870",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004ec3b8",
+   "type": "char[2]"
+  },
+  {
+   "addr": "004ec3c8",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ec490",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ec528",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004ec53c",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ec544",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ec54c",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ec554",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ec598",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ec5b4",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004ec5bc",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004ec60c",
+   "type": "char[7]"
+  },
+  {
+   "addr": "004ec944",
+   "type": "char[10]"
+  },
+  {
+   "addr": "004ec968",
+   "type": "char[10]"
+  },
+  {
+   "addr": "004ec974",
+   "type": "char[8]"
+  },
+  {
+   "addr": "004ec97c",
+   "type": "char[7]"
+  },
+  {
+   "addr": "004ec984",
+   "type": "char[7]"
+  },
+  {
+   "addr": "004ec98c",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004f0cb4",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004f0cb8",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004f0cbc",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004f0cc4",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004f0db8",
+   "type": "char[16]"
+  },
+  {
+   "addr": "004f0de4",
+   "type": "char[28]"
+  },
+  {
+   "addr": "004f0e74",
+   "type": "char[57]"
+  },
+  {
+   "addr": "004f0fbc",
+   "type": "char[8]"
+  },
+  {
+   "addr": "004f11c4",
+   "type": "char[4]"
+  },
+  {
+   "addr": "004f11c8",
+   "type": "char[5]"
+  },
+  {
+   "addr": "004f1a28",
+   "type": "char[3]"
+  },
+  {
+   "addr": "004f1c18",
+   "type": "char[5]"
+  }
+ ]
+}

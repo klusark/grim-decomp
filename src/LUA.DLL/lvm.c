@@ -252,7 +252,7 @@ void __cdecl luaV_pack(int firstel,int nvararg,TObject *tab)
     } while (firstel < nvararg);
   }
   local_10.nTtype = -2;
-  local_10.dwValue = (uint)luaS_new(&DAT_10026994);
+  local_10.dwValue = (uint)luaS_new(s_n_10026994);
   local_4 = (float)nvararg;
   pTVar5 = luaH_set((Hash *)tab->dwValue,&local_10);
   pTVar5->nTtype = -1;

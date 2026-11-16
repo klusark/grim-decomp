@@ -95,7 +95,7 @@ Chore_ApplyKey(int reason,ComponentTag *pTag,int instData,ChoreKey *pKey,int dt,
   iVar1 = pTag->nKind;
   if (((iVar1 != 0) && (iVar1 != 1)) && (iVar1 != 2)) {
     (*(code *)g_pSvcChore->pAssertFail)
-              (&DAT_10010284,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xd67);
+              (s_0_10010284,s_C__grimsrc_libs_chore_Costume_c_1001020c,0xd67);
     return;
   }
   (*(code *)pTag->pfnOnKey)(pTag->nId,instData,reason,pKey->nValue,dt,pKey2->nValue,zero,user);

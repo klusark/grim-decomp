@@ -177,11 +177,11 @@ uint __cdecl Main_Startup(char *cmdline)
   Grim_OpenRegistry();
   Grim_DecodeRegKeyName((char *)&local_80);
   wuRegistry_GetStr((char *)&local_80,(char *)abStack_40,0x40,(char *)0x0);
-  iVar7 = _stricmp(abStack_40,&DAT_004dd660);
+  iVar7 = _stricmp(abStack_40,(byte *)s_TRUE_004dd660);
   if (iVar7 == 0) {
     g_nDeveloper = 1;
   }
-  iVar7 = _stricmp(abStack_40,&DAT_004dd65c);
+  iVar7 = _stricmp(abStack_40,(byte *)s_pl_004dd65c);
   if (iVar7 == 0) {
     g_nDeveloper = 1;
   }
@@ -552,75 +552,75 @@ int __cdecl Grim_ParseCommandLine(char *cmdline)
   void *hwnd;
   char *pcVar5;
   
-  pbVar1 = (byte *)strtok((byte *)cmdline,&DAT_004dd918);
+  pbVar1 = (byte *)strtok((byte *)cmdline,(byte *)s__004dd918);
   if (pbVar1 == (byte *)0x0) {
     return 1;
   }
   do {
-    iVar2 = _stricmp(pbVar1,&DAT_004dd914);
-    if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd910), iVar2 == 0)) {
-      puVar3 = (uint *)strtok((byte *)0x0,&DAT_004dd918);
+    iVar2 = _stricmp(pbVar1,(byte *)s__t_004dd914);
+    if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__t_004dd910), iVar2 == 0)) {
+      puVar3 = (uint *)strtok((byte *)0x0,(byte *)s__004dd918);
       strncpy((uint *)s_grim_tab_004dd238,puVar3,0x103);
       DAT_004dd33b = 0;
 LAB_00402f60:
-      pbVar1 = (byte *)strtok((byte *)0x0,&DAT_004dd918);
+      pbVar1 = (byte *)strtok((byte *)0x0,(byte *)s__004dd918);
     }
     else {
-      iVar2 = _stricmp(pbVar1,&DAT_004dd90c);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd908), iVar2 == 0)) {
-        uVar4 = strtok((byte *)0x0,&DAT_004dd918);
+      iVar2 = _stricmp(pbVar1,(byte *)s__m_004dd90c);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__m_004dd908), iVar2 == 0)) {
+        uVar4 = strtok((byte *)0x0,(byte *)s__004dd918);
         _DAT_004dd34c = atoi(uVar4);
         grimlib_SetCacheMax((int)_DAT_004dd34c);
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd904);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd900), iVar2 == 0)) {
+      iVar2 = _stricmp(pbVar1,(byte *)s__c_004dd904);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__c_004dd900), iVar2 == 0)) {
         UINT_004f5a44 = 1;
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd8fc);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8f8), iVar2 == 0)) {
+      iVar2 = _stricmp(pbVar1,(byte *)s__l_004dd8fc);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__l_004dd8f8), iVar2 == 0)) {
         UINT_004f5a18 = 1;
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd8f4);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8f0), iVar2 == 0)) {
+      iVar2 = _stricmp(pbVar1,(byte *)s__h_004dd8f4);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__h_004dd8f0), iVar2 == 0)) {
         UINT_004f5a28 = 1;
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd8ec);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8e8), iVar2 == 0)) {
+      iVar2 = _stricmp(pbVar1,(byte *)s__r_004dd8ec);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__r_004dd8e8), iVar2 == 0)) {
         UINT_004f5a1c = 1;
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd8e4);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8e0), iVar2 == 0)) {
+      iVar2 = _stricmp(pbVar1,(byte *)s__w_004dd8e4);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__w_004dd8e0), iVar2 == 0)) {
         g_bWindowedMode = 1;
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd8dc);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8d8), iVar2 == 0)) {
+      iVar2 = _stricmp(pbVar1,(byte *)s__s_004dd8dc);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__s_004dd8d8), iVar2 == 0)) {
         UINT_004f5a10 = 1;
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd8d4);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8d0), iVar2 == 0)) {
+      iVar2 = _stricmp(pbVar1,(byte *)s__b_004dd8d4);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__b_004dd8d0), iVar2 == 0)) {
         UINT_004f5a14 = 1;
-        puVar3 = (uint *)strtok((byte *)0x0,&DAT_004dd918);
+        puVar3 = (uint *)strtok((byte *)0x0,(byte *)s__004dd918);
         strncpy((uint *)&DAT_004f59b0,puVar3,0x4f);
         DAT_004f59ff = 0;
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd8cc);
-      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8c8), iVar2 == 0)) {
-        pcVar5 = (char *)strtok((byte *)0x0,&DAT_004dd918);
+      iVar2 = _stricmp(pbVar1,(byte *)s__p_004dd8cc);
+      if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s__p_004dd8c8), iVar2 == 0)) {
+        pcVar5 = (char *)strtok((byte *)0x0,(byte *)s__004dd918);
         grimlib_AddResourcePath(pcVar5);
         goto LAB_00402f60;
       }
-      iVar2 = _stricmp(pbVar1,&DAT_004dd8c4);
-      if ((iVar2 != 0) && (iVar2 = _stricmp(pbVar1,&DAT_004dd8c0), iVar2 != 0)) {
-        iVar2 = _stricmp(pbVar1,&DAT_004dd8bc);
-        if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,&DAT_004dd8b8), iVar2 == 0)) {
+      iVar2 = _stricmp(pbVar1,(byte *)s__z_004dd8c4);
+      if ((iVar2 != 0) && (iVar2 = _stricmp(pbVar1,(byte *)s__z_004dd8c0), iVar2 != 0)) {
+        iVar2 = _stricmp(pbVar1,(byte *)s____004dd8bc);
+        if ((iVar2 == 0) || (iVar2 = _stricmp(pbVar1,(byte *)s____004dd8b8), iVar2 == 0)) {
           cmdline = s_Usage_004dd8b0;
         }
         iVar2 = 0;
@@ -629,7 +629,7 @@ LAB_00402f60:
         Grim_FatalMessageBox((int)hwnd,(int)pcVar5,(int)cmdline,iVar2);
         return 0;
       }
-      pbVar1 = (byte *)strtok((byte *)0x0,&DAT_004dd918);
+      pbVar1 = (byte *)strtok((byte *)0x0,(byte *)s__004dd918);
       UINT_004e806c = 0;
     }
     if (pbVar1 == (byte *)0x0) {
@@ -649,7 +649,7 @@ void __cdecl Grim_OpenRegistry(void)
   int iVar1;
   #define local_104 (*(char (*)[260])(_frame + (0x120 - 0x104)))
   
-  Reg_Open((void *)0x80000002,((unsigned)(uintptr_t)&DAT_004dd958),&DAT_004dd998);
+  Reg_Open((void *)0x80000002,((unsigned)(uintptr_t)&DAT_004dd958),s_1_0_004dd998);
   iVar1 = wuRegistry_GetStr(s_GrimDataDir_004dd94c,local_104,0x104,&DAT_004f5a98);
   if (iVar1 == 0) {
     iVar1 = GetCurrentDirectoryA(0x104,(int)local_104);

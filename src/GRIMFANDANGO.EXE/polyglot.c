@@ -22,7 +22,7 @@ void __cdecl PolyglotConfigure(undefined *filename)
   uint *s_00;
   
   g_pTabFilename = filename;
-  iVar1 = (*g_pPolyglot_HS->pFopen)(filename,&DAT_004ddb18);
+  iVar1 = (*g_pPolyglot_HS->pFopen)(filename,s_rb_004ddb18);
   if (iVar1 != 0) {
     (*g_pPolyglot_HS->pFread)(iVar1,&filename,4);
     (*g_pPolyglot_HS->pFseek)(iVar1,0,2);

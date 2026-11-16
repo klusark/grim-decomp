@@ -1167,7 +1167,7 @@ int * __cdecl SoundsRegisterVoice(char *name)
     pcVar2[4] = DAT_1001e908;
     LoadLip(acStack_20,(char *)0x2710);
   }
-  f = iRes_FOPEN((uint *)name,&DAT_1001e900);
+  f = iRes_FOPEN((uint *)name,s_rb_1001e900);
   _g_aStreamID = f;
   if (f != (int *)0x0) {
     iRes_FSEEK((undefined *)f,0,2);
@@ -1876,9 +1876,9 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
     }
     if (iVar3 <= iVar2) {
       puVar4 = puVar1;
-      if (_DAT_10031e64 != 0) {
-        puVar4 = (undefined4 *)(_DAT_10031e64 - _DAT_10031e6c);
-        if ((int)puVar1 < (int)(_DAT_10031e64 - _DAT_10031e6c)) {
+      if (UINT_10031e64 != 0) {
+        puVar4 = (undefined4 *)(UINT_10031e64 - _DAT_10031e6c);
+        if ((int)puVar1 < (int)(UINT_10031e64 - _DAT_10031e6c)) {
           puVar4 = puVar1;
         }
         puVar8 = (undefined4 *)((int)_g_dwVoxFxBuf + _DAT_10031e6c);
@@ -1962,9 +1962,9 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
           }
         }
         if ((int)puVar8 < (int)sound) {
-          _DAT_10031e64 = (int)sound - (int)puVar8;
+          UINT_10031e64 = (int)sound - (int)puVar8;
           _DAT_10031e6c = 0;
-          if ((int)_DAT_10031e68 < (int)_DAT_10031e64) {
+          if ((int)_DAT_10031e68 < (int)UINT_10031e64) {
             if (_g_dwVoxFxBuf != (undefined4 *)0x0) {
               (**(code **)(g_dwSounds_pHS + 0x24))(_g_dwVoxFxBuf);
               _g_dwVoxFxBuf = (undefined4 *)0x0;
@@ -1972,13 +1972,13 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
             _g_dwVoxFxBuf =
                  (undefined4 *)
                  (**(code **)(g_dwSounds_pHS + 0x20))
-                           (_DAT_10031e64,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x212);
-            _DAT_10031e68 = _DAT_10031e64;
+                           (UINT_10031e64,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x212);
+            _DAT_10031e68 = UINT_10031e64;
           }
-          uVar5 = _DAT_10031e64;
+          uVar5 = UINT_10031e64;
           puVar4 = (undefined4 *)((int)size + (int)puVar8);
           puVar8 = _g_dwVoxFxBuf;
-          for (uVar7 = _DAT_10031e64 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+          for (uVar7 = UINT_10031e64 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
             *puVar8 = *puVar4;
             puVar4 = puVar4 + 1;
             puVar8 = puVar8 + 1;
@@ -1990,7 +1990,7 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
           }
         }
         else {
-          _DAT_10031e64 = 0;
+          UINT_10031e64 = 0;
         }
         hmiFXFree(size);
         return puVar1;
@@ -2032,13 +2032,13 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
           }
         }
         if ((int)sound <= (int)puVar1) {
-          _DAT_10031e64 = 0;
+          UINT_10031e64 = 0;
           hmiFXFree(size);
           return puVar1;
         }
-        _DAT_10031e64 = (int)sound - (int)puVar1;
+        UINT_10031e64 = (int)sound - (int)puVar1;
         _DAT_10031e6c = 0;
-        if ((int)_DAT_10031e68 < (int)_DAT_10031e64) {
+        if ((int)_DAT_10031e68 < (int)UINT_10031e64) {
           if (_g_dwVoxFxBuf != (undefined4 *)0x0) {
             (**(code **)(g_dwSounds_pHS + 0x24))(_g_dwVoxFxBuf);
             _g_dwVoxFxBuf = (undefined4 *)0x0;
@@ -2046,13 +2046,13 @@ undefined4 * __cdecl ihost_read(undefined4 *sound,undefined4 *buf,undefined4 *si
           _g_dwVoxFxBuf =
                (undefined4 *)
                (**(code **)(g_dwSounds_pHS + 0x20))
-                         (_DAT_10031e64,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x23b);
-          _DAT_10031e68 = _DAT_10031e64;
+                         (UINT_10031e64,s_C__grimsrc_libs_iMUSE_sounds_c_1001e8e0,0x23b);
+          _DAT_10031e68 = UINT_10031e64;
         }
-        uVar5 = _DAT_10031e64;
+        uVar5 = UINT_10031e64;
         puVar4 = (undefined4 *)((int)size + (int)puVar1);
         puVar8 = _g_dwVoxFxBuf;
-        for (uVar7 = _DAT_10031e64 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
+        for (uVar7 = UINT_10031e64 >> 2; uVar7 != 0; uVar7 = uVar7 - 1) {
           *puVar8 = *puVar4;
           puVar4 = puVar4 + 1;
           puVar8 = puVar8 + 1;
@@ -2583,7 +2583,7 @@ int __cdecl CacheGetSoundId(uint *name)
   }
 LAB_10009063:
   puVar8[0xe] = 0;
-  f = iRes_FOPEN(puVar8,&DAT_1001e900);
+  f = iRes_FOPEN(puVar8,s_rb_1001e900);
   if (f == (int *)0x0) {
     for (iVar1 = 0x10; iVar1 != 0; iVar1 = iVar1 + -1) {
       *puVar8 = 0;

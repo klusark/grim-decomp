@@ -71,7 +71,7 @@ int __cdecl rdColormap_LoadEntry(char *name,rdColormap *cmp)
   #define fStack_30 (*(float *)(_frame + (0x50 - 0x30)))
   #define fStack_2c (*(float *)(_frame + (0x50 - 0x2c)))
   
-  iVar5 = (*g_pRdroid_HS->pFopen)(name,&DAT_004ddb18);
+  iVar5 = (*g_pRdroid_HS->pFopen)(name,s_rb_004ddb18);
   if (iVar5 == 0) {
     return 0;
   }
@@ -84,7 +84,7 @@ int __cdecl rdColormap_LoadEntry(char *name,rdColormap *cmp)
   cmp->dwFlags = uStack_38;
   cmp->aTint[1] = fStack_30;
   cmp->aTint[2] = fStack_2c;
-  uVar9 = strncmp(acStack_40,&DAT_004ddb10,4);
+  uVar9 = strncmp(acStack_40,s_CMP_004ddb10,4);
   if (uVar9 != 0) {
     (*g_pRdroid_HS->pFclose)(iVar5);
     rdColormap_BuildGrayRamp(cmp);

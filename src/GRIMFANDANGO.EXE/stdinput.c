@@ -158,7 +158,6 @@ int __cdecl stdControl_EnableAxis(uint axis)
 }
 
 /* ---- 0x004770d0  stdControl_ReadControls ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Once per frame: polls keyboard, joysticks and mouse and records press/release times Original name
    stdControl_ReadControls (the remaster's GrimFandango (Linux): aligned call in
    sputControl_Update); was Input_Update. */
@@ -175,14 +174,14 @@ void __cdecl stdControl_ReadControls(void)
     g_dwCurReadTime = timeGetTime();
     uVar1 = g_dwCurReadTime - g_dwLastReadTime;
     if (uVar1 != 0) {
-      *(float *)&DAT_004dea44 = 1.0f / (float)uVar1;
+      FLOAT_004dea44 = 1.0f / (float)uVar1;
       puVar3 = &UINT_00803fd0;
       UINT_00805fc8 = uVar1;
       for (iVar2 = 0xf; iVar2 != 0; iVar2 = iVar2 + -1) {
         *puVar3 = 0;
         puVar3 = puVar3 + 1;
       }
-      *(float *)&DAT_004dea48 = *(float *)&DAT_004dea44 * 1000.0f;
+      FLOAT_004dea48 = FLOAT_004dea44 * 1000.0f;
       Input_PollKeyboard();
       if (UINT_00805fb8 != 0) {
         Input_PollJoysticks();

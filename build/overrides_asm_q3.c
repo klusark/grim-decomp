@@ -423,7 +423,7 @@ typedef void (*q3_assert_fn)(char *, char *, int);
 #define Q3_READ() (stdConffile_ReadLine() != 0)
 #define Q3_TOK(s, d) ((char *)strtok((byte *)(s), (byte *)(d)))
 #define Q3_ATOI(t) ((int)atoi((uint)(t)))
-#define Q3_WS ((char *)&DAT_004dd918)              /* " \t" */
+#define Q3_WS ((char *)s__004dd918)              /* " \t" */
 #define Q3_WSC ((char *)IMG_ADDR(0x004ddc10))      /* " \t," */
 
 

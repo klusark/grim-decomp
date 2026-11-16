@@ -356,7 +356,7 @@ void __cdecl io_readfrom(void)
     pbVar2 = (byte *)0x0;
   }
   else {
-    pbVar2 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar3,&DAT_10026a80);
+    pbVar2 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar3,s_r_10026a80);
   }
   if (pbVar2 == (byte *)0x0) {
     pushresult(0);

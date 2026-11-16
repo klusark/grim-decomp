@@ -795,7 +795,7 @@ int __cdecl rdKeyframe_Load(char *name)
     iVar1 = (*(code *)g_dwKeyframeLoader)(name);
     return iVar1;
   }
-  uVar2 = (*g_pRdroid_HS->pFopen)(name,&DAT_004ddb18);
+  uVar2 = (*g_pRdroid_HS->pFopen)(name,s_rb_004ddb18);
   if (uVar2 != 0) {
     keyframe = (rdKeyframe *)
                (*g_pRdroid_HS->pAlloc)
@@ -842,7 +842,7 @@ uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
   byte *pbVar6;
   uint uVar7;
   rdKeyframeEntry *prVar8;
-  byte *pbVar9;
+  char *pcVar9;
   undefined1 *puVar10;
   bool bVar11;
   uint uVar12;
@@ -929,22 +929,22 @@ uint __cdecl rdKeyframe_LoadEntry(char *path,rdKeyframe *keyframe)
                               iVar4 = sscanf((char *)g_dwStdConffile_aLine,s_section___s_004ddd64,
                                              &g_bStd_genBuffer);
                               if (iVar4 == 1) {
-                                pbVar9 = &DAT_004f0fbc;
+                                pcVar9 = s_markers_004f0fbc;
                                 pbVar6 = &g_bStd_genBuffer;
                                 do {
                                   bVar1 = *pbVar6;
-                                  bVar11 = bVar1 < *pbVar9;
-                                  if (bVar1 != *pbVar9) {
+                                  bVar11 = bVar1 < (byte)*pcVar9;
+                                  if (bVar1 != *pcVar9) {
 LAB_004c099a:
                                     iVar4 = (1 - (uint)bVar11) - (uint)(bVar11 != 0);
                                     goto LAB_004c099f;
                                   }
                                   if (bVar1 == 0) break;
                                   bVar1 = pbVar6[1];
-                                  bVar11 = bVar1 < pbVar9[1];
-                                  if (bVar1 != pbVar9[1]) goto LAB_004c099a;
+                                  bVar11 = bVar1 < (byte)pcVar9[1];
+                                  if (bVar1 != pcVar9[1]) goto LAB_004c099a;
                                   pbVar6 = pbVar6 + 2;
-                                  pbVar9 = pbVar9 + 2;
+                                  pcVar9 = pcVar9 + 2;
                                 } while (bVar1 != 0);
                                 iVar4 = 0;
 LAB_004c099f:

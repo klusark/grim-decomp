@@ -221,7 +221,7 @@ void __cdecl Memory_FreePool(void **pool)
   undefined4 *puVar4;
   
   if (pool == (void **)0x0) {
-    (*g_pMemoryHS->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x380);
+    (*g_pMemoryHS->pAssertFail)(s_pool_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x380);
   }
   if (*pool != pool) {
     (*g_pMemoryHS->pAssertFail)
@@ -260,7 +260,7 @@ int * __cdecl Memory_AllocFixed(int *pool)
   uint uVar2;
   
   if (pool == (int *)0x0) {
-    (*g_pMemoryHS->pAssertFail)(&DAT_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x42a);
+    (*g_pMemoryHS->pAssertFail)(s_pool_004e82f4,s_C__grimsrc_libs_grimlib_Temp_Mem_004e8264,0x42a);
   }
   if ((int *)*pool != pool) {
     (*g_pMemoryHS->pAssertFail)

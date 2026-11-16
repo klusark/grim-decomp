@@ -73,7 +73,7 @@ void * __cdecl sputMain_GetSaveGameImage(char *filename)
   format.dwUnknown2c = 0;
   format.dwUnknown30 = 0;
   format.dwUnknown34 = 0;
-  file = SaveFile_Open(filename,&DAT_004ddb18);
+  file = SaveFile_Open(filename,s_rb_004ddb18);
   if (file == (int *)0x0) {
     return (void *)0x0;
   }

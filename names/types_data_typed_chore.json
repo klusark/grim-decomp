@@ -1,0 +1,258 @@
+{
+ "_comment": "Data globals typed from how the code uses them (2026-11-16): every use reads or writes the global as one scalar type the decompiler had evidence for (*(T *)&DAT_x, or the _DAT_x alias of that width; an alias of an undefinedN type alone is no evidence), and data used only by its address whose bytes are one NUL-terminated printable string, typed as that char array (Ghidra names it s_...). 008db200 is the mixer's double clock (build/overrides_mixer_snd.c).",
+ "program": "/CHORE.DLL",
+ "globals": [
+  {
+   "addr": "10010030",
+   "type": "char[10]"
+  },
+  {
+   "addr": "10010040",
+   "type": "char[6]"
+  },
+  {
+   "addr": "10010048",
+   "type": "char[11]"
+  },
+  {
+   "addr": "10010054",
+   "type": "char[11]"
+  },
+  {
+   "addr": "10010060",
+   "type": "char[16]"
+  },
+  {
+   "addr": "10010094",
+   "type": "char[15]"
+  },
+  {
+   "addr": "100100a4",
+   "type": "char[16]"
+  },
+  {
+   "addr": "100100b4",
+   "type": "char[17]"
+  },
+  {
+   "addr": "100100c8",
+   "type": "char[25]"
+  },
+  {
+   "addr": "100100e4",
+   "type": "char[16]"
+  },
+  {
+   "addr": "100100f4",
+   "type": "char[18]"
+  },
+  {
+   "addr": "10010108",
+   "type": "char[21]"
+  },
+  {
+   "addr": "10010120",
+   "type": "char[13]"
+  },
+  {
+   "addr": "10010130",
+   "type": "char[31]"
+  },
+  {
+   "addr": "10010150",
+   "type": "char[20]"
+  },
+  {
+   "addr": "10010164",
+   "type": "char[22]"
+  },
+  {
+   "addr": "1001017c",
+   "type": "char[17]"
+  },
+  {
+   "addr": "10010190",
+   "type": "char[6]"
+  },
+  {
+   "addr": "10010198",
+   "type": "char[4]"
+  },
+  {
+   "addr": "1001019c",
+   "type": "char[3]"
+  },
+  {
+   "addr": "100101a0",
+   "type": "char[23]"
+  },
+  {
+   "addr": "100101b8",
+   "type": "char[14]"
+  },
+  {
+   "addr": "100101c8",
+   "type": "char[14]"
+  },
+  {
+   "addr": "100101d8",
+   "type": "char[18]"
+  },
+  {
+   "addr": "100101ec",
+   "type": "char[6]"
+  },
+  {
+   "addr": "100101f4",
+   "type": "char[4]"
+  },
+  {
+   "addr": "100101f8",
+   "type": "char[17]"
+  },
+  {
+   "addr": "1001022c",
+   "type": "char[14]"
+  },
+  {
+   "addr": "1001023c",
+   "type": "char[16]"
+  },
+  {
+   "addr": "1001024c",
+   "type": "char[20]"
+  },
+  {
+   "addr": "10010260",
+   "type": "char[14]"
+  },
+  {
+   "addr": "10010270",
+   "type": "char[16]"
+  },
+  {
+   "addr": "10010280",
+   "type": "char[2]"
+  },
+  {
+   "addr": "10010284",
+   "type": "char[2]"
+  },
+  {
+   "addr": "10010288",
+   "type": "char[27]"
+  },
+  {
+   "addr": "100102a4",
+   "type": "char[40]"
+  },
+  {
+   "addr": "100102cc",
+   "type": "char[42]"
+  },
+  {
+   "addr": "100102f8",
+   "type": "char[39]"
+  },
+  {
+   "addr": "10010320",
+   "type": "char[41]"
+  },
+  {
+   "addr": "1001034c",
+   "type": "char[24]"
+  },
+  {
+   "addr": "10010364",
+   "type": "char[74]"
+  },
+  {
+   "addr": "100103b0",
+   "type": "char[146]"
+  },
+  {
+   "addr": "10010444",
+   "type": "char[34]"
+  },
+  {
+   "addr": "10010468",
+   "type": "char[47]"
+  },
+  {
+   "addr": "10010498",
+   "type": "char[48]"
+  },
+  {
+   "addr": "100104c8",
+   "type": "char[45]"
+  },
+  {
+   "addr": "100104f8",
+   "type": "char[42]"
+  },
+  {
+   "addr": "10010524",
+   "type": "char[20]"
+  },
+  {
+   "addr": "10010538",
+   "type": "char[12]"
+  },
+  {
+   "addr": "10010544",
+   "type": "char[20]"
+  },
+  {
+   "addr": "10010558",
+   "type": "char[27]"
+  },
+  {
+   "addr": "10010574",
+   "type": "char[18]"
+  },
+  {
+   "addr": "10010588",
+   "type": "char[36]"
+  },
+  {
+   "addr": "100105ac",
+   "type": "char[17]"
+  },
+  {
+   "addr": "100105c0",
+   "type": "char[14]"
+  },
+  {
+   "addr": "100105d0",
+   "type": "char[7]"
+  },
+  {
+   "addr": "100105d8",
+   "type": "char[30]"
+  },
+  {
+   "addr": "100105f8",
+   "type": "char[7]"
+  },
+  {
+   "addr": "10010600",
+   "type": "char[10]"
+  },
+  {
+   "addr": "1001060c",
+   "type": "char[41]"
+  },
+  {
+   "addr": "10010638",
+   "type": "char[33]"
+  },
+  {
+   "addr": "1001065c",
+   "type": "char[30]"
+  },
+  {
+   "addr": "1001067c",
+   "type": "char[25]"
+  }
+ ]
+}

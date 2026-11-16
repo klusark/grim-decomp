@@ -206,7 +206,7 @@ uint __cdecl sputCostume_Startup(void)
   Config_GetPath(s_ColormapPath_004ea260,&g_bColormapPath,s_Colormaps_004ea270);
   Config_GetPath(s_MaterialPath_004ea244,&g_bMaterialPath,s_Materials_004ea254);
   Config_GetPath(s_ModelPath_004ea230,&g_bModelPath,s_Models_004ea23c);
-  Config_GetPath(s_SoundPath_004ea220,&g_bSoundPath,&DAT_004ea22c);
+  Config_GetPath(s_SoundPath_004ea220,&g_bSoundPath,s_SFX_004ea22c);
   Config_GetPath(s_SmushPath_004ea20c,&g_bSmushPath,s_Movies_004ea218);
   Config_GetPath(s_BitmapPath_004ea1f8,&g_bBitmapPath,s_Objects_004ea204);
   return 0;

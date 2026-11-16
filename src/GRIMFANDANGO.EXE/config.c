@@ -82,7 +82,7 @@ void __cdecl Config_GetPath(char *name,char *buf,char *defaultSubdir)
     iVar4 = wuRegistry_GetStr(s_GrimDataDir_004dd94c,buf,0x80,&DAT_004f5a98);
     if (iVar4 != 0) {
       uVar2 = 0xffffffff;
-      pcVar5 = &DAT_004e9c60;
+      pcVar5 = s___004e9c60;
       do {
         pcVar7 = pcVar5;
         if (uVar2 == 0) break;

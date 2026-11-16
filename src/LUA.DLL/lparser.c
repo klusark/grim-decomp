@@ -489,7 +489,7 @@ LAB_1000acaa:
     case 0x12:
       fVar9 = 0;
       init_func();
-      pTaggedString = luaS_new(&DAT_10027ba0);
+      pTaggedString = luaS_new(s_self_10027ba0);
       add_localvar(pTaggedString);
       break;
     case 0x13:
@@ -1325,7 +1325,7 @@ void __cdecl code_args(int nparams,int dots)
   }
   pFVar1->pF->pCode[1] = (byte)delta + 0x40;
   deltastack(delta + 1);
-  pTaggedString = luaS_new(&DAT_10027cb0);
+  pTaggedString = luaS_new(s_arg_10027cb0);
   add_localvar(pTaggedString);
   return;
 }

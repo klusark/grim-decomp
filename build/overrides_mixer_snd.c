@@ -76,7 +76,7 @@ extern int g_nSndMixCalls __asm__("_g_dwSound_ticks");
 extern int g_nSndPause __asm__("_g_dwSou_paused_flag");
 extern int g_bSndDriverOpen __asm__("_g_dwSou_active_flag");
 extern int g_nSndSyncTime __asm__("_UINT_008db1f8");
-extern double g_dSndClock __asm__("_DAT_008db200");
+extern double g_dSndClock __asm__("_g_dSndClock");
 extern uint g_dwSndModuleSize __asm__("_g_dwSoundModule_share_config");
 extern int g_nSndOpenRate __asm__("_g_dwSound_samplerate");
 extern uint g_dwSndDriverModuleSize __asm__("_g_dwSound_name");

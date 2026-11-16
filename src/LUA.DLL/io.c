@@ -172,7 +172,7 @@ void __cdecl io_writeto(void)
     pbVar2 = (byte *)0x0;
   }
   else {
-    pbVar2 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar3,&DAT_10026c54);
+    pbVar2 = (byte *)(**(code **)(g_dwLuaHS + 0x30))(pcVar3,s_w_10026c54);
   }
   if (pbVar2 == (byte *)0x0) {
     pushresult(0);
@@ -193,7 +193,7 @@ void __cdecl io_appendto(void)
   byte *udata;
   
   uVar1 = luaL_check_string(3);
-  udata = (byte *)(**(code **)(g_dwLuaHS + 0x30))(uVar1,&DAT_10026c60);
+  udata = (byte *)(**(code **)(g_dwLuaHS + 0x30))(uVar1,s_a_10026c60);
   if (udata != (byte *)0x0) {
     setreturn(udata,(byte *)s__OUTPUT_10026c58);
     return;
@@ -449,7 +449,7 @@ void __cdecl io_date(void)
   #define iStack_204 (*(int *)(_frame + (0x220 - 0x204)))
   #define abStack_200 (*(byte (*)[512])(_frame + (0x220 - 0x200)))
   
-  pbVar1 = (byte *)luaL_opt_string(1,&DAT_10026cac);
+  pbVar1 = (byte *)luaL_opt_string(1,s__c_10026cac);
   time(&iStack_204);
   piVar2 = localtime(&iStack_204);
   iVar3 = ((code *)strftime)(abStack_200,0x200,pbVar1,piVar2);
@@ -510,7 +510,7 @@ void __cdecl io_debug(void)
   byte bVar1;
   int iVar2;
   byte *pbVar3;
-  byte *pbVar4;
+  char *pcVar4;
   bool bVar5;
   #define abStack_fc (*(byte (*)[252])(_frame + (0x110 - 0xfc)))
   
@@ -519,22 +519,22 @@ void __cdecl io_debug(void)
     if (iVar2 == 0) {
       return;
     }
-    pbVar4 = &DAT_10026cec;
+    pcVar4 = s_cont_10026cec;
     pbVar3 = abStack_fc;
     do {
       bVar1 = *pbVar3;
-      bVar5 = bVar1 < *pbVar4;
-      if (bVar1 != *pbVar4) {
+      bVar5 = bVar1 < (byte)*pcVar4;
+      if (bVar1 != *pcVar4) {
 LAB_10005aa8:
         iVar2 = (1 - (uint)bVar5) - (uint)(bVar5 != 0);
         goto LAB_10005aad;
       }
       if (bVar1 == 0) break;
       bVar1 = pbVar3[1];
-      bVar5 = bVar1 < pbVar4[1];
-      if (bVar1 != pbVar4[1]) goto LAB_10005aa8;
+      bVar5 = bVar1 < (byte)pcVar4[1];
+      if (bVar1 != pcVar4[1]) goto LAB_10005aa8;
       pbVar3 = pbVar3 + 2;
-      pbVar4 = pbVar4 + 2;
+      pcVar4 = pcVar4 + 2;
     } while (bVar1 != 0);
     iVar2 = 0;
 LAB_10005aad:

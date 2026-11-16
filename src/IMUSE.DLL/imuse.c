@@ -255,7 +255,7 @@ AudioLib_ParseWaveFileHeader
   iVar3 = 4;
   bVar9 = true;
   puVar6 = header;
-  pcVar8 = &DAT_10017098;
+  pcVar8 = s_MCMP_10017098;
   do {
     if (iVar3 == 0) break;
     iVar3 = iVar3 + -1;
@@ -1876,7 +1876,7 @@ Im_ApplyFXPreset(undefined2 *src,uint frames,undefined2 *dst,int *outBuf,int *ou
     _DAT_1002dd24 = &DAT_1002dd30;
     _DAT_1002dd28 = &DAT_1002dd60;
     _DAT_1002dd1c = src;
-    _DAT_1002dd20 = frames;
+    UINT_1002dd20 = frames;
     if (stereo == 0) {
       DAT_1002dd14 = dst;
     }
@@ -2707,7 +2707,7 @@ undefined4 __cdecl ScriptCall(int cmd,...)
     iVar4 = iVar4 + -1;
   } while (iVar4 != 0);
   if ((_DAT_1002e330 == 0) && (cmd != 0)) {
-    ImPrintf((char *)((unsigned)(uintptr_t)&DAT_1001e6d8));
+    ImPrintf(s_ERROR_script_not_initialized____1001e6d8);
     return 0xffffffff;
   }
   switch(cmd) {
@@ -2739,11 +2739,11 @@ undefined4 __cdecl ScriptCall(int cmd,...)
     uVar2 = Script_Attribute((uint)local_28[0],local_28[1]);
     return uVar2;
   default:
-    ImPrintf((char *)((unsigned)(uintptr_t)&DAT_1001e68c));
+    ImPrintf(s_ERROR_unrecognized_opcode_in_scr_1001e68c);
     return 0xffffffff;
   }
   if (_DAT_1002e330 != 0) {
-    ImPrintf((char *)((unsigned)(uintptr_t)&DAT_1001e6b4));
+    ImPrintf(s_ERROR_script_already_initialized_1001e6b4);
     return 0xffffffff;
   }
   _DAT_1002e330 = 1;
@@ -2943,7 +2943,7 @@ int __cdecl Script_SetState(int id)
   do {
     if (id == *piVar2) {
       ImPrintf(g_aImStateTable[state].aName);
-      ImPrintf(&DAT_100171b0);
+      ImPrintf(s_____100171b0);
       uVar1 = g_dwCurrentState;
       if ((state != g_dwCurrentState) && (uVar1 = state, g_dwCurrentSequence == 0)) {
         if (state == 0) {
@@ -2998,7 +2998,7 @@ int __cdecl Script_SetSequence(int id)
   do {
     if (iVar3 == *piVar2) {
       ImPrintf(g_aImSeqTable[iVar4].aName);
-      ImPrintf(&DAT_100171b0);
+      ImPrintf(s_____100171b0);
       iVar3 = g_dwCurrentSequence;
       iVar1 = g_dwCurrentCuePoint;
       if (iVar4 != g_dwCurrentSequence) {
@@ -3268,12 +3268,12 @@ LAB_1000695e:
   case 0xc:
     ImPrintf(s_opening_1001e84c);
     ImPrintf(&g_bTrans_name);
-    ImPrintf(&DAT_100171b0);
+    ImPrintf(s_____100171b0);
     uVar4 = ImOpenSound(&g_bTrans_name,0);
     if (uVar4 == 0) {
       ImPrintf(s_SCRIPT_ERR__Unable_to_open_1001e830);
       ImPrintf(&g_bTrans_name);
-      ImPrintf(&DAT_100171b0);
+      ImPrintf(s_____100171b0);
       if (uVar5 == 0) {
         return;
       }
@@ -3282,7 +3282,7 @@ LAB_1000695e:
     }
     if (*(int *)(pcVar1 + 0x20) == 4) {
       DAT_1002e304 = 0;
-      ImSetTrigger(uVar4,&DAT_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
+      ImSetTrigger(uVar4,s__end_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
                    (int)file,state,sequence,param_4,param_5);
     }
     ImPrintf(s_HOOK__lu____1001e824,file);
@@ -3336,14 +3336,14 @@ LAB_10006f42:
     else {
       iVar8 = *(int *)(pcVar1 + 0x20);
       if (iVar8 == 10) {
-        ImSetTrigger(uVar5,&DAT_1001e804,0x1a,uVar5,uVar4,state,1,0,unaff_EDI,unaff_ESI,unaff_EBP,
+        ImSetTrigger(uVar5,s_exit_1001e804,0x1a,uVar5,uVar4,state,1,0,unaff_EDI,unaff_ESI,unaff_EBP,
                      unaff_EBX,unaff_retaddr);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_EDI,
+        ImSetTrigger(uVar5,s_exit_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_EDI,
                      unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)file);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_EDI,
+        ImSetTrigger(uVar5,s_exit_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_EDI,
                      unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)file);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xc,uVar4,0x400,4,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,
-                     unaff_retaddr,(int)file,state);
+        ImSetTrigger(uVar5,s_exit_1001e804,0xc,uVar4,0x400,4,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX
+                     ,unaff_retaddr,(int)file,state);
       }
       else {
         if (iVar8 == 0xb) {
@@ -3374,18 +3374,18 @@ LAB_10006f42:
         ImSetHook(uVar5,99);
         ImSetTrigger(uVar5,s_clear_1001e7f4,0xf,uVar5,0x80,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,
                      unaff_retaddr,(int)file,state,sequence);
-        ImSetTrigger(uVar5,&DAT_1001e804,0x1a,uVar5,uVar4,state,1,0,unaff_EDI,unaff_ESI,unaff_EBP,
+        ImSetTrigger(uVar5,s_exit_1001e804,0x1a,uVar5,uVar4,state,1,0,unaff_EDI,unaff_ESI,unaff_EBP,
                      unaff_EBX,unaff_retaddr);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_EDI,
+        ImSetTrigger(uVar5,s_exit_1001e804,0xe,uVar4,0x600,*(int *)(pcVar1 + 0x4c),iVar9,unaff_EDI,
                      unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)file);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_EDI,
+        ImSetTrigger(uVar5,s_exit_1001e804,0xe,uVar4,0x700,*(int *)(pcVar1 + 0x50),iVar9,unaff_EDI,
                      unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,(int)file);
-        ImSetTrigger(uVar5,&DAT_1001e804,0xc,uVar4,0x400,4,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,
-                     unaff_retaddr,(int)file,state);
+        ImSetTrigger(uVar5,s_exit_1001e804,0xc,uVar4,0x400,4,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX
+                     ,unaff_retaddr,(int)file,state);
         ImPrintf(s_HOOK__lu____1001e824,file);
       }
-      ImSetTrigger(uVar5,&DAT_1001e804,0xf,uVar4,(int)file,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,
-                   unaff_retaddr,(int)file,state,sequence);
+      ImSetTrigger(uVar5,s_exit_1001e804,0xf,uVar4,(int)file,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX
+                   ,unaff_retaddr,(int)file,state,sequence);
       ImProcessStreams();
     }
 LAB_10007019:
@@ -3396,7 +3396,7 @@ LAB_10007019:
     break;
   case 6:
     DAT_1002e304 = 0;
-    ImSetTrigger(0xbc6150,&DAT_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
+    ImSetTrigger(0xbc6150,s__end_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
                  (int)file,state,sequence,param_4,param_5);
     return;
   case 7:
@@ -3416,7 +3416,7 @@ LAB_10007019:
       ImSetHook(uVar5,99);
     }
     DAT_1002e304 = 0;
-    ImSetTrigger(uVar5,&DAT_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
+    ImSetTrigger(uVar5,s__end_1001e858,0,unaff_EDI,unaff_ESI,unaff_EBP,unaff_EBX,unaff_retaddr,
                  (int)file,state,sequence,param_4,param_5);
     return;
   }
@@ -3478,7 +3478,7 @@ undefined4 __cdecl LoadLip(undefined4 name,char *sound)
   bool bVar5;
   
   iVar3 = -1;
-  iVar1 = (**(code **)(g_dwSounds_pHS + 0x30))(name,&DAT_1001e900);
+  iVar1 = (**(code **)(g_dwSounds_pHS + 0x30))(name,s_rb_1001e900);
   if (iVar1 == 0) {
     Im_SoundsFreeSlot((int)sound);
   }
@@ -3515,7 +3515,7 @@ undefined4 __cdecl LoadLip(undefined4 name,char *sound)
         (**(code **)(g_dwSounds_pHS + 0x38))(iVar1,sound,iVar2);
         iVar2 = 4;
         bVar5 = true;
-        pcVar4 = &DAT_1001e994;
+        pcVar4 = s_LIP__1001e994;
         do {
           if (iVar2 == 0) break;
           iVar2 = iVar2 + -1;
@@ -3987,7 +3987,7 @@ int * __cdecl iRes_FOPEN(uint *name,char *mode)
   iVar7 = 4;
   bVar12 = true;
   pcVar10 = acStack_8;
-  pcVar11 = &DAT_10017098;
+  pcVar11 = s_MCMP_10017098;
   do {
     if (iVar7 == 0) break;
     iVar7 = iVar7 + -1;
@@ -4202,7 +4202,7 @@ uint __cdecl iRes_FREAD(undefined4 *f,undefined4 *buf,uint size)
       iVar5 = 4;
       bVar15 = true;
       pcVar9 = *(char **)(f[5] + iVar8 * 4);
-      pcVar12 = &DAT_1001e9c0;
+      pcVar12 = s_VIMA_1001e9c0;
       do {
         if (iVar5 == 0) break;
         iVar5 = iVar5 + -1;

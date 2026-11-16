@@ -211,7 +211,7 @@ int __cdecl Res_Dump(char *filename,int type)
   
   local_4 = 0;
   iVar4 = 0;
-  fh = Res_FOpen(filename,&DAT_004dd478);
+  fh = Res_FOpen(filename,s_w_004dd478);
   res = g_pNewestResNode;
   if (fh != 0) {
     for (; res != (Resource *)0x0; res = res->pNext) {
@@ -243,7 +243,7 @@ int __cdecl Res_Log(char *filename)
 
 {
   if (filename != (char *)0x0) {
-    g_dwLogFile = (**(code **)(g_dwResHS + 0x30))(filename,&DAT_004dd478);
+    g_dwLogFile = (**(code **)(g_dwResHS + 0x30))(filename,s_w_004dd478);
     return 1;
   }
   if (g_dwLogFile != 0) {

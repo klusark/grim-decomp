@@ -49,14 +49,14 @@ void __cdecl luaL_argerror(undefined4 numarg,int extramsg)
 {
   unsigned char _frame[0x20] __attribute__((aligned(16)));  /* Ghidra stack frame, see tools/frame_locals.py */
   int o;
-  undefined **name;
-  #define local_4 (*(undefined **)(_frame + (0x20 - 0x4)))
+  char **name;
+  #define local_4 (*(char **)(_frame + (0x20 - 0x4)))
   
   name = &local_4;
   o = lua_stackedfunction(0);
   lua_getobjname(o,name);
-  if (local_4 == (undefined *)0x0) {
-    local_4 = &DAT_1002635c;
+  if (local_4 == (char *)0x0) {
+    local_4 = s_____1002635c;
   }
   if (extramsg == 0) {
     luaL_verror(s_bad_argument___d_to_function_____10026334,numarg,local_4);

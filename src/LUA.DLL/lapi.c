@@ -1129,7 +1129,7 @@ undefined4 __cdecl lua_printstack(int out)
     if (iVar1 != 0) {
       pcVar3 = s_Active_Stack__10026254;
       if (level != 2) {
-        pcVar3 = &DAT_10026250;
+        pcVar3 = s__10026250;
       }
       (**(code **)(g_dwLuaHS + 0x54))(iVar1,pcVar3);
     }
@@ -1154,7 +1154,7 @@ undefined4 __cdecl lua_printstack(int out)
       }
       else if (local_4 < 0) {
         if (iVar1 != 0) {
-          (**(code **)(g_dwLuaHS + 0x54))(iVar1,&DAT_10026240,out);
+          (**(code **)(g_dwLuaHS + 0x54))(iVar1,s__s_10026240,out);
           out = 0;
           goto LAB_10002208;
         }
@@ -1172,7 +1172,7 @@ LAB_10002208:
     if (out == 0) {
 LAB_1000224a:
       if (iVar1 != 0) {
-        (**(code **)(g_dwLuaHS + 0x54))(iVar1,&DAT_100261f0);
+        (**(code **)(g_dwLuaHS + 0x54))(iVar1,s__100261f0);
       }
     }
     else if (iVar1 != 0) {
@@ -1289,7 +1289,7 @@ undefined4 __cdecl lua_funcinfo(int func,int *filename,undefined4 *linedefined)
     *linedefined = *(undefined4 *)(uVar1 + 0x14);
     return uVar1;
   }
-  *filename = (int)&DAT_10026264;
+  *filename = (int)s__C__10026264;
   *linedefined = 0xffffffff;
   return filename;
 }
@@ -1646,7 +1646,7 @@ int __cdecl lua_dofile(char *filename)
       f = &PTR_DAT_100282d0;
     }
     else {
-      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,&DAT_10026a80);
+      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,s_r_10026a80);
     }
     if (f == (undefined **)0x0) {
       return 2;
@@ -1659,7 +1659,7 @@ int __cdecl lua_dofile(char *filename)
     bin = (uint)(iVar1 == 0x1b);
     if (bin != 0) {
       (**(code **)(g_dwLuaHS + 0x34))(f);
-      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,&DAT_10026a8c);
+      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,s_rb_10026a8c);
     }
   }
   else {
@@ -1667,7 +1667,7 @@ int __cdecl lua_dofile(char *filename)
       f = &PTR_DAT_100282d0;
     }
     else {
-      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,&DAT_10026a8c);
+      f = (undefined **)(**(code **)(g_dwLuaHS + 0x30))(filename,s_rb_10026a8c);
     }
     if (f == (undefined **)0x0) {
       return 2;
@@ -1814,21 +1814,21 @@ undefined4 __cdecl lua_mathlibopen(void)
 {
   int iVar1;
   undefined4 uVar2;
-  byte *event;
+  char *event;
   
                     /* 0x7320  50  lua_mathlibopen */
   luaL_openlib(&g_pMathlib,0x15);
   lua_recognizelib(((unsigned)(uintptr_t)&PTR_s_math_pow_10026fd8),1);
-  lua_pushstring(&DAT_10027004);
+  lua_pushstring((byte *)s_deg_10027004);
   lua_setglobal((byte *)s__TRIGMODE_10027074);
   lua_pushCclosure(((unsigned)(uintptr_t)math_pow),0);
   lua_pushnumber(0.0f);
-  event = &DAT_10027070;
+  event = s_pow_10027070;
   iVar1 = lua_pop();
   iVar1 = lua_tag(iVar1);
-  lua_settagmethod(iVar1,event);
+  lua_settagmethod(iVar1,(byte *)event);
   lua_pushnumber(3.1415927f);
-  uVar2 = lua_setglobal(&DAT_1002706c);
+  uVar2 = lua_setglobal((byte *)s_PI_1002706c);
   return uVar2;
 }
 

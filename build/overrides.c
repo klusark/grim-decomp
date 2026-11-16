@@ -771,7 +771,7 @@ void __cdecl Win_AbortIfAlreadyRunning(void *hInstance, void *hPrevInstance, cha
     g_nWinQuit = 0;
     UINT_008d0a8c = 0;
     UINT_008d09e4 = (uint)hInstance;
-    _DAT_008d09e0 = nCmdShow;
+    INT_008d09e0 = nCmdShow;
     Win_CreateMainWindow((uint)hInstance, nCmdShow, (int)appName);
     Win_SetMainHwnd(g_pWinMainHwnd);
     Win_SetInstance(UINT_008d09e4);
@@ -1015,7 +1015,7 @@ void Engine_LoadGame(void)
     name = g_pSaveFileName;
     if (name == 0)
         name = s_grim_sav_004e7fc8;
-    UINT_008a8770 = (uint)SaveFile_Open(name, &DAT_004ddb18);
+    UINT_008a8770 = (uint)SaveFile_Open(name, s_rb_004ddb18);
     if ((void *)UINT_008a8770 != 0) {
         sputRender_AllowLoadImage(0);
         Render_DrawProgressBar(0.1);
@@ -1232,9 +1232,9 @@ undefined4 __cdecl luaV_tostring(int *o)
     f = *(float *)&o[1];
     /* written as negated tests: NaN is "in range" and "equal" (the original's fcomp/fnstsw tests), so NaN prints as 0 */
     if (!(f < -2147483648.0f) && !(f > 2147483648.0f) && (n = (int)(long long)f, !((double)n < (double)f) && !((double)n > (double)f)))
-        sprintf(buf, (char *)&DAT_1002817c, n);
+        sprintf(buf, (char *)s__d_1002817c, n);
     else
-        sprintf(buf, (char *)&DAT_10028178, (double)f);
+        sprintf(buf, (char *)s__g_10028178, (double)f);
     o[1] = (int)luaS_new((char *)buf);
     o[0] = -2;
     return 0;

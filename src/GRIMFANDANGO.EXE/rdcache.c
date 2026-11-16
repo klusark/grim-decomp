@@ -354,13 +354,13 @@ uint __cdecl rdCache_SendFaceListToHardware(void)
   else if (g_nRdroid_curZBufferMethod == 3) {
     local_44 = 0x833;
   }
-  if (((0.0f < _DAT_0090002c) || (0.0f < _DAT_00900030)) || (0.0f < _DAT_00900034)) {
+  if (((0.0f < FLOAT_0090002c) || (0.0f < FLOAT_00900030)) || (0.0f < FLOAT_00900034)) {
     bVar6 = true;
     bVar9 = true;
-    local_58 = PUN(uint,(float)(_DAT_0090002c - (_DAT_00900034 * 0.5f + _DAT_00900030 * 0.5f)));
-    local_20 = _DAT_0090002c * 0.5f;
-    local_60 = PUN(uint,(float)(_DAT_00900030 - (local_20 + _DAT_00900034 * 0.5f)));
-    local_5c = PUN(uint,(float)(_DAT_00900034 - (local_20 + _DAT_00900030 * 0.5f)));
+    local_58 = PUN(uint,(float)(FLOAT_0090002c - (FLOAT_00900034 * 0.5f + FLOAT_00900030 * 0.5f)));
+    local_20 = FLOAT_0090002c * 0.5f;
+    local_60 = PUN(uint,(float)(FLOAT_00900030 - (local_20 + FLOAT_00900034 * 0.5f)));
+    local_5c = PUN(uint,(float)(FLOAT_00900034 - (local_20 + FLOAT_00900030 * 0.5f)));
   }
   if (((g_dwRdroid_curColorEffects != 0) || (UINT_00900024 != 0)) || (UINT_00900028 != 0)) {
     bVar7 = true;

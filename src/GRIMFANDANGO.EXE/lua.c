@@ -658,10 +658,10 @@ void __cdecl sputPrimitive_ChangePrimitive(void)
       PrimitiveQueue_move(&g_dwPrimitiveQ,iVar1,local_8,iVar3);
     }
     lua_pushobject(iVar2);
-    lua_pushstring(PTR_DAT_004e8374);
+    lua_pushstring(PTR_s_x_004e8374);
     iVar3 = lua_gettable();
     lua_pushobject(iVar2);
-    lua_pushstring(PTR_DAT_004e8378);
+    lua_pushstring(PTR_s_y_004e8378);
     iVar4 = lua_gettable();
     iVar6 = lua_isnumber(iVar3);
     if ((iVar6 != 0) || (iVar6 = lua_isnumber(iVar4), iVar6 != 0)) {
@@ -4538,13 +4538,13 @@ void __cdecl sputLua_GetActorYawToPoint(void)
       }
       else {
         lua_pushobject(iVar2);
-        lua_pushstring(&DAT_004e8454);
+        lua_pushstring(s_x_004e8454);
         iVar4 = lua_gettable();
         lua_pushobject(iVar2);
-        lua_pushstring(&DAT_004e8450);
+        lua_pushstring(s_y_004e8450);
         iVar1 = lua_gettable();
         lua_pushobject(iVar2);
-        lua_pushstring(&DAT_004ec3b8);
+        lua_pushstring(s_z_004ec3b8);
         iVar3 = lua_gettable();
         iVar2 = iVar4;
       }
@@ -4983,7 +4983,7 @@ int __cdecl sputLua_Boot(int flag,char *str)
   else {
     lua_pushstring(str);
   }
-  iVar1 = lua_getglobal(&DAT_004ec3c8);
+  iVar1 = lua_getglobal(s_BOOT_004ec3c8);
   iVar1 = lua_callfunction(iVar1);
   return (uint)(iVar1 == 0);
 }
@@ -5170,15 +5170,15 @@ void __cdecl sputLua_CheckForFileL(void)
   void **ppvVar1;
   int iVar2;
   int iVar3;
-  undefined *puVar4;
+  char *pcVar4;
   
   iVar2 = lua_lua2C(1);
   iVar3 = lua_isstring(iVar2);
   if (iVar3 != 0) {
-    puVar4 = &DAT_004dda54;
+    pcVar4 = s_r_004dda54;
     ppvVar1 = &g_pSputLuaHS->pFopen;
     iVar2 = lua_getstring(iVar2);
-    iVar2 = (*(code *)*ppvVar1)(iVar2,puVar4);
+    iVar2 = (*(code *)*ppvVar1)(iVar2,pcVar4);
     if (iVar2 == 0) {
       lua_pushnil();
       return;
@@ -5243,9 +5243,8 @@ void __cdecl sputLua_SearchForFileOrSwapCDsL(void)
   int iVar3;
   int iVar4;
   int iVar5;
-  char *caption;
   char *text;
-  undefined *puVar6;
+  char *pcVar6;
   uint flags;
   uint local_4;
   
@@ -5258,19 +5257,19 @@ void __cdecl sputLua_SearchForFileOrSwapCDsL(void)
     if (iVar5 != 0) {
       iVar5 = lua_isstring(iVar4);
       if (iVar5 != 0) {
-        puVar6 = &DAT_004dda54;
+        pcVar6 = s_r_004dda54;
         ppvVar1 = &g_pSputLuaHS->pFopen;
         iVar5 = lua_getstring(iVar4);
-        iVar5 = (*(code *)*ppvVar1)(iVar5,puVar6);
+        iVar5 = (*(code *)*ppvVar1)(iVar5,pcVar6);
         if (iVar5 == 0) {
           ImSetState(0);
           ImStopAllSounds();
           SoundsCloseVoiceFile();
           do {
             flags = 1;
-            caption = (char *)lua_getstring(iVar3);
+            pcVar6 = (char *)lua_getstring(iVar3);
             text = (char *)lua_getstring(iVar2);
-            iVar5 = grimPlat_QueryDialog(text,caption,flags);
+            iVar5 = grimPlat_QueryDialog(text,pcVar6,flags);
             if (iVar5 == 2) {
               lua_pushnil();
               lua_pushnil();
@@ -5278,10 +5277,10 @@ void __cdecl sputLua_SearchForFileOrSwapCDsL(void)
             }
             sputResource_CloseResources();
             grimlib_FindResources();
-            puVar6 = &DAT_004dda54;
+            pcVar6 = s_r_004dda54;
             ppvVar1 = &g_pSputLuaHS->pFopen;
             iVar5 = lua_getstring(iVar4);
-            iVar5 = (*(code *)*ppvVar1)(iVar5,puVar6);
+            iVar5 = (*(code *)*ppvVar1)(iVar5,pcVar6);
           } while (iVar5 == 0);
           (*g_pSputLuaHS->pFclose)(iVar5);
           lua_pushnumber(1.0f);
@@ -6248,7 +6247,7 @@ uint __cdecl sputLua_Startup(void)
   }
   (*(code *)UINT_008cab58)();
   wuRegistry_GetStr(s_TextAllowed_004ec55c,(char *)abStack_20,0x20,&DAT_004f5a98);
-  iVar1 = _stricmp(abStack_20,&DAT_004ec554);
+  iVar1 = _stricmp(abStack_20,(byte *)s_true_004ec554);
   if (iVar1 != 0) {
     *(undefined4 *)lua_assume_binary_exref = 1;
   }
@@ -6258,21 +6257,21 @@ uint __cdecl sputLua_Startup(void)
   sputLua_RegisterFunctions((int *)&PTR_s_EnginePause_004ea8b0,UINT_004eb168);
   lua_recognizelib(((unsigned)(uintptr_t)&PTR_s_concatfallback_004ea890),4);
   g_nLrSystemTable = Lua_CreateSystemTable();
-  iVar1 = lua_getglobal(&DAT_004ec54c);
+  iVar1 = lua_getglobal(s_type_004ec54c);
   lua_pushobject(iVar1);
   g_dwLrTypeFunction = lua_ref(1);
   lua_pushCclosure(((unsigned)(uintptr_t)sputLua_TypeOverride),0);
-  lua_setglobal(&DAT_004ec54c);
+  lua_setglobal(s_type_004ec54c);
   lua_pushnumber(0.0f);
-  lua_setglobal(&DAT_004ec544);
+  lua_setglobal(s_NONE_004ec544);
   lua_pushnumber(4096.0f);
-  lua_setglobal(&DAT_004ec53c);
+  lua_setglobal(s_WALK_004ec53c);
   lua_pushnumber(8192.0f);
   lua_setglobal(s_CAMERA_004ec534);
   lua_pushnumber(16384.0f);
   lua_setglobal(s_SPECIAL_004ec52c);
   lua_pushnumber(32768.0f);
-  lua_setglobal(&DAT_004ec528);
+  lua_setglobal(s_HOT_004ec528);
   iVar1 = lua_setfallback(s_concat_004ec520,sputLua_ConcatFallback);
   lua_pushobject(iVar1);
   g_dwLrOldConcatFallback = lua_ref(1);
@@ -7714,15 +7713,15 @@ void __cdecl sputLua_GetCameraLookVectorL(void)
   rdVector_Normalize3Acc(local_c);
   iVar2 = lua_createtable();
   lua_pushobject(iVar2);
-  lua_pushstring(&DAT_004e8454);
+  lua_pushstring(s_x_004e8454);
   lua_pushnumber(local_c[0]);
   lua_settable();
   lua_pushobject(iVar2);
-  lua_pushstring(&DAT_004e8450);
+  lua_pushstring(s_y_004e8450);
   lua_pushnumber(local_c[1]);
   lua_settable();
   lua_pushobject(iVar2);
-  lua_pushstring(&DAT_004ec3b8);
+  lua_pushstring(s_z_004ec3b8);
   lua_pushnumber(local_c[2]);
   lua_settable();
   lua_pushobject(iVar2);
@@ -7955,27 +7954,27 @@ void __cdecl sputLua_GetAngleBetweenVectorsL(void)
     iVar3 = lua_istable(iVar2);
     if (iVar3 != 0) {
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004e8454);
+      lua_pushstring(s_x_004e8454);
       iVar3 = lua_gettable();
       local_c[0] = lua_getnumber(iVar3);
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004e8450);
+      lua_pushstring(s_y_004e8450);
       iVar3 = lua_gettable();
       local_c[1] = lua_getnumber(iVar3);
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004ec3b8);
+      lua_pushstring(s_z_004ec3b8);
       iVar1 = lua_gettable();
       local_c[2] = lua_getnumber(iVar1);
       lua_pushobject(iVar2);
-      lua_pushstring(&DAT_004e8454);
+      lua_pushstring(s_x_004e8454);
       iVar1 = lua_gettable();
       local_18[0] = lua_getnumber(iVar1);
       lua_pushobject(iVar2);
-      lua_pushstring(&DAT_004e8450);
+      lua_pushstring(s_y_004e8450);
       iVar1 = lua_gettable();
       local_18[1] = lua_getnumber(iVar1);
       lua_pushobject(iVar2);
-      lua_pushstring(&DAT_004ec3b8);
+      lua_pushstring(s_z_004ec3b8);
       iVar1 = lua_gettable();
       local_18[2] = lua_getnumber(iVar1);
       rdVector_Normalize3Acc(local_c);
@@ -8233,7 +8232,7 @@ void __cdecl sputLua_SetLightType(void)
       puVar7 = String_ContainsSubstring(puVar6,s_parallel_004ec5a8);
       if ((puVar7 == (uint *)0x0) &&
          (puVar7 = String_ContainsSubstring(puVar6,s_global_004ec5a0), puVar7 == (uint *)0x0)) {
-        puVar6 = String_ContainsSubstring(puVar6,&DAT_004ec598);
+        puVar6 = String_ContainsSubstring(puVar6,s_spot_004ec598);
         if (puVar6 == (uint *)0x0) {
           (pSVar5->light).nType = 2;
         }
@@ -8297,11 +8296,11 @@ void __cdecl sputLua_GetLightType(void)
       return;
     }
     if (iVar1 == 3) {
-      lua_pushstring(&DAT_004ec598);
+      lua_pushstring(s_spot_004ec598);
       return;
     }
     if (iVar1 == 2) {
-      lua_pushstring(&DAT_004ec5b4);
+      lua_pushstring(s_omni_004ec5b4);
       return;
     }
   }
@@ -10367,7 +10366,7 @@ void __cdecl Lua_TextFileGetLineCount(void)
     return;
   }
   uVar4 = lua_getstring(iVar2);
-  puVar5 = (undefined4 *)fopen(uVar4,((unsigned)(uintptr_t)&DAT_004ec5bc));
+  puVar5 = (undefined4 *)fopen(uVar4,((unsigned)(uintptr_t)&s_rt_004ec5bc));
   if (puVar5 != (undefined4 *)0x0) {
     iVar2 = lua_createtable();
     bVar1 = *(byte *)(puVar5 + 3);
@@ -10409,7 +10408,7 @@ void __cdecl Lua_TextFileGetLine(void)
   undefined4 *puVar5;
   longlong lVar6;
   float fVar7;
-  undefined *puVar8;
+  char *pcVar8;
   #define local_200 (*(char (*)[512])(_frame + (0x210 - 0x200)))
   
   iVar1 = lua_lua2C(1);
@@ -10418,9 +10417,9 @@ void __cdecl Lua_TextFileGetLine(void)
   if (iVar3 == 0) {
     iVar3 = lua_isnil(iVar2);
     if (iVar3 == 0) {
-      puVar8 = &DAT_004ec5bc;
+      pcVar8 = s_rt_004ec5bc;
       uVar4 = lua_getstring(iVar1);
-      puVar5 = (undefined4 *)fopen(uVar4,(uint)puVar8);
+      puVar5 = (undefined4 *)fopen(uVar4,(uint)pcVar8);
       if (puVar5 != (undefined4 *)0x0) {
         fVar7 = lua_getnumber(iVar2);
         lVar6 = FTOL((float10)fVar7);
@@ -10857,7 +10856,7 @@ void __cdecl sputLua_GetSaveGameData(void)
   iVar1 = lua_lua2C(1);
   iVar2 = lua_isstring(iVar1);
   if (iVar2 != 0) {
-    mode = &DAT_004ddb18;
+    mode = s_rb_004ddb18;
     name = (char *)lua_getstring(iVar1);
     file = SaveFile_Open(name,mode);
     if (file != (int *)0x0) {

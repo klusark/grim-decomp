@@ -651,7 +651,7 @@ void __cdecl inclinenumber(uint *LS)
   int iVar4;
   uint uVar5;
   char *msg;
-  byte *token;
+  char *token;
   #define local_18 (*(byte (*)[24])(_frame + (0x30 - 0x18)))
   
   *(int *)LS[1] = *(int *)LS[1] + -1;
@@ -703,14 +703,14 @@ void __cdecl inclinenumber(uint *LS)
     uVar2 = LS[5];
     LS[5] = uVar2 - 1;
     if (uVar2 != 0) break;
-    token = &DAT_10026f00;
+    token = s__end_10026f00;
     msg = s_unmatched__end_10026ef0;
     goto LAB_10006a8e;
   case 4:
     uVar5 = 1;
   case 5:
     if (LS[5] == 4) {
-      luaY_syntaxerror(s_too_many_nested__ifs_10026ed4,&DAT_10026eec);
+      luaY_syntaxerror(s_too_many_nested__ifs_10026ed4,s__if_10026eec);
     }
     readname(LS,(int)local_18);
     uVar3 = LS[5];
@@ -742,10 +742,10 @@ void __cdecl inclinenumber(uint *LS)
     }
     break;
   default:
-    token = local_18;
+    token = (char *)local_18;
     msg = s_unknown_pragma_10026eac;
 LAB_10006a8e:
-    luaY_syntaxerror(msg,(char *)token);
+    luaY_syntaxerror(msg,token);
   }
   skipspace(LS);
   if (*LS != 10) {

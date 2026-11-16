@@ -439,17 +439,17 @@ extern char s_API_error___attempt_to_push_a_NU_10026160[48];
 extern char s_API_error___attempt_to_push_a_NO_10026190[40];
 extern char s_cannot_change_the_tag_of_a___20s_100261b8[36];
 extern char s_L__pExecutionState_100261dc[20];
-extern unsigned char DAT_100261f0[4];
+extern char s__100261f0[4];
 extern char s__in_file__s__100261f4[16];
 extern char s_at_line__d_10026204[12];
 extern char s_function__s_10026210[12];
 extern char s___s__tag_method_1002621c[16];
 extern char s_function___s__d__1002622c[20];
-extern unsigned char DAT_10026240[4];
+extern char s__s_10026240[4];
 extern char s_main_of__s_10026244[12];
-extern unsigned char DAT_10026250[4];
+extern char s__10026250[4];
 extern char s_Active_Stack__10026254[16];
-extern unsigned char DAT_10026264[4];
+extern char s__C__10026264[4];
 extern char s_API____funcinfo__called_with_a_n_10026268[52];
 extern char s_global_1002629c[8];
 extern char s_tag_method_100262a4[12];
@@ -458,7 +458,7 @@ extern char s_pNewState__Restore_restoreFunc____100262c8[44];
 extern char s_numTasks___0_100262f4[16];
 extern char s_bad_argument___d_to_function_____10026304[48];
 extern char s_bad_argument___d_to_function_____10026334[40];
-extern unsigned char DAT_1002635c[4];
+extern char s_____1002635c[4];
 extern char s_string_expected_10026360[16];
 extern char s_number_expected_10026370[16];
 extern char s_table_expected_10026380[16];
@@ -505,7 +505,7 @@ extern char s_setfallback_10026694[12];
 extern char s_variable_name_expected_100266a0[24];
 extern char s_invalid_2nd_argument__probably_o_100266b8[48];
 extern char s_internal_error_100266e8[16];
-extern unsigned char DAT_100266f8[4];
+extern char s_nil_100266f8[4];
 extern char s_task___d_100266fc[12];
 extern char s_userdata___p_10026708[16];
 extern char s_function___p_10026718[16];
@@ -519,10 +519,10 @@ extern char s_Argument_to_identifyscript_must_b_10026870[52];
 extern char s_Too_few_arguments_to_identifyscr_100268a4[68];
 extern char s_Argument_to_nextscript_must_be_n_100268e8[56];
 extern char s_Too_few_arguments_to_nextscript__10026920[64];
-extern unsigned char DAT_10026960[4];
+extern char s__s_10026960[4];
 extern char s_base_out_of_range_10026964[20];
 extern char s_assertion_failed____100s_10026978[28];
-extern unsigned char DAT_10026994[4];
+extern char s_n_10026994[4];
 extern char s__VERSION_10026998[12];
 extern char s_Lua_3_1__alpha__100269a4[16];
 extern char s_not_enough_memory_100269b4[20];
@@ -534,9 +534,9 @@ extern char s__return__10026a24[12];
 extern char s_call_expression_not_a_function_10026a30[32];
 extern char s_unexpected_cmark_at__d_10026a50[24];
 extern char s_lua__Unable_to_recover__10026a68[24];
-extern unsigned char DAT_10026a80[4];
+extern char s_r_10026a80[4];
 extern char s__stdin__10026a84[8];
-extern unsigned char DAT_10026a8c[4];
+extern char s_rb_10026a8c[4];
 extern char s__dostring_______20s_10026a90[20];
 extern char s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4[36];
 extern char s_reference_table_overflow_10026ac8[32];
@@ -561,17 +561,17 @@ extern char s_setlocale_10026bf4[12];
 extern char s__INPUT_10026c00[8];
 extern char s_global_variable____50s__is_not_a_10026c08[48];
 extern char s_cannot_access_a_closed_file_10026c38[28];
-extern unsigned char DAT_10026c54[4];
+extern char s_w_10026c54[4];
 extern char s__OUTPUT_10026c58[8];
-extern unsigned char DAT_10026c60[4];
+extern char s_a_10026c60[4];
 extern char s_unbalanced_braces_in_read_patter_10026c64[36];
 extern char s__________10026c88[12];
 extern char s_invalid__date__format_10026c94[24];
-extern unsigned char DAT_10026cac[4];
+extern char s__c_10026cac[4];
 extern char s_invalid_option_10026cb0[16];
 extern char s_FALSE_10026cc0[8];
 extern char s_C__grimsrc_libs_lua_src_liolib_c_10026cc8[36];
-extern unsigned char DAT_10026cec[8];
+extern char s_cont_10026cec[8];
 extern char s__STDERR_10026cf4[8];
 extern char s__STDOUT_10026cfc[8];
 typedef struct __attribute__((packed)) { unsigned char b0[12]; void *pc; } grim_span_10026d04;
@@ -608,9 +608,9 @@ extern char s_unknown_pragma_10026eac[16];
 extern char s_unmatched__else_10026ebc[16];
 extern char s__else_10026ecc[8];
 extern char s_too_many_nested__ifs_10026ed4[24];
-extern unsigned char DAT_10026eec[4];
+extern char s__if_10026eec[4];
 extern char s_unmatched__end_10026ef0[16];
-extern unsigned char DAT_10026f00[8];
+extern char s__end_10026f00[8];
 extern char s_invalid__if_condition_10026f08[24];
 extern char s_pragma_too_long_10026f20[16];
 extern void *g_pMathlib[42];
@@ -619,7 +619,7 @@ extern char s_math_pow_10026fe0[12];
 extern char s_randomseed_10026fec[12];
 extern char s_random_10026ff8[8];
 extern unsigned char DAT_10027000[4];
-extern unsigned char DAT_10027004[4];
+extern char s_deg_10027004[4];
 extern unsigned char DAT_10027008[4];
 extern char s_log10_1002700c[8];
 extern unsigned char DAT_10027014[4];
@@ -637,8 +637,8 @@ extern unsigned char DAT_1002705c[4];
 extern unsigned char DAT_10027060[4];
 extern unsigned char DAT_10027064[4];
 extern unsigned char DAT_10027068[4];
-extern unsigned char DAT_1002706c[4];
-extern unsigned char DAT_10027070[4];
+extern char s_PI_1002706c[4];
+extern char s_pow_10027070[4];
 extern char s__TRIGMODE_10027074[12];
 extern char s_C__grimsrc_libs_lua_src_lmem_cpp_10027080[40];
 extern void *g_pLuaO_typenames[14];
@@ -685,7 +685,7 @@ extern char s_string_or_function_expected_10027a3c[28];
 extern char s_invalid_option_in__format__10027a58[28];
 extern char s_invalid_format__width_or_precisi_10027a74[48];
 extern char s__d_____________d_______d___10027aa4[28];
-extern unsigned char DAT_10027ac0[4];
+extern char s____10027ac0[4];
 extern char s___100s__last_token_read_____50s__10027ac4[60];
 extern char s__eof__10027b00[8];
 extern char s_code_size_overflow_10027b08[20];
@@ -695,7 +695,7 @@ extern char s_parse_error_10027b58[12];
 extern char s_lua_stx_10027b64[8];
 extern char s_parser_stack_overflow_10027b6c[24];
 extern char s_invalid_constructor_syntax_10027b84[28];
-extern unsigned char DAT_10027ba0[8];
+extern char s_self_10027ba0[8];
 extern char s_constant_table_overflow_10027ba8[24];
 extern char s_too_many_local_variables__limit__10027bc0[36];
 extern char s_variable_buffer_overflow__limit__10027be4[36];
@@ -703,7 +703,7 @@ extern char s_cannot_access_a_variable_in_oute_10027c08[40];
 extern char s_cannot_access_an_upvalue_in_curr_10027c30[44];
 extern char s_cannot_access_upvalue_in_main_10027c5c[32];
 extern char s_too_many_upvalues_in_a_single_fu_10027c7c[52];
-extern unsigned char DAT_10027cb0[4];
+extern char s_arg_10027cb0[4];
 extern char s_too_many_nested_functions__limit_10027cb4[36];
 extern char s_writtenItems____numItems_10027cd8[28];
 extern char s_C__grimsrc_libs_lua_src_ltable_c_10027cf4[36];
@@ -750,8 +750,8 @@ extern char s_binary_file__s_too_new__version__1002810c[64];
 extern char s_bad_signature_in_binary_file__s_1002814c[32];
 extern char DAT_1002816c;
 extern char s__lf__c_10028170[8];
-extern unsigned char DAT_10028178[4];
-extern unsigned char DAT_1002817c[4];
+extern char s__g_10028178[4];
+extern char s__d_1002817c[4];
 extern char s_indexed_expression_not_a_table_10028180[32];
 extern char s_unexpected_type_for_concatenatio_100281a0[36];
 extern char s_WARNING__Killing_Lua_script_that_100281c4[88];
@@ -1730,17 +1730,17 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10026190, 40 bytes */ GRIM_DATA("10026190") char s_API_error___attempt_to_push_a_NO_10026190[40] = "API error - attempt to push a NOOBJECT";
 /* 0x100261b8, 36 bytes */ GRIM_DATA("100261b8") char s_cannot_change_the_tag_of_a___20s_100261b8[36] = "cannot change the tag of a %.20s";
 /* 0x100261dc, 20 bytes */ GRIM_DATA("100261dc") char s_L__pExecutionState_100261dc[20] = "L->pExecutionState";
-/* 0x100261f0, 4 bytes */ GRIM_DATA("100261f0") unsigned char DAT_100261f0[4] = { 0x0a };
+/* 0x100261f0, 4 bytes */ GRIM_DATA("100261f0") char s__100261f0[4] = "\n";
 /* 0x100261f4, 16 bytes */ GRIM_DATA("100261f4") char s__in_file__s__100261f4[16] = " [in file %s]";
 /* 0x10026204, 12 bytes */ GRIM_DATA("10026204") char s_at_line__d_10026204[12] = " at line %d";
 /* 0x10026210, 12 bytes */ GRIM_DATA("10026210") char s_function__s_10026210[12] = "function %s";
 /* 0x1002621c, 16 bytes */ GRIM_DATA("1002621c") char s___s__tag_method_1002621c[16] = "`%s' tag method";
 /* 0x1002622c, 20 bytes */ GRIM_DATA("1002622c") char s_function___s__d__1002622c[20] = "function (%s:%d)";
-/* 0x10026240, 4 bytes */ GRIM_DATA("10026240") unsigned char DAT_10026240[4] = { 0x25, 0x73 };
+/* 0x10026240, 4 bytes */ GRIM_DATA("10026240") char s__s_10026240[4] = "%s";
 /* 0x10026244, 12 bytes */ GRIM_DATA("10026244") char s_main_of__s_10026244[12] = "main of %s";
-/* 0x10026250, 4 bytes */ GRIM_DATA("10026250") unsigned char DAT_10026250[4] = { 0x09 };
+/* 0x10026250, 4 bytes */ GRIM_DATA("10026250") char s__10026250[4] = "\t";
 /* 0x10026254, 16 bytes */ GRIM_DATA("10026254") char s_Active_Stack__10026254[16] = "Active Stack:\n\t";
-/* 0x10026264, 4 bytes */ GRIM_DATA("10026264") unsigned char DAT_10026264[4] = { 0x28, 0x43, 0x29 };
+/* 0x10026264, 4 bytes */ GRIM_DATA("10026264") char s__C__10026264[4] = "(C)";
 /* 0x10026268, 52 bytes */ GRIM_DATA("10026268") char s_API____funcinfo__called_with_a_n_10026268[52] = "API - `funcinfo' called with a non-function value";
 /* 0x1002629c, 8 bytes */ GRIM_DATA("1002629c") char s_global_1002629c[8] = "global";
 /* 0x100262a4, 12 bytes */ GRIM_DATA("100262a4") char s_tag_method_100262a4[12] = "tag-method";
@@ -1749,7 +1749,7 @@ extern unsigned char DAT_1002d720[4];
 /* 0x100262f4, 16 bytes */ GRIM_DATA("100262f4") char s_numTasks___0_100262f4[16] = "numTasks > 0";
 /* 0x10026304, 48 bytes */ GRIM_DATA("10026304") char s_bad_argument___d_to_function_____10026304[48] = "bad argument #%d to function `%.50s' (%.100s)";
 /* 0x10026334, 40 bytes */ GRIM_DATA("10026334") char s_bad_argument___d_to_function_____10026334[40] = "bad argument #%d to function `%.50s'";
-/* 0x1002635c, 4 bytes */ GRIM_DATA("1002635c") unsigned char DAT_1002635c[4] = { 0x3f, 0x3f, 0x3f };
+/* 0x1002635c, 4 bytes */ GRIM_DATA("1002635c") char s_____1002635c[4] = "\?\?\?";
 /* 0x10026360, 16 bytes */ GRIM_DATA("10026360") char s_string_expected_10026360[16] = "string expected";
 /* 0x10026370, 16 bytes */ GRIM_DATA("10026370") char s_number_expected_10026370[16] = "number expected";
 /* 0x10026380, 16 bytes */ GRIM_DATA("10026380") char s_table_expected_10026380[16] = "table expected";
@@ -1815,7 +1815,7 @@ extern unsigned char DAT_1002d720[4];
 /* 0x100266a0, 24 bytes */ GRIM_DATA("100266a0") char s_variable_name_expected_100266a0[24] = "variable name expected";
 /* 0x100266b8, 48 bytes */ GRIM_DATA("100266b8") char s_invalid_2nd_argument__probably_o_100266b8[48] = "invalid 2nd argument (probably obsolete code)";
 /* 0x100266e8, 16 bytes */ GRIM_DATA("100266e8") char s_internal_error_100266e8[16] = "internal error";
-/* 0x100266f8, 4 bytes */ GRIM_DATA("100266f8") unsigned char DAT_100266f8[4] = { 0x6e, 0x69, 0x6c };
+/* 0x100266f8, 4 bytes */ GRIM_DATA("100266f8") char s_nil_100266f8[4] = "nil";
 /* 0x100266fc, 12 bytes */ GRIM_DATA("100266fc") char s_task___d_100266fc[12] = "task: %d";
 /* 0x10026708, 16 bytes */ GRIM_DATA("10026708") char s_userdata___p_10026708[16] = "userdata: %p";
 /* 0x10026718, 16 bytes */ GRIM_DATA("10026718") char s_function___p_10026718[16] = "function: %p";
@@ -1829,10 +1829,10 @@ extern unsigned char DAT_1002d720[4];
 /* 0x100268a4, 68 bytes */ GRIM_DATA("100268a4") char s_Too_few_arguments_to_identifyscr_100268a4[68] = "Too few arguments to identifyscript! Specify nil or a task handle.";
 /* 0x100268e8, 56 bytes */ GRIM_DATA("100268e8") char s_Argument_to_nextscript_must_be_n_100268e8[56] = "Argument to nextscript must be nil or a task handle!";
 /* 0x10026920, 64 bytes */ GRIM_DATA("10026920") char s_Too_few_arguments_to_nextscript__10026920[64] = "Too few arguments to nextscript! Specify nil or a task handle.";
-/* 0x10026960, 4 bytes */ GRIM_DATA("10026960") unsigned char DAT_10026960[4] = { 0x25, 0x73, 0x09 };
+/* 0x10026960, 4 bytes */ GRIM_DATA("10026960") char s__s_10026960[4] = "%s\t";
 /* 0x10026964, 20 bytes */ GRIM_DATA("10026964") char s_base_out_of_range_10026964[20] = "base out of range";
 /* 0x10026978, 28 bytes */ GRIM_DATA("10026978") char s_assertion_failed____100s_10026978[28] = "assertion failed!  %.100s";
-/* 0x10026994, 4 bytes */ GRIM_DATA("10026994") unsigned char DAT_10026994[4] = { 0x6e };
+/* 0x10026994, 4 bytes */ GRIM_DATA("10026994") char s_n_10026994[4] = "n";
 /* 0x10026998, 12 bytes */ GRIM_DATA("10026998") char s__VERSION_10026998[12] = "_VERSION";
 /* 0x100269a4, 16 bytes */ GRIM_DATA("100269a4") char s_Lua_3_1__alpha__100269a4[16] = "Lua 3.1 (alpha)";
 /* 0x100269b4, 20 bytes */ GRIM_DATA("100269b4") char s_not_enough_memory_100269b4[20] = "not enough memory";
@@ -1844,9 +1844,9 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10026a30, 32 bytes */ GRIM_DATA("10026a30") char s_call_expression_not_a_function_10026a30[32] = "call expression not a function";
 /* 0x10026a50, 24 bytes */ GRIM_DATA("10026a50") char s_unexpected_cmark_at__d_10026a50[24] = "unexpected cmark at %d\n";
 /* 0x10026a68, 24 bytes */ GRIM_DATA("10026a68") char s_lua__Unable_to_recover__10026a68[24] = "lua: Unable to recover.";
-/* 0x10026a80, 4 bytes */ GRIM_DATA("10026a80") unsigned char DAT_10026a80[4] = { 0x72 };
+/* 0x10026a80, 4 bytes */ GRIM_DATA("10026a80") char s_r_10026a80[4] = "r";
 /* 0x10026a84, 8 bytes */ GRIM_DATA("10026a84") char s__stdin__10026a84[8] = "(stdin)";
-/* 0x10026a8c, 4 bytes */ GRIM_DATA("10026a8c") unsigned char DAT_10026a8c[4] = { 0x72, 0x62 };
+/* 0x10026a8c, 4 bytes */ GRIM_DATA("10026a8c") char s_rb_10026a8c[4] = "rb";
 /* 0x10026a90, 20 bytes */ GRIM_DATA("10026a90") char s__dostring_______20s_10026a90[20] = "(dostring) >> %.20s";
 /* 0x10026aa4, 36 bytes */ GRIM_DATA("10026aa4") char s_C__grimsrc_libs_lua_src_lfunc_cp_10026aa4[36] = "C:\\grimsrc\\libs\\lua\\src\\lfunc.cpp";
 /* 0x10026ac8, 32 bytes */ GRIM_DATA("10026ac8") char s_reference_table_overflow_10026ac8[32] = "reference table overflow";
@@ -1884,17 +1884,17 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10026c00, 8 bytes */ GRIM_DATA("10026c00") char s__INPUT_10026c00[8] = "_INPUT";
 /* 0x10026c08, 48 bytes */ GRIM_DATA("10026c08") char s_global_variable____50s__is_not_a_10026c08[48] = "global variable `%.50s' is not a file handle";
 /* 0x10026c38, 28 bytes */ GRIM_DATA("10026c38") char s_cannot_access_a_closed_file_10026c38[28] = "cannot access a closed file";
-/* 0x10026c54, 4 bytes */ GRIM_DATA("10026c54") unsigned char DAT_10026c54[4] = { 0x77 };
+/* 0x10026c54, 4 bytes */ GRIM_DATA("10026c54") char s_w_10026c54[4] = "w";
 /* 0x10026c58, 8 bytes */ GRIM_DATA("10026c58") char s__OUTPUT_10026c58[8] = "_OUTPUT";
-/* 0x10026c60, 4 bytes */ GRIM_DATA("10026c60") unsigned char DAT_10026c60[4] = { 0x61 };
+/* 0x10026c60, 4 bytes */ GRIM_DATA("10026c60") char s_a_10026c60[4] = "a";
 /* 0x10026c64, 36 bytes */ GRIM_DATA("10026c64") char s_unbalanced_braces_in_read_patter_10026c64[36] = "unbalanced braces in read pattern";
 /* 0x10026c88, 12 bytes */ GRIM_DATA("10026c88") char s__________10026c88[12] = "[^\n]*{\n}";
 /* 0x10026c94, 24 bytes */ GRIM_DATA("10026c94") char s_invalid__date__format_10026c94[24] = "invalid `date' format";
-/* 0x10026cac, 4 bytes */ GRIM_DATA("10026cac") unsigned char DAT_10026cac[4] = { 0x25, 0x63 };
+/* 0x10026cac, 4 bytes */ GRIM_DATA("10026cac") char s__c_10026cac[4] = "%c";
 /* 0x10026cb0, 16 bytes */ GRIM_DATA("10026cb0") char s_invalid_option_10026cb0[16] = "invalid option";
 /* 0x10026cc0, 8 bytes */ GRIM_DATA("10026cc0") char s_FALSE_10026cc0[8] = "FALSE";
 /* 0x10026cc8, 36 bytes */ GRIM_DATA("10026cc8") char s_C__grimsrc_libs_lua_src_liolib_c_10026cc8[36] = "C:\\grimsrc\\libs\\lua\\src\\liolib.c";
-/* 0x10026cec, 8 bytes */ GRIM_DATA("10026cec") unsigned char DAT_10026cec[8] = { 0x63, 0x6f, 0x6e, 0x74, 0x0a };
+/* 0x10026cec, 8 bytes */ GRIM_DATA("10026cec") char s_cont_10026cec[8] = "cont\n";
 /* 0x10026cf4, 8 bytes */ GRIM_DATA("10026cf4") char s__STDERR_10026cf4[8] = "_STDERR";
 /* 0x10026cfc, 8 bytes */ GRIM_DATA("10026cfc") char s__STDOUT_10026cfc[8] = "_STDOUT";
 /* 0x10026d04, 16 bytes */ GRIM_DATA("10026d04") grim_span_10026d04 s__STDIN_10026d04 = {
@@ -1917,7 +1917,7 @@ extern unsigned char DAT_1002d720[4];
     { 0x04, 0x01 },
     (void *)&DAT_10026e10,
     { 0x0e, 0x01 },
-    (void *)&DAT_100266f8,
+    (void *)&s_nil_100266f8,
     { 0x03, 0x01 },
     (void *)&DAT_10026e0c,
     { 0x1c, 0x01 },
@@ -1934,7 +1934,7 @@ extern unsigned char DAT_1002d720[4];
     (void *)&DAT_10026de0,
     { 0x08, 0x01 }
 };
-/* 0x10026d90, 4 bytes */ GRIM_DATA("10026d90") void *g_pCheckcond_opts = (void *)&DAT_100266f8;
+/* 0x10026d90, 4 bytes */ GRIM_DATA("10026d90") void *g_pCheckcond_opts = (void *)&s_nil_100266f8;
 /* 0x10026d94, 12 bytes */ GRIM_DATA("10026d94") grim_span_10026d94 PTR_DAT_10026d94 = {
     (void *)&DAT_10026ddc,
     {0}
@@ -1969,9 +1969,9 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10026ebc, 16 bytes */ GRIM_DATA("10026ebc") char s_unmatched__else_10026ebc[16] = "unmatched $else";
 /* 0x10026ecc, 8 bytes */ GRIM_DATA("10026ecc") char s__else_10026ecc[8] = "$else";
 /* 0x10026ed4, 24 bytes */ GRIM_DATA("10026ed4") char s_too_many_nested__ifs_10026ed4[24] = "too many nested $ifs";
-/* 0x10026eec, 4 bytes */ GRIM_DATA("10026eec") unsigned char DAT_10026eec[4] = { 0x24, 0x69, 0x66 };
+/* 0x10026eec, 4 bytes */ GRIM_DATA("10026eec") char s__if_10026eec[4] = "$if";
 /* 0x10026ef0, 16 bytes */ GRIM_DATA("10026ef0") char s_unmatched__end_10026ef0[16] = "unmatched $end";
-/* 0x10026f00, 8 bytes */ GRIM_DATA("10026f00") unsigned char DAT_10026f00[8] = { 0x24, 0x65, 0x6e, 0x64 };
+/* 0x10026f00, 8 bytes */ GRIM_DATA("10026f00") char s__end_10026f00[8] = "$end";
 /* 0x10026f08, 24 bytes */ GRIM_DATA("10026f08") char s_invalid__if_condition_10026f08[24] = "invalid $if condition";
 /* 0x10026f20, 16 bytes */ GRIM_DATA("10026f20") char s_pragma_too_long_10026f20[16] = "pragma too long";
 /* 0x10026f30, 168 bytes */ GRIM_DATA("10026f30") void *g_pMathlib[42] = {
@@ -1983,7 +1983,7 @@ extern unsigned char DAT_1002d720[4];
     (void *)&DAT_10027028, (void *)f_math_mod, (void *)&DAT_10027020, (void *)f_math_sqrt,
     (void *)&DAT_1002701c, (void *)f_math_min, (void *)&DAT_10027018, (void *)f_math_max,
     (void *)&DAT_10027014, (void *)f_math_log, (void *)&s_log10_1002700c, (void *)f_math_log10,
-    (void *)&DAT_10027008, (void *)f_math_exp, (void *)&DAT_10027004, (void *)f_math_deg,
+    (void *)&DAT_10027008, (void *)f_math_exp, (void *)&s_deg_10027004, (void *)f_math_deg,
     (void *)&DAT_10027000, (void *)f_math_rad, (void *)&s_random_10026ff8, (void *)f_math_random,
     (void *)&s_randomseed_10026fec, (void *)f_math_randomseed
 };
@@ -1994,7 +1994,7 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10026fec, 12 bytes */ GRIM_DATA("10026fec") char s_randomseed_10026fec[12] = "randomseed";
 /* 0x10026ff8, 8 bytes */ GRIM_DATA("10026ff8") char s_random_10026ff8[8] = "random";
 /* 0x10027000, 4 bytes */ GRIM_DATA("10027000") unsigned char DAT_10027000[4] = { 0x72, 0x61, 0x64 };
-/* 0x10027004, 4 bytes */ GRIM_DATA("10027004") unsigned char DAT_10027004[4] = { 0x64, 0x65, 0x67 };
+/* 0x10027004, 4 bytes */ GRIM_DATA("10027004") char s_deg_10027004[4] = "deg";
 /* 0x10027008, 4 bytes */ GRIM_DATA("10027008") unsigned char DAT_10027008[4] = { 0x65, 0x78, 0x70 };
 /* 0x1002700c, 8 bytes */ GRIM_DATA("1002700c") char s_log10_1002700c[8] = "log10";
 /* 0x10027014, 4 bytes */ GRIM_DATA("10027014") unsigned char DAT_10027014[4] = { 0x6c, 0x6f, 0x67 };
@@ -2012,13 +2012,13 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10027060, 4 bytes */ GRIM_DATA("10027060") unsigned char DAT_10027060[4] = { 0x63, 0x6f, 0x73 };
 /* 0x10027064, 4 bytes */ GRIM_DATA("10027064") unsigned char DAT_10027064[4] = { 0x73, 0x69, 0x6e };
 /* 0x10027068, 4 bytes */ GRIM_DATA("10027068") unsigned char DAT_10027068[4] = { 0x61, 0x62, 0x73 };
-/* 0x1002706c, 4 bytes */ GRIM_DATA("1002706c") unsigned char DAT_1002706c[4] = { 0x50, 0x49 };
-/* 0x10027070, 4 bytes */ GRIM_DATA("10027070") unsigned char DAT_10027070[4] = { 0x70, 0x6f, 0x77 };
+/* 0x1002706c, 4 bytes */ GRIM_DATA("1002706c") char s_PI_1002706c[4] = "PI";
+/* 0x10027070, 4 bytes */ GRIM_DATA("10027070") char s_pow_10027070[4] = "pow";
 /* 0x10027074, 12 bytes */ GRIM_DATA("10027074") char s__TRIGMODE_10027074[12] = "_TRIGMODE";
 /* 0x10027080, 40 bytes */ GRIM_DATA("10027080") char s_C__grimsrc_libs_lua_src_lmem_cpp_10027080[40] = "C:\\grimsrc\\libs\\lua\\src\\lmem.cpp";
 /* 0x100270a8, 56 bytes */ GRIM_DATA("100270a8") void *g_pLuaO_typenames[14] = {
     (void *)&s_userdata_10027174, (void *)&s_number_1002716c, (void *)&s_string_10027164, (void *)&s_table_1002715c,
-    (void *)&s_function_10026e1c, (void *)&s_function_10026e1c, (void *)&DAT_10027154, (void *)&DAT_100266f8,
+    (void *)&s_function_10026e1c, (void *)&s_function_10026e1c, (void *)&DAT_10027154, (void *)&s_nil_100266f8,
     (void *)&s_function_10026e1c, (void *)&DAT_1002714c, (void *)&DAT_1002714c, (void *)&DAT_1002714c,
     (void *)&DAT_10027144, 0
 };
@@ -2178,7 +2178,7 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10027a58, 28 bytes */ GRIM_DATA("10027a58") char s_invalid_option_in__format__10027a58[28] = "invalid option in `format'";
 /* 0x10027a74, 48 bytes */ GRIM_DATA("10027a74") char s_invalid_format__width_or_precisi_10027a74[48] = "invalid format (width or precision too long)";
 /* 0x10027aa4, 28 bytes */ GRIM_DATA("10027aa4") char s__d_____________d_______d___10027aa4[28] = "%d\?%$\?[-+ #]*(%d*)%.\?(%d*)";
-/* 0x10027ac0, 4 bytes */ GRIM_DATA("10027ac0") unsigned char DAT_10027ac0[4] = { 0x22, 0x5c, 0x0a };
+/* 0x10027ac0, 4 bytes */ GRIM_DATA("10027ac0") char s____10027ac0[4] = "\"\\\n";
 /* 0x10027ac4, 60 bytes */ GRIM_DATA("10027ac4") char s___100s__last_token_read_____50s__10027ac4[60] = "%.100s;\n  last token read: \"%.50s\" at line %d in file %.50s";
 /* 0x10027b00, 8 bytes */ GRIM_DATA("10027b00") char s__eof__10027b00[8] = "<eof>";
 /* 0x10027b08, 20 bytes */ GRIM_DATA("10027b08") char s_code_size_overflow_10027b08[20] = "code size overflow";
@@ -2188,7 +2188,7 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10027b64, 8 bytes */ GRIM_DATA("10027b64") char s_lua_stx_10027b64[8] = "lua.stx";
 /* 0x10027b6c, 24 bytes */ GRIM_DATA("10027b6c") char s_parser_stack_overflow_10027b6c[24] = "parser stack overflow";
 /* 0x10027b84, 28 bytes */ GRIM_DATA("10027b84") char s_invalid_constructor_syntax_10027b84[28] = "invalid constructor syntax";
-/* 0x10027ba0, 8 bytes */ GRIM_DATA("10027ba0") unsigned char DAT_10027ba0[8] = { 0x73, 0x65, 0x6c, 0x66 };
+/* 0x10027ba0, 8 bytes */ GRIM_DATA("10027ba0") char s_self_10027ba0[8] = "self";
 /* 0x10027ba8, 24 bytes */ GRIM_DATA("10027ba8") char s_constant_table_overflow_10027ba8[24] = "constant table overflow";
 /* 0x10027bc0, 36 bytes */ GRIM_DATA("10027bc0") char s_too_many_local_variables__limit__10027bc0[36] = "too many local variables (limit=32)";
 /* 0x10027be4, 36 bytes */ GRIM_DATA("10027be4") char s_variable_buffer_overflow__limit__10027be4[36] = "variable buffer overflow (limit=32)";
@@ -2196,7 +2196,7 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10027c30, 44 bytes */ GRIM_DATA("10027c30") char s_cannot_access_an_upvalue_in_curr_10027c30[44] = "cannot access an upvalue in current scope";
 /* 0x10027c5c, 32 bytes */ GRIM_DATA("10027c5c") char s_cannot_access_upvalue_in_main_10027c5c[32] = "cannot access upvalue in main";
 /* 0x10027c7c, 52 bytes */ GRIM_DATA("10027c7c") char s_too_many_upvalues_in_a_single_fu_10027c7c[52] = "too many upvalues in a single function (limit=16)";
-/* 0x10027cb0, 4 bytes */ GRIM_DATA("10027cb0") unsigned char DAT_10027cb0[4] = { 0x61, 0x72, 0x67 };
+/* 0x10027cb0, 4 bytes */ GRIM_DATA("10027cb0") char s_arg_10027cb0[4] = "arg";
 /* 0x10027cb4, 36 bytes */ GRIM_DATA("10027cb4") char s_too_many_nested_functions__limit_10027cb4[36] = "too many nested functions (limit=6)";
 /* 0x10027cd8, 28 bytes */ GRIM_DATA("10027cd8") char s_writtenItems____numItems_10027cd8[28] = "writtenItems == numItems";
 /* 0x10027cf4, 36 bytes */ GRIM_DATA("10027cf4") char s_C__grimsrc_libs_lua_src_ltable_c_10027cf4[36] = "C:\\grimsrc\\libs\\lua\\src\\ltable.cpp";
@@ -2205,7 +2205,7 @@ extern unsigned char DAT_1002d720[4];
 /* 0x10027d48, 80 bytes */ GRIM_DATA("10027d48") void *g_pLuaT_eventname[20] = {
     (void *)&s_gettable_10027ec8, (void *)&s_settable_10027ebc, (void *)&s_index_10027eb4, (void *)&s_getglobal_10026628,
     (void *)&s_setglobal_100265b4, (void *)&DAT_10027eb0, (void *)&DAT_10027eac, (void *)&DAT_10027ea8,
-    (void *)&DAT_10027ea4, (void *)&DAT_10027070, (void *)&DAT_10027ea0, (void *)&DAT_10027e9c,
+    (void *)&DAT_10027ea4, (void *)&s_pow_10027070, (void *)&DAT_10027ea0, (void *)&DAT_10027e9c,
     (void *)&DAT_10027e98, (void *)&DAT_10027e94, (void *)&DAT_10027e90, (void *)&s_concat_10027e88,
     (void *)&DAT_10027e84, (void *)&s_function_10026e1c, 0, 0
 };
@@ -2265,8 +2265,8 @@ extern unsigned char DAT_1002d720[4];
 /* 0x1002816c, 4 bytes */ GRIM_DATA("1002816c") char DAT_1002816c = 76;
 /* 0x1002816d, 3 bytes: the rest of DAT_1002816c's span */ GRIM_DATA("1002816c") static unsigned char DAT_1002816c__tail[3] __attribute__((used)) = { 0x75, 0x61 };
 /* 0x10028170, 8 bytes */ GRIM_DATA("10028170") char s__lf__c_10028170[8] = "%lf %c";
-/* 0x10028178, 4 bytes */ GRIM_DATA("10028178") unsigned char DAT_10028178[4] = { 0x25, 0x67 };
-/* 0x1002817c, 4 bytes */ GRIM_DATA("1002817c") unsigned char DAT_1002817c[4] = { 0x25, 0x64 };
+/* 0x10028178, 4 bytes */ GRIM_DATA("10028178") char s__g_10028178[4] = "%g";
+/* 0x1002817c, 4 bytes */ GRIM_DATA("1002817c") char s__d_1002817c[4] = "%d";
 /* 0x10028180, 32 bytes */ GRIM_DATA("10028180") char s_indexed_expression_not_a_table_10028180[32] = "indexed expression not a table";
 /* 0x100281a0, 36 bytes */ GRIM_DATA("100281a0") char s_unexpected_type_for_concatenatio_100281a0[36] = "unexpected type for concatenation";
 /* 0x100281c4, 88 bytes */ GRIM_DATA("100281c4") char s_WARNING__Killing_Lua_script_that_100281c4[88] = "WARNING: Killing Lua script that ran without a break_here() for a really long time!\n";

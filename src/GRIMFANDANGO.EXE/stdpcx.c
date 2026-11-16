@@ -127,7 +127,7 @@ undefined4 * __cdecl stdPcx_Load(uint name,int videoMem,int b)
   #define VStack_cc (*(VBufferFormat *)(_frame + (0xe0 - 0xcc)))
   PcxHeader header;
   
-  f = (*g_pStd_HS->pFopen)(name,&DAT_004ddb18);
+  f = (*g_pStd_HS->pFopen)(name,s_rb_004ddb18);
   if (f == 0) {
     return (undefined4 *)0x0;
   }
@@ -274,7 +274,7 @@ uint __cdecl stdPcx_Write(uint filename,int bitmap)
     puVar10 = puVar10 + 2;
   }
   *puVar10 = 0;
-  f = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
+  f = (*g_pStd_HS->pFopen)(filename,s_wb_004ddd78);
   if (f == 0) {
     return 0;
   }

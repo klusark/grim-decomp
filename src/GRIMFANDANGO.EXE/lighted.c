@@ -369,7 +369,7 @@ void __cdecl LightEd_SaveSetFile(void)
   ofn.pInitialDir = (char *)0x0;
   ofn.pTitle = (char *)0x0;
   ofn.dwFlags = 0x8080e;
-  ofn.pDefExt = &DAT_004ec490;
+  ofn.pDefExt = s_set_004ec490;
   ofn.dwCustData = 0;
   ofn.pHook = (void *)0x0;
   ofn.pTemplateName = (char *)0x0;
@@ -399,7 +399,7 @@ void __cdecl LightEd_SaveSetFile(void)
   if (iVar1 == 0) {
     return;
   }
-  iVar1 = (*g_pStd_HS->pFopen)(g_pLightEdSet,&DAT_004ec5bc);
+  iVar1 = (*g_pStd_HS->pFopen)(g_pLightEdSet,s_rt_004ec5bc);
   file = (void *)0x0;
   acStack_208[0] = '\0';
   if (iVar1 == 0) {
@@ -408,7 +408,7 @@ void __cdecl LightEd_SaveSetFile(void)
     return;
   }
   GetTempPathA(0x104,(int)aLine);
-  iVar2 = GetTempFileNameA((int)aLine,((unsigned)(uintptr_t)&DAT_004ec490),0,(int)acStack_208);
+  iVar2 = GetTempFileNameA((int)aLine,((unsigned)(uintptr_t)&s_set_004ec490),0,(int)acStack_208);
   if (iVar2 == 0) {
 LAB_004becb0:
     if (file != (void *)0x0) {
@@ -417,7 +417,7 @@ LAB_004becb0:
     }
   }
   else {
-    file = (void *)(*g_pStd_HS->pFopen)(acStack_208,&DAT_004dee34);
+    file = (void *)(*g_pStd_HS->pFopen)(acStack_208,s_wt_004dee34);
     if (file != (void *)0x0) {
       iVar2 = (*g_pStd_HS->pFeof)(iVar1);
       while (iVar2 == 0) {
@@ -452,8 +452,8 @@ LAB_004becb0:
           }
           (*g_pStd_HS->pFclose)(iVar1);
           (*g_pStd_HS->pFclose)(file);
-          iVar1 = (*g_pStd_HS->pFopen)(acStack_208,&DAT_004ec5bc);
-          file = (void *)(*g_pStd_HS->pFopen)(aPath,&DAT_004dee34);
+          iVar1 = (*g_pStd_HS->pFopen)(acStack_208,s_rt_004ec5bc);
+          file = (void *)(*g_pStd_HS->pFopen)(aPath,s_wt_004dee34);
           if (iVar1 != 0) {
             if (file == (void *)0x0) goto LAB_004becb4;
             iVar2 = (*g_pStd_HS->pFeof)(iVar1);
@@ -703,7 +703,7 @@ void __cdecl LightEd_SetDlgFloat(int hDlg,int id,float value,int force)
   iVar1 = GetDlgItem(hDlg,id);
   iVar1 = IsWindowEnabled(iVar1);
   if (iVar1 != 0) {
-    sprintf(local_4c,&DAT_004ddc14,(double)value);
+    sprintf(local_4c,s__f_004ddc14,(double)value);
     if (force == 0) {
       g_nLightEdBusy = 1;
     }

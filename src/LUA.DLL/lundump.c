@@ -573,11 +573,11 @@ undefined4 __cdecl luaV_tostring(int *o)
   if ((-2.1474836e+09f <= fVar1) && (fVar1 <= 2.1474836e+09f)) {
     lVar3 = FTOL((float10)fVar1);
     if ((float)(int)lVar3 == fVar1) {
-      sprintf(local_3c,&DAT_1002817c);
+      sprintf(local_3c,s__d_1002817c);
       goto LAB_1000d6ae;
     }
   }
-  sprintf(local_3c,&DAT_10028178,(double)(float)o[1]);
+  sprintf(local_3c,s__g_10028178,(double)(float)o[1]);
 LAB_1000d6ae:
   pTVar2 = luaS_new(local_3c);
   o[1] = (int)pTVar2;

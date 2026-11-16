@@ -2461,3 +2461,19 @@ D3D_FindClosestDriver picks: here "Direct3D HAL"). The default stays the softwar
 - `CostumeNode.aCostumeRef` (uint[13]) became `ResRef costumeRef`. costume.c lost its `(ResRef *)` casts.
 
 Frame views went from 2581 to 2346. The clean room shows 0 of 5490 tests differing, and the whole-game autorun passes.
+
+## Data typed from how the code uses it (2026-11-16)
+
+The `names/types_data_typed_{exe,lua,imuse,chore}.json` batches type 308 `DAT_` globals.
+
+**243 strings.** These are globals the code only ever uses by address, whose bytes are a single NUL-terminated printable string: fopen modes, command-line switches, sprintf and sscanf formats, Lua global names, log messages and so on. Each is typed as a `char[n]` covering just the string, and Ghidra names it `s_..._<addr>`.
+
+**65 scalars.** Every use of each one reads or writes it as the same type, either `*(T *)&DAT_x` or through the `_DAT_x` alias of that width. Most are floats (51), including the rasterizer's temporaries at 0x007f4ac8..0x007f4b60. The rest are 7 int, 6 uint and 1 double.
+
+The double is `g_dSndClock` at 0x008db200. The decompiler only ever read 4 bytes of it, but the mixer's hand port (build/overrides_mixer_snd.c) treats it as a double.
+
+**Untyped accesses are no evidence.** A global accessed only through an `undefinedN` alias is left untyped. Calling those `uint` was a guess, and it was wrong at least once: 0x007f4b38 is a float in the hand-written rasterizer. To put a global back the way it was, clear its data definition. Applying `undefined4` instead keeps a defined data item, and that removes the `_DAT_` alias the overrides use.
+
+The hand-written overrides that named these globals use the new names. For the strings, `&DAT_x` becomes the array name `s_x`.
+
+The clean room shows 0 of 5490 tests differing, and the whole-game autorun passes. (One earlier run stopped in the morgue: "use corpse 1 with dog tags" was not offered although the corpse was touchable and in the list. The same build then passed, so that was a timing flake, not the typing.)

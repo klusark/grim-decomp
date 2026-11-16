@@ -269,7 +269,7 @@ int __cdecl Text_LoadNativeFont(char *filename,void **outFont)
   uint uVar1;
   
   uVar1 = 1;
-  text = (*g_pTextHS->pFopen)(filename,&DAT_004ddb18);
+  text = (*g_pTextHS->pFopen)(filename,s_rb_004ddb18);
   if (text != 0) {
     uVar1 = Text_BuildLineTable(text,(int *)outFont);
     (*g_pTextHS->pFclose)(text);

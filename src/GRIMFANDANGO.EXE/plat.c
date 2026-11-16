@@ -169,7 +169,6 @@ int __cdecl grimPlat_SaveFileRequest(char *title,char *filter)
 
 
 /* ---- 0x004878c0  grimPlat_SpinDialog ---- */
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* Editor prompt dialog with labelled numeric fields Original name grimPlat_SpinDialog (the
    remaster's GrimFandango (Linux): aligned call in KeyframeAdjuster, SoundAdjuster, ThingAdjuster);
    was Plat_PromptDialog. */
@@ -203,8 +202,8 @@ int __cdecl grimPlat_SpinDialog(int hwnd,int title,undefined4 *fields,uint count
   if (((title != 0) && (fields != (undefined4 *)0x0)) && (0 < (int)count)) {
     UINT_008c9850 = (uint)fields;
     UINT_004e814c = 0;
-    _DAT_008c9848 = hwnd;
-    _DAT_008c984c = title;
+    INT_008c9848 = hwnd;
+    INT_008c984c = title;
     UINT_008c9854 = count;
     uVar9 = (count + 1) * 0xc;
     piVar3 = (int *)malloc(uVar9);
@@ -228,7 +227,7 @@ int __cdecl grimPlat_SpinDialog(int hwnd,int title,undefined4 *fields,uint count
                             ,((unsigned)(uintptr_t)&s_STATIC_004e817c),puVar4);
         *piVar10 = (int)puVar5;
         uVar8 = *puVar4;
-        sprintf(local_20,&DAT_004ddc18,*fields);
+        sprintf(local_20,s__d_004ddc18,*fields);
         puVar5 = Dlg_MakeItemTemplate
                            (0x50810003,0x41,uVar14,0x32,0xe,sVar2 + 0x3ec,(int)local_20,((unsigned)(uintptr_t)&DAT_004e8174),
                             puVar4 + 1);
@@ -606,7 +605,7 @@ undefined * __stdcall Plat_TreeSelectDialogProc(int a1,int a2,int a3,int a4)
     iVar2 = 0;
     if (0 < (int)UINT_004e8140) {
       do {
-        iVar4 = strpbrk_or_strspn(*(byte **)(UINT_004e813c + iVar8 * 4),&DAT_004e81c4);
+        iVar4 = strpbrk_or_strspn(*(byte **)(UINT_004e813c + iVar8 * 4),(byte *)s__004e81c4);
         if (iVar2 < iVar4) {
           local_30 = a1;
         }

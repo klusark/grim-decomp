@@ -106,7 +106,7 @@ undefined * __cdecl Win_WndProc(uint hwnd,uint msg,int ch)
         case 0x53:
           if (g_bDebugChordHeld != 0) {
             UINT_004f5a90 = UINT_004f5a90 + 1;
-            sprintf(local_40,s__s_d_bmp_004dd928,&DAT_004dd934,uVar1);
+            sprintf(local_40,s__s_d_bmp_004dd928,s_shot_004dd934,uVar1);
             sputRender_SaveDrawBuffer(local_40);
             return (undefined *)0x0;
           }
@@ -120,7 +120,7 @@ undefined * __cdecl Win_WndProc(uint hwnd,uint msg,int ch)
         case 0x5a:
           if (g_bDebugChordHeld != 0) {
             UINT_004f5a94 = UINT_004f5a94 + 1;
-            sprintf(local_40,s__s_d_zbm_004dd91c,&DAT_004dd934,uVar2);
+            sprintf(local_40,s__s_d_zbm_004dd91c,s_shot_004dd934,uVar2);
             Render_SaveZBufferBmp(local_40);
             return (undefined *)0x0;
           }
@@ -264,7 +264,6 @@ uint __cdecl Win_IsSysCommandBlocked(uint hwnd,int cmd,int lParam)
 /* ---- 0x004abf40  Win_AbortIfAlreadyRunning ---- */
 /* replaced by the hand-written version in build/overrides.c */
 #if 0
-/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
 /* WinMain helper: brings an existing 'wKernel' window to the front and exits */
 
 void __cdecl
@@ -287,7 +286,7 @@ Win_AbortIfAlreadyRunning
   g_nWinQuit = 0;
   UINT_008d0a8c = 0;
   UINT_008d09e4 = (uint)hInstance;
-  _DAT_008d09e0 = nCmdShow;
+  INT_008d09e0 = nCmdShow;
   Win_CreateMainWindow((uint)hInstance,nCmdShow,(int)appName);
   Win_SetMainHwnd(g_pWinMainHwnd);
   Win_SetInstance(UINT_008d09e4);

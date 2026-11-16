@@ -110,7 +110,7 @@ uint __cdecl SoundAdjuster(int *comp,uint text)
   
   iVar1 = *comp;
   local_30 = (uint)s_Maximum_Volume_004ea6a8;
-  local_2c = (uint)&DAT_004ea6a4;
+  local_2c = (uint)s_Pan_004ea6a4;
   local_28 = (uint)s_Priority_004ea698;
   local_24 = (uint)s_Minimum_Volume_004ea688;
   local_40 = (uint)*(byte *)(iVar1 + 0x20);
@@ -119,7 +119,7 @@ uint __cdecl SoundAdjuster(int *comp,uint text)
   local_34 = *(uint *)(iVar1 + 0x28);
   iVar2 = grimPlat_SpinDialog(text,(int)&local_30,&local_40,4);
   if ((iVar2 != 0) && ((int)local_34 <= (int)local_40)) {
-    puVar3 = (uint *)strtok((byte *)text,&DAT_004ea52c);
+    puVar3 = (uint *)strtok((byte *)text,(byte *)s___004ea52c);
     if ((int)local_40 < 0) {
       uVar5 = 0;
     }
@@ -234,17 +234,17 @@ int __cdecl SoundRequester(uint cosInst,int tag,int parent,int type,char *name)
   else {
     strncpy((uint *)local_20,(uint *)name,0x1f);
     local_20[0x1f] = '\0';
-    strtok((byte *)local_20,&DAT_004ea52c);
-    uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
+    strtok((byte *)local_20,(byte *)s___004ea52c);
+    uVar1 = strtok((byte *)0x0,(byte *)s___004ea52c);
     if (uVar1 != 0) {
       puVar6 = atoi(uVar1);
       uVar5 = SUB41(puVar6,0);
-      uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
+      uVar1 = strtok((byte *)0x0,(byte *)s___004ea52c);
       puVar6 = atoi(uVar1);
       local_25 = SUB41(puVar6,0);
-      uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
+      uVar1 = strtok((byte *)0x0,(byte *)s___004ea52c);
       puVar6 = atoi(uVar1);
-      uVar1 = strtok((byte *)0x0,&DAT_004ea52c);
+      uVar1 = strtok((byte *)0x0,(byte *)s___004ea52c);
       local_24 = (uint)atoi(uVar1);
     }
   }

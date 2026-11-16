@@ -37,7 +37,7 @@ stdBitmap * __cdecl stdGif_Load(char *path,int videoMem,int b)
   GifHeader header;
   #define VStack_4c (*(VBufferFormat *)(_frame + (0x60 - 0x4c)))
   
-  f = (*g_pStd_HS->pFopen)(path,&DAT_004ddb18);
+  f = (*g_pStd_HS->pFopen)(path,s_rb_004ddb18);
   if (f == 0) {
     return (stdBitmap *)0x0;
   }
@@ -224,11 +224,11 @@ uint __cdecl stdGif_Write(uint filename,int bitmap)
   GifHeader header;
   
   iVar3 = bitmap;
-  file = (*g_pStd_HS->pFopen)(filename,&DAT_004ddd78);
+  file = (*g_pStd_HS->pFopen)(filename,s_wb_004ddd78);
   if (file != 0) {
-    strncpy((uint *)&header,(uint *)&DAT_004e78b0,3);
+    strncpy((uint *)&header,(uint *)s_GIF_004e78b0,3);
     (*g_pStd_HS->pFwrite)(file,&header,3);
-    strncpy((uint *)header.aVersion,(uint *)&DAT_004e78ac,3);
+    strncpy((uint *)header.aVersion,(uint *)s_89a_004e78ac,3);
     (*g_pStd_HS->pFwrite)(file,header.aVersion,3);
     header.wWidth = *(ushort *)(**(int **)(bitmap + 0x78) + 0xc);
     header.wHeight = *(ushort *)(**(int **)(bitmap + 0x78) + 0x10);

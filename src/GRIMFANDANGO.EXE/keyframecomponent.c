@@ -282,12 +282,12 @@ int __cdecl KeyframeRequester(uint cosInst,int tag,int parent,int type,uint file
     else {
       strncpy((uint *)local_20,(uint *)filename,0x1f);
       local_20[0x1f] = '\0';
-      pcVar1 = (char *)strtok((byte *)local_20,&DAT_004ea52c);
+      pcVar1 = (char *)strtok((byte *)local_20,(byte *)s___004ea52c);
       data = sputResource_Alloc(0x4659454b,pcVar1);
-      uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+      uVar2 = strtok((byte *)0x0,(byte *)s___004ea52c);
       if (uVar2 != 0) {
         local_2c = (uint)atoi(uVar2);
-        uVar2 = strtok((byte *)0x0,&DAT_004ea52c);
+        uVar2 = strtok((byte *)0x0,(byte *)s___004ea52c);
         local_28 = (uint)atoi(uVar2);
       }
     }
@@ -339,7 +339,7 @@ uint __cdecl KeyframeAdjuster(int *comp,uint text)
   local_2c = *(uint *)(iVar1 + 0x38);
   iVar2 = grimPlat_SpinDialog(text,(int)&local_28,&local_30,2);
   if (iVar2 != 0) {
-    puVar3 = (uint *)strtok((byte *)text,&DAT_004ea52c);
+    puVar3 = (uint *)strtok((byte *)text,(byte *)s___004ea52c);
     *(uint *)(iVar1 + 0x34) = local_30;
     *(uint *)(iVar1 + 0x38) = local_2c;
     sprintf((char *)local_20,s__s__d__d_004ea7c0,puVar3,local_2c,local_30);

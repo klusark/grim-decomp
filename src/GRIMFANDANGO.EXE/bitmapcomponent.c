@@ -60,7 +60,7 @@ uint __cdecl BitmapRequester(uint cosInst,int tag,int parent,int type,char *file
   else {
     strncpy(local_20,(uint *)filename,0x1f);
     local_1 = 0;
-    name = (char *)strtok((byte *)local_20,&DAT_004ea52c);
+    name = (char *)strtok((byte *)local_20,(byte *)s___004ea52c);
   }
   data = sputResource_Alloc(0x444e4b42,name);
   if (data == (char *)0x0) {

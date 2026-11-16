@@ -259,7 +259,7 @@ void __cdecl sputLua_TypeOverride(void)
       }
       else {
         if (iVar2 != 0x20544553) goto LAB_0049d199;
-        local_14 = (uint)&DAT_004ec490;
+        local_14 = (uint)s_set_004ec490;
       }
     }
     else if (iVar2 == 0x52544341) {
@@ -399,41 +399,41 @@ void __cdecl sputLua_RotateVectorL(void)
     iVar3 = lua_istable(iVar2);
     if (iVar3 != 0) {
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004e8454);
+      lua_pushstring(s_x_004e8454);
       iVar3 = lua_gettable();
       local_18[0] = lua_getnumber(iVar3);
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004e8450);
+      lua_pushstring(s_y_004e8450);
       iVar3 = lua_gettable();
       local_18[1] = lua_getnumber(iVar3);
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004ec3b8);
+      lua_pushstring(s_z_004ec3b8);
       iVar1 = lua_gettable();
       local_18[2] = lua_getnumber(iVar1);
       lua_pushobject(iVar2);
-      lua_pushstring(&DAT_004e8454);
+      lua_pushstring(s_x_004e8454);
       iVar1 = lua_gettable();
       local_c[0] = lua_getnumber(iVar1);
       lua_pushobject(iVar2);
-      lua_pushstring(&DAT_004e8450);
+      lua_pushstring(s_y_004e8450);
       iVar1 = lua_gettable();
       local_c[1] = lua_getnumber(iVar1);
       lua_pushobject(iVar2);
-      lua_pushstring(&DAT_004ec3b8);
+      lua_pushstring(s_z_004ec3b8);
       iVar1 = lua_gettable();
       local_c[2] = lua_getnumber(iVar1);
       rdVector_Rotate3Acc(local_18,local_c);
       iVar1 = lua_createtable();
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004e8454);
+      lua_pushstring(s_x_004e8454);
       lua_pushnumber(local_18[0]);
       lua_settable();
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004e8450);
+      lua_pushstring(s_y_004e8450);
       lua_pushnumber(local_18[1]);
       lua_settable();
       lua_pushobject(iVar1);
-      lua_pushstring(&DAT_004ec3b8);
+      lua_pushstring(s_z_004ec3b8);
       lua_pushnumber(local_18[2]);
       lua_settable();
       lua_pushobject(iVar1);

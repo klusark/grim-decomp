@@ -154,13 +154,13 @@ uint __cdecl ImFx_Initialize(uint heapSize)
     puVar2 = puVar2 + 1;
   }
   _DAT_1002dd58 = iMUSE_Malloc;
-  _DAT_1002dd50 = heapSize;
+  UINT_1002dd50 = heapSize;
   _DAT_1002dd5c = iMUSE_Free;
   iVar1 = hmiFXInitSystem(((unsigned)(uintptr_t)&DAT_1002dd48));
   if (iVar1 != 0) {
     return 0;
   }
-  iVar1 = hmiFXPresetLoadLibrary(&DAT_1002dd2c,((unsigned)(uintptr_t)&DAT_100172b0));
+  iVar1 = hmiFXPresetLoadLibrary(&DAT_1002dd2c,s_imuse_psl_100172b0);
   if (iVar1 != 0) {
     return 0;
   }
@@ -198,7 +198,7 @@ int __cdecl ImFx_SelectPreset(uint preset)
     hmiFXPresetRelease(DAT_1002dd74);
   }
   _DAT_1002dd08 = 0x20;
-  _DAT_1002dd10 = preset;
+  UINT_1002dd10 = preset;
   iVar1 = hmiFXPresetProcess(DAT_1002dd2c,&DAT_1002dd08);
   if (iVar1 != 0) {
     DAT_1002dd74 = 0;
