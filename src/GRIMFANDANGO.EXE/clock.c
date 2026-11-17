@@ -30,5 +30,7 @@ int __cdecl Clock_ElapsedMs(void)
 #endif
 extern unsigned int grim_def_UINT_008d0af8 __asm__("_UINT_008d0af8");
 extern unsigned char grim_def_UINT_008d0afc[12] __asm__("_UINT_008d0afc");
-/* 0x008d0af8, 4 bytes */ GRIM_DATA("008d0af8") unsigned int grim_def_UINT_008d0af8 __asm__("_UINT_008d0af8") = 0x0;
-/* 0x008d0afc, 12 bytes */ GRIM_DATA("008d0afc") unsigned char grim_def_UINT_008d0afc[12] __asm__("_UINT_008d0afc") = {0};
+/* 0x008d0af8, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d0af8 __asm__("_UINT_008d0af8") = 0x0;
+static unsigned char grim_anchor_008d0afc[0] __attribute__((section(".data$grim_008d0afc"), aligned(16), used));
+static unsigned char grim_pad_008d0afc[12] __attribute__((section(".data$grim_008d0afc_"), aligned(4), used));
+/* 0x008d0afc, 12 bytes */ GRIM_DATA("008d0afcz") unsigned char grim_def_UINT_008d0afc[12] __asm__("_UINT_008d0afc") = {0};

@@ -675,7 +675,9 @@ extern char f_FUN_10018d4f[] __asm__("_FUN_10018d4f");
 extern char f_FUN_10018d77[] __asm__("_FUN_10018d77");
 extern char f_FUN_10018db6[] __asm__("_FUN_10018db6");
 extern void *grim_def_DAT_100288f0[20] __asm__("_DAT_100288f0");
-/* 0x100288f0, 80 bytes */ GRIM_DATA("100288f0") void *grim_def_DAT_100288f0[20] __asm__("_DAT_100288f0") = {
+static unsigned char grim_anchor_100288f0[0] __attribute__((section(".data$grim_100288f0"), aligned(16), used));
+static unsigned char grim_pad_100288f0[0] __attribute__((section(".data$grim_100288f0_"), aligned(4), used));
+/* 0x100288f0, 80 bytes */ GRIM_DATA("100288f0z") void *grim_def_DAT_100288f0[20] __asm__("_DAT_100288f0") = {
     (void *)0x6f6d6604, (void *)0x64, 0, (void *)0x160200,
     (void *)f_FUN_10012104, (void *)f_FUN_10018db6, (void *)f_FUN_10018d4f, (void *)f_FUN_10018db6,
     (void *)f_FUN_10018d14, (void *)f_FUN_10018db6, (void *)f_FUN_10018d4f, (void *)f_FUN_10018db6,

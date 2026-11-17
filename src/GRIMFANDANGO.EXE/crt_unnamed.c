@@ -5178,13 +5178,17 @@ static unsigned char grim_pad_004f1e30[0] __attribute__((section(".data$grim_004
 /* 0x004f1e74, 20 bytes */ GRIM_DATA("004f1e74") char grim_def_s_FILE_insane_stdfile_004f1e74[20] __asm__("_s_FILE_insane_stdfile_004f1e74") = "FILE=insane_stdfile";
 /* 0x004f1e88, 28 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_stdfile_004f1e88[28] __asm__("_s_LECMODULE_insane_stdfile_004f1e88") = "LECMODULE=insane_stdfile";
 /* 0x004f1ea4, 48 bytes */ /* loose */ char grim_def_s_StdFile_Module__Cannot_allocate_f_004f1ea4[48] __asm__("_s_StdFile_Module__Cannot_allocate_f_004f1ea4") = "StdFile Module: Cannot allocate filio services.";
-/* 0x004f1f50, 8 bytes */ GRIM_DATA("004f1f50") void *grim_def_PTR_DAT_004f1f50[2] __asm__("_PTR_DAT_004f1f50") = {
+static unsigned char grim_anchor_004f1f50[0] __attribute__((section(".data$grim_004f1f50"), aligned(16), used));
+static unsigned char grim_pad_004f1f50[0] __attribute__((section(".data$grim_004f1f50_"), aligned(4), used));
+/* 0x004f1f50, 8 bytes */ GRIM_DATA("004f1f50z") void *grim_def_PTR_DAT_004f1f50[2] __asm__("_PTR_DAT_004f1f50") = {
     (void *)&grim_def_DAT_004f5a98, (void *)&grim_def_s_file_error_004f1fc8
 };
 /* 0x004f1f58, 8 bytes */ GRIM_DATA("004f1f58") void *grim_def_PTR_s_stream_error_004f1f58[2] __asm__("_PTR_s_stream_error_004f1f58") = {
     (void *)&grim_def_s_stream_error_004f1fb8, (void *)&grim_def_DAT_004f1fac
 };
-/* 0x004f3310, 16 bytes */ GRIM_DATA("004f3310") void *grim_def_PTR_fob_flobdec_wave_module_004f3310[4] __asm__("_PTR_fob_flobdec_wave_module_004f3310") = {
+static unsigned char grim_anchor_004f3310[0] __attribute__((section(".data$grim_004f3310"), aligned(16), used));
+static unsigned char grim_pad_004f3310[0] __attribute__((section(".data$grim_004f3310_"), aligned(4), used));
+/* 0x004f3310, 16 bytes */ GRIM_DATA("004f3310z") void *grim_def_PTR_fob_flobdec_wave_module_004f3310[4] __asm__("_PTR_fob_flobdec_wave_module_004f3310") = {
     (void *)f_fob_flobdec_wave_module, (void *)f_DWave_module_terminate, (void *)f_DWave_module_startup, (void *)f_DWave_module_shutdown
 };
 /* 0x004f3320, 32 bytes */ GRIM_DATA("004f3320") void *grim_def_g_pDWave_flobdec_services[8] __asm__("_g_pDWave_flobdec_services") = {
