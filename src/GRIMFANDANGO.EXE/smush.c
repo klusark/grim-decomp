@@ -103,7 +103,7 @@ SmushPlay_StartMovie
       puVar10 = (uint *)((int)puVar10 + 1);
     }
     (*(code *)g_pSmushPlay_file_services[5])(iVar3,a,1);
-    uVar4 = smushplay_GetInfo(iVar3,((unsigned)(uintptr_t)&DAT_008d1208));
+    uVar4 = smushplay_GetInfo(iVar3,((unsigned)(uintptr_t)&g_abSmushHeader));
     if (uVar4 == 0) {
       (*(code *)g_pSmushPlay_file_services[1])(iVar3);
       _DAT_008d166c = 5;
@@ -129,22 +129,23 @@ SmushPlay_StartMovie
         _g_bMovieFlags = flags & 0xfffffff;
         bVar2 = true;
         iVar3 = (**(code **)(g_dwAnimplay_services + 4))
-                          (&g_dwAh,name,0xf,UINT_008d121a + 500000,UINT_008d121a + 10000,0x600d);
+                          (&g_dwAh,name,0xf,PIECE(g_abSmushHeader,18,4) + 500000,
+                           PIECE(g_abSmushHeader,18,4) + 10000,0x600d);
         if (iVar3 == 0) {
           if (x < 0) {
-            UINT_008d11e0 = (uint)DAT_008d120c;
+            UINT_008d11e0 = (uint)(short)PIECE(g_abSmushHeader,4,2);
           }
           else {
             UINT_008d11e0 = x;
           }
           if (y < 0) {
-            UINT_008d11e4 = (uint)DAT_008d120e;
+            UINT_008d11e4 = (uint)(short)PIECE(g_abSmushHeader,6,2);
           }
           else {
             UINT_008d11e4 = y;
           }
-          UINT_008d11e8 = (uint)DAT_008d1210;
-          UINT_008d11ec = (uint)DAT_008d1212;
+          UINT_008d11e8 = (uint)(short)PIECE(g_abSmushHeader,8,2);
+          UINT_008d11ec = (uint)(short)PIECE(g_abSmushHeader,10,2);
           if (UINT_008d10a8 != 0) {
             (*(code *)UINT_008d10a8)();
           }
@@ -214,15 +215,15 @@ int __cdecl SmushPlay_UpdateMovie(int *outDone)
     }
     else {
       *outDone = 0;
-      if (UINT_008d1216 == 0) {
+      if (PIECE(g_abSmushHeader,14,4) == 0) {
         iVar1 = 0xf;
       }
       else {
-        iVar1 = ((int)UINT_008d1216 / 2 + 1000000) / (int)UINT_008d1216;
+        iVar1 = ((int)PIECE(g_abSmushHeader,14,4) / 2 + 1000000) / (int)PIECE(g_abSmushHeader,14,4);
       }
       (**(code **)(g_dwAnimplay_services + 4))
-                (&g_dwAh,&g_dwCurFileName,iVar1,UINT_008d121a + 500000,UINT_008d121a + 10000,0x600d)
-      ;
+                (&g_dwAh,&g_dwCurFileName,iVar1,PIECE(g_abSmushHeader,18,4) + 500000,
+                 PIECE(g_abSmushHeader,18,4) + 10000,0x600d);
       g_dwMovieIsPlaying = 1;
     }
   }
@@ -306,11 +307,6 @@ int __cdecl SmushPlay_GetMovieLength(char *path)
 #ifndef GRIM_DATA
 #define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
 #endif
-extern unsigned char grim_def_DAT_008d1208[4] __asm__("_DAT_008d1208");
-extern unsigned short grim_def_DAT_008d120c __asm__("_DAT_008d120c");
-extern unsigned short grim_def_DAT_008d120e __asm__("_DAT_008d120e");
-extern unsigned short grim_def_DAT_008d1210 __asm__("_DAT_008d1210");
-extern unsigned char grim_def_DAT_008d1212[4] __asm__("_DAT_008d1212");
 extern unsigned char grim_def_DAT_008d164c[4] __asm__("_DAT_008d164c");
 extern unsigned char grim_def_DAT_008d1650[4] __asm__("_DAT_008d1650");
 extern unsigned char grim_def_DAT_008d1654[4] __asm__("_DAT_008d1654");
@@ -332,13 +328,12 @@ extern unsigned int grim_def_UINT_008d109c __asm__("_UINT_008d109c");
 extern unsigned int grim_def_UINT_008d10a0 __asm__("_UINT_008d10a0");
 extern unsigned int grim_def_UINT_008d10a4 __asm__("_UINT_008d10a4");
 extern unsigned char grim_def_UINT_008d10a8[32] __asm__("_UINT_008d10a8");
-extern unsigned char grim_def_UINT_008d1216[4] __asm__("_UINT_008d1216");
-extern unsigned char grim_def_UINT_008d121a[1046] __asm__("_UINT_008d121a");
 extern unsigned int grim_def_UINT_008d1638 __asm__("_UINT_008d1638");
 extern unsigned int grim_def_UINT_008d163c __asm__("_UINT_008d163c");
 extern unsigned int grim_def_UINT_008d1640 __asm__("_UINT_008d1640");
 extern unsigned int grim_def_UINT_008d1644 __asm__("_UINT_008d1644");
 extern unsigned char grim_def_g_aFakeBM[4] __asm__("_g_aFakeBM");
+extern unsigned char grim_def_g_abSmushHeader[1048] __asm__("_g_abSmushHeader");
 extern unsigned char grim_def_g_dwAh[8] __asm__("_g_dwAh");
 extern unsigned char grim_def_g_dwAnimplay_services[8] __asm__("_g_dwAnimplay_services");
 extern unsigned char grim_def_g_dwCurFileName[260] __asm__("_g_dwCurFileName");
@@ -355,13 +350,8 @@ static unsigned char grim_pad_008d11d8[8] __attribute__((section(".data$grim_008
 static unsigned char grim_anchor_008d1200[0] __attribute__((section(".data$grim_008d1200"), aligned(16), used));
 static unsigned char grim_pad_008d1200[0] __attribute__((section(".data$grim_008d1200_"), aligned(4), used));
 /* 0x008d1200, 8 bytes */ GRIM_DATA("008d1200z") unsigned char grim_def_g_dwAnimplay_services[8] __asm__("_g_dwAnimplay_services") = {0};
-/* 0x008d1208, 4 bytes */ GRIM_DATA("008d1208") unsigned char grim_def_DAT_008d1208[4] __asm__("_DAT_008d1208") = {0};
-/* 0x008d120c, 2 bytes */ GRIM_DATA("008d120c") unsigned short grim_def_DAT_008d120c __asm__("_DAT_008d120c") = 0x0;
-/* 0x008d120e, 2 bytes */ GRIM_DATA("008d120c") unsigned short grim_def_DAT_008d120e __asm__("_DAT_008d120e") = 0x0;
-/* 0x008d1210, 2 bytes */ GRIM_DATA("008d1210") unsigned short grim_def_DAT_008d1210 __asm__("_DAT_008d1210") = 0x0;
-/* 0x008d1212, 4 bytes */ GRIM_DATA("008d1210") unsigned char grim_def_DAT_008d1212[4] __asm__("_DAT_008d1212") = {0};
-/* 0x008d1216, 4 bytes */ GRIM_DATA("008d1210") unsigned char grim_def_UINT_008d1216[4] __asm__("_UINT_008d1216") = {0};
-/* 0x008d121a, 1046 bytes */ GRIM_DATA("008d1210") unsigned char grim_def_UINT_008d121a[1046] __asm__("_UINT_008d121a") = {0};
+/* 0x008d1208, 1064 bytes */ GRIM_DATA("008d1208") unsigned char grim_def_g_abSmushHeader[1048] __asm__("_g_abSmushHeader") = {0};
+/* 0x008d1620, 16 bytes: the rest of grim_def_g_abSmushHeader's span */ GRIM_DATA("008d1208") static unsigned char g_abSmushHeader__tail[16] __attribute__((used)) = {0};
 /* 0x008d1638, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d1638 __asm__("_UINT_008d1638") = 0x0;
 /* 0x008d163c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d163c __asm__("_UINT_008d163c") = 0x0;
 /* 0x008d1640, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d1640 __asm__("_UINT_008d1640") = 0x0;

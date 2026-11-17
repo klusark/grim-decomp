@@ -1189,9 +1189,7 @@ extern grim_span_004f4158 grim_def_s_C__grimsrc_libs_lecsmush_insane__004f4158 _
     0x83, 0x07, 0x21, 0xb0, 0xcd, 0x89, 0xd0, 0x11, 0xaf, 0x08, 0x00, 0xa0, 0xc9, 0x25, 0xcd, 0x16,
     0x30, 0xac, 0xef, 0x31, 0x5c, 0x51, 0xd0, 0x11, 0xa9, 0xaa, 0x00, 0xaa, 0x00, 0x61, 0xbe, 0x93
 };
-static unsigned char grim_anchor_004f1000[0] __attribute__((section(".data$grim_004f1000"), aligned(16), used));
-static unsigned char grim_pad_004f1000[0] __attribute__((section(".data$grim_004f1000_"), aligned(4), used));
-/* 0x004f1000, 136 bytes */ GRIM_DATA("004f1000z") grim_span_004f1000 grim_def_UINT_004f1000 __asm__("_UINT_004f1000") = {
+/* 0x004f1000, 136 bytes */ /* loose */ grim_span_004f1000 grim_def_UINT_004f1000 __asm__("_UINT_004f1000") = {
     { 0xcd, 0xcc, 0x4c, 0x3f },
     (void *)&grim_def_DAT_004f11b8,
     { 0x0a, 0x00, 0x78, 0x88 },

@@ -2208,8 +2208,8 @@ static unsigned char grim_pad_10026f30[0] __attribute__((section(".data$grim_100
 /* 0x10026fd8, 8 bytes */ GRIM_DATA("10026fd8") void *grim_def_PTR_s_math_pow_10026fd8[2] __asm__("_PTR_s_math_pow_10026fd8") = {
     (void *)&grim_def_s_math_pow_10026fe0, (void *)f_math_pow
 };
-/* 0x10027004, 4 bytes */ GRIM_DATA("10027004") char grim_def_s_deg_10027004[4] __asm__("_s_deg_10027004") = "deg";
-/* 0x1002706c, 4 bytes */ GRIM_DATA("1002706c") char grim_def_s_PI_1002706c[4] __asm__("_s_PI_1002706c") = "PI";
+/* 0x10027004, 4 bytes */ /* loose */ char grim_def_s_deg_10027004[4] __asm__("_s_deg_10027004") = "deg";
+/* 0x1002706c, 4 bytes */ /* loose */ char grim_def_s_PI_1002706c[4] __asm__("_s_PI_1002706c") = "PI";
 /* 0x10027070, 4 bytes */ /* loose */ char grim_def_s_pow_10027070[4] __asm__("_s_pow_10027070") = "pow";
 /* 0x10027074, 12 bytes */ /* loose */ char grim_def_s__TRIGMODE_10027074[12] __asm__("_s__TRIGMODE_10027074") = "_TRIGMODE";
 /* 0x100277b8, 8 bytes */ GRIM_DATA("100277b8") void *grim_def_PTR_s_stderrorim_100277b8[2] __asm__("_PTR_s_stderrorim_100277b8") = {

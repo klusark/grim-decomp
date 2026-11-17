@@ -249,7 +249,7 @@ extern unsigned char grim_def_DAT_1002dd70[4] __asm__("_DAT_1002dd70");
 extern unsigned int grim_def_UINT_1002dd10 __asm__("_UINT_1002dd10");
 extern unsigned int grim_def_UINT_1002dd50 __asm__("_UINT_1002dd50");
 extern char grim_def_s_imuse_psl_100172b0[12] __asm__("_s_imuse_psl_100172b0");
-/* 0x100172b0, 12 bytes */ GRIM_DATA("100172b0") char grim_def_s_imuse_psl_100172b0[12] __asm__("_s_imuse_psl_100172b0") = "imuse.psl";
+/* 0x100172b0, 12 bytes */ /* loose */ char grim_def_s_imuse_psl_100172b0[12] __asm__("_s_imuse_psl_100172b0") = "imuse.psl";
 /* 0x1002d81c, 4 bytes */ GRIM_DATA("1002d81c") unsigned char grim_def_DAT_1002d81c[4] __asm__("_DAT_1002d81c") = {0};
 /* 0x1002d828, 4 bytes */ GRIM_DATA("1002d828") unsigned int grim_def_DAT_1002d828 __asm__("_DAT_1002d828") = 0x0;
 /* 0x1002dd10, 4 bytes */ GRIM_DATA("1002dd10") unsigned int grim_def_UINT_1002dd10 __asm__("_UINT_1002dd10") = 0x0;

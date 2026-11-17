@@ -857,7 +857,9 @@ extern char grim_def_s_DEBUG_Loops__004e9a98[16] __asm__("_s_DEBUG_Loops__004e9a
 extern char grim_def_s_TEMP_004e7b14[12] __asm__("_s_TEMP_004e7b14");
 extern char grim_def_s_lab_004e9c64[4] __asm__("_s_lab_004e9c64");
 /* 0x004e7b14, 12 bytes */ /* loose */ char grim_def_s_TEMP_004e7b14[12] __asm__("_s_TEMP_004e7b14") = "TEMP";
-/* 0x004e99b0, 120 bytes */ GRIM_DATA("004e99b0") void *grim_def_g_ppRequiredLabs[30] __asm__("_g_ppRequiredLabs") = {
+static unsigned char grim_anchor_004e99b0[0] __attribute__((section(".data$grim_004e99b0"), aligned(16), used));
+static unsigned char grim_pad_004e99b0[0] __attribute__((section(".data$grim_004e99b0_"), aligned(4), used));
+/* 0x004e99b0, 120 bytes */ GRIM_DATA("004e99b0z") void *grim_def_g_ppRequiredLabs[30] __asm__("_g_ppRequiredLabs") = {
     (void *)&grim_def_DAT_004e9c24, (void *)&grim_def_DAT_004e9c14, (void *)&grim_def_DAT_004e9c08, (void *)&grim_def_DAT_004e9bfc,
     (void *)&grim_def_DAT_004e9bf4, (void *)&grim_def_DAT_004e9be8, (void *)&grim_def_DAT_004e9be0, (void *)&grim_def_DAT_004e9bd8,
     (void *)&grim_def_DAT_004e9bcc, (void *)&grim_def_DAT_004e9bc0, (void *)&grim_def_DAT_004e9bb8, (void *)&grim_def_DAT_004e9bb0,

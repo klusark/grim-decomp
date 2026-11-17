@@ -6173,24 +6173,28 @@ extern char grim_def_s_vol__lu____1001e80c[12] __asm__("_s_vol__lu____1001e80c")
 /* 0x10017058, 4 bytes */ GRIM_DATA("10017058") unsigned int grim_def_DAT_10017058 __asm__("_DAT_10017058") = 0x46464941;
 /* 0x1001705c, 8 bytes */ GRIM_DATA("1001705c") unsigned char grim_def_DAT_1001705c[8] __asm__("_DAT_1001705c") = { 0x43, 0x4f, 0x4d, 0x4d };
 /* 0x10017064, 8 bytes */ GRIM_DATA("10017064") unsigned char grim_def_DAT_10017064[8] __asm__("_DAT_10017064") = { 0x46, 0x4f, 0x52, 0x4d };
-/* 0x1001706c, 8 bytes */ GRIM_DATA("1001706c") unsigned char grim_def_DAT_1001706c[8] __asm__("_DAT_1001706c") = { 0x46, 0x52, 0x4d, 0x54 };
-/* 0x1001707c, 8 bytes */ GRIM_DATA("1001707c") unsigned char grim_def_DAT_1001707c[8] __asm__("_DAT_1001707c") = { 0x64, 0x61, 0x74, 0x61 };
-/* 0x10017084, 4 bytes */ GRIM_DATA("10017084") unsigned char grim_def_DAT_10017084[4] __asm__("_DAT_10017084") = { 0x57, 0x41, 0x56, 0x45 };
+/* 0x1001706c, 8 bytes */ /* loose */ unsigned char grim_def_DAT_1001706c[8] __asm__("_DAT_1001706c") = { 0x46, 0x52, 0x4d, 0x54 };
+/* 0x1001707c, 8 bytes */ /* loose */ unsigned char grim_def_DAT_1001707c[8] __asm__("_DAT_1001707c") = { 0x64, 0x61, 0x74, 0x61 };
+static unsigned char grim_anchor_10017084[0] __attribute__((section(".data$grim_10017084"), aligned(16), used));
+static unsigned char grim_pad_10017084[4] __attribute__((section(".data$grim_10017084_"), aligned(4), used));
+/* 0x10017084, 4 bytes */ GRIM_DATA("10017084z") unsigned char grim_def_DAT_10017084[4] __asm__("_DAT_10017084") = { 0x57, 0x41, 0x56, 0x45 };
 /* 0x10017088, 8 bytes */ GRIM_DATA("10017088") unsigned char grim_def_DAT_10017088[8] __asm__("_DAT_10017088") = { 0x66, 0x6d, 0x74, 0x20 };
 /* 0x10017090, 8 bytes */ GRIM_DATA("10017090") unsigned char grim_def_DAT_10017090[8] __asm__("_DAT_10017090") = { 0x52, 0x49, 0x46, 0x46 };
-/* 0x10017098, 8 bytes */ GRIM_DATA("10017098") char grim_def_s_MCMP_10017098[8] __asm__("_s_MCMP_10017098") = "MCMP";
+/* 0x10017098, 8 bytes */ /* loose */ char grim_def_s_MCMP_10017098[8] __asm__("_s_MCMP_10017098") = "MCMP";
 /* 0x100170a0, 8 bytes */ /* loose */ unsigned char grim_def_DAT_100170a0[8] __asm__("_DAT_100170a0") = { 0x44, 0x41, 0x54, 0x41 };
 /* 0x100170a8, 8 bytes */ /* loose */ unsigned char grim_def_DAT_100170a8[8] __asm__("_DAT_100170a8") = { 0x53, 0x54, 0x4f, 0x50 };
-static unsigned char grim_anchor_100170b0[0] __attribute__((section(".data$grim_100170b0"), aligned(16), used));
-static unsigned char grim_pad_100170b0[0] __attribute__((section(".data$grim_100170b0_"), aligned(4), used));
-/* 0x100170b0, 8 bytes */ GRIM_DATA("100170b0z") unsigned char grim_def_DAT_100170b0[8] __asm__("_DAT_100170b0") = { 0x52, 0x45, 0x47, 0x4e };
-/* 0x100170b8, 8 bytes */ GRIM_DATA("100170b8") unsigned char grim_def_DAT_100170b8[8] __asm__("_DAT_100170b8") = { 0x4d, 0x41, 0x50, 0x20 };
-/* 0x100170c0, 44 bytes */ GRIM_DATA("100170c0") char grim_def_s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0[44] __asm__("_s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0") = "C:\\grimsrc\\libs\\iMUSE\\Dispatch.c\000\000\000\000\000\000\000\000\377\377\377\377";
+/* 0x100170b0, 8 bytes */ /* loose */ unsigned char grim_def_DAT_100170b0[8] __asm__("_DAT_100170b0") = { 0x52, 0x45, 0x47, 0x4e };
+/* 0x100170b8, 8 bytes */ /* loose */ unsigned char grim_def_DAT_100170b8[8] __asm__("_DAT_100170b8") = { 0x4d, 0x41, 0x50, 0x20 };
+static unsigned char grim_anchor_100170c0[0] __attribute__((section(".data$grim_100170c0"), aligned(16), used));
+static unsigned char grim_pad_100170c0[0] __attribute__((section(".data$grim_100170c0_"), aligned(4), used));
+/* 0x100170c0, 44 bytes */ GRIM_DATA("100170c0z") char grim_def_s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0[44] __asm__("_s_C__grimsrc_libs_iMUSE_Dispatch_c_100170c0") = "C:\\grimsrc\\libs\\iMUSE\\Dispatch.c\000\000\000\000\000\000\000\000\377\377\377\377";
 /* 0x100170ec, 4 bytes */ GRIM_DATA("100170ec") unsigned char grim_def_PTR_100170ec[4] __asm__("_PTR_100170ec") = { 0xff, 0xff, 0xff, 0xff };
 /* 0x100170f0, 20 bytes */ GRIM_DATA("100170f0") unsigned char grim_def_DAT_100170f0[20] __asm__("_DAT_100170f0") = { 0x01, 0x00, 0x02, 0x00, 0x22, 0x56, 0x00, 0x00, 0x88, 0x58, 0x01, 0x00, 0x04, 0x00, 0x10 };
 /* 0x10017104, 32 bytes */ GRIM_DATA("10017104") char grim_def_s_C__grimsrc_libs_iMUSE_dsound_c_10017104[32] __asm__("_s_C__grimsrc_libs_iMUSE_dsound_c_10017104") = "C:\\grimsrc\\libs\\iMUSE\\dsound.c";
-/* 0x100172c8, 32 bytes */ GRIM_DATA("100172c8") char grim_def_s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8[32] __asm__("_s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8") = "C:\\grimsrc\\libs\\iMUSE\\Mixer.c";
-/* 0x100172e8, 15204 bytes */ GRIM_DATA("100172e8") ImMusicEntry grim_def_g_aImStateTable[181] __asm__("_g_aImStateTable") = {
+/* 0x100172c8, 32 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8[32] __asm__("_s_C__grimsrc_libs_iMUSE_Mixer_c_100172c8") = "C:\\grimsrc\\libs\\iMUSE\\Mixer.c";
+static unsigned char grim_anchor_100172e8[0] __attribute__((section(".data$grim_100172e8"), aligned(16), used));
+static unsigned char grim_pad_100172e8[8] __attribute__((section(".data$grim_100172e8_"), aligned(4), used));
+/* 0x100172e8, 15204 bytes */ GRIM_DATA("100172e8z") ImMusicEntry grim_def_g_aImStateTable[181] __asm__("_g_aImStateTable") = {
     { .nId = 1000, .aName = "STATE_NULL", .nVolume = 127 },
     { .nId = 1999, .aName = "stateNoChange", .nVolume = 127 },
     { .aFilename = "1001 - Manny's Office", .nTransType = 3, .nId = 1001, .aName = "stateMO", .nVolume = 127 },
@@ -6620,13 +6624,15 @@ static unsigned char grim_pad_1001e6b4[4] __attribute__((section(".data$grim_100
 /* 0x1001e870, 40 bytes */ /* loose */ char grim_def_s_ERR_callback_got_marker______end_1001e870[40] __asm__("_s_ERR_callback_got_marker______end_1001e870") = "ERR:callback got marker != '_end'...";
 /* 0x1001e898, 12 bytes */ /* loose */ char grim_def_s_CALLBACK__1001e898[12] __asm__("_s_CALLBACK__1001e898") = "CALLBACK:";
 /* 0x1001e8d4, 4 bytes */ /* loose */ unsigned int grim_def_g_dwImWaveMixCount __asm__("_g_dwImWaveMixCount") = 0x8;
-/* 0x1001e994, 8 bytes */ GRIM_DATA("1001e994") char grim_def_s_LIP__1001e994[8] __asm__("_s_LIP__1001e994") = "LIP!";
-/* 0x1001e99c, 28 bytes */ GRIM_DATA("1001e99c") unsigned char grim_def_DAT_1001e99c[28] __asm__("_DAT_1001e99c") = {
+/* 0x1001e994, 8 bytes */ /* loose */ char grim_def_s_LIP__1001e994[8] __asm__("_s_LIP__1001e994") = "LIP!";
+/* 0x1001e99c, 28 bytes */ /* loose */ unsigned char grim_def_DAT_1001e99c[28] __asm__("_DAT_1001e99c") = {
     0x70, 0x46, 0x69, 0x6c, 0x65, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x21, 0x3d, 0x20, 0x28, 0x28, 0x76,
     0x6f, 0x69, 0x64, 0x20, 0x2a, 0x29, 0x30, 0x29
 };
-/* 0x1001e9b8, 8 bytes */ GRIM_DATA("1001e9b8") unsigned char grim_def_DAT_1001e9b8[8] __asm__("_DAT_1001e9b8") = { 0x70, 0x45, 0x6e, 0x74, 0x72, 0x79 };
-/* 0x1001e9c0, 16 bytes */ GRIM_DATA("1001e9c0") char grim_def_s_VIMA_1001e9c0[16] __asm__("_s_VIMA_1001e9c0") = "VIMA\000\000\000\000u\230\000\000s\230";
+/* 0x1001e9b8, 8 bytes */ /* loose */ unsigned char grim_def_DAT_1001e9b8[8] __asm__("_DAT_1001e9b8") = { 0x70, 0x45, 0x6e, 0x74, 0x72, 0x79 };
+static unsigned char grim_anchor_1001e9c0[0] __attribute__((section(".data$grim_1001e9c0"), aligned(16), used));
+static unsigned char grim_pad_1001e9c0[0] __attribute__((section(".data$grim_1001e9c0_"), aligned(4), used));
+/* 0x1001e9c0, 16 bytes */ GRIM_DATA("1001e9c0z") char grim_def_s_VIMA_1001e9c0[16] __asm__("_s_VIMA_1001e9c0") = "VIMA\000\000\000\000u\230\000\000s\230";
 /* 0x10022140, 128 bytes */ GRIM_DATA("10022140") unsigned char grim_def_DAT_10022140[128] __asm__("_DAT_10022140") = {0};
 /* 0x100221c0, 11264 bytes */ GRIM_DATA("100221c0") unsigned char grim_def_DAT_100221c0[11264] __asm__("_DAT_100221c0") = {0};
 /* 0x10024dc0, 8 bytes */ GRIM_DATA("10024dc0") unsigned char grim_def_DAT_10024dc0[8] __asm__("_DAT_10024dc0") = {0};

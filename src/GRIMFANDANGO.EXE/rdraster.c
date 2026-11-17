@@ -47467,7 +47467,7 @@ extern unsigned char grim_def_g_pWDest[4] __asm__("_g_pWDest");
 extern unsigned char grim_def_g_wRdAFRaster_RGBcolor[4] __asm__("_g_wRdAFRaster_RGBcolor");
 extern unsigned short grim_def_g_wRdNRaster_RGBcolor __asm__("_g_wRdNRaster_RGBcolor");
 extern unsigned short grim_def_g_wRdZRaster_RGBcolor __asm__("_g_wRdZRaster_RGBcolor");
-/* 0x007f3214, 4132 bytes */ GRIM_DATA("007f3214") unsigned char grim_def_UINT_007f3214[4132] __asm__("_UINT_007f3214") = {0};
+/* 0x007f3214, 4132 bytes */ /* loose */ unsigned char grim_def_UINT_007f3214[4132] __asm__("_UINT_007f3214") = {0};
 /* 0x007f4240, 4 bytes */ /* loose */ unsigned char grim_def_g_dwFlexEndScrap[4] __asm__("_g_dwFlexEndScrap") = {0};
 /* 0x007f4244, 4 bytes */ /* loose */ unsigned int grim_def_g_dwEndScrap __asm__("_g_dwEndScrap") = 0x0;
 /* 0x007f4248, 4 bytes */ /* loose */ unsigned char grim_def_g_dwEndVOverZ[4] __asm__("_g_dwEndVOverZ") = {0};

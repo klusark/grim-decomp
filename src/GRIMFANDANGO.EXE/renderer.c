@@ -26,8 +26,8 @@ void __cdecl rdModel3_SetClipPlane(undefined4 *normal,undefined4 *point)
   FLOAT_004ddb70 = PUN(float,*normal);
   FLOAT_004ddb74 = PUN(float,normal[1]);
   FLOAT_004ddb78 = PUN(float,normal[2]);
-  FLOAT_007f3208 = PUN(float,*point);
-  FLOAT_007f320c = PUN(float,point[1]);
-  FLOAT_007f3210 = PUN(float,point[2]);
+  g_aflRdClipPlanePoint[0] = PUN(float,*point);
+  g_aflRdClipPlanePoint[1] = PUN(float,point[1]);
+  g_aflRdClipPlanePoint[2] = PUN(float,point[2]);
   return;
 }

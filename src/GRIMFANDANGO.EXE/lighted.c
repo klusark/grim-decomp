@@ -1177,16 +1177,16 @@ static unsigned char grim_pad_004ec6a4[4] __attribute__((section(".data$grim_004
 /* 0x004f0d1c, 4 bytes */ /* loose */ float grim_def_g_flLightEdAngleStep __asm__("_g_flLightEdAngleStep") = 1.0f;
 /* 0x004f0d6c, 12 bytes */ /* loose */ char grim_def_s_newlight_d_004f0d6c[12] __asm__("_s_newlight_d_004f0d6c") = "newlight%d";
 /* 0x004f0d78, 64 bytes */ /* loose */ char grim_def_s_Maximum_number_of_lights_already_004f0d78[64] __asm__("_s_Maximum_number_of_lights_already_004f0d78") = "Maximum number of lights already in room.  Try deleting a few.";
-static unsigned char grim_anchor_004f0db8[0] __attribute__((section(".data$grim_004f0db8"), aligned(16), used));
-static unsigned char grim_pad_004f0db8[8] __attribute__((section(".data$grim_004f0db8_"), aligned(4), used));
-/* 0x004f0db8, 16 bytes */ GRIM_DATA("004f0db8z") unsigned char grim_def_DAT_004f0db8[16] __asm__("_DAT_004f0db8") = { 0x43, 0x61, 0x6e, 0x27, 0x74, 0x20, 0x41, 0x64, 0x64, 0x20, 0x4c, 0x69, 0x67, 0x68, 0x74 };
-/* 0x004f0dc8, 28 bytes */ GRIM_DATA("004f0dc8") char grim_def_s_Could_not_open_file___s___004f0dc8[28] __asm__("_s_Could_not_open_file___s___004f0dc8") = "Could not open file \"%s\".";
-/* 0x004f0de4, 28 bytes */ GRIM_DATA("004f0de4") unsigned char grim_def_DAT_004f0de4[28] __asm__("_DAT_004f0de4") = {
+/* 0x004f0db8, 16 bytes */ /* loose */ unsigned char grim_def_DAT_004f0db8[16] __asm__("_DAT_004f0db8") = { 0x43, 0x61, 0x6e, 0x27, 0x74, 0x20, 0x41, 0x64, 0x64, 0x20, 0x4c, 0x69, 0x67, 0x68, 0x74 };
+/* 0x004f0dc8, 28 bytes */ /* loose */ char grim_def_s_Could_not_open_file___s___004f0dc8[28] __asm__("_s_Could_not_open_file___s___004f0dc8") = "Could not open file \"%s\".";
+/* 0x004f0de4, 28 bytes */ /* loose */ unsigned char grim_def_DAT_004f0de4[28] __asm__("_DAT_004f0de4") = {
     0x43, 0x6f, 0x75, 0x6c, 0x64, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
     0x20, 0x74, 0x65, 0x6d, 0x70, 0x20, 0x66, 0x69, 0x6c, 0x65, 0x2e
 };
-/* 0x004f0e00, 12 bytes */ GRIM_DATA("004f0e00") char grim_def_s_section__004f0e00[12] __asm__("_s_section__004f0e00") = "section:";
-/* 0x004f0e0c, 48 bytes */ GRIM_DATA("004f0e0c") char grim_def_s_Set_Files____set__004f0e0c[48] __asm__("_s_Set_Files____set__004f0e0c") = "Set Files (*.set)\000*.set\000All Files (*.*)\000*.*";
+/* 0x004f0e00, 12 bytes */ /* loose */ char grim_def_s_section__004f0e00[12] __asm__("_s_section__004f0e00") = "section:";
+static unsigned char grim_anchor_004f0e0c[0] __attribute__((section(".data$grim_004f0e0c"), aligned(16), used));
+static unsigned char grim_pad_004f0e0c[12] __attribute__((section(".data$grim_004f0e0c_"), aligned(4), used));
+/* 0x004f0e0c, 48 bytes */ GRIM_DATA("004f0e0cz") char grim_def_s_Set_Files____set__004f0e0c[48] __asm__("_s_Set_Files____set__004f0e0c") = "Set Files (*.set)\000*.set\000All Files (*.*)\000*.*";
 /* 0x004f0e68, 12 bytes */ /* loose */ char grim_def_s__Light__d__004f0e68[12] __asm__("_s__Light__d__004f0e68") = "<Light %d>";
 /* 0x008d16c8, 104 bytes */ GRIM_DATA("008d16c8") unsigned char grim_def_UINT_008d16c8[104] __asm__("_UINT_008d16c8") = {0};
 /* 0x008d1738, 4 bytes */ GRIM_DATA("008d1738") unsigned int grim_def_UINT_008d1738 __asm__("_UINT_008d1738") = 0x0;

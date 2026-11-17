@@ -310,27 +310,23 @@ extern char grim_def_s_iMuse_Streamed_Sound_FX_004ea2f0[24] __asm__("_s_iMuse_St
 /* 0x004ea2cc, 12 bytes */ /* loose */ char grim_def_s_Smush_Movie_004ea2cc[12] __asm__("_s_Smush_Movie_004ea2cc") = "Smush Movie";
 /* 0x004ea2d8, 24 bytes */ /* loose */ char grim_def_s_iMuse_Resident_Sound_FX_004ea2d8[24] __asm__("_s_iMuse_Resident_Sound_FX_004ea2d8") = "iMuse Resident Sound FX";
 /* 0x004ea2f0, 24 bytes */ /* loose */ char grim_def_s_iMuse_Streamed_Sound_FX_004ea2f0[24] __asm__("_s_iMuse_Streamed_Sound_FX_004ea2f0") = "iMuse Streamed Sound FX";
-static unsigned char grim_anchor_004ea308[0] __attribute__((section(".data$grim_004ea308"), aligned(16), used));
-static unsigned char grim_pad_004ea308[8] __attribute__((section(".data$grim_004ea308_"), aligned(4), used));
-/* 0x004ea308, 28 bytes */ GRIM_DATA("004ea308z") unsigned char grim_def_DAT_004ea308[28] __asm__("_DAT_004ea308") = {
+/* 0x004ea308, 28 bytes */ /* loose */ unsigned char grim_def_DAT_004ea308[28] __asm__("_DAT_004ea308") = {
     0x41, 0x6e, 0x69, 0x6d, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x20, 0x28, 0x6f, 0x6c, 0x64, 0x2c, 0x75,
     0x73, 0x65, 0x20, 0x42, 0x69, 0x74, 0x6d, 0x61, 0x70, 0x29
 };
-/* 0x004ea324, 16 bytes */ GRIM_DATA("004ea324") char grim_def_s_General_Bitmap_004ea324[16] __asm__("_s_General_Bitmap_004ea324") = "General Bitmap";
-/* 0x004ea334, 24 bytes */ GRIM_DATA("004ea334") unsigned char grim_def_DAT_004ea334[24] __asm__("_DAT_004ea334") = {
+/* 0x004ea324, 16 bytes */ /* loose */ char grim_def_s_General_Bitmap_004ea324[16] __asm__("_s_General_Bitmap_004ea324") = "General Bitmap";
+/* 0x004ea334, 24 bytes */ /* loose */ unsigned char grim_def_DAT_004ea334[24] __asm__("_DAT_004ea334") = {
     0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x4b, 0x65, 0x79, 0x66, 0x72, 0x61, 0x6d, 0x65, 0x20,
     0x28, 0x2e, 0x4b, 0x45, 0x59, 0x29
 };
-/* 0x004ea34c, 28 bytes */ GRIM_DATA("004ea34c") char grim_def_s_RDroid_Animated_Material_004ea34c[28] __asm__("_s_RDroid_Animated_Material_004ea34c") = "RDroid Animated Material";
+/* 0x004ea34c, 28 bytes */ /* loose */ char grim_def_s_RDroid_Animated_Material_004ea34c[28] __asm__("_s_RDroid_Animated_Material_004ea34c") = "RDroid Animated Material";
 /* 0x004ea368, 20 bytes */ /* loose */ char grim_def_s_RDroid_Thing_Mesh_004ea368[20] __asm__("_s_RDroid_Thing_Mesh_004ea368") = "RDroid Thing Mesh";
 /* 0x004ea37c, 16 bytes */ /* loose */ char grim_def_s_RDroid_Colormap_004ea37c[16] __asm__("_s_RDroid_Colormap_004ea37c") = "RDroid Colormap";
-static unsigned char grim_anchor_004ea38c[0] __attribute__((section(".data$grim_004ea38c"), aligned(16), used));
-static unsigned char grim_pad_004ea38c[12] __attribute__((section(".data$grim_004ea38c_"), aligned(4), used));
-/* 0x004ea38c, 20 bytes */ GRIM_DATA("004ea38cz") unsigned char grim_def_DAT_004ea38c[20] __asm__("_DAT_004ea38c") = {
+/* 0x004ea38c, 20 bytes */ /* loose */ unsigned char grim_def_DAT_004ea38c[20] __asm__("_DAT_004ea38c") = {
     0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x54, 0x68, 0x69, 0x6e, 0x67, 0x20, 0x28, 0x2e, 0x33,
     0x44, 0x4f, 0x29
 };
-/* 0x004ea3a0, 28 bytes */ GRIM_DATA("004ea3a0") unsigned char grim_def_DAT_004ea3a0[28] __asm__("_DAT_004ea3a0") = {
+/* 0x004ea3a0, 28 bytes */ /* loose */ unsigned char grim_def_DAT_004ea3a0[28] __asm__("_DAT_004ea3a0") = {
     0x4d, 0x41, 0x49, 0x4e, 0x20, 0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x54, 0x68, 0x69, 0x6e,
     0x67, 0x20, 0x28, 0x2e, 0x33, 0x44, 0x4f, 0x29
 };

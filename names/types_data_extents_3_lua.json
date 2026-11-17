@@ -1,0 +1,11 @@
+{
+ "_comment": "Third round of data extents (2026-11-16), one batch per program. EXE: 008d56f0 the LecShare catalog from its header entry (the code indexes it as `k * 12 + 0x8d56f0` with k from 1: entry 0 holds the list's pointer and count, PTR_008d56f4 / UINT_008d56f8), 0x201 entries of 3 dwords up to 008d6efc (it replaces the uint[1536] at 008d56fc of round 2); 007f3208 a vector rdMatrix_TransformPoint34 reads 3 floats of; 00905ae0 the C runtime's 4 KB stdio buffer a FILE points at; 008d0998 the 16 dialog handles Win_PumpMessages walks; 008d1208 the Smush file header smushplay_GetInfo reads, up to header + 0x416 (2 bytes). LUA / IMUSE: the C runtime's _mbcasemap, setSBUpLow writes one byte per character value 0..255.",
+ "program": "/LUA.DLL",
+ "globals": [
+  {
+   "addr": "1002c470",
+   "type": "byte[256]",
+   "name": "g_abLuaCrt_mbcasemap"
+  }
+ ]
+}

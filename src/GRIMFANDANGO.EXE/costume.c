@@ -611,7 +611,7 @@ extern char grim_def_s__s__s____d_004ea3bc[16] __asm__("_s__s__s____d_004ea3bc")
 extern char grim_def_s_lua_004ea45c[4] __asm__("_s_lua_004ea45c");
 extern char grim_def_s_skirt_004ea1a8[8] __asm__("_s_skirt_004ea1a8");
 /* 0x004ea1a8, 8 bytes */ /* loose */ char grim_def_s_skirt_004ea1a8[8] __asm__("_s_skirt_004ea1a8") = "skirt";
-/* 0x004ea3bc, 16 bytes */ GRIM_DATA("004ea3bc") char grim_def_s__s__s____d_004ea3bc[16] __asm__("_s__s__s____d_004ea3bc") = "%s_%s\t\t=\t%d\n";
+/* 0x004ea3bc, 16 bytes */ /* loose */ char grim_def_s__s__s____d_004ea3bc[16] __asm__("_s__s__s____d_004ea3bc") = "%s_%s\t\t=\t%d\n";
 /* 0x004ea3cc, 8 bytes */ /* loose */ char grim_def_s_____s_004ea3cc[8] __asm__("_s_____s_004ea3cc") = "-- %s\n\n";
 /* 0x004ea3d4, 28 bytes */ /* loose */ char grim_def_s____Chore_numbering_for__s__004ea3d4[28] __asm__("_s____Chore_numbering_for__s__004ea3d4") = "-- Chore numbering for %s.\n";
 /* 0x004ea3f0, 12 bytes */ /* loose */ char grim_def_s_File_Error__004ea3f0[12] __asm__("_s_File_Error__004ea3f0") = "File Error!";
