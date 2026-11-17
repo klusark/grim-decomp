@@ -2644,3 +2644,36 @@ field labels.
   * LUA: 270 and 43, from 275 and 41 (the end pointers keep a little more together).
   * IMUSE and CHORE: as before.
 * datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490; whole-game autorun passes.
+
+## The movie crash found: a loop bound left as the original's address (2026-11-16)
+
+* **The bug, merged in #67:** retyping VbrAdpcm's delta table as ushort[5696] took in the label 008d78e8, which its
+  init loop compares against. Ghidra then printed the bound as a number:
+  `local_28 = (uint)g_wDWave_aDeltaTable; ... while (local_28 < 0x8d78e8)`. build_src relocates a pointer compared
+  with an address only for `pXxVarN` / `param_N` operands, so the literal stayed.
+  * Where the rebuilt table lies below 0x8d78e8, the loop runs on and writes rows far past the table.
+  * Where it lies above, the loop stops after one column, and the table is wrong.
+  * The clean room did not see it in #67's layout. In the layout the named-global boundary gives, the writes reach the
+    timer table, and every movie test crashed in InsaneTimer_Tick (a callback 0x44b4434e).
+  * Small changes of the layout (linking one more object into the EXE) made it vanish, which is why bisecting by
+    range never settled.
+* **Found with GRIM_WATCH** (build/grim_watch.c): hardware write breakpoints, armed in every thread by a watcher
+  thread, that log the writing EIP. No 32-bit debugger comes with the toolchain, and the clean-room harness launches
+  the game itself.
+  * The watch is linked into CHORE.DLL, not the EXE, so that the EXE keeps the layout that shows the bug. It watches
+    the whole process.
+  * It uses no C runtime and keeps to its own sections. A first version that used stdio pulled in mingw's printf
+    (27 KB of .text), moved the EXE's data by 0x7000, and the crash was gone.
+  * `GRIM_WATCH=8d9f18` showed VbrAdpcm_Uncompress writing the timer entry 0x8d9f18 one word at a time.
+* **Fixes:**
+  * build_src also takes an integer variable the function set from a global's address
+    (`X = (uint)g_...;` / `(uint)&...`) as a pointer in comparisons, so the bound becomes IMG_ADDR.
+  * check_address_compares fails the build on any comparison with an address of the original's data that is still a
+    number. There are none now, in all four programs.
+* **The named-global boundary** (data_reach: a global the remaster names ends the chain of an untyped object before
+  it) is on by default now; GRIM_ORIG_BOUNDARY=0 turns it off.
+* **Loose now:**
+  * EXE: 1377 spans and 224 independent chains, from 886 and 95. The longest chain is 1 MB, not 3.9 MB.
+  * LUA: 291 / 66, from 270 / 43.
+  * IMUSE: 96 / 51, from 47 / 15.
+* datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490. The whole-game autorun passes; a first run stopped in the morgue (use Coroner with metal detector not offered), where builds with the original layout have stopped too (corpse 1 with dog tags), and the same build then passed.

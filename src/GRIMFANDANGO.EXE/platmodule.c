@@ -86,6 +86,8 @@ void __cdecl Graph_SysShutdown(void)
 extern unsigned int grim_def_g_dwGraphSysInitialized __asm__("_g_dwGraphSysInitialized");
 extern unsigned int grim_def_g_dwGraphSysStarted __asm__("_g_dwGraphSysStarted");
 extern unsigned char grim_def_g_pGraphHS[4] __asm__("_g_pGraphHS");
-/* 0x008d098c, 4 bytes */ GRIM_DATA("008d098c") unsigned char grim_def_g_pGraphHS[4] __asm__("_g_pGraphHS") = {0};
-/* 0x008d0990, 4 bytes */ GRIM_DATA("008d0990") unsigned int grim_def_g_dwGraphSysInitialized __asm__("_g_dwGraphSysInitialized") = 0x0;
-/* 0x008d0994, 4 bytes */ GRIM_DATA("008d0994") unsigned int grim_def_g_dwGraphSysStarted __asm__("_g_dwGraphSysStarted") = 0x0;
+/* 0x008d098c, 4 bytes */ /* loose */ unsigned char grim_def_g_pGraphHS[4] __asm__("_g_pGraphHS") = {0};
+/* 0x008d0990, 4 bytes */ /* loose */ unsigned int grim_def_g_dwGraphSysInitialized __asm__("_g_dwGraphSysInitialized") = 0x0;
+static unsigned char grim_anchor_008d0994[0] __attribute__((section(".data$grim_008d0994"), aligned(16), used));
+static unsigned char grim_pad_008d0994[4] __attribute__((section(".data$grim_008d0994_"), aligned(4), used));
+/* 0x008d0994, 4 bytes */ GRIM_DATA("008d0994z") unsigned int grim_def_g_dwGraphSysStarted __asm__("_g_dwGraphSysStarted") = 0x0;

@@ -297,4 +297,6 @@ extern char grim_def_s_Sync_Ticks___ld_004f1658[24] __asm__("_s_Sync_Ticks___ld_
 /* 0x004f1658, 24 bytes */ /* loose */ char grim_def_s_Sync_Ticks___ld_004f1658[24] __asm__("_s_Sync_Ticks___ld_004f1658") = "Sync Ticks:  %ld    \n";
 /* 0x004f1670, 36 bytes */ /* loose */ char grim_def_s_Frame_Delay___ld___ld_target__004f1670[36] __asm__("_s_Frame_Delay___ld___ld_target__004f1670") = "Frame Delay: %ld (%ld target)     \n";
 /* 0x004f1694, 24 bytes */ /* loose */ char grim_def_s_Buffer___ld___004f1694[24] __asm__("_s_Buffer___ld___004f1694") = "Buffer:      %ld%%    \n";
-/* 0x008d6f28, 8 bytes */ GRIM_DATA("008d6f28") unsigned char grim_def_g_dwRenderHandler_totalTime[8] __asm__("_g_dwRenderHandler_totalTime") = {0};
+static unsigned char grim_anchor_008d6f28[0] __attribute__((section(".data$grim_008d6f28"), aligned(16), used));
+static unsigned char grim_pad_008d6f28[8] __attribute__((section(".data$grim_008d6f28_"), aligned(4), used));
+/* 0x008d6f28, 8 bytes */ GRIM_DATA("008d6f28z") unsigned char grim_def_g_dwRenderHandler_totalTime[8] __asm__("_g_dwRenderHandler_totalTime") = {0};

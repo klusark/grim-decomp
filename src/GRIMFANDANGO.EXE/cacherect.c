@@ -122,4 +122,4 @@ void __cdecl CacheRect_FreeAll(void)
 #define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
 #endif
 extern unsigned char grim_def_g_pCacheRectList[4] __asm__("_g_pCacheRectList");
-/* 0x008c97f4, 4 bytes */ GRIM_DATA("008c97f4") unsigned char grim_def_g_pCacheRectList[4] __asm__("_g_pCacheRectList") = {0};
+/* 0x008c97f4, 4 bytes */ /* loose */ unsigned char grim_def_g_pCacheRectList[4] __asm__("_g_pCacheRectList") = {0};

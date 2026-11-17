@@ -1601,8 +1601,10 @@ extern char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004f0edc[44] __asm__("_s
 /* 0x004f6f1c, 4 bytes */ GRIM_DATA("004f6f1c") unsigned char grim_def_DAT_004f6f1c[4] __asm__("_DAT_004f6f1c") = {0};
 /* 0x004f6f20, 8 bytes */ GRIM_DATA("004f6f20") unsigned int grim_def_UINT_004f6f20 __asm__("_UINT_004f6f20") = 0x0;
 /* 0x004f6f24, 4 bytes: the rest of grim_def_UINT_004f6f20's span */ GRIM_DATA("004f6f20") static unsigned char UINT_004f6f20__tail[4] __attribute__((used)) = {0};
-/* 0x004f6f28, 4 bytes */ GRIM_DATA("004f6f28") unsigned int grim_def_g_dwYMaxEdge __asm__("_g_dwYMaxEdge") = 0x0;
-/* 0x004f6f2c, 4 bytes */ GRIM_DATA("004f6f2c") unsigned int grim_def_g_dwNumActiveSpans __asm__("_g_dwNumActiveSpans") = 0x0;
+/* 0x004f6f28, 4 bytes */ /* loose */ unsigned int grim_def_g_dwYMaxEdge __asm__("_g_dwYMaxEdge") = 0x0;
+static unsigned char grim_anchor_004f6f2c[0] __attribute__((section(".data$grim_004f6f2c"), aligned(16), used));
+static unsigned char grim_pad_004f6f2c[12] __attribute__((section(".data$grim_004f6f2c_"), aligned(4), used));
+/* 0x004f6f2c, 4 bytes */ GRIM_DATA("004f6f2cz") unsigned int grim_def_g_dwNumActiveSpans __asm__("_g_dwNumActiveSpans") = 0x0;
 /* 0x004f6f30, 4 bytes */ GRIM_DATA("004f6f30") unsigned char grim_def_DAT_004f6f30[4] __asm__("_DAT_004f6f30") = {0};
 /* 0x004f6f34, 4 bytes */ GRIM_DATA("004f6f34") unsigned char grim_def_DAT_004f6f34[4] __asm__("_DAT_004f6f34") = {0};
 /* 0x004f6f38, 4 bytes */ GRIM_DATA("004f6f38") unsigned char grim_def_DAT_004f6f38[4] __asm__("_DAT_004f6f38") = {0};

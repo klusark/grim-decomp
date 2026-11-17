@@ -419,4 +419,4 @@ extern char grim_def_s_unexpected_type_10027f94[16] __asm__("_s_unexpected_type_
 /* 0x10027f54, 64 bytes */ /* loose */ char grim_def_s_settagmethod__cannot_change_inte_10027f54[64] __asm__("_s_settagmethod__cannot_change_inte_10027f54") = "settagmethod: cannot change internal method `%.20s' for tag %d";
 /* 0x10027f94, 16 bytes */ /* loose */ char grim_def_s_unexpected_type_10027f94[16] __asm__("_s_unexpected_type_10027f94") = "unexpected type";
 /* 0x10027fa4, 40 bytes */ /* loose */ char grim_def_s____50s__is_not_a_valid_fallback_n_10027fa4[40] __asm__("_s____50s__is_not_a_valid_fallback_n_10027fa4") = "`%.50s' is not a valid fallback name";
-/* 0x1002bf80, 4 bytes */ GRIM_DATA("1002bf80") unsigned int grim_def_DAT_1002bf80 __asm__("_DAT_1002bf80") = 0x0;
+/* 0x1002bf80, 4 bytes */ /* loose */ unsigned int grim_def_DAT_1002bf80 __asm__("_DAT_1002bf80") = 0x0;

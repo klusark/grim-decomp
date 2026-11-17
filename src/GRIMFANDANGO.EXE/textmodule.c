@@ -133,5 +133,7 @@ uint __cdecl Text_SysRestore(code *read)
 #endif
 extern unsigned int grim_def_g_dwTextSysInitialized __asm__("_g_dwTextSysInitialized");
 extern unsigned int grim_def_g_dwTextSysStarted __asm__("_g_dwTextSysStarted");
-/* 0x008d0980, 4 bytes */ GRIM_DATA("008d0980") unsigned int grim_def_g_dwTextSysInitialized __asm__("_g_dwTextSysInitialized") = 0x0;
-/* 0x008d0984, 4 bytes */ GRIM_DATA("008d0984") unsigned int grim_def_g_dwTextSysStarted __asm__("_g_dwTextSysStarted") = 0x0;
+/* 0x008d0980, 4 bytes */ /* loose */ unsigned int grim_def_g_dwTextSysInitialized __asm__("_g_dwTextSysInitialized") = 0x0;
+static unsigned char grim_anchor_008d0984[0] __attribute__((section(".data$grim_008d0984"), aligned(16), used));
+static unsigned char grim_pad_008d0984[4] __attribute__((section(".data$grim_008d0984_"), aligned(4), used));
+/* 0x008d0984, 4 bytes */ GRIM_DATA("008d0984z") unsigned int grim_def_g_dwTextSysStarted __asm__("_g_dwTextSysStarted") = 0x0;

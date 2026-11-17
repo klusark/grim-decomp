@@ -1243,5 +1243,5 @@ extern char grim_def_s_type__x_004f0fe4[12] __asm__("_s_type__x_004f0fe4");
 /* 0x004f0fd8, 12 bytes */ /* loose */ char grim_def_s_frames__d_004f0fd8[12] __asm__("_s_frames__d_004f0fd8") = " frames %d";
 /* 0x004f0fe4, 12 bytes */ /* loose */ char grim_def_s_type__x_004f0fe4[12] __asm__("_s_type__x_004f0fe4") = " type %x";
 /* 0x004f0ff0, 16 bytes */ /* loose */ char grim_def_s_flags__x_004f0ff0[16] __asm__("_s_flags__x_004f0ff0") = " flags %x";
-/* 0x008d364c, 4 bytes */ GRIM_DATA("008d364c") unsigned int grim_def_g_dwKeyframeLoader __asm__("_g_dwKeyframeLoader") = 0x0;
-/* 0x008d3650, 4 bytes */ GRIM_DATA("008d3650") unsigned int grim_def_g_dwKeyframeUnloader __asm__("_g_dwKeyframeUnloader") = 0x0;
+/* 0x008d364c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwKeyframeLoader __asm__("_g_dwKeyframeLoader") = 0x0;
+/* 0x008d3650, 4 bytes */ /* loose */ unsigned int grim_def_g_dwKeyframeUnloader __asm__("_g_dwKeyframeUnloader") = 0x0;

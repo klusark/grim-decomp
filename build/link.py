@@ -168,6 +168,14 @@ def link(cc, src, obj, prog, env):
         print(f"{prog}: win32_shims.c does not compile:\n{out[:2000]}")
         return
     objs.append(os.path.join(d, "win32_shims.o"))
+    if prog == "CHORE.DLL":
+        # GRIM_WATCH=<address>: hardware write breakpoints that log who writes there (build/grim_watch.c). In a DLL, so
+        # that the EXE, whose layout the bugs it is for depend on, stays as it is; it watches the whole process.
+        rc, out = run([cc, "-m32", "-O1", "-c", os.path.join(here, "grim_watch.c"), "-o", os.path.join(d, "grim_watch.o")], env)
+        if rc:
+            print(f"{prog}: grim_watch.c does not compile:\n{out[:2000]}")
+            return
+        objs.append(os.path.join(d, "grim_watch.o"))
     text, names = data_c(src, prog, in_sections)
     names |= in_sections
     open(os.path.join(d, "link_data.c"), "w", newline="\n").write(text)

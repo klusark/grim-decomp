@@ -27,10 +27,9 @@ span) may be read on into what follows: it is *glued* to its neighbours. How far
   `uint`);
 * a global the remaster's symbols named (names/orig_sizes.json, tools/orig_sizes.py: the remaster's i386 ELF has the
   same objects, aLookup 0x100, polyglotServices 0x20) reaches as far as that symbol's size, but no further than the next
-  such global (the remaster grew some buffers: aHWVertices 8 MB against 1 MB); with GRIM_ORIG_BOUNDARY=1 such a
-  global, an object of its own, also ends the chain of an unbounded one before it, unless that one is a biased table
-  base (biased(): Res_F*'s `&DAT_00824f14 + fh * 0x102c` with handles from 1 reaches over stdMemory's counters to the
-  files) -- off by default, as the movie tests crash with it (build/BUILD_NOTES.md);
+  such global (the remaster grew some buffers: aHWVertices 8 MB against 1 MB); and such a global, an object of its
+  own, ends the chain of an unbounded one before it, unless that one is a biased table base (biased(): Res_F*'s
+  `&DAT_00824f14 + fh * 0x102c` with handles from 1 reaches over stdMemory's counters to the files);
 * an untyped one is *unbounded*: its chain runs on through every span read only directly (it may be a field of the
   object, filled through the object's address: PolyglotInitialize writes g_aPolyglotServices[2], which the code then
   calls as UINT_008ddd88), up to and including the next string taken by its address, an object of its own.
@@ -278,9 +277,8 @@ def classify(model, img_targets=()):
     prev = None
     for sp in spans:
         if glue and sp.start >= reach and sp.start in orig_sizes(prog) and not glue_indexed \
-                and os.environ.get("GRIM_ORIG_BOUNDARY") == "1" and boundary_allowed(sp.start):
-            # (opt-in, GRIM_ORIG_BOUNDARY=1: with it the movie clean-room tests crash in InsaneTimer_Tick, from the cut
-            # at std3D_maxVertices 0x806940 (GRIM_BOUNDARY_RANGES bisected it), not yet explained; build/BUILD_NOTES.md)
+                and os.environ.get("GRIM_ORIG_BOUNDARY", "1") == "1" and boundary_allowed(sp.start):
+            # (GRIM_ORIG_BOUNDARY=0 turns it off; GRIM_BOUNDARY_RANGES=lo-hi limits it, to bisect)
             # a global the remaster has a symbol of is an object of its own: the untyped object before it ends here.
             # Not for a table read through an index: a biased base reaches over other globals (Res_F*'s
             # `fh * 0x102c + 0x824f14` skips stdMemory's counters to the files at 0x825f40)

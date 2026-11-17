@@ -183,4 +183,4 @@ extern char grim_def_s_Graphics_files____pcx____gif___l_004ea4d4[88] __asm__("_s
 extern char grim_def_s_Select_image_file_to_add____004ea4b8[28] __asm__("_s_Select_image_file_to_add____004ea4b8");
 /* 0x004ea4b8, 28 bytes */ GRIM_DATA("004ea4b8") char grim_def_s_Select_image_file_to_add____004ea4b8[28] __asm__("_s_Select_image_file_to_add____004ea4b8") = "Select image file to add...";
 /* 0x004ea4d4, 88 bytes */ GRIM_DATA("004ea4d4") char grim_def_s_Graphics_files____pcx____gif___l_004ea4d4[88] __asm__("_s_Graphics_files____pcx____gif___l_004ea4d4") = "Graphics files (*.pcx, *.gif,*.lbm, *.bm)\000*.pcx;*.gif;*.lbm;*.bm\000All Files (*.*)\000*.*";
-/* 0x008ca7b4, 4 bytes */ GRIM_DATA("008ca7b4") unsigned char grim_def_g_dwRecentBM[4] __asm__("_g_dwRecentBM") = {0};
+/* 0x008ca7b4, 4 bytes */ /* loose */ unsigned char grim_def_g_dwRecentBM[4] __asm__("_g_dwRecentBM") = {0};

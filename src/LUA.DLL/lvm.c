@@ -1314,4 +1314,4 @@ extern char grim_def_s_unexpected_type_in_comparison_10028284[40] __asm__("_s_un
 static unsigned char grim_anchor_10028284[0] __attribute__((section(".data$grim_10028284"), aligned(16), used));
 static unsigned char grim_pad_10028284[4] __attribute__((section(".data$grim_10028284_"), aligned(4), used));
 /* 0x10028284, 40 bytes */ GRIM_DATA("10028284z") char grim_def_s_unexpected_type_in_comparison_10028284[40] __asm__("_s_unexpected_type_in_comparison_10028284") = "unexpected type in comparison\000\000\000u\230\000\000s\230";
-/* 0x1002bf84, 4 bytes */ GRIM_DATA("1002bf84") unsigned char grim_def_g_pExecutionState_pFreeStates[4] __asm__("_g_pExecutionState_pFreeStates") = {0};
+/* 0x1002bf84, 4 bytes */ /* loose */ unsigned char grim_def_g_pExecutionState_pFreeStates[4] __asm__("_g_pExecutionState_pFreeStates") = {0};

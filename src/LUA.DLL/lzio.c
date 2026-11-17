@@ -198,4 +198,4 @@ extern grim_span_10028b8c grim_def_PTR_FUN_10028b8c __asm__("_PTR_FUN_10028b8c")
     (void *)f_FUN_1001ddd0,
     {0}
 };
-/* 0x1002bf8c, 4 bytes */ GRIM_DATA("1002bf8c") unsigned char grim_def_DAT_1002bf8c[4] __asm__("_DAT_1002bf8c") = {0};
+/* 0x1002bf8c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_1002bf8c[4] __asm__("_DAT_1002bf8c") = {0};

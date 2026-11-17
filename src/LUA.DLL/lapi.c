@@ -2226,11 +2226,13 @@ static unsigned char grim_pad_10026f30[0] __attribute__((section(".data$grim_100
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x00, 0x00,
     0x02
 };
-/* 0x1002beb0, 4 bytes */ GRIM_DATA("1002beb0") unsigned char grim_def_g_dwSaveFunc[4] __asm__("_g_dwSaveFunc") = {0};
-/* 0x1002beb4, 4 bytes */ GRIM_DATA("1002beb4") unsigned int grim_def_g_dwLua_totalBytesSaved __asm__("_g_dwLua_totalBytesSaved") = 0x0;
-/* 0x1002bebc, 4 bytes */ GRIM_DATA("1002bebc") unsigned int grim_def_g_nLuaInitialize __asm__("_g_nLuaInitialize") = 0x0;
-/* 0x1002bec0, 4 bytes */ GRIM_DATA("1002bec0") unsigned int grim_def_g_nLuaStartup __asm__("_g_nLuaStartup") = 0x0;
-/* 0x1002bec4, 4 bytes */ GRIM_DATA("1002bec4") unsigned char grim_def_g_dwFirstFuncArray[4] __asm__("_g_dwFirstFuncArray") = {0};
+/* 0x1002beb0, 4 bytes */ /* loose */ unsigned char grim_def_g_dwSaveFunc[4] __asm__("_g_dwSaveFunc") = {0};
+/* 0x1002beb4, 4 bytes */ /* loose */ unsigned int grim_def_g_dwLua_totalBytesSaved __asm__("_g_dwLua_totalBytesSaved") = 0x0;
+/* 0x1002bebc, 4 bytes */ /* loose */ unsigned int grim_def_g_nLuaInitialize __asm__("_g_nLuaInitialize") = 0x0;
+/* 0x1002bec0, 4 bytes */ /* loose */ unsigned int grim_def_g_nLuaStartup __asm__("_g_nLuaStartup") = 0x0;
+static unsigned char grim_anchor_1002bec4[0] __attribute__((section(".data$grim_1002bec4"), aligned(16), used));
+static unsigned char grim_pad_1002bec4[4] __attribute__((section(".data$grim_1002bec4_"), aligned(4), used));
+/* 0x1002bec4, 4 bytes */ GRIM_DATA("1002bec4z") unsigned char grim_def_g_dwFirstFuncArray[4] __asm__("_g_dwFirstFuncArray") = {0};
 /* 0x1002bee0, 4 bytes */ GRIM_DATA("1002bee0") unsigned int grim_def_lua_assume_binary __asm__("_lua_assume_binary") = 0x0;
 /* 0x1002bf04, 4 bytes */ GRIM_DATA("1002bf04") unsigned char grim_def_DAT_1002bf04[4] __asm__("_DAT_1002bf04") = {0};
 /* 0x1002bf1c, 4 bytes */ GRIM_DATA("1002bf1c") unsigned char grim_def_DAT_1002bf1c[4] __asm__("_DAT_1002bf1c") = {0};

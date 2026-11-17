@@ -1261,7 +1261,9 @@ static unsigned char grim_pad_004f40f8[8] __attribute__((section(".data$grim_004
     (void *)f_FUN_004b4b0f,
     { 0x76, 0x4b, 0x4b }
 };
-/* 0x008d3654, 4 bytes */ GRIM_DATA("008d3654") unsigned int grim_def_UINT_008d3654 __asm__("_UINT_008d3654") = 0x0;
+static unsigned char grim_anchor_008d3654[0] __attribute__((section(".data$grim_008d3654"), aligned(16), used));
+static unsigned char grim_pad_008d3654[4] __attribute__((section(".data$grim_008d3654_"), aligned(4), used));
+/* 0x008d3654, 4 bytes */ GRIM_DATA("008d3654z") unsigned int grim_def_UINT_008d3654 __asm__("_UINT_008d3654") = 0x0;
 /* 0x008d3658, 4 bytes */ GRIM_DATA("008d3658") unsigned int grim_def_UINT_008d3658 __asm__("_UINT_008d3658") = 0x0;
 /* 0x008d3660, 4 bytes */ GRIM_DATA("008d3660") unsigned int grim_def_UINT_008d3660 __asm__("_UINT_008d3660") = 0x0;
 /* 0x008d3664, 12 bytes */ GRIM_DATA("008d3664") unsigned char grim_def_UINT_008d3664[12] __asm__("_UINT_008d3664") = {0};

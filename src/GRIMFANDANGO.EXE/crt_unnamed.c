@@ -4181,7 +4181,7 @@ void VbrAdpcm_Uncompress(int param_1,undefined1 *param_2,uint param_3,uint param
       } while (psVar8 < &DAT_004dab0a);
       uVar7 = uVar7 + 1;
       local_28 = local_28 + 2;
-    } while (local_28 < 0x8d78e8);
+    } while (local_28 < ((unsigned)(uintptr_t)((unsigned char *)&g_wDWave_aDeltaTable + 0x80)));
     g_dwDWave_bDeltaTableInitialized = 1;
   }
   local_24 = (uint)CONCAT11(*param_2,param_2[1]);
@@ -5069,8 +5069,8 @@ static unsigned char grim_pad_004f12e0[0] __attribute__((section(".data$grim_004
 /* 0x004f1328, 12 bytes */ GRIM_DATA("004f1328") void *grim_def_PTR_AnimPlay_anm_DebugInfo_004f1328[3] __asm__("_PTR_AnimPlay_anm_DebugInfo_004f1328") = {
     (void *)f_AnimPlay_anm_DebugInfo, (void *)f_AnimPlay_anm_DebugSetState, (void *)f_AnimPlay_anm_DebugGetState
 };
-/* 0x004f1334, 4 bytes */ GRIM_DATA("004f1334") unsigned int grim_def_g_dwAnm_Render_count __asm__("_g_dwAnm_Render_count") = 0x8;
-/* 0x004f1338, 24 bytes */ GRIM_DATA("004f1338") char grim_def_s_DEBUG_insane_animplay_004f1338[24] __asm__("_s_DEBUG_insane_animplay_004f1338") = "DEBUG=insane_animplay";
+/* 0x004f1334, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnm_Render_count __asm__("_g_dwAnm_Render_count") = 0x8;
+/* 0x004f1338, 24 bytes */ /* loose */ char grim_def_s_DEBUG_insane_animplay_004f1338[24] __asm__("_s_DEBUG_insane_animplay_004f1338") = "DEBUG=insane_animplay";
 /* 0x004f1350, 16 bytes */ /* loose */ char grim_def_s_ANIMPLAY_insane_004f1350[16] __asm__("_s_ANIMPLAY_insane_004f1350") = "ANIMPLAY=insane";
 /* 0x004f1360, 28 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_animplay_004f1360[28] __asm__("_s_LECMODULE_insane_animplay_004f1360") = "LECMODULE=insane_animplay";
 /* 0x004f137c, 52 bytes */ /* loose */ char grim_def_s_AnimPlay_Module__Cannot_allocate_004f137c[52] __asm__("_s_AnimPlay_Module__Cannot_allocate_004f137c") = "AnimPlay Module: Cannot allocate timer services.";
@@ -5130,7 +5130,7 @@ static unsigned char grim_pad_004f1a30[0] __attribute__((section(".data$grim_004
     (void *)f_fle_StreamerAlloc, (void *)f_fle_StreamerFree, (void *)f_fle_StreamerStart, (void *)f_fle_StreamerCheck,
     (void *)f_fle_StreamerAcquire, (void *)f_fle_StreamerDispense, (void *)f_fle_StreamerReset, (void *)f_fle_StreamerQuerySize
 };
-/* 0x004f1a60, 28 bytes */ GRIM_DATA("004f1a60") char grim_def_s_STREAMER_insane_streamer_004f1a60[28] __asm__("_s_STREAMER_insane_streamer_004f1a60") = "STREAMER=insane_streamer";
+/* 0x004f1a60, 28 bytes */ /* loose */ char grim_def_s_STREAMER_insane_streamer_004f1a60[28] __asm__("_s_STREAMER_insane_streamer_004f1a60") = "STREAMER=insane_streamer";
 /* 0x004f1a7c, 28 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_streamer_004f1a7c[28] __asm__("_s_LECMODULE_insane_streamer_004f1a7c") = "LECMODULE=insane_streamer";
 /* 0x004f1a98, 52 bytes */ /* loose */ char grim_def_s_Streamer_Module__Cannot_allocate_004f1a98[52] __asm__("_s_Streamer_Module__Cannot_allocate_004f1a98") = "Streamer Module: Cannot allocate filio services.";
 /* 0x004f1acc, 52 bytes */ /* loose */ char grim_def_s_Streamer_Module__Cannot_allocate_004f1acc[52] __asm__("_s_Streamer_Module__Cannot_allocate_004f1acc") = "Streamer Module: Cannot allocate memory services.";
@@ -5147,7 +5147,7 @@ static unsigned char grim_pad_004f1b70[0] __attribute__((section(".data$grim_004
     (void *)f_fle_VolumeLoadList, (void *)f_fle_Exists, (void *)f_fle_Rename, (void *)f_fle_Remove,
     0
 };
-/* 0x004f1ba4, 28 bytes */ GRIM_DATA("004f1ba4") char grim_def_s_DIRECTORY_insane_directory_004f1ba4[28] __asm__("_s_DIRECTORY_insane_directory_004f1ba4") = "DIRECTORY=insane_directory";
+/* 0x004f1ba4, 28 bytes */ /* loose */ char grim_def_s_DIRECTORY_insane_directory_004f1ba4[28] __asm__("_s_DIRECTORY_insane_directory_004f1ba4") = "DIRECTORY=insane_directory";
 /* 0x004f1bc0, 28 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_directory_004f1bc0[28] __asm__("_s_LECMODULE_insane_directory_004f1bc0") = "LECMODULE=insane_directory";
 /* 0x004f1bdc, 52 bytes */ /* loose */ char grim_def_s_Directory_Module__Cannot_allocat_004f1bdc[52] __asm__("_s_Directory_Module__Cannot_allocat_004f1bdc") = "Directory Module: Cannot allocate file services.";
 /* 0x004f1c10, 8 bytes */ /* loose */ char grim_def_s_FILE_io_004f1c10[8] __asm__("_s_FILE_io_004f1c10") = "FILE.io";
@@ -5160,7 +5160,7 @@ static unsigned char grim_pad_004f1b70[0] __attribute__((section(".data$grim_004
     (void *)f_Zfile_fle_Open, (void *)f_Zfile_fle_Close, (void *)f_Zfile_fle_Read, (void *)f_Zfile_fle_Write,
     (void *)f_Zfile_fle_Tell, (void *)f_Zfile_fle_Seek, (void *)f_Zfile_fle_Flush
 };
-/* 0x004f1d24, 24 bytes */ GRIM_DATA("004f1d24") char grim_def_s_LECMODULE_insane_zfilio_004f1d24[24] __asm__("_s_LECMODULE_insane_zfilio_004f1d24") = "LECMODULE=insane_zfilio";
+/* 0x004f1d24, 24 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_zfilio_004f1d24[24] __asm__("_s_LECMODULE_insane_zfilio_004f1d24") = "LECMODULE=insane_zfilio";
 /* 0x004f1d5c, 48 bytes */ /* loose */ char grim_def_s_Zfile_Module__Cannot_allocate_me_004f1d5c[48] __asm__("_s_Zfile_Module__Cannot_allocate_me_004f1d5c") = "Zfile Module: Cannot allocate memory services.";
 /* 0x004f1d8c, 48 bytes */ /* loose */ char grim_def_s_Zfile_Module__Cannot_allocate_fi_004f1d8c[48] __asm__("_s_Zfile_Module__Cannot_allocate_fi_004f1d8c") = "Zfile Module: Cannot allocate filio services.";
 /* 0x004f1dbc, 16 bytes */ /* loose */ char grim_def_s_MEMORY_buffers_004f1dbc[16] __asm__("_s_MEMORY_buffers_004f1dbc") = "MEMORY.buffers";
@@ -5199,7 +5199,7 @@ static unsigned char grim_pad_004f1e30[0] __attribute__((section(".data$grim_004
     0, 0, (void *)&grim_def_g_abAdpcmIndexAdjust2, (void *)&grim_def_g_abAdpcmIndexAdjust3,
     (void *)&grim_def_g_abAdpcmIndexAdjust4, (void *)&grim_def_g_abAdpcmIndexAdjust5, (void *)&grim_def_g_abAdpcmIndexAdjust6, (void *)&grim_def_g_abAdpcmIndexAdjust7
 };
-/* 0x004f3368, 20 bytes */ GRIM_DATA("004f3368") char grim_def_s_FLOBDEC_insane_wave_004f3368[20] __asm__("_s_FLOBDEC_insane_wave_004f3368") = "FLOBDEC=insane_wave";
+/* 0x004f3368, 20 bytes */ /* loose */ char grim_def_s_FLOBDEC_insane_wave_004f3368[20] __asm__("_s_FLOBDEC_insane_wave_004f3368") = "FLOBDEC=insane_wave";
 /* 0x004f337c, 32 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_wave_flobdec_004f337c[32] __asm__("_s_LECMODULE_insane_wave_flobdec_004f337c") = "LECMODULE=insane_wave_flobdec";
 /* 0x004f339c, 60 bytes */ /* loose */ char grim_def_s_C__grimsrc_libs_lecsmush_insane__004f339c[60] __asm__("_s_C__grimsrc_libs_lecsmush_insane__004f339c") = "C:\\grimsrc\\libs\\lecsmush\\insane\\source\\flobject\\D_wave.c";
 /* 0x004f33d8, 44 bytes */ /* loose */ char grim_def_s_D_WAVE__Cannot_allocate_memory_s_004f33d8[44] __asm__("_s_D_WAVE__Cannot_allocate_memory_s_004f33d8") = "D_WAVE: Cannot allocate memory services.";
@@ -5226,44 +5226,46 @@ static unsigned char grim_pad_004f34a0[0] __attribute__((section(".data$grim_004
 /* 0x004f3cec, 24 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_bitmap_004f3cec[24] __asm__("_s_LECMODULE_insane_bitmap_004f3cec") = "LECMODULE=insane_bitmap";
 /* 0x004f3d04, 48 bytes */ /* loose */ char grim_def_s_Video_Module__Cannot_allocate_me_004f3d04[48] __asm__("_s_Video_Module__Cannot_allocate_me_004f3d04") = "Video Module: Cannot allocate memory services.";
 /* 0x004f3d34, 12 bytes */ /* loose */ char grim_def_s_VIDEO_getbm_004f3d34[12] __asm__("_s_VIDEO_getbm_004f3d34") = "VIDEO.getbm";
-/* 0x008d11f0, 4 bytes */ GRIM_DATA("008d11f0") unsigned char grim_def_g_dwGrimmem_share_config[4] __asm__("_g_dwGrimmem_share_config") = {0};
-/* 0x008d11f8, 8 bytes */ GRIM_DATA("008d11f8") unsigned char grim_def_g_pGrimmem_share_services[8] __asm__("_g_pGrimmem_share_services") = {0};
-/* 0x008d1630, 8 bytes */ GRIM_DATA("008d1630") unsigned char grim_def_g_dwSmushPlay_share_config[8] __asm__("_g_dwSmushPlay_share_config") = {0};
-/* 0x008d16b0, 4 bytes */ GRIM_DATA("008d16b0") unsigned int grim_def_UINT_008d16b0 __asm__("_UINT_008d16b0") = 0x0;
-/* 0x008d6f04, 4 bytes */ GRIM_DATA("008d6f04") unsigned int grim_def_g_dwAnimPlay_bitmap_services __asm__("_g_dwAnimPlay_bitmap_services") = 0x0;
-/* 0x008d6f08, 4 bytes */ GRIM_DATA("008d6f08") unsigned char grim_def_DAT_008d6f08[4] __asm__("_DAT_008d6f08") = {0};
-/* 0x008d6f0c, 4 bytes */ GRIM_DATA("008d6f0c") unsigned char grim_def_DAT_008d6f0c[4] __asm__("_DAT_008d6f0c") = {0};
-/* 0x008d6f14, 4 bytes */ GRIM_DATA("008d6f14") unsigned int grim_def_g_dwAnimPlay_share_config __asm__("_g_dwAnimPlay_share_config") = 0x0;
+/* 0x008d11f0, 4 bytes */ /* loose */ unsigned char grim_def_g_dwGrimmem_share_config[4] __asm__("_g_dwGrimmem_share_config") = {0};
+/* 0x008d11f8, 8 bytes */ /* loose */ unsigned char grim_def_g_pGrimmem_share_services[8] __asm__("_g_pGrimmem_share_services") = {0};
+/* 0x008d1630, 8 bytes */ /* loose */ unsigned char grim_def_g_dwSmushPlay_share_config[8] __asm__("_g_dwSmushPlay_share_config") = {0};
+/* 0x008d16b0, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d16b0 __asm__("_UINT_008d16b0") = 0x0;
+/* 0x008d6f04, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnimPlay_bitmap_services __asm__("_g_dwAnimPlay_bitmap_services") = 0x0;
+/* 0x008d6f08, 4 bytes */ /* loose */ unsigned char grim_def_DAT_008d6f08[4] __asm__("_DAT_008d6f08") = {0};
+/* 0x008d6f0c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_008d6f0c[4] __asm__("_DAT_008d6f0c") = {0};
+/* 0x008d6f14, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnimPlay_share_config __asm__("_g_dwAnimPlay_share_config") = 0x0;
 /* 0x008d6f30, 400 bytes */ GRIM_DATA("008d6f30") unsigned int grim_def_g_dwAnm_flobdec_types[100] __asm__("_g_dwAnm_flobdec_types") = {0};
 /* 0x008d70c0, 400 bytes */ GRIM_DATA("008d70c0") unsigned int grim_def_g_dwAnm_flobdec_services[100] __asm__("_g_dwAnm_flobdec_services") = {0};
 /* 0x008d7250, 400 bytes */ GRIM_DATA("008d7250") unsigned int grim_def_g_dwAnm_flobdec_ids[100] __asm__("_g_dwAnm_flobdec_ids") = {0};
 /* 0x008d73e0, 8 bytes */ GRIM_DATA("008d73e0") unsigned int grim_def_g_dwAnimFrame_share_config __asm__("_g_dwAnimFrame_share_config") = 0x0;
 /* 0x008d73e4, 4 bytes: the rest of grim_def_g_dwAnimFrame_share_config's span */ GRIM_DATA("008d73e0") static unsigned char g_dwAnimFrame_share_config__tail[4] __attribute__((used)) = {0};
 /* 0x008d73e8, 1024 bytes */ GRIM_DATA("008d73e8") unsigned int grim_def_g_aAnm_transform_palette[256] __asm__("_g_aAnm_transform_palette") = {0};
-/* 0x008d77e8, 4 bytes */ GRIM_DATA("008d77e8") unsigned int grim_def_UINT_008d77e8 __asm__("_UINT_008d77e8") = 0x0;
-/* 0x008d77ec, 4 bytes */ GRIM_DATA("008d77ec") unsigned int grim_def_g_dwAnm_flobdec_count __asm__("_g_dwAnm_flobdec_count") = 0x0;
-/* 0x008d77f0, 4 bytes */ GRIM_DATA("008d77f0") unsigned int grim_def_g_dwAnm_overlay_buffer __asm__("_g_dwAnm_overlay_buffer") = 0x0;
-/* 0x008d77f4, 4 bytes */ GRIM_DATA("008d77f4") unsigned int grim_def_g_dwAnm_preload_buffer __asm__("_g_dwAnm_preload_buffer") = 0x0;
-/* 0x008d77f8, 4 bytes */ GRIM_DATA("008d77f8") unsigned int grim_def_g_dwAnm_overlay_size __asm__("_g_dwAnm_overlay_size") = 0x0;
-/* 0x008d77fc, 4 bytes */ GRIM_DATA("008d77fc") unsigned int grim_def_UINT_008d77fc __asm__("_UINT_008d77fc") = 0x0;
-/* 0x008d7800, 4 bytes */ GRIM_DATA("008d7800") unsigned int grim_def_g_dwAnm_preload_in __asm__("_g_dwAnm_preload_in") = 0x0;
-/* 0x008d7804, 4 bytes */ GRIM_DATA("008d7804") unsigned int grim_def_g_dwAnm_transform_count __asm__("_g_dwAnm_transform_count") = 0x0;
-/* 0x008d7808, 4 bytes */ GRIM_DATA("008d7808") unsigned int grim_def_g_dwAnm_PreloadPut_lastblock __asm__("_g_dwAnm_PreloadPut_lastblock") = 0x0;
-/* 0x008d780c, 4 bytes */ GRIM_DATA("008d780c") unsigned char grim_def_DAT_008d780c[4] __asm__("_DAT_008d780c") = {0};
-/* 0x008d7810, 4 bytes */ GRIM_DATA("008d7810") unsigned char grim_def_DAT_008d7810[4] __asm__("_DAT_008d7810") = {0};
-/* 0x008d7814, 4 bytes */ GRIM_DATA("008d7814") unsigned char grim_def_g_pStreamer_memory_services[4] __asm__("_g_pStreamer_memory_services") = {0};
-/* 0x008d7818, 4 bytes */ GRIM_DATA("008d7818") unsigned char grim_def_g_pStreamer_share_services[4] __asm__("_g_pStreamer_share_services") = {0};
-/* 0x008d781c, 4 bytes */ GRIM_DATA("008d781c") unsigned char grim_def_g_pStreamer_filio_services[4] __asm__("_g_pStreamer_filio_services") = {0};
-/* 0x008d7820, 4 bytes */ GRIM_DATA("008d7820") unsigned int grim_def_g_dwStreamer_share_config __asm__("_g_dwStreamer_share_config") = 0x0;
-/* 0x008d7824, 4 bytes */ GRIM_DATA("008d7824") unsigned int grim_def_g_dwFle_StreamerDispense_incremented __asm__("_g_dwFle_StreamerDispense_incremented") = 0x0;
-/* 0x008d7828, 4 bytes */ GRIM_DATA("008d7828") unsigned int grim_def_g_dwDirectory_file_services __asm__("_g_dwDirectory_file_services") = 0x0;
-/* 0x008d782c, 4 bytes */ GRIM_DATA("008d782c") unsigned char grim_def_g_pDirectory_share_services[4] __asm__("_g_pDirectory_share_services") = {0};
-/* 0x008d7830, 4 bytes */ GRIM_DATA("008d7830") unsigned int grim_def_g_dwDirectory_share_config __asm__("_g_dwDirectory_share_config") = 0x0;
-/* 0x008d7838, 4 bytes */ GRIM_DATA("008d7838") unsigned char grim_def_g_pZfile_share_services[4] __asm__("_g_pZfile_share_services") = {0};
-/* 0x008d7840, 4 bytes */ GRIM_DATA("008d7840") unsigned int grim_def_g_dwZfile_share_config __asm__("_g_dwZfile_share_config") = 0x0;
-/* 0x008d7844, 4 bytes */ GRIM_DATA("008d7844") unsigned char grim_def_g_pStdFile_share_services[4] __asm__("_g_pStdFile_share_services") = {0};
-/* 0x008d784c, 4 bytes */ GRIM_DATA("008d784c") unsigned int grim_def_g_dwStdFile_share_config __asm__("_g_dwStdFile_share_config") = 0x0;
-/* 0x008d7850, 8 bytes */ GRIM_DATA("008d7850") unsigned char grim_def_g_pMemoryServices[8] __asm__("_g_pMemoryServices") = {0};
+/* 0x008d77e8, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d77e8 __asm__("_UINT_008d77e8") = 0x0;
+/* 0x008d77ec, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnm_flobdec_count __asm__("_g_dwAnm_flobdec_count") = 0x0;
+/* 0x008d77f0, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnm_overlay_buffer __asm__("_g_dwAnm_overlay_buffer") = 0x0;
+/* 0x008d77f4, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnm_preload_buffer __asm__("_g_dwAnm_preload_buffer") = 0x0;
+/* 0x008d77f8, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnm_overlay_size __asm__("_g_dwAnm_overlay_size") = 0x0;
+/* 0x008d77fc, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d77fc __asm__("_UINT_008d77fc") = 0x0;
+/* 0x008d7800, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnm_preload_in __asm__("_g_dwAnm_preload_in") = 0x0;
+/* 0x008d7804, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnm_transform_count __asm__("_g_dwAnm_transform_count") = 0x0;
+/* 0x008d7808, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnm_PreloadPut_lastblock __asm__("_g_dwAnm_PreloadPut_lastblock") = 0x0;
+/* 0x008d780c, 4 bytes */ /* loose */ unsigned char grim_def_DAT_008d780c[4] __asm__("_DAT_008d780c") = {0};
+/* 0x008d7810, 4 bytes */ /* loose */ unsigned char grim_def_DAT_008d7810[4] __asm__("_DAT_008d7810") = {0};
+/* 0x008d7814, 4 bytes */ /* loose */ unsigned char grim_def_g_pStreamer_memory_services[4] __asm__("_g_pStreamer_memory_services") = {0};
+/* 0x008d7818, 4 bytes */ /* loose */ unsigned char grim_def_g_pStreamer_share_services[4] __asm__("_g_pStreamer_share_services") = {0};
+/* 0x008d781c, 4 bytes */ /* loose */ unsigned char grim_def_g_pStreamer_filio_services[4] __asm__("_g_pStreamer_filio_services") = {0};
+/* 0x008d7820, 4 bytes */ /* loose */ unsigned int grim_def_g_dwStreamer_share_config __asm__("_g_dwStreamer_share_config") = 0x0;
+/* 0x008d7824, 4 bytes */ /* loose */ unsigned int grim_def_g_dwFle_StreamerDispense_incremented __asm__("_g_dwFle_StreamerDispense_incremented") = 0x0;
+/* 0x008d7828, 4 bytes */ /* loose */ unsigned int grim_def_g_dwDirectory_file_services __asm__("_g_dwDirectory_file_services") = 0x0;
+/* 0x008d782c, 4 bytes */ /* loose */ unsigned char grim_def_g_pDirectory_share_services[4] __asm__("_g_pDirectory_share_services") = {0};
+/* 0x008d7830, 4 bytes */ /* loose */ unsigned int grim_def_g_dwDirectory_share_config __asm__("_g_dwDirectory_share_config") = 0x0;
+/* 0x008d7838, 4 bytes */ /* loose */ unsigned char grim_def_g_pZfile_share_services[4] __asm__("_g_pZfile_share_services") = {0};
+/* 0x008d7840, 4 bytes */ /* loose */ unsigned int grim_def_g_dwZfile_share_config __asm__("_g_dwZfile_share_config") = 0x0;
+/* 0x008d7844, 4 bytes */ /* loose */ unsigned char grim_def_g_pStdFile_share_services[4] __asm__("_g_pStdFile_share_services") = {0};
+/* 0x008d784c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwStdFile_share_config __asm__("_g_dwStdFile_share_config") = 0x0;
+static unsigned char grim_anchor_008d7850[0] __attribute__((section(".data$grim_008d7850"), aligned(16), used));
+static unsigned char grim_pad_008d7850[0] __attribute__((section(".data$grim_008d7850_"), aligned(4), used));
+/* 0x008d7850, 8 bytes */ GRIM_DATA("008d7850z") unsigned char grim_def_g_pMemoryServices[8] __asm__("_g_pMemoryServices") = {0};
 /* 0x008d7858, 1 bytes */ GRIM_DATA("008d7858") unsigned char grim_def_DAT_008d7858 __asm__("_DAT_008d7858") = 0x0;
 /* 0x008d7859, 1 bytes */ GRIM_DATA("008d7858") unsigned char grim_def_DAT_008d7859 __asm__("_DAT_008d7859") = 0x0;
 /* 0x008d785a, 2 bytes */ GRIM_DATA("008d7858") unsigned short grim_def_DAT_008d785a __asm__("_DAT_008d785a") = 0x0;
@@ -5272,19 +5274,21 @@ static unsigned char grim_pad_004f34a0[0] __attribute__((section(".data$grim_004
 /* 0x008d7860, 4 bytes */ GRIM_DATA("008d7860") unsigned int grim_def_UINT_008d7860 __asm__("_UINT_008d7860") = 0x0;
 /* 0x008d7864, 4 bytes */ GRIM_DATA("008d7864") unsigned char grim_def_g_pDWave_share_services[4] __asm__("_g_pDWave_share_services") = {0};
 /* 0x008d7868, 11392 bytes */ GRIM_DATA("008d7868") unsigned short grim_def_g_wDWave_aDeltaTable[5696] __asm__("_g_wDWave_aDeltaTable") = {0};
-/* 0x008da4e8, 4 bytes */ GRIM_DATA("008da4e8") unsigned int grim_def_g_dwDWave_share_config __asm__("_g_dwDWave_share_config") = 0x0;
-/* 0x008da4ec, 4 bytes */ GRIM_DATA("008da4ec") unsigned int grim_def_g_dwSoundServices __asm__("_g_dwSoundServices") = 0x0;
-/* 0x008da4f0, 4 bytes */ GRIM_DATA("008da4f0") unsigned char grim_def_g_pDWave_outputBuffer[4] __asm__("_g_pDWave_outputBuffer") = {0};
-/* 0x008da4f4, 4 bytes */ GRIM_DATA("008da4f4") unsigned int grim_def_g_dwDWave_bDeltaTableInitialized __asm__("_g_dwDWave_bDeltaTableInitialized") = 0x0;
-/* 0x008da894, 4 bytes */ GRIM_DATA("008da894") unsigned char grim_def_g_pVideo_share_services[4] __asm__("_g_pVideo_share_services") = {0};
-/* 0x008da898, 4 bytes */ GRIM_DATA("008da898") unsigned int grim_def_g_dwVideo_share_config __asm__("_g_dwVideo_share_config") = 0x0;
+/* 0x008da4e8, 4 bytes */ /* loose */ unsigned int grim_def_g_dwDWave_share_config __asm__("_g_dwDWave_share_config") = 0x0;
+/* 0x008da4ec, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSoundServices __asm__("_g_dwSoundServices") = 0x0;
+/* 0x008da4f0, 4 bytes */ /* loose */ unsigned char grim_def_g_pDWave_outputBuffer[4] __asm__("_g_pDWave_outputBuffer") = {0};
+/* 0x008da4f4, 4 bytes */ /* loose */ unsigned int grim_def_g_dwDWave_bDeltaTableInitialized __asm__("_g_dwDWave_bDeltaTableInitialized") = 0x0;
+/* 0x008da894, 4 bytes */ /* loose */ unsigned char grim_def_g_pVideo_share_services[4] __asm__("_g_pVideo_share_services") = {0};
+/* 0x008da898, 4 bytes */ /* loose */ unsigned int grim_def_g_dwVideo_share_config __asm__("_g_dwVideo_share_config") = 0x0;
 /* 0x008dcdc8, 4000 bytes */ GRIM_DATA("008dcdc8") char grim_def_g_aMsc_error_string[4000] __asm__("_g_aMsc_error_string") = "";
-/* 0x008ddd68, 4 bytes */ GRIM_DATA("008ddd68") unsigned int grim_def_g_dwMsc_error_loc __asm__("_g_dwMsc_error_loc") = 0x0;
-/* 0x008ddd6c, 20 bytes */ GRIM_DATA("008ddd6c") unsigned int grim_def_g_dwMsc_error_count __asm__("_g_dwMsc_error_count") = 0x0;
-/* 0x008ddd70, 16 bytes: the rest of grim_def_g_dwMsc_error_count's span */ GRIM_DATA("008ddd6c") static unsigned char g_dwMsc_error_count__tail[16] __attribute__((used)) = {0};
-/* 0x00906c1c, 4 bytes */ GRIM_DATA("00906c1c") unsigned char grim_def_g_pAnimFrame_memory_services[4] __asm__("_g_pAnimFrame_memory_services") = {0};
-/* 0x00906c20, 4 bytes */ GRIM_DATA("00906c20") unsigned int grim_def_g_dwAnimFrame_bitmap_services __asm__("_g_dwAnimFrame_bitmap_services") = 0x0;
-/* 0x00906c24, 4 bytes */ GRIM_DATA("00906c24") unsigned char grim_def_g_pAnimFrame_share_services[4] __asm__("_g_pAnimFrame_share_services") = {0};
-/* 0x00906c28, 4 bytes */ GRIM_DATA("00906c28") unsigned int grim_def_g_dwAnimFrame_virtherc_services __asm__("_g_dwAnimFrame_virtherc_services") = 0x0;
-/* 0x00906c2c, 4 bytes */ GRIM_DATA("00906c2c") unsigned int grim_def_g_dwAnimFrame_video_services __asm__("_g_dwAnimFrame_video_services") = 0x0;
-/* 0x00906c40, 4 bytes */ GRIM_DATA("00906c40") unsigned char grim_def_g_pAnm_share_services[4] __asm__("_g_pAnm_share_services") = {0};
+/* 0x008ddd68, 4 bytes */ /* loose */ unsigned int grim_def_g_dwMsc_error_loc __asm__("_g_dwMsc_error_loc") = 0x0;
+static unsigned char grim_anchor_008ddd6c[0] __attribute__((section(".data$grim_008ddd6c"), aligned(16), used));
+static unsigned char grim_pad_008ddd6c[12] __attribute__((section(".data$grim_008ddd6c_"), aligned(4), used));
+/* 0x008ddd6c, 20 bytes */ GRIM_DATA("008ddd6cz") unsigned int grim_def_g_dwMsc_error_count __asm__("_g_dwMsc_error_count") = 0x0;
+/* 0x008ddd70, 16 bytes: the rest of grim_def_g_dwMsc_error_count's span */ GRIM_DATA("008ddd6cz") static unsigned char g_dwMsc_error_count__tail[16] __attribute__((used)) = {0};
+/* 0x00906c1c, 4 bytes */ /* loose */ unsigned char grim_def_g_pAnimFrame_memory_services[4] __asm__("_g_pAnimFrame_memory_services") = {0};
+/* 0x00906c20, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnimFrame_bitmap_services __asm__("_g_dwAnimFrame_bitmap_services") = 0x0;
+/* 0x00906c24, 4 bytes */ /* loose */ unsigned char grim_def_g_pAnimFrame_share_services[4] __asm__("_g_pAnimFrame_share_services") = {0};
+/* 0x00906c28, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnimFrame_virtherc_services __asm__("_g_dwAnimFrame_virtherc_services") = 0x0;
+/* 0x00906c2c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwAnimFrame_video_services __asm__("_g_dwAnimFrame_video_services") = 0x0;
+/* 0x00906c40, 4 bytes */ /* loose */ unsigned char grim_def_g_pAnm_share_services[4] __asm__("_g_pAnm_share_services") = {0};

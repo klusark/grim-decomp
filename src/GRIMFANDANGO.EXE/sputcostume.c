@@ -290,7 +290,7 @@ extern char grim_def_s_iMuse_Streamed_Sound_FX_004ea2f0[24] __asm__("_s_iMuse_St
 /* 0x004ea058, 16 bytes */ GRIM_DATA("004ea058") void *grim_def_g_pLuaCostumeFuncs[4] __asm__("_g_pLuaCostumeFuncs") = {
     (void *)&grim_def_s_GetKeyLength_004ea07c, (void *)f_sputCostume_GetKeyLengthL, (void *)&grim_def_s_GetSmushLength_004ea06c, (void *)f_sputCostume_GetSmushLengthL
 };
-/* 0x004ea068, 4 bytes */ GRIM_DATA("004ea068") unsigned int grim_def_UINT_004ea068 __asm__("_UINT_004ea068") = 0x2;
+/* 0x004ea068, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004ea068 __asm__("_UINT_004ea068") = 0x2;
 /* 0x004ea1f8, 12 bytes */ /* loose */ char grim_def_s_BitmapPath_004ea1f8[12] __asm__("_s_BitmapPath_004ea1f8") = "BitmapPath";
 /* 0x004ea204, 8 bytes */ /* loose */ char grim_def_s_Objects_004ea204[8] __asm__("_s_Objects_004ea204") = "Objects";
 /* 0x004ea20c, 12 bytes */ /* loose */ char grim_def_s_SmushPath_004ea20c[12] __asm__("_s_SmushPath_004ea20c") = "SmushPath";
@@ -334,8 +334,10 @@ static unsigned char grim_pad_004ea38c[12] __attribute__((section(".data$grim_00
     0x4d, 0x41, 0x49, 0x4e, 0x20, 0x52, 0x44, 0x72, 0x6f, 0x69, 0x64, 0x20, 0x54, 0x68, 0x69, 0x6e,
     0x67, 0x20, 0x28, 0x2e, 0x33, 0x44, 0x4f, 0x29
 };
-/* 0x008ca770, 32 bytes */ GRIM_DATA("008ca770") SysModuleIface grim_def_g_aChoreMS __asm__("_g_aChoreMS") = {0};
-/* 0x008ca798, 4 bytes */ GRIM_DATA("008ca798") unsigned int grim_def_g_dwSputCosInitialize __asm__("_g_dwSputCosInitialize") = 0x0;
-/* 0x008ca79c, 4 bytes */ GRIM_DATA("008ca79c") unsigned int grim_def_g_dwSputCosStartup __asm__("_g_dwSputCosStartup") = 0x0;
-/* 0x008ca7ac, 4 bytes */ GRIM_DATA("008ca7ac") unsigned int grim_def_g_dwOldInstanceHook __asm__("_g_dwOldInstanceHook") = 0x0;
-/* 0x008ca7b0, 4 bytes */ GRIM_DATA("008ca7b0") unsigned int grim_def_g_dwOldSaveHook __asm__("_g_dwOldSaveHook") = 0x0;
+static unsigned char grim_anchor_008ca770[0] __attribute__((section(".data$grim_008ca770"), aligned(16), used));
+static unsigned char grim_pad_008ca770[0] __attribute__((section(".data$grim_008ca770_"), aligned(4), used));
+/* 0x008ca770, 32 bytes */ GRIM_DATA("008ca770z") SysModuleIface grim_def_g_aChoreMS __asm__("_g_aChoreMS") = {0};
+/* 0x008ca798, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputCosInitialize __asm__("_g_dwSputCosInitialize") = 0x0;
+/* 0x008ca79c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputCosStartup __asm__("_g_dwSputCosStartup") = 0x0;
+/* 0x008ca7ac, 4 bytes */ /* loose */ unsigned int grim_def_g_dwOldInstanceHook __asm__("_g_dwOldInstanceHook") = 0x0;
+/* 0x008ca7b0, 4 bytes */ /* loose */ unsigned int grim_def_g_dwOldSaveHook __asm__("_g_dwOldSaveHook") = 0x0;

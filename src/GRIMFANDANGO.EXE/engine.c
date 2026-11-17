@@ -1256,8 +1256,8 @@ static unsigned char grim_pad_008a8c48[8] __attribute__((section(".data$grim_008
 /* 0x008a8c88, 8 bytes */ /* loose */ unsigned char grim_def_g_pSaveFileName[8] __asm__("_g_pSaveFileName") = {0};
 /* 0x008a8c90, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008a8c90 __asm__("_UINT_008a8c90") = 0x0;
 /* 0x008a8c94, 4 bytes */ /* loose */ unsigned int grim_def_g_dwGrimlib_SetPause_oldmode __asm__("_g_dwGrimlib_SetPause_oldmode") = 0x0;
-/* 0x008c9800, 4 bytes */ GRIM_DATA("008c9800") unsigned char grim_def_g_pRenderedSet[4] __asm__("_g_pRenderedSet") = {0};
-/* 0x008c9804, 4 bytes */ GRIM_DATA("008c9804") unsigned int grim_def_UINT_008c9804 __asm__("_UINT_008c9804") = 0x0;
+/* 0x008c9800, 4 bytes */ /* loose */ unsigned char grim_def_g_pRenderedSet[4] __asm__("_g_pRenderedSet") = {0};
+/* 0x008c9804, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008c9804 __asm__("_UINT_008c9804") = 0x0;
 /* 0x008ca160, 56 bytes */ GRIM_DATA("008ca160") int grim_def_g_nNumControlCallbacks __asm__("_g_nNumControlCallbacks") = 0;
 /* 0x008ca164, 52 bytes: the rest of grim_def_g_nNumControlCallbacks's span */ GRIM_DATA("008ca160") static unsigned char g_nNumControlCallbacks__tail[52] __attribute__((used)) = {0};
 /* 0x008ca198, 32 bytes */ GRIM_DATA("008ca198") unsigned char grim_def_g_apControlCallbacks[32] __asm__("_g_apControlCallbacks") = {0};

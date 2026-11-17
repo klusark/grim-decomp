@@ -827,11 +827,13 @@ static unsigned char grim_pad_004e7800[0] __attribute__((section(".data$grim_004
 /* 0x004e7884, 40 bytes */ GRIM_DATA("004e7884") char grim_def_s_C__grimjedi_Libs_Std_General_Std_004e7884[40] __asm__("_s_C__grimjedi_Libs_Std_General_Std_004e7884") = "C:\\grimjedi\\Libs\\Std\\General\\Stdgif.c";
 /* 0x004e78ac, 4 bytes */ /* loose */ char grim_def_s_89a_004e78ac[4] __asm__("_s_89a_004e78ac") = "89a";
 /* 0x004e78b0, 4 bytes */ /* loose */ char grim_def_s_GIF_004e78b0[4] __asm__("_s_GIF_004e78b0") = "GIF";
-/* 0x0080cbe0, 4 bytes */ GRIM_DATA("0080cbe0") unsigned char grim_def_DAT_0080cbe0[4] __asm__("_DAT_0080cbe0") = {0};
-/* 0x0080cbe4, 4 bytes */ GRIM_DATA("0080cbe4") unsigned int grim_def_UINT_0080cbe4 __asm__("_UINT_0080cbe4") = 0x0;
-/* 0x0080cbe8, 4 bytes */ GRIM_DATA("0080cbe8") unsigned char grim_def_DAT_0080cbe8[4] __asm__("_DAT_0080cbe8") = {0};
-/* 0x0080cbec, 4 bytes */ GRIM_DATA("0080cbec") unsigned char grim_def_DAT_0080cbec[4] __asm__("_DAT_0080cbec") = {0};
-/* 0x0080cbf0, 8 bytes */ GRIM_DATA("0080cbf0") unsigned char grim_def_DAT_0080cbf0[8] __asm__("_DAT_0080cbf0") = {0};
+/* 0x0080cbe0, 4 bytes */ /* loose */ unsigned char grim_def_DAT_0080cbe0[4] __asm__("_DAT_0080cbe0") = {0};
+/* 0x0080cbe4, 4 bytes */ /* loose */ unsigned int grim_def_UINT_0080cbe4 __asm__("_UINT_0080cbe4") = 0x0;
+/* 0x0080cbe8, 4 bytes */ /* loose */ unsigned char grim_def_DAT_0080cbe8[4] __asm__("_DAT_0080cbe8") = {0};
+/* 0x0080cbec, 4 bytes */ /* loose */ unsigned char grim_def_DAT_0080cbec[4] __asm__("_DAT_0080cbec") = {0};
+static unsigned char grim_anchor_0080cbf0[0] __attribute__((section(".data$grim_0080cbf0"), aligned(16), used));
+static unsigned char grim_pad_0080cbf0[0] __attribute__((section(".data$grim_0080cbf0_"), aligned(4), used));
+/* 0x0080cbf0, 8 bytes */ GRIM_DATA("0080cbf0z") unsigned char grim_def_DAT_0080cbf0[8] __asm__("_DAT_0080cbf0") = {0};
 /* 0x0080cbf8, 256 bytes */ GRIM_DATA("0080cbf8") unsigned char grim_def_DAT_0080cbf8[256] __asm__("_DAT_0080cbf8") = {0};
 /* 0x0080ccf8, 20012 bytes */ GRIM_DATA("0080ccf8") unsigned char grim_def_UINT_0080ccf8[20012] __asm__("_UINT_0080ccf8") = {0};
 /* 0x00811b24, 4 bytes */ GRIM_DATA("00811b24") unsigned char grim_def_DAT_00811b24[4] __asm__("_DAT_00811b24") = {0};

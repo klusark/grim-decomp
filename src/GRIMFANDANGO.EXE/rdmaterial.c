@@ -348,5 +348,5 @@ extern char grim_def_s_MAT_004dddb0[40] __asm__("_s_MAT_004dddb0");
 /* 0x004ddd80, 4 bytes */ GRIM_DATA("004ddd80") unsigned char grim_def_DAT_004ddd80[4] __asm__("_DAT_004ddd80") = { 0xad };
 /* 0x004ddd84, 44 bytes */ GRIM_DATA("004ddd84") char grim_def_s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84[44] __asm__("_s_C__grimjedi_Libs_RDroid_Engine_R_004ddd84") = "C:\\grimjedi\\Libs\\RDroid\\Engine\\Rdmaterial.c";
 /* 0x004dddb0, 40 bytes */ GRIM_DATA("004dddb0") char grim_def_s_MAT_004dddb0[40] __asm__("_s_MAT_004dddb0") = "MAT \000\000\000\0009\000\000\000\000\000\000\000\002\000\000\000\001\000\000\000\000\000\000\000\002\000\000\000\001";
-/* 0x007f4238, 4 bytes */ GRIM_DATA("007f4238") unsigned int grim_def_g_dwMaterialsLoader __asm__("_g_dwMaterialsLoader") = 0x0;
-/* 0x007f423c, 4 bytes */ GRIM_DATA("007f423c") unsigned int grim_def_g_dwMaterialsUnloader __asm__("_g_dwMaterialsUnloader") = 0x0;
+/* 0x007f4238, 4 bytes */ /* loose */ unsigned int grim_def_g_dwMaterialsLoader __asm__("_g_dwMaterialsLoader") = 0x0;
+/* 0x007f423c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwMaterialsUnloader __asm__("_g_dwMaterialsUnloader") = 0x0;

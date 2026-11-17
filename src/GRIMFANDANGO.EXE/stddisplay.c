@@ -3688,9 +3688,9 @@ extern char grim_def_s_threeDNum____0____threeDNum____i_004dd7a4[92] __asm__("_s
 /* 0x007fead4, 4 bytes */ GRIM_DATA("007fead4") unsigned char grim_def_DAT_007fead4[4] __asm__("_DAT_007fead4") = {0};
 /* 0x007feae0, 4 bytes */ GRIM_DATA("007feae0") unsigned int grim_def_UINT_007feae0 __asm__("_UINT_007feae0") = 0x0;
 /* 0x00803f7c, 4 bytes */ GRIM_DATA("00803f7c") unsigned int grim_def_UINT_00803f7c __asm__("_UINT_00803f7c") = 0x0;
-/* 0x00803f80, 4 bytes */ GRIM_DATA("00803f80") unsigned char grim_def_g_bStdDisplay_Startup[4] __asm__("_g_bStdDisplay_Startup") = {0};
-/* 0x00803f88, 4 bytes */ GRIM_DATA("00803f88") int grim_def_g_nDisplayModeOpen __asm__("_g_nDisplayModeOpen") = 0;
-/* 0x00803f9c, 4 bytes */ GRIM_DATA("00803f9c") int grim_def_UINT_00803f9c __asm__("_UINT_00803f9c") = 0;
+/* 0x00803f80, 4 bytes */ /* loose */ unsigned char grim_def_g_bStdDisplay_Startup[4] __asm__("_g_bStdDisplay_Startup") = {0};
+/* 0x00803f88, 4 bytes */ /* loose */ int grim_def_g_nDisplayModeOpen __asm__("_g_nDisplayModeOpen") = 0;
+/* 0x00803f9c, 4 bytes */ /* loose */ int grim_def_UINT_00803f9c __asm__("_UINT_00803f9c") = 0;
 /* 0x00803fa4, 4 bytes */ GRIM_DATA("00803fa4") unsigned char grim_def_g_pDirectDraw[4] __asm__("_g_pDirectDraw") = {0};
 /* 0x00803fa8, 4 bytes */ GRIM_DATA("00803fa8") unsigned char grim_def_g_pDDrawPrimary[4] __asm__("_g_pDDrawPrimary") = {0};
 /* 0x00803fac, 4 bytes */ GRIM_DATA("00803fac") unsigned char grim_def_g_pDDrawBack[4] __asm__("_g_pDDrawBack") = {0};
@@ -3699,7 +3699,9 @@ extern char grim_def_s_threeDNum____0____threeDNum____i_004dd7a4[92] __asm__("_s
 /* 0x00803fb8, 8 bytes */ GRIM_DATA("00803fb8") unsigned char grim_def_UINT_00803fb8[8] __asm__("_UINT_00803fb8") = {0};
 /* 0x00803fc0, 8 bytes */ GRIM_DATA("00803fc0") unsigned char grim_def_PTR_00803fc0[8] __asm__("_PTR_00803fc0") = {0};
 /* 0x00806618, 768 bytes */ GRIM_DATA("00806618") unsigned char grim_def_g_abStd3D_Palette[768] __asm__("_g_abStd3D_Palette") = {0};
-/* 0x00806c80, 8 bytes */ GRIM_DATA("00806c80") unsigned char grim_def_g_dwStdColor_ColorConvertOneRow_row[8] __asm__("_g_dwStdColor_ColorConvertOneRow_row") = {0};
+static unsigned char grim_anchor_00806c80[0] __attribute__((section(".data$grim_00806c80"), aligned(16), used));
+static unsigned char grim_pad_00806c80[0] __attribute__((section(".data$grim_00806c80_"), aligned(4), used));
+/* 0x00806c80, 8 bytes */ GRIM_DATA("00806c80z") unsigned char grim_def_g_dwStdColor_ColorConvertOneRow_row[8] __asm__("_g_dwStdColor_ColorConvertOneRow_row") = {0};
 /* 0x00901684, 4 bytes */ GRIM_DATA("00901684") unsigned char grim_def_DAT_00901684[4] __asm__("_DAT_00901684") = {0};
 /* 0x00901688, 4 bytes */ GRIM_DATA("00901688") unsigned char grim_def_DAT_00901688[4] __asm__("_DAT_00901688") = {0};
 /* 0x0090168c, 12 bytes */ GRIM_DATA("0090168c") unsigned char grim_def_DAT_0090168c[12] __asm__("_DAT_0090168c") = {0};
