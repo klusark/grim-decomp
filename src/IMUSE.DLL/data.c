@@ -506,11 +506,11 @@ static unsigned char grim_pad_10015128[8] __attribute__((section(".data$grim_100
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2,
     2, 2, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6
 };
-/* 0x10015398, 32 bytes */ /* loose */ unsigned char DAT_10015398[32] __asm__("_DAT_10015398") = {
+/* 0x10015398, 32 bytes */ GRIM_DATA("10015398") unsigned char DAT_10015398[32] __asm__("_DAT_10015398") = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1c, 0xc0, 0x00, 0x00, 0x00, 0x00, 0xc0, 0xff, 0x0f, 0x41,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0xbf, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x3f
 };
-/* 0x100153b8, 92 bytes, unused (dead) */ /* loose */ unsigned char UNK_100153b8[92] __asm__("_UNK_100153b8");
+/* 0x100153b8, 92 bytes, unused (dead) */ GRIM_DATA("100153b8") unsigned char UNK_100153b8[92] __asm__("_UNK_100153b8");
 /* 0x10015414, 16 bytes, unused (pointed at by unused data) */ /* loose */ unsigned char DAT_10015414[16] __asm__("_DAT_10015414");
 /* 0x10015424, 20 bytes, unused (pointed at by unused data) */ /* loose */ unsigned char DAT_10015424[20] __asm__("_DAT_10015424");
 /* 0x10015438, 28 bytes, unused (dead) */ /* loose */ unsigned char DAT_10015438[28] __asm__("_DAT_10015438");

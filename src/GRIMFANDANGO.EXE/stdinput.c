@@ -1154,9 +1154,9 @@ extern unsigned char grim_def_g_pDirectInput[4] __asm__("_g_pDirectInput");
     0xa0, 0x17, 0x38, 0x59, 0xb3, 0x7d, 0xcf, 0x11, 0xa2, 0xde, 0x00, 0xaa, 0x00, 0xb9, 0x33, 0x56,
     0x80, 0xdb, 0x14, 0x6c, 0x33, 0xa7, 0xce, 0x11, 0xa5, 0x21, 0x00, 0x20, 0xaf, 0x0b, 0xe5, 0x60
 };
-/* 0x004dea40, 4 bytes */ GRIM_DATA("004dea40") unsigned int grim_def_UINT_004dea40 __asm__("_UINT_004dea40") = 0x1;
-/* 0x004dea44, 4 bytes */ GRIM_DATA("004dea44") float grim_def_FLOAT_004dea44 __asm__("_FLOAT_004dea44") = 1.0f;
-/* 0x004dea48, 288 bytes */ GRIM_DATA("004dea48") grim_span_004dea48 grim_def_FLOAT_004dea48 __asm__("_FLOAT_004dea48") = {
+/* 0x004dea40, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004dea40 __asm__("_UINT_004dea40") = 0x1;
+/* 0x004dea44, 4 bytes */ /* loose */ float grim_def_FLOAT_004dea44 __asm__("_FLOAT_004dea44") = 1.0f;
+/* 0x004dea48, 288 bytes */ /* loose */ grim_span_004dea48 grim_def_FLOAT_004dea48 __asm__("_FLOAT_004dea48") = {
     { 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f, 0x00, 0x00, 0x80, 0x3f },
     (void *)&grim_def_DAT_004dee10,
     { 0x01 },

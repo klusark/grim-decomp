@@ -1163,7 +1163,7 @@ extern char grim_def_s_position__f__f__f_004ec6a4[88] __asm__("_s_position__f__f
 extern char grim_def_s_section__004f0e00[12] __asm__("_s_section__004f0e00");
 extern char grim_def_s_section__lights_004ec6fc[20] __asm__("_s_section__lights_004ec6fc");
 extern char grim_def_s_umbraangle__f_004ec668[20] __asm__("_s_umbraangle__f_004ec668");
-/* 0x004ddd74, 4 bytes */ GRIM_DATA("004ddd74") unsigned int grim_def_UINT_004ddd74 __asm__("_UINT_004ddd74") = 0xa0a;
+/* 0x004ddd74, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004ddd74 __asm__("_UINT_004ddd74") = 0xa0a;
 /* 0x004ec654, 20 bytes */ GRIM_DATA("004ec654") char grim_def_s_penumbraangle__f_004ec654[20] __asm__("_s_penumbraangle__f_004ec654") = "\tpenumbraangle\t%f\n";
 /* 0x004ec668, 20 bytes */ /* loose */ char grim_def_s_umbraangle__f_004ec668[20] __asm__("_s_umbraangle__f_004ec668") = "\tumbraangle\t\t%f\n";
 /* 0x004ec67c, 16 bytes */ /* loose */ char grim_def_s_intensity__f_004ec67c[16] __asm__("_s_intensity__f_004ec67c") = "\tintensity\t%f\n";
@@ -1172,9 +1172,9 @@ static unsigned char grim_anchor_004ec6a4[0] __attribute__((section(".data$grim_
 static unsigned char grim_pad_004ec6a4[4] __attribute__((section(".data$grim_004ec6a4_"), aligned(4), used));
 /* 0x004ec6a4, 88 bytes */ GRIM_DATA("004ec6a4z") char grim_def_s_position__f__f__f_004ec6a4[88] __asm__("_s_position__f__f__f_004ec6a4") = "\tposition\t\t%f\t%f\t%f\n\000\000\000\000\ttype\t\t%s\n\000\000direct\000\000spot\t\000\000\000omni\t\000\000\000\tlight\t\t%s\n\000\tnumlights\t%d\n\n";
 /* 0x004ec6fc, 20 bytes */ GRIM_DATA("004ec6fc") char grim_def_s_section__lights_004ec6fc[20] __asm__("_s_section__lights_004ec6fc") = "section: lights\n";
-/* 0x004f0d14, 4 bytes */ /* loose */ void *grim_def_PTR_s_Error_004f0d14 __asm__("_PTR_s_Error_004f0d14") = (void *)&grim_def_s_Error_004f0d20;
-/* 0x004f0d18, 4 bytes */ /* loose */ float grim_def_g_flLightEdMoveStep __asm__("_g_flLightEdMoveStep") = 0.01f;
-/* 0x004f0d1c, 4 bytes */ /* loose */ float grim_def_g_flLightEdAngleStep __asm__("_g_flLightEdAngleStep") = 1.0f;
+/* 0x004f0d14, 4 bytes */ GRIM_DATA("004f0d14") void *grim_def_PTR_s_Error_004f0d14 __asm__("_PTR_s_Error_004f0d14") = (void *)&grim_def_s_Error_004f0d20;
+/* 0x004f0d18, 4 bytes */ GRIM_DATA("004f0d18") float grim_def_g_flLightEdMoveStep __asm__("_g_flLightEdMoveStep") = 0.01f;
+/* 0x004f0d1c, 4 bytes */ GRIM_DATA("004f0d1c") float grim_def_g_flLightEdAngleStep __asm__("_g_flLightEdAngleStep") = 1.0f;
 /* 0x004f0d6c, 12 bytes */ /* loose */ char grim_def_s_newlight_d_004f0d6c[12] __asm__("_s_newlight_d_004f0d6c") = "newlight%d";
 /* 0x004f0d78, 64 bytes */ /* loose */ char grim_def_s_Maximum_number_of_lights_already_004f0d78[64] __asm__("_s_Maximum_number_of_lights_already_004f0d78") = "Maximum number of lights already in room.  Try deleting a few.";
 /* 0x004f0db8, 16 bytes */ /* loose */ unsigned char grim_def_DAT_004f0db8[16] __asm__("_DAT_004f0db8") = { 0x43, 0x61, 0x6e, 0x27, 0x74, 0x20, 0x41, 0x64, 0x64, 0x20, 0x4c, 0x69, 0x67, 0x68, 0x74 };

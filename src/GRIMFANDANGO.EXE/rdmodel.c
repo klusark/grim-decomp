@@ -918,7 +918,9 @@ static unsigned char grim_pad_007f30a8[8] __attribute__((section(".data$grim_007
 /* 0x007f30bc, 4 bytes */ GRIM_DATA("007f30bc") unsigned char grim_def_DAT_007f30bc[4] __asm__("_DAT_007f30bc") = {0};
 /* 0x007f30c0, 20 bytes */ GRIM_DATA("007f30c0") unsigned char grim_def_DAT_007f30c0[20] __asm__("_DAT_007f30c0") = {0};
 /* 0x007f30d8, 4 bytes */ /* loose */ unsigned int grim_def_g_dwTextureMode __asm__("_g_dwTextureMode") = 0x0;
-/* 0x007f30e0, 256 bytes */ GRIM_DATA("007f30e0") unsigned int grim_def_g_adwRdModel3_meshLights[64] __asm__("_g_adwRdModel3_meshLights") = {0};
+static unsigned char grim_anchor_007f30e0[0] __attribute__((section(".data$grim_007f30e0"), aligned(16), used));
+static unsigned char grim_pad_007f30e0[0] __attribute__((section(".data$grim_007f30e0_"), aligned(4), used));
+/* 0x007f30e0, 256 bytes */ GRIM_DATA("007f30e0z") unsigned int grim_def_g_adwRdModel3_meshLights[64] __asm__("_g_adwRdModel3_meshLights") = {0};
 /* 0x007f31e4, 4 bytes */ /* loose */ unsigned int grim_def_g_dwLightingMode __asm__("_g_dwLightingMode") = 0x0;
 /* 0x007f31e8, 4 bytes */ /* loose */ unsigned int grim_def_g_dwGeometryMode __asm__("_g_dwGeometryMode") = 0x0;
 /* 0x007f31fc, 4 bytes */ /* loose */ unsigned int grim_def_g_dwNumMeshLights __asm__("_g_dwNumMeshLights") = 0x0;

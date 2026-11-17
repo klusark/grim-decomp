@@ -662,5 +662,5 @@ static unsigned char grim_pad_004f1200[0] __attribute__((section(".data$grim_004
 /* 0x008d56e8, 4 bytes */ GRIM_DATA("008d56e8") unsigned int grim_def_g_dwPrivateData __asm__("_g_dwPrivateData") = 0x0;
 /* 0x008d56ec, 4 bytes */ GRIM_DATA("008d56ec") unsigned int grim_def_UINT_008d56ec __asm__("_UINT_008d56ec") = 0x0;
 /* 0x008d56f0, 6156 bytes */ GRIM_DATA("008d56f0") unsigned int grim_def_g_adwLecShare_catalog[1539] __asm__("_g_adwLecShare_catalog") = {0};
-/* 0x008d6efc, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d6efc __asm__("_UINT_008d6efc") = 0x0;
-/* 0x008d6f00, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d6f00 __asm__("_UINT_008d6f00") = 0x0;
+/* 0x008d6efc, 4 bytes */ GRIM_DATA("008d6efc") unsigned int grim_def_UINT_008d6efc __asm__("_UINT_008d6efc") = 0x0;
+/* 0x008d6f00, 4 bytes */ GRIM_DATA("008d6f00") unsigned int grim_def_UINT_008d6f00 __asm__("_UINT_008d6f00") = 0x0;
