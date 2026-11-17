@@ -2677,3 +2677,45 @@ field labels.
   * LUA: 291 / 66, from 270 / 43.
   * IMUSE: 96 / 51, from 47 / 15.
 * datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490. The whole-game autorun passes; a first run stopped in the morgue (use Coroner with metal detector not offered), where builds with the original layout have stopped too (corpse 1 with dog tags), and the same build then passed.
+
+## Strings by their bytes, GUIDs, and a third round of types (2026-11-16)
+
+**tools/data_reach.py:**
+* **Strings by their bytes:** a span counts as a string by its bytes too, whatever Ghidra named it: printable text of
+  two characters or more, a NUL, only zeros after it, no pointer inside. The C runtime's locale names, `DAT_1000e118` =
+  "LC_TIME", held CHORE's .rdata in one chain of 237 spans.
+* **GUIDs:** a COM interface or class id taken by its address in .rdata reaches 16 bytes. It is recognised by the
+  version nibble 1..5 of Data3 and the variant bits 10 of Data4[0]: `IID_IDirectDraw` .. `...-11cf-bfc7-444553540000`,
+  handed to QueryInterface as a REFIID.
+* **End pointers inside a table:** a loop's end pointer inside an array or structure is a bound within the object.
+  VbrAdpcm's init loop stops at 0x8d78e8, a row into g_wDWave_aDeltaTable.
+* **Override field reads:** `Q3P / Q3I / Q3U / Q3F(IMG_ADDR(0x...), off)` in the overrides is one dword read there.
+  overrides_asm_q3.c reads g_pStd3D_CurDevice so.
+
+**Types (names/types_data_extents_3_*.json):**
+* **EXE:**
+  * the LecShare catalog from its header entry: the code indexes `k * 12 + 0x8d56f0` with k from 1, and the header
+    holds the pointer and the count. uint[1539] up to 008d6efc, in place of round 2's uint[1536] at 008d56fc.
+  * g_aflRdClipPlanePoint, the clip plane's point;
+  * the C runtime's 4 KB stdio buffer;
+  * the 16 dialog handles;
+  * the Smush file header smushplay_GetInfo reads (0x418 bytes).
+* **LUA, IMUSE:** the C runtime's _mbcasemap (256 bytes).
+
+**build/link.py:** it fails on an undefined data symbol instead of giving it a stub of zero bytes.
+overrides_mixer_misc.c's alias `_UINT_008d56f0` (the override list) had become one, silently, once the catalog took that
+word in. It now names `_g_adwLecShare_catalog`.
+
+**Loose now:**
+
+| program | loose | chains |
+|---|---|---|
+| EXE | 1716, from 1377 | 209 |
+| LUA | 553, from 291 | 50 |
+| IMUSE | 313, from 96 | 55 |
+| CHORE | 268, from 23 | 13 |
+
+What still holds the EXE's largest chain (676 spans of .rdata) is the C runtime's and zlib's constant tables (deflate
+length and distance codes, exp tables) and exception scope tables: each needs its size from those sources.
+
+datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490; whole-game autorun passes.

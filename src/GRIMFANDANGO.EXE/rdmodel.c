@@ -500,9 +500,9 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh,float *matrix)
     if ((g_dwMeshFrustrumCull != 2) &&
        ((g_dwClipPlaneActive == 0 ||
         (-g_pCurMesh->flRadius <=
-         (*pfVar6 - FLOAT_007f3208) * FLOAT_004ddb70 +
-         (matrix[0xb] - FLOAT_007f3210) * FLOAT_004ddb78 +
-         (matrix[10] - FLOAT_007f320c) * FLOAT_004ddb74)))) {
+         (*pfVar6 - g_aflRdClipPlanePoint[0]) * FLOAT_004ddb70 +
+         (matrix[0xb] - g_aflRdClipPlanePoint[2]) * FLOAT_004ddb78 +
+         (matrix[10] - g_aflRdClipPlanePoint[1]) * FLOAT_004ddb74)))) {
       rdMatrix_Multiply34(local_30,g_pRdCamera_CurCamera->aView,matrix);
       rdMatrix_TransformPointLst34
                 (local_30,g_pCurMesh->pVertices,(float *)&g_aRdModel3_View,g_pCurMesh->dwNumVertices
@@ -749,7 +749,7 @@ uint __cdecl rdModel3_DrawFace(int face,int backFacing)
   }
   if (g_dwClipPlaneActive != 0) {
     rdMatrix_TransformVector34(local_c,&FLOAT_004ddb70,g_pRdCamera_CurCamera->aView);
-    rdMatrix_TransformPoint34(local_18,&FLOAT_007f3208,g_pRdCamera_CurCamera->aView);
+    rdMatrix_TransformPoint34(local_18,g_aflRdClipPlanePoint,g_pRdCamera_CurCamera->aView);
     uVar3 = rdClip_FaceToPlane(local_c,local_18,(float *)UINT_007f1474,(uint *)UINT_007f1478,
                                (float *)UINT_007f147c,(uint *)g_dwVertexDst);
     if ((int)uVar3 < 2) {

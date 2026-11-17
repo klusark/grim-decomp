@@ -334,7 +334,7 @@ uint __cdecl Win_PumpMessages(void)
     }
     uVar2 = 0;
     if (g_dwWinDialogCount != 0) {
-      ppvVar3 = &g_pWinDialogs;
+      ppvVar3 = g_pWinDialogs;
       do {
         iVar1 = IsDialogMessageA((int)*ppvVar3,(int)local_1c);
         if (iVar1 != 0) break;
@@ -661,11 +661,15 @@ static unsigned char grim_pad_004f5a94[4] __attribute__((section(".data$grim_004
 /* 0x004f5a94, 4 bytes */ GRIM_DATA("004f5a94z") unsigned int grim_def_UINT_004f5a94 __asm__("_UINT_004f5a94") = 0x0;
 /* 0x007f6088, 4 bytes */ GRIM_DATA("007f6088") unsigned char grim_def_g_pMainHwnd[4] __asm__("_g_pMainHwnd") = {0};
 /* 0x007f608c, 4 bytes */ GRIM_DATA("007f608c") unsigned int grim_def_UINT_007f608c __asm__("_UINT_007f608c") = 0x0;
-/* 0x008d0998, 64 bytes */ GRIM_DATA("008d0998") unsigned char grim_def_g_pWinDialogs[64] __asm__("_g_pWinDialogs") = {0};
-/* 0x008d09d8, 4 bytes */ GRIM_DATA("008d09d8") unsigned char grim_def_g_pWinMainHwnd[4] __asm__("_g_pWinMainHwnd") = {0};
-/* 0x008d09dc, 4 bytes */ GRIM_DATA("008d09dc") int grim_def_UINT_008d09dc __asm__("_UINT_008d09dc") = 0;
-/* 0x008d09e0, 4 bytes */ GRIM_DATA("008d09e0") int grim_def_INT_008d09e0 __asm__("_INT_008d09e0") = 0;
-/* 0x008d09e4, 4 bytes */ GRIM_DATA("008d09e4") unsigned int grim_def_UINT_008d09e4 __asm__("_UINT_008d09e4") = 0x0;
+static unsigned char grim_anchor_008d0998[0] __attribute__((section(".data$grim_008d0998"), aligned(16), used));
+static unsigned char grim_pad_008d0998[8] __attribute__((section(".data$grim_008d0998_"), aligned(4), used));
+/* 0x008d0998, 64 bytes */ GRIM_DATA("008d0998z") unsigned char grim_def_g_pWinDialogs[64] __asm__("_g_pWinDialogs") = {0};
+/* 0x008d09d8, 4 bytes */ /* loose */ unsigned char grim_def_g_pWinMainHwnd[4] __asm__("_g_pWinMainHwnd") = {0};
+/* 0x008d09dc, 4 bytes */ /* loose */ int grim_def_UINT_008d09dc __asm__("_UINT_008d09dc") = 0;
+/* 0x008d09e0, 4 bytes */ /* loose */ int grim_def_INT_008d09e0 __asm__("_INT_008d09e0") = 0;
+static unsigned char grim_anchor_008d09e4[0] __attribute__((section(".data$grim_008d09e4"), aligned(16), used));
+static unsigned char grim_pad_008d09e4[4] __attribute__((section(".data$grim_008d09e4_"), aligned(4), used));
+/* 0x008d09e4, 4 bytes */ GRIM_DATA("008d09e4z") unsigned int grim_def_UINT_008d09e4 __asm__("_UINT_008d09e4") = 0x0;
 /* 0x008d09e8, 128 bytes */ GRIM_DATA("008d09e8") WinMessageHook grim_def_g_aWinMessageHooks[16] __asm__("_g_aWinMessageHooks") = {0};
 /* 0x008d0a68, 4 bytes */ GRIM_DATA("008d0a68") unsigned char grim_def_DAT_008d0a68[4] __asm__("_DAT_008d0a68") = {0};
 /* 0x008d0a6c, 4 bytes */ GRIM_DATA("008d0a6c") unsigned int grim_def_UINT_008d0a6c __asm__("_UINT_008d0a6c") = 0x0;

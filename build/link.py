@@ -355,6 +355,16 @@ def link(cc, src, obj, prog, env):
         kinds[k] = kinds.get(k, 0) + 1
     with open(os.path.join(d, "stubs.txt"), "w") as f:
         f.write("\n".join(sorted(stubs)) + "\n")
+    if kinds.get("other"):
+        # a data symbol nothing defines, given a stub (zero bytes): an override naming a global the export renamed or
+        # took into a typed table (the alias _UINT_008d56f0 once the LecShare catalog took that word in). The program
+        # would run on with a zero there; fail instead.
+        others = sorted(s for s in stubs if not s.split("@")[0].startswith(("FUN_", "LAB_")) and s.split("@")[0] not in imports
+                        and s.split("@")[0] != "mainCRTStartup_stub")
+        print(f"{prog}: link FAILED: undefined data symbol(s) stubbed: {', '.join(others)}")
+        if os.path.exists(target):
+            os.remove(target)
+        return
     status = "LINKED" if rc == 0 else "link FAILED"
     print(f"{prog}: {status} -> {os.path.relpath(target)}; {len(objs)} objects, "
           f"{len(names)} data symbols defined, {len(stubs)} symbols stubbed {kinds}")

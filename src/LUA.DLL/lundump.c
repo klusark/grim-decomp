@@ -620,6 +620,6 @@ static unsigned char grim_anchor_1002816c[0] __attribute__((section(".data$grim_
 static unsigned char grim_pad_1002816c[12] __attribute__((section(".data$grim_1002816c_"), aligned(4), used));
 /* 0x1002816c, 4 bytes */ GRIM_DATA("1002816cz") char grim_def_DAT_1002816c __asm__("_DAT_1002816c") = 76;
 /* 0x1002816d, 3 bytes: the rest of grim_def_DAT_1002816c's span */ GRIM_DATA("1002816cz") static unsigned char DAT_1002816c__tail[3] __attribute__((used)) = { 0x75, 0x61 };
-/* 0x10028170, 8 bytes */ GRIM_DATA("10028170") char grim_def_s__lf__c_10028170[8] __asm__("_s__lf__c_10028170") = "%lf %c";
+/* 0x10028170, 8 bytes */ /* loose */ char grim_def_s__lf__c_10028170[8] __asm__("_s__lf__c_10028170") = "%lf %c";
 /* 0x10028178, 4 bytes */ /* loose */ char grim_def_s__g_10028178[4] __asm__("_s__g_10028178") = "%g";
 /* 0x1002817c, 4 bytes */ /* loose */ char grim_def_s__d_1002817c[4] __asm__("_s__d_1002817c") = "%d";

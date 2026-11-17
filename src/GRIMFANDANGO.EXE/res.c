@@ -895,7 +895,7 @@ extern char grim_def_s_Resource____12s__allocated___8ld_004e79f4[40] __asm__("_s
 extern char grim_def_s_Resource____12s__freed___d_refer_004e7ab8[40] __asm__("_s_Resource____12s__freed___d_refer_004e7ab8");
 extern char grim_def_s_Total___d_items___d_bytes_004e7a40[28] __asm__("_s_Total___d_items___d_bytes_004e7a40");
 extern char grim_def_s_ref__valid____0_004e7ae0[16] __asm__("_s_ref__valid____0_004e7ae0");
-/* 0x004e79f4, 40 bytes */ GRIM_DATA("004e79f4") char grim_def_s_Resource____12s__allocated___8ld_004e79f4[40] __asm__("_s_Resource____12s__allocated___8ld_004e79f4") = "Resource <%-12s> allocated: %8ld bytes\n";
+/* 0x004e79f4, 40 bytes */ /* loose */ char grim_def_s_Resource____12s__allocated___8ld_004e79f4[40] __asm__("_s_Resource____12s__allocated___8ld_004e79f4") = "Resource <%-12s> allocated: %8ld bytes\n";
 /* 0x004e7a40, 28 bytes */ /* loose */ char grim_def_s_Total___d_items___d_bytes_004e7a40[28] __asm__("_s_Total___d_items___d_bytes_004e7a40") = "Total: %d items, %d bytes\n";
 /* 0x004e7a5c, 36 bytes */ /* loose */ char grim_def_s_Resource___12s__size____7ld__s_004e7a5c[36] __asm__("_s_Resource___12s__size____7ld__s_004e7a5c") = "Resource %-12s,\t\tsize = %7ld\t%s\n";
 /* 0x004e7a80, 12 bytes */ /* loose */ char grim_def_s_REFERENCED_004e7a80[12] __asm__("_s_REFERENCED_004e7a80") = "REFERENCED";

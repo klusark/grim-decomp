@@ -46,8 +46,8 @@ uint __cdecl LecShare_Terminate(void)
   uint *puVar2;
   uint uVar3;
   
-  puVar2 = &UINT_008d56f0 + UINT_008d56f8 * 3;
-  for (uVar3 = UINT_008d56f8; uVar3 != 0; uVar3 = uVar3 - 1) {
+  puVar2 = g_adwLecShare_catalog + g_adwLecShare_catalog[2] * 3;
+  for (uVar3 = g_adwLecShare_catalog[2]; uVar3 != 0; uVar3 = uVar3 - 1) {
     if (((byte *)*puVar2 != (byte *)0x0) &&
        (iVar1 = Str_ModuleNameLength((byte *)*puVar2), iVar1 == 9)) {
       iVar1 = Str_ModuleNameLength((byte *)*puVar2);
@@ -76,23 +76,25 @@ int __cdecl LecShare_Startup(void)
   uint uVar4;
   
   puVar3 = g_adwLecShare_catalog;
-  PTR_008d56f4 = (int *)0x0;
-  uVar4 = UINT_008d56f8;
-  if (UINT_008d56f8 == 0) {
-    PTR_008d56f4 = (int *)0x0;
+  g_adwLecShare_catalog[1] = 0;
+  uVar4 = g_adwLecShare_catalog[2];
+  if (g_adwLecShare_catalog[2] == 0) {
+    g_adwLecShare_catalog[1] = 0;
     return 0;
   }
   do {
+    puVar3 = puVar3 + 3;
     uVar4 = uVar4 - 1;
-    puVar1 = (uint *)PTR_008d56f4;
+    puVar1 = (uint *)g_adwLecShare_catalog[1];
     if (((byte *)*puVar3 != (byte *)0x0) &&
-       (iVar2 = Str_ModuleNameLength((byte *)*puVar3), puVar1 = (uint *)PTR_008d56f4, iVar2 == 9)) {
+       (iVar2 = Str_ModuleNameLength((byte *)*puVar3), puVar1 = (uint *)g_adwLecShare_catalog[1],
+       iVar2 == 9)) {
       iVar2 = Str_ModuleNameLength((byte *)*puVar3);
       iVar2 = Str_CompareNoCaseN(s_LECMODULE_004f1224,(char *)*puVar3,iVar2);
-      puVar1 = (uint *)PTR_008d56f4;
+      puVar1 = (uint *)g_adwLecShare_catalog[1];
       if ((iVar2 == 0) &&
          ((puVar1 = puVar3, *(code **)(puVar3[1] + 8) != (code *)0x0 &&
-          (iVar2 = (**(code **)(puVar3[1] + 8))(), puVar1 = puVar3, iVar2 != 0)))) {
+          (iVar2 = (**(code **)(puVar3[1] + 8))(), iVar2 != 0)))) {
         if (PTR_LecShare_Nop_004f1220 != (undefined *)0x0) {
           (*(code *)PTR_LecShare_Nop_004f1220)(s_LecShare_Startup__Failed_with_mo_004f1230,*puVar3);
         }
@@ -100,8 +102,7 @@ int __cdecl LecShare_Startup(void)
         return iVar2;
       }
     }
-    PTR_008d56f4 = (int *)puVar1;
-    puVar3 = puVar3 + 3;
+    g_adwLecShare_catalog[1] = (uint)puVar1;
     if (uVar4 == 0) {
       return 0;
     }
@@ -116,28 +117,28 @@ int __cdecl LecShare_Startup(void)
 uint __cdecl LecShare_Shutdown(void)
 
 {
-  int *piVar1;
+  uint uVar1;
   int iVar2;
-  int *piVar3;
+  undefined4 *puVar3;
   int iVar4;
   
-  if (PTR_008d56f4 == (int *)0x0) {
+  if (g_adwLecShare_catalog[1] == 0) {
     return 1;
   }
-  piVar1 = PTR_008d56f4 + 3;
-  piVar3 = PTR_008d56f4;
-  for (iVar4 = (int)((int *)((char *)PTR_008d56f4 - ((unsigned)(uintptr_t)&UINT_008d56f0))) / 0xc; PTR_008d56f4 = piVar1, iVar4 != 0;
-      iVar4 = iVar4 + -1) {
-    if (((byte *)*piVar3 != (byte *)0x0) &&
-       (iVar2 = Str_ModuleNameLength((byte *)*piVar3), iVar2 == 9)) {
-      iVar2 = Str_ModuleNameLength((byte *)*piVar3);
-      iVar2 = Str_CompareNoCaseN(s_LECMODULE_004f1224,(char *)*piVar3,iVar2);
-      if ((iVar2 == 0) && (*(code **)(piVar3[1] + 0xc) != (code *)0x0)) {
-        (**(code **)(piVar3[1] + 0xc))();
+  uVar1 = g_adwLecShare_catalog[1] + 0xc;
+  puVar3 = (undefined4 *)g_adwLecShare_catalog[1];
+  for (iVar4 = (int)(g_adwLecShare_catalog[1] - 0x8d56f0) / 0xc; g_adwLecShare_catalog[1] = uVar1,
+      iVar4 != 0; iVar4 = iVar4 + -1) {
+    if (((byte *)*puVar3 != (byte *)0x0) &&
+       (iVar2 = Str_ModuleNameLength((byte *)*puVar3), iVar2 == 9)) {
+      iVar2 = Str_ModuleNameLength((byte *)*puVar3);
+      iVar2 = Str_CompareNoCaseN(s_LECMODULE_004f1224,(char *)*puVar3,iVar2);
+      if ((iVar2 == 0) && (*(code **)(puVar3[1] + 0xc) != (code *)0x0)) {
+        (**(code **)(puVar3[1] + 0xc))();
       }
     }
-    piVar3 = piVar3 + -3;
-    piVar1 = PTR_008d56f4;
+    puVar3 = puVar3 + -3;
+    uVar1 = g_adwLecShare_catalog[1];
   }
   return 0;
 }
@@ -157,7 +158,7 @@ void __cdecl LecShare_Reset(uint version,uint flags)
     puVar2 = puVar2 + 1;
   }
   UINT_008d56ec = version;
-  UINT_008d56f0 = flags;
+  g_adwLecShare_catalog[0] = flags;
   return;
 }
 
@@ -175,10 +176,10 @@ int __cdecl LecShare_Publish(char *name,void *vtable)
   uint *puVar3;
   uint uVar4;
   
-  uVar4 = UINT_008d56f8;
+  uVar4 = g_adwLecShare_catalog[2];
   Str_StripNonPrintable((byte *)name);
-  uVar2 = UINT_008d56f8;
-  puVar3 = &UINT_008d56f0 + uVar4 * 3;
+  uVar2 = g_adwLecShare_catalog[2];
+  puVar3 = g_adwLecShare_catalog + uVar4 * 3;
   while (uVar4 != 0) {
     uVar4 = uVar4 - 1;
     if (*puVar3 == 0) {
@@ -189,12 +190,12 @@ int __cdecl LecShare_Publish(char *name,void *vtable)
     }
     puVar3 = puVar3 + -3;
   }
-  if (UINT_008d56f8 < 0x200) {
-    iVar1 = UINT_008d56f8 * 3;
-    UINT_008d56f8 = UINT_008d56f8 + 1;
-    g_adwLecShare_catalog[iVar1] = (uint)name;
-    g_adwLecShare_catalog[uVar2 * 3 + 1] = (uint)vtable;
-    g_adwLecShare_catalog[uVar2 * 3 + 2] = 0;
+  if (g_adwLecShare_catalog[2] < 0x200) {
+    iVar1 = g_adwLecShare_catalog[2] * 3;
+    g_adwLecShare_catalog[2] = g_adwLecShare_catalog[2] + 1;
+    g_adwLecShare_catalog[iVar1 + 3] = (uint)name;
+    g_adwLecShare_catalog[uVar2 * 3 + 4] = (uint)vtable;
+    g_adwLecShare_catalog[uVar2 * 3 + 5] = 0;
     return 0;
   }
   return 1;
@@ -212,9 +213,9 @@ uint __cdecl LecShare_Unpublish(uint name)
   uint *puVar2;
   uint uVar3;
   
-  uVar3 = UINT_008d56f8;
+  uVar3 = g_adwLecShare_catalog[2];
   Str_StripNonPrintable((byte *)name);
-  puVar2 = &UINT_008d56f0 + uVar3 * 3;
+  puVar2 = g_adwLecShare_catalog + uVar3 * 3;
   if (uVar3 == 0) {
     return 1;
   }
@@ -261,8 +262,8 @@ void * __cdecl LecShare_Subscribe(char *name,char *pattern)
   
   pbVar6 = (byte *)0x0;
   if (g_dwPrivateData != 0) {
-    if (UINT_008d56f0 != 0) {
-      pbVar6 = FindMatch(name,(char *)UINT_008d56f0);
+    if (g_adwLecShare_catalog[0] != 0) {
+      pbVar6 = FindMatch(name,(char *)g_adwLecShare_catalog[0]);
     }
     if (pbVar6 == (byte *)0x0) {
       if (pattern != (char *)0x0) {
@@ -376,9 +377,9 @@ uint __cdecl LecShare_Unsubscribe(uint handle)
   uint *puVar1;
   uint uVar2;
   
-  puVar1 = &UINT_008d56f0 + UINT_008d56f8 * 3;
-  uVar2 = UINT_008d56f8;
-  if (UINT_008d56f8 == 0) {
+  puVar1 = g_adwLecShare_catalog + g_adwLecShare_catalog[2] * 3;
+  uVar2 = g_adwLecShare_catalog[2];
+  if (g_adwLecShare_catalog[2] == 0) {
     return 1;
   }
   do {
@@ -455,10 +456,10 @@ uint __cdecl GetCatalogEntry(char *type,uint index)
   bool bVar9;
   uint local_4;
   
-  uVar4 = UINT_008d56f8;
+  uVar4 = g_adwLecShare_catalog[2];
   uVar7 = 1;
   local_4 = 1;
-  if (UINT_008d56f8 == 0) {
+  if (g_adwLecShare_catalog[2] == 0) {
     return 0;
   }
   if ((int)index < 0) {
@@ -466,7 +467,7 @@ uint __cdecl GetCatalogEntry(char *type,uint index)
   }
   if (UINT_008d6f00 == 0) {
 LAB_004c1a7f:
-    puVar6 = g_adwLecShare_catalog;
+    puVar6 = g_adwLecShare_catalog + 3;
     uVar5 = index;
   }
   else {
@@ -559,8 +560,8 @@ uint __cdecl GetCatalogCount(char *type)
   uint local_4;
   
   local_4 = 0;
-  puVar5 = &UINT_008d56f0 + UINT_008d56f8 * 3;
-  uVar4 = UINT_008d56f8;
+  puVar5 = g_adwLecShare_catalog + g_adwLecShare_catalog[2] * 3;
+  uVar4 = g_adwLecShare_catalog[2];
   do {
     if (uVar4 == 0) {
       return local_4;
@@ -600,9 +601,9 @@ uint * __cdecl LecShare_FindEntry(uint name)
   uint *puVar2;
   uint uVar3;
   
-  puVar2 = &UINT_008d56f0 + UINT_008d56f8 * 3;
-  uVar3 = UINT_008d56f8;
-  if (UINT_008d56f8 == 0) {
+  puVar2 = g_adwLecShare_catalog + g_adwLecShare_catalog[2] * 3;
+  uVar3 = g_adwLecShare_catalog[2];
+  if (g_adwLecShare_catalog[2] == 0) {
     return (uint *)0x0;
   }
   do {
@@ -637,13 +638,10 @@ extern char f_LecShare_Subscribe[] __asm__("_LecShare_Subscribe");
 extern char f_LecShare_Unpublish[] __asm__("_LecShare_Unpublish");
 extern char f_LecShare_Unsubscribe[] __asm__("_LecShare_Unsubscribe");
 extern unsigned char grim_def_DAT_008d36e3[5] __asm__("_DAT_008d36e3");
-extern unsigned char grim_def_PTR_008d56f4[4] __asm__("_PTR_008d56f4");
 extern unsigned int grim_def_UINT_008d56ec __asm__("_UINT_008d56ec");
-extern unsigned int grim_def_UINT_008d56f0 __asm__("_UINT_008d56f0");
-extern unsigned int grim_def_UINT_008d56f8 __asm__("_UINT_008d56f8");
 extern unsigned int grim_def_UINT_008d6efc __asm__("_UINT_008d6efc");
 extern unsigned int grim_def_UINT_008d6f00 __asm__("_UINT_008d6f00");
-extern unsigned int grim_def_g_adwLecShare_catalog[1536] __asm__("_g_adwLecShare_catalog");
+extern unsigned int grim_def_g_adwLecShare_catalog[1539] __asm__("_g_adwLecShare_catalog");
 extern unsigned char grim_def_g_bGetCatalogEntry_pLastType[99] __asm__("_g_bGetCatalogEntry_pLastType");
 extern unsigned int grim_def_g_dwPrivateData __asm__("_g_dwPrivateData");
 extern void *grim_def_g_pLecShareServices[8] __asm__("_g_pLecShareServices");
@@ -663,9 +661,6 @@ static unsigned char grim_pad_004f1200[0] __attribute__((section(".data$grim_004
 /* 0x008d36e3, 5 bytes */ GRIM_DATA("008d3680") unsigned char grim_def_DAT_008d36e3[5] __asm__("_DAT_008d36e3") = {0};
 /* 0x008d56e8, 4 bytes */ GRIM_DATA("008d56e8") unsigned int grim_def_g_dwPrivateData __asm__("_g_dwPrivateData") = 0x0;
 /* 0x008d56ec, 4 bytes */ GRIM_DATA("008d56ec") unsigned int grim_def_UINT_008d56ec __asm__("_UINT_008d56ec") = 0x0;
-/* 0x008d56f0, 4 bytes */ GRIM_DATA("008d56f0") unsigned int grim_def_UINT_008d56f0 __asm__("_UINT_008d56f0") = 0x0;
-/* 0x008d56f4, 4 bytes */ GRIM_DATA("008d56f4") unsigned char grim_def_PTR_008d56f4[4] __asm__("_PTR_008d56f4") = {0};
-/* 0x008d56f8, 4 bytes */ GRIM_DATA("008d56f8") unsigned int grim_def_UINT_008d56f8 __asm__("_UINT_008d56f8") = 0x0;
-/* 0x008d56fc, 6144 bytes */ GRIM_DATA("008d56fc") unsigned int grim_def_g_adwLecShare_catalog[1536] __asm__("_g_adwLecShare_catalog") = {0};
+/* 0x008d56f0, 6156 bytes */ GRIM_DATA("008d56f0") unsigned int grim_def_g_adwLecShare_catalog[1539] __asm__("_g_adwLecShare_catalog") = {0};
 /* 0x008d6efc, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d6efc __asm__("_UINT_008d6efc") = 0x0;
 /* 0x008d6f00, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008d6f00 __asm__("_UINT_008d6f00") = 0x0;

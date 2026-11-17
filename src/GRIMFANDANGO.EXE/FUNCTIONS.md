@@ -2388,7 +2388,7 @@
 | 004bd500 | SmushPlay_Pause | smush.c | 11 |
 | 004bd520 | SmushPlay_Resume | smush.c | 11 |
 | 004bd560 | SmushPlay_SysConfigureColorLookup | smush.c | 10 |
-| 004bd570 | SmushPlay_StartMovie | smush.c | 120 |
+| 004bd570 | SmushPlay_StartMovie | smush.c | 121 |
 | 004bd930 | SmushPlay_StopMovie | smush.c | 15 |
 | 004bd970 | SmushPlay_UpdateMovie | smush.c | 56 |
 | 004bde90 | SmushPlay_SetTranslationTable | smush.c | 9 |
@@ -2438,7 +2438,7 @@
 | 004d40d0 | Mixer_MixStereo_B | mixer.c | 70 |
 | 004c1390 | LecShare_Initialize | lecshare.c | 27 |
 | 004c13f0 | LecShare_Terminate | lecshare.c | 25 |
-| 004c1460 | LecShare_Startup | lecshare.c | 45 |
+| 004c1460 | LecShare_Startup | lecshare.c | 46 |
 | 004c1500 | LecShare_Shutdown | lecshare.c | 32 |
 | 004c1590 | LecShare_Reset | lecshare.c | 17 |
 | 004c15c0 | LecShare_Publish | lecshare.c | 37 |

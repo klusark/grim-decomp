@@ -130,7 +130,7 @@ int __stdcall LightEd_KeyboardProc(int code, uint wParam, uint lParam)
 
 extern int g_nLecShareActive __asm__("_g_dwPrivateData");     /* the override list is in use */
 extern char *g_pszLecShareDefault __asm__("_UINT_008d56ec");
-extern char *g_pszLecShareOverride __asm__("_UINT_008d56f0");
+extern char *g_pszLecShareOverride __asm__("_g_adwLecShare_catalog");   /* the first word of the catalog's header entry */
 
 static void str_append(char *dst, const char *src)
 {

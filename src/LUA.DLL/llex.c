@@ -1064,7 +1064,7 @@ extern char grim_def_s_unmatched__end_10026ef0[16] __asm__("_s_unmatched__end_10
     (void *)&grim_def_s_debug_10026bb4, (void *)&grim_def_s_nodebug_10026dd4, (void *)&grim_def_s_endinput_10026dc8, (void *)&grim_def_DAT_10026e28,
     (void *)&grim_def_s_ifnot_10026dc0, (void *)&grim_def_DAT_10026e18, (void *)&grim_def_DAT_10026e34, 0
 };
-/* 0x10026e44, 24 bytes */ GRIM_DATA("10026e44") char grim_def_s_input_ends_inside_a__if_10026e44[24] __asm__("_s_input_ends_inside_a__if_10026e44") = "input ends inside a $if";
+/* 0x10026e44, 24 bytes */ /* loose */ char grim_def_s_input_ends_inside_a__if_10026e44[24] __asm__("_s_input_ends_inside_a__if_10026e44") = "input ends inside a $if";
 /* 0x10026e5c, 56 bytes */ /* loose */ char grim_def_s_ambiguous_syntax__decimal_point_x_10026e5c[56] __asm__("_s_ambiguous_syntax__decimal_point_x_10026e5c") = "ambiguous syntax (decimal point x string concatenation)";
 /* 0x10026e94, 24 bytes */ /* loose */ char grim_def_s_invalid_pragma_format_10026e94[24] __asm__("_s_invalid_pragma_format_10026e94") = "invalid pragma format";
 /* 0x10026eac, 16 bytes */ /* loose */ char grim_def_s_unknown_pragma_10026eac[16] __asm__("_s_unknown_pragma_10026eac") = "unknown pragma";

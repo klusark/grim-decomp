@@ -13,6 +13,7 @@ extern ImMusicEntry g_aImStateTable[181]; /* 0x100172e8 */
 extern ImMusicEntry g_aImSeqTable[41]; /* 0x1001ae50 */
 extern ImNameAlias g_aImNameAlias[171]; /* 0x1001bbc8 */
 extern ImBufferInfo g_aImBufferInfo[3]; /* 0x1002ebe0 */
+extern byte g_abImuseCrt_mbcasemap[256]; /* 0x10033260 */
 
 /* ---- unnamed data (type inferred from use) ---- */
 extern undefined DAT_100152da; /* used by 1 fn(s), first 0x10001c30 */
@@ -600,7 +601,6 @@ extern unsigned char DAT_10033008[]; /* 0x10033008 */
 extern unsigned char DAT_10033050[]; /* 0x10033050 */
 extern unsigned char DAT_10033158[]; /* 0x10033158 */
 extern unsigned char DAT_10033159[]; /* 0x10033159 */
-extern unsigned char DAT_10033260[]; /* 0x10033260 */
 extern unsigned char DAT_10033430[]; /* 0x10033430 */
 extern unsigned char DAT_10033437[]; /* 0x10033437 */
 extern unsigned char DAT_10033438[]; /* 0x10033438 */

@@ -5041,15 +5041,13 @@ extern char grim_def_s_stream_error_004f1fb8[] __asm__("_s_stream_error_004f1fb8
 /* 0x004f0ccc, 16 bytes */ /* loose */ char grim_def_s_MEMORY_insane_004f0ccc[16] __asm__("_s_MEMORY_insane_004f0ccc") = "MEMORY=insane";
 /* 0x004f0cdc, 24 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_memory_004f0cdc[24] __asm__("_s_LECMODULE_insane_memory_004f0cdc") = "LECMODULE=insane_memory";
 /* 0x004f0cf4, 24 bytes */ /* loose */ char grim_def_s_LECMODULE_insane_stdio_004f0cf4[24] __asm__("_s_LECMODULE_insane_stdio_004f0cf4") = "LECMODULE=insane_stdio";
-static unsigned char grim_anchor_004f0e74[0] __attribute__((section(".data$grim_004f0e74"), aligned(16), used));
-static unsigned char grim_pad_004f0e74[4] __attribute__((section(".data$grim_004f0e74_"), aligned(4), used));
-/* 0x004f0e74, 60 bytes */ GRIM_DATA("004f0e74z") unsigned char grim_def_DAT_004f0e74[60] __asm__("_DAT_004f0e74") = {
+/* 0x004f0e74, 60 bytes */ /* loose */ unsigned char grim_def_DAT_004f0e74[60] __asm__("_DAT_004f0e74") = {
     0x54, 0x68, 0x61, 0x74, 0x20, 0x6e, 0x61, 0x6d, 0x65, 0x20, 0x69, 0x73, 0x20, 0x61, 0x6c, 0x72,
     0x65, 0x61, 0x64, 0x79, 0x20, 0x62, 0x65, 0x69, 0x6e, 0x67, 0x20, 0x75, 0x73, 0x65, 0x64, 0x2e,
     0x20, 0x20, 0x45, 0x6e, 0x74, 0x65, 0x72, 0x20, 0x61, 0x20, 0x64, 0x69, 0x66, 0x66, 0x65, 0x72,
     0x65, 0x6e, 0x74, 0x20, 0x6f, 0x6e, 0x65, 0x2e
 };
-/* 0x004f0eb0, 24 bytes */ GRIM_DATA("004f0eb0") char grim_def_s_Duplicate_light_name_004f0eb0[24] __asm__("_s_Duplicate_light_name_004f0eb0") = "Duplicate light name";
+/* 0x004f0eb0, 24 bytes */ /* loose */ char grim_def_s_Duplicate_light_name_004f0eb0[24] __asm__("_s_Duplicate_light_name_004f0eb0") = "Duplicate light name";
 /* 0x004f0ec8, 16 bytes */ /* loose */ char grim_def_s_New_light_name_004f0ec8[16] __asm__("_s_New_light_name_004f0ec8") = "New light name";
 /* 0x004f1298, 72 bytes */ /* loose */ char grim_def_s_LecShare_BatchUnsubscribe_Couldn_004f1298[72] __asm__("_s_LecShare_BatchUnsubscribe_Couldn_004f1298") = "LecShare:BatchUnsubscribe Couldn't unsubscribe from %s interface.";
 static unsigned char grim_anchor_004f12e0[0] __attribute__((section(".data$grim_004f12e0"), aligned(16), used));

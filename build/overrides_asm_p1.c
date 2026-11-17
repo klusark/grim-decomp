@@ -883,9 +883,9 @@ void __cdecl rdModel3_DrawMeshImpl(rdMesh *mesh_,float *matrix)
     if (n == 2)
         return;
     if (g_dwClipPlaneActive != 0) {
-        long double a1 = ((long double)matrix[10] - P1_F(&FLOAT_007f320c)) * P1_F(&FLOAT_004ddb74);
-        long double a2 = ((long double)matrix[11] - P1_F(&FLOAT_007f3210)) * P1_F(&FLOAT_004ddb78);
-        long double a0 = ((long double)matrix[9] - P1_F(&FLOAT_007f3208)) * P1_F(&FLOAT_004ddb70);
+        long double a1 = ((long double)matrix[10] - P1_F(&g_aflRdClipPlanePoint[1])) * P1_F(&FLOAT_004ddb74);
+        long double a2 = ((long double)matrix[11] - P1_F(&g_aflRdClipPlanePoint[2])) * P1_F(&FLOAT_004ddb78);
+        long double a0 = ((long double)matrix[9] - P1_F(&g_aflRdClipPlanePoint[0])) * P1_F(&FLOAT_004ddb70);
         long double d = (a1 + a2) + a0;
         if (-(long double)P1_F((int)g_pCurMesh + 0x60) > d)
             return;

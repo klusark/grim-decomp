@@ -25,6 +25,7 @@ extern undefined4 lua_debug; /* 0x1002bee4, undefined4 in Ghidra */
 extern LState * g_pLuaState; /* 0x1002bf6c */
 extern LState * g_dwL_Main; /* 0x1002bf70 */
 extern ExecutionState * g_pExecutionState_pFreeStates; /* 0x1002bf84 */
+extern byte g_abLuaCrt_mbcasemap[256]; /* 0x1002c470 */
 
 /* ---- unnamed data (type inferred from use) ---- */
 extern code LAB_1000f3b0;  /* code label (address only) */ /* used by 2 fn(s), first 0x1000f3d2 */
@@ -479,7 +480,6 @@ extern undefined4 DAT_1002c258; /* used by 1 fn(s), first 0x1001c5f0 */
 extern undefined4 DAT_1002c25c; /* used by 1 fn(s), first 0x1001c720 */
 extern undefined DAT_1002c260; /* used by 1 fn(s), first 0x1001c950 */
 extern undefined4 DAT_1002c368; /* used by 6 fn(s), first 0x10016020 */
-extern undefined DAT_1002c470; /* used by 1 fn(s), first 0x1001cf20 */
 extern undefined4 DAT_1002c570; /* used by 6 fn(s), first 0x10016020 */
 extern undefined4 DAT_1002c574; /* used by 4 fn(s), first 0x10016130 */
 extern undefined DAT_1002c578; /* used by 2 fn(s), first 0x1001cc00 */

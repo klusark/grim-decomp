@@ -15,7 +15,9 @@ The overrides' macros that read one value at a literal address (RG32(0x...), Q3G
 reads; their other literals are addresses.
 
 A span is *loose* when every reference to it is direct and ends inside it, or when it is a pure string (no pointer, only
-zeros after its NUL) whose address is taken at its start: then nothing reaches its neighbours through it. Every other
+zeros after its NUL; named s_ / typed char, or printable text by its bytes whatever its name) whose address is taken at
+its start: then nothing reaches its neighbours through it. A GUID in .rdata taken by its address (a REFIID for
+QueryInterface, recognised by its version and variant bits) reaches 16 bytes. Every other
 span (a table, an object passed by address, a string indexed or entered in the middle, a value read wider than its
 span) may be read on into what follows: it is *glued* to its neighbours. How far depends on what bounds it:
 * a value read wider than its span reaches exactly that far;
@@ -159,6 +161,9 @@ def override_targets(prog, ranges):
 # access of that width, not an address that goes elsewhere
 COMMENT_RE = re.compile(r"/[*].*?[*]/|//[^\n]*", re.S)
 OVERRIDE_READS = {"RG32": 4, "RGU32": 4, "RG16": 2, "Q3G": 4, "Q3GI": 4, "Q3GF": 4, "CR_FLT": 4, "IMW": 4}
+# Q3P / Q3I / Q3U / Q3F(IMG_ADDR(0x...), off): one dword read at the address plus off (overrides_asm_q3.c's
+# `Q3P(IMG_ADDR(0x0080692c), 0)` reads g_pStd3D_CurDevice)
+Q3_FIELD_RE = re.compile(r"Q3[PIUF]\(\s*IMG_ADDR\(0x([0-9a-fA-F]{8})\)\s*,\s*(0x[0-9a-fA-F]+|\d+)\s*\)")
 READ_RE = re.compile(r"\b(%s)\(\s*0x([0-9a-fA-F]{8})u?\s*\)" % "|".join(OVERRIDE_READS))
 
 
@@ -178,6 +183,9 @@ def override_refs(prog, ranges):
         for m in READ_RE.finditer(t):
             reads.append((int(m.group(2), 16), "direct", OVERRIDE_READS[m.group(1)]))
             spans.append(m.span(2))
+        for m in Q3_FIELD_RE.finditer(t):
+            reads.append((int(m.group(1), 16) + int(m.group(2), 0), "direct", 4))
+            spans.append(m.span(1))
         for h in LIT_RE.finditer(t):
             if any(s <= h.start(1) < e for s, e in spans):
                 continue
@@ -219,7 +227,9 @@ def classify(model, img_targets=()):
         if kind == "end":
             if a == sp.start:
                 ends.add(sp.start)
-            else:
+            elif not (aggregate(prog, sp) and declared_size(prog, sp) and a <= sp.start + declared_size(prog, sp)):
+                # (inside an array or a structure Ghidra types, a loop's bound is one within the object: VbrAdpcm's
+                # init loop stops at 0x8d78e8, a row into g_wDWave_aDeltaTable)
                 bad.add(sp.start)
                 unbounded.add(sp.start)
             continue
@@ -230,6 +240,11 @@ def classify(model, img_targets=()):
             continue
         if kind == "address" and a == sp.start and is_string(model, sp):
             strings.add(sp.start)
+            continue
+        if kind == "address" and is_guid(model, sp, a):
+            # a COM interface or class id, handed to QueryInterface / CoCreateInstance as a REFIID: 16 bytes
+            far[sp.start] = max(far.get(sp.start, 0), a + 16, sp.end)
+            bad.add(sp.start)
             continue
         bad.add(sp.start)
         walked.add(sp.start)
@@ -469,6 +484,8 @@ def declared_size(prog, sp):
 
 def aggregate(prog, sp):
     """True when the span's type is an array or a structure: a type that says how far the object goes."""
+    if not sp.decl:
+        return False
     base, is_arr, count = sp.decl
     if is_arr and not count:
         t = ghidra_type(prog, sp.start) or ""
@@ -493,14 +510,29 @@ def type_size(prog, t):
     return struct_sizes(prog).get(t, 0)
 
 
+def is_guid(model, sp, a):
+    """True when the 16 bytes at a, in the read-only data, are a GUID: the version nibble of Data3 1..5 and the variant
+    bits of Data4[0] 10 (the DirectX interface ids, `IID_IDirectDraw` .. `...-11cf-bfc7-444553540000`)."""
+    import datagen
+    if sp.sec is None or sp.sec["name"] != ".rdata" or a + 16 > sp.end:
+        return False
+    b = datagen.section_bytes(model, sp)[a - sp.start:a - sp.start + 16]
+    return len(b) == 16 and 1 <= (b[7] >> 4) <= 5 and (b[8] & 0xc0) == 0x80 and b.strip(b"\0") != b""
+
+
 def is_string(model, sp):
     import datagen
     b = datagen.section_bytes(model, sp)
-    if not (sp.name.startswith(("s_", "u_")) or (sp.decl and sp.decl[1] and sp.decl[0].replace("const ", "").strip() == "char")):
-        return False
     # a string and nothing else: no pointer in it, only zeros after its NUL (s__STDIN_10026d04's span also holds the
     # first entry of luaX_init's reserved-word table)
-    return b"\0" in b and not sp.relocs and not b[b.index(b"\0"):].strip(b"\0")
+    if b"\0" not in b or sp.relocs or b[b.index(b"\0"):].strip(b"\0"):
+        return False
+    if sp.name.startswith(("s_", "u_")) or (sp.decl and sp.decl[1] and sp.decl[0].replace("const ", "").strip() == "char"):
+        return True
+    # by its bytes too, whatever Ghidra named it: printable text of two characters or more, then the NUL (the C
+    # runtime's locale names in CHORE.DLL, `DAT_1000e118` = "LC_TIME", held a chain of 237 spans open)
+    text = b[:b.index(b"\0")]
+    return len(text) >= 2 and all(32 <= c < 127 or c in (9, 10, 13) for c in text)
 
 
 def exported_addrs(prog):

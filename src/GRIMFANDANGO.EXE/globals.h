@@ -82,6 +82,7 @@ extern rdMesh * g_pCurMesh; /* 0x007f30a0 */
 extern rdModel3 * g_pCurModel3; /* 0x007f30d4 */
 extern uint g_adwRdModel3_meshLights[64]; /* 0x007f30e0 */
 extern rdThing * g_pCurThing; /* 0x007f31e0 */
+extern float g_aflRdClipPlanePoint[3]; /* 0x007f3208 */
 extern int g_nRdNRaster_numVertices; /* 0x007f424c */
 extern int g_nRdNRaster_yMinVert; /* 0x007f42e8 */
 extern int g_nRdNRaster_leftVertexStep; /* 0x007f42ec */
@@ -225,11 +226,12 @@ extern Puck * g_dwPuck_p_head; /* 0x008d086c */
 extern GrimServices * g_pTextHS; /* 0x008d0878 */
 extern byte g_bLookup[256]; /* 0x008d0880 */
 extern void * g_pDefaultFont; /* 0x008d0988 */
-extern void * g_pWinDialogs; /* 0x008d0998 */
+extern void * g_pWinDialogs[16]; /* 0x008d0998 */
 extern void * g_pWinMainHwnd; /* 0x008d09d8 */
 extern WinMessageHook g_aWinMessageHooks[16]; /* 0x008d09e8 */
 extern int g_nWinQuit; /* 0x008d0a74 */
 extern uint g_dwWinDialogCount; /* 0x008d0a78 */
+extern byte g_abSmushHeader[1048]; /* 0x008d1208 */
 extern void * g_hLightEdDialog; /* 0x008d3630 */
 extern Set * g_pLightEdSet; /* 0x008d3634 */
 extern Actor * g_pLightEdMarkerActor; /* 0x008d3638 */
@@ -238,7 +240,7 @@ extern int g_nLightEdBusy; /* 0x008d3640 */
 extern uint g_dwLightEdLastKey; /* 0x008d3648 */
 extern void * g_pDirectSound; /* 0x008d365c */
 extern void * g_pDSoundPrimary; /* 0x008d3670 */
-extern uint g_adwLecShare_catalog[1536]; /* 0x008d56fc */
+extern uint g_adwLecShare_catalog[1539]; /* 0x008d56f0 */
 extern int * g_pAnimPlay_timer_services; /* 0x008d6f10 */
 extern int * g_pAnimPlay_sound_services; /* 0x008d6f18 */
 extern int g_nBretsFrameCount; /* 0x008d6f1c */
@@ -956,7 +958,7 @@ extern undefined DAT_004ed5d0; /* used by 1 fn(s), first 0x004b14e0 */
 extern undefined4 UINT_004ed5d8; /* used by 1 fn(s), first 0x004b14e0 */
 extern undefined DAT_004ed6c8; /* used by 6 fn(s), first 0x004af960 */
 extern undefined4 UINT_004ed6f0; /* used by 1 fn(s), first 0x004b1d60 */
-extern undefined *PTR_DAT_004ed780; /* used by 2 fn(s), first 0x004b1d60 */
+extern undefined *PTR_g_abCrt_stdioBuffer_004ed780; /* used by 2 fn(s), first 0x004b1d60 */
 extern undefined4 UINT_004ed790; /* used by 1 fn(s), first 0x004b2040 */
 extern undefined DAT_004ed7a0; /* used by 3 fn(s), first 0x004acc40 */
 extern undefined DAT_004ed7c0; /* used by 2 fn(s), first 0x004af960 */
@@ -1418,9 +1420,6 @@ extern undefined4 g_dwNumGeoLights; /* used by 2 fn(s), first 0x0040cf20 */
 extern undefined4 g_dwNumMeshLights; /* used by 2 fn(s), first 0x0040d230 */
 extern undefined g_dwMaxGeoRadius; /* used by 1 fn(s), first 0x0040c970 */
 extern uint g_dwClipPlaneActive; /* used by 3 fn(s), first 0x0040a870 */
-extern float FLOAT_007f3208; /* used by 3 fn(s), first 0x0040a880 */
-extern float FLOAT_007f320c; /* used by 2 fn(s), first 0x0040a880 */
-extern float FLOAT_007f3210; /* used by 2 fn(s), first 0x0040a880 */
 extern undefined4 UINT_007f3214; /* used by 6 fn(s), first 0x00410970 */
 extern uint g_dwMaterialsLoader; /* used by 2 fn(s), first 0x00417e90 */
 extern uint g_dwMaterialsUnloader; /* used by 2 fn(s), first 0x00417ea0 */
@@ -2016,12 +2015,6 @@ extern undefined g_dwGrimmem_share_config; /* used by 1 fn(s), first 0x004bdf70 
 extern uint g_dwSmushPlayHS; /* used by 10 fn(s), first 0x004bd3a0 */
 extern int * g_pGrimmem_share_services; /* used by 2 fn(s), first 0x004bdf70 */
 extern undefined4 g_dwAnimplay_services; /* used by 5 fn(s), first 0x004bd500 */
-extern undefined2 DAT_008d120c; /* used by 1 fn(s), first 0x004bd570 */
-extern undefined2 DAT_008d120e; /* used by 1 fn(s), first 0x004bd570 */
-extern undefined2 DAT_008d1210; /* used by 1 fn(s), first 0x004bd570 */
-extern undefined2 DAT_008d1212; /* used by 1 fn(s), first 0x004bd570 */
-extern undefined4 UINT_008d1216; /* used by 1 fn(s), first 0x004bd970 */
-extern undefined4 UINT_008d121a; /* used by 2 fn(s), first 0x004bd570 */
 extern undefined g_dwSmushPlay_share_config; /* used by 1 fn(s), first 0x004be050 */
 extern undefined4 UINT_008d1638; /* used by 1 fn(s), first 0x004bdea0 */
 extern undefined4 UINT_008d163c; /* used by 1 fn(s), first 0x004bdea0 */
@@ -2078,9 +2071,6 @@ extern undefined DAT_008d36e3; /* used by 1 fn(s), first 0x004c1990 */
 extern byte g_bFindMatch_stringBuffer; /* used by 1 fn(s), first 0x004c1c30 */
 extern undefined4 g_dwPrivateData; /* used by 3 fn(s), first 0x004c1390 */
 extern uint UINT_008d56ec; /* used by 2 fn(s), first 0x004c1590 */
-extern uint UINT_008d56f0; /* used by 8 fn(s), first 0x004c13f0 */
-extern int * PTR_008d56f4; /* used by 2 fn(s), first 0x004c1460 */
-extern uint UINT_008d56f8; /* used by 8 fn(s), first 0x004c13f0 */
 extern uint UINT_008d6efc; /* used by 1 fn(s), first 0x004c1990 */
 extern uint UINT_008d6f00; /* used by 1 fn(s), first 0x004c1990 */
 extern undefined4 g_dwAnimPlay_bitmap_services; /* used by 3 fn(s), first 0x004c1ff0 */
@@ -2815,7 +2805,6 @@ extern unsigned char DAT_008d0ca1[]; /* 0x008d0ca1 */
 extern unsigned char DAT_008d0f74[]; /* 0x008d0f74 */
 extern unsigned char DAT_008d0fc8[]; /* 0x008d0fc8 */
 extern unsigned char DAT_008d103f[]; /* 0x008d103f */
-extern unsigned char DAT_008d1208[]; /* 0x008d1208 */
 extern unsigned char DAT_008da5e0[]; /* 0x008da5e0 */
 extern unsigned char DAT_008da5e4[]; /* 0x008da5e4 */
 extern unsigned char DAT_008da5e8[]; /* 0x008da5e8 */
