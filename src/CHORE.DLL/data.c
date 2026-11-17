@@ -378,7 +378,9 @@ extern unsigned char DAT_10015af0[4];
 extern unsigned char DAT_10015af4[4];
 extern unsigned char DAT_10015af8[4];
 
-/* 0x1000e000, 224 bytes */ /* loose */ unsigned char PTR_GetEnvironmentStrings_1000e000[224] __asm__("_PTR_GetEnvironmentStrings_1000e000") = {
+static unsigned char grim_anchor_1000e000[0] __attribute__((section(".data$grim_1000e000"), aligned(16), used));
+static unsigned char grim_pad_1000e000[0] __attribute__((section(".data$grim_1000e000_"), aligned(4), used));
+/* 0x1000e000, 224 bytes */ GRIM_DATA("1000e000z") unsigned char PTR_GetEnvironmentStrings_1000e000[224] __asm__("_PTR_GetEnvironmentStrings_1000e000") = {
     0xd4, 0xef, 0x00, 0x00, 0xaa, 0xed, 0x00, 0x00, 0xb8, 0xed, 0x00, 0x00, 0xca, 0xed, 0x00, 0x00,
     0xde, 0xed, 0x00, 0x00, 0xfa, 0xed, 0x00, 0x00, 0x12, 0xee, 0x00, 0x00, 0x2a, 0xee, 0x00, 0x00,
     0x42, 0xee, 0x00, 0x00, 0x50, 0xee, 0x00, 0x00, 0x68, 0xee, 0x00, 0x00, 0x80, 0xee, 0x00, 0x00,
@@ -394,14 +396,12 @@ extern unsigned char DAT_10015af8[4];
     0xec, 0xf0, 0x00, 0x00, 0x00, 0xf1, 0x00, 0x00, 0x12, 0xf1, 0x00, 0x00, 0x22, 0xf1, 0x00, 0x00,
     0x34, 0xf1, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x3f
 };
-/* 0x1000e0e0, 28 bytes */ /* loose */ unsigned char DAT_1000e0e0[28] __asm__("_DAT_1000e0e0") = {
+/* 0x1000e0e0, 28 bytes */ GRIM_DATA("1000e0e0") unsigned char DAT_1000e0e0[28] __asm__("_DAT_1000e0e0") = {
     0x49, 0x73, 0x50, 0x72, 0x6f, 0x63, 0x65, 0x73, 0x73, 0x6f, 0x72, 0x46, 0x65, 0x61, 0x74, 0x75,
     0x72, 0x65, 0x50, 0x72, 0x65, 0x73, 0x65, 0x6e, 0x74
 };
-static unsigned char grim_anchor_1000e0fc[0] __attribute__((section(".data$grim_1000e0fc"), aligned(16), used));
-static unsigned char grim_pad_1000e0fc[12] __attribute__((section(".data$grim_1000e0fc_"), aligned(4), used));
-/* 0x1000e0fc, 28 bytes, unused (dead) */ GRIM_DATA("1000e0fcz") unsigned char UNK_1000e0fc[28] __asm__("_UNK_1000e0fc");
-/* 0x1000e118, 8 bytes */ GRIM_DATA("1000e118") unsigned char DAT_1000e118[8] __asm__("_DAT_1000e118") = { 0x4c, 0x43, 0x5f, 0x54, 0x49, 0x4d, 0x45 };
+/* 0x1000e0fc, 28 bytes, unused (dead) */ /* loose */ unsigned char UNK_1000e0fc[28] __asm__("_UNK_1000e0fc");
+/* 0x1000e118, 8 bytes */ /* loose */ unsigned char DAT_1000e118[8] __asm__("_DAT_1000e118") = { 0x4c, 0x43, 0x5f, 0x54, 0x49, 0x4d, 0x45 };
 /* 0x1000e120, 12 bytes */ /* loose */ unsigned char DAT_1000e120[12] __asm__("_DAT_1000e120") = { 0x4c, 0x43, 0x5f, 0x4e, 0x55, 0x4d, 0x45, 0x52, 0x49, 0x43 };
 /* 0x1000e12c, 12 bytes */ /* loose */ unsigned char DAT_1000e12c[12] __asm__("_DAT_1000e12c") = { 0x4c, 0x43, 0x5f, 0x4d, 0x4f, 0x4e, 0x45, 0x54, 0x41, 0x52, 0x59 };
 /* 0x1000e138, 12 bytes */ /* loose */ unsigned char DAT_1000e138[12] __asm__("_DAT_1000e138") = { 0x4c, 0x43, 0x5f, 0x43, 0x54, 0x59, 0x50, 0x45 };
@@ -429,7 +429,7 @@ static unsigned char grim_pad_1000e150[0] __attribute__((section(".data$grim_100
 /* 0x1000e3c0, 40 bytes, unused (pointed at by unused data) */ /* loose */ unsigned char DAT_1000e3c0[40] __asm__("_DAT_1000e3c0");
 static unsigned char grim_anchor_1000e3e8[0] __attribute__((section(".data$grim_1000e3e8"), aligned(16), used));
 static unsigned char grim_pad_1000e3e8[8] __attribute__((section(".data$grim_1000e3e8_"), aligned(4), used));
-/* 0x1000e3e8, 44 bytes, unused (dead) */ GRIM_DATA("1000e3e8z") unsigned char DAT_1000e3e8[44] __asm__("_DAT_1000e3e8");
+/* 0x1000e3e8, 44 bytes, unused (rest of DAT_1000e3c0) */ GRIM_DATA("1000e3e8z") unsigned char DAT_1000e3e8[44] __asm__("_DAT_1000e3e8");
 /* 0x1000e414, 28 bytes, unused (dead) */ GRIM_DATA("1000e414") unsigned char UNK_1000e414[28] __asm__("_UNK_1000e414");
 /* 0x1000e430, 4 bytes, unused (dead) */ /* loose */ unsigned char UNK_1000e430[4] __asm__("_UNK_1000e430");
 /* 0x1000e434, 24 bytes, unused (dead) */ /* loose */ unsigned char UNK_1000e434[24] __asm__("_UNK_1000e434");
@@ -554,17 +554,13 @@ static unsigned char grim_pad_1000e3e8[8] __attribute__((section(".data$grim_100
 /* 0x1000ea98, 20 bytes, unused (pointed at by unused data) */ /* loose */ unsigned char DAT_1000ea98[20] __asm__("_DAT_1000ea98");
 /* 0x1000eaac, 20 bytes, unused (pointed at by unused data) */ /* loose */ unsigned char DAT_1000eaac[20] __asm__("_DAT_1000eaac");
 /* 0x1000eac0, 12 bytes, unused (pointed at by unused data) */ /* loose */ unsigned char DAT_1000eac0[12] __asm__("_DAT_1000eac0");
-static unsigned char grim_anchor_1000eacc[0] __attribute__((section(".data$grim_1000eacc"), aligned(16), used));
-static unsigned char grim_pad_1000eacc[12] __attribute__((section(".data$grim_1000eacc_"), aligned(4), used));
-/* 0x1000eacc, 4 bytes, unused (dead) */ GRIM_DATA("1000eaccz") unsigned char UNK_1000eacc[4] __asm__("_UNK_1000eacc");
-/* 0x1000ead0, 4 bytes, unused (dead) */ GRIM_DATA("1000ead0") unsigned char UNK_1000ead0[4] __asm__("_UNK_1000ead0");
-/* 0x1000ead4, 20 bytes, unused (dead) */ GRIM_DATA("1000ead4") unsigned char DAT_1000ead4[20] __asm__("_DAT_1000ead4");
+/* 0x1000eacc, 4 bytes, unused (dead) */ /* loose */ unsigned char UNK_1000eacc[4] __asm__("_UNK_1000eacc");
+/* 0x1000ead0, 4 bytes, unused (dead) */ /* loose */ unsigned char UNK_1000ead0[4] __asm__("_UNK_1000ead0");
+/* 0x1000ead4, 20 bytes, unused (dead) */ /* loose */ unsigned char DAT_1000ead4[20] __asm__("_DAT_1000ead4");
 /* 0x1000eae8, 16 bytes, unused (dead) */ /* loose */ unsigned char DAT_1000eae8[16] __asm__("_DAT_1000eae8");
 /* 0x1000eaf8, 12 bytes, unused (dead) */ /* loose */ unsigned char DAT_1000eaf8[12] __asm__("_DAT_1000eaf8");
-static unsigned char grim_anchor_1000eb04[0] __attribute__((section(".data$grim_1000eb04"), aligned(16), used));
-static unsigned char grim_pad_1000eb04[4] __attribute__((section(".data$grim_1000eb04_"), aligned(4), used));
-/* 0x1000eb04, 44 bytes, unused (dead) */ GRIM_DATA("1000eb04z") unsigned char UNK_1000eb04[44] __asm__("_UNK_1000eb04");
-/* 0x1000eb30, 8 bytes */ GRIM_DATA("1000eb30") unsigned char DAT_1000eb30[8] __asm__("_DAT_1000eb30") = { 0x48, 0x3a, 0x6d, 0x6d, 0x3a, 0x73, 0x73 };
+/* 0x1000eb04, 44 bytes, unused (dead) */ /* loose */ unsigned char UNK_1000eb04[44] __asm__("_UNK_1000eb04");
+/* 0x1000eb30, 8 bytes */ /* loose */ unsigned char DAT_1000eb30[8] __asm__("_DAT_1000eb30") = { 0x48, 0x3a, 0x6d, 0x6d, 0x3a, 0x73, 0x73 };
 /* 0x1000eb38, 20 bytes */ /* loose */ unsigned char DAT_1000eb38[20] __asm__("_DAT_1000eb38") = {
     0x64, 0x64, 0x64, 0x64, 0x2c, 0x20, 0x4d, 0x4d, 0x4d, 0x4d, 0x20, 0x64, 0x64, 0x2c, 0x20, 0x79,
     0x79, 0x79, 0x79
@@ -848,10 +844,12 @@ static unsigned char grim_pad_1000ec50[0] __attribute__((section(".data$grim_100
 };
 /* 0x100106e0, 4 bytes */ GRIM_DATA("100106e0") unsigned char DAT_100106e0[4] __asm__("_DAT_100106e0") = {0};
 /* 0x100106e4, 32 bytes, unused (dead) */ GRIM_DATA("100106e4") unsigned char DAT_100106e4[32] __asm__("_DAT_100106e4");
-/* 0x10010704, 16 bytes, unused (dead) */ GRIM_DATA("10010704") unsigned char DAT_10010704[16] __asm__("_DAT_10010704");
-/* 0x10010714, 16 bytes, unused (dead) */ GRIM_DATA("10010714") unsigned char DAT_10010714[16] __asm__("_DAT_10010714");
-/* 0x10010724, 124 bytes, unused (dead) */ GRIM_DATA("10010724") unsigned char DAT_10010724[124] __asm__("_DAT_10010724");
-/* 0x100107a0, 348 bytes */ GRIM_DATA("100107a0") grim_span_100107a0 DAT_100107a0 __asm__("_DAT_100107a0") = {
+/* 0x10010704, 16 bytes, unused (dead) */ /* loose */ unsigned char DAT_10010704[16] __asm__("_DAT_10010704");
+/* 0x10010714, 16 bytes, unused (dead) */ /* loose */ unsigned char DAT_10010714[16] __asm__("_DAT_10010714");
+/* 0x10010724, 124 bytes, unused (dead) */ /* loose */ unsigned char DAT_10010724[124] __asm__("_DAT_10010724");
+static unsigned char grim_anchor_100107a0[0] __attribute__((section(".data$grim_100107a0"), aligned(16), used));
+static unsigned char grim_pad_100107a0[0] __attribute__((section(".data$grim_100107a0_"), aligned(4), used));
+/* 0x100107a0, 348 bytes */ GRIM_DATA("100107a0z") grim_span_100107a0 DAT_100107a0 __asm__("_DAT_100107a0") = {
     { 0x43 },
     (void *)&DAT_1000e150,
     {0},
@@ -897,11 +895,13 @@ static unsigned char grim_pad_1000ec50[0] __attribute__((section(".data$grim_100
 /* 0x10010a38, 4 bytes, unused (dead) */ GRIM_DATA("10010a38") unsigned char DAT_10010a38[4] __asm__("_DAT_10010a38");
 /* 0x10010a3c, 140 bytes, unused (dead) */ GRIM_DATA("10010a3c") unsigned char DAT_10010a3c[140] __asm__("_DAT_10010a3c");
 /* 0x10010ac8, 4 bytes, unused (dead) */ GRIM_DATA("10010ac8") unsigned char DAT_10010ac8[4] __asm__("_DAT_10010ac8");
-/* 0x10010acc, 4 bytes, unused (dead) */ GRIM_DATA("10010acc") unsigned char DAT_10010acc[4] __asm__("_DAT_10010acc");
-/* 0x10010ad0, 8 bytes, unused (rest of DAT_10010acc) */ GRIM_DATA("10010ad0") unsigned char DAT_10010ad0[8] __asm__("_DAT_10010ad0");
-/* 0x10010ad8, 4 bytes, unused (rest of DAT_10010ad0) */ GRIM_DATA("10010ad8") unsigned char DAT_10010ad8[4] __asm__("_DAT_10010ad8");
-/* 0x10010adc, 6 bytes, unused (rest of DAT_10010ad8) */ GRIM_DATA("10010adc") unsigned char DAT_10010adc[6] __asm__("_DAT_10010adc");
-/* 0x10010ae2, 518 bytes, unused (dead) */ GRIM_DATA("10010adc") unsigned char DAT_10010ae2[518] __asm__("_DAT_10010ae2");
+/* 0x10010acc, 4 bytes, unused (dead) */ /* loose */ unsigned char DAT_10010acc[4] __asm__("_DAT_10010acc");
+/* 0x10010ad0, 8 bytes, unused (rest of DAT_10010acc) */ /* loose */ unsigned char DAT_10010ad0[8] __asm__("_DAT_10010ad0");
+/* 0x10010ad8, 4 bytes, unused (rest of DAT_10010ad0) */ /* loose */ unsigned char DAT_10010ad8[4] __asm__("_DAT_10010ad8");
+static unsigned char grim_anchor_10010adc[0] __attribute__((section(".data$grim_10010adc"), aligned(16), used));
+static unsigned char grim_pad_10010adc[12] __attribute__((section(".data$grim_10010adc_"), aligned(4), used));
+/* 0x10010adc, 6 bytes, unused (rest of DAT_10010ad8) */ GRIM_DATA("10010adcz") unsigned char DAT_10010adc[6] __asm__("_DAT_10010adc");
+/* 0x10010ae2, 518 bytes, unused (dead) */ GRIM_DATA("10010adcz") unsigned char DAT_10010ae2[518] __asm__("_DAT_10010ae2");
 /* 0x10010ce8, 24 bytes, unused (dead) */ GRIM_DATA("10010ce8") unsigned char DAT_10010ce8[24] __asm__("_DAT_10010ce8");
 /* 0x10010d00, 23 bytes, unused (dead) */ GRIM_DATA("10010d00") unsigned char DAT_10010d00[23] __asm__("_DAT_10010d00");
 /* 0x10010d17, 1 bytes, unused (dead) */ GRIM_DATA("10010d00") unsigned char DAT_10010d17[1] __asm__("_DAT_10010d17");
@@ -960,82 +960,92 @@ static unsigned char grim_pad_10013a80[0] __attribute__((section(".data$grim_100
 /* 0x100143d8, 4 bytes */ /* loose */ unsigned char g_pfnCompNotifier[4] __asm__("_g_pfnCompNotifier") = {0};
 /* 0x100143dc, 4 bytes */ /* loose */ unsigned char g_pfnBitmapMunger[4] __asm__("_g_pfnBitmapMunger") = {0};
 /* 0x100143e4, 4 bytes */ /* loose */ unsigned char g_pfnSaveHook[4] __asm__("_g_pfnSaveHook") = {0};
-/* 0x100143fc, 4 bytes */ /* loose */ unsigned char DAT_100143fc[4] __asm__("_DAT_100143fc") = {0};
-/* 0x10014400, 8 bytes */ /* loose */ unsigned char DAT_10014400[8] __asm__("_DAT_10014400") = {0};
-/* 0x10014408, 4 bytes */ /* loose */ unsigned char DAT_10014408[4] __asm__("_DAT_10014408") = {0};
-static unsigned char grim_anchor_1001440c[0] __attribute__((section(".data$grim_1001440c"), aligned(16), used));
-static unsigned char grim_pad_1001440c[12] __attribute__((section(".data$grim_1001440c_"), aligned(4), used));
-/* 0x1001440c, 4 bytes */ GRIM_DATA("1001440cz") unsigned char DAT_1001440c[4] __asm__("_DAT_1001440c") = {0};
+static unsigned char grim_anchor_100143fc[0] __attribute__((section(".data$grim_100143fc"), aligned(16), used));
+static unsigned char grim_pad_100143fc[12] __attribute__((section(".data$grim_100143fc_"), aligned(4), used));
+/* 0x100143fc, 4 bytes */ GRIM_DATA("100143fcz") unsigned char DAT_100143fc[4] __asm__("_DAT_100143fc") = {0};
+/* 0x10014400, 8 bytes */ GRIM_DATA("10014400") unsigned char DAT_10014400[8] __asm__("_DAT_10014400") = {0};
+/* 0x10014408, 4 bytes */ GRIM_DATA("10014408") unsigned char DAT_10014408[4] __asm__("_DAT_10014408") = {0};
+/* 0x1001440c, 4 bytes */ GRIM_DATA("1001440c") unsigned char DAT_1001440c[4] __asm__("_DAT_1001440c") = {0};
 /* 0x10014410, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10014410") unsigned char DAT_10014410[24] __asm__("_DAT_10014410");
-/* 0x10014428, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10014428") unsigned char DAT_10014428[24] __asm__("_DAT_10014428");
-/* 0x10014440, 24 bytes, unused (pointed at by unused data) */ GRIM_DATA("10014440") unsigned char DAT_10014440[24] __asm__("_DAT_10014440");
-/* 0x10014458, 32 bytes, unused (pointed at by unused data) */ GRIM_DATA("10014458") unsigned char DAT_10014458[32] __asm__("_DAT_10014458");
-/* 0x1001447c, 4 bytes, unused (rest of DAT_10014478) */ GRIM_DATA("1001447c") unsigned char DAT_1001447c[4] __asm__("_DAT_1001447c");
-/* 0x10014480, 4 bytes, unused (rest of DAT_1001447c) */ GRIM_DATA("10014480") unsigned char DAT_10014480[4] __asm__("_DAT_10014480");
-/* 0x10014484, 4 bytes, unused (rest of DAT_10014480) */ GRIM_DATA("10014484") unsigned char DAT_10014484[4] __asm__("_DAT_10014484");
-/* 0x10014488, 20 bytes, unused (dead) */ GRIM_DATA("10014488") unsigned char DAT_10014488[20] __asm__("_DAT_10014488");
-/* 0x1001449c, 4 bytes, unused (rest of DAT_10014488) */ GRIM_DATA("1001449c") unsigned char DAT_1001449c[4] __asm__("_DAT_1001449c");
-/* 0x100144a0, 4 bytes, unused (rest of DAT_1001449c) */ GRIM_DATA("100144a0") unsigned char DAT_100144a0[4] __asm__("_DAT_100144a0");
-/* 0x100144a4, 4 bytes, unused (rest of DAT_100144a0) */ GRIM_DATA("100144a4") unsigned char DAT_100144a4[4] __asm__("_DAT_100144a4");
-/* 0x100144a8, 4 bytes, unused (rest of DAT_100144a4) */ GRIM_DATA("100144a8") unsigned char DAT_100144a8[4] __asm__("_DAT_100144a8");
-/* 0x100144ac, 4 bytes, unused (rest of DAT_100144a8) */ GRIM_DATA("100144ac") unsigned char DAT_100144ac[4] __asm__("_DAT_100144ac");
-/* 0x100144b0, 8 bytes, unused (rest of DAT_100144ac) */ GRIM_DATA("100144b0") unsigned char DAT_100144b0[8] __asm__("_DAT_100144b0");
-/* 0x100144b8, 16 bytes, unused (rest of DAT_100144b0) */ GRIM_DATA("100144b8") unsigned char DAT_100144b8[16] __asm__("_DAT_100144b8");
-/* 0x100144c8, 8 bytes, unused (rest of DAT_100144b8) */ GRIM_DATA("100144c8") unsigned char DAT_100144c8[8] __asm__("_DAT_100144c8");
-/* 0x100144d0, 4 bytes, unused (dead) */ GRIM_DATA("100144d0") unsigned char DAT_100144d0[4] __asm__("_DAT_100144d0");
-/* 0x100144d4, 4 bytes, unused (rest of DAT_100144d0) */ GRIM_DATA("100144d4") unsigned char DAT_100144d4[4] __asm__("_DAT_100144d4");
-/* 0x100144d8, 8 bytes, unused (rest of DAT_100144d4) */ GRIM_DATA("100144d8") unsigned char DAT_100144d8[8] __asm__("_DAT_100144d8");
-/* 0x100144e0, 264 bytes, unused (dead) */ GRIM_DATA("100144e0") unsigned char DAT_100144e0[264] __asm__("_DAT_100144e0");
+/* 0x10014428, 24 bytes, unused (pointed at by unused data) */ /* loose */ unsigned char DAT_10014428[24] __asm__("_DAT_10014428");
+/* 0x10014440, 24 bytes, unused (pointed at by unused data) */ /* loose */ unsigned char DAT_10014440[24] __asm__("_DAT_10014440");
+static unsigned char grim_anchor_10014458[0] __attribute__((section(".data$grim_10014458"), aligned(16), used));
+static unsigned char grim_pad_10014458[8] __attribute__((section(".data$grim_10014458_"), aligned(4), used));
+/* 0x10014458, 32 bytes, unused (pointed at by unused data) */ GRIM_DATA("10014458z") unsigned char DAT_10014458[32] __asm__("_DAT_10014458");
+/* 0x1001447c, 4 bytes, unused (rest of DAT_10014478) */ /* loose */ unsigned char DAT_1001447c[4] __asm__("_DAT_1001447c");
+/* 0x10014480, 4 bytes, unused (rest of DAT_1001447c) */ /* loose */ unsigned char DAT_10014480[4] __asm__("_DAT_10014480");
+/* 0x10014484, 4 bytes, unused (rest of DAT_10014480) */ /* loose */ unsigned char DAT_10014484[4] __asm__("_DAT_10014484");
+/* 0x10014488, 20 bytes, unused (dead) */ /* loose */ unsigned char DAT_10014488[20] __asm__("_DAT_10014488");
+/* 0x1001449c, 4 bytes, unused (rest of DAT_10014488) */ /* loose */ unsigned char DAT_1001449c[4] __asm__("_DAT_1001449c");
+/* 0x100144a0, 4 bytes, unused (rest of DAT_1001449c) */ /* loose */ unsigned char DAT_100144a0[4] __asm__("_DAT_100144a0");
+/* 0x100144a4, 4 bytes, unused (rest of DAT_100144a0) */ /* loose */ unsigned char DAT_100144a4[4] __asm__("_DAT_100144a4");
+/* 0x100144a8, 4 bytes, unused (rest of DAT_100144a4) */ /* loose */ unsigned char DAT_100144a8[4] __asm__("_DAT_100144a8");
+/* 0x100144ac, 4 bytes, unused (rest of DAT_100144a8) */ /* loose */ unsigned char DAT_100144ac[4] __asm__("_DAT_100144ac");
+/* 0x100144b0, 8 bytes, unused (rest of DAT_100144ac) */ /* loose */ unsigned char DAT_100144b0[8] __asm__("_DAT_100144b0");
+/* 0x100144b8, 16 bytes, unused (rest of DAT_100144b0) */ /* loose */ unsigned char DAT_100144b8[16] __asm__("_DAT_100144b8");
+/* 0x100144c8, 8 bytes, unused (rest of DAT_100144b8) */ /* loose */ unsigned char DAT_100144c8[8] __asm__("_DAT_100144c8");
+/* 0x100144d0, 4 bytes, unused (dead) */ /* loose */ unsigned char DAT_100144d0[4] __asm__("_DAT_100144d0");
+/* 0x100144d4, 4 bytes, unused (rest of DAT_100144d0) */ /* loose */ unsigned char DAT_100144d4[4] __asm__("_DAT_100144d4");
+/* 0x100144d8, 8 bytes, unused (rest of DAT_100144d4) */ /* loose */ unsigned char DAT_100144d8[8] __asm__("_DAT_100144d8");
+static unsigned char grim_anchor_100144e0[0] __attribute__((section(".data$grim_100144e0"), aligned(16), used));
+static unsigned char grim_pad_100144e0[0] __attribute__((section(".data$grim_100144e0_"), aligned(4), used));
+/* 0x100144e0, 264 bytes, unused (dead) */ GRIM_DATA("100144e0z") unsigned char DAT_100144e0[264] __asm__("_DAT_100144e0");
 /* 0x100145e8, 1 bytes, unused (dead) */ GRIM_DATA("100145e8") unsigned char DAT_100145e8[1] __asm__("_DAT_100145e8");
 /* 0x100145e9, 263 bytes, unused (dead) */ GRIM_DATA("100145e8") unsigned char DAT_100145e9[263] __asm__("_DAT_100145e9");
 /* 0x100146f0, 256 bytes, unused (dead) */ GRIM_DATA("100146f0") unsigned char DAT_100146f0[256] __asm__("_DAT_100146f0");
 /* 0x100147f0, 4 bytes, unused (rest of DAT_100146f0) */ GRIM_DATA("100147f0") unsigned char DAT_100147f0[4] __asm__("_DAT_100147f0");
-/* 0x100147f4, 4 bytes, unused (rest of DAT_100147f0) */ GRIM_DATA("100147f4") unsigned char DAT_100147f4[4] __asm__("_DAT_100147f4");
-/* 0x100147f8, 4 bytes, unused (rest of DAT_100147f4) */ GRIM_DATA("100147f8") unsigned char DAT_100147f8[4] __asm__("_DAT_100147f8");
-/* 0x100147fc, 4 bytes, unused (rest of DAT_100147f8) */ GRIM_DATA("100147fc") unsigned char DAT_100147fc[4] __asm__("_DAT_100147fc");
-/* 0x10014800, 4 bytes, unused (rest of DAT_100147fc) */ GRIM_DATA("10014800") unsigned char DAT_10014800[4] __asm__("_DAT_10014800");
-/* 0x10014804, 8 bytes, unused (rest of DAT_10014800) */ GRIM_DATA("10014804") unsigned char DAT_10014804[8] __asm__("_DAT_10014804");
-/* 0x1001480c, 4 bytes, unused (rest of DAT_10014804) */ GRIM_DATA("1001480c") unsigned char DAT_1001480c[4] __asm__("_DAT_1001480c");
-/* 0x10014810, 4 bytes, unused (rest of DAT_1001480c) */ GRIM_DATA("10014810") unsigned char DAT_10014810[4] __asm__("_DAT_10014810");
-/* 0x10014814, 4 bytes, unused (rest of DAT_10014810) */ GRIM_DATA("10014814") unsigned char DAT_10014814[4] __asm__("_DAT_10014814");
-/* 0x10014818, 4 bytes, unused (rest of DAT_10014814) */ GRIM_DATA("10014818") unsigned char DAT_10014818[4] __asm__("_DAT_10014818");
-/* 0x1001481c, 4 bytes, unused (dead) */ GRIM_DATA("1001481c") unsigned char DAT_1001481c[4] __asm__("_DAT_1001481c");
-/* 0x10014820, 4 bytes, unused (dead) */ GRIM_DATA("10014820") unsigned char DAT_10014820[4] __asm__("_DAT_10014820");
-/* 0x10014824, 4 bytes, unused (dead) */ GRIM_DATA("10014824") unsigned char DAT_10014824[4] __asm__("_DAT_10014824");
-/* 0x10014828, 4 bytes, unused (rest of DAT_10014824) */ GRIM_DATA("10014828") unsigned char DAT_10014828[4] __asm__("_DAT_10014828");
-/* 0x1001482c, 4 bytes, unused (rest of DAT_10014828) */ GRIM_DATA("1001482c") unsigned char DAT_1001482c[4] __asm__("_DAT_1001482c");
-/* 0x10014830, 20 bytes, unused (rest of DAT_1001482c) */ GRIM_DATA("10014830") unsigned char DAT_10014830[20] __asm__("_DAT_10014830");
-/* 0x10014844, 8 bytes, unused (rest of DAT_10014830) */ GRIM_DATA("10014844") unsigned char DAT_10014844[8] __asm__("_DAT_10014844");
-/* 0x1001484c, 6 bytes, unused (rest of DAT_10014844) */ GRIM_DATA("1001484c") unsigned char DAT_1001484c[6] __asm__("_DAT_1001484c");
-/* 0x10014852, 4 bytes, unused (rest of DAT_1001484c) */ GRIM_DATA("1001484c") unsigned char DAT_10014852[4] __asm__("_DAT_10014852");
-/* 0x10014856, 2 bytes, unused (rest of DAT_10014852) */ GRIM_DATA("1001484c") unsigned char DAT_10014856[2] __asm__("_DAT_10014856");
-/* 0x10014858, 44 bytes, unused (rest of DAT_10014856) */ GRIM_DATA("10014858") unsigned char DAT_10014858[44] __asm__("_DAT_10014858");
-/* 0x10014884, 4 bytes, unused (rest of DAT_10014858) */ GRIM_DATA("10014884") unsigned char DAT_10014884[4] __asm__("_DAT_10014884");
-/* 0x10014888, 4 bytes, unused (rest of DAT_10014884) */ GRIM_DATA("10014888") unsigned char DAT_10014888[4] __asm__("_DAT_10014888");
-/* 0x1001488c, 4 bytes, unused (rest of DAT_10014888) */ GRIM_DATA("1001488c") unsigned char DAT_1001488c[4] __asm__("_DAT_1001488c");
-/* 0x10014890, 4 bytes, unused (rest of DAT_1001488c) */ GRIM_DATA("10014890") unsigned char DAT_10014890[4] __asm__("_DAT_10014890");
-/* 0x10014894, 4 bytes, unused (rest of DAT_10014890) */ GRIM_DATA("10014894") unsigned char DAT_10014894[4] __asm__("_DAT_10014894");
-/* 0x10014898, 4 bytes, unused (rest of DAT_10014894) */ GRIM_DATA("10014898") unsigned char DAT_10014898[4] __asm__("_DAT_10014898");
-/* 0x1001489c, 24 bytes, unused (rest of DAT_10014898) */ GRIM_DATA("1001489c") unsigned char DAT_1001489c[24] __asm__("_DAT_1001489c");
-/* 0x100148b4, 4 bytes, unused (rest of DAT_1001489c) */ GRIM_DATA("100148b4") unsigned char DAT_100148b4[4] __asm__("_DAT_100148b4");
-/* 0x100148b8, 16 bytes, unused (rest of DAT_100148b4) */ GRIM_DATA("100148b8") unsigned char DAT_100148b8[16] __asm__("_DAT_100148b8");
-/* 0x100148c8, 7 bytes, unused (dead) */ GRIM_DATA("100148c8") unsigned char DAT_100148c8[7] __asm__("_DAT_100148c8");
-/* 0x100148cf, 1 bytes, unused (dead) */ GRIM_DATA("100148c8") unsigned char DAT_100148cf[1] __asm__("_DAT_100148cf");
+/* 0x100147f4, 4 bytes, unused (rest of DAT_100147f0) */ /* loose */ unsigned char DAT_100147f4[4] __asm__("_DAT_100147f4");
+/* 0x100147f8, 4 bytes, unused (rest of DAT_100147f4) */ /* loose */ unsigned char DAT_100147f8[4] __asm__("_DAT_100147f8");
+/* 0x100147fc, 4 bytes, unused (rest of DAT_100147f8) */ /* loose */ unsigned char DAT_100147fc[4] __asm__("_DAT_100147fc");
+/* 0x10014800, 4 bytes, unused (rest of DAT_100147fc) */ /* loose */ unsigned char DAT_10014800[4] __asm__("_DAT_10014800");
+/* 0x10014804, 8 bytes, unused (rest of DAT_10014800) */ /* loose */ unsigned char DAT_10014804[8] __asm__("_DAT_10014804");
+/* 0x1001480c, 4 bytes, unused (rest of DAT_10014804) */ /* loose */ unsigned char DAT_1001480c[4] __asm__("_DAT_1001480c");
+/* 0x10014810, 4 bytes, unused (rest of DAT_1001480c) */ /* loose */ unsigned char DAT_10014810[4] __asm__("_DAT_10014810");
+/* 0x10014814, 4 bytes, unused (rest of DAT_10014810) */ /* loose */ unsigned char DAT_10014814[4] __asm__("_DAT_10014814");
+/* 0x10014818, 4 bytes, unused (rest of DAT_10014814) */ /* loose */ unsigned char DAT_10014818[4] __asm__("_DAT_10014818");
+/* 0x1001481c, 4 bytes, unused (dead) */ /* loose */ unsigned char DAT_1001481c[4] __asm__("_DAT_1001481c");
+/* 0x10014820, 4 bytes, unused (dead) */ /* loose */ unsigned char DAT_10014820[4] __asm__("_DAT_10014820");
+/* 0x10014824, 4 bytes, unused (dead) */ /* loose */ unsigned char DAT_10014824[4] __asm__("_DAT_10014824");
+/* 0x10014828, 4 bytes, unused (rest of DAT_10014824) */ /* loose */ unsigned char DAT_10014828[4] __asm__("_DAT_10014828");
+/* 0x1001482c, 4 bytes, unused (rest of DAT_10014828) */ /* loose */ unsigned char DAT_1001482c[4] __asm__("_DAT_1001482c");
+/* 0x10014830, 20 bytes, unused (rest of DAT_1001482c) */ /* loose */ unsigned char DAT_10014830[20] __asm__("_DAT_10014830");
+/* 0x10014844, 8 bytes, unused (rest of DAT_10014830) */ /* loose */ unsigned char DAT_10014844[8] __asm__("_DAT_10014844");
+static unsigned char grim_anchor_1001484c[0] __attribute__((section(".data$grim_1001484c"), aligned(16), used));
+static unsigned char grim_pad_1001484c[12] __attribute__((section(".data$grim_1001484c_"), aligned(4), used));
+/* 0x1001484c, 6 bytes, unused (rest of DAT_10014844) */ GRIM_DATA("1001484cz") unsigned char DAT_1001484c[6] __asm__("_DAT_1001484c");
+/* 0x10014852, 4 bytes, unused (rest of DAT_1001484c) */ GRIM_DATA("1001484cz") unsigned char DAT_10014852[4] __asm__("_DAT_10014852");
+/* 0x10014856, 2 bytes, unused (rest of DAT_10014852) */ GRIM_DATA("1001484cz") unsigned char DAT_10014856[2] __asm__("_DAT_10014856");
+/* 0x10014858, 44 bytes, unused (rest of DAT_10014856) */ /* loose */ unsigned char DAT_10014858[44] __asm__("_DAT_10014858");
+/* 0x10014884, 4 bytes, unused (rest of DAT_10014858) */ /* loose */ unsigned char DAT_10014884[4] __asm__("_DAT_10014884");
+/* 0x10014888, 4 bytes, unused (rest of DAT_10014884) */ /* loose */ unsigned char DAT_10014888[4] __asm__("_DAT_10014888");
+/* 0x1001488c, 4 bytes, unused (rest of DAT_10014888) */ /* loose */ unsigned char DAT_1001488c[4] __asm__("_DAT_1001488c");
+/* 0x10014890, 4 bytes, unused (rest of DAT_1001488c) */ /* loose */ unsigned char DAT_10014890[4] __asm__("_DAT_10014890");
+/* 0x10014894, 4 bytes, unused (rest of DAT_10014890) */ /* loose */ unsigned char DAT_10014894[4] __asm__("_DAT_10014894");
+/* 0x10014898, 4 bytes, unused (rest of DAT_10014894) */ /* loose */ unsigned char DAT_10014898[4] __asm__("_DAT_10014898");
+/* 0x1001489c, 24 bytes, unused (rest of DAT_10014898) */ /* loose */ unsigned char DAT_1001489c[24] __asm__("_DAT_1001489c");
+/* 0x100148b4, 4 bytes, unused (rest of DAT_1001489c) */ /* loose */ unsigned char DAT_100148b4[4] __asm__("_DAT_100148b4");
+/* 0x100148b8, 16 bytes, unused (rest of DAT_100148b4) */ /* loose */ unsigned char DAT_100148b8[16] __asm__("_DAT_100148b8");
+static unsigned char grim_anchor_100148c8[0] __attribute__((section(".data$grim_100148c8"), aligned(16), used));
+static unsigned char grim_pad_100148c8[8] __attribute__((section(".data$grim_100148c8_"), aligned(4), used));
+/* 0x100148c8, 7 bytes, unused (dead) */ GRIM_DATA("100148c8z") unsigned char DAT_100148c8[7] __asm__("_DAT_100148c8");
+/* 0x100148cf, 1 bytes, unused (dead) */ GRIM_DATA("100148c8z") unsigned char DAT_100148cf[1] __asm__("_DAT_100148cf");
 /* 0x100148d0, 196 bytes */ GRIM_DATA("100148d0") unsigned char DAT_100148d0[196] __asm__("_DAT_100148d0") = {0};
 /* 0x10014994, 4 bytes */ GRIM_DATA("10014994") unsigned char DAT_10014994[4] __asm__("_DAT_10014994") = {0};
 /* 0x10014998, 12 bytes */ GRIM_DATA("10014998") unsigned char DAT_10014998[12] __asm__("_DAT_10014998") = {0};
 /* 0x100149a4, 28 bytes */ GRIM_DATA("100149a4") unsigned char DAT_100149a4[28] __asm__("_DAT_100149a4") = {0};
 /* 0x100149c0, 4096 bytes, unused (pointed at by unused data) */ GRIM_DATA("100149c0") unsigned char DAT_100149c0[4096] __asm__("_DAT_100149c0");
-/* 0x100159c0, 4 bytes, unused (rest of DAT_100149c0) */ GRIM_DATA("100159c0") unsigned char DAT_100159c0[4] __asm__("_DAT_100159c0");
-/* 0x100159c4, 4 bytes, unused (rest of DAT_100159c0) */ GRIM_DATA("100159c4") unsigned char DAT_100159c4[4] __asm__("_DAT_100159c4");
-/* 0x100159c8, 24 bytes, unused (rest of DAT_100159c4) */ GRIM_DATA("100159c8") unsigned char DAT_100159c8[24] __asm__("_DAT_100159c8");
-/* 0x100159e0, 4 bytes, unused (dead) */ GRIM_DATA("100159e0") unsigned char DAT_100159e0[4] __asm__("_DAT_100159e0");
-/* 0x100159e4, 252 bytes, unused (dead) */ GRIM_DATA("100159e4") unsigned char DAT_100159e4[252] __asm__("_DAT_100159e4");
+/* 0x100159c0, 4 bytes, unused (rest of DAT_100149c0) */ /* loose */ unsigned char DAT_100159c0[4] __asm__("_DAT_100159c0");
+/* 0x100159c4, 4 bytes, unused (rest of DAT_100159c0) */ /* loose */ unsigned char DAT_100159c4[4] __asm__("_DAT_100159c4");
+/* 0x100159c8, 24 bytes, unused (rest of DAT_100159c4) */ /* loose */ unsigned char DAT_100159c8[24] __asm__("_DAT_100159c8");
+/* 0x100159e0, 4 bytes, unused (dead) */ /* loose */ unsigned char DAT_100159e0[4] __asm__("_DAT_100159e0");
+static unsigned char grim_anchor_100159e4[0] __attribute__((section(".data$grim_100159e4"), aligned(16), used));
+static unsigned char grim_pad_100159e4[4] __attribute__((section(".data$grim_100159e4_"), aligned(4), used));
+/* 0x100159e4, 252 bytes, unused (dead) */ GRIM_DATA("100159e4z") unsigned char DAT_100159e4[252] __asm__("_DAT_100159e4");
 /* 0x10015ae0, 4 bytes, unused (dead) */ GRIM_DATA("10015ae0") unsigned char DAT_10015ae0[4] __asm__("_DAT_10015ae0");
 /* 0x10015ae4, 4 bytes, unused (rest of DAT_10015ae0) */ GRIM_DATA("10015ae4") unsigned char DAT_10015ae4[4] __asm__("_DAT_10015ae4");
-/* 0x10015ae8, 4 bytes, unused (rest of DAT_10015ae4) */ GRIM_DATA("10015ae8") unsigned char DAT_10015ae8[4] __asm__("_DAT_10015ae8");
+/* 0x10015ae8, 4 bytes, unused (rest of DAT_10015ae4) */ /* loose */ unsigned char DAT_10015ae8[4] __asm__("_DAT_10015ae8");
 /* 0x10015af4, 4 bytes, unused (rest of DAT_10015af0) */ GRIM_DATA("10015af4") unsigned char DAT_10015af4[4] __asm__("_DAT_10015af4");
-/* 0x10015af8, 4 bytes, unused (rest of DAT_10015af4) */ GRIM_DATA("10015af8") unsigned char DAT_10015af8[4] __asm__("_DAT_10015af8");
+/* 0x10015af8, 4 bytes, unused (rest of DAT_10015af4) */ /* loose */ unsigned char DAT_10015af8[4] __asm__("_DAT_10015af8");
 
 __asm__(".globl _s_0_10010284\n\t.set _s_0_10010284, _DAT_10010284\n");
 __asm__(".globl _sect_rdata\n\t.set _sect_rdata, _PTR_GetEnvironmentStrings_1000e000\n");

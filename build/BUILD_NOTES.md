@@ -2719,3 +2719,30 @@ What still holds the EXE's largest chain (676 spans of .rdata) is the C runtime'
 length and distance codes, exp tables) and exception scope tables: each needs its size from those sources.
 
 datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of 5490; whole-game autorun passes.
+
+## Dead code holds no data together (2026-11-17)
+
+* **The bug in tools/data_reach.py:** it read the whole of the original's disassembly, including the functions
+  names/lib_replace.json takes out of the build (the dead C runtime, the runtime msvcrt.dll replaces, and zlib, which
+  the system zlib replaces). Their references still pinned data that only they read, such as the C runtime's and
+  zlib's constant tables.
+* **Now:**
+  * It skips those functions, the zlib ones unless GRIM_BUNDLED_ZLIB is set, as build_src does.
+  * A pointer in data that is itself unused reaches nothing.
+  * A span of names/data_unused.json holds no chain together in either direction. tools/data_unused.py has proven
+    that nothing live reaches it or the span before it.
+* **tools/data_unused.py re-run** on the round-3 build:
+  * EXE: 311 -> 462 unused spans.
+  * LUA: 117 -> 334.
+  * IMUSE: 81 -> 136.
+  * CHORE: 263, unchanged.
+  * datagen writes them as zeros. Fewer dead functions are reached through data, so the stubs drop (EXE 32 -> 22,
+    LUA 35 -> 20, IMUSE 8 -> 6).
+  * Some of the C runtime tables typed in the earlier rounds turn out dead (IMUSE's _mbcasemap). Their types do no
+    harm.
+* **Loose now:**
+  * EXE: 1792, from 1716.
+  * LUA: 633, from 553.
+  * IMUSE: 392, from 313.
+  * CHORE: 356, from 268.
+* datacmp against main's build: 0 differences, 0 moved, 0 missing; every unused span zero. Clean room 0 of 5490; whole-game autorun passes.

@@ -85,7 +85,10 @@ def code_refs(prog, ranges):
         mm = re.match(r"^PTR_Interlocked\w*_([0-9a-f]{8}) @ ", line)
         if mm:
             interlocked.add(int(mm.group(1), 16))
-    for body in json.load(open(os.path.join(ROOT, "raw", prog, "disasm.json"))).values():
+    gone = dropped_functions(prog)
+    for fa, body in json.load(open(os.path.join(ROOT, "raw", prog, "disasm.json"))).items():
+        if fa.lower().rjust(8, "0") in gone:
+            continue   # not in the rebuilt program (names/lib_replace.json): what it reached, nothing reaches now
         pushed = None   # the address the previous instruction pushed
         regs = set()    # registers holding an Interlocked* import
         for line in body.split("\n"):
@@ -204,8 +207,16 @@ def classify(model, img_targets=()):
     secs = json.load(open(os.path.join(ROOT, "raw", prog, "sections.json")))
     ranges = [(int(s["start"], 16), int(s["start"], 16) + s["size"]) for s in secs]
     refs = code_refs(prog, ranges)
+    unused = unused_spans(prog)
+    starts0 = sorted(unused)
+    import bisect
+
+    def in_unused(a):
+        i = bisect.bisect_right(starts0, a) - 1
+        return i >= 0 and a < starts0[i] + unused[starts0[i]]
+
     for a, (kind, v) in model.relocs.items():
-        if kind == "data":
+        if kind == "data" and not in_unused(a):   # (a pointer in data only dead code reads reaches nothing)
             refs.append((v, "address", 0))
     for a in img_targets:
         refs.append((a, "address", 0))
@@ -300,7 +311,7 @@ def classify(model, img_targets=()):
             glue = False
             cuts.append((holder, sp.start))
         inside = not glue and sp.start < reach   # within the known extent of an object before it
-        back = prev is not None and prev.start not in strings and (
+        back = prev is not None and prev.start not in strings and prev.start not in unused and sp.start not in unused and (
             sp.start in unbounded or sp.start in indexed or sp.start not in seen or sp.start in ends)
         if glue or sp.start < reach or back:
             cur.append(sp)
@@ -318,6 +329,10 @@ def classify(model, img_targets=()):
                 # (a table with an original name is an object that starts there; a nameless base may be biased)
                 glue_indexed = glue_indexed or (sp.start in indexed and biased(prog, sp))
             reach = max(reach, sp.start + declared_size(prog, sp), far.get(sp.start, 0))
+        elif sp.start in unused and sp.start not in seen:
+            # data only the code the rebuild leaves out read (names/data_unused.json, zeroed by datagen): nothing live
+            # reaches it, nor the span before it (tools/data_unused.py), so it holds nothing together
+            glue = glue_indexed = False
         elif sp.start not in seen:
             glue = True     # nothing names it: only a neighbour's reach gets there, so it stays with both
         elif sp.start in strings:
@@ -508,6 +523,28 @@ def type_size(prog, t):
     if t in datagen.SCALARS:
         return datagen.SCALARS[t][1]
     return struct_sizes(prog).get(t, 0)
+
+
+def dropped_functions(prog):
+    """The addresses of the original's functions the rebuild leaves out (names/lib_replace.json: the dead C runtime,
+    the runtime msvcrt.dll replaces, and zlib, which the system zlib replaces unless GRIM_BUNDLED_ZLIB is set, as in
+    tools/build_src.py)."""
+    p = os.path.join(ROOT, "names", "lib_replace.json")
+    out = set()
+    if os.path.exists(p):
+        for cat, addrs in json.load(open(p)).get(prog, {}).items():
+            if cat == "zlib" and os.environ.get("GRIM_BUNDLED_ZLIB"):
+                continue
+            out |= {a.lower().rjust(8, "0") for a in addrs}
+    return out
+
+
+def unused_spans(prog):
+    """{start: size} of names/data_unused.json: data nothing in the rebuilt program reads (tools/data_unused.py)."""
+    p = os.path.join(ROOT, "names", "data_unused.json")
+    if not os.path.exists(p):
+        return {}
+    return {int(r["addr"], 16): r["size"] for r in json.load(open(p)).get(prog, [])}
 
 
 def is_guid(model, sp, a):
