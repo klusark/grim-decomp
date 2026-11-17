@@ -835,7 +835,7 @@ extern char grim_def_s_splash_bm_004dd99c[12] __asm__("_s_splash_bm_004dd99c");
 /* 0x004f4d40, 4 bytes */ GRIM_DATA("004f4d40") unsigned char grim_def_DAT_004f4d40[4] __asm__("_DAT_004f4d40") = {0};
 /* 0x004f4d44, 16 bytes */ GRIM_DATA("004f4d44") unsigned char grim_def_DAT_004f4d44[16] __asm__("_DAT_004f4d44") = {0};
 /* 0x004f4d54, 60 bytes */ GRIM_DATA("004f4d54") unsigned char grim_def_UINT_004f4d54[60] __asm__("_UINT_004f4d54") = {0};
-/* 0x004f59b0, 80 bytes */ GRIM_DATA("004f59b0") char grim_def_g_szBootFileArg[80] __asm__("_g_szBootFileArg") = "";
+/* 0x004f59b0, 80 bytes */ /* loose */ char grim_def_g_szBootFileArg[80] __asm__("_g_szBootFileArg") = "";
 /* 0x004f5a00, 4 bytes */ /* loose */ unsigned char grim_def_g_dwGrimlib_MinimizeWhenInactive[4] __asm__("_g_dwGrimlib_MinimizeWhenInactive") = {0};
 /* 0x004f5a10, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a10 __asm__("_UINT_004f5a10") = 0x0;
 /* 0x004f5a14, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a14 __asm__("_UINT_004f5a14") = 0x0;

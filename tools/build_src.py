@@ -900,6 +900,7 @@ CMP_BEFORE_RE = re.compile(PTR_OPERAND + r"\s*(?:<=|>=|==|!=|<|>)$")
 CMP_AFTER_RE = re.compile(r"^(?:<=|>=|==|!=|<|>)\s*" + PTR_OPERAND + r"\b")
 
 
+ADDR_VAR_RE = re.compile(r"\b(\w+) = \((?:u?int)\)&?(?:g_|DAT_|UINT_|INT_|PTR_|FLOAT_|BYTE_|USHORT_)\w*\s*;")
 SELECT_MASK_RE = re.compile(r"-\s*\(uint\)\s*\((?:[^()]|\([^()]*\))*\)\s*&$")
 
 
@@ -912,6 +913,8 @@ def fix_image_addrs(code):
     operator, or in a case label, is a constant and stays as it is."""
     if not IMG_SECTIONS:
         return code
+    # integer variables the function sets from a global's address (`local_28 = (uint)g_wDWave_aDeltaTable;`)
+    addr_vars = set(ADDR_VAR_RE.findall(code))
 
     def rep(m):
         v = int(m.group(1), 16)
@@ -929,6 +932,14 @@ def fix_image_addrs(code):
         # the same the other way round. The literal relocates with the table.
         if CMP_BEFORE_RE.search(before) or CMP_AFTER_RE.match(after):
             return "IMG_ADDR(0x%08x)" % v
+        # ... also when the variable is an integer the function set from a global's address: VbrAdpcm_Uncompress's
+        # `local_28 = (uint)g_wDWave_aDeltaTable; .. while (local_28 < 0x8d78e8)`, whose end pointer Ghidra prints as a
+        # number once the table's type takes in the label there. As a plain number the loop ran on far past the table.
+        if addr_vars:
+            bm = re.search(r"(?:\((?:u?int)\)\s*)?\b(\w+)\s*(?:<=|>=|==|!=|<|>)$", before)
+            am = re.match(r"^(?:<=|>=|==|!=|<|>)\s*(?:\((?:u?int)\)\s*)?(\w+)\b", after)
+            if (bm and bm.group(1) in addr_vars) or (am and am.group(1) in addr_vars):
+                return "IMG_ADDR(0x%08x)" % v
         # `-(uint)(UINT_004f5a14 != 0) & 0x4f59b0`: the branchless `cond ? buffer : NULL` (the original's NEG / SBB /
         # AND): the literal is the buffer's address (Main_Startup's -b file name, the file dialogs' initial dirs)
         if SELECT_MASK_RE.search(before[-200:]) and after[:1] == ")":
@@ -1425,6 +1436,31 @@ def fix_float_literals(body):
     for ln in body.split("\n"):
         out.append(ln if COMMENT_LINE_RE.match(ln) or '"' in ln else FLOAT_LITERAL_RE.sub(sub, ln))
     return "\n".join(out)
+
+
+COMPARE_LIT_RE = re.compile(r"(?:<=|>=|==|!=|<|>) (0x[0-9a-f]{6,8})" + chr(92) + "b|" + chr(92) + "b(0x[0-9a-f]{6,8}) (?:<=|>=|<|>)")
+
+
+def check_address_compares(prog):
+    """A comparison against a literal inside the data sections is almost always a pointer compared with the
+    original's address (a loop's end pointer the decompiler printed as a number): the rebuilt data is elsewhere, so
+    the loop runs on or stops at once. VbrAdpcm_Uncompress's `while (local_28 < 0x8d78e8)` wrote far past the delta
+    table and, in one layout, into the timer table (build/BUILD_NOTES.md). Fails the build on any that is left."""
+    left = []
+    d = os.path.join(SRC, prog)
+    for f in sorted(os.listdir(d)):
+        if not f.endswith(".c") or f == "data.c":
+            continue
+        for n, line in enumerate(open(os.path.join(d, f), encoding="utf-8"), 1):
+            if "bytes */" in line or line.lstrip().startswith(("/*", "*", "#")):
+                continue
+            for m in COMPARE_LIT_RE.finditer(line):
+                v = int(m.group(1) or m.group(2), 16)
+                if any(start <= v <= start + size for _, start, size in IMG_SECTIONS):
+                    left.append("%s:%d: %s" % (f, n, line.strip()[:120]))
+    if left:
+        raise SystemExit("build_src: %s: %d comparison(s) with an address of the original's data left as a number "
+                         "(make the operand an IMG_ADDR in fix_image_addrs):\n  %s" % (prog, len(left), "\n  ".join(left)))
 
 
 def fix_function(code, ctx, stats):
@@ -2311,6 +2347,7 @@ def build(prog):
         print(prog, "renamed globals (built under their old names):", len(GLOBAL_ALIAS))
     if IMG_SECTIONS:
         print(prog, "data.c:", datagen.generate(prog, SRC, DROPPED_IMG.get(prog, ())))
+        check_address_compares(prog)
     print(prog, "modules:", {m: len(v) for m, v in by_mod.items()})
     if FIXUPS:
         print(prog, "fix-ups:", dict(stats))

@@ -91,5 +91,7 @@ uint __cdecl sputControl_Close(void)
 #define GRIM_DATA(k) __attribute__((section(".data$grim_" k), aligned(1), no_reorder))
 #endif
 extern int grim_def_g_nControlOpen __asm__("_g_nControlOpen");
-/* 0x008ca1c4, 12 bytes */ GRIM_DATA("008ca1c4") int grim_def_g_nControlOpen __asm__("_g_nControlOpen") = 0;
-/* 0x008ca1c8, 8 bytes: the rest of grim_def_g_nControlOpen's span */ GRIM_DATA("008ca1c4") static unsigned char g_nControlOpen__tail[8] __attribute__((used)) = {0};
+static unsigned char grim_anchor_008ca1c4[0] __attribute__((section(".data$grim_008ca1c4"), aligned(16), used));
+static unsigned char grim_pad_008ca1c4[4] __attribute__((section(".data$grim_008ca1c4_"), aligned(4), used));
+/* 0x008ca1c4, 12 bytes */ GRIM_DATA("008ca1c4z") int grim_def_g_nControlOpen __asm__("_g_nControlOpen") = 0;
+/* 0x008ca1c8, 8 bytes: the rest of grim_def_g_nControlOpen's span */ GRIM_DATA("008ca1c4z") static unsigned char g_nControlOpen__tail[8] __attribute__((used)) = {0};

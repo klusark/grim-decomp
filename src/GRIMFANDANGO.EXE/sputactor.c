@@ -811,5 +811,5 @@ extern char grim_def_s_Valid_Ref___pCosNode__rCostume___004e9e1c[36] __asm__("_s
 extern char grim_def_s_tot_clips___MAX_SHADOW_CLIPS_004e9e70[32] __asm__("_s_tot_clips___MAX_SHADOW_CLIPS_004e9e70");
 /* 0x004e9e1c, 36 bytes */ /* loose */ char grim_def_s_Valid_Ref___pCosNode__rCostume___004e9e1c[36] __asm__("_s_Valid_Ref___pCosNode__rCostume___004e9e1c") = "Valid_Ref( &pCosNode->rCostume )";
 /* 0x004e9e70, 32 bytes */ /* loose */ char grim_def_s_tot_clips___MAX_SHADOW_CLIPS_004e9e70[32] __asm__("_s_tot_clips___MAX_SHADOW_CLIPS_004e9e70") = "tot_clips < MAX_SHADOW_CLIPS";
-/* 0x008ca768, 4 bytes */ GRIM_DATA("008ca768") unsigned int grim_def_g_dwSputActInitialize __asm__("_g_dwSputActInitialize") = 0x0;
-/* 0x008ca76c, 4 bytes */ GRIM_DATA("008ca76c") unsigned int grim_def_g_dwSputActStartup __asm__("_g_dwSputActStartup") = 0x0;
+/* 0x008ca768, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputActInitialize __asm__("_g_dwSputActInitialize") = 0x0;
+/* 0x008ca76c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputActStartup __asm__("_g_dwSputActStartup") = 0x0;

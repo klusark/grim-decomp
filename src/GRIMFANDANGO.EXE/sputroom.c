@@ -421,5 +421,5 @@ extern char grim_def_s_zbuffer__s_004ec830[12] __asm__("_s_zbuffer__s_004ec830")
 /* 0x004ec83c, 16 bytes */ /* loose */ char grim_def_s_background__s_004ec83c[16] __asm__("_s_background__s_004ec83c") = " background %s";
 /* 0x004ec84c, 12 bytes */ /* loose */ char grim_def_s_setup__s_004ec84c[12] __asm__("_s_setup__s_004ec84c") = " setup %s";
 /* 0x004ec858, 16 bytes */ /* loose */ char grim_def_s_numsetups__d_004ec858[16] __asm__("_s_numsetups__d_004ec858") = " numsetups %d\n";
-/* 0x008cb098, 4 bytes */ GRIM_DATA("008cb098") unsigned int grim_def_g_dwSputRoomInitialize __asm__("_g_dwSputRoomInitialize") = 0x0;
-/* 0x008cb09c, 4 bytes */ GRIM_DATA("008cb09c") unsigned int grim_def_g_dwSputRoomStartup __asm__("_g_dwSputRoomStartup") = 0x0;
+/* 0x008cb098, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputRoomInitialize __asm__("_g_dwSputRoomInitialize") = 0x0;
+/* 0x008cb09c, 4 bytes */ /* loose */ unsigned int grim_def_g_dwSputRoomStartup __asm__("_g_dwSputRoomStartup") = 0x0;

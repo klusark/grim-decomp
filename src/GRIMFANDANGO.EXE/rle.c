@@ -92,7 +92,9 @@ extern unsigned char grim_def_g_bMsc_uncompress_val[4] __asm__("_g_bMsc_uncompre
 extern unsigned int grim_def_g_dwMsc_uncompress_count __asm__("_g_dwMsc_uncompress_count");
 extern unsigned int grim_def_g_dwMsc_uncompress_state __asm__("_g_dwMsc_uncompress_state");
 extern unsigned char grim_def_g_pMsc_uncompress_data[4] __asm__("_g_pMsc_uncompress_data");
-/* 0x008dcdb8, 4 bytes */ GRIM_DATA("008dcdb8") unsigned int grim_def_g_dwMsc_uncompress_count __asm__("_g_dwMsc_uncompress_count") = 0x0;
-/* 0x008dcdbc, 4 bytes */ GRIM_DATA("008dcdbc") unsigned int grim_def_g_dwMsc_uncompress_state __asm__("_g_dwMsc_uncompress_state") = 0x0;
-/* 0x008dcdc0, 4 bytes */ GRIM_DATA("008dcdc0") unsigned char grim_def_g_bMsc_uncompress_val[4] __asm__("_g_bMsc_uncompress_val") = {0};
-/* 0x008dcdc4, 4 bytes */ GRIM_DATA("008dcdc4") unsigned char grim_def_g_pMsc_uncompress_data[4] __asm__("_g_pMsc_uncompress_data") = {0};
+/* 0x008dcdb8, 4 bytes */ /* loose */ unsigned int grim_def_g_dwMsc_uncompress_count __asm__("_g_dwMsc_uncompress_count") = 0x0;
+/* 0x008dcdbc, 4 bytes */ /* loose */ unsigned int grim_def_g_dwMsc_uncompress_state __asm__("_g_dwMsc_uncompress_state") = 0x0;
+/* 0x008dcdc0, 4 bytes */ /* loose */ unsigned char grim_def_g_bMsc_uncompress_val[4] __asm__("_g_bMsc_uncompress_val") = {0};
+static unsigned char grim_anchor_008dcdc4[0] __attribute__((section(".data$grim_008dcdc4"), aligned(16), used));
+static unsigned char grim_pad_008dcdc4[4] __attribute__((section(".data$grim_008dcdc4_"), aligned(4), used));
+/* 0x008dcdc4, 4 bytes */ GRIM_DATA("008dcdc4z") unsigned char grim_def_g_pMsc_uncompress_data[4] __asm__("_g_pMsc_uncompress_data") = {0};

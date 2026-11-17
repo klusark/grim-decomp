@@ -469,8 +469,10 @@ static unsigned char grim_pad_004f3f68[8] __attribute__((section(".data$grim_004
 /* 0x004f4060, 56 bytes */ /* loose */ char grim_def_s_DirectSound__Error__08X_while_cr_004f4060[56] __asm__("_s_DirectSound__Error__08X_while_cr_004f4060") = "DirectSound: Error %08X while creating primary buffer";
 /* 0x004f4098, 56 bytes */ /* loose */ char grim_def_s_DirectSound__Error__08X_while_se_004f4098[56] __asm__("_s_DirectSound__Error__08X_while_se_004f4098") = "DirectSound: Error %08X while setting cooperative level";
 /* 0x004f40d0, 40 bytes */ /* loose */ char grim_def_s_Cannot_create_DirectSound_object_004f40d0[40] __asm__("_s_Cannot_create_DirectSound_object_004f40d0") = "Cannot create DirectSound object (%d)";
-/* 0x008db208, 4 bytes */ GRIM_DATA("008db208") unsigned int grim_def_g_dwDsndDriver_memory_services __asm__("_g_dwDsndDriver_memory_services") = 0x0;
-/* 0x008db20c, 4 bytes */ GRIM_DATA("008db20c") unsigned char grim_def_DAT_008db20c[4] __asm__("_DAT_008db20c") = {0};
+/* 0x008db208, 4 bytes */ /* loose */ unsigned int grim_def_g_dwDsndDriver_memory_services __asm__("_g_dwDsndDriver_memory_services") = 0x0;
+static unsigned char grim_anchor_008db20c[0] __attribute__((section(".data$grim_008db20c"), aligned(16), used));
+static unsigned char grim_pad_008db20c[12] __attribute__((section(".data$grim_008db20c_"), aligned(4), used));
+/* 0x008db20c, 4 bytes */ GRIM_DATA("008db20cz") unsigned char grim_def_DAT_008db20c[4] __asm__("_DAT_008db20c") = {0};
 /* 0x008db210, 4 bytes */ GRIM_DATA("008db210") unsigned int grim_def_UINT_008db210 __asm__("_UINT_008db210") = 0x0;
 /* 0x008db214, 4 bytes */ GRIM_DATA("008db214") unsigned char grim_def_DAT_008db214[4] __asm__("_DAT_008db214") = {0};
 /* 0x008db218, 4 bytes */ GRIM_DATA("008db218") unsigned char grim_def_DAT_008db218[4] __asm__("_DAT_008db218") = {0};

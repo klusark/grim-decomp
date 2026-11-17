@@ -381,7 +381,7 @@ extern char grim_def_s_width_004e8440[8] __asm__("_s_width_004e8440");
     (void *)&grim_def_s_GetTextCharPosition_004e8614, (void *)f_sputText_GetTextCharPositionL, (void *)&grim_def_s_LocalizeString_004e8604, (void *)f_sputText_LocalizeStringL,
     (void *)&grim_def_s_SetEmergencyFont_004e85f0, (void *)f_sputText_SetEmergencyFontL, (void *)&grim_def_s_SetOffscreenTextPos_004e85dc, (void *)f_sputText_SetOffscreenTextPosL
 };
-/* 0x004e85d8, 4 bytes */ GRIM_DATA("004e85d8") unsigned int grim_def_UINT_004e85d8 __asm__("_UINT_004e85d8") = 0x16;
+/* 0x004e85d8, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004e85d8 __asm__("_UINT_004e85d8") = 0x16;
 /* 0x004e875c, 12 bytes */ /* loose */ char grim_def_s_background_004e875c[12] __asm__("_s_background_004e875c") = "background";
 /* 0x004e8768, 4 bytes */ /* loose */ char grim_def_s_pan_004e8768[4] __asm__("_s_pan_004e8768") = "pan";
 /* 0x004e876c, 8 bytes */ /* loose */ char grim_def_s_volume_004e876c[8] __asm__("_s_volume_004e876c") = "volume";

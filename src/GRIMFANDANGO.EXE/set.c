@@ -1329,6 +1329,8 @@ static unsigned char grim_pad_008cac08[8] __attribute__((section(".data$grim_008
 /* 0x008cac08, 31 bytes */ GRIM_DATA("008cac08z") unsigned char grim_def_DAT_008cac08[31] __asm__("_DAT_008cac08") = {0};
 /* 0x008cac27, 1 bytes */ GRIM_DATA("008cac08z") unsigned char grim_def_DAT_008cac27 __asm__("_DAT_008cac27") = 0x0;
 /* 0x008cac28, 1120 bytes */ GRIM_DATA("008cac28") unsigned char grim_def_DAT_008cac28[1120] __asm__("_DAT_008cac28") = {0};
-/* 0x008cb0a0, 4 bytes */ GRIM_DATA("008cb0a0") int grim_def_g_nSkipSetupBitmaps __asm__("_g_nSkipSetupBitmaps") = 0;
-/* 0x008cb0a4, 4 bytes */ GRIM_DATA("008cb0a4") unsigned int grim_def_UINT_008cb0a4 __asm__("_UINT_008cb0a4") = 0x0;
-/* 0x008cf284, 4 bytes */ GRIM_DATA("008cf284") unsigned char grim_def_DAT_008cf284[4] __asm__("_DAT_008cf284") = {0};
+/* 0x008cb0a0, 4 bytes */ /* loose */ int grim_def_g_nSkipSetupBitmaps __asm__("_g_nSkipSetupBitmaps") = 0;
+/* 0x008cb0a4, 4 bytes */ /* loose */ unsigned int grim_def_UINT_008cb0a4 __asm__("_UINT_008cb0a4") = 0x0;
+static unsigned char grim_anchor_008cf284[0] __attribute__((section(".data$grim_008cf284"), aligned(16), used));
+static unsigned char grim_pad_008cf284[4] __attribute__((section(".data$grim_008cf284_"), aligned(4), used));
+/* 0x008cf284, 4 bytes */ GRIM_DATA("008cf284z") unsigned char grim_def_DAT_008cf284[4] __asm__("_DAT_008cf284") = {0};

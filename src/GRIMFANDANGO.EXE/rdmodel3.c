@@ -1760,8 +1760,8 @@ extern char grim_def_s_vertices__d_004ddc74[16] __asm__("_s_vertices__d_004ddc74
 /* 0x004ddd30, 24 bytes */ GRIM_DATA("004ddd30") char grim_def_s_numMaterials___MAX_MATS_004ddd30[24] __asm__("_s_numMaterials___MAX_MATS_004ddd30") = "numMaterials < MAX_MATS";
 /* 0x004ddd48, 16 bytes */ GRIM_DATA("004ddd48") char grim_def_s_materials__d_004ddd48[16] __asm__("_s_materials__d_004ddd48") = " materials %d";
 /* 0x004ddd58, 12 bytes */ GRIM_DATA("004ddd58") char grim_def_s_3do__d__d_004ddd58[12] __asm__("_s_3do__d__d_004ddd58") = " 3do %d.%d";
-/* 0x007f31f0, 4 bytes */ GRIM_DATA("007f31f0") unsigned int grim_def_g_dwModel3Loader __asm__("_g_dwModel3Loader") = 0x0;
-/* 0x007f31f4, 4 bytes */ GRIM_DATA("007f31f4") unsigned int grim_def_g_dwModel3Unloader __asm__("_g_dwModel3Unloader") = 0x0;
-/* 0x007f3200, 4 bytes */ GRIM_DATA("007f3200") unsigned char grim_def_g_dwMaxGeoRadius[4] __asm__("_g_dwMaxGeoRadius") = {0};
+/* 0x007f31f0, 4 bytes */ /* loose */ unsigned int grim_def_g_dwModel3Loader __asm__("_g_dwModel3Loader") = 0x0;
+/* 0x007f31f4, 4 bytes */ /* loose */ unsigned int grim_def_g_dwModel3Unloader __asm__("_g_dwModel3Unloader") = 0x0;
+/* 0x007f3200, 4 bytes */ /* loose */ unsigned char grim_def_g_dwMaxGeoRadius[4] __asm__("_g_dwMaxGeoRadius") = {0};
 __asm__(".globl _grim_img_exe_0x004ddb80\n\t.set _grim_img_exe_0x004ddb80, _DAT_004ddb80 + 0\n");
 __asm__(".globl _grim_img_exe_0x004ddc10\n\t.set _grim_img_exe_0x004ddc10, _s___004ddc10 + 0\n");
