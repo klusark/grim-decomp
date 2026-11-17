@@ -3648,23 +3648,23 @@ extern char grim_def_s_threeDNum____0____threeDNum____i_004dd7a4[92] __asm__("_s
     0xfc, 0xa9, 0xf1, 0xd2, 0x4d, 0x62, 0x50, 0x3f
 };
 /* 0x004dd33c, 4 bytes */ GRIM_DATA("004dd33c") unsigned int grim_def_UINT_004dd33c __asm__("_UINT_004dd33c") = 0x1;
-/* 0x004dd738, 20 bytes */ GRIM_DATA("004dd738") char grim_def_s_LastDisplayDevice_004dd738[20] __asm__("_s_LastDisplayDevice_004dd738") = "LastDisplayDevice";
-/* 0x004dd74c, 72 bytes */ GRIM_DATA("004dd74c") char grim_def_s_stdDisplay_numVideoModes____grim_004dd74c[72] __asm__("_s_stdDisplay_numVideoModes____grim_004dd74c") = "stdDisplay_numVideoModes == grimdemo_aDisplayInfo[deviceNum].numModes";
-/* 0x004dd794, 16 bytes */ GRIM_DATA("004dd794") char grim_def_s_Last3DDevice_004dd794[16] __asm__("_s_Last3DDevice_004dd794") = "Last3DDevice";
-/* 0x004dd7a4, 92 bytes */ GRIM_DATA("004dd7a4") char grim_def_s_threeDNum____0____threeDNum____i_004dd7a4[92] __asm__("_s_threeDNum____0____threeDNum____i_004dd7a4") = "threeDNum >= 0 && threeDNum < (int)grimdemo_aDisplayInfo[stdDisplay_curDevice].numDevices";
-/* 0x004dd800, 56 bytes */ GRIM_DATA("004dd800") unsigned char grim_def_DAT_004dd800[56] __asm__("_DAT_004dd800") = {
+/* 0x004dd738, 20 bytes */ /* loose */ char grim_def_s_LastDisplayDevice_004dd738[20] __asm__("_s_LastDisplayDevice_004dd738") = "LastDisplayDevice";
+/* 0x004dd74c, 72 bytes */ /* loose */ char grim_def_s_stdDisplay_numVideoModes____grim_004dd74c[72] __asm__("_s_stdDisplay_numVideoModes____grim_004dd74c") = "stdDisplay_numVideoModes == grimdemo_aDisplayInfo[deviceNum].numModes";
+/* 0x004dd794, 16 bytes */ /* loose */ char grim_def_s_Last3DDevice_004dd794[16] __asm__("_s_Last3DDevice_004dd794") = "Last3DDevice";
+/* 0x004dd7a4, 92 bytes */ /* loose */ char grim_def_s_threeDNum____0____threeDNum____i_004dd7a4[92] __asm__("_s_threeDNum____0____threeDNum____i_004dd7a4") = "threeDNum >= 0 && threeDNum < (int)grimdemo_aDisplayInfo[stdDisplay_curDevice].numDevices";
+/* 0x004dd800, 56 bytes */ /* loose */ unsigned char grim_def_DAT_004dd800[56] __asm__("_DAT_004dd800") = {
     0x67, 0x72, 0x69, 0x6d, 0x64, 0x65, 0x6d, 0x6f, 0x5f, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74,
     0x44, 0x69, 0x73, 0x70, 0x6c, 0x61, 0x79, 0x3a, 0x20, 0x33, 0x44, 0x20, 0x64, 0x65, 0x76, 0x69,
     0x63, 0x65, 0x20, 0x6e, 0x6f, 0x20, 0x6c, 0x6f, 0x6e, 0x67, 0x65, 0x72, 0x20, 0x70, 0x72, 0x65,
     0x73, 0x65, 0x6e, 0x74, 0x2e, 0x0a
 };
-/* 0x004dd838, 60 bytes */ GRIM_DATA("004dd838") unsigned char grim_def_DAT_004dd838[60] __asm__("_DAT_004dd838") = {
+/* 0x004dd838, 60 bytes */ /* loose */ unsigned char grim_def_DAT_004dd838[60] __asm__("_DAT_004dd838") = {
     0x67, 0x72, 0x69, 0x6d, 0x64, 0x65, 0x6d, 0x6f, 0x5f, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74,
     0x44, 0x69, 0x73, 0x70, 0x6c, 0x61, 0x79, 0x3a, 0x20, 0x43, 0x6f, 0x75, 0x6c, 0x64, 0x20, 0x6e,
     0x6f, 0x74, 0x20, 0x66, 0x69, 0x6e, 0x64, 0x20, 0x6d, 0x61, 0x74, 0x63, 0x68, 0x69, 0x6e, 0x67,
     0x20, 0x64, 0x65, 0x76, 0x69, 0x63, 0x65, 0x2e, 0x0a
 };
-/* 0x004dd874, 60 bytes */ GRIM_DATA("004dd874") unsigned char grim_def_DAT_004dd874[60] __asm__("_DAT_004dd874") = {
+/* 0x004dd874, 60 bytes */ /* loose */ unsigned char grim_def_DAT_004dd874[60] __asm__("_DAT_004dd874") = {
     0x67, 0x72, 0x69, 0x6d, 0x64, 0x65, 0x6d, 0x6f, 0x5f, 0x44, 0x65, 0x66, 0x61, 0x75, 0x6c, 0x74,
     0x44, 0x69, 0x73, 0x70, 0x6c, 0x61, 0x79, 0x3a, 0x20, 0x4c, 0x61, 0x73, 0x74, 0x20, 0x73, 0x77,
     0x69, 0x74, 0x63, 0x68, 0x20, 0x77, 0x61, 0x73, 0x20, 0x6e, 0x6f, 0x74, 0x20, 0x73, 0x75, 0x63,
@@ -3672,10 +3672,10 @@ extern char grim_def_s_threeDNum____0____threeDNum____i_004dd7a4[92] __asm__("_s
 };
 /* 0x004de1d0, 8 bytes */ GRIM_DATA("004de1d0") unsigned char grim_def_DAT_004de1d0[8] __asm__("_DAT_004de1d0") = { 0x6e, 0x04, 0x00, 0x00, 0xff, 0x06 };
 /* 0x004de1d8, 4 bytes */ GRIM_DATA("004de1d8") unsigned char grim_def_DAT_004de1d8[4] __asm__("_DAT_004de1d8") = { 0x31, 0x07 };
-/* 0x004de9dc, 28 bytes */ GRIM_DATA("004de9dc") char grim_def_s_DIBsection_windowed_display_004de9dc[28] __asm__("_s_DIBsection_windowed_display_004de9dc") = "DIBsection windowed display";
-/* 0x004de9f8, 24 bytes */ GRIM_DATA("004de9f8") char grim_def_s_Window_Display_Device_004de9f8[24] __asm__("_s_Window_Display_Device_004de9f8") = "Window Display Device";
-/* 0x004dea10, 8 bytes */ GRIM_DATA("004dea10") char grim_def_s_Arial_004dea10[8] __asm__("_s_Arial_004dea10") = "Arial";
-/* 0x004dea18, 40 bytes */ GRIM_DATA("004dea18") char grim_def_s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18[40] __asm__("_s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18") = "C:\\grimjedi\\Libs\\Std\\Win95\\Stddisplay.c";
+/* 0x004de9dc, 28 bytes */ /* loose */ char grim_def_s_DIBsection_windowed_display_004de9dc[28] __asm__("_s_DIBsection_windowed_display_004de9dc") = "DIBsection windowed display";
+/* 0x004de9f8, 24 bytes */ /* loose */ char grim_def_s_Window_Display_Device_004de9f8[24] __asm__("_s_Window_Display_Device_004de9f8") = "Window Display Device";
+/* 0x004dea10, 8 bytes */ /* loose */ char grim_def_s_Arial_004dea10[8] __asm__("_s_Arial_004dea10") = "Arial";
+/* 0x004dea18, 40 bytes */ /* loose */ char grim_def_s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18[40] __asm__("_s_C__grimjedi_Libs_Std_Win95_Stddi_004dea18") = "C:\\grimjedi\\Libs\\Std\\Win95\\Stddisplay.c";
 /* 0x004f41e0, 768 bytes */ GRIM_DATA("004f41e0") unsigned char grim_def_DAT_004f41e0[768] __asm__("_DAT_004f41e0") = {0};
 /* 0x004f5a84, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a84 __asm__("_UINT_004f5a84") = 0x0;
 /* 0x007f6498, 8 bytes */ GRIM_DATA("007f6498") unsigned char grim_def_UINT_007f6498[8] __asm__("_UINT_007f6498") = {0};
@@ -3690,7 +3690,7 @@ extern char grim_def_s_threeDNum____0____threeDNum____i_004dd7a4[92] __asm__("_s
 /* 0x00803f7c, 4 bytes */ GRIM_DATA("00803f7c") unsigned int grim_def_UINT_00803f7c __asm__("_UINT_00803f7c") = 0x0;
 /* 0x00803f80, 4 bytes */ /* loose */ unsigned char grim_def_g_bStdDisplay_Startup[4] __asm__("_g_bStdDisplay_Startup") = {0};
 /* 0x00803f88, 4 bytes */ /* loose */ int grim_def_g_nDisplayModeOpen __asm__("_g_nDisplayModeOpen") = 0;
-/* 0x00803f9c, 4 bytes */ /* loose */ int grim_def_UINT_00803f9c __asm__("_UINT_00803f9c") = 0;
+/* 0x00803f9c, 4 bytes */ GRIM_DATA("00803f9c") int grim_def_UINT_00803f9c __asm__("_UINT_00803f9c") = 0;
 /* 0x00803fa4, 4 bytes */ GRIM_DATA("00803fa4") unsigned char grim_def_g_pDirectDraw[4] __asm__("_g_pDirectDraw") = {0};
 /* 0x00803fa8, 4 bytes */ GRIM_DATA("00803fa8") unsigned char grim_def_g_pDDrawPrimary[4] __asm__("_g_pDDrawPrimary") = {0};
 /* 0x00803fac, 4 bytes */ GRIM_DATA("00803fac") unsigned char grim_def_g_pDDrawBack[4] __asm__("_g_pDDrawBack") = {0};

@@ -434,7 +434,9 @@ extern char grim_def_s_DEBUG___s_004dda34[12] __asm__("_s_DEBUG___s_004dda34");
 extern char grim_def_s_ERROR___s_004dda28[12] __asm__("_s_ERROR___s_004dda28");
 extern char grim_def_s_WARNING___s_004dda1c[12] __asm__("_s_WARNING___s_004dda1c");
 extern char grim_def_s__s_004dda18[4] __asm__("_s__s_004dda18");
-/* 0x004dd9a8, 112 bytes */ GRIM_DATA("004dd9a8") void *grim_def_g_aDefaultHostServices[28] __asm__("_g_aDefaultHostServices") = {
+static unsigned char grim_anchor_004dd9a8[0] __attribute__((section(".data$grim_004dd9a8"), aligned(16), used));
+static unsigned char grim_pad_004dd9a8[8] __attribute__((section(".data$grim_004dd9a8_"), aligned(4), used));
+/* 0x004dd9a8, 112 bytes */ GRIM_DATA("004dd9a8z") void *grim_def_g_aDefaultHostServices[28] __asm__("_g_aDefaultHostServices") = {
     (void *)0x447a0000, (void *)f_defaultStatusPrint, (void *)f_defaultMessagePrint, (void *)f_defaultWarningPrint,
     (void *)f_defaultErrorPrint, (void *)f_defaultDebugPrint, (void *)f_defaultAssert, (void *)f_defaultAtExit,
     (void *)f_Svc_Malloc, (void *)f_Svc_Free, (void *)f_Svc_Realloc, (void *)f_defaultGetTimerTick,
@@ -444,10 +446,10 @@ extern char grim_def_s__s_004dda18[4] __asm__("_s__s_004dda18");
     (void *)f_Svc_Free, (void *)f_Svc_Realloc, (void *)f_defaultLockHandle, (void *)f_Lua_Stub
 };
 /* 0x004dda18, 4 bytes */ GRIM_DATA("004dda18") char grim_def_s__s_004dda18[4] __asm__("_s__s_004dda18") = "%s";
-/* 0x004dda1c, 12 bytes */ GRIM_DATA("004dda1c") char grim_def_s_WARNING___s_004dda1c[12] __asm__("_s_WARNING___s_004dda1c") = "WARNING: %s";
-/* 0x004dda28, 12 bytes */ GRIM_DATA("004dda28") char grim_def_s_ERROR___s_004dda28[12] __asm__("_s_ERROR___s_004dda28") = "ERROR: %s";
-/* 0x004dda34, 12 bytes */ GRIM_DATA("004dda34") char grim_def_s_DEBUG___s_004dda34[12] __asm__("_s_DEBUG___s_004dda34") = "DEBUG: %s";
-/* 0x004dda40, 20 bytes */ GRIM_DATA("004dda40") char grim_def_s_ASSERT____s__d___s_004dda40[20] __asm__("_s_ASSERT____s__d___s_004dda40") = "ASSERT! (%s:%d) %s";
+/* 0x004dda1c, 12 bytes */ /* loose */ char grim_def_s_WARNING___s_004dda1c[12] __asm__("_s_WARNING___s_004dda1c") = "WARNING: %s";
+/* 0x004dda28, 12 bytes */ /* loose */ char grim_def_s_ERROR___s_004dda28[12] __asm__("_s_ERROR___s_004dda28") = "ERROR: %s";
+/* 0x004dda34, 12 bytes */ /* loose */ char grim_def_s_DEBUG___s_004dda34[12] __asm__("_s_DEBUG___s_004dda34") = "DEBUG: %s";
+/* 0x004dda40, 20 bytes */ /* loose */ char grim_def_s_ASSERT____s__d___s_004dda40[20] __asm__("_s_ASSERT____s__d___s_004dda40") = "ASSERT! (%s:%d) %s";
 /* 0x004f5aa0, 1024 bytes */ GRIM_DATA("004f5aa0") unsigned char grim_def_g_aBuffer[1024] __asm__("_g_aBuffer") = {0};
 /* 0x007f6490, 8 bytes */ GRIM_DATA("007f6490") unsigned char grim_def_DAT_007f6490[8] __asm__("_DAT_007f6490") = {0};
 /* 0x00900528, 2 bytes */ GRIM_DATA("00900528") unsigned short grim_def_DAT_00900528 __asm__("_DAT_00900528") = 0x0;

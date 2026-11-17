@@ -2746,3 +2746,21 @@ datacmp against main's build: 0 differences, 0 moved, 0 missing. Clean room 0 of
   * IMUSE: 392, from 313.
   * CHORE: 356, from 268.
 * datacmp against main's build: 0 differences, 0 moved, 0 missing; every unused span zero. Clean room 0 of 5490; whole-game autorun passes.
+
+## Replaced functions count through their overrides (2026-11-17)
+
+* **tools/data_reach.py:** it now skips the original code of every function the rebuild takes from build/overrides*.c
+  (the generated source marks it "replaced by the hand-written version"): EXE 490, LUA 18, IMUSE 17, CHORE 4.
+  * The overrides' own uses of the data count instead (override_name_refs). A name taken with `&`, indexed with `[`,
+    or that of an array is an address; a name read or written as it is, a direct access. A global an override binds
+    with an asm label of another C name counts as taken by its address.
+* **The sine tables: KNOWN_EXTENT read the original wrongly.**
+  * stdMath_SinCos and stdMath_Tan index 0x4d7600 / 0x4db600 / 0x4dad18 + i * 4 with i past 0x1000: biased bases
+    that land in the one real table, g_aSinTable at 0x4df600 (aTanTable for the tangent).
+  * They are not tables reaching from .rdata into .data. Both functions are replaced by hand-written versions that
+    index g_aSinTable themselves, so the extents went, and with them the pin on the first 0x2600 bytes of .data.
+* **Loose now:**
+  * EXE: 2255 from 1792; 320 chains. The longest chain is 61 spans (the 1 MB vertex buffer), not 676.
+  * The DLLs within a few spans of before: the overrides' name uses count conservatively.
+* datacmp against main's build: 0 differences, 0 moved, 0 missing.
+* Clean room 0 of 5490; whole-game autorun passes.

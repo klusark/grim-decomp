@@ -111,9 +111,9 @@ extern unsigned int grim_def_g_dwMain_Service_frameTime0 __asm__("_g_dwMain_Serv
 extern float grim_def_g_flMain_Service_frameRate __asm__("_g_flMain_Service_frameRate");
 extern char grim_def_s__02_3f_004dd680[8] __asm__("_s__02_3f_004dd680");
 extern char grim_def_s__s__02_3f_004dd674[12] __asm__("_s__s__02_3f_004dd674");
-/* 0x004dd384, 4 bytes */ GRIM_DATA("004dd384") unsigned char grim_def_g_dwDeadmanCounter[4] __asm__("_g_dwDeadmanCounter") = { 0x2c, 0x01 };
-/* 0x004dd674, 12 bytes */ GRIM_DATA("004dd674") char grim_def_s__s__02_3f_004dd674[12] __asm__("_s__s__02_3f_004dd674") = "%s %02.3f";
-/* 0x004dd680, 8 bytes */ GRIM_DATA("004dd680") char grim_def_s__02_3f_004dd680[8] __asm__("_s__02_3f_004dd680") = "%02.3f";
+/* 0x004dd384, 4 bytes */ /* loose */ unsigned char grim_def_g_dwDeadmanCounter[4] __asm__("_g_dwDeadmanCounter") = { 0x2c, 0x01 };
+/* 0x004dd674, 12 bytes */ /* loose */ char grim_def_s__s__02_3f_004dd674[12] __asm__("_s__s__02_3f_004dd674") = "%s %02.3f";
+/* 0x004dd680, 8 bytes */ /* loose */ char grim_def_s__02_3f_004dd680[8] __asm__("_s__02_3f_004dd680") = "%02.3f";
 /* 0x004f44e4, 4 bytes */ GRIM_DATA("004f44e4") float grim_def_g_flMain_Service_frameRate __asm__("_g_flMain_Service_frameRate") = 0.0f;
 /* 0x004f5a58, 4 bytes */ /* loose */ unsigned int grim_def_g_dwMain_Service_frameCount __asm__("_g_dwMain_Service_frameCount") = 0x0;
 /* 0x004f5a5c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f5a5c __asm__("_UINT_004f5a5c") = 0x0;

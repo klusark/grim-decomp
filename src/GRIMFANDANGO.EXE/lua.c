@@ -11872,7 +11872,7 @@ extern char grim_def_s_x_spot_cos_004f0d28[12] __asm__("_s_x_spot_cos_004f0d28")
 extern char grim_def_s_xoffset_004e8460[] __asm__("_s_xoffset_004e8460");
 extern char grim_def_s_y_004e8450[] __asm__("_s_y_004e8450");
 extern char grim_def_s_yoffset_004e8458[] __asm__("_s_yoffset_004e8458");
-/* 0x004dd688, 20 bytes */ GRIM_DATA("004dd688") char grim_def_s__engn003_Software_004dd688[20] __asm__("_s__engn003_Software_004dd688") = "/engn003/Software";
+/* 0x004dd688, 20 bytes */ /* loose */ char grim_def_s__engn003_Software_004dd688[20] __asm__("_s__engn003_Software_004dd688") = "/engn003/Software";
 /* 0x004ddab4, 4 bytes */ GRIM_DATA("004ddab4") unsigned int grim_def_UINT_004ddab4 __asm__("_UINT_004ddab4") = 0xb;
 /* 0x004ddab8, 4 bytes */ GRIM_DATA("004ddab8") unsigned int grim_def_UINT_004ddab8 __asm__("_UINT_004ddab8") = 0x5;
 /* 0x004ddabc, 4 bytes */ GRIM_DATA("004ddabc") unsigned int grim_def_UINT_004ddabc __asm__("_UINT_004ddabc") = 0x0;
@@ -12078,7 +12078,9 @@ static unsigned char grim_pad_004ea890[0] __attribute__((section(".data$grim_004
 /* 0x004ec5a0, 8 bytes */ /* loose */ char grim_def_s_global_004ec5a0[8] __asm__("_s_global_004ec5a0") = "global";
 /* 0x004ec5a8, 12 bytes */ /* loose */ char grim_def_s_parallel_004ec5a8[12] __asm__("_s_parallel_004ec5a8") = "parallel";
 /* 0x004ec5c0, 20 bytes */ /* loose */ char grim_def_s_saveGameCallback_004ec5c0[20] __asm__("_s_saveGameCallback_004ec5c0") = "saveGameCallback";
-/* 0x004f0d0c, 4 bytes */ /* loose */ unsigned int grim_def_UINT_004f0d0c __asm__("_UINT_004f0d0c") = 0xffffffff;
+static unsigned char grim_anchor_004f0d0c[0] __attribute__((section(".data$grim_004f0d0c"), aligned(16), used));
+static unsigned char grim_pad_004f0d0c[12] __attribute__((section(".data$grim_004f0d0c_"), aligned(4), used));
+/* 0x004f0d0c, 4 bytes */ GRIM_DATA("004f0d0cz") unsigned int grim_def_UINT_004f0d0c __asm__("_UINT_004f0d0c") = 0xffffffff;
 /* 0x004f0d28, 12 bytes */ /* loose */ char grim_def_s_x_spot_cos_004f0d28[12] __asm__("_s_x_spot_cos_004f0d28") = "x_spot.cos";
 /* 0x004f0d34, 56 bytes */ /* loose */ char grim_def_s_LightManager_Startup__Could_not_c_004f0d34[56] __asm__("_s_LightManager_Startup__Could_not_c_004f0d34") = "LightManager_Startup: Could not create main dialog.\n";
 /* 0x008cab44, 4 bytes */ /* loose */ unsigned int grim_def_g_dwLrOldConcatFallback __asm__("_g_dwLrOldConcatFallback") = 0x0;

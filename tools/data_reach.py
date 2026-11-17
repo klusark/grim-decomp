@@ -85,7 +85,7 @@ def code_refs(prog, ranges):
         mm = re.match(r"^PTR_Interlocked\w*_([0-9a-f]{8}) @ ", line)
         if mm:
             interlocked.add(int(mm.group(1), 16))
-    gone = dropped_functions(prog)
+    gone = dropped_functions(prog) | replaced_functions(prog)
     for fa, body in json.load(open(os.path.join(ROOT, "raw", prog, "disasm.json"))).items():
         if fa.lower().rjust(8, "0") in gone:
             continue   # not in the rebuilt program (names/lib_replace.json): what it reached, nothing reaches now
@@ -221,6 +221,7 @@ def classify(model, img_targets=()):
     for a in img_targets:
         refs.append((a, "address", 0))
     refs += override_refs(prog, ranges)
+    refs += override_name_refs(model)
     spans = model.data_spans
     seen, bad, far, strings = set(), set(), {}, set()
     unbounded = set()   # glued spans whose reach no type bounds: the chain runs on after them (see below)
@@ -366,9 +367,12 @@ def loose_starts(model, img_targets=()):
 
 # Tables whose reads go further than any type says: stdMath_SinCos indexes three 4096-float tables from .rdata
 # on through the gap into .data (docs/notes/raw_free_build.md).
-KNOWN_EXTENT = {"GRIMFANDANGO.EXE": {0x004d7600: 0x4000, 0x004db600: 0x4000, 0x004df600: 0x4000,
-                                     # Res_F*: `fh * 0x102c + 0x824f14`, handles 1..128, Res_FOpen's end pointer
-                                     0x00824f14: 0x8a7540 - 0x824f14}}
+# (The original stdMath_SinCos and stdMath_Tan read their 4096-float tables through biased bases, 0x4d7600 and 0x4db600
+# + index * 4 landing in g_aSinTable at 0x4df600: it looked like tables reaching from .rdata into .data. Both are
+# replaced by hand-written versions that index g_aSinTable and aTanTable themselves, so nothing reads that way now.)
+KNOWN_EXTENT = {"GRIMFANDANGO.EXE": {
+    # Res_F*: `fh * 0x102c + 0x824f14`, handles 1..128, Res_FOpen's end pointer
+    0x00824f14: 0x8a7540 - 0x824f14}}
 
 
 _ORIG = {}
@@ -523,6 +527,61 @@ def type_size(prog, t):
     if t in datagen.SCALARS:
         return datagen.SCALARS[t][1]
     return struct_sizes(prog).get(t, 0)
+
+
+_REPLACED = {}
+REPLACED_RE = re.compile(r"/\* ---- 0x([0-9a-f]{8})  \S+ ---- \*/\n(?:/\*[^\n]*\*/\n)*?/\* replaced by the hand-written version")
+
+
+def replaced_functions(prog):
+    """The addresses of the functions the rebuild takes from build/overrides*.c (the generated source marks each one
+    `replaced by the hand-written version` and leaves it out): their original code is not in the program, the
+    override's own uses of the data count instead (override_name_refs)."""
+    if prog not in _REPLACED:
+        d = os.path.join(ROOT, "src", prog)
+        out = set()
+        if os.path.isdir(d):
+            for f in os.listdir(d):
+                if f.endswith(".c"):
+                    out |= set(REPLACED_RE.findall(open(os.path.join(d, f), encoding="utf-8").read()))
+        _REPLACED[prog] = out
+    return _REPLACED[prog]
+
+
+def override_name_refs(model):
+    """[(address, kind, width)] for the data the overrides name. The original code of a replaced function no longer
+    counts, so the override's own text does: a name taken with `&`, indexed with `[`, or that of an array is an
+    address (whatever receives it may walk on); a name read or written as it is, a direct access inside the span."""
+    import datagen
+    names = {}
+    for sp in model.data_spans:
+        names[sp.name] = sp
+        for al in sp.aliases:
+            names[al] = sp
+    bd = os.path.join(ROOT, "build")
+    out = []
+    for f in sorted(os.listdir(bd)):
+        if not (f.startswith("overrides") and f.endswith(".c")):
+            continue
+        t = COMMENT_RE.sub(" ", open(os.path.join(bd, f), encoding="utf-8", errors="replace").read())
+        for m in re.finditer(r"(&\s*)?\b_?([A-Za-z_]\w*)\b(\s*\[)?", t):
+            sp = names.get(m.group(2))
+            if sp is None or sp.island:
+                continue
+            is_arr = sp.decl and sp.decl[1]
+            if m.group(1) or m.group(3) or is_arr:
+                out.append((sp.start, "address", 0))
+            else:
+                out.append((sp.start, "direct", sp.end - sp.start))
+    # (an asm label `__asm__("_name")` binds a C name of the override to the global: the C name's uses are the
+    # global's, which the scan above misses when the C name differs; count the global as taken by address)
+    for f in sorted(os.listdir(bd)):
+        if f.startswith("overrides") and f.endswith(".c"):
+            for m in re.finditer(r'__asm__\("_(\w+)"\)', open(os.path.join(bd, f), encoding="utf-8", errors="replace").read()):
+                sp = names.get(m.group(1))
+                if sp is not None and not sp.island:
+                    out.append((sp.start, "address", 0))
+    return out
 
 
 def dropped_functions(prog):
